@@ -1,0 +1,28 @@
+<div class="d-block ml-md-3">
+    <h2 class="bg-secondary text-white p-3">購入内容</h2>
+    <div class="bg-white p-3 small-text">
+        <div class="p-2 border-bottom">
+            <div class="mb-2">
+                <i class="fas fa-map-marker-alt mr-2"></i>劇場 / スクリーン</div>
+            <p>{{ purchase.screeningEvent?.superEvent.location.name.ja }} / {{ purchase.screeningEvent?.location.name.ja }}</p>
+        </div>
+        <div class="p-2 border-bottom">
+            <div class="mb-2">
+                <i class="fas fa-film mr-2"></i>作品</div>
+            <p>{{ purchase.screeningEvent?.name.ja }}</p>
+        </div>
+        <div class="p-2 border-bottom">
+            <div class="mb-2">
+                <i class="far fa-clock mr-2"></i>上映開始日時</div>
+            <p>{{ startDate }}</p>
+        </div>
+        <div class="p-2">
+            <div class="mb-2">
+                <i class="fas fa-ticket-alt mr-2"></i>座席・券種</div>
+            <div *ngFor="let reservation of purchase.reservations">
+                <p>{{ reservation.seat.seatNumber }}</p> 
+                <p *ngIf="reservation.ticket">{{ reservation.ticket.name.ja }} / {{ reservation.ticket.charge | currency : 'JPY' }}</p>
+            </div>
+        </div>
+    </div>
+</div>

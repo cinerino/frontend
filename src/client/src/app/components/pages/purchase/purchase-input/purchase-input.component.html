@@ -1,0 +1,120 @@
+<div class="py-3 px-2 d-block d-md-flex">
+    <div class="main">
+        <div class="mb-4">
+            <h2 class="bg-secondary text-white p-3 mb-3">購入者情報入力</h2>
+
+            <p class="mb-3">購入者情報を入力してください。</p>
+
+            <div class="p-3 bg-white">
+                <form [formGroup]="customerContactForm">
+                    <div class="form-group">
+                        <label class="mb-2" for="">セイ</label>
+                        <input type="text" class="form-control" formControlName="familyName" placeholder="モーション">
+                        <div *ngIf="customerContactForm.controls.familyName.invalid && customerContactForm.controls.familyName.touched" class="mt-2">
+                            <p *ngIf="customerContactForm.controls.familyName.errors.required" class="text-danger">せいが未入力です</p>
+                            <p *ngIf="customerContactForm.controls.familyName.errors.maxlength" class="text-danger">せいは{{
+                                customerContactForm.controls.familyName.errors.maxlength.requiredLength }}文字以下で入力してください</p>
+                            <p *ngIf="customerContactForm.controls.familyName.errors.pattern" class="text-danger">せいは全角ひらがなで入力してください</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-2" for="">メイ</label>
+                        <input type="text" class="form-control" formControlName="givenName" placeholder="ピクチャー">
+                        <div *ngIf="customerContactForm.controls.givenName.invalid && customerContactForm.controls.givenName.touched" class="mt-2">
+                            <p *ngIf="customerContactForm.controls.givenName.errors.required" class="text-danger">めいが未入力です</p>
+                            <p *ngIf="customerContactForm.controls.givenName.errors.maxlength" class="text-danger">めいは{{
+                                customerContactForm.controls.givenName.errors.maxlength.requiredLength }}文字以下で入力してください
+                            </p>
+                            <p *ngIf="customerContactForm.controls.givenName.errors.pattern" class="text-danger">めいは全角ひらがなで入力してください
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-2" for="">メールアドレス</label>
+                        <input type="email" class="form-control" formControlName="email" placeholder="motionpicture@example.jp">
+                        <div *ngIf="customerContactForm.controls.email.invalid && customerContactForm.controls.email.touched" class="mt-2">
+                            <p *ngIf="customerContactForm.controls.email.errors.required" class="text-danger">メールアドレスが未入力です</p>
+                            <p *ngIf="customerContactForm.controls.email.errors.maxlength" class="text-danger">メールアドレスは{{
+                                customerContactForm.controls.email.errors.maxlength.requiredLength }}文字以下で入力してください
+                            </p>
+                            <p *ngIf="customerContactForm.controls.email.errors.email" class="text-danger">メールアドレスが正しくありません</p>
+                        </div>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label class="mb-2" for="">電話番号</label>
+                        <input type="tel" class="form-control" formControlName="telephone" placeholder="0362778824">
+                        <div *ngIf="customerContactForm.controls.telephone.invalid && customerContactForm.controls.telephone.touched" class="mt-2">
+                            <p *ngIf="customerContactForm.controls.telephone.errors.required" class="text-danger">電話番号が未入力です</p>
+                            <p *ngIf="customerContactForm.controls.telephone.errors.minlength" class="text-danger">電話番号は{{
+                                customerContactForm.controls.telephone.errors.minlength.requiredLength }}文字以上で入力してください
+                            </p>
+                            <p *ngIf="customerContactForm.controls.telephone.errors.maxlength" class="text-danger">電話番号は{{
+                                customerContactForm.controls.telephone.errors.maxlength.requiredLength }}文字以下で入力してください
+                            </p>
+                            <p *ngIf="customerContactForm.controls.telephone.errors.pattern" class="text-danger">電話番号は数字で入力してください</p>
+                            <p *ngIf="customerContactForm.controls.telephone.errors.telephone" class="text-danger">電話番号が正しくありません</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h2 class="bg-secondary text-white p-3 mb-3">決済情報入力</h2>
+
+            <p class="mb-3">決済情報を入力してください。</p>
+
+            <div class="p-3 bg-white">
+                <form [formGroup]="paymentForm">
+                    <div class="form-group">
+                        <div class="mb-2">決済金額</div>
+                        <div class="large-x-text text-success">{{ amount | currency : 'JPY'}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-2" for="">カード番号</label>
+                        <input type="text" class="form-control" id="cardNumber" formControlName="cardNumber" placeholder="" maxlength="16">
+                        <div *ngIf="paymentForm.controls.cardNumber.invalid && paymentForm.controls.cardNumber.touched" class="mt-2">
+                            <p *ngIf="paymentForm.controls.cardNumber.errors.required" class="text-danger">カード番号が未入力です</p>
+                            <p *ngIf="paymentForm.controls.cardNumber.errors.pattern" class="text-danger">カード番号は数字で入力してください</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-2" for="">有効期限</label>
+                        <div class="form-inline">
+                            <select class="form-control d-inline-block w-auto" id="cardExpirationMonth" formControlName="cardExpirationMonth">
+                                <option *ngFor="let month of cardExpiration.month" [value]="month">{{ month }}</option>
+                            </select>
+                            <span class="mx-2">月</span>
+                            <select class="form-control d-inline-block w-auto" id="cardExpirationYear" formControlName="cardExpirationYear">
+                                <option *ngFor="let year of cardExpiration.year" [value]="year">{{ year }}</option>
+                            </select>
+                            <span class="mx-2">年</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-2" for="">セキュリティーコード</label>
+                        <input type="text" class="form-control" id="securityCode" placeholder="" formControlName="securityCode">
+                        <div *ngIf="paymentForm.controls.securityCode.invalid && paymentForm.controls.securityCode.touched" class="mt-2">
+                            <p *ngIf="paymentForm.controls.securityCode.errors.required" class="text-danger">セキュリティーコードが未入力です</p>
+                        </div>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label class="mb-2" for="">カード名義人</label>
+                        <input type="text" class="form-control" id="holderName" placeholder="" formControlName="holderName">
+                        <div *ngIf="paymentForm.controls.holderName.invalid && paymentForm.controls.holderName.touched" class="mt-2">
+                            <p *ngIf="paymentForm.controls.holderName.errors.required" class="text-danger">カード名義人が未入力です</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="w-75 mx-auto">
+            <button type="button" class="btn btn-primary btn-block py-2 mb-2" [disabled]="(purchase | async).isLoading" (click)="onSubmit()">次へ</button>
+            <button type="button" class="btn btn-outline-primary btn-block py-2" routerLink="/purchase/ticket">券種選択へ戻る</button>
+        </div>
+    </div>
+    <app-purchase-info class="sub d-none d-md-block" [purchase]="purchase | async"></app-purchase-info>
+
+</div>

@@ -1,0 +1,7 @@
+<div class="p-3 scroll">
+    <div class="mb-3 large-text">{{ title }}</div>
+    <p class="mb-3" [innerHTML]="body"></p>
+    <div class="w-75 mx-auto">
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="activeModal.dismiss()">閉じる</button>
+    </div>
+</div>

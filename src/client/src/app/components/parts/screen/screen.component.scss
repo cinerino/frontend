@@ -1,0 +1,103 @@
+:host {
+    display: block;
+}
+.screen {
+    position: relative;
+    overflow: hidden;
+    .screen-scroll {
+        height: 500px;        
+    }
+    .screen-inner {
+        position: relative;
+        width: 1600px;
+        height: 1400px;
+    }
+    .seat {
+        position: absolute;
+        cursor: pointer;
+        text-align: center;
+        font-weight: bold;
+        color: #9a9a9b;
+        padding-top: 20px;
+        background-image: url(/images/theater/seat/normal.svg);
+        background-size: 40px 50px;
+        background-repeat: no-repeat;
+        &.active {
+            color: #FFF;
+            background-image: url(/images/theater/seat/normal_active.svg);
+        }
+        &.disabled {
+            color: #FFF;
+            background-image: url(/images/theater/seat/normal_disabled.svg);
+            cursor: default;
+        }
+    }
+    .seat-hc {
+        background-image: url(/images/theater/seat/hc_disabled.svg) !important;
+        background-size: 40px 50px;
+        span {
+            display: none !important;
+        }
+    }
+    .object {
+        position: absolute;
+        background-repeat: no-repeat;
+    }
+    .label-object {
+        text-align: center;
+        line-height: 50px;
+        font-size: 24px;
+        color: #9a9a9b;
+        font-weight: bold;
+    }   
+}
+.screen-4dx {
+    .seat {
+        background-image: url(/images/theater/seat/4dx.svg);
+        background-size: 50px 50px;
+        &.active {
+            color: #FFF;
+            background-image: url(/images/theater/seat/4dx_active.svg);
+        }
+        &.disabled {
+            color: #FFF;
+            background-image: url(/images/theater/seat/4dx_disabled.svg);
+            cursor: default;
+        }
+    }
+}
+
+.zoom {
+    .screen-scroll {
+        overflow: auto;
+        transition: transform 0.2s;
+        -webkit-overflow-scrolling: touch;
+    }
+    .seat {
+        span {
+            display: block;
+        }
+    }
+}
+
+.zoom-btn {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    color: #FFF;
+    background-color: #3e3a39;
+    border-radius: 3px;
+    align-items: center;
+    justify-content: center;
+    &.active {
+        display: flex;
+    }
+    &.scroll {
+        position: fixed;
+    }
+}

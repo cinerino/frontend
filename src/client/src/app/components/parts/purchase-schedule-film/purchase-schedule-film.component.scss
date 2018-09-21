@@ -1,0 +1,14 @@
+@import '../../../../assets/scss/theme';
+
+:host {
+    display: block;
+}
+ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 1rem;
+    @include media-breakpoint-down(sm) {
+        grid-template-columns: 1fr;
+        grid-gap: 0.5rem;
+    }
+}

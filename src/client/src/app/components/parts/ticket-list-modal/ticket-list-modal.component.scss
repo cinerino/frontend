@@ -1,0 +1,15 @@
+.close {
+    position: absolute;
+    top: -30px;
+    right: 0;
+}
+.scroll {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+    max-height: 75vh;
+}
+.ticket {
+    &:last-child {
+        margin-bottom: 0 !important;
+    }
+}

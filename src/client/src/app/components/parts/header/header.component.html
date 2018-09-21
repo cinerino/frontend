@@ -1,0 +1,12 @@
+<div class="fixed-top bg-secondary text-white shadow-sm">
+    <div class="header mx-auto d-flex align-items-center justify-content-between p-3">
+        <img src="/assets/images/logo.svg" height="22">
+        <div class="menu-button" [class.active]="isMenuOpen" (click)="(isMenuOpen) ? menuClose() : menuOpen()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
+<app-header-menu [isOpen]="isMenuOpen" (close)="menuClose()"></app-header-menu>

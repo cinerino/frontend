@@ -1,0 +1,7 @@
+<div class="cover" [class.active]="isOpen" (click)="close.emit()"></div>
+
+<div class="menu text-white bg-dark" [class.active]="isOpen">
+    <ul>
+        <li class="p-3 border-bottom" (click)="signOut()"><i class="fas fa-sign-out-alt mr-2"></i>ログアウト</li>
+    </ul>
+</div>

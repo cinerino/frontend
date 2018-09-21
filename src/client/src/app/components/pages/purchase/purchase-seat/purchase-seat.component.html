@@ -1,0 +1,26 @@
+<div class="py-3 px-2 d-block d-md-flex">
+    <div class="main">
+        <h2 class="bg-secondary text-white p-3 mb-3">座席選択</h2>
+
+        <p class="mb-3">座席を選択してください。</p>
+
+        <app-screen class="mb-3 bg-white" [screenData]="(purchase | async).screenData" [screeningEventOffers]="(purchase | async).screeningEventOffers"
+            [reservations]="(purchase | async).reservations" (select)="selectSeat($event)">
+        </app-screen>
+
+        <h3 class="mb-2 font-weight-bold">利用規約</h3>
+
+        <p class="bg-white p-3 mb-4 small-text scroll border">
+            インターネットチケット販売（以下「本サービス」といいます）をご利用いただくに当たってvit®利用規約（以下「本規約」といいます）を以下の通りに定めます。本規約に同意の上本サービスをご利用ください。
+        </p>
+
+        <div class="w-75 mx-auto">
+            <button type="button" class="btn btn-primary btn-block py-2 mb-2" [disabled]="(purchase | async).isLoading"
+                (click)="onSubmit()">利用規約に同意して次へ</button>
+            <button type="button" class="btn btn-outline-primary btn-block py-2" routerLink="/purchase/schedule">スケジュール選択へ戻る</button>
+        </div>
+    </div>
+
+    <app-purchase-info class="sub d-none d-md-block" [purchase]="purchase | async"></app-purchase-info>
+
+</div>

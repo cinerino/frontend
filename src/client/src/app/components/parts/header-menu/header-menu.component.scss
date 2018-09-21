@@ -1,0 +1,25 @@
+.cover, .menu {
+    position: fixed;
+    top: 54px;
+    z-index: 1031;
+}
+.cover {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: none;
+    &.active {
+        display: block;
+    }
+}
+.menu {
+    right: -100%;
+    width: 100%;
+    overflow-y: auto;
+    transition: right 0.1s;
+    max-height: calc(100vh - 54px);
+    &.active {
+        right: 0;
+    }
+}

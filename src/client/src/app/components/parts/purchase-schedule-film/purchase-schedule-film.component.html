@@ -1,0 +1,29 @@
+<div class="bg-secondary p-3 text-white">
+    <div class="film border-bottom border-white pb-3 mb-3">
+        <p class="title">{{ screeningFilmEvent.info.name.ja }}</p>
+        <div class="info">
+            <div class="en small-x-text mb-1">{{ screeningFilmEvent.info.name.en }}</div>
+            <div class="time small-x-text">[上映時間: {{ duration }}分]</div>
+        </div>
+    </div>
+    <ul>
+        <li *ngFor="let screeningEvent of screeningFilmEvent.data" class="p-3 py-md-3 text-md-center d-md-block d-flex justify-content-between align-items-center"
+            [ngClass]="{ 
+            'bg-primary':  screeningEvent.remainingAttendeeCapacity >= 30, 
+            'bg-warning':  screeningEvent.remainingAttendeeCapacity < 30 && screeningEvent.remainingAttendeeCapacity > 0, 
+            'bg-dark':  screeningEvent.remainingAttendeeCapacity === 0}" (click)="select.emit(screeningEvent)">
+            <div class="mb-md-2">
+                <span>{{ datePipe(screeningEvent.startDate) }}</span>
+                <span>-</span>
+                <span>{{ datePipe(screeningEvent.endDate) }}</span>
+            </div>
+            <div class="mb-md-2">
+                {{ screeningEvent.location.name.ja }}
+            </div>
+            <div class="status text-center">
+                <div class="mb-1">空席状況</div>
+                <div>{{ screeningEvent.remainingAttendeeCapacity }} / {{ screeningEvent.maximumAttendeeCapacity }}</div>
+            </div>
+        </li>
+    </ul>
+</div>

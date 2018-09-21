@@ -1,0 +1,22 @@
+:host {
+    box-sizing: border-box;
+    position: absolute;
+    top: 54px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.contents {
+    max-width: 960px;
+}
+
+.scroll {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.touch {
+    -webkit-overflow-scrolling: touch;
+}

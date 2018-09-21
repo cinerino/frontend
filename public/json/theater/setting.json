@@ -1,0 +1,14 @@
+{
+    "seatSize": { "w": 40, "h": 50 },
+    "seatMargin": { "w": 4, "h": 20 },
+    "aisle": {
+        "small": { "w": 8, "h": 0 },
+        "middle": { "w": 48, "h": 50 }
+    },
+    "seatLabelPos": 50,
+    "seatNumberPos": 50,
+    "seatNumberAlign": "left",
+    "columnLabel": false,
+    "lineLabel": true,
+    "style": ""
+}

@@ -1,0 +1,47 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "baseUrl": "./",
+    "module": "es2015",
+    "types": ["node"],
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "charset": "utf8",
+    "diagnostics": false,
+    "disableSizeLimit": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators":true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSourceMap": false,
+    "inlineSources": false,
+    "isolatedModules": false,
+    "listEmittedFiles": false,
+    "listFiles": false,
+    "locale": "en-us",
+    "newLine": "CRLF",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitUseStrict": false,
+    "noLib": false,
+    "noResolve": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": false,
+    "pretty": false,
+    "removeComments": false,
+    "sourceMap": false,
+    "stripInternal": false,
+    "suppressExcessPropertyErrors": false,
+    "suppressImplicitAnyIndexErrors": false
+  },
+  "exclude": [
+    "test.ts",
+    "**/*.d.ts",
+    "**/*.spec.ts"
+  ],
+  "angularCompilerOptions": {
+    "disableTypeScriptVersionCheck": true
+  }
+}

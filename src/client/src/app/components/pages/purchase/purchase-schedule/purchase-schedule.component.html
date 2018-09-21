@@ -1,0 +1,22 @@
+<div class="p-3">
+    <h2 class="bg-secondary text-white p-3 mb-3">劇場</h2>
+    <div class="mb-3">
+        <button *ngFor="let theater of (purchase | async).movieTheaters.data" type="button" class="btn btn-block mb-2" (click)="selectTheater(theater)"
+        [class.btn-primary]="(purchase | async).movieTheater === theater" [class.btn-outline-primary]="(purchase | async).movieTheater !== theater">{{ theater.name.ja }}</button>
+    </div>
+    <h2 class="bg-secondary text-white p-3 mb-3">上映スケジュール</h2>
+    <div class="swiper-container date mb-3" #swiper [swiper]="swiperConfig">
+        <div class="swiper-wrapper">
+            <div *ngFor="let scheduleDate of (purchase | async).scheduleDates" class="swiper-slide">
+                <div class="text-center bg-secondary text-white py-4 px-2" (click)="selectDate(scheduleDate)">
+                    <div>{{ scheduleDate.string }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-purchase-schedule-film 
+    *ngFor="let screeningFilmEvent of (purchase | async).screeningFilmEvents" 
+    [screeningFilmEvent]="screeningFilmEvent" 
+    (select)="selectSchedule($event)" 
+    class="mb-3"></app-purchase-schedule-film>
+</div>
