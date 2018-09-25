@@ -99,12 +99,12 @@ workflows:
       - test:
           requires:
             - build
-      # - deploy2development:
-      #     requires:
-      #       - test
-      #     filters:
-      #       branches:
-      #         only: develop
+      - deploy2development:
+          requires:
+            - test
+          filters:
+            branches:
+              only: develop
       - prerelease:
           requires:
             - test

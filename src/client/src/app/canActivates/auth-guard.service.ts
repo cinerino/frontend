@@ -23,6 +23,7 @@ export class AuthGuardService implements CanActivate {
     public async canActivate(): Promise<boolean> {
         try {
             await this.cinerino.getServices();
+
             return true;
         } catch (error) {
             console.log('canActivate', error);

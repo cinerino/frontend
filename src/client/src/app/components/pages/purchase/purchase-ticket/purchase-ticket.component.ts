@@ -42,6 +42,16 @@ export class PurchaseTicketComponent implements OnInit {
                 this.router.navigate(['/error']);
                 return;
             }
+            const unselectedReservations = reservations.filter((reservation) => {
+                return (reservation.ticket === undefined);
+            });
+            if (unselectedReservations.length > 0) {
+                this.openAlert({
+                    title: 'エラー',
+                    body: '券種が未選択です。'
+                });
+                return;
+            }
             this.store.dispatch(new TemporaryReservation({
                 transaction,
                 screeningEvent,

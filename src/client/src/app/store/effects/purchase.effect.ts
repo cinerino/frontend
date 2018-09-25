@@ -163,7 +163,7 @@ export class PurchaseEffects {
     );
 
     /**
-     * RegisterContact
+     * registerContact
      */
     @Effect()
     public registerContact = this.actions.pipe(

@@ -1,11 +1,11 @@
 // tslint:disable:no-http-string
 /**
- * 環境変数local
+ * 環境変数dev
  */
 export const environment = {
     production: false,
 
-    ENV: 'local',
+    ENV: 'development',
 
     API_ENDPOINT: 'https://cinerino-api.azurewebsites.net',
 

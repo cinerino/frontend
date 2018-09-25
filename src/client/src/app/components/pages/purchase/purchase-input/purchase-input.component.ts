@@ -220,7 +220,10 @@ export class PurchaseInputComponent implements OnInit {
         const fail = this.actions.pipe(
             ofType(ActionTypes.RegisterCreditCardFail),
             tap(() => {
-                this.router.navigate(['/error']);
+                this.openAlert({
+                    title: 'エラー',
+                    body: 'クレジットカード情報を確認してください。'
+                });
             })
         );
         race(success, fail).pipe(take(1)).subscribe();

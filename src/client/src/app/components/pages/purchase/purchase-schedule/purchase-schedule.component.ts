@@ -38,7 +38,7 @@ export class PurchaseScheduleComponent implements OnInit {
 
     public async ngOnInit() {
         this.swiperConfig = {
-            spaceBetween: 0,
+            spaceBetween: 1,
             slidesPerView: 7,
             breakpoints: {
                 320: { slidesPerView: 2 },

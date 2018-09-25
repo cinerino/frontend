@@ -30,31 +30,11 @@
           },
           "configurations": {
             "local": {
-              "outputPath": "./dist/client/development",
+              "outputPath": "./dist/client",
               "watch": true
             },
-            "dev": {
-              "aot": true,
-              "outputPath": "./dist/client/development",
-              "fileReplacements": [
-                {
-                  "replace": "src/client/src/environments/environment.ts",
-                  "with": "src/client/src/environments/environment.dev.ts"
-                }
-              ]
-            },
-            "test": {
-              "aot": true,
-              "outputPath": "./dist/client/test",
-              "fileReplacements": [
-                {
-                  "replace": "src/client/src/environments/environment.ts",
-                  "with": "src/client/src/environments/environment.test.ts"
-                }
-              ]
-            },
-            "production": {
-              "outputPath": "./dist/client/production",
+            "default": {
+              "outputPath": "./dist/client",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -63,14 +43,7 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true,
-              "index": "src/client/src/production.html",
-              "fileReplacements": [
-                {
-                  "replace": "src/client/src/environments/environment.ts",
-                  "with": "src/client/src/environments/environment.prod.ts"
-                }
-              ]
+              "buildOptimizer": true
             }
           }
         },
