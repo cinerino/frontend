@@ -20,6 +20,7 @@ import { NotfoundComponent } from './components/pages/notfound/notfound.componen
 import { PurchaseBaseComponent } from './components/pages/purchase/purchase-base/purchase-base.component';
 import { PurchaseCompleteComponent } from './components/pages/purchase/purchase-complete/purchase-complete.component';
 import { PurchaseConfirmComponent } from './components/pages/purchase/purchase-confirm/purchase-confirm.component';
+import { PurchaseHistoryComponent } from './components/pages/purchase/purchase-history/purchase-history.component';
 import { PurchaseInputComponent } from './components/pages/purchase/purchase-input/purchase-input.component';
 import { PurchaseScheduleComponent } from './components/pages/purchase/purchase-schedule/purchase-schedule.component';
 import { PurchaseSeatComponent } from './components/pages/purchase/purchase-seat/purchase-seat.component';
@@ -32,6 +33,7 @@ import { HeaderMenuComponent } from './components/parts/header-menu/header-menu.
 import { HeaderComponent } from './components/parts/header/header.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
 import { PurchaseContentsComponent } from './components/parts/purchase-contents/purchase-contents.component';
+import { PurchaseDetailModalComponent } from './components/parts/purchase-detail-modal/purchase-detail-modal.component';
 import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
 import { PurchaseScheduleFilmComponent } from './components/parts/purchase-schedule-film/purchase-schedule-film.component';
 import { ScreenComponent } from './components/parts/screen/screen.component';
@@ -67,12 +69,15 @@ import { CoreStoreModule } from './store/core/store';
         ErrorComponent,
         BaseComponent,
         HeaderMenuComponent,
-        ConfirmModalComponent
+        ConfirmModalComponent,
+        PurchaseHistoryComponent,
+        PurchaseDetailModalComponent
     ],
     entryComponents: [
         TicketListModalComponent,
         AlertModalComponent,
-        ConfirmModalComponent
+        ConfirmModalComponent,
+        PurchaseDetailModalComponent
     ],
     imports: [
         BrowserModule,

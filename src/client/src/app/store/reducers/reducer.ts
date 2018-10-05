@@ -36,6 +36,10 @@ export interface IPurchaseState {
     result?: IResult;
 }
 
+export interface IHistoryState {
+    purchase: ISearchResult<factory.order.IOrder[]>;
+}
+
 /**
  * State
  */
@@ -43,6 +47,7 @@ export interface IState {
     loading: boolean;
     error: string | null;
     purchase: IPurchaseState;
+    history: IHistoryState;
     user: any;
 }
 
@@ -62,12 +67,15 @@ export const initialState: IState = {
         screeningEventTicketTypes: [],
         orderCount: 0
     },
+    history: {
+        purchase: { totalCount: 0, data: [] }
+    },
     user: null
 };
 
 function getInitialState(): IState {
     const json = localStorage.getItem('state');
-    if (json === undefined || json === null || json === '{}') {
+    if (json === undefined || json === null) {
         return initialState;
     }
     const data = JSON.parse(json);
@@ -75,6 +83,7 @@ function getInitialState(): IState {
         loading: data.App.loading,
         error: data.App.error,
         purchase: data.App.purchase,
+        history: data.App.history,
         user: data.App.user
     };
 }
@@ -91,7 +100,7 @@ export function reducer(
     switch (action.type) {
         case purchase.ActionTypes.Delete: {
             return {
-                loading: initialState.loading,
+                loading: state.loading,
                 purchase: {
                     movieTheaters: { totalCount: 0, data: [] },
                     screeningEvents: { totalCount: 0, data: [] },
@@ -101,6 +110,9 @@ export function reducer(
                     reservations: [],
                     screeningEventTicketTypes: [],
                     orderCount: 0
+                },
+                history: {
+                    purchase: state.history.purchase
                 },
                 user: state.user,
                 error: state.error
@@ -318,6 +330,42 @@ export function reducer(
             const error = action.payload.error;
             return { ...state, loading: false, error: JSON.stringify(error) };
         }
+        case purchase.ActionTypes.GetPurchaseHistory: {
+            return { ...state, loading: true };
+        }
+        case purchase.ActionTypes.GetPurchaseHistorySuccess: {
+            const result = action.payload.result;
+            return {
+                ...state, loading: false, error: null, history: {
+                    ...state.history,
+                    purchase: result
+                }
+            };
+        }
+        case purchase.ActionTypes.GetPurchaseHistoryFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, error: JSON.stringify(error) };
+        }
+        case purchase.ActionTypes.OrderAuthorize: {
+            return { ...state, loading: true };
+        }
+        case purchase.ActionTypes.OrderAuthorizeSuccess: {
+            const authorizeOrder = action.payload.order;
+            const historyData = state.history.purchase.data.map((order) => {
+                if (order.orderNumber !== authorizeOrder.orderNumber) {
+                    return order;
+                }
+                return authorizeOrder;
+            });
+            const history = state.history;
+            history.purchase.data = historyData;
+
+            return { ...state, loading: false, error: null, history };
+        }
+        case purchase.ActionTypes.OrderAuthorizeFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, error: JSON.stringify(error) };
+        }
         case user.ActionTypes.Load: {
             return { ...state, loading: true };
         }
@@ -350,3 +398,4 @@ export function reducer(
 export const getLoading = (state: IState) => state.loading;
 export const getError = (state: IState) => state.error;
 export const getPurchase = (state: IState) => state.purchase;
+export const getHistory = (state: IState) => state.history;

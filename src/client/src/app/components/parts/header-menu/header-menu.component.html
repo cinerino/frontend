@@ -2,6 +2,8 @@
 
 <div class="menu text-white bg-dark" [class.active]="isOpen">
     <ul>
+        <li class="p-3 border-bottom" routerLink="/purchase/schedule" (click)="close.emit()"><i class="fas fa-shopping-cart mr-2"></i>購入</li>
+        <li class="p-3 border-bottom" routerLink="/purchase/history" (click)="close.emit()"><i class="fas fa-list mr-2"></i>購入履歴</li>
         <li class="p-3 border-bottom" (click)="signOut()"><i class="fas fa-sign-out-alt mr-2"></i>ログアウト</li>
     </ul>
 </div>

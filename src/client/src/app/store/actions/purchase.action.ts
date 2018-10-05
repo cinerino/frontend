@@ -44,6 +44,12 @@ export enum ActionTypes {
     Reservation = '[Purchase] Reservation',
     ReservationSuccess = '[Purchase] Reservation Success',
     ReservationFail = '[Purchase] Reservation Fail',
+    GetPurchaseHistory = '[Purchase] Get Purchase History',
+    GetPurchaseHistorySuccess = '[Purchase] Get Purchase History Success',
+    GetPurchaseHistoryFail = '[Purchase] Get Purchase History Fail',
+    OrderAuthorize = '[Purchase] Order Authorize',
+    OrderAuthorizeSuccess = '[Purchase] Order Authorize Success',
+    OrderAuthorizeFail = '[Purchase] Order Authorize Fail',
 }
 
 /**
@@ -333,13 +339,14 @@ export class RegisterCreditCardFail implements Action {
     constructor(public payload: { error: Error; }) { }
 }
 
-
 /**
  * Reservation
  */
 export class Reservation implements Action {
     public readonly type = ActionTypes.Reservation;
-    constructor(public payload?: {}) { }
+    constructor(public payload: {
+        transaction: factory.transaction.placeOrder.ITransaction;
+    }) { }
 }
 
 /**
@@ -347,7 +354,7 @@ export class Reservation implements Action {
  */
 export class ReservationSuccess implements Action {
     public readonly type = ActionTypes.ReservationSuccess;
-    constructor(public payload: {result: IResult}) { }
+    constructor(public payload: { result: IResult }) { }
 }
 
 /**
@@ -355,6 +362,62 @@ export class ReservationSuccess implements Action {
  */
 export class ReservationFail implements Action {
     public readonly type = ActionTypes.ReservationFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * GetPurchaseHistory
+ */
+export class GetPurchaseHistory implements Action {
+    public readonly type = ActionTypes.GetPurchaseHistory;
+    constructor(public payload: { params: factory.order.ISearchConditions }) { }
+}
+
+/**
+ * GetPurchaseHistorySuccess
+ */
+export class GetPurchaseHistorySuccess implements Action {
+    public readonly type = ActionTypes.GetPurchaseHistorySuccess;
+    constructor(public payload: { result: ISearchResult<factory.order.IOrder[]> }) { }
+}
+
+/**
+ * GetPurchaseHistoryFail
+ */
+export class GetPurchaseHistoryFail implements Action {
+    public readonly type = ActionTypes.GetPurchaseHistoryFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * OrderAuthorize
+ */
+export class OrderAuthorize implements Action {
+    public readonly type = ActionTypes.OrderAuthorize;
+    constructor(public payload: {
+        params: {
+            orderNumber: string;
+            customer: {
+                email?: string;
+                telephone?: string;
+            };
+        }
+    }) { }
+}
+
+/**
+ * OrderAuthorizeSuccess
+ */
+export class OrderAuthorizeSuccess implements Action {
+    public readonly type = ActionTypes.OrderAuthorizeSuccess;
+    constructor(public payload: { order: factory.order.IOrder }) { }
+}
+
+/**
+ * OrderAuthorizeFail
+ */
+export class OrderAuthorizeFail implements Action {
+    public readonly type = ActionTypes.OrderAuthorizeFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -395,4 +458,10 @@ export type Actions =
     | RegisterCreditCardFail
     | Reservation
     | ReservationSuccess
-    | ReservationFail;
+    | ReservationFail
+    | GetPurchaseHistory
+    | GetPurchaseHistorySuccess
+    | GetPurchaseHistoryFail
+    | OrderAuthorize
+    | OrderAuthorizeSuccess
+    | OrderAuthorizeFail;

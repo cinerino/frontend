@@ -238,7 +238,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public reservation = this.actions.pipe(
-        ofType<purchase.TemporaryReservation>(purchase.ActionTypes.Reservation),
+        ofType<purchase.Reservation>(purchase.ActionTypes.Reservation),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
@@ -252,6 +252,44 @@ export class PurchaseEffects {
                     transactionId: payload.transaction.id
                 });
                 return new purchase.ReservationFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * getPurchaseHistory
+     */
+    @Effect()
+    public getPurchaseHistory = this.actions.pipe(
+        ofType<purchase.GetPurchaseHistory>(purchase.ActionTypes.GetPurchaseHistory),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                const params = Object.assign({ personId: 'me' }, payload.params);
+                await this.cinerino.getServices();
+                const orders = await this.cinerino.person.searchOrders(params);
+                return new purchase.GetPurchaseHistorySuccess({ result: orders });
+            } catch (error) {
+                return new purchase.GetPurchaseHistoryFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * orderAuthorize
+     */
+    @Effect()
+    public orderAuthorize = this.actions.pipe(
+        ofType<purchase.OrderAuthorize>(purchase.ActionTypes.OrderAuthorize),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                const params = Object.assign({ personId: 'me' }, payload.params);
+                await this.cinerino.getServices();
+                const order = await this.cinerino.order.authorizeOwnershipInfos(params);
+                return new purchase.OrderAuthorizeSuccess({ order });
+            } catch (error) {
+                return new purchase.OrderAuthorizeFail({ error: error });
             }
         })
     );

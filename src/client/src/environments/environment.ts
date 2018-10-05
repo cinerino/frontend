@@ -12,6 +12,8 @@ export const environment = {
     ENTRANCE_SERVER_URL: '',
     WAITER_SERVER_URL: '',
 
-    ANALYTICS_ID: ''
+    ANALYTICS_ID: '',
+
+    TRANSACTION_TIME: '30'
 
 };

@@ -31,7 +31,13 @@
           "configurations": {
             "local": {
               "outputPath": "./dist/client",
-              "watch": true
+              "watch": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/client/src/environments/environment.ts",
+                  "with": "src/client/src/environments/environment.local.ts"
+                }
+              ]
             },
             "default": {
               "outputPath": "./dist/client",

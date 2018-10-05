@@ -2,6 +2,15 @@
   "name": "frontend",
   "version": "0.0.0",
   "license": "MIT",
+  "author": {
+    "name": "Motionpicture co.,ltd."
+  },
+  "contributors": [
+    {
+      "email": "hataguchi@motionpicture.jp",
+      "name": "Akito Hataguchi"
+    }
+  ],
   "scripts": {
     "ng": "ng",
     "start-client": "ng serve --environment=local",
@@ -35,8 +44,8 @@
     "@angular/platform-browser": "^6.0.7",
     "@angular/platform-browser-dynamic": "^6.0.7",
     "@angular/router": "^6.0.7",
-    "@cinerino/api-javascript-client": "^1.0.0-alpha.0",
-    "@cinerino/api-nodejs-client": "^1.0.0-alpha.28",
+    "@cinerino/api-javascript-client": "^1.0.0-alpha.1",
+    "@cinerino/api-nodejs-client": "^1.1.0-alpha.1",
     "@ng-bootstrap/ng-bootstrap": "^2.2.2",
     "@ngrx/effects": "^6.1.0",
     "@ngrx/store": "^6.1.0",

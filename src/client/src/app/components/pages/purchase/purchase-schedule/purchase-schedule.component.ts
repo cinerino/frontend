@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment';
 import {
     ActionTypes,
     Delete,
@@ -26,8 +27,8 @@ import * as reducers from '../../../../store/reducers';
     styleUrls: ['./purchase-schedule.component.scss']
 })
 export class PurchaseScheduleComponent implements OnInit {
-    @ViewChild(SwiperComponent) public componentRef?: SwiperComponent;
-    @ViewChild(SwiperDirective) public directiveRef?: SwiperDirective;
+    @ViewChild(SwiperComponent) public componentRef: SwiperComponent;
+    @ViewChild(SwiperDirective) public directiveRef: SwiperDirective;
     public purchase: Observable<reducers.IPurchaseState>;
     public swiperConfig: SwiperConfigInterface;
     constructor(
@@ -46,9 +47,16 @@ export class PurchaseScheduleComponent implements OnInit {
                 1024: { slidesPerView: 6 }
             }
         };
-        this.store.dispatch(new Delete({ }));
+        this.store.dispatch(new Delete({}));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.getTheaters();
+    }
+
+    /**
+     * resize
+     */
+    public resize() {
+        this.directiveRef.update();
     }
 
     /**
@@ -130,9 +138,13 @@ export class PurchaseScheduleComponent implements OnInit {
             if (purchase.movieTheater === undefined) {
                 return;
             }
+            console.log('---------------',
+                environment,
+                environment.TRANSACTION_TIME,
+                moment().add(environment.TRANSACTION_TIME, 'minutes').toDate());
             this.store.dispatch(new StartTransaction({
                 params: {
-                    expires: moment().add(30, 'minutes').toDate(),
+                    expires: moment().add(environment.TRANSACTION_TIME, 'minutes').toDate(),
                     seller: {
                         typeOf: purchase.movieTheater.typeOf,
                         id: purchase.movieTheater.id
