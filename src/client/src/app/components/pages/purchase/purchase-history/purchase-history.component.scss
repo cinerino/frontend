@@ -1,6 +1,9 @@
 @import '../../../../../assets/scss/theme';
 .items {
     margin: 0 -0.5rem;
+    @include media-breakpoint-down(sm) {
+        margin: 0;
+    }
     .item {
         width: 33.3%;
         @include media-breakpoint-down(sm) {
