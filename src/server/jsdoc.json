@@ -10,7 +10,7 @@
     "dateFormat"            : "ddd MMM Do YYYY",
     "outputSourceFiles"     : true,
     "outputSourcePath"      : true,
-    "systemName"            : "sskts-frontend for node.js",
+    "systemName"            : "frontend for node.js",
     "footer"                : "",
     "navType"               : "vertical",
     "theme"                 : "cosmo",

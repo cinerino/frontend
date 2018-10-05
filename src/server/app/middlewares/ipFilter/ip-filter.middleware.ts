@@ -2,7 +2,7 @@ import * as createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
 import { FORBIDDEN } from 'http-status';
 
-const debug = createDebug('sskts-frontend:middlewares:ipFilter');
+const debug = createDebug('frontend:middlewares:ipFilter');
 
 /**
  * IP制限ミドルウェア

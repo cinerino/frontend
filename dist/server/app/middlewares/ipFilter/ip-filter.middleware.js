@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const createDebug = require("debug");
 const http_status_1 = require("http-status");
-const debug = createDebug('sskts-frontend:middlewares:ipFilter');
+const debug = createDebug('frontend:middlewares:ipFilter');
 /**
  * IP制限ミドルウェア
  */
