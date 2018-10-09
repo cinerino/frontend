@@ -11,7 +11,7 @@ import * as reducers from '../../../../store/reducers';
 })
 export class PurchaseCompleteComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
-    public startDate: string;
+    public moment: typeof moment = moment;
 
     constructor(
         private store: Store<reducers.IState>
@@ -19,11 +19,6 @@ export class PurchaseCompleteComponent implements OnInit {
 
     public ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
-        this.purchase.subscribe((purchase) => {
-            this.startDate = (purchase.screeningEvent === undefined)
-                ? ''
-                : moment(purchase.screeningEvent.startDate).format('YYYY/MM/DD (ddd) HH:mm');
-        }).unsubscribe();
     }
 
 }

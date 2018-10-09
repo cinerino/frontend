@@ -12,19 +12,23 @@ import { IPurchaseOrder } from '../../../models/history/purchaseOrder';
 export class PurchaseDetailModalComponent implements OnInit {
     @Input() public data: IPurchaseOrder;
     public moment: typeof moment = moment;
-    public url: Promise<string>;
+    public urlList: Promise<string>[];
     constructor(
         public activeModal: NgbActiveModal
     ) { }
 
     public ngOnInit() {
-        const ticketToken = <string>this.data.acceptedOffers[0].itemOffered.reservedTicket.ticketToken;
-        const basicSize = 21;
-        const option: qrcode.QRCodeToDataURLOptions = {
-            margin: 0,
-            scale: (80 / basicSize)
-        };
-        this.url = qrcode.toDataURL(ticketToken, option);
+        this.urlList = [];
+        this.data.acceptedOffers.forEach((acceptedOffer) => {
+            const ticketToken = <string>acceptedOffer.itemOffered.reservedTicket.ticketToken;
+            const basicSize = 21;
+            const option: qrcode.QRCodeToDataURLOptions = {
+                margin: 0,
+                scale: (80 / basicSize)
+            };
+            const url = qrcode.toDataURL(ticketToken, option);
+            this.urlList.push(url);
+        });
     }
 
 }

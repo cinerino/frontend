@@ -229,7 +229,6 @@ export class PurchaseInputComponent implements OnInit {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
-
     public openAlert(args: {
         title: string;
         body: string;

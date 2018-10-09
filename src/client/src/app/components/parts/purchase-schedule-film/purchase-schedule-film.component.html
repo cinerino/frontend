@@ -3,7 +3,7 @@
         <p class="title">{{ screeningFilmEvent.info.name.ja }}</p>
         <div class="info">
             <div class="en small-x-text mb-1">{{ screeningFilmEvent.info.name.en }}</div>
-            <div class="time small-x-text">[上映時間: {{ duration }}分]</div>
+            <div class="time small-x-text">[上映時間: {{ moment.duration(screeningFilmEvent.info.duration).asMinutes() }}分]</div>
         </div>
     </div>
     <ul>
@@ -13,9 +13,9 @@
             'bg-warning':  screeningEvent.remainingAttendeeCapacity < 30 && screeningEvent.remainingAttendeeCapacity > 0, 
             'bg-dark':  screeningEvent.remainingAttendeeCapacity === 0}" (click)="select.emit(screeningEvent)">
             <div class="mb-md-2">
-                <span>{{ datePipe(screeningEvent.startDate) }}</span>
+                <span>{{ moment(screeningEvent.startDate).format('HH:mm') }}</span>
                 <span>-</span>
-                <span>{{ datePipe(screeningEvent.endDate) }}</span>
+                <span>{{ moment(screeningEvent.endDate).format('HH:mm') }}</span>
             </div>
             <div class="mb-md-2">
                 {{ screeningEvent.location.name.ja }}

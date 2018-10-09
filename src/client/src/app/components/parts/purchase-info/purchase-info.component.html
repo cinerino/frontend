@@ -14,7 +14,7 @@
         <div class="p-2 border-bottom">
             <div class="mb-2">
                 <i class="far fa-clock mr-2"></i>上映開始日時</div>
-            <p>{{ startDate }}</p>
+            <p>{{ moment(purchase.screeningEvent?.startDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>
         </div>
         <div class="p-2">
             <div class="mb-2">

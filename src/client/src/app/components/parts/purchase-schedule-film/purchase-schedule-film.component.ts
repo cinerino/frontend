@@ -12,15 +12,9 @@ export class PurchaseScheduleFilmComponent implements OnInit {
 
     @Input() public screeningFilmEvent: IScreeningEventFilm;
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();
-    public duration: number;
+    public moment: typeof moment = moment;
     constructor() { }
 
-    public ngOnInit() {
-        this.duration = moment.duration(this.screeningFilmEvent.info.duration).asMinutes();
-    }
-
-    public datePipe(date: string) {
-        return moment(date).format('HH:mm');
-    }
+    public ngOnInit() { }
 
 }

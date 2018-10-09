@@ -9,13 +9,10 @@ import * as reducers from '../../../store/reducers';
 })
 export class PurchaseInfoComponent implements OnInit {
     @Input() public purchase: reducers.IPurchaseState;
-    public startDate: string;
+    public moment: typeof moment = moment;
     constructor() { }
 
     public ngOnInit() {
-        this.startDate = (this.purchase.screeningEvent === undefined)
-            ? ''
-            : moment(this.purchase.screeningEvent.startDate).format('YYYY/MM/DD (ddd) HH:mm');
     }
 
 }
