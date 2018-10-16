@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs/operators';
 import { IScreen } from '../../models';
@@ -28,7 +29,8 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const movieTheaters = await this.cinerino.organization.searchMovieTheaters(payload.params);
+                const searchMovieTheatersResult = await this.cinerino.organization.searchMovieTheaters(payload.params);
+                const movieTheaters = searchMovieTheatersResult.data;
                 return new purchase.GetTheatersSuccess({ movieTheaters });
             } catch (error) {
                 return new purchase.GetTheatersFail({ error: error });
@@ -46,7 +48,8 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const screeningEvents = await this.cinerino.event.searchScreeningEvents(payload.params);
+                const screeningEventsResult = await this.cinerino.event.searchScreeningEvents(payload.params);
+                const screeningEvents = screeningEventsResult.data;
                 return new purchase.GetScheduleSuccess({ screeningEvents });
             } catch (error) {
                 return new purchase.GetScheduleFail({ error: error });
@@ -118,14 +121,12 @@ export class PurchaseEffects {
                     event: {
                         id: payload.screeningEvent.id
                     },
-                    tickets: payload.reservations.map((reservation) => {
+                    acceptedOffer: payload.reservations.map((reservation) => {
                         if (reservation.ticket === undefined) {
                             throw new Error('ticket is undefined');
                         }
                         return {
-                            ticketType: {
-                                id: reservation.ticket.id
-                            },
+                            id: reservation.ticket.id,
                             ticketedSeat: <any>{
                                 seatNumber: reservation.seat.seatNumber,
                                 seatSection: reservation.seat.seatSection
@@ -151,11 +152,11 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const screeningEventTicketTypes = await this.cinerino.event.searchScreeningEventTicketTypes({
+                const screeningEventTicketOffers = await this.cinerino.event.searchScreeningEventTicketOffers({
                     eventId: payload.screeningEvent.id
                 });
 
-                return new purchase.GetTicketListSuccess({ screeningEventTicketTypes });
+                return new purchase.GetTicketListSuccess({ screeningEventTicketOffers });
             } catch (error) {
                 return new purchase.GetTicketListFail({ error: error });
             }
@@ -210,8 +211,6 @@ export class PurchaseEffects {
                     authorizeSeatReservation: payload.authorizeSeatReservation,
                     movieTheater: payload.movieTheater
                 });
-                const amount = payload.amount;
-                const method = payload.method;
                 const gmoTokenObject = await createGmoTokenObject({
                     creditCard: payload.creditCard,
                     movieTheater: payload.movieTheater
@@ -220,9 +219,11 @@ export class PurchaseEffects {
                 const authorizeCreditCardPayment =
                     await this.cinerino.transaction.placeOrder.authorizeCreditCardPayment({
                         transactionId: transaction.id,
+                        typeOf: factory.action.authorize.paymentMethod.creditCard.ObjectType.CreditCard,
                         orderId,
-                        amount,
-                        method,
+                        amount: payload.amount,
+                        method: <any>'1',
+                        payType: <any>'0',
                         creditCard
                     });
 
@@ -238,7 +239,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public reservation = this.actions.pipe(
-        ofType<purchase.Reservation>(purchase.ActionTypes.Reservation),
+        ofType<purchase.Reserve>(purchase.ActionTypes.Reserve),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
@@ -246,12 +247,12 @@ export class PurchaseEffects {
                 const result = await this.cinerino.transaction.placeOrder.confirm({
                     transactionId: payload.transaction.id
                 });
-                return new purchase.ReservationSuccess({ result });
+                return new purchase.ReserveSuccess({ result });
             } catch (error) {
                 await this.cinerino.transaction.placeOrder.cancel({
                     transactionId: payload.transaction.id
                 });
-                return new purchase.ReservationFail({ error: error });
+                return new purchase.ReserveFail({ error: error });
             }
         })
     );
@@ -267,7 +268,8 @@ export class PurchaseEffects {
             try {
                 const params = Object.assign({ personId: 'me' }, payload.params);
                 await this.cinerino.getServices();
-                const orders = await this.cinerino.person.searchOrders(params);
+                const searchOrdersResult = await this.cinerino.person.searchOrders(params);
+                const orders = searchOrdersResult.data;
                 return new purchase.GetPurchaseHistorySuccess({ result: orders });
             } catch (error) {
                 return new purchase.GetPurchaseHistoryFail({ error: error });

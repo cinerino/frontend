@@ -31,7 +31,8 @@
     "version": "git add -A",
     "postversion": "git push origin --tags",
     "clean": "rimraf src/**/*.spec.ts",
-    "update": "npm install @cinerino/api-javascript-client@next @cinerino/api-nodejs-client@next"
+    "update": "npm install @cinerino/api-javascript-client@next @cinerino/api-nodejs-client@next",
+    "uninstall": "npm uninstall @cinerino/api-javascript-client @cinerino/api-nodejs-client"
   },
   "private": true,
   "dependencies": {
@@ -44,12 +45,11 @@
     "@angular/platform-browser": "^6.0.7",
     "@angular/platform-browser-dynamic": "^6.0.7",
     "@angular/router": "^6.0.7",
-    "@cinerino/api-javascript-client": "^1.0.0-alpha.1",
-    "@cinerino/api-nodejs-client": "^1.1.0-alpha.1",
-    "@ng-bootstrap/ng-bootstrap": "^2.2.2",
+    "@cinerino/api-javascript-client": "^1.0.0-alpha.4",
+    "@cinerino/api-nodejs-client": "^1.1.0-alpha.6",
+    "@ng-bootstrap/ng-bootstrap": "^3.3.0",
     "@ngrx/effects": "^6.1.0",
     "@ngrx/store": "^6.1.0",
-    "aws-sdk": "2.176.0",
     "basic-auth": "^2.0.0",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.1.3",

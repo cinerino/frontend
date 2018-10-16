@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
-import { ILabel, IReservation, IReservationSeat, IScreen, ISeat, SeatStatus } from '../../../models';
+import { ILabel, IReservationSeat, IScreen, ISeat, Reservation, SeatStatus } from '../../../models';
 
 @Component({
     selector: 'app-screen',
@@ -11,7 +11,7 @@ export class ScreenComponent implements OnInit, OnChanges {
     public static ZOOM_SCALE = 1;
     @Input() public screenData: IScreen;
     @Input() public screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
-    @Input() public reservations: IReservation[];
+    @Input() public reservations: Reservation[];
     @Output() public select = new EventEmitter<{ seat: IReservationSeat; status: SeatStatus; }>();
 
     public seats: ISeat[];
@@ -76,8 +76,8 @@ export class ScreenComponent implements OnInit, OnChanges {
         const screen = <HTMLDivElement>element.querySelector('.screen');
         const scroll = <HTMLDivElement>element.querySelector('.screen-scroll');
         const rect = scroll.getBoundingClientRect();
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        const scrollTop = window.pageYOffset || (<HTMLElement>document.documentElement).scrollTop;
+        const scrollLeft = window.pageXOffset || (<HTMLElement>document.documentElement).scrollLeft;
         const offset = {
             top: rect.top + scrollTop,
             left: rect.left + scrollLeft

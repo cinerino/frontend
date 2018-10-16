@@ -1,9 +1,8 @@
-import { ISearchResult } from '@cinerino/api-abstract-client/lib/service';
 import { IAuthorizeAction } from '@cinerino/api-abstract-client/lib/service/transaction/placeOrder';
 import { factory } from '@cinerino/api-javascript-client';
 import { IResult } from '@cinerino/factory/lib/factory/transaction/placeOrder';
 import { Action } from '@ngrx/store';
-import { IReservation, IReservationSeat, IScreen } from '../../models';
+import { IReservationSeat, IScreen, Reservation } from '../../models';
 import { IScreeningEventDate } from '../functions';
 
 /**
@@ -41,9 +40,9 @@ export enum ActionTypes {
     RegisterCreditCard = '[Purchase] Register Credit Card',
     RegisterCreditCardSuccess = '[Purchase] Register Credit Card Success',
     RegisterCreditCardFail = '[Purchase] Register Credit Card Fail',
-    Reservation = '[Purchase] Reservation',
-    ReservationSuccess = '[Purchase] Reservation Success',
-    ReservationFail = '[Purchase] Reservation Fail',
+    Reserve = '[Purchase] Reserve',
+    ReserveSuccess = '[Purchase] Reserve Success',
+    ReserveFail = '[Purchase] Reserve Fail',
     GetPurchaseHistory = '[Purchase] Get Purchase History',
     GetPurchaseHistorySuccess = '[Purchase] Get Purchase History Success',
     GetPurchaseHistoryFail = '[Purchase] Get Purchase History Fail',
@@ -73,7 +72,7 @@ export class GetTheaters implements Action {
  */
 export class GetTheatersSuccess implements Action {
     public readonly type = ActionTypes.GetTheatersSuccess;
-    constructor(public payload: { movieTheaters: ISearchResult<factory.organization.movieTheater.IOrganization[]> }) { }
+    constructor(public payload: { movieTheaters: factory.organization.movieTheater.IOrganization[] }) { }
 }
 
 /**
@@ -113,7 +112,7 @@ export class GetSchedule implements Action {
  */
 export class GetScheduleSuccess implements Action {
     public readonly type = ActionTypes.GetScheduleSuccess;
-    constructor(public payload: { screeningEvents: ISearchResult<factory.chevre.event.screeningEvent.IEvent[]> }) { }
+    constructor(public payload: { screeningEvents: factory.chevre.event.screeningEvent.IEvent[] }) { }
 }
 
 /**
@@ -217,7 +216,7 @@ export class CancelSeat implements Action {
  */
 export class SelectTicket implements Action {
     public readonly type = ActionTypes.SelectTicket;
-    constructor(public payload: { reservation: IReservation }) { }
+    constructor(public payload: { reservation: Reservation }) { }
 }
 
 /**
@@ -233,7 +232,7 @@ export class GetTicketList implements Action {
  */
 export class GetTicketListSuccess implements Action {
     public readonly type = ActionTypes.GetTicketListSuccess;
-    constructor(public payload: { screeningEventTicketTypes: factory.chevre.ticketType.ITicketType[] }) { }
+    constructor(public payload: { screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[] }) { }
 }
 
 /**
@@ -254,7 +253,7 @@ export class TemporaryReservation implements Action {
         transaction: factory.transaction.placeOrder.ITransaction;
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
         authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction;
-        reservations: IReservation[];
+        reservations: Reservation[];
     }) { }
 }
 
@@ -340,28 +339,28 @@ export class RegisterCreditCardFail implements Action {
 }
 
 /**
- * Reservation
+ * Reserve
  */
-export class Reservation implements Action {
-    public readonly type = ActionTypes.Reservation;
+export class Reserve implements Action {
+    public readonly type = ActionTypes.Reserve;
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
     }) { }
 }
 
 /**
- * ReservationSuccess
+ * ReserveSuccess
  */
-export class ReservationSuccess implements Action {
-    public readonly type = ActionTypes.ReservationSuccess;
+export class ReserveSuccess implements Action {
+    public readonly type = ActionTypes.ReserveSuccess;
     constructor(public payload: { result: IResult }) { }
 }
 
 /**
- * ReservationFail
+ * ReserveFail
  */
-export class ReservationFail implements Action {
-    public readonly type = ActionTypes.ReservationFail;
+export class ReserveFail implements Action {
+    public readonly type = ActionTypes.ReserveFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -378,7 +377,7 @@ export class GetPurchaseHistory implements Action {
  */
 export class GetPurchaseHistorySuccess implements Action {
     public readonly type = ActionTypes.GetPurchaseHistorySuccess;
-    constructor(public payload: { result: ISearchResult<factory.order.IOrder[]> }) { }
+    constructor(public payload: { result: factory.order.IOrder[] }) { }
 }
 
 /**
@@ -456,9 +455,9 @@ export type Actions =
     | RegisterCreditCard
     | RegisterCreditCardSuccess
     | RegisterCreditCardFail
-    | Reservation
-    | ReservationSuccess
-    | ReservationFail
+    | Reserve
+    | ReserveSuccess
+    | ReserveFail
     | GetPurchaseHistory
     | GetPurchaseHistorySuccess
     | GetPurchaseHistoryFail

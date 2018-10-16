@@ -9,7 +9,7 @@
                 <div class="seat text-center text-md-left mb-3 mb-md-0">
                     <span class="mr-3">座席</span>{{ reservation.seat.seatNumber }}</div>
                 <button *ngIf="reservation.ticket === undefined" type="button" (click)="openTicketList(reservation)" class="btn btn-primary btn-block py-2">券種を選択してください</button>
-                <button *ngIf="reservation.ticket !== undefined" type="button" (click)="openTicketList(reservation)" class="btn btn-outline-primary btn-block py-2">{{ reservation.ticket.name.ja }} {{ reservation.ticket.charge | currency : 'JPY' }}</button>
+                <button *ngIf="reservation.ticket !== undefined" type="button" (click)="openTicketList(reservation)" class="btn btn-outline-primary btn-block py-2">{{ reservation.ticket.name.ja }} {{ reservation.getTicketPrice().total | currency : 'JPY' }}</button>
             </div>
         </div>
 

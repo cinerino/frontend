@@ -76,7 +76,7 @@ export class PurchaseHistoryComponent implements OnInit {
             ofType(ActionTypes.OrderAuthorizeSuccess),
             tap(() => {
                 this.history.subscribe((result) => {
-                    const authorizeOrder = result.purchase.data.find(order => order.orderNumber === data.orderNumber);
+                    const authorizeOrder = result.purchase.find(order => order.orderNumber === data.orderNumber);
                     if (authorizeOrder === undefined) {
                         return;
                     }

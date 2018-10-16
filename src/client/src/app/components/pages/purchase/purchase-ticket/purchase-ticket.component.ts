@@ -6,7 +6,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { IReservation } from '../../../../models/purchase/reservation';
+import { Reservation } from '../../../../models/purchase/reservation';
 import { ActionTypes, SelectTicket, TemporaryReservation } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
 import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
@@ -76,13 +76,13 @@ export class PurchaseTicketComponent implements OnInit {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
-    public openTicketList(reservation: IReservation) {
+    public openTicketList(reservation: Reservation) {
         const modalRef = this.modal.open(TicketListModalComponent, {
             centered: true
         });
         this.purchase.subscribe((purchase) => {
-            modalRef.componentInstance.screeningEventTicketTypes = purchase.screeningEventTicketTypes;
-            modalRef.result.then((ticket: factory.chevre.ticketType.ITicketType) => {
+            modalRef.componentInstance.screeningEventTicketOffers = purchase.screeningEventTicketOffers;
+            modalRef.result.then((ticket: factory.chevre.event.screeningEvent.ITicketOffer) => {
                 reservation.ticket = ticket;
                 this.store.dispatch(new SelectTicket({ reservation }));
             });

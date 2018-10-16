@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { ActionTypes, Reservation } from '../../../../store/actions/purchase.action';
+import { ActionTypes, Reserve } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -33,18 +33,18 @@ export class PurchaseConfirmComponent implements OnInit {
                 return;
             }
             const transaction = purchase.transaction;
-            this.store.dispatch(new Reservation({ transaction }));
+            this.store.dispatch(new Reserve({ transaction }));
         }).unsubscribe();
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.ReservationSuccess),
+            ofType(ActionTypes.ReserveSuccess),
             tap(() => {
                 this.router.navigate(['/purchase/complete']);
             })
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.ReservationFail),
+            ofType(ActionTypes.ReserveFail),
             tap(() => {
                 this.router.navigate(['/error']);
             })

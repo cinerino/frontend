@@ -1,8 +1,8 @@
 <div class="p-3 scroll">
-    <div *ngFor="let ticket of screeningEventTicketTypes" class="ticket mb-2">
+    <div *ngFor="let ticket of screeningEventTicketOffers" class="ticket mb-2">
         <button type="button" (click)="activeModal.close(ticket)" class="btn btn-block btn-outline-primary p-3 d-flex justify-content-between align-items-center">
             <div class="w-75 text-left">{{ ticket.name.ja }}</div>
-            <div class="w-25 text-right">{{ ticket.charge | currency : 'JPY' }}</div>
+            <div class="w-25 text-right">{{ getTicketPrice(ticket).total | currency : 'JPY' }}</div>
         </button>
     </div>
 </div>

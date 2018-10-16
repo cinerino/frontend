@@ -1,8 +1,7 @@
-import { ISearchResult } from '@cinerino/api-abstract-client/lib/service';
 import { IAuthorizeAction } from '@cinerino/api-abstract-client/lib/service/transaction/placeOrder';
 import { factory } from '@cinerino/api-javascript-client';
 import { IResult } from '@cinerino/factory/lib/factory/transaction/placeOrder';
-import { IReservation, IScreen } from '../../models';
+import { IScreen, Reservation } from '../../models';
 import * as purchase from '../actions/purchase.action';
 import * as user from '../actions/user.action';
 import {
@@ -16,9 +15,9 @@ import {
  * IPurchaseState
  */
 export interface IPurchaseState {
-    movieTheaters: ISearchResult<factory.organization.movieTheater.IOrganization[]>;
+    movieTheaters: factory.organization.movieTheater.IOrganization[];
     movieTheater?: factory.organization.movieTheater.IOrganization;
-    screeningEvents: ISearchResult<factory.chevre.event.screeningEvent.IEvent[]>;
+    screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
     screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
     scheduleDates: IScreeningEventDate[];
     scheduleDate?: IScreeningEventDate;
@@ -26,8 +25,8 @@ export interface IPurchaseState {
     transaction?: factory.transaction.placeOrder.ITransaction;
     screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
     screenData?: IScreen;
-    reservations: IReservation[];
-    screeningEventTicketTypes: factory.chevre.ticketType.ITicketType[];
+    reservations: Reservation[];
+    screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction;
     customerContact?: factory.transaction.placeOrder.ICustomerContact;
     authorizeCreditCardPayment?: IAuthorizeAction;
@@ -37,7 +36,7 @@ export interface IPurchaseState {
 }
 
 export interface IHistoryState {
-    purchase: ISearchResult<factory.order.IOrder[]>;
+    purchase: factory.order.IOrder[];
 }
 
 /**
@@ -58,17 +57,17 @@ export const initialState: IState = {
     loading: false,
     error: null,
     purchase: {
-        movieTheaters: { totalCount: 0, data: [] },
-        screeningEvents: { totalCount: 0, data: [] },
+        movieTheaters: [],
+        screeningEvents: [],
         scheduleDates: [],
         screeningFilmEvents: [],
         screeningEventOffers: [],
         reservations: [],
-        screeningEventTicketTypes: [],
+        screeningEventTicketOffers: [],
         orderCount: 0
     },
     history: {
-        purchase: { totalCount: 0, data: [] }
+        purchase: []
     },
     user: null
 };
@@ -79,6 +78,9 @@ function getInitialState(): IState {
         return initialState;
     }
     const data = JSON.parse(json);
+    const reservations = data.App.purchase.reservations.map((reservation: Reservation) => new Reservation(reservation));
+    data.App.purchase.reservations = reservations;
+
     return {
         loading: data.App.loading,
         error: data.App.error,
@@ -102,13 +104,13 @@ export function reducer(
             return {
                 loading: state.loading,
                 purchase: {
-                    movieTheaters: { totalCount: 0, data: [] },
-                    screeningEvents: { totalCount: 0, data: [] },
+                    movieTheaters: [],
+                    screeningEvents: [],
                     scheduleDates: [],
                     screeningFilmEvents: [],
                     screeningEventOffers: [],
                     reservations: [],
-                    screeningEventTicketTypes: [],
+                    screeningEventTicketOffers: [],
                     orderCount: 0
                 },
                 history: {
@@ -211,7 +213,7 @@ export function reducer(
             return { ...state, loading: false, error: JSON.stringify(error) };
         }
         case purchase.ActionTypes.SelectSeat: {
-            state.purchase.reservations.push({ seat: action.payload.seat });
+            state.purchase.reservations.push(new Reservation({ seat: action.payload.seat }));
             const reservations = state.purchase.reservations;
             return { ...state, loading: false, error: null, purchase: { ...state.purchase, reservations } };
         }
@@ -226,11 +228,11 @@ export function reducer(
             return { ...state, loading: true };
         }
         case purchase.ActionTypes.GetTicketListSuccess: {
-            const screeningEventTicketTypes = action.payload.screeningEventTicketTypes;
+            const screeningEventTicketOffers = action.payload.screeningEventTicketOffers;
             return {
                 ...state, loading: false, error: null, purchase: {
                     ...state.purchase,
-                    screeningEventTicketTypes
+                    screeningEventTicketOffers
                 }
             };
         }
@@ -239,7 +241,7 @@ export function reducer(
             return { ...state, loading: false, error: JSON.stringify(error) };
         }
         case purchase.ActionTypes.SelectTicket: {
-            const reservations: IReservation[] = [];
+            const reservations: Reservation[] = [];
             state.purchase.reservations.forEach((reservation) => {
                 if (Object.is(reservation, action.payload.reservation)) {
                     reservations.push(action.payload.reservation);
@@ -314,10 +316,10 @@ export function reducer(
                 }
             };
         }
-        case purchase.ActionTypes.Reservation: {
+        case purchase.ActionTypes.Reserve: {
             return { ...state, loading: true };
         }
-        case purchase.ActionTypes.ReservationSuccess: {
+        case purchase.ActionTypes.ReserveSuccess: {
             const result = action.payload.result;
             return {
                 ...state, loading: false, error: null, purchase: {
@@ -326,7 +328,7 @@ export function reducer(
                 }
             };
         }
-        case purchase.ActionTypes.ReservationFail: {
+        case purchase.ActionTypes.ReserveFail: {
             const error = action.payload.error;
             return { ...state, loading: false, error: JSON.stringify(error) };
         }
@@ -351,14 +353,14 @@ export function reducer(
         }
         case purchase.ActionTypes.OrderAuthorizeSuccess: {
             const authorizeOrder = action.payload.order;
-            const historyData = state.history.purchase.data.map((order) => {
+            const historyData = state.history.purchase.map((order) => {
                 if (order.orderNumber !== authorizeOrder.orderNumber) {
                     return order;
                 }
                 return authorizeOrder;
             });
             const history = state.history;
-            history.purchase.data = historyData;
+            history.purchase = historyData;
 
             return { ...state, loading: false, error: null, history };
         }

@@ -1,4 +1,3 @@
-import { ISearchResult } from '@cinerino/api-abstract-client/lib/service';
 import { factory } from '@cinerino/api-javascript-client';
 import * as libphonenumber from 'libphonenumber-js';
 import * as moment from 'moment';
@@ -24,9 +23,9 @@ export interface IGmoTokenObject {
 /**
  * 作品別イベント作成
  */
-export function createscreeningEventDates(screeningEvents: ISearchResult<factory.chevre.event.screeningEvent.IEvent[]>) {
+export function createscreeningEventDates(screeningEvents: factory.chevre.event.screeningEvent.IEvent[]) {
     const dates: IScreeningEventDate[] = [];
-    screeningEvents.data.forEach((screeningEvent) => {
+    screeningEvents.forEach((screeningEvent) => {
         const registered = dates.find((date) => {
             return (date.format === moment(screeningEvent.startDate).format('YYYYMMDD'));
         });
@@ -46,11 +45,11 @@ export function createscreeningEventDates(screeningEvents: ISearchResult<factory
  * 作品別イベント作成
  */
 export function createScreeningFilmEvents(params: {
-    screeningEvents: ISearchResult<factory.chevre.event.screeningEvent.IEvent[]>,
+    screeningEvents: factory.chevre.event.screeningEvent.IEvent[],
     scheduleDate: IScreeningEventDate
 }) {
     const films: IScreeningEventFilm[] = [];
-    const screeningEvents = params.screeningEvents.data.filter((screeningEvent) => {
+    const screeningEvents = params.screeningEvents.filter((screeningEvent) => {
         return (params.scheduleDate.format === moment(screeningEvent.startDate).format('YYYYMMDD'));
     });
     screeningEvents.forEach((screeningEvent) => {

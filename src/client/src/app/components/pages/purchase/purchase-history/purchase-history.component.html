@@ -1,6 +1,6 @@
 <div class="py-3 px-2">
     <ul class="d-block d-md-flex flex-wrap items">
-        <li *ngFor="let data of (history | async).purchase.data" class="mb-3 item">
+        <li *ngFor="let data of (history | async).purchase" class="mb-3 item">
             <div class="card h-100 mx-md-2">
                 <div class="card-body">
                     <div class="card-title">購入番号 <strong class="text-success large-text">{{ data.confirmationNumber }}</strong></div>

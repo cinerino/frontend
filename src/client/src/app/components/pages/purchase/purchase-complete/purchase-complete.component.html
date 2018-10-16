@@ -42,7 +42,7 @@
                     <div class="col-md-8">
                         <div *ngFor="let reservation of (purchase | async).reservations" class="mb-2">
                             <p>{{ reservation.seat.seatNumber }}</p> 
-                            <p *ngIf="reservation.ticket">{{ reservation.ticket.name.ja }} / {{ reservation.ticket.charge | currency : 'JPY' }}</p>
+                            <p *ngIf="reservation.ticket">{{ reservation.ticket.name.ja }} / {{ reservation.getTicketPrice().total | currency : 'JPY' }}</p>
                         </div>
                     </div>
                 </div>

@@ -69,7 +69,7 @@ export class PurchaseScheduleComponent implements OnInit {
             ofType(ActionTypes.GetTheatersSuccess),
             tap(() => {
                 this.purchase.subscribe((result) => {
-                    const movieTheater = result.movieTheaters.data[0];
+                    const movieTheater = result.movieTheaters[0];
                     this.selectTheater(movieTheater);
                 }).unsubscribe();
             })
