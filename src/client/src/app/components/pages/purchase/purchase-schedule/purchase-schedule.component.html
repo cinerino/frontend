@@ -1,7 +1,7 @@
 <div class="p-3">
     <h2 class="bg-secondary text-white p-3 mb-3">劇場</h2>
     <div class="mb-3">
-        <button *ngFor="let theater of (purchase | async).movieTheaters.data" type="button" class="btn btn-block py-2 mb-2"
+        <button *ngFor="let theater of (purchase | async).movieTheaters" type="button" class="btn btn-block py-2 mb-2"
             (click)="selectTheater(theater)" [class.btn-primary]="(purchase | async).movieTheater === theater"
             [class.btn-outline-primary]="(purchase | async).movieTheater !== theater">{{ theater.name.ja }}</button>
     </div>

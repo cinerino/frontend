@@ -190,11 +190,11 @@ export class PurchaseEffects {
     );
 
     /**
-     * registerCreditCard
+     * authorizeCreditCard
      */
     @Effect()
-    public registerCreditCard = this.actions.pipe(
-        ofType<purchase.RegisterCreditCard>(purchase.ActionTypes.RegisterCreditCard),
+    public authorizeCreditCard = this.actions.pipe(
+        ofType<purchase.AuthorizeCreditCard>(purchase.ActionTypes.AuthorizeCreditCard),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
@@ -223,22 +223,55 @@ export class PurchaseEffects {
                         orderId,
                         amount: payload.amount,
                         method: <any>'1',
-                        payType: <any>'0',
                         creditCard
                     });
 
-                return new purchase.RegisterCreditCardSuccess({ authorizeCreditCardPayment, gmoTokenObject });
+                return new purchase.AuthorizeCreditCardSuccess({ authorizeCreditCardPayment, gmoTokenObject });
             } catch (error) {
-                return new purchase.RegisterCreditCardFail({ error: error });
+                return new purchase.AuthorizeCreditCardFail({ error: error });
             }
         })
     );
 
     /**
-     * reservation
+     * authorizeMovieTicket
      */
     @Effect()
-    public reservation = this.actions.pipe(
+    public authorizeMovieTicket = this.actions.pipe(
+        ofType<purchase.AuthorizeMovieTicket>(purchase.ActionTypes.AuthorizeMovieTicket),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                await this.cinerino.getServices();
+                if (payload.authorizeMovieTicketPayment !== undefined) {
+                    await this.cinerino.transaction.placeOrder.voidMovieTicketPayment({
+                        transactionId: payload.transaction.id,
+                        actionId: payload.authorizeMovieTicketPayment.id
+                    });
+                }
+                const transaction = payload.transaction;
+                const authorizeMovieTicketPayment =
+                    await this.cinerino.transaction.placeOrder.authorizeMovieTicketPayment({
+                        transactionId: transaction.id,
+                        event: {
+                            id: payload.screeningEvent.id
+                        },
+                        typeOf: factory.action.authorize.paymentMethod.movieTicket.ObjectType.MovieTicket,
+                        knyknrNoInfoIn: payload.knyknrNoInfoIn
+                    });
+
+                return new purchase.AuthorizeMovieTicketSuccess({ authorizeMovieTicketPayment });
+            } catch (error) {
+                return new purchase.AuthorizeMovieTicketFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * reserve
+     */
+    @Effect()
+    public reserve = this.actions.pipe(
         ofType<purchase.Reserve>(purchase.ActionTypes.Reserve),
         map(action => action.payload),
         mergeMap(async (payload) => {

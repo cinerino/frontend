@@ -30,6 +30,7 @@ export interface IPurchaseState {
     authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction;
     customerContact?: factory.transaction.placeOrder.ICustomerContact;
     authorizeCreditCardPayment?: IAuthorizeAction;
+    authorizeMovieTicketPayment?: IAuthorizeAction;
     gmoTokenObject?: any;
     orderCount: number;
     result?: IResult;
@@ -288,10 +289,10 @@ export function reducer(
             const error = action.payload.error;
             return { ...state, loading: false, error: JSON.stringify(error) };
         }
-        case purchase.ActionTypes.RegisterCreditCard: {
+        case purchase.ActionTypes.AuthorizeCreditCard: {
             return { ...state, loading: true };
         }
-        case purchase.ActionTypes.RegisterCreditCardSuccess: {
+        case purchase.ActionTypes.AuthorizeCreditCardSuccess: {
             const authorizeCreditCardPayment = action.payload.authorizeCreditCardPayment;
             const gmoTokenObject = action.payload.gmoTokenObject;
             const orderCount = state.purchase.orderCount + 1;
@@ -304,7 +305,7 @@ export function reducer(
                 }
             };
         }
-        case purchase.ActionTypes.RegisterCreditCardFail: {
+        case purchase.ActionTypes.AuthorizeCreditCardFail: {
             const error = action.payload.error;
             const orderCount = state.purchase.orderCount + 1;
             return {
@@ -315,6 +316,22 @@ export function reducer(
                     orderCount: orderCount
                 }
             };
+        }
+        case purchase.ActionTypes.AuthorizeMovieTicket: {
+            return { ...state, loading: true };
+        }
+        case purchase.ActionTypes.AuthorizeMovieTicketSuccess: {
+            const authorizeMovieTicketPayment = action.payload.authorizeMovieTicketPayment;
+            return {
+                ...state, loading: false, error: null, purchase: {
+                    ...state.purchase,
+                    authorizeMovieTicketPayment
+                }
+            };
+        }
+        case purchase.ActionTypes.AuthorizeMovieTicketFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, error: JSON.stringify(error) };
         }
         case purchase.ActionTypes.Reserve: {
             return { ...state, loading: true };

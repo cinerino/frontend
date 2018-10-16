@@ -129,7 +129,7 @@ If the Work includes a "NOTICE" text file as part of its distribution, then any 
 
 END OF TERMS AND CONDITIONS
 
-@cinerino/api-javascript-client@1.0.0-alpha.4
+@cinerino/api-javascript-client@1.0.0-alpha.5
 ISC
 ISC
 
@@ -448,11 +448,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-@cinerino/api-abstract-client@1.0.0-alpha.38
+@cinerino/api-abstract-client@1.0.0-alpha.39
 ISC
 ISC
 
-@cinerino/factory@1.0.0-alpha.35
+@cinerino/factory@1.0.0-alpha.36
 ISC
 ISC
 

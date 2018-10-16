@@ -30,14 +30,18 @@ export class TicketListModalComponent implements OnInit {
         const soundFormatCharge = ticket.priceSpecification.priceComponent
             .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.SoundFormatChargeSpecification)
             .shift();
+        const movieTicketTypeCharge = ticket.priceSpecification.priceComponent
+            .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification)
+            .shift();
         const price = {
             unitPriceSpecification: (unitPriceSpecification === undefined) ? 0 : unitPriceSpecification.price,
             videoFormatCharge: (videoFormatCharge === undefined) ? 0 : videoFormatCharge.price,
             soundFormatCharge: (soundFormatCharge === undefined) ? 0 : soundFormatCharge.price,
+            movieTicketTypeCharge: (movieTicketTypeCharge === undefined) ? 0 : movieTicketTypeCharge.price,
             total: 0
         };
 
-        price.total = price.unitPriceSpecification + price.videoFormatCharge + price.soundFormatCharge;
+        price.total = price.unitPriceSpecification + price.videoFormatCharge + price.soundFormatCharge + price.movieTicketTypeCharge;
 
         return price;
     }

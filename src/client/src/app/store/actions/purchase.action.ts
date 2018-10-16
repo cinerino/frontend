@@ -1,5 +1,6 @@
 import { IAuthorizeAction } from '@cinerino/api-abstract-client/lib/service/transaction/placeOrder';
 import { factory } from '@cinerino/api-javascript-client';
+import { IKnyknrNoInfoIn } from '@cinerino/factory/lib/factory/action/authorize/paymentMethod/movieTicket';
 import { IResult } from '@cinerino/factory/lib/factory/transaction/placeOrder';
 import { Action } from '@ngrx/store';
 import { IReservationSeat, IScreen, Reservation } from '../../models';
@@ -37,9 +38,12 @@ export enum ActionTypes {
     RegisterContact = '[Purchase] Register Contact',
     RegisterContactSuccess = '[Purchase] Register Contact Success',
     RegisterContactFail = '[Purchase] Register Contact Fail',
-    RegisterCreditCard = '[Purchase] Register Credit Card',
-    RegisterCreditCardSuccess = '[Purchase] Register Credit Card Success',
-    RegisterCreditCardFail = '[Purchase] Register Credit Card Fail',
+    AuthorizeCreditCard = '[Purchase] Authorize Credit Card',
+    AuthorizeCreditCardSuccess = '[Purchase] Authorize Credit Card Success',
+    AuthorizeCreditCardFail = '[Purchase] Authorize Credit Card Fail',
+    AuthorizeMovieTicket = '[Purchase] Authorize Movie Ticket',
+    AuthorizeMovieTicketSuccess = '[Purchase] Authorize Movie Ticket Success',
+    AuthorizeMovieTicketFail = '[Purchase] Authorize Movie Ticket Fail',
     Reserve = '[Purchase] Reserve',
     ReserveSuccess = '[Purchase] Reserve Success',
     ReserveFail = '[Purchase] Reserve Fail',
@@ -301,10 +305,10 @@ export class RegisterContactFail implements Action {
 }
 
 /**
- * RegisterCreditCard
+ * AuthorizeCreditCard
  */
-export class RegisterCreditCard implements Action {
-    public readonly type = ActionTypes.RegisterCreditCard;
+export class AuthorizeCreditCard implements Action {
+    public readonly type = ActionTypes.AuthorizeCreditCard;
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         movieTheater: factory.organization.movieTheater.IOrganization;
@@ -323,18 +327,47 @@ export class RegisterCreditCard implements Action {
 }
 
 /**
- * RegisterCreditCardSuccess
+ * AuthorizeCreditCardSuccess
  */
-export class RegisterCreditCardSuccess implements Action {
-    public readonly type = ActionTypes.RegisterCreditCardSuccess;
+export class AuthorizeCreditCardSuccess implements Action {
+    public readonly type = ActionTypes.AuthorizeCreditCardSuccess;
     constructor(public payload: { authorizeCreditCardPayment: IAuthorizeAction, gmoTokenObject: any }) { }
 }
 
 /**
- * RegisterCreditCardFail
+ * AuthorizeCreditCardFail
  */
-export class RegisterCreditCardFail implements Action {
-    public readonly type = ActionTypes.RegisterCreditCardFail;
+export class AuthorizeCreditCardFail implements Action {
+    public readonly type = ActionTypes.AuthorizeCreditCardFail;
+    constructor(public payload: { error: Error; }) { }
+}
+
+/**
+ * AuthorizeMovieTicket
+ */
+export class AuthorizeMovieTicket implements Action {
+    public readonly type = ActionTypes.AuthorizeMovieTicket;
+    constructor(public payload: {
+        transaction: factory.transaction.placeOrder.ITransaction;
+        knyknrNoInfoIn: IKnyknrNoInfoIn[];
+        authorizeMovieTicketPayment?: IAuthorizeAction;
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+    }) { }
+}
+
+/**
+ * AuthorizeMovieTicketSuccess
+ */
+export class AuthorizeMovieTicketSuccess implements Action {
+    public readonly type = ActionTypes.AuthorizeMovieTicketSuccess;
+    constructor(public payload: { authorizeMovieTicketPayment: IAuthorizeAction }) { }
+}
+
+/**
+ * AuthorizeMovieTicketFail
+ */
+export class AuthorizeMovieTicketFail implements Action {
+    public readonly type = ActionTypes.AuthorizeMovieTicketFail;
     constructor(public payload: { error: Error; }) { }
 }
 
@@ -452,9 +485,12 @@ export type Actions =
     | RegisterContact
     | RegisterContactSuccess
     | RegisterContactFail
-    | RegisterCreditCard
-    | RegisterCreditCardSuccess
-    | RegisterCreditCardFail
+    | AuthorizeCreditCard
+    | AuthorizeCreditCardSuccess
+    | AuthorizeCreditCardFail
+    | AuthorizeMovieTicket
+    | AuthorizeMovieTicketSuccess
+    | AuthorizeMovieTicketFail
     | Reserve
     | ReserveSuccess
     | ReserveFail
