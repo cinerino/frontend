@@ -1,6 +1,8 @@
 import { factory } from '@cinerino/api-javascript-client';
+import { IMovieTicket } from '@cinerino/factory/lib/factory/paymentMethod/paymentCard/movieTicket';
 import * as libphonenumber from 'libphonenumber-js';
 import * as moment from 'moment';
+import { Reservation } from '../../models';
 
 export interface IScreeningEventDate {
     string: string;
@@ -129,4 +131,86 @@ export function createGmoTokenObject(params: {
         Multipayment.init(findPaymentAcceptedResult.gmoInfo.shopId);
         Multipayment.getToken(params.creditCard, (<any>window).someCallbackFunction);
     });
+}
+
+/**
+ * ムビチケ検索
+ */
+export function sameMovieTicketFilter(args: {
+    checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
+    checkMovieTicketAction: factory.action.check.paymentMethod.movieTicket.IAction;
+}) {
+    const checkMovieTicketAction = args.checkMovieTicketAction;
+    const checkMovieTicketActions = args.checkMovieTicketActions;
+    if (checkMovieTicketAction.result === undefined
+        || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut === null
+        || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknInfo === null) {
+        return [];
+    }
+    const result: factory.action.check.paymentMethod.movieTicket.IAction[] = [];
+    checkMovieTicketActions.forEach((action) => {
+        if (action.result === undefined
+            || action.result.purchaseNumberAuthResult.knyknrNoInfoOut === null
+            || action.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknInfo === null) {
+            return;
+        }
+        if (action.object.movieTickets[0].identifier !== checkMovieTicketAction.object.movieTickets[0].identifier) {
+            return;
+        }
+        result.push(action);
+    });
+
+    return result;
+}
+
+/**
+ * ムビチケ有効
+ */
+export function isAvailabilityMovieTicket(checkMovieTicketAction: factory.action.check.paymentMethod.movieTicket.IAction) {
+    return (checkMovieTicketAction.result !== undefined
+        && checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut !== null
+        && checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknInfo !== null);
+}
+
+/**
+ *  予約情報からムビチケ情報作成
+ */
+export function createMovieTicketsFromAuthorizeSeatReservation(args: {
+    authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction;
+    reservations: Reservation[];
+}) {
+    const results: IMovieTicket[] = [];
+    const authorizeSeatReservation = args.authorizeSeatReservation;
+    const reservations = args.reservations;
+    if (authorizeSeatReservation.result === undefined) {
+        return results;
+    }
+    const pendingReservations = authorizeSeatReservation.result.responseBody.object.reservations;
+
+    pendingReservations.forEach((pendingReservation) => {
+        const findReservationResult = reservations.find((reservation) => {
+            return (reservation.seat.seatNumber === pendingReservation.reservedTicket.ticketedSeat.seatNumber);
+        });
+        if (findReservationResult === undefined
+            || findReservationResult.ticket === undefined
+            || findReservationResult.ticket.movieTicket === undefined) {
+            return;
+        }
+
+        results.push({
+            typeOf: factory.paymentMethodType.MovieTicket,
+            identifier: findReservationResult.ticket.movieTicket.identifier,
+            accessCode: findReservationResult.ticket.movieTicket.accessCode,
+            serviceType: findReservationResult.ticket.movieTicket.serviceType,
+            serviceOutput: {
+                reservationFor: {
+                    typeOf: pendingReservation.reservationFor.typeOf,
+                    id: pendingReservation.reservationFor.id
+                },
+                reservedTicket: { ticketedSeat: pendingReservation.reservedTicket.ticketedSeat }
+            }
+        });
+    });
+
+    return results;
 }

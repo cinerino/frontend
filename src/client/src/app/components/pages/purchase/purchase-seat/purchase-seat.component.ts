@@ -89,7 +89,7 @@ export class PurchaseSeatComponent implements OnInit {
                 return new Reservation({
                     seat: reservation.seat,
                     ticket: (reservation.ticket === undefined)
-                        ? purchase.screeningEventTicketOffers[0]
+                        ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
                         : reservation.ticket
                 });
             });

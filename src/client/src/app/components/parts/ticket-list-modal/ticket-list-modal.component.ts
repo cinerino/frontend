@@ -1,6 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
+import { IMovieTicket } from '@cinerino/factory/lib/factory/paymentMethod/paymentCard/movieTicket';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { IReservationTicket, Reservation } from '../../../models';
+
+type IMovieTicketTypeChargeSpecification =
+    factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification>;
 
 @Component({
     selector: 'app-ticket-list-modal',
@@ -9,13 +14,58 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class TicketListModalComponent implements OnInit {
 
-    @Input() public screeningEventTicketOffers: factory.chevre.ticketType.ITicketType[];
+    @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
+    @Input() public checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
+    @Input() public reservations: Reservation[];
+    public tickets: IReservationTicket[];
 
     constructor(
         public activeModal: NgbActiveModal
     ) { }
 
-    public ngOnInit() {}
+    public ngOnInit() {
+        this.tickets = [];
+        this.screeningEventTicketOffers.forEach((ticketOffer) => {
+            const movieTicketTypeChargeSpecification = <IMovieTicketTypeChargeSpecification>ticketOffer.priceSpecification.priceComponent
+                .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification)
+                .shift();
+            if (movieTicketTypeChargeSpecification === undefined) {
+                // ムビチケ以外
+                this.tickets.push({ ticketOffer });
+                return;
+            }
+
+            // 対象ムビチケ券
+            const movieTickets: IMovieTicket[] = [];
+            this.checkMovieTicketActions.forEach((checkMovieTicketAction) => {
+                if (checkMovieTicketAction.result === undefined) {
+                    return;
+                }
+                checkMovieTicketAction.result.movieTickets.forEach((movieTicket) => {
+                    if (movieTicket.serviceType === movieTicketTypeChargeSpecification.appliesToMovieTicketType) {
+                        movieTickets.push(movieTicket);
+                    }
+                });
+            });
+
+            // 選択中の対象ムビチケ券
+            const reservations = this.reservations.filter((reservation) => {
+                if (reservation.ticket === undefined
+                    || reservation.ticket.movieTicket === undefined) {
+                    return false;
+                }
+                return (movieTicketTypeChargeSpecification.appliesToMovieTicketType
+                    === reservation.ticket.movieTicket.serviceType);
+            });
+
+            movieTickets.forEach((movieTicket, index) => {
+                if (index >= (movieTickets.length - reservations.length)) {
+                    return;
+                }
+                this.tickets.push({ ticketOffer, movieTicket });
+            });
+        });
+    }
 
     /**
      * 券種金額取得

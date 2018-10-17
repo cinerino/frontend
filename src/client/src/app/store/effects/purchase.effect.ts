@@ -6,7 +6,12 @@ import { map, mergeMap } from 'rxjs/operators';
 import { IScreen } from '../../models';
 import { CinerinoService } from '../../services/cinerino.service';
 import * as purchase from '../actions/purchase.action';
-import { createGmoTokenObject, createOrderId, formatTelephone } from '../functions';
+import {
+    createGmoTokenObject,
+    createMovieTicketsFromAuthorizeSeatReservation,
+    createOrderId,
+    formatTelephone
+} from '../functions';
 /**
  * Purchase Effects
  */
@@ -126,7 +131,7 @@ export class PurchaseEffects {
                             throw new Error('ticket is undefined');
                         }
                         return {
-                            id: reservation.ticket.id,
+                            id: reservation.ticket.ticketOffer.id,
                             ticketedSeat: <any>{
                                 seatNumber: reservation.seat.seatNumber,
                                 seatSection: reservation.seat.seatSection
@@ -250,19 +255,67 @@ export class PurchaseEffects {
                     });
                 }
                 const transaction = payload.transaction;
+                const reservations = payload.reservations;
+                const authorizeSeatReservation = payload.authorizeSeatReservation;
                 const authorizeMovieTicketPayment =
                     await this.cinerino.transaction.placeOrder.authorizeMovieTicketPayment({
                         transactionId: transaction.id,
-                        event: {
-                            id: payload.screeningEvent.id
-                        },
                         typeOf: factory.action.authorize.paymentMethod.movieTicket.ObjectType.MovieTicket,
-                        knyknrNoInfoIn: payload.knyknrNoInfoIn
+                        movieTickets: createMovieTicketsFromAuthorizeSeatReservation({
+                            authorizeSeatReservation, reservations
+                        })
                     });
 
                 return new purchase.AuthorizeMovieTicketSuccess({ authorizeMovieTicketPayment });
             } catch (error) {
                 return new purchase.AuthorizeMovieTicketFail({ error: error });
+            }
+        })
+    );
+    /**
+     * checkMovieTicket
+     */
+    @Effect()
+    public checkMovieTicket = this.actions.pipe(
+        ofType<purchase.CheckMovieTicket>(purchase.ActionTypes.CheckMovieTicket),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                await this.cinerino.getServices();
+                const screeningEvent = payload.screeningEvent;
+                const movieTickets = payload.movieTickets;
+                const checkMovieTicketAction = await this.cinerino.payment.checkMovieTicket({
+                    typeOf: factory.paymentMethodType.MovieTicket,
+                    movieTickets: movieTickets.map((movieTicket) => {
+                        return {
+                            ...movieTicket,
+                            serviceType: '', // 情報空でよし
+                            serviceOutput: {
+                                reservationFor: {
+                                    typeOf: screeningEvent.typeOf,
+                                    id: screeningEvent.id
+                                },
+                                reservedTicket: {
+                                    ticketedSeat: {
+                                        typeOf: factory.chevre.placeType.Seat,
+                                        seatingType: '', // 情報空でよし
+                                        seatNumber: '', // 情報空でよし
+                                        seatRow: '', // 情報空でよし
+                                        seatSection: '' // 情報空でよし
+                                    }
+                                }
+                            }
+                        };
+                    }),
+                    seller: {
+                        typeOf: payload.transaction.seller.typeOf,
+                        id: payload.transaction.seller.id
+                    }
+                });
+
+                return new purchase.CheckMovieTicketSuccess({ checkMovieTicketAction });
+            } catch (error) {
+                return new purchase.CheckMovieTicketFail({ error: error });
             }
         })
     );

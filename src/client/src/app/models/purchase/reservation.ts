@@ -1,4 +1,5 @@
 import { factory } from '@cinerino/api-javascript-client';
+import { IMovieTicket } from '@cinerino/factory/lib/factory/paymentMethod/paymentCard/movieTicket';
 
 /**
  * Reservation
@@ -19,7 +20,7 @@ export class Reservation {
         if (this.ticket === undefined) {
             return false;
         }
-        const movieTicketTypeChargeSpecification = this.ticket.priceSpecification.priceComponent.find(
+        const movieTicketTypeChargeSpecification = this.ticket.ticketOffer.priceSpecification.priceComponent.find(
             (component) => component.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification
         );
 
@@ -38,16 +39,16 @@ export class Reservation {
                 total: 0
             };
         }
-        const unitPriceSpecification = this.ticket.priceSpecification.priceComponent
+        const unitPriceSpecification = this.ticket.ticketOffer.priceSpecification.priceComponent
             .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.UnitPriceSpecification)
             .shift();
-        const videoFormatCharge = this.ticket.priceSpecification.priceComponent
+        const videoFormatCharge = this.ticket.ticketOffer.priceSpecification.priceComponent
             .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.VideoFormatChargeSpecification)
             .shift();
-        const soundFormatCharge = this.ticket.priceSpecification.priceComponent
+        const soundFormatCharge = this.ticket.ticketOffer.priceSpecification.priceComponent
             .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.SoundFormatChargeSpecification)
             .shift();
-        const movieTicketTypeCharge = this.ticket.priceSpecification.priceComponent
+        const movieTicketTypeCharge = this.ticket.ticketOffer.priceSpecification.priceComponent
             .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification)
             .shift();
         const price = {
@@ -75,4 +76,7 @@ export interface IReservationSeat {
 /**
  * IReservationTicket
  */
-export type IReservationTicket = factory.chevre.event.screeningEvent.ITicketOffer;
+export interface IReservationTicket {
+    ticketOffer: factory.chevre.event.screeningEvent.ITicketOffer;
+    movieTicket?: IMovieTicket;
+}

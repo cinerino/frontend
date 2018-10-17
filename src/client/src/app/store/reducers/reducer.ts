@@ -7,8 +7,10 @@ import * as user from '../actions/user.action';
 import {
     createscreeningEventDates,
     createScreeningFilmEvents,
+    isAvailabilityMovieTicket,
     IScreeningEventDate,
-    IScreeningEventFilm
+    IScreeningEventFilm,
+    sameMovieTicketFilter
 } from '../functions';
 
 /**
@@ -34,6 +36,8 @@ export interface IPurchaseState {
     gmoTokenObject?: any;
     orderCount: number;
     result?: IResult;
+    checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
+    checkMovieTicketAction?: factory.action.check.paymentMethod.movieTicket.IAction;
 }
 
 export interface IHistoryState {
@@ -65,7 +69,8 @@ export const initialState: IState = {
         screeningEventOffers: [],
         reservations: [],
         screeningEventTicketOffers: [],
-        orderCount: 0
+        orderCount: 0,
+        checkMovieTicketActions: []
     },
     history: {
         purchase: []
@@ -112,7 +117,8 @@ export function reducer(
                     screeningEventOffers: [],
                     reservations: [],
                     screeningEventTicketOffers: [],
-                    orderCount: 0
+                    orderCount: 0,
+                    checkMovieTicketActions: []
                 },
                 history: {
                     purchase: state.history.purchase
@@ -330,6 +336,32 @@ export function reducer(
             };
         }
         case purchase.ActionTypes.AuthorizeMovieTicketFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, error: JSON.stringify(error) };
+        }
+        case purchase.ActionTypes.CheckMovieTicket: {
+            return { ...state, loading: true };
+        }
+        case purchase.ActionTypes.CheckMovieTicketSuccess: {
+            const checkMovieTicketAction = action.payload.checkMovieTicketAction;
+            const checkMovieTicketActions = state.purchase.checkMovieTicketActions;
+            const sameMovieTicketFilterResults = sameMovieTicketFilter({
+                checkMovieTicketAction, checkMovieTicketActions
+            });
+            console.log(sameMovieTicketFilterResults.length, isAvailabilityMovieTicket(checkMovieTicketAction));
+            if (sameMovieTicketFilterResults.length === 0
+                && isAvailabilityMovieTicket(checkMovieTicketAction)) {
+                state.purchase.checkMovieTicketActions.push(checkMovieTicketAction);
+            }
+
+            return {
+                ...state, loading: false, error: null, purchase: {
+                    ...state.purchase,
+                    checkMovieTicketAction: checkMovieTicketAction
+                }
+            };
+        }
+        case purchase.ActionTypes.CheckMovieTicketFail: {
             const error = action.payload.error;
             return { ...state, loading: false, error: JSON.stringify(error) };
         }

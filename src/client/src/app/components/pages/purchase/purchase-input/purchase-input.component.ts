@@ -245,15 +245,16 @@ export class PurchaseInputComponent implements OnInit {
     private authorizeMovieTicket() {
         this.purchase.subscribe((purchase) => {
             if (purchase.transaction === undefined
-                || purchase.screeningEvent === undefined) {
+                || purchase.screeningEvent === undefined
+                || purchase.authorizeSeatReservation === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
             this.store.dispatch(new AuthorizeMovieTicket({
                 transaction: purchase.transaction,
                 authorizeMovieTicketPayment: purchase.authorizeMovieTicketPayment,
-                screeningEvent: purchase.screeningEvent,
-                knyknrNoInfoIn: [{ knyknrNo: '3472695908', pinCd: '7648' }]
+                authorizeSeatReservation: purchase.authorizeSeatReservation,
+                reservations: purchase.reservations
             }));
         }).unsubscribe();
 

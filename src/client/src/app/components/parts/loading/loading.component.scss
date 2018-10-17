@@ -1,6 +1,7 @@
 .cover {
     background-color: rgba(0, 0, 0, 0.7);
     animation: fadein 0.2s both;
+    z-index: 2000;
 }
 
 .loading {
@@ -8,6 +9,7 @@
     opacity: 1;
     align-items: center;
     justify-content: center;
+    z-index: 2000;
 }
 
 .loader,

@@ -15,6 +15,7 @@ export class CinerinoService {
     public ownershipInfo: cinerino.service.person.OwnershipInfo;
     public reservation: cinerino.service.Reservation;
     public task: cinerino.service.Task;
+    public payment: cinerino.service.Payment;
     public transaction: {
         placeOrder: cinerino.service.transaction.PlaceOrder,
         returnOrder: cinerino.service.transaction.ReturnOrder
@@ -37,6 +38,7 @@ export class CinerinoService {
             this.ownershipInfo = new cinerino.service.person.OwnershipInfo(option);
             this.reservation = new cinerino.service.Reservation(option);
             this.task = new cinerino.service.Task(option);
+            this.payment = new cinerino.service.Payment(option);
             this.transaction = {
                 placeOrder: new cinerino.service.transaction.PlaceOrder(option),
                 returnOrder: new cinerino.service.transaction.ReturnOrder(option)

@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { factory } from '@cinerino/api-javascript-client';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { Reservation } from '../../../../models/purchase/reservation';
+import { IReservationTicket, Reservation } from '../../../../models/purchase/reservation';
 import { ActionTypes, SelectTicket, TemporaryReservation } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
 import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
+import { MvtkCheckModalComponent } from '../../../parts/mvtk-check-modal/mvtk-check-modal.component';
 import { TicketListModalComponent } from '../../../parts/ticket-list-modal/ticket-list-modal.component';
 
 @Component({
@@ -82,11 +82,20 @@ export class PurchaseTicketComponent implements OnInit {
         });
         this.purchase.subscribe((purchase) => {
             modalRef.componentInstance.screeningEventTicketOffers = purchase.screeningEventTicketOffers;
-            modalRef.result.then((ticket: factory.chevre.event.screeningEvent.ITicketOffer) => {
+            modalRef.componentInstance.checkMovieTicketActions = purchase.checkMovieTicketActions;
+            modalRef.componentInstance.reservations = purchase.reservations;
+
+            modalRef.result.then((ticket: IReservationTicket) => {
                 reservation.ticket = ticket;
                 this.store.dispatch(new SelectTicket({ reservation }));
-            });
+            }).catch(() => { });
         }).unsubscribe();
+    }
+
+    public openMovieTicket() {
+        this.modal.open(MvtkCheckModalComponent, {
+            centered: true
+        });
     }
 
     public openAlert(args: {

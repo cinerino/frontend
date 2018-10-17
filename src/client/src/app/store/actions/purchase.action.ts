@@ -1,6 +1,5 @@
 import { IAuthorizeAction } from '@cinerino/api-abstract-client/lib/service/transaction/placeOrder';
 import { factory } from '@cinerino/api-javascript-client';
-import { IKnyknrNoInfoIn } from '@cinerino/factory/lib/factory/action/authorize/paymentMethod/movieTicket';
 import { IResult } from '@cinerino/factory/lib/factory/transaction/placeOrder';
 import { Action } from '@ngrx/store';
 import { IReservationSeat, IScreen, Reservation } from '../../models';
@@ -44,6 +43,9 @@ export enum ActionTypes {
     AuthorizeMovieTicket = '[Purchase] Authorize Movie Ticket',
     AuthorizeMovieTicketSuccess = '[Purchase] Authorize Movie Ticket Success',
     AuthorizeMovieTicketFail = '[Purchase] Authorize Movie Ticket Fail',
+    CheckMovieTicket = '[Purchase] Check Movie Ticket',
+    CheckMovieTicketSuccess = '[Purchase] Check Movie Ticket Success',
+    CheckMovieTicketFail = '[Purchase] Check Movie Ticket Fail',
     Reserve = '[Purchase] Reserve',
     ReserveSuccess = '[Purchase] Reserve Success',
     ReserveFail = '[Purchase] Reserve Fail',
@@ -349,9 +351,9 @@ export class AuthorizeMovieTicket implements Action {
     public readonly type = ActionTypes.AuthorizeMovieTicket;
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
-        knyknrNoInfoIn: IKnyknrNoInfoIn[];
         authorizeMovieTicketPayment?: IAuthorizeAction;
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction;
+        reservations: Reservation[];
     }) { }
 }
 
@@ -368,6 +370,38 @@ export class AuthorizeMovieTicketSuccess implements Action {
  */
 export class AuthorizeMovieTicketFail implements Action {
     public readonly type = ActionTypes.AuthorizeMovieTicketFail;
+    constructor(public payload: { error: Error; }) { }
+}
+
+/**
+ * CheckMovieTicket
+ */
+export class CheckMovieTicket implements Action {
+    public readonly type = ActionTypes.CheckMovieTicket;
+    constructor(public payload: {
+        transaction: factory.transaction.placeOrder.ITransaction;
+        movieTickets: {
+            typeOf: factory.paymentMethodType.MovieTicket;
+            identifier: string;
+            accessCode: string;
+        }[];
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+    }) { }
+}
+
+/**
+ * CheckMovieTicketSuccess
+ */
+export class CheckMovieTicketSuccess implements Action {
+    public readonly type = ActionTypes.CheckMovieTicketSuccess;
+    constructor(public payload: { checkMovieTicketAction: factory.action.check.paymentMethod.movieTicket.IAction }) { }
+}
+
+/**
+ * CheckMovieTicketFail
+ */
+export class CheckMovieTicketFail implements Action {
+    public readonly type = ActionTypes.CheckMovieTicketFail;
     constructor(public payload: { error: Error; }) { }
 }
 
@@ -491,6 +525,9 @@ export type Actions =
     | AuthorizeMovieTicket
     | AuthorizeMovieTicketSuccess
     | AuthorizeMovieTicketFail
+    | CheckMovieTicket
+    | CheckMovieTicketSuccess
+    | CheckMovieTicketFail
     | Reserve
     | ReserveSuccess
     | ReserveFail
