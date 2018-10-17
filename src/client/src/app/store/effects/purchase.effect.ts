@@ -224,7 +224,7 @@ export class PurchaseEffects {
                 const authorizeCreditCardPayment =
                     await this.cinerino.transaction.placeOrder.authorizeCreditCardPayment({
                         transactionId: transaction.id,
-                        typeOf: factory.action.authorize.paymentMethod.creditCard.ObjectType.CreditCard,
+                        typeOf: factory.paymentMethodType.CreditCard,
                         orderId,
                         amount: payload.amount,
                         method: <any>'1',
@@ -260,7 +260,7 @@ export class PurchaseEffects {
                 const authorizeMovieTicketPayment =
                     await this.cinerino.transaction.placeOrder.authorizeMovieTicketPayment({
                         transactionId: transaction.id,
-                        typeOf: factory.action.authorize.paymentMethod.movieTicket.ObjectType.MovieTicket,
+                        typeOf: factory.paymentMethodType.MovieTicket,
                         movieTickets: createMovieTicketsFromAuthorizeSeatReservation({
                             authorizeSeatReservation, reservations
                         })
