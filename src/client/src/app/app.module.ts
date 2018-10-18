@@ -91,7 +91,7 @@ import { CoreStoreModule } from './store/core/store';
         SwiperModule,
         StoreModule,
         CoreStoreModule,
-        NgbModule.forRoot()
+        NgbModule
     ],
     providers: [],
     bootstrap: [AppComponent]
