@@ -11,21 +11,21 @@
                         <label class="mb-2" for="">セイ</label>
                         <input type="text" class="form-control" formControlName="familyName" placeholder="モーション">
                         <div *ngIf="customerContactForm.controls.familyName.invalid && customerContactForm.controls.familyName.touched" class="mt-2">
-                            <p *ngIf="customerContactForm.controls.familyName.errors.required" class="text-danger">せいが未入力です</p>
-                            <p *ngIf="customerContactForm.controls.familyName.errors.maxlength" class="text-danger">せいは{{
+                            <p *ngIf="customerContactForm.controls.familyName.errors.required" class="text-danger">セイが未入力です</p>
+                            <p *ngIf="customerContactForm.controls.familyName.errors.maxlength" class="text-danger">セイは{{
                                 customerContactForm.controls.familyName.errors.maxlength.requiredLength }}文字以下で入力してください</p>
-                            <p *ngIf="customerContactForm.controls.familyName.errors.pattern" class="text-danger">せいは全角ひらがなで入力してください</p>
+                            <p *ngIf="customerContactForm.controls.familyName.errors.pattern" class="text-danger">セイは全角カタカナで入力してください</p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="mb-2" for="">メイ</label>
                         <input type="text" class="form-control" formControlName="givenName" placeholder="ピクチャー">
                         <div *ngIf="customerContactForm.controls.givenName.invalid && customerContactForm.controls.givenName.touched" class="mt-2">
-                            <p *ngIf="customerContactForm.controls.givenName.errors.required" class="text-danger">めいが未入力です</p>
-                            <p *ngIf="customerContactForm.controls.givenName.errors.maxlength" class="text-danger">めいは{{
+                            <p *ngIf="customerContactForm.controls.givenName.errors.required" class="text-danger">メイが未入力です</p>
+                            <p *ngIf="customerContactForm.controls.givenName.errors.maxlength" class="text-danger">メイは{{
                                 customerContactForm.controls.givenName.errors.maxlength.requiredLength }}文字以下で入力してください
                             </p>
-                            <p *ngIf="customerContactForm.controls.givenName.errors.pattern" class="text-danger">めいは全角ひらがなで入力してください
+                            <p *ngIf="customerContactForm.controls.givenName.errors.pattern" class="text-danger">メイは全角カタカナで入力してください
                             </p>
                         </div>
                     </div>

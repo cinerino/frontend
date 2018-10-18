@@ -50,8 +50,8 @@ export class PurchaseInputComponent implements OnInit {
         this.createCustomerContactForm();
         this.createPaymentForm();
         if (environment.ENV === 'local') {
-            this.customerContactForm.controls.familyName.setValue('はたぐち');
-            this.customerContactForm.controls.givenName.setValue('あきと');
+            this.customerContactForm.controls.familyName.setValue('ハタグチ');
+            this.customerContactForm.controls.givenName.setValue('アキト');
             this.customerContactForm.controls.email.setValue('hataguchi@motionpicture.jp');
             this.customerContactForm.controls.telephone.setValue('0362778824');
             this.paymentForm.controls.cardNumber.setValue('4111111111111111');
@@ -69,12 +69,12 @@ export class PurchaseInputComponent implements OnInit {
             familyName: ['', [
                 Validators.required,
                 Validators.maxLength(NAME_MAX_LENGTH),
-                Validators.pattern(/^[ぁ-ゞー]+$/)
+                Validators.pattern(/^[ァ-ヶー]+$/)
             ]],
             givenName: ['', [
                 Validators.required,
                 Validators.maxLength(NAME_MAX_LENGTH),
-                Validators.pattern(/^[ぁ-ゞー]+$/)
+                Validators.pattern(/^[ァ-ヶー]+$/)
             ]],
             email: ['', [
                 Validators.required,
@@ -139,7 +139,7 @@ export class PurchaseInputComponent implements OnInit {
             });
             return;
         }
-        if (this.paymentForm.invalid) {
+        if (this.amount > 0 && this.paymentForm.invalid) {
             this.openAlert({
                 title: 'エラー',
                 body: '決済情報に誤りがあります。'
