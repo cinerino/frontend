@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
-import { IMovieTicket } from '@cinerino/factory/lib/factory/paymentMethod/paymentCard/movieTicket';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { IReservationTicket, Reservation } from '../../../models';
 
@@ -36,7 +35,7 @@ export class TicketListModalComponent implements OnInit {
             }
 
             // 対象ムビチケ券
-            const movieTickets: IMovieTicket[] = [];
+            const movieTickets: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
             this.checkMovieTicketActions.forEach((checkMovieTicketAction) => {
                 if (checkMovieTicketAction.result === undefined) {
                     return;

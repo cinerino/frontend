@@ -1,5 +1,4 @@
 import { factory } from '@cinerino/api-javascript-client';
-import { IMovieTicket } from '@cinerino/factory/lib/factory/paymentMethod/paymentCard/movieTicket';
 import * as libphonenumber from 'libphonenumber-js';
 import * as moment from 'moment';
 import { Reservation } from '../../models';
@@ -179,7 +178,7 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
     authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction;
     reservations: Reservation[];
 }) {
-    const results: IMovieTicket[] = [];
+    const results: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
     const authorizeSeatReservation = args.authorizeSeatReservation;
     const reservations = args.reservations;
     if (authorizeSeatReservation.result === undefined) {

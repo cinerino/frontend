@@ -1,5 +1,4 @@
 import { factory } from '@cinerino/api-javascript-client';
-import { IMovieTicket } from '@cinerino/factory/lib/factory/paymentMethod/paymentCard/movieTicket';
 
 /**
  * Reservation
@@ -81,5 +80,5 @@ export interface IReservationSeat {
  */
 export interface IReservationTicket {
     ticketOffer: factory.chevre.event.screeningEvent.ITicketOffer;
-    movieTicket?: IMovieTicket;
+    movieTicket?: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket;
 }
