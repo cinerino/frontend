@@ -31,37 +31,40 @@ export class Reservation {
      * 券種金額取得
      */
     public getTicketPrice() {
-        if (this.ticket === undefined) {
-            return {
-                unitPriceSpecification: 0,
-                videoFormatCharge: 0,
-                soundFormatCharge: 0,
-                total: 0
-            };
-        }
-        const unitPriceSpecification = this.ticket.ticketOffer.priceSpecification.priceComponent
-            .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.UnitPriceSpecification)
-            .shift();
-        const videoFormatCharge = this.ticket.ticketOffer.priceSpecification.priceComponent
-            .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.VideoFormatChargeSpecification)
-            .shift();
-        const soundFormatCharge = this.ticket.ticketOffer.priceSpecification.priceComponent
-            .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.SoundFormatChargeSpecification)
-            .shift();
-        const movieTicketTypeCharge = this.ticket.ticketOffer.priceSpecification.priceComponent
-            .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification)
-            .shift();
-        const price = {
-            unitPriceSpecification: (unitPriceSpecification === undefined) ? 0 : unitPriceSpecification.price,
-            videoFormatCharge: (videoFormatCharge === undefined) ? 0 : videoFormatCharge.price,
-            soundFormatCharge: (soundFormatCharge === undefined) ? 0 : soundFormatCharge.price,
-            movieTicketTypeCharge: (movieTicketTypeCharge === undefined) ? 0 : movieTicketTypeCharge.price,
+        const result = {
+            unitPriceSpecification: 0,
+            videoFormatCharge: 0,
+            soundFormatCharge: 0,
+            movieTicketTypeCharge: 0,
             total: 0
         };
+        if (this.ticket === undefined) {
+            return result;
+        }
+        const unitPriceSpecifications = this.ticket.ticketOffer.priceSpecification.priceComponent
+            .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.UnitPriceSpecification);
+        const videoFormatCharges = this.ticket.ticketOffer.priceSpecification.priceComponent
+            .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.VideoFormatChargeSpecification);
+        const soundFormatCharges = this.ticket.ticketOffer.priceSpecification.priceComponent
+            .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.SoundFormatChargeSpecification);
+        const movieTicketTypeCharges = this.ticket.ticketOffer.priceSpecification.priceComponent
+            .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
 
-        price.total = price.unitPriceSpecification + price.videoFormatCharge + price.soundFormatCharge + price.movieTicketTypeCharge;
+        unitPriceSpecifications.forEach((unitPriceSpecification) => {
+            result.unitPriceSpecification += unitPriceSpecification.price;
+        });
+        videoFormatCharges.forEach((videoFormatCharge) => {
+            result.videoFormatCharge += videoFormatCharge.price;
+        });
+        soundFormatCharges.forEach((soundFormatCharge) => {
+            result.soundFormatCharge += soundFormatCharge.price;
+        });
+        movieTicketTypeCharges.forEach((movieTicketTypeCharge) => {
+            result.movieTicketTypeCharge += movieTicketTypeCharge.price;
+        });
+        result.total = result.unitPriceSpecification + result.videoFormatCharge + result.soundFormatCharge + result.movieTicketTypeCharge;
 
-        return price;
+        return result;
     }
 }
 
