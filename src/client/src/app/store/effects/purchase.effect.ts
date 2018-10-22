@@ -259,6 +259,7 @@ export class PurchaseEffects {
                 const authorizeSeatReservation = payload.authorizeSeatReservation;
                 const authorizeMovieTicketPayment =
                     await this.cinerino.transaction.placeOrder.authorizeMovieTicketPayment({
+                        amount: 0,
                         transactionId: transaction.id,
                         typeOf: factory.paymentMethodType.MovieTicket,
                         movieTickets: createMovieTicketsFromAuthorizeSeatReservation({

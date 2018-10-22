@@ -1,11 +1,11 @@
 @import '../../../../../assets/scss/theme';
 
 .theaters {
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 15px;
+    grid-gap: 1rem;
     @include media-breakpoint-down(sm) {
         grid-template-columns: 1fr;
-        grid-gap: 10px
     }
 }
 
