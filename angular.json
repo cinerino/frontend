@@ -5,23 +5,23 @@
   "projects": {
     "frontend": {
       "root": "src/client",
-      "sourceRoot": "src/client/src",
+      "sourceRoot": "src/client",
       "projectType": "application",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/client",
-            "index": "src/client/src/index.html",
-            "main": "src/client/src/main.ts",
-            "tsConfig": "src/client/src/tsconfig.app.json",
-            "polyfills": "src/client/src/polyfills.ts",
+            "index": "src/client/index.html",
+            "main": "src/client/main.ts",
+            "tsConfig": "src/client/tsconfig.app.json",
+            "polyfills": "src/client/polyfills.ts",
             "assets": [
-              "src/client/src/assets",
-              "src/client/src/favicon.ico"
+              "src/client/assets",
+              "src/client/favicon.ico"
             ],
             "styles": [
-              "src/client/src/styles.scss",
+              "src/client/styles.scss",
               "node_modules/swiper/dist/css/swiper.css"
             ],
             "scripts": [
@@ -34,8 +34,8 @@
               "watch": true,
               "fileReplacements": [
                 {
-                  "replace": "src/client/src/environments/environment.ts",
-                  "with": "src/client/src/environments/environment.local.ts"
+                  "replace": "src/client/environments/environment.ts",
+                  "with": "src/client/environments/environment.local.ts"
                 }
               ]
             },
@@ -83,20 +83,20 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/client/src/test.ts",
+            "main": "src/client/test.ts",
             "karmaConfig": "src/client/karma.conf.js",
-            "polyfills": "src/client/src/polyfills.ts",
-            "tsConfig": "src/client/src/tsconfig.spec.json",
+            "polyfills": "src/client/polyfills.ts",
+            "tsConfig": "src/client/tsconfig.spec.json",
             "scripts": [
               "node_modules/swiper/dist/js/swiper.js"
             ],
             "styles": [
-              "src/client/src/styles.scss",
+              "src/client/styles.scss",
               "node_modules/swiper/dist/css/swiper.css"
             ],
             "assets": [
-              "src/client/src/assets",
-              "src/client/src/favicon.ico"
+              "src/client/assets",
+              "src/client/favicon.ico"
             ]
           }
         },
