@@ -19,11 +19,8 @@ export class Reservation {
         if (this.ticket === undefined) {
             return false;
         }
-        const movieTicketTypeChargeSpecification = this.ticket.ticketOffer.priceSpecification.priceComponent.find(
-            (component) => component.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification
-        );
 
-        return (movieTicketTypeChargeSpecification !== undefined);
+        return (this.ticket.movieTicket !== undefined);
     }
 
     /**
