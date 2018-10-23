@@ -1,5 +1,4 @@
 import { factory } from '@cinerino/api-javascript-client';
-import * as libphonenumber from 'libphonenumber-js';
 import * as moment from 'moment';
 import { Reservation } from '../../models';
 
@@ -68,15 +67,6 @@ export function createScreeningFilmEvents(params: {
     });
 
     return films;
-}
-
-/**
- * 電話番号変換
- */
-export function formatTelephone(telephone: string) {
-    const parseNumber = libphonenumber.parse(telephone, 'JP');
-
-    return libphonenumber.format(parseNumber, 'International').replace(/\s/g, '');
 }
 
 /**

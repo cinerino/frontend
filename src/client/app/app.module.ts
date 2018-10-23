@@ -16,6 +16,8 @@ import { AuthSigninComponent } from './components/pages/auth/auth-signin/auth-si
 import { AuthSignoutComponent } from './components/pages/auth/auth-signout/auth-signout.component';
 import { BaseComponent } from './components/pages/base/base.component';
 import { ErrorComponent } from './components/pages/error/error.component';
+import { InquiryConfirmComponent } from './components/pages/inquiry/inquiry-confirm/inquiry-confirm.component';
+import { InquiryInputComponent } from './components/pages/inquiry/inquiry-input/inquiry-input.component';
 import { NotfoundComponent } from './components/pages/notfound/notfound.component';
 import { PurchaseBaseComponent } from './components/pages/purchase/purchase-base/purchase-base.component';
 import { PurchaseCompleteComponent } from './components/pages/purchase/purchase-complete/purchase-complete.component';
@@ -25,6 +27,7 @@ import { PurchaseInputComponent } from './components/pages/purchase/purchase-inp
 import { PurchaseScheduleComponent } from './components/pages/purchase/purchase-schedule/purchase-schedule.component';
 import { PurchaseSeatComponent } from './components/pages/purchase/purchase-seat/purchase-seat.component';
 import { PurchaseTicketComponent } from './components/pages/purchase/purchase-ticket/purchase-ticket.component';
+import { SettingComponent } from './components/pages/setting/setting.component';
 import { AlertModalComponent } from './components/parts/alert-modal/alert-modal.component';
 import { ConfirmModalComponent } from './components/parts/confirm-modal/confirm-modal.component';
 import { ContentsComponent } from './components/parts/contents/contents.component';
@@ -73,7 +76,10 @@ import { CoreStoreModule } from './store/core/store';
         ConfirmModalComponent,
         PurchaseHistoryComponent,
         PurchaseDetailModalComponent,
-        MvtkCheckModalComponent
+        MvtkCheckModalComponent,
+        SettingComponent,
+        InquiryInputComponent,
+        InquiryConfirmComponent
     ],
     entryComponents: [
         TicketListModalComponent,

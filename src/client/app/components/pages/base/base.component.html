@@ -1,5 +1,7 @@
 <app-header></app-header>
-<app-contents>
+<app-purchase-contents>
     <router-outlet></router-outlet>
     <app-footer></app-footer>
-</app-contents>
+</app-purchase-contents>
+
+<app-loading [show]="isLoading | async"></app-loading>

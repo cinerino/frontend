@@ -2,6 +2,7 @@ import { IAuthorizeAction } from '@cinerino/api-abstract-client/lib/service/tran
 import { factory } from '@cinerino/api-javascript-client';
 import { IResult } from '@cinerino/factory/lib/factory/transaction/placeOrder';
 import { IScreen, Reservation } from '../../models';
+import * as inquiry from '../actions/inquiry.action';
 import * as purchase from '../actions/purchase.action';
 import * as user from '../actions/user.action';
 import {
@@ -44,6 +45,10 @@ export interface IHistoryState {
     purchase: factory.order.IOrder[];
 }
 
+export interface IInquiryState {
+    order?: factory.order.IOrder;
+}
+
 /**
  * State
  */
@@ -52,6 +57,7 @@ export interface IState {
     error: string | null;
     purchase: IPurchaseState;
     history: IHistoryState;
+    inquiry: IInquiryState;
     user: any;
 }
 
@@ -75,6 +81,7 @@ export const initialState: IState = {
     history: {
         purchase: []
     },
+    inquiry: {},
     user: null
 };
 
@@ -92,6 +99,7 @@ function getInitialState(): IState {
         error: data.App.error,
         purchase: data.App.purchase,
         history: data.App.history,
+        inquiry: data.App.inquiry,
         user: data.App.user
     };
 }
@@ -103,7 +111,7 @@ function getInitialState(): IState {
  */
 export function reducer(
     state = getInitialState(),
-    action: purchase.Actions | user.Actions
+    action: purchase.Actions | user.Actions | inquiry.Actions
 ): IState {
     switch (action.type) {
         case purchase.ActionTypes.Delete: {
@@ -123,6 +131,7 @@ export function reducer(
                 history: {
                     purchase: state.history.purchase
                 },
+                inquiry: {},
                 user: state.user,
                 error: state.error
             };
@@ -417,6 +426,24 @@ export function reducer(
             const error = action.payload.error;
             return { ...state, loading: false, error: JSON.stringify(error) };
         }
+        case inquiry.ActionTypes.Delete: {
+            return { ...state, loading: false, inquiry: {
+                order: undefined
+            } };
+        }
+        case inquiry.ActionTypes.Inquiry: {
+            return { ...state, loading: true };
+        }
+        case inquiry.ActionTypes.InquirySuccess: {
+            const order = action.payload.order;
+            return { ...state, loading: false, error: null, inquiry: {
+                order
+            } };
+        }
+        case inquiry.ActionTypes.InquiryFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, error: JSON.stringify(error) };
+        }
         case user.ActionTypes.Load: {
             return { ...state, loading: true };
         }
@@ -450,3 +477,4 @@ export const getLoading = (state: IState) => state.loading;
 export const getError = (state: IState) => state.error;
 export const getPurchase = (state: IState) => state.purchase;
 export const getHistory = (state: IState) => state.history;
+export const getInquiry = (state: IState) => state.inquiry;
