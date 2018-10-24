@@ -115,26 +115,18 @@ export function reducer(
 ): IState {
     switch (action.type) {
         case purchase.ActionTypes.Delete: {
-            return {
-                loading: state.loading,
-                purchase: {
-                    movieTheaters: [],
-                    screeningEvents: [],
-                    scheduleDates: [],
-                    screeningFilmEvents: [],
-                    screeningEventOffers: [],
-                    reservations: [],
-                    screeningEventTicketOffers: [],
-                    orderCount: 0,
-                    checkMovieTicketActions: []
-                },
-                history: {
-                    purchase: state.history.purchase
-                },
-                inquiry: {},
-                user: state.user,
-                error: state.error
+            state.purchase = {
+                movieTheaters: [],
+                screeningEvents: [],
+                scheduleDates: [],
+                screeningFilmEvents: [],
+                screeningEventOffers: [],
+                reservations: [],
+                screeningEventTicketOffers: [],
+                orderCount: 0,
+                checkMovieTicketActions: []
             };
+            return { ...state };
         }
         case purchase.ActionTypes.GetTheaters: {
             return { ...state, loading: true };
@@ -427,18 +419,22 @@ export function reducer(
             return { ...state, loading: false, error: JSON.stringify(error) };
         }
         case inquiry.ActionTypes.Delete: {
-            return { ...state, loading: false, inquiry: {
-                order: undefined
-            } };
+            return {
+                ...state, loading: false, inquiry: {
+                    order: undefined
+                }
+            };
         }
         case inquiry.ActionTypes.Inquiry: {
             return { ...state, loading: true };
         }
         case inquiry.ActionTypes.InquirySuccess: {
             const order = action.payload.order;
-            return { ...state, loading: false, error: null, inquiry: {
-                order
-            } };
+            return {
+                ...state, loading: false, error: null, inquiry: {
+                    order
+                }
+            };
         }
         case inquiry.ActionTypes.InquiryFail: {
             const error = action.payload.error;
