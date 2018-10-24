@@ -158,7 +158,16 @@ export class PurchaseEffects {
             try {
                 await this.cinerino.getServices();
                 const screeningEventTicketOffers = await this.cinerino.event.searchScreeningEventTicketOffers({
-                    eventId: payload.screeningEvent.id
+                    event: {
+                        id: payload.screeningEvent.id
+                    },
+                    seller: {
+                        typeOf: payload.movieTheater.typeOf,
+                        id: payload.movieTheater.id
+                    },
+                    store: {
+                        id: payload.clientId
+                    }
                 });
 
                 return new purchase.GetTicketListSuccess({ screeningEventTicketOffers });

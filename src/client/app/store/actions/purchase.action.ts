@@ -230,7 +230,11 @@ export class SelectTicket implements Action {
  */
 export class GetTicketList implements Action {
     public readonly type = ActionTypes.GetTicketList;
-    constructor(public payload: { screeningEvent: factory.chevre.event.screeningEvent.IEvent }) { }
+    constructor(public payload: {
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+        movieTheater: factory.organization.movieTheater.IOrganization;
+        clientId: string;
+    }) { }
 }
 
 /**
