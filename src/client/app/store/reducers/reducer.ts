@@ -419,11 +419,8 @@ export function reducer(
             return { ...state, loading: false, error: JSON.stringify(error) };
         }
         case inquiry.ActionTypes.Delete: {
-            return {
-                ...state, loading: false, inquiry: {
-                    order: undefined
-                }
-            };
+            state.inquiry = {};
+            return { ...state };
         }
         case inquiry.ActionTypes.Inquiry: {
             return { ...state, loading: true };
