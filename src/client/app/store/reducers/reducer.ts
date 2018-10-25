@@ -190,13 +190,11 @@ export function reducer(
             return { ...state, loading: true };
         }
         case purchase.ActionTypes.StartTransactionSuccess: {
-            const transaction = action.payload.transaction;
-            return {
-                ...state, loading: false, error: null, purchase: {
-                    ...state.purchase,
-                    transaction
-                }
-            };
+            state.purchase.transaction = action.payload.transaction;
+            state.purchase.screeningEvents = [];
+            state.purchase.movieTheaters = [];
+            state.purchase.screeningFilmEvents = [];
+            return { ...state, loading: false, error: null };
         }
         case purchase.ActionTypes.StartTransactionFail: {
             const error = action.payload.error;
