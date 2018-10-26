@@ -15,6 +15,7 @@ import * as reducers from '../../../../store/reducers';
 })
 export class PurchaseConfirmComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
+    public isLoading: Observable<boolean>;
     public moment: typeof moment = moment;
     constructor(
         private store: Store<reducers.IState>,
@@ -24,6 +25,7 @@ export class PurchaseConfirmComponent implements OnInit {
 
     public ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
     }
 
     public onSubmit() {

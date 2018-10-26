@@ -19,7 +19,7 @@ import { TicketListModalComponent } from '../../../parts/ticket-list-modal/ticke
 })
 export class PurchaseTicketComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
-
+    public isLoading: Observable<boolean>;
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
@@ -29,6 +29,7 @@ export class PurchaseTicketComponent implements OnInit {
 
     public ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
     }
 
     public onSubmit() {

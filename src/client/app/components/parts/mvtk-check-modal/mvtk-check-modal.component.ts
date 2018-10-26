@@ -16,6 +16,7 @@ import * as reducers from '../../../store/reducers';
 })
 export class MvtkCheckModalComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
+    public isLoading: Observable<boolean>;
     public mvtkForm: FormGroup;
     public errorMessage: string;
     public isSuccess: boolean;
@@ -29,6 +30,7 @@ export class MvtkCheckModalComponent implements OnInit {
     public ngOnInit() {
         this.errorMessage = '';
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.createMvtkForm();
     }
 

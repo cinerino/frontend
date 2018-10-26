@@ -20,6 +20,7 @@ import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.comp
 })
 export class PurchaseInputComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
+    public isLoading: Observable<boolean>;
     public customerContactForm: FormGroup;
     public paymentForm: FormGroup;
     public cardExpiration: {
@@ -39,6 +40,7 @@ export class PurchaseInputComponent implements OnInit {
     public ngOnInit() {
         this.amount = 0;
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.purchase.subscribe((purchase) => {
             if (purchase.authorizeSeatReservation === undefined
                 || purchase.authorizeSeatReservation.result === undefined) {

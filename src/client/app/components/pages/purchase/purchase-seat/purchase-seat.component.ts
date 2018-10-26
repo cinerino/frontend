@@ -25,6 +25,7 @@ import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.comp
 })
 export class PurchaseSeatComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
+    public isLoading: Observable<boolean>;
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
@@ -34,6 +35,7 @@ export class PurchaseSeatComponent implements OnInit {
 
     public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.getScreen();
     }
 
