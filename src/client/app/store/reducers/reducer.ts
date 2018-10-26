@@ -1,6 +1,5 @@
 import { IAuthorizeAction } from '@cinerino/api-abstract-client/lib/service/transaction/placeOrder';
 import { factory } from '@cinerino/api-javascript-client';
-import { IResult } from '@cinerino/factory/lib/factory/transaction/placeOrder';
 import { IScreen, Reservation } from '../../models';
 import * as inquiry from '../actions/inquiry.action';
 import * as purchase from '../actions/purchase.action';
@@ -36,7 +35,7 @@ export interface IPurchaseState {
     authorizeMovieTicketPayment?: IAuthorizeAction;
     gmoTokenObject?: any;
     orderCount: number;
-    result?: IResult;
+    order?: factory.order.IOrder;
     checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
     checkMovieTicketAction?: factory.action.check.paymentMethod.movieTicket.IAction;
 }
@@ -368,13 +367,9 @@ export function reducer(
             return { ...state, loading: true };
         }
         case purchase.ActionTypes.ReserveSuccess: {
-            const result = action.payload.result;
-            return {
-                ...state, loading: false, error: null, purchase: {
-                    ...state.purchase,
-                    result
-                }
-            };
+            const order = action.payload.order;
+            state.purchase.order = order;
+            return { ...state, loading: false, error: null };
         }
         case purchase.ActionTypes.ReserveFail: {
             const error = action.payload.error;

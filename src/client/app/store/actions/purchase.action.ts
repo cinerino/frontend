@@ -1,6 +1,5 @@
 import { IAuthorizeAction } from '@cinerino/api-abstract-client/lib/service/transaction/placeOrder';
 import { factory } from '@cinerino/api-javascript-client';
-import { IResult } from '@cinerino/factory/lib/factory/transaction/placeOrder';
 import { Action } from '@ngrx/store';
 import { IReservationSeat, IScreen, Reservation } from '../../models';
 import { IScreeningEventDate } from '../functions';
@@ -424,7 +423,7 @@ export class Reserve implements Action {
  */
 export class ReserveSuccess implements Action {
     public readonly type = ActionTypes.ReserveSuccess;
-    constructor(public payload: { result: IResult }) { }
+    constructor(public payload: { order: factory.order.IOrder; }) { }
 }
 
 /**

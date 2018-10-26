@@ -42,6 +42,7 @@ import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase
 import { PurchaseScheduleFilmComponent } from './components/parts/purchase-schedule-film/purchase-schedule-film.component';
 import { ScreenComponent } from './components/parts/screen/screen.component';
 import { TicketListModalComponent } from './components/parts/ticket-list-modal/ticket-list-modal.component';
+import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
 import { StoreModule } from './store.module';
 import { CoreStoreModule } from './store/core/store';
 
@@ -79,7 +80,8 @@ import { CoreStoreModule } from './store/core/store';
         MvtkCheckModalComponent,
         SettingComponent,
         InquiryInputComponent,
-        InquiryConfirmComponent
+        InquiryConfirmComponent,
+        LibphonenumberFormatPipe
     ],
     entryComponents: [
         TicketListModalComponent,

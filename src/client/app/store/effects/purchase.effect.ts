@@ -343,7 +343,8 @@ export class PurchaseEffects {
                 const result = await this.cinerino.transaction.placeOrder.confirm({
                     transactionId: payload.transaction.id
                 });
-                return new purchase.ReserveSuccess({ result });
+                const order = result.order;
+                return new purchase.ReserveSuccess({ order });
             } catch (error) {
                 await this.cinerino.transaction.placeOrder.cancel({
                     transactionId: payload.transaction.id
