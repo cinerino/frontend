@@ -53,6 +53,9 @@ export enum ActionTypes {
     OrderAuthorize = '[Purchase] Order Authorize',
     OrderAuthorizeSuccess = '[Purchase] Order Authorize Success',
     OrderAuthorizeFail = '[Purchase] Order Authorize Fail',
+    VoidPaymentAll = '[Purchase] Void Payment All',
+    VoidPaymentAllSuccess = '[Purchase] Void Payment Alle Success',
+    VoidPaymentAllFail = '[Purchase] Void Payment All Fail'
 }
 
 /**
@@ -495,6 +498,33 @@ export class OrderAuthorizeFail implements Action {
 }
 
 /**
+ * VoidPaymentAll
+ */
+export class VoidPaymentAll implements Action {
+    public readonly type = ActionTypes.VoidPaymentAll;
+    constructor(public payload: {
+        authorizeCreditCardPayment?: factory.action.authorize.paymentMethod.creditCard.IAction;
+        authorizeMovieTicketPayment?: factory.action.authorize.paymentMethod.movieTicket.IAction;
+    }) { }
+}
+
+/**
+ * VoidPaymentAllSuccess
+ */
+export class VoidPaymentAllSuccess implements Action {
+    public readonly type = ActionTypes.VoidPaymentAllSuccess;
+    constructor(public payload?: { }) { }
+}
+
+/**
+ * VoidPaymentAllFail
+ */
+export class VoidPaymentAllFail implements Action {
+    public readonly type = ActionTypes.VoidPaymentAllFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
  * Actions
  */
 export type Actions =
@@ -543,4 +573,7 @@ export type Actions =
     | GetPurchaseHistoryFail
     | OrderAuthorize
     | OrderAuthorizeSuccess
-    | OrderAuthorizeFail;
+    | OrderAuthorizeFail
+    | VoidPaymentAll
+    | VoidPaymentAllSuccess
+    | VoidPaymentAllFail;

@@ -9,7 +9,13 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { ActionTypes, AuthorizeCreditCard, AuthorizeMovieTicket, RegisterContact } from '../../../../store/actions/purchase.action';
+import {
+    ActionTypes,
+    AuthorizeCreditCard,
+    AuthorizeMovieTicket,
+    RegisterContact,
+    VoidPaymentAll
+} from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
 import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
 
@@ -149,7 +155,33 @@ export class PurchaseInputComponent implements OnInit {
             return;
         }
 
-        this.registerContact();
+        this.voidPaymentAll();
+    }
+
+    /**
+     * voidPaymentAll
+     */
+    private voidPaymentAll() {
+        this.purchase.subscribe((purchase) => {
+            const authorizeCreditCardPayment = purchase.authorizeCreditCardPayment;
+            const authorizeMovieTicketPayment = purchase.authorizeMovieTicketPayment;
+            this.store.dispatch(new VoidPaymentAll({ authorizeCreditCardPayment, authorizeMovieTicketPayment }));
+        }).unsubscribe();
+
+        const success = this.actions.pipe(
+            ofType(ActionTypes.VoidPaymentAllSuccess),
+            tap(() => {
+                this.registerContact();
+            })
+        );
+
+        const fail = this.actions.pipe(
+            ofType(ActionTypes.VoidPaymentAllFail),
+            tap(() => {
+                this.router.navigate(['/error']);
+            })
+        );
+        race(success, fail).pipe(take(1)).subscribe();
     }
 
     /**
@@ -178,8 +210,10 @@ export class PurchaseInputComponent implements OnInit {
                     const movieTickets = purchase.reservations.filter(reservation => reservation.isMovieTicket());
                     if (movieTickets.length > 0) {
                         this.authorizeMovieTicket();
-                    } else {
+                    } else if (this.amount > 0) {
                         this.authorizeCreditCard();
+                    } else {
+                        this.router.navigate(['/purchase/confirm']);
                     }
                 }).unsubscribe();
             })

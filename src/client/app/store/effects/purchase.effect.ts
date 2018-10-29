@@ -398,4 +398,27 @@ export class PurchaseEffects {
             }
         })
     );
+
+    /**
+     * VoidPaymentAll
+     */
+    @Effect()
+    public voidPaymentAll = this.actions.pipe(
+        ofType<purchase.VoidPaymentAll>(purchase.ActionTypes.VoidPaymentAll),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                await this.cinerino.getServices();
+                if (payload.authorizeCreditCardPayment !== undefined) {
+                    await this.cinerino.transaction.placeOrder.voidPayment(payload.authorizeCreditCardPayment);
+                }
+                if (payload.authorizeMovieTicketPayment !== undefined) {
+                    await this.cinerino.transaction.placeOrder.voidPayment(payload.authorizeMovieTicketPayment);
+                }
+                return new purchase.VoidPaymentAllSuccess();
+            } catch (error) {
+                return new purchase.VoidPaymentAllFail({ error: error });
+            }
+        })
+    );
 }

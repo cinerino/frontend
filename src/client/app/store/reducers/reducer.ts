@@ -410,6 +410,18 @@ export function reducer(
             const error = action.payload.error;
             return { ...state, loading: false, error: JSON.stringify(error) };
         }
+        case purchase.ActionTypes.VoidPaymentAll: {
+            return { ...state, loading: true };
+        }
+        case purchase.ActionTypes.VoidPaymentAllSuccess: {
+            state.purchase.authorizeCreditCardPayment = undefined;
+            state.purchase.authorizeMovieTicketPayment = undefined;
+            return { ...state, loading: false, error: null };
+        }
+        case purchase.ActionTypes.VoidPaymentAllFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, error: JSON.stringify(error) };
+        }
         case inquiry.ActionTypes.Delete: {
             state.inquiry = {};
             return { ...state };
