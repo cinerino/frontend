@@ -17,8 +17,7 @@ export class CinerinoService {
     public task: cinerino.service.Task;
     public payment: cinerino.service.Payment;
     public transaction: {
-        placeOrder: cinerino.service.transaction.PlaceOrder,
-        returnOrder: cinerino.service.transaction.ReturnOrder
+        placeOrder: cinerino.service.txn.PlaceOrder
     };
 
     constructor(
@@ -40,8 +39,7 @@ export class CinerinoService {
             this.task = new cinerino.service.Task(option);
             this.payment = new cinerino.service.Payment(option);
             this.transaction = {
-                placeOrder: new cinerino.service.transaction.PlaceOrder(option),
-                returnOrder: new cinerino.service.transaction.ReturnOrder(option)
+                placeOrder: new cinerino.service.txn.PlaceOrder(option)
             };
         } catch (err) {
             console.error(err);

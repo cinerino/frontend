@@ -1,4 +1,3 @@
-import { IAuthorizeAction } from '@cinerino/api-abstract-client/lib/service/transaction/placeOrder';
 import { factory } from '@cinerino/api-javascript-client';
 import { IScreen, Reservation } from '../../models';
 import * as inquiry from '../actions/inquiry.action';
@@ -31,8 +30,8 @@ export interface IPurchaseState {
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction;
     customerContact?: factory.transaction.placeOrder.ICustomerContact;
-    authorizeCreditCardPayment?: IAuthorizeAction;
-    authorizeMovieTicketPayment?: IAuthorizeAction;
+    authorizeCreditCardPayment?: factory.action.authorize.paymentMethod.creditCard.IAction;
+    authorizeMovieTicketPayment?: factory.action.authorize.paymentMethod.movieTicket.IAction;
     gmoTokenObject?: any;
     orderCount: number;
     order?: factory.order.IOrder;
