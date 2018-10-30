@@ -6,6 +6,7 @@ import * as user from '../actions/user.action';
 import {
     createscreeningEventDates,
     createScreeningFilmEvents,
+    IGmoTokenObject,
     isAvailabilityMovieTicket,
     IScreeningEventDate,
     IScreeningEventFilm,
@@ -31,8 +32,8 @@ export interface IPurchaseState {
     authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction;
     customerContact?: factory.transaction.placeOrder.ICustomerContact;
     authorizeCreditCardPayment?: factory.action.authorize.paymentMethod.creditCard.IAction;
-    authorizeMovieTicketPayment?: factory.action.authorize.paymentMethod.movieTicket.IAction;
-    gmoTokenObject?: any;
+    authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
+    gmoTokenObject?: IGmoTokenObject;
     orderCount: number;
     order?: factory.order.IOrder;
     checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
@@ -74,7 +75,8 @@ export const initialState: IState = {
         reservations: [],
         screeningEventTicketOffers: [],
         orderCount: 0,
-        checkMovieTicketActions: []
+        checkMovieTicketActions: [],
+        authorizeMovieTicketPayments: []
     },
     history: {
         purchase: []
@@ -122,7 +124,8 @@ export function reducer(
                 reservations: [],
                 screeningEventTicketOffers: [],
                 orderCount: 0,
-                checkMovieTicketActions: []
+                checkMovieTicketActions: [],
+                authorizeMovieTicketPayments: []
             };
             return { ...state };
         }
@@ -297,13 +300,11 @@ export function reducer(
         }
         case purchase.ActionTypes.AuthorizeCreditCardSuccess: {
             const authorizeCreditCardPayment = action.payload.authorizeCreditCardPayment;
-            const gmoTokenObject = action.payload.gmoTokenObject;
             const orderCount = state.purchase.orderCount + 1;
             return {
                 ...state, loading: false, error: null, purchase: {
                     ...state.purchase,
                     authorizeCreditCardPayment,
-                    gmoTokenObject,
                     orderCount
                 }
             };
@@ -311,26 +312,28 @@ export function reducer(
         case purchase.ActionTypes.AuthorizeCreditCardFail: {
             const error = action.payload.error;
             const orderCount = state.purchase.orderCount + 1;
-            return {
-                ...state, loading: false,
-                error: JSON.stringify(error),
-                purchase: {
-                    ...state.purchase,
-                    orderCount: orderCount
-                }
-            };
+            state.purchase.orderCount = orderCount;
+            return { ...state, loading: false, error: JSON.stringify(error) };
+        }
+        case purchase.ActionTypes.CreateGmoTokenObject: {
+            return { ...state, loading: true };
+        }
+        case purchase.ActionTypes.CreateGmoTokenObjectSuccess: {
+            const gmoTokenObject = action.payload.gmoTokenObject;
+            state.purchase.gmoTokenObject = gmoTokenObject;
+            return { ...state, loading: false, error: null };
+        }
+        case purchase.ActionTypes.CreateGmoTokenObjectFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, error: JSON.stringify(error) };
         }
         case purchase.ActionTypes.AuthorizeMovieTicket: {
             return { ...state, loading: true };
         }
         case purchase.ActionTypes.AuthorizeMovieTicketSuccess: {
-            const authorizeMovieTicketPayment = action.payload.authorizeMovieTicketPayment;
-            return {
-                ...state, loading: false, error: null, purchase: {
-                    ...state.purchase,
-                    authorizeMovieTicketPayment
-                }
-            };
+            const authorizeMovieTicketPayments = action.payload.authorizeMovieTicketPayments;
+            state.purchase.authorizeMovieTicketPayments = authorizeMovieTicketPayments;
+            return { ...state, loading: false, error: null };
         }
         case purchase.ActionTypes.AuthorizeMovieTicketFail: {
             const error = action.payload.error;
@@ -407,18 +410,6 @@ export function reducer(
             return { ...state, loading: false, error: null, history };
         }
         case purchase.ActionTypes.OrderAuthorizeFail: {
-            const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
-        }
-        case purchase.ActionTypes.VoidPaymentAll: {
-            return { ...state, loading: true };
-        }
-        case purchase.ActionTypes.VoidPaymentAllSuccess: {
-            state.purchase.authorizeCreditCardPayment = undefined;
-            state.purchase.authorizeMovieTicketPayment = undefined;
-            return { ...state, loading: false, error: null };
-        }
-        case purchase.ActionTypes.VoidPaymentAllFail: {
             const error = action.payload.error;
             return { ...state, loading: false, error: JSON.stringify(error) };
         }

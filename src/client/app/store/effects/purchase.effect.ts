@@ -216,36 +216,53 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
+                const orderCount = payload.orderCount;
+                const authorizeSeatReservation = payload.authorizeSeatReservation;
+                const movieTheater = payload.movieTheater;
+                const gmoTokenObject = payload.gmoTokenObject;
+                const amount = payload.amount;
                 await this.cinerino.getServices();
                 if (payload.authorizeCreditCardPayment !== undefined) {
                     await this.cinerino.transaction.placeOrder.voidPayment(payload.authorizeCreditCardPayment);
                 }
                 const transaction = payload.transaction;
-                const orderId = createOrderId({
-                    orderCount: payload.orderCount,
-                    authorizeSeatReservation: payload.authorizeSeatReservation,
-                    movieTheater: payload.movieTheater
-                });
-                const gmoTokenObject = await createGmoTokenObject({
-                    creditCard: payload.creditCard,
-                    movieTheater: payload.movieTheater
-                });
+                const orderId = createOrderId({ orderCount, authorizeSeatReservation, movieTheater });
                 const creditCard = { token: gmoTokenObject.token };
-                const authorizeCreditCardPayment =
+                const authorizeCreditCardPaymentResult =
                     await this.cinerino.transaction.placeOrder.authorizeCreditCardPayment({
                         object: {
                             typeOf: factory.paymentMethodType.CreditCard,
                             orderId,
-                            amount: payload.amount,
+                            amount,
                             method: <any>'1',
                             creditCard
                         },
                         purpose: transaction
                     });
 
-                return new purchase.AuthorizeCreditCardSuccess({ authorizeCreditCardPayment, gmoTokenObject });
+                return new purchase.AuthorizeCreditCardSuccess({ authorizeCreditCardPayment: authorizeCreditCardPaymentResult });
             } catch (error) {
                 return new purchase.AuthorizeCreditCardFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * createGmoTokenObject
+     */
+    @Effect()
+    public createGmoTokenObject = this.actions.pipe(
+        ofType<purchase.CreateGmoTokenObject>(purchase.ActionTypes.CreateGmoTokenObject),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            const creditCard = payload.creditCard;
+            const movieTheater = payload.movieTheater;
+            try {
+                const gmoTokenObject = await createGmoTokenObject({ creditCard, movieTheater, });
+
+                return new purchase.CreateGmoTokenObjectSuccess({ gmoTokenObject });
+            } catch (error) {
+                return new purchase.CreateGmoTokenObjectFail({ error: error });
             }
         })
     );
@@ -260,25 +277,48 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                if (payload.authorizeMovieTicketPayment !== undefined) {
-                    await this.cinerino.transaction.placeOrder.voidPayment(payload.authorizeMovieTicketPayment);
+                if (payload.authorizeMovieTicketPayments.length > 0) {
+                    for (const authorizeMovieTicketPayment of payload.authorizeMovieTicketPayments) {
+                        await this.cinerino.transaction.placeOrder.voidPayment(authorizeMovieTicketPayment);
+                    }
                 }
                 const transaction = payload.transaction;
                 const reservations = payload.reservations;
                 const authorizeSeatReservation = payload.authorizeSeatReservation;
-                const authorizeMovieTicketPayment =
-                    await this.cinerino.transaction.placeOrder.authorizeMovieTicketPayment({
+                const authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[] = [];
+                const movieTickets = createMovieTicketsFromAuthorizeSeatReservation({
+                    authorizeSeatReservation, reservations
+                });
+                const movieTicketIdentifiers: {
+                    identifier: string;
+                    movieTickets: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[]
+                }[] = [];
+                movieTickets.forEach((movieTicket) => {
+                    const findResult = movieTicketIdentifiers.find((movieTicketIdentifier) => {
+                        return (movieTicketIdentifier.identifier === movieTicket.identifier);
+                    });
+                    if (findResult === undefined) {
+                        movieTicketIdentifiers.push({
+                            identifier: movieTicket.identifier, movieTickets: [movieTicket]
+                        });
+                        return;
+                    }
+                    findResult.movieTickets.push(movieTicket);
+
+                });
+                for (const movieTicketIdentifier of movieTicketIdentifiers) {
+                    const authorizeMovieTicketPaymentResult = await this.cinerino.transaction.placeOrder.authorizeMovieTicketPayment({
                         object: {
                             typeOf: factory.paymentMethodType.MovieTicket,
                             amount: 0,
-                            movieTickets: createMovieTicketsFromAuthorizeSeatReservation({
-                                authorizeSeatReservation, reservations
-                            })
+                            movieTickets: movieTicketIdentifier.movieTickets
                         },
                         purpose: transaction
                     });
+                    authorizeMovieTicketPayments.push(authorizeMovieTicketPaymentResult);
+                }
 
-                return new purchase.AuthorizeMovieTicketSuccess({ authorizeMovieTicketPayment });
+                return new purchase.AuthorizeMovieTicketSuccess({ authorizeMovieTicketPayments });
             } catch (error) {
                 return new purchase.AuthorizeMovieTicketFail({ error: error });
             }
@@ -395,29 +435,6 @@ export class PurchaseEffects {
                 return new purchase.OrderAuthorizeSuccess({ order });
             } catch (error) {
                 return new purchase.OrderAuthorizeFail({ error: error });
-            }
-        })
-    );
-
-    /**
-     * VoidPaymentAll
-     */
-    @Effect()
-    public voidPaymentAll = this.actions.pipe(
-        ofType<purchase.VoidPaymentAll>(purchase.ActionTypes.VoidPaymentAll),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            try {
-                await this.cinerino.getServices();
-                if (payload.authorizeCreditCardPayment !== undefined) {
-                    await this.cinerino.transaction.placeOrder.voidPayment(payload.authorizeCreditCardPayment);
-                }
-                if (payload.authorizeMovieTicketPayment !== undefined) {
-                    await this.cinerino.transaction.placeOrder.voidPayment(payload.authorizeMovieTicketPayment);
-                }
-                return new purchase.VoidPaymentAllSuccess();
-            } catch (error) {
-                return new purchase.VoidPaymentAllFail({ error: error });
             }
         })
     );

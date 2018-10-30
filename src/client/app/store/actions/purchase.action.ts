@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
 import { IReservationSeat, IScreen, Reservation } from '../../models';
-import { IScreeningEventDate } from '../functions';
+import { IGmoTokenObject, IScreeningEventDate } from '../functions';
 
 /**
  * Action types
@@ -53,9 +53,9 @@ export enum ActionTypes {
     OrderAuthorize = '[Purchase] Order Authorize',
     OrderAuthorizeSuccess = '[Purchase] Order Authorize Success',
     OrderAuthorizeFail = '[Purchase] Order Authorize Fail',
-    VoidPaymentAll = '[Purchase] Void Payment All',
-    VoidPaymentAllSuccess = '[Purchase] Void Payment Alle Success',
-    VoidPaymentAllFail = '[Purchase] Void Payment All Fail'
+    CreateGmoTokenObject = '[Purchase] Create Gmo Token Object',
+    CreateGmoTokenObjectSuccess = '[Purchase] Create Gmo Token Object Success',
+    CreateGmoTokenObjectFail = '[Purchase] Create Gmo Token Object Fail'
 }
 
 /**
@@ -324,12 +324,7 @@ export class AuthorizeCreditCard implements Action {
         orderCount: number;
         amount: number;
         method: string;
-        creditCard: {
-            cardno: string;
-            expire: string;
-            holderName: string;
-            securityCode: string;
-        };
+        gmoTokenObject: IGmoTokenObject;
     }) { }
 }
 
@@ -339,8 +334,7 @@ export class AuthorizeCreditCard implements Action {
 export class AuthorizeCreditCardSuccess implements Action {
     public readonly type = ActionTypes.AuthorizeCreditCardSuccess;
     constructor(public payload: {
-        authorizeCreditCardPayment: factory.action.authorize.paymentMethod.creditCard.IAction,
-        gmoTokenObject: any
+        authorizeCreditCardPayment: factory.action.authorize.paymentMethod.creditCard.IAction
     }) { }
 }
 
@@ -359,7 +353,7 @@ export class AuthorizeMovieTicket implements Action {
     public readonly type = ActionTypes.AuthorizeMovieTicket;
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
-        authorizeMovieTicketPayment?: factory.action.authorize.paymentMethod.movieTicket.IAction;
+        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
         authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction;
         reservations: Reservation[];
     }) { }
@@ -371,7 +365,7 @@ export class AuthorizeMovieTicket implements Action {
 export class AuthorizeMovieTicketSuccess implements Action {
     public readonly type = ActionTypes.AuthorizeMovieTicketSuccess;
     constructor(public payload: {
-        authorizeMovieTicketPayment: factory.action.authorize.paymentMethod.movieTicket.IAction
+        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[]
     }) { }
 }
 
@@ -498,29 +492,34 @@ export class OrderAuthorizeFail implements Action {
 }
 
 /**
- * VoidPaymentAll
+ * CreateGmoTokenObject
  */
-export class VoidPaymentAll implements Action {
-    public readonly type = ActionTypes.VoidPaymentAll;
+export class CreateGmoTokenObject implements Action {
+    public readonly type = ActionTypes.CreateGmoTokenObject;
     constructor(public payload: {
-        authorizeCreditCardPayment?: factory.action.authorize.paymentMethod.creditCard.IAction;
-        authorizeMovieTicketPayment?: factory.action.authorize.paymentMethod.movieTicket.IAction;
+        creditCard: {
+            cardno: string;
+            expire: string;
+            holderName: string;
+            securityCode: string;
+        },
+        movieTheater: factory.organization.movieTheater.IOrganization;
     }) { }
 }
 
 /**
- * VoidPaymentAllSuccess
+ * CreateGmoTokenObjectSuccess
  */
-export class VoidPaymentAllSuccess implements Action {
-    public readonly type = ActionTypes.VoidPaymentAllSuccess;
-    constructor(public payload?: { }) { }
+export class CreateGmoTokenObjectSuccess implements Action {
+    public readonly type = ActionTypes.CreateGmoTokenObjectSuccess;
+    constructor(public payload: { gmoTokenObject: IGmoTokenObject; }) { }
 }
 
 /**
- * VoidPaymentAllFail
+ * CreateGmoTokenObjectFail
  */
-export class VoidPaymentAllFail implements Action {
-    public readonly type = ActionTypes.VoidPaymentAllFail;
+export class CreateGmoTokenObjectFail implements Action {
+    public readonly type = ActionTypes.CreateGmoTokenObjectFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -574,6 +573,6 @@ export type Actions =
     | OrderAuthorize
     | OrderAuthorizeSuccess
     | OrderAuthorizeFail
-    | VoidPaymentAll
-    | VoidPaymentAllSuccess
-    | VoidPaymentAllFail;
+    | CreateGmoTokenObject
+    | CreateGmoTokenObjectSuccess
+    | CreateGmoTokenObjectFail;
