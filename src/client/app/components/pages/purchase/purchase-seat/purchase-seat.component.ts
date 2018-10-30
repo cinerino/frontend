@@ -6,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { IReservationSeat, Reservation, SeatStatus } from '../../../../models';
+import { IReservationSeat, SeatStatus } from '../../../../models';
 import {
     ActionTypes,
     CancelSeat,
@@ -89,13 +89,18 @@ export class PurchaseSeatComponent implements OnInit {
         this.purchase.subscribe((purchase) => {
             const transaction = purchase.transaction;
             const screeningEvent = purchase.screeningEvent;
-            const reservations = purchase.reservations.map((reservation) => {
-                return new Reservation({
-                    seat: reservation.seat,
-                    ticket: (reservation.ticket === undefined)
-                        ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
-                        : reservation.ticket
+            if (purchase.reservations.length === 0) {
+                this.openAlert({
+                    title: 'エラー',
+                    body: '座席が未選択です。'
                 });
+                return;
+            }
+            const reservations = purchase.reservations.map((reservation) => {
+                reservation.ticket = (reservation.ticket === undefined)
+                    ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
+                    : reservation.ticket;
+                return reservation;
             });
             const authorizeSeatReservation = purchase.authorizeSeatReservation;
             if (transaction === undefined

@@ -20,6 +20,7 @@ export class ScreenComponent implements OnInit, OnChanges {
     public scale: number;
     public height: number;
     public origin: string;
+    private isCreate = false;
 
     constructor(
         private elementRef: ElementRef
@@ -29,10 +30,7 @@ export class ScreenComponent implements OnInit, OnChanges {
      * 初期化
      */
     public ngOnInit() {
-        this.zoomState = false;
-        this.scale = 1;
-        this.height = 0;
-        this.origin = '0 0';
+
     }
 
     public ngOnChanges() {
@@ -42,7 +40,17 @@ export class ScreenComponent implements OnInit, OnChanges {
         if (this.height === 0) {
             this.scaleDown();
         }
-        this.createScreen();
+
+        if (!this.isCreate) {
+            this.zoomState = false;
+            this.scale = 1;
+            this.height = 0;
+            this.origin = '0 0';
+            this.createScreen();
+            this.isCreate = true;
+        }
+
+        this.changeStatus();
     }
 
     /**
@@ -56,6 +64,24 @@ export class ScreenComponent implements OnInit, OnChanges {
         }
 
         return true;
+    }
+
+    /**
+     * status変更
+     */
+    private changeStatus() {
+        this.seats.forEach((seat) => {
+            if (seat.status === SeatStatus.Active) {
+                seat.status = SeatStatus.Default;
+            }
+            const findReservationSeatResult = this.reservations.find((reservation) => {
+                return (reservation.seat.seatNumber === seat.code
+                    && reservation.seat.seatSection === seat.section);
+            });
+            if (findReservationSeatResult !== undefined) {
+                seat.status = SeatStatus.Active;
+            }
+        });
     }
 
     /**
@@ -220,23 +246,23 @@ export class ScreenComponent implements OnInit, OnChanges {
                         if (findContainsPlaceResult !== undefined
                             && findContainsPlaceResult.offers !== undefined) {
                             if (findContainsPlaceResult.offers[0].availability === 'InStock') {
-                                className.push('default');
+                                // className.push('default');
                                 status = SeatStatus.Default;
                             }
                             break;
                         }
                     }
-                    const findReservationSeatResult = this.reservations.find((reservation) => {
-                        return (reservation.seat.seatNumber === code
-                            && reservation.seat.seatSection === section);
-                    });
-                    if (findReservationSeatResult !== undefined) {
-                        className.push('active');
-                        status = SeatStatus.Active;
-                    }
-                    if (className.length === 1) {
-                        className.push('disabled');
-                    }
+                    // const findReservationSeatResult = this.reservations.find((reservation) => {
+                    //     return (reservation.seat.seatNumber === code
+                    //         && reservation.seat.seatSection === section);
+                    // });
+                    // if (findReservationSeatResult !== undefined) {
+                    //     className.push('active');
+                    //     status = SeatStatus.Active;
+                    // }
+                    // if (className.length === 1) {
+                    //     className.push('disabled');
+                    // }
                     if (this.screenData.hc.indexOf(code) !== -1) {
                         className.push('seat-hc');
                     }
