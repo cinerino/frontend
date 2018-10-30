@@ -5,7 +5,7 @@
             <p *ngIf="isSuccess" class="mb-3 p-2 alert alert-success">ムビチケ券を追加しました</p>
             <div class="form-group">
                 <label class="mb-2" for="">ムビチケ購入番号</label>
-                <input type="text" class="form-control" formControlName="code" autocomplete="off" placeholder="(例)012345789"
+                <input type="text" class="form-control" formControlName="code" id="code" autocomplete="off" placeholder="(例)012345789"
                     maxlength="10">
                 <div *ngIf="mvtkForm.controls.code.invalid && mvtkForm.controls.code.touched" class="mt-2">
                     <p *ngIf="mvtkForm.controls.code.errors.required" class="text-danger">ムビチケ購入番号が未入力です</p>
@@ -19,7 +19,7 @@
 
             <div class="form-group">
                 <label class="mb-2" for="">ムビチケ暗証番号</label>
-                <input type="password" class="form-control" formControlName="password" autocomplete="off" placeholder="(例)0123"
+                <input type="password" class="form-control" formControlName="password" id="password" autocomplete="off" placeholder="(例)0123"
                     maxlength="4">
                 <div *ngIf="mvtkForm.controls.password.invalid && mvtkForm.controls.password.touched" class="mt-2">
                     <p *ngIf="mvtkForm.controls.password.errors.required" class="text-danger">ムビチケ暗証番号が未入力です</p>

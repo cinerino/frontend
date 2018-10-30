@@ -9,7 +9,7 @@
                 <form [formGroup]="customerContactForm">
                     <div class="form-group">
                         <label class="mb-2" for="">セイ</label>
-                        <input type="text" class="form-control" formControlName="familyName" placeholder="モーション">
+                        <input type="text" class="form-control" formControlName="familyName" id="familyName" placeholder="モーション">
                         <div *ngIf="customerContactForm.controls.familyName.invalid && customerContactForm.controls.familyName.touched" class="mt-2">
                             <p *ngIf="customerContactForm.controls.familyName.errors.required" class="text-danger">セイが未入力です</p>
                             <p *ngIf="customerContactForm.controls.familyName.errors.maxlength" class="text-danger">セイは{{
@@ -19,7 +19,7 @@
                     </div>
                     <div class="form-group">
                         <label class="mb-2" for="">メイ</label>
-                        <input type="text" class="form-control" formControlName="givenName" placeholder="ピクチャー">
+                        <input type="text" class="form-control" formControlName="givenName" id="givenName" placeholder="ピクチャー">
                         <div *ngIf="customerContactForm.controls.givenName.invalid && customerContactForm.controls.givenName.touched" class="mt-2">
                             <p *ngIf="customerContactForm.controls.givenName.errors.required" class="text-danger">メイが未入力です</p>
                             <p *ngIf="customerContactForm.controls.givenName.errors.maxlength" class="text-danger">メイは{{
@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group">
                         <label class="mb-2" for="">メールアドレス</label>
-                        <input type="email" class="form-control" formControlName="email" placeholder="motionpicture@example.jp">
+                        <input type="email" class="form-control" formControlName="email" id="email" placeholder="motionpicture@example.jp">
                         <div *ngIf="customerContactForm.controls.email.invalid && customerContactForm.controls.email.touched" class="mt-2">
                             <p *ngIf="customerContactForm.controls.email.errors.required" class="text-danger">メールアドレスが未入力です</p>
                             <p *ngIf="customerContactForm.controls.email.errors.maxlength" class="text-danger">メールアドレスは{{
@@ -42,7 +42,7 @@
                     </div>
                     <div class="form-group mb-0">
                         <label class="mb-2" for="">電話番号</label>
-                        <input type="tel" class="form-control" formControlName="telephone" placeholder="0362778824">
+                        <input type="tel" class="form-control" formControlName="telephone" id="telephone" placeholder="0362778824">
                         <div *ngIf="customerContactForm.controls.telephone.invalid && customerContactForm.controls.telephone.touched" class="mt-2">
                             <p *ngIf="customerContactForm.controls.telephone.errors.required" class="text-danger">電話番号が未入力です</p>
                             <p *ngIf="customerContactForm.controls.telephone.errors.minlength" class="text-danger">電話番号は{{

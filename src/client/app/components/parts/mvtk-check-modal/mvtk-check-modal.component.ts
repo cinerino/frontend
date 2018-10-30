@@ -60,6 +60,8 @@ export class MvtkCheckModalComponent implements OnInit {
         Object.keys(this.mvtkForm.controls).forEach((key) => {
             this.mvtkForm.controls[key].markAsTouched();
         });
+        this.mvtkForm.controls.code.setValue((<HTMLInputElement>document.getElementById('code')).value);
+        this.mvtkForm.controls.password.setValue((<HTMLInputElement>document.getElementById('password')).value);
         if (this.mvtkForm.invalid) {
             return;
         }

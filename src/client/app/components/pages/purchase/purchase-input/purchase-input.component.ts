@@ -134,6 +134,15 @@ export class PurchaseInputComponent implements OnInit {
         Object.keys(this.paymentForm.controls).forEach((key) => {
             this.paymentForm.controls[key].markAsTouched();
         });
+        this.customerContactForm.controls.familyName.setValue((<HTMLInputElement>document.getElementById('familyName')).value);
+        this.customerContactForm.controls.givenName.setValue((<HTMLInputElement>document.getElementById('givenName')).value);
+        this.customerContactForm.controls.email.setValue((<HTMLInputElement>document.getElementById('email')).value);
+        this.customerContactForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
+        if (this.amount > 0) {
+            this.paymentForm.controls.cardNumber.setValue((<HTMLInputElement>document.getElementById('cardNumber')).value);
+            this.paymentForm.controls.securityCode.setValue((<HTMLInputElement>document.getElementById('securityCode')).value);
+            this.paymentForm.controls.holderName.setValue((<HTMLInputElement>document.getElementById('holderName')).value);
+        }
         if (this.customerContactForm.invalid) {
             this.openAlert({
                 title: 'エラー',

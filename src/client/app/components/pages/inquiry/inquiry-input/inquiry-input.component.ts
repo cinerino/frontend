@@ -66,6 +66,8 @@ export class InquiryInputComponent implements OnInit {
         Object.keys(this.inquiryForm.controls).forEach((key) => {
             this.inquiryForm.controls[key].markAsTouched();
         });
+        this.inquiryForm.controls.confirmationNumber.setValue((<HTMLInputElement>document.getElementById('confirmationNumber')).value);
+        this.inquiryForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
         if (this.inquiryForm.invalid) {
             return;
         }

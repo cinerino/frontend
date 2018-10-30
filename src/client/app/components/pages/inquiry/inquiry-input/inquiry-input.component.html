@@ -6,7 +6,7 @@
             <form [formGroup]="inquiryForm">
                 <div class="form-group">
                     <label class="mb-2" for="">購入番号</label>
-                    <input type="text" class="form-control" formControlName="confirmationNumber" placeholder="12345678">
+                    <input type="text" class="form-control" formControlName="confirmationNumber" id="confirmationNumber" placeholder="12345678">
                     <div *ngIf="inquiryForm.controls.confirmationNumber.invalid && inquiryForm.controls.confirmationNumber.touched"
                         class="mt-2">
                         <p *ngIf="inquiryForm.controls.confirmationNumber.errors.required" class="text-danger">購入番号が未入力です</p>
@@ -15,7 +15,7 @@
                 </div>
                 <div class="form-group mb-0">
                     <label class="mb-2" for="">電話番号</label>
-                    <input type="tel" class="form-control" formControlName="telephone" placeholder="0362778824">
+                    <input type="tel" class="form-control" formControlName="telephone" id="telephone" placeholder="0362778824">
                     <div *ngIf="inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched"
                         class="mt-2">
                         <p *ngIf="inquiryForm.controls.telephone.errors.required" class="text-danger">電話番号が未入力です</p>
