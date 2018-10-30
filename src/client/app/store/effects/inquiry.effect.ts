@@ -31,10 +31,11 @@ export class InquiryEffects {
                     ? ''
                     : formatTelephone(payload.customer.telephone)
             };
-            const order = await this.cinerino.order.findByConfirmationNumber({
-                confirmationNumber, customer
-            });
             try {
+                const order = await this.cinerino.order.findByConfirmationNumber({
+                    confirmationNumber, customer
+                });
+
                 return new inquiry.InquirySuccess({ order });
             } catch (error) {
                 return new inquiry.InquiryFail({ error: error });
