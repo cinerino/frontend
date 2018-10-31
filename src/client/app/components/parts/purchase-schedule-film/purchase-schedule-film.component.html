@@ -21,10 +21,9 @@
                 {{ screeningEvent.location.name.ja }}
             </div>
             <div class="status text-center">
-                <div class="mb-1">空席状況</div>
+                <div class="mb-1"></div>
                 <div class="mb-2">{{ screeningEvent.remainingAttendeeCapacity }} / {{ screeningEvent.maximumAttendeeCapacity }}</div>
-                <div class="mb-1">入場状況</div>
-                <div>{{ screeningEvent.checkInCount }} / {{ screeningEvent.attendeeCount }}</div>
+                <div class="small-text">[入場 {{ screeningEvent.checkInCount }} / 発券 {{ screeningEvent.attendeeCount }}]</div>
             </div>
         </li>
     </ul>
