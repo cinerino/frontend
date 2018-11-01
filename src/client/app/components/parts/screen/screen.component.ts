@@ -12,6 +12,7 @@ export class ScreenComponent implements OnInit, OnChanges {
     @Input() public screenData: IScreen;
     @Input() public screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
     @Input() public reservations: Reservation[];
+    @Input() public authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction;
     @Output() public select = new EventEmitter<{ seat: IReservationSeat; status: SeatStatus; }>();
 
     public seats: ISeat[];
@@ -246,23 +247,21 @@ export class ScreenComponent implements OnInit, OnChanges {
                         if (findContainsPlaceResult !== undefined
                             && findContainsPlaceResult.offers !== undefined) {
                             if (findContainsPlaceResult.offers[0].availability === 'InStock') {
-                                // className.push('default');
                                 status = SeatStatus.Default;
                             }
                             break;
                         }
                     }
-                    // const findReservationSeatResult = this.reservations.find((reservation) => {
-                    //     return (reservation.seat.seatNumber === code
-                    //         && reservation.seat.seatSection === section);
-                    // });
-                    // if (findReservationSeatResult !== undefined) {
-                    //     className.push('active');
-                    //     status = SeatStatus.Active;
-                    // }
-                    // if (className.length === 1) {
-                    //     className.push('disabled');
-                    // }
+                    if (this.authorizeSeatReservation !== undefined) {
+                        const findResult = this.authorizeSeatReservation.object.acceptedOffer.find((offer) => {
+                            return (offer.ticketedSeat.seatNumber === code
+                                && offer.ticketedSeat.seatSection === section);
+                        });
+                        if (findResult !== undefined) {
+                            status = SeatStatus.Default;
+                        }
+                    }
+
                     if (this.screenData.hc.indexOf(code) !== -1) {
                         className.push('seat-hc');
                     }

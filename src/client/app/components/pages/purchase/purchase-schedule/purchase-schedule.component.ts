@@ -138,10 +138,6 @@ export class PurchaseScheduleComponent implements OnInit {
             if (purchase.movieTheater === undefined) {
                 return;
             }
-            console.log('---------------',
-                environment,
-                environment.TRANSACTION_TIME,
-                moment().add(environment.TRANSACTION_TIME, 'minutes').toDate());
             this.store.dispatch(new StartTransaction({
                 params: {
                     expires: moment().add(environment.TRANSACTION_TIME, 'minutes').toDate(),

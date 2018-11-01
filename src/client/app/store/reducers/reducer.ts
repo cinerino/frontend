@@ -268,12 +268,8 @@ export function reducer(
         }
         case purchase.ActionTypes.TemporaryReservationSuccess: {
             const authorizeSeatReservation = action.payload.authorizeSeatReservation;
-            return {
-                ...state, loading: false, error: null, purchase: {
-                    ...state.purchase,
-                    authorizeSeatReservation
-                }
-            };
+            state.purchase.authorizeSeatReservation = authorizeSeatReservation;
+            return { ...state, loading: false, error: null };
         }
         case purchase.ActionTypes.TemporaryReservationFail: {
             const error = action.payload.error;
