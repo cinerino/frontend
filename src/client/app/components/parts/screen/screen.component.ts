@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { ILabel, IReservationSeat, IScreen, ISeat, Reservation, SeatStatus } from '../../../models';
 
@@ -7,7 +7,7 @@ import { ILabel, IReservationSeat, IScreen, ISeat, Reservation, SeatStatus } fro
     templateUrl: './screen.component.html',
     styleUrls: ['./screen.component.scss']
 })
-export class ScreenComponent implements OnInit, OnChanges {
+export class ScreenComponent implements OnInit, OnChanges, AfterViewInit {
     public static ZOOM_SCALE = 1;
     @Input() public screenData: IScreen;
     @Input() public screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
@@ -16,6 +16,8 @@ export class ScreenComponent implements OnInit, OnChanges {
     @Output() public select = new EventEmitter<{ seat: IReservationSeat; status: SeatStatus; }>();
 
     public seats: ISeat[];
+    public lineLabels: ILabel[];
+    public columnLabels: ILabel[];
     public screenType: string;
     public zoomState: boolean;
     public scale: number;
@@ -54,6 +56,22 @@ export class ScreenComponent implements OnInit, OnChanges {
         }
 
         this.changeStatus();
+    }
+
+    /**
+     * レンダリング後処理
+     */
+    public ngAfterViewInit() {
+        const time = 300;
+        const timer = setInterval(() => {
+            if (this.screenData !== undefined) {
+                clearInterval(timer);
+                const screenElement = document.querySelector('.screen-style');
+                if (screenElement !== null && this.screenData.style !== undefined) {
+                    screenElement.innerHTML = this.screenData.style;
+                }
+            }
+        }, time);
     }
 
     /**
@@ -163,9 +181,9 @@ export class ScreenComponent implements OnInit, OnChanges {
             labels.push(String.fromCharCode(i));
         }
         // 行ラベル
-        const lineLabels: ILabel[] = [];
+        this.lineLabels = [];
         // 列ラベル
-        const columnLabels: ILabel[] = [];
+        this.columnLabels = [];
         // 座席リスト
         const seats: ISeat[] = [];
 
@@ -191,8 +209,8 @@ export class ScreenComponent implements OnInit, OnChanges {
                 }
 
                 // 座席ラベルHTML生成
-                if (x === 0) {
-                    lineLabels.push({
+                if (x === 0 && this.screenData.lineLabel) {
+                    this.lineLabels.push({
                         id: labelCount,
                         w: this.screenData.seatSize.w,
                         h: this.screenData.seatSize.h,
@@ -213,12 +231,12 @@ export class ScreenComponent implements OnInit, OnChanges {
                 }
 
                 // 座席番号HTML生成
-                if (y === 0) {
+                if (y === 0 && this.screenData.columnLabel) {
 
                     const label = (this.screenData.seatNumberAlign === 'left')
                         ? String(x + 1)
                         : String(this.screenData.map[0].length - x);
-                    columnLabels.push({
+                    this.columnLabels.push({
                         id: x,
                         w: this.screenData.seatSize.w,
                         h: this.screenData.seatSize.h,
@@ -263,7 +281,6 @@ export class ScreenComponent implements OnInit, OnChanges {
                             status = SeatStatus.Default;
                         }
                     }
-
                     if (this.screenData.hc.indexOf(code) !== -1) {
                         className.push('seat-hc');
                     }

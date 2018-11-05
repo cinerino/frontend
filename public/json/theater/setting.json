@@ -8,7 +8,7 @@
     "seatLabelPos": 50,
     "seatNumberPos": 50,
     "seatNumberAlign": "left",
-    "columnLabel": false,
+    "columnLabel": true,
     "lineLabel": true,
     "style": ""
 }

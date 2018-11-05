@@ -88,6 +88,10 @@ div {
     display: grid !important;
 }
 
+.not-event {
+    pointer-events: none;
+}
+
 .purchase {
     .main {
         width: 75%;

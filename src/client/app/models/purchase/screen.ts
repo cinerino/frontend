@@ -62,12 +62,3 @@ export interface ISeat {
     section: string;
     status: SeatStatus;
 }
-
-export interface IData {
-    screen: IScreen;
-    objects: IObject[];
-    screenType: string;
-    lineLabels: ILabel[];
-    columnLabels: ILabel[];
-    seats: ISeat[];
-}

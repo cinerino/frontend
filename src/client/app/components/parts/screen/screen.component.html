@@ -21,7 +21,7 @@
                     'background-size': object.w + 'px ' +object.h + 'px'
                 }"></div>
 
-                <div *ngFor="let columnLabel of screenData.columnLabels" class="object label-object column-object column-object-{{ columnLabel.id }}"
+                <div *ngFor="let columnLabel of columnLabels" class="object label-object column-object column-object-{{ columnLabel.id }}"
                     [ngStyle]="{
                     'width.px': columnLabel.w,
                     'height.px': columnLabel.h, 
@@ -30,7 +30,7 @@
                 }">{{
                     columnLabel.label }}</div>
 
-                <div *ngFor="let lineLabel of screenData.lineLabels" class="object label-object line-object line-object-{{ lineLabel.id }}"
+                <div *ngFor="let lineLabel of lineLabels" class="object label-object line-object line-object-{{ lineLabel.id }}"
                     [ngStyle]="{
                     'width.px': lineLabel.w,
                     'height.px': lineLabel.h, 
@@ -51,6 +51,6 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="screenData" [innerHTML]="screenData.style"></div>
+        <div *ngIf="screenData" class="screen-style"></div>
     </div>
 </div>
