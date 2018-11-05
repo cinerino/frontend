@@ -4,7 +4,7 @@
 
         <p class="mb-3">券種を選択してください。</p>
 
-        <div class="mb-4">
+        <div *ngIf="(purchase | async).isUsedMovieTicket" class="mb-4">
             <div class="bg-white p-3">
                 <p class="mb-2">ムビチケを使う</p>
                 <button type="button" (click)="openMovieTicket()" class="btn btn-outline-primary btn-block py-2">

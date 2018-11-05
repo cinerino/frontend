@@ -35,11 +35,9 @@ export class ScreenComponent implements OnInit, OnChanges {
     }
 
     public ngOnChanges() {
-        if (this.screenData === undefined) {
+        if (this.screenData === undefined
+            || this.screeningEventOffers === undefined) {
             return;
-        }
-        if (this.height === 0) {
-            this.scaleDown();
         }
 
         if (!this.isCreate) {
@@ -49,6 +47,10 @@ export class ScreenComponent implements OnInit, OnChanges {
             this.origin = '0 0';
             this.createScreen();
             this.isCreate = true;
+        }
+
+        if (this.height === 0) {
+            this.scaleDown();
         }
 
         this.changeStatus();
