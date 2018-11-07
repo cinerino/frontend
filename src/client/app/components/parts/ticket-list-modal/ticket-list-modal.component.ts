@@ -40,7 +40,10 @@ export class TicketListModalComponent implements OnInit {
                 if (checkMovieTicketAction.result === undefined) {
                     return;
                 }
-                checkMovieTicketAction.result.movieTickets.forEach((movieTicket) => {
+                const availabilityMovieTickets = checkMovieTicketAction.result.movieTickets.filter((movieTicket) => {
+                    return (movieTicket.validThrough === undefined);
+                });
+                availabilityMovieTickets.forEach((movieTicket) => {
                     if (movieTicket.serviceType === movieTicketTypeChargeSpecification.appliesToMovieTicketType) {
                         movieTickets.push(movieTicket);
                     }
