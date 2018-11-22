@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
+import { IGmoTokenObject } from '../../functions';
 import { IReservationSeat, IScreen, Reservation } from '../../models';
-import { IGmoTokenObject, IScreeningEventDate } from '../functions';
 
 /**
  * Action types
@@ -12,7 +12,6 @@ export enum ActionTypes {
     GetTheatersSuccess = '[Purchase] Get Theaters Success',
     GetTheatersFail = '[Purchase] Get Theaters Fail',
     SelectTheater = '[Purchase] Select Theater',
-    SelectScheduleDate = '[Purchase] Select Schedule Date',
     GetSchedule = '[Purchase] Get Schedule',
     GetScheduleSuccess = '[Purchase] Get Schedule Success',
     GetScheduleFail = '[Purchase] Get Schedule Fail',
@@ -23,12 +22,12 @@ export enum ActionTypes {
     GetScreen = '[Purchase] Get Screen',
     GetScreenSuccess = '[Purchase] Get Screen Success',
     GetScreenFail = '[Purchase] Get Screen Fail',
-    SelectSeat = '[Purchase] Select Seat',
-    CancelSeat = '[Purchase] Cancel Seat',
+    SelectSeats = '[Purchase] Select Seats',
+    CancelSeats = '[Purchase] Cancel Seats',
     GetTicketList = '[Purchase] Get Ticket List',
     GetTicketListSuccess = '[Purchase] Get Ticket List Success',
     GetTicketListFail = '[Purchase] Get Ticket List Fail',
-    SelectTicket = '[Purchase] Select Ticket',
+    SelectTickets = '[Purchase] Select Tickets',
     TemporaryReservation = '[Purchase] Temporary Reservation',
     TemporaryReservationSuccess = '[Purchase] Temporary Reservation Success',
     TemporaryReservationFail = '[Purchase] Temporary Reservation Fail',
@@ -99,19 +98,14 @@ export class SelectTheater implements Action {
 }
 
 /**
- * SelectScheduleDate
- */
-export class SelectScheduleDate implements Action {
-    public readonly type = ActionTypes.SelectScheduleDate;
-    constructor(public payload: { scheduleDate: IScreeningEventDate }) { }
-}
-
-/**
  * GetSchedule
  */
 export class GetSchedule implements Action {
     public readonly type = ActionTypes.GetSchedule;
-    constructor(public payload: { params: factory.chevre.event.screeningEvent.ISearchConditions }) { }
+    constructor(public payload: {
+        movieTheater: factory.organization.movieTheater.IOrganization;
+        scheduleDate: string;
+    }) { }
 }
 
 /**
@@ -119,7 +113,10 @@ export class GetSchedule implements Action {
  */
 export class GetScheduleSuccess implements Action {
     public readonly type = ActionTypes.GetScheduleSuccess;
-    constructor(public payload: { screeningEvents: factory.chevre.event.screeningEvent.IEvent[] }) { }
+    constructor(public payload: {
+        screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
+        scheduleDate: string;
+    }) { }
 }
 
 /**
@@ -203,27 +200,27 @@ export class GetScreenFail implements Action {
 
 
 /**
- * SelectSeat
+ * SelectSeats
  */
-export class SelectSeat implements Action {
-    public readonly type = ActionTypes.SelectSeat;
-    constructor(public payload: { seat: IReservationSeat }) { }
+export class SelectSeats implements Action {
+    public readonly type = ActionTypes.SelectSeats;
+    constructor(public payload: { seats: IReservationSeat[] }) { }
 }
 
 /**
- * CancelSeat
+ * CancelSeats
  */
-export class CancelSeat implements Action {
-    public readonly type = ActionTypes.CancelSeat;
-    constructor(public payload: { seat: IReservationSeat }) { }
+export class CancelSeats implements Action {
+    public readonly type = ActionTypes.CancelSeats;
+    constructor(public payload: { seats: IReservationSeat[] }) { }
 }
 
 /**
- * SelectTicket
+ * SelectTickets
  */
-export class SelectTicket implements Action {
-    public readonly type = ActionTypes.SelectTicket;
-    constructor(public payload: { reservation: Reservation }) { }
+export class SelectTickets implements Action {
+    public readonly type = ActionTypes.SelectTickets;
+    constructor(public payload: { reservations: Reservation[] }) { }
 }
 
 /**
@@ -532,7 +529,6 @@ export type Actions =
     | GetTheatersSuccess
     | GetTheatersFail
     | SelectTheater
-    | SelectScheduleDate
     | GetSchedule
     | GetScheduleSuccess
     | GetScheduleFail
@@ -543,12 +539,12 @@ export type Actions =
     | GetScreen
     | GetScreenSuccess
     | GetScreenFail
-    | SelectSeat
-    | CancelSeat
+    | SelectSeats
+    | CancelSeats
     | GetTicketList
     | GetTicketListSuccess
     | GetTicketListFail
-    | SelectTicket
+    | SelectTickets
     | TemporaryReservation
     | TemporaryReservationSuccess
     | TemporaryReservationFail

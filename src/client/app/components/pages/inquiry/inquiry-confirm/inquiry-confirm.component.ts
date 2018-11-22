@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import { getTicketPrice } from '../../../../functions';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -12,6 +13,8 @@ import * as reducers from '../../../../store/reducers';
 export class InquiryConfirmComponent implements OnInit {
     public inquiry: Observable<reducers.IInquiryState>;
     public moment: typeof moment = moment;
+    public getTicketPrice = getTicketPrice;
+
     constructor(
         private store: Store<reducers.IState>
     ) { }

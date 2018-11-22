@@ -44,7 +44,7 @@
                     <div class="col-md-8">
                         <div *ngFor="let acceptedOffer of (purchase | async).order.acceptedOffers" class="mb-2">
                             <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>
-                            <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja }} / {{ acceptedOffer.itemOffered.reservedTicket.totalPrice | currency : 'JPY' }}</p>
+                            <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja }} / {{ getTicketPrice(acceptedOffer).single | currency : 'JPY' }</p>
                         </div>
                     </div>
                 </div>

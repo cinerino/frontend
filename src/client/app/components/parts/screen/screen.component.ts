@@ -1,20 +1,31 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import {
+    AfterViewChecked,
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output
+} from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
-import { ILabel, IReservationSeat, IScreen, ISeat, Reservation, SeatStatus } from '../../../models';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { ILabel, IReservationSeat, IScreen, ISeat, SeatStatus } from '../../../models';
+import * as reducers from '../../../store/reducers';
 
 @Component({
     selector: 'app-screen',
     templateUrl: './screen.component.html',
     styleUrls: ['./screen.component.scss']
 })
-export class ScreenComponent implements OnInit, OnChanges, AfterViewInit {
+export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked {
     public static ZOOM_SCALE = 1;
     @Input() public screenData: IScreen;
-    @Input() public screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
-    @Input() public reservations: Reservation[];
-    @Input() public authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction;
     @Output() public select = new EventEmitter<{ seat: IReservationSeat; status: SeatStatus; }>();
-
+    public screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
+    public authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction;
+    public purchase: Observable<reducers.IPurchaseState>;
     public seats: ISeat[];
     public lineLabels: ILabel[];
     public columnLabels: ILabel[];
@@ -23,9 +34,9 @@ export class ScreenComponent implements OnInit, OnChanges, AfterViewInit {
     public scale: number;
     public height: number;
     public origin: string;
-    private isCreate = false;
 
     constructor(
+        private store: Store<reducers.IState>,
         private elementRef: ElementRef
     ) { }
 
@@ -33,29 +44,20 @@ export class ScreenComponent implements OnInit, OnChanges, AfterViewInit {
      * 初期化
      */
     public ngOnInit() {
-
-    }
-
-    public ngOnChanges() {
-        if (this.screenData === undefined
-            || this.screeningEventOffers === undefined) {
-            return;
-        }
-
-        if (!this.isCreate) {
+        this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.purchase.subscribe((purchase) => {
+            if (purchase.screeningEventOffers === undefined) {
+                return;
+            }
+            this.screeningEventOffers = purchase.screeningEventOffers;
+            this.authorizeSeatReservation = purchase.authorizeSeatReservation;
             this.zoomState = false;
             this.scale = 1;
             this.height = 0;
             this.origin = '0 0';
             this.createScreen();
-            this.isCreate = true;
-        }
-
-        if (this.height === 0) {
             this.scaleDown();
-        }
-
-        this.changeStatus();
+        }).unsubscribe();
     }
 
     /**
@@ -74,6 +76,10 @@ export class ScreenComponent implements OnInit, OnChanges, AfterViewInit {
         }, time);
     }
 
+    public ngAfterViewChecked() {
+        this.changeStatus();
+    }
+
     /**
      * モバイル判定
      * @method isMobile
@@ -90,19 +96,22 @@ export class ScreenComponent implements OnInit, OnChanges, AfterViewInit {
     /**
      * status変更
      */
-    private changeStatus() {
-        this.seats.forEach((seat) => {
-            if (seat.status === SeatStatus.Active) {
-                seat.status = SeatStatus.Default;
-            }
-            const findReservationSeatResult = this.reservations.find((reservation) => {
-                return (reservation.seat.seatNumber === seat.code
-                    && reservation.seat.seatSection === seat.section);
+    public changeStatus() {
+        this.purchase.subscribe((purchase) => {
+            const reservations = purchase.reservations;
+            this.seats.forEach((seat) => {
+                if (seat.status === SeatStatus.Active) {
+                    seat.status = SeatStatus.Default;
+                }
+                const findReservationSeatResult = reservations.find((reservation) => {
+                    return (reservation.seat.seatNumber === seat.code
+                        && reservation.seat.seatSection === seat.section);
+                });
+                if (findReservationSeatResult !== undefined) {
+                    seat.status = SeatStatus.Active;
+                }
             });
-            if (findReservationSeatResult !== undefined) {
-                seat.status = SeatStatus.Active;
-            }
-        });
+        }).unsubscribe();
     }
 
     /**
@@ -283,6 +292,7 @@ export class ScreenComponent implements OnInit, OnChanges, AfterViewInit {
                     }
                     if (this.screenData.hc.indexOf(code) !== -1) {
                         className.push('seat-hc');
+                        status = SeatStatus.Disabled;
                     }
 
                     const seat = {
@@ -324,7 +334,7 @@ export class ScreenComponent implements OnInit, OnChanges, AfterViewInit {
         this.screenType = screenType;
     }
 
-    public seatSelect(seat: ISeat) {
+    public selectSeat(seat: ISeat) {
         if (this.isMobile() && !this.zoomState) {
             return;
         }

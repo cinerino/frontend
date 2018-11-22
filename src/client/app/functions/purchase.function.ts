@@ -1,12 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { Reservation } from '../../models';
-
-export interface IScreeningEventDate {
-    string: string;
-    format: string;
-    data: factory.chevre.event.screeningEvent.IEvent;
-}
+import { Reservation } from '../models';
 
 export interface IScreeningEventFilm {
     info: factory.chevre.event.screeningEvent.IEvent;
@@ -23,35 +17,11 @@ export interface IGmoTokenObject {
 /**
  * 作品別イベント作成
  */
-export function createscreeningEventDates(screeningEvents: factory.chevre.event.screeningEvent.IEvent[]) {
-    const dates: IScreeningEventDate[] = [];
-    screeningEvents.forEach((screeningEvent) => {
-        const registered = dates.find((date) => {
-            return (date.format === moment(screeningEvent.startDate).format('YYYYMMDD'));
-        });
-        if (registered === undefined) {
-            dates.push({
-                string: moment(screeningEvent.startDate).format('MM/DD (ddd)'),
-                format: moment(screeningEvent.startDate).format('YYYYMMDD'),
-                data: screeningEvent
-            });
-        }
-    });
-
-    return dates;
-}
-
-/**
- * 作品別イベント作成
- */
 export function createScreeningFilmEvents(params: {
-    screeningEvents: factory.chevre.event.screeningEvent.IEvent[],
-    scheduleDate: IScreeningEventDate
+    screeningEvents: factory.chevre.event.screeningEvent.IEvent[]
 }) {
     const films: IScreeningEventFilm[] = [];
-    const screeningEvents = params.screeningEvents.filter((screeningEvent) => {
-        return (params.scheduleDate.format === moment(screeningEvent.startDate).format('YYYYMMDD'));
-    });
+    const screeningEvents = params.screeningEvents;
     screeningEvents.forEach((screeningEvent) => {
         const registered = films.find((film) => {
             return (film.info.superEvent.id === screeningEvent.superEvent.id);
@@ -202,4 +172,76 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
     });
 
     return results;
+}
+
+/**
+ * 支払い方法作成
+ */
+export function createPaymentMethodFromType(args: {
+    paymentMethodType: factory.paymentMethodType | string;
+    paymentMethodName?: string;
+}) {
+    switch (args.paymentMethodType) {
+        case factory.paymentMethodType.Cash: {
+            return { typeOf: args.paymentMethodType, name: '現金' };
+        }
+        case factory.paymentMethodType.CreditCard: {
+            return { typeOf: args.paymentMethodType, name: 'クレジットカード' };
+        }
+        case factory.paymentMethodType.EMoney: {
+            return { typeOf: args.paymentMethodType, name: '電子マネー' };
+        }
+        default: {
+            return {
+                typeOf: args.paymentMethodType,
+                name: (args.paymentMethodName === undefined) ? 'その他' : args.paymentMethodName
+            };
+        }
+    }
+}
+
+type IItemOffered = factory.chevre.reservation.event.IReservation<factory.chevre.event.screeningEvent.IEvent>;
+
+/**
+ * 券種金額取得
+ */
+export function getTicketPrice(ticket: factory.chevre.event.screeningEvent.ITicketOffer | factory.order.IAcceptedOffer<IItemOffered>) {
+    const result = {
+        unitPriceSpecification: 0,
+        videoFormatCharge: 0,
+        soundFormatCharge: 0,
+        movieTicketTypeCharge: 0,
+        total: 0,
+        single: 0
+    };
+    if (ticket.priceSpecification === undefined) {
+        return result;
+    }
+    const priceComponent = (<factory.chevre.event.screeningEvent.ITicketPriceSpecification>ticket.priceSpecification).priceComponent;
+    const priceSpecificationType = factory.chevre.priceSpecificationType;
+    const unitPriceSpecifications = priceComponent.filter((s) => s.typeOf === priceSpecificationType.UnitPriceSpecification);
+    const videoFormatCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.VideoFormatChargeSpecification);
+    const soundFormatCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.SoundFormatChargeSpecification);
+    const movieTicketTypeCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.MovieTicketTypeChargeSpecification);
+
+    result.unitPriceSpecification += unitPriceSpecifications[0].price;
+    videoFormatCharges.forEach((videoFormatCharge) => {
+        result.videoFormatCharge += videoFormatCharge.price;
+    });
+    soundFormatCharges.forEach((soundFormatCharge) => {
+        result.soundFormatCharge += soundFormatCharge.price;
+    });
+    movieTicketTypeCharges.forEach((movieTicketTypeCharge) => {
+        result.movieTicketTypeCharge += movieTicketTypeCharge.price;
+    });
+    result.total = result.unitPriceSpecification + result.videoFormatCharge + result.soundFormatCharge + result.movieTicketTypeCharge;
+    const unitPriceSpecification = unitPriceSpecifications[0];
+    if (unitPriceSpecification.typeOf === priceSpecificationType.UnitPriceSpecification) {
+        const referenceQuantityValue = (unitPriceSpecification.referenceQuantity.value === undefined)
+            ? 1
+            : unitPriceSpecification.referenceQuantity.value;
+        result.single = result.total / referenceQuantityValue;
+    }
+
+    return result;
 }

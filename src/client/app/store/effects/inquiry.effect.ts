@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs/operators';
+import { formatTelephone } from '../../functions';
 import { CinerinoService } from '../../services/cinerino.service';
 import * as inquiry from '../actions/inquiry.action';
-import { formatTelephone } from '../functions';
 
 /**
  * Inquiry Effects

@@ -5,7 +5,7 @@ import { Action } from '@ngrx/store';
  * Action types
  */
 export enum ActionTypes {
-    Delete = '[Inquiry] Inquiry',
+    Delete = '[Inquiry] Delete',
     Inquiry = '[Inquiry] Inquiry',
     InquirySuccess = '[Inquiry] Inquiry Success',
     InquiryFail = '[Inquiry] Inquiry Fail'

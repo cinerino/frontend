@@ -1,17 +1,15 @@
 import { factory } from '@cinerino/api-javascript-client';
+import {
+    createScreeningFilmEvents,
+    IGmoTokenObject,
+    isAvailabilityMovieTicket,
+    IScreeningEventFilm,
+    sameMovieTicketFilter
+} from '../../functions';
 import { IScreen, Reservation } from '../../models';
 import * as inquiry from '../actions/inquiry.action';
 import * as purchase from '../actions/purchase.action';
 import * as user from '../actions/user.action';
-import {
-    createscreeningEventDates,
-    createScreeningFilmEvents,
-    IGmoTokenObject,
-    isAvailabilityMovieTicket,
-    IScreeningEventDate,
-    IScreeningEventFilm,
-    sameMovieTicketFilter
-} from '../functions';
 
 /**
  * IPurchaseState
@@ -21,8 +19,7 @@ export interface IPurchaseState {
     movieTheater?: factory.organization.movieTheater.IOrganization;
     screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
     screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
-    scheduleDates: IScreeningEventDate[];
-    scheduleDate?: IScreeningEventDate;
+    scheduleDate?: string;
     screeningFilmEvents: IScreeningEventFilm[];
     transaction?: factory.transaction.placeOrder.ITransaction;
     screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
@@ -70,7 +67,6 @@ export const initialState: IState = {
     purchase: {
         movieTheaters: [],
         screeningEvents: [],
-        scheduleDates: [],
         screeningFilmEvents: [],
         screeningEventOffers: [],
         reservations: [],
@@ -120,7 +116,6 @@ export function reducer(
             state.purchase = {
                 movieTheaters: [],
                 screeningEvents: [],
-                scheduleDates: [],
                 screeningFilmEvents: [],
                 screeningEventOffers: [],
                 reservations: [],
@@ -144,38 +139,21 @@ export function reducer(
             return { ...state, loading: false, error: JSON.stringify(error) };
         }
         case purchase.ActionTypes.SelectTheater: {
-            const movieTheater = action.payload.movieTheater;
-            return { ...state, loading: false, error: null, purchase: { ...state.purchase, movieTheater } };
-        }
-        case purchase.ActionTypes.SelectScheduleDate: {
-            const scheduleDate = action.payload.scheduleDate;
-            const screeningEvents = state.purchase.screeningEvents;
-            const screeningFilmEvents = createScreeningFilmEvents({ screeningEvents, scheduleDate });
-            return {
-                ...state, loading: false, error: null, purchase: {
-                    ...state.purchase,
-                    scheduleDate,
-                    screeningFilmEvents
-                }
-            };
+            state.purchase.movieTheater = action.payload.movieTheater;
+            return { ...state, loading: false, error: null};
         }
         case purchase.ActionTypes.GetSchedule: {
             return { ...state, loading: true };
         }
         case purchase.ActionTypes.GetScheduleSuccess: {
             const screeningEvents = action.payload.screeningEvents;
-            const scheduleDates = createscreeningEventDates(screeningEvents);
-            const scheduleDate = scheduleDates[0];
-            const screeningFilmEvents = createScreeningFilmEvents({ screeningEvents, scheduleDate });
-            return {
-                ...state, loading: false, error: null, purchase: {
-                    ...state.purchase,
-                    screeningEvents,
-                    scheduleDates,
-                    scheduleDate,
-                    screeningFilmEvents
-                }
-            };
+            const scheduleDate = action.payload.scheduleDate;
+            const screeningFilmEvents = createScreeningFilmEvents({ screeningEvents });
+            state.purchase.screeningEvents = screeningEvents;
+            state.purchase.scheduleDate = scheduleDate;
+            state.purchase.screeningFilmEvents = screeningFilmEvents;
+
+            return { ...state, loading: false, error: null };
         }
         case purchase.ActionTypes.GetScheduleFail: {
             const error = action.payload.error;
@@ -222,17 +200,28 @@ export function reducer(
             const error = action.payload.error;
             return { ...state, loading: false, error: JSON.stringify(error) };
         }
-        case purchase.ActionTypes.SelectSeat: {
-            state.purchase.reservations.push(new Reservation({ seat: action.payload.seat }));
+        case purchase.ActionTypes.SelectSeats: {
             const reservations = state.purchase.reservations;
-            return { ...state, loading: false, error: null, purchase: { ...state.purchase, reservations } };
-        }
-        case purchase.ActionTypes.CancelSeat: {
-            const reservations = state.purchase.reservations.filter((reservation) => {
-                return (reservation.seat.seatNumber !== action.payload.seat.seatNumber
-                    || reservation.seat.seatSection !== action.payload.seat.seatSection);
+            action.payload.seats.forEach((seat) => {
+                reservations.push(new Reservation({ seat }));
             });
-            return { ...state, loading: false, error: null, purchase: { ...state.purchase, reservations } };
+            state.purchase.reservations = reservations;
+            return { ...state, loading: false, error: null };
+        }
+        case purchase.ActionTypes.CancelSeats: {
+            const reservations: Reservation[] = [];
+            const seats = action.payload.seats;
+            state.purchase.reservations.forEach((reservation) => {
+                const findResult = seats.find((seat) => {
+                    return (reservation.seat.seatNumber === seat.seatNumber
+                        && reservation.seat.seatSection === seat.seatSection);
+                });
+                if (findResult === undefined) {
+                    reservations.push(reservation);
+                }
+            });
+            state.purchase.reservations = reservations;
+            return { ...state, loading: false, error: null };
         }
         case purchase.ActionTypes.GetTicketList: {
             return { ...state, loading: true };
@@ -253,21 +242,20 @@ export function reducer(
             const error = action.payload.error;
             return { ...state, loading: false, error: JSON.stringify(error) };
         }
-        case purchase.ActionTypes.SelectTicket: {
+        case purchase.ActionTypes.SelectTickets: {
             const reservations: Reservation[] = [];
+            const selectedReservations = action.payload.reservations;
             state.purchase.reservations.forEach((reservation) => {
-                if (Object.is(reservation, action.payload.reservation)) {
-                    reservations.push(action.payload.reservation);
-                } else {
+                const findResult =
+                    selectedReservations.find(selectedReservation => Object.is(reservation, selectedReservation));
+                if (findResult === undefined) {
                     reservations.push(reservation);
+                } else {
+                    reservations.push(findResult);
                 }
             });
-            return {
-                ...state, purchase: {
-                    ...state.purchase,
-                    reservations
-                }
-            };
+            state.purchase.reservations = reservations;
+            return { ...state };
         }
         case purchase.ActionTypes.TemporaryReservation: {
             return { ...state, loading: true };

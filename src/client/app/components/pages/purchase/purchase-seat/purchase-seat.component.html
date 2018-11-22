@@ -4,8 +4,7 @@
 
         <p class="mb-3">座席を選択してください。</p>
 
-        <app-screen class="mb-3 bg-white" [screenData]="(purchase | async).screenData" [screeningEventOffers]="(purchase | async).screeningEventOffers"
-            [reservations]="(purchase | async).reservations"  [authorizeSeatReservation]="(purchase | async).authorizeSeatReservation" (select)="selectSeat($event)">
+        <app-screen *ngIf="(purchase | async).screenData" class="mb-3 bg-white" [screenData]="(purchase | async).screenData" (select)="selectSeat($event)">
         </app-screen>
 
         <h3 class="mb-2 font-weight-bold">利用規約</h3>

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { factory } from '@cinerino/api-javascript-client';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { IReservationTicket, Reservation } from '../../../../models/purchase/reservation';
-import { ActionTypes, SelectTicket, TemporaryReservation } from '../../../../store/actions/purchase.action';
+import { ActionTypes, SelectTickets, TemporaryReservation } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
 import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
 import { MvtkCheckModalComponent } from '../../../parts/mvtk-check-modal/mvtk-check-modal.component';
@@ -53,6 +54,30 @@ export class PurchaseTicketComponent implements OnInit {
                 });
                 return;
             }
+            const validResult = reservations.filter((reservation) => {
+                const unitPriceSpecification = reservation.getUnitPriceSpecification();
+                if (unitPriceSpecification === undefined
+                    || unitPriceSpecification.typeOf !== factory.chevre.priceSpecificationType.UnitPriceSpecification) {
+                    return false;
+                }
+                const filterResult = reservations.filter((targetReservation) => {
+                    return (reservation.ticket !== undefined
+                        && targetReservation.ticket !== undefined
+                        && reservation.ticket.ticketOffer.id === targetReservation.ticket.ticketOffer.id);
+                });
+                const value = (unitPriceSpecification.referenceQuantity.value === undefined)
+                    ? 1
+                    : unitPriceSpecification.referenceQuantity.value;
+
+                return (filterResult.length % value !== 0);
+            });
+            if (validResult.length > 0) {
+                this.openAlert({
+                    title: 'エラー',
+                    body: '割引券の適用条件を再度ご確認ください。'
+                });
+                return;
+            }
             this.store.dispatch(new TemporaryReservation({
                 transaction,
                 screeningEvent,
@@ -88,7 +113,7 @@ export class PurchaseTicketComponent implements OnInit {
 
             modalRef.result.then((ticket: IReservationTicket) => {
                 reservation.ticket = ticket;
-                this.store.dispatch(new SelectTicket({ reservation }));
+                this.store.dispatch(new SelectTickets({ reservations: [reservation] }));
             }).catch(() => { });
         }).unsubscribe();
     }

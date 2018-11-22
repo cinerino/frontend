@@ -2,16 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { IScreen } from '../../models';
-import { CinerinoService } from '../../services/cinerino.service';
-import * as purchase from '../actions/purchase.action';
 import {
     createGmoTokenObject,
     createMovieTicketsFromAuthorizeSeatReservation,
     createOrderId,
     formatTelephone
-} from '../functions';
+} from '../../functions';
+import { IScreen } from '../../models';
+import { CinerinoService } from '../../services/cinerino.service';
+import * as purchase from '../actions/purchase.action';
+
 /**
  * Purchase Effects
  */
@@ -53,9 +55,17 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const screeningEventsResult = await this.cinerino.event.searchScreeningEvents(payload.params);
+                const branchCode = payload.movieTheater.location.branchCode;
+                const scheduleDate = payload.scheduleDate;
+                const screeningEventsResult = await this.cinerino.event.searchScreeningEvents({
+                    eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
+                    superEvent: { locationBranchCodes: [branchCode] },
+                    startFrom: moment(scheduleDate).toDate(),
+                    startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                });
                 const screeningEvents = screeningEventsResult.data;
-                return new purchase.GetScheduleSuccess({ screeningEvents });
+
+                return new purchase.GetScheduleSuccess({ screeningEvents, scheduleDate });
             } catch (error) {
                 return new purchase.GetScheduleFail({ error: error });
             }
@@ -350,7 +360,7 @@ export class PurchaseEffects {
                                 reservedTicket: {
                                     ticketedSeat: {
                                         typeOf: factory.chevre.placeType.Seat,
-                                        seatingType: '', // 情報空でよし
+                                        seatingType: <any>'', // 情報空でよし
                                         seatNumber: '', // 情報空でよし
                                         seatRow: '', // 情報空でよし
                                         seatSection: '' // 情報空でよし

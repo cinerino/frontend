@@ -32,23 +32,20 @@ export class Reservation {
             videoFormatCharge: 0,
             soundFormatCharge: 0,
             movieTicketTypeCharge: 0,
-            total: 0
+            total: 0,
+            single: 0
         };
         if (this.ticket === undefined) {
             return result;
         }
-        const unitPriceSpecifications = this.ticket.ticketOffer.priceSpecification.priceComponent
-            .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.UnitPriceSpecification);
-        const videoFormatCharges = this.ticket.ticketOffer.priceSpecification.priceComponent
-            .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.VideoFormatChargeSpecification);
-        const soundFormatCharges = this.ticket.ticketOffer.priceSpecification.priceComponent
-            .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.SoundFormatChargeSpecification);
-        const movieTicketTypeCharges = this.ticket.ticketOffer.priceSpecification.priceComponent
-            .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
+        const priceComponent = this.ticket.ticketOffer.priceSpecification.priceComponent;
+        const priceSpecificationType = factory.chevre.priceSpecificationType;
+        const unitPriceSpecifications = priceComponent.filter((s) => s.typeOf === priceSpecificationType.UnitPriceSpecification);
+        const videoFormatCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.VideoFormatChargeSpecification);
+        const soundFormatCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.SoundFormatChargeSpecification);
+        const movieTicketTypeCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.MovieTicketTypeChargeSpecification);
 
-        unitPriceSpecifications.forEach((unitPriceSpecification) => {
-            result.unitPriceSpecification += unitPriceSpecification.price;
-        });
+        result.unitPriceSpecification += unitPriceSpecifications[0].price;
         videoFormatCharges.forEach((videoFormatCharge) => {
             result.videoFormatCharge += videoFormatCharge.price;
         });
@@ -59,8 +56,28 @@ export class Reservation {
             result.movieTicketTypeCharge += movieTicketTypeCharge.price;
         });
         result.total = result.unitPriceSpecification + result.videoFormatCharge + result.soundFormatCharge + result.movieTicketTypeCharge;
+        const unitPriceSpecification = unitPriceSpecifications[0];
+        if (unitPriceSpecification.typeOf === priceSpecificationType.UnitPriceSpecification) {
+            const referenceQuantityValue = (unitPriceSpecification.referenceQuantity.value === undefined)
+                ? 1
+                : unitPriceSpecification.referenceQuantity.value;
+            result.single = result.total / referenceQuantityValue;
+        }
 
         return result;
+    }
+
+    /**
+     * 価格仕様取得
+     */
+    public getUnitPriceSpecification() {
+        if (this.ticket === undefined) {
+            return;
+        }
+        const unitPriceSpecifications = this.ticket.ticketOffer.priceSpecification.priceComponent
+            .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.UnitPriceSpecification);
+
+        return unitPriceSpecifications[0];
     }
 }
 

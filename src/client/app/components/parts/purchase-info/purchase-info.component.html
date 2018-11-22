@@ -21,7 +21,7 @@
                 <i class="fas fa-ticket-alt mr-2"></i>座席・券種</div>
             <div *ngFor="let reservation of purchase.reservations">
                 <p>{{ reservation.seat.seatNumber }}</p> 
-                <p *ngIf="reservation.ticket">{{ reservation.ticket.ticketOffer.name.ja }} / {{ reservation.getTicketPrice().total | currency : 'JPY' }}</p>
+                <p *ngIf="reservation.ticket">{{ reservation.ticket.ticketOffer.name.ja }} / {{ reservation.getTicketPrice().single | currency : 'JPY' }}</p>
             </div>
         </div>
     </div>

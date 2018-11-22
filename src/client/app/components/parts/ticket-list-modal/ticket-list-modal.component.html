@@ -7,7 +7,7 @@
                     <p *ngIf="ticket.movieTicket" class="text-left small-text">購入管理番号{{ ticket.movieTicket.identifier
                         }}</p>
                 </div>
-                <div class="w-25 text-right">{{ getTicketPrice(ticket.ticketOffer).total | currency : 'JPY' }}</div>
+                <div class="w-25 text-right">{{ getTicketPrice(ticket.ticketOffer).single | currency : 'JPY' }}</div>
             </div>
         </button>
     </div>

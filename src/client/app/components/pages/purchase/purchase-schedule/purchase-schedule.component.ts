@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
@@ -14,11 +14,9 @@ import {
     GetSchedule,
     GetTheaters,
     SelectSchedule,
-    SelectScheduleDate,
     SelectTheater,
     StartTransaction
 } from '../../../../store/actions/purchase.action';
-import { IScreeningEventDate } from '../../../../store/functions';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -26,11 +24,15 @@ import * as reducers from '../../../../store/reducers';
     templateUrl: './purchase-schedule.component.html',
     styleUrls: ['./purchase-schedule.component.scss']
 })
-export class PurchaseScheduleComponent implements OnInit {
+export class PurchaseScheduleComponent implements OnInit, OnDestroy {
     @ViewChild(SwiperComponent) public componentRef: SwiperComponent;
     @ViewChild(SwiperDirective) public directiveRef: SwiperDirective;
     public purchase: Observable<reducers.IPurchaseState>;
     public swiperConfig: SwiperConfigInterface;
+    public scheduleDates: string[];
+    public moment: typeof moment = moment;
+    private updateTimer: any;
+
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
@@ -44,12 +46,27 @@ export class PurchaseScheduleComponent implements OnInit {
             breakpoints: {
                 320: { slidesPerView: 2 },
                 767: { slidesPerView: 3 },
-                1024: { slidesPerView: 6 }
+                1024: { slidesPerView: 5 }
             }
         };
         this.store.dispatch(new Delete({}));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.scheduleDates = [];
+        for (let i = 0; i < 7; i++) {
+            this.scheduleDates.push(moment().add(i, 'day').format('YYYY-MM-DD'));
+        }
         this.getTheaters();
+    }
+
+    public ngOnDestroy() {
+        clearInterval(this.updateTimer);
+    }
+
+    private update(movieTheater: factory.organization.movieTheater.IOrganization) {
+        const time = 600000; // 10 * 60 * 1000
+        this.updateTimer = setInterval(() => {
+            this.selectTheater(movieTheater);
+        }, time);
     }
 
     /**
@@ -68,9 +85,10 @@ export class PurchaseScheduleComponent implements OnInit {
         const success = this.actions.pipe(
             ofType(ActionTypes.GetTheatersSuccess),
             tap(() => {
-                this.purchase.subscribe((result) => {
-                    const movieTheater = result.movieTheaters[0];
+                this.purchase.subscribe((purchase) => {
+                    const movieTheater = purchase.movieTheaters[0];
                     this.selectTheater(movieTheater);
+                    this.update(movieTheater);
                 }).unsubscribe();
             })
         );
@@ -89,24 +107,29 @@ export class PurchaseScheduleComponent implements OnInit {
      */
     public selectTheater(movieTheater: factory.organization.movieTheater.IOrganization) {
         this.store.dispatch(new SelectTheater({ movieTheater }));
-        this.store.dispatch(new GetSchedule({
-            params: {
-                startFrom: moment().toDate(),
-                startThrough: moment().add(7, 'day').toDate(),
-                superEvent: {
-                    locationBranchCodes: [movieTheater.location.branchCode]
-                }
+        setTimeout(() => {
+            this.selectDate();
+        }, 0);
+    }
+
+    /**
+     * selectDate
+     */
+    public selectDate(scheduleDate?: string) {
+        this.purchase.subscribe((purchase) => {
+            const movieTheater = purchase.movieTheater;
+            if (scheduleDate === undefined || scheduleDate === '') {
+                scheduleDate = moment().format('YYYY-MM-DD');
             }
-        }));
+            if (movieTheater === undefined) {
+                return;
+            }
+            this.store.dispatch(new GetSchedule({ movieTheater, scheduleDate }));
+        }).unsubscribe();
 
         const success = this.actions.pipe(
             ofType(ActionTypes.GetScheduleSuccess),
-            tap(() => {
-                console.log('GetScheduleSuccess');
-                if (this.directiveRef !== undefined) {
-                    this.directiveRef.update();
-                }
-            })
+            tap(() => { })
         );
 
         const fail = this.actions.pipe(
@@ -116,13 +139,6 @@ export class PurchaseScheduleComponent implements OnInit {
             })
         );
         race(success, fail).pipe(take(1)).subscribe();
-    }
-
-    /**
-     * selectDate
-     */
-    public selectDate(scheduleDate: IScreeningEventDate) {
-        this.store.dispatch(new SelectScheduleDate({ scheduleDate }));
     }
 
     /**
@@ -136,6 +152,7 @@ export class PurchaseScheduleComponent implements OnInit {
         this.store.dispatch(new SelectSchedule({ screeningEvent }));
         this.purchase.subscribe((purchase) => {
             if (purchase.movieTheater === undefined) {
+                this.router.navigate(['/error']);
                 return;
             }
             this.store.dispatch(new StartTransaction({
