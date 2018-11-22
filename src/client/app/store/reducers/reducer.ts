@@ -84,7 +84,7 @@ export const initialState: IState = {
 };
 
 function getInitialState(): IState {
-    const json = localStorage.getItem('state');
+    const json = sessionStorage.getItem('state');
     if (json === undefined || json === null) {
         return initialState;
     }

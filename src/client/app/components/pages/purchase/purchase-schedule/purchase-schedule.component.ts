@@ -62,10 +62,15 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
         clearInterval(this.updateTimer);
     }
 
-    private update(movieTheater: factory.organization.movieTheater.IOrganization) {
+    private update() {
         const time = 600000; // 10 * 60 * 1000
         this.updateTimer = setInterval(() => {
-            this.selectTheater(movieTheater);
+            this.purchase.subscribe((purchase) => {
+                if (purchase.movieTheater === undefined) {
+                    return;
+                }
+                this.selectTheater(purchase.movieTheater);
+            }).unsubscribe();
         }, time);
     }
 
@@ -88,7 +93,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
                 this.purchase.subscribe((purchase) => {
                     const movieTheater = purchase.movieTheaters[0];
                     this.selectTheater(movieTheater);
-                    this.update(movieTheater);
+                    this.update();
                 }).unsubscribe();
             })
         );

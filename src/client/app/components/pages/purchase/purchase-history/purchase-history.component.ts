@@ -7,6 +7,7 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { getTicketPrice } from '../../../../functions';
 import { IPurchaseOrder } from '../../../../models/history/purchaseOrder';
 import { ActionTypes, GetPurchaseHistory, OrderAuthorize } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
@@ -20,6 +21,7 @@ import { PurchaseDetailModalComponent } from '../../../parts/purchase-detail-mod
 export class PurchaseHistoryComponent implements OnInit {
     public history: Observable<reducers.IHistoryState>;
     public moment: typeof moment = moment;
+    public getTicketPrice = getTicketPrice;
     constructor(
         private store: Store<reducers.IHistoryState>,
         private actions: Actions,

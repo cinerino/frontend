@@ -1,10 +1,9 @@
 @import '../../../../../assets/scss/theme';
 
-.ticket {
-    button {
-        width: 70%;
-        @include media-breakpoint-down(sm) {
-            width: 100%;
-        }
+.tickets {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    @include media-breakpoint-down(sm) {
+        grid-template-columns: 1fr;
     }
 }

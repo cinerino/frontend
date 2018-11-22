@@ -20,7 +20,7 @@
                                     <i class="fas fa-ticket-alt mr-2"></i>
                                     {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }} /
                                     {{ acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja }} /
-                                    {{ acceptedOffer.itemOffered.reservedTicket.ticketType.charge | currency : 'JPY' }}
+                                    {{ getTicketPrice(acceptedOffer).single | currency : 'JPY' }}
                                 </p>
                             </li>
                         </ul>

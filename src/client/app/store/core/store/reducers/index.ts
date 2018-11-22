@@ -44,7 +44,7 @@ export function storageSync(state: any) {
         || Object.keys(state).length === 0) {
         return;
     }
-    localStorage.setItem('state', JSON.stringify(state));
+    sessionStorage.setItem('state', JSON.stringify(state));
 }
 
 /**
