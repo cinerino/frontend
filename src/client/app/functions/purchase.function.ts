@@ -1,5 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
+import { environment } from '../../environments/environment';
 import { Reservation } from '../models';
 
 export interface IScreeningEventFilm {
@@ -44,13 +45,14 @@ export function createScreeningFilmEvents(params: {
  */
 export function createOrderId(params: {
     orderCount: number;
-    authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction;
-    movieTheater: factory.organization.movieTheater.IOrganization;
+    transaction: factory.transaction.placeOrder.ITransaction
 }) {
-    const date = moment().format('YYYYMMDDHHmmss');
-    const theaterCode = params.movieTheater.location.branchCode;
-    // const reservationId = params.authorizeSeatReservation.id;
-    return `${date}${theaterCode}${params.orderCount}`;
+    const DIGITS = { '02': -2, '06': -6 };
+    const prefix = environment.APP_PREFIX;
+    const date = moment().format('YYMMDDHHmmss');
+    const orderCount = `00${params.orderCount}`.slice(DIGITS['02']);
+    const transactionId = `000000${params.transaction.id}`.slice(DIGITS['06']);
+    return `${prefix}-${date}${transactionId}${orderCount}`;
 }
 
 /**

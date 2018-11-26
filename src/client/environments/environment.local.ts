@@ -5,6 +5,8 @@
 export const environment = {
     production: false,
 
+    APP_PREFIX: 'CI',
+
     ENV: 'local',
 
     API_ENDPOINT: 'https://cinerino-api.azurewebsites.net',

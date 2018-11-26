@@ -315,8 +315,6 @@ export class AuthorizeCreditCard implements Action {
     public readonly type = ActionTypes.AuthorizeCreditCard;
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
-        movieTheater: factory.organization.movieTheater.IOrganization;
-        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction;
         authorizeCreditCardPayment?: factory.action.authorize.paymentMethod.creditCard.IAction;
         orderCount: number;
         amount: number;

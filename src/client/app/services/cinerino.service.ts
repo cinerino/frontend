@@ -67,10 +67,14 @@ export class CinerinoService {
             // member: '0'
             member: '1'
         };
-        const credentials = await this.http.post<any>(url, body).toPromise();
+        const result = await this.http.post<{
+            accessToken: string;
+            userName: string;
+            clientId: string;
+        }>(url, body).toPromise();
         const option = {
             domain: '',
-            clientId: '',
+            clientId: result.clientId,
             redirectUri: '',
             logoutUri: '',
             responseType: '',
@@ -80,7 +84,7 @@ export class CinerinoService {
             tokenIssuer: ''
         };
         this.auth = cinerino.createAuthInstance(option);
-        this.auth.setCredentials(credentials);
+        this.auth.setCredentials({ accessToken: result.accessToken });
     }
 
     /**

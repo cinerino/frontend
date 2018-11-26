@@ -28,12 +28,11 @@ export async function getCredentials(req: Request, res: Response) {
         if (req.body.member === '1') {
             userName = options.auth.verifyIdToken(<any>{}).getUsername();
         }
-        const credentials = {
+        res.json({
             accessToken: accessToken,
-            userName: userName
-        };
-
-        res.json(credentials);
+            userName: userName,
+            clientId: options.auth.options.clientId
+        });
     } catch (err) {
         errorProsess(res, err);
     }

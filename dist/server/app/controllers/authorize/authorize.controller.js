@@ -39,11 +39,11 @@ function getCredentials(req, res) {
             if (req.body.member === '1') {
                 userName = options.auth.verifyIdToken({}).getUsername();
             }
-            const credentials = {
+            res.json({
                 accessToken: accessToken,
-                userName: userName
-            };
-            res.json(credentials);
+                userName: userName,
+                clientId: options.auth.options.clientId
+            });
         }
         catch (err) {
             base_controller_1.errorProsess(res, err);

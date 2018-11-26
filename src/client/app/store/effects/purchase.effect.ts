@@ -227,8 +227,6 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 const orderCount = payload.orderCount;
-                const authorizeSeatReservation = payload.authorizeSeatReservation;
-                const movieTheater = payload.movieTheater;
                 const gmoTokenObject = payload.gmoTokenObject;
                 const amount = payload.amount;
                 await this.cinerino.getServices();
@@ -236,7 +234,7 @@ export class PurchaseEffects {
                     await this.cinerino.transaction.placeOrder.voidPayment(payload.authorizeCreditCardPayment);
                 }
                 const transaction = payload.transaction;
-                const orderId = createOrderId({ orderCount, authorizeSeatReservation, movieTheater });
+                const orderId = createOrderId({ orderCount, transaction });
                 const creditCard = { token: gmoTokenObject.token };
                 const authorizeCreditCardPaymentResult =
                     await this.cinerino.transaction.placeOrder.authorizeCreditCardPayment({

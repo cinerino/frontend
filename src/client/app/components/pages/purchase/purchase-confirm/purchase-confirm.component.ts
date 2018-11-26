@@ -90,8 +90,6 @@ export class PurchaseConfirmComponent implements OnInit {
             }
             this.store.dispatch(new AuthorizeCreditCard({
                 transaction: purchase.transaction,
-                movieTheater: purchase.movieTheater,
-                authorizeSeatReservation: purchase.authorizeSeatReservation,
                 authorizeCreditCardPayment: purchase.authorizeCreditCardPayment,
                 orderCount: purchase.orderCount,
                 amount: purchase.authorizeSeatReservation.result.price,
