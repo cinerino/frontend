@@ -4,7 +4,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BaseComponent } from './components/pages/base/base.component';
+import { CongestionComponent } from './components/pages/congestion/congestion.component';
 import { ErrorComponent } from './components/pages/error/error.component';
+import { MaintenanceComponent } from './components/pages/maintenance/maintenance.component';
 import { NotfoundComponent } from './components/pages/notfound/notfound.component';
 import { SettingComponent } from './components/pages/setting/setting.component';
 import * as auth from './routes/auth.route';
@@ -21,6 +23,8 @@ const appRoutes: Routes = [
         component: BaseComponent,
         children: [
             { path: 'setting', component: SettingComponent },
+            { path: 'maintenance', component: MaintenanceComponent },
+            { path: 'congestion', component: CongestionComponent },
             { path: 'error', component: ErrorComponent },
             { path: '**', component: NotfoundComponent }
         ]

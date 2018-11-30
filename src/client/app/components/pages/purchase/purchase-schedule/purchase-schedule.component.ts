@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { SERVICE_UNAVAILABLE, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
 import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable, race } from 'rxjs';
@@ -28,6 +29,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
     @ViewChild(SwiperComponent) public componentRef: SwiperComponent;
     @ViewChild(SwiperDirective) public directiveRef: SwiperDirective;
     public purchase: Observable<reducers.IPurchaseState>;
+    public error: Observable<string | null>;
     public swiperConfig: SwiperConfigInterface;
     public scheduleDates: string[];
     public moment: typeof moment = moment;
@@ -51,6 +53,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
         };
         this.store.dispatch(new Delete({}));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.error = this.store.pipe(select(reducers.getError));
         this.scheduleDates = [];
         for (let i = 0; i < 7; i++) {
             this.scheduleDates.push(moment().add(i, 'day').format('YYYY-MM-DD'));
@@ -183,7 +186,25 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
         const fail = this.actions.pipe(
             ofType(ActionTypes.StartTransactionFail),
             tap(() => {
-                this.router.navigate(['/error']);
+                this.error.subscribe((error) => {
+                    try {
+                        if (error === null) {
+                            throw new Error('error is null');
+                        }
+                        const errorObject = JSON.parse(error);
+                        if (errorObject.status === TOO_MANY_REQUESTS) {
+                            this.router.navigate(['/congestion']);
+                            return;
+                        }
+                        if (errorObject.status === SERVICE_UNAVAILABLE) {
+                            this.router.navigate(['/maintenance']);
+                            return;
+                        }
+                        throw new Error('error status not match');
+                    } catch (error2) {
+                        this.router.navigate(['/error']);
+                    }
+                });
             })
         );
         race(success, fail).pipe(take(1)).subscribe();
