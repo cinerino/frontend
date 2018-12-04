@@ -57,14 +57,15 @@ export class PurchaseEffects {
                 await this.cinerino.getServices();
                 const branchCode = payload.movieTheater.location.branchCode;
                 const scheduleDate = payload.scheduleDate;
+                const today = moment(moment().format('YYYY-MM-DD')).toDate();
                 const screeningEventsResult = await this.cinerino.event.searchScreeningEvents({
                     eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
                     superEvent: { locationBranchCodes: [branchCode] },
                     startFrom: moment(scheduleDate).toDate(),
                     startThrough: moment(scheduleDate).add(1, 'day').toDate(),
                     offers: {
-                        availableFrom: moment(scheduleDate).toDate(),
-                        availableThrough: moment(scheduleDate).toDate()
+                        availableFrom: today,
+                        availableThrough: today
                     }
                 });
                 const screeningEvents = screeningEventsResult.data;
@@ -178,16 +179,12 @@ export class PurchaseEffects {
             try {
                 await this.cinerino.getServices();
                 const screeningEventTicketOffers = await this.cinerino.event.searchScreeningEventTicketOffers({
-                    event: {
-                        id: payload.screeningEvent.id
-                    },
+                    event: { id: payload.screeningEvent.id },
                     seller: {
                         typeOf: payload.movieTheater.typeOf,
                         id: payload.movieTheater.id
                     },
-                    store: {
-                        id: payload.clientId
-                    }
+                    store: { id: payload.clientId }
                 });
 
                 return new purchase.GetTicketListSuccess({ screeningEventTicketOffers });
