@@ -2,8 +2,12 @@
  * HeaderMenuComponent
  */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { CinerinoService } from '../../../services/cinerino.service';
+import * as reducers from '../../../store/reducers';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 @Component({
@@ -14,13 +18,28 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 export class HeaderMenuComponent implements OnInit {
     @Input() public isOpen: boolean;
     @Output() public close: EventEmitter<{}> = new EventEmitter();
-
+    public user: Observable<reducers.IUserState>;
     constructor(
+        private store: Store<reducers.IState>,
         private cinerino: CinerinoService,
+        private router: Router,
         private modal: NgbModal
     ) { }
 
     public ngOnInit() {
+        this.user = this.store.pipe(select(reducers.getUser));
+    }
+
+    public signIn() {
+        this.close.emit();
+        this.openConfirm({
+            title: '確認',
+            body: 'ログインしますか？',
+            done: () => {
+                this.router.navigate(['/auth']);
+            }
+
+        });
     }
 
     public signOut() {

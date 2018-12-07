@@ -63,10 +63,19 @@ export class CinerinoService {
      */
     public async authorize() {
         const url = '/api/authorize/getCredentials';
-        const body = {
-            // member: '0'
-            member: '1'
-        };
+        const body = { member: '0' };
+        try {
+            const data = sessionStorage.getItem('state');
+            if (data === null) {
+                throw new Error('state is null');
+            }
+            const state = JSON.parse(data);
+            if (state.App && state.App.user.isMember) {
+                body.member = '1';
+            }
+        } catch (error) {
+
+        }
         const result = await this.http.post<{
             accessToken: string;
             userName: string;

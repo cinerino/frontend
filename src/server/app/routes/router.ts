@@ -15,7 +15,7 @@ export default (app: express.Application) => {
     app.use('/api/authorize', authorizeRouter);
 
     app.get('/signIn', authorize.signInRedirect);
-    app.get('/signIn', authorize.signOutRedirect);
+    app.get('/signOut', authorize.signOutRedirect);
 
     app.get('*', (_req, res, _next) => {
         res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`));

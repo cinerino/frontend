@@ -10,7 +10,7 @@ exports.default = (app) => {
     });
     app.use('/api/authorize', authorize_1.default);
     app.get('/signIn', authorize.signInRedirect);
-    app.get('/signIn', authorize.signOutRedirect);
+    app.get('/signOut', authorize.signOutRedirect);
     app.get('*', (_req, res, _next) => {
         res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`));
     });

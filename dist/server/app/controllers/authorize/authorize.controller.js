@@ -18,7 +18,7 @@ const base_controller_1 = require("../base/base.controller");
 const log = debug('frontend:authorize');
 function getCredentials(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        log('getCredentials');
+        log('getCredentials', req.body.member);
         try {
             let authModel;
             let userName;
@@ -32,7 +32,7 @@ function getCredentials(req, res) {
                 throw new Error('member does not macth MemberType');
             }
             const options = {
-                endpoint: process.env.SSKTS_API_ENDPOINT,
+                endpoint: process.env.API_ENDPOINT,
                 auth: authModel.create()
             };
             const accessToken = yield options.auth.getAccessToken();

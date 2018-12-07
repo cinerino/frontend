@@ -55,13 +55,13 @@ export class AuthModel {
             session = {};
         }
         this.state = (session.state !== undefined) ? session.state : uuid.v1();
-        const resourceServerUrl  = <string>process.env.RESOURCE_SERVER_URL;
+        // const resourceServerUrl  = <string>process.env.RESOURCE_SERVER_URL;
         this.scopes = (session.scopes !== undefined) ? session.scopes : [
-            `${resourceServerUrl}/transactions`,
-            `${resourceServerUrl}/events.read-only`,
-            `${resourceServerUrl}/organizations.read-only`,
-            `${resourceServerUrl}/orders.read-only`,
-            `${resourceServerUrl}/places.read-only`
+            // `${resourceServerUrl}/transactions`,
+            // `${resourceServerUrl}/events.read-only`,
+            // `${resourceServerUrl}/organizations.read-only`,
+            // `${resourceServerUrl}/orders.read-only`,
+            // `${resourceServerUrl}/places.read-only`
         ];
         this.credentials = session.credentials;
         this.codeVerifier = session.codeVerifier;
@@ -81,21 +81,5 @@ export class AuthModel {
             state: this.state,
             scopes: this.scopes
         });
-    }
-
-    /**
-     * セッションへ保存
-     * @memberof AuthModel
-     * @method save
-     * @returns {Object}
-     */
-    public save(session: any): void {
-        const authSession: IAuthSession = {
-            state: this.state,
-            scopes: this.scopes,
-            credentials: this.credentials,
-            codeVerifier: this.codeVerifier
-        };
-        session.auth = authSession;
     }
 }

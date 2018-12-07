@@ -14,23 +14,6 @@ export class UserEffects {
     ) { }
 
     /**
-     * Load
-     */
-    @Effect()
-    public load = this.actions.pipe(
-        ofType<user.Load>(user.ActionTypes.Load),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            console.log(payload);
-            try {
-                return new user.LoadSuccess({ });
-            } catch (error) {
-                return new user.LoadFail({ error: error });
-            }
-        })
-    );
-
-    /**
      * Create
      */
     @Effect()

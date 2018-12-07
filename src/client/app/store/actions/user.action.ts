@@ -5,9 +5,6 @@ import { Action } from '@ngrx/store';
  */
 export enum ActionTypes {
     Delete = '[User] User',
-    Load = '[User] Load',
-    LoadSuccess = '[User] Load Success',
-    LoadFail = '[User] Load Fail',
     Create = '[User] Create',
     CreateSuccess = '[User] Create Success',
     CreateFail = '[User] Create Fail',
@@ -18,31 +15,7 @@ export enum ActionTypes {
  */
 export class Delete implements Action {
     public readonly type = ActionTypes.Delete;
-    constructor(public payload: {}) { }
-}
-
-/**
- * Load
- */
-export class Load implements Action {
-    public readonly type = ActionTypes.Load;
-    constructor(public payload: {}) { }
-}
-
-/**
- * LoadSuccess
- */
-export class LoadSuccess implements Action {
-    public readonly type = ActionTypes.LoadSuccess;
-    constructor(public payload: {}) { }
-}
-
-/**
- * LoadFail
- */
-export class LoadFail implements Action {
-    public readonly type = ActionTypes.LoadFail;
-    constructor(public payload: { error: Error }) { }
+    constructor(public payload?: {}) { }
 }
 
 /**
@@ -50,7 +23,7 @@ export class LoadFail implements Action {
  */
 export class Create implements Action {
     public readonly type = ActionTypes.Create;
-    constructor(public payload: {}) { }
+    constructor(public payload?: {}) { }
 }
 
 /**
@@ -74,9 +47,6 @@ export class CreateFail implements Action {
  */
 export type Actions =
     | Delete
-    | Load
-    | LoadSuccess
-    | LoadFail
     | Create
     | CreateSuccess
     | CreateFail;

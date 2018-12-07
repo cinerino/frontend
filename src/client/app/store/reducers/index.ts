@@ -12,6 +12,7 @@ export {
     IPurchaseState,
     IHistoryState,
     IInquiryState,
+    IUserState,
     reducer
 } from './reducer';
 
@@ -24,3 +25,4 @@ export const getError = createSelector(getFeatureState, reducer.getError);
 export const getPurchase = createSelector(getFeatureState, reducer.getPurchase);
 export const getHistory = createSelector(getFeatureState, reducer.getHistory);
 export const getInquiry = createSelector(getFeatureState, reducer.getInquiry);
+export const getUser = createSelector(getFeatureState, reducer.getUser);

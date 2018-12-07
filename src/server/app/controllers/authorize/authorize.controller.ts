@@ -9,7 +9,7 @@ import { errorProsess } from '../base/base.controller';
 const log = debug('frontend:authorize');
 
 export async function getCredentials(req: Request, res: Response) {
-    log('getCredentials');
+    log('getCredentials', req.body.member);
     try {
         let authModel;
         let userName;
@@ -21,7 +21,7 @@ export async function getCredentials(req: Request, res: Response) {
             throw new Error('member does not macth MemberType');
         }
         const options = {
-            endpoint: (<string>process.env.SSKTS_API_ENDPOINT),
+            endpoint: (<string>process.env.API_ENDPOINT),
             auth: authModel.create()
         };
         const accessToken = await options.auth.getAccessToken();

@@ -15,7 +15,6 @@ import { PurchaseTicketComponent } from '../components/pages/purchase/purchase-t
 export const route = {
     path: 'purchase',
     component: PurchaseBaseComponent,
-    canActivate: [AuthGuardService],
     children: [
         { path: 'seat', component: PurchaseSeatComponent },
         { path: 'ticket', component: PurchaseTicketComponent },
@@ -23,6 +22,6 @@ export const route = {
         { path: 'confirm', component: PurchaseConfirmComponent },
         { path: 'complete', component: PurchaseCompleteComponent },
         { path: 'schedule', component: PurchaseScheduleComponent },
-        { path: 'history', component: PurchaseHistoryComponent }
+        { path: 'history', canActivate: [AuthGuardService], component: PurchaseHistoryComponent }
     ]
 };
