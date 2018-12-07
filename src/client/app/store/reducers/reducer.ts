@@ -1,4 +1,3 @@
-import { factory } from '@cinerino/api-javascript-client';
 import { Reservation } from '../../models';
 import * as inquiryAction from '../actions/inquiry.action';
 import * as purchaseAction from '../actions/purchase.action';
@@ -7,11 +6,7 @@ import * as inquiryReducer from './inquiry.reducer';
 import * as purchaseReducer from './purchase.reducer';
 import * as userReducer from './user.reducer';
 
-export interface IHistoryState {
-    purchase: factory.order.IOrder[];
-}
-
-export { IPurchaseState } from './purchase.reducer';
+export { IPurchaseState, IHistoryState } from './purchase.reducer';
 export { IInquiryState } from './inquiry.reducer';
 export { IUserState } from './user.reducer';
 
@@ -22,7 +17,7 @@ export interface IState {
     loading: boolean;
     error: string | null;
     purchase: purchaseReducer.IPurchaseState;
-    history: IHistoryState;
+    history: purchaseReducer.IHistoryState;
     inquiry: inquiryReducer.IInquiryState;
     user: userReducer.IUserState;
 }

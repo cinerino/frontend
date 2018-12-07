@@ -10,9 +10,10 @@ import {
 import { IScreen, Reservation } from '../../models';
 import { Actions, ActionTypes } from '../actions/purchase.action';
 
-/**
- * IPurchaseState
- */
+export interface IHistoryState {
+    purchase: factory.order.IOrder[];
+}
+
 export interface IPurchaseState {
     movieTheaters: factory.organization.movieTheater.IOrganization[];
     movieTheater?: factory.organization.movieTheater.IOrganization;
