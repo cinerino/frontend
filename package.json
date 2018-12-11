@@ -23,7 +23,7 @@
     "ssl": "node dist/server/ssl",
     "build-server": "tsc --project src/server --outDir dist/server --locale ja-jp",
     "lint-server": "tslint --config tslint.json src/server/**/**.ts --exclude **/**.spec.ts --project src/server/tsconfig.json",
-    "check": "npm run lint && nsp check",
+    "check": "npm run lint",
     "lint": "npm run lint-client && npm run lint-server",
     "test": "npm run check",
     "build": "npm run build-server && npm run build-client",
@@ -45,8 +45,8 @@
     "@angular/platform-browser": "^7.1.1",
     "@angular/platform-browser-dynamic": "^7.1.1",
     "@angular/router": "^7.1.1",
-    "@cinerino/api-javascript-client": "^1.0.0-alpha.23",
-    "@cinerino/api-nodejs-client": "^1.1.0-alpha.28",
+    "@cinerino/api-javascript-client": "^1.0.0-alpha.24",
+    "@cinerino/api-nodejs-client": "^1.1.0-alpha.30",
     "@ng-bootstrap/ng-bootstrap": "^4.0.0",
     "@ngrx/effects": "^6.1.0",
     "@ngrx/store": "^6.1.0",
@@ -106,14 +106,13 @@
     "karma-coverage-istanbul-reporter": "^1.4.3",
     "karma-jasmine": "^1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "nsp": "^3.2.1",
     "postcss": "^6.0.23",
     "postcss-cli": "^5.0.1",
     "protractor": "~5.2.2",
     "rimraf": "^2.6.2",
-    "ts-node": "~4.0.2",
+    "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-microsoft-contrib": "^5.1.0",
-    "typescript": "^3.1.6"
+    "typescript": "^3.2.2"
   }
 }
