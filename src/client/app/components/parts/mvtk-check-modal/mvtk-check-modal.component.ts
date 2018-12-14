@@ -7,6 +7,7 @@ import { select, Store } from '@ngrx/store';
 import jsqr from 'jsqr';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { movieTicketAuthErroCodeToMessage } from '../../../functions';
 import { ActionTypes, CheckMovieTicket } from '../../../store/actions/purchase.action';
 import * as reducers from '../../../store/reducers';
 
@@ -100,10 +101,23 @@ export class MvtkCheckModalComponent implements OnInit, OnDestroy {
                     const checkMovieTicketAction = purchase.checkMovieTicketAction;
                     if (checkMovieTicketAction === undefined
                         || checkMovieTicketAction.result === undefined
-                        || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut === null
-                        || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknInfo === null) {
+                        || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut === null) {
                         this.isSuccess = false;
-                        this.errorMessage = 'ムビチケ情報をご確認ください';
+                        this.errorMessage = 'ムビチケ情報をご確認ください。';
+                        return;
+                    }
+
+                    if (checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknmiNum === '0') {
+                        this.isSuccess = false;
+                        this.errorMessage = 'すでに使用済みのムビチケです。';
+                        return;
+                    }
+
+                    const knyknrNoMkujyuCd = checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].knyknrNoMkujyuCd;
+                    if (knyknrNoMkujyuCd !== undefined) {
+                        this.isSuccess = false;
+                        this.errorMessage = `ムビチケ情報をご確認ください。<br>
+                        [${knyknrNoMkujyuCd}] ${movieTicketAuthErroCodeToMessage(knyknrNoMkujyuCd)}`;
                         return;
                     }
                     this.createMvtkForm();

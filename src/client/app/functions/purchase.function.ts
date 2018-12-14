@@ -247,3 +247,47 @@ export function getTicketPrice(ticket: factory.chevre.event.screeningEvent.ITick
 
     return result;
 }
+
+/**
+ * ムビチケ認証購入管理番号無効事由区分変換
+ */
+export function movieTicketAuthErroCodeToMessage(code?: string) {
+    switch (code) {
+        case '01': {
+            return '存在無';
+        }
+        case '02': {
+            return 'PINｺｰﾄﾞ必須';
+        }
+        case '03': {
+            return 'PINｺｰﾄﾞ認証ｴﾗｰ';
+        }
+        case '04': {
+            return '作品不一致';
+        }
+        case '05': {
+            return '未ｱｸﾃｨﾍﾞｰﾄ';
+        }
+        case '06': {
+            return '選択興行対象外';
+        }
+        case '07': {
+            return '有効期限切れ';
+        }
+        case '08': {
+            return '座席予約期間外';
+        }
+        case '09': {
+            return 'その他';
+        }
+        case '11': {
+            return '座席予約開始前';
+        }
+        case '12': {
+            return '仮お直り購入番号数不一致';
+        }
+        default: {
+            return 'その他';
+        }
+    }
+}
