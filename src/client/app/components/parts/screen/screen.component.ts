@@ -292,7 +292,6 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
                     }
                     if (this.screenData.hc.indexOf(code) !== -1) {
                         className.push('seat-hc');
-                        status = SeatStatus.Disabled;
                     }
 
                     const seat = {
@@ -339,6 +338,9 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
             return;
         }
         if (seat.status === SeatStatus.Disabled) {
+            return;
+        }
+        if (this.screenData.hc.indexOf(seat.code) !== -1) {
             return;
         }
         this.select.emit({
