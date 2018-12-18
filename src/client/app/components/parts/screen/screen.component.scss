@@ -37,7 +37,7 @@
         background-image: url(/images/theater/seat/hc.svg) !important;
         background-size: 40px 50px;
         &.disabled {
-            background-image: url(/images/theater/seat/hc_disabled.svg);
+            background-image: url(/images/theater/seat/hc_disabled.svg) !important;
         }
         span {
             display: none !important;
