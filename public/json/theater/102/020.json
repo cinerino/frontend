@@ -33,5 +33,6 @@
     ],
     "special": [],
     "hc": ["A-12", "A-13"],
-    "pair": []
+    "pair": [],
+    "codeType": "coa"
 }

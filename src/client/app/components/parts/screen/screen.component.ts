@@ -11,6 +11,7 @@ import {
 import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { toFull } from '../../../functions';
 import { ILabel, IReservationSeat, IScreen, ISeat, SeatStatus } from '../../../models';
 import * as reducers from '../../../store/reducers';
 
@@ -261,9 +262,16 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
                     || this.screenData.map[y][x] === 8
                     || this.screenData.map[y][x] === 10) {
                     // 座席HTML生成
-                    const code = (this.screenData.seatNumberAlign === 'left')
-                        ? `${labels[labelCount]}-${String(x + 1)}`
-                        : `${labels[labelCount]}-${String(this.screenData.map[y].length - x)}`;
+                    const code = (() => {
+                        if (this.screenData.codeType === 'coa') {
+                            return (this.screenData.seatNumberAlign === 'left')
+                                ? `${toFull(labels[labelCount])}－${toFull(String(x + 1))}`
+                                : `${toFull(labels[labelCount])}－${toFull(String(this.screenData.map[y].length - x))}`;
+                        }
+                        return (this.screenData.seatNumberAlign === 'left')
+                            ? `${labels[labelCount]}-${String(x + 1)}`
+                            : `${labels[labelCount]}-${String(this.screenData.map[y].length - x)}`;
+                    })();
                     const className = [`seat-${code}`];
                     let section = '';
                     let status = SeatStatus.Disabled;

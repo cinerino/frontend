@@ -10,5 +10,6 @@
     "seatNumberAlign": "left",
     "columnLabel": true,
     "lineLabel": true,
-    "style": ""
+    "style": "",
+    "codeType": "default"
 }

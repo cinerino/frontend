@@ -31,5 +31,6 @@
     "special": [],
     "hc": ["A-4", "A-5"],
     "pair": [],
-    "seatLabelPos": 100
+    "seatLabelPos": 100,
+    "codeType": "coa"
 }
