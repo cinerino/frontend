@@ -45,6 +45,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
         this.swiperConfig = {
             spaceBetween: 1,
             slidesPerView: 7,
+            freeMode: true,
             breakpoints: {
                 320: { slidesPerView: 2 },
                 767: { slidesPerView: 3 },

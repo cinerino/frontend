@@ -36,7 +36,9 @@ export const initialState: IState = {
         reservations: [],
         screeningEventTicketOffers: [],
         orderCount: 0,
+        authorizeSeatReservations: [],
         checkMovieTicketActions: [],
+        authorizeCreditCardPayments: [],
         authorizeMovieTicketPayments: [],
         isUsedMovieTicket: false
     },

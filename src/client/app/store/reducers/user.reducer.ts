@@ -17,6 +17,7 @@ export function reducer(state: IState, action: Actions): IState {
     switch (action.type) {
         case ActionTypes.Delete: {
             state.user.isMember = false;
+            state.user.profile = undefined;
             return { ...state, loading: false };
         }
         case ActionTypes.Initialize: {

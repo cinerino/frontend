@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
+import { LibphonenumberFormatPipe } from '../../../../pipes/libphonenumber-format.pipe';
 import { ActionTypes, CreateGmoTokenObject, RegisterContact } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
 import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
@@ -20,6 +21,7 @@ import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.comp
 })
 export class PurchaseInputComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
+    public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     public customerContactForm: FormGroup;
     public paymentForm: FormGroup;
@@ -40,6 +42,7 @@ export class PurchaseInputComponent implements OnInit {
     public ngOnInit() {
         this.amount = 0;
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.purchase.subscribe((purchase) => {
             if (purchase.authorizeSeatReservation === undefined
@@ -51,15 +54,36 @@ export class PurchaseInputComponent implements OnInit {
         }).unsubscribe();
         this.createCustomerContactForm();
         this.createPaymentForm();
-        if (environment.ENV === 'local') {
-            this.customerContactForm.controls.familyName.setValue('ハタグチ');
-            this.customerContactForm.controls.givenName.setValue('アキト');
-            this.customerContactForm.controls.email.setValue('hataguchi@motionpicture.jp');
-            this.customerContactForm.controls.telephone.setValue('0362778824');
-            this.paymentForm.controls.cardNumber.setValue('4111111111111111');
-            this.paymentForm.controls.securityCode.setValue('123');
-            this.paymentForm.controls.holderName.setValue('HATAGUCHI');
-        }
+        this.purchase.subscribe((purchase) => {
+            if (purchase.customerContact !== undefined) {
+                this.customerContactForm.controls.familyName.setValue(purchase.customerContact.familyName);
+                this.customerContactForm.controls.givenName.setValue(purchase.customerContact.givenName);
+                this.customerContactForm.controls.email.setValue(purchase.customerContact.email);
+                this.customerContactForm.controls.telephone.setValue(
+                    new LibphonenumberFormatPipe().transform(purchase.customerContact.telephone)
+                );
+                return;
+            }
+            this.user.subscribe((user) => {
+                if (environment.ENV === 'local') {
+                    this.customerContactForm.controls.familyName.setValue('ハタグチ');
+                    this.customerContactForm.controls.givenName.setValue('アキト');
+                    this.customerContactForm.controls.email.setValue('hataguchi@motionpicture.jp');
+                    this.customerContactForm.controls.telephone.setValue('0362778824');
+                    this.paymentForm.controls.cardNumber.setValue('4111111111111111');
+                    this.paymentForm.controls.securityCode.setValue('123');
+                    this.paymentForm.controls.holderName.setValue('HATAGUCHI');
+                }
+                if (user.isMember && user.profile !== undefined) {
+                    this.customerContactForm.controls.familyName.setValue(user.profile.familyName);
+                    this.customerContactForm.controls.givenName.setValue(user.profile.givenName);
+                    this.customerContactForm.controls.email.setValue(user.profile.email);
+                    this.customerContactForm.controls.telephone.setValue(
+                        new LibphonenumberFormatPipe().transform(user.profile.telephone)
+                    );
+                }
+            }).unsubscribe();
+        }).unsubscribe();
     }
 
     private createCustomerContactForm() {

@@ -27,8 +27,9 @@ export interface IPurchaseState {
     reservations: Reservation[];
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction;
+    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction[];
     customerContact?: factory.transaction.placeOrder.ICustomerContact;
-    authorizeCreditCardPayment?: factory.action.authorize.paymentMethod.creditCard.IAction;
+    authorizeCreditCardPayments: factory.action.authorize.paymentMethod.creditCard.IAction[];
     authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
     gmoTokenObject?: IGmoTokenObject;
     orderCount: number;
@@ -55,7 +56,9 @@ export function reducer(state: IState, action: Actions): IState {
                 reservations: [],
                 screeningEventTicketOffers: [],
                 orderCount: 0,
+                authorizeSeatReservations: [],
                 checkMovieTicketActions: [],
+                authorizeCreditCardPayments: [],
                 authorizeMovieTicketPayments: [],
                 isUsedMovieTicket: false
             };
@@ -225,13 +228,9 @@ export function reducer(state: IState, action: Actions): IState {
         case ActionTypes.AuthorizeCreditCardSuccess: {
             const authorizeCreditCardPayment = action.payload.authorizeCreditCardPayment;
             const orderCount = state.purchase.orderCount + 1;
-            return {
-                ...state, loading: false, error: null, purchase: {
-                    ...state.purchase,
-                    authorizeCreditCardPayment,
-                    orderCount
-                }
-            };
+            state.purchase.authorizeCreditCardPayments.push(authorizeCreditCardPayment);
+            state.purchase.orderCount = orderCount;
+            return { ...state, loading: false, error: null };
         }
         case ActionTypes.AuthorizeCreditCardFail: {
             const error = action.payload.error;
