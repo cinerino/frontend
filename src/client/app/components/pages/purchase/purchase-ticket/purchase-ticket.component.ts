@@ -7,7 +7,13 @@ import { select, Store } from '@ngrx/store';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { IReservationTicket, Reservation } from '../../../../models/purchase/reservation';
-import { ActionTypes, SelectTickets, TemporaryReservation } from '../../../../store/actions/purchase.action';
+import {
+    ActionTypes,
+    AddShoppingCart,
+    RemoveShoppingCart,
+    SelectTickets,
+    TemporaryReservation
+} from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
 import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
 import { MvtkCheckModalComponent } from '../../../parts/mvtk-check-modal/mvtk-check-modal.component';
@@ -40,7 +46,8 @@ export class PurchaseTicketComponent implements OnInit {
             const reservations = purchase.reservations;
             const authorizeSeatReservation = purchase.authorizeSeatReservation;
             if (transaction === undefined
-                || screeningEvent === undefined) {
+                || screeningEvent === undefined
+                || authorizeSeatReservation === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
@@ -78,6 +85,7 @@ export class PurchaseTicketComponent implements OnInit {
                 });
                 return;
             }
+            this.store.dispatch(new RemoveShoppingCart({ authorizeSeatReservation }));
             this.store.dispatch(new TemporaryReservation({
                 transaction,
                 screeningEvent,
@@ -89,7 +97,15 @@ export class PurchaseTicketComponent implements OnInit {
         const success = this.actions.pipe(
             ofType(ActionTypes.TemporaryReservationSuccess),
             tap(() => {
-                this.router.navigate(['/purchase/input']);
+                this.purchase.subscribe((purchase) => {
+                    const authorizeSeatReservation = purchase.authorizeSeatReservation;
+                    if (authorizeSeatReservation === undefined) {
+                        this.router.navigate(['/error']);
+                        return;
+                    }
+                    this.store.dispatch(new AddShoppingCart({ authorizeSeatReservation }));
+                    this.router.navigate(['/purchase/input']);
+                }).unsubscribe();
             })
         );
 

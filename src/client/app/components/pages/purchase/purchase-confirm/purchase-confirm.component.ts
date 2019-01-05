@@ -6,6 +6,7 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { getAmount, getTicketPrice } from '../../../../functions';
 import { ActionTypes, AuthorizeCreditCard, AuthorizeMovieTicket, Reserve } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
 import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
@@ -19,6 +20,7 @@ export class PurchaseConfirmComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public isLoading: Observable<boolean>;
     public moment: typeof moment = moment;
+    public getTicketPrice = getTicketPrice;
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
@@ -82,17 +84,16 @@ export class PurchaseConfirmComponent implements OnInit {
         this.purchase.subscribe((purchase) => {
             if (purchase.transaction === undefined
                 || purchase.movieTheater === undefined
-                || purchase.authorizeSeatReservation === undefined
-                || purchase.authorizeSeatReservation.result === undefined
                 || purchase.gmoTokenObject === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
+
             this.store.dispatch(new AuthorizeCreditCard({
                 transaction: purchase.transaction,
                 authorizeCreditCardPayment: purchase.authorizeCreditCardPayments[0],
                 orderCount: purchase.orderCount,
-                amount: purchase.authorizeSeatReservation.result.price,
+                amount: getAmount(purchase.authorizeSeatReservations),
                 method: '1',
                 gmoTokenObject: purchase.gmoTokenObject
             }));
@@ -171,6 +172,5 @@ export class PurchaseConfirmComponent implements OnInit {
         modalRef.componentInstance.title = args.title;
         modalRef.componentInstance.body = args.body;
     }
-
 
 }

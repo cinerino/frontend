@@ -20,7 +20,7 @@ export const reducers: ActionReducerMap<IState> = {
 export function main(reducer: ActionReducer<IState>) {
     return (state: any, action: any) => {
         const newState = reducer(state, action);
-        logger(state, newState, action);
+        logger(newState, action);
         storageSync(newState);
         return newState;
     };
@@ -29,9 +29,8 @@ export function main(reducer: ActionReducer<IState>) {
 /**
  * Logger
  */
-export function logger(state: any, newState: any, action: any) {
+export function logger(newState: any, action: any) {
     console.log('logger action', action);
-    console.log('logger state', state);
     console.log('logger newState', newState);
 }
 

@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
+import { getAmount } from '../../../../functions';
 import { LibphonenumberFormatPipe } from '../../../../pipes/libphonenumber-format.pipe';
 import { ActionTypes, CreateGmoTokenObject, RegisterContact } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
@@ -45,12 +46,7 @@ export class PurchaseInputComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.purchase.subscribe((purchase) => {
-            if (purchase.authorizeSeatReservation === undefined
-                || purchase.authorizeSeatReservation.result === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            this.amount = purchase.authorizeSeatReservation.result.price;
+            this.amount = getAmount(purchase.authorizeSeatReservations);
         }).unsubscribe();
         this.createCustomerContactForm();
         this.createPaymentForm();
@@ -210,7 +206,7 @@ export class PurchaseInputComponent implements OnInit {
                 this.purchase.subscribe((purchase) => {
                     if (purchase.authorizeSeatReservation !== undefined
                         && purchase.authorizeSeatReservation.result !== undefined
-                        && purchase.authorizeSeatReservation.result.price > 0) {
+                        && this.amount > 0) {
                         this.createGmoTokenObject();
                     } else {
                         this.router.navigate(['/purchase/confirm']);

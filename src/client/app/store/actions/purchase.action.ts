@@ -54,7 +54,9 @@ export enum ActionTypes {
     OrderAuthorizeFail = '[Purchase] Order Authorize Fail',
     CreateGmoTokenObject = '[Purchase] Create Gmo Token Object',
     CreateGmoTokenObjectSuccess = '[Purchase] Create Gmo Token Object Success',
-    CreateGmoTokenObjectFail = '[Purchase] Create Gmo Token Object Fail'
+    CreateGmoTokenObjectFail = '[Purchase] Create Gmo Token Object Fail',
+    AddShoppingCart = '[Purchase] Add Shopping Cart',
+    RemoveShoppingCart = '[Purchase] Remove Shopping Cart',
 }
 
 /**
@@ -70,7 +72,7 @@ export class Delete implements Action {
  */
 export class GetTheaters implements Action {
     public readonly type = ActionTypes.GetTheaters;
-    constructor(public payload: { params: factory.organization.movieTheater.ISearchConditions }) { }
+    constructor(public payload: { params: factory.organization.ISearchConditions<factory.organizationType.MovieTheater> }) { }
 }
 
 /**
@@ -78,7 +80,7 @@ export class GetTheaters implements Action {
  */
 export class GetTheatersSuccess implements Action {
     public readonly type = ActionTypes.GetTheatersSuccess;
-    constructor(public payload: { movieTheaters: factory.organization.movieTheater.IOrganization[] }) { }
+    constructor(public payload: { movieTheaters: factory.organization.IOrganization<factory.organizationType.MovieTheater>[] }) { }
 }
 
 /**
@@ -94,7 +96,7 @@ export class GetTheatersFail implements Action {
  */
 export class SelectTheater implements Action {
     public readonly type = ActionTypes.SelectTheater;
-    constructor(public payload: { movieTheater: factory.organization.movieTheater.IOrganization }) { }
+    constructor(public payload: { movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater> }) { }
 }
 
 /**
@@ -103,7 +105,7 @@ export class SelectTheater implements Action {
 export class GetSchedule implements Action {
     public readonly type = ActionTypes.GetSchedule;
     constructor(public payload: {
-        movieTheater: factory.organization.movieTheater.IOrganization;
+        movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
         scheduleDate: string;
     }) { }
 }
@@ -230,7 +232,7 @@ export class GetTicketList implements Action {
     public readonly type = ActionTypes.GetTicketList;
     constructor(public payload: {
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        movieTheater: factory.organization.movieTheater.IOrganization;
+        movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
         clientId: string;
     }) { }
 }
@@ -260,7 +262,7 @@ export class TemporaryReservation implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction;
+        authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<any>;
         reservations: Reservation[];
     }) { }
 }
@@ -270,7 +272,7 @@ export class TemporaryReservation implements Action {
  */
 export class TemporaryReservationSuccess implements Action {
     public readonly type = ActionTypes.TemporaryReservationSuccess;
-    constructor(public payload: { authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction; }) { }
+    constructor(public payload: { authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<any>; }) { }
 }
 
 /**
@@ -349,7 +351,7 @@ export class AuthorizeMovieTicket implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
-        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction;
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<any>;
         reservations: Reservation[];
     }) { }
 }
@@ -498,7 +500,7 @@ export class CreateGmoTokenObject implements Action {
             holderName: string;
             securityCode: string;
         },
-        movieTheater: factory.organization.movieTheater.IOrganization;
+        movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
     }) { }
 }
 
@@ -517,6 +519,23 @@ export class CreateGmoTokenObjectFail implements Action {
     public readonly type = ActionTypes.CreateGmoTokenObjectFail;
     constructor(public payload: { error: Error }) { }
 }
+
+/**
+ * AddShoppingCart
+ */
+export class AddShoppingCart implements Action {
+    public readonly type = ActionTypes.AddShoppingCart;
+    constructor(public payload: { authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<any>; }) { }
+}
+
+/**
+ * RemoveShoppingCart
+ */
+export class RemoveShoppingCart implements Action {
+    public readonly type = ActionTypes.RemoveShoppingCart;
+    constructor(public payload: { authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<any>; }) { }
+}
+
 
 /**
  * Actions
@@ -569,4 +588,6 @@ export type Actions =
     | OrderAuthorizeFail
     | CreateGmoTokenObject
     | CreateGmoTokenObjectSuccess
-    | CreateGmoTokenObjectFail;
+    | CreateGmoTokenObjectFail
+    | AddShoppingCart
+    | RemoveShoppingCart;

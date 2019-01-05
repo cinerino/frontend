@@ -1,7 +1,7 @@
 <div class="radius bg-light-gray">
     <div class="screen" [class.zoom]="zoomState" style="visibility: visible;" (window:resize)="resize()">
         <div [class.active]="zoomState" class="zoom-btn text-center" (click)="scaleDown()">
-            <p class="small-x-text">ズーム<br>解除</p>
+            <p class="text-x-small">ズーム<br>解除</p>
         </div>
         <div *ngIf="screenData" class="screen-scroll" [ngStyle]="{ 
             'height.px': height,

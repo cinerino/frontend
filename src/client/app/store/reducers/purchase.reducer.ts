@@ -1,10 +1,8 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { IState } from '.';
 import {
-    createScreeningFilmEvents,
     IGmoTokenObject,
     isAvailabilityMovieTicket,
-    IScreeningEventFilm,
     sameMovieTicketFilter
 } from '../../functions';
 import { IScreen, Reservation } from '../../models';
@@ -15,19 +13,18 @@ export interface IHistoryState {
 }
 
 export interface IPurchaseState {
-    movieTheaters: factory.organization.movieTheater.IOrganization[];
-    movieTheater?: factory.organization.movieTheater.IOrganization;
+    movieTheaters: factory.organization.IOrganization<factory.organizationType.MovieTheater>[];
+    movieTheater?: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
     screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
     screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
     scheduleDate?: string;
-    screeningFilmEvents: IScreeningEventFilm[];
     transaction?: factory.transaction.placeOrder.ITransaction;
     screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
     screenData?: IScreen;
     reservations: Reservation[];
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
-    authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction;
-    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction[];
+    authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<any>;
+    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<any>[];
     customerContact?: factory.transaction.placeOrder.ICustomerContact;
     authorizeCreditCardPayments: factory.action.authorize.paymentMethod.creditCard.IAction[];
     authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
@@ -51,7 +48,6 @@ export function reducer(state: IState, action: Actions): IState {
             state.purchase = {
                 movieTheaters: [],
                 screeningEvents: [],
-                screeningFilmEvents: [],
                 screeningEventOffers: [],
                 reservations: [],
                 screeningEventTicketOffers: [],
@@ -85,10 +81,8 @@ export function reducer(state: IState, action: Actions): IState {
         case ActionTypes.GetScheduleSuccess: {
             const screeningEvents = action.payload.screeningEvents;
             const scheduleDate = action.payload.scheduleDate;
-            const screeningFilmEvents = createScreeningFilmEvents({ screeningEvents });
             state.purchase.screeningEvents = screeningEvents;
             state.purchase.scheduleDate = scheduleDate;
-            state.purchase.screeningFilmEvents = screeningFilmEvents;
 
             return { ...state, loading: false, error: null };
         }
@@ -112,7 +106,6 @@ export function reducer(state: IState, action: Actions): IState {
             state.purchase.transaction = action.payload.transaction;
             state.purchase.screeningEvents = [];
             state.purchase.movieTheaters = [];
-            state.purchase.screeningFilmEvents = [];
             return { ...state, loading: false, error: null };
         }
         case ActionTypes.StartTransactionFail: {
@@ -335,6 +328,27 @@ export function reducer(state: IState, action: Actions): IState {
         case ActionTypes.OrderAuthorizeFail: {
             const error = action.payload.error;
             return { ...state, loading: false, error: JSON.stringify(error) };
+        }
+        case ActionTypes.AddShoppingCart: {
+            const findResult = state.purchase.authorizeSeatReservations.findIndex(
+                authorizeSeatReservation => authorizeSeatReservation.id === action.payload.authorizeSeatReservation.id
+            );
+            if (findResult > -1) {
+                state.purchase.authorizeSeatReservations.splice(findResult, 1);
+            }
+            state.purchase.authorizeSeatReservations.push(action.payload.authorizeSeatReservation);
+
+            return { ...state };
+        }
+        case ActionTypes.RemoveShoppingCart: {
+            const findResult = state.purchase.authorizeSeatReservations.findIndex(
+                authorizeSeatReservation => authorizeSeatReservation.id === action.payload.authorizeSeatReservation.id
+            );
+            if (findResult > -1) {
+                state.purchase.authorizeSeatReservations.splice(findResult, 1);
+            }
+
+            return { ...state };
         }
         default: {
             return state;

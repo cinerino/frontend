@@ -15,10 +15,15 @@ export interface IGmoTokenObject {
     isSecurityCodeSet: boolean;
 }
 
+export interface IEventOrder {
+    event: factory.chevre.event.screeningEvent.IEvent;
+    data: factory.order.IAcceptedOffer<factory.order.IItemOffered>[];
+}
+
 /**
- * 作品別イベント作成
+ * 作品別イベントへ変換
  */
-export function createScreeningFilmEvents(params: {
+export function screeningEventsToFilmEvents(params: {
     screeningEvents: factory.chevre.event.screeningEvent.IEvent[]
 }) {
     const films: IScreeningEventFilm[] = [];
@@ -65,7 +70,7 @@ export function createGmoTokenObject(params: {
         holderName: string;
         securityCode: string;
     },
-    movieTheater: factory.organization.movieTheater.IOrganization;
+    movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
 }) {
     return new Promise<IGmoTokenObject>((resolve, reject) => {
         if (params.movieTheater.paymentAccepted === undefined) {
@@ -137,7 +142,7 @@ export function isAvailabilityMovieTicket(checkMovieTicketAction: factory.action
  *  予約情報からムビチケ情報作成
  */
 export function createMovieTicketsFromAuthorizeSeatReservation(args: {
-    authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction;
+    authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<any>;
     reservations: Reservation[];
 }) {
     const results: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
@@ -146,7 +151,8 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
     if (authorizeSeatReservation.result === undefined) {
         return results;
     }
-    const pendingReservations = authorizeSeatReservation.result.responseBody.object.reservations;
+    // 右記の型不明のため authorizeSeatReservation factory.action.authorize.offer.seatReservation.IAction<any>
+    const pendingReservations: any[] = (<any>authorizeSeatReservation.result.responseBody).object.reservations;
 
     pendingReservations.forEach((pendingReservation) => {
         const findReservationResult = reservations.find((reservation) => {
@@ -290,4 +296,43 @@ export function movieTicketAuthErroCodeToMessage(code?: string) {
             return 'その他';
         }
     }
+}
+
+/**
+ * 予約金額取得
+ */
+export function getAmount(authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<any>[]) {
+    const amounts = authorizeSeatReservations.map(
+        reservations => (reservations.result === undefined)
+            ? 0
+            : reservations.result.price
+    );
+    const amount = amounts.reduce((previousValue, currentValue) => previousValue + currentValue);
+
+    return amount;
+}
+
+/**
+ * イベント別オーダーへ変換
+ */
+export function orderToEventOrders(params: {
+    order: factory.order.IOrder
+}) {
+    const results: IEventOrder[] = [];
+    const order = params.order;
+    order.acceptedOffers.forEach((acceptedOffer) => {
+        const registered = results.find((result) => {
+            return (result.event.id === acceptedOffer.itemOffered.reservationFor.id);
+        });
+        if (registered === undefined) {
+            results.push({
+                event: acceptedOffer.itemOffered.reservationFor,
+                data: [acceptedOffer]
+            });
+        } else {
+            registered.data.push(acceptedOffer);
+        }
+    });
+
+    return results;
 }

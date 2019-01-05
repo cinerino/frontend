@@ -31,7 +31,6 @@ export const initialState: IState = {
     purchase: {
         movieTheaters: [],
         screeningEvents: [],
-        screeningFilmEvents: [],
         screeningEventOffers: [],
         reservations: [],
         screeningEventTicketOffers: [],

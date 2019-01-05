@@ -17,7 +17,7 @@ export class CinerinoService {
     public task: cinerino.service.Task;
     public payment: cinerino.service.Payment;
     public transaction: {
-        placeOrder: cinerino.service.txn.PlaceOrder
+        placeOrder: cinerino.service.transaction.PlaceOrder
     };
 
     constructor(

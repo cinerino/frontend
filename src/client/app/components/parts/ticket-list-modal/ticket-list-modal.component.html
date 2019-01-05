@@ -4,7 +4,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="w-75 text-left">
                     <div>{{ ticket.ticketOffer.name.ja }}</div>
-                    <p *ngIf="ticket.movieTicket" class="text-left small-text">購入管理番号{{ ticket.movieTicket.identifier
+                    <p *ngIf="ticket.movieTicket" class="text-left text-small">購入管理番号{{ ticket.movieTicket.identifier
                         }}</p>
                 </div>
                 <div class="w-25 text-right">{{ getTicketPrice(ticket.ticketOffer).single | currency : 'JPY' }}</div>

@@ -35,7 +35,7 @@ export interface IScreen {
     style?: string;
     columnLabel: boolean;
     lineLabel: boolean;
-    codeType: 'default' | 'coa';
+    codeType: 'chevre' | 'coa';
 }
 
 export interface ILabel {

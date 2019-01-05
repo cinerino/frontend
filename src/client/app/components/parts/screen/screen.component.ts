@@ -25,7 +25,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
     @Input() public screenData: IScreen;
     @Output() public select = new EventEmitter<{ seat: IReservationSeat; status: SeatStatus; }>();
     public screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
-    public authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction;
+    public authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<any>;
     public purchase: Observable<reducers.IPurchaseState>;
     public seats: ISeat[];
     public lineLabels: ILabel[];

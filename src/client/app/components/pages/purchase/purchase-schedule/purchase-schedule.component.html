@@ -18,6 +18,6 @@
             </div>
         </div>
     </div>
-    <app-purchase-schedule-film *ngFor="let screeningFilmEvent of (purchase | async).screeningFilmEvents"
+    <app-purchase-schedule-film *ngFor="let screeningFilmEvent of screeningFilmEvents"
         [screeningFilmEvent]="screeningFilmEvent" (select)="selectSchedule($event)" class="mb-3"></app-purchase-schedule-film>
 </div>

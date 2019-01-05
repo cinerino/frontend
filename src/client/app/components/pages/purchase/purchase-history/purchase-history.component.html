@@ -3,7 +3,7 @@
         <li *ngFor="let data of (history | async).purchase" class="mb-3 item">
             <div class="card h-100 mx-md-2">
                 <div class="card-body">
-                    <div class="card-title">購入番号 <strong class="text-success large-text">{{ data.confirmationNumber }}</strong></div>
+                    <div class="card-title">購入番号 <strong class="text-success text-large">{{ data.confirmationNumber }}</strong></div>
                     <div class="mb-3">
                         <p class="mb-2 d-flex align-items-center"><i class="fas fa-film mr-2"></i>{{
                             data.acceptedOffers[0].itemOffered.reservationFor.name.ja }}</p>

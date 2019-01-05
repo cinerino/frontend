@@ -4,51 +4,57 @@
 
         <p class="mb-3">ご購入ありがとうございます。</p>
 
-        <div class="mb-4 px-3 bg-white">
-            <div class="py-3 border-bottom">
+        <div class="mb-4 px-3 bg-white shadow-sm">
+            <div class="py-3">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-key mr-2"></i>購入番号</p>
-                    <p class="col-md-8 large-x-text text-success">
+                    <p class="col-md-8 text-x-large text-success">
                         <strong>{{ (purchase | async).order.confirmationNumber }}</strong>
                     </p>
                 </div>
             </div>
+        </div>
+        <div *ngFor="let eventOrder of eventOrders" class="mb-4 px-3 bg-white shadow-sm">
             <div class="py-3 border-bottom">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-map-marker-alt mr-2"></i>劇場 / スクリーン</p>
-                    <p class="col-md-8">{{ (purchase | async).order.acceptedOffers[0].itemOffered.reservationFor.superEvent.location.name.ja }} / {{
-                        (purchase | async).order.acceptedOffers[0].itemOffered.reservationFor.location.name.ja }}</p>
+                    <p class="col-md-8">{{ eventOrder.event.superEvent.location.name.ja }} / {{
+                        eventOrder.event.location.name.ja }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-film mr-2"></i>作品</p>
-                    <p class="col-md-8">{{ (purchase | async).order.acceptedOffers[0].itemOffered.reservationFor.name.ja }}</p>
+                    <p class="col-md-8">{{ eventOrder.event.name.ja }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="far fa-clock mr-2"></i>上映開始日時</p>
-                    <p class="col-md-8">{{ moment((purchase | async).order.acceptedOffers[0].itemOffered.reservationFor.startDate).format('YYYY/MM/DD (ddd)
+                    <p class="col-md-8">{{ moment(eventOrder.event.startDate).format('YYYY/MM/DD (ddd)
                         HH:mm') }}</p>
                 </div>
             </div>
-            <div class="py-3 border-bottom">
+            <div class="py-3">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-ticket-alt mr-2"></i>座席・券種</p>
                     <div class="col-md-8">
-                        <div *ngFor="let acceptedOffer of (purchase | async).order.acceptedOffers" class="mb-2">
+                        <div *ngFor="let acceptedOffer of eventOrder.data" class="mb-2">
                             <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>
-                            <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja }} / {{ getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</p>
+                            <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja }} / {{
+                                getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="mb-4 px-3 bg-white shadow-sm">
             <div class="py-3 border-bottom">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">

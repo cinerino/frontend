@@ -422,7 +422,7 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                const params = Object.assign({ personId: 'me' }, payload.params);
+                const params = {...payload.params, personId: 'me'};
                 await this.cinerino.getServices();
                 const searchOrdersResult = await this.cinerino.person.searchOrders(params);
                 const orders = searchOrdersResult.data;
@@ -442,7 +442,7 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                const params = Object.assign({ personId: 'me' }, payload.params);
+                const params = {...payload.params, personId: 'me'};
                 await this.cinerino.getServices();
                 const order = await this.cinerino.order.authorizeOwnershipInfos(params);
                 return new purchase.OrderAuthorizeSuccess({ order });
