@@ -84,10 +84,7 @@ export class Reservation {
 /**
  * IReservationSeat
  */
-export interface IReservationSeat {
-    seatNumber: string;
-    seatSection: string;
-}
+export type IReservationSeat = factory.chevre.reservation.ISeat;
 
 /**
  * IReservationTicket

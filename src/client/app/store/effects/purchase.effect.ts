@@ -59,6 +59,7 @@ export class PurchaseEffects {
                 const scheduleDate = payload.scheduleDate;
                 const today = moment(moment().format('YYYY-MM-DD')).toDate();
                 const screeningEventsResult = await this.cinerino.event.searchScreeningEvents({
+                    typeOf: factory.chevre.eventType.ScreeningEvent,
                     eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
                     superEvent: { locationBranchCodes: [branchCode] },
                     startFrom: moment(scheduleDate).toDate(),
@@ -151,10 +152,8 @@ export class PurchaseEffects {
                             }
                             return {
                                 id: reservation.ticket.ticketOffer.id,
-                                ticketedSeat: <any>{
-                                    seatNumber: reservation.seat.seatNumber,
-                                    seatSection: reservation.seat.seatSection
-                                }
+                                ticketedSeat: reservation.seat,
+                                additionalProperty: []
                             };
                         }),
                         notes: ''

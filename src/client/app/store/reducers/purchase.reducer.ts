@@ -23,8 +23,8 @@ export interface IPurchaseState {
     screenData?: IScreen;
     reservations: Reservation[];
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
-    authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<any>;
-    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<any>[];
+    authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
     customerContact?: factory.transaction.placeOrder.ICustomerContact;
     authorizeCreditCardPayments: factory.action.authorize.paymentMethod.creditCard.IAction[];
     authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
@@ -58,6 +58,10 @@ export function reducer(state: IState, action: Actions): IState {
                 authorizeMovieTicketPayments: [],
                 isUsedMovieTicket: false
             };
+            // 実験
+            // state.purchase.reservations = [];
+            // state.purchase.screeningEventTicketOffers = [];
+            // state.purchase.authorizeSeatReservation = undefined;
             return { ...state };
         }
         case ActionTypes.GetTheaters: {
@@ -193,6 +197,7 @@ export function reducer(state: IState, action: Actions): IState {
         case ActionTypes.TemporaryReservationSuccess: {
             const authorizeSeatReservation = action.payload.authorizeSeatReservation;
             state.purchase.authorizeSeatReservation = authorizeSeatReservation;
+            state.purchase.screeningEventOffers = [];
             return { ...state, loading: false, error: null };
         }
         case ActionTypes.TemporaryReservationFail: {
@@ -286,6 +291,19 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.ReserveSuccess: {
             const order = action.payload.order;
+            state.purchase = {
+                movieTheaters: [],
+                screeningEvents: [],
+                screeningEventOffers: [],
+                reservations: [],
+                screeningEventTicketOffers: [],
+                orderCount: 0,
+                authorizeSeatReservations: [],
+                checkMovieTicketActions: [],
+                authorizeCreditCardPayments: [],
+                authorizeMovieTicketPayments: [],
+                isUsedMovieTicket: false
+            };
             state.purchase.order = order;
             return { ...state, loading: false, error: null };
         }

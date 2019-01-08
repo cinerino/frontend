@@ -11,7 +11,19 @@ exports.default = (app) => {
     app.use('/api/authorize', authorize_1.default);
     app.get('/signIn', authorize.signInRedirect);
     app.get('/signOut', authorize.signOutRedirect);
-    app.get('*', (_req, res, _next) => {
+    app.get('*', (req, res, _next) => {
+        if (req.xhr) {
+            res.status(httpStatus.NOT_FOUND).json('NOT FOUND');
+            return;
+        }
         res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`));
+    });
+    app.all('*', (req, res, _next) => {
+        res.status(httpStatus.NOT_FOUND);
+        if (req.xhr) {
+            res.json('NOT FOUND');
+            return;
+        }
+        res.redirect('/#/error');
     });
 };

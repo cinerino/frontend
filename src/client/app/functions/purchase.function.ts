@@ -142,7 +142,7 @@ export function isAvailabilityMovieTicket(checkMovieTicketAction: factory.action
  *  予約情報からムビチケ情報作成
  */
 export function createMovieTicketsFromAuthorizeSeatReservation(args: {
-    authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<any>;
+    authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
     reservations: Reservation[];
 }) {
     const results: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
@@ -151,7 +151,7 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
     if (authorizeSeatReservation.result === undefined) {
         return results;
     }
-    // 右記の型不明のため authorizeSeatReservation factory.action.authorize.offer.seatReservation.IAction<any>
+    // 右記の型不明のため authorizeSeatReservation factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>
     const pendingReservations: any[] = (<any>authorizeSeatReservation.result.responseBody).object.reservations;
 
     pendingReservations.forEach((pendingReservation) => {
@@ -301,7 +301,9 @@ export function movieTicketAuthErroCodeToMessage(code?: string) {
 /**
  * 予約金額取得
  */
-export function getAmount(authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<any>[]) {
+export function getAmount(
+    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[]
+) {
     const amounts = authorizeSeatReservations.map(
         reservations => (reservations.result === undefined)
             ? 0

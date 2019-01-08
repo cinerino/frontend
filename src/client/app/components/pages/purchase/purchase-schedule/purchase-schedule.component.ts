@@ -12,7 +12,6 @@ import { environment } from '../../../../../environments/environment';
 import { IScreeningEventFilm, screeningEventsToFilmEvents } from '../../../../functions';
 import {
     ActionTypes,
-    // 実験
     Delete,
     GetSchedule,
     GetTheaters,
@@ -55,7 +54,6 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
                 1024: { slidesPerView: 5 }
             }
         };
-        // 実験
         this.store.dispatch(new Delete({}));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.error = this.store.pipe(select(reducers.getError));
@@ -174,11 +172,11 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
                 this.router.navigate(['/error']);
                 return;
             }
-            if (purchase.transaction !== undefined) {
-                // 実験
-                this.router.navigate(['/purchase/seat']);
-                return;
-            }
+            // 実験
+            // if (purchase.transaction !== undefined) {
+            //     this.router.navigate(['/purchase/seat']);
+            //     return;
+            // }
             this.store.dispatch(new StartTransaction({
                 params: {
                     expires: moment().add(environment.TRANSACTION_TIME, 'minutes').toDate(),

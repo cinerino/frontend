@@ -25,7 +25,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
     @Input() public screenData: IScreen;
     @Output() public select = new EventEmitter<{ seat: IReservationSeat; status: SeatStatus; }>();
     public screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
-    public authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<any>;
+    public authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
     public purchase: Observable<reducers.IPurchaseState>;
     public seats: ISeat[];
     public lineLabels: ILabel[];
@@ -47,9 +47,6 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
     public ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.purchase.subscribe((purchase) => {
-            if (purchase.screeningEventOffers === undefined) {
-                return;
-            }
             this.screeningEventOffers = purchase.screeningEventOffers;
             this.authorizeSeatReservation = purchase.authorizeSeatReservation;
             this.zoomState = false;
@@ -275,6 +272,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
                     const className = [`seat-${code}`];
                     let section = '';
                     let status = SeatStatus.Disabled;
+                    let acceptedOffer;
                     // 席の状態変更
                     for (const screeningEventOffer of this.screeningEventOffers) {
                         section = screeningEventOffer.branchCode;
@@ -286,6 +284,15 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
                             if (findContainsPlaceResult.offers[0].availability === 'InStock') {
                                 status = SeatStatus.Default;
                             }
+                            acceptedOffer = {
+                                ticketedSeat: <factory.chevre.reservation.ISeat>{
+                                    typeOf: findContainsPlaceResult.typeOf,
+                                    seatingType: findContainsPlaceResult.seatingType,
+                                    seatNumber: findContainsPlaceResult.branchCode,
+                                    seatRow: '',
+                                    seatSection: section
+                                }
+                            };
                             break;
                         }
                     }
@@ -308,9 +315,10 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
                         h: this.screenData.seatSize.h,
                         y: pos.y,
                         x: pos.x,
-                        code: code,
-                        section: section,
-                        status: status
+                        code,
+                        section,
+                        status,
+                        ticketedSeat: (acceptedOffer !== undefined) ? acceptedOffer.ticketedSeat : undefined
                     };
                     seats.push(seat);
                 }
@@ -345,17 +353,15 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
         if (this.isMobile() && !this.zoomState) {
             return;
         }
-        if (seat.status === SeatStatus.Disabled) {
+        if (seat.ticketedSeat === undefined
+            || seat.status === SeatStatus.Disabled) {
             return;
         }
         if (this.screenData.hc.indexOf(seat.code) !== -1) {
             return;
         }
         this.select.emit({
-            seat: {
-                seatNumber: seat.code,
-                seatSection: seat.section
-            },
+            seat: seat.ticketedSeat,
             status: seat.status
         });
     }

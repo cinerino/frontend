@@ -15,5 +15,4 @@ export class AuthIndexComponent implements OnInit {
     public async ngOnInit() {
         await this.cinerino.signIn();
     }
-
 }

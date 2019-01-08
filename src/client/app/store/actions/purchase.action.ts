@@ -262,7 +262,7 @@ export class TemporaryReservation implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<any>;
+        authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
         reservations: Reservation[];
     }) { }
 }
@@ -272,7 +272,9 @@ export class TemporaryReservation implements Action {
  */
 export class TemporaryReservationSuccess implements Action {
     public readonly type = ActionTypes.TemporaryReservationSuccess;
-    constructor(public payload: { authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<any>; }) { }
+    constructor(public payload: {
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    }) { }
 }
 
 /**
@@ -351,7 +353,7 @@ export class AuthorizeMovieTicket implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
-        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<any>;
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
         reservations: Reservation[];
     }) { }
 }
@@ -525,7 +527,9 @@ export class CreateGmoTokenObjectFail implements Action {
  */
 export class AddShoppingCart implements Action {
     public readonly type = ActionTypes.AddShoppingCart;
-    constructor(public payload: { authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<any>; }) { }
+    constructor(public payload: {
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    }) { }
 }
 
 /**
@@ -533,7 +537,9 @@ export class AddShoppingCart implements Action {
  */
 export class RemoveShoppingCart implements Action {
     public readonly type = ActionTypes.RemoveShoppingCart;
-    constructor(public payload: { authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<any>; }) { }
+    constructor(public payload: {
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    }) { }
 }
 
 
