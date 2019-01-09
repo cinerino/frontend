@@ -65,22 +65,22 @@ export function reducer(state: IState, action: Actions): IState {
             return { ...state };
         }
         case ActionTypes.GetTheaters: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: '劇場情報を取得しています', };
         }
         case ActionTypes.GetTheatersSuccess: {
             const movieTheaters = action.payload.movieTheaters;
-            return { ...state, loading: false, error: null, purchase: { ...state.purchase, movieTheaters } };
+            return { ...state, loading: false, process: '', error: null, purchase: { ...state.purchase, movieTheaters } };
         }
         case ActionTypes.GetTheatersFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.SelectTheater: {
             state.purchase.movieTheater = action.payload.movieTheater;
-            return { ...state, loading: false, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.GetSchedule: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: 'スケジュールを取得しています', };
         }
         case ActionTypes.GetScheduleSuccess: {
             const screeningEvents = action.payload.screeningEvents;
@@ -88,42 +88,42 @@ export function reducer(state: IState, action: Actions): IState {
             state.purchase.screeningEvents = screeningEvents;
             state.purchase.scheduleDate = scheduleDate;
 
-            return { ...state, loading: false, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.GetScheduleFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.SelectSchedule: {
             const screeningEvent = action.payload.screeningEvent;
             return {
-                ...state, loading: false, purchase: {
+                ...state, loading: false, process: '', purchase: {
                     ...state.purchase,
                     screeningEvent
                 }
             };
         }
         case ActionTypes.StartTransaction: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: '取引を開始しています', };
         }
         case ActionTypes.StartTransactionSuccess: {
             state.purchase.transaction = action.payload.transaction;
             state.purchase.screeningEvents = [];
             state.purchase.movieTheaters = [];
-            return { ...state, loading: false, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.StartTransactionFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.GetScreen: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: 'スクリーン情報を取得しています', };
         }
         case ActionTypes.GetScreenSuccess: {
             const screeningEventOffers = action.payload.screeningEventOffers;
             const screenData = action.payload.screenData;
             return {
-                ...state, loading: false, error: null, purchase: {
+                ...state, loading: false, process: '', error: null, purchase: {
                     ...state.purchase,
                     screeningEventOffers,
                     screenData
@@ -132,7 +132,7 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.GetScreenFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.SelectSeats: {
             const reservations = state.purchase.reservations;
@@ -140,7 +140,7 @@ export function reducer(state: IState, action: Actions): IState {
                 reservations.push(new Reservation({ seat }));
             });
             state.purchase.reservations = reservations;
-            return { ...state, loading: false, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.CancelSeats: {
             const reservations: Reservation[] = [];
@@ -155,10 +155,10 @@ export function reducer(state: IState, action: Actions): IState {
                 }
             });
             state.purchase.reservations = reservations;
-            return { ...state, loading: false, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.GetTicketList: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: '券種情報を取得しています', };
         }
         case ActionTypes.GetTicketListSuccess: {
             const screeningEventTicketOffers = action.payload.screeningEventTicketOffers;
@@ -170,11 +170,11 @@ export function reducer(state: IState, action: Actions): IState {
             });
             state.purchase.screeningEventTicketOffers = screeningEventTicketOffers;
             state.purchase.isUsedMovieTicket = (movieTicketTypeOffers.length > 0);
-            return { ...state, loading: false, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.GetTicketListFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.SelectTickets: {
             const reservations: Reservation[] = [];
@@ -192,25 +192,25 @@ export function reducer(state: IState, action: Actions): IState {
             return { ...state };
         }
         case ActionTypes.TemporaryReservation: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: '座席を仮予約しています', };
         }
         case ActionTypes.TemporaryReservationSuccess: {
             const authorizeSeatReservation = action.payload.authorizeSeatReservation;
             state.purchase.authorizeSeatReservation = authorizeSeatReservation;
             state.purchase.screeningEventOffers = [];
-            return { ...state, loading: false, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.TemporaryReservationFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.RegisterContact: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: '購入者情報を登録しています', };
         }
         case ActionTypes.RegisterContactSuccess: {
             const customerContact = action.payload.customerContact;
             return {
-                ...state, loading: false, error: null, purchase: {
+                ...state, loading: false, process: '', error: null, purchase: {
                     ...state.purchase,
                     customerContact
                 }
@@ -218,50 +218,50 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.RegisterContactFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.AuthorizeCreditCard: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: 'クレジットカード処理しています', };
         }
         case ActionTypes.AuthorizeCreditCardSuccess: {
             const authorizeCreditCardPayment = action.payload.authorizeCreditCardPayment;
             const orderCount = state.purchase.orderCount + 1;
             state.purchase.authorizeCreditCardPayments.push(authorizeCreditCardPayment);
             state.purchase.orderCount = orderCount;
-            return { ...state, loading: false, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.AuthorizeCreditCardFail: {
             const error = action.payload.error;
             const orderCount = state.purchase.orderCount + 1;
             state.purchase.orderCount = orderCount;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.CreateGmoTokenObject: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: 'GMOトークン情報を取得しています', };
         }
         case ActionTypes.CreateGmoTokenObjectSuccess: {
             const gmoTokenObject = action.payload.gmoTokenObject;
             state.purchase.gmoTokenObject = gmoTokenObject;
-            return { ...state, loading: false, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.CreateGmoTokenObjectFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.AuthorizeMovieTicket: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: 'ムビチケ券を処理しています', };
         }
         case ActionTypes.AuthorizeMovieTicketSuccess: {
             const authorizeMovieTicketPayments = action.payload.authorizeMovieTicketPayments;
             state.purchase.authorizeMovieTicketPayments = authorizeMovieTicketPayments;
-            return { ...state, loading: false, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.AuthorizeMovieTicketFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.CheckMovieTicket: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: 'ムビチケ券を認証しています', };
         }
         case ActionTypes.CheckMovieTicketSuccess: {
             const checkMovieTicketAction = action.payload.checkMovieTicketAction;
@@ -276,7 +276,7 @@ export function reducer(state: IState, action: Actions): IState {
             }
 
             return {
-                ...state, loading: false, error: null, purchase: {
+                ...state, loading: false, process: '', error: null, purchase: {
                     ...state.purchase,
                     checkMovieTicketAction: checkMovieTicketAction
                 }
@@ -284,10 +284,10 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.CheckMovieTicketFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.Reserve: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: '座席を予約しています', };
         }
         case ActionTypes.ReserveSuccess: {
             const order = action.payload.order;
@@ -305,19 +305,19 @@ export function reducer(state: IState, action: Actions): IState {
                 isUsedMovieTicket: false
             };
             state.purchase.order = order;
-            return { ...state, loading: false, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.ReserveFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.GetPurchaseHistory: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: '購入情報を取得しています', };
         }
         case ActionTypes.GetPurchaseHistorySuccess: {
             const result = action.payload.result;
             return {
-                ...state, loading: false, error: null, history: {
+                ...state, loading: false, process: '', error: null, history: {
                     ...state.history,
                     purchase: result
                 }
@@ -325,10 +325,10 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.GetPurchaseHistoryFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.OrderAuthorize: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: 'QRコードを取得しています', };
         }
         case ActionTypes.OrderAuthorizeSuccess: {
             const authorizeOrder = action.payload.order;
@@ -341,11 +341,11 @@ export function reducer(state: IState, action: Actions): IState {
             const history = state.history;
             history.purchase = historyData;
 
-            return { ...state, loading: false, error: null, history };
+            return { ...state, loading: false, process: '', error: null, history };
         }
         case ActionTypes.OrderAuthorizeFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.AddShoppingCart: {
             const findResult = state.purchase.authorizeSeatReservations.findIndex(

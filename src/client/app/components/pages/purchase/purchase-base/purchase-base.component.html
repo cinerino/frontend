@@ -4,4 +4,4 @@
     <app-footer></app-footer>
 </app-purchase-contents>
 
-<app-loading [show]="isLoading | async"></app-loading>
+<app-loading [isLoading]="isLoading | async" [process]="process | async"></app-loading>

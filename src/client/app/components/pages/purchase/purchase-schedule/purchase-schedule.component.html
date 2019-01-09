@@ -8,7 +8,7 @@
     <h2 class="bg-secondary text-white p-3 mb-3">上映スケジュール</h2>
     <div class="swiper-container date mb-3" #swiper [swiper]="swiperConfig" (resize)="resize()">
         <div class="swiper-wrapper">
-            <div *ngFor="let scheduleDate of scheduleDates" class="swiper-slide">
+            <div *ngFor="let scheduleDate of scheduleDates" class="swiper-slide pointer">
                 <div class="text-center text-white py-4 px-2" 
                 [class.bg-secondary]="scheduleDate !== (purchase | async).scheduleDate"
                 [class.bg-primary]="scheduleDate === (purchase | async).scheduleDate"

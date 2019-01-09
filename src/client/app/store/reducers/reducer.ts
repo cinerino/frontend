@@ -15,6 +15,7 @@ export { IUserState } from './user.reducer';
  */
 export interface IState {
     loading: boolean;
+    process: string;
     error: string | null;
     purchase: purchaseReducer.IPurchaseState;
     history: purchaseReducer.IHistoryState;
@@ -27,6 +28,7 @@ export interface IState {
  */
 export const initialState: IState = {
     loading: false,
+    process: '',
     error: null,
     purchase: {
         movieTheaters: [],
@@ -61,6 +63,7 @@ function getInitialState(): IState {
 
     return {
         loading: data.App.loading,
+        process: data.App.process,
         error: data.App.error,
         purchase: data.App.purchase,
         history: data.App.history,
@@ -93,6 +96,7 @@ export function reducer(
  * Selectors
  */
 export const getLoading = (state: IState) => state.loading;
+export const getProcess = (state: IState) => state.process;
 export const getError = (state: IState) => state.error;
 export const getPurchase = (state: IState) => state.purchase;
 export const getHistory = (state: IState) => state.history;

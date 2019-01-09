@@ -25,37 +25,37 @@ export function reducer(state: IState, action: Actions): IState {
             return { ...state, loading: false };
         }
         case ActionTypes.Create: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: '会員情報を取得しています', };
         }
         case ActionTypes.CreateSuccess: {
             const profile = action.payload.profile;
             state.user.profile = profile;
-            return { ...state, loading: false, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.CreateFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.UpdateCustomer: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: '会員情報を更新しています', };
         }
         case ActionTypes.UpdateCustomerSuccess: {
             state.user.profile = action.payload.profile;
-            return { ...state, loading: false, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.UpdateCustomerFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case ActionTypes.UpdatePayment: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: '決済情報を更新しています', };
         }
         case ActionTypes.UpdatePaymentSuccess: {
-            return { ...state, loading: false, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.UpdatePaymentFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         default: {
             return state;

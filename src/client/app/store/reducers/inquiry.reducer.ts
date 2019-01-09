@@ -18,19 +18,19 @@ export function reducer(state: IState, action: Actions): IState {
             return { ...state };
         }
         case ActionTypes.Inquiry: {
-            return { ...state, loading: true };
+            return { ...state, loading: true, process: '購入情報を照会しています', };
         }
         case ActionTypes.InquirySuccess: {
             const order = action.payload.order;
             return {
-                ...state, loading: false, error: null, inquiry: {
+                ...state, loading: false, process: '', error: null, inquiry: {
                     order
                 }
             };
         }
         case ActionTypes.InquiryFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         default: {
             return state;
