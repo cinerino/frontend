@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { SERVICE_UNAVAILABLE, TOO_MANY_REQUESTS } from 'http-status';
@@ -12,14 +13,15 @@ import { environment } from '../../../../../environments/environment';
 import { IScreeningEventFilm, screeningEventsToFilmEvents } from '../../../../functions';
 import {
     ActionTypes,
-    Delete,
     GetSchedule,
     GetTheaters,
     SelectSchedule,
     SelectTheater,
-    StartTransaction
+    StartTransaction,
+    UnsettledDelete
 } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
+import { PurchaseTransactionModalComponent } from '../../../parts/purchase-transaction-modal/purchase-transaction-modal.component';
 
 @Component({
     selector: 'app-purchase-schedule',
@@ -40,7 +42,8 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
-        private router: Router
+        private router: Router,
+        private modal: NgbModal
     ) { }
 
     public async ngOnInit() {
@@ -54,7 +57,6 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
                 1024: { slidesPerView: 5 }
             }
         };
-        this.store.dispatch(new Delete({}));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.error = this.store.pipe(select(reducers.getError));
         this.scheduleDates = [];
@@ -172,11 +174,11 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
                 this.router.navigate(['/error']);
                 return;
             }
-            // 実験
-            // if (purchase.transaction !== undefined) {
-            //     this.router.navigate(['/purchase/seat']);
-            //     return;
-            // }
+            if (purchase.transaction !== undefined
+                && purchase.authorizeSeatReservations.length > 0) {
+                this.openTransactionModal();
+                return;
+            }
             this.store.dispatch(new StartTransaction({
                 params: {
                     expires: moment().add(environment.TRANSACTION_TIME, 'minutes').toDate(),
@@ -218,10 +220,20 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
                     } catch (error2) {
                         this.router.navigate(['/error']);
                     }
-                });
+                }).unsubscribe();
             })
         );
         race(success, fail).pipe(take(1)).subscribe();
+    }
+
+    public openTransactionModal() {
+        const modalRef = this.modal.open(PurchaseTransactionModalComponent, {
+            centered: true
+        });
+        modalRef.result.then(() => {
+            this.store.dispatch(new UnsettledDelete());
+            this.router.navigate(['/purchase/seat']);
+        }).catch(() => { });
     }
 
 }

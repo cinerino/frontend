@@ -8,6 +8,7 @@ import { IReservationSeat, IScreen, Reservation } from '../../models';
  */
 export enum ActionTypes {
     Delete = '[Purchase] Delete',
+    UnsettledDelete = '[Purchase] Unsettled Delete',
     GetTheaters = '[Purchase] Get Theaters',
     GetTheatersSuccess = '[Purchase] Get Theaters Success',
     GetTheatersFail = '[Purchase] Get Theaters Fail',
@@ -31,6 +32,9 @@ export enum ActionTypes {
     TemporaryReservation = '[Purchase] Temporary Reservation',
     TemporaryReservationSuccess = '[Purchase] Temporary Reservation Success',
     TemporaryReservationFail = '[Purchase] Temporary Reservation Fail',
+    CancelTemporaryReservation = '[Purchase] Cancel Temporary Reservation',
+    CancelTemporaryReservationSuccess = '[Purchase] Cancel Temporary Reservation Success',
+    CancelTemporaryReservationFail = '[Purchase] Cancel Temporary Reservation Fail',
     RegisterContact = '[Purchase] Register Contact',
     RegisterContactSuccess = '[Purchase] Register Contact Success',
     RegisterContactFail = '[Purchase] Register Contact Fail',
@@ -64,6 +68,14 @@ export enum ActionTypes {
  */
 export class Delete implements Action {
     public readonly type = ActionTypes.Delete;
+    constructor(public payload?: {}) { }
+}
+
+/**
+ * UnsettledDelete
+ */
+export class UnsettledDelete implements Action {
+    public readonly type = ActionTypes.UnsettledDelete;
     constructor(public payload?: {}) { }
 }
 
@@ -285,6 +297,32 @@ export class TemporaryReservationFail implements Action {
     constructor(public payload: { error: Error }) { }
 }
 
+
+/**
+ * CancelTemporaryReservation
+ */
+export class CancelTemporaryReservation implements Action {
+    public readonly type = ActionTypes.CancelTemporaryReservation;
+    constructor(public payload: {
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    }) { }
+}
+
+/**
+ * CancelTemporaryReservationSuccess
+ */
+export class CancelTemporaryReservationSuccess implements Action {
+    public readonly type = ActionTypes.CancelTemporaryReservationSuccess;
+    constructor(public payload?: {}) { }
+}
+
+/**
+ * CancelTemporaryReservationFail
+ */
+export class CancelTemporaryReservationFail implements Action {
+    public readonly type = ActionTypes.CancelTemporaryReservationFail;
+    constructor(public payload: { error: Error }) { }
+}
 /**
  * RegisterContact
  */
@@ -548,6 +586,7 @@ export class RemoveShoppingCart implements Action {
  */
 export type Actions =
     | Delete
+    | UnsettledDelete
     | GetTheaters
     | GetTheatersSuccess
     | GetTheatersFail
@@ -571,6 +610,9 @@ export type Actions =
     | TemporaryReservation
     | TemporaryReservationSuccess
     | TemporaryReservationFail
+    | CancelTemporaryReservation
+    | CancelTemporaryReservationSuccess
+    | CancelTemporaryReservationFail
     | RegisterContact
     | RegisterContactSuccess
     | RegisterContactFail

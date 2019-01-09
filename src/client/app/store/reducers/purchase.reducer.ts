@@ -58,10 +58,12 @@ export function reducer(state: IState, action: Actions): IState {
                 authorizeMovieTicketPayments: [],
                 isUsedMovieTicket: false
             };
-            // 実験
-            // state.purchase.reservations = [];
-            // state.purchase.screeningEventTicketOffers = [];
-            // state.purchase.authorizeSeatReservation = undefined;
+            return { ...state };
+        }
+        case ActionTypes.UnsettledDelete: {
+            state.purchase.reservations = [];
+            state.purchase.screeningEventTicketOffers = [];
+            state.purchase.authorizeSeatReservation = undefined;
             return { ...state };
         }
         case ActionTypes.GetTheaters: {
@@ -201,6 +203,16 @@ export function reducer(state: IState, action: Actions): IState {
             return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.TemporaryReservationFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
+        case ActionTypes.CancelTemporaryReservation: {
+            return { ...state, loading: true, process: '座席の仮予約を削除しています', };
+        }
+        case ActionTypes.CancelTemporaryReservationSuccess: {
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case ActionTypes.CancelTemporaryReservationFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }

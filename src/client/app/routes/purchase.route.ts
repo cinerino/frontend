@@ -1,5 +1,6 @@
 import { AuthGuardService } from '../canActivates';
 import { PurchaseBaseComponent } from '../components/pages/purchase/purchase-base/purchase-base.component';
+import { PurchaseCartComponent } from '../components/pages/purchase/purchase-cart/purchase-cart.component';
 import { PurchaseCompleteComponent } from '../components/pages/purchase/purchase-complete/purchase-complete.component';
 import { PurchaseConfirmComponent } from '../components/pages/purchase/purchase-confirm/purchase-confirm.component';
 import { PurchaseHistoryComponent } from '../components/pages/purchase/purchase-history/purchase-history.component';
@@ -22,6 +23,7 @@ export const route = {
         { path: 'confirm', component: PurchaseConfirmComponent },
         { path: 'complete', component: PurchaseCompleteComponent },
         { path: 'schedule', component: PurchaseScheduleComponent },
+        { path: 'cart', component: PurchaseCartComponent },
         { path: 'history', canActivate: [AuthGuardService], component: PurchaseHistoryComponent }
     ]
 };

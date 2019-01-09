@@ -168,6 +168,25 @@ export class PurchaseEffects {
     );
 
     /**
+     * cancelTemporaryReservation
+     */
+    @Effect()
+    public cancelTemporaryReservation = this.actions.pipe(
+        ofType<purchase.CancelTemporaryReservation>(purchase.ActionTypes.CancelTemporaryReservation),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                await this.cinerino.getServices();
+                await this.cinerino.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation);
+
+                return new purchase.CancelTemporaryReservationSuccess();
+            } catch (error) {
+                return new purchase.CancelTemporaryReservationFail({ error: error });
+            }
+        })
+    );
+
+    /**
      * getTicketList
      */
     @Effect()
@@ -421,7 +440,7 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                const params = {...payload.params, personId: 'me'};
+                const params = { ...payload.params, personId: 'me' };
                 await this.cinerino.getServices();
                 const searchOrdersResult = await this.cinerino.person.searchOrders(params);
                 const orders = searchOrdersResult.data;
@@ -441,7 +460,7 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                const params = {...payload.params, personId: 'me'};
+                const params = { ...payload.params, personId: 'me' };
                 await this.cinerino.getServices();
                 const order = await this.cinerino.order.authorizeOwnershipInfos(params);
                 return new purchase.OrderAuthorizeSuccess({ order });

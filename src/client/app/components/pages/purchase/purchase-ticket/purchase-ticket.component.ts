@@ -104,7 +104,7 @@ export class PurchaseTicketComponent implements OnInit {
                         return;
                     }
                     this.store.dispatch(new AddShoppingCart({ authorizeSeatReservation }));
-                    this.router.navigate(['/purchase/input']);
+                    this.router.navigate(['/purchase/cart']);
                 }).unsubscribe();
             })
         );
