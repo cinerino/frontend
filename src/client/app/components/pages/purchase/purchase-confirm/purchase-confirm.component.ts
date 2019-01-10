@@ -21,6 +21,7 @@ export class PurchaseConfirmComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
+    public amount: number;
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
@@ -31,6 +32,10 @@ export class PurchaseConfirmComponent implements OnInit {
     public ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
+        this.amount = 0;
+        this.purchase.subscribe((purchase) => {
+            this.amount = getAmount(purchase.authorizeSeatReservations);
+        }).unsubscribe();
     }
 
     public onSubmit() {
@@ -38,9 +43,7 @@ export class PurchaseConfirmComponent implements OnInit {
             const movieTickets = purchase.reservations.filter(reservation => reservation.isMovieTicket());
             if (movieTickets.length > 0) {
                 this.authorizeMovieTicket();
-            } else if (purchase.authorizeSeatReservation !== undefined
-                && purchase.authorizeSeatReservation.result !== undefined
-                && purchase.authorizeSeatReservation.result.price > 0) {
+            } else if (this.amount > 0) {
                 this.authorizeCreditCard();
             } else {
                 this.reserve();
@@ -83,7 +86,6 @@ export class PurchaseConfirmComponent implements OnInit {
     private authorizeCreditCard() {
         this.purchase.subscribe((purchase) => {
             if (purchase.transaction === undefined
-                || purchase.movieTheater === undefined
                 || purchase.gmoTokenObject === undefined) {
                 this.router.navigate(['/error']);
                 return;
@@ -93,7 +95,7 @@ export class PurchaseConfirmComponent implements OnInit {
                 transaction: purchase.transaction,
                 authorizeCreditCardPayment: purchase.authorizeCreditCardPayments[0],
                 orderCount: purchase.orderCount,
-                amount: getAmount(purchase.authorizeSeatReservations),
+                amount: this.amount,
                 method: '1',
                 gmoTokenObject: purchase.gmoTokenObject
             }));
@@ -141,15 +143,11 @@ export class PurchaseConfirmComponent implements OnInit {
         const success = this.actions.pipe(
             ofType(ActionTypes.AuthorizeMovieTicketSuccess),
             tap(() => {
-                this.purchase.subscribe((purchase) => {
-                    if (purchase.authorizeSeatReservation !== undefined
-                        && purchase.authorizeSeatReservation.result !== undefined
-                        && purchase.authorizeSeatReservation.result.price > 0) {
-                        this.authorizeCreditCard();
-                    } else {
-                        this.reserve();
-                    }
-                }).unsubscribe();
+                if (this.amount > 0) {
+                    this.authorizeCreditCard();
+                } else {
+                    this.reserve();
+                }
             })
         );
 

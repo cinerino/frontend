@@ -62,7 +62,7 @@
         </div>
     </div>
 
-    <div class="mb-4" *ngIf="(purchase | async).authorizeSeatReservation.result.price > 0">
+    <div class="mb-4" *ngIf="amount > 0">
         <h2 class="bg-secondary text-white p-3 mb-3">決済情報入力</h2>
 
         <p class="mb-3">決済情報を入力してください。</p>

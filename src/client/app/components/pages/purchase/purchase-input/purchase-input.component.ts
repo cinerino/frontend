@@ -203,15 +203,11 @@ export class PurchaseInputComponent implements OnInit {
         const success = this.actions.pipe(
             ofType(ActionTypes.RegisterContactSuccess),
             tap(() => {
-                this.purchase.subscribe((purchase) => {
-                    if (purchase.authorizeSeatReservation !== undefined
-                        && purchase.authorizeSeatReservation.result !== undefined
-                        && this.amount > 0) {
-                        this.createGmoTokenObject();
-                    } else {
-                        this.router.navigate(['/purchase/confirm']);
-                    }
-                }).unsubscribe();
+                if (this.amount > 0) {
+                    this.createGmoTokenObject();
+                } else {
+                    this.router.navigate(['/purchase/confirm']);
+                }
             })
         );
 

@@ -16,6 +16,7 @@ import {
 } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
 import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
+import { ConfirmModalComponent } from '../../../parts/confirm-modal/confirm-modal.component';
 
 @Component({
     selector: 'app-purchase-cart',
@@ -37,6 +38,7 @@ export class PurchaseCartComponent implements OnInit {
     public ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
+        this.store.dispatch(new UnsettledDelete());
     }
 
     public openAlert(args: {
@@ -50,7 +52,24 @@ export class PurchaseCartComponent implements OnInit {
         modalRef.componentInstance.body = args.body;
     }
 
-    public removeItem(authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>) {
+    public openConfirm(args: {
+        title: string;
+        body: string;
+        cb: Function
+    }) {
+        const modalRef = this.modal.open(ConfirmModalComponent, {
+            centered: true
+        });
+        modalRef.componentInstance.title = args.title;
+        modalRef.componentInstance.body = args.body;
+        modalRef.result.then(() => {
+            args.cb();
+        }).catch(() => { });
+    }
+
+    public removeItemProcess(
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>
+    ) {
         this.purchase.subscribe((purchase) => {
             if (purchase.transaction === undefined) {
                 this.router.navigate(['/error']);
@@ -63,14 +82,6 @@ export class PurchaseCartComponent implements OnInit {
             ofType(ActionTypes.CancelTemporaryReservationSuccess),
             tap(() => {
                 this.store.dispatch(new RemoveShoppingCart({ authorizeSeatReservation }));
-                setTimeout(() => {
-                    this.purchase.subscribe((purchase) => {
-                        if (purchase.authorizeSeatReservations.length === 0) {
-                            this.store.dispatch(new UnsettledDelete());
-                            this.router.navigate(['/purchase/schedule']);
-                        }
-                    }).unsubscribe();
-                }, 0);
             })
         );
 
@@ -81,6 +92,16 @@ export class PurchaseCartComponent implements OnInit {
             })
         );
         race(success, fail).pipe(take(1)).subscribe();
+    }
+
+    public removeItem(authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>) {
+        this.openConfirm({
+            title: '確認',
+            body: '削除してよろしいですか。',
+            cb: () => {
+                this.removeItemProcess(authorizeSeatReservation);
+            }
+        });
     }
 
 }
