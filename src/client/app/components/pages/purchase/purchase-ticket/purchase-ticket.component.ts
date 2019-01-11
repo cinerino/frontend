@@ -9,8 +9,6 @@ import { take, tap } from 'rxjs/operators';
 import { IReservationTicket, Reservation } from '../../../../models/purchase/reservation';
 import {
     ActionTypes,
-    AddShoppingCart,
-    RemoveShoppingCart,
     SelectTickets,
     TemporaryReservation
 } from '../../../../store/actions/purchase.action';
@@ -85,7 +83,6 @@ export class PurchaseTicketComponent implements OnInit {
                 });
                 return;
             }
-            this.store.dispatch(new RemoveShoppingCart({ authorizeSeatReservation }));
             this.store.dispatch(new TemporaryReservation({
                 transaction,
                 screeningEvent,
@@ -103,7 +100,6 @@ export class PurchaseTicketComponent implements OnInit {
                         this.router.navigate(['/error']);
                         return;
                     }
-                    this.store.dispatch(new AddShoppingCart({ authorizeSeatReservation }));
                     this.router.navigate(['/purchase/cart']);
                 }).unsubscribe();
             })

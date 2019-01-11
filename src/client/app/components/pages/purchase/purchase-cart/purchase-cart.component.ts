@@ -11,7 +11,6 @@ import { getTicketPrice } from '../../../../functions';
 import {
     ActionTypes,
     CancelTemporaryReservation,
-    RemoveShoppingCart,
     UnsettledDelete
 } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
@@ -80,9 +79,7 @@ export class PurchaseCartComponent implements OnInit {
 
         const success = this.actions.pipe(
             ofType(ActionTypes.CancelTemporaryReservationSuccess),
-            tap(() => {
-                this.store.dispatch(new RemoveShoppingCart({ authorizeSeatReservation }));
-            })
+            tap(() => { })
         );
 
         const fail = this.actions.pipe(

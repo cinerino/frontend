@@ -58,9 +58,7 @@ export enum ActionTypes {
     OrderAuthorizeFail = '[Purchase] Order Authorize Fail',
     CreateGmoTokenObject = '[Purchase] Create Gmo Token Object',
     CreateGmoTokenObjectSuccess = '[Purchase] Create Gmo Token Object Success',
-    CreateGmoTokenObjectFail = '[Purchase] Create Gmo Token Object Fail',
-    AddShoppingCart = '[Purchase] Add Shopping Cart',
-    RemoveShoppingCart = '[Purchase] Remove Shopping Cart',
+    CreateGmoTokenObjectFail = '[Purchase] Create Gmo Token Object Fail'
 }
 
 /**
@@ -313,7 +311,9 @@ export class CancelTemporaryReservation implements Action {
  */
 export class CancelTemporaryReservationSuccess implements Action {
     public readonly type = ActionTypes.CancelTemporaryReservationSuccess;
-    constructor(public payload?: {}) { }
+    constructor(public payload: {
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    }) { }
 }
 
 /**
@@ -560,26 +560,6 @@ export class CreateGmoTokenObjectFail implements Action {
     constructor(public payload: { error: Error }) { }
 }
 
-/**
- * AddShoppingCart
- */
-export class AddShoppingCart implements Action {
-    public readonly type = ActionTypes.AddShoppingCart;
-    constructor(public payload: {
-        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
-    }) { }
-}
-
-/**
- * RemoveShoppingCart
- */
-export class RemoveShoppingCart implements Action {
-    public readonly type = ActionTypes.RemoveShoppingCart;
-    constructor(public payload: {
-        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
-    }) { }
-}
-
 
 /**
  * Actions
@@ -636,6 +616,4 @@ export type Actions =
     | OrderAuthorizeFail
     | CreateGmoTokenObject
     | CreateGmoTokenObjectSuccess
-    | CreateGmoTokenObjectFail
-    | AddShoppingCart
-    | RemoveShoppingCart;
+    | CreateGmoTokenObjectFail;

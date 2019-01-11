@@ -198,8 +198,17 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.TemporaryReservationSuccess: {
             const authorizeSeatReservation = action.payload.authorizeSeatReservation;
+            const reservations = state.purchase.reservations;
             state.purchase.authorizeSeatReservation = authorizeSeatReservation;
             state.purchase.screeningEventOffers = [];
+            const filterResult = reservations.filter(reservation => reservation.ticket === undefined);
+            if (filterResult.length === 0) {
+                const findResult = state.purchase.authorizeSeatReservations.findIndex(target => target.id === authorizeSeatReservation.id);
+                if (findResult > -1) {
+                    state.purchase.authorizeSeatReservations.splice(findResult, 1);
+                }
+                state.purchase.authorizeSeatReservations.push(authorizeSeatReservation);
+            }
             return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.TemporaryReservationFail: {
@@ -210,6 +219,11 @@ export function reducer(state: IState, action: Actions): IState {
             return { ...state, loading: true, process: '座席の仮予約を削除しています', };
         }
         case ActionTypes.CancelTemporaryReservationSuccess: {
+            const authorizeSeatReservation = action.payload.authorizeSeatReservation;
+            const findResult = state.purchase.authorizeSeatReservations.findIndex(target => target.id === authorizeSeatReservation.id);
+            if (findResult > -1) {
+                state.purchase.authorizeSeatReservations.splice(findResult, 1);
+            }
             return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.CancelTemporaryReservationFail: {
@@ -358,27 +372,6 @@ export function reducer(state: IState, action: Actions): IState {
         case ActionTypes.OrderAuthorizeFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case ActionTypes.AddShoppingCart: {
-            const findResult = state.purchase.authorizeSeatReservations.findIndex(
-                authorizeSeatReservation => authorizeSeatReservation.id === action.payload.authorizeSeatReservation.id
-            );
-            if (findResult > -1) {
-                state.purchase.authorizeSeatReservations.splice(findResult, 1);
-            }
-            state.purchase.authorizeSeatReservations.push(action.payload.authorizeSeatReservation);
-
-            return { ...state };
-        }
-        case ActionTypes.RemoveShoppingCart: {
-            const findResult = state.purchase.authorizeSeatReservations.findIndex(
-                authorizeSeatReservation => authorizeSeatReservation.id === action.payload.authorizeSeatReservation.id
-            );
-            if (findResult > -1) {
-                state.purchase.authorizeSeatReservations.splice(findResult, 1);
-            }
-
-            return { ...state };
         }
         default: {
             return state;

@@ -153,7 +153,7 @@ export class PurchaseEffects {
                             return {
                                 id: reservation.ticket.ticketOffer.id,
                                 ticketedSeat: reservation.seat,
-                                additionalProperty: []
+                                additionalProperty: [] // ここにムビチケ情報を入れる
                             };
                         }),
                         notes: ''
@@ -176,10 +176,11 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
+                const authorizeSeatReservation = payload.authorizeSeatReservation;
                 await this.cinerino.getServices();
-                await this.cinerino.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation);
+                await this.cinerino.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation);
 
-                return new purchase.CancelTemporaryReservationSuccess();
+                return new purchase.CancelTemporaryReservationSuccess({ authorizeSeatReservation });
             } catch (error) {
                 return new purchase.CancelTemporaryReservationFail({ error: error });
             }
