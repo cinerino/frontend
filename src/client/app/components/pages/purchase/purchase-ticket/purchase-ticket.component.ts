@@ -122,6 +122,7 @@ export class PurchaseTicketComponent implements OnInit {
             modalRef.componentInstance.screeningEventTicketOffers = purchase.screeningEventTicketOffers;
             modalRef.componentInstance.checkMovieTicketActions = purchase.checkMovieTicketActions;
             modalRef.componentInstance.reservations = purchase.reservations;
+            modalRef.componentInstance.pendingMovieTickets = purchase.pendingMovieTickets;
 
             modalRef.result.then((ticket: IReservationTicket) => {
                 reservation.ticket = ticket;

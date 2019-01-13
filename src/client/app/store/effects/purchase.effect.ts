@@ -315,39 +315,40 @@ export class PurchaseEffects {
                     }
                 }
                 const transaction = payload.transaction;
-                const reservations = payload.reservations;
-                const authorizeSeatReservation = payload.authorizeSeatReservation;
+                const pendingMovieTickets = payload.pendingMovieTickets;
+                const authorizeSeatReservations = payload.authorizeSeatReservations;
                 const authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[] = [];
-                const movieTickets = createMovieTicketsFromAuthorizeSeatReservation({
-                    authorizeSeatReservation, reservations
-                });
-                const movieTicketIdentifiers: {
-                    identifier: string;
-                    movieTickets: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[]
-                }[] = [];
-                movieTickets.forEach((movieTicket) => {
-                    const findResult = movieTicketIdentifiers.find((movieTicketIdentifier) => {
-                        return (movieTicketIdentifier.identifier === movieTicket.identifier);
+                for (const authorizeSeatReservation of authorizeSeatReservations) {
+                    const movieTickets = createMovieTicketsFromAuthorizeSeatReservation({
+                        authorizeSeatReservation, pendingMovieTickets
                     });
-                    if (findResult === undefined) {
-                        movieTicketIdentifiers.push({
-                            identifier: movieTicket.identifier, movieTickets: [movieTicket]
+                    const movieTicketIdentifiers: {
+                        identifier: string;
+                        movieTickets: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[]
+                    }[] = [];
+                    movieTickets.forEach((movieTicket) => {
+                        const findResult = movieTicketIdentifiers.find((movieTicketIdentifier) => {
+                            return (movieTicketIdentifier.identifier === movieTicket.identifier);
                         });
-                        return;
-                    }
-                    findResult.movieTickets.push(movieTicket);
-
-                });
-                for (const movieTicketIdentifier of movieTicketIdentifiers) {
-                    const authorizeMovieTicketPaymentResult = await this.cinerino.transaction.placeOrder.authorizeMovieTicketPayment({
-                        object: {
-                            typeOf: factory.paymentMethodType.MovieTicket,
-                            amount: 0,
-                            movieTickets: movieTicketIdentifier.movieTickets
-                        },
-                        purpose: transaction
+                        if (findResult === undefined) {
+                            movieTicketIdentifiers.push({
+                                identifier: movieTicket.identifier, movieTickets: [movieTicket]
+                            });
+                            return;
+                        }
+                        findResult.movieTickets.push(movieTicket);
                     });
-                    authorizeMovieTicketPayments.push(authorizeMovieTicketPaymentResult);
+                    for (const movieTicketIdentifier of movieTicketIdentifiers) {
+                        const authorizeMovieTicketPaymentResult = await this.cinerino.transaction.placeOrder.authorizeMovieTicketPayment({
+                            object: {
+                                typeOf: factory.paymentMethodType.MovieTicket,
+                                amount: 0,
+                                movieTickets: movieTicketIdentifier.movieTickets
+                            },
+                            purpose: transaction
+                        });
+                        authorizeMovieTicketPayments.push(authorizeMovieTicketPaymentResult);
+                    }
                 }
 
                 return new purchase.AuthorizeMovieTicketSuccess({ authorizeMovieTicketPayments });

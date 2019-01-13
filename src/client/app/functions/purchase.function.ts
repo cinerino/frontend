@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { environment } from '../../environments/environment';
-import { Reservation } from '../models';
+import { IMovieTicket } from '../models';
 
 export interface IScreeningEventFilm {
     info: factory.chevre.event.screeningEvent.IEvent;
@@ -143,39 +143,51 @@ export function isAvailabilityMovieTicket(checkMovieTicketAction: factory.action
  */
 export function createMovieTicketsFromAuthorizeSeatReservation(args: {
     authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
-    reservations: Reservation[];
+    pendingMovieTickets: IMovieTicket[];
 }) {
     const results: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
     const authorizeSeatReservation = args.authorizeSeatReservation;
-    const reservations = args.reservations;
+    const pendingMovieTickets = args.pendingMovieTickets;
     if (authorizeSeatReservation.result === undefined) {
-        return results;
+        return [];
     }
-    // 右記の型不明のため authorizeSeatReservation factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>
-    const pendingReservations: any[] = (<any>authorizeSeatReservation.result.responseBody).object.reservations;
+    const pendingReservations =
+        (<factory.chevre.reservation.IReservation<factory.chevre.event.screeningEvent.ITicketPriceSpecification>[]>
+            (<any>authorizeSeatReservation.result.responseBody).object.reservations);
 
     pendingReservations.forEach((pendingReservation) => {
-        const findReservationResult = reservations.find((reservation) => {
-            return (reservation.seat.seatNumber === pendingReservation.reservedTicket.ticketedSeat.seatNumber);
+        if (pendingReservation.price === undefined) {
+            return;
+        }
+        const findMovieTicketTypeChargeSpecification =
+            pendingReservation.price.priceComponent.find(
+                p => p.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification
+            );
+        if (findMovieTicketTypeChargeSpecification === undefined) {
+            return;
+        }
+        const findPendingMovieTicket = pendingMovieTickets.find((pendingMovieTicket) => {
+            return (pendingMovieTicket.id === authorizeSeatReservation.id);
         });
-        if (findReservationResult === undefined
-            || findReservationResult.ticket === undefined
-            || findReservationResult.ticket.movieTicket === undefined) {
+        if (findPendingMovieTicket === undefined) {
+            return;
+        }
+        const findReservation = findPendingMovieTicket.movieTickets.find((movieTicket) => {
+            const seatNumber = movieTicket.serviceOutput.reservedTicket.ticketedSeat.seatNumber;
+            const seatSection = movieTicket.serviceOutput.reservedTicket.ticketedSeat.seatSection;
+            return (seatNumber === pendingReservation.reservedTicket.ticketedSeat.seatNumber
+                && seatSection === pendingReservation.reservedTicket.ticketedSeat.seatSection);
+        });
+        if (findReservation === undefined) {
             return;
         }
 
         results.push({
             typeOf: factory.paymentMethodType.MovieTicket,
-            identifier: findReservationResult.ticket.movieTicket.identifier,
-            accessCode: findReservationResult.ticket.movieTicket.accessCode,
-            serviceType: findReservationResult.ticket.movieTicket.serviceType,
-            serviceOutput: {
-                reservationFor: {
-                    typeOf: pendingReservation.reservationFor.typeOf,
-                    id: pendingReservation.reservationFor.id
-                },
-                reservedTicket: { ticketedSeat: pendingReservation.reservedTicket.ticketedSeat }
-            }
+            identifier: findReservation.identifier,
+            accessCode: findReservation.accessCode,
+            serviceType: findReservation.serviceType,
+            serviceOutput: findReservation.serviceOutput
         });
     });
 

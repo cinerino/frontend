@@ -5,7 +5,7 @@ import {
     isAvailabilityMovieTicket,
     sameMovieTicketFilter
 } from '../../functions';
-import { IScreen, Reservation } from '../../models';
+import { IMovieTicket, IReservationTicket, IScreen, Reservation } from '../../models';
 import { Actions, ActionTypes } from '../actions/purchase.action';
 
 export interface IHistoryState {
@@ -34,6 +34,7 @@ export interface IPurchaseState {
     checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
     checkMovieTicketAction?: factory.action.check.paymentMethod.movieTicket.IAction;
     isUsedMovieTicket: boolean;
+    pendingMovieTickets: IMovieTicket[];
 }
 
 
@@ -56,7 +57,8 @@ export function reducer(state: IState, action: Actions): IState {
                 checkMovieTicketActions: [],
                 authorizeCreditCardPayments: [],
                 authorizeMovieTicketPayments: [],
-                isUsedMovieTicket: false
+                isUsedMovieTicket: false,
+                pendingMovieTickets: []
             };
             return { ...state };
         }
@@ -64,6 +66,8 @@ export function reducer(state: IState, action: Actions): IState {
             state.purchase.reservations = [];
             state.purchase.screeningEventTicketOffers = [];
             state.purchase.authorizeSeatReservation = undefined;
+            state.purchase.checkMovieTicketAction = undefined;
+            state.purchase.isUsedMovieTicket = false;
             return { ...state };
         }
         case ActionTypes.GetTheaters: {
@@ -203,11 +207,47 @@ export function reducer(state: IState, action: Actions): IState {
             state.purchase.screeningEventOffers = [];
             const filterResult = reservations.filter(reservation => reservation.ticket === undefined);
             if (filterResult.length === 0) {
-                const findResult = state.purchase.authorizeSeatReservations.findIndex(target => target.id === authorizeSeatReservation.id);
-                if (findResult > -1) {
-                    state.purchase.authorizeSeatReservations.splice(findResult, 1);
+                const findAuthorizeSeatReservation = state.purchase.authorizeSeatReservations.findIndex(
+                    target => target.id === authorizeSeatReservation.id
+                );
+                if (findAuthorizeSeatReservation > -1) {
+                    state.purchase.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
                 }
                 state.purchase.authorizeSeatReservations.push(authorizeSeatReservation);
+                const findPendingMovieTicket = state.purchase.pendingMovieTickets.findIndex(
+                    target => target.id === authorizeSeatReservation.id
+                );
+                if (findPendingMovieTicket > -1) {
+                    state.purchase.pendingMovieTickets.splice(findPendingMovieTicket, 1);
+                }
+                const movieTicketReservations = reservations.filter(r => r.ticket !== undefined && r.ticket.movieTicket !== undefined);
+                if (movieTicketReservations.length > 0) {
+                    const pendingReservations =
+                        (<factory.chevre.reservation.IReservation<factory.chevre.event.screeningEvent.ITicketPriceSpecification>[]>
+                            (<any>authorizeSeatReservation.result).responseBody.object.reservations);
+                    state.purchase.pendingMovieTickets.push({
+                        id: authorizeSeatReservation.id,
+                        movieTickets: movieTicketReservations.map((r) => {
+                            const pendingReservation = pendingReservations.find((p) => {
+                                return (p.reservedTicket.ticketedSeat.seatNumber === r.seat.seatNumber
+                                    && p.reservedTicket.ticketedSeat.seatSection === r.seat.seatSection);
+                            });
+                            if (pendingReservation === undefined) {
+                                throw new Error('pendingReservation is undefined');
+                            }
+                            const movieTicket =
+                                (<factory.paymentMethod.paymentCard.movieTicket.IMovieTicket>(<IReservationTicket>r.ticket).movieTicket);
+                            movieTicket.serviceOutput = {
+                                reservationFor: {
+                                    typeOf: factory.chevre.eventType.ScreeningEvent,
+                                    id: pendingReservation.reservationFor.id
+                                },
+                                reservedTicket: { ticketedSeat: pendingReservation.reservedTicket.ticketedSeat }
+                            };
+                            return movieTicket;
+                        })
+                    });
+                }
             }
             return { ...state, loading: false, process: '', error: null };
         }
@@ -220,9 +260,17 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.CancelTemporaryReservationSuccess: {
             const authorizeSeatReservation = action.payload.authorizeSeatReservation;
-            const findResult = state.purchase.authorizeSeatReservations.findIndex(target => target.id === authorizeSeatReservation.id);
-            if (findResult > -1) {
-                state.purchase.authorizeSeatReservations.splice(findResult, 1);
+            const findAuthorizeSeatReservation = state.purchase.authorizeSeatReservations.findIndex(
+                target => target.id === authorizeSeatReservation.id
+            );
+            if (findAuthorizeSeatReservation > -1) {
+                state.purchase.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
+            }
+            const findPendingMovieTicket = state.purchase.pendingMovieTickets.findIndex(
+                target => target.id === authorizeSeatReservation.id
+            );
+            if (findPendingMovieTicket > -1) {
+                state.purchase.pendingMovieTickets.splice(findPendingMovieTicket, 1);
             }
             return { ...state, loading: false, process: '', error: null };
         }
@@ -328,7 +376,8 @@ export function reducer(state: IState, action: Actions): IState {
                 checkMovieTicketActions: [],
                 authorizeCreditCardPayments: [],
                 authorizeMovieTicketPayments: [],
-                isUsedMovieTicket: false
+                isUsedMovieTicket: false,
+                pendingMovieTickets: []
             };
             state.purchase.order = order;
             return { ...state, loading: false, process: '', error: null };

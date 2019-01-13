@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
 import { IGmoTokenObject } from '../../functions';
-import { IReservationSeat, IScreen, Reservation } from '../../models';
+import { IMovieTicket, IReservationSeat, IScreen, Reservation } from '../../models';
 
 /**
  * Action types
@@ -391,8 +391,8 @@ export class AuthorizeMovieTicket implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
-        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
-        reservations: Reservation[];
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
+        pendingMovieTickets: IMovieTicket[];
     }) { }
 }
 

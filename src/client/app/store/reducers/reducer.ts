@@ -41,7 +41,8 @@ export const initialState: IState = {
         checkMovieTicketActions: [],
         authorizeCreditCardPayments: [],
         authorizeMovieTicketPayments: [],
-        isUsedMovieTicket: false
+        isUsedMovieTicket: false,
+        pendingMovieTickets: []
     },
     history: {
         purchase: []

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { getTicketPrice } from '../../../functions';
-import { IReservationTicket, Reservation } from '../../../models';
+import { IMovieTicket, IReservationTicket, Reservation } from '../../../models';
 
 type IMovieTicketTypeChargeSpecification =
     factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification>;
@@ -17,6 +17,7 @@ export class TicketListModalComponent implements OnInit {
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     @Input() public checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
     @Input() public reservations: Reservation[];
+    @Input() public pendingMovieTickets: IMovieTicket[];
     public tickets: IReservationTicket[];
     public getTicketPrice = getTicketPrice;
 
@@ -63,14 +64,29 @@ export class TicketListModalComponent implements OnInit {
                     === reservation.ticket.movieTicket.serviceType);
             });
 
+            // 予約待ちのムビチケ券
+            const pendingMovieTickets: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
+            this.pendingMovieTickets.forEach((pendingMovieTicket) => {
+                pendingMovieTicket.movieTickets.forEach((movieTicket) => {
+                    pendingMovieTickets.push(movieTicket);
+                });
+            });
+
             targetMovieTickets.forEach((movieTicket) => {
-                const index = reservations.findIndex((reservation) => {
+                const reservationsIndex = reservations.findIndex((reservation) => {
                     return (reservation.ticket !== undefined
                         && reservation.ticket.movieTicket !== undefined
                         && reservation.ticket.movieTicket.identifier === movieTicket.identifier);
                 });
-                if (index > -1) {
-                    reservations.splice(index, 1);
+                if (reservationsIndex > -1) {
+                    reservations.splice(reservationsIndex, 1);
+                    return;
+                }
+                const pendingMovieTicketsIndex = pendingMovieTickets.findIndex((pendingMovieTicket) => {
+                    return (pendingMovieTicket.identifier === movieTicket.identifier);
+                });
+                if (pendingMovieTicketsIndex > -1) {
+                    pendingMovieTickets.splice(pendingMovieTicketsIndex, 1);
                     return;
                 }
                 movieTickets.push({ ticketOffer, movieTicket });

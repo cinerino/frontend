@@ -40,8 +40,7 @@ export class PurchaseConfirmComponent implements OnInit {
 
     public onSubmit() {
         this.purchase.subscribe((purchase) => {
-            const movieTickets = purchase.reservations.filter(reservation => reservation.isMovieTicket());
-            if (movieTickets.length > 0) {
+            if (purchase.pendingMovieTickets.length > 0) {
                 this.authorizeMovieTicket();
             } else if (this.amount > 0) {
                 this.authorizeCreditCard();
@@ -126,17 +125,15 @@ export class PurchaseConfirmComponent implements OnInit {
      */
     private authorizeMovieTicket() {
         this.purchase.subscribe((purchase) => {
-            if (purchase.transaction === undefined
-                || purchase.screeningEvent === undefined
-                || purchase.authorizeSeatReservation === undefined) {
+            if (purchase.transaction === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
             this.store.dispatch(new AuthorizeMovieTicket({
                 transaction: purchase.transaction,
                 authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
-                authorizeSeatReservation: purchase.authorizeSeatReservation,
-                reservations: purchase.reservations
+                authorizeSeatReservations: purchase.authorizeSeatReservations,
+                pendingMovieTickets: purchase.pendingMovieTickets
             }));
         }).unsubscribe();
 
