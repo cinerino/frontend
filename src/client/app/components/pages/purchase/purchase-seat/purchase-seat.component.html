@@ -1,21 +1,19 @@
-<div class="py-3 px-2">
+<div class="contents-width mx-auto px-3 py-4">
     <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
-
-    <h2 class="bg-secondary text-white p-3 mb-3">座席選択</h2>
-
+    <h2 class="text-large mb-3 text-center"><strong>座席選択</strong></h2>
     <p class="mb-3">座席を選択してください。</p>
 
-    <app-screen *ngIf="(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0" class="mb-3 border bg-white shadow-sm"
+    <app-screen *ngIf="(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0" class="mb-3"
         [screenData]="(purchase | async).screenData" (select)="selectSeat($event)">
     </app-screen>
 
     <h3 class="mb-2 font-weight-bold">利用規約</h3>
 
-    <p class="border bg-white shadow-sm p-3 mb-4 text-small scroll border">
+    <p class="border p-3 mb-4 text-small scroll border">
         インターネットチケット販売（以下「本サービス」といいます）をご利用いただくに当たってvit®利用規約（以下「本規約」といいます）を以下の通りに定めます。本規約に同意の上本サービスをご利用ください。
     </p>
 
-    <div class="w-75 mx-auto">
+    <div class="buttons mx-auto px-3">
         <button type="button" class="btn btn-primary btn-block py-2 mb-2" [disabled]="isLoading | async" (click)="onSubmit()">利用規約に同意して次へ</button>
         <button type="button" class="btn btn-outline-primary btn-block py-2" routerLink="/purchase/schedule">スケジュール選択へ戻る</button>
     </div>

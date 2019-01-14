@@ -1,8 +1,8 @@
-<div class="py-3 px-2">
+<div class="contents-width mx-auto px-3 py-4">
     <div class="mb-4">
         <h2 class="bg-secondary text-white p-3 mb-3">チケット情報照会</h2>
         <p class="mb-3">予約番号と電話番号を入力してください。</p>
-        <div class="p-3 border bg-white shadow-sm">
+        <div class="p-3 border">
             <form [formGroup]="inquiryForm">
                 <div class="form-group">
                     <label class="mb-2" for="">購入番号</label>
@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <div class="w-75 mx-auto">
+    <div class="buttons mx-auto px-3">
         <button type="button" class="btn btn-primary btn-block py-2" (click)="onSubmit()">照会</button>
         <button type="button" class="btn btn-outline-primary btn-block py-2" routerLink="/purchase/schedule">TOPへ戻る</button>
     </div>

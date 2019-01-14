@@ -55,7 +55,11 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
                 320: { slidesPerView: 2 },
                 767: { slidesPerView: 3 },
                 1024: { slidesPerView: 5 }
-            }
+            },
+            navigation: {
+                nextEl: '.schedule-slider .swiper-button-next',
+                prevEl: '.schedule-slider .swiper-button-prev',
+            },
         };
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.error = this.store.pipe(select(reducers.getError));

@@ -6,9 +6,16 @@
 ul {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 1rem;
+    grid-gap: 0.5rem;
     @include media-breakpoint-down(sm) {
         grid-template-columns: 1fr;
-        grid-gap: 0.5rem;
+    }
+}
+
+.status {
+    line-height: 30px;
+    img {
+        width: 30px;
+        height: 30px;
     }
 }

@@ -4,7 +4,7 @@
 
         <p class="mb-3">購入者情報を入力してください。</p>
 
-        <div class="p-3 border bg-white shadow-sm">
+        <div class="p-3 border">
             <form [formGroup]="customerContactForm">
                 <div class="form-group">
                     <label class="mb-2" for="">セイ</label>
@@ -67,7 +67,7 @@
 
         <p class="mb-3">決済情報を入力してください。</p>
 
-        <div class="p-3 border bg-white shadow-sm">
+        <div class="p-3 border">
             <form [formGroup]="paymentForm">
                 <div class="form-group">
                     <div class="mb-2">決済金額</div>
@@ -117,7 +117,7 @@
     </div>
 
 
-    <div class="w-75 mx-auto">
+    <div class="buttons mx-auto px-3">
         <button type="button" class="btn btn-primary btn-block py-2 mb-2" [disabled]="isLoading | async" (click)="onSubmit()">次へ</button>
         <button type="button" class="btn btn-outline-primary btn-block py-2" routerLink="/purchase/cart">購入情報確認へ戻る</button>
         <!-- <button type="button" class="btn btn-outline-primary btn-block py-2" routerLink="/purchase/ticket">券種選択へ戻る</button> -->

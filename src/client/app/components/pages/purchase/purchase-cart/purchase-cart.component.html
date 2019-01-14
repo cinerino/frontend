@@ -1,4 +1,4 @@
-<div class="py-3 px-2">
+<div class="contents-width mx-auto px-3 py-4">
     <div class="mb-4">
         <h2 class="bg-secondary text-white p-3 mb-3">購入情報</h2>
 
@@ -6,7 +6,7 @@
         <div *ngIf="(purchase | async).authorizeSeatReservations.length === 0">
             <p>購入中のアイテムがありません。</p>
         </div>
-        <div *ngFor="let authorizeSeatReservation of (purchase | async).authorizeSeatReservations" class="mb-4 px-3 border bg-white shadow-sm position-relative">
+        <div *ngFor="let authorizeSeatReservation of (purchase | async).authorizeSeatReservations" class="mb-4 px-3 border position-relative">
             <div class="py-3 border-bottom">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
@@ -50,11 +50,11 @@
         </div>
     </div>
 
-    <div *ngIf="(purchase | async).authorizeSeatReservations.length > 0" class="w-75 mx-auto">
+    <div *ngIf="(purchase | async).authorizeSeatReservations.length > 0" class="buttons mx-auto px-3">
         <button type="button" class="btn btn-primary btn-block py-2 mb-2" [disabled]="isLoading | async" routerLink="/purchase/input">購入者情報入力へ進む</button>
         <button type="button" class="btn btn-outline-primary btn-block py-2" routerLink="/purchase/schedule">追加する</button>
     </div>
-    <div *ngIf="(purchase | async).authorizeSeatReservations.length === 0" class="w-75 mx-auto">
+    <div *ngIf="(purchase | async).authorizeSeatReservations.length === 0" class="buttons mx-auto px-3">
         <button type="button" class="btn btn-outline-primary btn-block py-2" routerLink="/purchase/schedule">スケジュール選択へ</button>
     </div>
 </div>

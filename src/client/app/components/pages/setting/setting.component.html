@@ -1,10 +1,10 @@
-<div class="py-3 px-2">
+<div class="contents-width mx-auto px-3 py-4">
     <div class="mb-4">
         <h2 class="bg-secondary text-white p-3 mb-3">購入者情報入力</h2>
 
         <p class="mb-3">購入者情報を入力してください。</p>
 
-        <div class="p-3 border bg-white shadow-sm">
+        <div class="p-3 border">
             <form [formGroup]="customerContactForm">
                 <div class="form-group">
                     <label class="mb-2" for="">セイ</label>
@@ -62,7 +62,7 @@
         </div>
     </div>
 
-    <div class="w-75 mx-auto mb-4">
+    <div class="buttons mx-auto px-3 mb-4">
         <button type="button" class="btn btn-primary btn-block py-2 mb-2" [disabled]="isLoading | async" (click)="updateCustomer()">購入者情報を変更</button>
     </div>
 
@@ -71,7 +71,7 @@
 
         <p class="mb-3">決済情報を入力してください。</p>
 
-        <div class="p-3 border bg-white shadow-sm">
+        <div class="p-3 border">
             <form [formGroup]="paymentForm">
                 <div class="form-group">
                     <div class="mb-2">決済金額</div>
@@ -120,7 +120,7 @@
         </div>
     </div>
 
-    <div class="w-75 mx-auto">
+    <div class="buttons mx-auto px-3">
         <button type="button" class="btn btn-primary btn-block py-2 mb-2" [disabled]="isLoading | async" (click)="updatePayment()">決済情報を変更</button>
     </div> -->
 

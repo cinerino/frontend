@@ -1,23 +1,43 @@
-<div class="p-3">
-    <h2 class="bg-secondary text-white p-3 mb-3">劇場</h2>
-    <div class="mb-3 theaters">
+<div class="contents-width mx-auto px-3 py-4">
+    <h2 class="text-large mb-3 text-center"><strong>劇場選択</strong></h2>
+    <p class="mb-3">劇場を選択してください</p>
+    <div class="theaters">
         <button *ngFor="let theater of (purchase | async).movieTheaters" type="button" class="btn btn-block py-2 m-0"
             (click)="selectTheater(theater)" [class.btn-primary]="(purchase | async).movieTheater === theater"
             [class.btn-outline-primary]="(purchase | async).movieTheater !== theater">{{ theater.name.ja }}</button>
     </div>
-    <h2 class="bg-secondary text-white p-3 mb-3">上映スケジュール</h2>
-    <div class="swiper-container date mb-3" #swiper [swiper]="swiperConfig" (resize)="resize()">
-        <div class="swiper-wrapper">
-            <div *ngFor="let scheduleDate of scheduleDates" class="swiper-slide pointer">
-                <div class="text-center text-white py-4 px-2" 
-                [class.bg-secondary]="scheduleDate !== (purchase | async).scheduleDate"
-                [class.bg-primary]="scheduleDate === (purchase | async).scheduleDate"
-                (click)="selectDate(scheduleDate)">
-                    <div>{{ moment(scheduleDate).format('YYYY/MM/DD') }}</div>
+</div>
+
+<div class="contents-width mx-auto px-3 pt-4 pb-3">
+    <h2 class="text-large mb-3 text-center"><strong>スケジュール選択</strong></h2>
+    <p>スケジュールを選択してください</p>
+</div>
+<div class="bg-light-gray">
+    <div class="contents-width mx-auto px-5 py-4">
+        <div class="position-relative schedule-slider">
+            <div class="swiper-container date" #swiper [swiper]="swiperConfig" (resize)="resize()">
+                <div class="swiper-wrapper">
+                    <div *ngFor="let scheduleDate of scheduleDates" class="swiper-slide pointer">
+                        <div class="text-center text-white py-4" [class.bg-secondary]="scheduleDate !== (purchase | async).scheduleDate"
+                            [class.bg-primary]="scheduleDate === (purchase | async).scheduleDate" (click)="selectDate(scheduleDate)">
+                            <div>
+                                <strong>
+                                    {{ moment(scheduleDate).format('MM') }}/<span class="text-large">{{
+                                        moment(scheduleDate).format('DD') }}</span>({{
+                                    moment(scheduleDate).format('ddd') }})
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
     </div>
-    <app-purchase-schedule-film *ngFor="let screeningFilmEvent of screeningFilmEvents"
-        [screeningFilmEvent]="screeningFilmEvent" (select)="selectSchedule($event)" class="mb-3"></app-purchase-schedule-film>
+</div>
+<div class="contents-width mx-auto px-3 py-4">
+    <p *ngIf="(purchase | async).scheduleDate" class="text-primary text-large mb-3">{{ moment((purchase | async).scheduleDate).format('YYYY/MM/DD (ddd)') }}</p>
+    <app-purchase-schedule-film *ngFor="let screeningFilmEvent of screeningFilmEvents" [screeningFilmEvent]="screeningFilmEvent"
+        (select)="selectSchedule($event)" class="mb-3"></app-purchase-schedule-film>
 </div>

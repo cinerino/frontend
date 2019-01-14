@@ -1,9 +1,7 @@
 @import '../../../../../assets/scss/theme';
 
-.tickets {
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
+.moveticket-button {
     @include media-breakpoint-down(sm) {
-        grid-template-columns: 1fr;
+        width: 100%;
     }
 }
