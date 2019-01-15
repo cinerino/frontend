@@ -1,14 +1,17 @@
 <div class="contents-width mx-auto px-3 py-4">
     <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
+    
     <h2 class="text-large mb-3 text-center"><strong>券種選択</strong></h2>
     <p class="mb-3">券種を選択してください。</p>
 
     <div *ngIf="(purchase | async).isUsedMovieTicket" class="mb-4">
-        <div class="bg-light-gray p-3 d-md-flex align-items-center">
+        <div class="bg-light-gray p-3 d-md-flex align-items-center movieticket">
             <p class="mb-2 mb-md-0">ムビチケ券を利用される方</p>
-            <button type="button" (click)="openMovieTicket()" class="bg-white rounded border border-gray py-2 px-4 ml-md-auto moveticket-button">
-                <img src="/assets/images/mvtk.svg" height="24">
-            </button>
+            <div>
+                <button type="button" (click)="openMovieTicket()" class="btn btn-block bg-white border border-gray">
+                    <img src="/assets/images/mvtk.svg" height="24">
+                </button>
+            </div>
         </div>
     </div>
 
@@ -19,9 +22,9 @@
             </div>
             <div class="w-50">
                 <button *ngIf="reservation.ticket === undefined" type="button" (click)="openTicketList(reservation)"
-                    class="btn btn-primary btn-block py-2">券種を選択してください</button>
+                    class="btn btn-primary btn-block">券種を選択してください</button>
                 <button *ngIf="reservation.ticket !== undefined" type="button" (click)="openTicketList(reservation)"
-                    class="btn btn-block bg-white border-gray text-gray py-2">{{
+                    class="btn btn-block bg-white border-dark-gray text-dark-gray">{{
                     reservation.ticket.ticketOffer.name.ja }} {{
                     reservation.getTicketPrice().single | currency : 'JPY' }}</button>
             </div>

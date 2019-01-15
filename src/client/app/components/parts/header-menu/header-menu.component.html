@@ -1,6 +1,6 @@
 <div class="cover" [class.active]="isOpen" (click)="close.emit()"></div>
 
-<div class="menu text-white bg-dark" [class.active]="isOpen">
+<div class="menu text-white bg-dark-gray" [class.active]="isOpen">
     <ul *ngIf="(user | async).isMember">
         <li class="p-3 border-bottom" routerLink="/purchase/schedule" (click)="close.emit()"><i class="fas fa-shopping-cart mr-2"></i>購入</li>
         <li class="p-3 border-bottom" routerLink="/purchase/history" (click)="close.emit()"><i class="fas fa-history mr-2"></i>購入履歴</li>

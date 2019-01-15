@@ -1,6 +1,8 @@
 @import '../../../../../assets/scss/theme';
 
-.moveticket-button {
+.movieticket > div,
+.movieticket > p {
+    width: 50%;
     @include media-breakpoint-down(sm) {
         width: 100%;
     }

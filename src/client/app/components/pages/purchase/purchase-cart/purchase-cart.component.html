@@ -1,13 +1,13 @@
 <div class="contents-width mx-auto px-3 py-4">
     <div class="mb-4">
-        <h2 class="bg-secondary text-white p-3 mb-3">購入情報</h2>
-
+        <h2 class="text-large mb-3 text-center"><strong>購入情報</strong></h2>
         <p class="mb-3">購入情報をご確認ください。</p>
+        
         <div *ngIf="(purchase | async).authorizeSeatReservations.length === 0">
             <p>購入中のアイテムがありません。</p>
         </div>
-        <div *ngFor="let authorizeSeatReservation of (purchase | async).authorizeSeatReservations" class="mb-4 px-3 border position-relative">
-            <div class="py-3 border-bottom">
+        <div *ngFor="let authorizeSeatReservation of (purchase | async).authorizeSeatReservations" class="mb-4 px-3 bg-light-gray position-relative">
+            <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-map-marker-alt mr-2"></i>劇場 / スクリーン</p>
@@ -15,14 +15,14 @@
                         authorizeSeatReservation.object.event.location.name.ja }}</p>
                 </div>
             </div>
-            <div class="py-3 border-bottom">
+            <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-film mr-2"></i>作品</p>
                     <p class="col-md-8">{{ authorizeSeatReservation.object.event.superEvent.name.ja }}</p>
                 </div>
             </div>
-            <div class="py-3 border-bottom">
+            <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="far fa-clock mr-2"></i>上映開始日時</p>

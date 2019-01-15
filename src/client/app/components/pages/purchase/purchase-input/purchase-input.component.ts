@@ -14,6 +14,7 @@ import { LibphonenumberFormatPipe } from '../../../../pipes/libphonenumber-forma
 import { ActionTypes, CreateGmoTokenObject, RegisterContact } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
 import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
+import { SecurityCodeModalComponent } from '../../../parts/security-code-modal/security-code-modal.component';
 
 @Component({
     selector: 'app-purchase-input',
@@ -268,6 +269,12 @@ export class PurchaseInputComponent implements OnInit {
         });
         modalRef.componentInstance.title = args.title;
         modalRef.componentInstance.body = args.body;
+    }
+
+    public openSecurityCode() {
+        this.modal.open(SecurityCodeModalComponent, {
+            centered: true
+        });
     }
 
 }

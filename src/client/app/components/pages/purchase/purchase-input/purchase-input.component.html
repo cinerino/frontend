@@ -1,10 +1,9 @@
-<div class="py-3 px-2 d-block">
+<div class="contents-width mx-auto px-3 py-4">
     <div class="mb-4">
-        <h2 class="bg-secondary text-white p-3 mb-3">購入者情報入力</h2>
-
+        <h2 class="text-large mb-3 text-center"><strong>購入者情報入力</strong></h2>
         <p class="mb-3">購入者情報を入力してください。</p>
 
-        <div class="p-3 border">
+        <div class="p-3 bg-light-gray">
             <form [formGroup]="customerContactForm">
                 <div class="form-group">
                     <label class="mb-2" for="">セイ</label>
@@ -41,6 +40,11 @@
                         </p>
                         <p *ngIf="customerContactForm.controls.email.errors.email" class="text-danger">メールアドレスが正しくありません</p>
                     </div>
+                    <p class="mt-2 text-small">
+                            【ドメイン指定受信をご利用の場合について】 <br>
+                            ※ 携帯電話のドメイン指定受信をされている場合、「@example.com」を追加設定してください。 <br>
+                            ※ au(@ezweb.ne.jp)をご利用の場合、上記に加え「なりすまし規制回避リスト」にも「@example.com」の追加設定をしてください。
+                    </p>
                 </div>
                 <div class="form-group mb-0">
                     <label class="mb-2" for="">電話番号</label>
@@ -63,11 +67,10 @@
     </div>
 
     <div class="mb-4" *ngIf="amount > 0">
-        <h2 class="bg-secondary text-white p-3 mb-3">決済情報入力</h2>
-
+        <h2 class="text-large mb-3 text-center"><strong>決済情報入力</strong></h2>
         <p class="mb-3">決済情報を入力してください。</p>
 
-        <div class="p-3 border">
+        <div class="p-3 bg-light-gray">
             <form [formGroup]="paymentForm">
                 <div class="form-group">
                     <div class="mb-2">決済金額</div>
@@ -103,6 +106,7 @@
                         class="mt-2">
                         <p *ngIf="paymentForm.controls.securityCode.errors.required" class="text-danger">セキュリティーコードが未入力です</p>
                     </div>
+                    <p class="mt-2 text-small"><span class="pointer" (click)="openSecurityCode()"><i class="far fa-question-circle mr-1"></i>セキュリティーコードについて</span></p>
                 </div>
                 <div class="form-group mb-0">
                     <label class="mb-2" for="">カード名義人</label>

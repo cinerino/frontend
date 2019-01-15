@@ -44,6 +44,7 @@ import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase
 import { PurchaseScheduleFilmComponent } from './components/parts/purchase-schedule-film/purchase-schedule-film.component';
 import { PurchaseTransactionModalComponent } from './components/parts/purchase-transaction-modal/purchase-transaction-modal.component';
 import { ScreenComponent } from './components/parts/screen/screen.component';
+import { SecurityCodeModalComponent } from './components/parts/security-code-modal/security-code-modal.component';
 import { TicketListModalComponent } from './components/parts/ticket-list-modal/ticket-list-modal.component';
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
 import { StoreModule } from './store.module';
@@ -87,7 +88,8 @@ import { CoreStoreModule } from './store/core/store';
         CongestionComponent,
         MaintenanceComponent,
         PurchaseCartComponent,
-        PurchaseTransactionModalComponent
+        PurchaseTransactionModalComponent,
+        SecurityCodeModalComponent
     ],
     entryComponents: [
         TicketListModalComponent,
@@ -95,7 +97,8 @@ import { CoreStoreModule } from './store/core/store';
         ConfirmModalComponent,
         PurchaseDetailModalComponent,
         MvtkCheckModalComponent,
-        PurchaseTransactionModalComponent
+        PurchaseTransactionModalComponent,
+        SecurityCodeModalComponent
     ],
     imports: [
         BrowserModule,

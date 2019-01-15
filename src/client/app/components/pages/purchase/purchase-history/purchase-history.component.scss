@@ -1,13 +1,8 @@
 @import '../../../../../assets/scss/theme';
 .items {
-    margin: 0 -0.5rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1rem;
     @include media-breakpoint-down(sm) {
-        margin: 0;
-    }
-    .item {
-        width: 33.3%;
-        @include media-breakpoint-down(sm) {
-            width: auto;
-        }
+        grid-template-columns: 1fr;
     }
 }

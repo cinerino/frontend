@@ -1,33 +1,31 @@
 <div class="contents-width mx-auto px-3 py-4">
-    <ul class="d-block d-md-flex flex-wrap items">
-        <li *ngFor="let data of (history | async).purchase" class="mb-3 item">
-            <div class="card h-100 mx-md-2">
-                <div class="card-body">
-                    <div class="card-title">購入番号 <strong class="text-success text-large">{{ data.confirmationNumber }}</strong></div>
-                    <div class="mb-3">
-                        <p class="mb-2 d-flex align-items-center"><i class="fas fa-film mr-2"></i>{{
-                            data.acceptedOffers[0].itemOffered.reservationFor.name.ja }}</p>
-                        <p class="mb-2 d-flex align-items-center"><i class="fas fa-map-marker-alt mr-2"></i>{{
-                            data.acceptedOffers[0].itemOffered.reservationFor.superEvent.location.name.ja }} / {{
-                            data.acceptedOffers[0].itemOffered.reservationFor.location.name.ja }}</p>
-                        <p class="mb-2 d-flex align-items-center"><i class="far fa-clock mr-2"></i>{{
-                            moment(data.acceptedOffers[0].itemOffered.reservationFor.startDate).format('YYYY/MM/DD
-                            (ddd)
-                            HH:mm') }}</p>
-                        <ul>
-                            <li *ngFor="let acceptedOffer of data.acceptedOffers">
-                                <p class="mb-2 d-flex align-items-center">
-                                    <i class="fas fa-ticket-alt mr-2"></i>
-                                    {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }} /
-                                    {{ acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja }} /
-                                    {{ getTicketPrice(acceptedOffer).single | currency : 'JPY' }}
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="text-center"><button type="button" class="btn btn-primary btn-block" (click)="detail(data)">QRコード表示</button></div>
-                </div>
+    <h2 class="text-large mb-3 text-center"><strong>購入履歴</strong></h2>
+
+    <ul class="d-grid items">
+        <li *ngFor="let data of (history | async).purchase" class="item p-3 bg-light-gray">
+            <div><i class="fas fa-key mr-2"></i>購入番号 <strong class="text-success text-large">{{ data.confirmationNumber }}</strong></div>
+            <div class="mb-3">
+                <p class="mb-2 d-flex align-items-center"><i class="fas fa-film mr-2"></i>{{
+                    data.acceptedOffers[0].itemOffered.reservationFor.name.ja }}</p>
+                <p class="mb-2 d-flex align-items-center"><i class="fas fa-map-marker-alt mr-2"></i>{{
+                    data.acceptedOffers[0].itemOffered.reservationFor.superEvent.location.name.ja }} / {{
+                    data.acceptedOffers[0].itemOffered.reservationFor.location.name.ja }}</p>
+                <p class="mb-2 d-flex align-items-center"><i class="far fa-clock mr-2"></i>{{
+                    moment(data.acceptedOffers[0].itemOffered.reservationFor.startDate).format('YYYY/MM/DD
+                    (ddd)
+                    HH:mm') }}</p>
+                <ul>
+                    <li *ngFor="let acceptedOffer of data.acceptedOffers">
+                        <p class="mb-2 d-flex align-items-center">
+                            <i class="fas fa-ticket-alt mr-2"></i>
+                            {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }} /
+                            {{ acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja }} /
+                            {{ getTicketPrice(acceptedOffer).single | currency : 'JPY' }}
+                        </p>
+                    </li>
+                </ul>
             </div>
+            <div class="text-center"><button type="button" class="btn btn-primary btn-block" (click)="detail(data)">QRコード表示</button></div>
         </li>
     </ul>
 </div>

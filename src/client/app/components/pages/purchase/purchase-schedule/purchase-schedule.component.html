@@ -21,11 +21,9 @@
                         <div class="text-center text-white py-4" [class.bg-secondary]="scheduleDate !== (purchase | async).scheduleDate"
                             [class.bg-primary]="scheduleDate === (purchase | async).scheduleDate" (click)="selectDate(scheduleDate)">
                             <div>
-                                <strong>
-                                    {{ moment(scheduleDate).format('MM') }}/<span class="text-large">{{
-                                        moment(scheduleDate).format('DD') }}</span>({{
-                                    moment(scheduleDate).format('ddd') }})
-                                </strong>
+                                {{ moment(scheduleDate).format('MM') }}/<span class="text-large">{{
+                                    moment(scheduleDate).format('DD') }}</span>({{
+                                moment(scheduleDate).format('ddd') }})
                             </div>
                         </div>
                     </div>
@@ -37,7 +35,8 @@
     </div>
 </div>
 <div class="contents-width mx-auto px-3 py-4">
-    <p *ngIf="(purchase | async).scheduleDate" class="text-primary text-large mb-3">{{ moment((purchase | async).scheduleDate).format('YYYY/MM/DD (ddd)') }}</p>
+    <p *ngIf="(purchase | async).scheduleDate" class="text-primary text-large mb-3">{{ moment((purchase |
+        async).scheduleDate).format('YYYY/MM/DD (ddd)') }}</p>
     <app-purchase-schedule-film *ngFor="let screeningFilmEvent of screeningFilmEvents" [screeningFilmEvent]="screeningFilmEvent"
         (select)="selectSchedule($event)" class="mb-3"></app-purchase-schedule-film>
 </div>

@@ -1,10 +1,9 @@
 <div class="contents-width mx-auto px-3 py-4">
     <div class="mb-4">
-        <h2 class="bg-secondary text-white p-3 mb-3">購入完了</h2>
-
+        <h2 class="text-large mb-3 text-center"><strong>購入完了</strong></h2>
         <p class="mb-3">ご購入ありがとうございます。</p>
 
-        <div class="mb-4 px-3 border">
+        <div class="mb-4 px-3 bg-light-gray">
             <div class="py-3">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">
@@ -15,8 +14,8 @@
                 </div>
             </div>
         </div>
-        <div *ngFor="let eventOrder of eventOrders" class="mb-4 px-3 border">
-            <div class="py-3 border-bottom">
+        <div *ngFor="let eventOrder of eventOrders" class="mb-4 px-3 bg-light-gray">
+            <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-map-marker-alt mr-2"></i>劇場 / スクリーン</p>
@@ -24,14 +23,14 @@
                         eventOrder.event.location.name.ja }}</p>
                 </div>
             </div>
-            <div class="py-3 border-bottom">
+            <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-film mr-2"></i>作品</p>
                     <p class="col-md-8">{{ eventOrder.event.name.ja }}</p>
                 </div>
             </div>
-            <div class="py-3 border-bottom">
+            <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="far fa-clock mr-2"></i>上映開始日時</p>
@@ -54,8 +53,8 @@
             </div>
         </div>
 
-        <div class="mb-4 px-3 border">
-            <div class="py-3 border-bottom">
+        <div class="mb-4 px-3 bg-light-gray">
+            <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-user-circle mr-2"></i>お名前</p>
@@ -63,14 +62,14 @@
                         async).order.customer.givenName }}</p>
                 </div>
             </div>
-            <div class="py-3 border-bottom">
+            <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="far fa-envelope mr-2"></i>メールアドレス</p>
                     <p class="col-md-8">{{ (purchase | async).order.customer.email }}</p>
                 </div>
             </div>
-            <div class="py-3 border-bottom">
+            <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-phone mr-2"></i>電話番号</p>

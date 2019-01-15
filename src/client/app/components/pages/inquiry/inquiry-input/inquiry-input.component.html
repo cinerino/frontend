@@ -1,12 +1,14 @@
 <div class="contents-width mx-auto px-3 py-4">
     <div class="mb-4">
-        <h2 class="bg-secondary text-white p-3 mb-3">チケット情報照会</h2>
+        <h2 class="text-large mb-3 text-center"><strong>チケット情報照会</strong></h2>
         <p class="mb-3">予約番号と電話番号を入力してください。</p>
-        <div class="p-3 border">
+
+        <div class="p-3 bg-light-gray">
             <form [formGroup]="inquiryForm">
                 <div class="form-group">
                     <label class="mb-2" for="">購入番号</label>
-                    <input type="text" class="form-control" formControlName="confirmationNumber" id="confirmationNumber" placeholder="12345678">
+                    <input type="text" class="form-control" formControlName="confirmationNumber" id="confirmationNumber"
+                        placeholder="12345678">
                     <div *ngIf="inquiryForm.controls.confirmationNumber.invalid && inquiryForm.controls.confirmationNumber.touched"
                         class="mt-2">
                         <p *ngIf="inquiryForm.controls.confirmationNumber.errors.required" class="text-danger">購入番号が未入力です</p>
@@ -16,8 +18,7 @@
                 <div class="form-group mb-0">
                     <label class="mb-2" for="">電話番号</label>
                     <input type="tel" class="form-control" formControlName="telephone" id="telephone" placeholder="0362778824">
-                    <div *ngIf="inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched"
-                        class="mt-2">
+                    <div *ngIf="inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched" class="mt-2">
                         <p *ngIf="inquiryForm.controls.telephone.errors.required" class="text-danger">電話番号が未入力です</p>
                         <p *ngIf="inquiryForm.controls.telephone.errors.minlength" class="text-danger">電話番号は{{
                             inquiryForm.controls.telephone.errors.minlength.requiredLength }}文字以上で入力してください
