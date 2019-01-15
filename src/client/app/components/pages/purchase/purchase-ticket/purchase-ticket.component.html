@@ -1,5 +1,4 @@
 <div class="contents-width mx-auto px-3 py-4">
-    <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
     
     <h2 class="text-large mb-3 text-center"><strong>券種選択</strong></h2>
     <p class="mb-3">券種を選択してください。</p>
@@ -30,6 +29,8 @@
             </div>
         </div>
     </div>
+
+    <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
 
     <div class="buttons mx-auto px-3">
         <button type="button" class="btn btn-primary btn-block py-2 mb-2" [disabled]="isLoading | async" (click)="onSubmit()">次へ</button>

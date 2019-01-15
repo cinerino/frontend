@@ -53,8 +53,8 @@
 
                 <div class="status" *ngIf="!(moment(screeningEvent.offers.validThrough).unix() > moment().unix())">販売終了</div>
                 <div class="status" *ngIf="!(moment(screeningEvent.offers.validFrom).unix() < moment().unix())">販売期間外</div>
-                <div class="mb-2 text-small">{{ screeningEvent.remainingAttendeeCapacity }} / {{
-                    screeningEvent.maximumAttendeeCapacity }}</div>
+                <div class="mb-2 text-small">{{ screeningEvent.remainingAttendeeCapacity }} 席 / {{
+                    screeningEvent.maximumAttendeeCapacity }} 席</div>
                 <div class="text-small">[発券 {{ screeningEvent.checkInCount }} / 入場 {{ screeningEvent.attendeeCount }}]</div>
             </div>
         </li>

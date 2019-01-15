@@ -3,8 +3,9 @@
 
     <ul class="d-grid items">
         <li *ngFor="let data of (history | async).purchase" class="item p-3 bg-light-gray">
-            <div><i class="fas fa-key mr-2"></i>購入番号 <strong class="text-success text-large">{{ data.confirmationNumber }}</strong></div>
             <div class="mb-3">
+                <p class="mb-2 d-flex align-items-center"><i class="fas fa-key mr-2"></i>購入番号 <strong class="text-info text-large">{{
+                        data.confirmationNumber }}</strong></p>
                 <p class="mb-2 d-flex align-items-center"><i class="fas fa-film mr-2"></i>{{
                     data.acceptedOffers[0].itemOffered.reservationFor.name.ja }}</p>
                 <p class="mb-2 d-flex align-items-center"><i class="fas fa-map-marker-alt mr-2"></i>{{
