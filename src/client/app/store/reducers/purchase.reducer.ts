@@ -18,6 +18,7 @@ export interface IPurchaseState {
     screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
     screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
     scheduleDate?: string;
+    preScheduleDates: string[];
     transaction?: factory.transaction.placeOrder.ITransaction;
     screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
     screenData?: IScreen;
@@ -49,6 +50,7 @@ export function reducer(state: IState, action: Actions): IState {
             state.purchase = {
                 movieTheaters: [],
                 screeningEvents: [],
+                preScheduleDates: [],
                 screeningEventOffers: [],
                 reservations: [],
                 screeningEventTicketOffers: [],
@@ -100,6 +102,17 @@ export function reducer(state: IState, action: Actions): IState {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
+        case ActionTypes.GetPreScheduleDates: {
+            return { ...state, loading: true, process: '先行スケジュールを取得しています', };
+        }
+        case ActionTypes.GetPreScheduleDatesSuccess: {
+            state.purchase.preScheduleDates = action.payload.sheduleDates;
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case ActionTypes.GetPreScheduleDatesFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
         case ActionTypes.SelectSchedule: {
             const screeningEvent = action.payload.screeningEvent;
             return {
@@ -115,6 +128,7 @@ export function reducer(state: IState, action: Actions): IState {
         case ActionTypes.StartTransactionSuccess: {
             state.purchase.transaction = action.payload.transaction;
             state.purchase.screeningEvents = [];
+            state.purchase.preScheduleDates = [];
             state.purchase.movieTheaters = [];
             return { ...state, loading: false, process: '', error: null };
         }
@@ -368,6 +382,7 @@ export function reducer(state: IState, action: Actions): IState {
             state.purchase = {
                 movieTheaters: [],
                 screeningEvents: [],
+                preScheduleDates: [],
                 screeningEventOffers: [],
                 reservations: [],
                 screeningEventTicketOffers: [],

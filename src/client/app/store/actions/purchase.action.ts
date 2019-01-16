@@ -16,6 +16,9 @@ export enum ActionTypes {
     GetSchedule = '[Purchase] Get Schedule',
     GetScheduleSuccess = '[Purchase] Get Schedule Success',
     GetScheduleFail = '[Purchase] Get Schedule Fail',
+    GetPreScheduleDates = '[Purchase] Get Pre Schedule',
+    GetPreScheduleDatesSuccess = '[Purchase] Get Pre Schedule Success',
+    GetPreScheduleDatesFail = '[Purchase] Get Pre Schedule Fail',
     SelectSchedule = '[Purchase] Select Schedule',
     StartTransaction = '[Purchase] Start Transaction',
     StartTransactionSuccess = '[Purchase] Start Transaction Success',
@@ -136,6 +139,34 @@ export class GetScheduleSuccess implements Action {
  */
 export class GetScheduleFail implements Action {
     public readonly type = ActionTypes.GetScheduleFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * GetPreScheduleDates
+ */
+export class GetPreScheduleDates implements Action {
+    public readonly type = ActionTypes.GetPreScheduleDates;
+    constructor(public payload: {
+        movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
+    }) { }
+}
+
+/**
+ * GetPreScheduleDatesSuccess
+ */
+export class GetPreScheduleDatesSuccess implements Action {
+    public readonly type = ActionTypes.GetPreScheduleDatesSuccess;
+    constructor(public payload: {
+        sheduleDates: string[]
+    }) { }
+}
+
+/**
+ * GetPreScheduleDatesFail
+ */
+export class GetPreScheduleDatesFail implements Action {
+    public readonly type = ActionTypes.GetPreScheduleDatesFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -574,6 +605,9 @@ export type Actions =
     | GetSchedule
     | GetScheduleSuccess
     | GetScheduleFail
+    | GetPreScheduleDates
+    | GetPreScheduleDatesSuccess
+    | GetPreScheduleDatesFail
     | SelectSchedule
     | StartTransaction
     | StartTransactionSuccess

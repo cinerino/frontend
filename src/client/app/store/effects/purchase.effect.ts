@@ -4,6 +4,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 import {
     createGmoTokenObject,
     createMovieTicketsFromAuthorizeSeatReservation,
@@ -74,6 +75,48 @@ export class PurchaseEffects {
                 return new purchase.GetScheduleSuccess({ screeningEvents, scheduleDate });
             } catch (error) {
                 return new purchase.GetScheduleFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * GetPreScheduleDates
+     */
+    @Effect()
+    public getPreScheduleDates = this.actions.pipe(
+        ofType<purchase.GetPreScheduleDates>(purchase.ActionTypes.GetPreScheduleDates),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                await this.cinerino.getServices();
+                const branchCode = payload.movieTheater.location.branchCode;
+                const now = moment().toDate();
+                const today = moment(moment().format('YYYY-MM-DD')).toDate();
+                const screeningEventsResult = await this.cinerino.event.searchScreeningEvents({
+                    typeOf: factory.chevre.eventType.ScreeningEvent,
+                    eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
+                    superEvent: { locationBranchCodes: [branchCode] },
+                    startFrom: moment(today).add(environment.PRE_SCHEDULE_DATE, 'days').toDate(),
+                    offers: {
+                        validFrom: now,
+                        validThrough: now,
+                        availableFrom: now,
+                        availableThrough: now
+                    }
+                });
+                const sheduleDates: string[] = [];
+
+                screeningEventsResult.data.forEach((screeningEvent) => {
+                    const date = moment(screeningEvent.startDate).format('YYYY-MM-DD');
+                    const findResult = sheduleDates.find(sheduleDat => sheduleDat === date);
+                    if (findResult === undefined) {
+                        sheduleDates.push(date);
+                    }
+                });
+
+                return new purchase.GetPreScheduleDatesSuccess({ sheduleDates });
+            } catch (error) {
+                return new purchase.GetPreScheduleDatesFail({ error: error });
             }
         })
     );

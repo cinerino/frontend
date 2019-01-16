@@ -1,7 +1,7 @@
-<div class="contents-width mx-auto px-3 py-4">
+<div class="contents-width mx-auto px-3 py-5">
     <div class="mb-4">
-        <h2 class="text-large mb-3 text-center"><strong>購入情報確認</strong></h2>
-        <p class="mb-3">購入情報をご確認ください。</p>
+        <h2 class="text-large mb-4 text-center"><strong>購入情報確認</strong></h2>
+        <p class="mb-4">購入情報をご確認ください。</p>
 
         <div *ngFor="let authorizeSeatReservation of (purchase | async).authorizeSeatReservations" class="mb-4 px-3 bg-light-gray">
             <div class="py-3 border-bottom border-gray">
@@ -22,7 +22,7 @@
             <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="far fa-clock mr-2"></i>上映開始日時</p>
+                        <i class="far fa-clock mr-2"></i>上映日時</p>
                     <p class="col-md-8">{{
                         moment(authorizeSeatReservation.object.event.superEvent.startDate).format('YYYY/MM/DD (ddd)
                         HH:mm') }}</p>
@@ -77,7 +77,7 @@
     </div>
 
     <div class="buttons mx-auto px-3">
-        <button type="button" class="btn btn-primary btn-block py-2 mb-2" [disabled]="isLoading | async" (click)="onSubmit()">購入確定</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-2" routerLink="/purchase/input">購入者情報入力へ戻る</button>
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async" (click)="onSubmit()">購入確定</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/purchase/input">購入者情報入力へ戻る</button>
     </div>
 </div>

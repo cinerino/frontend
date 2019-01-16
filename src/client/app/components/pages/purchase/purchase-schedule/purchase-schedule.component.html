@@ -1,16 +1,20 @@
-<div class="contents-width mx-auto px-3 py-4">
-    <h2 class="text-large mb-3 text-center"><strong>劇場選択</strong></h2>
-    <p class="mb-3">劇場を選択してください</p>
+<div class="contents-width mx-auto px-3 pt-5">
+    <h2 class="text-large mb-4 text-center"><strong>劇場選択</strong></h2>
+    <p class="mb-4">劇場を選択してください</p>
     <div class="theaters">
-        <button *ngFor="let theater of (purchase | async).movieTheaters" type="button" class="btn btn-block py-2 m-0"
-            (click)="selectTheater(theater)" [class.btn-primary]="(purchase | async).movieTheater === theater"
-            [class.btn-outline-primary]="(purchase | async).movieTheater !== theater">{{ theater.name.ja }}</button>
+        <button *ngFor="let theater of (purchase | async).movieTheaters" type="button" class="btn btn-block py-3 m-0"
+            (click)="selectTheater(theater)" [class.btn-primary]="(purchase | async).movieTheater.id === theater.id"
+            [class.btn-outline-primary]="(purchase | async).movieTheater.id !== theater.id">{{ theater.name.ja }}</button>
     </div>
 </div>
 
-<div class="contents-width mx-auto px-3 pt-4 pb-3">
-    <h2 class="text-large mb-3 text-center"><strong>スケジュール選択</strong></h2>
-    <p>スケジュールを選択してください</p>
+<div class="contents-width mx-auto px-3 pt-5">
+    <h2 class="text-large mb-4 text-center"><strong>スケジュール選択</strong></h2>
+    <p class="mb-4">スケジュールを選択してください</p>
+    <div *ngIf="(purchase | async).preScheduleDates.length > 0" class="buttons mx-auto px-3 mb-3">
+        <button *ngIf="!isPreSchedule" type="button" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async" (click)="changeScheduleType()">先行販売スケジュール</button>
+        <button *ngIf="isPreSchedule" type="button" class="btn btn-outline-primary btn-block py-3" [disabled]="isLoading | async" (click)="changeScheduleType()">通常販売スケジュール</button>
+    </div>
 </div>
 <div class="bg-light-gray">
     <div class="contents-width mx-auto px-5 py-4">
@@ -34,9 +38,10 @@
         </div>
     </div>
 </div>
-<div class="contents-width mx-auto px-3 py-4">
+<div class="contents-width mx-auto p-3">
     <p *ngIf="(purchase | async).scheduleDate" class="text-primary text-large mb-3">{{ moment((purchase |
         async).scheduleDate).format('YYYY/MM/DD (ddd)') }}</p>
+    <p *ngIf="screeningFilmEvents.length === 0" class="mb-3">スケジュールがありません。</p>
     <app-purchase-schedule-film *ngFor="let screeningFilmEvent of screeningFilmEvents" [screeningFilmEvent]="screeningFilmEvent"
         (select)="selectSchedule($event)" class="mb-3"></app-purchase-schedule-film>
 </div>

@@ -13,6 +13,7 @@ import { environment } from '../../../../../environments/environment';
 import { IScreeningEventFilm, screeningEventsToFilmEvents } from '../../../../functions';
 import {
     ActionTypes,
+    GetPreScheduleDates,
     GetSchedule,
     GetTheaters,
     SelectSchedule,
@@ -35,6 +36,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
     public error: Observable<string | null>;
     public swiperConfig: SwiperConfigInterface;
     public scheduleDates: string[];
+    public isPreSchedule: boolean;
     public screeningFilmEvents: IScreeningEventFilm[];
     public moment: typeof moment = moment;
     private updateTimer: any;
@@ -63,23 +65,46 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
         };
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.error = this.store.pipe(select(reducers.getError));
+        this.isPreSchedule = false;
         this.scheduleDates = [];
-        for (let i = 0; i < 7; i++) {
-            this.scheduleDates.push(moment().add(i, 'day').format('YYYY-MM-DD'));
-        }
         this.screeningFilmEvents = [];
         this.getTheaters();
     }
 
     public ngOnDestroy() {
-        clearInterval(this.updateTimer);
+        clearTimeout(this.updateTimer);
+    }
+
+    public changeScheduleType() {
+        this.purchase.subscribe((purchase) => {
+            if (this.isPreSchedule) {
+                this.scheduleDates = [];
+                for (let i = 0; i < 7; i++) {
+                    this.scheduleDates.push(moment().add(i, 'day').format('YYYY-MM-DD'));
+                }
+            } else {
+                this.scheduleDates = purchase.preScheduleDates;
+            }
+            if (purchase.movieTheater === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            this.selectDate();
+            this.isPreSchedule = !this.isPreSchedule;
+            this.directiveRef.update();
+        }).unsubscribe();
+
     }
 
     private update() {
+        if (this.updateTimer !== undefined) {
+            clearTimeout(this.updateTimer);
+        }
         const time = 600000; // 10 * 60 * 1000
-        this.updateTimer = setInterval(() => {
+        this.updateTimer = setTimeout(() => {
             this.purchase.subscribe((purchase) => {
                 if (purchase.movieTheater === undefined) {
+                    this.router.navigate(['/error']);
                     return;
                 }
                 this.selectTheater(purchase.movieTheater);
@@ -104,9 +129,10 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
             ofType(ActionTypes.GetTheatersSuccess),
             tap(() => {
                 this.purchase.subscribe((purchase) => {
-                    const movieTheater = purchase.movieTheaters[0];
+                    const movieTheater = (purchase.movieTheater === undefined)
+                        ? purchase.movieTheaters[0]
+                        : purchase.movieTheater;
                     this.selectTheater(movieTheater);
-                    this.update();
                 }).unsubscribe();
             })
         );
@@ -125,9 +151,45 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
      */
     public selectTheater(movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>) {
         this.store.dispatch(new SelectTheater({ movieTheater }));
+        this.scheduleDates = [];
+        for (let i = 0; i < 7; i++) {
+            this.scheduleDates.push(moment().add(i, 'day').format('YYYY-MM-DD'));
+        }
+        this.isPreSchedule = false;
+        this.directiveRef.update();
         setTimeout(() => {
-            this.selectDate();
+            this.getPreScheduleDates();
         }, 0);
+    }
+
+    /**
+     * getPreScheduleDates
+     */
+    public getPreScheduleDates() {
+        this.purchase.subscribe((purchase) => {
+            if (purchase.movieTheater === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            const movieTheater = purchase.movieTheater;
+            this.store.dispatch(new GetPreScheduleDates({ movieTheater }));
+        }).unsubscribe();
+
+        const success = this.actions.pipe(
+            ofType(ActionTypes.GetPreScheduleDatesSuccess),
+            tap(() => {
+                this.isPreSchedule = false;
+                this.selectDate();
+            })
+        );
+
+        const fail = this.actions.pipe(
+            ofType(ActionTypes.GetPreScheduleDatesFail),
+            tap(() => {
+                this.router.navigate(['/error']);
+            })
+        );
+        race(success, fail).pipe(take(1)).subscribe();
     }
 
     /**
@@ -136,11 +198,12 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
     public selectDate(scheduleDate?: string) {
         this.purchase.subscribe((purchase) => {
             const movieTheater = purchase.movieTheater;
-            if (scheduleDate === undefined || scheduleDate === '') {
-                scheduleDate = moment().format('YYYY-MM-DD');
-            }
-            if (movieTheater === undefined) {
+            if (movieTheater === undefined || this.scheduleDates.length === 0) {
+                this.router.navigate(['/error']);
                 return;
+            }
+            if (scheduleDate === undefined || scheduleDate === '') {
+                scheduleDate = this.scheduleDates[0];
             }
             this.store.dispatch(new GetSchedule({ movieTheater, scheduleDate }));
         }).unsubscribe();
@@ -149,8 +212,16 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
             ofType(ActionTypes.GetScheduleSuccess),
             tap(() => {
                 this.purchase.subscribe((purchase) => {
-                    const screeningEvents = purchase.screeningEvents;
+                    let screeningEvents = purchase.screeningEvents;
+                    if (this.isPreSchedule) {
+                        // TODO 本来いらないはず
+                        screeningEvents = purchase.screeningEvents.filter((screeningEvent) => {
+                            return (moment(screeningEvent.offers.validFrom).unix() < moment().unix()
+                                && moment(screeningEvent.offers.validThrough).unix() > moment().unix());
+                        });
+                    }
                     this.screeningFilmEvents = screeningEventsToFilmEvents({ screeningEvents });
+                    this.update();
                 }).unsubscribe();
             })
         );

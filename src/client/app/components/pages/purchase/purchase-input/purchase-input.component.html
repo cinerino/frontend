@@ -1,7 +1,7 @@
-<div class="contents-width mx-auto px-3 py-4">
+<div class="contents-width mx-auto px-3 py-5">
     <div class="mb-4">
-        <h2 class="text-large mb-3 text-center"><strong>購入者情報入力</strong></h2>
-        <p class="mb-3">購入者情報を入力してください。</p>
+        <h2 class="text-large mb-4 text-center"><strong>購入者情報入力</strong></h2>
+        <p class="mb-4">購入者情報を入力してください。</p>
 
         <div class="p-3 bg-light-gray">
             <form [formGroup]="customerContactForm">
@@ -67,8 +67,8 @@
     </div>
 
     <div class="mb-4" *ngIf="amount > 0">
-        <h2 class="text-large mb-3 text-center"><strong>決済情報入力</strong></h2>
-        <p class="mb-3">決済情報を入力してください。</p>
+        <h2 class="text-large mb-4 text-center"><strong>決済情報入力</strong></h2>
+        <p class="mb-4">決済情報を入力してください。</p>
 
         <div class="p-3 bg-light-gray">
             <form [formGroup]="paymentForm">
@@ -122,9 +122,9 @@
 
 
     <div class="buttons mx-auto px-3">
-        <button type="button" class="btn btn-primary btn-block py-2 mb-2" [disabled]="isLoading | async" (click)="onSubmit()">次へ</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-2" routerLink="/purchase/cart">購入情報確認へ戻る</button>
-        <!-- <button type="button" class="btn btn-outline-primary btn-block py-2" routerLink="/purchase/ticket">券種選択へ戻る</button> -->
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async" (click)="onSubmit()">次へ</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/purchase/cart">購入情報確認へ戻る</button>
+        <!-- <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/purchase/ticket">券種選択へ戻る</button> -->
     </div>
 
 </div>
