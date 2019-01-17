@@ -475,43 +475,4 @@ export class PurchaseEffects {
             }
         })
     );
-
-    /**
-     * getPurchaseHistory
-     */
-    @Effect()
-    public getPurchaseHistory = this.actions.pipe(
-        ofType<purchase.GetPurchaseHistory>(purchase.ActionTypes.GetPurchaseHistory),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            try {
-                const params = { ...payload.params, personId: 'me' };
-                await this.cinerino.getServices();
-                const searchOrdersResult = await this.cinerino.person.searchOrders(params);
-                const orders = searchOrdersResult.data;
-                return new purchase.GetPurchaseHistorySuccess({ result: orders });
-            } catch (error) {
-                return new purchase.GetPurchaseHistoryFail({ error: error });
-            }
-        })
-    );
-
-    /**
-     * orderAuthorize
-     */
-    @Effect()
-    public orderAuthorize = this.actions.pipe(
-        ofType<purchase.OrderAuthorize>(purchase.ActionTypes.OrderAuthorize),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            try {
-                const params = { ...payload.params, personId: 'me' };
-                await this.cinerino.getServices();
-                const order = await this.cinerino.order.authorizeOwnershipInfos(params);
-                return new purchase.OrderAuthorizeSuccess({ order });
-            } catch (error) {
-                return new purchase.OrderAuthorizeFail({ error: error });
-            }
-        })
-    );
 }

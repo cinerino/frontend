@@ -1,30 +1,32 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { factory } from '@cinerino/api-javascript-client';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
-import { IPurchaseOrder } from '../../../models/history/purchaseOrder';
+import { getTicketPrice } from '../../../functions';
 
 @Component({
-    selector: 'app-purchase-detail-modal',
-    templateUrl: './purchase-detail-modal.component.html',
-    styleUrls: ['./purchase-detail-modal.component.scss']
+    selector: 'app-qrcode-modal',
+    templateUrl: './qrcode-modal.component.html',
+    styleUrls: ['./qrcode-modal.component.scss']
 })
-export class PurchaseDetailModalComponent implements OnInit {
-    @Input() public data: IPurchaseOrder;
+export class QrCodeModalComponent implements OnInit {
+    @Input() public order: factory.order.IOrder;
     public moment: typeof moment = moment;
     public urlList: Promise<string>[];
+    public getTicketPrice = getTicketPrice;
     constructor(
         public activeModal: NgbActiveModal
     ) { }
 
     public ngOnInit() {
         this.urlList = [];
-        this.data.acceptedOffers.forEach((acceptedOffer) => {
+        this.order.acceptedOffers.forEach((acceptedOffer) => {
             const ticketToken = <string>acceptedOffer.itemOffered.reservedTicket.ticketToken;
             const basicSize = 21;
             const option: qrcode.QRCodeToDataURLOptions = {
                 margin: 0,
-                scale: (80 / basicSize)
+                scale: (60 / basicSize)
             };
             const url = qrcode.toDataURL(ticketToken, option);
             this.urlList.push(url);

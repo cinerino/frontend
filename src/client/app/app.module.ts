@@ -39,10 +39,10 @@ import { HeaderComponent } from './components/parts/header/header.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MvtkCheckModalComponent } from './components/parts/mvtk-check-modal/mvtk-check-modal.component';
 import { PurchaseContentsComponent } from './components/parts/purchase-contents/purchase-contents.component';
-import { PurchaseDetailModalComponent } from './components/parts/purchase-detail-modal/purchase-detail-modal.component';
 import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
 import { PurchaseScheduleFilmComponent } from './components/parts/purchase-schedule-film/purchase-schedule-film.component';
 import { PurchaseTransactionModalComponent } from './components/parts/purchase-transaction-modal/purchase-transaction-modal.component';
+import { QrCodeModalComponent } from './components/parts/qrcode-modal/qrcode-modal.component';
 import { ScreenComponent } from './components/parts/screen/screen.component';
 import { SecurityCodeModalComponent } from './components/parts/security-code-modal/security-code-modal.component';
 import { TicketListModalComponent } from './components/parts/ticket-list-modal/ticket-list-modal.component';
@@ -79,7 +79,6 @@ import { CoreStoreModule } from './store/core/store';
         HeaderMenuComponent,
         ConfirmModalComponent,
         PurchaseHistoryComponent,
-        PurchaseDetailModalComponent,
         MvtkCheckModalComponent,
         SettingComponent,
         InquiryInputComponent,
@@ -89,13 +88,14 @@ import { CoreStoreModule } from './store/core/store';
         MaintenanceComponent,
         PurchaseCartComponent,
         PurchaseTransactionModalComponent,
-        SecurityCodeModalComponent
+        SecurityCodeModalComponent,
+        QrCodeModalComponent
     ],
     entryComponents: [
         TicketListModalComponent,
         AlertModalComponent,
         ConfirmModalComponent,
-        PurchaseDetailModalComponent,
+        QrCodeModalComponent,
         MvtkCheckModalComponent,
         PurchaseTransactionModalComponent,
         SecurityCodeModalComponent

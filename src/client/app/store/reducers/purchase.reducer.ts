@@ -8,10 +8,6 @@ import {
 import { IMovieTicket, IReservationTicket, IScreen, Reservation } from '../../models';
 import { Actions, ActionTypes } from '../actions/purchase.action';
 
-export interface IHistoryState {
-    purchase: factory.order.IOrder[];
-}
-
 export interface IPurchaseState {
     movieTheaters: factory.organization.IOrganization<factory.organizationType.MovieTheater>[];
     movieTheater?: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
@@ -398,42 +394,6 @@ export function reducer(state: IState, action: Actions): IState {
             return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.ReserveFail: {
-            const error = action.payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case ActionTypes.GetPurchaseHistory: {
-            return { ...state, loading: true, process: '購入情報を取得しています', };
-        }
-        case ActionTypes.GetPurchaseHistorySuccess: {
-            const result = action.payload.result;
-            return {
-                ...state, loading: false, process: '', error: null, history: {
-                    ...state.history,
-                    purchase: result
-                }
-            };
-        }
-        case ActionTypes.GetPurchaseHistoryFail: {
-            const error = action.payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case ActionTypes.OrderAuthorize: {
-            return { ...state, loading: true, process: 'QRコードを取得しています', };
-        }
-        case ActionTypes.OrderAuthorizeSuccess: {
-            const authorizeOrder = action.payload.order;
-            const historyData = state.history.purchase.map((order) => {
-                if (order.orderNumber !== authorizeOrder.orderNumber) {
-                    return order;
-                }
-                return authorizeOrder;
-            });
-            const history = state.history;
-            history.purchase = historyData;
-
-            return { ...state, loading: false, process: '', error: null, history };
-        }
-        case ActionTypes.OrderAuthorizeFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }

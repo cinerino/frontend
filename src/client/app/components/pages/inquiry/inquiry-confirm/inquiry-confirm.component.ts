@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
+import { Observable, race } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
 import { getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
+import { ActionTypes, OrderAuthorize } from '../../../../store/actions/inquiry.action';
 import * as reducers from '../../../../store/reducers';
+import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.component';
 
 @Component({
     selector: 'app-inquiry-confirm',
@@ -19,7 +24,9 @@ export class InquiryConfirmComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private router: Router
+        private router: Router,
+        private actions: Actions,
+        private modal: NgbModal
     ) { }
 
     public ngOnInit() {
@@ -33,6 +40,48 @@ export class InquiryConfirmComponent implements OnInit {
             const order = inquiry.order;
             this.eventOrders = orderToEventOrders({ order });
         });
+    }
+
+    public showQrCode() {
+        this.inquiry.subscribe((inquiry) => {
+            const order = inquiry.order;
+            if (order === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            this.store.dispatch(new OrderAuthorize({
+                params: {
+                    orderNumber: order.orderNumber,
+                    customer: {
+                        telephone: order.customer.telephone
+                    }
+                }
+            }));
+        }).unsubscribe();
+
+        const success = this.actions.pipe(
+            ofType(ActionTypes.OrderAuthorizeSuccess),
+            tap(() => {
+                this.inquiry.subscribe((inquiry) => {
+                    const authorizeOrder = inquiry.order;
+                    if (authorizeOrder === undefined) {
+                        return;
+                    }
+                    const modalRef = this.modal.open(QrCodeModalComponent, {
+                        centered: true
+                    });
+                    modalRef.componentInstance.order = authorizeOrder;
+                }).unsubscribe();
+            })
+        );
+
+        const fail = this.actions.pipe(
+            ofType(ActionTypes.OrderAuthorizeFail),
+            tap(() => {
+                this.router.navigate(['/error']);
+            })
+        );
+        race(success, fail).pipe(take(1)).subscribe();
     }
 
 }

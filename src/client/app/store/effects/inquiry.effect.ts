@@ -42,4 +42,43 @@ export class InquiryEffects {
             }
         })
     );
+
+    /**
+     * getPurchaseHistory
+     */
+    @Effect()
+    public getPurchaseHistory = this.actions.pipe(
+        ofType<inquiry.GetPurchaseHistory>(inquiry.ActionTypes.GetPurchaseHistory),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                const params = { ...payload.params, personId: 'me' };
+                await this.cinerino.getServices();
+                const searchOrdersResult = await this.cinerino.person.searchOrders(params);
+                const orders = searchOrdersResult.data;
+                return new inquiry.GetPurchaseHistorySuccess({ result: orders });
+            } catch (error) {
+                return new inquiry.GetPurchaseHistoryFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * orderAuthorize
+     */
+    @Effect()
+    public orderAuthorize = this.actions.pipe(
+        ofType<inquiry.OrderAuthorize>(inquiry.ActionTypes.OrderAuthorize),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                const params = { ...payload.params, personId: 'me' };
+                await this.cinerino.getServices();
+                const order = await this.cinerino.order.authorizeOwnershipInfos(params);
+                return new inquiry.OrderAuthorizeSuccess({ order });
+            } catch (error) {
+                return new inquiry.OrderAuthorizeFail({ error: error });
+            }
+        })
+    );
 }

@@ -53,12 +53,6 @@ export enum ActionTypes {
     Reserve = '[Purchase] Reserve',
     ReserveSuccess = '[Purchase] Reserve Success',
     ReserveFail = '[Purchase] Reserve Fail',
-    GetPurchaseHistory = '[Purchase] Get Purchase History',
-    GetPurchaseHistorySuccess = '[Purchase] Get Purchase History Success',
-    GetPurchaseHistoryFail = '[Purchase] Get Purchase History Fail',
-    OrderAuthorize = '[Purchase] Order Authorize',
-    OrderAuthorizeSuccess = '[Purchase] Order Authorize Success',
-    OrderAuthorizeFail = '[Purchase] Order Authorize Fail',
     CreateGmoTokenObject = '[Purchase] Create Gmo Token Object',
     CreateGmoTokenObjectSuccess = '[Purchase] Create Gmo Token Object Success',
     CreateGmoTokenObjectFail = '[Purchase] Create Gmo Token Object Fail'
@@ -504,62 +498,6 @@ export class ReserveFail implements Action {
 }
 
 /**
- * GetPurchaseHistory
- */
-export class GetPurchaseHistory implements Action {
-    public readonly type = ActionTypes.GetPurchaseHistory;
-    constructor(public payload: { params: factory.order.ISearchConditions }) { }
-}
-
-/**
- * GetPurchaseHistorySuccess
- */
-export class GetPurchaseHistorySuccess implements Action {
-    public readonly type = ActionTypes.GetPurchaseHistorySuccess;
-    constructor(public payload: { result: factory.order.IOrder[] }) { }
-}
-
-/**
- * GetPurchaseHistoryFail
- */
-export class GetPurchaseHistoryFail implements Action {
-    public readonly type = ActionTypes.GetPurchaseHistoryFail;
-    constructor(public payload: { error: Error }) { }
-}
-
-/**
- * OrderAuthorize
- */
-export class OrderAuthorize implements Action {
-    public readonly type = ActionTypes.OrderAuthorize;
-    constructor(public payload: {
-        params: {
-            orderNumber: string;
-            customer: {
-                email?: string;
-                telephone?: string;
-            };
-        }
-    }) { }
-}
-
-/**
- * OrderAuthorizeSuccess
- */
-export class OrderAuthorizeSuccess implements Action {
-    public readonly type = ActionTypes.OrderAuthorizeSuccess;
-    constructor(public payload: { order: factory.order.IOrder }) { }
-}
-
-/**
- * OrderAuthorizeFail
- */
-export class OrderAuthorizeFail implements Action {
-    public readonly type = ActionTypes.OrderAuthorizeFail;
-    constructor(public payload: { error: Error }) { }
-}
-
-/**
  * CreateGmoTokenObject
  */
 export class CreateGmoTokenObject implements Action {
@@ -642,12 +580,6 @@ export type Actions =
     | Reserve
     | ReserveSuccess
     | ReserveFail
-    | GetPurchaseHistory
-    | GetPurchaseHistorySuccess
-    | GetPurchaseHistoryFail
-    | OrderAuthorize
-    | OrderAuthorizeSuccess
-    | OrderAuthorizeFail
     | CreateGmoTokenObject
     | CreateGmoTokenObjectSuccess
     | CreateGmoTokenObjectFail;

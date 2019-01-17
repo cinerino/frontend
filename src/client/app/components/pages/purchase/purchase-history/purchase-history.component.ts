@@ -8,10 +8,9 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { getTicketPrice } from '../../../../functions';
-import { IPurchaseOrder } from '../../../../models/history/purchaseOrder';
-import { ActionTypes, GetPurchaseHistory, OrderAuthorize } from '../../../../store/actions/purchase.action';
+import { ActionTypes, GetPurchaseHistory, OrderAuthorize } from '../../../../store/actions/inquiry.action';
 import * as reducers from '../../../../store/reducers';
-import { PurchaseDetailModalComponent } from '../../../parts/purchase-detail-modal/purchase-detail-modal.component';
+import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.component';
 
 @Component({
     selector: 'app-purchase-history',
@@ -19,18 +18,18 @@ import { PurchaseDetailModalComponent } from '../../../parts/purchase-detail-mod
     styleUrls: ['./purchase-history.component.scss']
 })
 export class PurchaseHistoryComponent implements OnInit {
-    public history: Observable<reducers.IHistoryState>;
+    public inquiry: Observable<reducers.IInquiryState>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
     constructor(
-        private store: Store<reducers.IHistoryState>,
+        private store: Store<reducers.IInquiryState>,
         private actions: Actions,
         private modal: NgbModal,
         private router: Router
     ) { }
 
     public ngOnInit() {
-        this.history = this.store.pipe(select(reducers.getHistory));
+        this.inquiry = this.store.pipe(select(reducers.getInquiry));
         this.getPurchaseHistory();
     }
 
@@ -64,7 +63,7 @@ export class PurchaseHistoryComponent implements OnInit {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
-    public detail(data: IPurchaseOrder) {
+    public showQrCode(data: factory.order.IOrder) {
         this.store.dispatch(new OrderAuthorize({
             params: {
                 orderNumber: data.orderNumber,
@@ -77,15 +76,15 @@ export class PurchaseHistoryComponent implements OnInit {
         const success = this.actions.pipe(
             ofType(ActionTypes.OrderAuthorizeSuccess),
             tap(() => {
-                this.history.subscribe((result) => {
-                    const authorizeOrder = result.purchase.find(order => order.orderNumber === data.orderNumber);
+                this.inquiry.subscribe((inquiry) => {
+                    const authorizeOrder = inquiry.order;
                     if (authorizeOrder === undefined) {
                         return;
                     }
-                    const modalRef = this.modal.open(PurchaseDetailModalComponent, {
+                    const modalRef = this.modal.open(QrCodeModalComponent, {
                         centered: true
                     });
-                    modalRef.componentInstance.data = authorizeOrder;
+                    modalRef.componentInstance.order = authorizeOrder;
                 }).unsubscribe();
             })
         );

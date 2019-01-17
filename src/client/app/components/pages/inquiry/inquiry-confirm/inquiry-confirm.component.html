@@ -47,6 +47,9 @@
                             <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja }} / {{
                                 getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</p>
                         </div>
+                        <div class="d-md-inline-block">
+                            <button type="button" class="btn btn-primary btn-block py-3" (click)="showQrCode()">QRコード表示</button>
+                        </div>
                     </div>
                 </div>
             </div>
