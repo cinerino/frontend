@@ -246,7 +246,7 @@ export class PurchaseEffects {
                         typeOf: payload.movieTheater.typeOf,
                         id: payload.movieTheater.id
                     },
-                    store: { id: payload.clientId }
+                    store: { id: this.cinerino.auth.options.clientId }
                 });
 
                 return new purchase.GetTicketListSuccess({ screeningEventTicketOffers });

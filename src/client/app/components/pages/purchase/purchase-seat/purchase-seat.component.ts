@@ -5,7 +5,6 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { environment } from '../../../../../environments/environment';
 import { IReservationSeat, Reservation, SeatStatus } from '../../../../models';
 import {
     ActionTypes,
@@ -140,13 +139,12 @@ export class PurchaseSeatComponent implements OnInit {
         this.purchase.subscribe((purchase) => {
             const screeningEvent = purchase.screeningEvent;
             const movieTheater = purchase.movieTheater;
-            const clientId = environment.CLIENT_ID_OAUTH2;
             if (screeningEvent === undefined
                 || movieTheater === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
-            this.store.dispatch(new GetTicketList({ screeningEvent, movieTheater, clientId }));
+            this.store.dispatch(new GetTicketList({ screeningEvent, movieTheater }));
         }).unsubscribe();
 
         const success = this.actions.pipe(

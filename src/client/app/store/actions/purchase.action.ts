@@ -268,7 +268,6 @@ export class GetTicketList implements Action {
     constructor(public payload: {
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
         movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
-        clientId: string;
     }) { }
 }
 
