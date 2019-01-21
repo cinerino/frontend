@@ -347,6 +347,7 @@ export class CancelTemporaryReservationFail implements Action {
     public readonly type = ActionTypes.CancelTemporaryReservationFail;
     constructor(public payload: { error: Error }) { }
 }
+
 /**
  * RegisterContact
  */

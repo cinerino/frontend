@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CinerinoService } from '../../../../services/cinerino.service';
+import { CinerinoService } from '../../../../services';
 
 @Component({
     selector: 'app-auth-index',

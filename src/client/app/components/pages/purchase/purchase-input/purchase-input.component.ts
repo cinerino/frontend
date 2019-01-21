@@ -46,12 +46,10 @@ export class PurchaseInputComponent implements OnInit {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
-        this.purchase.subscribe((purchase) => {
-            this.amount = getAmount(purchase.authorizeSeatReservations);
-        }).unsubscribe();
         this.createCustomerContactForm();
         this.createPaymentForm();
         this.purchase.subscribe((purchase) => {
+            this.amount = getAmount(purchase.authorizeSeatReservations);
             if (purchase.customerContact !== undefined) {
                 this.customerContactForm.controls.familyName.setValue(purchase.customerContact.familyName);
                 this.customerContactForm.controls.givenName.setValue(purchase.customerContact.givenName);

@@ -12,7 +12,7 @@ import {
     formatTelephone
 } from '../../functions';
 import { IScreen } from '../../models';
-import { CinerinoService } from '../../services/cinerino.service';
+import { CinerinoService } from '../../services';
 import * as purchase from '../actions/purchase.action';
 
 /**

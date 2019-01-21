@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs/operators';
 import { formatTelephone } from '../../functions';
-import { CinerinoService } from '../../services/cinerino.service';
+import { CinerinoService } from '../../services';
 import * as inquiry from '../actions/inquiry.action';
 
 /**

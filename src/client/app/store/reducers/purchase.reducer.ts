@@ -62,6 +62,7 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.UnsettledDelete: {
             state.purchase.reservations = [];
+            state.purchase.screeningEvent = undefined;
             state.purchase.screeningEventTicketOffers = [];
             state.purchase.authorizeSeatReservation = undefined;
             state.purchase.checkMovieTicketAction = undefined;

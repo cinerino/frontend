@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { CinerinoService } from '../../../services/cinerino.service';
+import { CinerinoService } from '../../../services';
 import * as reducers from '../../../store/reducers';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
