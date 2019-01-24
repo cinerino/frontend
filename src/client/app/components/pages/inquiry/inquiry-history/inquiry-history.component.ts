@@ -13,7 +13,7 @@ import * as reducers from '../../../../store/reducers';
 import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.component';
 
 @Component({
-    selector: 'app-purchase-history',
+    selector: 'app-inquiry-history',
     templateUrl: './inquiry-history.component.html',
     styleUrls: ['./inquiry-history.component.scss']
 })
