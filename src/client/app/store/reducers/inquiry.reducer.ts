@@ -7,6 +7,10 @@ export interface IInquiryState {
     orders: factory.order.IOrder[];
 }
 
+export const inquiryInitialState: IInquiryState = {
+    orders: []
+};
+
 /**
  * Reducer
  * @param state

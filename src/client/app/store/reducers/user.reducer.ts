@@ -8,6 +8,10 @@ export interface IUserState {
     profile?: factory.person.IProfile;
 }
 
+export const userInitialState: IUserState = {
+    isMember: false
+};
+
 /**
  * Reducer
  * @param state

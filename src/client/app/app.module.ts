@@ -17,6 +17,7 @@ import { BaseComponent } from './components/pages/base/base.component';
 import { CongestionComponent } from './components/pages/congestion/congestion.component';
 import { ErrorComponent } from './components/pages/error/error.component';
 import { InquiryConfirmComponent } from './components/pages/inquiry/inquiry-confirm/inquiry-confirm.component';
+import { InquiryHistoryComponent } from './components/pages/inquiry/inquiry-history/inquiry-history.component';
 import { InquiryInputComponent } from './components/pages/inquiry/inquiry-input/inquiry-input.component';
 import { MaintenanceComponent } from './components/pages/maintenance/maintenance.component';
 import { NotfoundComponent } from './components/pages/notfound/notfound.component';
@@ -24,7 +25,6 @@ import { PurchaseBaseComponent } from './components/pages/purchase/purchase-base
 import { PurchaseCartComponent } from './components/pages/purchase/purchase-cart/purchase-cart.component';
 import { PurchaseCompleteComponent } from './components/pages/purchase/purchase-complete/purchase-complete.component';
 import { PurchaseConfirmComponent } from './components/pages/purchase/purchase-confirm/purchase-confirm.component';
-import { PurchaseHistoryComponent } from './components/pages/purchase/purchase-history/purchase-history.component';
 import { PurchaseInputComponent } from './components/pages/purchase/purchase-input/purchase-input.component';
 import { PurchaseScheduleComponent } from './components/pages/purchase/purchase-schedule/purchase-schedule.component';
 import { PurchaseSeatComponent } from './components/pages/purchase/purchase-seat/purchase-seat.component';
@@ -78,7 +78,7 @@ import { CoreStoreModule } from './store/core/store';
         BaseComponent,
         HeaderMenuComponent,
         ConfirmModalComponent,
-        PurchaseHistoryComponent,
+        InquiryHistoryComponent,
         MvtkCheckModalComponent,
         SettingComponent,
         InquiryInputComponent,

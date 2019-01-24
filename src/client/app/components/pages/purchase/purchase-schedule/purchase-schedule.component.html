@@ -2,7 +2,7 @@
     <h2 class="text-large mb-4 text-center"><strong>劇場選択</strong></h2>
     <p class="mb-4">劇場を選択してください</p>
     <div class="theaters">
-        <button *ngFor="let theater of (purchase | async).movieTheaters" type="button" class="btn btn-block py-3 m-0"
+        <button *ngFor="let theater of (master | async).movieTheaters" type="button" class="btn btn-block py-3 m-0"
             (click)="selectTheater(theater)" [class.btn-primary]="(purchase | async).movieTheater.id === theater.id"
             [class.btn-outline-primary]="(purchase | async).movieTheater.id !== theater.id">{{ theater.name.ja }}</button>
     </div>

@@ -28,58 +28,6 @@ export class PurchaseEffects {
     ) { }
 
     /**
-     * GetTheaters
-     */
-    @Effect()
-    public getTheaters = this.actions.pipe(
-        ofType<purchase.GetTheaters>(purchase.ActionTypes.GetTheaters),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            try {
-                await this.cinerino.getServices();
-                const searchMovieTheatersResult = await this.cinerino.organization.searchMovieTheaters(payload.params);
-                const movieTheaters = searchMovieTheatersResult.data;
-                return new purchase.GetTheatersSuccess({ movieTheaters });
-            } catch (error) {
-                return new purchase.GetTheatersFail({ error: error });
-            }
-        })
-    );
-
-    /**
-     * GetSchedule
-     */
-    @Effect()
-    public getSchedule = this.actions.pipe(
-        ofType<purchase.GetSchedule>(purchase.ActionTypes.GetSchedule),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            try {
-                await this.cinerino.getServices();
-                const branchCode = payload.movieTheater.location.branchCode;
-                const scheduleDate = payload.scheduleDate;
-                const today = moment(moment().format('YYYY-MM-DD')).toDate();
-                const screeningEventsResult = await this.cinerino.event.searchScreeningEvents({
-                    typeOf: factory.chevre.eventType.ScreeningEvent,
-                    eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
-                    superEvent: { locationBranchCodes: [branchCode] },
-                    startFrom: moment(scheduleDate).toDate(),
-                    startThrough: moment(scheduleDate).add(1, 'day').toDate(),
-                    offers: {
-                        availableFrom: today,
-                        availableThrough: today
-                    }
-                });
-                const screeningEvents = screeningEventsResult.data;
-
-                return new purchase.GetScheduleSuccess({ screeningEvents, scheduleDate });
-            } catch (error) {
-                return new purchase.GetScheduleFail({ error: error });
-            }
-        })
-    );
-
-    /**
      * GetPreScheduleDates
      */
     @Effect()

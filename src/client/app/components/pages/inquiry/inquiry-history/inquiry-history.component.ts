@@ -14,10 +14,10 @@ import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.c
 
 @Component({
     selector: 'app-purchase-history',
-    templateUrl: './purchase-history.component.html',
-    styleUrls: ['./purchase-history.component.scss']
+    templateUrl: './inquiry-history.component.html',
+    styleUrls: ['./inquiry-history.component.scss']
 })
-export class PurchaseHistoryComponent implements OnInit {
+export class InquiryHistoryComponent implements OnInit {
     public inquiry: Observable<reducers.IInquiryState>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;

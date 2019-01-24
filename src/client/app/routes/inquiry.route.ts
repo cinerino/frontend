@@ -1,5 +1,7 @@
+import { AuthGuardService } from '../canActivates';
 import { BaseComponent } from '../components/pages/base/base.component';
 import { InquiryConfirmComponent } from '../components/pages/inquiry/inquiry-confirm/inquiry-confirm.component';
+import { InquiryHistoryComponent } from '../components/pages/inquiry/inquiry-history/inquiry-history.component';
 import { InquiryInputComponent } from '../components/pages/inquiry/inquiry-input/inquiry-input.component';
 
 /**
@@ -10,6 +12,7 @@ export const route = {
     component: BaseComponent,
     children: [
         { path: 'input', component: InquiryInputComponent },
-        { path: 'confirm', component: InquiryConfirmComponent }
+        { path: 'confirm', component: InquiryConfirmComponent },
+        { path: 'history', canActivate: [AuthGuardService], component: InquiryHistoryComponent }
     ]
 };
