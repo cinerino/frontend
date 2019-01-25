@@ -43,10 +43,14 @@ function getInitialState(): IState {
     const reservations = data.App.purchase.reservations.map((reservation: Reservation) => new Reservation(reservation));
     data.App.purchase.reservations = reservations;
 
-    return { ...initialState, ...data.App };
+    return data.App;
 }
 
-type Actions = purchaseAction.Actions | userAction.Actions | inquiryAction.Actions | masterAction.Actions;
+type Actions =
+    purchaseAction.Actions
+    | userAction.Actions
+    | inquiryAction.Actions
+    | masterAction.Actions;
 
 
 /**
