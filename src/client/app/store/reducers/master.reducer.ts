@@ -34,7 +34,8 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.GetTheatersSuccess: {
             const movieTheaters = action.payload.movieTheaters;
-            return { ...state, loading: false, process: '', error: null, master: { ...state.master, movieTheaters } };
+            state.master.movieTheaters = movieTheaters;
+            return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.GetTheatersFail: {
             const error = action.payload.error;
