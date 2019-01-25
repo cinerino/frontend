@@ -146,8 +146,7 @@ export class PurchaseEffects {
                                 ticketedSeat: reservation.seat,
                                 additionalProperty: [] // ここにムビチケ情報を入れる
                             };
-                        }),
-                        notes: ''
+                        })
                     },
                     purpose: transaction
                 });

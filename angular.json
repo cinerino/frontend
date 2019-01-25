@@ -32,6 +32,7 @@
             "local": {
               "outputPath": "./dist/client",
               "watch": true,
+              "aot": false,
               "fileReplacements": [
                 {
                   "replace": "src/client/environments/environment.ts",
@@ -46,10 +47,10 @@
               "sourceMap": true,
               "extractCss": true,
               "namedChunks": true,
-              "aot": true,
+              "aot": false,
               "extractLicenses": true,
               "vendorChunk": true,
-              "buildOptimizer": true
+              "buildOptimizer": false
             }
           }
         },

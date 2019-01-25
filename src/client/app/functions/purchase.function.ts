@@ -94,7 +94,7 @@ export function createGmoTokenObject(params: {
             }
         };
         const Multipayment = (<any>window).Multipayment;
-        Multipayment.init(findPaymentAcceptedResult.gmoInfo.shopId);
+        Multipayment.init((<any>findPaymentAcceptedResult).gmoInfo.shopId);
         Multipayment.getToken(params.creditCard, (<any>window).someCallbackFunction);
     });
 }
@@ -175,7 +175,8 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
         const findReservation = findPendingMovieTicket.movieTickets.find((movieTicket) => {
             const seatNumber = movieTicket.serviceOutput.reservedTicket.ticketedSeat.seatNumber;
             const seatSection = movieTicket.serviceOutput.reservedTicket.ticketedSeat.seatSection;
-            return (seatNumber === pendingReservation.reservedTicket.ticketedSeat.seatNumber
+            return (pendingReservation.reservedTicket.ticketedSeat !== undefined
+                && seatNumber === pendingReservation.reservedTicket.ticketedSeat.seatNumber
                 && seatSection === pendingReservation.reservedTicket.ticketedSeat.seatSection);
         });
         if (findReservation === undefined) {

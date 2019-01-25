@@ -298,7 +298,8 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
                     }
                     if (this.authorizeSeatReservation !== undefined) {
                         const findResult = this.authorizeSeatReservation.object.acceptedOffer.find((offer) => {
-                            return (offer.ticketedSeat.seatNumber === code
+                            return (offer.ticketedSeat !== undefined
+                                && offer.ticketedSeat.seatNumber === code
                                 && offer.ticketedSeat.seatSection === section);
                         });
                         if (findResult !== undefined) {

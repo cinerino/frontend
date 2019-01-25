@@ -227,10 +227,12 @@ export function reducer(state: IState, action: Actions): IState {
                         id: authorizeSeatReservation.id,
                         movieTickets: movieTicketReservations.map((r) => {
                             const pendingReservation = pendingReservations.find((p) => {
-                                return (p.reservedTicket.ticketedSeat.seatNumber === r.seat.seatNumber
+                                return (p.reservedTicket.ticketedSeat !== undefined
+                                    && p.reservedTicket.ticketedSeat.seatNumber === r.seat.seatNumber
                                     && p.reservedTicket.ticketedSeat.seatSection === r.seat.seatSection);
                             });
-                            if (pendingReservation === undefined) {
+                            if (pendingReservation === undefined
+                                || pendingReservation.reservedTicket.ticketedSeat === undefined) {
                                 throw new Error('pendingReservation is undefined');
                             }
                             const movieTicket =
