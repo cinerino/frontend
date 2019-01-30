@@ -18,7 +18,7 @@
     width: 100%;
     overflow-y: auto;
     transition: right 0.1s;
-    max-height: calc(100vh - 54px);
+    max-height: calc(100vh - 85px);
     &.active {
         right: 0;
     }
