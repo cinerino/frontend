@@ -1,5 +1,5 @@
 <div class="contents-width mx-auto px-3 pt-5">
-    <h2 class="text-large mb-4 text-center"><strong>劇場選択</strong></h2>
+    <h2 class="text-large mb-4 text-center font-weight-bold">劇場選択</h2>
     <p class="mb-4">劇場を選択してください</p>
     <div class="theaters">
         <button *ngFor="let theater of (master | async).movieTheaters" type="button" class="btn btn-block py-3 m-0"
@@ -9,7 +9,7 @@
 </div>
 
 <div class="contents-width mx-auto px-3 pt-5">
-    <h2 class="text-large mb-4 text-center"><strong>スケジュール選択</strong></h2>
+    <h2 class="text-large mb-4 text-center font-weight-bold">スケジュール選択</h2>
     <p class="mb-4">スケジュールを選択してください</p>
     <div *ngIf="(purchase | async).preScheduleDates.length > 0" class="buttons mx-auto px-3 mb-3">
         <button *ngIf="!isPreSchedule" type="button" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async" (click)="changeScheduleType()">先行販売スケジュール</button>
