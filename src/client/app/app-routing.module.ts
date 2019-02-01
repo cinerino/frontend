@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BaseComponent } from './components/pages/base/base.component';
 import { CongestionComponent } from './components/pages/congestion/congestion.component';
 import { ErrorComponent } from './components/pages/error/error.component';
+import { ExpiredComponent } from './components/pages/expired/expired.component';
 import { MaintenanceComponent } from './components/pages/maintenance/maintenance.component';
 import { NotfoundComponent } from './components/pages/notfound/notfound.component';
 import { SettingComponent } from './components/pages/setting/setting.component';
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
             { path: 'setting', component: SettingComponent },
             { path: 'maintenance', component: MaintenanceComponent },
             { path: 'congestion', component: CongestionComponent },
+            { path: 'expired', component: ExpiredComponent },
             { path: 'error', component: ErrorComponent },
             { path: '**', component: NotfoundComponent }
         ]

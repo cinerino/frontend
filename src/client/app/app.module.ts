@@ -16,6 +16,7 @@ import { AuthSignoutComponent } from './components/pages/auth/auth-signout/auth-
 import { BaseComponent } from './components/pages/base/base.component';
 import { CongestionComponent } from './components/pages/congestion/congestion.component';
 import { ErrorComponent } from './components/pages/error/error.component';
+import { ExpiredComponent } from './components/pages/expired/expired.component';
 import { InquiryConfirmComponent } from './components/pages/inquiry/inquiry-confirm/inquiry-confirm.component';
 import { InquiryHistoryComponent } from './components/pages/inquiry/inquiry-history/inquiry-history.component';
 import { InquiryInputComponent } from './components/pages/inquiry/inquiry-input/inquiry-input.component';
@@ -46,6 +47,7 @@ import { QrCodeModalComponent } from './components/parts/qrcode-modal/qrcode-mod
 import { ScreenComponent } from './components/parts/screen/screen.component';
 import { SecurityCodeModalComponent } from './components/parts/security-code-modal/security-code-modal.component';
 import { TicketListModalComponent } from './components/parts/ticket-list-modal/ticket-list-modal.component';
+import { TransactionRemainingTimeComponent } from './components/parts/transaction-remaining-time/transaction-remaining-time.component';
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
 import { StoreModule } from './store.module';
 import { CoreStoreModule } from './store/core/store';
@@ -89,7 +91,9 @@ import { CoreStoreModule } from './store/core/store';
         PurchaseCartComponent,
         PurchaseTransactionModalComponent,
         SecurityCodeModalComponent,
-        QrCodeModalComponent
+        QrCodeModalComponent,
+        TransactionRemainingTimeComponent,
+        ExpiredComponent
     ],
     entryComponents: [
         TicketListModalComponent,
