@@ -4,9 +4,9 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import * as inquiry from '../../../../store/actions/inquiry.action';
-import * as purchase from '../../../../store/actions/purchase.action';
-import * as user from '../../../../store/actions/user.action';
+import * as orderAction from '../../../../store/actions/order.action';
+import * as purchaseAction from '../../../../store/actions/purchase.action';
+import * as userAction from '../../../../store/actions/user.action';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -23,21 +23,21 @@ export class AuthSigninComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
-        this.store.dispatch(new purchase.Delete());
-        this.store.dispatch(new inquiry.Delete());
-        this.store.dispatch(new user.Delete());
-        this.store.dispatch(new user.Initialize());
-        this.store.dispatch(new user.Create());
+        this.store.dispatch(new purchaseAction.Delete());
+        this.store.dispatch(new orderAction.Delete());
+        this.store.dispatch(new userAction.Delete());
+        this.store.dispatch(new userAction.Initialize());
+        this.store.dispatch(new userAction.Create());
 
         const success = this.actions.pipe(
-            ofType(user.ActionTypes.CreateSuccess),
+            ofType(userAction.ActionTypes.CreateSuccess),
             tap(() => {
                 this.router.navigate(['/purchase/schedule']);
             })
         );
 
         const fail = this.actions.pipe(
-            ofType(user.ActionTypes.CreateFail),
+            ofType(userAction.ActionTypes.CreateFail),
             tap(() => {
                 this.router.navigate(['/error']);
             })

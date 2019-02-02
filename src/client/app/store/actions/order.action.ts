@@ -1,3 +1,4 @@
+import { ISearchResult } from '@cinerino/api-abstract-client/lib/service';
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
 
@@ -5,16 +6,19 @@ import { Action } from '@ngrx/store';
  * Action types
  */
 export enum ActionTypes {
-    Delete = '[Inquiry] Delete',
-    Inquiry = '[Inquiry] Inquiry',
-    InquirySuccess = '[Inquiry] Inquiry Success',
-    InquiryFail = '[Inquiry] Inquiry Fail',
-    GetPurchaseHistory = '[Inquiry] Get Purchase History',
-    GetPurchaseHistorySuccess = '[Inquiry] Get Purchase History Success',
-    GetPurchaseHistoryFail = '[Inquiry] Get Purchase History Fail',
-    OrderAuthorize = '[Inquiry] Order Authorize',
-    OrderAuthorizeSuccess = '[Inquiry] Order Authorize Success',
-    OrderAuthorizeFail = '[Inquiry] Order Authorize Fail',
+    Delete = '[Order] Delete',
+    Search = '[Order] Search',
+    SearchSuccess = '[Order] Search Success',
+    SearchFail = '[Order] Search Fail',
+    Cancel = '[Order] Cancel',
+    CancelSuccess = '[Order] Cancel Success',
+    CancelFail = '[Order] Cancel Fail',
+    Inquiry = '[Order] Inquiry',
+    InquirySuccess = '[Order] Inquiry Success',
+    InquiryFail = '[Order] Inquiry Fail',
+    OrderAuthorize = '[Order] Order Authorize',
+    OrderAuthorizeSuccess = '[Order] Order Authorize Success',
+    OrderAuthorizeFail = '[Order] Order Authorize Fail'
 }
 
 /**
@@ -24,6 +28,62 @@ export class Delete implements Action {
     public readonly type = ActionTypes.Delete;
     constructor(public payload?: {}) { }
 }
+
+/**
+ * Search
+ */
+export class Search implements Action {
+    public readonly type = ActionTypes.Search;
+    constructor(public payload: {
+        params: factory.order.ISearchConditions
+    }) { }
+}
+
+/**
+ * SearchSuccess
+ */
+export class SearchSuccess implements Action {
+    public readonly type = ActionTypes.SearchSuccess;
+    constructor(public payload: {
+        searchResult: ISearchResult<factory.order.IOrder[]>,
+        limit: number;
+    }) { }
+}
+
+/**
+ * SearchFail
+ */
+export class SearchFail implements Action {
+    public readonly type = ActionTypes.SearchFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * Cancel
+ */
+export class Cancel implements Action {
+    public readonly type = ActionTypes.Cancel;
+    constructor(public payload: {
+        order: factory.order.IOrder
+    }) { }
+}
+
+/**
+ * CancelSuccess
+ */
+export class CancelSuccess implements Action {
+    public readonly type = ActionTypes.CancelSuccess;
+    constructor(public payload?: { }) { }
+}
+
+/**
+ * CancelFail
+ */
+export class CancelFail implements Action {
+    public readonly type = ActionTypes.CancelFail;
+    constructor(public payload: { error: Error }) { }
+}
+
 
 /**
  * Inquiry
@@ -55,30 +115,6 @@ export class InquiryFail implements Action {
     constructor(public payload: { error: Error }) { }
 }
 
-
-/**
- * GetPurchaseHistory
- */
-export class GetPurchaseHistory implements Action {
-    public readonly type = ActionTypes.GetPurchaseHistory;
-    constructor(public payload: { params: factory.order.ISearchConditions }) { }
-}
-
-/**
- * GetPurchaseHistorySuccess
- */
-export class GetPurchaseHistorySuccess implements Action {
-    public readonly type = ActionTypes.GetPurchaseHistorySuccess;
-    constructor(public payload: { result: factory.order.IOrder[] }) { }
-}
-
-/**
- * GetPurchaseHistoryFail
- */
-export class GetPurchaseHistoryFail implements Action {
-    public readonly type = ActionTypes.GetPurchaseHistoryFail;
-    constructor(public payload: { error: Error }) { }
-}
 
 /**
  * OrderAuthorize
@@ -117,12 +153,15 @@ export class OrderAuthorizeFail implements Action {
  */
 export type Actions =
     | Delete
+    | Search
+    | SearchSuccess
+    | SearchFail
+    | Cancel
+    | CancelSuccess
+    | CancelFail
     | Inquiry
     | InquirySuccess
     | InquiryFail
-    | GetPurchaseHistory
-    | GetPurchaseHistorySuccess
-    | GetPurchaseHistoryFail
     | OrderAuthorize
     | OrderAuthorizeSuccess
     | OrderAuthorizeFail;

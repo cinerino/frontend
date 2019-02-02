@@ -18,10 +18,10 @@ import { CongestionComponent } from './components/pages/congestion/congestion.co
 import { ErrorComponent } from './components/pages/error/error.component';
 import { ExpiredComponent } from './components/pages/expired/expired.component';
 import { InquiryConfirmComponent } from './components/pages/inquiry/inquiry-confirm/inquiry-confirm.component';
-import { InquiryHistoryComponent } from './components/pages/inquiry/inquiry-history/inquiry-history.component';
 import { InquiryInputComponent } from './components/pages/inquiry/inquiry-input/inquiry-input.component';
 import { MaintenanceComponent } from './components/pages/maintenance/maintenance.component';
 import { NotfoundComponent } from './components/pages/notfound/notfound.component';
+import { OrderListComponent } from './components/pages/order/order-list/order-list.component';
 import { PurchaseBaseComponent } from './components/pages/purchase/purchase-base/purchase-base.component';
 import { PurchaseCartComponent } from './components/pages/purchase/purchase-cart/purchase-cart.component';
 import { PurchaseCompleteComponent } from './components/pages/purchase/purchase-complete/purchase-complete.component';
@@ -39,6 +39,7 @@ import { HeaderMenuComponent } from './components/parts/header-menu/header-menu.
 import { HeaderComponent } from './components/parts/header/header.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MvtkCheckModalComponent } from './components/parts/mvtk-check-modal/mvtk-check-modal.component';
+import { OrderDetailModalComponent } from './components/parts/order-detail-modal/order-detail-modal.component';
 import { PurchaseContentsComponent } from './components/parts/purchase-contents/purchase-contents.component';
 import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
 import { PurchaseScheduleFilmComponent } from './components/parts/purchase-schedule-film/purchase-schedule-film.component';
@@ -80,7 +81,6 @@ import { CoreStoreModule } from './store/core/store';
         BaseComponent,
         HeaderMenuComponent,
         ConfirmModalComponent,
-        InquiryHistoryComponent,
         MvtkCheckModalComponent,
         SettingComponent,
         InquiryInputComponent,
@@ -93,7 +93,9 @@ import { CoreStoreModule } from './store/core/store';
         SecurityCodeModalComponent,
         QrCodeModalComponent,
         TransactionRemainingTimeComponent,
-        ExpiredComponent
+        ExpiredComponent,
+        OrderListComponent,
+        OrderDetailModalComponent
     ],
     entryComponents: [
         TicketListModalComponent,
@@ -102,7 +104,8 @@ import { CoreStoreModule } from './store/core/store';
         QrCodeModalComponent,
         MvtkCheckModalComponent,
         PurchaseTransactionModalComponent,
-        SecurityCodeModalComponent
+        SecurityCodeModalComponent,
+        OrderDetailModalComponent
     ],
     imports: [
         BrowserModule,

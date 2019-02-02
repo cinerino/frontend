@@ -3,8 +3,8 @@
 <div class="menu text-white bg-dark-gray" [class.active]="isOpen">
     <ul *ngIf="(user | async).isMember">
         <li class="p-3 border-bottom" routerLink="/purchase/schedule" (click)="close.emit()"><i class="fas fa-shopping-cart mr-2"></i>購入</li>
-        <li class="p-3 border-bottom" routerLink="/inquiry/history" (click)="close.emit()"><i class="fas fa-history mr-2"></i>購入履歴</li>
         <li class="p-3 border-bottom" routerLink="/inquiry/input" (click)="close.emit()"><i class="fas fa-search mr-2"></i>照会</li>
+        <li class="p-3 border-bottom" routerLink="/order/list" (click)="close.emit()"><i class="far fa-list-alt mr-2"></i>注文検索</li>
         <li class="p-3 border-bottom" routerLink="/setting" (click)="close.emit()"><i class="fas fa-cog mr-2"></i>設定</li>
         <li class="p-3 border-bottom" (click)="signOut()"><i class="fas fa-sign-out-alt mr-2"></i>ログアウト</li>
     </ul>

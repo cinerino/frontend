@@ -67,6 +67,10 @@ button {
     white-space: normal !important;
 }
 
+.form-control {
+    height: 3rem;
+}
+
 .contents-width {
     max-width: 960px;
 }
@@ -153,4 +157,17 @@ button {
 }
 .border-light-gray {
     border-color: #EEE !important;
+}
+
+// pagination
+.page-item {
+    &.active {
+        .page-link {
+            background-color: theme-color('primary');
+            border-color: theme-color('primary');
+        }
+    }
+    .page-link {
+        color: theme-color('primary');
+    }
 }

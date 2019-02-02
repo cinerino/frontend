@@ -1,8 +1,0 @@
-@import '../../../../../assets/scss/theme';
-.items {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 1rem;
-    @include media-breakpoint-down(sm) {
-        grid-template-columns: 1fr;
-    }
-}

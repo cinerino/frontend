@@ -1,13 +1,12 @@
 import { Reservation } from '../../models';
-import * as inquiryAction from '../actions/inquiry.action';
 import * as masterAction from '../actions/master.action';
+import * as orderAction from '../actions/order.action';
 import * as purchaseAction from '../actions/purchase.action';
 import * as userAction from '../actions/user.action';
-import * as inquiryReducer from './inquiry.reducer';
 import * as masterReducer from './master.reducer';
+import * as orderReducer from './order.reducer';
 import * as purchaseReducer from './purchase.reducer';
 import * as userReducer from './user.reducer';
-
 /**
  * State
  */
@@ -16,9 +15,9 @@ export interface IState {
     process: string;
     error: string | null;
     purchase: purchaseReducer.IPurchaseState;
-    inquiry: inquiryReducer.IInquiryState;
     user: userReducer.IUserState;
     master: masterReducer.IMasterState;
+    order: orderReducer.IOrderState;
 }
 
 /**
@@ -29,9 +28,9 @@ export const initialState: IState = {
     process: '',
     error: null,
     purchase: purchaseReducer.purchaseInitialState,
-    inquiry: inquiryReducer.inquiryInitialState,
     user: userReducer.userInitialState,
-    master: masterReducer.masterInitialState
+    master: masterReducer.masterInitialState,
+    order: orderReducer.orderInitialState
 };
 
 function getInitialState(): IState {
@@ -49,8 +48,8 @@ function getInitialState(): IState {
 type Actions =
     purchaseAction.Actions
     | userAction.Actions
-    | inquiryAction.Actions
-    | masterAction.Actions;
+    | masterAction.Actions
+    | orderAction.Actions;
 
 
 /**
@@ -66,10 +65,10 @@ export function reducer(
         return purchaseReducer.reducer(state, <purchaseAction.Actions>action);
     } else if (/\[User\]/.test(action.type)) {
         return userReducer.reducer(state, <userAction.Actions>action);
-    } else if (/\[Inquiry\]/.test(action.type)) {
-        return inquiryReducer.reducer(state, <inquiryAction.Actions>action);
     } else if (/\[Master\]/.test(action.type)) {
         return masterReducer.reducer(state, <masterAction.Actions>action);
+    } else if (/\[Order\]/.test(action.type)) {
+        return orderReducer.reducer(state, <orderAction.Actions>action);
     } else {
         return state;
     }
@@ -82,6 +81,6 @@ export const getLoading = (state: IState) => state.loading;
 export const getProcess = (state: IState) => state.process;
 export const getError = (state: IState) => state.error;
 export const getPurchase = (state: IState) => state.purchase;
-export const getInquiry = (state: IState) => state.inquiry;
 export const getUser = (state: IState) => state.user;
 export const getMaster = (state: IState) => state.master;
+export const getOrder = (state: IState) => state.order;

@@ -3,6 +3,7 @@
  */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from './canActivates';
 import { BaseComponent } from './components/pages/base/base.component';
 import { CongestionComponent } from './components/pages/congestion/congestion.component';
 import { ErrorComponent } from './components/pages/error/error.component';
@@ -12,6 +13,7 @@ import { NotfoundComponent } from './components/pages/notfound/notfound.componen
 import { SettingComponent } from './components/pages/setting/setting.component';
 import * as auth from './routes/auth.route';
 import * as inquiry from './routes/inquiry.route';
+import * as order from './routes/order.route';
 import * as purchase from './routes/purchase.route';
 
 const appRoutes: Routes = [
@@ -19,11 +21,12 @@ const appRoutes: Routes = [
     purchase.route,
     auth.route,
     inquiry.route,
+    order.route,
     {
         path: '',
         component: BaseComponent,
         children: [
-            { path: 'setting', component: SettingComponent },
+            { path: 'setting', canActivate: [AuthGuardService], component: SettingComponent },
             { path: 'maintenance', component: MaintenanceComponent },
             { path: 'congestion', component: CongestionComponent },
             { path: 'expired', component: ExpiredComponent },

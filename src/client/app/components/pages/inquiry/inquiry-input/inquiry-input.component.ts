@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import * as libphonenumber from 'libphonenumber-js';
 import { race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { ActionTypes, Inquiry } from '../../../../store/actions/inquiry.action';
+import { ActionTypes, Inquiry } from '../../../../store/actions/order.action';
 import * as reducers from '../../../../store/reducers';
 import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
 

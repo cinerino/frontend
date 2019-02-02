@@ -1,0 +1,36 @@
+<div class="p-3 scroll text-small">
+    <div class="mb-2"><strong>購入日時</strong></div>
+    <div class="mb-3">{{ moment(order.orderDate).format('YYYY/MM/DD HH:mm') }}</div>
+    <div class="mb-2"><strong>購入番号</strong></div>
+    <div class="mb-3">{{ order.confirmationNumber }}</div>
+    <div class="mb-2"><strong>イベント</strong></div>
+    <div class="mb-3">
+        <div *ngFor="let acceptedOffer of order.acceptedOffers">
+            <p class="mb-2">{{
+                acceptedOffer.itemOffered.reservationFor.name.ja }}</p>
+            <p class="mb-2">{{
+                acceptedOffer.itemOffered.reservationFor.superEvent.location.name.ja }} / {{
+                acceptedOffer.itemOffered.reservationFor.location.name.ja }}</p>
+            <p class="mb-2">{{
+                moment(acceptedOffer.itemOffered.reservationFor.startDate).format('YYYY/MM/DD
+                (ddd) HH:mm') }}</p>
+            <p class="mb-2">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>
+            <p class="mb-2">{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja }} / {{
+                getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</p>
+        </div>
+    </div>
+    <div class="mb-2"><strong>購入者</strong></div>
+    <div class="mb-3">
+        <p class="mb-2">{{ order.customer.familyName }} {{ order.customer.givenName }}</p>
+        <p class="mb-2">{{ order.customer.email }}</p>
+        <p class="mb-2">{{ order.customer.telephone | libphonenumberFormat }}</p>
+    </div>
+    <div class="mb-2"><strong>ステータス</strong></div>
+    <div class="mb-3">
+        <p class="mb-2">{{ order.orderStatus }}</p>
+    </div>
+
+    <div class="buttons mx-auto">
+        <button type="button" class="btn btn-outline-primary btn-block py-3" (click)="activeModal.dismiss()">閉じる</button>
+    </div>
+</div>

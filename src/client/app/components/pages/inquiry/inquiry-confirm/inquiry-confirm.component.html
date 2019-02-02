@@ -8,7 +8,7 @@
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-key mr-2"></i>購入番号</p>
                     <p class="col-md-8 text-x-large text-info">
-                        <strong>{{ (inquiry | async).order.confirmationNumber }}</strong>
+                        <strong>{{ (order | async).order.confirmationNumber }}</strong>
                     </p>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-user-circle mr-2"></i>お名前</p>
-                    <p class="col-md-8">{{ (inquiry | async).order.customer.familyName }} {{ (inquiry |
+                    <p class="col-md-8">{{ (order | async).order.customer.familyName }} {{ (order |
                         async).order.customer.givenName }}</p>
                 </div>
             </div>
@@ -68,17 +68,17 @@
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="far fa-envelope mr-2"></i>メールアドレス</p>
-                    <p class="col-md-8">{{ (inquiry | async).order.customer.email }}</p>
+                    <p class="col-md-8">{{ (order | async).order.customer.email }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="fas fa-phone mr-2"></i>電話番号</p>
-                    <p class="col-md-8">{{ (inquiry | async).order.customer.telephone | libphonenumberFormat }}</p>
+                    <p class="col-md-8">{{ (order | async).order.customer.telephone | libphonenumberFormat }}</p>
                 </div>
             </div>
-            <div class="py-3" *ngIf="(inquiry | async).order.price > 0">
+            <div class="py-3" *ngIf="(order | async).order.price > 0">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
                         <i class="far fa-credit-card mr-2"></i>決済方法</p>

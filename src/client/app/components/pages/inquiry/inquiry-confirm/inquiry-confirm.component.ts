@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
-import { ActionTypes, OrderAuthorize } from '../../../../store/actions/inquiry.action';
+import { ActionTypes, OrderAuthorize } from '../../../../store/actions/order.action';
 import * as reducers from '../../../../store/reducers';
 import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.component';
 
@@ -17,7 +17,7 @@ import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.c
     styleUrls: ['./inquiry-confirm.component.scss']
 })
 export class InquiryConfirmComponent implements OnInit {
-    public inquiry: Observable<reducers.IInquiryState>;
+    public order: Observable<reducers.IOrderState>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
     public eventOrders: IEventOrder[];
@@ -31,20 +31,20 @@ export class InquiryConfirmComponent implements OnInit {
 
     public ngOnInit() {
         this.eventOrders = [];
-        this.inquiry = this.store.pipe(select(reducers.getInquiry));
-        this.inquiry.subscribe((inquiry) => {
-            if (inquiry.order === undefined) {
+        this.order = this.store.pipe(select(reducers.getOrder));
+        this.order.subscribe((value) => {
+            if (value.order === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
-            const order = inquiry.order;
+            const order = value.order;
             this.eventOrders = orderToEventOrders({ order });
-        });
+        }).unsubscribe();
     }
 
     public showQrCode() {
-        this.inquiry.subscribe((inquiry) => {
-            const order = inquiry.order;
+        this.order.subscribe((value) => {
+            const order = value.order;
             if (order === undefined) {
                 this.router.navigate(['/error']);
                 return;
@@ -62,7 +62,7 @@ export class InquiryConfirmComponent implements OnInit {
         const success = this.actions.pipe(
             ofType(ActionTypes.OrderAuthorizeSuccess),
             tap(() => {
-                this.inquiry.subscribe((inquiry) => {
+                this.order.subscribe((inquiry) => {
                     const authorizeOrder = inquiry.order;
                     if (authorizeOrder === undefined) {
                         return;
