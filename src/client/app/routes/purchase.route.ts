@@ -1,3 +1,4 @@
+import { BaseComponent } from '../components/pages/base/base.component';
 import { PurchaseBaseComponent } from '../components/pages/purchase/purchase-base/purchase-base.component';
 import { PurchaseCartComponent } from '../components/pages/purchase/purchase-cart/purchase-cart.component';
 import { PurchaseCompleteComponent } from '../components/pages/purchase/purchase-complete/purchase-complete.component';
@@ -20,7 +21,17 @@ export const route = {
         { path: 'input', component: PurchaseInputComponent },
         { path: 'confirm', component: PurchaseConfirmComponent },
         { path: 'complete', component: PurchaseCompleteComponent },
-        { path: 'schedule', component: PurchaseScheduleComponent },
         { path: 'cart', component: PurchaseCartComponent }
+    ]
+};
+
+/**
+ * 購入スケジュールルーティング
+ */
+export const schedule = {
+    path: 'purchase',
+    component: BaseComponent,
+    children: [
+        { path: 'schedule', component: PurchaseScheduleComponent }
     ]
 };
