@@ -80,6 +80,16 @@ button {
     user-select: all;
 }
 
+.scroll-vertical {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+}
+
+.scroll-horizontal {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+}
+
 .text-x-small {
     font-size: 10px;
 }

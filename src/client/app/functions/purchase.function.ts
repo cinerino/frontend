@@ -70,7 +70,7 @@ export function createGmoTokenObject(params: {
         holderName: string;
         securityCode: string;
     },
-    movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
+    movieTheater: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
 }) {
     return new Promise<IGmoTokenObject>((resolve, reject) => {
         if (params.movieTheater.paymentAccepted === undefined) {

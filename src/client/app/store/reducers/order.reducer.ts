@@ -23,7 +23,7 @@ export const orderInitialState: IOrderState = {
 export function reducer(state: IState, action: Actions): IState {
     switch (action.type) {
         case ActionTypes.Delete: {
-            state.order = {
+            state.orderData = {
                 orders: [],
                 totalCount: 0,
                 pageCount: 1
@@ -36,9 +36,9 @@ export function reducer(state: IState, action: Actions): IState {
         case ActionTypes.SearchSuccess: {
             const searchResult = action.payload.searchResult;
             const limit = action.payload.limit;
-            state.order.orders = searchResult.data;
-            state.order.totalCount = searchResult.totalCount;
-            state.order.pageCount = Math.ceil(searchResult.totalCount / limit);
+            state.orderData.orders = searchResult.data;
+            state.orderData.totalCount = searchResult.totalCount;
+            state.orderData.pageCount = Math.ceil(searchResult.totalCount / limit);
             return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.SearchFail: {
@@ -60,7 +60,7 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.InquirySuccess: {
             const order = action.payload.order;
-            state.order.order = order;
+            state.orderData.order = order;
             return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.InquiryFail: {
@@ -72,7 +72,7 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.OrderAuthorizeSuccess: {
             const authorizeOrder = action.payload.order;
-            state.order.order = authorizeOrder;
+            state.orderData.order = authorizeOrder;
 
             return { ...state, loading: false, process: '', error: null };
         }

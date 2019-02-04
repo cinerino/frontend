@@ -14,10 +14,10 @@ export interface IState {
     loading: boolean;
     process: string;
     error: string | null;
-    purchase: purchaseReducer.IPurchaseState;
-    user: userReducer.IUserState;
-    master: masterReducer.IMasterState;
-    order: orderReducer.IOrderState;
+    purchaseData: purchaseReducer.IPurchaseState;
+    userData: userReducer.IUserState;
+    masterData: masterReducer.IMasterState;
+    orderData: orderReducer.IOrderState;
 }
 
 /**
@@ -27,22 +27,23 @@ export const initialState: IState = {
     loading: false,
     process: '',
     error: null,
-    purchase: purchaseReducer.purchaseInitialState,
-    user: userReducer.userInitialState,
-    master: masterReducer.masterInitialState,
-    order: orderReducer.orderInitialState
+    purchaseData: purchaseReducer.purchaseInitialState,
+    userData: userReducer.userInitialState,
+    masterData: masterReducer.masterInitialState,
+    orderData: orderReducer.orderInitialState
 };
 
 function getInitialState(): IState {
-    const json = sessionStorage.getItem('state');
+    const json = localStorage.getItem('state');
     if (json === undefined || json === null) {
         return initialState;
     }
-    const data: { App: IState } = JSON.parse(json);
-    const reservations = data.App.purchase.reservations.map((reservation: Reservation) => new Reservation(reservation));
-    data.App.purchase.reservations = reservations;
+    const tmpData: { App: IState } = JSON.parse(json);
+    const data = { ...initialState, ...tmpData.App };
+    const reservations = data.purchaseData.reservations.map((reservation: Reservation) => new Reservation(reservation));
+    data.purchaseData.reservations = reservations;
 
-    return { ...initialState, ...data.App };
+    return data;
 }
 
 type Actions =
@@ -80,7 +81,7 @@ export function reducer(
 export const getLoading = (state: IState) => state.loading;
 export const getProcess = (state: IState) => state.process;
 export const getError = (state: IState) => state.error;
-export const getPurchase = (state: IState) => state.purchase;
-export const getUser = (state: IState) => state.user;
-export const getMaster = (state: IState) => state.master;
-export const getOrder = (state: IState) => state.order;
+export const getPurchase = (state: IState) => state.purchaseData;
+export const getUser = (state: IState) => state.userData;
+export const getMaster = (state: IState) => state.masterData;
+export const getOrder = (state: IState) => state.orderData;

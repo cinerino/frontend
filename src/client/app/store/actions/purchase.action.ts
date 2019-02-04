@@ -82,7 +82,7 @@ export class SelectScheduleDate implements Action {
  */
 export class SelectTheater implements Action {
     public readonly type = ActionTypes.SelectTheater;
-    constructor(public payload: { movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater> }) { }
+    constructor(public payload: { movieTheater: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>> }) { }
 }
 
 /**
@@ -91,7 +91,7 @@ export class SelectTheater implements Action {
 export class GetPreScheduleDates implements Action {
     public readonly type = ActionTypes.GetPreScheduleDates;
     constructor(public payload: {
-        movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
+        movieTheater: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
     }) { }
 }
 
@@ -216,7 +216,7 @@ export class GetTicketList implements Action {
     public readonly type = ActionTypes.GetTicketList;
     constructor(public payload: {
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
+        movieTheater: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
     }) { }
 }
 
@@ -458,7 +458,7 @@ export class CreateGmoTokenObject implements Action {
             holderName: string;
             securityCode: string;
         },
-        movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
+        movieTheater: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
     }) { }
 }
 

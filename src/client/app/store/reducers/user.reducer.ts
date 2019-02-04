@@ -20,12 +20,12 @@ export const userInitialState: IUserState = {
 export function reducer(state: IState, action: Actions): IState {
     switch (action.type) {
         case ActionTypes.Delete: {
-            state.user.isMember = false;
-            state.user.profile = undefined;
+            state.userData.isMember = false;
+            state.userData.profile = undefined;
             return { ...state, loading: false };
         }
         case ActionTypes.Initialize: {
-            state.user.isMember = true;
+            state.userData.isMember = true;
             return { ...state, loading: false };
         }
         case ActionTypes.Create: {
@@ -33,7 +33,7 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.CreateSuccess: {
             const profile = action.payload.profile;
-            state.user.profile = profile;
+            state.userData.profile = profile;
             return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.CreateFail: {
@@ -44,7 +44,7 @@ export function reducer(state: IState, action: Actions): IState {
             return { ...state, loading: true, process: '会員情報を更新しています', };
         }
         case ActionTypes.UpdateCustomerSuccess: {
-            state.user.profile = action.payload.profile;
+            state.userData.profile = action.payload.profile;
             return { ...state, loading: false, process: '', error: null };
         }
         case ActionTypes.UpdateCustomerFail: {

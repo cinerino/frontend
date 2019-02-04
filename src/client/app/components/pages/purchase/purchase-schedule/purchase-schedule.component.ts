@@ -145,7 +145,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
     /**
      * selectTheater
      */
-    public selectTheater(movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>) {
+    public selectTheater(movieTheater: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>) {
         this.store.dispatch(new purchaseAction.SelectTheater({ movieTheater }));
         this.scheduleDates = [];
         for (let i = 0; i < 7; i++) {

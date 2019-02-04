@@ -27,7 +27,7 @@ export class Delete implements Action {
  */
 export class GetTheaters implements Action {
     public readonly type = ActionTypes.GetTheaters;
-    constructor(public payload: { params: factory.organization.ISearchConditions<factory.organizationType.MovieTheater> }) { }
+    constructor(public payload: { params: factory.seller.ISearchConditions }) { }
 }
 
 /**
@@ -35,7 +35,7 @@ export class GetTheaters implements Action {
  */
 export class GetTheatersSuccess implements Action {
     public readonly type = ActionTypes.GetTheatersSuccess;
-    constructor(public payload: { movieTheaters: factory.organization.IOrganization<factory.organizationType.MovieTheater>[] }) { }
+    constructor(public payload: { movieTheaters: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[] }) { }
 }
 
 /**
@@ -52,7 +52,7 @@ export class GetTheatersFail implements Action {
 export class GetSchedule implements Action {
     public readonly type = ActionTypes.GetSchedule;
     constructor(public payload: {
-        movieTheater: factory.organization.IOrganization<factory.organizationType.MovieTheater>;
+        movieTheater: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
         scheduleDate: string;
     }) { }
 }
