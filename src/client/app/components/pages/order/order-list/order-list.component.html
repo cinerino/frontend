@@ -49,7 +49,8 @@
                     <label for="movieTheaterId" class="mb-2">劇場</label>
                     <select class="form-control" name="movieTheaterId" id="movieTheaterId" [(ngModel)]="conditions.movieTheaterId">
                         <option [value]="''">すべて</option>
-                        <option *ngFor="let theater of (master | async).movieTheaters" [value]="theater.id">{{ theater.name.ja }}</option>
+                        <option *ngFor="let theater of (master | async).movieTheaters" [value]="theater.id">{{
+                            theater.name.ja }}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
@@ -74,47 +75,79 @@
     <p *ngIf="(order | async).orders.length === 0">予約が見つかりません</p>
 
     <div *ngIf="(order | async).orders.length > 0">
-        <div class="mb-4 text-md-right text-center">
-            <ngb-pagination class="d-inline-block" [collectionSize]="(order | async).pageCount * 10" [maxSize]="3"
-                [boundaryLinks]="false" (pageChange)="orderSearch($event)"></ngb-pagination>
+        <div class="d-md-flex align-items-center justify-content-between mb-4">
+            <div class="text-md-right text-center mb-3 mb-md-0 order-2">
+                <ngb-pagination class="d-inline-block" [collectionSize]="(order | async).pageCount * 10" [maxSize]="3"
+                    [boundaryLinks]="false" (pageChange)="orderSearch($event)"></ngb-pagination>
+            </div>
+
+            <div class="form-group text-center text-md-left mb-3 mb-md-0 order-1">
+                <select class="form-control d-inline-block w-auto mr-2" name="actionSelect" id="actionSelect"
+                    [(ngModel)]="actionSelect">
+                    <option value="">選択してください</option>
+                    <option [value]="OrderActions.Cancel">キャンセル</option>
+                </select>
+                <button type="button" class="btn btn-primary py-2 px-4" (click)="selecedtAction()">適用</button>
+            </div>
         </div>
-        <ul>
-            <li class="text-small align-items-center bg-light-gray item header border-0">
-                <div class="p-3"><strong>購入日時</strong></div>
-                <div class="p-3"><strong>購入番号</strong></div>
-                <div class="p-3"><strong>イベント</strong></div>
-                <div class="p-3"><strong>購入者</strong></div>
-                <div class="p-3"></div>
-            </li>
-            <li *ngFor="let order of (order | async).orders" class="text-small align-items-center item border-light-gray mb-3 mb-md-0 p-3 p-md-0">
-                <div class="mb-2 d-md-none"><strong>購入日時</strong></div>
-                <div class="p-0 p-md-3 mb-3 mb-md-0">{{ moment(order.orderDate).format('YYYY/MM/DD HH:mm') }}</div>
-                <div class="mb-2 d-md-none"><strong>購入番号</strong></div>
-                <div class="p-0 p-md-3 mb-3 mb-md-0">{{ order.confirmationNumber }}</div>
-                <div class="mb-2 d-md-none"><strong>イベント</strong></div>
-                <div class="p-0 p-md-3 mb-3 mb-md-0">
-                    <div *ngFor="let acceptedOffer of order.acceptedOffers">
-                        <p class="mb-2">{{
-                            acceptedOffer.itemOffered.reservationFor.name.ja }}</p>
-                        <p class="mb-2">{{
-                            acceptedOffer.itemOffered.reservationFor.superEvent.location.name.ja }} / {{
-                            acceptedOffer.itemOffered.reservationFor.location.name.ja }}</p>
-                        <p class="mb-2">{{
-                            moment(acceptedOffer.itemOffered.reservationFor.startDate).format('YYYY/MM/DD
-                            (ddd) HH:mm') }}</p>
-                    </div>
-                </div>
-                <div class="mb-2 d-md-none"><strong>購入者</strong></div>
-                <div class="p-0 p-md-3 mb-3 mb-md-0">
-                    <p class="mb-2">{{ order.customer.familyName }} {{ order.customer.givenName }}</p>
-                    <p class="mb-2">{{ order.customer.email }}</p>
-                    <p class="mb-2">{{ order.customer.telephone | libphonenumberFormat }}</p>
-                </div>
-                <div class="p-0 p-md-3">
-                    <button class="btn btn-block btn-primary py-3 mb-3" (click)="openDetail(order)">詳細</button>
-                    <button class="btn btn-block btn-secondary py-3" (click)="showQrCode(order)">QRコード表示</button>
-                </div>
-            </li>
-        </ul>
+
+        <div class="scroll-horizontal">
+            <table class="table border text-small mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">購入日時</th>
+                        <th scope="col">購入番号</th>
+                        <th scope="col">イベント</th>
+                        <th scope="col">購入者</th>
+                        <!-- <th scope="col">決済方法</th> -->
+                        <!-- <th scope="col">注文ステータス</th> -->
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let order of (order | async).orders let index = index" [class.bg-light-gray]="index % 2 === 0">
+                        <td class="align-middle text-large text-center">
+                            <i *ngIf="!isSelected(order)" class="far fa-square pointer" (click)="addOrder(order)"></i>
+                            <i *ngIf="isSelected(order)" class="far fa-check-square pointer" (click)="removeOrder(order)"></i>
+                        </td>
+                        <td class="align-middle">
+                            <p>{{ moment(order.orderDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>
+                        </td>
+                        <td class="align-middle">{{ order.confirmationNumber }}</td>
+                        <td class="align-middle">
+                            <div *ngFor="let acceptedOffer of order.acceptedOffers">
+                                <p *ngIf="acceptedOffer.itemOffered.reservationFor.name.ja.length > 10">{{
+                                    acceptedOffer.itemOffered.reservationFor.name.ja | slice:0:10 }}</p>
+                                <p *ngIf="!(acceptedOffer.itemOffered.reservationFor.name.ja.length > 10)">{{
+                                    acceptedOffer.itemOffered.reservationFor.name.ja }}</p>
+                                <p>{{
+                                    acceptedOffer.itemOffered.reservationFor.superEvent.location.name.ja }} / {{
+                                    acceptedOffer.itemOffered.reservationFor.location.name.ja }}</p>
+                                <p>{{
+                                    moment(acceptedOffer.itemOffered.reservationFor.startDate).format('YYYY/MM/DD
+                                    (ddd) HH:mm') }} -</p>
+                            </div>
+                        </td>
+                        <td class="align-middle">{{ order.customer.familyName }} {{ order.customer.givenName }}</td>
+                        <!-- <td class="align-middle">
+                            <div *ngFor="let paymentMethod of order.paymentMethods">
+                                <p>{{ paymentMethod.name }}</p>
+                            </div>
+                        </td> -->
+                        <!-- <td class="align-middle">
+                            {{ order.orderStatus }}
+                        </td> -->
+                        <td class="align-middle text-center">
+                            <button class="btn btn-primary mr-2" (click)="openDetail(order)"><i class="fas fa-search-plus"></i></button>
+                            <button class="btn btn-primary mr-2" (click)="openQrCode(order)"><i class="fas fa-qrcode"></i></button>
+                            <button class="btn btn-danger" (click)="cancelConfirm([order])"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
     </div>
 </div>

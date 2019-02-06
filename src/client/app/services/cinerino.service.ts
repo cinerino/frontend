@@ -70,7 +70,7 @@ export class CinerinoService {
                 throw new Error('state is null');
             }
             const state = JSON.parse(data);
-            if (state.App && state.App.user.isMember) {
+            if (state.App && state.App.userData.isMember) {
                 body.member = '1';
             }
         } catch (error) {

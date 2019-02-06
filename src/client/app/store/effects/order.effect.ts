@@ -49,9 +49,9 @@ export class OrderEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             await this.cinerino.getServices();
-            const order = payload.order;
+            const orders = payload.orders;
             try {
-                console.log(order);
+                console.log(orders);
                 return new orderAction.CancelSuccess();
             } catch (error) {
                 return new orderAction.CancelFail({ error: error });
