@@ -21,7 +21,19 @@ export function toFull(value: string) {
  * 半角変換
  */
 export function toHalf(value: string) {
-    return value.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
+    return value.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) {
         return String.fromCharCode(s.charCodeAt(0) - 65248);
+    });
+}
+
+/**
+ * ミリ秒待つ
+ * @param time
+ */
+export async function sleep(time: number) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, time);
     });
 }

@@ -11,9 +11,9 @@ import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
 import { getAmount } from '../../../../functions';
 import { LibphonenumberFormatPipe } from '../../../../pipes/libphonenumber-format.pipe';
+import { UtilService } from '../../../../services';
 import { ActionTypes, CreateGmoTokenObject, RegisterContact } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
-import { AlertModalComponent } from '../../../parts/alert-modal/alert-modal.component';
 import { SecurityCodeModalComponent } from '../../../parts/security-code-modal/security-code-modal.component';
 
 @Component({
@@ -38,7 +38,8 @@ export class PurchaseInputComponent implements OnInit {
         private actions: Actions,
         private router: Router,
         private modal: NgbModal,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private util: UtilService
     ) { }
 
     public ngOnInit() {
@@ -163,14 +164,14 @@ export class PurchaseInputComponent implements OnInit {
             this.paymentForm.controls.holderName.setValue((<HTMLInputElement>document.getElementById('holderName')).value);
         }
         if (this.customerContactForm.invalid) {
-            this.openAlert({
+            this.util.openAlert({
                 title: 'エラー',
                 body: '購入者情報に誤りがあります。'
             });
             return;
         }
         if (this.amount > 0 && this.paymentForm.invalid) {
-            this.openAlert({
+            this.util.openAlert({
                 title: 'エラー',
                 body: '決済情報に誤りがあります。'
             });
@@ -249,24 +250,13 @@ export class PurchaseInputComponent implements OnInit {
         const fail = this.actions.pipe(
             ofType(ActionTypes.CreateGmoTokenObjectFail),
             tap(() => {
-                this.openAlert({
+                this.util.openAlert({
                     title: 'エラー',
                     body: 'クレジットカード情報を確認してください。'
                 });
             })
         );
         race(success, fail).pipe(take(1)).subscribe();
-    }
-
-    public openAlert(args: {
-        title: string;
-        body: string;
-    }) {
-        const modalRef = this.modal.open(AlertModalComponent, {
-            centered: true
-        });
-        modalRef.componentInstance.title = args.title;
-        modalRef.componentInstance.body = args.body;
     }
 
     public openSecurityCode() {

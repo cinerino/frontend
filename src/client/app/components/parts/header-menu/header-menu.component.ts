@@ -3,12 +3,10 @@
  */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { CinerinoService } from '../../../services';
+import { CinerinoService, UtilService } from '../../../services';
 import * as reducers from '../../../store/reducers';
-import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 @Component({
     selector: 'app-header-menu',
@@ -23,7 +21,7 @@ export class HeaderMenuComponent implements OnInit {
         private store: Store<reducers.IState>,
         private cinerino: CinerinoService,
         private router: Router,
-        private modal: NgbModal
+        private util: UtilService
     ) { }
 
     public ngOnInit() {
@@ -32,10 +30,10 @@ export class HeaderMenuComponent implements OnInit {
 
     public signIn() {
         this.close.emit();
-        this.openConfirm({
+        this.util.openConfirm({
             title: '確認',
             body: 'ログインしますか？',
-            done: () => {
+            cb: () => {
                 this.router.navigate(['/auth']);
             }
 
@@ -44,10 +42,10 @@ export class HeaderMenuComponent implements OnInit {
 
     public signOut() {
         this.close.emit();
-        this.openConfirm({
+        this.util.openConfirm({
             title: '確認',
             body: 'ログアウトしますか？',
-            done: async () => {
+            cb: async () => {
                 try {
                     await this.cinerino.getServices();
                     await this.cinerino.signOut();
@@ -60,21 +58,4 @@ export class HeaderMenuComponent implements OnInit {
 
     }
 
-    private openConfirm(args: {
-        title: string;
-        body: string;
-        done: Function
-    }) {
-        const modalRef = this.modal.open(ConfirmModalComponent, {
-            centered: true
-        });
-        modalRef.result.then(async () => {
-            await args.done();
-        }).catch(() => {
-
-        });
-
-        modalRef.componentInstance.title = args.title;
-        modalRef.componentInstance.body = args.body;
-    }
 }
