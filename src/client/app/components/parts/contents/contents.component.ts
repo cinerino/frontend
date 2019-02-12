@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
@@ -9,16 +9,18 @@ import { NavigationEnd, Router } from '@angular/router';
 export class ContentsComponent implements OnInit {
     @Input() public touch?: boolean;
 
-    constructor(private router: Router) {}
+    constructor(
+        private router: Router,
+        private elementRef: ElementRef
+    ) { }
 
     public ngOnInit() {
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
-                const purchaseContents = document.getElementById('contents');
-                if (purchaseContents == null) {
-                    return;
-                }
-                purchaseContents.scrollTop = 0;
+                const element: HTMLElement = this.elementRef.nativeElement.querySelector('.scroll');
+                setTimeout(() => {
+                    element.scrollTop = 0;
+                }, 0);
             }
         });
         if (this.touch === undefined) {

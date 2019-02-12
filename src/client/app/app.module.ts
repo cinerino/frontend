@@ -40,7 +40,6 @@ import { HeaderComponent } from './components/parts/header/header.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MvtkCheckModalComponent } from './components/parts/mvtk-check-modal/mvtk-check-modal.component';
 import { OrderDetailModalComponent } from './components/parts/order-detail-modal/order-detail-modal.component';
-import { PurchaseContentsComponent } from './components/parts/purchase-contents/purchase-contents.component';
 import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
 import { PurchaseScheduleFilmComponent } from './components/parts/purchase-schedule-film/purchase-schedule-film.component';
 import { PurchaseTransactionModalComponent } from './components/parts/purchase-transaction-modal/purchase-transaction-modal.component';
@@ -70,7 +69,6 @@ import { CoreStoreModule } from './store/core/store';
         ContentsComponent,
         HeaderComponent,
         FooterComponent,
-        PurchaseContentsComponent,
         PurchaseScheduleFilmComponent,
         ScreenComponent,
         TicketListModalComponent,

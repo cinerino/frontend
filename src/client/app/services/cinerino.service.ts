@@ -10,7 +10,7 @@ export class CinerinoService {
     public auth: cinerino.IImplicitGrantClient;
     public event: cinerino.service.Event;
     public order: cinerino.service.Order;
-    public organization: cinerino.service.Organization;
+    public seller: cinerino.service.Seller;
     public person: cinerino.service.Person;
     public ownershipInfo: cinerino.service.person.OwnershipInfo;
     public reservation: cinerino.service.Reservation;
@@ -32,7 +32,7 @@ export class CinerinoService {
             const option = await this.createOption();
             this.event = new cinerino.service.Event(option);
             this.order = new cinerino.service.Order(option);
-            this.organization = new cinerino.service.Organization(option);
+            this.seller = new cinerino.service.Seller(option);
             this.person = new cinerino.service.Person(option);
             this.ownershipInfo = new cinerino.service.person.OwnershipInfo(option);
             this.reservation = new cinerino.service.Reservation(option);
