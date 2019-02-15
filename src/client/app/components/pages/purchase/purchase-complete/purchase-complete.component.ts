@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Observable } from 'rxjs';
 import { getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
 import * as reducers from '../../../../store/reducers';

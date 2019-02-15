@@ -7,13 +7,13 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-import * as moment from 'moment-timezone';
+import * as momentTimezone from 'moment-timezone';
 
-moment.tz.setDefault('Asia/Tokyo');
-moment.locale('ja');
+momentTimezone.tz.setDefault('Asia/Tokyo');
+momentTimezone.locale('ja');
 
 if (environment.production) {
-  enableProdMode();
+    enableProdMode();
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule);

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import * as moment from 'moment';
+import moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { CinerinoService } from '../../services/cinerino.service';
 import * as master from '../actions/master.action';

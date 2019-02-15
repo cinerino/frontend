@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { IReservationSeat, Reservation, SeatStatus } from '../../../../models';
@@ -28,7 +29,8 @@ export class PurchaseSeatComponent implements OnInit {
         private store: Store<reducers.IState>,
         private actions: Actions,
         private router: Router,
-        private util: UtilService
+        private util: UtilService,
+        private translate: TranslateService
     ) { }
 
     public async ngOnInit() {
@@ -89,8 +91,8 @@ export class PurchaseSeatComponent implements OnInit {
             const screeningEvent = purchase.screeningEvent;
             if (purchase.reservations.length === 0) {
                 this.util.openAlert({
-                    title: 'エラー',
-                    body: '座席が未選択です。'
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('purchase.seat.alert.unselected')
                 });
                 return;
             }

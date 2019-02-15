@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
 import { race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
@@ -22,7 +23,8 @@ export class InquiryInputComponent implements OnInit {
         private formBuilder: FormBuilder,
         private store: Store<reducers.IState>,
         private util: UtilService,
-        private router: Router
+        private router: Router,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -87,8 +89,8 @@ export class InquiryInputComponent implements OnInit {
             ofType(ActionTypes.InquiryFail),
             tap(() => {
                 this.util.openAlert({
-                    title: 'エラー',
-                    body: '入力情報に誤りがあります。'
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('inquiry.input.validation')
                 });
             })
         );

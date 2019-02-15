@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { UtilService } from '../../../services';
@@ -30,7 +31,8 @@ export class SettingComponent implements OnInit {
         private store: Store<reducers.IState>,
         private actions: Actions,
         private util: UtilService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -124,8 +126,8 @@ export class SettingComponent implements OnInit {
         this.customerContactForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
         if (this.customerContactForm.invalid) {
             this.util.openAlert({
-                title: 'エラー',
-                body: '購入者情報に誤りがあります。'
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('setting.alert.customer')
             });
             return;
         }
@@ -161,8 +163,8 @@ export class SettingComponent implements OnInit {
 
         if (this.paymentForm.invalid) {
             this.util.openAlert({
-                title: 'エラー',
-                body: '決済情報に誤りがあります。'
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('setting.alert.payment')
             });
             return;
         }

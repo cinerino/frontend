@@ -1,41 +1,45 @@
 <div class="contents-width mx-auto px-3 py-5">
     <div class="mb-4">
-        <h2 class="text-large mb-4 text-center font-weight-bold">購入情報確認</h2>
-        <p class="mb-4">購入情報をご確認ください。</p>
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.confirm.title' | translate }}</h2>
+        <p class="mb-4">{{ 'purchase.confirm.read' | translate }}</p>
 
-        <div *ngFor="let authorizeSeatReservation of (purchase | async).authorizeSeatReservations" class="mb-4 px-3 bg-light-gray">
+        <div *ngFor="let authorizeSeatReservation of (purchase | async).authorizeSeatReservations"
+            class="mb-4 px-3 bg-light-gray">
             <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="fas fa-map-marker-alt mr-2"></i>劇場 / スクリーン</p>
-                    <p class="col-md-8">{{ authorizeSeatReservation.object.event.superEvent.location.name.ja }} / {{
-                        authorizeSeatReservation.object.event.location.name.ja }}</p>
+                        <i class="fas fa-map-marker-alt mr-2"></i>{{ 'common.theater' | translate }} /
+                        {{ 'common.screen' | translate }}</p>
+                    <p class="col-md-8">
+                        {{ authorizeSeatReservation.object.event.superEvent.location.name | changeLanguage }} / {{
+                        authorizeSeatReservation.object.event.location.name | changeLanguage }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="fas fa-film mr-2"></i>作品</p>
-                    <p class="col-md-8">{{ authorizeSeatReservation.object.event.superEvent.name.ja }}</p>
+                        <i class="fas fa-film mr-2"></i>{{ 'common.event' | translate }}</p>
+                    <p class="col-md-8">{{ authorizeSeatReservation.object.event.superEvent.name | changeLanguage }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="far fa-clock mr-2"></i>上映日時</p>
-                    <p class="col-md-8">{{
-                        moment(authorizeSeatReservation.object.event.superEvent.startDate).format('YYYY/MM/DD (ddd)
-                        HH:mm') }}</p>
+                        <i class="far fa-clock mr-2"></i>{{ 'common.startDate' | translate }}</p>
+                    <p class="col-md-8">
+                        {{ authorizeSeatReservation.object.event.superEvent.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
+                    </p>
                 </div>
             </div>
             <div class="py-3">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="fas fa-ticket-alt mr-2"></i>座席・券種</p>
+                        <i class="fas fa-ticket-alt mr-2"></i>{{ 'common.seat' | translate }} /
+                        {{ 'common.ticket' | translate }}</p>
                     <div class="col-md-8">
                         <div *ngFor="let acceptedOffer of authorizeSeatReservation.object.acceptedOffer" class="mb-2">
                             <p>{{ acceptedOffer.ticketedSeat.seatNumber }}</p>
-                            <p>{{ acceptedOffer.name.ja }} / {{
+                            <p>{{ acceptedOffer.name | changeLanguage }} / {{
                                 getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</p>
                         </div>
                     </div>
@@ -47,7 +51,7 @@
             <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="fas fa-user-circle mr-2"></i>お名前</p>
+                        <i class="fas fa-user-circle mr-2"></i>{{ 'common.customerName' | translate }}</p>
                     <p class="col-md-8">{{ (purchase | async).customerContact.familyName }} {{ (purchase |
                         async).customerContact.givenName }}</p>
                 </div>
@@ -55,21 +59,21 @@
             <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="far fa-envelope mr-2"></i>メールアドレス</p>
+                        <i class="far fa-envelope mr-2"></i>{{ 'common.email' | translate }}</p>
                     <p class="col-md-8">{{ (purchase | async).customerContact.email }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="fas fa-phone mr-2"></i>電話番号</p>
+                        <i class="fas fa-phone mr-2"></i>{{ 'common.telephone' | translate }}</p>
                     <p class="col-md-8">{{ (purchase | async).customerContact.telephone | libphonenumberFormat }}</p>
                 </div>
             </div>
             <div class="py-3" *ngIf="amount > 0">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="far fa-credit-card mr-2"></i>決済方法</p>
+                        <i class="far fa-credit-card mr-2"></i>{{ 'common.paymentMethod' | translate }}</p>
                     <p class="col-md-8">クレジットカード</p>
                 </div>
             </div>
@@ -77,7 +81,9 @@
     </div>
 
     <div class="buttons mx-auto px-3">
-        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async" (click)="onSubmit()">購入確定</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/purchase/input">購入者情報入力へ戻る</button>
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+            (click)="onSubmit()">{{ 'purchase.confirm.next' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3"
+            routerLink="/purchase/input">{{ 'purchase.confirm.prev' | translate }}</button>
     </div>
 </div>

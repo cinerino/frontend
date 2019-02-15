@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { formatTelephone } from '../../functions';
 import { CinerinoService } from '../../services';
@@ -31,7 +32,7 @@ export class OrderEffects {
                 //     && params.customer.telephone !== undefined) {
                 //     params.customer.telephone = formatTelephone(params.customer.telephone)
                 // }
-                const searchResult = await this.cinerino.person.searchOrders({...params, personId: 'me'});
+                const searchResult = await this.cinerino.person.searchOrders({ ...params, personId: 'me' });
                 const limit = <number>params.limit;
                 return new orderAction.SearchSuccess({ searchResult, limit });
             } catch (error) {
@@ -48,10 +49,25 @@ export class OrderEffects {
         ofType<orderAction.Cancel>(orderAction.ActionTypes.Cancel),
         map(action => action.payload),
         mergeMap(async (payload) => {
-            await this.cinerino.getServices();
             const orders = payload.orders;
             try {
-                console.log(orders);
+                await this.cinerino.getServices();
+                for (const order of orders) {
+                    const startResult = await this.cinerino.transaction.returnOrder.start({
+                        expires: moment().add(1, 'day').toDate(),
+                        object: {
+                            order: {
+                                orderNumber: order.orderNumber,
+                                customer: {
+                                    telephone: order.customer.telephone,
+                                    // email: order.customer.email
+                                }
+                            }
+                        }
+                    });
+                    await this.cinerino.transaction.returnOrder.confirm({ id: startResult.id });
+                }
+
                 return new orderAction.CancelSuccess();
             } catch (error) {
                 return new orderAction.CancelFail({ error: error });

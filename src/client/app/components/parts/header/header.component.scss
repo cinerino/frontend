@@ -1,3 +1,9 @@
+@import '../../../../assets/scss/theme';
+
+:host {
+    display: block;
+}
+
 header {
     hr {
         height: 5px;
@@ -10,6 +16,9 @@ header {
 
 .logo {
     width: 200px;
+    @include media-breakpoint-down(sm) {
+        width: 40px;
+    }
 }
 
 .menu-button {
@@ -52,3 +61,5 @@ header {
         }
     }
 }
+
+

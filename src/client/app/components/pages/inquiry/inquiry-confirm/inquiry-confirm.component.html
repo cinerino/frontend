@@ -1,12 +1,12 @@
 <div class="contents-width mx-auto px-3 py-5">
     <div class="mb-4">
-        <h2 class="text-large mb-4 text-center font-weight-bold">照会結果</h2>
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'inquiry.confirm.title' | translate }}</h2>
 
         <div class="mb-4 px-3 bg-light-gray">
             <div class="py-3">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="fas fa-key mr-2"></i>購入番号</p>
+                        <i class="fas fa-key mr-2"></i>{{ 'common.confirmationNumber' | translate }}</p>
                     <p class="col-md-8 text-x-large text-info">
                         <strong>{{ (order | async).order.confirmationNumber }}</strong>
                     </p>
@@ -17,38 +17,37 @@
             <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="fas fa-map-marker-alt mr-2"></i>劇場 / スクリーン</p>
-                    <p class="col-md-8">{{ eventOrder.event.superEvent.location.name.ja }} / {{
-                        eventOrder.event.location.name.ja }}</p>
+                        <i class="fas fa-map-marker-alt mr-2"></i>{{ 'common.theater' | translate }} /
+                        {{ 'common.screen' | translate }}</p>
+                    <p class="col-md-8">{{ eventOrder.event.superEvent.location.name | changeLanguage }} / {{
+                        eventOrder.event.location.name | changeLanguage }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="fas fa-film mr-2"></i>作品</p>
-                    <p class="col-md-8">{{ eventOrder.event.name.ja }}</p>
+                        <i class="fas fa-film mr-2"></i>{{ 'common.event' | translate }}</p>
+                    <p class="col-md-8">{{ eventOrder.event.name | changeLanguage }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="far fa-clock mr-2"></i>上映日時</p>
-                    <p class="col-md-8">{{ moment(eventOrder.event.startDate).format('YYYY/MM/DD (ddd)
-                        HH:mm') }}</p>
+                        <i class="far fa-clock mr-2"></i>{{ 'common.startDate' | translate }}</p>
+                    <p class="col-md-8">{{ eventOrder.event.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}</p>
                 </div>
             </div>
             <div class="py-3">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="fas fa-ticket-alt mr-2"></i>座席・券種</p>
+                        <i
+                            class="fas fa-ticket-alt mr-2"></i>{{ 'common.seat' | translate }} / {{ 'common.ticket' | translate }}
+                    </p>
                     <div class="col-md-8">
                         <div *ngFor="let acceptedOffer of eventOrder.data" class="mb-2">
                             <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>
-                            <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja }} / {{
+                            <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }} / {{
                                 getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</p>
-                        </div>
-                        <div class="d-md-inline-block">
-                            <button type="button" class="btn btn-primary btn-block py-3" (click)="showQrCode()">QRコード表示</button>
                         </div>
                     </div>
                 </div>
@@ -59,7 +58,7 @@
             <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="fas fa-user-circle mr-2"></i>お名前</p>
+                        <i class="fas fa-user-circle mr-2"></i>{{ 'common.customerName' | translate }}</p>
                     <p class="col-md-8">{{ (order | async).order.customer.familyName }} {{ (order |
                         async).order.customer.givenName }}</p>
                 </div>
@@ -67,21 +66,21 @@
             <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="far fa-envelope mr-2"></i>メールアドレス</p>
+                        <i class="far fa-envelope mr-2"></i>{{ 'common.email' | translate }}</p>
                     <p class="col-md-8">{{ (order | async).order.customer.email }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="fas fa-phone mr-2"></i>電話番号</p>
+                        <i class="fas fa-phone mr-2"></i>{{ 'common.telephone' | translate }}</p>
                     <p class="col-md-8">{{ (order | async).order.customer.telephone | libphonenumberFormat }}</p>
                 </div>
             </div>
             <div class="py-3" *ngIf="(order | async).order.price > 0">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="far fa-credit-card mr-2"></i>決済方法</p>
+                        <i class="far fa-credit-card mr-2"></i>{{ 'common.paymentMethod' | translate }}</p>
                     <p class="col-md-8">クレジットカード</p>
                 </div>
             </div>
@@ -89,7 +88,9 @@
     </div>
 
     <div class="buttons mx-auto px-3">
-        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/inquiry/input">戻る</button>
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3" (click)="showQrCode()">{{ 'inquiry.confirm.next' | translate }}</button>
+        <button type="button" class="btn btn-danger btn-block py-3 mb-3" (click)="cancelConfirm()">{{ 'inquiry.confirm.cancel' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/inquiry/input">{{ 'inquiry.confirm.prev' | translate }}</button>
     </div>
 
 </div>

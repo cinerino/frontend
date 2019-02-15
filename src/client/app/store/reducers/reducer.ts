@@ -1,4 +1,4 @@
-import { Reservation } from '../../models';
+import { ILanguage, Reservation } from '../../models';
 import * as masterAction from '../actions/master.action';
 import * as orderAction from '../actions/order.action';
 import * as purchaseAction from '../actions/purchase.action';
@@ -12,7 +12,7 @@ import * as userReducer from './user.reducer';
  */
 export interface IState {
     loading: boolean;
-    process: string;
+    process: ILanguage;
     error: string | null;
     purchaseData: purchaseReducer.IPurchaseState;
     userData: userReducer.IUserState;
@@ -25,7 +25,7 @@ export interface IState {
  */
 export const initialState: IState = {
     loading: false,
-    process: '',
+    process: { ja: '', en: '' },
     error: null,
     purchaseData: purchaseReducer.purchaseInitialState,
     userData: userReducer.userInitialState,

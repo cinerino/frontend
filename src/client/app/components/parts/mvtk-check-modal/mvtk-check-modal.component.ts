@@ -4,10 +4,12 @@ import { factory } from '@cinerino/api-javascript-client';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import jsqr from 'jsqr';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { movieTicketAuthErroCodeToMessage } from '../../../functions';
+import { ChangeLanguagePipe } from '../../../pipes/change-language.pipe';
 import { ActionTypes, CheckMovieTicket } from '../../../store/actions/purchase.action';
 import * as reducers from '../../../store/reducers';
 
@@ -31,7 +33,8 @@ export class MvtkCheckModalComponent implements OnInit, OnDestroy {
         private store: Store<reducers.IState>,
         private actions: Actions,
         private formBuilder: FormBuilder,
-        public activeModal: NgbActiveModal
+        public activeModal: NgbActiveModal,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -103,23 +106,26 @@ export class MvtkCheckModalComponent implements OnInit, OnDestroy {
                         || checkMovieTicketAction.result === undefined
                         || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut === null) {
                         this.isSuccess = false;
-                        this.errorMessage = 'ムビチケ情報をご確認ください。';
+                        this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.validation');
                         return;
                     }
 
                     if (checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknmiNum === '0') {
                         this.isSuccess = false;
-                        this.errorMessage = 'すでに使用済みのムビチケです。';
+                        this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.used');
                         return;
                     }
 
                     const knyknrNoMkujyuCd = checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].knyknrNoMkujyuCd;
                     if (knyknrNoMkujyuCd !== undefined) {
+                        const message = new ChangeLanguagePipe(this.translate)
+                            .transform(movieTicketAuthErroCodeToMessage(knyknrNoMkujyuCd));
                         this.isSuccess = false;
-                        this.errorMessage = `ムビチケ情報をご確認ください。<br>
-                        [${knyknrNoMkujyuCd}] ${movieTicketAuthErroCodeToMessage(knyknrNoMkujyuCd)}`;
+                        this.errorMessage = `${this.translate.instant('modal.mvtkCheck.alert.validation')}<br>
+                        [${knyknrNoMkujyuCd}] ${message}`;
                         return;
                     }
+
                     this.createMvtkForm();
                     this.isSuccess = true;
                 }).unsubscribe();
@@ -130,7 +136,7 @@ export class MvtkCheckModalComponent implements OnInit, OnDestroy {
             ofType(ActionTypes.CheckMovieTicketFail),
             tap(() => {
                 this.isSuccess = false;
-                this.errorMessage = 'エラーが発生しました';
+                this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.error');
             })
         );
         race(success, fail).pipe(take(1)).subscribe();

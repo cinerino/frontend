@@ -1,31 +1,33 @@
-<p class="mb-3">現在、選択されているチケットは下記のとおりです。</p>
+<p class="mb-3">{{ 'purchase.info.read' | translate }}</p>
 <div class="bg-dark-gray text-white px-3">
     <div class="py-3 border-bottom border-white">
         <div class="row">
-            <p class="mb-2 mb-md-0 col-md-4"> <i class="fas fa-map-marker-alt mr-2"></i>劇場 / スクリーン</p>
-            <p class="col-md-8">{{ purchase.screeningEvent?.superEvent.location.name.ja }} / {{
-                purchase.screeningEvent?.location.name.ja }}</p>
+            <p class="mb-2 mb-md-0 col-md-4"> <i class="fas fa-map-marker-alt mr-2"></i>{{ 'common.theater' | translate }} / {{ 'common.screen' | translate }}</p>
+            <p class="col-md-8">{{ purchase.screeningEvent?.superEvent.location.name | changeLanguage }} / {{
+                purchase.screeningEvent?.location.name | changeLanguage }}</p>
         </div>
     </div>
     <div class="py-3 border-bottom border-white">
         <div class="row">
-            <p class="mb-2 mb-md-0 col-md-4"> <i class="fas fa-film mr-2"></i>作品</p>
-            <p class="col-md-8">{{ purchase.screeningEvent?.name.ja }}</p>
+            <p class="mb-2 mb-md-0 col-md-4"> <i class="fas fa-film mr-2"></i>{{ 'common.event' | translate }}</p>
+            <p class="col-md-8">{{ purchase.screeningEvent?.name | changeLanguage }}</p>
         </div>
     </div>
     <div class="py-3 border-bottom border-white">
         <div class="row">
-            <p class="mb-2 mb-md-0 col-md-4"> <i class="far fa-clock mr-2"></i>上映日時</p>
-            <p class="col-md-8">{{ moment(purchase.screeningEvent?.startDate).format('YYYY/MM/DD (ddd) HH:mm') }}</p>
+            <p class="mb-2 mb-md-0 col-md-4"> <i class="far fa-clock mr-2"></i>{{ 'common.startDate' | translate }}</p>
+            <p class="col-md-8">
+                {{ purchase.screeningEvent?.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
+            </p>
         </div>
     </div>
     <div class="py-3">
         <div class="row">
-            <p class="mb-2 mb-md-0 col-md-4"> <i class="fas fa-ticket-alt mr-2"></i>座席・券種</p>
+            <p class="mb-2 mb-md-0 col-md-4"> <i class="fas fa-ticket-alt mr-2"></i>{{ 'common.seat' | translate }} / {{ 'common.ticket' | translate }}</p>
             <div class="col-md-8">
                 <div *ngFor="let reservation of purchase.reservations">
                     <p>{{ reservation.seat.seatNumber }}</p>
-                    <p *ngIf="reservation.ticket">{{ reservation.ticket.ticketOffer.name.ja }} / {{
+                    <p *ngIf="reservation.ticket">{{ reservation.ticket.ticketOffer.name | changeLanguage }} / {{
                         reservation.getTicketPrice().single | currency : 'JPY' }}</p>
                 </div>
             </div>

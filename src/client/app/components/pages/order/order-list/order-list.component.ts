@@ -4,7 +4,8 @@ import { factory } from '@cinerino/api-javascript-client';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
+import moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { OrderActions } from '../../../../models';
@@ -49,7 +50,8 @@ export class OrderListComponent implements OnInit {
         private actions: Actions,
         private modal: NgbModal,
         private router: Router,
-        private util: UtilService
+        private util: UtilService,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -142,8 +144,8 @@ export class OrderListComponent implements OnInit {
      */
     public cancelConfirm(orders: factory.order.IOrder[]) {
         this.util.openConfirm({
-            title: '確認',
-            body: 'キャンセルしてよろしいですか。',
+            title: this.translate.instant('common.confirm'),
+            body: this.translate.instant('order.orderList.confirm.cancel'),
             cb: () => {
                 this.cancel(orders);
             }
@@ -167,18 +169,18 @@ export class OrderListComponent implements OnInit {
         this.store.dispatch(new Cancel({ orders }));
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.SearchSuccess),
+            ofType(ActionTypes.CancelSuccess),
             tap(() => { })
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.SearchFail),
+            ofType(ActionTypes.CancelFail),
             tap(() => {
                 this.error.subscribe((error) => {
                     this.util.openAlert({
-                        title: 'エラー',
+                        title: this.translate.instant('common.error'),
                         body: `
-                        <p class="mb-4">キャンセルに失敗しました</p>
+                        <p class="mb-4">${this.translate.instant('order.orderList.alert.cancel')}</p>
                             <div class="p-3 bg-light-gray select-text">
                             <code>${error}</code>
                         </div>`
@@ -196,14 +198,14 @@ export class OrderListComponent implements OnInit {
     public selecedtAction() {
         if (this.selectedOrders.length === 0) {
             this.util.openAlert({
-                title: 'エラー',
-                body: `注文が選択されていません。`
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('order.orderList.alert.unselected')
             });
         }
         if (this.actionSelect === OrderActions.Cancel) {
             this.util.openConfirm({
-                title: '確認',
-                body: 'キャンセルしてよろしいですか。',
+                title: this.translate.instant('common.confirm'),
+                body: this.translate.instant('order.orderList.confirm.cancel'),
                 cb: () => {
                     this.cancel(this.selectedOrders);
                 }
@@ -244,8 +246,8 @@ export class OrderListComponent implements OnInit {
             ofType(ActionTypes.OrderAuthorizeFail),
             tap(() => {
                 this.util.openAlert({
-                    title: 'エラー',
-                    body: 'QRコード表示を表示できません。'
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('order.orderList.alert.authorize')
                 });
             })
         );

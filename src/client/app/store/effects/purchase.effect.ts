@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import * as moment from 'moment';
+import moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import {
@@ -57,9 +57,13 @@ export class PurchaseEffects {
                         availableThrough: now
                     }
                 });
+                // TODO
+                // branchCodeが重複しているため劇場名でフィルター
+                const screeningEvents =
+                    screeningEventsResult.data.filter(data => data.superEvent.location.name.ja === payload.movieTheater.name.ja);
                 const sheduleDates: string[] = [];
 
-                screeningEventsResult.data.forEach((screeningEvent) => {
+                screeningEvents.forEach((screeningEvent) => {
                     const date = moment(screeningEvent.startDate).format('YYYY-MM-DD');
                     const findResult = sheduleDates.find(sheduleDat => sheduleDat === date);
                     if (findResult === undefined) {

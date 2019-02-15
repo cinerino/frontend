@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
+import moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { getAmount, getTicketPrice } from '../../../../functions';
@@ -25,7 +26,8 @@ export class PurchaseConfirmComponent implements OnInit {
         private store: Store<reducers.IState>,
         private actions: Actions,
         private util: UtilService,
-        private router: Router
+        private router: Router,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -110,8 +112,8 @@ export class PurchaseConfirmComponent implements OnInit {
             ofType(ActionTypes.AuthorizeCreditCardFail),
             tap(() => {
                 this.util.openAlert({
-                    title: 'エラー',
-                    body: 'クレジットカード情報を確認してください。'
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('purchase.confirm.alert.authorizeCreditCard')
                 });
                 this.router.navigate(['/purchase/input']);
             })

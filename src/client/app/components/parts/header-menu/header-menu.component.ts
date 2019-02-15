@@ -4,6 +4,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { CinerinoService, UtilService } from '../../../services';
 import * as reducers from '../../../store/reducers';
@@ -21,7 +22,8 @@ export class HeaderMenuComponent implements OnInit {
         private store: Store<reducers.IState>,
         private cinerino: CinerinoService,
         private router: Router,
-        private util: UtilService
+        private util: UtilService,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -31,8 +33,8 @@ export class HeaderMenuComponent implements OnInit {
     public signIn() {
         this.close.emit();
         this.util.openConfirm({
-            title: '確認',
-            body: 'ログインしますか？',
+            title: this.translate.instant('common.confirm'),
+            body: this.translate.instant('menu.confirm.login'),
             cb: () => {
                 this.router.navigate(['/auth']);
             }
@@ -43,8 +45,8 @@ export class HeaderMenuComponent implements OnInit {
     public signOut() {
         this.close.emit();
         this.util.openConfirm({
-            title: '確認',
-            body: 'ログアウトしますか？',
+            title: this.translate.instant('common.confirm'),
+            body: this.translate.instant('menu.confirm.logout'),
             cb: async () => {
                 try {
                     await this.cinerino.getServices();

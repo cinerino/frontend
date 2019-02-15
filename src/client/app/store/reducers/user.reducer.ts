@@ -6,10 +6,12 @@ export interface IUserState {
     isMember: boolean;
     userName?: string;
     profile?: factory.person.IProfile;
+    language: string;
 }
 
 export const userInitialState: IUserState = {
-    isMember: false
+    isMember: false,
+    language: 'ja'
 };
 
 /**
@@ -29,37 +31,41 @@ export function reducer(state: IState, action: Actions): IState {
             return { ...state, loading: false };
         }
         case ActionTypes.Create: {
-            return { ...state, loading: true, process: '会員情報を取得しています', };
+            return { ...state, loading: true, process: { ja: '会員情報を取得しています', en: 'Acquiring member information' }, };
         }
         case ActionTypes.CreateSuccess: {
             const profile = action.payload.profile;
             state.userData.profile = profile;
-            return { ...state, loading: false, process: '', error: null };
+            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
         case ActionTypes.CreateFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+        }
+        case ActionTypes.UpdateLanguage: {
+            state.userData.language = action.payload.language;
+            return { ...state };
         }
         case ActionTypes.UpdateCustomer: {
-            return { ...state, loading: true, process: '会員情報を更新しています', };
+            return { ...state, loading: true, process: { ja: '会員情報を更新しています', en: 'Updating member information' }, };
         }
         case ActionTypes.UpdateCustomerSuccess: {
             state.userData.profile = action.payload.profile;
-            return { ...state, loading: false, process: '', error: null };
+            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
         case ActionTypes.UpdateCustomerFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
         case ActionTypes.UpdatePayment: {
-            return { ...state, loading: true, process: '決済情報を更新しています', };
+            return { ...state, loading: true, process: { ja: '決済情報を更新しています', en: 'Updating settlement information' }, };
         }
         case ActionTypes.UpdatePaymentSuccess: {
-            return { ...state, loading: false, process: '', error: null };
+            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
         case ActionTypes.UpdatePaymentFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
         default: {
             return state;

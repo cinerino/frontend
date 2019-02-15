@@ -2,11 +2,13 @@
  * NgModule
  */
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
@@ -48,9 +50,15 @@ import { ScreenComponent } from './components/parts/screen/screen.component';
 import { SecurityCodeModalComponent } from './components/parts/security-code-modal/security-code-modal.component';
 import { TicketListModalComponent } from './components/parts/ticket-list-modal/ticket-list-modal.component';
 import { TransactionRemainingTimeComponent } from './components/parts/transaction-remaining-time/transaction-remaining-time.component';
+import { ChangeLanguagePipe } from './pipes/change-language.pipe';
+import { FormatDatePipe } from './pipes/format-date.pipe';
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
 import { StoreModule } from './store.module';
 import { CoreStoreModule } from './store/core/store';
+
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http, '/i18n/');
+}
 
 @NgModule({
     declarations: [
@@ -93,7 +101,9 @@ import { CoreStoreModule } from './store/core/store';
         TransactionRemainingTimeComponent,
         ExpiredComponent,
         OrderListComponent,
-        OrderDetailModalComponent
+        OrderDetailModalComponent,
+        ChangeLanguagePipe,
+        FormatDatePipe
     ],
     entryComponents: [
         TicketListModalComponent,
@@ -114,7 +124,14 @@ import { CoreStoreModule } from './store/core/store';
         SwiperModule,
         StoreModule,
         CoreStoreModule,
-        NgbModule
+        NgbModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -1,15 +1,15 @@
 <div class="p-3">
-    <div class="mb-3 p-3 bg-light-gray">購入番号 <strong class="text-info text-large">{{ order.confirmationNumber }}</strong></div>
+    <div class="mb-3 p-3 bg-light-gray">{{ 'common.confirmationNumber' | translate }} <strong class="text-info text-large">{{ order.confirmationNumber }}</strong></div>
     <ul>
         <li class="mb-3 d-flex align-items-center p-3 bg-light-gray" *ngFor="let acceptedOffer of order.acceptedOffers; let index = index">
             <div>
                 <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>
-                <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja }} / {{ getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</p>
+                <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }} / {{ getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</p>
             </div>
             <div class="ml-auto"><img class="p-2 bg-white" [src]="urlList[index] | async"></div>
         </li>
     </ul>
     <div class="buttons mx-auto">
-        <button type="button" class="btn btn-outline-primary btn-block py-3" (click)="activeModal.dismiss()">閉じる</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" (click)="activeModal.dismiss()">{{ 'common.close' | translate }}</button>
     </div>
 </div>

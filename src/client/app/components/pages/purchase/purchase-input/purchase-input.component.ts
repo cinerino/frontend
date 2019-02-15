@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
@@ -39,7 +40,8 @@ export class PurchaseInputComponent implements OnInit {
         private router: Router,
         private modal: NgbModal,
         private formBuilder: FormBuilder,
-        private util: UtilService
+        private util: UtilService,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -165,15 +167,15 @@ export class PurchaseInputComponent implements OnInit {
         }
         if (this.customerContactForm.invalid) {
             this.util.openAlert({
-                title: 'エラー',
-                body: '購入者情報に誤りがあります。'
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('purchase.input.alert.customer')
             });
             return;
         }
         if (this.amount > 0 && this.paymentForm.invalid) {
             this.util.openAlert({
-                title: 'エラー',
-                body: '決済情報に誤りがあります。'
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('purchase.input.alert.payment')
             });
             return;
         }
@@ -251,8 +253,8 @@ export class PurchaseInputComponent implements OnInit {
             ofType(ActionTypes.CreateGmoTokenObjectFail),
             tap(() => {
                 this.util.openAlert({
-                    title: 'エラー',
-                    body: 'クレジットカード情報を確認してください。'
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('purchase.input.alert.gmoToken')
                 });
             })
         );

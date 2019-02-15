@@ -50,6 +50,8 @@
     "@ng-bootstrap/ng-bootstrap": "^4.0.0",
     "@ngrx/effects": "^7.1.0",
     "@ngrx/store": "^7.1.0",
+    "@ngx-translate/core": "^11.0.1",
+    "@ngx-translate/http-loader": "^4.0.0",
     "basic-auth": "^2.0.0",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.1.3",

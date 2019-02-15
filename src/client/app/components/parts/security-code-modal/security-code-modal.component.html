@@ -1,21 +1,19 @@
 <div class="p-3 scroll-vertical">
-    <div class="mb-3 text-large">セキュリティーコードについて</div>
-    <p class="mb-3">
-        ※カード会社により表示箇所および名称が異なります
-    </p>
+    <div class="mb-3 text-large">{{ 'modal.securityCode.title' | translate }}</div>
+    <p class="mb-3">{{ 'modal.securityCode.read' | translate }}</p>
     <div class="bg-light-gray p-3 mb-3">
-        <p><strong>VISA / MASTER / DINERS / JCBの場合</strong></p>
-        <p class="mb-3">【カード裏面】セキュリティーコード(末尾3桁)</p>
+        <p><strong>{{ 'modal.securityCode.back.title' | translate }}</strong></p>
+        <p class="mb-3">{{ 'modal.securityCode.back.read' | translate }}</p>
         <div class="mb-3">
             <img src="/assets/images/credit_back.svg">
         </div>
-        <p><strong>AMEXの場合</strong></p>
-        <p class="mb-3">【カード表面】セキュリティーコード(4桁)</p>
+        <p><strong>{{ 'modal.securityCode.front.title' | translate }}</strong></p>
+        <p class="mb-3">{{ 'modal.securityCode.front.read' | translate }}</p>
         <div class="mb-3">
             <img src="/assets/images/credit_front.svg">
         </div>
     </div>
     <div class="buttons mx-auto px-3">
-        <button type="button" class="btn btn-outline-primary btn-block py-3" (click)="activeModal.dismiss()">閉じる</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" (click)="activeModal.dismiss()">{{ 'common.close' | translate }}</button>
     </div>
 </div>

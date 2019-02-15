@@ -10,6 +10,7 @@ export enum ActionTypes {
     Create = '[User] Create',
     CreateSuccess = '[User] Create Success',
     CreateFail = '[User] Create Fail',
+    UpdateLanguage = '[User] Update Language',
     UpdateCustomer = '[User] Update Customer',
     UpdateCustomerSuccess = '[User] Update Customer Success',
     UpdateCustomerFail = '[User] Update Customer Fail',
@@ -56,6 +57,14 @@ export class CreateSuccess implements Action {
 export class CreateFail implements Action {
     public readonly type = ActionTypes.CreateFail;
     constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * UpdateLanguage
+ */
+export class UpdateLanguage implements Action {
+    public readonly type = ActionTypes.UpdateLanguage;
+    constructor(public payload: { language: string }) { }
 }
 
 /**
@@ -116,6 +125,7 @@ export type Actions =
     | Create
     | CreateSuccess
     | CreateFail
+    | UpdateLanguage
     | UpdateCustomer
     | UpdateCustomerSuccess
     | UpdateCustomerFail

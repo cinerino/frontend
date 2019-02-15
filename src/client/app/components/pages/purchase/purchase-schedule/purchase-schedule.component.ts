@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { SERVICE_UNAVAILABLE, TOO_MANY_REQUESTS } from 'http-status';
-import * as moment from 'moment';
+import moment from 'moment';
 import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
@@ -209,14 +209,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
             ofType(masterAction.ActionTypes.GetScheduleSuccess),
             tap(() => {
                 this.master.subscribe((master) => {
-                    let screeningEvents = master.screeningEvents;
-                    if (this.isPreSchedule) {
-                        // TODO 本来いらないはず
-                        screeningEvents = master.screeningEvents.filter((screeningEvent) => {
-                            return (moment(screeningEvent.offers.validFrom).unix() < moment().unix()
-                                && moment(screeningEvent.offers.validThrough).unix() > moment().unix());
-                        });
-                    }
+                    const screeningEvents = master.screeningEvents;
                     this.screeningFilmEvents = screeningEventsToFilmEvents({ screeningEvents });
                     this.update();
                 }).unsubscribe();

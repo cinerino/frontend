@@ -4,6 +4,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { IReservationTicket, Reservation } from '../../../../models/purchase/reservation';
@@ -30,7 +31,8 @@ export class PurchaseTicketComponent implements OnInit {
         private actions: Actions,
         private router: Router,
         private modal: NgbModal,
-        private util: UtilService
+        private util: UtilService,
+        private translate: TranslateService
     ) { }
 
     public ngOnInit() {
@@ -55,8 +57,8 @@ export class PurchaseTicketComponent implements OnInit {
             });
             if (unselectedReservations.length > 0) {
                 this.util.openAlert({
-                    title: 'エラー',
-                    body: '券種が未選択です。'
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('purchase.tiket.alert.unselected')
                 });
                 return;
             }
@@ -79,8 +81,8 @@ export class PurchaseTicketComponent implements OnInit {
             });
             if (validResult.length > 0) {
                 this.util.openAlert({
-                    title: 'エラー',
-                    body: '割引券の適用条件を再度ご確認ください。'
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('purchase.tiket.alert.ticketCondition')
                 });
                 return;
             }

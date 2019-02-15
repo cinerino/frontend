@@ -1,5 +1,5 @@
 import { factory } from '@cinerino/api-javascript-client';
-import * as moment from 'moment';
+import moment from 'moment';
 import { environment } from '../../environments/environment';
 import { IMovieTicket } from '../models';
 
@@ -156,7 +156,7 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
             (<any>authorizeSeatReservation.result.responseBody).object.reservations);
 
     pendingReservations.forEach((pendingReservation) => {
-        if (pendingReservation.price === undefined) {
+        if (typeof pendingReservation.price === 'number') {
             return;
         }
         const findMovieTicketTypeChargeSpecification =
@@ -270,43 +270,43 @@ export function getTicketPrice(ticket: factory.chevre.event.screeningEvent.ITick
 /**
  * ムビチケ認証購入管理番号無効事由区分変換
  */
-export function movieTicketAuthErroCodeToMessage(code?: string) {
+export function movieTicketAuthErroCodeToMessage(code?: string): { ja: string; en: string; } {
     switch (code) {
         case '01': {
-            return '存在無';
+            return { ja: '存在無', en: 'no existence' };
         }
         case '02': {
-            return 'PINｺｰﾄﾞ必須';
+            return { ja: 'PINｺｰﾄﾞ必須', en: 'PIN code required' };
         }
         case '03': {
-            return 'PINｺｰﾄﾞ認証ｴﾗｰ';
+            return { ja: 'PINｺｰﾄﾞ認証ｴﾗｰ', en: 'PIN code authentication error' };
         }
         case '04': {
-            return '作品不一致';
+            return { ja: '作品不一致', en: 'Work disagreement' };
         }
         case '05': {
-            return '未ｱｸﾃｨﾍﾞｰﾄ';
+            return { ja: '未ｱｸﾃｨﾍﾞｰﾄ', en: 'unactivated' };
         }
         case '06': {
-            return '選択興行対象外';
+            return { ja: '選択興行対象外', en: 'Not eligible for selection box' };
         }
         case '07': {
-            return '有効期限切れ';
+            return { ja: '有効期限切れ', en: 'expired' };
         }
         case '08': {
-            return '座席予約期間外';
+            return { ja: '座席予約期間外', en: 'outside the seat reservation period' };
         }
         case '09': {
-            return 'その他';
+            return { ja: 'その他', en: 'other' };
         }
         case '11': {
-            return '座席予約開始前';
+            return { ja: '座席予約開始前', en: 'Before starting seat reservation' };
         }
         case '12': {
-            return '仮お直り購入番号数不一致';
+            return { ja: '仮お直り購入番号数不一致', en: 'temporary redemption purchase number mismatch' };
         }
         default: {
-            return 'その他';
+            return { ja: 'その他', en: 'other' };
         }
     }
 }
@@ -336,12 +336,16 @@ export function orderToEventOrders(params: {
     const results: IEventOrder[] = [];
     const order = params.order;
     order.acceptedOffers.forEach((acceptedOffer) => {
+        const itemOffered = acceptedOffer.itemOffered;
+        if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+            return;
+        }
         const registered = results.find((result) => {
-            return (result.event.id === acceptedOffer.itemOffered.reservationFor.id);
+            return (result.event.id === itemOffered.reservationFor.id);
         });
         if (registered === undefined) {
             results.push({
-                event: acceptedOffer.itemOffered.reservationFor,
+                event: itemOffered.reservationFor,
                 data: [acceptedOffer]
             });
         } else {

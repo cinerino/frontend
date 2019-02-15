@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
-import * as moment from 'moment';
+import moment from 'moment';
 import { IScreeningEventFilm } from '../../../functions';
 
 @Component({
