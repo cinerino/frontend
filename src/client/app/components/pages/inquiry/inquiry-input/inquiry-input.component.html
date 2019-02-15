@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="form-group mb-0">
-                    <label class="mb-2" for="">電話番号</label>
+                    <label class="mb-2" for="">{{ 'common.telephone' | translate }}</label>
                     <input type="tel" class="form-control" formControlName="telephone" id="telephone" placeholder="0362778824">
                     <div *ngIf="inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched" class="mt-2">
                         <p *ngIf="inquiryForm.controls.telephone.errors.required" class="text-danger">{{ 'form.validation.required' | translate }}</p>
@@ -35,8 +35,8 @@
     </div>
 
     <div class="buttons mx-auto px-3">
-        <button type="button" class="btn btn-primary btn-block py-3" (click)="onSubmit()">照会</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/purchase/schedule">TOPへ戻る</button>
+        <button type="button" class="btn btn-primary btn-block py-3" (click)="onSubmit()">{{ 'inquiry.input.next' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/purchase/schedule">{{ 'inquiry.input.prev' | translate }}</button>
     </div>
 
 </div>
