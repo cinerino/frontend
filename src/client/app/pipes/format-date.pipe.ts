@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import moment from 'moment';
+import * as moment from 'moment';
 
 @Pipe({
     name: 'formatDate',

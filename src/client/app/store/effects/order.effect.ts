@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import moment from 'moment';
+import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { formatTelephone } from '../../functions';
 import { CinerinoService } from '../../services';

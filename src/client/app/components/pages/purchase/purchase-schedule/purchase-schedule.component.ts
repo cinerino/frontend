@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { SERVICE_UNAVAILABLE, TOO_MANY_REQUESTS } from 'http-status';
-import moment from 'moment';
+import * as moment from 'moment';
 import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';

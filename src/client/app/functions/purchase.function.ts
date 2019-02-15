@@ -1,5 +1,5 @@
 import { factory } from '@cinerino/api-javascript-client';
-import moment from 'moment';
+import * as moment from 'moment';
 import { environment } from '../../environments/environment';
 import { IMovieTicket } from '../models';
 
@@ -221,12 +221,12 @@ export function createPaymentMethodFromType(args: {
     }
 }
 
-type IItemOffered = factory.chevre.reservation.event.IReservation<factory.chevre.event.screeningEvent.IEvent>;
-
 /**
  * 券種金額取得
  */
-export function getTicketPrice(ticket: factory.chevre.event.screeningEvent.ITicketOffer | factory.order.IAcceptedOffer<IItemOffered>) {
+export function getTicketPrice(
+    ticket: factory.chevre.event.screeningEvent.ITicketOffer | factory.order.IAcceptedOffer<factory.order.IItemOffered>
+) {
     const result = {
         unitPriceSpecification: 0,
         videoFormatCharge: 0,

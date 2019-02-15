@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import moment from 'moment';
+import * as moment from 'moment';
 import * as reducers from '../../../store/reducers';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import moment from 'moment';
+import * as moment from 'moment';
 import { environment } from '../../../../environments/environment';
 
 @Component({
