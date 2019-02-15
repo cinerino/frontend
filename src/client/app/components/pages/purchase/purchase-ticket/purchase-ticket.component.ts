@@ -58,7 +58,7 @@ export class PurchaseTicketComponent implements OnInit {
             if (unselectedReservations.length > 0) {
                 this.util.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.tiket.alert.unselected')
+                    body: this.translate.instant('purchase.ticket.alert.unselected')
                 });
                 return;
             }
@@ -82,7 +82,7 @@ export class PurchaseTicketComponent implements OnInit {
             if (validResult.length > 0) {
                 this.util.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.tiket.alert.ticketCondition')
+                    body: this.translate.instant('purchase.ticket.alert.ticketCondition')
                 });
                 return;
             }

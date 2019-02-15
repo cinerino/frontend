@@ -1,11 +1,11 @@
 <div class="contents-width mx-auto px-3 py-5">
 
-    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.tiket.title' | translate }}</h2>
-    <p class="mb-4">{{ 'purchase.tiket.read' | translate }}</p>
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.ticket.title' | translate }}</h2>
+    <p class="mb-4">{{ 'purchase.ticket.read' | translate }}</p>
 
     <div *ngIf="(purchase | async).isUsedMovieTicket" class="mb-4">
         <div class="bg-light-gray p-3 d-md-flex align-items-center movieticket">
-            <p class="mb-2 mb-md-0">{{ 'purchase.tiket.mvtk' | translate }}</p>
+            <p class="mb-2 mb-md-0">{{ 'purchase.ticket.mvtk' | translate }}</p>
             <div>
                 <button type="button" (click)="openMovieTicket()"
                     class="btn btn-block bg-white border border-gray py-3">

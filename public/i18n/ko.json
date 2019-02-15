@@ -32,7 +32,7 @@
                 "unselected": "좌석 지정되지 않았습니다."
             }
         },
-        "tiket": {
+        "ticket": {
             "title": "권종 선택",
             "read": "권종을 선택하십시오.",
             "unselected": "권종을 선택하십시오",

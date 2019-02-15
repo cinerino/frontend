@@ -32,7 +32,7 @@
                 "unselected": "Seats are not selected."
             }
         },
-        "tiket": {
+        "ticket": {
             "title": "Select banknote type",
             "read": "Please select a note type",
             "unselected": "Please select a note type",

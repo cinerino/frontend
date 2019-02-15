@@ -32,7 +32,7 @@
                 "unselected": "座席が未選択です。"
             }
         },
-        "tiket": {
+        "ticket": {
             "title": "券種選択",
             "read": "券種を選択してください。",
             "unselected": "券種を選択してください",
