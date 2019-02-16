@@ -114,7 +114,7 @@
         }
     },
     "order": {
-        "orderList": {
+        "list": {
             "title": "注文検索",
             "read": "検索してください。",
             "next": "",

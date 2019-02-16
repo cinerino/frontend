@@ -114,7 +114,7 @@
         }
     },
     "order": {
-        "orderList": {
+        "list": {
             "title": "Order Search",
             "read": "Please search",
             "next": "",

@@ -114,7 +114,7 @@
         }
     },
     "order": {
-        "orderList": {
+        "list": {
             "title": "주문 조회",
             "read": "검색하십시오.",
             "next": "",

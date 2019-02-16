@@ -145,7 +145,7 @@ export class OrderListComponent implements OnInit {
     public cancelConfirm(orders: factory.order.IOrder[]) {
         this.util.openConfirm({
             title: this.translate.instant('common.confirm'),
-            body: this.translate.instant('order.orderList.confirm.cancel'),
+            body: this.translate.instant('order.list.confirm.cancel'),
             cb: () => {
                 this.cancel(orders);
             }
@@ -180,7 +180,7 @@ export class OrderListComponent implements OnInit {
                     this.util.openAlert({
                         title: this.translate.instant('common.error'),
                         body: `
-                        <p class="mb-4">${this.translate.instant('order.orderList.alert.cancel')}</p>
+                        <p class="mb-4">${this.translate.instant('order.list.alert.cancel')}</p>
                             <div class="p-3 bg-light-gray select-text">
                             <code>${error}</code>
                         </div>`
@@ -199,13 +199,13 @@ export class OrderListComponent implements OnInit {
         if (this.selectedOrders.length === 0) {
             this.util.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('order.orderList.alert.unselected')
+                body: this.translate.instant('order.list.alert.unselected')
             });
         }
         if (this.actionSelect === OrderActions.Cancel) {
             this.util.openConfirm({
                 title: this.translate.instant('common.confirm'),
-                body: this.translate.instant('order.orderList.confirm.cancel'),
+                body: this.translate.instant('order.list.confirm.cancel'),
                 cb: () => {
                     this.cancel(this.selectedOrders);
                 }
@@ -247,7 +247,7 @@ export class OrderListComponent implements OnInit {
             tap(() => {
                 this.util.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('order.orderList.alert.authorize')
+                    body: this.translate.instant('order.list.alert.authorize')
                 });
             })
         );

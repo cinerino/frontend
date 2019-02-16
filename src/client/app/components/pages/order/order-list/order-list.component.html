@@ -1,16 +1,16 @@
 <div class="contents-width mx-auto px-3 py-5">
-    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'order.orderList.title' | translate }}</h2>
-    <p class="mb-4">{{ 'order.orderList.read' | translate }}</p>
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'order.list.title' | translate }}</h2>
+    <p class="mb-4">{{ 'order.list.read' | translate }}</p>
     <div class="conditions p-3 bg-light-gray mb-4">
         <form (submit)="orderSearch(1)">
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="orderDateFrom" class="mb-2">{{ 'order.orderList.conditions.orderDateFrom' | translate }}</label>
+                    <label for="orderDateFrom" class="mb-2">{{ 'order.list.conditions.orderDateFrom' | translate }}</label>
                     <input type="date" class="form-control" name="orderDateFrom" id="orderDateFrom" [(ngModel)]="conditions.orderDateFrom"
                         placeholder="{{ moment().format('YYYY-MM-DD') }}">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="orderDateThrough" class="mb-2">{{ 'order.orderList.conditions.orderDateThrough' | translate }}</label>
+                    <label for="orderDateThrough" class="mb-2">{{ 'order.list.conditions.orderDateThrough' | translate }}</label>
                     <input type="date" class="form-control" name="orderDateThrough" id="orderDateThrough" [(ngModel)]="conditions.orderDateThrough"
                         placeholder="{{ moment().format('YYYY-MM-DD') }}">
                 </div>
@@ -57,22 +57,22 @@
                     <label for="orderStatus" class="mb-2">{{ 'common.orderStatus' | translate }}</label>
                     <select class="form-control" name="orderStatus" id="orderStatus" [(ngModel)]="conditions.orderStatuses">
                         <option [value]="''">{{ 'common.all' | translate }}</option>
-                        <!-- <option [value]="orderStatus.OrderCancelled">{{ 'order.orderList.orderStatus.orderCancelled' | translate }}</option> -->
-                        <option [value]="orderStatus.OrderDelivered">{{ 'order.orderList.orderStatus.orderDelivered' | translate }}</option>
-                        <!-- <option [value]="orderStatus.OrderPaymentDue">{{ 'order.orderList.orderStatus.orderPaymentDue' | translate }}</option> -->
-                        <!-- <option [value]="orderStatus.OrderPickupAvailable">{{ 'order.orderList.orderStatus.orderPickupAvailable' | translate }}</option> -->
-                        <!-- <option [value]="orderStatus.OrderProblem">{{ 'order.orderList.orderStatus.orderProblem' | translate }}</option> -->
-                        <option [value]="orderStatus.OrderProcessing">{{ 'order.orderList.orderStatus.orderProcessing' | translate }}</option>
-                        <option [value]="orderStatus.OrderReturned">{{ 'order.orderList.orderStatus.orderReturned' | translate }}</option>
+                        <!-- <option [value]="orderStatus.OrderCancelled">{{ 'order.list.orderStatus.orderCancelled' | translate }}</option> -->
+                        <option [value]="orderStatus.OrderDelivered">{{ 'order.list.orderStatus.orderDelivered' | translate }}</option>
+                        <!-- <option [value]="orderStatus.OrderPaymentDue">{{ 'order.list.orderStatus.orderPaymentDue' | translate }}</option> -->
+                        <!-- <option [value]="orderStatus.OrderPickupAvailable">{{ 'order.list.orderStatus.orderPickupAvailable' | translate }}</option> -->
+                        <!-- <option [value]="orderStatus.OrderProblem">{{ 'order.list.orderStatus.orderProblem' | translate }}</option> -->
+                        <option [value]="orderStatus.OrderProcessing">{{ 'order.list.orderStatus.orderProcessing' | translate }}</option>
+                        <option [value]="orderStatus.OrderReturned">{{ 'order.list.orderStatus.orderReturned' | translate }}</option>
                     </select>
                 </div>
             </div>
             <div class="buttons mx-auto">
-                <button type="submit" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async">{{ 'order.orderList.search' | translate }}</button>
+                <button type="submit" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async">{{ 'order.list.search' | translate }}</button>
             </div>
         </form>
     </div>
-    <p *ngIf="(order | async).orders.length === 0">{{ 'order.orderList.notfound' | translate }}</p>
+    <p *ngIf="(order | async).orders.length === 0">{{ 'order.list.notfound' | translate }}</p>
 
     <div *ngIf="(order | async).orders.length > 0">
         <div class="d-md-flex align-items-center justify-content-between mb-4">
@@ -84,10 +84,10 @@
             <div class="form-group text-center text-md-left mb-3 mb-md-0 order-1">
                 <select class="form-control d-inline-block w-auto mr-2" name="actionSelect" id="actionSelect"
                     [(ngModel)]="actionSelect">
-                    <option value="">{{ 'order.orderList.unselected' | translate }}</option>
-                    <option [value]="OrderActions.Cancel">{{ 'order.orderList.cancel' | translate }}</option>
+                    <option value="">{{ 'order.list.unselected' | translate }}</option>
+                    <option [value]="OrderActions.Cancel">{{ 'order.list.cancel' | translate }}</option>
                 </select>
-                <button type="button" class="btn btn-primary py-2 px-4" (click)="selecedtAction()">{{ 'order.orderList.apply' | translate }}</button>
+                <button type="button" class="btn btn-primary py-2 px-4" (click)="selecedtAction()">{{ 'order.list.apply' | translate }}</button>
             </div>
         </div>
 
