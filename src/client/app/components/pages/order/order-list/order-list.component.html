@@ -2,7 +2,7 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'order.list.title' | translate }}</h2>
     <p class="mb-4">{{ 'order.list.read' | translate }}</p>
     <div class="conditions p-3 bg-light-gray mb-4">
-        <form (submit)="orderSearch(1)">
+        <form (submit)="orderSearch(true)">
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="orderDateFrom" class="mb-2">{{ 'order.list.conditions.orderDateFrom' | translate }}</label>
@@ -77,8 +77,8 @@
     <div *ngIf="(order | async).orders.length > 0">
         <div class="d-md-flex align-items-center justify-content-between mb-4">
             <div class="text-md-right text-center mb-3 mb-md-0 order-2">
-                <ngb-pagination class="d-inline-block" [collectionSize]="(order | async).pageCount * 10" [maxSize]="3"
-                    [boundaryLinks]="false" (pageChange)="orderSearch($event)"></ngb-pagination>
+                <ngb-pagination class="d-inline-block" [(page)]="confirmedConditions.page" [collectionSize]="(order | async).pageCount * 10" [maxSize]="3"
+                    [boundaryLinks]="false" (pageChange)="orderSearch(false)"></ngb-pagination>
             </div>
 
             <div class="form-group text-center text-md-left mb-3 mb-md-0 order-1">
@@ -138,8 +138,8 @@
                         </td> -->
                         <td class="align-middle">
                             <button class="btn btn-primary mr-2" (click)="openDetail(order)"><i class="fas fa-search-plus"></i></button>
-                            <button *ngIf="order.orderStatus === orderStatus.OrderDelivered" class="btn btn-primary mr-2" (click)="openQrCode(order)"><i class="fas fa-qrcode"></i></button>
-                            <button *ngIf="order.orderStatus !== orderStatus.OrderReturned" class="btn btn-danger" (click)="cancelConfirm([order])"><i class="fas fa-trash-alt"></i></button>
+                            <button [disabled]="order.orderStatus !== orderStatus.OrderDelivered" class="btn btn-primary mr-2" (click)="openQrCode(order)"><i class="fas fa-qrcode"></i></button>
+                            <button [disabled]="order.orderStatus === orderStatus.OrderReturned" class="btn btn-danger" (click)="cancelConfirm([order])"><i class="fas fa-trash-alt"></i></button>
                         </td>
                     </tr>
                 </tbody>

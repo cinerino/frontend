@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
@@ -67,6 +68,30 @@ export class OrderEffects {
                     });
                     await this.cinerino.transaction.returnOrder.confirm({ id: startResult.id });
                 }
+
+                const orderStatusWatch = () => {
+                    return new Promise<void>((resolve, reject) => {
+                        const interval = 5000;
+                        let intervalCount = 0;
+                        const limit = 10;
+                        const timer = setInterval(async () => {
+                            const searchResult = await this.cinerino.order.search({
+                                orderNumbers: orders.map(o => o.orderNumber)
+                            });
+                            const filterResult = searchResult.data.filter(o => o.orderStatus !== factory.orderStatus.OrderReturned);
+                            if (filterResult.length === 0) {
+                                clearInterval(timer);
+                                return resolve();
+                            }
+                            if (intervalCount > limit) {
+                                clearInterval(timer);
+                                return reject({error: 'timeout'});
+                            }
+                            intervalCount++;
+                        }, interval);
+                    });
+                };
+                await orderStatusWatch();
 
                 return new orderAction.CancelSuccess();
             } catch (error) {

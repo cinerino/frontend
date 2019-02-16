@@ -41,6 +41,20 @@ export class OrderListComponent implements OnInit {
         },
         orderStatuses: '' | factory.orderStatus;
     };
+    public confirmedConditions: {
+        movieTheaterId: string;
+        orderDateFrom: string;
+        orderDateThrough: string;
+        confirmationNumber: string;
+        customer: {
+            familyName: string;
+            givenName: string;
+            email: string;
+            telephone: string;
+        },
+        orderStatuses: '' | factory.orderStatus;
+        page: number;
+    };
     public selectedOrders: factory.order.IOrder[];
     public OrderActions: typeof OrderActions = OrderActions;
     public actionSelect: OrderActions | '';
@@ -92,33 +106,49 @@ export class OrderListComponent implements OnInit {
         this.selectedOrders.splice(findIndex, 1);
     }
 
-    public orderSearch(page: number) {
+    public orderSearch(changeConditions: boolean) {
         this.selectedOrders = [];
+        if (changeConditions) {
+            this.confirmedConditions = {
+                movieTheaterId: this.conditions.movieTheaterId,
+                orderDateFrom: this.conditions.orderDateFrom,
+                orderDateThrough: this.conditions.orderDateThrough,
+                confirmationNumber: this.conditions.confirmationNumber,
+                customer: {
+                    familyName: this.conditions.customer.familyName,
+                    givenName: this.conditions.customer.givenName,
+                    email: this.conditions.customer.email,
+                    telephone: this.conditions.customer.telephone
+                },
+                orderStatuses: this.conditions.orderStatuses,
+                page: 1
+            };
+        }
         const params = {
             seller: {
-                ids: (this.conditions.movieTheaterId === '')
-                    ? undefined : [this.conditions.movieTheaterId]
+                ids: (this.confirmedConditions.movieTheaterId === '')
+                    ? undefined : [this.confirmedConditions.movieTheaterId]
             },
             customer: {
-                email: (this.conditions.customer.email === '')
-                    ? undefined : this.conditions.customer.email,
-                telephone: (this.conditions.customer.telephone === '')
-                    ? undefined : this.conditions.customer.telephone,
-                familyName: (this.conditions.customer.familyName === '')
-                    ? undefined : this.conditions.customer.familyName,
-                givenName: (this.conditions.customer.givenName === '')
-                    ? undefined : this.conditions.customer.givenName,
+                email: (this.confirmedConditions.customer.email === '')
+                    ? undefined : this.confirmedConditions.customer.email,
+                telephone: (this.confirmedConditions.customer.telephone === '')
+                    ? undefined : this.confirmedConditions.customer.telephone,
+                familyName: (this.confirmedConditions.customer.familyName === '')
+                    ? undefined : this.confirmedConditions.customer.familyName,
+                givenName: (this.confirmedConditions.customer.givenName === '')
+                    ? undefined : this.confirmedConditions.customer.givenName,
             },
-            orderStatuses: (this.conditions.orderStatuses === '')
-                ? undefined : [this.conditions.orderStatuses],
-            orderDateFrom: (this.conditions.orderDateFrom === '')
-                ? moment('1970-01-01').toDate() : moment(this.conditions.orderDateFrom).toDate(),
-            orderDateThrough: (this.conditions.orderDateThrough === '')
-                ? moment().add(1, 'day').toDate() : moment(this.conditions.orderDateThrough).add(1, 'day').toDate(),
-            confirmationNumbers: (this.conditions.confirmationNumber === '')
-                ? undefined : [this.conditions.confirmationNumber],
+            orderStatuses: (this.confirmedConditions.orderStatuses === '')
+                ? undefined : [this.confirmedConditions.orderStatuses],
+            orderDateFrom: (this.confirmedConditions.orderDateFrom === '')
+                ? moment('1970-01-01').toDate() : moment(this.confirmedConditions.orderDateFrom).toDate(),
+            orderDateThrough: (this.confirmedConditions.orderDateThrough === '')
+                ? moment().add(1, 'day').toDate() : moment(this.confirmedConditions.orderDateThrough).add(1, 'day').toDate(),
+            confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
+                ? undefined : [this.confirmedConditions.confirmationNumber],
             limit: this.limit,
-            page,
+            page: this.confirmedConditions.page,
             sort: {
                 orderDate: factory.sortType.Descending
             }

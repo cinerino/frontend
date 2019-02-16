@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { factory } from '@cinerino/api-javascript-client';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
@@ -24,6 +25,8 @@ export class InquiryConfirmComponent implements OnInit {
     public getTicketPrice = getTicketPrice;
     public eventOrders: IEventOrder[];
     public error: Observable<string | null>;
+    public orderStatus: typeof factory.orderStatus = factory.orderStatus;
+
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
