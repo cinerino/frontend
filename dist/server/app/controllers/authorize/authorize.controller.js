@@ -42,7 +42,8 @@ function getCredentials(req, res) {
             res.json({
                 accessToken: accessToken,
                 userName: userName,
-                clientId: options.auth.options.clientId
+                clientId: options.auth.options.clientId,
+                endpoint: process.env.API_ENDPOINT
             });
         }
         catch (err) {

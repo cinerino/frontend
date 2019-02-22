@@ -31,7 +31,8 @@ export async function getCredentials(req: Request, res: Response) {
         res.json({
             accessToken: accessToken,
             userName: userName,
-            clientId: options.auth.options.clientId
+            clientId: options.auth.options.clientId,
+            endpoint: (<string>process.env.API_ENDPOINT)
         });
     } catch (err) {
         errorProsess(res, err);

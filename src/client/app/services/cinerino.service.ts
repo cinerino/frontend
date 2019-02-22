@@ -20,6 +20,7 @@ export class CinerinoService {
         placeOrder: cinerino.service.transaction.PlaceOrder,
         returnOrder: cinerino.service.transaction.ReturnOrder
     };
+    private endpoint: string;
 
     constructor(
         private http: HttpClient
@@ -55,7 +56,7 @@ export class CinerinoService {
     public async createOption() {
         await this.authorize();
         return {
-            endpoint: environment.API_ENDPOINT,
+            endpoint: this.endpoint,
             auth: this.auth
         };
     }
@@ -66,22 +67,19 @@ export class CinerinoService {
     public async authorize() {
         const url = '/api/authorize/getCredentials';
         const body = { member: '0' };
-        try {
-            const data = sessionStorage.getItem('state');
-            if (data === null) {
-                throw new Error('state is null');
-            }
-            const state = JSON.parse(data);
-            if (state.App && state.App.userData.isMember) {
-                body.member = '1';
-            }
-        } catch (error) {
-
+        const data = sessionStorage.getItem('state');
+        if (data === null) {
+            throw new Error('state is null');
+        }
+        const state = JSON.parse(data);
+        if (state.App && state.App.userData.isMember) {
+            body.member = '1';
         }
         const result = await this.http.post<{
             accessToken: string;
             userName: string;
             clientId: string;
+            endpoint: string;
         }>(url, body).toPromise();
         const option = {
             domain: '',
@@ -96,6 +94,7 @@ export class CinerinoService {
         };
         this.auth = cinerino.createAuthInstance(option);
         this.auth.setCredentials({ accessToken: result.accessToken });
+        this.endpoint = result.endpoint;
     }
 
     /**
