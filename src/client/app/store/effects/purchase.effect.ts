@@ -159,7 +159,10 @@ export class PurchaseEffects {
                     },
                     purpose: transaction
                 });
-                return new purchase.TemporaryReservationSuccess({ authorizeSeatReservation });
+                return new purchase.TemporaryReservationSuccess({
+                    addAuthorizeSeatReservation: authorizeSeatReservation,
+                    removeAuthorizeSeatReservation: payload.authorizeSeatReservation
+                });
             } catch (error) {
                 return new purchase.TemporaryReservationFail({ error: error });
             }
@@ -171,17 +174,19 @@ export class PurchaseEffects {
      */
     @Effect()
     public cancelTemporaryReservation = this.actions.pipe(
-        ofType<purchase.CancelTemporaryReservation>(purchase.ActionTypes.CancelTemporaryReservation),
+        ofType<purchase.CancelTemporaryReservations>(purchase.ActionTypes.CancelTemporaryReservations),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                const authorizeSeatReservation = payload.authorizeSeatReservation;
+                const authorizeSeatReservations = payload.authorizeSeatReservations;
                 await this.cinerino.getServices();
-                await this.cinerino.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation);
+                for (const authorizeSeatReservation of authorizeSeatReservations) {
+                    await this.cinerino.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation);
+                }
 
-                return new purchase.CancelTemporaryReservationSuccess({ authorizeSeatReservation });
+                return new purchase.CancelTemporaryReservationsSuccess({ authorizeSeatReservations });
             } catch (error) {
-                return new purchase.CancelTemporaryReservationFail({ error: error });
+                return new purchase.CancelTemporaryReservationsFail({ error: error });
             }
         })
     );

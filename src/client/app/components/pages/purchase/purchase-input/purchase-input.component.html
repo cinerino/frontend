@@ -128,7 +128,8 @@
                             {{ 'form.validation.required' | translate }}</p>
                     </div>
                     <p class="mt-2 text-small"><span class="pointer" (click)="openSecurityCode()"><i
-                                class="far fa-question-circle mr-1"></i>{{ 'purchase.input.securityCode' | translate }}</span></p>
+                                class="far fa-question-circle mr-1"></i>{{ 'purchase.input.securityCode' | translate }}</span>
+                    </p>
                 </div>
                 <div class="form-group mb-0">
                     <label class="mb-2" for="">{{ 'common.credit.holderName' | translate }}</label>
@@ -147,9 +148,10 @@
     <div class="buttons mx-auto px-3">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="onSubmit()">{{ 'purchase.input.next' | translate }}</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
+        <button *ngIf="(user | async).limitedPurchaseCount > 1" type="button" class="btn btn-outline-primary btn-block py-3"
             routerLink="/purchase/cart">{{ 'purchase.input.prev' | translate }}</button>
-        <!-- <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/purchase/ticket">券種選択へ戻る</button> -->
+        <button *ngIf="(user | async).limitedPurchaseCount === 1" type="button" class="btn btn-outline-primary btn-block py-3"
+            routerLink="/purchase/ticket">{{ 'purchase.input.prev' | translate }}</button>
     </div>
 
 </div>

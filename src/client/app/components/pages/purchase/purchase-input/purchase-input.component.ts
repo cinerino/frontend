@@ -33,6 +33,7 @@ export class PurchaseInputComponent implements OnInit {
         month: string[];
     };
     public amount: number;
+    public environment = environment;
 
     constructor(
         private store: Store<reducers.IState>,

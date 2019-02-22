@@ -1,3 +1,5 @@
+import { ViewType } from '../app/models';
+
 /**
  * 環境変数local
  */
@@ -10,6 +12,10 @@ export const environment = {
 
     ENTRANCE_SERVER_URL: '',
     WAITER_SERVER_URL: 'https://waiter-development.appspot.com',
+
+    LIMITED_PURCHASE_COUNT: '1',
+
+    VIEW_TYPE: ViewType.Cinema,
 
     ANALYTICS_ID: '',
 

@@ -94,7 +94,7 @@ export function createGmoTokenObject(params: {
             }
         };
         const Multipayment = (<any>window).Multipayment;
-        Multipayment.init((<any>findPaymentAcceptedResult).gmoInfo.shopId);
+        Multipayment.init((<factory.seller.ICreditCardPaymentAccepted>findPaymentAcceptedResult).gmoInfo.shopId);
         Multipayment.getToken(params.creditCard, (<any>window).someCallbackFunction);
     });
 }

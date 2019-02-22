@@ -178,10 +178,22 @@
         "prev": "back"
     },
     "setting": {
-        "title": "Enter purchaser information",
-        "read": "Please enter purchaser information",
-        "next": "Change Buyer Information",
+        "title": "Setting",
+        "read": "Settings can be changed.",
+        "next": "",
         "prev": "back",
+        "customer": {
+            "title": "Buyer information setting",
+            "read": "Please change purchaser information",
+            "next": "Change purchaser information"
+        },
+        "base": {
+            "title": "Basic setting",
+            "read": "Please change the basic settings",
+            "next": "Change basic settings",
+            "limitedPurchaseCount": "Cart limit number",
+            "viewType": "display"
+        },
         "alert": {
             "customer": "There is an error in purchaser information",
             "payment": "There is an error in the settlement information."

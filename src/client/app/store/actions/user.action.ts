@@ -1,5 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
+import { ViewType } from '../../models';
 
 /**
  * Action types
@@ -17,6 +18,7 @@ export enum ActionTypes {
     UpdatePayment = '[User] Update Payment',
     UpdatePaymentSuccess = '[User] Update Payment Success',
     UpdatePaymentFail = '[User] Update Payment Fail',
+    UpdateBaseSetting = '[User] Update Base Setting'
 }
 
 /**
@@ -65,6 +67,14 @@ export class CreateFail implements Action {
 export class UpdateLanguage implements Action {
     public readonly type = ActionTypes.UpdateLanguage;
     constructor(public payload: { language: string }) { }
+}
+
+/**
+ * UpdateBaseSetting
+ */
+export class UpdateBaseSetting implements Action {
+    public readonly type = ActionTypes.UpdateBaseSetting;
+    constructor(public payload: { limitedPurchaseCount: number, viewType: ViewType }) { }
 }
 
 /**
@@ -131,4 +141,5 @@ export type Actions =
     | UpdateCustomerFail
     | UpdatePayment
     | UpdatePaymentSuccess
-    | UpdatePaymentFail;
+    | UpdatePaymentFail
+    | UpdateBaseSetting;

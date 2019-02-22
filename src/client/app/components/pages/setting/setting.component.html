@@ -1,9 +1,53 @@
 <div class="contents-width mx-auto px-3 py-5">
-    <div class="mb-4">
-        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'setting.title' | translate }}</h2>
-        <p class="mb-4">{{ 'setting.read' | translate }}</p>
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'setting.title' | translate }}</h2>
+    <p class="mb-4">{{ 'setting.read' | translate }}</p>
 
-        <div class="p-3 bg-light-gray">
+    <div class="mb-4 p-3 bg-light-gray">
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'setting.base.title' | translate }}</h2>
+        <p class="mb-4">{{ 'setting.base.read' | translate }}</p>
+
+        <div class="mb-4">
+            <form [formGroup]="baseForm">
+                <div class="form-group">
+                    <label class="mb-2" for="">{{ 'setting.base.limitedPurchaseCount' | translate }}</label>
+                    <input type="text" class="form-control" formControlName="limitedPurchaseCount"
+                        id="limitedPurchaseCount" placeholder="">
+                    <div *ngIf="baseForm.controls.limitedPurchaseCount.invalid && baseForm.controls.limitedPurchaseCount.touched"
+                        class="mt-2">
+                        <p *ngIf="baseForm.controls.limitedPurchaseCount.errors.required" class="text-danger">
+                            {{ 'form.validation.required' | translate }}
+                        </p>
+                        <p *ngIf="baseForm.controls.limitedPurchaseCount.errors.pattern" class="text-danger">
+                            {{ 'form.validation.number' | translate }}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="mb-2" for="">{{ 'setting.base.viewType' | translate }}</label>
+                    <select class="form-control" id="viewType" formControlName="viewType">
+                        <option [value]="ViewType.Cinema">{{ ViewType.Cinema }}</option>
+                        <option [value]="ViewType.Event">{{ ViewType.Event }}</option>
+                    </select>
+                    <div *ngIf="baseForm.controls.viewType.invalid && baseForm.controls.viewType.touched" class="mt-2">
+                        <p *ngIf="baseForm.controls.viewType.errors.required" class="text-danger">
+                            {{ 'form.validation.required' | translate }}
+                        </p>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="buttons mx-auto">
+            <button type="button" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async"
+                (click)="updateBase()">{{ 'setting.base.next' | translate }}</button>
+        </div>
+    </div>
+
+    <div *ngIf="(user | async).isMember" class="mb-4 p-3 bg-light-gray">
+
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'setting.customer.title' | translate }}</h2>
+        <p class="mb-4">{{ 'setting.customer.read' | translate }}</p>
+        <div class="mb-4">
+
             <form [formGroup]="customerContactForm">
                 <div class="form-group">
                     <label class="mb-2" for="">{{ 'common.familyName' | translate }}</label>
@@ -79,11 +123,14 @@
                 </div>
             </form>
         </div>
+        <div class="buttons mx-auto">
+            <button type="button" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async"
+                (click)="updateCustomer()">{{ 'setting.customer.next' | translate }}</button>
+        </div>
     </div>
 
+
     <div class="buttons mx-auto px-3 mb-4">
-        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
-            (click)="updateCustomer()">{{ 'setting.next' | translate }}</button>
         <button type="button" class="btn btn-outline-primary btn-block py-3"
             routerLink="/">{{ 'setting.prev' | translate }}</button>
     </div>

@@ -191,32 +191,37 @@ export function reducer(state: IState, action: Actions): IState {
             return { ...state, loading: true, process: { ja: '座席を仮予約しています', en: 'Temporary reservation for seats' }, };
         }
         case ActionTypes.TemporaryReservationSuccess: {
-            const authorizeSeatReservation = action.payload.authorizeSeatReservation;
+            const addAuthorizeSeatReservation = action.payload.addAuthorizeSeatReservation;
+            const removeAuthorizeSeatReservation = action.payload.removeAuthorizeSeatReservation;
             const reservations = state.purchaseData.reservations;
-            state.purchaseData.authorizeSeatReservation = authorizeSeatReservation;
+            state.purchaseData.authorizeSeatReservation = addAuthorizeSeatReservation;
             state.purchaseData.screeningEventOffers = [];
             const filterResult = reservations.filter(reservation => reservation.ticket === undefined);
             if (filterResult.length === 0) {
-                const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(
-                    target => target.id === authorizeSeatReservation.id
-                );
-                if (findAuthorizeSeatReservation > -1) {
-                    state.purchaseData.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
+                if (removeAuthorizeSeatReservation !== undefined) {
+                    // 削除
+                    const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(
+                        target => target.id === removeAuthorizeSeatReservation.id
+                    );
+                    if (findAuthorizeSeatReservation > -1) {
+                        state.purchaseData.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
+                    }
+                    const findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(
+                        target => target.id === removeAuthorizeSeatReservation.id
+                    );
+                    if (findPendingMovieTicket > -1) {
+                        state.purchaseData.pendingMovieTickets.splice(findPendingMovieTicket, 1);
+                    }
                 }
-                state.purchaseData.authorizeSeatReservations.push(authorizeSeatReservation);
-                const findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(
-                    target => target.id === authorizeSeatReservation.id
-                );
-                if (findPendingMovieTicket > -1) {
-                    state.purchaseData.pendingMovieTickets.splice(findPendingMovieTicket, 1);
-                }
+                // 追加
+                state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
                 const movieTicketReservations = reservations.filter(r => r.ticket !== undefined && r.ticket.movieTicket !== undefined);
                 if (movieTicketReservations.length > 0) {
                     const pendingReservations =
                         (<factory.chevre.reservation.IReservation<factory.chevre.event.screeningEvent.ITicketPriceSpecification>[]>
-                            (<any>authorizeSeatReservation.result).responseBody.object.reservations);
+                            (<any>addAuthorizeSeatReservation.result).responseBody.object.reservations);
                     state.purchaseData.pendingMovieTickets.push({
-                        id: authorizeSeatReservation.id,
+                        id: addAuthorizeSeatReservation.id,
                         movieTickets: movieTicketReservations.map((r) => {
                             const pendingReservation = pendingReservations.find((p) => {
                                 return (p.reservedTicket.ticketedSeat !== undefined
@@ -247,7 +252,7 @@ export function reducer(state: IState, action: Actions): IState {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
-        case ActionTypes.CancelTemporaryReservation: {
+        case ActionTypes.CancelTemporaryReservations: {
             return {
                 ...state, loading: true, process: {
                     ja: '座席の仮予約を削除しています',
@@ -255,23 +260,26 @@ export function reducer(state: IState, action: Actions): IState {
                 }
             };
         }
-        case ActionTypes.CancelTemporaryReservationSuccess: {
-            const authorizeSeatReservation = action.payload.authorizeSeatReservation;
-            const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(
-                target => target.id === authorizeSeatReservation.id
-            );
-            if (findAuthorizeSeatReservation > -1) {
-                state.purchaseData.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
-            }
-            const findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(
-                target => target.id === authorizeSeatReservation.id
-            );
-            if (findPendingMovieTicket > -1) {
-                state.purchaseData.pendingMovieTickets.splice(findPendingMovieTicket, 1);
-            }
+        case ActionTypes.CancelTemporaryReservationsSuccess: {
+            const authorizeSeatReservations = action.payload.authorizeSeatReservations;
+            authorizeSeatReservations.forEach((authorizeSeatReservation) => {
+                const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(
+                    target => target.id === authorizeSeatReservation.id
+                );
+                if (findAuthorizeSeatReservation > -1) {
+                    state.purchaseData.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
+                }
+                const findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(
+                    target => target.id === authorizeSeatReservation.id
+                );
+                if (findPendingMovieTicket > -1) {
+                    state.purchaseData.pendingMovieTickets.splice(findPendingMovieTicket, 1);
+                }
+            });
+
             return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
-        case ActionTypes.CancelTemporaryReservationFail: {
+        case ActionTypes.CancelTemporaryReservationsFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
@@ -328,7 +336,7 @@ export function reducer(state: IState, action: Actions): IState {
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
         case ActionTypes.CheckMovieTicket: {
-            return { ...state, loading: true, process:  {ja: 'ムビチケ券を認証しています', en: 'Certifying movie ticket' }, };
+            return { ...state, loading: true, process: { ja: 'ムビチケ券を認証しています', en: 'Certifying movie ticket' }, };
         }
         case ActionTypes.CheckMovieTicketSuccess: {
             const checkMovieTicketAction = action.payload.checkMovieTicketAction;

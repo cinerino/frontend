@@ -1,5 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { IState } from '.';
+import { environment } from '../../../environments/environment';
+import { ViewType } from '../../models';
 import { Actions, ActionTypes } from '../actions/user.action';
 
 export interface IUserState {
@@ -7,13 +9,16 @@ export interface IUserState {
     userName?: string;
     profile?: factory.person.IProfile;
     language: string;
+    limitedPurchaseCount: number;
+    viewType: ViewType;
 }
 
 export const userInitialState: IUserState = {
     isMember: false,
-    language: 'ja'
+    language: 'ja',
+    limitedPurchaseCount: Number(environment.LIMITED_PURCHASE_COUNT),
+    viewType: environment.VIEW_TYPE
 };
-
 /**
  * Reducer
  * @param state
@@ -66,6 +71,11 @@ export function reducer(state: IState, action: Actions): IState {
         case ActionTypes.UpdatePaymentFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+        }
+        case ActionTypes.UpdateBaseSetting: {
+            state.userData.limitedPurchaseCount = action.payload.limitedPurchaseCount;
+            state.userData.viewType = action.payload.viewType;
+            return { ...state };
         }
         default: {
             return state;

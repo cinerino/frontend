@@ -11,7 +11,7 @@ import { getTicketPrice } from '../../../../functions';
 import { UtilService } from '../../../../services';
 import {
     ActionTypes,
-    CancelTemporaryReservation,
+    CancelTemporaryReservations,
     UnsettledDelete
 } from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
@@ -41,23 +41,23 @@ export class PurchaseCartComponent implements OnInit {
     }
 
     public removeItemProcess(
-        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[]
     ) {
         this.purchase.subscribe((purchase) => {
             if (purchase.transaction === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
-            this.store.dispatch(new CancelTemporaryReservation({ authorizeSeatReservation }));
+            this.store.dispatch(new CancelTemporaryReservations({ authorizeSeatReservations }));
         }).unsubscribe();
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.CancelTemporaryReservationSuccess),
+            ofType(ActionTypes.CancelTemporaryReservationsSuccess),
             tap(() => { })
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.CancelTemporaryReservationFail),
+            ofType(ActionTypes.CancelTemporaryReservationsFail),
             tap(() => {
                 this.router.navigate(['/error']);
             })
@@ -70,7 +70,8 @@ export class PurchaseCartComponent implements OnInit {
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('purchase.cart.confirm.cancel'),
             cb: () => {
-                this.removeItemProcess(authorizeSeatReservation);
+                const authorizeSeatReservations = [authorizeSeatReservation];
+                this.removeItemProcess(authorizeSeatReservations);
             }
         });
     }

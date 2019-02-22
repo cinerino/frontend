@@ -25,6 +25,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
     @ViewChild(SwiperComponent) public componentRef: SwiperComponent;
     @ViewChild(SwiperDirective) public directiveRef: SwiperDirective;
     public purchase: Observable<reducers.IPurchaseState>;
+    public user: Observable<reducers.IUserState>;
     public master: Observable<reducers.IMasterState>;
     public error: Observable<string | null>;
     public swiperConfig: SwiperConfigInterface;
@@ -57,6 +58,7 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
             },
         };
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.user = this.store.pipe(select(reducers.getUser));
         this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
         this.isPreSchedule = false;
@@ -233,17 +235,68 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
             || screeningEvent.remainingAttendeeCapacity === 0) {
             return;
         }
+        this.store.dispatch(new purchaseAction.UnsettledDelete());
         this.store.dispatch(new purchaseAction.SelectSchedule({ screeningEvent }));
+        this.purchase.subscribe((purchase) => {
+            this.user.subscribe((user) => {
+                if (purchase.movieTheater === undefined) {
+                    this.router.navigate(['/error']);
+                    return;
+                }
+
+                if (user.limitedPurchaseCount === 1) {
+                    if (purchase.authorizeSeatReservations.length > 0) {
+                        this.cancelTemporaryReservations();
+                        return;
+                    }
+                }
+                if (user.limitedPurchaseCount > 1
+                    && purchase.transaction !== undefined
+                    && purchase.authorizeSeatReservations.length > 0) {
+                    this.openTransactionModal();
+                    return;
+                }
+                this.startTransaction();
+            }).unsubscribe();
+        }).unsubscribe();
+    }
+
+    private cancelTemporaryReservations() {
         this.purchase.subscribe((purchase) => {
             if (purchase.movieTheater === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
-            if (purchase.transaction !== undefined
-                && purchase.authorizeSeatReservations.length > 0) {
-                this.openTransactionModal(screeningEvent);
+
+            const authorizeSeatReservations = purchase.authorizeSeatReservations;
+            this.store.dispatch(new purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations }));
+        }).unsubscribe();
+
+
+        const success = this.actions.pipe(
+            ofType(purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess),
+            tap(() => {
+                this.startTransaction();
+            })
+        );
+
+        const fail = this.actions.pipe(
+            ofType(purchaseAction.ActionTypes.CancelTemporaryReservationsFail),
+            tap(() => {
+                this.store.dispatch(new purchaseAction.UnsettledDelete());
+                this.startTransaction();
+            })
+        );
+        race(success, fail).pipe(take(1)).subscribe();
+    }
+
+    private startTransaction() {
+        this.purchase.subscribe((purchase) => {
+            if (purchase.movieTheater === undefined) {
+                this.router.navigate(['/error']);
                 return;
             }
+
             this.store.dispatch(new purchaseAction.StartTransaction({
                 params: {
                     expires: moment().add(environment.TRANSACTION_TIME, 'minutes').toDate(),
@@ -291,13 +344,11 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
-    public openTransactionModal(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
+    public openTransactionModal() {
         const modalRef = this.modal.open(PurchaseTransactionModalComponent, {
             centered: true
         });
         modalRef.result.then(() => {
-            this.store.dispatch(new purchaseAction.UnsettledDelete());
-            this.store.dispatch(new purchaseAction.SelectSchedule({ screeningEvent }));
             this.router.navigate(['/purchase/seat']);
         }).catch(() => { });
     }

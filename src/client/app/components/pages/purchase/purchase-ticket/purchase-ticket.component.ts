@@ -25,6 +25,7 @@ import { TicketListModalComponent } from '../../../parts/ticket-list-modal/ticke
 })
 export class PurchaseTicketComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
+    public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     constructor(
         private store: Store<reducers.IState>,
@@ -37,6 +38,7 @@ export class PurchaseTicketComponent implements OnInit {
 
     public ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
     }
 
@@ -98,12 +100,18 @@ export class PurchaseTicketComponent implements OnInit {
             ofType(ActionTypes.TemporaryReservationSuccess),
             tap(() => {
                 this.purchase.subscribe((purchase) => {
+                    this.user.subscribe((user) => {
                     const authorizeSeatReservation = purchase.authorizeSeatReservation;
                     if (authorizeSeatReservation === undefined) {
                         this.router.navigate(['/error']);
                         return;
                     }
+                    if (user.limitedPurchaseCount === 1) {
+                        this.router.navigate(['/purchase/input']);
+                        return;
+                    }
                     this.router.navigate(['/purchase/cart']);
+                }).unsubscribe();
                 }).unsubscribe();
             })
         );

@@ -7,8 +7,9 @@ import * as libphonenumber from 'libphonenumber-js';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { ViewType } from '../../../models';
 import { UtilService } from '../../../services';
-import { ActionTypes, UpdateCustomer, UpdatePayment } from '../../../store/actions/user.action';
+import { ActionTypes, UpdateBaseSetting, UpdateCustomer, UpdatePayment } from '../../../store/actions/user.action';
 import * as reducers from '../../../store/reducers';
 
 @Component({
@@ -21,11 +22,13 @@ export class SettingComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public customerContactForm: FormGroup;
     public paymentForm: FormGroup;
+    public baseForm: FormGroup;
     public cardExpiration: {
         year: string[];
         month: string[];
     };
     public amount: number;
+    public ViewType: typeof ViewType = ViewType;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -38,8 +41,13 @@ export class SettingComponent implements OnInit {
     public ngOnInit() {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.user = this.store.pipe(select(reducers.getUser));
-        this.createCustomerContactForm();
-        this.createPaymentForm();
+        this.user.subscribe((user) => {
+            if (user.isMember) {
+                this.createCustomerContactForm();
+                this.createPaymentForm();
+            }
+            this.createBaseForm();
+        }).unsubscribe();
     }
 
     private createCustomerContactForm() {
@@ -96,6 +104,23 @@ export class SettingComponent implements OnInit {
         }).unsubscribe();
     }
 
+    private createBaseForm() {
+        this.baseForm = this.formBuilder.group({
+            limitedPurchaseCount: ['', [
+                Validators.required,
+                Validators.pattern(/^[0-9]+$/)
+            ]],
+            viewType: ['', [
+                Validators.required
+            ]]
+        });
+        this.user.subscribe((user) => {
+            this.baseForm.controls.limitedPurchaseCount.setValue(user.limitedPurchaseCount);
+            this.baseForm.controls.viewType.setValue(user.viewType);
+        }).unsubscribe();
+    }
+
+
     private createPaymentForm() {
         this.cardExpiration = {
             year: [],
@@ -150,6 +175,26 @@ export class SettingComponent implements OnInit {
             tap(() => { })
         );
         race(success, fail).pipe(take(1)).subscribe();
+    }
+
+    public updateBase() {
+        Object.keys(this.baseForm.controls).forEach((key) => {
+            this.baseForm.controls[key].markAsTouched();
+        });
+        this.baseForm.controls.limitedPurchaseCount.setValue((<HTMLInputElement>document.getElementById('limitedPurchaseCount')).value);
+        this.baseForm.controls.viewType.setValue((<HTMLInputElement>document.getElementById('viewType')).value);
+        if (this.baseForm.invalid) {
+            this.util.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('setting.alert.customer')
+            });
+            return;
+        }
+
+        const limitedPurchaseCount = Number(this.baseForm.controls.limitedPurchaseCount.value);
+        const viewType = this.baseForm.controls.viewType.value;
+
+        this.store.dispatch(new UpdateBaseSetting({ limitedPurchaseCount, viewType }));
     }
 
     public updatePayment() {

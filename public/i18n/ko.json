@@ -178,10 +178,22 @@
         "prev": "뒤로"
     },
     "setting": {
-        "title": "구매자 정보 입력",
-        "read": "구매자 정보를 입력하십시오.",
-        "next": "구매자 정보 변경",
+        "title": "설정",
+        "read": "설정을 변경할 수 있습니다.",
+        "next": "",
         "prev": "뒤로",
+        "customer": {
+            "title": "구매자 정보 설정",
+            "read": "구매자 정보를 변경하십시오.",
+            "next": "구매자 정보 변경"
+        },
+        "base": {
+            "title": "기본 설정",
+            "read": "기본 설정을 변경하십시오.",
+            "next": "기본 설정을 변경",
+            "limitedPurchaseCount": "장바구니 제한",
+            "viewType": "표시"
+        },
         "alert": {
             "customer": "구매자 정보에 오류가 있습니다.",
             "payment": "결제 정보에 오류가 있습니다."
@@ -261,7 +273,7 @@
         "event": "작품",
         "startDate": "상영 시간",
         "doorTime": "개장 시간",
-        "seat": "좌석", 
+        "seat": "좌석",
         "ticket": "권종",
         "customer": "구매자",
         "customerName": "이름",
