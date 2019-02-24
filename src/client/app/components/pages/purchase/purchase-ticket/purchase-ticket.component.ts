@@ -101,17 +101,17 @@ export class PurchaseTicketComponent implements OnInit {
             tap(() => {
                 this.purchase.subscribe((purchase) => {
                     this.user.subscribe((user) => {
-                    const authorizeSeatReservation = purchase.authorizeSeatReservation;
-                    if (authorizeSeatReservation === undefined) {
-                        this.router.navigate(['/error']);
-                        return;
-                    }
-                    if (user.limitedPurchaseCount === 1) {
-                        this.router.navigate(['/purchase/input']);
-                        return;
-                    }
-                    this.router.navigate(['/purchase/cart']);
-                }).unsubscribe();
+                        const authorizeSeatReservation = purchase.authorizeSeatReservation;
+                        if (authorizeSeatReservation === undefined) {
+                            this.router.navigate(['/error']);
+                            return;
+                        }
+                        if (user.limitedPurchaseCount === 1) {
+                            this.router.navigate(['/purchase/input']);
+                            return;
+                        }
+                        this.router.navigate(['/purchase/cart']);
+                    }).unsubscribe();
                 }).unsubscribe();
             })
         );

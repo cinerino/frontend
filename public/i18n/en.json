@@ -196,7 +196,8 @@
         },
         "alert": {
             "customer": "There is an error in purchaser information",
-            "payment": "There is an error in the settlement information."
+            "payment": "There is an error in the settlement information.",
+            "base": "There is an error in the base information."
         }
     },
     "form": {

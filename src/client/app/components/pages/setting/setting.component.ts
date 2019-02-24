@@ -186,7 +186,7 @@ export class SettingComponent implements OnInit {
         if (this.baseForm.invalid) {
             this.util.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('setting.alert.customer')
+                body: this.translate.instant('setting.alert.base')
             });
             return;
         }
