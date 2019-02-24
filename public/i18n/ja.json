@@ -191,7 +191,7 @@
             "title": "基本設定",
             "read": "基本設定を変更してください。",
             "next": "基本設定を変更",
-            "limitedPurchaseCount": "カート制限数",
+            "limitedPurchaseCount": "注文に対する予約上限数",
             "viewType": "表示"
         },
         "alert": {

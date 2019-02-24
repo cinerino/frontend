@@ -345,12 +345,18 @@ export class PurchaseScheduleComponent implements OnInit, OnDestroy {
     }
 
     public openTransactionModal() {
-        const modalRef = this.modal.open(PurchaseTransactionModalComponent, {
-            centered: true
-        });
-        modalRef.result.then(() => {
-            this.router.navigate(['/purchase/seat']);
-        }).catch(() => { });
+        this.purchase.subscribe((purchase) => {
+            this.user.subscribe((user) => {
+                const modalRef = this.modal.open(PurchaseTransactionModalComponent, {
+                    centered: true
+                });
+                modalRef.componentInstance.purchase = purchase;
+                modalRef.componentInstance.user = user;
+                modalRef.result.then(() => {
+                    this.router.navigate(['/purchase/seat']);
+                }).catch(() => { });
+            }).unsubscribe();
+        }).unsubscribe();
     }
 
 }

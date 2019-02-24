@@ -23,6 +23,7 @@ import * as reducers from '../../../../store/reducers';
 })
 export class PurchaseCartComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
+    public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
@@ -36,6 +37,7 @@ export class PurchaseCartComponent implements OnInit {
 
     public ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.store.dispatch(new UnsettledDelete());
     }
