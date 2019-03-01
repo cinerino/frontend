@@ -1,0 +1,40 @@
+@import '../../../../../../assets/scss/theme';
+
+.theaters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    @include media-breakpoint-down(sm) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.schedule-slider {
+    .swiper-slide::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 4px;
+        background-color: #000;
+        opacity: 0.3;
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+        width: 27px;
+        height: 27px;
+        background-image: url(/assets/images/icon/slider_arrow.svg);
+        background-size: 27px;
+        margin-top: -13px;
+    }
+
+    .swiper-button-next {
+        right: -38px;
+    }
+
+    .swiper-button-prev {
+        left: -38px;
+        transform: rotate(180deg);
+    }
+}

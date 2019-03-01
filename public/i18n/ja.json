@@ -1,58 +1,108 @@
 {
     "purchase": {
-        "theater": {
-            "title": "劇場選択",
-            "read": "劇場を選択してください。",
-            "next": "",
-            "prev": ""
-        },
-        "schedule": {
-            "title": "スケジュール選択",
-            "read": "スケジュールを選択してください。",
-            "preSalesSchedule": "先行販売スケジュール",
-            "salesSchedule": "通常販売スケジュール",
-            "notfound": "スケジュールがありません。",
-            "status": {
-                "success": "購入",
-                "warning": "購入",
-                "danger": "満席",
-                "endSale": "販売終了",
-                "outsideSalesPeriod": "販売期間外"
+        "cinema": {
+            "seller": {
+                "title": "劇場選択",
+                "read": "劇場を選択してください。",
+                "next": "",
+                "prev": ""
             },
-            "next": "",
-            "prev": ""
-        },
-        "seat": {
-            "title": "座席選択",
-            "read": "座席を選択してください。",
-            "next": "利用規約に同意して次へ",
-            "terms": "利用規約",
-            "prev": "戻る",
-            "alert": {
-                "unselected": "座席が未選択です。"
+            "schedule": {
+                "title": "スケジュール選択",
+                "read": "スケジュールを選択してください。",
+                "preSalesSchedule": "先行販売スケジュール",
+                "salesSchedule": "通常販売スケジュール",
+                "notfound": "スケジュールがありません。",
+                "status": {
+                    "success": "購入",
+                    "warning": "購入",
+                    "danger": "満席",
+                    "endSale": "販売終了",
+                    "outsideSalesPeriod": "販売期間外"
+                },
+                "next": "次へ",
+                "prev": ""
+            },
+            "seat": {
+                "title": "座席選択",
+                "read": "座席を選択してください。",
+                "next": "利用規約に同意して次へ",
+                "terms": "利用規約",
+                "prev": "戻る",
+                "alert": {
+                    "unselected": "座席が未選択です。"
+                }
+            },
+            "ticket": {
+                "title": "券種選択",
+                "read": "券種を選択してください。",
+                "unselected": "券種を選択してください",
+                "mvtk": "ムビチケ券を利用される方",
+                "next": "次へ",
+                "prev": "戻る",
+                "alert": {
+                    "unselected": "券種が未選択です。",
+                    "ticketCondition": "割引券の適用条件を再度ご確認ください。"
+                }
+            },
+            "cart": {
+                "title": "購入情報",
+                "read": "購入情報をご確認ください。",
+                "notfound": "購入中のアイテムがありません。",
+                "next": "次へ",
+                "prev": "戻る",
+                "add": "追加する",
+                "confirm": {
+                    "cancel": "キャンセルしてよろしいですか。"
+                }
             }
         },
-        "ticket": {
-            "title": "券種選択",
-            "read": "券種を選択してください。",
-            "unselected": "券種を選択してください",
-            "mvtk": "ムビチケ券を利用される方",
-            "next": "次へ",
-            "prev": "戻る",
-            "alert": {
-                "unselected": "券種が未選択です。",
-                "ticketCondition": "割引券の適用条件を再度ご確認ください。"
-            }
-        },
-        "cart": {
-            "title": "購入情報",
-            "read": "購入情報をご確認ください。",
-            "notfound": "購入中のアイテムがありません。",
-            "next": "次へ",
-            "prev": "戻る",
-            "add": "追加する",
-            "confirm": {
-                "cancel": "キャンセルしてよろしいですか。"
+        "event": {
+            "seller": {
+                "title": "劇場選択",
+                "read": "劇場を選択してください。",
+                "next": "",
+                "prev": ""
+            },
+            "schedule": {
+                "title": "スケジュール確認",
+                "read": "スケジュールを確認してください。",
+                "notfound": "スケジュールがありません。",
+                "status": {
+                    "success": "購入",
+                    "warning": "購入",
+                    "danger": "満席",
+                    "endSale": "販売終了",
+                    "outsideSalesPeriod": "販売期間外"
+                },
+                "next": "次へ",
+                "prev": ""
+            },
+            "ticket": {
+                "title": "券種選択",
+                "read": "券種を選択してください。",
+                "next": "次へ",
+                "prev": "戻る",
+                "success": {
+                    "temporaryReservation": "仮予約に成功しました。"
+                },
+                "alert": {
+                    "unselected": "券種が未選択です。",
+                    "ticketCondition": "割引券の適用条件を再度ご確認ください。",
+                    "temporaryReservation": "仮予約に失敗しました。"
+                }
+                
+            },
+            "cart": {
+                "title": "購入情報",
+                "read": "購入情報をご確認ください。",
+                "notfound": "購入中のアイテムがありません。",
+                "next": "次へ",
+                "prev": "戻る",
+                "add": "追加する",
+                "confirm": {
+                    "cancel": "キャンセルしてよろしいですか。"
+                }
             }
         },
         "input": {
@@ -182,6 +232,10 @@
         "read": "設定を変更できます。",
         "next": "",
         "prev": "戻る",
+        "success": {
+            "title": "完了",
+            "read": "変更しました。" 
+        },
         "customer": {
             "title": "購入者情報設定",
             "read": "購入者情報を変更してください。",
@@ -303,10 +357,12 @@
         "timeLimit": "取引期限",
         "all": "すべて",
         "close": "閉じる",
+        "done": "決定",
         "yes": "はい",
         "no": "いいえ",
         "error": "エラー",
         "confirm": "確認",
+        "complete": "完了",
         "warning": "警告"
     }
 }

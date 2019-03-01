@@ -195,6 +195,10 @@ export class SettingComponent implements OnInit {
         const viewType = this.baseForm.controls.viewType.value;
 
         this.store.dispatch(new UpdateBaseSetting({ limitedPurchaseCount, viewType }));
+        this.util.openAlert({
+            title: this.translate.instant('setting.success.title'),
+            body: this.translate.instant('setting.success.read')
+        });
     }
 
     public updatePayment() {

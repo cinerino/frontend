@@ -4,6 +4,7 @@ import {
     ActionReducerMap,
     MetaReducer
 } from '@ngrx/store';
+import { environment } from '../../../../../environments/environment';
 
 /**
  * Root state
@@ -43,7 +44,7 @@ export function storageSync(state: any) {
         || Object.keys(state).length === 0) {
         return;
     }
-    sessionStorage.setItem('state', JSON.stringify(state));
+    sessionStorage.setItem(environment.STORAGE_NAME, JSON.stringify(state));
 }
 
 /**

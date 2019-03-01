@@ -281,7 +281,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
                         });
                         if (findContainsPlaceResult !== undefined
                             && findContainsPlaceResult.offers !== undefined) {
-                            if (findContainsPlaceResult.offers[0].availability === 'InStock') {
+                            if (findContainsPlaceResult.offers[0].availability === factory.chevre.itemAvailability.InStock) {
                                 status = SeatStatus.Default;
                             }
                             acceptedOffer = {

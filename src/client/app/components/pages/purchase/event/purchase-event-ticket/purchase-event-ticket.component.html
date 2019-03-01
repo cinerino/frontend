@@ -1,0 +1,74 @@
+<div class="contents-width mx-auto px-3 py-5">
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.ticket.title' | translate }}</h2>
+    <p class="mb-4">{{ 'purchase.event.ticket.read' | translate }}</p>
+
+    <div class="mb-4">
+        <p *ngIf="(purchase | async)?.scheduleDate" class="text-primary text-large mb-3">
+            {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}
+        </p>
+        <p *ngIf="screeningWorkEvents.length === 0" class="mb-3">{{ 'purchase.event.ticket.notfound' | translate }}
+        </p>
+        <app-purchase-event-schedule-work *ngFor="let screeningWorkEvent of screeningWorkEvents"
+            [screeningWorkEvent]="screeningWorkEvent" [readonly]="false" (select)="selectSchedule($event)" class="mb-3">
+        </app-purchase-event-schedule-work>
+    </div>
+
+    <div class="mb-4">
+        <div *ngIf="(purchase | async).authorizeSeatReservations.length === 0">
+            <p>{{ 'purchase.cinema.cart.notfound' | translate }}</p>
+        </div>
+        <div *ngFor="let authorizeSeatReservation of (purchase | async).authorizeSeatReservations"
+            class="mb-4 px-3 bg-light-gray position-relative">
+            <div class="py-3 border-bottom border-gray">
+                <div class="row">
+                    <p class="mb-2 mb-md-0 col-md-4">
+                        <i class="fas fa-map-marker-alt mr-2"></i>{{ 'common.theater' | translate }} /
+                        {{ 'common.screen' | translate }}</p>
+                    <p class="col-md-8">
+                        {{ authorizeSeatReservation.object.event.superEvent.location.name | changeLanguage }} / {{
+                            authorizeSeatReservation.object.event.location.name | changeLanguage }}</p>
+                </div>
+            </div>
+            <div class="py-3 border-bottom border-gray">
+                <div class="row">
+                    <p class="mb-2 mb-md-0 col-md-4">
+                        <i class="fas fa-film mr-2"></i>{{ 'common.event' | translate }}</p>
+                    <p class="col-md-8">{{ authorizeSeatReservation.object.event.name | changeLanguage }}</p>
+                </div>
+            </div>
+            <div class="py-3 border-bottom border-gray">
+                <div class="row">
+                    <p class="mb-2 mb-md-0 col-md-4">
+                        <i class="far fa-clock mr-2"></i>{{ 'common.startDate' | translate }}</p>
+                    <p class="col-md-8">
+                        {{ authorizeSeatReservation.object.event.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
+                    </p>
+                </div>
+            </div>
+            <div class="py-3">
+                <div class="row">
+                    <p class="mb-2 mb-md-0 col-md-4">
+                        <i class="fas fa-ticket-alt mr-2"></i>{{ 'common.seat' | translate }} /
+                        {{ 'common.ticket' | translate }}</p>
+                    <div class="col-md-8">
+                        <div *ngFor="let acceptedOffer of authorizeSeatReservation.object.acceptedOffer" class="mb-2">
+                            <p>{{ acceptedOffer.ticketedSeat.seatNumber }}</p>
+                            <p>{{ acceptedOffer.name | changeLanguage }} / {{
+                                    getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="close" aria-label="Close" (click)="removeItem(authorizeSeatReservation)">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="buttons mx-auto">
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3"
+            (click)="onSubmit()">{{ 'purchase.event.ticket.next' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3"
+            routerLink="/purchase/event/schedule">{{ 'purchase.event.ticket.prev' | translate }}</button>
+    </div>
+</div>

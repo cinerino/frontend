@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { ILanguage, Reservation } from '../../models';
 import * as masterAction from '../actions/master.action';
 import * as orderAction from '../actions/order.action';
@@ -34,7 +35,7 @@ export const initialState: IState = {
 };
 
 function getInitialState(): IState {
-    const json = sessionStorage.getItem('state');
+    const json = sessionStorage.getItem(environment.STORAGE_NAME);
     if (json === undefined || json === null) {
         return initialState;
     }

@@ -1,12 +1,17 @@
-import { BaseComponent } from '../components/pages/base/base.component';
-import { PurchaseBaseComponent } from '../components/pages/purchase/purchase-base/purchase-base.component';
-import { PurchaseCartComponent } from '../components/pages/purchase/purchase-cart/purchase-cart.component';
-import { PurchaseCompleteComponent } from '../components/pages/purchase/purchase-complete/purchase-complete.component';
-import { PurchaseConfirmComponent } from '../components/pages/purchase/purchase-confirm/purchase-confirm.component';
-import { PurchaseInputComponent } from '../components/pages/purchase/purchase-input/purchase-input.component';
-import { PurchaseScheduleComponent } from '../components/pages/purchase/purchase-schedule/purchase-schedule.component';
-import { PurchaseSeatComponent } from '../components/pages/purchase/purchase-seat/purchase-seat.component';
-import { PurchaseTicketComponent } from '../components/pages/purchase/purchase-ticket/purchase-ticket.component';
+import {
+    BaseComponent,
+    PurchaseBaseComponent,
+    PurchaseCinemaCartComponent,
+    PurchaseCinemaScheduleComponent,
+    PurchaseCinemaSeatComponent,
+    PurchaseCinemaTicketComponent,
+    PurchaseCompleteComponent,
+    PurchaseConfirmComponent,
+    PurchaseEventScheduleComponent,
+    PurchaseEventTicketComponent,
+    PurchaseInputComponent,
+    PurchaseRootComponent
+} from '../components/pages';
 
 
 /**
@@ -16,12 +21,24 @@ export const route = {
     path: 'purchase',
     component: PurchaseBaseComponent,
     children: [
-        { path: 'seat', component: PurchaseSeatComponent },
-        { path: 'ticket', component: PurchaseTicketComponent },
+        { path: 'root', component: PurchaseRootComponent },
+        {
+            path: 'cinema',
+            children: [
+                { path: 'seat', component: PurchaseCinemaSeatComponent },
+                { path: 'ticket', component: PurchaseCinemaTicketComponent },
+                { path: 'cart', component: PurchaseCinemaCartComponent }
+            ]
+        },
+        {
+            path: 'event',
+            children: [
+                { path: 'ticket', component: PurchaseEventTicketComponent }
+            ]
+        },
         { path: 'input', component: PurchaseInputComponent },
         { path: 'confirm', component: PurchaseConfirmComponent },
-        { path: 'complete', component: PurchaseCompleteComponent },
-        { path: 'cart', component: PurchaseCartComponent }
+        { path: 'complete', component: PurchaseCompleteComponent }
     ]
 };
 
@@ -32,6 +49,17 @@ export const schedule = {
     path: 'purchase',
     component: BaseComponent,
     children: [
-        { path: 'schedule', component: PurchaseScheduleComponent }
+        {
+            path: 'cinema',
+            children: [
+                { path: 'schedule', component: PurchaseCinemaScheduleComponent }
+            ]
+        },
+        {
+            path: 'event',
+            children: [
+                { path: 'schedule', component: PurchaseEventScheduleComponent }
+            ]
+        }
     ]
 };

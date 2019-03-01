@@ -46,10 +46,10 @@
             </div> -->
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="movieTheaterId" class="mb-2">{{ 'common.theater' | translate }}</label>
-                    <select class="form-control" name="movieTheaterId" id="movieTheaterId" [(ngModel)]="conditions.movieTheaterId">
+                    <label for="sellerId" class="mb-2">{{ 'common.theater' | translate }}</label>
+                    <select class="form-control" name="sellerId" id="sellerId" [(ngModel)]="conditions.sellerId">
                         <option [value]="''">{{ 'common.all' | translate }}</option>
-                        <option *ngFor="let theater of (master | async).movieTheaters" [value]="theater.id">{{
+                        <option *ngFor="let theater of (master | async).sellers" [value]="theater.id">{{
                             theater.name | changeLanguage }}</option>
                     </select>
                 </div>

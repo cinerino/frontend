@@ -6,9 +6,9 @@ import { Action } from '@ngrx/store';
  */
 export enum ActionTypes {
     Delete = '[Master] Delete',
-    GetTheaters = '[Master] Get Theaters',
-    GetTheatersSuccess = '[Master] Get Theaters Success',
-    GetTheatersFail = '[Master] Get Theaters Fail',
+    GetSellers = '[Master] Get Sellers',
+    GetSellersSuccess = '[Master] Get Sellers Success',
+    GetSellersFail = '[Master] Get Sellers Fail',
     GetSchedule = '[Master] Get Schedule',
     GetScheduleSuccess = '[Master] Get Schedule Success',
     GetScheduleFail = '[Master] Get Schedule Fail'
@@ -23,26 +23,26 @@ export class Delete implements Action {
 }
 
 /**
- * GetTheaters
+ * GetSellers
  */
-export class GetTheaters implements Action {
-    public readonly type = ActionTypes.GetTheaters;
+export class GetSellers implements Action {
+    public readonly type = ActionTypes.GetSellers;
     constructor(public payload: { params: factory.seller.ISearchConditions }) { }
 }
 
 /**
- * GetTheatersSuccess
+ * GetSellersSuccess
  */
-export class GetTheatersSuccess implements Action {
-    public readonly type = ActionTypes.GetTheatersSuccess;
-    constructor(public payload: { movieTheaters: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[] }) { }
+export class GetSellersSuccess implements Action {
+    public readonly type = ActionTypes.GetSellersSuccess;
+    constructor(public payload: { sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[] }) { }
 }
 
 /**
- * GetTheatersFail
+ * GetSellersFail
  */
-export class GetTheatersFail implements Action {
-    public readonly type = ActionTypes.GetTheatersFail;
+export class GetSellersFail implements Action {
+    public readonly type = ActionTypes.GetSellersFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -52,7 +52,7 @@ export class GetTheatersFail implements Action {
 export class GetSchedule implements Action {
     public readonly type = ActionTypes.GetSchedule;
     constructor(public payload: {
-        movieTheater: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
         scheduleDate: string;
     }) { }
 }
@@ -81,9 +81,9 @@ export class GetScheduleFail implements Action {
  */
 export type Actions =
     | Delete
-    | GetTheaters
-    | GetTheatersSuccess
-    | GetTheatersFail
+    | GetSellers
+    | GetSellersSuccess
+    | GetSellersFail
     | GetSchedule
     | GetScheduleSuccess
     | GetScheduleFail;

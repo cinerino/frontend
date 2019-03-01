@@ -1,0 +1,45 @@
+<div class="p-3 scroll-vertical">
+    <div class="bg-light-gray p-3 mb-4">
+        <div class="mb-2">
+            <p><strong>{{ screeningEvent.name | changeLanguage }}</strong></p>
+            <p *ngIf="screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)">
+                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>
+            <p
+                *ngIf="screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)">{{
+                    screeningEvent.superEvent.description | changeLanguage }}</p>
+        </div>
+        <div>
+            <div class="mb-2">
+                {{ screeningEvent.location.name | changeLanguage }}
+            </div>
+            <div>
+                <strong class="text-large">{{ moment(screeningEvent.startDate).format('HH:mm') }}</strong>
+                <span>-</span>
+                <span>{{ moment(screeningEvent.endDate).format('HH:mm') }}</span>
+            </div>
+        </div>
+    </div>
+    <ul class="mb-4">
+        <li *ngFor="let ticket of tickets" class="ticket mb-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="w-75 text-left">
+                    <p>{{ ticket.name | changeLanguage }} / {{ getTicketPrice(ticket).single | currency : 'JPY' }}</p>
+                </div>
+                <div class="w-25 text-right">
+                    <select class="form-control" [(ngModel)]="selectedTickets[ticket.id]">
+                        <option value="0">0</option>
+                        <option *ngFor="let value of values" [value]="value">{{ value }}</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <div class="buttons mx-auto">
+        <button [disabled]="createReservationTickets(selectedTickets).length === 0" type="button"
+            class="btn btn-primary btn-block py-3 mb-3"
+            (click)="activeModal.close(createReservationTickets(selectedTickets))">{{ 'common.done' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3"
+            (click)="activeModal.dismiss()">{{ 'common.close' | translate }}</button>
+    </div>
+</div>

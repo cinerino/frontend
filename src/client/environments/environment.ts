@@ -20,6 +20,8 @@ export const environment = {
     VIEW_TYPE: ViewType.Cinema,
 
     TRANSACTION_TIME: '30',
-    PRE_SCHEDULE_DATE: '3'
+    PRE_SCHEDULE_DATE: '3',
+
+    STORAGE_NAME: 'CINERINO-FRONTEND-STATE'
 
 };

@@ -145,13 +145,13 @@
     </div>
 
 
-    <div class="buttons mx-auto px-3">
+    <div class="buttons mx-auto">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="onSubmit()">{{ 'purchase.input.next' | translate }}</button>
         <button *ngIf="(user | async).limitedPurchaseCount > 1" type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/purchase/cart">{{ 'purchase.input.prev' | translate }}</button>
+            routerLink="/purchase/cinema/cart">{{ 'purchase.input.prev' | translate }}</button>
         <button *ngIf="(user | async).limitedPurchaseCount === 1" type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/purchase/ticket">{{ 'purchase.input.prev' | translate }}</button>
+            routerLink="/purchase/cinema/ticket">{{ 'purchase.input.prev' | translate }}</button>
     </div>
 
 </div>

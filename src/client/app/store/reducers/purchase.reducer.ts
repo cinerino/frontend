@@ -9,7 +9,7 @@ import { IMovieTicket, IReservationTicket, IScreen, Reservation } from '../../mo
 import { Actions, ActionTypes } from '../actions/purchase.action';
 
 export interface IPurchaseState {
-    movieTheater?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
     screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
     scheduleDate?: string;
     preScheduleDates: string[];
@@ -78,8 +78,8 @@ export function reducer(state: IState, action: Actions): IState {
             state.purchaseData.isUsedMovieTicket = false;
             return { ...state };
         }
-        case ActionTypes.SelectTheater: {
-            state.purchaseData.movieTheater = action.payload.movieTheater;
+        case ActionTypes.SelectSeller: {
+            state.purchaseData.seller = action.payload.seller;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
         case ActionTypes.SelectScheduleDate: {
@@ -249,6 +249,21 @@ export function reducer(state: IState, action: Actions): IState {
             return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
         case ActionTypes.TemporaryReservationFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+        }
+        case ActionTypes.TemporaryReservationFreeSeat: {
+            return { ...state, loading: true, process: { ja: '仮予約しています', en: 'Temporary reservation' }, };
+        }
+        case ActionTypes.TemporaryReservationFreeSeatSuccess: {
+            const addAuthorizeSeatReservation = action.payload.addAuthorizeSeatReservation;
+            state.purchaseData.authorizeSeatReservation = addAuthorizeSeatReservation;
+            state.purchaseData.screeningEventOffers = [];
+            state.purchaseData.authorizeSeatReservation = undefined;
+            state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
+            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
+        }
+        case ActionTypes.TemporaryReservationFreeSeatFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }

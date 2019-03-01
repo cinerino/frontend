@@ -20,6 +20,8 @@ export const environment = {
     ANALYTICS_ID: '',
 
     TRANSACTION_TIME: '120',
-    PRE_SCHEDULE_DATE: '3'
+    PRE_SCHEDULE_DATE: '3',
+
+    STORAGE_NAME: 'CINERINO-FRONTEND-STATE'
 
 };

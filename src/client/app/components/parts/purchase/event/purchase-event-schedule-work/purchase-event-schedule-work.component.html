@@ -1,0 +1,80 @@
+<div class="bg-light-gray">
+    <div class="p-3">
+        <div class="mb-2">
+            <p><strong>{{ screeningWorkEvent.info.name | changeLanguage }}</strong></p>
+            <p
+                *ngIf="screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)">
+                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>
+            <p
+                *ngIf="screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)">{{
+                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>
+        </div>
+        <div class="d-flex align-items-center">
+            <div *ngIf="screeningWorkEvent.info.workPerformed.contentRating"
+                class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{
+                screeningWorkEvent.info.workPerformed.contentRating }}</div>
+            <div *ngIf="screeningWorkEvent.info.superEvent.dubLanguage"
+                class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.dubbing' | translate }}</div>
+            <div *ngIf="screeningWorkEvent.info.superEvent.subtitleLanguage"
+                class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.subtitles' | translate }}</div>
+            <div *ngIf="screeningWorkEvent.info.workPerformed.duration !== null" class="text-small ml-auto">
+                {{
+                moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}</div>
+        </div>
+    </div>
+    <ul class="p-3">
+        <li *ngFor="let screeningEvent of screeningWorkEvent.data"
+            class="border boder-gray rounded p-2 py-md-3 text-md-center d-md-block d-flex justify-content-between align-items-center pointer"
+            [ngClass]="{ 
+            'bg-white': (moment(screeningEvent.offers.validFrom).unix() < moment().unix() && moment(screeningEvent.offers.validThrough).unix() > moment().unix()) && screeningEvent.remainingAttendeeCapacity > 0, 
+            'bg-gray text-light-gray not-event': !(moment(screeningEvent.offers.validFrom).unix() < moment().unix() && moment(screeningEvent.offers.validThrough).unix() > moment().unix()) || screeningEvent.remainingAttendeeCapacity === 0,
+            'not-event': readonly
+            }" (click)="select.emit(screeningEvent)">
+            <div>
+                <div class="mb-2 text-small">
+                    {{ screeningEvent.location.name | changeLanguage }}
+                </div>
+                <div>
+                    <strong class="text-large">{{ moment(screeningEvent.startDate).format('HH:mm') }}</strong>
+                    <span>-</span>
+                    <span>{{ moment(screeningEvent.endDate).format('HH:mm') }}</span>
+                </div>
+            </div>
+            <hr class="border-0 bg-light-gray my-2">
+            <div class="text-center">
+                <div class="status mb-2"
+                    *ngIf="(moment(screeningEvent.offers.validFrom).unix() < moment().unix() && moment(screeningEvent.offers.validThrough).unix() > moment().unix())">
+                    <div *ngIf="screeningEvent.remainingAttendeeCapacity >= 30"
+                        class="d-flex justify-content-around align-items-center">
+                        <div class="text-success mr-2 mr-md-0">
+                            {{ 'purchase.cinema.schedule.status.success' | translate }}</div>
+                        <img src="/assets/images/icon/status_success.svg">
+                    </div>
+                    <div *ngIf="screeningEvent.remainingAttendeeCapacity < 30 && screeningEvent.remainingAttendeeCapacity > 0"
+                        class="d-flex justify-content-around align-items-center">
+                        <div class="text-warning mr-2 mr-md-0">
+                            {{ 'purchase.cinema.schedule.status.warning' | translate }}</div>
+                        <img src="/assets/images/icon/status_warning.svg">
+                    </div>
+                    <div *ngIf="screeningEvent.remainingAttendeeCapacity === 0"
+                        class="d-flex justify-content-around align-items-center">
+                        <div class="text-danger mr-2 mr-md-0">{{ 'purchase.cinema.schedule.status.danger' | translate }}
+                        </div>
+                        <img src="/assets/images/icon/status_danger.svg">
+                    </div>
+                </div>
+
+                <div class="status mb-2" *ngIf="!(moment(screeningEvent.offers.validThrough).unix() > moment().unix())">
+                    {{ 'purchase.cinema.schedule.status.endSale' | translate }}</div>
+                <div class="status mb-2" *ngIf="!(moment(screeningEvent.offers.validFrom).unix() < moment().unix())">
+                    {{ 'purchase.cinema.schedule.status.outsideSalesPeriod' | translate }}</div>
+                <div class="mb-2 text-small">{{ 'common.seat' | translate }}
+                    {{ screeningEvent.remainingAttendeeCapacity }} / {{
+                    screeningEvent.maximumAttendeeCapacity }}</div>
+                <div class="text-small mb-1">{{ 'common.ticketing' | translate }} {{ screeningEvent.checkInCount }}
+                </div>
+                <div class="text-small">{{ 'common.admission' | translate }} {{ screeningEvent.attendeeCount }}</div>
+            </div>
+        </li>
+    </ul>
+</div>

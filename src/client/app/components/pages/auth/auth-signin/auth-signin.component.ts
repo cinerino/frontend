@@ -32,7 +32,7 @@ export class AuthSigninComponent implements OnInit {
         const success = this.actions.pipe(
             ofType(userAction.ActionTypes.CreateSuccess),
             tap(() => {
-                this.router.navigate(['/purchase/schedule']);
+                this.router.navigate(['/purchase/root']);
             })
         );
 

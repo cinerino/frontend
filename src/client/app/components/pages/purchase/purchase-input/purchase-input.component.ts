@@ -228,12 +228,12 @@ export class PurchaseInputComponent implements OnInit {
      */
     private createGmoTokenObject() {
         this.purchase.subscribe((purchase) => {
-            if (purchase.movieTheater === undefined) {
+            if (purchase.seller === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
             this.store.dispatch(new CreateGmoTokenObject({
-                movieTheater: purchase.movieTheater,
+                seller: purchase.seller,
                 creditCard: {
                     cardno: this.paymentForm.controls.cardNumber.value,
                     expire: `${this.paymentForm.controls.cardExpirationYear.value}${this.paymentForm.controls.cardExpirationMonth.value}`,

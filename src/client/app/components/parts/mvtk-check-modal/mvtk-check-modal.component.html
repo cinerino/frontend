@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            <div class="buttons mx-auto px-3">
+            <div class="buttons mx-auto">
                 <button *ngIf="stream === null" type="button" class="btn btn-success btn-block py-3"
                     [disabled]="isLoading | async"
                     (click)="activationCamera()">{{ 'modal.mvtkCheck.camera.start' | translate }}</button>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="d-none"><canvas id="canvas"></canvas></div>
             </div>
-            <div class="buttons mx-auto px-3 mb-2">
+            <div class="buttons mx-auto mb-2">
                 <button *ngIf="stream !== null" type="button" class="btn btn-success btn-block"
                     [disabled]="isLoading | async"
                     (click)="stopCamera()">{{ 'modal.mvtkCheck.camera.stop' | translate }}</button>

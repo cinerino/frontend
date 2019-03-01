@@ -7,49 +7,58 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
-import { AuthIndexComponent } from './components/pages/auth/auth-index/auth-index.component';
-import { AuthSigninComponent } from './components/pages/auth/auth-signin/auth-signin.component';
-import { AuthSignoutComponent } from './components/pages/auth/auth-signout/auth-signout.component';
-import { BaseComponent } from './components/pages/base/base.component';
-import { CongestionComponent } from './components/pages/congestion/congestion.component';
-import { ErrorComponent } from './components/pages/error/error.component';
-import { ExpiredComponent } from './components/pages/expired/expired.component';
-import { InquiryConfirmComponent } from './components/pages/inquiry/inquiry-confirm/inquiry-confirm.component';
-import { InquiryInputComponent } from './components/pages/inquiry/inquiry-input/inquiry-input.component';
-import { MaintenanceComponent } from './components/pages/maintenance/maintenance.component';
-import { NotfoundComponent } from './components/pages/notfound/notfound.component';
-import { OrderListComponent } from './components/pages/order/order-list/order-list.component';
-import { PurchaseBaseComponent } from './components/pages/purchase/purchase-base/purchase-base.component';
-import { PurchaseCartComponent } from './components/pages/purchase/purchase-cart/purchase-cart.component';
-import { PurchaseCompleteComponent } from './components/pages/purchase/purchase-complete/purchase-complete.component';
-import { PurchaseConfirmComponent } from './components/pages/purchase/purchase-confirm/purchase-confirm.component';
-import { PurchaseInputComponent } from './components/pages/purchase/purchase-input/purchase-input.component';
-import { PurchaseScheduleComponent } from './components/pages/purchase/purchase-schedule/purchase-schedule.component';
-import { PurchaseSeatComponent } from './components/pages/purchase/purchase-seat/purchase-seat.component';
-import { PurchaseTicketComponent } from './components/pages/purchase/purchase-ticket/purchase-ticket.component';
-import { SettingComponent } from './components/pages/setting/setting.component';
-import { AlertModalComponent } from './components/parts/alert-modal/alert-modal.component';
-import { ConfirmModalComponent } from './components/parts/confirm-modal/confirm-modal.component';
-import { ContentsComponent } from './components/parts/contents/contents.component';
-import { FooterComponent } from './components/parts/footer/footer.component';
-import { HeaderMenuComponent } from './components/parts/header-menu/header-menu.component';
-import { HeaderComponent } from './components/parts/header/header.component';
-import { LoadingComponent } from './components/parts/loading/loading.component';
-import { MvtkCheckModalComponent } from './components/parts/mvtk-check-modal/mvtk-check-modal.component';
-import { OrderDetailModalComponent } from './components/parts/order-detail-modal/order-detail-modal.component';
-import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
-import { PurchaseScheduleFilmComponent } from './components/parts/purchase-schedule-film/purchase-schedule-film.component';
-import { PurchaseTransactionModalComponent } from './components/parts/purchase-transaction-modal/purchase-transaction-modal.component';
-import { QrCodeModalComponent } from './components/parts/qrcode-modal/qrcode-modal.component';
-import { ScreenComponent } from './components/parts/screen/screen.component';
-import { SecurityCodeModalComponent } from './components/parts/security-code-modal/security-code-modal.component';
-import { TicketListModalComponent } from './components/parts/ticket-list-modal/ticket-list-modal.component';
-import { TransactionRemainingTimeComponent } from './components/parts/transaction-remaining-time/transaction-remaining-time.component';
+import {
+    AuthIndexComponent,
+    AuthSigninComponent,
+    AuthSignoutComponent,
+    BaseComponent,
+    CongestionComponent,
+    ErrorComponent,
+    ExpiredComponent,
+    InquiryConfirmComponent,
+    InquiryInputComponent,
+    MaintenanceComponent,
+    NotfoundComponent,
+    OrderListComponent,
+    PurchaseBaseComponent,
+    PurchaseCinemaCartComponent,
+    PurchaseCinemaScheduleComponent,
+    PurchaseCinemaSeatComponent,
+    PurchaseCinemaTicketComponent,
+    PurchaseCompleteComponent,
+    PurchaseConfirmComponent,
+    PurchaseEventScheduleComponent,
+    PurchaseEventTicketComponent,
+    PurchaseInputComponent,
+    PurchaseRootComponent,
+    SettingComponent
+} from './components/pages';
+import {
+    AlertModalComponent,
+    ConfirmModalComponent,
+    ContentsComponent,
+    FooterComponent,
+    HeaderComponent,
+    HeaderMenuComponent,
+    LoadingComponent,
+    MvtkCheckModalComponent,
+    OrderDetailModalComponent,
+    PurchaseCinemaScheduleFilmComponent,
+    PurchaseCinemaTicketModalComponent,
+    PurchaseEventScheduleWorkComponent,
+    PurchaseEventTicketModalComponent,
+    PurchaseInfoComponent,
+    PurchaseTransactionModalComponent,
+    QrCodeModalComponent,
+    ScreenComponent,
+    SecurityCodeModalComponent,
+    TransactionRemainingTimeComponent
+} from './components/parts';
 import { ChangeLanguagePipe } from './pipes/change-language.pipe';
 import { FormatDatePipe } from './pipes/format-date.pipe';
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
@@ -65,10 +74,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AppComponent,
         AuthSigninComponent,
         AuthSignoutComponent,
-        PurchaseScheduleComponent,
         PurchaseBaseComponent,
-        PurchaseSeatComponent,
-        PurchaseTicketComponent,
         PurchaseInputComponent,
         PurchaseConfirmComponent,
         PurchaseCompleteComponent,
@@ -77,9 +83,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         ContentsComponent,
         HeaderComponent,
         FooterComponent,
-        PurchaseScheduleFilmComponent,
         ScreenComponent,
-        TicketListModalComponent,
+        PurchaseCinemaTicketModalComponent,
+        PurchaseEventTicketModalComponent,
         AlertModalComponent,
         PurchaseInfoComponent,
         LoadingComponent,
@@ -94,7 +100,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         LibphonenumberFormatPipe,
         CongestionComponent,
         MaintenanceComponent,
-        PurchaseCartComponent,
         PurchaseTransactionModalComponent,
         SecurityCodeModalComponent,
         QrCodeModalComponent,
@@ -103,10 +108,20 @@ export function HttpLoaderFactory(http: HttpClient) {
         OrderListComponent,
         OrderDetailModalComponent,
         ChangeLanguagePipe,
-        FormatDatePipe
+        FormatDatePipe,
+        PurchaseCinemaCartComponent,
+        PurchaseCinemaScheduleComponent,
+        PurchaseCinemaSeatComponent,
+        PurchaseCinemaTicketComponent,
+        PurchaseEventTicketComponent,
+        PurchaseEventScheduleComponent,
+        PurchaseRootComponent,
+        PurchaseCinemaScheduleFilmComponent,
+        PurchaseEventScheduleWorkComponent
     ],
     entryComponents: [
-        TicketListModalComponent,
+        PurchaseCinemaTicketModalComponent,
+        PurchaseEventTicketModalComponent,
         AlertModalComponent,
         ConfirmModalComponent,
         QrCodeModalComponent,

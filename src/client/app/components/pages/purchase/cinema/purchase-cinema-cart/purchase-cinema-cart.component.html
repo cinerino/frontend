@@ -1,0 +1,67 @@
+<div class="contents-width mx-auto px-3 py-5">
+    <div class="mb-4">
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.cart.title' | translate }}</h2>
+        <p class="mb-4">{{ 'purchase.cinema.cart.read' | translate }}</p>
+
+        <div *ngIf="(purchase | async).authorizeSeatReservations.length === 0">
+            <p>{{ 'purchase.cinema.cart.notfound' | translate }}</p>
+        </div>
+        <div *ngFor="let authorizeSeatReservation of (purchase | async).authorizeSeatReservations"
+            class="mb-4 px-3 bg-light-gray position-relative">
+            <div class="py-3 border-bottom border-gray">
+                <div class="row">
+                    <p class="mb-2 mb-md-0 col-md-4">
+                        <i class="fas fa-map-marker-alt mr-2"></i>{{ 'common.theater' | translate }} /
+                        {{ 'common.screen' | translate }}</p>
+                    <p class="col-md-8">
+                        {{ authorizeSeatReservation.object.event.superEvent.location.name | changeLanguage }} / {{
+                        authorizeSeatReservation.object.event.location.name | changeLanguage }}</p>
+                </div>
+            </div>
+            <div class="py-3 border-bottom border-gray">
+                <div class="row">
+                    <p class="mb-2 mb-md-0 col-md-4">
+                        <i class="fas fa-film mr-2"></i>{{ 'common.event' | translate }}</p>
+                    <p class="col-md-8">{{ authorizeSeatReservation.object.event.name | changeLanguage }}</p>
+                </div>
+            </div>
+            <div class="py-3 border-bottom border-gray">
+                <div class="row">
+                    <p class="mb-2 mb-md-0 col-md-4">
+                        <i class="far fa-clock mr-2"></i>{{ 'common.startDate' | translate }}</p>
+                    <p class="col-md-8">
+                        {{ authorizeSeatReservation.object.event.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
+                    </p>
+                </div>
+            </div>
+            <div class="py-3">
+                <div class="row">
+                    <p class="mb-2 mb-md-0 col-md-4">
+                        <i class="fas fa-ticket-alt mr-2"></i>{{ 'common.seat' | translate }} /
+                        {{ 'common.ticket' | translate }}</p>
+                    <div class="col-md-8">
+                        <div *ngFor="let acceptedOffer of authorizeSeatReservation.object.acceptedOffer" class="mb-2">
+                            <p>{{ acceptedOffer.ticketedSeat.seatNumber }}</p>
+                            <p>{{ acceptedOffer.name | changeLanguage }} / {{
+                                getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="close" aria-label="Close" (click)="removeItem(authorizeSeatReservation)">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="(purchase | async).authorizeSeatReservations.length > 0" class="buttons mx-auto">
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+            routerLink="/purchase/input">{{ 'purchase.cinema.cart.next' | translate }}</button>
+        <button *ngIf="(user | async).limitedPurchaseCount > (purchase | async).authorizeSeatReservations.length" type="button" class="btn btn-outline-primary btn-block py-3"
+            routerLink="/purchase/root">{{ 'purchase.cinema.cart.add' | translate }}</button>
+    </div>
+    <div *ngIf="(purchase | async).authorizeSeatReservations.length === 0" class="buttons mx-auto">
+        <button type="button" class="btn btn-outline-primary btn-block py-3"
+            routerLink="/purchase/root">{{ 'purchase.cinema.cart.prev' | translate }}</button>
+    </div>
+</div>

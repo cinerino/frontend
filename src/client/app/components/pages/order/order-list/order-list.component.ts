@@ -29,7 +29,7 @@ export class OrderListComponent implements OnInit {
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public limit: number;
     public conditions: {
-        movieTheaterId: string;
+        sellerId: string;
         orderDateFrom: string;
         orderDateThrough: string;
         confirmationNumber: string;
@@ -42,7 +42,7 @@ export class OrderListComponent implements OnInit {
         orderStatuses: '' | factory.orderStatus;
     };
     public confirmedConditions: {
-        movieTheaterId: string;
+        sellerId: string;
         orderDateFrom: string;
         orderDateThrough: string;
         confirmationNumber: string;
@@ -77,7 +77,7 @@ export class OrderListComponent implements OnInit {
         this.order = this.store.pipe(select(reducers.getOrder));
         this.limit = 20;
         this.conditions = {
-            movieTheaterId: '',
+            sellerId: '',
             orderDateFrom: '',
             orderDateThrough: '',
             confirmationNumber: '',
@@ -110,7 +110,7 @@ export class OrderListComponent implements OnInit {
         this.selectedOrders = [];
         if (changeConditions) {
             this.confirmedConditions = {
-                movieTheaterId: this.conditions.movieTheaterId,
+                sellerId: this.conditions.sellerId,
                 orderDateFrom: this.conditions.orderDateFrom,
                 orderDateThrough: this.conditions.orderDateThrough,
                 confirmationNumber: this.conditions.confirmationNumber,
@@ -126,8 +126,8 @@ export class OrderListComponent implements OnInit {
         }
         const params = {
             seller: {
-                ids: (this.confirmedConditions.movieTheaterId === '')
-                    ? undefined : [this.confirmedConditions.movieTheaterId]
+                ids: (this.confirmedConditions.sellerId === '')
+                    ? undefined : [this.confirmedConditions.sellerId]
             },
             customer: {
                 email: (this.confirmedConditions.customer.email === '')

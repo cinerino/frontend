@@ -18,20 +18,20 @@ export class MasterEffects {
     ) { }
 
     /**
-     * GetTheaters
+     * GetSellers
      */
     @Effect()
-    public getTheaters = this.actions.pipe(
-        ofType<master.GetTheaters>(master.ActionTypes.GetTheaters),
+    public getSellers = this.actions.pipe(
+        ofType<master.GetSellers>(master.ActionTypes.GetSellers),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const searchMovieTheatersResult = await this.cinerino.seller.search(payload.params);
-                const movieTheaters = searchMovieTheatersResult.data;
-                return new master.GetTheatersSuccess({ movieTheaters });
+                const searchMovieSellersResult = await this.cinerino.seller.search(payload.params);
+                const sellers = searchMovieSellersResult.data;
+                return new master.GetSellersSuccess({ sellers });
             } catch (error) {
-                return new master.GetTheatersFail({ error: error });
+                return new master.GetSellersFail({ error: error });
             }
         })
     );
@@ -45,11 +45,11 @@ export class MasterEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                if (payload.movieTheater.location === undefined) {
-                    throw new Error('movieTheater.location is undefined');
+                if (payload.seller.location === undefined) {
+                    throw new Error('seller.location is undefined');
                 }
                 await this.cinerino.getServices();
-                const branchCode = payload.movieTheater.location.branchCode;
+                const branchCode = payload.seller.location.branchCode;
                 const scheduleDate = payload.scheduleDate;
                 const today = moment(moment().format('YYYY-MM-DD')).toDate();
                 const screeningEventsResult = await this.cinerino.event.searchScreeningEvents({
@@ -68,7 +68,7 @@ export class MasterEffects {
                 // TODO
                 // branchCodeが重複しているため劇場名でフィルター
                 const screeningEvents =
-                    screeningEventsResult.data.filter(data => data.superEvent.location.name.ja === payload.movieTheater.name.ja);
+                    screeningEventsResult.data.filter(data => data.superEvent.location.name.ja === payload.seller.name.ja);
 
                 return new master.GetScheduleSuccess({ screeningEvents, scheduleDate });
             } catch (error) {

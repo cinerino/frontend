@@ -1,0 +1,38 @@
+<div class="contents-width mx-auto px-3 pt-5">
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.seller.title' | translate }}</h2>
+    <p class="mb-4">{{ 'purchase.event.seller.read' | translate }}</p>
+
+    <div class="theaters">
+        <button *ngFor="let theater of (master | async)?.sellers" type="button" class="btn btn-block py-3 m-0"
+            (click)="selectSeller(theater)" [class.btn-primary]="(purchase | async).seller?.id === theater.id"
+            [class.btn-outline-primary]="(purchase | async).seller?.id !== theater.id">{{ theater.name | changeLanguage }}</button>
+    </div>
+</div>
+
+<div class="contents-width mx-auto px-3 pt-5">
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.schedule.title' | translate }}</h2>
+    <p class="mb-4">{{ 'purchase.event.schedule.read' | translate }}</p>
+</div>
+<div class="contents-width mx-auto p-3">
+    <div class="mb-3">
+        <input type="date" class="form-control rounded-0 text-large" name="date" [(ngModel)]="scheduleDate"
+            (change)="selectDate()">
+    </div>
+    <div class="mb-4">
+        <p *ngIf="(purchase | async)?.scheduleDate" class="text-primary text-large mb-3">
+            {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}
+        </p>
+        <p *ngIf="screeningWorkEvents.length === 0" class="mb-3">{{ 'purchase.event.schedule.notfound' | translate }}
+        </p>
+        <app-purchase-event-schedule-work *ngFor="let screeningWorkEvent of screeningWorkEvents"
+            [screeningWorkEvent]="screeningWorkEvent" [readonly]="true" (select)="selectSchedule($event)" class="mb-3">
+        </app-purchase-event-schedule-work>
+    </div>
+
+    <div class="buttons mx-auto">
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3"
+            (click)="onSubmit()">{{ 'purchase.event.schedule.next' | translate }}</button>
+        <!-- <button type="button" class="btn btn-outline-primary btn-block py-3"
+            routerLink="/purchase/root">{{ 'purchase.event.schedule.prev' | translate }}</button> -->
+    </div>
+</div>

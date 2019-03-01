@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import { environment } from '../../environments/environment';
 import { IMovieTicket } from '../models';
 
-export interface IScreeningEventFilm {
+export interface IScreeningEventWork {
     info: factory.chevre.event.screeningEvent.IEvent;
     data: factory.chevre.event.screeningEvent.IEvent[];
 }
@@ -23,17 +23,17 @@ export interface IEventOrder {
 /**
  * 作品別イベントへ変換
  */
-export function screeningEventsToFilmEvents(params: {
+export function screeningEventsToWorkEvents(params: {
     screeningEvents: factory.chevre.event.screeningEvent.IEvent[]
 }) {
-    const films: IScreeningEventFilm[] = [];
+    const result: IScreeningEventWork[] = [];
     const screeningEvents = params.screeningEvents;
     screeningEvents.forEach((screeningEvent) => {
-        const registered = films.find((film) => {
-            return (film.info.superEvent.id === screeningEvent.superEvent.id);
+        const registered = result.find((data) => {
+            return (data.info.superEvent.id === screeningEvent.superEvent.id);
         });
         if (registered === undefined) {
-            films.push({
+            result.push({
                 info: screeningEvent,
                 data: [screeningEvent]
             });
@@ -42,7 +42,7 @@ export function screeningEventsToFilmEvents(params: {
         }
     });
 
-    return films;
+    return result;
 }
 
 /**
@@ -70,13 +70,13 @@ export function createGmoTokenObject(params: {
         holderName: string;
         securityCode: string;
     },
-    movieTheater: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
 }) {
     return new Promise<IGmoTokenObject>((resolve, reject) => {
-        if (params.movieTheater.paymentAccepted === undefined) {
-            throw new Error('movieTheater.paymentAccepted is undefined');
+        if (params.seller.paymentAccepted === undefined) {
+            throw new Error('seller.paymentAccepted is undefined');
         }
-        const findPaymentAcceptedResult = params.movieTheater.paymentAccepted.find((paymentAccepted) => {
+        const findPaymentAcceptedResult = params.seller.paymentAccepted.find((paymentAccepted) => {
             return (paymentAccepted.paymentMethodType === factory.paymentMethodType.CreditCard);
         });
         if (findPaymentAcceptedResult === undefined
