@@ -11,6 +11,7 @@ import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
 import { getAmount } from '../../../../functions';
+import { ViewType } from '../../../../models';
 import { LibphonenumberFormatPipe } from '../../../../pipes/libphonenumber-format.pipe';
 import { UtilService } from '../../../../services';
 import { ActionTypes, CreateGmoTokenObject, RegisterContact } from '../../../../store/actions/purchase.action';
@@ -34,6 +35,7 @@ export class PurchaseInputComponent implements OnInit {
     };
     public amount: number;
     public environment = environment;
+    public viewType: typeof ViewType = ViewType;
 
     constructor(
         private store: Store<reducers.IState>,
