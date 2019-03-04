@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
      * @example {{ 'HOME.HELLO' | translate: { value: 'world'} }}
      */
     public locales() {
-        this.translate.addLangs(['ja', 'en', 'ko']);
+        this.translate.addLangs(['ja', 'en']);
         this.translate.setDefaultLang('ja');
         console.log('translate', this.translate);
     }

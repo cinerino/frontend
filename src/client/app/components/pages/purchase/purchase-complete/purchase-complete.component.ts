@@ -32,7 +32,7 @@ export class PurchaseCompleteComponent implements OnInit {
             }
             const order = purchase.order;
             this.eventOrders = orderToEventOrders({ order });
-        });
+        }).unsubscribe();
     }
 
 }

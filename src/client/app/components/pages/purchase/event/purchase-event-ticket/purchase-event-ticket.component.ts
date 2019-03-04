@@ -143,7 +143,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             modalRef.result.then((reservationTickets: IReservationTicket[]) => {
                 this.temporaryReservation(reservationTickets);
             }).catch(() => { });
-        });
+        }).unsubscribe();
     }
 
     private temporaryReservation(reservationTickets: IReservationTicket[]) {

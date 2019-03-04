@@ -1,58 +1,107 @@
 {
     "purchase": {
-        "theater": {
-            "title": "Theater selection",
-            "read": "Please select a theater.",
-            "next": "",
-            "prev": ""
-        },
-        "schedule": {
-            "title": "Schedule selection",
-            "read": "Please select a schedule",
-            "preSalesSchedule": "advance sales schedule",
-            "salesSchedule": "Normal sales schedule",
-            "notfound": "No schedule",
-            "status": {
-                "success": "Purchase",
-                "warning": "Purchase",
-                "danger": "full",
-                "endSale": "End of sale",
-                "outsideSalesPeriod": "Out of Sale Period"
+        "cinema": {
+            "seller": {
+                "title": "Theater selection",
+                "read": "Please select a theater.",
+                "next": "",
+                "prev": ""
             },
-            "next": "",
-            "prev": ""
-        },
-        "seat": {
-            "title": "Selection Selection",
-            "read": "Please select your seat",
-            "next": "I agree to the terms of service and next",
-            "terms": "Terms of Service",
-            "prev": "back",
-            "alert": {
-                "unselected": "Seats are not selected."
+            "schedule": {
+                "title": "Schedule selection",
+                "read": "Please select a schedule",
+                "preSalesSchedule": "advance sales schedule",
+                "salesSchedule": "Normal sales schedule",
+                "notfound": "No schedule",
+                "status": {
+                    "success": "Purchase",
+                    "warning": "Purchase",
+                    "danger": "full",
+                    "endSale": "End of sale",
+                    "outsideSalesPeriod": "Out of Sale Period"
+                },
+                "next": "Next",
+                "prev": ""
+            },
+            "seat": {
+                "title": "Selection Selection",
+                "read": "Please select your seat",
+                "next": "I agree to the terms of service and continue",
+                "terms": "Terms of Service",
+                "prev": "back",
+                "alert": {
+                    "unselected": "Seats are not selected."
+                }
+            },
+            "ticket": {
+                "title": "Select banknote type",
+                "read": "Please select a note type",
+                "unselected": "Please select a note type",
+                "mvtk": "Who will use the ticket voucher",
+                "next": "Next",
+                "prev": "back",
+                "alert": {
+                    "unselected": "Ticket type is not selected",
+                    "ticketCondition": "Please check the conditions for applying discount coupon again."
+                }
+            },
+            "cart": {
+                "title": "purchase information",
+                "read": "Please confirm purchase information",
+                "notfound": "There are no items being purchased",
+                "next": "Next",
+                "prev": "back",
+                "add": "Add",
+                "confirm": {
+                    "cancel": "Are you sure you want to cancel?"
+                }
             }
         },
-        "ticket": {
-            "title": "Select banknote type",
-            "read": "Please select a note type",
-            "unselected": "Please select a note type",
-            "mvtk": "Who will use the ticket voucher",
-            "next": "Next",
-            "prev": "back",
-            "alert": {
-                "unselected": "Ticket type is not selected",
-                "ticketCondition": "Please check the conditions for applying discount coupon again."
-            }
-        },
-        "cart": {
-            "title": "purchase information",
-            "read": "Please confirm purchase information",
-            "notfound": "There are no items being purchased",
-            "next": "Next",
-            "prev": "back",
-            "add": "Add",
-            "confirm": {
-                "cancel": "Are you sure you want to cancel?"
+        "event": {
+            "seller": {
+                "title": "Theater selection",
+                "read": "Please select a theater.",
+                "next": "",
+                "prev": ""
+            },
+            "schedule": {
+                "title": "Schedule confirmation",
+                "read": "Please check the schedule",
+                "notfound": "No schedule",
+                "status": {
+                    "success": "Purchase",
+                    "warning": "Purchase",
+                    "danger": "full",
+                    "endSale": "End of sale",
+                    "outsideSalesPeriod": "Out of Sale Period"
+                },
+                "next": "Next",
+                "prev": ""
+            },
+            "ticket": {
+                "title": "Select banknote type",
+                "read": "Please select a note type",
+                "next": "Next",
+                "prev": "back",
+                "success": {
+                    "temporaryReservation": "Tentative reservation succeeded."
+                },
+                "alert": {
+                    "unselected": "Ticket type is not selected",
+                    "ticketCondition": "Please reconfirm the applicable conditions for discount vouchers.",
+                    "temporaryReservation": "Tentative reservation failed."
+                }
+            },
+            "cart": {
+                "title": "purchase information",
+                "read": "Please confirm purchase information",
+                "notfound": "There are no items being purchased",
+                "next": "Next",
+                "prev": "back",
+                "add": "Add",
+                "confirm": {
+                    "cancel": "Are you sure you want to cancel?"
+                }
             }
         },
         "input": {
@@ -276,12 +325,12 @@
         "doorTime": "opening date",
         "seat": "Seat",
         "ticket": "Ticket type",
-        "customer": "customer",
+        "customer": "Buyer",
         "customerName": "your name",
         "familyName": "Last name (full-width katakana)",
         "givenName": "name (full-width katakana)",
         "email": "email address",
-        "emailDescription": "【When using Domain Specific Reception】<br> * If you are receiving domain designation of mobile phones, please add @example.com additionally. <br> * If you are using au (@ezweb.ne.jp), please also add @example.com additional setting to the Spoofing restriction avoidance list in addition to the above. ",
+        "emailDescription": "【When using Domain Specific Reception】 <br> * If you are receiving domain designation of mobile phones, please add\" @ example.com \"additionally. <br> * If you are using au (@ ezweb.ne.jp), please also add \"@ example.com\" additional setting to the \"Spoofing restriction avoidance list\" in addition to the above. ",
         "telephone": "telephone number",
         "paymentMethod": "Payment method",
         "ticketing": "Ticketing",
@@ -301,10 +350,12 @@
         "timeLimit": "deadline",
         "all": "All",
         "close": "close",
-        "yes": "yes",
-        "no": "no",
+        "done": "Decision",
+        "yes": "Yes",
+        "no": "No",
         "error": "error",
-        "confirm": "confirm",
-        "warning": "warning"
+        "confirm": "Confirm",
+        "complete": "done",
+        "warning": "Warning"
     }
 }
