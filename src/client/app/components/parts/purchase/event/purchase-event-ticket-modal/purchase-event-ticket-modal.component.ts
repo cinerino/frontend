@@ -26,7 +26,12 @@ export class PurchaseEventTicketModalComponent implements OnInit {
 
     public ngOnInit() {
         this.tickets = [];
-        this.tickets = this.screeningEventTicketOffers;
+        this.tickets = this.screeningEventTicketOffers.filter((offer) => {
+            const movieTicketTypeChargeSpecification = offer.priceSpecification.priceComponent.find(
+                (component) => component.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification
+            );
+            return movieTicketTypeChargeSpecification === undefined;
+        });
         this.values = [];
         const limit = 10;
         for (let i = 0; i < limit; i++) {
