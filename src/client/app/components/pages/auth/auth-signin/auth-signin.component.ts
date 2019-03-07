@@ -4,6 +4,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment';
 import * as orderAction from '../../../../store/actions/order.action';
 import * as purchaseAction from '../../../../store/actions/purchase.action';
 import * as userAction from '../../../../store/actions/user.action';
@@ -32,7 +33,7 @@ export class AuthSigninComponent implements OnInit {
         const success = this.actions.pipe(
             ofType(userAction.ActionTypes.CreateSuccess),
             tap(() => {
-                this.router.navigate(['/purchase/root']);
+                this.router.navigate([environment.BASE_URL]);
             })
         );
 

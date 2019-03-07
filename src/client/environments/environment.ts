@@ -22,6 +22,8 @@ export const environment = {
     TRANSACTION_TIME: '30',
     PRE_SCHEDULE_DATE: '3',
 
-    STORAGE_NAME: 'CINERINO-FRONTEND-STATE'
+    STORAGE_NAME: 'CINERINO-FRONTEND-STATE',
+
+    BASE_URL: '/purchase/root'
 
 };
