@@ -14,6 +14,7 @@ import { NotfoundComponent } from './components/pages/notfound/notfound.componen
 import { SettingComponent } from './components/pages/setting/setting.component';
 import * as auth from './routes/auth.route';
 import * as inquiry from './routes/inquiry.route';
+import * as mypage from './routes/mypage.route';
 import * as order from './routes/order.route';
 import * as purchase from './routes/purchase.route';
 
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
     auth.route,
     inquiry.route,
     order.route,
+    mypage.route,
     {
         path: '',
         component: BaseComponent,

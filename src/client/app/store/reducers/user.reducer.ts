@@ -5,11 +5,35 @@ import { ViewType } from '../../models';
 import { Actions, ActionTypes } from '../actions/user.action';
 
 export interface IUserState {
+    /**
+     * 会員フラグ
+     */
     isMember: boolean;
+    /**
+     * ユーザーネーム
+     */
     userName?: string;
+    /**
+     * プロフィール
+     */
     profile?: factory.person.IProfile;
+    /**
+     * コイン口座
+     */
+    coin?: {
+        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
+    };
+    /**
+     * 言語
+     */
     language: string;
+    /**
+     * 購入制限数
+     */
     limitedPurchaseCount: number;
+    /**
+     * 表示形式
+     */
     viewType: ViewType;
 }
 
@@ -29,21 +53,32 @@ export function reducer(state: IState, action: Actions): IState {
         case ActionTypes.Delete: {
             state.userData.isMember = false;
             state.userData.profile = undefined;
+            state.userData.coin = undefined;
             return { ...state, loading: false };
         }
         case ActionTypes.Initialize: {
             state.userData.isMember = true;
             return { ...state, loading: false };
         }
-        case ActionTypes.Create: {
-            return { ...state, loading: true, process: { ja: '会員情報を取得しています', en: 'Acquiring member information' }, };
+        case ActionTypes.InitializeProfile: {
+            return { ...state, loading: true, process: { ja: 'プロフィールを初期化しています', en: 'Initializing Profile' }, };
         }
-        case ActionTypes.CreateSuccess: {
-            const profile = action.payload.profile;
-            state.userData.profile = profile;
+        case ActionTypes.InitializeProfileSuccess: {
+            state.userData.profile = action.payload.profile;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
-        case ActionTypes.CreateFail: {
+        case ActionTypes.InitializeProfileFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+        }
+        case ActionTypes.InitializeCoinAccount: {
+            return { ...state, loading: true, process: { ja: 'コイン口座を初期化しています', en: 'Initializing Coin Account' }, };
+        }
+        case ActionTypes.InitializeCoinAccountSuccess: {
+            state.userData.coin = action.payload.coin;
+            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
+        }
+        case ActionTypes.InitializeCoinAccountFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
@@ -51,14 +86,14 @@ export function reducer(state: IState, action: Actions): IState {
             state.userData.language = action.payload.language;
             return { ...state };
         }
-        case ActionTypes.UpdateCustomer: {
+        case ActionTypes.UpdateProfile: {
             return { ...state, loading: true, process: { ja: '会員情報を更新しています', en: 'Updating member information' }, };
         }
-        case ActionTypes.UpdateCustomerSuccess: {
+        case ActionTypes.UpdateProfileSuccess: {
             state.userData.profile = action.payload.profile;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
-        case ActionTypes.UpdateCustomerFail: {
+        case ActionTypes.UpdateProfileFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }

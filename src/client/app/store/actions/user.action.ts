@@ -8,13 +8,16 @@ import { ViewType } from '../../models';
 export enum ActionTypes {
     Delete = '[User] Delete',
     Initialize = '[User] Initialize',
-    Create = '[User] Create',
-    CreateSuccess = '[User] Create Success',
-    CreateFail = '[User] Create Fail',
+    InitializeProfile = '[User] Initialize Profile',
+    InitializeProfileSuccess = '[User] Initialize Profile Success',
+    InitializeProfileFail = '[User] Initialize Profile Fail',
+    InitializeCoinAccount = '[User] Initialize Coin Account',
+    InitializeCoinAccountSuccess = '[User] Initialize Coin Account Success',
+    InitializeCoinAccountFail = '[User] Initialize Coin Account Fail',
     UpdateLanguage = '[User] Update Language',
-    UpdateCustomer = '[User] Update Customer',
-    UpdateCustomerSuccess = '[User] Update Customer Success',
-    UpdateCustomerFail = '[User] Update Customer Fail',
+    UpdateProfile = '[User] Update Customer',
+    UpdateProfileSuccess = '[User] Update Customer Success',
+    UpdateProfileFail = '[User] Update Customer Fail',
     UpdatePayment = '[User] Update Payment',
     UpdatePaymentSuccess = '[User] Update Payment Success',
     UpdatePaymentFail = '[User] Update Payment Fail',
@@ -22,7 +25,7 @@ export enum ActionTypes {
 }
 
 /**
- * Delete
+ * ユーザーデータ削除
  */
 export class Delete implements Action {
     public readonly type = ActionTypes.Delete;
@@ -30,7 +33,7 @@ export class Delete implements Action {
 }
 
 /**
- * Initialize
+ * ユーザーデータ初期化
  */
 export class Initialize implements Action {
     public readonly type = ActionTypes.Initialize;
@@ -38,31 +41,61 @@ export class Initialize implements Action {
 }
 
 /**
- * Create
+ * プロフィール初期化
  */
-export class Create implements Action {
-    public readonly type = ActionTypes.Create;
+export class InitializeProfile implements Action {
+    public readonly type = ActionTypes.InitializeProfile;
     constructor(public payload?: {}) { }
 }
 
 /**
- * CreateSuccess
+ * プロフィール初期化成功
  */
-export class CreateSuccess implements Action {
-    public readonly type = ActionTypes.CreateSuccess;
-    constructor(public payload: { profile: factory.person.IProfile }) { }
+export class InitializeProfileSuccess implements Action {
+    public readonly type = ActionTypes.InitializeProfileSuccess;
+    constructor(public payload: {
+        profile: factory.person.IProfile;
+    }) { }
 }
 
 /**
- * CreateFail
+ * プロフィール初期化失敗
  */
-export class CreateFail implements Action {
-    public readonly type = ActionTypes.CreateFail;
+export class InitializeProfileFail implements Action {
+    public readonly type = ActionTypes.InitializeProfileFail;
     constructor(public payload: { error: Error }) { }
 }
 
 /**
- * UpdateLanguage
+ * コイン口座初期化
+ */
+export class InitializeCoinAccount implements Action {
+    public readonly type = ActionTypes.InitializeCoinAccount;
+    constructor(public payload?: {}) { }
+}
+
+/**
+ * コイン口座初期化成功
+ */
+export class InitializeCoinAccountSuccess implements Action {
+    public readonly type = ActionTypes.InitializeCoinAccountSuccess;
+    constructor(public payload: {
+        coin: {
+            account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
+        }
+    }) { }
+}
+
+/**
+ * コイン口座初期化失敗
+ */
+export class InitializeCoinAccountFail implements Action {
+    public readonly type = ActionTypes.InitializeCoinAccountFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * 言語更新
  */
 export class UpdateLanguage implements Action {
     public readonly type = ActionTypes.UpdateLanguage;
@@ -70,7 +103,7 @@ export class UpdateLanguage implements Action {
 }
 
 /**
- * UpdateBaseSetting
+ * 基本設定更新
  */
 export class UpdateBaseSetting implements Action {
     public readonly type = ActionTypes.UpdateBaseSetting;
@@ -78,32 +111,32 @@ export class UpdateBaseSetting implements Action {
 }
 
 /**
- * UpdateCustomer
+ * 購入者情報更新
  */
-export class UpdateCustomer implements Action {
-    public readonly type = ActionTypes.UpdateCustomer;
+export class UpdateProfile implements Action {
+    public readonly type = ActionTypes.UpdateProfile;
     constructor(public payload: { profile: factory.person.IProfile }) { }
 }
 
 /**
- * UpdateCustomerSuccess
+ * 購入者情報更新成功
  */
-export class UpdateCustomerSuccess implements Action {
-    public readonly type = ActionTypes.UpdateCustomerSuccess;
+export class UpdateProfileSuccess implements Action {
+    public readonly type = ActionTypes.UpdateProfileSuccess;
     constructor(public payload: { profile: factory.person.IProfile }) { }
 }
 
 /**
- * UpdateCustomerFail
+ * 購入者情報更新失敗
  */
-export class UpdateCustomerFail implements Action {
-    public readonly type = ActionTypes.UpdateCustomerFail;
+export class UpdateProfileFail implements Action {
+    public readonly type = ActionTypes.UpdateProfileFail;
     constructor(public payload: { error: Error }) { }
 }
 
 
 /**
- * UpdatePayment
+ * 決済情報更新
  */
 export class UpdatePayment implements Action {
     public readonly type = ActionTypes.UpdatePayment;
@@ -111,7 +144,7 @@ export class UpdatePayment implements Action {
 }
 
 /**
- * UpdatePaymentSuccess
+ * 決済情報更新成功
  */
 export class UpdatePaymentSuccess implements Action {
     public readonly type = ActionTypes.UpdatePaymentSuccess;
@@ -119,7 +152,7 @@ export class UpdatePaymentSuccess implements Action {
 }
 
 /**
- * UpdatePaymentFail
+ * 決済情報更新失敗
  */
 export class UpdatePaymentFail implements Action {
     public readonly type = ActionTypes.UpdatePaymentFail;
@@ -132,13 +165,16 @@ export class UpdatePaymentFail implements Action {
 export type Actions =
     | Delete
     | Initialize
-    | Create
-    | CreateSuccess
-    | CreateFail
+    | InitializeProfile
+    | InitializeProfileSuccess
+    | InitializeProfileFail
+    | InitializeCoinAccount
+    | InitializeCoinAccountSuccess
+    | InitializeCoinAccountFail
     | UpdateLanguage
-    | UpdateCustomer
-    | UpdateCustomerSuccess
-    | UpdateCustomerFail
+    | UpdateProfile
+    | UpdateProfileSuccess
+    | UpdateProfileFail
     | UpdatePayment
     | UpdatePaymentSuccess
     | UpdatePaymentFail

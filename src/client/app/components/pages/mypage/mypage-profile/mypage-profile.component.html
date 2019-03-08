@@ -1,0 +1,105 @@
+<div class="contents-width mx-auto px-3 py-5">
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'mypage.profile.title' | translate }}</h2>
+    <p class="mb-4">{{ 'mypage.profile.read' | translate }}</p>
+
+    <div class="mb-4 p-3 bg-light-gray">
+
+        <form [formGroup]="profileForm">
+            <div class="form-group">
+                <div class="row">
+                    <p class="col-md-4 py-2 text-md-right"> {{ 'common.familyName' | translate }}</p>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" formControlName="familyName" id="familyName"
+                            placeholder="モーション">
+                        <div *ngIf="profileForm.controls.familyName.invalid && profileForm.controls.familyName.touched"
+                            class="mt-2">
+                            <p *ngIf="profileForm.controls.familyName.errors.required" class="text-danger">
+                                {{ 'form.validation.required' | translate }}
+                            </p>
+                            <p *ngIf="profileForm.controls.familyName.errors.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.familyName.errors.maxlength.requiredLength } }}
+                            </p>
+                            <p *ngIf="profileForm.controls.familyName.errors.pattern" class="text-danger">
+                                {{ 'form.validation.fullKana' | translate }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <p class="col-md-4 py-2 text-md-right"> {{ 'common.givenName' | translate }}</p>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" formControlName="givenName" id="givenName"
+                            placeholder="ピクチャー">
+                        <div *ngIf="profileForm.controls.givenName.invalid && profileForm.controls.givenName.touched"
+                            class="mt-2">
+                            <p *ngIf="profileForm.controls.givenName.errors.required" class="text-danger">
+                                {{ 'form.validation.required' | translate }}
+                            </p>
+                            <p *ngIf="profileForm.controls.givenName.errors.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.givenName.errors.maxlength.requiredLength } }}
+                            </p>
+                            <p *ngIf="profileForm.controls.givenName.errors.pattern" class="text-danger">
+                                {{ 'form.validation.fullKana' | translate }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <p class="col-md-4 py-2 text-md-right"> {{ 'common.email' | translate }}</p>
+                    <div class="col-md-8">
+                        <input type="email" class="form-control" formControlName="email" id="email"
+                            placeholder="motionpicture@example.jp">
+                        <div *ngIf="profileForm.controls.email.invalid && profileForm.controls.email.touched"
+                            class="mt-2">
+                            <p *ngIf="profileForm.controls.email.errors.required" class="text-danger">
+                                {{ 'form.validation.required' | translate }}
+                            </p>
+                            <p *ngIf="profileForm.controls.email.errors.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.email.errors.maxlength.requiredLength } }}
+                            </p>
+                            <p *ngIf="profileForm.controls.email.errors.email" class="text-danger">
+                                {{ 'form.validation.email' | translate }}
+                            </p>
+                        </div>
+                        <p class="mt-2 text-small" [innerHTML]="'common.emailDescription' | translate"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-0">
+                <div class="row">
+                    <p class="col-md-4 py-2 text-md-right"> {{ 'common.telephone' | translate }}</p>
+                    <div class="col-md-8">
+                        <input type="tel" class="form-control" formControlName="telephone" id="telephone"
+                            placeholder="0362778824">
+                        <div *ngIf="profileForm.controls.telephone.invalid && profileForm.controls.telephone.touched"
+                            class="mt-2">
+                            <p *ngIf="profileForm.controls.telephone.errors.required" class="text-danger">
+                                {{ 'form.validation.required' | translate }}
+                            </p>
+                            <p *ngIf="profileForm.controls.telephone.errors.minlength" class="text-danger">
+                                {{ 'form.validation.minlength' | translate:{ value: profileForm.controls.telephone.errors.minlength.requiredLength } }}
+                            </p>
+                            <p *ngIf="profileForm.controls.telephone.errors.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.telephone.errors.maxlength.requiredLength } }}
+                            </p>
+                            <p *ngIf="profileForm.controls.telephone.errors.pattern" class="text-danger">
+                                {{ 'form.validation.number' | translate }}</p>
+                            <p *ngIf="profileForm.controls.telephone.errors.telephone" class="text-danger">
+                                {{ 'form.validation.telephone' | translate }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="buttons mx-auto">
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+            (click)="updateProfile()">{{ 'mypage.profile.next' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3"
+            routerLink="/mypage">{{ 'mypage.profile.prev' | translate }}</button>
+    </div>
+
+</div>

@@ -3,220 +3,50 @@
     <p class="mb-4">{{ 'setting.read' | translate }}</p>
 
     <div class="mb-4 p-3 bg-light-gray">
-        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'setting.base.title' | translate }}</h2>
-        <p class="mb-4">{{ 'setting.base.read' | translate }}</p>
-
-        <div class="mb-4">
-            <form [formGroup]="baseForm">
-                <div class="form-group">
-                    <div class="row">
-                        <p class="col-md-4 py-2 text-md-right"> {{ 'setting.base.limitedPurchaseCount' | translate }}
-                        </p>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" formControlName="limitedPurchaseCount"
-                                id="limitedPurchaseCount" placeholder="">
-                            <div *ngIf="baseForm.controls.limitedPurchaseCount.invalid && baseForm.controls.limitedPurchaseCount.touched"
-                                class="mt-2">
-                                <p *ngIf="baseForm.controls.limitedPurchaseCount.errors.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}
-                                </p>
-                                <p *ngIf="baseForm.controls.limitedPurchaseCount.errors.pattern" class="text-danger">
-                                    {{ 'form.validation.number' | translate }}</p>
-                            </div>
+        <form [formGroup]="baseForm">
+            <div class="form-group">
+                <div class="row">
+                    <p class="col-md-4 py-2 text-md-right"> {{ 'setting.limitedPurchaseCount' | translate }}
+                    </p>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" formControlName="limitedPurchaseCount"
+                            id="limitedPurchaseCount" placeholder="">
+                        <div *ngIf="baseForm.controls.limitedPurchaseCount.invalid && baseForm.controls.limitedPurchaseCount.touched"
+                            class="mt-2">
+                            <p *ngIf="baseForm.controls.limitedPurchaseCount.errors.required" class="text-danger">
+                                {{ 'form.validation.required' | translate }}
+                            </p>
+                            <p *ngIf="baseForm.controls.limitedPurchaseCount.errors.pattern" class="text-danger">
+                                {{ 'form.validation.number' | translate }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="row">
-                        <p class="col-md-4 py-2 text-md-right"> {{ 'setting.base.viewType' | translate }}</p>
-                        <div class="col-md-8">
-                            <select class="form-control" id="viewType" formControlName="viewType">
-                                <option [value]="ViewType.Cinema">{{ ViewType.Cinema }}</option>
-                                <option [value]="ViewType.Event">{{ ViewType.Event }}</option>
-                            </select>
-                            <div *ngIf="baseForm.controls.viewType.invalid && baseForm.controls.viewType.touched"
-                                class="mt-2">
-                                <p *ngIf="baseForm.controls.viewType.errors.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-        <div class="buttons mx-auto">
-            <button type="button" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async"
-                (click)="updateBase()">{{ 'setting.base.next' | translate }}</button>
-        </div>
-    </div>
-
-    <div *ngIf="(user | async).isMember" class="mb-4 p-3 bg-light-gray">
-
-        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'setting.customer.title' | translate }}</h2>
-        <p class="mb-4">{{ 'setting.customer.read' | translate }}</p>
-        <div class="mb-4">
-
-            <form [formGroup]="customerContactForm">
-                <div class="form-group">
-                    <div class="row">
-                        <p class="col-md-4 py-2 text-md-right"> {{ 'common.familyName' | translate }}</p>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" formControlName="familyName" id="familyName"
-                                placeholder="モーション">
-                            <div *ngIf="customerContactForm.controls.familyName.invalid && customerContactForm.controls.familyName.touched"
-                                class="mt-2">
-                                <p *ngIf="customerContactForm.controls.familyName.errors.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}
-                                </p>
-                                <p *ngIf="customerContactForm.controls.familyName.errors.maxlength" class="text-danger">
-                                    {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.familyName.errors.maxlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="customerContactForm.controls.familyName.errors.pattern" class="text-danger">
-                                    {{ 'form.validation.fullKana' | translate }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <p class="col-md-4 py-2 text-md-right"> {{ 'common.givenName' | translate }}</p>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" formControlName="givenName" id="givenName"
-                                placeholder="ピクチャー">
-                            <div *ngIf="customerContactForm.controls.givenName.invalid && customerContactForm.controls.givenName.touched"
-                                class="mt-2">
-                                <p *ngIf="customerContactForm.controls.givenName.errors.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}
-                                </p>
-                                <p *ngIf="customerContactForm.controls.givenName.errors.maxlength" class="text-danger">
-                                    {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.givenName.errors.maxlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="customerContactForm.controls.givenName.errors.pattern" class="text-danger">
-                                    {{ 'form.validation.fullKana' | translate }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <p class="col-md-4 py-2 text-md-right"> {{ 'common.email' | translate }}</p>
-                        <div class="col-md-8">
-                            <input type="email" class="form-control" formControlName="email" id="email"
-                                placeholder="motionpicture@example.jp">
-                            <div *ngIf="customerContactForm.controls.email.invalid && customerContactForm.controls.email.touched"
-                                class="mt-2">
-                                <p *ngIf="customerContactForm.controls.email.errors.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}
-                                </p>
-                                <p *ngIf="customerContactForm.controls.email.errors.maxlength" class="text-danger">
-                                    {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.email.errors.maxlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="customerContactForm.controls.email.errors.email" class="text-danger">
-                                    {{ 'form.validation.email' | translate }}
-                                </p>
-                            </div>
-                            <p class="mt-2 text-small" [innerHTML]="'common.emailDescription' | translate"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group mb-0">
-                    <div class="row">
-                        <p class="col-md-4 py-2 text-md-right"> {{ 'common.telephone' | translate }}</p>
-                        <div class="col-md-8">
-                            <input type="tel" class="form-control" formControlName="telephone" id="telephone"
-                                placeholder="0362778824">
-                            <div *ngIf="customerContactForm.controls.telephone.invalid && customerContactForm.controls.telephone.touched"
-                                class="mt-2">
-                                <p *ngIf="customerContactForm.controls.telephone.errors.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}
-                                </p>
-                                <p *ngIf="customerContactForm.controls.telephone.errors.minlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate:{ value: customerContactForm.controls.telephone.errors.minlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="customerContactForm.controls.telephone.errors.maxlength" class="text-danger">
-                                    {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.telephone.errors.maxlength.requiredLength } }}
-                                </p>
-                                <p *ngIf="customerContactForm.controls.telephone.errors.pattern" class="text-danger">
-                                    {{ 'form.validation.number' | translate }}</p>
-                                <p *ngIf="customerContactForm.controls.telephone.errors.telephone" class="text-danger">
-                                    {{ 'form.validation.telephone' | translate }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="buttons mx-auto">
-            <button type="button" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async"
-                (click)="updateCustomer()">{{ 'setting.customer.next' | translate }}</button>
-        </div>
-    </div>
-
-
-    <div class="buttons mx-auto mb-4">
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/">{{ 'setting.prev' | translate }}</button>
-    </div>
-
-    <!-- <div class="mb-4">
-        <h2 class="bg-secondary text-white p-3 mb-3">決済情報入力</h2>
-
-        <p class="mb-4">決済情報を入力してください。</p>
-
-        <div class="p-3 border">
-            <form [formGroup]="paymentForm">
-                <div class="form-group">
-                    <div class="mb-2">決済金額</div>
-                    <div class="text-x-large text-info">{{ amount | currency : 'JPY'}}</div>
-                </div>
-                <div class="form-group">
-                    <p class="col-md-4 py-2 text-md-right"> カード番号</p>
-                    <input type="text" class="form-control" id="cardNumber" formControlName="cardNumber" placeholder=""
-                        maxlength="16">
-                    <div *ngIf="paymentForm.controls.cardNumber.invalid && paymentForm.controls.cardNumber.touched"
-                        class="mt-2">
-                        <p *ngIf="paymentForm.controls.cardNumber.errors.required" class="text-danger">カード番号が未入力です</p>
-                        <p *ngIf="paymentForm.controls.cardNumber.errors.pattern" class="text-danger">カード番号は数字で入力してください</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <p class="col-md-4 py-2 text-md-right"> 有効期限</p>
-                    <div class="form-inline">
-                        <select class="form-control d-inline-block w-auto" id="cardExpirationMonth" formControlName="cardExpirationMonth">
-                            <option *ngFor="let month of cardExpiration.month" [value]="month">{{ month }}</option>
+            </div>
+            <div class="form-group mb-0">
+                <div class="row">
+                    <p class="col-md-4 py-2 text-md-right"> {{ 'setting.viewType' | translate }}</p>
+                    <div class="col-md-8">
+                        <select class="form-control" id="viewType" formControlName="viewType">
+                            <option [value]="viewType.Cinema">{{ viewType.Cinema }}</option>
+                            <option [value]="viewType.Event">{{ viewType.Event }}</option>
                         </select>
-                        <span class="mx-2">月</span>
-                        <select class="form-control d-inline-block w-auto" id="cardExpirationYear" formControlName="cardExpirationYear">
-                            <option *ngFor="let year of cardExpiration.year" [value]="year">{{ year }}</option>
-                        </select>
-                        <span class="mx-2">年</span>
+                        <div *ngIf="baseForm.controls.viewType.invalid && baseForm.controls.viewType.touched"
+                            class="mt-2">
+                            <p *ngIf="baseForm.controls.viewType.errors.required" class="text-danger">
+                                {{ 'form.validation.required' | translate }}
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <p class="col-md-4 py-2 text-md-right"> セキュリティーコード</p>
-                    <input type="text" class="form-control" id="securityCode" placeholder="" formControlName="securityCode">
-                    <div *ngIf="paymentForm.controls.securityCode.invalid && paymentForm.controls.securityCode.touched"
-                        class="mt-2">
-                        <p *ngIf="paymentForm.controls.securityCode.errors.required" class="text-danger">セキュリティーコードが未入力です</p>
-                    </div>
-                </div>
-                <div class="form-group mb-0">
-                    <p class="col-md-4 py-2 text-md-right"> カード名義人</p>
-                    <input type="text" class="form-control" id="holderName" placeholder="" formControlName="holderName">
-                    <div *ngIf="paymentForm.controls.holderName.invalid && paymentForm.controls.holderName.touched"
-                        class="mt-2">
-                        <p *ngIf="paymentForm.controls.holderName.errors.required" class="text-danger">カード名義人が未入力です</p>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+            </div>
 
+        </form>
+    </div>
     <div class="buttons mx-auto">
-        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async" (click)="updatePayment()">決済情報を変更</button>
-    </div> -->
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+            (click)="updateBase()">{{ 'setting.next' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3"
+            [routerLink]="environment.BASE_URL">{{ 'setting.prev' | translate }}</button>
+    </div>
 
 </div>

@@ -1,0 +1,70 @@
+<div class="contents-width mx-auto px-3 py-5">
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'mypage.credit.title' | translate }}</h2>
+    <p class="mb-4">{{ 'mypage.credit.read' | translate }}</p>
+
+    <div class="mb-4 p-3 bg-light-gray">
+
+        <form [formGroup]="paymentForm">
+            <div class="form-group row">
+                <p class="col-md-4 py-2 text-md-right"> カード番号</p>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" id="cardNumber" formControlName="cardNumber" placeholder=""
+                        maxlength="16">
+                    <div *ngIf="paymentForm.controls.cardNumber.invalid && paymentForm.controls.cardNumber.touched"
+                        class="mt-2">
+                        <p *ngIf="paymentForm.controls.cardNumber.errors.required" class="text-danger">カード番号が未入力です</p>
+                        <p *ngIf="paymentForm.controls.cardNumber.errors.pattern" class="text-danger">カード番号は数字で入力してください
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <p class="col-md-4 py-2 text-md-right"> 有効期限</p>
+                <div class="col-md-8">
+                    <div class="form-inline">
+                        <select class="form-control d-inline-block w-auto" id="cardExpirationMonth"
+                            formControlName="cardExpirationMonth">
+                            <option *ngFor="let month of cardExpiration.month" [value]="month">{{ month }}</option>
+                        </select>
+                        <span class="mx-2">月</span>
+                        <select class="form-control d-inline-block w-auto" id="cardExpirationYear"
+                            formControlName="cardExpirationYear">
+                            <option *ngFor="let year of cardExpiration.year" [value]="year">{{ year }}</option>
+                        </select>
+                        <span class="mx-2">年</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <p class="col-md-4 py-2 text-md-right"> セキュリティーコード</p>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" id="securityCode" placeholder=""
+                        formControlName="securityCode">
+                    <div *ngIf="paymentForm.controls.securityCode.invalid && paymentForm.controls.securityCode.touched"
+                        class="mt-2">
+                        <p *ngIf="paymentForm.controls.securityCode.errors.required" class="text-danger">
+                            セキュリティーコードが未入力です
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row mb-0">
+                <p class="col-md-4 py-2 text-md-right"> カード名義人</p>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" id="holderName" placeholder="" formControlName="holderName">
+                    <div *ngIf="paymentForm.controls.holderName.invalid && paymentForm.controls.holderName.touched"
+                        class="mt-2">
+                        <p *ngIf="paymentForm.controls.holderName.errors.required" class="text-danger">カード名義人が未入力です</p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="buttons mx-auto">
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+            (click)="updateProfile()">{{ 'mypage.credit.next' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3"
+            routerLink="/mypage">{{ 'mypage.credit.prev' | translate }}</button>
+    </div>
+
+</div>

@@ -11,7 +11,7 @@ export class ChangeLanguagePipe implements PipeTransform {
     ) { }
 
     public transform(lang: { [key: string]: string; }) {
-        const currentLang = this.translate.store.currentLang;
+        const currentLang = this.translate.currentLang || this.translate.defaultLang;
         if (lang[currentLang] !== undefined) {
             return lang[currentLang];
         }
