@@ -122,6 +122,9 @@ button {
 }
 
 // color
+.bg-transparent {
+    background-color: transparent !important;
+}
 .bg-white {
     background-color: #FFF !important;
 }
@@ -141,31 +144,31 @@ button {
     border-color: #000 !important;
 }
 .bg-dark-gray {
-    background-color: #666 !important;
+    background-color: $dark-gray !important;
 }
 .text-dark-gray {
-    color: #666 !important;
+    color: $dark-gray !important;
 }
 .border-dark-gray {
-    border-color: #666 !important;
+    border-color: $dark-gray !important;
 }
 .bg-gray {
-    background-color: #AAA !important;
+    background-color: $gray !important;
 }
 .text-gray {
-    color: #AAA !important;
+    color: $gray !important;
 }
 .border-gray {
-    border-color: #AAA !important;
+    border-color: $gray !important;
 }
 .bg-light-gray {
-    background-color: #EEE !important;
+    background-color: $light-gray !important;
 }
 .text-light-gray {
-    color: #EEE !important;
+    color: $light-gray !important;
 }
 .border-light-gray {
-    border-color: #EEE !important;
+    border-color: $light-gray !important;
 }
 
 // pagination

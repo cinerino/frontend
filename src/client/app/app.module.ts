@@ -23,6 +23,10 @@ import {
     InquiryConfirmComponent,
     InquiryInputComponent,
     MaintenanceComponent,
+    MypageCoinComponent,
+    MypageCreditComponent,
+    MypageIndexComponent,
+    MypageProfileComponent,
     NotfoundComponent,
     OrderListComponent,
     PurchaseBaseComponent,
@@ -40,6 +44,7 @@ import {
 } from './components/pages';
 import {
     AlertModalComponent,
+    ChargeCoinModalComponent,
     ConfirmModalComponent,
     ContentsComponent,
     FooterComponent,
@@ -64,10 +69,6 @@ import { FormatDatePipe } from './pipes/format-date.pipe';
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
 import { StoreModule } from './store.module';
 import { CoreStoreModule } from './store/core/store';
-import { MypageIndexComponent } from './components/pages/mypage/mypage-index/mypage-index.component';
-import { MypageProfileComponent } from './components/pages/mypage/mypage-profile/mypage-profile.component';
-import { MypageCreditComponent } from './components/pages/mypage/mypage-credit/mypage-credit.component';
-import { MypageCoinComponent } from './components/pages/mypage/mypage-coin/mypage-coin.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, '/i18n/');
@@ -125,7 +126,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         MypageIndexComponent,
         MypageProfileComponent,
         MypageCreditComponent,
-        MypageCoinComponent
+        MypageCoinComponent,
+        ChargeCoinModalComponent
     ],
     entryComponents: [
         PurchaseCinemaTicketModalComponent,
@@ -136,7 +138,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         MvtkCheckModalComponent,
         PurchaseTransactionModalComponent,
         SecurityCodeModalComponent,
-        OrderDetailModalComponent
+        OrderDetailModalComponent,
+        ChargeCoinModalComponent
     ],
     imports: [
         BrowserModule,

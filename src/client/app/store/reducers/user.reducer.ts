@@ -24,6 +24,10 @@ export interface IUserState {
         account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
     };
     /**
+     * クレジットカード
+     */
+    creditCards: factory.paymentMethod.paymentCard.creditCard.ICheckedCard[];
+    /**
      * 言語
      */
     language: string;
@@ -41,7 +45,8 @@ export const userInitialState: IUserState = {
     isMember: false,
     language: 'ja',
     limitedPurchaseCount: Number(environment.LIMITED_PURCHASE_COUNT),
-    viewType: environment.VIEW_TYPE
+    viewType: environment.VIEW_TYPE,
+    creditCards: []
 };
 /**
  * Reducer
@@ -54,6 +59,7 @@ export function reducer(state: IState, action: Actions): IState {
             state.userData.isMember = false;
             state.userData.profile = undefined;
             state.userData.coin = undefined;
+            state.userData.creditCards = [];
             return { ...state, loading: false };
         }
         case ActionTypes.Initialize: {
@@ -97,13 +103,45 @@ export function reducer(state: IState, action: Actions): IState {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
-        case ActionTypes.UpdatePayment: {
-            return { ...state, loading: true, process: { ja: '決済情報を更新しています', en: 'Updating settlement information' }, };
+        case ActionTypes.GetCreditCards: {
+            return { ...state, loading: true, process: { ja: 'クレジットカード情報を取得しています', en: 'Get Credit Cards' }, };
         }
-        case ActionTypes.UpdatePaymentSuccess: {
+        case ActionTypes.GetCreditCardsSuccess: {
+            const creditCards = action.payload.creditCards;
+            state.userData.creditCards = creditCards;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
-        case ActionTypes.UpdatePaymentFail: {
+        case ActionTypes.GetCreditCardsFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+        }
+        case ActionTypes.AddCreditCard: {
+            return { ...state, loading: true, process: { ja: 'クレジットカード情報を登録しています', en: 'Add Credit Cards' }, };
+        }
+        case ActionTypes.AddCreditCardSuccess: {
+            const creditCard = action.payload.creditCard;
+            const findResult = state.userData.creditCards.find(c => c.cardSeq === creditCard.cardSeq);
+            if (findResult === undefined) {
+                state.userData.creditCards.push(creditCard);
+            }
+            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
+        }
+        case ActionTypes.AddCreditCardFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+        }
+        case ActionTypes.RemoveCreditCard: {
+            return { ...state, loading: true, process: { ja: 'クレジットカード情報を削除しています', en: 'Remove Credit Cards' }, };
+        }
+        case ActionTypes.RemoveCreditCardSuccess: {
+            const creditCard = action.payload.creditCard;
+            const findIndexResult = state.userData.creditCards.findIndex(c => c.cardSeq === creditCard.cardSeq);
+            if (findIndexResult > -1) {
+                state.userData.creditCards.splice(findIndexResult, 1);
+            }
+            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
+        }
+        case ActionTypes.RemoveCreditCardFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }

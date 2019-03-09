@@ -17,3 +17,4 @@ export * from './security-code-modal/security-code-modal.component';
 export * from './purchase/cinema/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component';
 export * from './purchase/event/purchase-event-ticket-modal/purchase-event-ticket-modal.component';
 export * from './transaction-remaining-time/transaction-remaining-time.component';
+export * from './charge-coin-modal/charge-coin-modal.component';

@@ -18,10 +18,19 @@ export enum ActionTypes {
     UpdateProfile = '[User] Update Customer',
     UpdateProfileSuccess = '[User] Update Customer Success',
     UpdateProfileFail = '[User] Update Customer Fail',
-    UpdatePayment = '[User] Update Payment',
-    UpdatePaymentSuccess = '[User] Update Payment Success',
-    UpdatePaymentFail = '[User] Update Payment Fail',
-    UpdateBaseSetting = '[User] Update Base Setting'
+    GetCreditCards = '[User] Get Credit Cards',
+    GetCreditCardsSuccess = '[User] Get Credit Cards Success',
+    GetCreditCardsFail = '[User] Get Credit Cards Fail',
+    AddCreditCard = '[User] Add Credit Card',
+    AddCreditCardSuccess = '[User] Add Credit Card Success',
+    AddCreditCardFail = '[User] Add Credit Card Fail',
+    RemoveCreditCard = '[User] Remove Credit Card',
+    RemoveCreditCardSuccess = '[User] Remove Credit Card Success',
+    RemoveCreditCardFail = '[User] Remove Credit Card Fail',
+    UpdateBaseSetting = '[User] Update Base Setting',
+    ChargeCoin = '[User] Charge Coin',
+    ChargeCoinSuccess = '[User] Charge Coin Success',
+    ChargeCoinFail = '[User] Charge Coin Fail'
 }
 
 /**
@@ -133,29 +142,107 @@ export class UpdateProfileFail implements Action {
     public readonly type = ActionTypes.UpdateProfileFail;
     constructor(public payload: { error: Error }) { }
 }
-
-
 /**
- * 決済情報更新
+ * クレジットカード取得
  */
-export class UpdatePayment implements Action {
-    public readonly type = ActionTypes.UpdatePayment;
+export class GetCreditCards implements Action {
+    public readonly type = ActionTypes.GetCreditCards;
     constructor(public payload?: {}) { }
 }
 
 /**
- * 決済情報更新成功
+ * クレジットカード取得成功
  */
-export class UpdatePaymentSuccess implements Action {
-    public readonly type = ActionTypes.UpdatePaymentSuccess;
+export class GetCreditCardsSuccess implements Action {
+    public readonly type = ActionTypes.GetCreditCardsSuccess;
+    constructor(public payload: { creditCards: factory.paymentMethod.paymentCard.creditCard.ICheckedCard[] }) { }
+}
+
+/**
+ * クレジットカード取得失敗
+ */
+export class GetCreditCardsFail implements Action {
+    public readonly type = ActionTypes.GetCreditCardsFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * クレジットカード追加
+ */
+export class AddCreditCard implements Action {
+    public readonly type = ActionTypes.AddCreditCard;
+    constructor(public payload: {
+        creditCard: {
+            cardno: string;
+            expire: string;
+            holderName: string;
+            securityCode: string;
+        },
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    }) { }
+}
+
+/**
+ * クレジットカード追加成功
+ */
+export class AddCreditCardSuccess implements Action {
+    public readonly type = ActionTypes.AddCreditCardSuccess;
+    constructor(public payload: { creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard }) { }
+}
+
+/**
+ * クレジットカード追加失敗
+ */
+export class AddCreditCardFail implements Action {
+    public readonly type = ActionTypes.AddCreditCardFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * クレジットカード削除
+ */
+export class RemoveCreditCard implements Action {
+    public readonly type = ActionTypes.RemoveCreditCard;
+    constructor(public payload: { creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard }) { }
+}
+
+/**
+ * クレジットカード削除成功
+ */
+export class RemoveCreditCardSuccess implements Action {
+    public readonly type = ActionTypes.RemoveCreditCardSuccess;
+    constructor(public payload: { creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard }) { }
+}
+
+/**
+ * クレジットカード削除失敗
+ */
+export class RemoveCreditCardFail implements Action {
+    public readonly type = ActionTypes.RemoveCreditCardFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * コイン口座入金
+ */
+export class ChargeCoin implements Action {
+    public readonly type = ActionTypes.ChargeCoin;
+    constructor(public payload?: {}) { }
+}
+
+/**
+ * コイン口座入金成功
+ */
+export class ChargeCoinSuccess implements Action {
+    public readonly type = ActionTypes.ChargeCoinSuccess;
     constructor(public payload: {}) { }
 }
 
 /**
- * 決済情報更新失敗
+ * コイン口座入金失敗
  */
-export class UpdatePaymentFail implements Action {
-    public readonly type = ActionTypes.UpdatePaymentFail;
+export class ChargeCoinFail implements Action {
+    public readonly type = ActionTypes.ChargeCoinFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -175,7 +262,16 @@ export type Actions =
     | UpdateProfile
     | UpdateProfileSuccess
     | UpdateProfileFail
-    | UpdatePayment
-    | UpdatePaymentSuccess
-    | UpdatePaymentFail
-    | UpdateBaseSetting;
+    | GetCreditCards
+    | GetCreditCardsSuccess
+    | GetCreditCardsFail
+    | AddCreditCard
+    | AddCreditCardSuccess
+    | AddCreditCardFail
+    | RemoveCreditCard
+    | RemoveCreditCardSuccess
+    | RemoveCreditCardFail
+    | UpdateBaseSetting
+    | ChargeCoin
+    | ChargeCoinSuccess
+    | ChargeCoinFail;

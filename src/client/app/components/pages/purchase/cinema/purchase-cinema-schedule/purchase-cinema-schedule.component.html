@@ -2,10 +2,10 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.seller.title' | translate }}</h2>
     <p class="mb-4">{{ 'purchase.cinema.seller.read' | translate }}</p>
 
-    <div class="theaters">
-        <button *ngFor="let theater of (master | async)?.sellers" type="button" class="btn btn-block py-3 m-0"
-            (click)="selectSeller(theater)" [class.btn-primary]="(purchase | async).seller?.id === theater.id"
-            [class.btn-outline-primary]="(purchase | async).seller?.id !== theater.id">{{ theater.name | changeLanguage }}</button>
+    <div class="sellers">
+        <button *ngFor="let seller of (master | async)?.sellers" type="button" class="btn btn-block py-3 m-0"
+            (click)="selectSeller(seller)" [class.btn-primary]="(purchase | async).seller?.id === seller.id"
+            [class.btn-outline-primary]="(purchase | async).seller?.id !== seller.id">{{ seller.name | changeLanguage }}</button>
     </div>
 </div>
 

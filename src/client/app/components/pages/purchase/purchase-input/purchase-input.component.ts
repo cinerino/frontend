@@ -28,7 +28,7 @@ export class PurchaseInputComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     public customerContactForm: FormGroup;
-    public paymentForm: FormGroup;
+    public creditCardForm: FormGroup;
     public cardExpiration: {
         year: string[];
         month: string[];
@@ -71,9 +71,9 @@ export class PurchaseInputComponent implements OnInit {
                     this.customerContactForm.controls.givenName.setValue('アキト');
                     this.customerContactForm.controls.email.setValue('hataguchi@motionpicture.jp');
                     this.customerContactForm.controls.telephone.setValue('0362778824');
-                    this.paymentForm.controls.cardNumber.setValue('4111111111111111');
-                    this.paymentForm.controls.securityCode.setValue('123');
-                    this.paymentForm.controls.holderName.setValue('HATAGUCHI');
+                    this.creditCardForm.controls.cardNumber.setValue('4111111111111111');
+                    this.creditCardForm.controls.securityCode.setValue('123');
+                    this.creditCardForm.controls.holderName.setValue('HATAGUCHI');
                 }
                 if (user.isMember && user.profile !== undefined) {
                     this.customerContactForm.controls.familyName.setValue(user.profile.familyName);
@@ -143,7 +143,7 @@ export class PurchaseInputComponent implements OnInit {
         for (let i = 0; i < 10; i++) {
             this.cardExpiration.year.push(moment().add(i, 'year').format('YYYY'));
         }
-        this.paymentForm = this.formBuilder.group({
+        this.creditCardForm = this.formBuilder.group({
             cardNumber: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
             cardExpirationMonth: [this.cardExpiration.month[0], [Validators.required]],
             cardExpirationYear: [this.cardExpiration.year[0], [Validators.required]],
@@ -156,17 +156,17 @@ export class PurchaseInputComponent implements OnInit {
         Object.keys(this.customerContactForm.controls).forEach((key) => {
             this.customerContactForm.controls[key].markAsTouched();
         });
-        Object.keys(this.paymentForm.controls).forEach((key) => {
-            this.paymentForm.controls[key].markAsTouched();
+        Object.keys(this.creditCardForm.controls).forEach((key) => {
+            this.creditCardForm.controls[key].markAsTouched();
         });
         this.customerContactForm.controls.familyName.setValue((<HTMLInputElement>document.getElementById('familyName')).value);
         this.customerContactForm.controls.givenName.setValue((<HTMLInputElement>document.getElementById('givenName')).value);
         this.customerContactForm.controls.email.setValue((<HTMLInputElement>document.getElementById('email')).value);
         this.customerContactForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
         if (this.amount > 0) {
-            this.paymentForm.controls.cardNumber.setValue((<HTMLInputElement>document.getElementById('cardNumber')).value);
-            this.paymentForm.controls.securityCode.setValue((<HTMLInputElement>document.getElementById('securityCode')).value);
-            this.paymentForm.controls.holderName.setValue((<HTMLInputElement>document.getElementById('holderName')).value);
+            this.creditCardForm.controls.cardNumber.setValue((<HTMLInputElement>document.getElementById('cardNumber')).value);
+            this.creditCardForm.controls.securityCode.setValue((<HTMLInputElement>document.getElementById('securityCode')).value);
+            this.creditCardForm.controls.holderName.setValue((<HTMLInputElement>document.getElementById('holderName')).value);
         }
         if (this.customerContactForm.invalid) {
             this.util.openAlert({
@@ -175,7 +175,7 @@ export class PurchaseInputComponent implements OnInit {
             });
             return;
         }
-        if (this.amount > 0 && this.paymentForm.invalid) {
+        if (this.amount > 0 && this.creditCardForm.invalid) {
             this.util.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('purchase.input.alert.payment')
@@ -234,13 +234,17 @@ export class PurchaseInputComponent implements OnInit {
                 this.router.navigate(['/error']);
                 return;
             }
+            const cardExpiration = {
+                year: this.creditCardForm.controls.cardExpirationYear.value,
+                month: this.creditCardForm.controls.cardExpirationMonth.value
+            };
             this.store.dispatch(new CreateGmoTokenObject({
                 seller: purchase.seller,
                 creditCard: {
-                    cardno: this.paymentForm.controls.cardNumber.value,
-                    expire: `${this.paymentForm.controls.cardExpirationYear.value}${this.paymentForm.controls.cardExpirationMonth.value}`,
-                    holderName: this.paymentForm.controls.holderName.value,
-                    securityCode: this.paymentForm.controls.securityCode.value
+                    cardno: this.creditCardForm.controls.cardNumber.value,
+                    expire: `${cardExpiration.year}${cardExpiration.month}`,
+                    holderName: this.creditCardForm.controls.holderName.value,
+                    securityCode: this.creditCardForm.controls.securityCode.value
                 }
             }));
         }).unsubscribe();
