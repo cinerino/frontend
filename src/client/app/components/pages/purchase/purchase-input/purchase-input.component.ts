@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { factory } from '@cinerino/api-javascript-client';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
@@ -14,9 +15,9 @@ import { getAmount } from '../../../../functions';
 import { ViewType } from '../../../../models';
 import { LibphonenumberFormatPipe } from '../../../../pipes/libphonenumber-format.pipe';
 import { UtilService } from '../../../../services';
-import { ActionTypes, CreateGmoTokenObject, RegisterContact } from '../../../../store/actions/purchase.action';
+import * as purchaseAction from '../../../../store/actions/purchase.action';
 import * as reducers from '../../../../store/reducers';
-import { SecurityCodeModalComponent } from '../../../parts/security-code-modal/security-code-modal.component';
+import { RegisteredCreditCardModalComponent, SecurityCodeModalComponent } from '../../../parts';
 
 @Component({
     selector: 'app-purchase-input',
@@ -36,6 +37,7 @@ export class PurchaseInputComponent implements OnInit {
     public amount: number;
     public environment = environment;
     public viewType: typeof ViewType = ViewType;
+    public usedCreditCard?: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -53,7 +55,7 @@ export class PurchaseInputComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.createCustomerContactForm();
-        this.createPaymentForm();
+        this.createCreditCardForm();
         this.purchase.subscribe((purchase) => {
             this.amount = getAmount(purchase.authorizeSeatReservations);
             if (purchase.customerContact !== undefined) {
@@ -87,6 +89,9 @@ export class PurchaseInputComponent implements OnInit {
         }).unsubscribe();
     }
 
+    /**
+     * 購入情報フォーム作成
+     */
     private createCustomerContactForm() {
         const NAME_MAX_LENGTH = 12;
         const MAIL_MAX_LENGTH = 50;
@@ -132,7 +137,10 @@ export class PurchaseInputComponent implements OnInit {
         });
     }
 
-    private createPaymentForm() {
+    /**
+     * クレジットカード情報フォーム作成
+     */
+    private createCreditCardForm() {
         this.cardExpiration = {
             year: [],
             month: []
@@ -152,22 +160,18 @@ export class PurchaseInputComponent implements OnInit {
         });
     }
 
-    public onSubmit() {
+    /**
+     * 入力確定
+     */
+    public async onSubmit() {
+        // 購入者情報Form
         Object.keys(this.customerContactForm.controls).forEach((key) => {
             this.customerContactForm.controls[key].markAsTouched();
-        });
-        Object.keys(this.creditCardForm.controls).forEach((key) => {
-            this.creditCardForm.controls[key].markAsTouched();
         });
         this.customerContactForm.controls.familyName.setValue((<HTMLInputElement>document.getElementById('familyName')).value);
         this.customerContactForm.controls.givenName.setValue((<HTMLInputElement>document.getElementById('givenName')).value);
         this.customerContactForm.controls.email.setValue((<HTMLInputElement>document.getElementById('email')).value);
         this.customerContactForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
-        if (this.amount > 0) {
-            this.creditCardForm.controls.cardNumber.setValue((<HTMLInputElement>document.getElementById('cardNumber')).value);
-            this.creditCardForm.controls.securityCode.setValue((<HTMLInputElement>document.getElementById('securityCode')).value);
-            this.creditCardForm.controls.holderName.setValue((<HTMLInputElement>document.getElementById('holderName')).value);
-        }
         if (this.customerContactForm.invalid) {
             this.util.openAlert({
                 title: this.translate.instant('common.error'),
@@ -175,103 +179,148 @@ export class PurchaseInputComponent implements OnInit {
             });
             return;
         }
-        if (this.amount > 0 && this.creditCardForm.invalid) {
-            this.util.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('purchase.input.alert.payment')
+        // クレジットカード情報Form
+        if (this.usedCreditCard === undefined && this.amount > 0) {
+            Object.keys(this.creditCardForm.controls).forEach((key) => {
+                this.creditCardForm.controls[key].markAsTouched();
             });
-            return;
-        }
-
-        this.registerContact();
-    }
-
-    /**
-     * registerContact
-     */
-    private registerContact() {
-        this.purchase.subscribe((purchase) => {
-            if (purchase.transaction === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            const transaction = purchase.transaction;
-            const contact = {
-                givenName: this.customerContactForm.controls.givenName.value,
-                familyName: this.customerContactForm.controls.familyName.value,
-                telephone: this.customerContactForm.controls.telephone.value,
-                email: this.customerContactForm.controls.email.value,
-            };
-            this.store.dispatch(new RegisterContact({ transaction, contact }));
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(ActionTypes.RegisterContactSuccess),
-            tap(() => {
-                if (this.amount > 0) {
-                    this.createGmoTokenObject();
-                } else {
-                    this.router.navigate(['/purchase/confirm']);
-                }
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(ActionTypes.RegisterContactFail),
-            tap(() => {
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
-    }
-
-    /**
-     * createGmoTokenObject
-     */
-    private createGmoTokenObject() {
-        this.purchase.subscribe((purchase) => {
-            if (purchase.seller === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            const cardExpiration = {
-                year: this.creditCardForm.controls.cardExpirationYear.value,
-                month: this.creditCardForm.controls.cardExpirationMonth.value
-            };
-            this.store.dispatch(new CreateGmoTokenObject({
-                seller: purchase.seller,
-                creditCard: {
-                    cardno: this.creditCardForm.controls.cardNumber.value,
-                    expire: `${cardExpiration.year}${cardExpiration.month}`,
-                    holderName: this.creditCardForm.controls.holderName.value,
-                    securityCode: this.creditCardForm.controls.securityCode.value
-                }
-            }));
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(ActionTypes.CreateGmoTokenObjectSuccess),
-            tap(() => {
-                this.router.navigate(['/purchase/confirm']);
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(ActionTypes.CreateGmoTokenObjectFail),
-            tap(() => {
+            this.creditCardForm.controls.cardNumber.setValue((<HTMLInputElement>document.getElementById('cardNumber')).value);
+            this.creditCardForm.controls.securityCode.setValue((<HTMLInputElement>document.getElementById('securityCode')).value);
+            this.creditCardForm.controls.holderName.setValue((<HTMLInputElement>document.getElementById('holderName')).value);
+            if (this.creditCardForm.invalid) {
                 this.util.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.input.alert.gmoToken')
+                    body: this.translate.instant('purchase.input.alert.payment')
                 });
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+                return;
+            }
+        }
+        try {
+            this.store.dispatch(new purchaseAction.RemoveCreditCard());
+            if (this.amount > 0) {
+                if (this.usedCreditCard === undefined) {
+                    try {
+                        await this.createGmoTokenObject();
+                    } catch (error) {
+                        this.util.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('purchase.input.alert.gmoToken')
+                        });
+                        return;
+                    }
+                } else {
+                    const creditCard = {
+                        memberId: 'me',
+                        cardSeq: Number(this.usedCreditCard.cardSeq)
+                    };
+                    this.store.dispatch(new purchaseAction.RegisterCreditCard({ creditCard }));
+                }
+            }
+            await this.registerContact();
+            this.router.navigate(['/purchase/confirm']);
+        } catch (error) {
+            this.router.navigate(['/error']);
+        }
     }
 
+    /**
+     * 購入者情報登録
+     */
+    private registerContact() {
+        return new Promise<void>((resolve, reject) => {
+            this.purchase.subscribe((purchase) => {
+                if (purchase.transaction === undefined) {
+                    this.router.navigate(['/error']);
+                    return;
+                }
+                const transaction = purchase.transaction;
+                const contact = {
+                    givenName: this.customerContactForm.controls.givenName.value,
+                    familyName: this.customerContactForm.controls.familyName.value,
+                    telephone: this.customerContactForm.controls.telephone.value,
+                    email: this.customerContactForm.controls.email.value,
+                };
+                this.store.dispatch(new purchaseAction.RegisterContact({ transaction, contact }));
+            }).unsubscribe();
+            const success = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.RegisterContactSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.RegisterContactFail),
+                tap(() => { reject(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
+    }
+
+    /**
+     * GMOトークン取得
+     */
+    private createGmoTokenObject() {
+        return new Promise<void>((resolve, reject) => {
+            this.purchase.subscribe((purchase) => {
+                if (purchase.seller === undefined) {
+                    this.router.navigate(['/error']);
+                    return;
+                }
+                const cardExpiration = {
+                    year: this.creditCardForm.controls.cardExpirationYear.value,
+                    month: this.creditCardForm.controls.cardExpirationMonth.value
+                };
+                this.store.dispatch(new purchaseAction.CreateGmoTokenObject({
+                    seller: purchase.seller,
+                    creditCard: {
+                        cardno: this.creditCardForm.controls.cardNumber.value,
+                        expire: `${cardExpiration.year}${cardExpiration.month}`,
+                        holderName: this.creditCardForm.controls.holderName.value,
+                        securityCode: this.creditCardForm.controls.securityCode.value
+                    }
+                }));
+            }).unsubscribe();
+            const success = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.CreateGmoTokenObjectSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.CreateGmoTokenObjectFail),
+                tap(() => { reject(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
+    }
+
+    /**
+     * セキュリティコード詳細表示
+     */
     public openSecurityCode() {
         this.modal.open(SecurityCodeModalComponent, {
             centered: true
         });
+    }
+
+    /**
+     * 登録済みクレジットカード表示
+     */
+    public openRegisteredCreditCard() {
+        const modalRef = this.modal.open(RegisteredCreditCardModalComponent, {
+            centered: true
+        });
+        this.user.subscribe((user) => {
+            modalRef.componentInstance.creditCards = user.creditCards;
+        }).unsubscribe();
+
+        modalRef.result.then((creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) => {
+            this.usedCreditCard = creditCard;
+        }).catch(() => { });
+    }
+
+    /**
+     * クレジットカード情報入力へ変更
+     */
+    public changeInputCreditCard() {
+        this.usedCreditCard = undefined;
+        this.createCreditCardForm();
     }
 
 }

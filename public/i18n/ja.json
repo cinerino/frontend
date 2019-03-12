@@ -114,6 +114,8 @@
             "securityCode": "セキュリティーコードについて",
             "next": "次へ",
             "prev": "戻る",
+            "registeredCreditCard": "登録済みクレジットカード",
+            "inputCreditCard": "クレジットカード情報入力",
             "alert": {
                 "customer": "購入者情報に誤りがあります。",
                 "payment": "決済情報に誤りがあります。",

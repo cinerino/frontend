@@ -1,7 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { IState } from '.';
 import {
-    IGmoTokenObject,
     isAvailabilityMovieTicket,
     sameMovieTicketFilter
 } from '../../functions';
@@ -23,7 +22,10 @@ export interface IPurchaseState {
     customerContact?: factory.transaction.placeOrder.ICustomerContact;
     authorizeCreditCardPayments: factory.action.authorize.paymentMethod.creditCard.IAction[];
     authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
-    gmoTokenObject?: IGmoTokenObject;
+    creditCard?: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
+    | factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
+    | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
+    | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
     orderCount: number;
     order?: factory.order.IOrder;
     checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
@@ -298,6 +300,15 @@ export function reducer(state: IState, action: Actions): IState {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
+        case ActionTypes.RegisterCreditCard: {
+            const creditCard = action.payload.creditCard;
+            state.purchaseData.creditCard = creditCard;
+            return { ...state, loading: false, process: { ja: '', en: '' }, };
+        }
+        case ActionTypes.RemoveCreditCard: {
+            state.purchaseData.creditCard = undefined;
+            return { ...state, loading: false, process: { ja: '', en: '' }, };
+        }
         case ActionTypes.RegisterContact: {
             return { ...state, loading: true, process: { ja: '購入者情報を登録しています', en: 'Registering buyer information' }, };
         }
@@ -331,7 +342,7 @@ export function reducer(state: IState, action: Actions): IState {
         }
         case ActionTypes.CreateGmoTokenObjectSuccess: {
             const gmoTokenObject = action.payload.gmoTokenObject;
-            state.purchaseData.gmoTokenObject = gmoTokenObject;
+            state.purchaseData.creditCard = gmoTokenObject;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
         case ActionTypes.CreateGmoTokenObjectFail: {

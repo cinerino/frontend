@@ -311,7 +311,7 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 const orderCount = payload.orderCount;
-                const gmoTokenObject = payload.gmoTokenObject;
+                const creditCard = payload.creditCard;
                 const amount = payload.amount;
                 await this.cinerino.getServices();
                 if (payload.authorizeCreditCardPayment !== undefined) {
@@ -319,7 +319,6 @@ export class PurchaseEffects {
                 }
                 const transaction = payload.transaction;
                 const orderId = createOrderId({ orderCount, transaction });
-                const creditCard = { token: gmoTokenObject.token };
                 const authorizeCreditCardPaymentResult =
                     await this.cinerino.transaction.placeOrder.authorizeCreditCardPayment({
                         object: {

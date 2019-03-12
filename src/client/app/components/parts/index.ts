@@ -18,3 +18,4 @@ export * from './purchase/cinema/purchase-cinema-ticket-modal/purchase-cinema-ti
 export * from './purchase/event/purchase-event-ticket-modal/purchase-event-ticket-modal.component';
 export * from './transaction-remaining-time/transaction-remaining-time.component';
 export * from './charge-coin-modal/charge-coin-modal.component';
+export * from './registered-credit-card-modal/registered-credit-card-modal.component';

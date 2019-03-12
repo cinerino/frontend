@@ -60,6 +60,7 @@ import {
     PurchaseInfoComponent,
     PurchaseTransactionModalComponent,
     QrCodeModalComponent,
+    RegisteredCreditCardModalComponent,
     ScreenComponent,
     SecurityCodeModalComponent,
     TransactionRemainingTimeComponent
@@ -127,7 +128,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         MypageProfileComponent,
         MypageCreditComponent,
         MypageCoinComponent,
-        ChargeCoinModalComponent
+        ChargeCoinModalComponent,
+        RegisteredCreditCardModalComponent
     ],
     entryComponents: [
         PurchaseCinemaTicketModalComponent,
@@ -139,7 +141,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         PurchaseTransactionModalComponent,
         SecurityCodeModalComponent,
         OrderDetailModalComponent,
-        ChargeCoinModalComponent
+        ChargeCoinModalComponent,
+        RegisteredCreditCardModalComponent
     ],
     imports: [
         BrowserModule,

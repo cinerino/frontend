@@ -36,6 +36,8 @@ export enum ActionTypes {
     CancelTemporaryReservations = '[Purchase] Cancel Temporary Reservation',
     CancelTemporaryReservationsSuccess = '[Purchase] Cancel Temporary Reservation Success',
     CancelTemporaryReservationsFail = '[Purchase] Cancel Temporary Reservation Fail',
+    RegisterCreditCard = '[Purchase] Register Credit Card',
+    RemoveCreditCard = '[Purchase] Remove Credit Card',
     RegisterContact = '[Purchase] Register Contact',
     RegisterContactSuccess = '[Purchase] Register Contact Success',
     RegisterContactFail = '[Purchase] Register Contact Fail',
@@ -331,6 +333,27 @@ export class CancelTemporaryReservationsFail implements Action {
 }
 
 /**
+ * RegisterCreditCard
+ */
+export class RegisterCreditCard implements Action {
+    public readonly type = ActionTypes.RegisterCreditCard;
+    constructor(public payload: {
+        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
+        | factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
+        | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
+        | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
+    }) { }
+}
+
+/**
+ * RemoveCreditCard
+ */
+export class RemoveCreditCard implements Action {
+    public readonly type = ActionTypes.RemoveCreditCard;
+    constructor(public payload?: {}) { }
+}
+
+/**
  * RegisterContact
  */
 export class RegisterContact implements Action {
@@ -368,7 +391,10 @@ export class AuthorizeCreditCard implements Action {
         orderCount: number;
         amount: number;
         method: string;
-        gmoTokenObject: IGmoTokenObject;
+        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
+        | factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
+        | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
+        | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
     }) { }
 }
 
@@ -545,6 +571,8 @@ export type Actions =
     | CancelTemporaryReservations
     | CancelTemporaryReservationsSuccess
     | CancelTemporaryReservationsFail
+    | RegisterCreditCard
+    | RemoveCreditCard
     | RegisterContact
     | RegisterContactSuccess
     | RegisterContactFail

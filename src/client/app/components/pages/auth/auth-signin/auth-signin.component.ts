@@ -33,6 +33,7 @@ export class AuthSigninComponent implements OnInit {
         this.store.dispatch(new userAction.Initialize());
         try {
             await this.initializeProfile();
+            await this.getCreditCards();
             await this.initializeCoinAccount();
             this.router.navigate([environment.BASE_URL]);
         } catch (error) {
@@ -70,6 +71,25 @@ export class AuthSigninComponent implements OnInit {
             );
             const fail = this.actions.pipe(
                 ofType(userAction.ActionTypes.InitializeCoinAccountFail),
+                tap(() => {
+                    reject();
+                })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
+    }
+
+    private getCreditCards() {
+        return new Promise<void>((resolve, reject) => {
+            this.store.dispatch(new userAction.GetCreditCards());
+            const success = this.actions.pipe(
+                ofType(userAction.ActionTypes.GetCreditCardsSuccess),
+                tap(() => {
+                    resolve();
+                })
+            );
+            const fail = this.actions.pipe(
+                ofType(userAction.ActionTypes.GetCreditCardsFail),
                 tap(() => {
                     reject();
                 })

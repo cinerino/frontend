@@ -86,7 +86,7 @@ export class PurchaseConfirmComponent implements OnInit {
     private authorizeCreditCard() {
         this.purchase.subscribe((purchase) => {
             if (purchase.transaction === undefined
-                || purchase.gmoTokenObject === undefined) {
+                || purchase.creditCard === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
@@ -97,7 +97,7 @@ export class PurchaseConfirmComponent implements OnInit {
                 orderCount: purchase.orderCount,
                 amount: this.amount,
                 method: '1',
-                gmoTokenObject: purchase.gmoTokenObject
+                creditCard: purchase.creditCard
             }));
         }).unsubscribe();
 

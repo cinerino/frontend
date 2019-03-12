@@ -94,13 +94,13 @@
         <p class="mb-4">{{ 'purchase.input.payment.read' | translate }}</p>
 
         <div class="p-3 bg-light-gray">
-            <form [formGroup]="creditCardForm">
-                <div class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.amount' | translate }}</p>
-                    <div class="col-md-8">
-                        <p class="text-x-large text-info">{{ amount | currency : 'JPY'}}</p>
-                    </div>
+            <div class="form-group row">
+                <p class="col-md-4 py-2 text-md-right">{{ 'common.amount' | translate }}</p>
+                <div class="col-md-8">
+                    <p class="text-x-large text-info">{{ amount | currency : 'JPY'}}</p>
                 </div>
+            </div>
+            <form *ngIf="usedCreditCard === undefined" [formGroup]="creditCardForm">
                 <div class="form-group row">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardNumber' | translate }}</p>
                     <div class="col-md-8">
@@ -161,6 +161,29 @@
                     </div>
                 </div>
             </form>
+            <div *ngIf="usedCreditCard !== undefined" class="">
+                <div class="form-group row">
+                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardNumber' | translate }}</p>
+                    <p class="col-md-8 py-2">{{ usedCreditCard.cardNo }}</p>
+                </div>
+                <div class="form-group row">
+                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardExpiration' | translate }}</p>
+                    <p class="col-md-8 py-2">
+                        {{ usedCreditCard.expire | slice:2:4 }}
+                        <span class="mx-2">{{ 'common.date.month' | translate }}</span>
+                        {{ usedCreditCard.expire | slice:0:2 }}
+                        <span class="mx-2">{{ 'common.date.year' | translate }}</span>
+                    </p>
+                </div>
+            </div>
+            <div *ngIf="(user | async).creditCards.length > 0" class="buttons mx-auto mt-3">
+                <button type="button" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async"
+                    (click)="openRegisteredCreditCard()">{{ 'purchase.input.registeredCreditCard' | translate }}</button>
+            </div>
+            <div *ngIf="usedCreditCard !== undefined" class="buttons mx-auto mt-3">
+                <button type="button" class="btn btn-outline-primary btn-block py-3"
+                    (click)="changeInputCreditCard()">{{ 'purchase.input.inputCreditCard' | translate }}</button>
+            </div>
         </div>
     </div>
 
