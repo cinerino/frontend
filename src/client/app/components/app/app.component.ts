@@ -24,6 +24,9 @@ export class AppComponent implements OnInit {
      */
     public ngOnInit() {
         this.locales();
+        if (environment.ANALYTICS_ID !== '') {
+            this.analytics();
+        }
     }
 
     /**

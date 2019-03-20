@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { CinerinoService, UtilService } from '../../../services';
 import * as reducers from '../../../store/reducers';
 
@@ -38,7 +39,6 @@ export class HeaderMenuComponent implements OnInit {
             cb: () => {
                 this.router.navigate(['/auth']);
             }
-
         });
     }
 
@@ -55,9 +55,11 @@ export class HeaderMenuComponent implements OnInit {
                     console.error(err);
                 }
             }
-
         });
+    }
 
+    public isVisible(value: string) {
+        return (environment.ROUTE_SCOPE.find(r => r === value) !== undefined);
     }
 
 }

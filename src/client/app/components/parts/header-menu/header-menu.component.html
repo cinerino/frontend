@@ -2,17 +2,17 @@
 
 <div class="menu text-white bg-dark-gray" [class.active]="isOpen">
     <ul *ngIf="(user | async)?.isMember">
-        <li class="p-3 border-bottom pointer" routerLink="/purchase/root" (click)="close.emit()"><i class="fas fa-shopping-cart mr-2"></i>{{ 'menu.purchase' | translate }}</li>
-        <li class="p-3 border-bottom pointer" routerLink="/inquiry/input" (click)="close.emit()"><i class="fas fa-search mr-2"></i>{{ 'menu.inquiry' | translate }}</li>
-        <li class="p-3 border-bottom pointer" routerLink="/order/list" (click)="close.emit()"><i class="far fa-list-alt mr-2"></i>{{ 'menu.orderSearch' | translate }}</li>
-        <li class="p-3 border-bottom pointer" routerLink="/mypage" (click)="close.emit()"><i class="fas fa-user-circle mr-2"></i>{{ 'menu.mypage' | translate }}</li>
-        <li class="p-3 border-bottom pointer" routerLink="/setting" (click)="close.emit()"><i class="fas fa-cog mr-2"></i>{{ 'menu.settings' | translate }}</li>
-        <li class="p-3 border-bottom pointer" (click)="signOut()"><i class="fas fa-sign-out-alt mr-2"></i>{{ 'menu.logout' | translate }}</li>
+        <li *ngIf="isVisible('purchase')" class="p-3 border-bottom pointer" routerLink="/purchase/root" (click)="close.emit()"><i class="fas fa-shopping-cart mr-2"></i>{{ 'menu.purchase' | translate }}</li>
+        <li *ngIf="isVisible('inquiry')" class="p-3 border-bottom pointer" routerLink="/inquiry/input" (click)="close.emit()"><i class="fas fa-search mr-2"></i>{{ 'menu.inquiry' | translate }}</li>
+        <li *ngIf="isVisible('order')" class="p-3 border-bottom pointer" routerLink="/order/list" (click)="close.emit()"><i class="far fa-list-alt mr-2"></i>{{ 'menu.orderSearch' | translate }}</li>
+        <li *ngIf="isVisible('mypage')" class="p-3 border-bottom pointer" routerLink="/mypage" (click)="close.emit()"><i class="fas fa-user-circle mr-2"></i>{{ 'menu.mypage' | translate }}</li>
+        <li *ngIf="isVisible('setting')" class="p-3 border-bottom pointer" routerLink="/setting" (click)="close.emit()"><i class="fas fa-cog mr-2"></i>{{ 'menu.settings' | translate }}</li>
+        <li *ngIf="isVisible('auth')" class="p-3 border-bottom pointer" (click)="signOut()"><i class="fas fa-sign-out-alt mr-2"></i>{{ 'menu.logout' | translate }}</li>
     </ul>
     <ul *ngIf="!(user | async)?.isMember">
-        <li class="p-3 border-bottom pointer" routerLink="/purchase/root" (click)="close.emit()"><i class="fas fa-shopping-cart mr-2"></i>{{ 'menu.purchase' | translate }}</li>
-        <li class="p-3 border-bottom pointer" routerLink="/inquiry/input" (click)="close.emit()"><i class="fas fa-search mr-2"></i>{{ 'menu.inquiry' | translate }}</li>
-        <li class="p-3 border-bottom pointer" routerLink="/setting" (click)="close.emit()"><i class="fas fa-cog mr-2"></i>{{ 'menu.settings' | translate }}</li>
-        <li class="p-3 border-bottom pointer" (click)="signIn()"><i class="fas fa-sign-in-alt mr-2"></i>{{ 'menu.login' | translate }}</li>
+        <li *ngIf="isVisible('purchase')" class="p-3 border-bottom pointer" routerLink="/purchase/root" (click)="close.emit()"><i class="fas fa-shopping-cart mr-2"></i>{{ 'menu.purchase' | translate }}</li>
+        <li *ngIf="isVisible('inquiry')" class="p-3 border-bottom pointer" routerLink="/inquiry/input" (click)="close.emit()"><i class="fas fa-search mr-2"></i>{{ 'menu.inquiry' | translate }}</li>
+        <li *ngIf="isVisible('setting')" class="p-3 border-bottom pointer" routerLink="/setting" (click)="close.emit()"><i class="fas fa-cog mr-2"></i>{{ 'menu.settings' | translate }}</li>
+        <li *ngIf="isVisible('auth')" class="p-3 border-bottom pointer" (click)="signIn()"><i class="fas fa-sign-in-alt mr-2"></i>{{ 'menu.login' | translate }}</li>
     </ul>
 </div>
