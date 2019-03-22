@@ -8,8 +8,8 @@
             'transform-origin': origin,
             'transform': 'scale(' + scale + ')'
         }">
-            <div class="screen-inner {{ screenType }}" [ngStyle]="{ 'width.px': screenData.size.w, 'height.px': screenData.size.h }"
-                (click)="scaleUp($event)">
+            <div class="screen-inner {{ screenType }}"
+                [ngStyle]="{ 'width.px': screenData.size.w, 'height.px': screenData.size.h }" (click)="scaleUp($event)">
 
                 <div *ngFor="let object of screenData.objects" class="object" [ngStyle]="{
                     'width.px': object.w, 
@@ -20,8 +20,8 @@
                     'background-size': object.w + 'px ' +object.h + 'px'
                 }"></div>
 
-                <div *ngFor="let columnLabel of columnLabels" class="object label-object column-object column-object-{{ columnLabel.id }}"
-                    [ngStyle]="{
+                <div *ngFor="let columnLabel of columnLabels"
+                    class="object label-object column-object column-object-{{ columnLabel.id }}" [ngStyle]="{
                     'width.px': columnLabel.w,
                     'height.px': columnLabel.h, 
                     'top.px': columnLabel.y, 
@@ -29,8 +29,8 @@
                 }">{{
                     columnLabel.label }}</div>
 
-                <div *ngFor="let lineLabel of lineLabels" class="object label-object line-object line-object-{{ lineLabel.id }}"
-                    [ngStyle]="{
+                <div *ngFor="let lineLabel of lineLabels"
+                    class="object label-object line-object line-object-{{ lineLabel.id }}" [ngStyle]="{
                     'width.px': lineLabel.w,
                     'height.px': lineLabel.h, 
                     'top.px': lineLabel.y, 
@@ -38,16 +38,20 @@
                 }">{{
                     lineLabel.label }}</div>
 
-
-                <div *ngFor="let seat of seats" class="seat {{ seat.className }} {{ seat.status }}" [ngStyle]="{
-                    'top.px': seat.y, 
-                    'left.px': seat.x,
-                    'width.px': seat.w,
-                    'height.px': seat.h
-                }"
-                    (click)="selectSeat(seat)">
-                    <span>{{ seat.code }}</span>
+                <div *ngFor="let row of seats" class="object {{ row.className }}" [ngStyle]="{
+                        'top.px': row.y, 
+                        'left.px': row.x
+                    }">
+                    <div *ngFor="let seat of row.data" class="seat {{ seat.className }} {{ seat.status }}" [ngStyle]="{
+                        'top.px': seat.y, 
+                        'left.px': seat.x,
+                        'width.px': seat.w,
+                        'height.px': seat.h
+                    }" (click)="selectSeat(seat)">
+                        <span>{{ seat.code }}</span>
+                    </div>
                 </div>
+
             </div>
         </div>
         <div *ngIf="screenData" class="screen-style"></div>

@@ -36,7 +36,7 @@
     </ul>
 
     <div class="buttons mx-auto">
-        <button [disabled]="createReservationTickets(selectedTickets).length === 0" type="button"
+        <button [disabled]="selectedTickets && createReservationTickets(selectedTickets).length === 0" type="button"
             class="btn btn-primary btn-block py-3 mb-3"
             (click)="activeModal.close(createReservationTickets(selectedTickets))">{{ 'common.done' | translate }}</button>
         <button type="button" class="btn btn-outline-primary btn-block py-3"

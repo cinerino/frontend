@@ -54,6 +54,14 @@ export enum SeatStatus {
     Active = 'active'
 }
 
+export interface IRow {
+    className: string;
+    code: string;
+    y: number;
+    x: number;
+    data: ISeat[];
+}
+
 export interface ISeat {
     className: string;
     w: number;
