@@ -119,6 +119,8 @@ export function reducer(state: IState, action: Actions): IState {
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
         case ActionTypes.GetScreen: {
+            state.purchaseData.screeningEventOffers = [];
+            state.purchaseData.screenData = undefined;
             return { ...state, loading: true, process: { ja: 'スクリーン情報を取得しています', en: 'Acquiring screen information' }, };
         }
         case ActionTypes.GetScreenSuccess: {
