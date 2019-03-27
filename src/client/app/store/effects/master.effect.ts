@@ -52,23 +52,31 @@ export class MasterEffects {
                 const branchCode = payload.seller.location.branchCode;
                 const scheduleDate = payload.scheduleDate;
                 const today = moment(moment().format('YYYY-MM-DD')).toDate();
-                const screeningEventsResult = await this.cinerino.event.searchScreeningEvents({
-                    typeOf: factory.chevre.eventType.ScreeningEvent,
-                    eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
-                    superEvent: {
-                        locationBranchCodes: (branchCode === undefined) ? [] : [branchCode]
-                    },
-                    startFrom: moment(scheduleDate).toDate(),
-                    startThrough: moment(scheduleDate).add(1, 'day').toDate(),
-                    offers: {
-                        availableFrom: today,
-                        availableThrough: today
-                    }
-                });
-                // TODO
-                // branchCodeが重複しているため劇場名でフィルター
-                const screeningEvents =
-                    screeningEventsResult.data.filter(data => data.superEvent.location.name.ja === payload.seller.name.ja);
+                const limit = 100;
+                let page = 1;
+                let roop = true;
+                let screeningEvents: factory.chevre.event.screeningEvent.IEvent[] = [];
+                while (roop) {
+                    const screeningEventsResult = await this.cinerino.event.searchScreeningEvents({
+                        page,
+                        limit,
+                        typeOf: factory.chevre.eventType.ScreeningEvent,
+                        eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
+                        superEvent: {
+                            locationBranchCodes: (branchCode === undefined) ? [] : [branchCode]
+                        },
+                        startFrom: moment(scheduleDate).toDate(),
+                        startThrough: moment(scheduleDate).add(1, 'day').toDate(),
+                        offers: {
+                            availableFrom: today,
+                            availableThrough: today
+                        }
+                    });
+                    screeningEvents = screeningEvents.concat(screeningEventsResult.data);
+                    const lastPage = Math.ceil(screeningEventsResult.totalCount / limit);
+                    page++;
+                    roop = !(page > lastPage);
+                }
 
                 return new master.GetScheduleSuccess({ screeningEvents, scheduleDate });
             } catch (error) {

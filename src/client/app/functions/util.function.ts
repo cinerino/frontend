@@ -1,4 +1,5 @@
 import * as libphonenumber from 'libphonenumber-js';
+
 /**
  * 電話番号変換
  */
@@ -37,3 +38,4 @@ export async function sleep(time: number) {
         }, time);
     });
 }
+
