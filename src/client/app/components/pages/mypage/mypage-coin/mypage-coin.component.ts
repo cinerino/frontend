@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { UtilService } from '../../../../services';
-import * as userAction from '../../../../store/actions/user.action';
+import { userAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 import { ChargeCoinModalComponent } from '../../../parts';
 

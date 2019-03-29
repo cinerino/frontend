@@ -55,7 +55,8 @@ export enum ActionTypes {
     ReserveFail = '[Purchase] Reserve Fail',
     CreateGmoTokenObject = '[Purchase] Create Gmo Token Object',
     CreateGmoTokenObjectSuccess = '[Purchase] Create Gmo Token Object Success',
-    CreateGmoTokenObjectFail = '[Purchase] Create Gmo Token Object Fail'
+    CreateGmoTokenObjectFail = '[Purchase] Create Gmo Token Object Fail',
+    SetExternal = '[Purchase] Set External',
 }
 
 /**
@@ -537,6 +538,14 @@ export class CreateGmoTokenObjectFail implements Action {
     constructor(public payload: { error: Error }) { }
 }
 
+/**
+ * SetExternal
+ */
+export class SetExternal implements Action {
+    public readonly type = ActionTypes.SetExternal;
+    constructor(public payload: { sellerId?: string; eventId?: string; }) { }
+}
+
 
 /**
  * Actions
@@ -590,4 +599,5 @@ export type Actions =
     | ReserveFail
     | CreateGmoTokenObject
     | CreateGmoTokenObjectSuccess
-    | CreateGmoTokenObjectFail;
+    | CreateGmoTokenObjectFail
+    | SetExternal;

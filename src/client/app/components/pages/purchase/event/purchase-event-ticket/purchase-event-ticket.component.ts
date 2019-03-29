@@ -11,8 +11,7 @@ import { take, tap } from 'rxjs/operators';
 import { getTicketPrice, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../functions';
 import { IReservationTicket } from '../../../../../models';
 import { UtilService } from '../../../../../services';
-import * as masterAction from '../../../../../store/actions/master.action';
-import * as purchaseAction from '../../../../../store/actions/purchase.action';
+import { masterAction, purchaseAction } from '../../../../../store/actions';
 import * as reducers from '../../../../../store/reducers';
 import { PurchaseEventTicketModalComponent } from '../../../../parts';
 

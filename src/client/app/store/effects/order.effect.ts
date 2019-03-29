@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { formatTelephone } from '../../functions';
 import { CinerinoService } from '../../services';
-import * as orderAction from '../actions/order.action';
+import { orderAction } from '../actions';
 
 /**
  * Order Effects

@@ -8,7 +8,7 @@ import * as libphonenumber from 'libphonenumber-js';
 import { race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { UtilService } from '../../../../services';
-import { ActionTypes, Inquiry } from '../../../../store/actions/order.action';
+import { orderAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -74,19 +74,19 @@ export class InquiryInputComponent implements OnInit {
         }
         const confirmationNumber = Number(this.inquiryForm.controls.confirmationNumber.value);
         const telephone = this.inquiryForm.controls.telephone.value;
-        this.store.dispatch(new Inquiry({
+        this.store.dispatch(new orderAction.Inquiry({
             confirmationNumber,
             customer: { telephone }
         }));
         const success = this.actions.pipe(
-            ofType(ActionTypes.InquirySuccess),
+            ofType(orderAction.ActionTypes.InquirySuccess),
             tap(() => {
                 this.router.navigate(['/inquiry/confirm']);
             })
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.InquiryFail),
+            ofType(orderAction.ActionTypes.InquiryFail),
             tap(() => {
                 this.util.openAlert({
                     title: this.translate.instant('common.error'),

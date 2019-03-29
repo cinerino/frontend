@@ -10,7 +10,7 @@ import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
 import { UtilService } from '../../../../services';
-import { ActionTypes, Cancel, OrderAuthorize } from '../../../../store/actions/order.action';
+import { orderAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.component';
 
@@ -57,7 +57,7 @@ export class InquiryConfirmComponent implements OnInit {
                 this.router.navigate(['/error']);
                 return;
             }
-            this.store.dispatch(new OrderAuthorize({
+            this.store.dispatch(new orderAction.OrderAuthorize({
                 params: {
                     orderNumber: order.orderNumber,
                     customer: {
@@ -68,7 +68,7 @@ export class InquiryConfirmComponent implements OnInit {
         }).unsubscribe();
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.OrderAuthorizeSuccess),
+            ofType(orderAction.ActionTypes.OrderAuthorizeSuccess),
             tap(() => {
                 this.order.subscribe((inquiry) => {
                     const authorizeOrder = inquiry.order;
@@ -84,7 +84,7 @@ export class InquiryConfirmComponent implements OnInit {
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.OrderAuthorizeFail),
+            ofType(orderAction.ActionTypes.OrderAuthorizeFail),
             tap(() => {
                 this.util.openAlert({
                     title: this.translate.instant('common.error'),
@@ -118,16 +118,16 @@ export class InquiryConfirmComponent implements OnInit {
                 this.router.navigate(['/error']);
                 return;
             }
-            this.store.dispatch(new Cancel({ orders: [order] }));
+            this.store.dispatch(new orderAction.Cancel({ orders: [order] }));
         }).unsubscribe();
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.CancelSuccess),
+            ofType(orderAction.ActionTypes.CancelSuccess),
             tap(() => { })
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.CancelFail),
+            ofType(orderAction.ActionTypes.CancelFail),
             tap(() => {
                 this.error.subscribe((error) => {
                     this.util.openAlert({

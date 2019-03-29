@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { IState } from '.';
-import { Actions, ActionTypes } from '../actions/order.action';
+import { orderAction } from '../actions';
 
 export interface IOrderState {
     order?: factory.order.IOrder;
@@ -20,9 +20,9 @@ export const orderInitialState: IOrderState = {
  * @param state
  * @param action
  */
-export function reducer(state: IState, action: Actions): IState {
+export function reducer(state: IState, action: orderAction.Actions): IState {
     switch (action.type) {
-        case ActionTypes.Delete: {
+        case orderAction.ActionTypes.Delete: {
             state.orderData = {
                 orders: [],
                 totalCount: 0,
@@ -30,10 +30,10 @@ export function reducer(state: IState, action: Actions): IState {
             };
             return { ...state };
         }
-        case ActionTypes.Search: {
+        case orderAction.ActionTypes.Search: {
             return { ...state, loading: true, process: { ja: '検索しています', en: 'Searching' } };
         }
-        case ActionTypes.SearchSuccess: {
+        case orderAction.ActionTypes.SearchSuccess: {
             const searchResult = action.payload.searchResult;
             const limit = action.payload.limit;
             state.orderData.orders = searchResult.data;
@@ -41,42 +41,42 @@ export function reducer(state: IState, action: Actions): IState {
             state.orderData.pageCount = Math.ceil(searchResult.totalCount / limit);
             return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
-        case ActionTypes.SearchFail: {
+        case orderAction.ActionTypes.SearchFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
-        case ActionTypes.Cancel: {
+        case orderAction.ActionTypes.Cancel: {
             return { ...state, loading: true, process: { ja: '注文を取り消ししています', en: 'Canceling my order' } };
         }
-        case ActionTypes.CancelSuccess: {
+        case orderAction.ActionTypes.CancelSuccess: {
             return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
-        case ActionTypes.CancelFail: {
+        case orderAction.ActionTypes.CancelFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
-        case ActionTypes.Inquiry: {
+        case orderAction.ActionTypes.Inquiry: {
             return { ...state, loading: true, process: { ja: '照会しています', en: 'Inquiring.' } };
         }
-        case ActionTypes.InquirySuccess: {
+        case orderAction.ActionTypes.InquirySuccess: {
             const order = action.payload.order;
             state.orderData.order = order;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
-        case ActionTypes.InquiryFail: {
+        case orderAction.ActionTypes.InquiryFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
-        case ActionTypes.OrderAuthorize: {
+        case orderAction.ActionTypes.OrderAuthorize: {
             return { ...state, loading: true, process: { ja: 'QRコードを取得しています', en: 'Acquiring a QR code' }, };
         }
-        case ActionTypes.OrderAuthorizeSuccess: {
+        case orderAction.ActionTypes.OrderAuthorizeSuccess: {
             const authorizeOrder = action.payload.order;
             state.orderData.order = authorizeOrder;
 
             return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
-        case ActionTypes.OrderAuthorizeFail: {
+        case orderAction.ActionTypes.OrderAuthorizeFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }

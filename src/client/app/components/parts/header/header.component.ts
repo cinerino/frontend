@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { UpdateLanguage } from '../../../store/actions/user.action';
+import { userAction } from '../../../store/actions';
 import * as reducers from '../../../store/reducers';
 
 @Component({
@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
     public changeLanguage() {
         this.translate.use(this.language);
         const language = this.language;
-        this.store.dispatch(new UpdateLanguage({ language }));
+        this.store.dispatch(new userAction.UpdateLanguage({ language }));
         const html = <HTMLElement>document.querySelector('html');
         html.setAttribute('lang', this.language);
         // console.log('translate', this.translate);

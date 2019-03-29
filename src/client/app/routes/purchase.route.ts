@@ -21,7 +21,6 @@ export const route = {
     path: 'purchase',
     component: PurchaseBaseComponent,
     children: [
-        { path: 'root', component: PurchaseRootComponent },
         {
             path: 'cinema',
             children: [
@@ -49,6 +48,9 @@ export const schedule = {
     path: 'purchase',
     component: BaseComponent,
     children: [
+        { path: 'root/:sellerId/:eventId', component: PurchaseRootComponent },
+        { path: 'root/:sellerId', component: PurchaseRootComponent },
+        { path: 'root', component: PurchaseRootComponent },
         {
             path: 'cinema',
             children: [

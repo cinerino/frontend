@@ -10,7 +10,7 @@ import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { movieTicketAuthErroCodeToMessage } from '../../../functions';
 import { ChangeLanguagePipe } from '../../../pipes/change-language.pipe';
-import { ActionTypes, CheckMovieTicket } from '../../../store/actions/purchase.action';
+import { purchaseAction } from '../../../store/actions';
 import * as reducers from '../../../store/reducers';
 
 @Component({
@@ -86,7 +86,7 @@ export class MvtkCheckModalComponent implements OnInit, OnDestroy {
                 || purchase.screeningEvent === undefined) {
                 return;
             }
-            this.store.dispatch(new CheckMovieTicket({
+            this.store.dispatch(new purchaseAction.CheckMovieTicket({
                 transaction: purchase.transaction,
                 movieTickets: [{
                     typeOf: factory.paymentMethodType.MovieTicket,
@@ -98,7 +98,7 @@ export class MvtkCheckModalComponent implements OnInit, OnDestroy {
         }).unsubscribe();
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.CheckMovieTicketSuccess),
+            ofType(purchaseAction.ActionTypes.CheckMovieTicketSuccess),
             tap(() => {
                 this.purchase.subscribe((purchase) => {
                     const checkMovieTicketAction = purchase.checkMovieTicketAction;
@@ -133,7 +133,7 @@ export class MvtkCheckModalComponent implements OnInit, OnDestroy {
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.CheckMovieTicketFail),
+            ofType(purchaseAction.ActionTypes.CheckMovieTicketFail),
             tap(() => {
                 this.isSuccess = false;
                 this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.error');

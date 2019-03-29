@@ -6,9 +6,7 @@ import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
 import { ILanguage } from '../../../../models';
-import * as orderAction from '../../../../store/actions/order.action';
-import * as purchaseAction from '../../../../store/actions/purchase.action';
-import * as userAction from '../../../../store/actions/user.action';
+import { orderAction, purchaseAction, userAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 
 @Component({

@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { IState } from '.';
-import { Actions, ActionTypes } from '../actions/master.action';
+import { masterAction } from '../actions';
 
 /**
  * IMasterState
@@ -20,37 +20,37 @@ export const masterInitialState: IMasterState = {
  * @param state
  * @param action
  */
-export function reducer(state: IState, action: Actions): IState {
+export function reducer(state: IState, action: masterAction.Actions): IState {
     switch (action.type) {
-        case ActionTypes.Delete: {
+        case masterAction.ActionTypes.Delete: {
             state.masterData = {
                 sellers: [],
                 screeningEvents: []
             };
             return { ...state };
         }
-        case ActionTypes.GetSellers: {
+        case masterAction.ActionTypes.GetSellers: {
             return { ...state, loading: true, process: { ja: '劇場情報を取得しています', en: 'Acquiring theater information' } };
         }
-        case ActionTypes.GetSellersSuccess: {
+        case masterAction.ActionTypes.GetSellersSuccess: {
             const sellers = action.payload.sellers;
             state.masterData.sellers = sellers;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
-        case ActionTypes.GetSellersFail: {
+        case masterAction.ActionTypes.GetSellersFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
-        case ActionTypes.GetSchedule: {
+        case masterAction.ActionTypes.GetSchedule: {
             return { ...state, loading: true, process: { ja: 'スケジュールを取得しています', en: 'Acquiring a schedule' } };
         }
-        case ActionTypes.GetScheduleSuccess: {
+        case masterAction.ActionTypes.GetScheduleSuccess: {
             const screeningEvents = action.payload.screeningEvents;
             state.masterData.screeningEvents = screeningEvents;
 
             return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
         }
-        case ActionTypes.GetScheduleFail: {
+        case masterAction.ActionTypes.GetScheduleFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }

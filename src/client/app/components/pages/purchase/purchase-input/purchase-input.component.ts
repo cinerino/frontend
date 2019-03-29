@@ -15,7 +15,7 @@ import { getAmount } from '../../../../functions';
 import { ViewType } from '../../../../models';
 import { LibphonenumberFormatPipe } from '../../../../pipes/libphonenumber-format.pipe';
 import { UtilService } from '../../../../services';
-import * as purchaseAction from '../../../../store/actions/purchase.action';
+import { purchaseAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 import { RegisteredCreditCardModalComponent, SecurityCodeModalComponent } from '../../../parts';
 

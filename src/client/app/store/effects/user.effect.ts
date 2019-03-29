@@ -5,7 +5,7 @@ import { map, mergeMap } from 'rxjs/operators';
 import { createGmoTokenObject } from '../../functions';
 import { LibphonenumberFormatPipe } from '../../pipes/libphonenumber-format.pipe';
 import { CinerinoService } from '../../services';
-import * as user from '../actions/user.action';
+import { userAction } from '../actions';
 
 type accountType = factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
 
@@ -25,7 +25,7 @@ export class UserEffects {
      */
     @Effect()
     public initializeProfile = this.actions.pipe(
-        ofType<user.InitializeProfile>(user.ActionTypes.InitializeProfile),
+        ofType<userAction.InitializeProfile>(userAction.ActionTypes.InitializeProfile),
         map(action => action.payload),
         mergeMap(async () => {
             try {
@@ -34,9 +34,9 @@ export class UserEffects {
                 const id = 'me';
                 const profile = await this.cinerino.person.getProfile({ id });
                 profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone);
-                return new user.InitializeProfileSuccess({ profile });
+                return new userAction.InitializeProfileSuccess({ profile });
             } catch (error) {
-                return new user.InitializeProfileFail({ error: error });
+                return new userAction.InitializeProfileFail({ error: error });
             }
         })
     );
@@ -46,7 +46,7 @@ export class UserEffects {
      */
     @Effect()
     public initializeCoinAccount = this.actions.pipe(
-        ofType<user.InitializeCoinAccount>(user.ActionTypes.InitializeCoinAccount),
+        ofType<userAction.InitializeCoinAccount>(userAction.ActionTypes.InitializeCoinAccount),
         map(action => action.payload),
         mergeMap(async () => {
             try {
@@ -74,9 +74,9 @@ export class UserEffects {
                     account = accounts[0];
                 }
                 const coin = { account };
-                return new user.InitializeCoinAccountSuccess({ coin });
+                return new userAction.InitializeCoinAccountSuccess({ coin });
             } catch (error) {
-                return new user.InitializeCoinAccountFail({ error: error });
+                return new userAction.InitializeCoinAccountFail({ error: error });
             }
         })
     );
@@ -86,7 +86,7 @@ export class UserEffects {
      */
     @Effect()
     public UpdateProfile = this.actions.pipe(
-        ofType<user.UpdateProfile>(user.ActionTypes.UpdateProfile),
+        ofType<userAction.UpdateProfile>(userAction.ActionTypes.UpdateProfile),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
@@ -96,9 +96,9 @@ export class UserEffects {
                 profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone, undefined, 'E.164');
                 await this.cinerino.person.updateProfile({ ...profile, id });
                 profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone);
-                return new user.UpdateProfileSuccess({ profile });
+                return new userAction.UpdateProfileSuccess({ profile });
             } catch (error) {
-                return new user.UpdateProfileFail({ error: error });
+                return new userAction.UpdateProfileFail({ error: error });
             }
         })
     );
@@ -108,7 +108,7 @@ export class UserEffects {
      */
     @Effect()
     public getreditCard = this.actions.pipe(
-        ofType<user.GetCreditCards>(user.ActionTypes.GetCreditCards),
+        ofType<userAction.GetCreditCards>(userAction.ActionTypes.GetCreditCards),
         map(action => action.payload),
         mergeMap(async (payload) => {
             console.log(payload);
@@ -116,9 +116,9 @@ export class UserEffects {
                 await this.cinerino.getServices();
                 const id = 'me';
                 const creditCards = await this.cinerino.ownershipInfo.searchCreditCards({ id });
-                return new user.GetCreditCardsSuccess({ creditCards });
+                return new userAction.GetCreditCardsSuccess({ creditCards });
             } catch (error) {
-                return new user.GetCreditCardsFail({ error: error });
+                return new userAction.GetCreditCardsFail({ error: error });
             }
         })
     );
@@ -128,7 +128,7 @@ export class UserEffects {
      */
     @Effect()
     public addCreditCard = this.actions.pipe(
-        ofType<user.AddCreditCard>(user.ActionTypes.AddCreditCard),
+        ofType<userAction.AddCreditCard>(userAction.ActionTypes.AddCreditCard),
         map(action => action.payload),
         mergeMap(async (payload) => {
             console.log(payload);
@@ -137,9 +137,9 @@ export class UserEffects {
                 const gmoTokenObject = await createGmoTokenObject({ creditCard: payload.creditCard, seller: payload.seller });
                 const id = 'me';
                 const creditCard = await this.cinerino.ownershipInfo.addCreditCard({ id, creditCard: gmoTokenObject });
-                return new user.AddCreditCardSuccess({ creditCard });
+                return new userAction.AddCreditCardSuccess({ creditCard });
             } catch (error) {
-                return new user.AddCreditCardFail({ error: error });
+                return new userAction.AddCreditCardFail({ error: error });
             }
         })
     );
@@ -149,7 +149,7 @@ export class UserEffects {
      */
     @Effect()
     public removeCreditCard = this.actions.pipe(
-        ofType<user.RemoveCreditCard>(user.ActionTypes.RemoveCreditCard),
+        ofType<userAction.RemoveCreditCard>(userAction.ActionTypes.RemoveCreditCard),
         map(action => action.payload),
         mergeMap(async (payload) => {
             console.log(payload);
@@ -159,9 +159,9 @@ export class UserEffects {
                 const creditCard = payload.creditCard;
                 const cardSeq = creditCard.cardSeq;
                 await this.cinerino.ownershipInfo.deleteCreditCard({ id, cardSeq });
-                return new user.RemoveCreditCardSuccess({ creditCard });
+                return new userAction.RemoveCreditCardSuccess({ creditCard });
             } catch (error) {
-                return new user.RemoveCreditCardFail({ error: error });
+                return new userAction.RemoveCreditCardFail({ error: error });
             }
         })
     );
@@ -171,16 +171,16 @@ export class UserEffects {
      */
     @Effect()
     public chargeCoin = this.actions.pipe(
-        ofType<user.ChargeCoin>(user.ActionTypes.ChargeCoin),
+        ofType<userAction.ChargeCoin>(userAction.ActionTypes.ChargeCoin),
         map(action => action.payload),
         mergeMap(async (payload) => {
             console.log(payload);
             try {
                 await this.cinerino.getServices();
                 // const id = 'me';
-                return new user.ChargeCoinSuccess({ });
+                return new userAction.ChargeCoinSuccess({ });
             } catch (error) {
-                return new user.ChargeCoinFail({ error: error });
+                return new userAction.ChargeCoinFail({ error: error });
             }
         })
     );

@@ -13,7 +13,7 @@ import {
 } from '../../functions';
 import { IScreen } from '../../models';
 import { CinerinoService } from '../../services';
-import * as purchase from '../actions/purchase.action';
+import { purchaseAction } from '../actions';
 
 /**
  * Purchase Effects
@@ -32,7 +32,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public getPreScheduleDates = this.actions.pipe(
-        ofType<purchase.GetPreScheduleDates>(purchase.ActionTypes.GetPreScheduleDates),
+        ofType<purchaseAction.GetPreScheduleDates>(purchaseAction.ActionTypes.GetPreScheduleDates),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
@@ -79,9 +79,9 @@ export class PurchaseEffects {
                     }
                 });
 
-                return new purchase.GetPreScheduleDatesSuccess({ sheduleDates });
+                return new purchaseAction.GetPreScheduleDatesSuccess({ sheduleDates });
             } catch (error) {
-                return new purchase.GetPreScheduleDatesFail({ error: error });
+                return new purchaseAction.GetPreScheduleDatesFail({ error: error });
             }
         })
     );
@@ -91,7 +91,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public startTransaction = this.actions.pipe(
-        ofType<purchase.StartTransaction>(purchase.ActionTypes.StartTransaction),
+        ofType<purchaseAction.StartTransaction>(purchaseAction.ActionTypes.StartTransaction),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
@@ -101,9 +101,9 @@ export class PurchaseEffects {
                 const passport = await this.cinerino.getPassport(selleId);
                 params.object = { passport };
                 const transaction = await this.cinerino.transaction.placeOrder.start(params);
-                return new purchase.StartTransactionSuccess({ transaction });
+                return new purchaseAction.StartTransactionSuccess({ transaction });
             } catch (error) {
-                return new purchase.StartTransactionFail({ error: error });
+                return new purchaseAction.StartTransactionFail({ error: error });
             }
         })
     );
@@ -113,7 +113,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public getScreen = this.actions.pipe(
-        ofType<purchase.GetScreen>(purchase.ActionTypes.GetScreen),
+        ofType<purchaseAction.GetScreen>(purchaseAction.ActionTypes.GetScreen),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
@@ -126,9 +126,9 @@ export class PurchaseEffects {
                 const screen = await this.http.get<IScreen>(`/json/theater/${theaterCode}/${screenCode}.json`).toPromise();
                 const setting = await this.http.get<IScreen>('/json/theater/setting.json').toPromise();
                 const screenData = Object.assign(setting, screen);
-                return new purchase.GetScreenSuccess({ screeningEventOffers, screenData });
+                return new purchaseAction.GetScreenSuccess({ screeningEventOffers, screenData });
             } catch (error) {
-                return new purchase.GetScreenFail({ error: error });
+                return new purchaseAction.GetScreenFail({ error: error });
             }
         })
     );
@@ -138,7 +138,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public temporaryReservation = this.actions.pipe(
-        ofType<purchase.TemporaryReservation>(purchase.ActionTypes.TemporaryReservation),
+        ofType<purchaseAction.TemporaryReservation>(purchaseAction.ActionTypes.TemporaryReservation),
         map(action => action.payload),
         mergeMap(async (payload) => {
             const transaction = payload.transaction;
@@ -167,12 +167,12 @@ export class PurchaseEffects {
                     },
                     purpose: transaction
                 });
-                return new purchase.TemporaryReservationSuccess({
+                return new purchaseAction.TemporaryReservationSuccess({
                     addAuthorizeSeatReservation: authorizeSeatReservation,
                     removeAuthorizeSeatReservation: payload.authorizeSeatReservation
                 });
             } catch (error) {
-                return new purchase.TemporaryReservationFail({ error: error });
+                return new purchaseAction.TemporaryReservationFail({ error: error });
             }
         })
     );
@@ -182,7 +182,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public temporaryReservationFreeSeat = this.actions.pipe(
-        ofType<purchase.TemporaryReservationFreeSeat>(purchase.ActionTypes.TemporaryReservationFreeSeat),
+        ofType<purchaseAction.TemporaryReservationFreeSeat>(purchaseAction.ActionTypes.TemporaryReservationFreeSeat),
         map(action => action.payload),
         mergeMap(async (payload) => {
             const transaction = payload.transaction;
@@ -224,11 +224,11 @@ export class PurchaseEffects {
                     },
                     purpose: transaction
                 });
-                return new purchase.TemporaryReservationFreeSeatSuccess({
+                return new purchaseAction.TemporaryReservationFreeSeatSuccess({
                     addAuthorizeSeatReservation: authorizeSeatReservation
                 });
             } catch (error) {
-                return new purchase.TemporaryReservationFreeSeatFail({ error: error });
+                return new purchaseAction.TemporaryReservationFreeSeatFail({ error: error });
             }
         })
     );
@@ -238,7 +238,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public cancelTemporaryReservation = this.actions.pipe(
-        ofType<purchase.CancelTemporaryReservations>(purchase.ActionTypes.CancelTemporaryReservations),
+        ofType<purchaseAction.CancelTemporaryReservations>(purchaseAction.ActionTypes.CancelTemporaryReservations),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
@@ -248,9 +248,9 @@ export class PurchaseEffects {
                     await this.cinerino.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation);
                 }
 
-                return new purchase.CancelTemporaryReservationsSuccess({ authorizeSeatReservations });
+                return new purchaseAction.CancelTemporaryReservationsSuccess({ authorizeSeatReservations });
             } catch (error) {
-                return new purchase.CancelTemporaryReservationsFail({ error: error });
+                return new purchaseAction.CancelTemporaryReservationsFail({ error: error });
             }
         })
     );
@@ -260,7 +260,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public getTicketList = this.actions.pipe(
-        ofType<purchase.GetTicketList>(purchase.ActionTypes.GetTicketList),
+        ofType<purchaseAction.GetTicketList>(purchaseAction.ActionTypes.GetTicketList),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
@@ -274,9 +274,9 @@ export class PurchaseEffects {
                     store: { id: this.cinerino.auth.options.clientId }
                 });
 
-                return new purchase.GetTicketListSuccess({ screeningEventTicketOffers });
+                return new purchaseAction.GetTicketListSuccess({ screeningEventTicketOffers });
             } catch (error) {
-                return new purchase.GetTicketListFail({ error: error });
+                return new purchaseAction.GetTicketListFail({ error: error });
             }
         })
     );
@@ -286,7 +286,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public registerContact = this.actions.pipe(
-        ofType<purchase.RegisterContact>(purchase.ActionTypes.RegisterContact),
+        ofType<purchaseAction.RegisterContact>(purchaseAction.ActionTypes.RegisterContact),
         map(action => action.payload),
         mergeMap(async (payload) => {
             const transaction = payload.transaction;
@@ -302,9 +302,9 @@ export class PurchaseEffects {
                         }
                     });
 
-                return new purchase.RegisterContactSuccess({ customerContact });
+                return new purchaseAction.RegisterContactSuccess({ customerContact });
             } catch (error) {
-                return new purchase.RegisterContactFail({ error: error });
+                return new purchaseAction.RegisterContactFail({ error: error });
             }
         })
     );
@@ -314,7 +314,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public authorizeCreditCard = this.actions.pipe(
-        ofType<purchase.AuthorizeCreditCard>(purchase.ActionTypes.AuthorizeCreditCard),
+        ofType<purchaseAction.AuthorizeCreditCard>(purchaseAction.ActionTypes.AuthorizeCreditCard),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
@@ -339,9 +339,9 @@ export class PurchaseEffects {
                         purpose: transaction
                     });
 
-                return new purchase.AuthorizeCreditCardSuccess({ authorizeCreditCardPayment: authorizeCreditCardPaymentResult });
+                return new purchaseAction.AuthorizeCreditCardSuccess({ authorizeCreditCardPayment: authorizeCreditCardPaymentResult });
             } catch (error) {
-                return new purchase.AuthorizeCreditCardFail({ error: error });
+                return new purchaseAction.AuthorizeCreditCardFail({ error: error });
             }
         })
     );
@@ -351,7 +351,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public createGmoTokenObject = this.actions.pipe(
-        ofType<purchase.CreateGmoTokenObject>(purchase.ActionTypes.CreateGmoTokenObject),
+        ofType<purchaseAction.CreateGmoTokenObject>(purchaseAction.ActionTypes.CreateGmoTokenObject),
         map(action => action.payload),
         mergeMap(async (payload) => {
             const creditCard = payload.creditCard;
@@ -359,9 +359,9 @@ export class PurchaseEffects {
             try {
                 const gmoTokenObject = await createGmoTokenObject({ creditCard, seller, });
 
-                return new purchase.CreateGmoTokenObjectSuccess({ gmoTokenObject });
+                return new purchaseAction.CreateGmoTokenObjectSuccess({ gmoTokenObject });
             } catch (error) {
-                return new purchase.CreateGmoTokenObjectFail({ error: error });
+                return new purchaseAction.CreateGmoTokenObjectFail({ error: error });
             }
         })
     );
@@ -371,7 +371,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public authorizeMovieTicket = this.actions.pipe(
-        ofType<purchase.AuthorizeMovieTicket>(purchase.ActionTypes.AuthorizeMovieTicket),
+        ofType<purchaseAction.AuthorizeMovieTicket>(purchaseAction.ActionTypes.AuthorizeMovieTicket),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
@@ -418,9 +418,9 @@ export class PurchaseEffects {
                     }
                 }
 
-                return new purchase.AuthorizeMovieTicketSuccess({ authorizeMovieTicketPayments });
+                return new purchaseAction.AuthorizeMovieTicketSuccess({ authorizeMovieTicketPayments });
             } catch (error) {
-                return new purchase.AuthorizeMovieTicketFail({ error: error });
+                return new purchaseAction.AuthorizeMovieTicketFail({ error: error });
             }
         })
     );
@@ -429,7 +429,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public checkMovieTicket = this.actions.pipe(
-        ofType<purchase.CheckMovieTicket>(purchase.ActionTypes.CheckMovieTicket),
+        ofType<purchaseAction.CheckMovieTicket>(purchaseAction.ActionTypes.CheckMovieTicket),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
@@ -465,9 +465,9 @@ export class PurchaseEffects {
                     }
                 });
 
-                return new purchase.CheckMovieTicketSuccess({ checkMovieTicketAction });
+                return new purchaseAction.CheckMovieTicketSuccess({ checkMovieTicketAction });
             } catch (error) {
-                return new purchase.CheckMovieTicketFail({ error: error });
+                return new purchaseAction.CheckMovieTicketFail({ error: error });
             }
         })
     );
@@ -477,7 +477,7 @@ export class PurchaseEffects {
      */
     @Effect()
     public reserve = this.actions.pipe(
-        ofType<purchase.Reserve>(purchase.ActionTypes.Reserve),
+        ofType<purchaseAction.Reserve>(purchaseAction.ActionTypes.Reserve),
         map(action => action.payload),
         mergeMap(async (payload) => {
             const transaction = payload.transaction;
@@ -490,12 +490,12 @@ export class PurchaseEffects {
                     }
                 });
                 const order = result.order;
-                return new purchase.ReserveSuccess({ order });
+                return new purchaseAction.ReserveSuccess({ order });
             } catch (error) {
                 await this.cinerino.transaction.placeOrder.cancel({
                     id: transaction.id
                 });
-                return new purchase.ReserveFail({ error: error });
+                return new purchaseAction.ReserveFail({ error: error });
             }
         })
     );

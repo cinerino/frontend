@@ -9,8 +9,7 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { UtilService } from '../../../../services';
-import * as masterAction from '../../../../store/actions/master.action';
-import * as userAction from '../../../../store/actions/user.action';
+import { masterAction, userAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 
 @Component({

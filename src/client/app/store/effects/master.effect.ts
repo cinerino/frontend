@@ -4,7 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { CinerinoService } from '../../services/cinerino.service';
-import * as master from '../actions/master.action';
+import { masterAction } from '../actions';
 
 /**
  * Master Effects
@@ -22,16 +22,16 @@ export class MasterEffects {
      */
     @Effect()
     public getSellers = this.actions.pipe(
-        ofType<master.GetSellers>(master.ActionTypes.GetSellers),
+        ofType<masterAction.GetSellers>(masterAction.ActionTypes.GetSellers),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
                 const searchMovieSellersResult = await this.cinerino.seller.search(payload.params);
                 const sellers = searchMovieSellersResult.data;
-                return new master.GetSellersSuccess({ sellers });
+                return new masterAction.GetSellersSuccess({ sellers });
             } catch (error) {
-                return new master.GetSellersFail({ error: error });
+                return new masterAction.GetSellersFail({ error: error });
             }
         })
     );
@@ -41,7 +41,7 @@ export class MasterEffects {
      */
     @Effect()
     public getSchedule = this.actions.pipe(
-        ofType<master.GetSchedule>(master.ActionTypes.GetSchedule),
+        ofType<masterAction.GetSchedule>(masterAction.ActionTypes.GetSchedule),
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
@@ -78,9 +78,9 @@ export class MasterEffects {
                     roop = !(page > lastPage);
                 }
 
-                return new master.GetScheduleSuccess({ screeningEvents, scheduleDate });
+                return new masterAction.GetScheduleSuccess({ screeningEvents, scheduleDate });
             } catch (error) {
-                return new master.GetScheduleFail({ error: error });
+                return new masterAction.GetScheduleFail({ error: error });
             }
         })
     );

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { ViewType } from '../../../models';
 import { UtilService } from '../../../services';
-import * as userAction from '../../../store/actions/user.action';
+import { userAction } from '../../../store/actions';
 import * as reducers from '../../../store/reducers';
 
 @Component({

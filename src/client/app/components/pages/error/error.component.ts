@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as purchaseAction from '../../../store/actions/purchase.action';
-import * as userAction from '../../../store/actions/user.action';
+import { purchaseAction, userAction } from '../../../store/actions';
 import * as reducers from '../../../store/reducers';
 
 @Component({

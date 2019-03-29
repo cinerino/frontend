@@ -10,7 +10,7 @@ import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { OrderActions } from '../../../../models';
 import { UtilService } from '../../../../services';
-import { ActionTypes, Cancel, Delete, OrderAuthorize, Search } from '../../../../store/actions/order.action';
+import { orderAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 import { OrderDetailModalComponent } from '../../../parts/order-detail-modal/order-detail-modal.component';
 import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.component';
@@ -89,7 +89,7 @@ export class OrderListComponent implements OnInit {
             },
             orderStatuses: ''
         };
-        this.store.dispatch(new Delete());
+        this.store.dispatch(new orderAction.Delete());
     }
 
     public isSelected(order: factory.order.IOrder) {
@@ -153,15 +153,15 @@ export class OrderListComponent implements OnInit {
                 orderDate: factory.sortType.Descending
             }
         };
-        this.store.dispatch(new Search({ params }));
+        this.store.dispatch(new orderAction.Search({ params }));
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.SearchSuccess),
+            ofType(orderAction.ActionTypes.SearchSuccess),
             tap(() => { })
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.SearchFail),
+            ofType(orderAction.ActionTypes.SearchFail),
             tap(() => {
                 this.router.navigate(['/error']);
             })
@@ -196,15 +196,15 @@ export class OrderListComponent implements OnInit {
      * キャンセル処理
      */
     public cancel(orders: factory.order.IOrder[]) {
-        this.store.dispatch(new Cancel({ orders }));
+        this.store.dispatch(new orderAction.Cancel({ orders }));
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.CancelSuccess),
+            ofType(orderAction.ActionTypes.CancelSuccess),
             tap(() => { })
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.CancelFail),
+            ofType(orderAction.ActionTypes.CancelFail),
             tap(() => {
                 this.error.subscribe((error) => {
                     this.util.openAlert({
@@ -247,7 +247,7 @@ export class OrderListComponent implements OnInit {
      * QRコード表示
      */
     public openQrCode(order: factory.order.IOrder) {
-        this.store.dispatch(new OrderAuthorize({
+        this.store.dispatch(new orderAction.OrderAuthorize({
             params: {
                 orderNumber: order.orderNumber,
                 customer: {
@@ -257,7 +257,7 @@ export class OrderListComponent implements OnInit {
         }));
 
         const success = this.actions.pipe(
-            ofType(ActionTypes.OrderAuthorizeSuccess),
+            ofType(orderAction.ActionTypes.OrderAuthorizeSuccess),
             tap(() => {
                 this.order.subscribe((inquiry) => {
                     const authorizeOrder = inquiry.order;
@@ -273,7 +273,7 @@ export class OrderListComponent implements OnInit {
         );
 
         const fail = this.actions.pipe(
-            ofType(ActionTypes.OrderAuthorizeFail),
+            ofType(orderAction.ActionTypes.OrderAuthorizeFail),
             tap(() => {
                 this.util.openAlert({
                     title: this.translate.instant('common.error'),
