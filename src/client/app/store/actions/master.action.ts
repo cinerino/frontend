@@ -27,7 +27,7 @@ export class Delete implements Action {
  */
 export class GetSellers implements Action {
     public readonly type = ActionTypes.GetSellers;
-    constructor(public payload: { params: factory.seller.ISearchConditions }) { }
+    constructor(public payload?: { params: factory.seller.ISearchConditions }) { }
 }
 
 /**
@@ -52,8 +52,19 @@ export class GetSellersFail implements Action {
 export class GetSchedule implements Action {
     public readonly type = ActionTypes.GetSchedule;
     constructor(public payload: {
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
-        scheduleDate: string;
+        superEvent: {
+            ids?: string[];
+            /**
+             * 親イベント(劇場の上映イベント)が実施される場所の識別子リスト
+             */
+            locationBranchCodes?: string[];
+            /**
+             * イベントで上演される作品識別子リスト
+             */
+            workPerformedIdentifiers?: string[];
+        };
+        startFrom: Date;
+        startThrough: Date;
     }) { }
 }
 

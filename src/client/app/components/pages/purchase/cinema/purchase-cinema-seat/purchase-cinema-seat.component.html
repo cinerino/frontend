@@ -15,14 +15,14 @@
         本規約に同意の上本サービスをご利用ください。<br><br>
         When using Internet ticket sales (hereinafter referred to as "the service"), we set the terms of use
         (hereinafter referred to as "this agreement") as follows. <br>
-                 Please use the above service agreeing to this agreement.
+        Please use the above service agreeing to this agreement.
     </p>
 
     <div class="buttons mx-auto">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="onSubmit()">{{ 'purchase.cinema.seat.next' | translate }}</button>
         <button type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/purchase/root">{{ 'purchase.cinema.seat.prev' | translate }}</button>
+            routerLink="/purchase/cinema/schedule">{{ 'purchase.cinema.seat.prev' | translate }}</button>
     </div>
 
 </div>

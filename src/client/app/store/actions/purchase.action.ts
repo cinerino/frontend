@@ -97,7 +97,17 @@ export class SelectSeller implements Action {
 export class GetPreScheduleDates implements Action {
     public readonly type = ActionTypes.GetPreScheduleDates;
     constructor(public payload: {
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        superEvent: {
+            ids?: string[];
+            /**
+             * 親イベント(劇場の上映イベント)が実施される場所の識別子リスト
+             */
+            locationBranchCodes?: string[];
+            /**
+             * イベントで上演される作品識別子リスト
+             */
+            workPerformedIdentifiers?: string[];
+        };
     }) { }
 }
 

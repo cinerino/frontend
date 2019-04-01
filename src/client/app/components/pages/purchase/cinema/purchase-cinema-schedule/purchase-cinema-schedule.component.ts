@@ -118,22 +118,27 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
      * getSellers
      */
     public getSellers() {
-        this.store.dispatch(new masterAction.GetSellers({ params: {} }));
-
+        this.store.dispatch(new masterAction.GetSellers());
         const success = this.actions.pipe(
             ofType(masterAction.ActionTypes.GetSellersSuccess),
             tap(() => {
                 this.purchase.subscribe((purchase) => {
                     this.master.subscribe((master) => {
-                        const seller = (purchase.seller === undefined)
-                            ? master.sellers[0]
-                            : purchase.seller;
+                        let seller = (purchase.seller === undefined)
+                            ? master.sellers[0] : purchase.seller;
+                        const findResult = master.sellers.find((s) => {
+                            return (purchase.external !== undefined
+                                && purchase.external.sellerId !== undefined
+                                && s.id === purchase.external.sellerId);
+                        });
+                        if (findResult !== undefined) {
+                            seller = findResult;
+                        }
                         this.selectSeller(seller);
                     }).unsubscribe();
                 }).unsubscribe();
             })
         );
-
         const fail = this.actions.pipe(
             ofType(masterAction.ActionTypes.GetSellersFail),
             tap(() => {
@@ -169,7 +174,14 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 return;
             }
             const seller = purchase.seller;
-            this.store.dispatch(new purchaseAction.GetPreScheduleDates({ seller }));
+            this.store.dispatch(new purchaseAction.GetPreScheduleDates({
+                superEvent: {
+                    ids:
+                        (purchase.external === undefined || purchase.external.eventId === undefined) ? [] : [purchase.external.eventId],
+                    locationBranchCodes:
+                        (seller.location === undefined || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
+                }
+            }));
         }).unsubscribe();
 
         const success = this.actions.pipe(
@@ -203,7 +215,16 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 scheduleDate = this.scheduleDates[0];
             }
             this.store.dispatch(new purchaseAction.SelectScheduleDate({ scheduleDate }));
-            this.store.dispatch(new masterAction.GetSchedule({ seller, scheduleDate }));
+            this.store.dispatch(new masterAction.GetSchedule({
+                superEvent: {
+                    ids:
+                        (purchase.external === undefined || purchase.external.eventId === undefined) ? [] : [purchase.external.eventId],
+                    locationBranchCodes:
+                        (seller.location === undefined || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
+                },
+                startFrom: moment(scheduleDate).toDate(),
+                startThrough: moment(scheduleDate).add(1, 'day').toDate()
+            }));
         }).unsubscribe();
 
         const success = this.actions.pipe(

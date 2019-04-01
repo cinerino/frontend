@@ -36,11 +36,7 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                if (payload.seller.location === undefined) {
-                    throw new Error('seller.location is undefined');
-                }
                 await this.cinerino.getServices();
-                const branchCode = payload.seller.location.branchCode;
                 const now = moment().toDate();
                 const today = moment(moment().format('YYYY-MM-DD')).toDate();
                 const limit = 100;
@@ -53,9 +49,7 @@ export class PurchaseEffects {
                         limit,
                         typeOf: factory.chevre.eventType.ScreeningEvent,
                         eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
-                        superEvent: {
-                            locationBranchCodes: (branchCode === undefined) ? [] : [branchCode]
-                        },
+                        superEvent: payload.superEvent,
                         startFrom: moment(today).add(environment.PRE_SCHEDULE_DATE, 'days').toDate(),
                         offers: {
                             validFrom: now,

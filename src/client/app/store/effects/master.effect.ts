@@ -27,7 +27,8 @@ export class MasterEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const searchMovieSellersResult = await this.cinerino.seller.search(payload.params);
+                const searchMovieSellersResult =
+                    await this.cinerino.seller.search((payload === undefined) ? {} : payload.params);
                 const sellers = searchMovieSellersResult.data;
                 return new masterAction.GetSellersSuccess({ sellers });
             } catch (error) {
@@ -45,12 +46,7 @@ export class MasterEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                if (payload.seller.location === undefined) {
-                    throw new Error('seller.location is undefined');
-                }
                 await this.cinerino.getServices();
-                const branchCode = payload.seller.location.branchCode;
-                const scheduleDate = payload.scheduleDate;
                 const today = moment(moment().format('YYYY-MM-DD')).toDate();
                 const limit = 100;
                 let page = 1;
@@ -62,11 +58,9 @@ export class MasterEffects {
                         limit,
                         typeOf: factory.chevre.eventType.ScreeningEvent,
                         eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
-                        superEvent: {
-                            locationBranchCodes: (branchCode === undefined) ? [] : [branchCode]
-                        },
-                        startFrom: moment(scheduleDate).toDate(),
-                        startThrough: moment(scheduleDate).add(1, 'day').toDate(),
+                        superEvent: payload.superEvent,
+                        startFrom: payload.startFrom,
+                        startThrough: payload.startThrough,
                         offers: {
                             availableFrom: today,
                             availableThrough: today
@@ -77,6 +71,7 @@ export class MasterEffects {
                     page++;
                     roop = !(page > lastPage);
                 }
+                const scheduleDate = moment(payload.startFrom).format('YYYY-MM-DD');
 
                 return new masterAction.GetScheduleSuccess({ screeningEvents, scheduleDate });
             } catch (error) {
