@@ -33,7 +33,9 @@ export class UserEffects {
                 // プロフィール
                 const id = 'me';
                 const profile = await this.cinerino.person.getProfile({ id });
-                profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone);
+                if (profile.telephone !== undefined) {
+                    profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone);
+                }
                 return new userAction.InitializeProfileSuccess({ profile });
             } catch (error) {
                 return new userAction.InitializeProfileFail({ error: error });
@@ -93,9 +95,13 @@ export class UserEffects {
                 await this.cinerino.getServices();
                 const id = 'me';
                 const profile = payload.profile;
-                profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone, undefined, 'E.164');
+                if (profile.telephone !== undefined) {
+                    profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone, undefined, 'E.164');
+                }
                 await this.cinerino.person.updateProfile({ ...profile, id });
-                profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone);
+                if (profile.telephone !== undefined) {
+                    profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone);
+                }
                 return new userAction.UpdateProfileSuccess({ profile });
             } catch (error) {
                 return new userAction.UpdateProfileFail({ error: error });

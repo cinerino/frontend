@@ -58,7 +58,11 @@ export class PurchaseInputComponent implements OnInit {
         this.createCreditCardForm();
         this.purchase.subscribe((purchase) => {
             this.amount = getAmount(purchase.authorizeSeatReservations);
-            if (purchase.customerContact !== undefined) {
+            if (purchase.customerContact !== undefined
+                && purchase.customerContact.familyName !== undefined
+                && purchase.customerContact.givenName !== undefined
+                && purchase.customerContact.email !== undefined
+                && purchase.customerContact.telephone !== undefined) {
                 this.customerContactForm.controls.familyName.setValue(purchase.customerContact.familyName);
                 this.customerContactForm.controls.givenName.setValue(purchase.customerContact.givenName);
                 this.customerContactForm.controls.email.setValue(purchase.customerContact.email);
@@ -77,7 +81,12 @@ export class PurchaseInputComponent implements OnInit {
                     this.creditCardForm.controls.securityCode.setValue('123');
                     this.creditCardForm.controls.holderName.setValue('HATAGUCHI');
                 }
-                if (user.isMember && user.profile !== undefined) {
+                if (user.isMember
+                    && user.profile !== undefined
+                    && user.profile.familyName !== undefined
+                    && user.profile.givenName !== undefined
+                    && user.profile.email !== undefined
+                    && user.profile.telephone !== undefined) {
                     this.customerContactForm.controls.familyName.setValue(user.profile.familyName);
                     this.customerContactForm.controls.givenName.setValue(user.profile.givenName);
                     this.customerContactForm.controls.email.setValue(user.profile.email);

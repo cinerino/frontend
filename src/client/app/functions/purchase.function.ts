@@ -156,7 +156,8 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
             (<any>authorizeSeatReservation.result.responseBody).object.reservations);
 
     pendingReservations.forEach((pendingReservation) => {
-        if (typeof pendingReservation.price === 'number') {
+        if (pendingReservation.price === undefined
+            || typeof pendingReservation.price === 'number') {
             return;
         }
         const findMovieTicketTypeChargeSpecification =

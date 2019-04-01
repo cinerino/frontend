@@ -193,13 +193,13 @@ export class PurchaseEffects {
                     for (const containsPlace of screeningEventOffer.containsPlace) {
                         if (containsPlace.offers !== undefined
                             && containsPlace.offers[0].availability === factory.chevre.itemAvailability.InStock) {
-                                freeSeats.push({
-                                    typeOf: containsPlace.typeOf,
-                                    seatingType: <any>containsPlace.seatingType,
-                                    seatNumber: containsPlace.branchCode,
-                                    seatRow: '',
-                                    seatSection: section
-                                });
+                            freeSeats.push({
+                                typeOf: containsPlace.typeOf,
+                                seatingType: <any>containsPlace.seatingType,
+                                seatNumber: containsPlace.branchCode,
+                                seatRow: '',
+                                seatSection: section
+                            });
                         }
                     }
                 }
@@ -283,10 +283,12 @@ export class PurchaseEffects {
         ofType<purchaseAction.RegisterContact>(purchaseAction.ActionTypes.RegisterContact),
         map(action => action.payload),
         mergeMap(async (payload) => {
-            const transaction = payload.transaction;
-            const contact = payload.contact;
-            contact.telephone = formatTelephone(contact.telephone);
             try {
+                const transaction = payload.transaction;
+                const contact = payload.contact;
+                if (contact.telephone !== undefined) {
+                    contact.telephone = formatTelephone(contact.telephone);
+                }
                 await this.cinerino.getServices();
                 const customerContact =
                     await this.cinerino.transaction.placeOrder.setCustomerContact({
