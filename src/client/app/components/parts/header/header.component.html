@@ -13,7 +13,7 @@
                     <option value="en">English</option>
                 </select>
             </div>
-            <div class="menu-button pointer" [class.active]="isMenuOpen"
+            <div *ngIf="environment.HEADER_MENU" class="menu-button pointer" [class.active]="isMenuOpen"
                 (click)="(isMenuOpen) ? menuClose() : menuOpen()">
                 <div class="bg-dark-gray"></div>
                 <div class="bg-dark-gray"></div>

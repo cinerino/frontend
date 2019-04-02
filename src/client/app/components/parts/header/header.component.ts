@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { userAction } from '../../../store/actions';
 import * as reducers from '../../../store/reducers';
 
@@ -14,6 +15,8 @@ export class HeaderComponent implements OnInit {
     public language: string;
     public isMenuOpen: boolean;
     public user: Observable<reducers.IUserState>;
+    public environment = environment;
+
     constructor(
         private store: Store<reducers.IState>,
         private translate: TranslateService

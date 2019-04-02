@@ -17,5 +17,6 @@ export const environment = {
     PRE_SCHEDULE_DATE: '3',
     STORAGE_NAME: 'CINERINO-FRONTEND-STATE',
     BASE_URL: '/purchase/root',
+    HEADER_MENU: true,
     ROUTE_SCOPE: ['purchase', 'inquiry', 'order', 'mypage', 'setting', 'auth']
 };
