@@ -30,6 +30,9 @@ export class PurchaseConfirmComponent implements OnInit {
         private translate: TranslateService
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
@@ -39,6 +42,9 @@ export class PurchaseConfirmComponent implements OnInit {
         }).unsubscribe();
     }
 
+    /**
+     * 確定
+     */
     public onSubmit() {
         this.purchase.subscribe((purchase) => {
             if (purchase.pendingMovieTickets.length > 0) {
@@ -52,7 +58,7 @@ export class PurchaseConfirmComponent implements OnInit {
     }
 
     /**
-     * reserve
+     * 予約
      */
     private reserve() {
         this.purchase.subscribe((purchase) => {
@@ -81,7 +87,7 @@ export class PurchaseConfirmComponent implements OnInit {
     }
 
     /**
-     * authorizeCreditCard
+     * クレジットカード認証
      */
     private authorizeCreditCard() {
         this.purchase.subscribe((purchase) => {
@@ -122,7 +128,7 @@ export class PurchaseConfirmComponent implements OnInit {
     }
 
     /**
-     * authorizeMovieTicket
+     * ムビチケ認証
      */
     private authorizeMovieTicket() {
         this.purchase.subscribe((purchase) => {

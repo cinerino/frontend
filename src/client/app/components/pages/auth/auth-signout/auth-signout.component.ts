@@ -16,6 +16,9 @@ export class AuthSignoutComponent implements OnInit {
         private store: Store<reducers.IState>
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.store.dispatch(new orderAction.Delete());
         this.store.dispatch(new purchaseAction.Delete());

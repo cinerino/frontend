@@ -27,10 +27,16 @@ export class InquiryInputComponent implements OnInit {
         private translate: TranslateService
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.createInquiryForm();
     }
 
+    /**
+     * 照会フォーム作成
+     */
     private createInquiryForm() {
         const TEL_MAX_LENGTH = 11;
         const TEL_MIN_LENGTH = 9;
@@ -63,6 +69,9 @@ export class InquiryInputComponent implements OnInit {
         });
     }
 
+    /**
+     * 照会
+     */
     public onSubmit() {
         Object.keys(this.inquiryForm.controls).forEach((key) => {
             this.inquiryForm.controls[key].markAsTouched();

@@ -49,6 +49,9 @@ export class PurchaseInputComponent implements OnInit {
         private translate: TranslateService
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.amount = 0;
         this.purchase = this.store.pipe(select(reducers.getPurchase));

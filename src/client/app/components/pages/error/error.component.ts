@@ -15,6 +15,9 @@ export class ErrorComponent implements OnInit {
         private store: Store<reducers.IState>
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.error = this.store.pipe(select(reducers.getError));
         this.store.dispatch(new purchaseAction.Delete());

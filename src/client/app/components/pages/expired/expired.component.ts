@@ -14,6 +14,9 @@ export class ExpiredComponent implements OnInit {
         private store: Store<reducers.IState>
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.store.dispatch(new purchaseAction.Delete());
         this.store.dispatch(new userAction.Delete());

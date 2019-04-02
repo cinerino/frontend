@@ -35,6 +35,9 @@ export class MypageCreditComponent implements OnInit {
         private router: Router
     ) { }
 
+    /**
+     * 初期化
+     */
     public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
         this.master = this.store.pipe(select(reducers.getMaster));
@@ -48,6 +51,9 @@ export class MypageCreditComponent implements OnInit {
         }
     }
 
+    /**
+     * クレジットカードフォーム作成
+     */
     private createCreditCardForm() {
         this.cardExpiration = {
             year: [],
@@ -69,6 +75,9 @@ export class MypageCreditComponent implements OnInit {
         });
     }
 
+    /**
+     * 販売者一覧取得
+     */
     private getSellers() {
         return new Promise((resolve, reject) => {
             this.store.dispatch(new masterAction.GetSellers({ params: {} }));
@@ -84,6 +93,9 @@ export class MypageCreditComponent implements OnInit {
         });
     }
 
+    /**
+     * クレジットカード情報一覧取得
+     */
     private getCreditCards() {
         return new Promise((resolve, reject) => {
             this.store.dispatch(new userAction.GetCreditCards());
@@ -99,6 +111,9 @@ export class MypageCreditComponent implements OnInit {
         });
     }
 
+    /**
+     * クレジットカード情報登録
+     */
     public addCreditCard() {
         Object.keys(this.creditCardForm.controls).forEach((key) => {
             this.creditCardForm.controls[key].markAsTouched();
@@ -153,6 +168,10 @@ export class MypageCreditComponent implements OnInit {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * クレジットカード情報削除確認
+     * @param creditCard
+     */
     public confirmRemoveCreditCard(creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
         this.util.openConfirm({
             title: this.translate.instant('common.confirm'),
@@ -163,6 +182,10 @@ export class MypageCreditComponent implements OnInit {
         });
     }
 
+    /**
+     * クレジットカード情報削除
+     * @param creditCard
+     */
     private removeCreditCard(creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
         this.store.dispatch(new userAction.RemoveCreditCard({ creditCard }));
         const success = this.actions.pipe(

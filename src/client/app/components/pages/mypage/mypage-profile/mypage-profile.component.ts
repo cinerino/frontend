@@ -28,12 +28,18 @@ export class MypageProfileComponent implements OnInit {
         private translate: TranslateService
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.user = this.store.pipe(select(reducers.getUser));
         this.createProfileForm();
     }
 
+    /**
+     * プロフィールフォーム作成
+     */
     private createProfileForm() {
         const NAME_MAX_LENGTH = 12;
         const MAIL_MAX_LENGTH = 50;
@@ -88,6 +94,9 @@ export class MypageProfileComponent implements OnInit {
         }).unsubscribe();
     }
 
+    /**
+     * プロフィール更新
+     */
     public updateProfile() {
         Object.keys(this.profileForm.controls).forEach((key) => {
             this.profileForm.controls[key].markAsTouched();

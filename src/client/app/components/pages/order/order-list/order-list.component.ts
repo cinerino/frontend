@@ -68,6 +68,9 @@ export class OrderListComponent implements OnInit {
         private translate: TranslateService
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.actionSelect = '';
         this.selectedOrders = [];
@@ -92,20 +95,36 @@ export class OrderListComponent implements OnInit {
         this.store.dispatch(new orderAction.Delete());
     }
 
+    /**
+     * 注文選択判定
+     * @param order
+     */
     public isSelected(order: factory.order.IOrder) {
         const findResult = this.selectedOrders.find(o => o.orderNumber === order.orderNumber);
         return findResult !== undefined;
     }
 
+    /**
+     * 注文を選択へ変更
+     * @param order
+     */
     public addOrder(order: factory.order.IOrder) {
         this.selectedOrders.push(order);
     }
 
+    /**
+     * 注文を未選択へ変更
+     * @param order
+     */
     public removeOrder(order: factory.order.IOrder) {
         const findIndex = this.selectedOrders.findIndex(o => o.orderNumber === order.orderNumber);
         this.selectedOrders.splice(findIndex, 1);
     }
 
+    /**
+     * 注文を検索
+     * @param changeConditions
+     */
     public orderSearch(changeConditions: boolean) {
         this.selectedOrders = [];
         if (changeConditions) {

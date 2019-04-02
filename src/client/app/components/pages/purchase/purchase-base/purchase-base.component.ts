@@ -18,16 +18,25 @@ export class PurchaseBaseComponent implements OnInit, AfterViewChecked, OnDestro
         private changeDetectorRef: ChangeDetectorRef
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.process = this.store.pipe(select(reducers.getProcess));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
     }
 
+    /**
+     * ビューをチェック後
+     */
     public ngAfterViewChecked() {
         this.changeDetectorRef.detectChanges();
     }
 
+    /**
+     * 破棄
+     */
     public ngOnDestroy() {
         this.isLoading.subscribe().unsubscribe();
         this.process.subscribe().unsubscribe();

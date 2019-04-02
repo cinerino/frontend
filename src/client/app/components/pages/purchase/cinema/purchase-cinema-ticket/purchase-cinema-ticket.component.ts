@@ -31,12 +31,18 @@ export class PurchaseCinemaTicketComponent implements OnInit {
         private translate: TranslateService
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
     }
 
+    /**
+     * 券種決定
+     */
     public onSubmit() {
         this.purchase.subscribe((purchase) => {
             const transaction = purchase.transaction;
@@ -120,6 +126,10 @@ export class PurchaseCinemaTicketComponent implements OnInit {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * 券種一覧表示
+     * @param reservation
+     */
     public openTicketList(reservation: Reservation) {
         const modalRef = this.modal.open(PurchaseCinemaTicketModalComponent, {
             centered: true

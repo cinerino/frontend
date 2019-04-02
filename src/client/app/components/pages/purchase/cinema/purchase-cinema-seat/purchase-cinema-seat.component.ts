@@ -26,6 +26,9 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         private translate: TranslateService
     ) { }
 
+    /**
+     * 初期化
+     */
     public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
@@ -33,7 +36,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     }
 
     /**
-     * getScreen
+     * スクリーン情報取得
      */
     private getScreen() {
         this.purchase.subscribe((purchase) => {
@@ -62,7 +65,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     }
 
     /**
-     * selectSeat
+     * 座席選択
      */
     public selectSeat(data: {
         seat: IReservationSeat,
@@ -76,7 +79,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     }
 
     /**
-     * onSubmit
+     * 座席決定
      */
     public onSubmit() {
         this.purchase.subscribe((purchase) => {
@@ -127,7 +130,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     }
 
     /**
-     * getTickets
+     * 券種情報取得
      */
     private getTickets() {
         this.purchase.subscribe((purchase) => {

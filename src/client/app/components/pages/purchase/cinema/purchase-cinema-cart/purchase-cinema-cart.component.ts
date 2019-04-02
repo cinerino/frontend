@@ -31,6 +31,9 @@ export class PurchaseCinemaCartComponent implements OnInit {
         private translate: TranslateService
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
@@ -38,6 +41,10 @@ export class PurchaseCinemaCartComponent implements OnInit {
         this.store.dispatch(new purchaseAction.UnsettledDelete());
     }
 
+    /**
+     * 仮予約削除
+     * @param authorizeSeatReservations
+     */
     public removeItemProcess(
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[]
     ) {
@@ -63,6 +70,10 @@ export class PurchaseCinemaCartComponent implements OnInit {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * 仮予約削除確認
+     * @param authorizeSeatReservation
+     */
     public removeItem(authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>) {
         this.util.openConfirm({
             title: this.translate.instant('common.confirm'),

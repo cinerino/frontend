@@ -27,10 +27,17 @@ export class MypageCoinComponent implements OnInit {
         private util: UtilService
     ) { }
 
+    /**
+     * 初期化
+     */
     public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
     }
 
+    /**
+     * チャージ確認
+     * @param creditCard
+     */
     public openCharge(creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
         const modalRef = this.modal.open(ChargeCoinModalComponent, {
             centered: true
@@ -43,6 +50,10 @@ export class MypageCoinComponent implements OnInit {
         }).catch(() => { });
     }
 
+    /**
+     * コインのチャージ処理
+     * @param args
+     */
     private chargeCoin(args: {
         charge: number;
         creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard

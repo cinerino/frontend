@@ -36,6 +36,9 @@ export class InquiryConfirmComponent implements OnInit {
         private translate: TranslateService
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.eventOrders = [];
         this.error = this.store.pipe(select(reducers.getError));
@@ -50,6 +53,9 @@ export class InquiryConfirmComponent implements OnInit {
         }).unsubscribe();
     }
 
+    /**
+     * QRコード表示
+     */
     public showQrCode() {
         this.order.subscribe((value) => {
             const order = value.order;

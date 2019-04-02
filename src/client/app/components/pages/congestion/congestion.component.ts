@@ -9,6 +9,9 @@ export class CongestionComponent implements OnInit {
 
   constructor() { }
 
+  /**
+   * 初期化
+   */
   public ngOnInit() {
   }
 

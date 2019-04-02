@@ -22,6 +22,9 @@ export class PurchaseCompleteComponent implements OnInit {
         private router: Router
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.eventOrders = [];
         this.purchase = this.store.pipe(select(reducers.getPurchase));

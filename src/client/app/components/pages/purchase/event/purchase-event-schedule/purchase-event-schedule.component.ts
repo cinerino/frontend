@@ -32,6 +32,9 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         private actions: Actions,
         private router: Router) { }
 
+    /**
+     * 初期化
+     */
     public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
@@ -44,10 +47,16 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.getSellers();
     }
 
+    /**
+     * 破棄
+     */
     public ngOnDestroy() {
         clearTimeout(this.updateTimer);
     }
 
+    /**
+     * 更新
+     */
     private update() {
         if (this.updateTimer !== undefined) {
             clearTimeout(this.updateTimer);
@@ -65,7 +74,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * getSellers
+     * 販売者情報一覧取得
      */
     public getSellers() {
         this.store.dispatch(new masterAction.GetSellers({ params: {} }));
@@ -94,7 +103,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * selectSeller
+     * 販売者選択
      */
     public selectSeller(seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>) {
         this.store.dispatch(new purchaseAction.SelectSeller({ seller }));
@@ -104,7 +113,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * selectDate
+     * 日付選択
      */
     public selectDate() {
         this.purchase.subscribe((purchase) => {
@@ -147,6 +156,9 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * 取引開始
+     */
     private startTransaction() {
         this.purchase.subscribe((purchase) => {
             if (purchase.seller === undefined) {
@@ -201,6 +213,9 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * 次へ
+     */
     public onSubmit() {
         this.startTransaction();
     }

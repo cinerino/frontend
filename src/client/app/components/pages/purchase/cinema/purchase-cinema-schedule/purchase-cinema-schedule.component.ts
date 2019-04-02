@@ -45,6 +45,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         private translate: TranslateService
     ) { }
 
+    /**
+     * 初期化
+     */
     public async ngOnInit() {
         this.swiperConfig = {
             spaceBetween: 1,
@@ -70,10 +73,16 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.getSellers();
     }
 
+    /**
+     * 破棄
+     */
     public ngOnDestroy() {
         clearTimeout(this.updateTimer);
     }
 
+    /**
+     * スケジュールの種類を変更
+     */
     public changeScheduleType() {
         this.purchase.subscribe((purchase) => {
             if (this.isPreSchedule) {
@@ -95,6 +104,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
 
     }
 
+    /**
+     * 更新
+     */
     private update() {
         if (this.updateTimer !== undefined) {
             clearTimeout(this.updateTimer);
@@ -112,14 +124,14 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * resize
+     * リサイズ
      */
     public resize() {
         this.directiveRef.update();
     }
 
     /**
-     * getSellers
+     * 販売者一覧取得
      */
     public getSellers() {
         this.store.dispatch(new masterAction.GetSellers());
@@ -153,7 +165,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * selectSeller
+     * 販売者選択
      */
     public selectSeller(seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>) {
         this.store.dispatch(new purchaseAction.SelectSeller({ seller }));
@@ -169,7 +181,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * getPreScheduleDates
+     * 先行販売情報取得
      */
     public getPreScheduleDates() {
         this.purchase.subscribe((purchase) => {
@@ -206,7 +218,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * selectDate
+     * 日付選択
      */
     public selectDate(scheduleDate?: string) {
         this.purchase.subscribe((purchase) => {
@@ -252,7 +264,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * selectSchedule
+     * パフォーマンス選択
      */
     public selectSchedule(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
         if (screeningEvent.remainingAttendeeCapacity === undefined
@@ -295,6 +307,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         }).unsubscribe();
     }
 
+    /**
+     * 仮予約削除
+     */
     private cancelTemporaryReservations() {
         this.purchase.subscribe((purchase) => {
             if (purchase.seller === undefined) {
@@ -324,6 +339,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * 取引開始
+     */
     private startTransaction() {
         this.purchase.subscribe((purchase) => {
             if (purchase.seller === undefined) {
@@ -378,6 +396,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * 取引重複警告
+     */
     public openTransactionModal() {
         this.purchase.subscribe((purchase) => {
             this.user.subscribe((user) => {

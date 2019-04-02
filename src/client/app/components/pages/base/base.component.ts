@@ -17,15 +17,24 @@ export class BaseComponent implements OnInit, AfterViewChecked, OnDestroy {
         private changeDetectorRef: ChangeDetectorRef
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.process = this.store.pipe(select(reducers.getProcess));
     }
 
+    /**
+     * コンポーネントのビューをチェック後
+     */
     public ngAfterViewChecked() {
         this.changeDetectorRef.detectChanges();
     }
 
+    /**
+     * 破棄
+     */
     public ngOnDestroy() {
         this.isLoading.subscribe().unsubscribe();
         this.process.subscribe().unsubscribe();

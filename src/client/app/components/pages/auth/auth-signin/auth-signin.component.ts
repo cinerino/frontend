@@ -23,6 +23,9 @@ export class AuthSigninComponent implements OnInit {
         private store: Store<reducers.IState>
     ) { }
 
+    /**
+     * 初期化
+     */
     public async ngOnInit() {
         this.process = this.store.pipe(select(reducers.getProcess));
         this.store.dispatch(new purchaseAction.Delete());
@@ -39,6 +42,9 @@ export class AuthSigninComponent implements OnInit {
         }
     }
 
+    /**
+     * プロフィール情報初期化
+     */
     private initializeProfile() {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(new userAction.InitializeProfile());
@@ -58,6 +64,9 @@ export class AuthSigninComponent implements OnInit {
         });
     }
 
+    /**
+     * コイン口座情報初期化
+     */
     private initializeCoinAccount() {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(new userAction.InitializeCoinAccount());
@@ -77,6 +86,9 @@ export class AuthSigninComponent implements OnInit {
         });
     }
 
+    /**
+     * クレジットカード情報取得
+     */
     private getCreditCards() {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(new userAction.GetCreditCards());

@@ -39,6 +39,9 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         private modal: NgbModal
     ) { }
 
+    /**
+     * 初期化
+     */
     public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
@@ -49,10 +52,16 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         this.getSchedule();
     }
 
+    /**
+     * 破棄
+     */
     public ngOnDestroy() {
         clearTimeout(this.updateTimer);
     }
 
+    /**
+     * 更新
+     */
     private update() {
         if (this.updateTimer !== undefined) {
             clearTimeout(this.updateTimer);
@@ -64,7 +73,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * getSchedule
+     * スケジュール取得
      */
     public getSchedule() {
         this.purchase.subscribe((purchase) => {
@@ -106,6 +115,10 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * パフォーマンス選択
+     * @param screeningEvent
+     */
     public selectSchedule(screeningEvent: factory.event.screeningEvent.IEvent) {
         this.user.subscribe((user) => {
             this.purchase.subscribe((purchase) => {
@@ -123,7 +136,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * getTickets
+     * 券種情報取得
      */
     private getTickets() {
         this.purchase.subscribe((purchase) => {
@@ -152,6 +165,9 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * 券種一覧表示
+     */
     private openTicketList() {
         const modalRef = this.modal.open(PurchaseEventTicketModalComponent, {
             centered: true
@@ -165,6 +181,10 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         }).unsubscribe();
     }
 
+    /**
+     * 仮予約
+     * @param reservationTickets
+     */
     private temporaryReservation(reservationTickets: IReservationTicket[]) {
         this.purchase.subscribe((purchase) => {
             if (purchase.transaction === undefined
@@ -204,6 +224,9 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
 
     }
 
+    /**
+     * 券種確定
+     */
     public onSubmit() {
         this.purchase.subscribe((purchase) => {
             if (purchase.authorizeSeatReservations.length === 0) {
@@ -217,6 +240,10 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         }).unsubscribe();
     }
 
+    /**
+     * 座席の仮予約削除
+     * @param authorizeSeatReservations
+     */
     public removeItemProcess(
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[]
     ) {
@@ -242,6 +269,9 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * 座席の仮予約削除確認
+     */
     public removeItem(authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>) {
         this.util.openConfirm({
             title: this.translate.instant('common.confirm'),

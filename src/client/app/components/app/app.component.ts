@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
      * 言語設定
      * @example {{ 'HOME.HELLO' | translate: { value: 'world'} }}
      */
-    public locales() {
+    private locales() {
         this.translate.addLangs(['ja', 'en']);
         this.translate.setDefaultLang('ja');
         console.log('translate', this.translate);
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
     /**
      * Googleアナリティクス pageview イベント
      */
-    public analytics() {
+    private analytics() {
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
                 // Googleアナリティクス pageview

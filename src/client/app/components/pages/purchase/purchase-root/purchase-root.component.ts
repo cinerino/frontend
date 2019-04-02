@@ -23,6 +23,9 @@ export class PurchaseRootComponent implements OnInit {
         private activatedRoute: ActivatedRoute
     ) { }
 
+    /**
+     * 初期化
+     */
     public ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
@@ -46,6 +49,9 @@ export class PurchaseRootComponent implements OnInit {
         }).unsubscribe();
     }
 
+    /**
+     * 仮予約削除
+     */
     private async cancelTemporaryReservations() {
         this.purchase.subscribe((purchase) => {
             const authorizeSeatReservations = purchase.authorizeSeatReservations;
