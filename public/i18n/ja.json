@@ -20,8 +20,12 @@
                     "endSale": "販売終了",
                     "outsideSalesPeriod": "販売期間外"
                 },
+                "infiniteStock": "在庫管理なし",
                 "next": "次へ",
-                "prev": ""
+                "prev": "",
+                "alert": {
+                    "ticketedSeat": "劇場表示では座席管理なしのパフォーマンスを選択できません。"
+                }
             },
             "seat": {
                 "title": "座席選択",
@@ -75,6 +79,7 @@
                     "endSale": "販売終了",
                     "outsideSalesPeriod": "販売期間外"
                 },
+                "infiniteStock": "在庫管理なし",
                 "next": "次へ",
                 "prev": ""
             },

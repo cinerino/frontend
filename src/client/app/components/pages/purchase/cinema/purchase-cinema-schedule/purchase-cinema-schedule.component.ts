@@ -4,6 +4,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { SERVICE_UNAVAILABLE, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
 import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
@@ -11,6 +12,7 @@ import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
 import { IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../functions';
+import { UtilService } from '../../../../../services';
 import { masterAction, purchaseAction } from '../../../../../store/actions';
 import * as reducers from '../../../../../store/reducers';
 import { PurchaseTransactionModalComponent } from '../../../../parts';
@@ -38,7 +40,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         private store: Store<reducers.IState>,
         private actions: Actions,
         private router: Router,
-        private modal: NgbModal
+        private util: UtilService,
+        private modal: NgbModal,
+        private translate: TranslateService
     ) { }
 
     public async ngOnInit() {
@@ -253,6 +257,16 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public selectSchedule(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
         if (screeningEvent.remainingAttendeeCapacity === undefined
             || screeningEvent.remainingAttendeeCapacity === 0) {
+            return;
+        }
+        if (screeningEvent.offers === undefined
+            || screeningEvent.offers.itemOffered.serviceOutput === undefined
+            || screeningEvent.offers.itemOffered.serviceOutput.reservedTicket === undefined
+            || screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat === undefined) {
+            this.util.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('purchase.cinema.schedule.alert.ticketedSeat')
+            });
             return;
         }
         this.store.dispatch(new purchaseAction.UnsettledDelete());

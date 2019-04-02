@@ -14,7 +14,7 @@
             <p class="mb-2">
                 {{ acceptedOffer.itemOffered.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
             </p>
-            <p class="mb-2">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>
+            <p class="mb-2" *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>
             <p class="mb-2">{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }} / {{
                 getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</p>
         </div>

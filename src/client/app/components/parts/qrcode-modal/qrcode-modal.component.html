@@ -3,7 +3,7 @@
     <ul>
         <li class="mb-3 d-flex align-items-center p-3 bg-light-gray" *ngFor="let acceptedOffer of order.acceptedOffers; let index = index">
             <div>
-                <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>
+                <p *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>
                 <p>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }} / {{ getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</p>
             </div>
             <div class="ml-auto"><img class="p-2 bg-white" [src]="urlList[index] | async"></div>

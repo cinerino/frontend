@@ -37,11 +37,10 @@
             <div class="py-3">
                 <div class="row">
                     <p class="mb-2 mb-md-0 col-md-4">
-                        <i class="fas fa-ticket-alt mr-2"></i>{{ 'common.seat' | translate }} /
-                        {{ 'common.ticket' | translate }}</p>
+                        <i class="fas fa-ticket-alt mr-2"></i>{{ 'common.seat' | translate }} / {{ 'common.ticket' | translate }}</p>
                     <div class="col-md-8">
                         <div *ngFor="let acceptedOffer of authorizeSeatReservation.object.acceptedOffer" class="mb-2">
-                            <p>{{ acceptedOffer.ticketedSeat.seatNumber }}</p>
+                            <p *ngIf="acceptedOffer.itemOffered.serviceOutput.reservedTicket.ticketedSeat">{{ acceptedOffer.ticketedSeat.seatNumber }}</p>
                             <p>{{ acceptedOffer.name | changeLanguage }} / {{
                                 getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</p>
                         </div>

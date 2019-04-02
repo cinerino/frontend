@@ -15,6 +15,7 @@ export class PurchaseCinemaScheduleFilmComponent implements OnInit {
     public moment: typeof moment = moment;
     constructor() { }
 
-    public ngOnInit() { }
+    public ngOnInit() {
+    }
 
 }
