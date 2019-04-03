@@ -290,13 +290,13 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                     return;
                 }
 
-                if (user.limitedPurchaseCount === 1) {
+                if (user.purchaseCartMaxLength === 1) {
                     if (purchase.authorizeSeatReservations.length > 0) {
                         this.cancelTemporaryReservations();
                         return;
                     }
                 }
-                if (user.limitedPurchaseCount > 1
+                if (user.purchaseCartMaxLength > 1
                     && purchase.transaction !== undefined
                     && purchase.authorizeSeatReservations.length > 0) {
                     this.openTransactionModal();

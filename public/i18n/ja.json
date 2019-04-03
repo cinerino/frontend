@@ -239,7 +239,7 @@
         "read": "設定を変更できます。",
         "next": "設定を変更",
         "prev": "戻る",
-        "limitedPurchaseCount": "注文に対する予約上限数",
+        "purchaseCartMaxLength": "注文に対する予約上限数",
         "viewType": "表示",
         "success": {
             "title": "完了",

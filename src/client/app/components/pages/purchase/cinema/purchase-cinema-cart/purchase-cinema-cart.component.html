@@ -56,7 +56,7 @@
     <div *ngIf="(purchase | async).authorizeSeatReservations.length > 0" class="buttons mx-auto">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             routerLink="/purchase/input">{{ 'purchase.cinema.cart.next' | translate }}</button>
-        <button *ngIf="(user | async).limitedPurchaseCount > (purchase | async).authorizeSeatReservations.length" type="button" class="btn btn-outline-primary btn-block py-3"
+        <button *ngIf="(user | async).purchaseCartMaxLength > (purchase | async).authorizeSeatReservations.length" type="button" class="btn btn-outline-primary btn-block py-3"
             routerLink="/purchase/cinema/schedule">{{ 'purchase.cinema.cart.add' | translate }}</button>
     </div>
     <div *ngIf="(purchase | async).authorizeSeatReservations.length === 0" class="buttons mx-auto">

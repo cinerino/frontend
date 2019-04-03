@@ -116,7 +116,7 @@ export class UpdateLanguage implements Action {
  */
 export class UpdateBaseSetting implements Action {
     public readonly type = ActionTypes.UpdateBaseSetting;
-    constructor(public payload: { limitedPurchaseCount: number, viewType: ViewType }) { }
+    constructor(public payload: { purchaseCartMaxLength: number, viewType: ViewType }) { }
 }
 
 /**

@@ -11,12 +11,13 @@ export const environment = {
     ENTRANCE_SERVER_URL: '',
     WAITER_SERVER_URL: 'https://waiter-development.appspot.com',
     ANALYTICS_ID: '',
-    LIMITED_PURCHASE_COUNT: '1',
+    PURCHASE_CART_MAX_LENGTH: '1',
     VIEW_TYPE: ViewType.Cinema,
     TRANSACTION_TIME: '30',
     PRE_SCHEDULE_DATE: '3',
     STORAGE_NAME: 'CINERINO-FRONTEND-STATE',
     BASE_URL: '/purchase/root',
     HEADER_MENU: true,
-    ROUTE_SCOPE: ['purchase', 'inquiry', 'order', 'mypage', 'setting', 'auth']
+    ROUTE_SCOPE: ['purchase', 'inquiry', 'order', 'mypage', 'setting', 'auth'],
+    SCHEDULE_STATUS_THRESHOLD: { value: '30', unit: '%' }
 };

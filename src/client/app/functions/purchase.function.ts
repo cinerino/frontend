@@ -1,5 +1,4 @@
 import { factory } from '@cinerino/api-javascript-client';
-import * as moment from 'moment';
 import { environment } from '../../environments/environment';
 import { IMovieTicket } from '../models';
 
@@ -43,21 +42,6 @@ export function screeningEventsToWorkEvents(params: {
     });
 
     return result;
-}
-
-/**
- * オーダーID生成
- */
-export function createOrderId(params: {
-    orderCount: number;
-    transaction: factory.transaction.placeOrder.ITransaction
-}) {
-    const DIGITS = { '02': -2, '06': -6 };
-    const prefix = environment.APP_PREFIX;
-    const date = moment().format('YYMMDDHHmmss');
-    const orderCount = `00${params.orderCount}`.slice(DIGITS['02']);
-    const transactionId = `000000${params.transaction.id}`.slice(DIGITS['06']);
-    return `${prefix}-${date}${transactionId}${orderCount}`;
 }
 
 /**
@@ -355,4 +339,60 @@ export function orderToEventOrders(params: {
     });
 
     return results;
+}
+
+/**
+ * スケジュールステータス判定
+ */
+export function isScheduleStatusThreshold(
+    screeningEvent: factory.chevre.event.screeningEvent.IEvent,
+    status: 'success' | 'warning' | 'danger'
+) {
+    const remainingAttendeeCapacity = screeningEvent.remainingAttendeeCapacity;
+    const maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
+    if (remainingAttendeeCapacity === undefined || maximumAttendeeCapacity === undefined) {
+        return false;
+    }
+    let result = false;
+    const unit = environment.SCHEDULE_STATUS_THRESHOLD.unit;
+    const value = Number(environment.SCHEDULE_STATUS_THRESHOLD.value);
+    if (unit === '%') {
+        switch (status) {
+            case 'success':
+                result = (remainingAttendeeCapacity !== 0
+                    && Math.floor(remainingAttendeeCapacity / maximumAttendeeCapacity * 100) >= value);
+                break;
+            case 'warning':
+                result = (remainingAttendeeCapacity !== 0
+                    && Math.floor(remainingAttendeeCapacity / maximumAttendeeCapacity * 100) < value
+                    && remainingAttendeeCapacity > 0);
+                break;
+            case 'danger':
+                result = remainingAttendeeCapacity === 0;
+                break;
+            default:
+                break;
+        }
+        return result;
+    } else if (unit === 'count') {
+        switch (status) {
+            case 'success':
+                result = (remainingAttendeeCapacity !== 0
+                    && remainingAttendeeCapacity >= value);
+                break;
+            case 'warning':
+                result = (remainingAttendeeCapacity !== 0
+                    && remainingAttendeeCapacity < value
+                    && remainingAttendeeCapacity > 0);
+                break;
+            case 'danger':
+                result = remainingAttendeeCapacity === 0;
+                break;
+            default:
+                break;
+        }
+        return result;
+    } else {
+        return false;
+    }
 }

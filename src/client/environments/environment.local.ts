@@ -10,7 +10,7 @@ export const environment = {
     ENV: 'local',
     ENTRANCE_SERVER_URL: '',
     WAITER_SERVER_URL: 'https://waiter-development.appspot.com',
-    LIMITED_PURCHASE_COUNT: '1',
+    PURCHASE_CART_MAX_LENGTH: '1',
     VIEW_TYPE: ViewType.Cinema,
     ANALYTICS_ID: '',
     TRANSACTION_TIME: '120',
@@ -18,5 +18,6 @@ export const environment = {
     STORAGE_NAME: 'CINERINO-FRONTEND-STATE',
     BASE_URL: '/purchase/root',
     HEADER_MENU: true,
-    ROUTE_SCOPE: ['purchase', 'inquiry', 'order', 'mypage', 'setting', 'auth']
+    ROUTE_SCOPE: ['purchase', 'inquiry', 'order', 'mypage', 'setting', 'auth'],
+    SCHEDULE_STATUS_THRESHOLD: { value: '30', unit: '%' }
 };

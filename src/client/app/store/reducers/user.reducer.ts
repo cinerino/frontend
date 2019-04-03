@@ -34,7 +34,7 @@ export interface IUserState {
     /**
      * 購入制限数
      */
-    limitedPurchaseCount: number;
+    purchaseCartMaxLength: number;
     /**
      * 表示形式
      */
@@ -44,7 +44,7 @@ export interface IUserState {
 export const userInitialState: IUserState = {
     isMember: false,
     language: 'ja',
-    limitedPurchaseCount: Number(environment.LIMITED_PURCHASE_COUNT),
+    purchaseCartMaxLength: Number(environment.PURCHASE_CART_MAX_LENGTH),
     viewType: environment.VIEW_TYPE,
     creditCards: []
 };
@@ -146,7 +146,7 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
         }
         case userAction.ActionTypes.UpdateBaseSetting: {
-            state.userData.limitedPurchaseCount = action.payload.limitedPurchaseCount;
+            state.userData.purchaseCartMaxLength = action.payload.purchaseCartMaxLength;
             state.userData.viewType = action.payload.viewType;
             return { ...state };
         }

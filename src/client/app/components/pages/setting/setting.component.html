@@ -6,17 +6,17 @@
         <form [formGroup]="baseForm">
             <div class="form-group">
                 <div class="row">
-                    <p class="col-md-4 py-2 text-md-right"> {{ 'setting.limitedPurchaseCount' | translate }}
+                    <p class="col-md-4 py-2 text-md-right"> {{ 'setting.purchaseCartMaxLength' | translate }}
                     </p>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" formControlName="limitedPurchaseCount"
-                            id="limitedPurchaseCount" placeholder="">
-                        <div *ngIf="baseForm.controls.limitedPurchaseCount.invalid && baseForm.controls.limitedPurchaseCount.touched"
+                        <input type="text" class="form-control" formControlName="purchaseCartMaxLength"
+                            id="purchaseCartMaxLength" placeholder="">
+                        <div *ngIf="baseForm.controls.purchaseCartMaxLength.invalid && baseForm.controls.purchaseCartMaxLength.touched"
                             class="mt-2">
-                            <p *ngIf="baseForm.controls.limitedPurchaseCount.errors.required" class="text-danger">
+                            <p *ngIf="baseForm.controls.purchaseCartMaxLength.errors.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}
                             </p>
-                            <p *ngIf="baseForm.controls.limitedPurchaseCount.errors.pattern" class="text-danger">
+                            <p *ngIf="baseForm.controls.purchaseCartMaxLength.errors.pattern" class="text-danger">
                                 {{ 'form.validation.number' | translate }}</p>
                         </div>
                     </div>

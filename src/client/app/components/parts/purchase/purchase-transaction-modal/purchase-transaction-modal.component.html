@@ -2,7 +2,7 @@
     <div class="mb-3 text-large">{{ 'modal.purchaseTransaction.title' | translate }}</div>
     <p class="mb-3">{{ 'modal.purchaseTransaction.read' | translate }}</p>
     <div class="buttons mx-auto">
-        <button *ngIf="user.limitedPurchaseCount > purchase.authorizeSeatReservations.length" type="button" class="btn btn-primary btn-block py-3" (click)="activeModal.close()">{{ 'modal.purchaseTransaction.next' | translate }}</button>
+        <button *ngIf="user.purchaseCartMaxLength > purchase.authorizeSeatReservations.length" type="button" class="btn btn-primary btn-block py-3" (click)="activeModal.close()">{{ 'modal.purchaseTransaction.next' | translate }}</button>
         <button type="button" class="btn btn-primary btn-block py-3" routerLink="/purchase/cinema/cart" (click)="activeModal.dismiss()">{{ 'modal.purchaseTransaction.prev' | translate }}</button>
         <button type="button" class="btn btn-outline-primary btn-block py-3" (click)="activeModal.dismiss()">{{ 'common.close' | translate }}</button>
     </div>

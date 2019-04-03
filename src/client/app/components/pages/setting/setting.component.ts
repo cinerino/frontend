@@ -43,7 +43,7 @@ export class SettingComponent implements OnInit {
 
     private createBaseForm() {
         this.baseForm = this.formBuilder.group({
-            limitedPurchaseCount: ['', [
+            purchaseCartMaxLength: ['', [
                 Validators.required,
                 Validators.pattern(/^[0-9]+$/)
             ]],
@@ -52,7 +52,7 @@ export class SettingComponent implements OnInit {
             ]]
         });
         this.user.subscribe((user) => {
-            this.baseForm.controls.limitedPurchaseCount.setValue(user.limitedPurchaseCount);
+            this.baseForm.controls.purchaseCartMaxLength.setValue(user.purchaseCartMaxLength);
             this.baseForm.controls.viewType.setValue(user.viewType);
         }).unsubscribe();
     }
@@ -61,7 +61,7 @@ export class SettingComponent implements OnInit {
         Object.keys(this.baseForm.controls).forEach((key) => {
             this.baseForm.controls[key].markAsTouched();
         });
-        this.baseForm.controls.limitedPurchaseCount.setValue((<HTMLInputElement>document.getElementById('limitedPurchaseCount')).value);
+        this.baseForm.controls.purchaseCartMaxLength.setValue((<HTMLInputElement>document.getElementById('purchaseCartMaxLength')).value);
         this.baseForm.controls.viewType.setValue((<HTMLInputElement>document.getElementById('viewType')).value);
         if (this.baseForm.invalid) {
             this.util.openAlert({
@@ -71,10 +71,10 @@ export class SettingComponent implements OnInit {
             return;
         }
 
-        const limitedPurchaseCount = Number(this.baseForm.controls.limitedPurchaseCount.value);
+        const purchaseCartMaxLength = Number(this.baseForm.controls.purchaseCartMaxLength.value);
         const viewType = this.baseForm.controls.viewType.value;
 
-        this.store.dispatch(new userAction.UpdateBaseSetting({ limitedPurchaseCount, viewType }));
+        this.store.dispatch(new userAction.UpdateBaseSetting({ purchaseCartMaxLength, viewType }));
         this.util.openAlert({
             title: this.translate.instant('setting.success.title'),
             body: this.translate.instant('setting.success.read')
