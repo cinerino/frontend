@@ -361,6 +361,46 @@
             "charge": "チャージ金額"
         }
     },
+    "process": {
+        "authAction": {
+            "CheckLogin": "ログインを確認しています",
+            "Logout": "ログアウトしています"
+        },
+        "masterAction": {
+            "GetSellers": "劇場情報を取得しています",
+            "GetSchedule": "スケジュールを取得しています"
+        },
+        "orderAction": {
+            "Search": "注文情報を取得しています",
+            "Cancel": "注文情報をキャンセルしています",
+            "Inquiry": "注文情報を照会しています",
+            "OrderAuthorize": "注文情報を承認しています"
+        },
+        "purchaseAction": {
+            "GetPreScheduleDates": "先行販売スケジュールを取得しています",
+            "StartTransaction": "取引を開始しています",
+            "GetScreen": "スクリーン情報を取得しています",
+            "GetTicketList": "券種情報を取得しています",
+            "TemporaryReservation": "仮予約しています",
+            "TemporaryReservationFreeSeat": "仮予約しています",
+            "CancelTemporaryReservations": "仮予約をキャンセルしています",
+            "RegisterCreditCard": "クレジットカード情報を登録しています",
+            "RegisterContact": "購入者情報を登録しています",
+            "AuthorizeCreditCard": "クレジットカード情報を承認しています",
+            "CreateGmoTokenObject": "GMOオブジェクトを作成しています",
+            "AuthorizeMovieTicket": "ムビチケ情報を承認しています",
+            "CheckMovieTicket": "ムビチケ情報を確認しています",
+            "Reserve": "取引を確定しています"
+        },
+        "userAction": {
+            "InitializeProfile": "プロフィールを初期化しています",
+            "InitializeCoinAccount": "コイン口座を初期化しています",
+            "UpdateProfile": "プロフィールを更新しています",
+            "GetCreditCards": "クレジットカード情報を取得しています",
+            "AddCreditCard": "クレジットカード情報を登録しています",
+            "RemoveCreditCard": "クレジットカード情報を削除しています"
+        }
+    },
     "common": {
         "date": {
             "year": "年",

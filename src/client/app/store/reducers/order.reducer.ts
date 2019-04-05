@@ -31,7 +31,7 @@ export function reducer(state: IState, action: orderAction.Actions): IState {
             return { ...state };
         }
         case orderAction.ActionTypes.Search: {
-            return { ...state, loading: true, process: { ja: '検索しています', en: 'Searching' } };
+            return { ...state, loading: true, process: 'orderAction.Search' };
         }
         case orderAction.ActionTypes.SearchSuccess: {
             const searchResult = action.payload.searchResult;
@@ -39,46 +39,46 @@ export function reducer(state: IState, action: orderAction.Actions): IState {
             state.orderData.orders = searchResult.data;
             state.orderData.totalCount = searchResult.totalCount;
             state.orderData.pageCount = Math.ceil(searchResult.totalCount / limit);
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case orderAction.ActionTypes.SearchFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case orderAction.ActionTypes.Cancel: {
-            return { ...state, loading: true, process: { ja: '注文を取り消ししています', en: 'Canceling my order' } };
+            return { ...state, loading: true, process: 'orderAction.Cancel' };
         }
         case orderAction.ActionTypes.CancelSuccess: {
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case orderAction.ActionTypes.CancelFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case orderAction.ActionTypes.Inquiry: {
-            return { ...state, loading: true, process: { ja: '照会しています', en: 'Inquiring.' } };
+            return { ...state, loading: true, process: 'orderAction.Inquiry' };
         }
         case orderAction.ActionTypes.InquirySuccess: {
             const order = action.payload.order;
             state.orderData.order = order;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case orderAction.ActionTypes.InquiryFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case orderAction.ActionTypes.OrderAuthorize: {
-            return { ...state, loading: true, process: { ja: 'QRコードを取得しています', en: 'Acquiring a QR code' }, };
+            return { ...state, loading: true, process: 'orderAction.OrderAuthorize', };
         }
         case orderAction.ActionTypes.OrderAuthorizeSuccess: {
             const authorizeOrder = action.payload.order;
             state.orderData.order = authorizeOrder;
 
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case orderAction.ActionTypes.OrderAuthorizeFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         default: {
             return state;

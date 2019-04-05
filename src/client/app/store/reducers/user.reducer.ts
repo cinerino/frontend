@@ -67,56 +67,56 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             return { ...state, loading: false };
         }
         case userAction.ActionTypes.InitializeProfile: {
-            return { ...state, loading: true, process: { ja: 'プロフィールを初期化しています', en: 'Initializing Profile' }, };
+            return { ...state, loading: true, process: 'userAction.InitializeProfile' };
         }
         case userAction.ActionTypes.InitializeProfileSuccess: {
             state.userData.profile = action.payload.profile;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case userAction.ActionTypes.InitializeProfileFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case userAction.ActionTypes.InitializeCoinAccount: {
-            return { ...state, loading: true, process: { ja: 'コイン口座を初期化しています', en: 'Initializing Coin Account' }, };
+            return { ...state, loading: true, process: 'userAction.InitializeCoinAccount' };
         }
         case userAction.ActionTypes.InitializeCoinAccountSuccess: {
             state.userData.coin = action.payload.coin;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case userAction.ActionTypes.InitializeCoinAccountFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case userAction.ActionTypes.UpdateLanguage: {
             state.userData.language = action.payload.language;
             return { ...state };
         }
         case userAction.ActionTypes.UpdateProfile: {
-            return { ...state, loading: true, process: { ja: '会員情報を更新しています', en: 'Updating member information' }, };
+            return { ...state, loading: true, process: 'userAction.UpdateProfile' };
         }
         case userAction.ActionTypes.UpdateProfileSuccess: {
             state.userData.profile = action.payload.profile;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case userAction.ActionTypes.UpdateProfileFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case userAction.ActionTypes.GetCreditCards: {
-            return { ...state, loading: true, process: { ja: 'クレジットカード情報を取得しています', en: 'Get Credit Cards' }, };
+            return { ...state, loading: true, process: 'userAction.GetCreditCards' };
         }
         case userAction.ActionTypes.GetCreditCardsSuccess: {
             const creditCards = action.payload.creditCards;
             state.userData.creditCards = creditCards;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case userAction.ActionTypes.GetCreditCardsFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case userAction.ActionTypes.AddCreditCard: {
-            return { ...state, loading: true, process: { ja: 'クレジットカード情報を登録しています', en: 'Add Credit Cards' }, };
+            return { ...state, loading: true, process: 'userAction.AddCreditCard' };
         }
         case userAction.ActionTypes.AddCreditCardSuccess: {
             const creditCard = action.payload.creditCard;
@@ -124,14 +124,14 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             if (findResult === undefined) {
                 state.userData.creditCards.push(creditCard);
             }
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case userAction.ActionTypes.AddCreditCardFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case userAction.ActionTypes.RemoveCreditCard: {
-            return { ...state, loading: true, process: { ja: 'クレジットカード情報を削除しています', en: 'Remove Credit Cards' }, };
+            return { ...state, loading: true, process: 'userAction.RemoveCreditCard' };
         }
         case userAction.ActionTypes.RemoveCreditCardSuccess: {
             const creditCard = action.payload.creditCard;
@@ -139,11 +139,11 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             if (findIndexResult > -1) {
                 state.userData.creditCards.splice(findIndexResult, 1);
             }
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: null };
+            return { ...state, loading: false, process: '', error: null };
         }
         case userAction.ActionTypes.RemoveCreditCardFail: {
             const error = action.payload.error;
-            return { ...state, loading: false, process: { ja: '', en: '' }, error: JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case userAction.ActionTypes.UpdateBaseSetting: {
             state.userData.purchaseCartMaxLength = action.payload.purchaseCartMaxLength;

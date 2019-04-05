@@ -5,7 +5,6 @@ import { select, Store } from '@ngrx/store';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { ILanguage } from '../../../../models';
 import { orderAction, purchaseAction, userAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 
@@ -15,7 +14,7 @@ import * as reducers from '../../../../store/reducers';
     styleUrls: ['./auth-signin.component.scss']
 })
 export class AuthSigninComponent implements OnInit {
-    public process: Observable<ILanguage>;
+    public process: Observable<string>;
 
     constructor(
         private router: Router,

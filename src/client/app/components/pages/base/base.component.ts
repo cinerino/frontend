@@ -1,7 +1,6 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ILanguage } from '../../../models';
 import * as reducers from '../../../store/reducers';
 
 @Component({
@@ -11,7 +10,7 @@ import * as reducers from '../../../store/reducers';
 })
 export class BaseComponent implements OnInit, AfterViewChecked, OnDestroy {
     public isLoading: Observable<boolean>;
-    public process: Observable<ILanguage>;
+    public process: Observable<string>;
     constructor(
         private store: Store<reducers.IState>,
         private changeDetectorRef: ChangeDetectorRef
