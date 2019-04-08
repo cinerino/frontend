@@ -15,7 +15,7 @@
 
     <div class="mb-4">
         <div *ngIf="(purchase | async).authorizeSeatReservations.length === 0">
-            <p>{{ 'purchase.cart.event.notfound' | translate }}</p>
+            <p>{{ 'purchase.event.cart.notfound' | translate }}</p>
         </div>
         <div *ngFor="let authorizeSeatReservation of (purchase | async).authorizeSeatReservations"
             class="mb-4 px-3 bg-light-gray position-relative">
