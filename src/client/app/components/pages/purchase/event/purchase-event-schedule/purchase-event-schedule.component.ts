@@ -157,67 +157,79 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * 仮予約削除
+     */
+    private async cancelTemporaryReservations() {
+        return new Promise((resolve, reject) => {
+            this.purchase.subscribe((purchase) => {
+                const authorizeSeatReservations = purchase.authorizeSeatReservations;
+                this.store.dispatch(new purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations }));
+            }).unsubscribe();
+            const success = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.CancelTemporaryReservationsFail),
+                tap(() => { this.error.subscribe((error) => reject(error)).unsubscribe(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
+    }
+
+    /**
      * 取引開始
      */
-    private startTransaction() {
-        this.purchase.subscribe((purchase) => {
-            if (purchase.seller === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-
-            this.store.dispatch(new purchaseAction.StartTransaction({
-                params: {
-                    expires: moment().add(environment.TRANSACTION_TIME, 'minutes').toDate(),
-                    seller: {
-                        typeOf: purchase.seller.typeOf,
-                        id: purchase.seller.id
-                    },
-                    object: {}
+    private async startTransaction() {
+        return new Promise((resolve, reject) => {
+            this.purchase.subscribe((purchase) => {
+                if (purchase.seller === undefined) {
+                    reject(null);
+                    return;
                 }
-            }));
-        }).unsubscribe();
-
-
-        const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.StartTransactionSuccess),
-            tap(() => {
-                this.router.navigate(['/purchase/event/ticket']);
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.StartTransactionFail),
-            tap(() => {
-                this.error.subscribe((error) => {
-                    try {
-                        if (error === null) {
-                            throw new Error('error is null');
-                        }
-                        const errorObject = JSON.parse(error);
-                        if (errorObject.status === TOO_MANY_REQUESTS) {
-                            this.router.navigate(['/congestion']);
-                            return;
-                        }
-                        if (errorObject.status === SERVICE_UNAVAILABLE) {
-                            this.router.navigate(['/maintenance']);
-                            return;
-                        }
-                        throw new Error('error status not match');
-                    } catch (error2) {
-                        this.router.navigate(['/error']);
+                this.store.dispatch(new purchaseAction.StartTransaction({
+                    params: {
+                        expires: moment().add(environment.TRANSACTION_TIME, 'minutes').toDate(),
+                        seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
+                        object: {}
                     }
-                }).unsubscribe();
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+                }));
+            }).unsubscribe();
+            const success = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.StartTransactionSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.StartTransactionFail),
+                tap(() => { this.error.subscribe((error) => reject(error)).unsubscribe(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
     }
 
     /**
      * 次へ
      */
-    public onSubmit() {
-        this.startTransaction();
+    public async onSubmit() {
+        try {
+            await this.cancelTemporaryReservations();
+            await this.startTransaction();
+            this.router.navigate(['/purchase/event/ticket']);
+        } catch (error) {
+            if (error === null) {
+                throw new Error('error is null');
+            }
+            const errorObject = JSON.parse(error);
+            if (errorObject.status === TOO_MANY_REQUESTS) {
+                this.router.navigate(['/congestion']);
+                return;
+            }
+            if (errorObject.status === SERVICE_UNAVAILABLE) {
+                this.router.navigate(['/maintenance']);
+                return;
+            }
+            this.router.navigate(['/error']);
+        }
     }
 
 }
