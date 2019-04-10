@@ -3,7 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { formatTelephone } from '../../functions';
+import { formatTelephone, sleep } from '../../functions';
 import { CinerinoService } from '../../services';
 import { orderAction } from '../actions';
 
@@ -70,25 +70,35 @@ export class OrderEffects {
                 }
 
                 const orderStatusWatch = () => {
-                    return new Promise<void>((resolve, reject) => {
-                        const interval = 5000;
-                        let intervalCount = 0;
+                    return new Promise<void>(async (resolve, reject) => {
                         const limit = 10;
-                        const timer = setInterval(async () => {
-                            const searchResult = await this.cinerino.order.search({
-                                orderNumbers: orders.map(o => o.orderNumber)
-                            });
-                            const filterResult = searchResult.data.filter(o => o.orderStatus !== factory.orderStatus.OrderReturned);
-                            if (filterResult.length === 0) {
-                                clearInterval(timer);
-                                return resolve();
+                        for (let i = 0; i < limit; i++) {
+                            try {
+                                let searchResultData;
+                                if (orders.length === 1) {
+                                    const searchResult = await this.cinerino.order.findByConfirmationNumber({
+                                        confirmationNumber: orders[0].confirmationNumber,
+                                        customer: { telephone: orders[0].customer.telephone }
+                                    });
+                                    searchResultData = [searchResult];
+                                } else {
+                                    const searchResult = await this.cinerino.order.search({
+                                        orderNumbers: orders.map(o => o.orderNumber)
+                                    });
+                                    searchResultData = searchResult.data;
+                                }
+                                const filterResult = searchResultData.filter(o => o.orderStatus !== factory.orderStatus.OrderReturned);
+                                if (filterResult.length === 0) {
+                                    return resolve();
+                                }
+                                if (i > limit) {
+                                    return reject({ error: 'timeout' });
+                                }
+                                await sleep(5000);
+                            } catch (error) {
+                                return reject(error);
                             }
-                            if (intervalCount > limit) {
-                                clearInterval(timer);
-                                return reject({error: 'timeout'});
-                            }
-                            intervalCount++;
-                        }, interval);
+                        }
                     });
                 };
                 await orderStatusWatch();

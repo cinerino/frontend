@@ -108,8 +108,22 @@ export class InquiryConfirmComponent implements OnInit {
         this.util.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('inquiry.confirm.confirm.cancel'),
-            cb: () => {
-                this.cancel();
+            cb: async () => {
+                try {
+                    await this.cancel();
+                    await this.inquiry();
+                } catch (error) {
+                    this.error.subscribe((error) => {
+                        this.util.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: `
+                            <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.cancel')}</p>
+                                <div class="p-3 bg-light-gray select-text">
+                                <code>${JSON.stringify(error)}</code>
+                            </div>`
+                        });
+                    }).unsubscribe();
+                }
             }
         });
     }
@@ -118,36 +132,52 @@ export class InquiryConfirmComponent implements OnInit {
      * キャンセル処理
      */
     public cancel() {
-        this.order.subscribe((value) => {
-            const order = value.order;
-            if (order === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            this.store.dispatch(new orderAction.Cancel({ orders: [order] }));
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(orderAction.ActionTypes.CancelSuccess),
-            tap(() => { })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(orderAction.ActionTypes.CancelFail),
-            tap(() => {
-                this.error.subscribe((error) => {
-                    this.util.openAlert({
-                        title: this.translate.instant('common.error'),
-                        body: `
-                        <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.cancel')}</p>
-                            <div class="p-3 bg-light-gray select-text">
-                            <code>${error}</code>
-                        </div>`
-                    });
-                }).unsubscribe();
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+        return new Promise((resolve, reject) => {
+            this.order.subscribe((orderData) => {
+                const order = orderData.order;
+                if (order === undefined) {
+                    reject({error: 'order undefined'});
+                    return;
+                }
+                this.store.dispatch(new orderAction.Cancel({ orders: [order] }));
+            }).unsubscribe();
+            const success = this.actions.pipe(
+                ofType(orderAction.ActionTypes.CancelSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(orderAction.ActionTypes.CancelFail),
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
     }
 
+    /**
+     * 照会
+     */
+    private inquiry() {
+        return new Promise((resolve, reject) => {
+            this.order.subscribe((orderData) => {
+                const order = orderData.order;
+                if (order === undefined) {
+                    reject({error: 'order undefined'});
+                    return;
+                }
+                this.store.dispatch(new orderAction.Inquiry({
+                    confirmationNumber: order.confirmationNumber,
+                    customer: { telephone: order.customer.telephone }
+                }));
+            }).unsubscribe();
+            const success = this.actions.pipe(
+                ofType(orderAction.ActionTypes.InquirySuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(orderAction.ActionTypes.InquiryFail),
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
+    }
 }
