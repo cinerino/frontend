@@ -16,8 +16,12 @@ export const environment = {
     TRANSACTION_TIME: '120',
     PRE_SCHEDULE_DATE: '3',
     STORAGE_NAME: 'CINERINO-FRONTEND-STATE',
+    STORAGE_TYPE: 'sessionStorage',
     BASE_URL: '/purchase/root',
     HEADER_MENU: true,
     ROUTE_SCOPE: ['purchase', 'inquiry', 'order', 'mypage', 'setting', 'auth'],
-    SCHEDULE_STATUS_THRESHOLD: { value: '30', unit: '%' }
+    SCHEDULE_STATUS_THRESHOLD: { value: '30', unit: '%' },
+    INQUIRY_CANCEL: true,
+    INQUIRY_QRCODE: true,
+    INQUIRY_PRINT: true
 };

@@ -28,6 +28,41 @@ export function toHalf(value: string) {
 }
 
 /**
+ * リトライ
+ * @param args
+ */
+export async function retry<T>(args: {
+    process: Function;
+    interval: number;
+    limit: number;
+}) {
+    let count = 0;
+    return new Promise<T>(async (resolve, reject) => {
+        const timerProcess = () => {
+            setTimeout(async () => {
+                count++;
+                try {
+                    const result = await args.process();
+                    resolve(result);
+                } catch (error) {
+                    if (count >= args.limit) {
+                        reject(error);
+                        return;
+                    }
+                    timerProcess();
+                }
+            }, args.interval);
+        };
+        try {
+            const result = await args.process();
+            resolve(result);
+        } catch (error) {
+            timerProcess();
+        }
+    });
+}
+
+/**
  * ミリ秒待つ
  * @param time
  */

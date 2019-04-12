@@ -80,6 +80,16 @@ export function reducer(state: IState, action: orderAction.Actions): IState {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
+        case orderAction.ActionTypes.Print: {
+            return { ...state, loading: true, process: 'orderAction.Print' };
+        }
+        case orderAction.ActionTypes.PrintSuccess: {
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case orderAction.ActionTypes.PrintFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
         default: {
             return state;
         }

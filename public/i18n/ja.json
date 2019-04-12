@@ -160,6 +160,7 @@
             "read": "ご購入ありがとうございます。",
             "next": "QRコード表示",
             "prev": "戻る",
+            "print": "印刷",
             "cancel": "キャンセル",
             "canceled": "この注文はキャンセル済みです",
             "alert": {
@@ -240,6 +241,12 @@
         "read": "設定を変更できます。",
         "next": "設定を変更",
         "prev": "戻る",
+        "unselected": "選択してください",
+        "pos": "POS",
+        "printer": "プリンター",
+        "printerIpAddress": "プリンターIPアドレス",
+        "printerIpAddressDescription": "※スター精密 Bluetooth接続(StarwebPRNT専用ブラウザー)の場合localhost:8001を設定してください。",
+        "testPrinting": "テスト印刷",
         "purchaseCartMaxLength": "注文に対する予約上限数",
         "viewType": "表示",
         "success": {
@@ -247,9 +254,9 @@
             "read": "変更しました。"
         },
         "alert": {
-            "customer": "購入者情報に誤りがあります。",
-            "payment": "決済情報に誤りがあります。",
-            "base": "基本設定に誤りがあります。"
+            "validation": "入力情報に誤りがあります。",
+            "success": "設定を保存しました。",
+            "print": "印刷に失敗しました"
         }
     },
     "mypage": {
@@ -374,6 +381,7 @@
         "orderAction": {
             "Search": "注文情報を取得しています",
             "Cancel": "注文情報をキャンセルしています",
+            "Print": "印刷しています",
             "Inquiry": "注文情報を照会しています",
             "OrderAuthorize": "注文情報を承認しています"
         },

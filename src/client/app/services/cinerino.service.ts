@@ -68,7 +68,7 @@ export class CinerinoService {
     public async authorize() {
         const url = '/api/authorize/getCredentials';
         const body = { member: '0' };
-        const data = sessionStorage.getItem(environment.STORAGE_NAME);
+        const data = (<Storage>(<any>window)[environment.STORAGE_TYPE]).getItem(environment.STORAGE_NAME);
         if (data === null) {
             throw new Error('state is null');
         }

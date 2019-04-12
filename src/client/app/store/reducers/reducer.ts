@@ -33,7 +33,7 @@ export const initialState: IState = {
 };
 
 function getInitialState(): IState {
-    const json = sessionStorage.getItem(environment.STORAGE_NAME);
+    const json = (<Storage>(<any>window)[environment.STORAGE_TYPE]).getItem(environment.STORAGE_NAME);
     if (json === undefined || json === null) {
         return initialState;
     }

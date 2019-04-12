@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment';
 import { getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
 import { UtilService } from '../../../../services';
 import { orderAction } from '../../../../store/actions';
@@ -21,11 +22,13 @@ import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.c
 })
 export class InquiryConfirmComponent implements OnInit {
     public order: Observable<reducers.IOrderState>;
+    public user: Observable<reducers.IUserState>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
     public eventOrders: IEventOrder[];
     public error: Observable<string | null>;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
+    public environment = environment;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -179,5 +182,47 @@ export class InquiryConfirmComponent implements OnInit {
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
+    }
+
+    /**
+     * 印刷
+     */
+    public print() {
+        this.order.subscribe((inquiry) => {
+            this.user.subscribe((user) => {
+                if (inquiry.order === undefined
+                    || user.pos === undefined
+                    || user.printer === undefined) {
+                    this.router.navigate(['/error']);
+                    return;
+                }
+                const orders = [inquiry.order];
+                const pos = user.pos;
+                const printer = user.printer;
+                this.store.dispatch(new orderAction.Print({ orders, pos, printer }));
+            }).unsubscribe();
+        }).unsubscribe();
+
+        const success = this.actions.pipe(
+            ofType(orderAction.ActionTypes.PrintSuccess),
+            tap(() => { })
+        );
+
+        const fail = this.actions.pipe(
+            ofType(orderAction.ActionTypes.PrintFail),
+            tap(() => {
+                this.error.subscribe((error) => {
+                    this.util.openAlert({
+                        title: this.translate.instant('common.error'),
+                        body: `
+                        <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.print')}</p>
+                            <div class="p-3 bg-light-gray select-text">
+                            <code>${error}</code>
+                        </div>`
+                    });
+                }).unsubscribe();
+            })
+        );
+        race(success, fail).pipe(take(1)).subscribe();
     }
 }

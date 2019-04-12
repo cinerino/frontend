@@ -3,8 +3,10 @@ import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { formatTelephone, sleep } from '../../functions';
-import { CinerinoService } from '../../services';
+import { environment } from '../../../environments/environment';
+import { createPrintCanvas, createTestPrintCanvas, formatTelephone, retry, sleep } from '../../functions';
+import { connectionType, ITicketPrintData } from '../../models';
+import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import { orderAction } from '../actions';
 
 /**
@@ -15,7 +17,9 @@ export class OrderEffects {
 
     constructor(
         private actions: Actions,
-        private cinerino: CinerinoService
+        private cinerino: CinerinoService,
+        private util: UtilService,
+        private starPrint: StarPrintService
     ) { }
 
     /**
@@ -132,6 +136,81 @@ export class OrderEffects {
                 return new orderAction.InquirySuccess({ order });
             } catch (error) {
                 return new orderAction.InquiryFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * print
+     */
+    @Effect()
+    public print = this.actions.pipe(
+        ofType<orderAction.Print>(orderAction.ActionTypes.Print),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                const orders = payload.orders;
+                const printer = payload.printer;
+                const pos = payload.pos;
+                await this.cinerino.getServices();
+                const authorizeOrders: factory.order.IOrder[] = [];
+                for (const order of orders) {
+                    const result = await retry<factory.order.IOrder>({
+                        process: (async () => {
+                            const orderNumber = order.orderNumber;
+                            const customer = {
+                                // email: args.order.customer.email,
+                                telephone: order.customer.telephone
+                            };
+                            const authorizeOrder = await this.cinerino.order.authorizeOwnershipInfos({ orderNumber, customer });
+
+                            return authorizeOrder;
+                        }),
+                        interval: 5000,
+                        limit: 5
+                    });
+
+                    authorizeOrders.push(result);
+                }
+                const printData = await this.util.getJson<ITicketPrintData>(`/json/ticket/${environment.PROJECT_ID}.json`);
+                const testFlg = authorizeOrders.length === 0;
+                const canvasList: HTMLCanvasElement[] = [];
+                if (testFlg) {
+                    const canvas = await createTestPrintCanvas({ printData });
+                    canvasList.push(canvas);
+                } else {
+                    for (const authorizeOrder of authorizeOrders) {
+                        for (let i = 0; i < authorizeOrder.acceptedOffers.length; i++) {
+                            const canvas = await createPrintCanvas({ printData, order: authorizeOrder, offerIndex: i, pos });
+                            canvasList.push(canvas);
+                        }
+                    }
+                }
+                switch (printer.connectionType) {
+                    case connectionType.StarBluetooth:
+                        this.starPrint.initialize({ printer, pos });
+                        await this.starPrint.printProcess({ canvasList, testFlg });
+                        break;
+                    case connectionType.StarLAN:
+                        this.starPrint.initialize({ printer, pos });
+                        await this.starPrint.printProcess({ canvasList, testFlg });
+                        break;
+                    case connectionType.Image:
+                        const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
+                        <img class="w-100" src="${canvas.toDataURL()}">
+                        </div>`);
+                        this.util.openAlert({
+                            title: '',
+                            body: `<div class="px-5">${domList.join('\n')}</div>`
+                        });
+                        break;
+                    default:
+                        break;
+                }
+
+                return new orderAction.PrintSuccess();
+            } catch (error) {
+                return new orderAction.PrintFail({ error: error });
             }
         })
     );

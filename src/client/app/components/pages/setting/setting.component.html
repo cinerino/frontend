@@ -6,6 +6,72 @@
         <form [formGroup]="baseForm">
             <div class="form-group">
                 <div class="row">
+                    <p class="col-md-4 py-2 text-md-right">{{ 'common.theater' | translate }}</p>
+                    <div class="col-md-8">
+                        <select class="form-control" formControlName="sellerBranchCode" (change)="changePosList()">
+                            <option value="">{{ 'setting.unselected' | translate }}</option>
+                            <option *ngFor="let seller of (master | async).sellers"
+                                [value]="seller.location.branchCode">{{
+                                    seller.name.ja }}</option>
+                        </select>
+                        <!-- <div *ngIf="baseForm.controls.sellerBranchCode.invalid && baseForm.controls.sellerBranchCode.touched"
+                            class="mt-2">
+                            <p *ngIf="baseForm.controls.sellerBranchCode.errors.required" class="text-danger">
+                                {{ 'form.validation.unselected' | translate }}</p>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <p class="col-md-4 py-2 text-md-right">{{ 'setting.pos' | translate }}</p>
+                    <div class="col-md-8">
+                        <select class="form-control" formControlName="posId">
+                            <option value="">{{ 'setting.unselected' | translate }}</option>
+                            <option *ngFor="let pos of posList" [value]="pos.id">{{ pos.name }}</option>
+                        </select>
+                        <!-- <div *ngIf="baseForm.controls.posId.invalid && baseForm.controls.posId.touched"
+                            class="mt-2">
+                            <p *ngIf="baseForm.controls.posId.errors.required" class="text-danger">
+                                {{ 'form.validation.unselected' | translate }}</p>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                    <div class="row">
+                        <p class="col-md-4 py-2 text-md-right">{{ 'setting.printer' | translate }}</p>
+                        <div class="col-md-8">
+                            <select class="form-control" formControlName="printerType">
+                                <option value="">{{ 'setting.unselected' | translate }}</option>
+                                <option *ngFor="let printer of printers" [value]="printer.connectionType">
+                                    {{ printer.name.ja }}</option>
+                            </select>
+                            <button
+                                *ngIf="this.baseForm.controls.printerType.value && this.baseForm.controls.printerType.value !== connectionType.None"
+                                type="button" class="btn btn-sm btn-primary py-2 mt-2" (click)="print()">{{ 'setting.testPrinting' | translate }}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <p class="col-md-4 py-2 text-md-right">{{ 'setting.printerIpAddress' | translate }}</p>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" formControlName="printerIpAddress"
+                                placeholder="0.0.0.0">
+                            <div *ngIf="baseForm.controls.printerIpAddress.invalid && baseForm.controls.printerIpAddress.touched"
+                                class="mt-2">
+                                <p *ngIf="baseForm.controls.printerIpAddress.errors.required" class="text-danger">
+                                    {{ 'form.validation.required' | translate }}</p>
+                            </div>
+                            <p class="text-small mt-2">
+                                {{ 'setting.printerIpAddressDescription' | translate }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            <div class="form-group">
+                <div class="row">
                     <p class="col-md-4 py-2 text-md-right"> {{ 'setting.purchaseCartMaxLength' | translate }}
                     </p>
                     <div class="col-md-8">

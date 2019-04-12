@@ -44,7 +44,7 @@ export function storageSync(state: any) {
         || Object.keys(state).length === 0) {
         return;
     }
-    sessionStorage.setItem(environment.STORAGE_NAME, JSON.stringify(state));
+    (<Storage>(<any>window)[environment.STORAGE_TYPE]).setItem(environment.STORAGE_NAME, JSON.stringify(state));
 }
 
 /**

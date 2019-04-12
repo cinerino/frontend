@@ -1,6 +1,7 @@
 import { ISearchResult } from '@cinerino/api-abstract-client/lib/service';
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
+import { IPrinter } from '../../models';
 
 /**
  * Action types
@@ -16,6 +17,9 @@ export enum ActionTypes {
     Inquiry = '[Order] Inquiry',
     InquirySuccess = '[Order] Inquiry Success',
     InquiryFail = '[Order] Inquiry Fail',
+    Print = '[Order] Print',
+    PrintSuccess = '[Order] Print Success',
+    PrintFail = '[Order] Print Fail',
     OrderAuthorize = '[Order] Order Authorize',
     OrderAuthorizeSuccess = '[Order] Order Authorize Success',
     OrderAuthorizeFail = '[Order] Order Authorize Fail'
@@ -115,6 +119,35 @@ export class InquiryFail implements Action {
     constructor(public payload: { error: Error }) { }
 }
 
+/**
+ * Print
+ */
+export class Print implements Action {
+    public readonly type = ActionTypes.Print;
+    constructor(public payload: {
+        orders: factory.order.IOrder[];
+        printer: IPrinter;
+        pos?: factory.seller.IPOS;
+        timeout?: number;
+    }) { }
+}
+
+/**
+ * PrintSuccess
+ */
+export class PrintSuccess implements Action {
+    public readonly type = ActionTypes.PrintSuccess;
+    constructor(public payload?: {}) { }
+}
+
+/**
+ * PrintFail
+ */
+export class PrintFail implements Action {
+    public readonly type = ActionTypes.PrintFail;
+    constructor(public payload: { error: Error }) { }
+}
+
 
 /**
  * OrderAuthorize
@@ -162,6 +195,9 @@ export type Actions =
     | Inquiry
     | InquirySuccess
     | InquiryFail
+    | Print
+    | PrintSuccess
+    | PrintFail
     | OrderAuthorize
     | OrderAuthorizeSuccess
     | OrderAuthorizeFail;

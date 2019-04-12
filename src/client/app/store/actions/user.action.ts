@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
-import { ViewType } from '../../models';
+import { IPrinter, ViewType } from '../../models';
 
 /**
  * Action types
@@ -116,7 +116,13 @@ export class UpdateLanguage implements Action {
  */
 export class UpdateBaseSetting implements Action {
     public readonly type = ActionTypes.UpdateBaseSetting;
-    constructor(public payload: { purchaseCartMaxLength: number, viewType: ViewType }) { }
+    constructor(public payload: {
+        seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        pos?: factory.seller.IPOS;
+        printer?: IPrinter;
+        purchaseCartMaxLength: number;
+        viewType: ViewType;
+    }) { }
 }
 
 /**

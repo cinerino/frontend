@@ -94,10 +94,13 @@
             </div>
         </div>
         <div class="buttons mx-auto">
-            <button [disabled]="(order | async).order.orderStatus !== orderStatus.OrderDelivered" type="button"
+            <button *ngIf="environment.INQUIRY_QRCODE" [disabled]="(order | async).order.orderStatus !== orderStatus.OrderDelivered" type="button"
                 class="btn btn-primary btn-block py-3 mb-3"
                 (click)="showQrCode()">{{ 'inquiry.confirm.next' | translate }}</button>
-            <button [disabled]="(order | async).order.orderStatus === orderStatus.OrderReturned" type="button"
+            <button *ngIf="environment.INQUIRY_PRINT" [disabled]="(order | async).order.orderStatus !== orderStatus.OrderDelivered" type="button"
+                class="btn btn-primary btn-block py-3 mb-3" (click)="print()"
+                [disabled]="isLoading | async">{{ 'inquiry.confirm.print' | translate }}</button>
+            <button *ngIf="environment.INQUIRY_CANCEL" [disabled]="(order | async).order.orderStatus === orderStatus.OrderReturned" type="button"
                 class="btn btn-danger btn-block py-3 mb-3"
                 (click)="cancelConfirm()">{{ 'inquiry.confirm.cancel' | translate }}</button>
             <button type="button" class="btn btn-outline-primary btn-block py-3"

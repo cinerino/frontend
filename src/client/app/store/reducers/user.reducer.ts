@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { IState } from '.';
 import { environment } from '../../../environments/environment';
-import { ViewType } from '../../models';
+import { IPrinter, ViewType } from '../../models';
 import { userAction } from '../actions';
 
 export interface IUserState {
@@ -39,6 +39,18 @@ export interface IUserState {
      * 表示形式
      */
     viewType: ViewType;
+    /**
+     * 販売者情報
+     */
+    seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    /**
+     * 端末情報
+     */
+    pos?: factory.seller.IPOS;
+    /**
+     * プリンター
+     */
+    printer?: IPrinter;
 }
 
 export const userInitialState: IUserState = {
@@ -146,6 +158,9 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case userAction.ActionTypes.UpdateBaseSetting: {
+            state.userData.seller = action.payload.seller;
+            state.userData.pos = action.payload.pos;
+            state.userData.printer = action.payload.printer;
             state.userData.purchaseCartMaxLength = action.payload.purchaseCartMaxLength;
             state.userData.viewType = action.payload.viewType;
             return { ...state };
