@@ -16,7 +16,7 @@ export const environment = {
     HEADER_MENU: true,
     HEADER_MENU_SCOPE: ['purchase', 'inquiry', 'order', 'mypage', 'setting', 'auth'],
     PURCHASE_CART_MAX_LENGTH: '1',
-    PURCHASE_TRANSACTION_TIME: '120',
+    PURCHASE_TRANSACTION_TIME: '15',
     PURCHASE_PRE_SCHEDULE_DATE: '3',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
