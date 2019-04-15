@@ -11,15 +11,15 @@ const debug = createDebug('frontend:middlewares:basicAuth');
  */
 exports.default = (req, res, next) => {
     // ベーシック認証のための環境変数設定なければスルー
-    if (process.env.SSKTS_BASIC_AUTH_NAME === undefined || process.env.SSKTS_BASIC_AUTH_PASS === undefined) {
+    if (process.env.BASIC_AUTH_NAME === undefined || process.env.BASIC_AUTH_PASS === undefined) {
         next();
         return;
     }
-    debug('authenticating...', process.env.SSKTS_BASIC_AUTH_NAME);
+    debug('authenticating...', process.env.BASIC_AUTH_NAME);
     const user = basicAuth(req);
     if (user !== undefined
-        && user.name === process.env.SSKTS_BASIC_AUTH_NAME
-        && user.pass === process.env.SSKTS_BASIC_AUTH_PASS) {
+        && user.name === process.env.BASIC_AUTH_NAME
+        && user.pass === process.env.BASIC_AUTH_PASS) {
         debug('authenticated!');
         // 認証情報が正しければOK
         next();

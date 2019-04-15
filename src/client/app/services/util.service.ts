@@ -14,6 +14,9 @@ export class UtilService {
         private http: HttpClient
     ) { }
 
+    /**
+     * 警告モーダル表示
+     */
     public openAlert(args: {
         title: string;
         body: string;
@@ -25,6 +28,9 @@ export class UtilService {
         modalRef.componentInstance.body = args.body;
     }
 
+    /**
+     * 確認モーダル表示
+     */
     public openConfirm(args: {
         title: string;
         body: string;
@@ -42,6 +48,9 @@ export class UtilService {
         modalRef.componentInstance.body = args.body;
     }
 
+    /**
+     * json取得
+     */
     public async getJson<T>(url: string, options?: {
         headers?: HttpHeaders | {
             [header: string]: string | string[];
@@ -57,6 +66,34 @@ export class UtilService {
         const result = await this.http.get<T>(url, options).toPromise();
 
         return result;
+    }
+
+    /**
+     * 暗号化
+     */
+    public async encryptionEncode(encyptText: string) {
+        const encryptedResult = await this.http.post<{ salt: string; iv: string; encrypted: string; }>(
+            '/api/encryption/encode', { encyptText }
+        ).toPromise();
+        return encryptedResult;
+    }
+
+    /**
+     * 復号化
+     */
+    public async encryptionDecode(encryptedResult: {
+        salt: string;
+        iv: string;
+        encrypted: string;
+    }) {
+        const decryptedResult = await this.http.post<{ decrypted: string; }>(
+            '/api/encryption/decode', {
+                salt: encryptedResult.salt,
+                iv: encryptedResult.iv,
+                encrypted: encryptedResult.encrypted
+            }
+        ).toPromise();
+        return decryptedResult;
     }
 
 }

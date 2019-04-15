@@ -11,8 +11,8 @@ export default (req: Request, res: Response, next: NextFunction) => {
     debug('x-forwarded-for:', req.headers['x-forwarded-for']);
 
     // IP制限拒否の場合
-    if (process.env.SSKTS_ALLOWED_IPS !== undefined) {
-        const allowedIps = (<string>process.env.SSKTS_ALLOWED_IPS).split(',');
+    if (process.env.ALLOWED_IPS !== undefined) {
+        const allowedIps = (<string>process.env.ALLOWED_IPS).split(',');
         const forbidden = allowedIps.every((ip) => {
             const regex = new RegExp(`^${ip}(:\\d+)?$`);
 

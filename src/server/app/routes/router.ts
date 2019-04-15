@@ -5,6 +5,7 @@ import * as express from 'express';
 import * as path from 'path';
 import * as authorize from '../controllers/authorize/authorize.controller';
 import authorizeRouter from './authorize';
+import encryptionRouter from './encryption';
 
 export default (app: express.Application) => {
     app.use((_req, res, next) => {
@@ -13,6 +14,7 @@ export default (app: express.Application) => {
     });
 
     app.use('/api/authorize', authorizeRouter);
+    app.use('/api/encryption', encryptionRouter);
 
     app.get('/signIn', authorize.signInRedirect);
     app.get('/signOut', authorize.signOutRedirect);

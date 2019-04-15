@@ -46,6 +46,7 @@ export class InquiryConfirmComponent implements OnInit {
         this.eventOrders = [];
         this.error = this.store.pipe(select(reducers.getError));
         this.order = this.store.pipe(select(reducers.getOrder));
+        this.user = this.store.pipe(select(reducers.getUser));
         this.order.subscribe((value) => {
             if (value.order === undefined) {
                 this.router.navigate(['/error']);
