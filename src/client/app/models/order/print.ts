@@ -1,3 +1,14 @@
+/**
+ * QRコード文字列
+ */
+export enum PrintQrCodeType {
+    token = 'token',
+    encryption = 'encryption'
+}
+
+/**
+ * 券面印刷データ
+ */
 export interface ITicketPrintData {
     size: {
         width: number;

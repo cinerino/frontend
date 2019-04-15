@@ -158,12 +158,12 @@ async function drawCanvas(args: {
  */
 export async function createPrintCanvas(args: {
     printData: ITicketPrintData,
+    acceptedOffer: factory.order.IAcceptedOffer<factory.order.IItemOffered>;
     order: factory.order.IOrder;
-    offerIndex: number;
     pos?: factory.seller.IPOS;
+    qrcode?: string;
 }) {
-    const order = args.order;
-    const acceptedOffer = order.acceptedOffers[args.offerIndex];
+    const acceptedOffer = args.acceptedOffer;
     if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
         throw new Error('reservationType is not EventReservation');
     }
@@ -177,7 +177,9 @@ export async function createPrintCanvas(args: {
             ? undefined : acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber,
         ticketName: acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja,
         price: getTicketPrice(acceptedOffer).single,
-        qrcode: <string>acceptedOffer.itemOffered.reservedTicket.ticketToken,
+        qrcode: (args.qrcode === undefined)
+            ? <string>acceptedOffer.itemOffered.reservedTicket.ticketToken
+            : args.qrcode,
         posName: (args.pos === undefined) ? '' : args.pos.name
     };
     const printData = args.printData;
