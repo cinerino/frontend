@@ -57,7 +57,7 @@ export const userInitialState: IUserState = {
     isMember: false,
     language: 'ja',
     purchaseCartMaxLength: Number(environment.PURCHASE_CART_MAX_LENGTH),
-    viewType: environment.VIEW_TYPE,
+    viewType: (<ViewType>environment.VIEW_TYPE),
     creditCards: []
 };
 /**

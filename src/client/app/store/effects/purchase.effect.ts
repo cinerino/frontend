@@ -49,7 +49,7 @@ export class PurchaseEffects {
                         typeOf: factory.chevre.eventType.ScreeningEvent,
                         eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
                         superEvent: payload.superEvent,
-                        startFrom: moment(today).add(environment.PRE_SCHEDULE_DATE, 'days').toDate(),
+                        startFrom: moment(today).add(environment.PURCHASE_PRE_SCHEDULE_DATE, 'days').toDate(),
                         offers: {
                             validFrom: now,
                             validThrough: now,

@@ -140,13 +140,10 @@ export class SettingComponent implements OnInit {
             this.store.dispatch(new userAction.UpdateBaseSetting({
                 seller: findSeller,
                 pos: findPos,
-                printer: (this.baseForm.controls.printerIpAddress.value === ''
-                    || this.baseForm.controls.printerType.value === '')
-                    ? undefined
-                    : {
-                        ipAddress: this.baseForm.controls.printerIpAddress.value,
-                        connectionType: this.baseForm.controls.printerType.value
-                    },
+                printer: {
+                    ipAddress: this.baseForm.controls.printerIpAddress.value,
+                    connectionType: this.baseForm.controls.printerType.value
+                },
                 purchaseCartMaxLength,
                 viewType
             }));

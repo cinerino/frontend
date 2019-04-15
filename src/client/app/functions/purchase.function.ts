@@ -354,8 +354,8 @@ export function isScheduleStatusThreshold(
         return false;
     }
     let result = false;
-    const unit = environment.SCHEDULE_STATUS_THRESHOLD.unit;
-    const value = Number(environment.SCHEDULE_STATUS_THRESHOLD.value);
+    const unit = environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
+    const value = Number(environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
     if (unit === '%') {
         switch (status) {
             case 'success':
