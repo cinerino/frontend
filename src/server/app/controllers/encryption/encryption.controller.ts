@@ -4,6 +4,7 @@
 import * as crypto from 'crypto-js';
 import * as debug from 'debug';
 import { Request, Response } from 'express';
+import { BAD_REQUEST } from 'http-status';
 const log = debug('frontend:encryption');
 
 export async function encode(req: Request, res: Response) {
@@ -38,7 +39,7 @@ export async function encode(req: Request, res: Response) {
         });
     } catch (error) {
         log('error', error);
-        res.status(httpStatus.BAD_REQUEST);
+        res.status(BAD_REQUEST);
         res.json({ error });
     }
 

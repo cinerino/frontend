@@ -157,7 +157,7 @@ async function drawCanvas(args: {
  * 印刷イメージ作成
  */
 export async function createPrintCanvas(args: {
-    printData: ITicketPrintData,
+    printData: ITicketPrintData;
     acceptedOffer: factory.order.IAcceptedOffer<factory.order.IItemOffered>;
     order: factory.order.IOrder;
     pos?: factory.seller.IPOS;

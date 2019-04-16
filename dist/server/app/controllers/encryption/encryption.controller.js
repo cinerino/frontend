@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const crypto = require("crypto-js");
 const debug = require("debug");
+const http_status_1 = require("http-status");
 const log = debug('frontend:encryption');
 function encode(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -48,7 +49,7 @@ function encode(req, res) {
         }
         catch (error) {
             log('error', error);
-            res.status(httpStatus.BAD_REQUEST);
+            res.status(http_status_1.BAD_REQUEST);
             res.json({ error });
         }
     });

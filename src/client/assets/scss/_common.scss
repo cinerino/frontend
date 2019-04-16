@@ -34,6 +34,8 @@ body {
 
 code {
     line-height: 1.6;
+    -webkit-touch-callout: default;
+    user-select: all;
 }
 
 h1, h2, h3 {
