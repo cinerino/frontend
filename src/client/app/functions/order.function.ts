@@ -18,7 +18,7 @@ async function drawCanvas(args: {
         seatNumber?: string;
         ticketName: string;
         price: number;
-        qrcode: string;
+        qrcode?: string;
         posName: string
     }
 }) {
@@ -144,10 +144,12 @@ async function drawCanvas(args: {
     }
 
     // QR描画
-    for (const qrCode of printData.qrCode) {
-        const qrcodeCanvas = document.createElement('canvas');
-        await qrcode.toCanvas(qrcodeCanvas, data.qrcode);
-        context.drawImage(qrcodeCanvas, qrCode.x, qrCode.y, qrCode.width, qrCode.height);
+    if (data.qrcode !== undefined) {
+        for (const qrCode of printData.qrCode) {
+            const qrcodeCanvas = document.createElement('canvas');
+            await qrcode.toCanvas(qrcodeCanvas, data.qrcode);
+            context.drawImage(qrcodeCanvas, qrCode.x, qrCode.y, qrCode.width, qrCode.height);
+        }
     }
 
     return canvas;
@@ -177,9 +179,7 @@ export async function createPrintCanvas(args: {
             ? undefined : acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber,
         ticketName: acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja,
         price: getTicketPrice(acceptedOffer).single,
-        qrcode: (args.qrcode === undefined)
-            ? <string>acceptedOffer.itemOffered.reservedTicket.ticketToken
-            : args.qrcode,
+        qrcode: args.qrcode,
         posName: (args.pos === undefined) ? '' : args.pos.name
     };
     const printData = args.printData;

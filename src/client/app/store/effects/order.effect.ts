@@ -185,24 +185,25 @@ export class OrderEffects {
                             if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
                                 continue;
                             }
-                            if (environment.PRINT_FILTER_SUPER_EVENT_ID.length > 0) {
-                                // PRINT_FILTER_SUPER_EVENT_IDによるフィルタリング
-                                const findResult = environment.PRINT_FILTER_SUPER_EVENT_ID.find((id) => {
+                            const order = authorizeOrder;
+                            let qrcode = itemOffered.reservedTicket.ticketToken;
+                            if (environment.PRINT_QR_CODE_FILTER_SUPER_EVENT_ID.length > 0) {
+                                // PRINT_QR_CODE_FILTER_SUPER_EVENT_IDによるフィルタリング
+                                const findResult = environment.PRINT_QR_CODE_FILTER_SUPER_EVENT_ID.find((id) => {
                                     return (id === itemOffered.reservationFor.superEvent.id);
                                 });
                                 if (findResult === undefined) {
-                                    continue;
+                                    qrcode = undefined;
                                 }
                             }
-                            let qrcode;
-                            if (environment.PRINT_QR_CODE_TYPE === PrintQrCodeType.encryption) {
+                            if (qrcode !== undefined
+                                && environment.PRINT_QR_CODE_TYPE === PrintQrCodeType.encryption) {
                                 // QRコード暗号化(id + startDate)
                                 const encyptText = `${itemOffered.reservationFor.id}=${itemOffered.reservationFor.startDate}`;
                                 const encryptionEncodeResult = await this.util.encryptionEncode(encyptText);
                                 qrcode =
                                     `${encryptionEncodeResult.salt},${encryptionEncodeResult.iv},${encryptionEncodeResult.encrypted}`;
                             }
-                            const order = authorizeOrder;
                             const canvas = await createPrintCanvas({ printData, order, acceptedOffer, pos, qrcode });
                             canvasList.push(canvas);
                         }

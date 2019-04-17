@@ -23,6 +23,6 @@ export const environment = {
     INQUIRY_CANCEL: true,
     INQUIRY_QRCODE: true,
     INQUIRY_PRINT: true,
-    PRINT_FILTER_SUPER_EVENT_ID: [],
+    PRINT_QR_CODE_FILTER_SUPER_EVENT_ID: [],
     PRINT_QR_CODE_TYPE: 'token'
 };

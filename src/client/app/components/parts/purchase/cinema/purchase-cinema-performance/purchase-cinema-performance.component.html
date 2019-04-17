@@ -66,9 +66,9 @@
                 <div *ngIf="screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat" class="mb-2 text-small">{{ 'common.seat' | translate }}
                     {{ screeningEvent.remainingAttendeeCapacity }} / {{ screeningEvent.maximumAttendeeCapacity }}
                 </div>
-                <!-- <div *ngIf="!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat)" class="mb-2 text-small">
+                <div *ngIf="!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat)" class="mb-2 text-small">
                     {{ 'purchase.cinema.schedule.infiniteStock' | translate }}</div>
-                <div class="text-small mb-1">{{ 'common.ticketing' | translate }} {{ screeningEvent.checkInCount }}
+                <!-- <div class="text-small mb-1">{{ 'common.ticketing' | translate }} {{ screeningEvent.checkInCount }}
                 </div>
                 <div class="text-small">{{ 'common.admission' | translate }} {{ screeningEvent.attendeeCount }}</div> -->
             </div>
