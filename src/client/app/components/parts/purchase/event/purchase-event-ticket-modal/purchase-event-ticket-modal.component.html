@@ -1,24 +1,30 @@
 <div class="p-3 scroll-vertical">
-    <div class="bg-light-gray p-3 mb-4">
-        <div class="mb-2">
-            <p><strong>{{ screeningEvent.name | changeLanguage }}</strong></p>
-            <p *ngIf="screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)">
+    <div class="mb-3">
+        <div class="mb-1">
+            <p class="font-weight-bold">{{ screeningEvent.name | changeLanguage }}</p>
+            <p class="text-small"
+                *ngIf="screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)">
                 {{ screeningEvent.superEvent.headline | changeLanguage }}</p>
-            <p
+            <p class="text-small"
                 *ngIf="screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)">{{
                     screeningEvent.superEvent.description | changeLanguage }}</p>
         </div>
-        <div>
-            <div class="mb-2">
-                {{ screeningEvent.location.name | changeLanguage }}
-            </div>
-            <div>
-                <strong class="text-large">{{ moment(screeningEvent.startDate).format('HH:mm') }}</strong>
-                <span>-</span>
-                <span>{{ moment(screeningEvent.endDate).format('HH:mm') }}</span>
-            </div>
-        </div>
+        <p class="font-weight-bold mb-1">
+            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
+        </p>
+        <p class="text-small d-flex mb-1">
+            <span>
+                {{ screeningEvent.superEvent.location.name | changeLanguage }}
+            </span>
+            <span>
+                &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}
+            </span>
+            <span *ngIf="screeningEvent.workPerformed.duration !== null">
+                &nbsp;/&nbsp;{{ moment.duration(screeningEvent.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+            </span>
+        </p>
     </div>
+    <hr class="mb-3">
     <ul class="mb-4">
         <li *ngFor="let ticket of tickets" class="ticket mb-2">
             <div class="d-flex justify-content-between align-items-center">
@@ -35,11 +41,11 @@
         </li>
     </ul>
 
-    <div class="buttons mx-auto">
+    <div class="buttons mx-auto text-center">
         <button [disabled]="selectedTickets && createReservationTickets(selectedTickets).length === 0" type="button"
             class="btn btn-primary btn-block py-3 mb-3"
             (click)="activeModal.close(createReservationTickets(selectedTickets))">{{ 'common.done' | translate }}</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
+        <button type="button" class="btn btn-link"
             (click)="activeModal.dismiss()">{{ 'common.close' | translate }}</button>
     </div>
 </div>

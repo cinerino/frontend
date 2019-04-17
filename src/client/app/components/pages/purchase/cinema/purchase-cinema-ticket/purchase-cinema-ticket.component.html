@@ -4,7 +4,7 @@
     <p class="mb-4">{{ 'purchase.cinema.ticket.read' | translate }}</p>
 
     <div *ngIf="(purchase | async).isUsedMovieTicket" class="mb-4">
-        <div class="bg-light-gray p-3 d-md-flex align-items-center movieticket">
+        <div class="bg-white p-3 d-md-flex align-items-center movieticket">
             <p class="mb-2 mb-md-0">{{ 'purchase.cinema.ticket.mvtk' | translate }}</p>
             <div>
                 <button type="button" (click)="openMovieTicket()"
@@ -17,7 +17,7 @@
 
     <div class="mb-4">
         <div *ngFor="let reservation of (purchase | async).reservations"
-            class="bg-light-gray p-3 mb-3 d-md-flex align-items-center ticket">
+            class="bg-white p-3 mb-3 d-md-flex align-items-center ticket">
             <div class="mb-3 mb-md-0">
                 <span class="mr-3">{{ 'common.seat' | translate }}</span>{{ reservation.seat.seatNumber }}
             </div>
@@ -34,10 +34,10 @@
 
     <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
 
-    <div class="buttons mx-auto">
+    <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="onSubmit()">{{ 'purchase.cinema.ticket.next' | translate }}</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
+        <button type="button" class="btn btn-link"
             routerLink="/purchase/cinema/seat">{{ 'purchase.cinema.ticket.prev' | translate }}</button>
     </div>
 

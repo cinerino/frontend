@@ -3,11 +3,10 @@
 @import "node_modules/bootstrap/scss/mixins";
 
 $font-family: -apple-system, "Lucida Grande", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "游ゴシック", "メイリオ", Meiryo, Helvetica, Arial, sans-serif;
-$body-bg: #000;
-$body-color: #FFF;
+
 $theme-colors: (
-    primary: #003c2e, 
-    secondary: #009270, 
+    primary: #004c67, 
+    secondary: #7ba1b0, 
     success: #0081CC, 
     info: #dc0b0b, 
     warning: $yellow, 
@@ -18,4 +17,8 @@ $theme-colors: (
 
 $dark-gray: #666;
 $gray: #ced4da;
-$light-gray: #f6f7fb;
+$light-gray: #EEE;
+
+$body-bg: $light-gray;
+$body-color: #333;
+$body-font-size: 14px;

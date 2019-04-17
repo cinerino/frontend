@@ -1,36 +1,39 @@
 <p class="mb-3">{{ 'purchase.info.read' | translate }}</p>
-<div class="bg-dark-gray text-white px-3">
-    <div class="py-3 border-bottom border-white">
-        <div class="row">
-            <p class="mb-2 mb-md-0 col-md-4"> <i class="fas fa-map-marker-alt mr-2"></i>{{ 'common.theater' | translate }} / {{ 'common.screen' | translate }}</p>
-            <p class="col-md-8">{{ purchase.screeningEvent?.superEvent.location.name | changeLanguage }} / {{
-                purchase.screeningEvent?.location.name | changeLanguage }}</p>
+<div class="bg-white p-3">
+    <div class="mb-3">
+        <div class="mb-1">
+            <p class="font-weight-bold">{{ purchase.screeningEvent.name | changeLanguage }}</p>
+            <p class="text-small"
+                *ngIf="purchase.screeningEvent.superEvent.headline && (purchase.screeningEvent.superEvent.headline | changeLanguage)">
+                {{ purchase.screeningEvent.superEvent.headline | changeLanguage }}</p>
+            <p class="text-small"
+                *ngIf="purchase.screeningEvent.superEvent.description && (purchase.screeningEvent.superEvent.description | changeLanguage)">{{
+                        purchase.screeningEvent.superEvent.description | changeLanguage }}</p>
         </div>
+        <p class="font-weight-bold mb-1">
+            {{ purchase.screeningEvent.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ purchase.screeningEvent.endDate | formatDate: 'HH:mm' }}
+        </p>
+        <p class="text-small d-flex mb-1">
+            <span>
+                {{ purchase.screeningEvent.superEvent.location.name | changeLanguage }}
+            </span>
+            <span>
+                &nbsp;/&nbsp;{{ purchase.screeningEvent.location.name | changeLanguage }}
+            </span>
+            <span *ngIf="purchase.screeningEvent.workPerformed.duration !== null">
+                &nbsp;/&nbsp;{{ moment.duration(purchase.screeningEvent.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+            </span>
+        </p>
     </div>
-    <div class="py-3 border-bottom border-white">
-        <div class="row">
-            <p class="mb-2 mb-md-0 col-md-4"> <i class="fas fa-film mr-2"></i>{{ 'common.event' | translate }}</p>
-            <p class="col-md-8">{{ purchase.screeningEvent?.name | changeLanguage }}</p>
-        </div>
-    </div>
-    <div class="py-3 border-bottom border-white">
-        <div class="row">
-            <p class="mb-2 mb-md-0 col-md-4"> <i class="far fa-clock mr-2"></i>{{ 'common.startDate' | translate }}</p>
-            <p class="col-md-8">
-                {{ purchase.screeningEvent?.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
-            </p>
-        </div>
-    </div>
-    <div class="py-3">
-        <div class="row">
-            <p class="mb-2 mb-md-0 col-md-4"> <i class="fas fa-ticket-alt mr-2"></i><span *ngIf="purchase.screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat">{{ 'common.seat' | translate }} /</span>{{ 'common.ticket' | translate }}</p>
-            <div class="col-md-8">
-                <div *ngFor="let reservation of purchase.reservations">
-                    <p>{{ reservation.seat.seatNumber }}</p>
-                    <p *ngIf="reservation.ticket">{{ reservation.ticket.ticketOffer.name | changeLanguage }} / {{
-                        reservation.getTicketPrice().single | currency : 'JPY' }}</p>
-                </div>
-            </div>
-        </div>
+    <hr class="mb-3">
+
+    <div *ngFor="let reservation of purchase.reservations">
+        <p>
+            <span>
+                {{ reservation.seat.seatNumber }}
+            </span>
+            <span *ngIf="reservation.ticket">&nbsp;/&nbsp;{{ reservation.ticket.ticketOffer.name | changeLanguage }}&nbsp;/&nbsp;{{
+                    reservation.getTicketPrice().single | currency : 'JPY' }}</span>
+        </p>
     </div>
 </div>

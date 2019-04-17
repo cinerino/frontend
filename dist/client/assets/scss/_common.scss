@@ -25,11 +25,9 @@ body {
     text-size-adjust: 100%;
     -webkit-touch-callout: none;
     user-select: none;
-    background-color: #FFF;
     background-attachment: fixed;
-    font-size: 16px;
-    color: #333;
     font-family: $font-family;
+    font-size: $body-font-size;
 }
 
 code {
@@ -70,7 +68,7 @@ button {
 }
 
 .form-control {
-    height: 2.8rem;
+    height: 2.4rem;
 }
 .contents-width {
     max-width: 1024px;

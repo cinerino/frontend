@@ -2,15 +2,15 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'mypage.coin.title' | translate }}</h2>
     <p class="mb-4">{{ 'mypage.coin.read' | translate }}</p>
 
-    <div class="mb-4">
-        <div class="row">
+    <div class="mb-4 px-3 py-2 bg-white">
+        <div class="row align-items-center">
             <p class="col-6 col-md-4">{{ 'common.coin.balance' | translate }}</p>
-            <p class="col-6 col-md-8 text-right text-md-left">{{ (user | async).coin?.account.typeOfGood.balance }}</p>
+            <p class="col-6 col-md-8 text-right text-md-left font-weight-bold">{{ (user | async).coin?.account.typeOfGood.balance }}</p>
         </div>
     </div>
 
     <div class="creditCards d-grid mb-4">
-        <div *ngFor="let creditCard of (user | async).creditCards" class="p-3 bg-light-gray position-relative">
+        <div *ngFor="let creditCard of (user | async).creditCards" class="p-3 bg-white position-relative">
             <div class="mb-3">
                 <p>{{ 'common.credit.cardNumber' | translate }}</p>
                 <p>{{ creditCard.cardNo }}</p>
@@ -19,7 +19,7 @@
                 <p>{{ 'common.credit.cardExpiration' | translate }}</p>
                 <p>{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}</p>
             </div>
-            <!-- <div class="buttons mx-auto">
+            <!-- <div class="buttons mx-auto text-center">
                 <button type="button" class="btn btn-primary btn-block py-3" (click)="openCharge(creditCard)">{{ 'mypage.coin.charge' | translate }}</button>
             </div> -->
         </div>
@@ -27,8 +27,8 @@
 
     <p *ngIf="(user | async).creditCards.length === 0" class="mb-4">{{ 'mypage.credit.notFound' | translate }}</p>
 
-    <div class="buttons mx-auto">
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
+    <div class="buttons mx-auto text-center">
+        <button type="button" class="btn btn-link"
             routerLink="/mypage">{{ 'mypage.credit.prev' | translate }}</button>
     </div>
 

@@ -2,7 +2,7 @@
     <div class="mb-3 text-large">{{ 'modal.chargeCoin.title' | translate }}</div>
     <p class="mb-3">{{ 'modal.chargeCoin.read' | translate }}</p>
 
-    <div class="mb-4 p-3 bg-light-gray">
+    <div class="mb-4 p-3 bg-white">
         <form *ngIf="coinChargeForm" [formGroup]="coinChargeForm">
             <p class="mb-2">{{ 'modal.chargeCoin.charge' | translate }}</p>
             <div>
@@ -20,11 +20,11 @@
         </form>
     </div>
 
-    <div class="buttons mx-auto">
+    <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3"
             (click)="activeModal.close(coinChargeForm.controls.charge.value)"
             [disabled]="coinChargeForm.invalid">{{ 'modal.chargeCoin.next' | translate }}</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
+        <button type="button" class="btn btn-link"
             (click)="activeModal.dismiss()">{{ 'common.close' | translate }}</button>
     </div>
 </div>

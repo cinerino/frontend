@@ -3,7 +3,7 @@
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.input.title' | translate }}</h2>
         <p class="mb-4">{{ 'purchase.input.read' | translate }}</p>
 
-        <div class="p-3 bg-light-gray">
+        <div class="p-3 bg-white">
             <form [formGroup]="customerContactForm">
                 <div class="form-group row">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.familyName' | translate }}</p>
@@ -93,7 +93,7 @@
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.input.payment.title' | translate }}</h2>
         <p class="mb-4">{{ 'purchase.input.payment.read' | translate }}</p>
 
-        <div class="p-3 bg-light-gray">
+        <div class="p-3 bg-white">
             <div class="form-group row">
                 <p class="col-md-4 py-2 text-md-right">{{ 'common.amount' | translate }}</p>
                 <div class="col-md-8">
@@ -181,27 +181,25 @@
                     (click)="openRegisteredCreditCard()">{{ 'purchase.input.registeredCreditCard' | translate }}</button>
             </div>
             <div *ngIf="usedCreditCard !== undefined" class="buttons mx-auto mt-3">
-                <button type="button" class="btn btn-outline-primary btn-block py-3"
+                <button type="button" class="btn btn-link"
                     (click)="changeInputCreditCard()">{{ 'purchase.input.inputCreditCard' | translate }}</button>
             </div>
         </div>
     </div>
 
 
-    <div class="buttons mx-auto">
+    <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="onSubmit()">{{ 'purchase.input.next' | translate }}</button>
 
         <div *ngIf="(user | async).viewType === viewType.Cinema">
-            <button *ngIf="(user | async).purchaseCartMaxLength > 1" type="button"
-                class="btn btn-outline-primary btn-block py-3"
+            <button *ngIf="(user | async).purchaseCartMaxLength > 1" type="button" class="btn btn-link"
                 routerLink="/purchase/cinema/cart">{{ 'purchase.input.prev' | translate }}</button>
-            <button *ngIf="(user | async).purchaseCartMaxLength === 1" type="button"
-                class="btn btn-outline-primary btn-block py-3"
+            <button *ngIf="(user | async).purchaseCartMaxLength === 1" type="button" class="btn btn-link"
                 routerLink="/purchase/cinema/ticket">{{ 'purchase.input.prev' | translate }}</button>
         </div>
         <div *ngIf="(user | async).viewType === viewType.Event">
-            <button type="button" class="btn btn-outline-primary btn-block py-3"
+            <button type="button" class="btn btn-link"
                 routerLink="/purchase/event/ticket">{{ 'purchase.input.prev' | translate }}</button>
         </div>
 

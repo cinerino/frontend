@@ -2,11 +2,11 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'mypage.profile.title' | translate }}</h2>
     <p class="mb-4">{{ 'mypage.profile.read' | translate }}</p>
 
-    <div class="mb-4 p-3 bg-light-gray">
+    <div class="mb-4 p-3 bg-white">
 
         <form [formGroup]="profileForm">
             <div class="form-group">
-                <div class="row">
+                <div class="row align-items-center">
                     <p class="col-md-4 py-2 text-md-right"> {{ 'common.familyName' | translate }}</p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" formControlName="familyName" id="familyName"
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="row">
+                <div class="row align-items-center">
                     <p class="col-md-4 py-2 text-md-right"> {{ 'common.givenName' | translate }}</p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" formControlName="givenName" id="givenName"
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="row">
+                <div class="row align-items-center">
                     <p class="col-md-4 py-2 text-md-right"> {{ 'common.email' | translate }}</p>
                     <div class="col-md-8">
                         <input type="email" class="form-control" formControlName="email" id="email"
@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="form-group mb-0">
-                <div class="row">
+                <div class="row align-items-center">
                     <p class="col-md-4 py-2 text-md-right"> {{ 'common.telephone' | translate }}</p>
                     <div class="col-md-8">
                         <input type="tel" class="form-control" formControlName="telephone" id="telephone"
@@ -95,10 +95,10 @@
             </div>
         </form>
     </div>
-    <div class="buttons mx-auto">
+    <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="updateProfile()">{{ 'mypage.profile.next' | translate }}</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
+        <button type="button" class="btn btn-link"
             routerLink="/mypage">{{ 'mypage.profile.prev' | translate }}</button>
     </div>
 

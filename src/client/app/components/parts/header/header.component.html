@@ -1,5 +1,4 @@
-<header class="fixed-top bg-light-gray text-white shadow-sm border-bottom border-gray">
-    <hr class="bg-primary m-0 border-0">
+<header class="fixed-top bg-primary text-white  border-bottom border-gray">
     <div class="header contents-width mx-auto d-flex align-items-center justify-content-between px-3">
         <div class="logo">
             <img class="d-none d-md-block h-100" src="/assets/images/logo.svg">
@@ -7,17 +6,16 @@
         </div>
         <div class="d-flex align-items-center">
             <div class="mr-3 d-flex align-items-center">
-                <i class="fas fa-globe mr-2 text-large text-dark-gray"></i>
-                <select class="form-control" [(ngModel)]="language" (change)="changeLanguage()">
+                <select class="form-control border-0" [(ngModel)]="language" (change)="changeLanguage()">
                     <option value="ja">日本語</option>
                     <option value="en">English</option>
                 </select>
             </div>
             <div *ngIf="environment.HEADER_MENU" class="menu-button pointer" [class.active]="isMenuOpen"
                 (click)="(isMenuOpen) ? menuClose() : menuOpen()">
-                <div class="bg-dark-gray"></div>
-                <div class="bg-dark-gray"></div>
-                <div class="bg-dark-gray"></div>
+                <div class="bg-white"></div>
+                <div class="bg-white"></div>
+                <div class="bg-white"></div>
             </div>
         </div>
     </div>

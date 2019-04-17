@@ -218,7 +218,7 @@ export class OrderEffects {
                         await this.starPrint.printProcess({ canvasList, testFlg });
                         break;
                     case connectionType.Image:
-                        const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray shadow-sm">
+                        const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray ">
                         <img class="w-100" src="${canvas.toDataURL()}">
                         </div>`);
                         this.util.openAlert({

@@ -1,4 +1,4 @@
-<div class="contents-width mx-auto px-3 pt-5">
+<div *ngIf="!((purchase | async)?.external?.sellerId)" class="contents-width mx-auto px-3 pt-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.seller.title' | translate }}</h2>
     <p class="mb-4">{{ 'purchase.event.seller.read' | translate }}</p>
 
@@ -24,15 +24,15 @@
         </p>
         <p *ngIf="screeningWorkEvents.length === 0" class="mb-3">{{ 'purchase.event.schedule.notfound' | translate }}
         </p>
-        <app-purchase-event-schedule-work *ngFor="let screeningWorkEvent of screeningWorkEvents"
+        <app-purchase-event-performance-confirm *ngFor="let screeningWorkEvent of screeningWorkEvents"
             [screeningWorkEvent]="screeningWorkEvent" [readonly]="true" (select)="selectSchedule($event)" class="mb-3">
-        </app-purchase-event-schedule-work>
+        </app-purchase-event-performance-confirm>
     </div>
 
-    <div class="buttons mx-auto">
+    <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3"
             (click)="onSubmit()">{{ 'purchase.event.schedule.next' | translate }}</button>
-        <!-- <button type="button" class="btn btn-outline-primary btn-block py-3"
+        <!-- <button type="button" class="btn btn-link"
             routerLink="/purchase/event/schedule">{{ 'purchase.event.schedule.prev' | translate }}</button> -->
     </div>
 </div>

@@ -1,0 +1,54 @@
+<div class="">
+    <div class="bg-gray p-3">
+        <div class="mb-2">
+            <p class="font-weight-bold">{{ screeningWorkEvent.info.name | changeLanguage }}</p>
+            <p class="text-small"
+                *ngIf="screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)">
+                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>
+            <p class="text-small"
+                *ngIf="screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)">{{
+                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>
+        </div>
+        <div class="d-flex align-items-center">
+            <!-- <div *ngIf="screeningWorkEvent.info.workPerformed.contentRating"
+                class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{
+                screeningWorkEvent.info.workPerformed.contentRating }}</div>
+            <div *ngIf="screeningWorkEvent.info.superEvent.dubLanguage"
+                class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.dubbing' | translate }}</div>
+            <div *ngIf="screeningWorkEvent.info.superEvent.subtitleLanguage"
+                class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.subtitles' | translate }}</div> -->
+            <div *ngIf="screeningWorkEvent.info.workPerformed.duration !== null" class="text-small ml-auto">
+                {{
+                moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}</div>
+        </div>
+    </div>
+    <div class="p-3 bg-white d-flex flex-wrap" [class.not-event]="readonly">
+        <div *ngFor="let screeningEvent of screeningWorkEvent.data"
+            class="w-50 my-2"
+            [ngClass]="{ 
+            'text-dark-gray': !(moment(screeningEvent.offers.validFrom).unix() < moment().unix() && moment(screeningEvent.offers.validThrough).unix() > moment().unix()) || screeningEvent.remainingAttendeeCapacity === 0
+            }">
+            <div class="d-flex align-items-center">
+                <div class="mr-2 font-weight-bold">{{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}</div>
+                <div class="status"
+                    *ngIf="(moment(screeningEvent.offers.validFrom).unix() < moment().unix() && moment(screeningEvent.offers.validThrough).unix() > moment().unix())">
+                    <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'success')" class="">
+                        <img src="/assets/images/icon/status_success.svg">
+                    </div>
+                    <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'warning')"
+                        class="d-flex justify-content-around align-items-center">
+                        <img src="/assets/images/icon/status_warning.svg">
+                    </div>
+                    <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'danger')" class="">
+                        <img src="/assets/images/icon/status_danger.svg">
+                    </div>
+                </div>
+
+                <div class="status text-x-small" *ngIf="!(moment(screeningEvent.offers.validThrough).unix() > moment().unix())">
+                    {{ 'purchase.cinema.schedule.status.endSale' | translate }}</div>
+                <div class="status text-x-small" *ngIf="!(moment(screeningEvent.offers.validFrom).unix() < moment().unix())">
+                    {{ 'purchase.cinema.schedule.status.outsideSalesPeriod' | translate }}</div>
+            </div>
+        </div>
+    </div>
+</div>

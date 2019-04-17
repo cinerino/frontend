@@ -459,6 +459,8 @@
         "confirm": "確認",
         "complete": "完了",
         "warning": "警告",
+        "change": "変更",
+        "remove": "削除",
         "balance": "残高",
         "coin": {
             "balance": "コイン口座残高",

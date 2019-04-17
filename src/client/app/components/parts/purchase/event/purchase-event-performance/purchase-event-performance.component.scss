@@ -1,0 +1,13 @@
+@import '../../../../../../assets/scss/theme';
+
+:host {
+    display: block;
+}
+
+.status {
+    line-height: 24px;
+    img {
+        width: 24px;
+        height: 24px;
+    }
+}

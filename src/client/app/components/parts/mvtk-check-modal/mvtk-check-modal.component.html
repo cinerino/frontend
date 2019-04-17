@@ -41,13 +41,13 @@
                     </div>
                 </div>
             </div>
-            <div class="buttons mx-auto">
+            <div class="buttons mx-auto text-center">
                 <button *ngIf="stream === null" type="button" class="btn btn-success btn-block py-3"
                     [disabled]="isLoading | async"
                     (click)="activationCamera()">{{ 'modal.mvtkCheck.camera.start' | translate }}</button>
                 <button type="button" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async"
                     (click)="checkMovieTicket()">{{ 'modal.mvtkCheck.next' | translate }}</button>
-                <button type="button" class="btn btn-outline-primary btn-block py-3"
+                <button type="button" class="btn btn-link"
                     (click)="activeModal.dismiss()">{{ 'common.close' | translate }}</button>
             </div>
         </div>

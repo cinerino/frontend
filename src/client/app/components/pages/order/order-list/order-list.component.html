@@ -1,7 +1,7 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'order.list.title' | translate }}</h2>
     <p class="mb-4">{{ 'order.list.read' | translate }}</p>
-    <div class="conditions p-3 bg-light-gray mb-4">
+    <div class="conditions p-3 bg-white mb-4">
         <form (submit)="orderSearch(true)">
             <div class="form-row">
                 <div class="form-group col-md-4">
@@ -67,7 +67,7 @@
                     </select>
                 </div>
             </div>
-            <div class="buttons mx-auto">
+            <div class="buttons mx-auto text-center">
                 <button type="submit" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async">{{ 'order.list.search' | translate }}</button>
             </div>
         </form>
@@ -92,7 +92,7 @@
         </div>
 
         <div class="scroll-horizontal">
-            <table class="table border text-small mb-0">
+            <table class="table bg-white border text-small mb-0">
                 <thead>
                     <tr>
                         <th scope="col"></th>

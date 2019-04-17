@@ -1,8 +1,8 @@
 <div class="p-3 scroll-vertical">
     <div class="mb-3 text-large">{{ title }}</div>
     <p class="mb-3" [innerHTML]="body"></p>
-    <div class="buttons mx-auto">
+    <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" (click)="activeModal.close()">{{ 'common.yes' | translate }}</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-3" (click)="activeModal.dismiss()">{{ 'common.no' | translate }}</button>
+        <button type="button" class="btn btn-link" (click)="activeModal.dismiss()">{{ 'common.no' | translate }}</button>
     </div>
 </div>

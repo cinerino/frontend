@@ -17,7 +17,7 @@
         <button *ngIf="!isPreSchedule" type="button" class="btn btn-primary btn-block py-3"
             [disabled]="isLoading | async"
             (click)="changeScheduleType()">{{ 'purchase.cinema.schedule.preSalesSchedule' | translate }}</button>
-        <button *ngIf="isPreSchedule" type="button" class="btn btn-outline-primary btn-block py-3"
+        <button *ngIf="isPreSchedule" type="button" class="btn btn-link"
             [disabled]="isLoading | async"
             (click)="changeScheduleType()">{{ 'purchase.cinema.schedule.salesSchedule' | translate }}</button>
     </div>
@@ -50,7 +50,7 @@
         {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}
     </p>
     <p *ngIf="screeningWorkEvents.length === 0" class="mb-3">{{ 'purchase.cinema.schedule.notfound' | translate }}</p>
-    <app-purchase-cinema-schedule-work *ngFor="let screeningWorkEvent of screeningWorkEvents"
+    <app-purchase-cinema-performance *ngFor="let screeningWorkEvent of screeningWorkEvents"
         [screeningWorkEvent]="screeningWorkEvent" (select)="selectSchedule($event)" class="mb-3">
-    </app-purchase-cinema-schedule-work>
+    </app-purchase-cinema-performance>
 </div>

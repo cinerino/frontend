@@ -4,11 +4,11 @@ import * as moment from 'moment';
 import { IScreeningEventWork, isScheduleStatusThreshold } from '../../../../../functions';
 
 @Component({
-    selector: 'app-purchase-event-schedule-work',
-    templateUrl: './purchase-event-schedule-work.component.html',
-    styleUrls: ['./purchase-event-schedule-work.component.scss']
+    selector: 'app-purchase-event-performance-confirm',
+    templateUrl: './purchase-event-performance-confirm.component.html',
+    styleUrls: ['./purchase-event-performance-confirm.component.scss']
 })
-export class PurchaseEventScheduleWorkComponent implements OnInit {
+export class PurchaseEventPerformanceConfirmComponent implements OnInit {
 
     @Input() public screeningWorkEvent: IScreeningEventWork;
     @Input() public readonly: boolean;
