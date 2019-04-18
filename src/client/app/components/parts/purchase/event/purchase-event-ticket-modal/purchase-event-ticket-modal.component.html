@@ -12,7 +12,7 @@
         <p class="font-weight-bold mb-1">
             {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
         </p>
-        <p class="text-small d-flex mb-1">
+        <p class="text-small mb-1">
             <span>
                 {{ screeningEvent.superEvent.location.name | changeLanguage }}
             </span>

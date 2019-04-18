@@ -60,14 +60,14 @@
                             <div class="status"
                                 *ngIf="!(moment(screeningEvent.offers.validFrom).unix() < moment().unix())">
                                 {{ 'purchase.cinema.schedule.status.outsideSalesPeriod' | translate }}</div>
-                            <div *ngIf="screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat"
+                            <!-- <div *ngIf="screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat"
                                 class="mb-2 text-small">{{ 'common.seat' | translate }}
                                 {{ screeningEvent.remainingAttendeeCapacity }} /
                                 {{ screeningEvent.maximumAttendeeCapacity }}
                             </div>
                             <div *ngIf="!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat)"
                                 class="mb-2 text-small">
-                                {{ 'purchase.event.schedule.infiniteStock' | translate }}</div>
+                                {{ 'purchase.event.schedule.infiniteStock' | translate }}</div> -->
                             <!-- <div class="text-small mb-1">{{ 'common.ticketing' | translate }}
                                 {{ screeningEvent.checkInCount }}
                             </div>

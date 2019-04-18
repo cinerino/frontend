@@ -27,7 +27,7 @@
                 <p class="font-weight-bold mb-1">
                     {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}
                 </p>
-                <p class="text-small d-flex mb-1">
+                <p class="text-small mb-1">
                     <span>{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
                     <span>&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>
                     <span *ngIf="eventOrder.event.workPerformed.duration !== null">
