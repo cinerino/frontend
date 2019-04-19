@@ -87,7 +87,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.purchase.subscribe((purchase) => {
             if (this.isPreSchedule) {
                 this.scheduleDates = [];
-                for (let i = 0; i < 7; i++) {
+                for (let i = 0; i < Number(environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
                     this.scheduleDates.push(moment().add(i, 'day').format('YYYY-MM-DD'));
                 }
             } else {
@@ -170,7 +170,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public selectSeller(seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>) {
         this.store.dispatch(new purchaseAction.SelectSeller({ seller }));
         this.scheduleDates = [];
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < Number(environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
             this.scheduleDates.push(moment().add(i, 'day').format('YYYY-MM-DD'));
         }
         this.isPreSchedule = false;
@@ -228,7 +228,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 return;
             }
             if (scheduleDate === undefined || scheduleDate === '') {
-                scheduleDate = this.scheduleDates[0];
+                scheduleDate = moment()
+                    .add(environment.PURCHASE_SCHEDULE_DEFAULT_ADD_DATE, 'day')
+                    .format('YYYY-MM-DD');
             }
             this.store.dispatch(new purchaseAction.SelectScheduleDate({ scheduleDate }));
             this.store.dispatch(new masterAction.GetSchedule({

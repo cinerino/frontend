@@ -17,7 +17,7 @@
         <button *ngIf="!isPreSchedule" type="button" class="btn btn-primary btn-block py-3"
             [disabled]="isLoading | async"
             (click)="changeScheduleType()">{{ 'purchase.cinema.schedule.preSalesSchedule' | translate }}</button>
-        <button *ngIf="isPreSchedule" type="button" class="btn btn-link"
+        <button *ngIf="isPreSchedule" type="button" class="btn btn-outline-primary btn-block py-3"
             [disabled]="isLoading | async"
             (click)="changeScheduleType()">{{ 'purchase.cinema.schedule.salesSchedule' | translate }}</button>
     </div>
