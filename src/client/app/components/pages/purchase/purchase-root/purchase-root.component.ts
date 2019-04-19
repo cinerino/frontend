@@ -29,10 +29,13 @@ export class PurchaseRootComponent implements OnInit {
         this.store.dispatch(new purchaseAction.Delete());
         this.user.subscribe((user) => {
             const snapshot = this.activatedRoute.snapshot;
-            this.store.dispatch(new purchaseAction.SetExternal({
-                sellerId: snapshot.params.sellerId,
-                eventId: snapshot.params.eventId
-            }));
+            const sellerId = snapshot.params.sellerId;
+            const eventId = snapshot.params.eventId;
+            const language = snapshot.params.language;
+            this.store.dispatch(new purchaseAction.SetExternal({ sellerId, eventId }));
+            if (language !== undefined) {
+                (<HTMLSelectElement>document.querySelector('#language')).value = language;
+            }
             if (user.viewType === ViewType.Cinema) {
                 this.router.navigate(['/purchase/cinema/schedule']);
                 return;
