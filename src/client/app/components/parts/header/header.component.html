@@ -5,10 +5,9 @@
             <img class="d-md-none h-100" src="/assets/images/logo_02.svg">
         </div>
         <div class="d-flex align-items-center">
-            <div class="mr-3 d-flex align-items-center">
+            <div *ngIf="environment.LANGUAGE.length > 1" class="mr-3 d-flex align-items-center">
                 <select class="form-control border-0" [(ngModel)]="language" (change)="changeLanguage()">
-                    <option value="ja">日本語</option>
-                    <option value="en">English</option>
+                    <option *ngFor="let language of environment.LANGUAGE" [value]="language">{{ getLanguageName(language) }}</option>
                 </select>
             </div>
             <div *ngIf="environment.HEADER_MENU" class="menu-button pointer" [class.active]="isMenuOpen"

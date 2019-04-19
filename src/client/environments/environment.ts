@@ -13,6 +13,7 @@ export const environment = {
     STORAGE_NAME: 'CINERINO-FRONTEND-STATE',
     STORAGE_TYPE: 'sessionStorage',
     BASE_URL: '/purchase/root',
+    LANGUAGE: ['ja', 'en'],
     HEADER_MENU: true,
     HEADER_MENU_SCOPE: ['purchase', 'inquiry', 'order', 'mypage', 'setting', 'auth'],
     PURCHASE_CART_MAX_LENGTH: '1',

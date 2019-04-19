@@ -3,6 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { Language } from '../../../models';
 import { userAction } from '../../../store/actions';
 import * as reducers from '../../../store/reducers';
 
@@ -40,6 +41,10 @@ export class HeaderComponent implements OnInit {
         const html = <HTMLElement>document.querySelector('html');
         html.setAttribute('lang', this.language);
         // console.log('translate', this.translate);
+    }
+
+    public getLanguageName(key: string) {
+        return (<any>Language)[key];
     }
 
     public menuOpen() {

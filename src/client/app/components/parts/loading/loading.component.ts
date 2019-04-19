@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ILanguage } from '../../../models';
 
 @Component({
     selector: 'app-loading',
@@ -8,7 +7,7 @@ import { ILanguage } from '../../../models';
 })
 export class LoadingComponent implements OnInit {
     @Input() public isLoading: boolean;
-    @Input() public process: ILanguage;
+    @Input() public process: string;
 
     constructor() { }
 
