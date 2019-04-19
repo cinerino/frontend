@@ -122,6 +122,9 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 this.router.navigate(['/error']);
                 return;
             }
+            if (this.scheduleDate === '') {
+                this.scheduleDate = moment().format('YYYY-MM-DD');
+            }
             const scheduleDate = this.scheduleDate;
             this.store.dispatch(new purchaseAction.SelectScheduleDate({ scheduleDate }));
             this.store.dispatch(new masterAction.GetSchedule({
