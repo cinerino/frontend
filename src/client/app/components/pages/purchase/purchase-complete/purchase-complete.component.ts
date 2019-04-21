@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 import { getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
 import * as reducers from '../../../../store/reducers';
 
@@ -16,6 +17,7 @@ export class PurchaseCompleteComponent implements OnInit {
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
     public eventOrders: IEventOrder[];
+    public environment = environment;
 
     constructor(
         private store: Store<reducers.IState>,

@@ -36,7 +36,10 @@
 
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" (click)="onSubmit()">{{ 'inquiry.input.next' | translate }}</button>
-        <button type="button" class="btn btn-link" routerLink="/purchase/root">{{ 'inquiry.input.prev' | translate }}</button>
+        <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-link"
+            [href]="environment.PORTAL_SITE_URL">{{ 'inquiry.input.prev' | translate }}</a>
+        <button *ngIf="!environment.PORTAL_SITE_URL" type="button" class="btn btn-link"
+            routerLink="/">{{ 'inquiry.input.prev' | translate }}</button>
     </div>
 
 </div>

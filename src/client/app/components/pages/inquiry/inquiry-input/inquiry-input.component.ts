@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
 import { race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment';
 import { UtilService } from '../../../../services';
 import { orderAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
@@ -18,6 +19,7 @@ import * as reducers from '../../../../store/reducers';
 })
 export class InquiryInputComponent implements OnInit {
     public inquiryForm: FormGroup;
+    public environment = environment;
     constructor(
         private actions: Actions,
         private formBuilder: FormBuilder,

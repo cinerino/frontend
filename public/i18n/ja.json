@@ -18,7 +18,8 @@
                     "warning": "購入",
                     "danger": "満席",
                     "endSale": "販売終了",
-                    "outsideSalesPeriod": "販売期間外"
+                    "outsideSalesPeriod": "販売期間外",
+                    "window": "窓口"
                 },
                 "infiniteStock": "在庫管理なし",
                 "next": "次へ",
@@ -77,7 +78,8 @@
                     "warning": "購入",
                     "danger": "満席",
                     "endSale": "販売終了",
-                    "outsideSalesPeriod": "販売期間外"
+                    "outsideSalesPeriod": "販売期間外",
+                    "window": "窓口"
                 },
                 "infiniteStock": "在庫管理なし",
                 "next": "次へ",
@@ -409,6 +411,12 @@
             "AddCreditCard": "クレジットカード情報を登録しています",
             "RemoveCreditCard": "クレジットカード情報を削除しています"
         }
+    },
+    "footer": {
+        "company": "会社概要",
+        "law": "特定商取引法に基づく表記",
+        "privacyPolicy": "プライバシーポリシー",
+        "copyright": "Copyright (c) Motionpicture co.,ltd. All rights reserved."
     },
     "common": {
         "date": {

@@ -6,6 +6,9 @@
     </div>
 
     <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-link" routerLink="/">{{ 'maintenance.prev' | translate }}</button>
+        <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-link"
+            [href]="environment.PORTAL_SITE_URL">{{ 'maintenance.prev' | translate }}</a>
+        <button *ngIf="!environment.PORTAL_SITE_URL" type="button" class="btn btn-link"
+            routerLink="/">{{ 'maintenance.prev' | translate }}</button>
     </div>
 </div>

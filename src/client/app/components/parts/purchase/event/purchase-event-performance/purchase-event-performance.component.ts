@@ -31,10 +31,10 @@ export class PurchaseEventPerformanceComponent implements OnInit {
                 767: { slidesPerView: 2.5 },
                 1024: { slidesPerView: 5.5 }
             },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            }
+            // navigation: {
+            //     nextEl: '.swiper-button-next',
+            //     prevEl: '.swiper-button-prev',
+            // }
         };
     }
 

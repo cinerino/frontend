@@ -1,14 +1,17 @@
 <div class="contents-width mx-auto px-3 py-5">
     <div class="mb-4">
 
-            <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'error.title' | translate }}</h2>
-            <p class="mb-4">{{ 'error.read' | translate }}</p>
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'error.title' | translate }}</h2>
+        <p class="mb-4">{{ 'error.read' | translate }}</p>
         <div class="p-3 bg-white select-text">
             <code>{{ (error | async) }}</code>
         </div>
     </div>
 
     <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-link" routerLink="/">{{ 'error.prev' | translate }}</button>
+        <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-link"
+            [href]="environment.PORTAL_SITE_URL">{{ 'error.prev' | translate }}</a>
+        <button *ngIf="!environment.PORTAL_SITE_URL" type="button" class="btn btn-link"
+            routerLink="/">{{ 'error.prev' | translate }}</button>
     </div>
 </div>

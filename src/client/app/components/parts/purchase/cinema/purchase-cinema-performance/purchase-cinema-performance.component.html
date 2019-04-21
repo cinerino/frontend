@@ -58,6 +58,8 @@
                     </div>
                 </div>
 
+                <div class="status mb-2" *ngIf="isSales(screeningEvent, 'window')">
+                    {{ 'purchase.cinema.schedule.status.window' | translate }}</div>
                 <div class="status mb-2" *ngIf="isSales(screeningEvent, 'end')">
                     {{ 'purchase.cinema.schedule.status.endSale' | translate }}</div>
                 <div class="status mb-2" *ngIf="isSales(screeningEvent, 'start')">

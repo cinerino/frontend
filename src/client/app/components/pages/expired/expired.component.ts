@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { environment } from '../../../../environments/environment';
 import { purchaseAction, userAction } from '../../../store/actions';
 import * as reducers from '../../../store/reducers';
 
@@ -9,7 +10,7 @@ import * as reducers from '../../../store/reducers';
     styleUrls: ['./expired.component.scss']
 })
 export class ExpiredComponent implements OnInit {
-
+    public environment = environment;
     constructor(
         private store: Store<reducers.IState>
     ) { }
