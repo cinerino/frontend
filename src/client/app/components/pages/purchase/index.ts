@@ -9,3 +9,4 @@ export * from './cinema/purchase-cinema-ticket/purchase-cinema-ticket.component'
 export * from './event/purchase-event-schedule/purchase-event-schedule.component';
 export * from './event/purchase-event-ticket/purchase-event-ticket.component';
 export * from './purchase-root/purchase-root.component';
+export * from './purchase-transaction/purchase-transaction.component';

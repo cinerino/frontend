@@ -24,8 +24,9 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public error: Observable<string | null>;
     public screeningWorkEvents: IScreeningEventWork[];
     public moment: typeof moment = moment;
-    private updateTimer: any;
     public scheduleDate: string;
+    public environment = environment;
+    private updateTimer: any;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -134,9 +135,11 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             this.store.dispatch(new masterAction.GetSchedule({
                 superEvent: {
                     ids:
-                        (purchase.external === undefined || purchase.external.eventId === undefined) ? [] : [purchase.external.eventId],
+                        (purchase.external === undefined || purchase.external.superEventId === undefined)
+                            ? [] : [purchase.external.superEventId],
                     locationBranchCodes:
-                        (seller.location === undefined || seller.location.branchCode === undefined) ? [] : [seller.location.branchCode]
+                        (seller.location === undefined || seller.location.branchCode === undefined)
+                            ? [] : [seller.location.branchCode]
                 },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()

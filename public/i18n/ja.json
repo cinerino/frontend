@@ -23,7 +23,7 @@
                 },
                 "infiniteStock": "在庫管理なし",
                 "next": "次へ",
-                "prev": "",
+                "prev": "戻る",
                 "alert": {
                     "ticketedSeat": "劇場表示では座席管理なしのパフォーマンスを選択できません。"
                 }
@@ -83,7 +83,7 @@
                 },
                 "infiniteStock": "在庫管理なし",
                 "next": "次へ",
-                "prev": ""
+                "prev": "戻る"
             },
             "ticket": {
                 "title": "券種選択",
@@ -401,7 +401,8 @@
             "CreateGmoTokenObject": "GMOオブジェクトを作成しています",
             "AuthorizeMovieTicket": "ムビチケ情報を承認しています",
             "CheckMovieTicket": "ムビチケ情報を確認しています",
-            "Reserve": "取引を確定しています"
+            "Reserve": "取引を確定しています",
+            "ConvertExternalToPurchase": "外部データから情報をしています"
         },
         "userAction": {
             "InitializeProfile": "プロフィールを初期化しています",

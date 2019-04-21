@@ -54,3 +54,8 @@
         [screeningWorkEvent]="screeningWorkEvent" (select)="selectSchedule($event)" class="mb-3">
     </app-purchase-cinema-performance>
 </div>
+
+<div class="buttons mx-auto text-center">
+    <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-link"
+        [href]="environment.PORTAL_SITE_URL">{{ 'purchase.cinema.schedule.prev' | translate }}</a>
+</div>

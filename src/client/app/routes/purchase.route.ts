@@ -10,7 +10,8 @@ import {
     PurchaseEventScheduleComponent,
     PurchaseEventTicketComponent,
     PurchaseInputComponent,
-    PurchaseRootComponent
+    PurchaseRootComponent,
+    PurchaseTransactionComponent
 } from '../components/pages';
 
 
@@ -48,10 +49,11 @@ export const schedule = {
     path: 'purchase',
     component: BaseComponent,
     children: [
-        { path: 'root/:language/:sellerId/:eventId', component: PurchaseRootComponent },
+        { path: 'root/:language/:sellerId/:superEventId', component: PurchaseRootComponent },
         { path: 'root/:language/:sellerId', component: PurchaseRootComponent },
         { path: 'root/:language', component: PurchaseRootComponent },
         { path: 'root', component: PurchaseRootComponent },
+        { path: 'transaction/:language/:sellerId/:eventId', component: PurchaseTransactionComponent },
         {
             path: 'cinema',
             children: [

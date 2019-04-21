@@ -40,6 +40,7 @@ import {
     PurchaseEventTicketComponent,
     PurchaseInputComponent,
     PurchaseRootComponent,
+    PurchaseTransactionComponent,
     SettingComponent
 } from './components/pages';
 import {
@@ -131,7 +132,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         MypageCreditComponent,
         MypageCoinComponent,
         ChargeCoinModalComponent,
-        RegisteredCreditCardModalComponent
+        RegisteredCreditCardModalComponent,
+        PurchaseTransactionComponent
     ],
     entryComponents: [
         PurchaseCinemaTicketModalComponent,

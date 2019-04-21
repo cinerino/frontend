@@ -491,4 +491,25 @@ export class PurchaseEffects {
             }
         })
     );
+
+    /**
+     * ConvertExternalToPurchase
+     */
+    @Effect()
+    public convertExternalToPurchase = this.actions.pipe(
+        ofType<purchaseAction.ConvertExternalToPurchase>(purchaseAction.ActionTypes.ConvertExternalToPurchase),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            const eventId = payload.eventId;
+            const sellerId = payload.sellerId;
+            try {
+                await this.cinerino.getServices();
+                const screeningEvent = await this.cinerino.event.findScreeningEventById({ id: eventId });
+                const seller = await this.cinerino.seller.findById({ id: sellerId });
+                return new purchaseAction.ConvertExternalToPurchaseSuccess({ screeningEvent, seller });
+            } catch (error) {
+                return new purchaseAction.ConvertExternalToPurchaseFail({ error: error });
+            }
+        })
+    );
 }

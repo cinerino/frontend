@@ -57,6 +57,9 @@ export enum ActionTypes {
     CreateGmoTokenObjectSuccess = '[Purchase] Create Gmo Token Object Success',
     CreateGmoTokenObjectFail = '[Purchase] Create Gmo Token Object Fail',
     SetExternal = '[Purchase] Set External',
+    ConvertExternalToPurchase = '[Purchase] Convert External To Purchase',
+    ConvertExternalToPurchaseSuccess = '[Purchase] Convert External To Purchase Success',
+    ConvertExternalToPurchaseFail = '[Purchase] Convert External To Purchase Fail',
 }
 
 /**
@@ -553,7 +556,38 @@ export class CreateGmoTokenObjectFail implements Action {
  */
 export class SetExternal implements Action {
     public readonly type = ActionTypes.SetExternal;
-    constructor(public payload: { sellerId?: string; eventId?: string; }) { }
+    constructor(public payload: {
+        sellerId?: string;
+        superEventId?: string;
+        eventId?: string;
+    }) { }
+}
+
+/**
+ * ConvertExternalToPurchase
+ */
+export class ConvertExternalToPurchase implements Action {
+    public readonly type = ActionTypes.ConvertExternalToPurchase;
+    constructor(public payload: { eventId: string; sellerId: string; }) { }
+}
+
+/**
+ * ConvertExternalToPurchaseSuccess
+ */
+export class ConvertExternalToPurchaseSuccess implements Action {
+    public readonly type = ActionTypes.ConvertExternalToPurchaseSuccess;
+    constructor(public payload: {
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    }) { }
+}
+
+/**
+ * ConvertExternalToPurchaseFail
+ */
+export class ConvertExternalToPurchaseFail implements Action {
+    public readonly type = ActionTypes.ConvertExternalToPurchaseFail;
+    constructor(public payload: { error: Error }) { }
 }
 
 
@@ -610,4 +644,7 @@ export type Actions =
     | CreateGmoTokenObject
     | CreateGmoTokenObjectSuccess
     | CreateGmoTokenObjectFail
-    | SetExternal;
+    | SetExternal
+    | ConvertExternalToPurchase
+    | ConvertExternalToPurchaseSuccess
+    | ConvertExternalToPurchaseFail;

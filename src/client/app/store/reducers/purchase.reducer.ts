@@ -32,7 +32,12 @@ export interface IPurchaseState {
     checkMovieTicketAction?: factory.action.check.paymentMethod.movieTicket.IAction;
     isUsedMovieTicket: boolean;
     pendingMovieTickets: IMovieTicket[];
-    external?: { sellerId?: string; eventId?: string; };
+    external?: {
+        sellerId?: string;
+        superEventId?: string;
+        eventId?: string;
+        passportToken?: string;
+    };
 }
 
 export const purchaseInitialState: IPurchaseState = {
@@ -274,7 +279,7 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case purchaseAction.ActionTypes.CancelTemporaryReservations: {
-            return { ...state, loading: true, process: 'purchaseAction.CancelTemporaryReservations'};
+            return { ...state, loading: true, process: 'purchaseAction.CancelTemporaryReservations' };
         }
         case purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess: {
             const authorizeSeatReservations = action.payload.authorizeSeatReservations;
@@ -409,10 +414,24 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
         }
         case purchaseAction.ActionTypes.SetExternal: {
             const sellerId = action.payload.sellerId;
+            const superEventId = action.payload.superEventId;
             const eventId = action.payload.eventId;
-            state.purchaseData.external =
-                (sellerId === undefined && eventId === undefined) ? undefined : { sellerId, eventId };
+            state.purchaseData.external = { sellerId, superEventId, eventId };
             return { ...state };
+        }
+        case purchaseAction.ActionTypes.ConvertExternalToPurchase: {
+            return { ...state, loading: true, process: 'purchaseAction.ConvertExternalToPurchase' };
+        }
+        case purchaseAction.ActionTypes.ConvertExternalToPurchaseSuccess: {
+            const screeningEvent = action.payload.screeningEvent;
+            const seller = action.payload.seller;
+            state.purchaseData.screeningEvent = screeningEvent;
+            state.purchaseData.seller = seller;
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case purchaseAction.ActionTypes.ConvertExternalToPurchaseFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         default: {
             return state;
