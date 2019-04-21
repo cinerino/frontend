@@ -229,7 +229,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             }
             if (scheduleDate === undefined || scheduleDate === '') {
                 scheduleDate = moment()
-                    .add(environment.PURCHASE_SCHEDULE_DEFAULT_ADD_DATE, 'day')
+                    .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .format('YYYY-MM-DD');
             }
             this.store.dispatch(new purchaseAction.SelectScheduleDate({ scheduleDate }));

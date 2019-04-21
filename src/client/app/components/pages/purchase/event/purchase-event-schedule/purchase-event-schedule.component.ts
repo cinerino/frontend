@@ -43,7 +43,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.screeningWorkEvents = [];
         if (this.scheduleDate === undefined || this.scheduleDate === '') {
             this.scheduleDate = moment()
-                .add(environment.PURCHASE_SCHEDULE_DEFAULT_ADD_DATE, 'day')
+                .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                 .format('YYYY-MM-DD');
         }
         this.getSellers();
@@ -126,7 +126,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             }
             if (this.scheduleDate === '') {
                 this.scheduleDate = moment()
-                    .add(environment.PURCHASE_SCHEDULE_DEFAULT_ADD_DATE, 'day')
+                    .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .format('YYYY-MM-DD');
             }
             const scheduleDate = this.scheduleDate;
