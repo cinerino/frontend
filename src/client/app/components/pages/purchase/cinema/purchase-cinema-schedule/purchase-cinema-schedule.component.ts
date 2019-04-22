@@ -231,9 +231,11 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 return;
             }
             if (scheduleDate === undefined || scheduleDate === '') {
-                scheduleDate = moment()
-                    .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                    .format('YYYY-MM-DD');
+                scheduleDate = (this.isPreSchedule)
+                    ? this.scheduleDates[0]
+                    : moment()
+                        .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                        .format('YYYY-MM-DD');
             }
             this.store.dispatch(new purchaseAction.SelectScheduleDate({ scheduleDate }));
             this.store.dispatch(new masterAction.GetSchedule({
