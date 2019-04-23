@@ -1,0 +1,22 @@
+{
+    "size": { "width": 560, "height": 680 },
+    "font": "\"Hiragino Sans\", \"Hiragino Kaku Gothic ProN\", \"游ゴシック  Medium\", meiryo, sans-serif",
+    "text": [
+        { "name": "startDate", "value": "YY/MM/DD(ddd)", "fillStyle": "black", "font": { "weight": "normal", "size": "40px" }, "textAlign": "center", "fillText": { "x": "center", "y": 140 } },
+        { "name": "eventName", "fillStyle": "black", "font": { "weight": "bold", "size": "40px" }, "textAlign": "center", "fillText": { "x": "center", "y": 270 } },
+        { "name": "ticketName", "fillStyle": "black", "font": { "weight": "normal", "size": "40px" }, "textAlign": "left", "fillText": { "x": "left", "y": 460 } },
+        { "name": "price", "fillStyle": "black", "font": { "weight": "normal", "size": "40px" }, "textAlign": "right", "fillText": { "x": "right", "y": 460 } },
+        { "value": "■ 変更、払戻不可", "fillStyle": "black", "font": { "weight": "normal", "size": "22px" }, "textAlign": "left", "fillText": { "x": "left", "y": 510 } },
+        { "name": "confirmationNumber", "fillStyle": "black", "font": { "weight": "normal", "size": "22px" }, "textAlign": "left", "fillText": { "x": "left", "y": 580 } },
+        { "name": "orderNumber", "fillStyle": "black", "font": { "weight": "normal", "size": "22px" }, "textAlign": "left", "fillText": { "x": "left", "y": 610 } },
+        { "name": "posName", "fillStyle": "black", "font": { "weight": "normal", "size": "22px" }, "textAlign": "left", "fillText": { "x": "left", "y": 640 } },
+        { "name": "date", "fillStyle": "black", "font": { "weight": "normal", "size": "22px" }, "textAlign": "left", "fillText": { "x": "left", "y": 670 } }
+    ],
+    "image": [
+        { "src": "/images/print/oyatu/logo.svg", "width": 400, "height": 64, "x": 80, "y": 0 },
+        { "src": "/images/print/oyatu/box.svg", "width": 560, "height": 210, "x": 0, "y": 180 }
+    ],
+    "qrCode": [
+        { "width": 180, "height": 180, "x": 390, "y": 510 }
+    ]
+}

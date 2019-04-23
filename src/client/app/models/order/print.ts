@@ -25,7 +25,8 @@ export interface ITicketPrintData {
         | 'price'
         | 'posName'
         | 'date'
-        | 'confirmationNumber';
+        | 'confirmationNumber'
+        | 'orderNumber';
         value?: string;
         fillStyle: string;
         font: { weight: 'normal' | 'bold'; size: string; family?: string; };

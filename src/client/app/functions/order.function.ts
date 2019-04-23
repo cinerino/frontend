@@ -11,6 +11,7 @@ async function drawCanvas(args: {
     printData: ITicketPrintData,
     data: {
         confirmationNumber: number;
+        orderNumber: string;
         theaterName: string;
         screenName: string;
         eventName: string;
@@ -88,6 +89,9 @@ async function drawCanvas(args: {
                 case 'confirmationNumber':
                     value = `購入番号 ${data.confirmationNumber}`;
                     break;
+                case 'orderNumber':
+                    value = `注文番号 ${data.orderNumber}`;
+                    break;
                 case 'ticketName':
                     value = data.ticketName.slice(0, 8);
                     break;
@@ -96,6 +100,9 @@ async function drawCanvas(args: {
                     break;
                 case 'date':
                     value = `(${moment().format('YYYY/MM/DD HH:mm')} 発券)`;
+                    break;
+                case 'startDate':
+                    value = `${moment().format(text.value)}`;
                     break;
                 case 'eventName':
                     const eventName = data.eventName;
@@ -112,14 +119,14 @@ async function drawCanvas(args: {
                                 ? eventName.slice(limit, eventName.length)
                                 : eventName.slice(limit, limit * 2),
                             changePosition(text.fillText.x),
-                            changePosition(text.fillText.y) + 10 + parseInt(text.font.size, 10),
+                            changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 1.5,
                             text.fillText.maxWidth
                         );
                     } else {
                         context.fillText(
                             eventName,
                             changePosition(text.fillText.x),
-                            changePosition(text.fillText.y),
+                            changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 0.75,
                             text.fillText.maxWidth
                         );
                     }
@@ -171,6 +178,7 @@ export async function createPrintCanvas(args: {
     }
     const data = {
         confirmationNumber: args.order.confirmationNumber,
+        orderNumber: args.order.orderNumber,
         theaterName: acceptedOffer.itemOffered.reservationFor.superEvent.location.name.ja,
         screenName: acceptedOffer.itemOffered.reservationFor.location.name.ja,
         eventName: acceptedOffer.itemOffered.reservationFor.name.ja,
@@ -195,9 +203,11 @@ export async function createTestPrintCanvas(args: { printData: ITicketPrintData 
     const printData = args.printData;
     const data = {
         confirmationNumber: 12345678,
+        orderNumber: 'TEST-123456-123456',
         theaterName: 'テスト劇場',
         screenName: 'テストスクリーン',
-        eventName: 'テスト-----------------------------作品',
+        eventName: (Math.floor( Math.random() * 11 ) < 5)
+            ? 'テスト1' : 'テスト1テスト2テスト3テスト4テスト5テスト6テスト7テスト8テスト9テスト10作品',
         startDate: moment().format('YY/MM/DD (ddd) HH:mm'),
         seatNumber: 'TEST-1',
         ticketName: 'テスト1234567890券種',
