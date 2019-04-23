@@ -10,17 +10,23 @@ import { getTicketPrice } from './purchase.function';
 async function drawCanvas(args: {
     printData: ITicketPrintData,
     data: {
-        confirmationNumber: number;
-        orderNumber: string;
-        theaterName: string;
-        screenName: string;
-        eventName: string;
+        sellerNameJa: string;
+        sellerNameEn: string;
+        eventNameJa: string;
+        eventNameEn: string;
+        screenNameJa: string;
+        screenNameEn: string;
         startDate: string;
+        endDate: string;
         seatNumber?: string;
-        ticketName: string;
+        ticketNameJa: string;
+        ticketNameEn: string;
         price: number;
-        qrcode?: string;
         posName: string
+        confirmationNumber: string;
+        orderNumber: string;
+        ticketNumber: string;
+        qrcode?: string;
     }
 }) {
     console.log('printData', args.printData);
@@ -86,26 +92,18 @@ async function drawCanvas(args: {
                 case 'price':
                     value = `￥${data.price.toLocaleString()}`;
                     break;
-                case 'confirmationNumber':
-                    value = `購入番号 ${data.confirmationNumber}`;
-                    break;
-                case 'orderNumber':
-                    value = `注文番号 ${data.orderNumber}`;
-                    break;
-                case 'ticketName':
-                    value = data.ticketName.slice(0, 8);
-                    break;
                 case 'posName':
                     value = `端末 ${data.posName}`;
                     break;
                 case 'date':
                     value = `(${moment().format('YYYY/MM/DD HH:mm')} 発券)`;
                     break;
-                case 'startDate':
-                    value = `${moment().format(text.value)}`;
+                case 'startDate' || 'endDate':
+                    value = `${moment(data[text.name]).format(text.value)}`;
                     break;
-                case 'eventName':
-                    const eventName = data.eventName;
+                case 'eventNameJa':
+                case 'eventNameEn':
+                    const eventName = data[text.name];
                     const limit = Math.floor(size.width / parseInt(text.font.size, 10));
                     if (eventName.length > limit) {
                         context.fillText(
@@ -135,12 +133,16 @@ async function drawCanvas(args: {
                     value = (data.seatNumber === undefined) ? 'なし' : data.seatNumber;
                     break;
                 default:
-                    value = data[text.name];
+                    value = `${(text.value === undefined) ? '' : text.value}${data[text.name]}`;
             }
         } else if (text.value !== undefined) {
             value = text.value;
         } else {
             continue;
+        }
+        if (text.slice !== undefined) {
+            // 文字制限
+            value = value.slice(text.slice[0], text.slice[1]);
         }
         context.fillText(
             value,
@@ -177,18 +179,24 @@ export async function createPrintCanvas(args: {
         throw new Error('reservationType is not EventReservation');
     }
     const data = {
-        confirmationNumber: args.order.confirmationNumber,
-        orderNumber: args.order.orderNumber,
-        theaterName: acceptedOffer.itemOffered.reservationFor.superEvent.location.name.ja,
-        screenName: acceptedOffer.itemOffered.reservationFor.location.name.ja,
-        eventName: acceptedOffer.itemOffered.reservationFor.name.ja,
-        startDate: moment(acceptedOffer.itemOffered.reservationFor.startDate).format('YY/MM/DD (ddd) HH:mm'),
+        sellerNameJa: acceptedOffer.itemOffered.reservationFor.superEvent.location.name.ja,
+        sellerNameEn: acceptedOffer.itemOffered.reservationFor.superEvent.location.name.en,
+        eventNameJa: acceptedOffer.itemOffered.reservationFor.name.ja,
+        eventNameEn: acceptedOffer.itemOffered.reservationFor.name.en,
+        screenNameJa: acceptedOffer.itemOffered.reservationFor.location.name.ja,
+        screenNameEn: acceptedOffer.itemOffered.reservationFor.location.name.en,
+        startDate: moment(acceptedOffer.itemOffered.reservationFor.startDate).toISOString(),
+        endDate: moment(acceptedOffer.itemOffered.reservationFor.endDate).toISOString(),
         seatNumber: (acceptedOffer.itemOffered.reservedTicket.ticketedSeat === undefined)
             ? undefined : acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber,
-        ticketName: acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja,
+        ticketNameJa: acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja,
+        ticketNameEn: acceptedOffer.itemOffered.reservedTicket.ticketType.name.en,
         price: getTicketPrice(acceptedOffer).single,
-        qrcode: args.qrcode,
-        posName: (args.pos === undefined) ? '' : args.pos.name
+        posName: (args.pos === undefined) ? '' : args.pos.name,
+        confirmationNumber: String(args.order.confirmationNumber),
+        orderNumber: args.order.orderNumber,
+        ticketNumber: acceptedOffer.itemOffered.id,
+        qrcode: args.qrcode
     };
     const printData = args.printData;
     const canvas = await drawCanvas({ data, printData });
@@ -202,18 +210,27 @@ export async function createPrintCanvas(args: {
 export async function createTestPrintCanvas(args: { printData: ITicketPrintData }) {
     const printData = args.printData;
     const data = {
-        confirmationNumber: 12345678,
-        orderNumber: 'TEST-123456-123456',
-        theaterName: 'テスト劇場',
-        screenName: 'テストスクリーン',
-        eventName: (Math.floor( Math.random() * 11 ) < 5)
-            ? 'テスト1' : 'テスト1テスト2テスト3テスト4テスト5テスト6テスト7テスト8テスト9テスト10作品',
-        startDate: moment().format('YY/MM/DD (ddd) HH:mm'),
+        sellerNameJa: 'テスト劇場',
+        sellerNameEn: 'test theater',
+        eventNameJa: (Math.floor(Math.random() * 11) < 5)
+            ? 'テストイベント'
+            : 'テスト1テスト2テスト3テスト4テスト5テスト6テスト7テスト8テスト9テスト10イベント',
+        eventNameEn: (Math.floor(Math.random() * 11) < 5)
+            ? 'test event'
+            : 'test1 test2 test3 test4 test5 test6 test7 event',
+        screenNameJa: 'テストスクリーン',
+        screenNameEn: 'test screen',
+        startDate: moment().toISOString(),
+        endDate: moment().toISOString(),
         seatNumber: 'TEST-1',
-        ticketName: 'テスト1234567890券種',
+        ticketNameJa: 'テストチケット123456',
+        ticketNameEn: 'test ticket 123456',
         price: 1000,
-        qrcode: 'TEST',
-        posName: 'POS-000'
+        posName: 'test-01',
+        confirmationNumber: '12345678',
+        orderNumber: 'TEST-123456-123456',
+        ticketNumber: 'TEST-123456-123456-00',
+        qrcode: 'TEST-123456-123456'
     };
     const canvas = await drawCanvas({ printData, data });
 

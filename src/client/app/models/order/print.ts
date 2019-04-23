@@ -16,17 +16,23 @@ export interface ITicketPrintData {
     };
     font: string;
     text: {
-        name?: 'theaterName'
+        name?: 'sellerNameJa'
+        | 'sellerNameEn'
+        | 'eventNameJa'
+        | 'eventNameEn'
+        | 'screenNameJa'
+        | 'screenNameEn'
         | 'startDate'
-        | 'eventName'
-        | 'screenName'
+        | 'endDate'
         | 'seatNumber'
-        | 'ticketName'
+        | 'ticketNameJa'
+        | 'ticketNameEn'
         | 'price'
         | 'posName'
         | 'date'
         | 'confirmationNumber'
-        | 'orderNumber';
+        | 'orderNumber'
+        | 'ticketNumber';
         value?: string;
         fillStyle: string;
         font: { weight: 'normal' | 'bold'; size: string; family?: string; };
@@ -35,7 +41,8 @@ export interface ITicketPrintData {
             x: number | 'center' | 'left' | 'right';
             y: number | 'center' | 'top' | 'bottom';
             maxWidth?: number;
-        }
+        },
+        slice?: number[];
     }[];
     image: {
         src: string;
