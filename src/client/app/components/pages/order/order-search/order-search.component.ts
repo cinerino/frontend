@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { OrderActions } from '../../../../models';
+import { IOrderSearchConditions, OrderActions } from '../../../../models';
 import { UtilService } from '../../../../services';
 import { orderAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
@@ -16,11 +16,11 @@ import { OrderDetailModalComponent } from '../../../parts/order-detail-modal/ord
 import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.component';
 
 @Component({
-    selector: 'app-order-list',
-    templateUrl: './order-list.component.html',
-    styleUrls: ['./order-list.component.scss']
+    selector: 'app-order-search',
+    templateUrl: './order-search.component.html',
+    styleUrls: ['./order-search.component.scss']
 })
-export class OrderListComponent implements OnInit {
+export class OrderSearchComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public error: Observable<string | null>;
     public order: Observable<reducers.IOrderState>;
@@ -28,33 +28,8 @@ export class OrderListComponent implements OnInit {
     public moment: typeof moment = moment;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public limit: number;
-    public conditions: {
-        sellerId: string;
-        orderDateFrom: string;
-        orderDateThrough: string;
-        confirmationNumber: string;
-        customer: {
-            familyName: string;
-            givenName: string;
-            email: string;
-            telephone: string;
-        },
-        orderStatuses: '' | factory.orderStatus;
-    };
-    public confirmedConditions: {
-        sellerId: string;
-        orderDateFrom: string;
-        orderDateThrough: string;
-        confirmationNumber: string;
-        customer: {
-            familyName: string;
-            givenName: string;
-            email: string;
-            telephone: string;
-        },
-        orderStatuses: '' | factory.orderStatus;
-        page: number;
-    };
+    public conditions: IOrderSearchConditions;
+    public confirmedConditions: IOrderSearchConditions;
     public selectedOrders: factory.order.IOrder[];
     public OrderActions: typeof OrderActions = OrderActions;
     public actionSelect: OrderActions | '';
@@ -84,13 +59,15 @@ export class OrderListComponent implements OnInit {
             orderDateFrom: '',
             orderDateThrough: '',
             confirmationNumber: '',
+            orderNumber: '',
             customer: {
                 familyName: '',
                 givenName: '',
                 email: '',
                 telephone: ''
             },
-            orderStatuses: ''
+            orderStatuses: '',
+            page: 1
         };
         this.store.dispatch(new orderAction.Delete());
     }
@@ -133,6 +110,7 @@ export class OrderListComponent implements OnInit {
                 orderDateFrom: this.conditions.orderDateFrom,
                 orderDateThrough: this.conditions.orderDateThrough,
                 confirmationNumber: this.conditions.confirmationNumber,
+                orderNumber: this.conditions.orderNumber,
                 customer: {
                     familyName: this.conditions.customer.familyName,
                     givenName: this.conditions.customer.givenName,
@@ -166,6 +144,8 @@ export class OrderListComponent implements OnInit {
                 ? moment().add(1, 'day').toDate() : moment(this.confirmedConditions.orderDateThrough).add(1, 'day').toDate(),
             confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
                 ? undefined : [this.confirmedConditions.confirmationNumber],
+            orderNumbers: (this.confirmedConditions.orderNumber === '')
+                ? undefined : [this.confirmedConditions.orderNumber],
             limit: this.limit,
             page: this.confirmedConditions.page,
             sort: {

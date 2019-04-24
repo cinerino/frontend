@@ -30,6 +30,10 @@ body {
     font-size: $body-font-size;
 }
 
+::placeholder {
+    opacity: 0.75 !important;
+}
+
 code {
     line-height: 1.6;
     -webkit-touch-callout: default;

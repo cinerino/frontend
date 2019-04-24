@@ -6,7 +6,7 @@ export * from './expired/expired.component';
 export * from './inquiry/index';
 export * from './maintenance/maintenance.component';
 export * from './notfound/notfound.component';
-export * from './order/order-list/order-list.component';
+export * from './order/order-search/order-search.component';
 export * from './purchase/index';
 export * from './setting/setting.component';
 export * from './mypage';

@@ -429,6 +429,7 @@
             "second": "秒"
         },
         "confirmationNumber": "購入番号",
+        "orderNumber": "注文番号",
         "theater": "劇場",
         "screen": "スクリーン",
         "event": "作品",
@@ -452,6 +453,7 @@
         "subtitles": "字幕版",
         "orderDate": "購入日時",
         "orderStatus": "注文ステータス",
+        "qrcode": "QRコード",
         "credit": {
             "cardNumber": "カード番号",
             "cardExpiration": "カード有効期限",

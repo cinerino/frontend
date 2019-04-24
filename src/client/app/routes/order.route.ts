@@ -1,6 +1,6 @@
 import { AuthGuardService } from '../canActivates';
 import { BaseComponent } from '../components/pages/base/base.component';
-import { OrderListComponent } from '../components/pages/order/order-list/order-list.component';
+import { OrderSearchComponent } from '../components/pages/order/order-search/order-search.component';
 
 /**
  * 注文ルーティング
@@ -10,6 +10,6 @@ export const route = {
     component: BaseComponent,
     canActivate: [AuthGuardService],
     children: [
-        { path: 'list',  component: OrderListComponent }
+        { path: 'search',  component: OrderSearchComponent }
     ]
 };
