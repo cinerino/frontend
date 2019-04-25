@@ -95,7 +95,7 @@ export class CancelFail implements Action {
 export class Inquiry implements Action {
     public readonly type = ActionTypes.Inquiry;
     constructor(public payload: {
-        confirmationNumber: number;
+        confirmationNumber: string;
         customer: {
             email?: string;
             telephone?: string;

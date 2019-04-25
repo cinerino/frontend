@@ -71,5 +71,5 @@ export interface ISeat {
     code: string;
     section: string;
     status: SeatStatus;
-    ticketedSeat?: factory.chevre.reservation.ISeat;
+    ticketedSeat?: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>;
 }

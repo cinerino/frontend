@@ -229,7 +229,7 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
                 const movieTicketReservations = reservations.filter(r => r.ticket !== undefined && r.ticket.movieTicket !== undefined);
                 if (movieTicketReservations.length > 0) {
                     const pendingReservations =
-                        (<factory.chevre.reservation.IReservation<factory.chevre.event.screeningEvent.ITicketPriceSpecification>[]>
+                        (<factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[]>
                             (<any>addAuthorizeSeatReservation.result).responseBody.object.reservations);
                     state.purchaseData.pendingMovieTickets.push({
                         id: addAuthorizeSeatReservation.id,

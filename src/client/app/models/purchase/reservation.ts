@@ -84,7 +84,7 @@ export class Reservation {
 /**
  * IReservationSeat
  */
-export type IReservationSeat = factory.chevre.reservation.ISeat;
+export type IReservationSeat = factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>;
 
 /**
  * IReservationTicket

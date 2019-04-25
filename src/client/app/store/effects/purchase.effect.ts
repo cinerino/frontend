@@ -186,7 +186,7 @@ export class PurchaseEffects {
                 const screeningEventOffers = await this.cinerino.event.searchScreeningEventOffers({
                     eventId: payload.screeningEvent.id
                 });
-                const freeSeats: factory.chevre.reservation.ISeat[] = [];
+                const freeSeats: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
                 for (const screeningEventOffer of screeningEventOffers) {
                     const section = screeningEventOffer.branchCode;
                     for (const containsPlace of screeningEventOffer.containsPlace) {

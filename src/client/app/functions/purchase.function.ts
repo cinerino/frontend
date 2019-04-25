@@ -137,7 +137,7 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
         return [];
     }
     const pendingReservations =
-        (<factory.chevre.reservation.IReservation<factory.chevre.event.screeningEvent.ITicketPriceSpecification>[]>
+        (<factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[]>
             (<any>authorizeSeatReservation.result.responseBody).object.reservations);
 
     pendingReservations.forEach((pendingReservation) => {
