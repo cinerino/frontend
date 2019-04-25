@@ -81,7 +81,7 @@ export class OrderEffects {
                                 let searchResultData;
                                 if (orders.length === 1) {
                                     const searchResult = await this.cinerino.order.findByConfirmationNumber({
-                                        confirmationNumber: orders[0].confirmationNumber,
+                                        confirmationNumber: Number(orders[0].confirmationNumber),
                                         customer: { telephone: orders[0].customer.telephone }
                                     });
                                     searchResultData = [searchResult];
@@ -124,7 +124,7 @@ export class OrderEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const confirmationNumber = payload.confirmationNumber;
+                const confirmationNumber = Number(payload.confirmationNumber);
                 const customer = {
                     telephone: (payload.customer.telephone === undefined)
                         ? '' : formatTelephone(payload.customer.telephone)
