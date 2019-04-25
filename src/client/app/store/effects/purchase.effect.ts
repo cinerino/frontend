@@ -8,7 +8,8 @@ import { environment } from '../../../environments/environment';
 import {
     createGmoTokenObject,
     createMovieTicketsFromAuthorizeSeatReservation,
-    formatTelephone
+    formatTelephone,
+    isTicketedSeatScreeningEvent
 } from '../../functions';
 import { IScreen } from '../../models';
 import { CinerinoService } from '../../services';
@@ -181,24 +182,26 @@ export class PurchaseEffects {
             const transaction = payload.transaction;
             const screeningEvent = payload.screeningEvent;
             const reservationTickets = payload.reservationTickets;
+            const freeSeats: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
             try {
                 await this.cinerino.getServices();
-                const screeningEventOffers = await this.cinerino.event.searchScreeningEventOffers({
-                    eventId: payload.screeningEvent.id
-                });
-                const freeSeats: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
-                for (const screeningEventOffer of screeningEventOffers) {
-                    const section = screeningEventOffer.branchCode;
-                    for (const containsPlace of screeningEventOffer.containsPlace) {
-                        if (containsPlace.offers !== undefined
-                            && containsPlace.offers[0].availability === factory.chevre.itemAvailability.InStock) {
-                            freeSeats.push({
-                                typeOf: containsPlace.typeOf,
-                                seatingType: <any>containsPlace.seatingType,
-                                seatNumber: containsPlace.branchCode,
-                                seatRow: '',
-                                seatSection: section
-                            });
+                if (isTicketedSeatScreeningEvent(screeningEvent)) {
+                    const screeningEventOffers = await this.cinerino.event.searchScreeningEventOffers({
+                        eventId: payload.screeningEvent.id
+                    });
+                    for (const screeningEventOffer of screeningEventOffers) {
+                        const section = screeningEventOffer.branchCode;
+                        for (const containsPlace of screeningEventOffer.containsPlace) {
+                            if (containsPlace.offers !== undefined
+                                && containsPlace.offers[0].availability === factory.chevre.itemAvailability.InStock) {
+                                freeSeats.push({
+                                    typeOf: containsPlace.typeOf,
+                                    seatingType: <any>containsPlace.seatingType,
+                                    seatNumber: containsPlace.branchCode,
+                                    seatRow: '',
+                                    seatSection: section
+                                });
+                            }
                         }
                     }
                 }
@@ -210,7 +213,7 @@ export class PurchaseEffects {
                         acceptedOffer: reservationTickets.map((ticket, index) => {
                             return {
                                 id: ticket.ticketOffer.id,
-                                ticketedSeat: freeSeats[index],
+                                ticketedSeat: (freeSeats.length > 0) ? freeSeats[index] : undefined,
                                 additionalProperty: [] // ここにムビチケ情報を入れる
                             };
                         })

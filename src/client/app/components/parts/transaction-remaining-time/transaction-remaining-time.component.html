@@ -1,4 +1,5 @@
-<div class="contents-width mx-auto px-3 py-2 position-relative bg-secondary" *ngIf="!isExpired">
+<div class="contents-width mx-auto px-3 py-2 position-relative bg-white" *ngIf="!isExpired">
+    <div class="cover w-100 h-100 bg-primary"></div>
     <div class="expired bg-primary" [style.width.%]="width"></div>
     <p class="text-white position-relative">{{ 'common.timeLimit' | translate }} {{ this.diff.hours }}:{{ this.diff.minutes }}:{{ this.diff.seconds }}</p>
 </div>

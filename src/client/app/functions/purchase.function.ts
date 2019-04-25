@@ -431,3 +431,10 @@ export function isSales(
     }
     return result;
 }
+
+export function isTicketedSeatScreeningEvent(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
+    return (screeningEvent.offers !== undefined
+        && screeningEvent.offers.itemOffered.serviceOutput !== undefined
+        && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket !== undefined
+        && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat !== undefined);
+}
