@@ -14,8 +14,8 @@
         { "name": "date", "fillStyle": "black", "font": { "weight": "normal", "size": "22px" }, "textAlign": "left", "fillText": { "x": "left", "y": 670 } }
     ],
     "image": [
-        { "src": "/images/print/oyatu/logo.svg", "width": 400, "height": 64, "x": 80, "y": 0 },
-        { "src": "/images/print/oyatu/box.svg", "width": 560, "height": 210, "x": 0, "y": 180 }
+        { "src": "/images/print/oyatsu/logo.svg", "width": 289, "height": 64, "x": 135, "y": 0 },
+        { "src": "/images/print/oyatsu/box.svg", "width": 560, "height": 210, "x": 0, "y": 180 }
     ],
     "qrCode": [
         { "width": 180, "height": 180, "x": 390, "y": 510 }
