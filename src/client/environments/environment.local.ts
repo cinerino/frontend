@@ -14,7 +14,7 @@ export const environment = {
     STORAGE_TYPE: 'sessionStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja', 'en'],
-    PORTAL_SITE_URL: 'https://motionpicture.jp',
+    PORTAL_SITE_URL: '/',
     HEADER_MENU: true,
     HEADER_MENU_SCOPE: ['purchase', 'inquiry', 'order', 'mypage', 'setting', 'auth'],
     FOOTER_COMPANY_URL: 'https://motionpicture.jp',
@@ -34,6 +34,5 @@ export const environment = {
     INQUIRY_CANCEL: true,
     INQUIRY_QRCODE: true,
     INQUIRY_PRINT: true,
-    PRINT_QR_CODE_FILTER_SUPER_EVENT_ID: ['140szya11ju3pewgp'],
     PRINT_QR_CODE_TYPE: 'encryption'
 };
