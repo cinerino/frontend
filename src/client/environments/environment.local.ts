@@ -4,7 +4,7 @@
 export const environment = {
     production: false,
     APP_PREFIX: 'CI',
-    PROJECT_ID: 'oyatsu',
+    PROJECT_ID: 'cinerino',
     ENV: 'local',
     ENTRANCE_SERVER_URL: '',
     WAITER_SERVER_URL: 'https://waiter-development.appspot.com',

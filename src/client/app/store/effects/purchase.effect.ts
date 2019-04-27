@@ -117,8 +117,10 @@ export class PurchaseEffects {
                 });
                 const theaterCode = payload.screeningEvent.superEvent.location.branchCode;
                 const screenCode = `000${payload.screeningEvent.location.branchCode}`.slice(-3);
-                const screen = await this.http.get<IScreen>(`/json/theater/${theaterCode}/${screenCode}.json`).toPromise();
-                const setting = await this.http.get<IScreen>('/json/theater/setting.json').toPromise();
+                const screen =
+                    await this.http.get<IScreen>(`${environment.PROJECT_ID}/json/theater/${theaterCode}/${screenCode}.json`).toPromise();
+                const setting =
+                    await this.http.get<IScreen>(`${environment.PROJECT_ID}/json/theater/setting.json`).toPromise();
                 const screenData = Object.assign(setting, screen);
                 return new purchaseAction.GetScreenSuccess({ screeningEventOffers, screenData });
             } catch (error) {
