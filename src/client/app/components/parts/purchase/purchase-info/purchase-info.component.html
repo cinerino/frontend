@@ -2,26 +2,26 @@
 <div class="bg-white p-3">
     <div class="mb-3">
         <div class="mb-1">
-            <p class="font-weight-bold">{{ purchase.screeningEvent.name | changeLanguage }}</p>
+            <p class="font-weight-bold">{{ purchase.screeningEvent?.name | changeLanguage }}</p>
             <p class="text-small"
-                *ngIf="purchase.screeningEvent.superEvent.headline && (purchase.screeningEvent.superEvent.headline | changeLanguage)">
-                {{ purchase.screeningEvent.superEvent.headline | changeLanguage }}</p>
+                *ngIf="purchase.screeningEvent?.superEvent.headline && (purchase.screeningEvent?.superEvent.headline | changeLanguage)">
+                {{ purchase.screeningEvent?.superEvent.headline | changeLanguage }}</p>
             <p class="text-small"
-                *ngIf="purchase.screeningEvent.superEvent.description && (purchase.screeningEvent.superEvent.description | changeLanguage)">{{
-                        purchase.screeningEvent.superEvent.description | changeLanguage }}</p>
+                *ngIf="purchase.screeningEvent?.superEvent.description && (purchase.screeningEvent?.superEvent.description | changeLanguage)">{{
+                        purchase.screeningEvent?.superEvent.description | changeLanguage }}</p>
         </div>
         <p class="font-weight-bold mb-1">
-            {{ purchase.screeningEvent.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ purchase.screeningEvent.endDate | formatDate: 'HH:mm' }}
+            {{ purchase.screeningEvent?.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ purchase.screeningEvent?.endDate | formatDate: 'HH:mm' }}
         </p>
         <p class="text-small mb-1">
             <span>
-                {{ purchase.screeningEvent.superEvent.location.name | changeLanguage }}
+                {{ purchase.screeningEvent?.superEvent.location.name | changeLanguage }}
             </span>
             <span>
-                &nbsp;/&nbsp;{{ purchase.screeningEvent.location.name | changeLanguage }}
+                &nbsp;/&nbsp;{{ purchase.screeningEvent?.location.name | changeLanguage }}
             </span>
-            <span *ngIf="purchase.screeningEvent.workPerformed.duration !== null">
-                &nbsp;/&nbsp;{{ moment.duration(purchase.screeningEvent.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+            <span *ngIf="purchase.screeningEvent?.workPerformed?.duration !== null">
+                &nbsp;/&nbsp;{{ moment.duration(purchase.screeningEvent?.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
             </span>
         </p>
     </div>

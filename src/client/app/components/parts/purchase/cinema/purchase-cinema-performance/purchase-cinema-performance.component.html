@@ -10,14 +10,14 @@
                     screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>
         </div>
         <div class="d-flex align-items-center">
-            <div *ngIf="screeningWorkEvent.info.workPerformed.contentRating"
+            <div *ngIf="screeningWorkEvent.info.workPerformed?.contentRating"
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{
                     screeningWorkEvent.info.workPerformed.contentRating }}</div>
             <div *ngIf="screeningWorkEvent.info.superEvent.dubLanguage"
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.dubbing' | translate }}</div>
             <div *ngIf="screeningWorkEvent.info.superEvent.subtitleLanguage"
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.subtitles' | translate }}</div>
-            <div *ngIf="screeningWorkEvent.info.workPerformed.duration !== null" class="text-small ml-auto">
+            <div *ngIf="screeningWorkEvent.info.workPerformed?.duration !== null" class="text-small ml-auto">
                 {{
                     moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
             </div>

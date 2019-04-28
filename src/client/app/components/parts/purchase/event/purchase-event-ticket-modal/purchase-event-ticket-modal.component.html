@@ -19,7 +19,7 @@
             <span>
                 &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}
             </span>
-            <span *ngIf="screeningEvent.workPerformed.duration !== null">
+            <span *ngIf="screeningEvent.workPerformed?.duration !== null">
                 &nbsp;/&nbsp;{{ moment.duration(screeningEvent.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
             </span>
         </p>
@@ -42,9 +42,9 @@
     </ul>
 
     <div class="buttons mx-auto text-center">
-        <button [disabled]="selectedTickets && createReservationTickets(selectedTickets).length === 0" type="button"
+        <button [disabled]="selectedTickets && createReservationTickets().length === 0" type="button"
             class="btn btn-primary btn-block py-3 mb-3"
-            (click)="activeModal.close(createReservationTickets(selectedTickets))">{{ 'common.done' | translate }}</button>
+            (click)="activeModal.close(createReservationTickets())">{{ 'common.done' | translate }}</button>
         <button type="button" class="btn btn-link"
             (click)="activeModal.dismiss()">{{ 'common.close' | translate }}</button>
     </div>
