@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { environment } from '../../../../../../environments/environment';
 import { getTicketPrice } from '../../../../../functions';
 import { UtilService } from '../../../../../services';
 import { purchaseAction } from '../../../../../store/actions';
@@ -23,6 +24,8 @@ export class PurchaseCinemaCartComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
+    public environment = environment;
+
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,

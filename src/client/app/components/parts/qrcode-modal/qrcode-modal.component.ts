@@ -3,6 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
+import { environment } from '../../../../environments/environment';
 import { getTicketPrice } from '../../../functions';
 
 @Component({
@@ -15,6 +16,7 @@ export class QrCodeModalComponent implements OnInit {
     public moment: typeof moment = moment;
     public urlList: Promise<string>[];
     public getTicketPrice = getTicketPrice;
+    public environment = environment;
     constructor(
         public activeModal: NgbActiveModal
     ) { }

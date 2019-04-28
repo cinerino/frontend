@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { environment } from '../../../../environments/environment';
 import { getTicketPrice, IEventOrder, orderToEventOrders } from '../../../functions';
 
 @Component({
@@ -14,6 +15,7 @@ export class OrderDetailModalComponent implements OnInit {
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
     public eventOrders: IEventOrder[];
+    public environment = environment;
 
     constructor(
         public activeModal: NgbActiveModal,

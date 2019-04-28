@@ -15,6 +15,7 @@ export const environment = {
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja', 'en'],
     PORTAL_SITE_URL: '',
+    DISPLAY_TICKETED_SEAT: true,
     HEADER_MENU: true,
     HEADER_MENU_SCOPE: ['purchase', 'inquiry', 'order', 'mypage', 'setting', 'auth'],
     FOOTER_COMPANY_URL: 'https://motionpicture.jp',

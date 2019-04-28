@@ -64,7 +64,7 @@
                     {{ 'purchase.cinema.schedule.status.endSale' | translate }}</div>
                 <div class="status mb-2" *ngIf="isSales(screeningEvent, 'start')">
                     {{ 'purchase.cinema.schedule.status.outsideSalesPeriod' | translate }}</div>
-                <div *ngIf="screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat" class="mb-2 text-small">{{ 'common.seat' | translate }}
+                <div *ngIf="screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat && environment.DISPLAY_TICKETED_SEAT" class="mb-2 text-small">{{ 'common.seat' | translate }}
                     {{ screeningEvent.remainingAttendeeCapacity }} / {{ screeningEvent.maximumAttendeeCapacity }}
                 </div>
                 <div *ngIf="!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat)" class="mb-2 text-small">

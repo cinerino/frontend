@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { environment } from '../../../../../../environments/environment';
 import { getTicketPrice, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../functions';
 import { IReservationTicket } from '../../../../../models';
 import { UtilService } from '../../../../../services';
@@ -29,6 +30,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
     private updateTimer: any;
+    public environment = environment;
 
     constructor(
         private store: Store<reducers.IState>,

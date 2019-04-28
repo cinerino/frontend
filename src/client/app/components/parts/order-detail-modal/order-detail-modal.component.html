@@ -45,7 +45,7 @@
                     </div>
                     <div *ngFor="let acceptedOffer of eventOrder.data">
                         <p>
-                            <span *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat">
+                            <span *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT">
                                 {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{
                                             getTicketPrice(acceptedOffer).single | currency : 'JPY' }}
                         </p>

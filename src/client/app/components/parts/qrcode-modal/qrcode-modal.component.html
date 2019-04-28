@@ -16,7 +16,7 @@
                                 {{ acceptedOffer.itemOffered.reservationFor.name | changeLanguage }}
                             </p>
                             <p class="text-x-small">
-                                <span *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat">
+                                <span *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT">
                                     {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>
                                 <span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;
                                     {{ getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</span>
