@@ -2,6 +2,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { environment } from '../../environments/environment';
 import { IMovieTicket } from '../models';
+import { formatTelephone } from './util.function';
 
 export interface IScreeningEventWork {
     info: factory.chevre.event.screeningEvent.IEvent;
@@ -343,6 +344,41 @@ export function orderToEventOrders(params: {
 }
 
 /**
+ * 座席予約をイベントごとに変換
+ */
+export function authorizeSeatReservationToEvent(params: {
+    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[]
+}) {
+    const results: {
+        event: factory.chevre.event.screeningEvent.IEvent;
+        reservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[]
+    }[] = [];
+    const authorizeSeatReservations = params.authorizeSeatReservations;
+    authorizeSeatReservations.forEach((authorizeSeatReservation) => {
+        if (authorizeSeatReservation.result === undefined) {
+            return;
+        }
+        const reservations: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[] =
+            (<any>authorizeSeatReservation.result.responseBody).object.reservations;
+        reservations.forEach((reservation) => {
+            const registered = results.find((result) => {
+                return (result.event.id === reservation.reservationFor.id);
+            });
+            if (registered === undefined) {
+                results.push({
+                    event: reservation.reservationFor,
+                    reservations: [reservation]
+                });
+            } else {
+                registered.reservations.push(reservation);
+            }
+        });
+    });
+
+    return results;
+}
+
+/**
  * スケジュールステータス判定
  */
 export function isScheduleStatusThreshold(
@@ -437,4 +473,74 @@ export function isTicketedSeatScreeningEvent(screeningEvent: factory.chevre.even
         && screeningEvent.offers.itemOffered.serviceOutput !== undefined
         && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket !== undefined
         && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat !== undefined);
+}
+
+/**
+ * 購入メール生成
+ */
+export function createCompleteMail(args: {
+    seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[],
+    template: string
+}) {
+    let template = args.template;
+    const seller = args.seller;
+    const authorizeSeatReservations = args.authorizeSeatReservations;
+    template = template.replace(/\{\{ seller.name \}\}/g, seller.name.ja);
+    template = template.replace(
+        /\{\{ seller.telephone \}\}/g,
+        (seller.telephone === undefined) ? '' : formatTelephone(seller.telephone, 'NATIONAL')
+    );
+    template = template.replace(/\{\{ orderDateJST \}\}/g, moment().format('YYYY/MM/DD (ddd) HH:mm'));
+    // イベント
+    const forEventMatchResult = template.match(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/);
+    const forEventText = (forEventMatchResult === null) ? '' : forEventMatchResult[0];
+    let forReplaceEventText = '';
+    const authorizeSeatReservationToEventResuult = authorizeSeatReservationToEvent({ authorizeSeatReservations });
+    authorizeSeatReservationToEventResuult.forEach((eventResult) => {
+        const event = eventResult.event;
+        let eventText = forEventText;
+        eventText = eventText.replace(/\{\{ eventNameJa \}\}/g, event.name.ja);
+        eventText = eventText.replace(
+            /\{\{ eventHeadlineJa \}\}/g,
+            (event.superEvent.headline === undefined || event.superEvent.headline === null)
+                ? '' : event.superEvent.headline.ja
+        );
+        eventText = eventText.replace(
+            /\{\{ eventStartDateJST \}\}/g,
+            moment(event.startDate).format('YYYY/MM/DD (ddd) HH:mm')
+        );
+        eventText = eventText.replace(/\{\{ eventLocationNameJa \}\}/g, event.location.name.ja);
+        eventText = eventText.replace(/\{\{ forStartEvent \}\}/g, '');
+        eventText = eventText.replace(/\{\{ forEndEvent \}\}/g, '');
+        // 予約
+        const forReservationMatchResult = template.match(/\{\{ forStartReservation \}\}[^>]*\{\{ forEndReservation \}\}/);
+        const forReservationText = (forReservationMatchResult === null) ? '' : forReservationMatchResult[0];
+        let forReplaceReservationText = '';
+        eventResult.reservations.forEach((reservation) => {
+            let reservationText = forReservationText;
+            reservationText = reservationText.replace(
+                /\{\{ reservationSeatNumber \}\}/g,
+                (reservation.reservedTicket.ticketedSeat === undefined)
+                    ? '' : reservation.reservedTicket.ticketedSeat.seatNumber
+            );
+            reservationText = reservationText.replace(/\{\{ reservationId \}\}/g, reservation.id);
+            reservationText = reservationText.replace(
+                /\{\{ reservationTicketTypeNameJa \}\}/g,
+                reservation.reservedTicket.ticketType.name.ja
+            );
+            reservationText = reservationText.replace(
+                /\{\{ reservationPrice \}\}/g,
+                String(getTicketPrice(<any>{ priceSpecification: reservation.price }).total)
+            );
+            reservationText = reservationText.replace(/\{\{ forStartReservation \}\}/g, '');
+            reservationText = reservationText.replace(/\{\{ forEndReservation \}\}/g, '\n');
+            forReplaceReservationText += reservationText;
+        });
+        eventText = eventText.replace(/\{\{ forStartReservation \}\}[^>]*\{\{ forEndReservation \}\}/, forReplaceReservationText);
+        forReplaceEventText += eventText;
+    });
+    template = template.replace(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/, forReplaceEventText);
+
+    return template;
 }

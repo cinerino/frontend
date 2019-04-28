@@ -10,13 +10,9 @@
 
     <h3 class="mb-2 font-weight-bold">{{ 'purchase.cinema.seat.terms' | translate }}</h3>
 
-    <p class="border p-3 mb-4 text-small scroll-vertical border-gray bg-white">
-        インターネットチケット販売（以下「本サービス」といいます）をご利用いただくに当たって利用規約（以下「本規約」といいます）を以下の通りに定めます。<br>
-        本規約に同意の上本サービスをご利用ください。<br><br>
-        When using Internet ticket sales (hereinafter referred to as "the service"), we set the terms of use
-        (hereinafter referred to as "this agreement") as follows. <br>
-        Please use the above service agreeing to this agreement.
-    </p>
+    <div class="mb-4">
+        <app-purchase-terms [language]="(user | async).language" [screeningEvent]="(purchase | async).screeningEvent"></app-purchase-terms>
+    </div>
 
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"

@@ -17,6 +17,7 @@ import * as reducers from '../../../../../store/reducers';
 })
 export class PurchaseCinemaSeatComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
+    public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     constructor(
         private store: Store<reducers.IState>,
@@ -31,6 +32,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
      */
     public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.getScreen();
     }

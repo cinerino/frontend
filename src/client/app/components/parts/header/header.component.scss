@@ -21,6 +21,7 @@ header {
     height: 20px;
     position: relative;
     div {
+        background-color: $header-color;
         position: absolute;
         top: 50%;
         left: 0;

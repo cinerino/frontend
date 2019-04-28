@@ -500,6 +500,8 @@ export class Reserve implements Action {
     public readonly type = ActionTypes.Reserve;
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
     }) { }
 }
 

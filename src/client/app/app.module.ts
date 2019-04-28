@@ -61,6 +61,7 @@ import {
     PurchaseEventPerformanceConfirmComponent,
     PurchaseEventTicketModalComponent,
     PurchaseInfoComponent,
+    PurchaseTermsComponent,
     PurchaseTransactionModalComponent,
     QrCodeModalComponent,
     RegisteredCreditCardModalComponent,
@@ -134,7 +135,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         MypageCoinComponent,
         ChargeCoinModalComponent,
         RegisteredCreditCardModalComponent,
-        PurchaseTransactionComponent
+        PurchaseTransactionComponent,
+        PurchaseTermsComponent
     ],
     entryComponents: [
         PurchaseCinemaTicketModalComponent,

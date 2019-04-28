@@ -24,7 +24,7 @@ export class PurchaseConfirmComponent implements OnInit {
     public getTicketPrice = getTicketPrice;
     public amount: number;
     public environment = environment;
-    
+
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
@@ -65,12 +65,14 @@ export class PurchaseConfirmComponent implements OnInit {
      */
     private reserve() {
         this.purchase.subscribe((purchase) => {
-            if (purchase.transaction === undefined) {
+            if (purchase.transaction === undefined || purchase.seller === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
             const transaction = purchase.transaction;
-            this.store.dispatch(new purchaseAction.Reserve({ transaction }));
+            const authorizeSeatReservations = purchase.authorizeSeatReservations;
+            const seller = purchase.seller;
+            this.store.dispatch(new purchaseAction.Reserve({ transaction, authorizeSeatReservations, seller }));
         }).unsubscribe();
 
         const success = this.actions.pipe(
