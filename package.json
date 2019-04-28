@@ -13,8 +13,7 @@
   ],
   "scripts": {
     "ng": "ng",
-    "start-client": "ng serve --environment=local",
-    "build-client": "ng build --configuration=default",
+    "build-client": "ng build --configuration=development",
     "build-client-local": "ng build --configuration=local",
     "test-client": "ng test --code-coverage",
     "lint-client": "tslint --config tslint.json src/client/**/**.ts --exclude **/**.spec.ts --project src/client/tsconfig.json",

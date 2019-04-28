@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.set('views', `${__dirname}/../../../views`); // view設定
 app.set('view engine', 'ejs');
 app.use(express.static(`${__dirname}/../../../public`)); // server
-app.use(express.static(`${__dirname}/../../client`, {
+app.use(express.static(`${__dirname}/../../client/${process.env.NODE_ENV}`, {
     index: false
 })); // client
 router_1.default(app);

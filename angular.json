@@ -30,7 +30,7 @@
           },
           "configurations": {
             "local": {
-              "outputPath": "./dist/client",
+              "outputPath": "./dist/client/development",
               "watch": true,
               "aot": false,
               "fileReplacements": [
@@ -40,8 +40,8 @@
                 }
               ]
             },
-            "default": {
-              "outputPath": "./dist/client",
+            "development": {
+              "outputPath": "./dist/client/development",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": true,

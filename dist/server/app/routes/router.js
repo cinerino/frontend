@@ -18,7 +18,7 @@ exports.default = (app) => {
             res.status(httpStatus.NOT_FOUND).json('NOT FOUND');
             return;
         }
-        res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`));
+        res.sendFile(path.resolve(`${__dirname}/../../../client/${process.env.NODE_ENV}/index.html`));
     });
     app.all('*', (req, res, _next) => {
         res.status(httpStatus.NOT_FOUND);
