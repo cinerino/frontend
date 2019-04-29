@@ -141,6 +141,19 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
+        case purchaseAction.ActionTypes.GetScreeningEventOffers: {
+            state.purchaseData.screeningEventOffers = [];
+            return { ...state, loading: true, process: 'purchaseAction.GetScreeningEventOffers' };
+        }
+        case purchaseAction.ActionTypes.GetScreeningEventOffersSuccess: {
+            const screeningEventOffers = action.payload.screeningEventOffers;
+            state.purchaseData.screeningEventOffers = screeningEventOffers;
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case purchaseAction.ActionTypes.GetScreeningEventOffersFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
         case purchaseAction.ActionTypes.SelectSeats: {
             const reservations = state.purchaseData.reservations;
             action.payload.seats.forEach((seat) => {

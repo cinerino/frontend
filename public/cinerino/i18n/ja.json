@@ -97,6 +97,7 @@
                     "unselected": "券種が未選択です。",
                     "ticketCondition": "割引券の適用条件を再度ご確認ください。",
                     "temporaryReservation": "仮予約に失敗しました。",
+                    "getScreeningEventOffers": "空席がありません。",
                     "limit": "同時購入可能数は{{value}}件までです。"
                 }
             },
@@ -392,6 +393,7 @@
             "StartTransaction": "取引を開始しています",
             "GetScreen": "スクリーン情報を取得しています",
             "GetTicketList": "券種情報を取得しています",
+            "GetScreeningEventOffers": "空席情報を取得しています",
             "TemporaryReservation": "仮予約しています",
             "TemporaryReservationFreeSeat": "仮予約しています",
             "CancelTemporaryReservations": "仮予約をキャンセルしています",

@@ -21,6 +21,9 @@ export enum ActionTypes {
     GetScreen = '[Purchase] Get Screen',
     GetScreenSuccess = '[Purchase] Get Screen Success',
     GetScreenFail = '[Purchase] Get Screen Fail',
+    GetScreeningEventOffers = '[Purchase] Get ScreeningEvent Offers',
+    GetScreeningEventOffersSuccess = '[Purchase] Get ScreeningEvent Offers Success',
+    GetScreeningEventOffersFail = '[Purchase] Get ScreeningEvent Offers Fail',
     SelectSeats = '[Purchase] Select Seats',
     CancelSeats = '[Purchase] Cancel Seats',
     GetTicketList = '[Purchase] Get Ticket List',
@@ -203,6 +206,32 @@ export class GetScreenFail implements Action {
     constructor(public payload: { error: Error }) { }
 }
 
+/**
+ * GetScreeningEventOffers
+ */
+export class GetScreeningEventOffers implements Action {
+    public readonly type = ActionTypes.GetScreeningEventOffers;
+    constructor(public payload: { screeningEvent: factory.chevre.event.screeningEvent.IEvent }) { }
+}
+
+/**
+ * GetScreeningEventOffersSuccess
+ */
+export class GetScreeningEventOffersSuccess implements Action {
+    public readonly type = ActionTypes.GetScreeningEventOffersSuccess;
+    constructor(public payload: {
+        screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
+    }) { }
+}
+
+/**
+ * GetScreeningEventOffersFail
+ */
+export class GetScreeningEventOffersFail implements Action {
+    public readonly type = ActionTypes.GetScreeningEventOffersFail;
+    constructor(public payload: { error: Error }) { }
+}
+
 
 /**
  * SelectSeats
@@ -296,6 +325,7 @@ export class TemporaryReservationFreeSeat implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+        screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
         reservationTickets: IReservationTicket[]
     }) { }
 }
@@ -611,6 +641,9 @@ export type Actions =
     | GetScreen
     | GetScreenSuccess
     | GetScreenFail
+    | GetScreeningEventOffers
+    | GetScreeningEventOffersSuccess
+    | GetScreeningEventOffersFail
     | SelectSeats
     | CancelSeats
     | GetTicketList

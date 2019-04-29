@@ -132,6 +132,41 @@ export class PurchaseEffects {
     );
 
     /**
+     * GetScreeningEventOffers
+     */
+    @Effect()
+    public getScreeningEventOffers = this.actions.pipe(
+        ofType<purchaseAction.GetScreeningEventOffers>(purchaseAction.ActionTypes.GetScreeningEventOffers),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                await this.cinerino.getServices();
+                const screeningEvent = payload.screeningEvent;
+                let screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[] = [];
+                if (isTicketedSeatScreeningEvent(screeningEvent)) {
+                    screeningEventOffers = await this.cinerino.event.searchScreeningEventOffers({
+                        eventId: screeningEvent.id
+                    });
+                    const offersResult = screeningEventOffers.filter((s) => {
+                        const sectionResult = s.containsPlace.filter(c => {
+                            return (c.offers !== undefined
+                                && c.offers[0].availability === factory.chevre.itemAvailability.InStock);
+                        });
+                        return (sectionResult.length > 0);
+                    });
+                    if (offersResult.length === 0) {
+                        throw { error: 'itemAvailability.InStock notfound' };
+                    }
+                }
+
+                return new purchaseAction.GetScreeningEventOffersSuccess({ screeningEventOffers });
+            } catch (error) {
+                return new purchaseAction.GetScreeningEventOffersFail({ error: error });
+            }
+        })
+    );
+
+    /**
      * temporaryReservation
      */
     @Effect()
@@ -185,14 +220,12 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             const transaction = payload.transaction;
             const screeningEvent = payload.screeningEvent;
+            const screeningEventOffers = payload.screeningEventOffers;
             const reservationTickets = payload.reservationTickets;
             const freeSeats: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
             try {
                 await this.cinerino.getServices();
                 if (isTicketedSeatScreeningEvent(screeningEvent)) {
-                    const screeningEventOffers = await this.cinerino.event.searchScreeningEventOffers({
-                        eventId: payload.screeningEvent.id
-                    });
                     for (const screeningEventOffer of screeningEventOffers) {
                         const section = screeningEventOffer.branchCode;
                         for (const containsPlace of screeningEventOffer.containsPlace) {
