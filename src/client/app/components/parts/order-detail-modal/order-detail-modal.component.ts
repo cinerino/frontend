@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { BsModalRef } from 'ngx-bootstrap';
 import { environment } from '../../../../environments/environment';
 import { getTicketPrice, IEventOrder, orderToEventOrders } from '../../../functions';
 
@@ -18,8 +18,8 @@ export class OrderDetailModalComponent implements OnInit {
     public environment = environment;
 
     constructor(
-        public activeModal: NgbActiveModal,
-        private elementRef: ElementRef
+        private elementRef: ElementRef,
+        public modal: BsModalRef
     ) { }
 
     public ngOnInit() {

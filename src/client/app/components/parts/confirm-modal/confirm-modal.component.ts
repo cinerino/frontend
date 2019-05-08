@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-confirm-modal',
@@ -10,12 +10,17 @@ export class ConfirmModalComponent implements OnInit {
 
     @Input() public title: string;
     @Input() public body: string;
+    @Input() public cb: Function;
 
     constructor(
-        public activeModal: NgbActiveModal
+        public modal: BsModalRef
     ) { }
 
-    public ngOnInit() {
+    public ngOnInit() {}
+
+    public close() {
+        this.modal.hide();
+        this.cb();
     }
 
 }

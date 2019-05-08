@@ -3,4 +3,3 @@ export * from './purchase.service';
 export * from './user.service';
 export * from './star-print.service';
 export * from './util.service';
-export * from './datepicker-i18n.service';

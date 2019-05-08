@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalRef } from 'ngx-bootstrap';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -10,12 +10,18 @@ import * as reducers from '../../../../store/reducers';
 export class PurchaseTransactionModalComponent implements OnInit {
     @Input() public purchase: reducers.IPurchaseState;
     @Input() public user: reducers.IUserState;
+    @Input() public cb: () => void;
 
     constructor(
-        public activeModal: NgbActiveModal
+        public modal: BsModalRef
     ) { }
 
     public ngOnInit() {
+    }
+
+    public close() {
+        this.modal.hide();
+        this.cb();
     }
 
 }

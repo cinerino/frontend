@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalRef } from 'ngx-bootstrap';
 import { getTicketPrice } from '../../../../../functions';
 import { IMovieTicket, IReservationTicket, Reservation } from '../../../../../models';
 
@@ -18,11 +18,12 @@ export class PurchaseCinemaTicketModalComponent implements OnInit {
     @Input() public checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
     @Input() public reservations: Reservation[];
     @Input() public pendingMovieTickets: IMovieTicket[];
+    @Input() public cb: (ticket: IReservationTicket) => void;
     public tickets: IReservationTicket[];
     public getTicketPrice = getTicketPrice;
 
     constructor(
-        public activeModal: NgbActiveModal
+        public modal: BsModalRef
     ) { }
 
     public ngOnInit() {
@@ -94,6 +95,11 @@ export class PurchaseCinemaTicketModalComponent implements OnInit {
         });
 
         this.tickets = movieTickets.concat(this.tickets);
+    }
+
+    public close(ticket: IReservationTicket) {
+        this.modal.hide();
+        this.cb(ticket);
     }
 
 }

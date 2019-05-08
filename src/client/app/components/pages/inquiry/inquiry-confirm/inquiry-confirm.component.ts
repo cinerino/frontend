@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
+import { BsModalService } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
@@ -34,7 +34,7 @@ export class InquiryConfirmComponent implements OnInit {
         private store: Store<reducers.IState>,
         private router: Router,
         private actions: Actions,
-        private modal: NgbModal,
+        private modal: BsModalService,
         private util: UtilService,
         private translate: TranslateService
     ) { }
@@ -85,10 +85,10 @@ export class InquiryConfirmComponent implements OnInit {
                     if (authorizeOrder === undefined) {
                         return;
                     }
-                    const modalRef = this.modal.open(QrCodeModalComponent, {
-                        centered: true
+                    this.modal.show(QrCodeModalComponent, {
+                        initialState: { order: authorizeOrder },
+                        class: 'modal-dialog-centered'
                     });
-                    modalRef.componentInstance.order = authorizeOrder;
                 }).unsubscribe();
             })
         );
@@ -140,7 +140,7 @@ export class InquiryConfirmComponent implements OnInit {
             this.order.subscribe((orderData) => {
                 const order = orderData.order;
                 if (order === undefined) {
-                    reject({error: 'order undefined'});
+                    reject({ error: 'order undefined' });
                     return;
                 }
                 this.store.dispatch(new orderAction.Cancel({ orders: [order] }));
@@ -165,7 +165,7 @@ export class InquiryConfirmComponent implements OnInit {
             this.order.subscribe((orderData) => {
                 const order = orderData.order;
                 if (order === undefined) {
-                    reject({error: 'order undefined'});
+                    reject({ error: 'order undefined' });
                     return;
                 }
                 this.store.dispatch(new orderAction.Inquiry({

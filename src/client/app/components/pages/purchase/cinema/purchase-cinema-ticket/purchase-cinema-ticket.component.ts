@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { BsModalService } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { IReservationTicket, Reservation } from '../../../../../models/purchase/reservation';
@@ -26,7 +26,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
         private store: Store<reducers.IState>,
         private actions: Actions,
         private router: Router,
-        private modal: NgbModal,
+        private modal: BsModalService,
         private util: UtilService,
         private translate: TranslateService
     ) { }
@@ -131,26 +131,25 @@ export class PurchaseCinemaTicketComponent implements OnInit {
      * @param reservation
      */
     public openTicketList(reservation: Reservation) {
-        const modalRef = this.modal.open(PurchaseCinemaTicketModalComponent, {
-            centered: true
-        });
         this.purchase.subscribe((purchase) => {
-            modalRef.componentInstance.screeningEventTicketOffers = purchase.screeningEventTicketOffers;
-            modalRef.componentInstance.checkMovieTicketActions = purchase.checkMovieTicketActions;
-            modalRef.componentInstance.reservations = purchase.reservations;
-            modalRef.componentInstance.pendingMovieTickets = purchase.pendingMovieTickets;
-
-            modalRef.result.then((ticket: IReservationTicket) => {
-                reservation.ticket = ticket;
-                this.store.dispatch(new purchaseAction.SelectTickets({ reservations: [reservation] }));
-            }).catch(() => { });
+            this.modal.show(PurchaseCinemaTicketModalComponent, {
+                initialState: {
+                    screeningEventTicketOffers: purchase.screeningEventTicketOffers,
+                    checkMovieTicketActions: purchase.checkMovieTicketActions,
+                    reservations: purchase.reservations,
+                    pendingMovieTickets: purchase.pendingMovieTickets,
+                    cb: (ticket: IReservationTicket) => {
+                        reservation.ticket = ticket;
+                        this.store.dispatch(new purchaseAction.SelectTickets({ reservations: [reservation] }));
+                    }
+                },
+                class: 'modal-dialog-centered'
+            });
         }).unsubscribe();
     }
 
     public openMovieTicket() {
-        this.modal.open(MvtkCheckModalComponent, {
-            centered: true
-        });
+        this.modal.show(MvtkCheckModalComponent);
     }
 
 }

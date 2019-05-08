@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-security-code-modal',
@@ -9,7 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class SecurityCodeModalComponent implements OnInit {
 
     constructor(
-        public activeModal: NgbActiveModal
+        public modal: BsModalRef
     ) { }
 
     public ngOnInit() {

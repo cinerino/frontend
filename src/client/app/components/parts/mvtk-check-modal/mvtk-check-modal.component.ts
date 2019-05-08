@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { factory } from '@cinerino/api-javascript-client';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import jsqr from 'jsqr';
+import { BsModalRef } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { movieTicketAuthErroCodeToMessage } from '../../../functions';
@@ -30,10 +30,10 @@ export class MvtkCheckModalComponent implements OnInit, OnDestroy {
     public video: HTMLVideoElement;
     public scanLoop: any;
     constructor(
+        public modal: BsModalRef,
         private store: Store<reducers.IState>,
         private actions: Actions,
         private formBuilder: FormBuilder,
-        public activeModal: NgbActiveModal,
         private translate: TranslateService
     ) { }
 

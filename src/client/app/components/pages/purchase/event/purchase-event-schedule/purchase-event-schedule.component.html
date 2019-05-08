@@ -14,9 +14,10 @@
     <p class="mb-4">{{ 'purchase.event.schedule.read' | translate }}</p>
 </div>
 <div class="contents-width mx-auto p-3">
-    <div class="mb-3">
-        <input type="date" class="form-control rounded-0" name="date" [(ngModel)]="scheduleDate"
-            (change)="selectDate()">
+    <div class="mb-3 position-relative">
+        <input type="text" placeholder="Datepicker" class="form-control" bsDatepicker [(ngModel)]="scheduleDate" [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }" (bsValueChange)="selectDate($event)" (click)="setDatePicker()">
+        <!-- <input type="date" class="form-control rounded-0" name="date" [(ngModel)]="scheduleDate"
+            (change)="selectDate()"> -->
     </div>
     <div class="mb-4">
         <p *ngIf="(purchase | async)?.scheduleDate" class="text-primary text-large mb-3">
@@ -28,14 +29,15 @@
             [screeningWorkEvent]="screeningWorkEvent" [readonly]="true" (select)="selectSchedule($event)" class="mb-3">
         </app-purchase-event-performance-confirm>
     </div>
-    
+
     <h3 class="mb-2 font-weight-bold">{{ 'purchase.event.schedule.terms' | translate }}</h3>
     <div class="mb-4">
-        <app-purchase-terms [language]="(user | async).language" [screeningEvent]="(purchase | async).screeningEvent"></app-purchase-terms>
+        <app-purchase-terms [language]="(user | async).language" [screeningEvent]="(purchase | async).screeningEvent">
+        </app-purchase-terms>
     </div>
 
     <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="screeningWorkEvents.length === 0" 
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="screeningWorkEvents.length === 0"
             (click)="onSubmit()">{{ 'purchase.event.schedule.next' | translate }}</button>
         <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-link"
             [href]="environment.PORTAL_SITE_URL">{{ 'purchase.event.schedule.prev' | translate }}</a>

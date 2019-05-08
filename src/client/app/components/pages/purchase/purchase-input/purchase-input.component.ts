@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
 import * as moment from 'moment';
+import { BsModalService } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
@@ -43,7 +43,7 @@ export class PurchaseInputComponent implements OnInit {
         private store: Store<reducers.IState>,
         private actions: Actions,
         private router: Router,
-        private modal: NgbModal,
+        private modal: BsModalService,
         private formBuilder: FormBuilder,
         private util: UtilService,
         private translate: TranslateService
@@ -306,8 +306,8 @@ export class PurchaseInputComponent implements OnInit {
      * セキュリティコード詳細表示
      */
     public openSecurityCode() {
-        this.modal.open(SecurityCodeModalComponent, {
-            centered: true
+        this.modal.show(SecurityCodeModalComponent, {
+            class: 'modal-dialog-centered'
         });
     }
 
@@ -315,16 +315,18 @@ export class PurchaseInputComponent implements OnInit {
      * 登録済みクレジットカード表示
      */
     public openRegisteredCreditCard() {
-        const modalRef = this.modal.open(RegisteredCreditCardModalComponent, {
-            centered: true
-        });
-        this.user.subscribe((user) => {
-            modalRef.componentInstance.creditCards = user.creditCards;
-        }).unsubscribe();
 
-        modalRef.result.then((creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) => {
-            this.usedCreditCard = creditCard;
-        }).catch(() => { });
+        this.user.subscribe((user) => {
+            this.modal.show(RegisteredCreditCardModalComponent, {
+                initialState: {
+                    creditCards: user.creditCards,
+                    cb: (creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) => {
+                        this.usedCreditCard = creditCard;
+                    }
+                },
+                class: 'modal-dialog-centered'
+            });
+        }).unsubscribe();
     }
 
     /**

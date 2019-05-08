@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { BsModalService } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { UtilService } from '../../../../services';
@@ -22,7 +22,7 @@ export class MypageCoinComponent implements OnInit {
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
-        private modal: NgbModal,
+        private modal: BsModalService,
         private translate: TranslateService,
         private util: UtilService
     ) { }
@@ -39,15 +39,13 @@ export class MypageCoinComponent implements OnInit {
      * @param creditCard
      */
     public openCharge(creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
-        const modalRef = this.modal.open(ChargeCoinModalComponent, {
-            centered: true
+        this.modal.show(ChargeCoinModalComponent, {
+            initialState: {
+                cb: (charge: number) => {
+                    this.chargeCoin({ charge, creditCard });
+                }
+            }
         });
-        modalRef.result.then((charge: string) => {
-            this.chargeCoin({
-                charge: Number(charge),
-                creditCard
-            });
-        }).catch(() => { });
     }
 
     /**

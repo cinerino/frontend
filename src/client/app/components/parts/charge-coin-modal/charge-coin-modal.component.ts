@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-charge-coin-modal',
@@ -8,15 +8,21 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     styleUrls: ['./charge-coin-modal.component.scss']
 })
 export class ChargeCoinModalComponent implements OnInit {
+    @Input() public cb: (value: number) => void;
     public coinChargeForm: FormGroup;
 
     constructor(
         public formBuilder: FormBuilder,
-        public activeModal: NgbActiveModal
+        public modal: BsModalRef
     ) { }
 
     public ngOnInit() {
         this.createChargeForm();
+    }
+
+    public close() {
+        this.modal.hide();
+        this.cb(this.coinChargeForm.controls.charge.value);
     }
 
     private createChargeForm() {

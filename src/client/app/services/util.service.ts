@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalService } from 'ngx-bootstrap';
 import { AlertModalComponent } from '../components/parts/alert-modal/alert-modal.component';
 import { ConfirmModalComponent } from '../components/parts/confirm-modal/confirm-modal.component';
 
@@ -10,7 +10,7 @@ import { ConfirmModalComponent } from '../components/parts/confirm-modal/confirm
 export class UtilService {
 
     constructor(
-        private modal: NgbModal,
+        private modal: BsModalService,
         private http: HttpClient
     ) { }
 
@@ -21,11 +21,13 @@ export class UtilService {
         title: string;
         body: string;
     }) {
-        const modalRef = this.modal.open(AlertModalComponent, {
-            centered: true
+        const title = args.title;
+        const body = args.body;
+        const modalRef = this.modal.show(AlertModalComponent, {
+            initialState: { title, body },
+            class: 'modal-dialog-centered'
         });
-        modalRef.componentInstance.title = args.title;
-        modalRef.componentInstance.body = args.body;
+        modalRef.content.modal = modalRef;
     }
 
     /**
@@ -36,16 +38,13 @@ export class UtilService {
         body: string;
         cb: Function
     }) {
-        const modalRef = this.modal.open(ConfirmModalComponent, {
-            centered: true
+        const title = args.title;
+        const body = args.body;
+        const cb = args.cb;
+        this.modal.show(ConfirmModalComponent, {
+            initialState: { title, body, cb },
+            class: 'modal-dialog-centered'
         });
-        modalRef.result.then(async () => {
-            args.cb();
-            modalRef.dismiss();
-        }).catch(() => { });
-
-        modalRef.componentInstance.title = args.title;
-        modalRef.componentInstance.body = args.body;
     }
 
     /**

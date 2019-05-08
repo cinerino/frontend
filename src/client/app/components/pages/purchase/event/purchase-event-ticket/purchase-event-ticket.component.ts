@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
+import { BsModalService } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
@@ -38,7 +38,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         private router: Router,
         private util: UtilService,
         private translate: TranslateService,
-        private modal: NgbModal
+        private modal: BsModalService
     ) { }
 
     /**
@@ -173,22 +173,24 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      * 券種一覧表示
      */
     private openTicketList() {
-        const modalRef = this.modal.open(PurchaseEventTicketModalComponent, {
-            centered: true
-        });
         this.purchase.subscribe((purchase) => {
-            modalRef.componentInstance.screeningEventTicketOffers = purchase.screeningEventTicketOffers;
-            modalRef.componentInstance.screeningEvent = purchase.screeningEvent;
-            modalRef.result.then((reservationTickets: IReservationTicket[]) => {
-                this.getScreeningEventOffers(reservationTickets);
-            }).catch(() => { });
+            this.modal.show(PurchaseEventTicketModalComponent, {
+                initialState: {
+                    screeningEventTicketOffers: purchase.screeningEventTicketOffers,
+                    screeningEvent: purchase.screeningEvent,
+                    cb: (reservationTickets: IReservationTicket[]) => {
+                        this.getScreeningEventOffers(reservationTickets);
+                    }
+                },
+                class: 'modal-dialog-centered'
+            });
         }).unsubscribe();
     }
 
     /**
      * 空席情報取得
      */
-    private getScreeningEventOffers(reservationTickets: IReservationTicket[]) {
+    public getScreeningEventOffers(reservationTickets: IReservationTicket[]) {
         this.purchase.subscribe((purchase) => {
             if (purchase.screeningEvent === undefined) {
                 this.router.navigate(['/error']);

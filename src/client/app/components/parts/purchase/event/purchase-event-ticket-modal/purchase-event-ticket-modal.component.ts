@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { BsModalRef } from 'ngx-bootstrap';
 import { getTicketPrice } from '../../../../../functions';
 import { IReservationTicket } from '../../../../../models';
 
@@ -14,6 +14,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
 
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     @Input() public screeningEvent: factory.event.screeningEvent.IEvent;
+    @Input() public cb: (reservationTickets: IReservationTicket[]) => void;
     public tickets: factory.chevre.event.screeningEvent.ITicketOffer[];
     public getTicketPrice = getTicketPrice;
     public values: Number[];
@@ -21,7 +22,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     public moment: typeof moment = moment;
 
     constructor(
-        public activeModal: NgbActiveModal
+        public modal: BsModalRef
     ) { }
 
     public ngOnInit() {
@@ -44,7 +45,13 @@ export class PurchaseEventTicketModalComponent implements OnInit {
         this.selectedTickets = selectedTickets;
     }
 
-    public createReservationTickets() {
+    public close() {
+        this.modal.hide();
+        const reservationTickets = this.createReservationTickets();
+        this.cb(reservationTickets);
+    }
+
+    private createReservationTickets() {
         const reservationTickets: IReservationTicket[] = [];
         Object.keys(this.selectedTickets).forEach((key) => {
             const value = Number(this.selectedTickets[key]);
