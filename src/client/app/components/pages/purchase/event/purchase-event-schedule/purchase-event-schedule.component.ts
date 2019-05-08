@@ -138,10 +138,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                     .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .toDate();
             }
-            const scheduleDate = this.scheduleDate;
-            this.store.dispatch(new purchaseAction.SelectScheduleDate({
-                scheduleDate: moment(scheduleDate).format('YYYY-MM-DD')
-            }));
+            const scheduleDate =  moment(this.scheduleDate).format('YYYY-MM-DD');
+            this.store.dispatch(new purchaseAction.SelectScheduleDate({ scheduleDate }));
             this.store.dispatch(new masterAction.GetSchedule({
                 superEvent: {
                     ids:
