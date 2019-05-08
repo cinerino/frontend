@@ -34,6 +34,10 @@ body {
     opacity: 0.75 !important;
 }
 
+.form-control[readonly] {
+    background-color: #FFF;
+}
+
 code {
     line-height: 1.6;
     -webkit-touch-callout: default;
