@@ -51,7 +51,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
         this.cb(reservationTickets);
     }
 
-    private createReservationTickets() {
+    public createReservationTickets() {
         const reservationTickets: IReservationTicket[] = [];
         Object.keys(this.selectedTickets).forEach((key) => {
             const value = Number(this.selectedTickets[key]);
