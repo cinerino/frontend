@@ -47,10 +47,14 @@ async function drawCanvas(args: {
         width: number;
         height: number;
     }) => {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             drawImageArgs.image.onload = () => {
                 context.drawImage(drawImageArgs.image, drawImageArgs.x, drawImageArgs.y, drawImageArgs.width, drawImageArgs.height);
                 resolve();
+            };
+            drawImageArgs.image.onerror = (error) => {
+                console.error(error);
+                reject(error);
             };
         });
     };
@@ -71,8 +75,11 @@ async function drawCanvas(args: {
     const font = `"Hiragino Sans", "Hiragino Kaku Gothic ProN", "游ゴシック  Medium", meiryo, sans-serif`;
     // 画像描画
     for (const image of printData.image) {
+        const response = await fetch('/api/storage', { method: 'get' });
+        const json = await response.json();
         const imageInstance = new Image();
-        imageInstance.src = image.src;
+        imageInstance.crossOrigin = 'anonymous';
+        imageInstance.src = image.src.replace('/storage', json.storage);
         await drawImage({
             image: imageInstance,
             x: image.x,

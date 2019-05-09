@@ -20,6 +20,7 @@ export default (app: express.Application) => {
 
     app.use('/api/authorize', authorizeRouter);
     app.use('/api/encryption', encryptionRouter);
+    app.get('/api/storage', (_req, res) => { res.json({ storage: process.env.STORAGE_URL }); });
 
     app.get('/signIn', authorize.signInRedirect);
     app.get('/signOut', authorize.signOutRedirect);

@@ -1518,7 +1518,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9529,7 +9529,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
  */
 function drawCanvas(args) {
     return __awaiter(this, void 0, void 0, function () {
-        var printData, data, canvas, size, context, drawImage, changePosition, font, _i, _a, image, imageInstance, _b, _c, text, value, eventName, limit, _d, _e, qrCode, qrcodeCanvas;
+        var printData, data, canvas, size, context, drawImage, changePosition, font, _i, _a, image, response, json, imageInstance, _b, _c, text, value, eventName, limit, _d, _e, qrCode, qrcodeCanvas;
         return __generator(this, function (_f) {
             switch (_f.label) {
                 case 0:
@@ -9545,10 +9545,14 @@ function drawCanvas(args) {
                         throw new Error('context is null');
                     }
                     drawImage = function (drawImageArgs) {
-                        return new Promise(function (resolve) {
+                        return new Promise(function (resolve, reject) {
                             drawImageArgs.image.onload = function () {
                                 context.drawImage(drawImageArgs.image, drawImageArgs.x, drawImageArgs.y, drawImageArgs.width, drawImageArgs.height);
                                 resolve();
+                            };
+                            drawImageArgs.image.onerror = function (error) {
+                                console.error(error);
+                                reject(error);
                             };
                         });
                     };
@@ -9570,10 +9574,17 @@ function drawCanvas(args) {
                     _i = 0, _a = printData.image;
                     _f.label = 1;
                 case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 4];
+                    if (!(_i < _a.length)) return [3 /*break*/, 6];
                     image = _a[_i];
+                    return [4 /*yield*/, fetch('/api/storage', { method: 'get' })];
+                case 2:
+                    response = _f.sent();
+                    return [4 /*yield*/, response.json()];
+                case 3:
+                    json = _f.sent();
                     imageInstance = new Image();
-                    imageInstance.src = image.src;
+                    imageInstance.crossOrigin = 'anonymous';
+                    imageInstance.src = image.src.replace('/storage', json.storage);
                     return [4 /*yield*/, drawImage({
                             image: imageInstance,
                             x: image.x,
@@ -9581,13 +9592,13 @@ function drawCanvas(args) {
                             width: image.width,
                             height: image.height
                         })];
-                case 2:
+                case 4:
                     _f.sent();
-                    _f.label = 3;
-                case 3:
+                    _f.label = 5;
+                case 5:
                     _i++;
                     return [3 /*break*/, 1];
-                case 4:
+                case 6:
                     // テキスト描画
                     for (_b = 0, _c = printData.text; _b < _c.length; _b++) {
                         text = _c[_b];
@@ -9642,22 +9653,22 @@ function drawCanvas(args) {
                         }
                         context.fillText(value, changePosition(text.fillText.x), changePosition(text.fillText.y), text.fillText.maxWidth);
                     }
-                    if (!(data.qrcode !== undefined)) return [3 /*break*/, 8];
+                    if (!(data.qrcode !== undefined)) return [3 /*break*/, 10];
                     _d = 0, _e = printData.qrCode;
-                    _f.label = 5;
-                case 5:
-                    if (!(_d < _e.length)) return [3 /*break*/, 8];
+                    _f.label = 7;
+                case 7:
+                    if (!(_d < _e.length)) return [3 /*break*/, 10];
                     qrCode = _e[_d];
                     qrcodeCanvas = document.createElement('canvas');
                     return [4 /*yield*/, qrcode__WEBPACK_IMPORTED_MODULE_2__["toCanvas"](qrcodeCanvas, data.qrcode)];
-                case 6:
+                case 8:
                     _f.sent();
                     context.drawImage(qrcodeCanvas, qrCode.x, qrCode.y, qrCode.width, qrCode.height);
-                    _f.label = 7;
-                case 7:
+                    _f.label = 9;
+                case 9:
                     _d++;
-                    return [3 /*break*/, 5];
-                case 8: return [2 /*return*/, canvas];
+                    return [3 /*break*/, 7];
+                case 10: return [2 /*return*/, canvas];
             }
         });
     });

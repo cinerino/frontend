@@ -15,6 +15,7 @@ exports.default = (app) => {
     });
     app.use('/api/authorize', authorize_1.default);
     app.use('/api/encryption', encryption_1.default);
+    app.get('/api/storage', (_req, res) => { res.json({ storage: process.env.STORAGE_URL }); });
     app.get('/signIn', authorize.signInRedirect);
     app.get('/signOut', authorize.signOutRedirect);
     app.get('*', (req, res, _next) => {
