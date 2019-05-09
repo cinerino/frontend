@@ -23,7 +23,7 @@ export class PurchaseTermsComponent implements OnInit, OnChanges {
 
     public async ngOnChanges() {
         try {
-            const url = `/${environment.PROJECT_ID}/text/purchase/terms/${this.language}.txt`;
+            const url = `/public/text/purchase/terms/${this.language}.txt`;
             const result = await this.util.getText<string>(url);
             this.terms = result.replace(/\n/g, '<br>');
         } catch (error) {

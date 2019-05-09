@@ -59,7 +59,7 @@ export class HeaderMenuComponent implements OnInit {
     }
 
     public isVisible(value: string) {
-        return (environment.HEADER_MENU_SCOPE.find(r => r === value) !== undefined);
+        return (environment.HEADER_MENU_SCOPE.find(h => h === value) !== undefined);
     }
 
 }

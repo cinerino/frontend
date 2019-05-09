@@ -1,37 +1,39 @@
 /**
- * 環境変数production
+ * 環境変数
  */
-export const environment = {
-    production: false,
-    APP_PREFIX: 'CI',
-    PROJECT_ID: 'cinerino',
-    ENV: 'development',
-    ENTRANCE_SERVER_URL: '',
-    WAITER_SERVER_URL: 'https://waiter-development.appspot.com',
-    VIEW_TYPE: 'cinema',
-    ANALYTICS_ID: '',
-    STORAGE_NAME: 'CINERINO-FRONTEND-STATE',
-    STORAGE_TYPE: 'sessionStorage',
-    BASE_URL: '/purchase/root',
-    LANGUAGE: ['ja', 'en'],
-    PORTAL_SITE_URL: '',
+export const environment: {
+    production: boolean;
+    APP_TITLE: string;
+    APP_PREFIX: string;
+    PROJECT_ID: string;
+    ENV: string;
+    ENTRANCE_SERVER_URL: string;
+    WAITER_SERVER_URL: string;
+    VIEW_TYPE: string;
+    GTM_ID: string;
+    ANALYTICS_ID: string;
+    STORAGE_NAME: string;
+    STORAGE_TYPE: string;
+    BASE_URL: string;
+    LANGUAGE: string[];
+    PORTAL_SITE_URL: string;
     DISPLAY_TICKETED_SEAT: true,
     HEADER_MENU: true,
-    HEADER_MENU_SCOPE: ['purchase', 'inquiry', 'order', 'mypage', 'setting', 'auth'],
-    FOOTER_COMPANY_URL: 'https://motionpicture.jp',
-    FOOTER_LAW_URL: 'https://motionpicture.jp',
-    FOOTER_PRIVACY_POLICY_URL: 'https://motionpicture.jp',
-    PURCHASE_CART_MAX_LENGTH: '1',
-    PURCHASE_TRANSACTION_TIME: '15',
-    PURCHASE_PRE_SCHEDULE_DATE: '3',
-    PURCHASE_SCHEDULE_DISPLAY_LENGTH: '10',
-    PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
-    PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES: '-20',
-    PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
-    PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
-    PURCHASE_COMPLETE_MAIL_CUSTOM: true,
-    INQUIRY_CANCEL: true,
-    INQUIRY_QRCODE: true,
-    INQUIRY_PRINT: true,
-    PRINT_QR_CODE_TYPE: 'token'
-};
+    HEADER_MENU_SCOPE: string[];
+    FOOTER_COMPANY_URL: string;
+    FOOTER_LAW_URL: string;
+    FOOTER_PRIVACY_POLICY_URL: string;
+    PURCHASE_CART_MAX_LENGTH: string;
+    PURCHASE_TRANSACTION_TIME: string;
+    PURCHASE_PRE_SCHEDULE_DATE: string;
+    PURCHASE_SCHEDULE_DISPLAY_LENGTH: string;
+    PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: string;
+    PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES: string;
+    PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: string;
+    PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: string;
+    PURCHASE_COMPLETE_MAIL_CUSTOM: boolean;
+    INQUIRY_CANCEL: boolean;
+    INQUIRY_QRCODE: boolean;
+    INQUIRY_PRINT: boolean;
+    PRINT_QR_CODE_TYPE: string;
+} = (<any>window).environment;

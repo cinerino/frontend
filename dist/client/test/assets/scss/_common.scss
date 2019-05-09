@@ -1,0 +1,180 @@
+@import './theme';
+
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    @include media-breakpoint-down(sm) {
+        width: 5px;
+        height: 5px;
+    }
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, .1);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .5);
+}
+
+html, body {
+    height: 100%;
+}
+body {
+    text-size-adjust: 100%;
+    -webkit-touch-callout: none;
+    user-select: none;
+    background-attachment: fixed;
+    font-family: $font-family;
+    font-size: $body-font-size;
+}
+
+::placeholder {
+    opacity: 0.75 !important;
+}
+
+.form-control[readonly] {
+    background-color: #FFF;
+}
+
+code {
+    line-height: 1.6;
+    -webkit-touch-callout: default;
+    user-select: all;
+}
+
+h1, h2, h3 {
+    font-weight: normal;
+    line-height: 1.4;
+}
+a {
+    color: #FFF;
+    text-decoration: none;
+    &:focus, &:hover {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+p {
+    line-height: 1.6;
+    a {
+        color: #0074A9;
+        text-decoration: underline;
+        &:focus, &:hover {
+            color: #0074A9;
+        }
+    }
+}
+div {
+    line-height: 1;
+}
+
+button {
+    cursor: pointer;
+    white-space: normal !important;
+}
+
+.form-control {
+    height: 2.4rem;
+}
+.contents-width {
+    max-width: 1024px;
+}
+
+.select-text {
+    -webkit-touch-callout: default;
+    user-select: all;
+}
+
+.scroll-vertical {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+}
+
+.scroll-horizontal {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+}
+
+.text-x-small {
+    font-size: 10px;
+}
+.text-small {
+    font-size: 0.8rem;
+}
+.text-large {
+    font-size: 1.4rem;
+}
+.text-x-large {
+    font-size: 2rem;
+}
+.text-xx-large {
+    font-size: 2.5rem;
+}
+
+.d-grid {
+    display: grid !important;
+}
+
+.not-event {
+    pointer-events: none;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.buttons {
+    max-width: 400px;
+}
+
+// color
+.bg-transparent {
+    background-color: transparent !important;
+}
+.bg-white {
+    background-color: #FFF !important;
+}
+.text-white {
+    color: #FFF !important;
+}
+.border-white {
+    border-color: #FFF !important;
+}
+.bg-black {
+    background-color: #000 !important;
+}
+.text-black {
+    color: #000 !important;
+}
+.border-black {
+    border-color: #000 !important;
+}
+.bg-dark-gray {
+    background-color: $dark-gray !important;
+}
+.text-dark-gray {
+    color: $dark-gray !important;
+}
+.border-dark-gray {
+    border-color: $dark-gray !important;
+}
+.bg-gray {
+    background-color: $gray !important;
+}
+.text-gray {
+    color: $gray !important;
+}
+.border-gray {
+    border-color: $gray !important;
+}
+.bg-light-gray {
+    background-color: $light-gray !important;
+}
+.text-light-gray {
+    color: $light-gray !important;
+}
+.border-light-gray {
+    border-color: $light-gray !important;
+}

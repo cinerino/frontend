@@ -13,6 +13,11 @@ export default (app: express.Application) => {
         next();
     });
 
+    app.use('/public', (req, res) => {
+        const url = req.originalUrl.replace('/public', <string>process.env.STORAGE_URL);
+        res.redirect(url);
+    });
+
     app.use('/api/authorize', authorizeRouter);
     app.use('/api/encryption', encryptionRouter);
 

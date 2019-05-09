@@ -10,7 +10,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BsDatepickerModule, ModalModule, PaginationModule } from 'ngx-bootstrap';
 import { SwiperModule } from 'ngx-swiper-wrapper';
-import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import {
@@ -76,7 +75,7 @@ import { StoreModule } from './store.module';
 import { CoreStoreModule } from './store/core/store';
 
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, `${environment.PROJECT_ID}/i18n/`);
+    return new TranslateHttpLoader(http, '/public/i18n/');
 }
 
 @NgModule({

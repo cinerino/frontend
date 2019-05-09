@@ -526,7 +526,7 @@ export class PurchaseEffects {
                 };
                 if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                     // 完了メールをカスタマイズ
-                    const url = `/${environment.PROJECT_ID}/text/purchase/mail/complete.txt`;
+                    const url = '/public/text/purchase/mail/complete.txt';
                     const template = await this.util.getText<string>(url);
                     params.options.emailTemplate = createCompleteMail({
                         template,
