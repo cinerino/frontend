@@ -1518,7 +1518,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14073,7 +14073,7 @@ var OrderEffects = /** @class */ (function () {
                     case 4:
                         _i++;
                         return [3 /*break*/, 2];
-                    case 5: return [4 /*yield*/, this.util.getJson("/" + _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PROJECT_ID + "/json/print/ticket.json")];
+                    case 5: return [4 /*yield*/, this.util.getJson('/public/json/print/ticket.json')];
                     case 6:
                         printData = _e.sent();
                         testFlg = orders.length === 0;
@@ -14427,10 +14427,10 @@ var PurchaseEffects = /** @class */ (function () {
                         screeningEventOffers = _a.sent();
                         theaterCode = payload.screeningEvent.superEvent.location.branchCode;
                         screenCode = ("000" + payload.screeningEvent.location.branchCode).slice(-3);
-                        return [4 /*yield*/, this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PROJECT_ID + "/json/theater/" + theaterCode + "/" + screenCode + ".json").toPromise()];
+                        return [4 /*yield*/, this.http.get("/public/json/theater/" + theaterCode + "/" + screenCode + ".json").toPromise()];
                     case 3:
                         screen_1 = _a.sent();
-                        return [4 /*yield*/, this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PROJECT_ID + "/json/theater/setting.json").toPromise()];
+                        return [4 /*yield*/, this.http.get('/public/json/theater/setting.json').toPromise()];
                     case 4:
                         setting = _a.sent();
                         screenData = Object.assign(setting, screen_1);
