@@ -75,7 +75,7 @@ import { StoreModule } from './store.module';
 import { CoreStoreModule } from './store/core/store';
 
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, '/public/i18n/');
+    return new TranslateHttpLoader(http, '/storage/i18n/');
 }
 
 @NgModule({

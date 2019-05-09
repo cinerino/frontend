@@ -13,8 +13,8 @@ export default (app: express.Application) => {
         next();
     });
 
-    app.use('/public', (req, res) => {
-        const url = req.originalUrl.replace('/public', <string>process.env.STORAGE_URL);
+    app.use('/storage', (req, res) => {
+        const url = req.originalUrl.replace('/storage', <string>process.env.STORAGE_URL);
         res.redirect(url);
     });
 

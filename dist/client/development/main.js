@@ -450,7 +450,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 function HttpLoaderFactory(http) {
-    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__["TranslateHttpLoader"](http, '/public/i18n/');
+    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__["TranslateHttpLoader"](http, '/storage/i18n/');
 }
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -1518,7 +1518,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7116,7 +7116,7 @@ var HeaderMenuComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<header class=\"fixed-top text-white border-bottom border-gray\">\n    <div class=\"header contents-width mx-auto d-flex align-items-center justify-content-between px-3\">\n        <div class=\"logo\">\n            <img class=\"d-none d-md-block h-100\" src=\"/public/images/logo.svg\">\n            <img class=\"d-md-none h-100\" src=\"/public/images/logo-sp.svg\">\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"environment.LANGUAGE.length > 1\" class=\"mr-3 d-flex align-items-center\">\n                <select id=\"language\" class=\"form-control border-0\" [(ngModel)]=\"language\" (change)=\"changeLanguage()\">\n                    <option *ngFor=\"let language of environment.LANGUAGE\" [value]=\"language\">{{ getLanguageName(language) }}</option>\n                </select>\n            </div>\n            <div *ngIf=\"environment.HEADER_MENU\" class=\"menu-button pointer\" [class.active]=\"isMenuOpen\"\n                (click)=\"(isMenuOpen) ? menuClose() : menuOpen()\">\n                <div class=\"bg-white\"></div>\n                <div class=\"bg-white\"></div>\n                <div class=\"bg-white\"></div>\n            </div>\n        </div>\n    </div>\n</header>\n\n<app-header-menu [isOpen]=\"isMenuOpen\" (close)=\"menuClose()\"></app-header-menu>"
+module.exports = "<header class=\"fixed-top text-white border-bottom border-gray\">\n    <div class=\"header contents-width mx-auto d-flex align-items-center justify-content-between px-3\">\n        <div class=\"logo\">\n            <img class=\"d-none d-md-block h-100\" src=\"/storage/images/logo.svg\">\n            <img class=\"d-md-none h-100\" src=\"/storage/images/logo-sp.svg\">\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"environment.LANGUAGE.length > 1\" class=\"mr-3 d-flex align-items-center\">\n                <select id=\"language\" class=\"form-control border-0\" [(ngModel)]=\"language\" (change)=\"changeLanguage()\">\n                    <option *ngFor=\"let language of environment.LANGUAGE\" [value]=\"language\">{{ getLanguageName(language) }}</option>\n                </select>\n            </div>\n            <div *ngIf=\"environment.HEADER_MENU\" class=\"menu-button pointer\" [class.active]=\"isMenuOpen\"\n                (click)=\"(isMenuOpen) ? menuClose() : menuOpen()\">\n                <div class=\"bg-white\"></div>\n                <div class=\"bg-white\"></div>\n                <div class=\"bg-white\"></div>\n            </div>\n        </div>\n    </div>\n</header>\n\n<app-header-menu [isOpen]=\"isMenuOpen\" (close)=\"menuClose()\"></app-header-menu>"
 
 /***/ }),
 
@@ -8504,7 +8504,7 @@ var PurchaseTermsComponent = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        url = "/public/text/purchase/terms/" + this.language + ".txt";
+                        url = "/storage/text/purchase/terms/" + this.language + ".txt";
                         return [4 /*yield*/, this.util.getText(url)];
                     case 1:
                         result = _a.sent();
@@ -14073,7 +14073,7 @@ var OrderEffects = /** @class */ (function () {
                     case 4:
                         _i++;
                         return [3 /*break*/, 2];
-                    case 5: return [4 /*yield*/, this.util.getJson('/public/json/print/ticket.json')];
+                    case 5: return [4 /*yield*/, this.util.getJson('/storage/json/print/ticket.json')];
                     case 6:
                         printData = _e.sent();
                         testFlg = orders.length === 0;
@@ -14427,10 +14427,10 @@ var PurchaseEffects = /** @class */ (function () {
                         screeningEventOffers = _a.sent();
                         theaterCode = payload.screeningEvent.superEvent.location.branchCode;
                         screenCode = ("000" + payload.screeningEvent.location.branchCode).slice(-3);
-                        return [4 /*yield*/, this.http.get("/public/json/theater/" + theaterCode + "/" + screenCode + ".json").toPromise()];
+                        return [4 /*yield*/, this.http.get("/storage/json/theater/" + theaterCode + "/" + screenCode + ".json").toPromise()];
                     case 3:
                         screen_1 = _a.sent();
-                        return [4 /*yield*/, this.http.get('/public/json/theater/setting.json').toPromise()];
+                        return [4 /*yield*/, this.http.get('/storage/json/theater/setting.json').toPromise()];
                     case 4:
                         setting = _a.sent();
                         screenData = Object.assign(setting, screen_1);
@@ -14928,7 +14928,7 @@ var PurchaseEffects = /** @class */ (function () {
                             }
                         };
                         if (!_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 4];
-                        url = '/public/text/purchase/mail/complete.txt';
+                        url = '/storage/text/purchase/mail/complete.txt';
                         return [4 /*yield*/, this.util.getText(url)];
                     case 3:
                         template = _a.sent();

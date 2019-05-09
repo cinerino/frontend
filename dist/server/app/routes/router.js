@@ -9,8 +9,8 @@ exports.default = (app) => {
         res.locals.NODE_ENV = process.env.NODE_ENV;
         next();
     });
-    app.use('/public', (req, res) => {
-        const url = req.originalUrl.replace('/public', process.env.STORAGE_URL);
+    app.use('/storage', (req, res) => {
+        const url = req.originalUrl.replace('/storage', process.env.STORAGE_URL);
         res.redirect(url);
     });
     app.use('/api/authorize', authorize_1.default);

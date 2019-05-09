@@ -120,9 +120,9 @@ export class PurchaseEffects {
                 const theaterCode = payload.screeningEvent.superEvent.location.branchCode;
                 const screenCode = `000${payload.screeningEvent.location.branchCode}`.slice(-3);
                 const screen =
-                    await this.http.get<IScreen>(`/public/json/theater/${theaterCode}/${screenCode}.json`).toPromise();
+                    await this.http.get<IScreen>(`/storage/json/theater/${theaterCode}/${screenCode}.json`).toPromise();
                 const setting =
-                    await this.http.get<IScreen>('/public/json/theater/setting.json').toPromise();
+                    await this.http.get<IScreen>('/storage/json/theater/setting.json').toPromise();
                 const screenData = Object.assign(setting, screen);
                 return new purchaseAction.GetScreenSuccess({ screeningEventOffers, screenData });
             } catch (error) {
@@ -526,7 +526,7 @@ export class PurchaseEffects {
                 };
                 if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                     // 完了メールをカスタマイズ
-                    const url = '/public/text/purchase/mail/complete.txt';
+                    const url = '/storage/text/purchase/mail/complete.txt';
                     const template = await this.util.getText<string>(url);
                     params.options.emailTemplate = createCompleteMail({
                         template,
