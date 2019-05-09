@@ -5,12 +5,12 @@
         {
             "w": 1148, "h": 126,
             "x": 150, "y": 90,
-            "image": "/cinerino/images/theater/18/screen/005.svg"
+            "image": "/storage/images/theater/18/screen/005.svg"
         },
         {
             "w": 126, "h": 470,
             "x": 1248, "y": 312,
-            "image": "/cinerino/images/theater/18/entrance/005.svg"
+            "image": "/storage/images/theater/18/entrance/005.svg"
         }
     ],
     "seatStart": { "x": 100, "y": 312 },
