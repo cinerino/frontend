@@ -46,3 +46,4 @@ Thumbs.db
 .env2.bat
 .prod.bat
 dist/server/public/entrance/
+public/
