@@ -9,7 +9,7 @@
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.familyName' | translate }}</p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" formControlName="familyName" id="familyName"
-                            placeholder="モーション">
+                            [placeholder]="'form.placeholder.familyName' | translate">
                         <div *ngIf="customerContactForm.controls.familyName.invalid && customerContactForm.controls.familyName.touched"
                             class="mt-2">
                             <p *ngIf="customerContactForm.controls.familyName.errors.required" class="text-danger">
@@ -27,7 +27,7 @@
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.givenName' | translate }}</p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" formControlName="givenName" id="givenName"
-                            placeholder="ピクチャー">
+                            [placeholder]="'form.placeholder.givenName' | translate">
                         <div *ngIf="customerContactForm.controls.givenName.invalid && customerContactForm.controls.givenName.touched"
                             class="mt-2">
                             <p *ngIf="customerContactForm.controls.givenName.errors.required" class="text-danger">
@@ -46,7 +46,7 @@
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.email' | translate }}</p>
                     <div class="col-md-8">
                         <input type="email" class="form-control" formControlName="email" id="email"
-                            placeholder="motionpicture@example.jp">
+                            [placeholder]="'form.placeholder.email' | translate">
                         <div *ngIf="customerContactForm.controls.email.invalid && customerContactForm.controls.email.touched"
                             class="mt-2">
                             <p *ngIf="customerContactForm.controls.email.errors.required" class="text-danger">
@@ -66,7 +66,7 @@
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.telephone' | translate }}</p>
                     <div class="col-md-8">
                         <input type="tel" class="form-control" formControlName="telephone" id="telephone"
-                            placeholder="0362778824">
+                            [placeholder]="'form.placeholder.telephone' | translate">
                         <div *ngIf="customerContactForm.controls.telephone.invalid && customerContactForm.controls.telephone.touched"
                             class="mt-2">
                             <p *ngIf="customerContactForm.controls.telephone.errors.required" class="text-danger">
@@ -105,7 +105,7 @@
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardNumber' | translate }}</p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" id="cardNumber" formControlName="cardNumber"
-                            placeholder="" maxlength="16">
+                            [placeholder]="'form.placeholder.cardNumber' | translate" maxlength="16">
                         <div *ngIf="creditCardForm.controls.cardNumber.invalid && creditCardForm.controls.cardNumber.touched"
                             class="mt-2">
                             <p *ngIf="creditCardForm.controls.cardNumber.errors.required" class="text-danger">
@@ -136,20 +136,21 @@
                 <div class="form-group row">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.securityCode' | translate }}</p>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" id="securityCode" placeholder=""
+                        <input type="text" class="form-control" id="securityCode" [placeholder]="'form.placeholder.securityCode' | translate"
                             formControlName="securityCode">
                         <div *ngIf="creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched"
                             class="mt-2">
                             <p *ngIf="creditCardForm.controls.securityCode.errors.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}</p>
                         </div>
-                        <div class="btn btn-link btn-sm" (click)="openSecurityCode()">{{ 'purchase.input.securityCode' | translate }}</div>
+                        <div class="btn btn-link btn-sm" (click)="openSecurityCode()">
+                            {{ 'purchase.input.securityCode' | translate }}</div>
                     </div>
                 </div>
                 <div class="form-group row mb-0">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.holderName' | translate }}</p>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" id="holderName" placeholder=""
+                        <input type="text" class="form-control" id="holderName" [placeholder]="'form.placeholder.holderName' | translate"
                             formControlName="holderName">
                         <div *ngIf="creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched"
                             class="mt-2">

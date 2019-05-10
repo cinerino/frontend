@@ -1,7 +1,7 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'inquiry.confirm.title' | translate }}</h2>
     <div *ngIf="(order | async).order.orderStatus === orderStatus.OrderReturned">
-        <p class="mb-4" [innerHTML]="'inquiry.confirm.read' | translate"></p>
+        <p class="mb-4" [innerHTML]="'inquiry.confirm.canceled' | translate"></p>
         <div class="buttons mx-auto text-center">
             <button type="button" class="btn btn-link"
                 routerLink="/inquiry/input">{{ 'inquiry.confirm.prev' | translate }}</button>
@@ -9,6 +9,7 @@
     </div>
     <div *ngIf="(order | async).order.orderStatus !== orderStatus.OrderReturned">
         <div class="mb-4 px-3 py-2 bg-white">
+            <p class="mb-4" [innerHTML]="'inquiry.confirm.read' | translate"></p>
             <div class="row align-items-center">
                 <p class="col-4">
                     {{ 'common.confirmationNumber' | translate }}</p>

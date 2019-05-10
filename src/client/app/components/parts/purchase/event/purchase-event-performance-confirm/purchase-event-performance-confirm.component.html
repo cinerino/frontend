@@ -24,7 +24,7 @@
                 <div class="mr-2 font-weight-bold">
                     {{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
                 </div>
-                <div class="status" *ngIf="isSales(screeningEvent)&& isTicketedSeatScreeningEvent(screeningEvent)">
+                <div class="status" *ngIf="isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)">
                     <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'success')" class="">
                         <img src="/assets/images/icon/status_success.svg">
                     </div>
