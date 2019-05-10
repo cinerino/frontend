@@ -468,6 +468,9 @@ export function isSales(
     return result;
 }
 
+/**
+ * 座席指定ありイベント判定
+ */
 export function isTicketedSeatScreeningEvent(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
     return (screeningEvent.offers !== undefined
         && screeningEvent.offers.itemOffered.serviceOutput !== undefined

@@ -1,7 +1,7 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'inquiry.confirm.title' | translate }}</h2>
     <div *ngIf="(order | async).order.orderStatus === orderStatus.OrderReturned">
-        <p class="mb-4">{{ 'inquiry.confirm.canceled' | translate }}</p>
+        <p class="mb-4" [innerHTML]="'inquiry.confirm.read' | translate"></p>
         <div class="buttons mx-auto text-center">
             <button type="button" class="btn btn-link"
                 routerLink="/inquiry/input">{{ 'inquiry.confirm.prev' | translate }}</button>
@@ -43,7 +43,8 @@
 
             <div *ngFor="let acceptedOffer of eventOrder.data">
                 <p>
-                    <span *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT">
+                    <span
+                        *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT">
                         {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{
                             getTicketPrice(acceptedOffer).single | currency : 'JPY' }}
                 </p>

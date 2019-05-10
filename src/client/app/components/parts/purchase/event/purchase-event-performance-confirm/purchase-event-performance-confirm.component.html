@@ -24,7 +24,7 @@
                 <div class="mr-2 font-weight-bold">
                     {{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
                 </div>
-                <div class="status" *ngIf="isSales(screeningEvent)">
+                <div class="status" *ngIf="isSales(screeningEvent)&& isTicketedSeatScreeningEvent(screeningEvent)">
                     <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'success')" class="">
                         <img src="/assets/images/icon/status_success.svg">
                     </div>
@@ -34,6 +34,12 @@
                     </div>
                     <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'danger')" class="">
                         <img src="/assets/images/icon/status_danger.svg">
+                    </div>
+                </div>
+
+                <div class="status" *ngIf="isSales(screeningEvent) && !isTicketedSeatScreeningEvent(screeningEvent)">
+                    <div class="d-flex justify-content-around align-items-center">
+                        <img src="/assets/images/icon/status_success.svg">
                     </div>
                 </div>
 

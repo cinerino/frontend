@@ -1,6 +1,6 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.ticket.title' | translate }}</h2>
-    <p class="mb-4">{{ 'purchase.event.ticket.read' | translate }}</p>
+    <p class="mb-4" [innerHTML]="'purchase.event.ticket.read' | translate"></p>
 
     <div *ngIf="(purchase | async)?.scheduleDate" class="d-flex align-items-center bg-white py-2 px-3 mb-3">
         <div>{{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}</div>

@@ -130,7 +130,6 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.purchase.subscribe((purchase) => {
             const seller = purchase.seller;
             if (seller === undefined) {
-                this.router.navigate(['/error']);
                 return;
             }
             if (this.scheduleDate === undefined || this.scheduleDate === null) {

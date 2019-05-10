@@ -47,3 +47,4 @@ Thumbs.db
 .prod.bat
 dist/server/public/entrance/
 public/
+.oyatsu.bat

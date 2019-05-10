@@ -1,6 +1,6 @@
 <div *ngIf="!((purchase | async)?.external?.sellerId)" class="contents-width mx-auto px-3 pt-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.seller.title' | translate }}</h2>
-    <p class="mb-4">{{ 'purchase.cinema.seller.read' | translate }}</p>
+    <p class="mb-4" [innerHTML]="'purchase.cinema.seller.read' | translate"></p>
 
     <div class="sellers">
         <button *ngFor="let seller of (master | async)?.sellers" type="button" class="btn btn-block py-3 m-0"
@@ -11,7 +11,7 @@
 
 <div class="contents-width mx-auto px-3 pt-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.schedule.title' | translate }}</h2>
-    <p class="mb-4">{{ 'purchase.cinema.schedule.read' | translate }}</p>
+    <p class="mb-4" [innerHTML]="'purchase.cinema.schedule.read' | translate"></p>
 
     <div *ngIf="(purchase | async)?.preScheduleDates.length > 0" class="buttons mx-auto mb-3">
         <button *ngIf="!isPreSchedule" type="button" class="btn btn-primary btn-block py-3"

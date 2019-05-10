@@ -28,7 +28,7 @@
             <div class="swiper-wrapper">
                 <div *ngFor="let screeningEvent of screeningWorkEvent.data" class="px-2 swiper-slide">
                     <div class="border boder-gray rounded py-3 text-center pointer" [ngClass]="{ 
-                'bg-white': isSales(screeningEvent) && screeningEvent.remainingAttendeeCapacity > 0, 
+                'bg-white': isSales(screeningEvent) && (screeningEvent.remainingAttendeeCapacity > 0 || !isTicketedSeatScreeningEvent(screeningEvent)), 
                 'bg-dark-gray text-light-gray not-event': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0
                 }" (click)="select.emit(screeningEvent)">
                         <div class="mb-2 text-small">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="text-center">
                             <div class="status"
-                                *ngIf="isSales(screeningEvent)">
+                                *ngIf="isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)">
                                 <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'success')"
                                     class="d-flex justify-content-around align-items-center">
                                     <img src="/assets/images/icon/status_success.svg">
@@ -51,6 +51,13 @@
                                 <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'danger')"
                                     class="d-flex justify-content-around align-items-center">
                                     <img src="/assets/images/icon/status_danger.svg">
+                                </div>
+                            </div>
+
+                            <div class="status"
+                                *ngIf="isSales(screeningEvent) && !isTicketedSeatScreeningEvent(screeningEvent)">
+                                <div class="d-flex justify-content-around align-items-center">
+                                    <img src="/assets/images/icon/status_success.svg">
                                 </div>
                             </div>
 

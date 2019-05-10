@@ -1,7 +1,7 @@
 <div class="contents-width mx-auto px-3 py-5">
     <div class="mb-4">
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.input.title' | translate }}</h2>
-        <p class="mb-4">{{ 'purchase.input.read' | translate }}</p>
+        <p class="mb-4" [innerHTML]="'purchase.input.read' | translate"></p>
 
         <div class="p-3 bg-white">
             <form [formGroup]="customerContactForm">
@@ -91,7 +91,7 @@
 
     <div class="mb-4" *ngIf="amount > 0">
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.input.payment.title' | translate }}</h2>
-        <p class="mb-4">{{ 'purchase.input.payment.read' | translate }}</p>
+        <p class="mb-4" [innerHTML]="'purchase.input.payment.read' | translate"></p>
 
         <div class="p-3 bg-white">
             <div class="form-group row">
