@@ -8,10 +8,10 @@ $font-family: -apple-system, "Lucida Grande", "ヒラギノ角ゴ ProN W3", "Hir
 $theme-colors: (
     primary: $primary, 
     secondary: $secondary, 
-    success: $success, 
+    success: #0081CC, 
     info: $info, 
-    warning: $warning, 
-    danger: $danger, 
+    warning: #F29600, 
+    danger: #E50012, 
     light: $gray-100, 
     dark: $gray-800
 );
