@@ -4,5 +4,5 @@
         <a *ngIf="environment.FOOTER_LAW_URL" class="mx-1" [href]="environment.FOOTER_LAW_URL" target="_blank">{{ 'footer.law' | translate }}</a>
         <a *ngIf="environment.FOOTER_PRIVACY_POLICY_URL" class="mx-1" [href]="environment.FOOTER_PRIVACY_POLICY_URL" target="_blank">{{ 'footer.privacyPolicy' | translate }}</a>
     </p>
-    <p>{{ 'footer.copyright' | translate }}</p>
+    <p [innerHTML]="'footer.copyright' | translate"></p>
 </div>
