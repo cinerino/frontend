@@ -17,9 +17,9 @@
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.dubbing' | translate }}</div>
             <div *ngIf="screeningWorkEvent.info.superEvent.subtitleLanguage"
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.subtitles' | translate }}</div> -->
-            <div *ngIf="screeningWorkEvent.info.workPerformed?.duration !== null" class="text-small ml-auto">
+            <div *ngIf="screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0" class="text-small ml-auto">
                 {{
-                moment.duration(screeningWorkEvent.info.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
             </div>
         </div>
     </div>

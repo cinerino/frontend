@@ -25,8 +25,8 @@
                     <span>
                         &nbsp;/&nbsp;{{ authorizeSeatReservation.object.event.location.name | changeLanguage }}
                     </span>
-                    <span *ngIf="authorizeSeatReservation.object.event.workPerformed.duration !== null">
-                        &nbsp;/&nbsp;{{ moment.duration(authorizeSeatReservation.object.event.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                    <span *ngIf="authorizeSeatReservation.object.event.workPerformed?.duration && moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() > 0">
+                        &nbsp;/&nbsp;{{ moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
                     </span>
                 </p>
             </div>

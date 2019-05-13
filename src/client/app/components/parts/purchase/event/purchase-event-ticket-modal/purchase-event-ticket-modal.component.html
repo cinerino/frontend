@@ -19,8 +19,8 @@
             <span>
                 &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}
             </span>
-            <span *ngIf="screeningEvent.workPerformed?.duration !== null">
-                &nbsp;/&nbsp;{{ moment.duration(screeningEvent.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+            <span *ngIf="screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0">
+                &nbsp;/&nbsp;{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
             </span>
         </p>
     </div>

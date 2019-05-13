@@ -38,8 +38,8 @@
                         <p class="text-small mb-1">
                             <span>{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
                             <span>&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>
-                            <span *ngIf="eventOrder.event.workPerformed.duration !== null">
-                                &nbsp;/&nbsp;{{ moment.duration(eventOrder.event.workPerformed.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                            <span *ngIf="eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0">
+                                &nbsp;/&nbsp;{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
                             </span>
                         </p>
                     </div>
