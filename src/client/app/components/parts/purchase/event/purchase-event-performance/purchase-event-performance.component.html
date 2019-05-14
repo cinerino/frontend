@@ -1,7 +1,7 @@
 <div class="">
     <div class="bg-gray p-3">
         <div class="mb-2">
-            <p class="font-weight-bold">{{ screeningWorkEvent.info.name | changeLanguage }}</p>
+            <p class="font-weight-bold text-large">{{ screeningWorkEvent.info.name | changeLanguage }}</p>
             <p class="text-small"
                 *ngIf="screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)">
                 {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>
@@ -31,9 +31,9 @@
                 'bg-white': isSales(screeningEvent) && (screeningEvent.remainingAttendeeCapacity > 0 || !isTicketedSeatScreeningEvent(screeningEvent)), 
                 'bg-dark-gray text-light-gray not-event': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0
                 }" (click)="select.emit(screeningEvent)">
-                        <div class="mb-2 text-small">
+                        <!-- <div class="mb-2 text-small">
                             {{ screeningEvent.location.name | changeLanguage }}
-                        </div>
+                        </div> -->
                         <div class="font-weight-bold mb-2">
                             {{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
                         </div>

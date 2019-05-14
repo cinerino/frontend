@@ -2,7 +2,7 @@
 <div class="bg-white p-3">
     <div class="mb-3">
         <div class="mb-1">
-            <p class="font-weight-bold">{{ purchase.screeningEvent?.name | changeLanguage }}</p>
+            <p class="font-weight-bold text-large">{{ purchase.screeningEvent?.name | changeLanguage }}</p>
             <p class="text-small"
                 *ngIf="purchase.screeningEvent?.superEvent.headline && (purchase.screeningEvent?.superEvent.headline | changeLanguage)">
                 {{ purchase.screeningEvent?.superEvent.headline | changeLanguage }}</p>
@@ -10,7 +10,7 @@
                 *ngIf="purchase.screeningEvent?.superEvent.description && (purchase.screeningEvent?.superEvent.description | changeLanguage)">{{
                         purchase.screeningEvent?.superEvent.description | changeLanguage }}</p>
         </div>
-        <p class="font-weight-bold mb-1">
+        <p class="mb-1">
             {{ purchase.screeningEvent?.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ purchase.screeningEvent?.endDate | formatDate: 'HH:mm' }}
         </p>
         <p class="text-small mb-1">

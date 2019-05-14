@@ -1,7 +1,7 @@
 <div class="contents-width mx-auto px-3 py-5">
 
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.ticket.title' | translate }}</h2>
-    <p class="mb-4" [innerHTML]="'purchase.cinema.ticket.read' | translate"></p>
+    <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.ticket.read' | translate"></p>
 
     <div *ngIf="(purchase | async).isUsedMovieTicket" class="mb-4">
         <div class="bg-white p-3 d-md-flex align-items-center movieticket">

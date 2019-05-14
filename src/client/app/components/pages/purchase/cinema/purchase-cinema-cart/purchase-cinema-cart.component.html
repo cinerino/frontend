@@ -1,7 +1,7 @@
 <div class="contents-width mx-auto px-3 py-5">
     <div class="mb-4">
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.cart.title' | translate }}</h2>
-        <p class="mb-4" [innerHTML]="'purchase.cinema.cart.read' | translate"></p>
+        <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.cart.read' | translate"></p>
 
         <div *ngIf="(purchase | async).authorizeSeatReservations.length === 0">
             <p>{{ 'purchase.cinema.cart.notfound' | translate }}</p>
@@ -12,7 +12,7 @@
             class="mb-4 bg-white p-3">
             <div class="mb-3">
                 <div class="mb-1">
-                    <p class="font-weight-bold">{{ authorizeSeatReservation.object.event.name | changeLanguage }}</p>
+                    <p class="font-weight-bold text-large">{{ authorizeSeatReservation.object.event.name | changeLanguage }}</p>
                     <p class="text-small"
                         *ngIf="authorizeSeatReservation.object.event.superEvent.headline && (authorizeSeatReservation.object.event.superEvent.headline | changeLanguage)">
                         {{ authorizeSeatReservation.object.event.superEvent.headline | changeLanguage }}</p>
@@ -20,7 +20,7 @@
                         *ngIf="authorizeSeatReservation.object.event.superEvent.description && (authorizeSeatReservation.object.event.superEvent.description | changeLanguage)">{{
                         authorizeSeatReservation.object.event.superEvent.description | changeLanguage }}</p>
                 </div>
-                <p class="font-weight-bold mb-1">
+                <p class="mb-1">
                     {{ authorizeSeatReservation.object.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ authorizeSeatReservation.object.event.endDate | formatDate: 'HH:mm' }}
                 </p>
                 <p class="text-small mb-1">

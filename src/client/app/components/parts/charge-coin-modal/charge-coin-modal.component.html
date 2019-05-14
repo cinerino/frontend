@@ -1,5 +1,5 @@
 <div class="p-3 scroll-vertical">
-    <div class="mb-3 text-large">{{ 'modal.chargeCoin.title' | translate }}</div>
+    <div class="mb-3 text-large text-center">{{ 'modal.chargeCoin.title' | translate }}</div>
     <p class="mb-3">{{ 'modal.chargeCoin.read' | translate }}</p>
 
     <div class="mb-4 p-3 bg-white">
@@ -24,7 +24,7 @@
         <button type="button" class="btn btn-primary btn-block py-3 mb-3"
             (click)="close()"
             [disabled]="coinChargeForm.invalid">{{ 'modal.chargeCoin.next' | translate }}</button>
-        <button type="button" class="btn btn-link"
+        <button type="button" class="btn btn-link btn-sm"
             (click)="modal.hide()">{{ 'common.close' | translate }}</button>
     </div>
 </div>

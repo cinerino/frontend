@@ -1,7 +1,7 @@
-<div class="">
+<div>
     <div class="bg-gray p-3">
         <div class="mb-2">
-            <p class="font-weight-bold">{{ screeningWorkEvent.info.name | changeLanguage }}</p>
+            <p class="font-weight-bold text-large">{{ screeningWorkEvent.info.name | changeLanguage }}</p>
             <p class="text-small"
                 *ngIf="screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)">
                 {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>
@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="p-3 bg-white d-flex flex-wrap" [class.not-event]="readonly">
-        <div *ngFor="let screeningEvent of screeningWorkEvent.data" class="w-50 my-2" [ngClass]="{ 
+        <div *ngFor="let screeningEvent of screeningWorkEvent.data" class="performance my-2" [ngClass]="{ 
             'text-dark-gray': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0
             }">
             <div class="d-flex align-items-center">
@@ -25,14 +25,14 @@
                     {{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
                 </div>
                 <div class="status" *ngIf="isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)">
-                    <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'success')" class="">
+                    <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'success')">
                         <img src="/assets/images/icon/status_success.svg">
                     </div>
                     <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'warning')"
                         class="d-flex justify-content-around align-items-center">
                         <img src="/assets/images/icon/status_warning.svg">
                     </div>
-                    <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'danger')" class="">
+                    <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'danger')">
                         <img src="/assets/images/icon/status_danger.svg">
                     </div>
                 </div>

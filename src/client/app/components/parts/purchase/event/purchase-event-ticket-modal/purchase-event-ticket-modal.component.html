@@ -1,7 +1,7 @@
 <div class="p-3 scroll-vertical">
     <div class="mb-3">
         <div class="mb-1">
-            <p class="font-weight-bold">{{ screeningEvent.name | changeLanguage }}</p>
+            <p class="font-weight-bold text-large">{{ screeningEvent.name | changeLanguage }}</p>
             <p class="text-small"
                 *ngIf="screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)">
                 {{ screeningEvent.superEvent.headline | changeLanguage }}</p>
@@ -9,7 +9,7 @@
                 *ngIf="screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)">{{
                     screeningEvent.superEvent.description | changeLanguage }}</p>
         </div>
-        <p class="font-weight-bold mb-1">
+        <p class="mb-1">
             {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
         </p>
         <p class="text-small mb-1">
@@ -45,7 +45,7 @@
         <button [disabled]="selectedTickets && createReservationTickets().length === 0" type="button"
             class="btn btn-primary btn-block py-3 mb-3"
             (click)="close()">{{ 'purchase.event.ticket.next' | translate }}</button>
-        <button type="button" class="btn btn-link"
+        <button type="button" class="btn btn-link btn-sm"
             (click)="modal.hide()">{{ 'common.close' | translate }}</button>
     </div>
 </div>

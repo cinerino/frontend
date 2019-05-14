@@ -1,6 +1,6 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.seat.title' | translate }}</h2>
-    <p class="mb-4" [innerHTML]="'purchase.cinema.seat.read' | translate"></p>
+    <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.seat.read' | translate"></p>
 
     <app-screen *ngIf="(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0" class="mb-4"
         [screenData]="(purchase | async).screenData" (select)="selectSeat($event)">

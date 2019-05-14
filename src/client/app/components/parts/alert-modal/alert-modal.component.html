@@ -1,7 +1,7 @@
 <div class="p-3 scroll-vertical">
-    <div *ngIf="title" class="mb-3 text-large">{{ title }}</div>
-    <p class="mb-3" [innerHTML]="body"></p>
+    <div *ngIf="title" class="mb-3 text-large text-center">{{ title }}</div>
+    <p class="mb-3 text-md-center" [innerHTML]="body"></p>
     <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-link" (click)="modal.hide()">{{ 'common.close' | translate }}</button>
+        <button type="button" class="btn btn-link btn-sm" (click)="modal.hide()">{{ 'common.close' | translate }}</button>
     </div>
 </div>
