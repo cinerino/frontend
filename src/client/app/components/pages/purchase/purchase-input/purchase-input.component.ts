@@ -337,4 +337,17 @@ export class PurchaseInputComponent implements OnInit {
         this.createCreditCardForm();
     }
 
+    /**
+     * クリップボードへコピー
+     */
+    public copyDomain() {
+        const str = this.translate.instant('common.domain');
+        const textarea = document.createElement('textarea');
+        textarea.value = str;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+    }
+
 }

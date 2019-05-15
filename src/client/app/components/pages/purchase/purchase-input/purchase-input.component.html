@@ -59,7 +59,8 @@
                                 {{ 'form.validation.email' | translate }}
                             </p>
                         </div>
-                        <p class="mt-2 text-small" [innerHTML]="'common.emailDescription' | translate"></p>
+                        <p class="mt-2 mb-1 text-small" [innerHTML]="'common.emailDescription' | translate"></p>
+                        <button type="button" class="btn btn-primary btn-sm" (click)="copyDomain()">{{ 'purchase.input.copyDomain' | translate }}</button>
                     </div>
                 </div>
                 <div class="form-group row mb-0">
