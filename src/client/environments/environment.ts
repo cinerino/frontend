@@ -23,6 +23,7 @@ export const environment: {
     FOOTER_COMPANY_URL: string;
     FOOTER_LAW_URL: string;
     FOOTER_PRIVACY_POLICY_URL: string;
+    PURCHASE_REQUIRED_ALERT: boolean;
     PURCHASE_CART_MAX_LENGTH: string;
     PURCHASE_TRANSACTION_TIME: string;
     PURCHASE_PRE_SCHEDULE_DATE: string;
