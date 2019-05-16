@@ -39,68 +39,71 @@
                 </div>
             </div>
             <div class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'setting.printer' | translate }}</p>
-                        <div class="col-md-8">
-                            <select class="form-control" formControlName="printerType">
-                                <option value="">{{ 'setting.unselected' | translate }}</option>
-                                <option *ngFor="let printer of printers" [value]="printer.connectionType">
-                                    {{ printer.name.ja }}</option>
-                            </select>
-                            <button
-                                *ngIf="this.baseForm.controls.printerType.value && this.baseForm.controls.printerType.value !== connectionType.None"
-                                type="button" class="btn btn-sm btn-primary py-2 mt-2" (click)="print()">{{ 'setting.testPrinting' | translate }}</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'setting.printerIpAddress' | translate }}</p>
-                        <div class="col-md-8">
-                            <input type="text" class="form-control" formControlName="printerIpAddress"
-                                placeholder="0.0.0.0">
-                            <div *ngIf="baseForm.controls.printerIpAddress.invalid && baseForm.controls.printerIpAddress.touched"
-                                class="mt-2">
-                                <p *ngIf="baseForm.controls.printerIpAddress.errors.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}</p>
-                            </div>
-                            <p class="text-small mt-2">
-                                {{ 'setting.printerIpAddressDescription' | translate }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            <div class="form-group">
                 <div class="row align-items-center">
-                    <p class="col-md-4 py-2 text-md-right"> {{ 'setting.purchaseCartMaxLength' | translate }}
-                    </p>
+                    <p class="col-md-4 py-2 text-md-right">{{ 'setting.printer' | translate }}</p>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" formControlName="purchaseCartMaxLength"
-                            id="purchaseCartMaxLength" placeholder="">
-                        <div *ngIf="baseForm.controls.purchaseCartMaxLength.invalid && baseForm.controls.purchaseCartMaxLength.touched"
-                            class="mt-2">
-                            <p *ngIf="baseForm.controls.purchaseCartMaxLength.errors.required" class="text-danger">
-                                {{ 'form.validation.required' | translate }}
-                            </p>
-                            <p *ngIf="baseForm.controls.purchaseCartMaxLength.errors.pattern" class="text-danger">
-                                {{ 'form.validation.number' | translate }}</p>
-                        </div>
+                        <select class="form-control" formControlName="printerType">
+                            <option value="">{{ 'setting.unselected' | translate }}</option>
+                            <option *ngFor="let printer of printers" [value]="printer.connectionType">
+                                {{ printer.name.ja }}</option>
+                        </select>
+                        <button
+                            *ngIf="this.baseForm.controls.printerType.value && this.baseForm.controls.printerType.value !== connectionType.None"
+                            type="button" class="btn btn-sm btn-primary py-2 mt-2"
+                            (click)="print()">{{ 'setting.testPrinting' | translate }}</button>
                     </div>
                 </div>
             </div>
-            <div class="form-group mb-0">
+            <div class="form-group">
                 <div class="row align-items-center">
-                    <p class="col-md-4 py-2 text-md-right"> {{ 'setting.viewType' | translate }}</p>
+                    <p class="col-md-4 py-2 text-md-right">{{ 'setting.printerIpAddress' | translate }}</p>
                     <div class="col-md-8">
-                        <select class="form-control" id="viewType" formControlName="viewType">
-                            <option [value]="viewType.Cinema">{{ viewType.Cinema }}</option>
-                            <option [value]="viewType.Event">{{ viewType.Event }}</option>
-                        </select>
-                        <div *ngIf="baseForm.controls.viewType.invalid && baseForm.controls.viewType.touched"
+                        <input type="text" class="form-control" formControlName="printerIpAddress"
+                            placeholder="0.0.0.0">
+                        <div *ngIf="baseForm.controls.printerIpAddress.invalid && baseForm.controls.printerIpAddress.touched"
                             class="mt-2">
-                            <p *ngIf="baseForm.controls.viewType.errors.required" class="text-danger">
-                                {{ 'form.validation.required' | translate }}
-                            </p>
+                            <p *ngIf="baseForm.controls.printerIpAddress.errors.required" class="text-danger">
+                                {{ 'form.validation.required' | translate }}</p>
+                        </div>
+                        <p class="text-small mt-2">
+                            {{ 'setting.printerIpAddressDescription' | translate }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="environment.SETTING_DEVELOP_OPTION">
+                <div class="form-group">
+                    <div class="row align-items-center">
+                        <p class="col-md-4 py-2 text-md-right"> {{ 'setting.purchaseCartMaxLength' | translate }}
+                        </p>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" formControlName="purchaseCartMaxLength"
+                                id="purchaseCartMaxLength" placeholder="">
+                            <div *ngIf="baseForm.controls.purchaseCartMaxLength.invalid && baseForm.controls.purchaseCartMaxLength.touched"
+                                class="mt-2">
+                                <p *ngIf="baseForm.controls.purchaseCartMaxLength.errors.required" class="text-danger">
+                                    {{ 'form.validation.required' | translate }}
+                                </p>
+                                <p *ngIf="baseForm.controls.purchaseCartMaxLength.errors.pattern" class="text-danger">
+                                    {{ 'form.validation.number' | translate }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-0">
+                    <div class="row align-items-center">
+                        <p class="col-md-4 py-2 text-md-right"> {{ 'setting.viewType' | translate }}</p>
+                        <div class="col-md-8">
+                            <select class="form-control" id="viewType" formControlName="viewType">
+                                <option [value]="viewType.Cinema">{{ viewType.Cinema }}</option>
+                                <option [value]="viewType.Event">{{ viewType.Event }}</option>
+                            </select>
+                            <div *ngIf="baseForm.controls.viewType.invalid && baseForm.controls.viewType.touched"
+                                class="mt-2">
+                                <p *ngIf="baseForm.controls.viewType.errors.required" class="text-danger">
+                                    {{ 'form.validation.required' | translate }}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>

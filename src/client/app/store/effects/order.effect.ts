@@ -37,7 +37,7 @@ export class OrderEffects {
                 //     && params.customer.telephone !== undefined) {
                 //     params.customer.telephone = formatTelephone(params.customer.telephone)
                 // }
-                const searchResult = await this.cinerino.person.searchOrders({ ...params, personId: 'me' });
+                const searchResult = await this.cinerino.person.searchOrders({ ...params });
                 const limit = <number>params.limit;
                 return new orderAction.SearchSuccess({ searchResult, limit });
             } catch (error) {

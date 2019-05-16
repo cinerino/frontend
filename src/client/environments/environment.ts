@@ -37,4 +37,5 @@ export const environment: {
     INQUIRY_QRCODE: boolean;
     INQUIRY_PRINT: boolean;
     PRINT_QR_CODE_TYPE: string;
+    SETTING_DEVELOP_OPTION: boolean;
 } = (<any>window).environment;
