@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { createPrintCanvas, createTestPrintCanvas, formatTelephone, retry, sleep } from '../../functions';
-import { connectionType, ITicketPrintData, PrintQrCodeType } from '../../models';
+import { connectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import { orderAction } from '../actions';
 
@@ -196,12 +196,17 @@ export class OrderEffects {
                                 }
                             }
                             if (qrcode !== undefined
-                                && environment.PRINT_QR_CODE_TYPE === PrintQrCodeType.encryption) {
+                                && environment.PRINT_QRCODE_TYPE === PrintQrcodeType.Encryption) {
                                 // QRコード暗号化(id + startDate)
                                 const encyptText = `${itemOffered.reservationFor.id}=${itemOffered.reservationFor.startDate}`;
                                 const encryptionEncodeResult = await this.util.encryptionEncode(encyptText);
                                 qrcode =
                                     `${encryptionEncodeResult.salt},${encryptionEncodeResult.iv},${encryptionEncodeResult.encrypted}`;
+                            }
+                            if (qrcode !== undefined
+                                && environment.PRINT_QRCODE_TYPE === PrintQrcodeType.Custom) {
+                                // QRコードカスタム文字列
+                                qrcode = environment.PRINT_QRCODE_CUSTOM;
                             }
                             const canvas = await createPrintCanvas({ printData, order, acceptedOffer, pos, qrcode });
                             canvasList.push(canvas);
