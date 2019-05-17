@@ -1518,7 +1518,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5021,33 +5021,55 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
     PurchaseEventTicketComponent.prototype.onSubmit = function () {
         var _this = this;
         this.purchase.subscribe(function (purchase) {
-            if (purchase.authorizeSeatReservations.length === 0) {
+            var authorizeSeatReservations = purchase.authorizeSeatReservations;
+            if (authorizeSeatReservations.length === 0) {
                 _this.util.openAlert({
                     title: _this.translate.instant('common.error'),
                     body: _this.translate.instant('purchase.event.ticket.alert.unselected')
                 });
                 return;
             }
-            if (_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_REQUIRED_ALERT) {
-                var findResult = purchase.authorizeSeatReservations.find(function (r) {
-                    var additionalProperty = r.object.event.superEvent.additionalProperty;
-                    if (additionalProperty === undefined) {
-                        return false;
-                    }
-                    var findProperty = additionalProperty.find(function (a) { return a.name === 'required' && a.value === 'true'; });
-                    return (findProperty !== undefined);
+            // 単独購入可能作品判定
+            if (_this.isSinglePurchase({ name: 'alert', authorizeSeatReservations: authorizeSeatReservations })) {
+                _this.util.openAlert({
+                    title: _this.translate.instant('common.error'),
+                    body: _this.translate.instant('purchase.event.ticket.alert.single')
                 });
-                if (findResult === undefined) {
-                    _this.util.openConfirm({
-                        title: _this.translate.instant('common.confirm'),
-                        body: _this.translate.instant('purchase.event.ticket.confirm.required'),
-                        cb: function () { _this.router.navigate(['/purchase/input']); }
-                    });
-                    return;
-                }
+                return;
+            }
+            if (_this.isSinglePurchase({ name: 'confirm', authorizeSeatReservations: authorizeSeatReservations })) {
+                _this.util.openConfirm({
+                    title: _this.translate.instant('common.confirm'),
+                    body: _this.translate.instant('purchase.event.ticket.confirm.single'),
+                    cb: function () { _this.router.navigate(['/purchase/input']); }
+                });
+                return;
             }
             _this.router.navigate(['/purchase/input']);
         }).unsubscribe();
+    };
+    /**
+     * 単独購入可能判定（警告 or 確認）
+     */
+    PurchaseEventTicketComponent.prototype.isSinglePurchase = function (params) {
+        var authorizeSeatReservations = params.authorizeSeatReservations;
+        var findResult = authorizeSeatReservations.find(function (a) {
+            var workPerformed = a.object.event.workPerformed;
+            if (workPerformed === undefined
+                || workPerformed.additionalProperty === undefined) {
+                return false;
+            }
+            var findPropertyResult = workPerformed.additionalProperty.find(function (p) { return p.name === params.name && p.value !== undefined; });
+            if (findPropertyResult === undefined) {
+                return false;
+            }
+            var findWorkPerformedResult = authorizeSeatReservations.find(function (a2) {
+                return (a2.object.event.workPerformed !== undefined
+                    && a2.object.event.workPerformed.identifier === findPropertyResult.value);
+            });
+            return (findWorkPerformedResult === undefined);
+        });
+        return findResult;
     };
     /**
      * 座席の仮予約削除

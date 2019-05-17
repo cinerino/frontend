@@ -264,34 +264,60 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      */
     public onSubmit() {
         this.purchase.subscribe((purchase) => {
-            if (purchase.authorizeSeatReservations.length === 0) {
+            const authorizeSeatReservations = purchase.authorizeSeatReservations;
+            if (authorizeSeatReservations.length === 0) {
                 this.util.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('purchase.event.ticket.alert.unselected')
                 });
                 return;
             }
-            if (environment.PURCHASE_REQUIRED_ALERT) {
-                const findResult = purchase.authorizeSeatReservations.find((r) => {
-                    const additionalProperty = r.object.event.superEvent.additionalProperty;
-                    if (additionalProperty === undefined) {
-                        return false;
-                    }
-                    const findProperty =
-                        additionalProperty.find(a => a.name === 'required' && a.value === 'true');
-                    return (findProperty !== undefined);
+            // 単独購入可能作品判定
+            if (this.isSinglePurchase({name: 'alert', authorizeSeatReservations})) {
+                this.util.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('purchase.event.ticket.alert.single')
                 });
-                if (findResult === undefined) {
-                    this.util.openConfirm({
-                        title: this.translate.instant('common.confirm'),
-                        body: this.translate.instant('purchase.event.ticket.confirm.required'),
-                        cb: () => { this.router.navigate(['/purchase/input']); }
-                    });
-                    return;
-                }
+                return;
+            }
+            if (this.isSinglePurchase({name: 'confirm', authorizeSeatReservations})) {
+                this.util.openConfirm({
+                    title: this.translate.instant('common.confirm'),
+                    body: this.translate.instant('purchase.event.ticket.confirm.single'),
+                    cb: () => { this.router.navigate(['/purchase/input']); }
+                });
+                return;
             }
             this.router.navigate(['/purchase/input']);
         }).unsubscribe();
+    }
+
+    /**
+     * 単独購入可能判定（警告 or 確認）
+     */
+    private isSinglePurchase(params: {
+        name: 'alert' | 'confirm',
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[]
+    }) {
+        const authorizeSeatReservations = params.authorizeSeatReservations;
+        const findResult = authorizeSeatReservations.find((a) => {
+            const workPerformed = a.object.event.workPerformed;
+            if (workPerformed === undefined
+                || workPerformed.additionalProperty === undefined) {
+                return false;
+            }
+            const findPropertyResult = workPerformed.additionalProperty.find(p => p.name === params.name && p.value !== undefined);
+            if (findPropertyResult === undefined) {
+                return false;
+            }
+            const findWorkPerformedResult = authorizeSeatReservations.find((a2) => {
+                return (a2.object.event.workPerformed !== undefined
+                    && a2.object.event.workPerformed.identifier === findPropertyResult.value);
+            });
+            return (findWorkPerformedResult === undefined);
+        });
+
+        return findResult;
     }
 
     /**
