@@ -51,6 +51,11 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             this.scheduleDate = moment()
                 .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                 .toDate();
+            const openDate = moment(environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+            const nowDate = moment().toDate();
+            if (openDate > nowDate) {
+                this.scheduleDate = openDate;
+            }
         }
         this.getSellers();
     }
@@ -136,17 +141,20 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 this.scheduleDate = moment()
                     .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .toDate();
+                const openDate = moment(environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                const nowDate = moment().toDate();
+                if (openDate > nowDate) {
+                    this.scheduleDate = openDate;
+                }
             }
-            const scheduleDate =  moment(this.scheduleDate).format('YYYY-MM-DD');
+            const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
             this.store.dispatch(new purchaseAction.SelectScheduleDate({ scheduleDate }));
             this.store.dispatch(new masterAction.GetSchedule({
                 superEvent: {
-                    ids:
-                        (purchase.external === undefined || purchase.external.superEventId === undefined)
-                            ? [] : [purchase.external.superEventId],
-                    locationBranchCodes:
-                        (seller.location === undefined || seller.location.branchCode === undefined)
-                            ? [] : [seller.location.branchCode]
+                    ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
+                        ? [] : [purchase.external.superEventId],
+                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                        ? [] : [seller.location.branchCode]
                 },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()

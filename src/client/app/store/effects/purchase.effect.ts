@@ -182,6 +182,16 @@ export class PurchaseEffects {
                 if (payload.authorizeSeatReservation !== undefined) {
                     await this.cinerino.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation);
                 }
+                // サーバータイムを使用して販売期間判定
+                const serverTime = await this.util.getServerTime();
+                const nowDate = moment(serverTime.date).toDate();
+                if (screeningEvent.offers === undefined) {
+                    throw new Error('screeningEvent.offers undefined');
+                }
+                if (screeningEvent.offers.validFrom > nowDate
+                    || screeningEvent.offers.validThrough < nowDate) {
+                    throw new Error('Outside sales period');
+                }
                 const authorizeSeatReservation = await this.cinerino.transaction.placeOrder.authorizeSeatReservation({
                     object: {
                         event: {
@@ -225,6 +235,16 @@ export class PurchaseEffects {
             const freeSeats: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
             try {
                 await this.cinerino.getServices();
+                // サーバータイムを使用して販売期間判定
+                const serverTime = await this.util.getServerTime();
+                const nowDate = moment(serverTime.date).toDate();
+                if (screeningEvent.offers === undefined) {
+                    throw new Error('screeningEvent.offers undefined');
+                }
+                if (screeningEvent.offers.validFrom > nowDate
+                    || screeningEvent.offers.validThrough < nowDate) {
+                    throw new Error('Outside sales period');
+                }
                 if (isTicketedSeatScreeningEvent(screeningEvent)) {
                     for (const screeningEventOffer of screeningEventOffers) {
                         const section = screeningEventOffer.branchCode;

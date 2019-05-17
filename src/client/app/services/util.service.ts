@@ -48,6 +48,15 @@ export class UtilService {
     }
 
     /**
+     * サーバータイム取得
+     */
+    public async getServerTime() {
+        const result = await this.http.get<{ date: string }>('/api/serverTime').toPromise();
+
+        return result;
+    }
+
+    /**
      * json取得
      */
     public async getJson<T>(url: string, options?: {
@@ -82,7 +91,7 @@ export class UtilService {
         responseType?: 'json';
         withCredentials?: boolean;
     }) {
-        const result = await this.http.get<T>(url, {...options, responseType: (<any>'text')}).toPromise();
+        const result = await this.http.get<T>(url, { ...options, responseType: (<any>'text') }).toPromise();
 
         return result;
     }

@@ -1518,7 +1518,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4480,6 +4480,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var openDate, nowDate;
             return __generator(this, function (_a) {
                 this.bsValue = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
                 this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getPurchase"]));
@@ -4491,6 +4492,11 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                     this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_5__()
                         .add(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                         .toDate();
+                    openDate = moment__WEBPACK_IMPORTED_MODULE_5__(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                    nowDate = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
+                    if (openDate > nowDate) {
+                        this.scheduleDate = openDate;
+                    }
                 }
                 this.getSellers();
                 return [2 /*return*/];
@@ -4570,6 +4576,11 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                 _this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_5__()
                     .add(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .toDate();
+                var openDate = moment__WEBPACK_IMPORTED_MODULE_5__(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                var nowDate = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
+                if (openDate > nowDate) {
+                    _this.scheduleDate = openDate;
+                }
             }
             var scheduleDate = moment__WEBPACK_IMPORTED_MODULE_5__(_this.scheduleDate).format('YYYY-MM-DD');
             _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].SelectScheduleDate({ scheduleDate: scheduleDate }));
@@ -8158,7 +8169,7 @@ var PurchaseEventPerformanceConfirmComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"\">\n    <div class=\"bg-gray p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <!-- <div *ngIf=\"screeningWorkEvent.info.workPerformed.contentRating\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{\n                screeningWorkEvent.info.workPerformed.contentRating }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.superEvent.dubLanguage\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{ 'common.dubbing' | translate }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.superEvent.subtitleLanguage\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{ 'common.subtitles' | translate }}</div> -->\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0\" class=\"text-small ml-auto\">\n                {{\n                moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </div>\n        </div>\n    </div>\n    <div class=\"position-relative bg-white py-3\">\n        <div class=\"swiper-container\" #swiper [swiper]=\"swiperConfig\" (resize)=\"resize()\">\n            <div class=\"swiper-wrapper\">\n                <div *ngFor=\"let screeningEvent of screeningWorkEvent.data\" class=\"px-2 swiper-slide\">\n                    <div class=\"border boder-gray rounded py-3 text-center pointer\" [ngClass]=\"{ \n                'bg-white': isSales(screeningEvent) && (screeningEvent.remainingAttendeeCapacity > 0 || !isTicketedSeatScreeningEvent(screeningEvent)), \n                'bg-dark-gray text-light-gray not-event': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0\n                }\" (click)=\"select.emit(screeningEvent)\">\n                        <!-- <div class=\"mb-2 text-small\">\n                            {{ screeningEvent.location.name | changeLanguage }}\n                        </div> -->\n                        <div class=\"font-weight-bold mb-2\">\n                            {{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n                        </div>\n                        <div class=\"text-center\">\n                            <div class=\"status\"\n                                *ngIf=\"isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)\">\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'success')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'warning')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_warning.svg\">\n                                </div>\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'danger')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_danger.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status\"\n                                *ngIf=\"isSales(screeningEvent) && !isTicketedSeatScreeningEvent(screeningEvent)\">\n                                <div class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status\" *ngIf=\"isSales(screeningEvent, 'window')\">\n                                {{ 'purchase.event.schedule.status.window' | translate }}</div>\n                            <div class=\"status\" *ngIf=\"isSales(screeningEvent, 'end')\">\n                                {{ 'purchase.event.schedule.status.endSale' | translate }}</div>\n                            <div class=\"status\" *ngIf=\"isSales(screeningEvent, 'start')\">\n                                {{ 'purchase.event.schedule.status.outsideSalesPeriod' | translate }}</div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <!-- <div class=\"swiper-button-next\"></div>\n        <div class=\"swiper-button-prev\"></div> -->\n    </div>\n</div>"
+module.exports = "<div class=\"\">\n    <div class=\"bg-gray p-3\">\n        <div class=\"mb-2\">\n            <p class=\"font-weight-bold text-large\">{{ screeningWorkEvent.info.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)\">\n                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)\">{{\n                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <!-- <div *ngIf=\"screeningWorkEvent.info.workPerformed.contentRating\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{\n                screeningWorkEvent.info.workPerformed.contentRating }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.superEvent.dubLanguage\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{ 'common.dubbing' | translate }}</div>\n            <div *ngIf=\"screeningWorkEvent.info.superEvent.subtitleLanguage\"\n                class=\"text-small bg-dark-gray text-white py-1 px-3 mr-2\">{{ 'common.subtitles' | translate }}</div> -->\n            <div *ngIf=\"screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0\" class=\"text-small ml-auto\">\n                {{\n                moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </div>\n        </div>\n    </div>\n    <div class=\"position-relative bg-white py-3\">\n        <div class=\"swiper-container px-1\" #swiper [swiper]=\"swiperConfig\" (resize)=\"resize()\">\n            <div class=\"swiper-wrapper\">\n                <div *ngFor=\"let screeningEvent of screeningWorkEvent.data\" class=\"px-1 swiper-slide\">\n                    <div class=\"border boder-gray rounded py-3 text-center pointer\" [ngClass]=\"{ \n                'bg-white': isSales(screeningEvent) && (screeningEvent.remainingAttendeeCapacity > 0 || !isTicketedSeatScreeningEvent(screeningEvent)), \n                'bg-dark-gray text-light-gray not-event': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0\n                }\" (click)=\"select.emit(screeningEvent)\">\n                        <!-- <div class=\"mb-2 text-small\">\n                            {{ screeningEvent.location.name | changeLanguage }}\n                        </div> -->\n                        <div class=\"font-weight-bold mb-2\">\n                            {{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n                        </div>\n                        <div class=\"text-center\">\n                            <div class=\"status\"\n                                *ngIf=\"isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)\">\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'success')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'warning')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_warning.svg\">\n                                </div>\n                                <div *ngIf=\"isScheduleStatusThreshold(screeningEvent, 'danger')\"\n                                    class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_danger.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status\"\n                                *ngIf=\"isSales(screeningEvent) && !isTicketedSeatScreeningEvent(screeningEvent)\">\n                                <div class=\"d-flex justify-content-around align-items-center\">\n                                    <img src=\"/assets/images/icon/status_success.svg\">\n                                </div>\n                            </div>\n\n                            <div class=\"status\" *ngIf=\"isSales(screeningEvent, 'window')\">\n                                {{ 'purchase.event.schedule.status.window' | translate }}</div>\n                            <div class=\"status\" *ngIf=\"isSales(screeningEvent, 'end')\">\n                                {{ 'purchase.event.schedule.status.endSale' | translate }}</div>\n                            <div class=\"status\" *ngIf=\"isSales(screeningEvent, 'start')\">\n                                {{ 'purchase.event.schedule.status.outsideSalesPeriod' | translate }}</div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <!-- <div class=\"swiper-button-next\"></div>\n        <div class=\"swiper-button-prev\"></div> -->\n    </div>\n</div>"
 
 /***/ }),
 
@@ -11883,6 +11894,22 @@ var UtilService = /** @class */ (function () {
         });
     };
     /**
+     * サーバータイム取得
+     */
+    UtilService.prototype.getServerTime = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.http.get('/api/serverTime').toPromise()];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, result];
+                }
+            });
+        });
+    };
+    /**
      * json取得
      */
     UtilService.prototype.getJson = function (url, options) {
@@ -14559,7 +14586,7 @@ var PurchaseEffects = /** @class */ (function () {
          * temporaryReservation
          */
         this.temporaryReservation = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservation), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, screeningEvent, reservations, authorizeSeatReservation, error_5;
+            var transaction, screeningEvent, reservations, serverTime, nowDate, authorizeSeatReservation, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -14568,7 +14595,7 @@ var PurchaseEffects = /** @class */ (function () {
                         reservations = payload.reservations;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 6, , 7]);
+                        _a.trys.push([1, 7, , 8]);
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 2:
                         _a.sent();
@@ -14577,34 +14604,45 @@ var PurchaseEffects = /** @class */ (function () {
                     case 3:
                         _a.sent();
                         _a.label = 4;
-                    case 4: return [4 /*yield*/, this.cinerino.transaction.placeOrder.authorizeSeatReservation({
-                            object: {
-                                event: {
-                                    id: screeningEvent.id
-                                },
-                                acceptedOffer: reservations.map(function (reservation) {
-                                    if (reservation.ticket === undefined) {
-                                        throw new Error('ticket is undefined');
-                                    }
-                                    return {
-                                        id: reservation.ticket.ticketOffer.id,
-                                        ticketedSeat: reservation.seat,
-                                        additionalProperty: [] // ここにムビチケ情報を入れる
-                                    };
-                                })
-                            },
-                            purpose: transaction
-                        })];
+                    case 4: return [4 /*yield*/, this.util.getServerTime()];
                     case 5:
+                        serverTime = _a.sent();
+                        nowDate = moment__WEBPACK_IMPORTED_MODULE_4__(serverTime.date).toDate();
+                        if (screeningEvent.offers === undefined) {
+                            throw new Error('screeningEvent.offers undefined');
+                        }
+                        if (screeningEvent.offers.validFrom > nowDate
+                            || screeningEvent.offers.validThrough < nowDate) {
+                            throw new Error('Outside sales period');
+                        }
+                        return [4 /*yield*/, this.cinerino.transaction.placeOrder.authorizeSeatReservation({
+                                object: {
+                                    event: {
+                                        id: screeningEvent.id
+                                    },
+                                    acceptedOffer: reservations.map(function (reservation) {
+                                        if (reservation.ticket === undefined) {
+                                            throw new Error('ticket is undefined');
+                                        }
+                                        return {
+                                            id: reservation.ticket.ticketOffer.id,
+                                            ticketedSeat: reservation.seat,
+                                            additionalProperty: [] // ここにムビチケ情報を入れる
+                                        };
+                                    })
+                                },
+                                purpose: transaction
+                            })];
+                    case 6:
                         authorizeSeatReservation = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].TemporaryReservationSuccess({
                                 addAuthorizeSeatReservation: authorizeSeatReservation,
                                 removeAuthorizeSeatReservation: payload.authorizeSeatReservation
                             })];
-                    case 6:
+                    case 7:
                         error_5 = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].TemporaryReservationFail({ error: error_5 })];
-                    case 7: return [2 /*return*/];
+                    case 8: return [2 /*return*/];
                 }
             });
         }); }));
@@ -14612,7 +14650,7 @@ var PurchaseEffects = /** @class */ (function () {
          * temporaryReservationFreeSeat
          */
         this.temporaryReservationFreeSeat = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeat), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, screeningEvent, screeningEventOffers, reservationTickets, freeSeats, _i, screeningEventOffers_1, screeningEventOffer, section, _a, _b, containsPlace, authorizeSeatReservation, error_6;
+            var transaction, screeningEvent, screeningEventOffers, reservationTickets, freeSeats, serverTime, nowDate, _i, screeningEventOffers_1, screeningEventOffer, section, _a, _b, containsPlace, authorizeSeatReservation, error_6;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
@@ -14623,10 +14661,21 @@ var PurchaseEffects = /** @class */ (function () {
                         freeSeats = [];
                         _c.label = 1;
                     case 1:
-                        _c.trys.push([1, 4, , 5]);
+                        _c.trys.push([1, 5, , 6]);
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 2:
                         _c.sent();
+                        return [4 /*yield*/, this.util.getServerTime()];
+                    case 3:
+                        serverTime = _c.sent();
+                        nowDate = moment__WEBPACK_IMPORTED_MODULE_4__(serverTime.date).toDate();
+                        if (screeningEvent.offers === undefined) {
+                            throw new Error('screeningEvent.offers undefined');
+                        }
+                        if (screeningEvent.offers.validFrom > nowDate
+                            || screeningEvent.offers.validThrough < nowDate) {
+                            throw new Error('Outside sales period');
+                        }
                         if (Object(_functions__WEBPACK_IMPORTED_MODULE_7__["isTicketedSeatScreeningEvent"])(screeningEvent)) {
                             for (_i = 0, screeningEventOffers_1 = screeningEventOffers; _i < screeningEventOffers_1.length; _i++) {
                                 screeningEventOffer = screeningEventOffers_1[_i];
@@ -14661,15 +14710,15 @@ var PurchaseEffects = /** @class */ (function () {
                                 },
                                 purpose: transaction
                             })];
-                    case 3:
+                    case 4:
                         authorizeSeatReservation = _c.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].TemporaryReservationFreeSeatSuccess({
                                 addAuthorizeSeatReservation: authorizeSeatReservation
                             })];
-                    case 4:
+                    case 5:
                         error_6 = _c.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].TemporaryReservationFreeSeatFail({ error: error_6 })];
-                    case 5: return [2 /*return*/];
+                    case 6: return [2 /*return*/];
                 }
             });
         }); }));

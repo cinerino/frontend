@@ -24,9 +24,9 @@
         </div>
     </div>
     <div class="position-relative bg-white py-3">
-        <div class="swiper-container" #swiper [swiper]="swiperConfig" (resize)="resize()">
+        <div class="swiper-container px-1" #swiper [swiper]="swiperConfig" (resize)="resize()">
             <div class="swiper-wrapper">
-                <div *ngFor="let screeningEvent of screeningWorkEvent.data" class="px-2 swiper-slide">
+                <div *ngFor="let screeningEvent of screeningWorkEvent.data" class="px-1 swiper-slide">
                     <div class="border boder-gray rounded py-3 text-center pointer" [ngClass]="{ 
                 'bg-white': isSales(screeningEvent) && (screeningEvent.remainingAttendeeCapacity > 0 || !isTicketedSeatScreeningEvent(screeningEvent)), 
                 'bg-dark-gray text-light-gray not-event': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0
