@@ -1,7 +1,7 @@
 /**
  * 環境変数
  */
-export const environment: {
+interface IEnvironment {
     /**
      * 本番判定
      */
@@ -87,9 +87,13 @@ export const environment: {
      */
     FOOTER_PRIVACY_POLICY_URL: string;
     /**
-     * カート制限数
+     * カート機能有無
      */
-    PURCHASE_CART_MAX_LENGTH: string;
+    PURCHASE_CART: boolean;
+    /**
+     * 購入アイテム上限数
+     */
+    PURCHASE_ITEM_MAX_LENGTH: string;
     /**
      * 取引時間
      */
@@ -150,4 +154,47 @@ export const environment: {
      * 設定開発用オプション
      */
     SETTING_DEVELOP_OPTION: boolean;
-} = (<any>window).environment;
+}
+
+const defaultEnvironment: IEnvironment = {
+    production: false,
+    APP_TITLE: '',
+    APP_PREFIX: '',
+    PROJECT_ID: '',
+    ENV: '',
+    ENTRANCE_SERVER_URL: '',
+    WAITER_SERVER_URL: '',
+    VIEW_TYPE: 'cinema',
+    GTM_ID: '',
+    ANALYTICS_ID: '',
+    STORAGE_NAME: '',
+    STORAGE_TYPE: 'sessionStorage',
+    BASE_URL: '/purchase/root',
+    LANGUAGE: ['ja'],
+    PORTAL_SITE_URL: '',
+    DISPLAY_TICKETED_SEAT: false,
+    HEADER_MENU: false,
+    HEADER_MENU_SCOPE: [],
+    FOOTER_COMPANY_URL: '',
+    FOOTER_LAW_URL: '',
+    FOOTER_PRIVACY_POLICY_URL: '',
+    PURCHASE_CART: false,
+    PURCHASE_ITEM_MAX_LENGTH: '50',
+    PURCHASE_TRANSACTION_TIME: '15',
+    PURCHASE_PRE_SCHEDULE_DATE: '3',
+    PURCHASE_SCHEDULE_DISPLAY_LENGTH: '10',
+    PURCHASE_SCHEDULE_OPEN_DATE: '2019-05-01',
+    PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
+    PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES: '-20',
+    PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
+    PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
+    PURCHASE_COMPLETE_MAIL_CUSTOM: false,
+    INQUIRY_CANCEL: false,
+    INQUIRY_QRCODE: false,
+    INQUIRY_PRINT: false,
+    PRINT_QRCODE_TYPE: 'token',
+    PRINT_QRCODE_CUSTOM: 'token',
+    SETTING_DEVELOP_OPTION: false
+};
+
+export const environment: IEnvironment = Object.assign(defaultEnvironment, (<any>window).environment);

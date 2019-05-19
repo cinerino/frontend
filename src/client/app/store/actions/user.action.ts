@@ -120,7 +120,7 @@ export class UpdateBaseSetting implements Action {
         seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
         pos?: factory.seller.IPOS;
         printer?: IPrinter;
-        purchaseCartMaxLength: number;
+        isPurchaseCart: boolean;
         viewType: ViewType;
     }) { }
 }

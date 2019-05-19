@@ -298,7 +298,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                     this.router.navigate(['/error']);
                     return;
                 }
-                if (user.purchaseCartMaxLength > 1
+                if (user.isPurchaseCart
                     && purchase.transaction !== undefined
                     && purchase.authorizeSeatReservations.length > 0) {
                     this.openTransactionModal();

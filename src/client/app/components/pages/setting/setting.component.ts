@@ -57,7 +57,7 @@ export class SettingComponent implements OnInit {
             posId: [''],
             printerType: [''],
             printerIpAddress: [''],
-            purchaseCartMaxLength: ['', [
+            isPurchaseCart: ['0', [
                 Validators.required,
                 Validators.pattern(/^[0-9]+$/)
             ]],
@@ -78,7 +78,7 @@ export class SettingComponent implements OnInit {
                 this.baseForm.controls.printerType.setValue(user.printer.connectionType);
                 this.baseForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
             }
-            this.baseForm.controls.purchaseCartMaxLength.setValue(user.purchaseCartMaxLength);
+            this.baseForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
             this.baseForm.controls.viewType.setValue(user.viewType);
         }).unsubscribe();
     }
@@ -113,7 +113,7 @@ export class SettingComponent implements OnInit {
         Object.keys(this.baseForm.controls).forEach((key) => {
             this.baseForm.controls[key].markAsTouched();
         });
-        this.baseForm.controls.purchaseCartMaxLength.setValue((<HTMLInputElement>document.getElementById('purchaseCartMaxLength')).value);
+        this.baseForm.controls.isPurchaseCart.setValue((<HTMLInputElement>document.getElementById('isPurchaseCart')).value);
         this.baseForm.controls.viewType.setValue((<HTMLInputElement>document.getElementById('viewType')).value);
         if (this.baseForm.invalid) {
             this.util.openAlert({
@@ -134,7 +134,7 @@ export class SettingComponent implements OnInit {
                     return;
                 }
             }
-            const purchaseCartMaxLength = Number(this.baseForm.controls.purchaseCartMaxLength.value);
+            const isPurchaseCart = (this.baseForm.controls.isPurchaseCart.value === '1') ? true : false;
             const viewType = this.baseForm.controls.viewType.value;
 
             this.store.dispatch(new userAction.UpdateBaseSetting({
@@ -144,7 +144,7 @@ export class SettingComponent implements OnInit {
                     ipAddress: this.baseForm.controls.printerIpAddress.value,
                     connectionType: this.baseForm.controls.printerType.value
                 },
-                purchaseCartMaxLength,
+                isPurchaseCart,
                 viewType
             }));
             this.util.openAlert({

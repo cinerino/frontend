@@ -193,9 +193,9 @@
             (click)="onSubmit()">{{ 'purchase.input.next' | translate }}</button>
 
         <div *ngIf="(user | async).viewType === viewType.Cinema">
-            <button *ngIf="(user | async).purchaseCartMaxLength > 1" type="button" class="btn btn-link"
+            <button *ngIf="(user | async).isPurchaseCart" type="button" class="btn btn-link"
                 routerLink="/purchase/cinema/cart">{{ 'purchase.input.prev' | translate }}</button>
-            <button *ngIf="(user | async).purchaseCartMaxLength === 1" type="button" class="btn btn-link"
+            <button *ngIf="!(user | async).isPurchaseCart" type="button" class="btn btn-link"
                 routerLink="/purchase/cinema/ticket">{{ 'purchase.input.prev' | translate }}</button>
         </div>
         <div *ngIf="(user | async).viewType === viewType.Event">

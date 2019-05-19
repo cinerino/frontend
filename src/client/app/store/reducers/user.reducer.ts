@@ -32,9 +32,9 @@ export interface IUserState {
      */
     language: string;
     /**
-     * 購入制限数
+     * 購入カート使用
      */
-    purchaseCartMaxLength: number;
+    isPurchaseCart: boolean;
     /**
      * 表示形式
      */
@@ -56,7 +56,7 @@ export interface IUserState {
 export const userInitialState: IUserState = {
     isMember: false,
     language: 'ja',
-    purchaseCartMaxLength: Number(environment.PURCHASE_CART_MAX_LENGTH),
+    isPurchaseCart: environment.PURCHASE_CART,
     viewType: (<ViewType>environment.VIEW_TYPE),
     creditCards: []
 };
@@ -161,7 +161,7 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             state.userData.seller = action.payload.seller;
             state.userData.pos = action.payload.pos;
             state.userData.printer = action.payload.printer;
-            state.userData.purchaseCartMaxLength = action.payload.purchaseCartMaxLength;
+            state.userData.isPurchaseCart = action.payload.isPurchaseCart;
             state.userData.viewType = action.payload.viewType;
             return { ...state };
         }
