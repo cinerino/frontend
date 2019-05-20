@@ -29,6 +29,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public environment = environment;
     private updateTimer: any;
     public bsValue: Date;
+    public isSales: boolean;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -47,11 +48,13 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
         this.screeningWorkEvents = [];
+        this.isSales = true;
         if (this.scheduleDate === undefined) {
-            this.scheduleDate = moment()
+            const defaultDate = moment()
                 .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                 .toDate();
             const openDate = moment(environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+            this.scheduleDate = defaultDate;
             const nowDate = moment().toDate();
             if (openDate > nowDate) {
                 this.scheduleDate = openDate;
@@ -132,16 +135,19 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         if (date !== undefined && date !== null) {
             this.scheduleDate = date;
         }
+        const selectDate = moment(moment(this.scheduleDate).format('YYYYMMDD')).toDate();
+        const defaultDate = moment()
+            .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+            .toDate();
+        const openDate = moment(environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+        this.isSales = (selectDate >= defaultDate && selectDate >= openDate);
         this.purchase.subscribe((purchase) => {
             const seller = purchase.seller;
             if (seller === undefined) {
                 return;
             }
             if (this.scheduleDate === undefined || this.scheduleDate === null) {
-                this.scheduleDate = moment()
-                    .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                    .toDate();
-                const openDate = moment(environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                this.scheduleDate = defaultDate;
                 const nowDate = moment().toDate();
                 if (openDate > nowDate) {
                     this.scheduleDate = openDate;

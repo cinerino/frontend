@@ -263,6 +263,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public onSubmit() {
         this.purchase.subscribe((purchase) => {
             const authorizeSeatReservations = purchase.authorizeSeatReservations;
+            // チケット未選択判定
             if (authorizeSeatReservations.length === 0) {
                 this.util.openAlert({
                     title: this.translate.instant('common.error'),
@@ -283,6 +284,19 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                     title: this.translate.instant('common.confirm'),
                     body: this.translate.instant('purchase.event.ticket.confirm.single'),
                     cb: () => { this.router.navigate(['/purchase/input']); }
+                });
+                return;
+            }
+            // チケット枚数上限判定
+            let itemCount = 0;
+            authorizeSeatReservations.forEach(a => itemCount += a.object.acceptedOffer.length);
+            if (itemCount > Number(environment.PURCHASE_ITEM_MAX_LENGTH)) {
+                this.util.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant(
+                        'purchase.event.ticket.alert.limit',
+                        { value: Number(environment.PURCHASE_ITEM_MAX_LENGTH) }
+                    )
                 });
                 return;
             }

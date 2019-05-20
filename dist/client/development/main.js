@@ -1518,7 +1518,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4369,7 +4369,7 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"!((purchase | async)?.external?.sellerId)\" class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.seller.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.seller.read' | translate\"></p>\n\n    <div class=\"sellers\">\n        <button *ngFor=\"let seller of (master | async)?.sellers\" type=\"button\" class=\"btn btn-block py-3 m-0\"\n            (click)=\"selectSeller(seller)\" [class.btn-primary]=\"(purchase | async).seller?.id === seller.id\"\n            [class.btn-outline-primary]=\"(purchase | async).seller?.id !== seller.id\">{{ seller.name | changeLanguage }}</button>\n    </div>\n</div>\n\n<div class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.schedule.read' | translate\"></p>\n</div>\n<div class=\"contents-width mx-auto p-3\">\n    <div class=\"mb-3 position-relative\">\n        <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" bsDatepicker [(ngModel)]=\"scheduleDate\"\n            [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false, minDate: moment().toDate() }\"\n            (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\">\n        <!-- <input type=\"date\" class=\"form-control rounded-0\" name=\"date\" [(ngModel)]=\"scheduleDate\"\n            (change)=\"selectDate()\"> -->\n    </div>\n    <div class=\"mb-4\">\n        <p *ngIf=\"(purchase | async)?.scheduleDate\" class=\"text-primary text-large mb-3\">\n            {{ 'purchase.event.schedule.selectedDate' | translate: {value: (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}\n        </p>\n        <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\" [innerHTML]=\"'purchase.event.schedule.notfound' | translate\"></p>\n        <app-purchase-event-performance-confirm *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n            [screeningWorkEvent]=\"screeningWorkEvent\" [readonly]=\"true\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n        </app-purchase-event-performance-confirm>\n    </div>\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.terms' | translate }}</h2>\n    <div class=\"mb-4\">\n        <app-purchase-terms [language]=\"(user | async).language\" [screeningEvent]=\"(purchase | async).screeningEvent\">\n        </app-purchase-terms>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"screeningWorkEvents.length === 0\"\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.next' | translate }}</button>\n        <a *ngIf=\"environment.PORTAL_SITE_URL\" class=\"btn btn-link\"\n            [href]=\"environment.PORTAL_SITE_URL\">{{ 'purchase.event.schedule.prev' | translate }}</a>\n    </div>\n</div>"
+module.exports = "<div *ngIf=\"!((purchase | async)?.external?.sellerId)\" class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.seller.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.seller.read' | translate\"></p>\n\n    <div class=\"sellers\">\n        <button *ngFor=\"let seller of (master | async)?.sellers\" type=\"button\" class=\"btn btn-block py-3 m-0\"\n            (click)=\"selectSeller(seller)\" [class.btn-primary]=\"(purchase | async).seller?.id === seller.id\"\n            [class.btn-outline-primary]=\"(purchase | async).seller?.id !== seller.id\">{{ seller.name | changeLanguage }}</button>\n    </div>\n</div>\n\n<div class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.schedule.read' | translate\"></p>\n</div>\n<div class=\"contents-width mx-auto p-3\">\n    <div class=\"mb-3 position-relative\">\n        <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" bsDatepicker [(ngModel)]=\"scheduleDate\"\n            [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false, minDate: moment().toDate() }\"\n            (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\">\n        <!-- <input type=\"date\" class=\"form-control rounded-0\" name=\"date\" [(ngModel)]=\"scheduleDate\"\n            (change)=\"selectDate()\"> -->\n    </div>\n    <div class=\"mb-4\">\n        <p *ngIf=\"(purchase | async)?.scheduleDate\" class=\"text-primary text-large mb-3\">\n            {{ 'purchase.event.schedule.selectedDate' | translate: {value: (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}\n        </p>\n        <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\"\n            [innerHTML]=\"'purchase.event.schedule.notfound' | translate\"></p>\n        <app-purchase-event-performance-confirm *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n            [screeningWorkEvent]=\"screeningWorkEvent\" [readonly]=\"true\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n        </app-purchase-event-performance-confirm>\n    </div>\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.terms' | translate }}</h2>\n    <div class=\"mb-4\">\n        <app-purchase-terms [language]=\"(user | async).language\" [screeningEvent]=\"(purchase | async).screeningEvent\">\n        </app-purchase-terms>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button *ngIf=\"isSales\" type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"screeningWorkEvents.length === 0\"\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.next' | translate }}</button>\n        <button *ngIf=\"!isSales\" type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" disabled\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.disabled' | translate }}</button>\n        <a *ngIf=\"environment.PORTAL_SITE_URL\" class=\"btn btn-link\"\n            [href]=\"environment.PORTAL_SITE_URL\">{{ 'purchase.event.schedule.prev' | translate }}</a>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -4480,7 +4480,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var openDate, nowDate;
+            var defaultDate, openDate, nowDate;
             return __generator(this, function (_a) {
                 this.bsValue = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
                 this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getPurchase"]));
@@ -4488,11 +4488,13 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                 this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getMaster"]));
                 this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getError"]));
                 this.screeningWorkEvents = [];
+                this.isSales = true;
                 if (this.scheduleDate === undefined) {
-                    this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_5__()
+                    defaultDate = moment__WEBPACK_IMPORTED_MODULE_5__()
                         .add(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                         .toDate();
                     openDate = moment__WEBPACK_IMPORTED_MODULE_5__(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                    this.scheduleDate = defaultDate;
                     nowDate = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
                     if (openDate > nowDate) {
                         this.scheduleDate = openDate;
@@ -4567,16 +4569,19 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
         if (date !== undefined && date !== null) {
             this.scheduleDate = date;
         }
+        var selectDate = moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__(this.scheduleDate).format('YYYYMMDD')).toDate();
+        var defaultDate = moment__WEBPACK_IMPORTED_MODULE_5__()
+            .add(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+            .toDate();
+        var openDate = moment__WEBPACK_IMPORTED_MODULE_5__(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+        this.isSales = (selectDate >= defaultDate && selectDate >= openDate);
         this.purchase.subscribe(function (purchase) {
             var seller = purchase.seller;
             if (seller === undefined) {
                 return;
             }
             if (_this.scheduleDate === undefined || _this.scheduleDate === null) {
-                _this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_5__()
-                    .add(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                    .toDate();
-                var openDate = moment__WEBPACK_IMPORTED_MODULE_5__(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                _this.scheduleDate = defaultDate;
                 var nowDate = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
                 if (openDate > nowDate) {
                     _this.scheduleDate = openDate;
@@ -5031,6 +5036,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
         var _this = this;
         this.purchase.subscribe(function (purchase) {
             var authorizeSeatReservations = purchase.authorizeSeatReservations;
+            // チケット未選択判定
             if (authorizeSeatReservations.length === 0) {
                 _this.util.openAlert({
                     title: _this.translate.instant('common.error'),
@@ -5051,6 +5057,16 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                     title: _this.translate.instant('common.confirm'),
                     body: _this.translate.instant('purchase.event.ticket.confirm.single'),
                     cb: function () { _this.router.navigate(['/purchase/input']); }
+                });
+                return;
+            }
+            // チケット枚数上限判定
+            var itemCount = 0;
+            authorizeSeatReservations.forEach(function (a) { return itemCount += a.object.acceptedOffer.length; });
+            if (itemCount > Number(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_ITEM_MAX_LENGTH)) {
+                _this.util.openAlert({
+                    title: _this.translate.instant('common.error'),
+                    body: _this.translate.instant('purchase.event.ticket.alert.limit', { value: Number(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_ITEM_MAX_LENGTH) })
                 });
                 return;
             }
