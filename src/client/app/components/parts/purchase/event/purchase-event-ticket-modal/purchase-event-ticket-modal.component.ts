@@ -34,7 +34,9 @@ export class PurchaseEventTicketModalComponent implements OnInit {
             return movieTicketTypeChargeSpecification === undefined;
         });
         this.values = [];
-        const limit = 10;
+        const limit = (this.screeningEvent.offers === undefined
+            || this.screeningEvent.offers.eligibleQuantity.maxValue === undefined)
+            ? 0 : this.screeningEvent.offers.eligibleQuantity.maxValue;
         for (let i = 0; i < limit; i++) {
             this.values.push(i + 1);
         }

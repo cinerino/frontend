@@ -4062,12 +4062,25 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
      * 座席選択
      */
     PurchaseCinemaSeatComponent.prototype.selectSeat = function (data) {
-        if (data.status === _models__WEBPACK_IMPORTED_MODULE_7__["SeatStatus"].Default) {
-            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].SelectSeats({ seats: [data.seat] }));
-        }
-        else {
-            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].CancelSeats({ seats: [data.seat] }));
-        }
+        var _this = this;
+        this.purchase.subscribe(function (purchase) {
+            if (data.status === _models__WEBPACK_IMPORTED_MODULE_7__["SeatStatus"].Default) {
+                if (purchase.screeningEvent !== undefined
+                    && purchase.screeningEvent.offers !== undefined
+                    && purchase.screeningEvent.offers.eligibleQuantity.maxValue !== undefined
+                    && purchase.reservations.length >= purchase.screeningEvent.offers.eligibleQuantity.maxValue) {
+                    _this.util.openAlert({
+                        title: _this.translate.instant('common.error'),
+                        body: _this.translate.instant('purchase.cinema.seat.alert.limit', { value: purchase.screeningEvent.offers.eligibleQuantity.maxValue })
+                    });
+                    return;
+                }
+                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].SelectSeats({ seats: [data.seat] }));
+            }
+            else {
+                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].CancelSeats({ seats: [data.seat] }));
+            }
+        }).unsubscribe();
     };
     /**
      * 座席決定
@@ -4957,11 +4970,23 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
     PurchaseEventTicketComponent.prototype.openTicketList = function () {
         var _this = this;
         this.purchase.subscribe(function (purchase) {
+            var screeningEvent = purchase.screeningEvent;
             _this.modal.show(_parts__WEBPACK_IMPORTED_MODULE_14__["PurchaseEventTicketModalComponent"], {
                 initialState: {
                     screeningEventTicketOffers: purchase.screeningEventTicketOffers,
-                    screeningEvent: purchase.screeningEvent,
+                    screeningEvent: screeningEvent,
                     cb: function (reservationTickets) {
+                        var limit = (screeningEvent === undefined
+                            || screeningEvent.offers === undefined
+                            || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
+                            ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
+                        if (reservationTickets.length > limit) {
+                            _this.util.openAlert({
+                                title: _this.translate.instant('common.error'),
+                                body: _this.translate.instant('purchase.event.ticket.alert.limit', { value: limit })
+                            });
+                            return;
+                        }
                         _this.getScreeningEventOffers(reservationTickets);
                     }
                 },
@@ -8353,7 +8378,9 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
             return movieTicketTypeChargeSpecification === undefined;
         });
         this.values = [];
-        var limit = 10;
+        var limit = (this.screeningEvent.offers === undefined
+            || this.screeningEvent.offers.eligibleQuantity.maxValue === undefined)
+            ? 0 : this.screeningEvent.offers.eligibleQuantity.maxValue;
         for (var i = 0; i < limit; i++) {
             this.values.push(i + 1);
         }
@@ -14210,7 +14237,8 @@ var OrderEffects = /** @class */ (function () {
                         }
                         order = authorizeOrder;
                         qrcode = itemOffered.reservedTicket.ticketToken;
-                        additionalProperty = itemOffered.reservationFor.superEvent.additionalProperty;
+                        additionalProperty = (itemOffered.reservationFor.workPerformed === undefined)
+                            ? undefined : itemOffered.reservationFor.workPerformed.additionalProperty;
                         if (additionalProperty !== undefined) {
                             isDisplayQrcode = additionalProperty.find(function (a) { return a.name === 'qrcode'; });
                             if (isDisplayQrcode !== undefined && isDisplayQrcode.value === 'false') {

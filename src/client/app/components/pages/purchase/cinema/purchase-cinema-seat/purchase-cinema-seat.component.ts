@@ -73,11 +73,26 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         seat: IReservationSeat,
         status: SeatStatus
     }) {
-        if (data.status === SeatStatus.Default) {
-            this.store.dispatch(new purchaseAction.SelectSeats({ seats: [data.seat] }));
-        } else {
-            this.store.dispatch(new purchaseAction.CancelSeats({ seats: [data.seat] }));
-        }
+        this.purchase.subscribe((purchase) => {
+            if (data.status === SeatStatus.Default) {
+                if (purchase.screeningEvent !== undefined
+                    && purchase.screeningEvent.offers !== undefined
+                    && purchase.screeningEvent.offers.eligibleQuantity.maxValue !== undefined
+                    && purchase.reservations.length >= purchase.screeningEvent.offers.eligibleQuantity.maxValue) {
+                    this.util.openAlert({
+                        title: this.translate.instant('common.error'),
+                        body: this.translate.instant(
+                            'purchase.cinema.seat.alert.limit',
+                            { value: purchase.screeningEvent.offers.eligibleQuantity.maxValue }
+                        )
+                    });
+                    return;
+                }
+                this.store.dispatch(new purchaseAction.SelectSeats({ seats: [data.seat] }));
+            } else {
+                this.store.dispatch(new purchaseAction.CancelSeats({ seats: [data.seat] }));
+            }
+        }).unsubscribe();
     }
 
     /**

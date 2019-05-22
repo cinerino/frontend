@@ -187,7 +187,8 @@ export class OrderEffects {
                             }
                             const order = authorizeOrder;
                             let qrcode = itemOffered.reservedTicket.ticketToken;
-                            const additionalProperty = itemOffered.reservationFor.superEvent.additionalProperty;
+                            const additionalProperty = (itemOffered.reservationFor.workPerformed === undefined)
+                                ? undefined : itemOffered.reservationFor.workPerformed.additionalProperty;
                             if (additionalProperty !== undefined) {
                                 // 追加特性のqrcodeがfalseの場合QR非表示
                                 const isDisplayQrcode = additionalProperty.find(a => a.name === 'qrcode');

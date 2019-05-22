@@ -172,11 +172,26 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      */
     private openTicketList() {
         this.purchase.subscribe((purchase) => {
+            const screeningEvent = purchase.screeningEvent;
             this.modal.show(PurchaseEventTicketModalComponent, {
                 initialState: {
                     screeningEventTicketOffers: purchase.screeningEventTicketOffers,
-                    screeningEvent: purchase.screeningEvent,
+                    screeningEvent,
                     cb: (reservationTickets: IReservationTicket[]) => {
+                        const limit = (screeningEvent === undefined
+                            || screeningEvent.offers === undefined
+                            || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
+                            ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
+                        if (reservationTickets.length > limit) {
+                            this.util.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant(
+                                    'purchase.event.ticket.alert.limit',
+                                    { value: limit }
+                                )
+                            });
+                            return;
+                        }
                         this.getScreeningEventOffers(reservationTickets);
                     }
                 },
