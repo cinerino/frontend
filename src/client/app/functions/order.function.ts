@@ -26,6 +26,7 @@ async function drawCanvas(args: {
         confirmationNumber: string;
         orderNumber: string;
         ticketNumber: string;
+        index: number;
         qrcode?: string;
     }
 }) {
@@ -105,7 +106,8 @@ async function drawCanvas(args: {
                 case 'date':
                     value = `(${moment().format('YYYY/MM/DD HH:mm')} 発券)`;
                     break;
-                case 'startDate' || 'endDate':
+                case 'startDate':
+                case 'endDate':
                     value = `${moment(data[text.name]).format(text.value)}`;
                     break;
                 case 'eventNameJa':
@@ -180,6 +182,7 @@ export async function createPrintCanvas(args: {
     order: factory.order.IOrder;
     pos?: factory.seller.IPOS;
     qrcode?: string;
+    index: number;
 }) {
     const acceptedOffer = args.acceptedOffer;
     if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
@@ -203,7 +206,8 @@ export async function createPrintCanvas(args: {
         confirmationNumber: String(args.order.confirmationNumber),
         orderNumber: args.order.orderNumber,
         ticketNumber: acceptedOffer.itemOffered.id,
-        qrcode: args.qrcode
+        qrcode: args.qrcode,
+        index: args.index
     };
     const printData = args.printData;
     const canvas = await drawCanvas({ data, printData });
@@ -237,7 +241,8 @@ export async function createTestPrintCanvas(args: { printData: ITicketPrintData 
         confirmationNumber: '12345678',
         orderNumber: 'TEST-123456-123456',
         ticketNumber: 'TEST-123456-123456-00',
-        qrcode: 'TEST-123456-123456'
+        qrcode: 'TEST-123456-123456',
+        index: 0
     };
     const canvas = await drawCanvas({ printData, data });
 

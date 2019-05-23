@@ -92,7 +92,9 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                             ? [] : [purchase.external.superEventId],
                     locationBranchCodes:
                         (seller.location === undefined || seller.location.branchCode === undefined)
-                            ? [] : [seller.location.branchCode]
+                            ? [] : [seller.location.branchCode],
+                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
+                        ? [] : [purchase.external.workPerformedId],
                 },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()

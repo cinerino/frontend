@@ -592,6 +592,8 @@ export class SetExternal implements Action {
         sellerId?: string;
         superEventId?: string;
         eventId?: string;
+        workPerformedId?: string;
+        passportToken?: string;
     }) { }
 }
 

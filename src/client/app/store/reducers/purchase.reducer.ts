@@ -37,6 +37,7 @@ export interface IPurchaseState {
         superEventId?: string;
         eventId?: string;
         passportToken?: string;
+        workPerformedId?: string;
     };
 }
 
@@ -435,7 +436,11 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             const sellerId = action.payload.sellerId;
             const superEventId = action.payload.superEventId;
             const eventId = action.payload.eventId;
-            state.purchaseData.external = { sellerId, superEventId, eventId };
+            const workPerformedId = action.payload.workPerformedId;
+            const passportToken = action.payload.passportToken;
+            state.purchaseData.external = {
+                sellerId, superEventId, eventId, workPerformedId, passportToken
+            };
             return { ...state };
         }
         case purchaseAction.ActionTypes.ConvertExternalToPurchase: {

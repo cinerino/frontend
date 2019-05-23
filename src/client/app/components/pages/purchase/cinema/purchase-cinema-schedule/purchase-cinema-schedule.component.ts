@@ -193,12 +193,12 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             const seller = purchase.seller;
             this.store.dispatch(new purchaseAction.GetPreScheduleDates({
                 superEvent: {
-                    ids:
-                        (purchase.external === undefined || purchase.external.superEventId === undefined)
-                            ? [] : [purchase.external.superEventId],
-                    locationBranchCodes:
-                        (seller.location === undefined || seller.location.branchCode === undefined)
-                            ? [] : [seller.location.branchCode]
+                    ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
+                        ? [] : [purchase.external.superEventId],
+                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                        ? [] : [seller.location.branchCode],
+                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
+                        ? [] : [purchase.external.workPerformedId]
                 }
             }));
         }).unsubscribe();
@@ -240,12 +240,12 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             this.store.dispatch(new purchaseAction.SelectScheduleDate({ scheduleDate }));
             this.store.dispatch(new masterAction.GetSchedule({
                 superEvent: {
-                    ids:
-                        (purchase.external === undefined || purchase.external.superEventId === undefined)
-                            ? [] : [purchase.external.superEventId],
-                    locationBranchCodes:
-                        (seller.location === undefined || seller.location.branchCode === undefined)
-                            ? [] : [seller.location.branchCode]
+                    ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
+                        ? [] : [purchase.external.superEventId],
+                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                        ? [] : [seller.location.branchCode],
+                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
+                        ? [] : [purchase.external.workPerformedId],
                 },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()

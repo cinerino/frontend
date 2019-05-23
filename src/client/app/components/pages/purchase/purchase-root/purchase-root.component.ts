@@ -31,8 +31,8 @@ export class PurchaseRootComponent implements OnInit {
             const snapshot = this.activatedRoute.snapshot;
             const language = snapshot.params.language;
             const sellerId = snapshot.params.sellerId;
-            const superEventId = snapshot.params.superEventId;
-            this.store.dispatch(new purchaseAction.SetExternal({ sellerId, superEventId }));
+            const workPerformedId = snapshot.params.workPerformedId;
+            this.store.dispatch(new purchaseAction.SetExternal({ sellerId, workPerformedId }));
             if (language !== undefined) {
                 const element = document.querySelector<HTMLSelectElement>('#language');
                 if (element !== null) {

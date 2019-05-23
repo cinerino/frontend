@@ -48,7 +48,26 @@ export class SettingComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
+        this.getSellers();
         this.createBaseForm();
+    }
+
+    /**
+     * 販売者一覧取得
+     */
+    public getSellers() {
+        this.store.dispatch(new masterAction.GetSellers());
+        const success = this.actions.pipe(
+            ofType(masterAction.ActionTypes.GetSellersSuccess),
+            tap(() => { })
+        );
+        const fail = this.actions.pipe(
+            ofType(masterAction.ActionTypes.GetSellersFail),
+            tap(() => {
+                this.router.navigate(['/error']);
+            })
+        );
+        race(success, fail).pipe(take(1)).subscribe();
     }
 
     private createBaseForm() {
@@ -113,8 +132,6 @@ export class SettingComponent implements OnInit {
         Object.keys(this.baseForm.controls).forEach((key) => {
             this.baseForm.controls[key].markAsTouched();
         });
-        this.baseForm.controls.isPurchaseCart.setValue((<HTMLInputElement>document.getElementById('isPurchaseCart')).value);
-        this.baseForm.controls.viewType.setValue((<HTMLInputElement>document.getElementById('viewType')).value);
         if (this.baseForm.invalid) {
             this.util.openAlert({
                 title: this.translate.instant('common.error'),

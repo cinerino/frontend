@@ -3698,7 +3698,9 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                     ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
                         ? [] : [purchase.external.superEventId],
                     locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                        ? [] : [seller.location.branchCode]
+                        ? [] : [seller.location.branchCode],
+                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
+                        ? [] : [purchase.external.workPerformedId]
                 }
             }));
         }).unsubscribe();
@@ -3735,7 +3737,9 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                     ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
                         ? [] : [purchase.external.superEventId],
                     locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                        ? [] : [seller.location.branchCode]
+                        ? [] : [seller.location.branchCode],
+                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
+                        ? [] : [purchase.external.workPerformedId],
                 },
                 startFrom: moment__WEBPACK_IMPORTED_MODULE_6__(scheduleDate).toDate(),
                 startThrough: moment__WEBPACK_IMPORTED_MODULE_6__(scheduleDate).add(1, 'day').toDate()
@@ -4607,7 +4611,9 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                     ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
                         ? [] : [purchase.external.superEventId],
                     locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                        ? [] : [seller.location.branchCode]
+                        ? [] : [seller.location.branchCode],
+                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
+                        ? [] : [purchase.external.workPerformedId],
                 },
                 startFrom: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).toDate(),
                 startThrough: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).add(1, 'day').toDate()
@@ -4906,7 +4912,9 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                     ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
                         ? [] : [purchase.external.superEventId],
                     locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                        ? [] : [seller.location.branchCode]
+                        ? [] : [seller.location.branchCode],
+                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
+                        ? [] : [purchase.external.workPerformedId],
                 },
                 startFrom: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).toDate(),
                 startThrough: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).add(1, 'day').toDate()
@@ -6150,8 +6158,8 @@ var PurchaseRootComponent = /** @class */ (function () {
             var snapshot = _this.activatedRoute.snapshot;
             var language = snapshot.params.language;
             var sellerId = snapshot.params.sellerId;
-            var superEventId = snapshot.params.superEventId;
-            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_4__["purchaseAction"].SetExternal({ sellerId: sellerId, superEventId: superEventId }));
+            var workPerformedId = snapshot.params.workPerformedId;
+            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_4__["purchaseAction"].SetExternal({ sellerId: sellerId, workPerformedId: workPerformedId }));
             if (language !== undefined) {
                 var element = document.querySelector('#language');
                 if (element !== null) {
@@ -6492,7 +6500,20 @@ var SettingComponent = /** @class */ (function () {
         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_4__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getUser"]));
         this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_4__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getMaster"]));
         this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_4__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getError"]));
+        this.getSellers();
         this.createBaseForm();
+    };
+    /**
+     * 販売者一覧取得
+     */
+    SettingComponent.prototype.getSellers = function () {
+        var _this = this;
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_11__["masterAction"].GetSellers());
+        var success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_11__["masterAction"].ActionTypes.GetSellersSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["tap"])(function () { }));
+        var fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_11__["masterAction"].ActionTypes.GetSellersFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["tap"])(function () {
+            _this.router.navigate(['/error']);
+        }));
+        Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe();
     };
     SettingComponent.prototype.createBaseForm = function () {
         var _this = this;
@@ -6556,8 +6577,6 @@ var SettingComponent = /** @class */ (function () {
         Object.keys(this.baseForm.controls).forEach(function (key) {
             _this.baseForm.controls[key].markAsTouched();
         });
-        this.baseForm.controls.isPurchaseCart.setValue(document.getElementById('isPurchaseCart').value);
-        this.baseForm.controls.viewType.setValue(document.getElementById('viewType').value);
         if (this.baseForm.invalid) {
             this.util.openAlert({
                 title: this.translate.instant('common.error'),
@@ -9721,7 +9740,8 @@ function drawCanvas(args) {
                                 case 'date':
                                     value = "(" + moment__WEBPACK_IMPORTED_MODULE_1__().format('YYYY/MM/DD HH:mm') + " \u767A\u5238)";
                                     break;
-                                case 'startDate' || false:
+                                case 'startDate':
+                                case 'endDate':
                                     value = "" + moment__WEBPACK_IMPORTED_MODULE_1__(data[text.name]).format(text.value);
                                     break;
                                 case 'eventNameJa':
@@ -9808,7 +9828,8 @@ function createPrintCanvas(args) {
                         confirmationNumber: String(args.order.confirmationNumber),
                         orderNumber: args.order.orderNumber,
                         ticketNumber: acceptedOffer.itemOffered.id,
-                        qrcode: args.qrcode
+                        qrcode: args.qrcode,
+                        index: args.index
                     };
                     printData = args.printData;
                     return [4 /*yield*/, drawCanvas({ data: data, printData: printData })];
@@ -9850,7 +9871,8 @@ function createTestPrintCanvas(args) {
                         confirmationNumber: '12345678',
                         orderNumber: 'TEST-123456-123456',
                         ticketNumber: 'TEST-123456-123456-00',
-                        qrcode: 'TEST-123456-123456'
+                        qrcode: 'TEST-123456-123456',
+                        index: 0
                     };
                     return [4 /*yield*/, drawCanvas({ printData: printData, data: data })];
                 case 1:
@@ -11137,7 +11159,7 @@ var schedule = {
     path: 'purchase',
     component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["BaseComponent"],
     children: [
-        { path: 'root/:language/:sellerId/:superEventId', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseRootComponent"] },
+        { path: 'root/:language/:sellerId/:workPerformedId', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseRootComponent"] },
         { path: 'root/:language/:sellerId', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseRootComponent"] },
         { path: 'root/:language', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseRootComponent"] },
         { path: 'root', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseRootComponent"] },
@@ -14151,7 +14173,7 @@ var OrderEffects = /** @class */ (function () {
          * print
          */
         this.print = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].ActionTypes.Print), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var orders, printer, pos, authorizeOrders, _loop_1, _i, orders_2, order, printData, testFlg, canvasList, canvas, _a, authorizeOrders_1, authorizeOrder, _b, _c, acceptedOffer, itemOffered, order, qrcode, additionalProperty, isDisplayQrcode, encyptText, encryptionEncodeResult, canvas, _d, domList, error_5;
+            var orders, printer, pos, authorizeOrders, _loop_1, _i, orders_2, order, printData, testFlg, canvasList, canvas, _a, authorizeOrders_1, authorizeOrder, index, _b, _c, acceptedOffer, itemOffered, order, qrcode, additionalProperty, isDisplayQrcode, encyptText, encryptionEncodeResult, canvas, _d, domList, error_5;
             var _this = this;
             return __generator(this, function (_e) {
                 switch (_e.label) {
@@ -14225,6 +14247,7 @@ var OrderEffects = /** @class */ (function () {
                     case 9:
                         if (!(_a < authorizeOrders_1.length)) return [3 /*break*/, 16];
                         authorizeOrder = authorizeOrders_1[_a];
+                        index = 0;
                         _b = 0, _c = authorizeOrder.acceptedOffers;
                         _e.label = 10;
                     case 10:
@@ -14259,10 +14282,11 @@ var OrderEffects = /** @class */ (function () {
                             // QRコードカスタム文字列
                             qrcode = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QRCODE_CUSTOM;
                         }
-                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createPrintCanvas"])({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode })];
+                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createPrintCanvas"])({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode, index: index })];
                     case 13:
                         canvas = _e.sent();
                         canvasList.push(canvas);
+                        index++;
                         _e.label = 14;
                     case 14:
                         _b++;
@@ -16245,7 +16269,11 @@ function reducer(state, action) {
             var sellerId = action.payload.sellerId;
             var superEventId = action.payload.superEventId;
             var eventId = action.payload.eventId;
-            state.purchaseData.external = { sellerId: sellerId, superEventId: superEventId, eventId: eventId };
+            var workPerformedId = action.payload.workPerformedId;
+            var passportToken = action.payload.passportToken;
+            state.purchaseData.external = {
+                sellerId: sellerId, superEventId: superEventId, eventId: eventId, workPerformedId: workPerformedId, passportToken: passportToken
+            };
             return __assign({}, state);
         }
         case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.ConvertExternalToPurchase: {

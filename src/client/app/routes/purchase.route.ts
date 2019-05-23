@@ -49,7 +49,7 @@ export const schedule = {
     path: 'purchase',
     component: BaseComponent,
     children: [
-        { path: 'root/:language/:sellerId/:superEventId', component: PurchaseRootComponent },
+        { path: 'root/:language/:sellerId/:workPerformedId', component: PurchaseRootComponent },
         { path: 'root/:language/:sellerId', component: PurchaseRootComponent },
         { path: 'root/:language', component: PurchaseRootComponent },
         { path: 'root', component: PurchaseRootComponent },

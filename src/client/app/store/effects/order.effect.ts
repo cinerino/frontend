@@ -180,6 +180,7 @@ export class OrderEffects {
                     canvasList.push(canvas);
                 } else {
                     for (const authorizeOrder of authorizeOrders) {
+                        let index = 0;
                         for (const acceptedOffer of authorizeOrder.acceptedOffers) {
                             const itemOffered = acceptedOffer.itemOffered;
                             if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
@@ -209,8 +210,9 @@ export class OrderEffects {
                                 // QRコードカスタム文字列
                                 qrcode = environment.PRINT_QRCODE_CUSTOM;
                             }
-                            const canvas = await createPrintCanvas({ printData, order, acceptedOffer, pos, qrcode });
+                            const canvas = await createPrintCanvas({ printData, order, acceptedOffer, pos, qrcode, index });
                             canvasList.push(canvas);
+                            index++;
                         }
                     }
                 }
