@@ -1,13 +1,15 @@
 <div *ngIf="!((purchase | async)?.external?.sellerId)" class="contents-width mx-auto px-3 pt-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.seller.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.seller.read' | translate"></p>
-
-    <div class="sellers">
-        <button *ngFor="let seller of (master | async)?.sellers" type="button" class="btn btn-block py-3 m-0"
-            (click)="selectSeller(seller)" [class.btn-primary]="(purchase | async).seller?.id === seller.id"
-            [class.btn-outline-primary]="(purchase | async).seller?.id !== seller.id">{{ seller.name | changeLanguage }}</button>
-    </div>
 </div>
+
+<ul *ngIf="!((purchase | async)?.external?.sellerId)" class="contents-width mx-auto sellers d-flex flex-wrap p-2">
+    <li *ngFor="let seller of (master | async)?.sellers" class="px-2 my-2">
+        <button type="button" class="btn btn-block py-3 m-0" (click)="selectSeller(seller)"
+            [class.btn-primary]="(purchase | async).seller?.id === seller.id"
+            [class.btn-outline-primary]="(purchase | async).seller?.id !== seller.id">{{ seller.name | changeLanguage }}</button>
+    </li>
+</ul>
 
 <div class="contents-width mx-auto px-3 pt-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.schedule.title' | translate }}</h2>
@@ -39,7 +41,8 @@
     </div>
 
     <div class="buttons mx-auto text-center">
-        <button *ngIf="isSales" type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="screeningWorkEvents.length === 0"
+        <button *ngIf="isSales" type="button" class="btn btn-primary btn-block py-3 mb-3"
+            [disabled]="screeningWorkEvents.length === 0"
             (click)="onSubmit()">{{ 'purchase.event.schedule.next' | translate }}</button>
         <button *ngIf="!isSales" type="button" class="btn btn-primary btn-block py-3 mb-3" disabled
             (click)="onSubmit()">{{ 'purchase.event.schedule.disabled' | translate }}</button>

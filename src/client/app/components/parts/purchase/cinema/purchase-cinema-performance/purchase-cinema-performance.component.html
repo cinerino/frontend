@@ -17,61 +17,70 @@
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.dubbing' | translate }}</div>
             <div *ngIf="screeningWorkEvent.info.superEvent.subtitleLanguage"
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.subtitles' | translate }}</div>
-            <div *ngIf="screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0" class="text-small ml-auto">
+            <div *ngIf="screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0"
+                class="text-small ml-auto">
                 {{
                     moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
             </div>
         </div>
     </div>
-    <ul class="p-3">
-        <li *ngFor="let screeningEvent of screeningWorkEvent.data"
-            class="border boder-gray rounded p-2 py-md-3 text-md-center d-md-block d-flex justify-content-between align-items-center pointer"
-            [ngClass]="{ 
+    <ul class="py-2 px-3 px-md-2 d-flex flex-wrap">
+        <li *ngFor="let screeningEvent of screeningWorkEvent.data" class="px-md-2 my-2">
+            <div class="border boder-gray rounded p-2 py-md-3 text-md-center d-md-block d-flex justify-content-between align-items-center pointer"
+                [ngClass]="{ 
                 'bg-white': isSales(screeningEvent) && screeningEvent.remainingAttendeeCapacity > 0, 
                 'bg-dark-gray text-light-gray not-event': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0
                 }" (click)="select.emit(screeningEvent)">
-            <div>
-                <div class="mb-2 text-small">
-                    {{ screeningEvent.location.name | changeLanguage }}
-                </div>
                 <div>
-                    <strong class="text-large">{{ moment(screeningEvent.startDate).format('HH:mm') }}</strong>
-                    <span>-</span>
-                    <span>{{ moment(screeningEvent.endDate).format('HH:mm') }}</span>
-                </div>
-            </div>
-            <hr class="border-0 bg-light-gray my-2">
-            <div class="text-center">
-                <div class="status mb-2" *ngIf="isSales(screeningEvent)">
-                    <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'success')" class="d-flex justify-content-around align-items-center">
-                        <div class="text-success mr-2 mr-md-0">{{ 'purchase.cinema.schedule.status.success' | translate }}</div>
-                        <img src="/assets/images/icon/status_success.svg">
+                    <div class="mb-2 text-small">
+                        {{ screeningEvent.location.name | changeLanguage }}
                     </div>
-                    <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'warning')"
-                        class="d-flex justify-content-around align-items-center">
-                        <div class="text-warning mr-2 mr-md-0">{{ 'purchase.cinema.schedule.status.warning' | translate }}</div>
-                        <img src="/assets/images/icon/status_warning.svg">
-                    </div>
-                    <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'danger')" class="d-flex justify-content-around align-items-center">
-                        <div class="text-danger mr-2 mr-md-0">{{ 'purchase.cinema.schedule.status.danger' | translate }}</div>
-                        <img src="/assets/images/icon/status_danger.svg">
+                    <div>
+                        <strong class="text-large">{{ moment(screeningEvent.startDate).format('HH:mm') }}</strong>
+                        <span>-</span>
+                        <span>{{ moment(screeningEvent.endDate).format('HH:mm') }}</span>
                     </div>
                 </div>
+                <hr class="border-0 bg-light-gray my-2">
+                <div class="text-center">
+                    <div class="status mb-2" *ngIf="isSales(screeningEvent)">
+                        <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'success')"
+                            class="d-flex justify-content-around align-items-center">
+                            <div class="text-success mr-2 mr-md-0">
+                                {{ 'purchase.cinema.schedule.status.success' | translate }}</div>
+                            <img src="/assets/images/icon/status_success.svg">
+                        </div>
+                        <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'warning')"
+                            class="d-flex justify-content-around align-items-center">
+                            <div class="text-warning mr-2 mr-md-0">
+                                {{ 'purchase.cinema.schedule.status.warning' | translate }}</div>
+                            <img src="/assets/images/icon/status_warning.svg">
+                        </div>
+                        <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'danger')"
+                            class="d-flex justify-content-around align-items-center">
+                            <div class="text-danger mr-2 mr-md-0">
+                                {{ 'purchase.cinema.schedule.status.danger' | translate }}</div>
+                            <img src="/assets/images/icon/status_danger.svg">
+                        </div>
+                    </div>
 
-                <div class="status mb-2" *ngIf="isSales(screeningEvent, 'window')">
-                    {{ 'purchase.cinema.schedule.status.window' | translate }}</div>
-                <div class="status mb-2" *ngIf="isSales(screeningEvent, 'end')">
-                    {{ 'purchase.cinema.schedule.status.endSale' | translate }}</div>
-                <div class="status mb-2" *ngIf="isSales(screeningEvent, 'start')">
-                    {{ 'purchase.cinema.schedule.status.outsideSalesPeriod' | translate }}</div>
-                <div *ngIf="screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat && environment.DISPLAY_TICKETED_SEAT" class="mb-2 text-small">{{ 'common.seat' | translate }}
-                    {{ screeningEvent.remainingAttendeeCapacity }} / {{ screeningEvent.maximumAttendeeCapacity }}
-                </div>
-                <div *ngIf="!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat)" class="mb-2 text-small">
-                    {{ 'purchase.cinema.schedule.infiniteStock' | translate }}</div>
-                <!-- <div class="text-small mb-1">{{ 'common.ticketing' | translate }} {{ screeningEvent.checkInCount }}
+                    <div class="status mb-2" *ngIf="isSales(screeningEvent, 'window')">
+                        {{ 'purchase.cinema.schedule.status.window' | translate }}</div>
+                    <div class="status mb-2" *ngIf="isSales(screeningEvent, 'end')">
+                        {{ 'purchase.cinema.schedule.status.endSale' | translate }}</div>
+                    <div class="status mb-2" *ngIf="isSales(screeningEvent, 'start')">
+                        {{ 'purchase.cinema.schedule.status.outsideSalesPeriod' | translate }}</div>
+                    <div *ngIf="screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat && environment.DISPLAY_TICKETED_SEAT"
+                        class="mb-2 text-small">{{ 'common.seat' | translate }}
+                        {{ screeningEvent.remainingAttendeeCapacity }} / {{ screeningEvent.maximumAttendeeCapacity }}
+                    </div>
+                    <div *ngIf="!(screeningEvent.offers?.itemOffered.serviceOutput?.reservedTicket?.ticketedSeat)"
+                        class="mb-2 text-small">
+                        {{ 'purchase.cinema.schedule.infiniteStock' | translate }}</div>
+                    <!-- <div class="text-small mb-1">{{ 'common.ticketing' | translate }} {{ screeningEvent.checkInCount }}
                 </div>
                 <div class="text-small">{{ 'common.admission' | translate }} {{ screeningEvent.attendeeCount }}</div> -->
+                </div>
             </div>
         </li>
     </ul>

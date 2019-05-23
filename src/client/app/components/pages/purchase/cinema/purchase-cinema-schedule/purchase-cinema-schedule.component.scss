@@ -1,11 +1,11 @@
 @import '../../../../../../assets/scss/theme';
 
 .sellers {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
-    @include media-breakpoint-down(sm) {
-        grid-template-columns: 1fr;
+    li {
+        width: 50%;
+        @include media-breakpoint-down(sm) {
+            width: 100%;
+        }
     }
 }
 

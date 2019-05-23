@@ -44,8 +44,8 @@
     "@angular/platform-browser": "^7.2.14",
     "@angular/platform-browser-dynamic": "^7.2.14",
     "@angular/router": "^7.2.14",
-    "@cinerino/api-javascript-client": "^2.0.0-alpha.7",
-    "@cinerino/api-nodejs-client": "^2.0.0-alpha.7",
+    "@cinerino/api-javascript-client": "^2.0.0-alpha.10",
+    "@cinerino/api-nodejs-client": "^2.0.0-alpha.10",
     "@ngrx/effects": "^7.4.0",
     "@ngrx/store": "^7.4.0",
     "@ngx-translate/core": "^11.0.1",
@@ -78,8 +78,8 @@
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.13.6",
-    "@angular/cli": "^7.3.8",
+    "@angular-devkit/build-angular": "^0.13.9",
+    "@angular/cli": "^7.3.9",
     "@angular/compiler-cli": "^7.2.14",
     "@angular/language-service": "^7.2.14",
     "@types/basic-auth": "^1.1.2",
@@ -117,5 +117,10 @@
     "tslint": "^5.11.0",
     "tslint-microsoft-contrib": "^5.1.0",
     "typescript": "^3.2.4"
-  }
+  },
+  "browserslist": [
+    "last 2 version",
+    "> 1%",
+    "ie >= 10"
+  ]
 }

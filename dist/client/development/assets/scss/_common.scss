@@ -114,6 +114,7 @@ button {
 }
 
 .d-grid {
+    display: -ms-grid !important;
     display: grid !important;
 }
 

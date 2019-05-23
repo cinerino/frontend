@@ -1,13 +1,15 @@
 <div *ngIf="!((purchase | async)?.external?.sellerId)" class="contents-width mx-auto px-3 pt-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.seller.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.seller.read' | translate"></p>
-
-    <div class="sellers">
-        <button *ngFor="let seller of (master | async)?.sellers" type="button" class="btn btn-block py-3 m-0"
-            (click)="selectSeller(seller)" [class.btn-primary]="(purchase | async).seller?.id === seller.id"
-            [class.btn-outline-primary]="(purchase | async).seller?.id !== seller.id">{{ seller.name | changeLanguage }}</button>
-    </div>
 </div>
+
+<ul *ngIf="!((purchase | async)?.external?.sellerId)" class="contents-width mx-auto sellers d-flex flex-wrap p-2">
+    <li *ngFor="let seller of (master | async)?.sellers" class="px-2 my-2">
+        <button type="button" class="btn btn-block py-3 m-0" (click)="selectSeller(seller)"
+            [class.btn-primary]="(purchase | async).seller?.id === seller.id"
+            [class.btn-outline-primary]="(purchase | async).seller?.id !== seller.id">{{ seller.name | changeLanguage }}</button>
+    </li>
+</ul>
 
 <div class="contents-width mx-auto px-3 pt-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.schedule.title' | translate }}</h2>
@@ -49,7 +51,8 @@
     <p *ngIf="(purchase | async)?.scheduleDate" class="text-primary text-large mb-3">
         {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}
     </p>
-    <p *ngIf="screeningWorkEvents.length === 0" class="mb-3" [innerHTML]="'purchase.cinema.schedule.notfound' | translate"></p>
+    <p *ngIf="screeningWorkEvents.length === 0" class="mb-3"
+        [innerHTML]="'purchase.cinema.schedule.notfound' | translate"></p>
     <app-purchase-cinema-performance *ngFor="let screeningWorkEvent of screeningWorkEvents"
         [screeningWorkEvent]="screeningWorkEvent" (select)="selectSchedule($event)" class="mb-3">
     </app-purchase-cinema-performance>

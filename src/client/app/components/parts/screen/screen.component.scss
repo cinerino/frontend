@@ -101,6 +101,7 @@
     justify-content: center;
     &.active {
         display: flex;
+        display: -ms-flexbox;
     }
     &.scroll {
         position: fixed;
