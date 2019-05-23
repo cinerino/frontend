@@ -342,12 +342,26 @@ export class PurchaseInputComponent implements OnInit {
      */
     public copyDomain() {
         const str = this.translate.instant('common.domain');
-        const textarea = document.createElement('textarea');
-        textarea.value = str;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
+        if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+            const element = document.createElement('div');
+            element.innerText = str;
+            document.body.appendChild(element);
+            const range = document.createRange();
+            range.selectNode(element);
+            const selection = window.getSelection();
+            if (selection === null) {
+                return;
+            }
+            selection.addRange(range);
+            document.execCommand('copy');
+        } else {
+            const element = document.createElement('textarea');
+            element.value = str;
+            document.body.appendChild(element);
+            element.select();
+            document.execCommand('copy');
+            document.body.removeChild(element);
+        }
     }
 
 }

@@ -6059,12 +6059,27 @@ var PurchaseInputComponent = /** @class */ (function () {
      */
     PurchaseInputComponent.prototype.copyDomain = function () {
         var str = this.translate.instant('common.domain');
-        var textarea = document.createElement('textarea');
-        textarea.value = str;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
+        if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+            var element = document.createElement('div');
+            element.innerText = str;
+            document.body.appendChild(element);
+            var range = document.createRange();
+            range.selectNode(element);
+            var selection = window.getSelection();
+            if (selection === null) {
+                return;
+            }
+            selection.addRange(range);
+            document.execCommand('copy');
+        }
+        else {
+            var element = document.createElement('textarea');
+            element.value = str;
+            document.body.appendChild(element);
+            element.select();
+            document.execCommand('copy');
+            document.body.removeChild(element);
+        }
     };
     PurchaseInputComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
