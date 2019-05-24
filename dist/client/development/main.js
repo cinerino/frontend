@@ -4717,6 +4717,9 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
             });
         });
     };
+    /**
+     * Datepicker言語設定
+     */
     PurchaseEventScheduleComponent.prototype.setDatePicker = function () {
         var _this = this;
         this.user.subscribe(function (user) {
@@ -4724,7 +4727,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
         }).unsubscribe();
     };
     /**
-     * iOS bugfix
+     * iOS bugfix（2回タップしないと選択できない）
      */
     PurchaseEventScheduleComponent.prototype.onShowPicker = function (container) {
         var _this = this;

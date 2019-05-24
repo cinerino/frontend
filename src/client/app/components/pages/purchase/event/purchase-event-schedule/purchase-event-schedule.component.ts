@@ -269,6 +269,9 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         }
     }
 
+    /**
+     * Datepicker言語設定
+     */
     public setDatePicker() {
         this.user.subscribe((user) => {
             this.localeService.use(user.language);
@@ -276,7 +279,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * iOS bugfix
+     * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
         const dayHoverHandler = container.dayHoverHandler;
