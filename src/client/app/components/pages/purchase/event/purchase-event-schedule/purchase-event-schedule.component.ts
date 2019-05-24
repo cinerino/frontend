@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { SERVICE_UNAVAILABLE, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
-import { BsLocaleService } from 'ngx-bootstrap';
+import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
 import { CellHoverEvent } from 'ngx-bootstrap/datepicker/models';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable, race } from 'rxjs';
@@ -32,6 +32,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     private updateTimer: any;
     public bsValue: Date;
     public isSales: boolean;
+    @ViewChild('datepicker')
+    private datepicker: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -279,6 +281,15 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public onShowPicker(container: BsDatepickerContainerComponent) {
         const dayHoverHandler = container.dayHoverHandler;
         const hoverWrapper = (event: CellHoverEvent) => {
+            const { cell, isHovered } = event;
+            if ((isHovered &&
+                !!navigator.platform &&
+                /iPad|iPhone|iPod/.test(navigator.platform)) &&
+                'ontouchstart' in window
+            ) {
+                (<any>this.datepicker)._datepickerRef.instance.daySelectHandler(cell);
+            }
+
             return dayHoverHandler(event);
         };
         container.dayHoverHandler = hoverWrapper;

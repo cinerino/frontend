@@ -17,7 +17,7 @@
 </div>
 <div class="contents-width mx-auto p-3">
     <div class="mb-3 position-relative">
-        <input type="text" placeholder="Datepicker" class="form-control" bsDatepicker [(ngModel)]="scheduleDate"
+        <input type="text" placeholder="Datepicker" class="form-control" #datepicker="bsDatepicker" bsDatepicker [(ngModel)]="scheduleDate"
             [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false, minDate: moment().toDate() }"
             (bsValueChange)="selectDate($event)" readonly (click)="setDatePicker()" (onShown)="onShowPicker($event)">
         <!-- <input type="date" class="form-control rounded-0" name="date" [(ngModel)]="scheduleDate"
