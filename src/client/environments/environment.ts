@@ -131,6 +131,14 @@ interface IEnvironment {
      */
     PURCHASE_COMPLETE_MAIL_CUSTOM: boolean;
     /**
+     * 購入利用規約
+     */
+    PURCHASE_TERMS: boolean;
+    /**
+     * 購入注意事項
+     */
+    PURCHASE_WARNING: boolean;
+    /**
      * 照会キャンセル
      */
     INQUIRY_CANCEL: boolean;
@@ -189,6 +197,8 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
     PURCHASE_COMPLETE_MAIL_CUSTOM: false,
+    PURCHASE_TERMS: false,
+    PURCHASE_WARNING: false,
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: false,
     INQUIRY_PRINT: false,

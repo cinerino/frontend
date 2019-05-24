@@ -5,6 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { environment } from '../../../../../../environments/environment';
 import { IReservationSeat, Reservation, SeatStatus } from '../../../../../models';
 import { UtilService } from '../../../../../services';
 import { purchaseAction } from '../../../../../store/actions';
@@ -19,6 +20,8 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
+    public environment = environment;
+
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,

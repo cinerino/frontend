@@ -126,16 +126,19 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      * @param screeningEvent
      */
     public selectSchedule(screeningEvent: factory.event.screeningEvent.IEvent) {
-        this.user.subscribe((user) => {
-            if (!user.isPurchaseCart) {
-                this.util.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.event.ticket.alert.cart')
-                });
-                return;
-            }
-            this.store.dispatch(new purchaseAction.SelectSchedule({ screeningEvent }));
-            this.getTickets();
+        this.purchase.subscribe((purchase) => {
+            this.user.subscribe((user) => {
+                if (purchase.authorizeSeatReservations.length > 0
+                    && !user.isPurchaseCart) {
+                    this.util.openAlert({
+                        title: this.translate.instant('common.error'),
+                        body: this.translate.instant('purchase.event.ticket.alert.cart')
+                    });
+                    return;
+                }
+                this.store.dispatch(new purchaseAction.SelectSchedule({ screeningEvent }));
+                this.getTickets();
+            }).unsubscribe();
         }).unsubscribe();
     }
 

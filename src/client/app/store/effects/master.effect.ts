@@ -72,6 +72,20 @@ export class MasterEffects {
                     roop = !(page > lastPage);
                 }
                 const scheduleDate = moment(payload.startFrom).format('YYYY-MM-DD');
+                // 公開日順（降順）へソート
+                screeningEvents = screeningEvents.sort((a, b) => {
+                    if (a.workPerformed === undefined
+                        || b.workPerformed === undefined
+                        || a.workPerformed.datePublished === undefined
+                        || b.workPerformed.datePublished === undefined) {
+                        return 0;
+                    }
+                    const unixA = moment(a.workPerformed.datePublished).unix();
+                    const unixB = moment(b.workPerformed.datePublished).unix();
+                    if (unixA > unixB) { return -1; }
+                    if (unixA < unixB) { return 1; }
+                    return 0;
+                });
 
                 return new masterAction.GetScheduleSuccess({ screeningEvents, scheduleDate });
             } catch (error) {

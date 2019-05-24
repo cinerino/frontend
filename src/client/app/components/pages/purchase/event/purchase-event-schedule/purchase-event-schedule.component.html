@@ -17,7 +17,8 @@
 </div>
 <div class="contents-width mx-auto p-3">
     <div class="mb-3 position-relative">
-        <input type="text" placeholder="Datepicker" class="form-control" #datepicker="bsDatepicker" bsDatepicker [(ngModel)]="scheduleDate"
+        <input type="text" placeholder="Datepicker" class="form-control" #datepicker="bsDatepicker" bsDatepicker
+            [(ngModel)]="scheduleDate"
             [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false, minDate: moment().toDate() }"
             (bsValueChange)="selectDate($event)" readonly (click)="setDatePicker()" (onShown)="onShowPicker($event)">
         <!-- <input type="date" class="form-control rounded-0" name="date" [(ngModel)]="scheduleDate"
@@ -34,10 +35,13 @@
         </app-purchase-event-performance-confirm>
     </div>
 
-    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.schedule.terms' | translate }}</h2>
-    <div class="mb-4">
-        <app-purchase-terms [language]="(user | async).language" [screeningEvent]="(purchase | async).screeningEvent">
-        </app-purchase-terms>
+    <div *ngIf="environment.PURCHASE_TERMS">
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.schedule.terms' | translate }}</h2>
+        <div class="mb-4">
+            <app-purchase-terms [language]="(user | async).language"
+                [screeningEvent]="(purchase | async).screeningEvent">
+            </app-purchase-terms>
+        </div>
     </div>
 
     <div class="buttons mx-auto text-center">
