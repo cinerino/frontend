@@ -159,6 +159,10 @@ interface IEnvironment {
      */
     PRINT_QRCODE_CUSTOM: string;
     /**
+     * 印刷時ローディング
+     */
+    PRINT_LOADING: boolean;
+    /**
      * 設定開発用オプション
      */
     SETTING_DEVELOP_OPTION: boolean;
@@ -204,6 +208,7 @@ const defaultEnvironment: IEnvironment = {
     INQUIRY_PRINT: false,
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: 'token',
+    PRINT_LOADING: true,
     SETTING_DEVELOP_OPTION: false
 };
 

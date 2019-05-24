@@ -209,6 +209,14 @@ export class OrderEffects {
                                 && environment.PRINT_QRCODE_TYPE === PrintQrcodeType.Custom) {
                                 // QRコードカスタム文字列
                                 qrcode = environment.PRINT_QRCODE_CUSTOM;
+                                qrcode = qrcode
+                                    .replace(/\{\{ orderDate \}\}/g, moment(order.orderDate).format('YYMMDD'));
+                                qrcode = qrcode
+                                    .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
+                                qrcode = qrcode
+                                    .replace(/\{\{ index \}\}/g, String(index));
+                                qrcode = qrcode
+                                    .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
                             }
                             const canvas = await createPrintCanvas({ printData, order, acceptedOffer, pos, qrcode, index });
                             canvasList.push(canvas);

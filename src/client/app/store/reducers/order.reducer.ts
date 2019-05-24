@@ -1,5 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { IState } from '.';
+import { environment } from '../../../environments/environment';
 import { orderAction } from '../actions';
 
 export interface IOrderState {
@@ -81,7 +82,7 @@ export function reducer(state: IState, action: orderAction.Actions): IState {
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case orderAction.ActionTypes.Print: {
-            return { ...state, loading: true, process: 'orderAction.Print' };
+            return { ...state, loading: environment.PRINT_LOADING, process: 'orderAction.Print' };
         }
         case orderAction.ActionTypes.PrintSuccess: {
             return { ...state, loading: false, process: '', error: null };

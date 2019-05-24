@@ -41,6 +41,7 @@ function getInitialState(): IState {
     const data = { ...initialState, ...tmpData.App };
     const reservations = data.purchaseData.reservations.map((reservation: Reservation) => new Reservation(reservation));
     data.purchaseData.reservations = reservations;
+    data.loading = false;
 
     return data;
 }

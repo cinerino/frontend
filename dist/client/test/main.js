@@ -1638,7 +1638,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.confirm.title' | translate }}</h2>\n    <div *ngIf=\"(order | async).order.orderStatus === orderStatus.OrderReturned\">\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.confirm.canceled' | translate\"></p>\n        <div class=\"buttons mx-auto text-center\">\n            <button type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/inquiry/input\">{{ 'inquiry.confirm.prev' | translate }}</button>\n        </div>\n    </div>\n    <div *ngIf=\"(order | async).order.orderStatus !== orderStatus.OrderReturned\">\n        <div class=\"mb-4 px-3 py-2 bg-white\">\n            <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.confirm.read' | translate\"></p>\n            <div class=\"row align-items-center\">\n                <p class=\"col-4\">\n                    {{ 'common.confirmationNumber' | translate }}</p>\n                <p class=\"col-8 text-large text-info font-weight-bold text-md-left text-right\">\n                    {{ (order | async).order.confirmationNumber }}\n                </p>\n            </div>\n        </div>\n        <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-4 bg-white p-3\">\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                        {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                        eventOrder.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span>{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                    <span>&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>\n                    <span *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n            </div>\n            <hr class=\"mb-3\">\n\n            <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                <p>\n                    <span\n                        *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                        {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n\n\n        <div class=\"mb-4 px-3 bg-white\">\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.customerName' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (order | async).order.customer.familyName }}\n                        {{ (order | async).order.customer.givenName }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.email' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (order | async).order.customer.email }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.telephone' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (order | async).order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n            <div class=\"py-3\" *ngIf=\"(order | async).order.price > 0\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.paymentMethod' | translate }}</p>\n                    <p class=\"col-md-8\">クレジットカード</p>\n                </div>\n            </div>\n        </div>\n    </div>\n\n\n    <div class=\"buttons mx-auto text-center\">\n        <button *ngIf=\"environment.INQUIRY_QRCODE\"\n            [disabled]=\"(order | async).order.orderStatus !== orderStatus.OrderDelivered\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"showQrCode()\">{{ 'inquiry.confirm.next' | translate }}</button>\n        <button *ngIf=\"environment.INQUIRY_PRINT\"\n            [disabled]=\"(order | async).order.orderStatus !== orderStatus.OrderDelivered\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"print()\"\n            [disabled]=\"isLoading | async\">{{ 'inquiry.confirm.print' | translate }}</button>\n        <button *ngIf=\"environment.INQUIRY_CANCEL\"\n            [disabled]=\"(order | async).order.orderStatus === orderStatus.OrderReturned\" type=\"button\"\n            class=\"btn btn-danger btn-block py-3 mb-3\"\n            (click)=\"cancelConfirm()\">{{ 'inquiry.confirm.cancel' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/inquiry/input\">{{ 'inquiry.confirm.prev' | translate }}</button>\n    </div>\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.confirm.title' | translate }}</h2>\n    <div *ngIf=\"(order | async).order.orderStatus === orderStatus.OrderReturned\">\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.confirm.canceled' | translate\"></p>\n        <div class=\"buttons mx-auto text-center\">\n            <button type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/inquiry/input\">{{ 'inquiry.confirm.prev' | translate }}</button>\n        </div>\n    </div>\n    <div *ngIf=\"(order | async).order.orderStatus !== orderStatus.OrderReturned\">\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.confirm.read' | translate\"></p>\n        <div class=\"mb-4 px-3 py-2 bg-white\">\n            <div class=\"row align-items-center\">\n                <p class=\"col-4\">\n                    {{ 'common.confirmationNumber' | translate }}</p>\n                <p class=\"col-8 text-large text-info font-weight-bold\">\n                    {{ (order | async).order.confirmationNumber }}\n                </p>\n            </div>\n        </div>\n        <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-4 bg-white p-3\">\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                        {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                        eventOrder.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span>{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                    <span>&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>\n                    <span\n                        *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n            </div>\n            <hr class=\"mb-3\">\n\n            <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                <p>\n                    <span\n                        *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                        {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                </p>\n            </div>\n        </div>\n\n\n        <div class=\"mb-4 px-3 bg-white\">\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.customerName' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (order | async).order.customer.familyName }}\n                        {{ (order | async).order.customer.givenName }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.email' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (order | async).order.customer.email }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.telephone' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (order | async).order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n            <div class=\"py-3\" *ngIf=\"(order | async).order.price > 0\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.paymentMethod' | translate }}</p>\n                    <p class=\"col-md-8\">クレジットカード</p>\n                </div>\n            </div>\n        </div>\n    </div>\n\n\n    <div class=\"buttons mx-auto text-center\">\n        <button *ngIf=\"environment.INQUIRY_QRCODE\"\n            [disabled]=\"(order | async).order.orderStatus !== orderStatus.OrderDelivered\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"showQrCode()\">{{ 'inquiry.confirm.next' | translate }}</button>\n        <button *ngIf=\"environment.INQUIRY_PRINT\"\n            [disabled]=\"(order | async).order.orderStatus !== orderStatus.OrderDelivered\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"print()\"\n            [disabled]=\"isLoading | async\">{{ 'inquiry.confirm.print' | translate }}</button>\n        <button *ngIf=\"environment.INQUIRY_CANCEL\"\n            [disabled]=\"(order | async).order.orderStatus === orderStatus.OrderReturned\" type=\"button\"\n            class=\"btn btn-danger btn-block py-3 mb-3\"\n            (click)=\"cancelConfirm()\">{{ 'inquiry.confirm.cancel' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/inquiry/input\">{{ 'inquiry.confirm.prev' | translate }}</button>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -14476,6 +14476,14 @@ var OrderEffects = /** @class */ (function () {
                             && _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_7__["PrintQrcodeType"].Custom) {
                             // QRコードカスタム文字列
                             qrcode = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QRCODE_CUSTOM;
+                            qrcode = qrcode
+                                .replace(/\{\{ orderDate \}\}/g, moment__WEBPACK_IMPORTED_MODULE_3__(order.orderDate).format('YYMMDD'));
+                            qrcode = qrcode
+                                .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
+                            qrcode = qrcode
+                                .replace(/\{\{ index \}\}/g, String(index));
+                            qrcode = qrcode
+                                .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
                         }
                         return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createPrintCanvas"])({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode, index: index })];
                     case 13:
@@ -15037,6 +15045,16 @@ var PurchaseEffects = /** @class */ (function () {
                             })];
                     case 2:
                         screeningEventTicketOffers = _a.sent();
+                        // 券種コード順（昇順）へソート
+                        screeningEventTicketOffers = screeningEventTicketOffers.sort(function (a, b) {
+                            if (a.identifier > b.identifier) {
+                                return 1;
+                            }
+                            if (a.identifier < b.identifier) {
+                                return -1;
+                            }
+                            return 0;
+                        });
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].GetTicketListSuccess({ screeningEventTicketOffers: screeningEventTicketOffers })];
                     case 3:
                         error_8 = _a.sent();
@@ -15951,7 +15969,8 @@ function reducer(state, action) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orderInitialState", function() { return orderInitialState; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reducer", function() { return reducer; });
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -15963,6 +15982,7 @@ var __assign = (undefined && undefined.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+
 
 var orderInitialState = {
     orders: [],
@@ -15976,7 +15996,7 @@ var orderInitialState = {
  */
 function reducer(state, action) {
     switch (action.type) {
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.Delete: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Delete: {
             state.orderData = {
                 orders: [],
                 totalCount: 0,
@@ -15984,10 +16004,10 @@ function reducer(state, action) {
             };
             return __assign({}, state);
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.Search: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Search: {
             return __assign({}, state, { loading: true, process: 'orderAction.Search' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.SearchSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.SearchSuccess: {
             var searchResult = action.payload.searchResult;
             var limit = action.payload.limit;
             state.orderData.orders = searchResult.data;
@@ -15995,51 +16015,51 @@ function reducer(state, action) {
             state.orderData.pageCount = Math.ceil(searchResult.totalCount / limit);
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.SearchFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.SearchFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.Cancel: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Cancel: {
             return __assign({}, state, { loading: true, process: 'orderAction.Cancel' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.CancelSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.CancelSuccess: {
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.CancelFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.CancelFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.Inquiry: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Inquiry: {
             return __assign({}, state, { loading: true, process: 'orderAction.Inquiry' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.InquirySuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.InquirySuccess: {
             var order = action.payload.order;
             state.orderData.order = order;
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.InquiryFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.InquiryFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.OrderAuthorize: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.OrderAuthorize: {
             return __assign({}, state, { loading: true, process: 'orderAction.OrderAuthorize' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.OrderAuthorizeSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.OrderAuthorizeSuccess: {
             var authorizeOrder = action.payload.order;
             state.orderData.order = authorizeOrder;
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.OrderAuthorizeFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.OrderAuthorizeFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.Print: {
-            return __assign({}, state, { loading: true, process: 'orderAction.Print' });
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Print: {
+            return __assign({}, state, { loading: _environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].PRINT_LOADING, process: 'orderAction.Print' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.PrintSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.PrintSuccess: {
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_0__["orderAction"].ActionTypes.PrintFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.PrintFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
@@ -16556,6 +16576,7 @@ function getInitialState() {
     var data = __assign({}, initialState, tmpData.App);
     var reservations = data.purchaseData.reservations.map(function (reservation) { return new _models__WEBPACK_IMPORTED_MODULE_1__["Reservation"](reservation); });
     data.purchaseData.reservations = reservations;
+    data.loading = false;
     return data;
 }
 /**
@@ -16792,6 +16813,7 @@ var defaultEnvironment = {
     INQUIRY_PRINT: false,
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: 'token',
+    PRINT_LOADING: true,
     SETTING_DEVELOP_OPTION: false
 };
 var environment = Object.assign(defaultEnvironment, window.environment);

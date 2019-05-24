@@ -318,13 +318,20 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const screeningEventTicketOffers = await this.cinerino.event.searchScreeningEventTicketOffers({
+                let screeningEventTicketOffers = await this.cinerino.event.searchScreeningEventTicketOffers({
                     event: { id: payload.screeningEvent.id },
                     seller: {
                         typeOf: payload.seller.typeOf,
                         id: payload.seller.id
                     },
                     store: { id: this.cinerino.auth.options.clientId }
+                });
+
+                // 券種コード順（昇順）へソート
+                screeningEventTicketOffers = screeningEventTicketOffers.sort((a, b) => {
+                    if (a.identifier > b.identifier) { return 1; }
+                    if (a.identifier < b.identifier) { return -1; }
+                    return 0;
                 });
 
                 return new purchaseAction.GetTicketListSuccess({ screeningEventTicketOffers });
