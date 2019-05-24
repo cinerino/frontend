@@ -1518,7 +1518,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4386,7 +4386,7 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"!((purchase | async)?.external?.sellerId)\" class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.seller.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.seller.read' | translate\"></p>\n</div>\n\n<ul *ngIf=\"!((purchase | async)?.external?.sellerId)\" class=\"contents-width mx-auto sellers d-flex flex-wrap p-2\">\n    <li *ngFor=\"let seller of (master | async)?.sellers\" class=\"px-2 my-2\">\n        <button type=\"button\" class=\"btn btn-block py-3 m-0\" (click)=\"selectSeller(seller)\"\n            [class.btn-primary]=\"(purchase | async).seller?.id === seller.id\"\n            [class.btn-outline-primary]=\"(purchase | async).seller?.id !== seller.id\">{{ seller.name | changeLanguage }}</button>\n    </li>\n</ul>\n\n<div class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.schedule.read' | translate\"></p>\n</div>\n<div class=\"contents-width mx-auto p-3\">\n    <div class=\"mb-3 position-relative\">\n        <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" bsDatepicker [(ngModel)]=\"scheduleDate\"\n            [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false, minDate: moment().toDate() }\"\n            (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\">\n        <!-- <input type=\"date\" class=\"form-control rounded-0\" name=\"date\" [(ngModel)]=\"scheduleDate\"\n            (change)=\"selectDate()\"> -->\n    </div>\n    <div class=\"mb-4\">\n        <p *ngIf=\"(purchase | async)?.scheduleDate\" class=\"text-primary text-large mb-3\">\n            {{ 'purchase.event.schedule.selectedDate' | translate: {value: (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}\n        </p>\n        <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\"\n            [innerHTML]=\"'purchase.event.schedule.notfound' | translate\"></p>\n        <app-purchase-event-performance-confirm *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n            [screeningWorkEvent]=\"screeningWorkEvent\" [readonly]=\"true\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n        </app-purchase-event-performance-confirm>\n    </div>\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.terms' | translate }}</h2>\n    <div class=\"mb-4\">\n        <app-purchase-terms [language]=\"(user | async).language\" [screeningEvent]=\"(purchase | async).screeningEvent\">\n        </app-purchase-terms>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button *ngIf=\"isSales\" type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            [disabled]=\"screeningWorkEvents.length === 0\"\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.next' | translate }}</button>\n        <button *ngIf=\"!isSales\" type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" disabled\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.disabled' | translate }}</button>\n        <a *ngIf=\"environment.PORTAL_SITE_URL\" class=\"btn btn-link\"\n            [href]=\"environment.PORTAL_SITE_URL\">{{ 'purchase.event.schedule.prev' | translate }}</a>\n    </div>\n</div>"
+module.exports = "<div *ngIf=\"!((purchase | async)?.external?.sellerId)\" class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.seller.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.seller.read' | translate\"></p>\n</div>\n\n<ul *ngIf=\"!((purchase | async)?.external?.sellerId)\" class=\"contents-width mx-auto sellers d-flex flex-wrap p-2\">\n    <li *ngFor=\"let seller of (master | async)?.sellers\" class=\"px-2 my-2\">\n        <button type=\"button\" class=\"btn btn-block py-3 m-0\" (click)=\"selectSeller(seller)\"\n            [class.btn-primary]=\"(purchase | async).seller?.id === seller.id\"\n            [class.btn-outline-primary]=\"(purchase | async).seller?.id !== seller.id\">{{ seller.name | changeLanguage }}</button>\n    </li>\n</ul>\n\n<div class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.schedule.read' | translate\"></p>\n</div>\n<div class=\"contents-width mx-auto p-3\">\n    <div class=\"mb-3 position-relative\">\n        <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" bsDatepicker [(ngModel)]=\"scheduleDate\"\n            [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false, minDate: moment().toDate() }\"\n            (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\" (onShown)=\"onShowPicker($event)\">\n        <!-- <input type=\"date\" class=\"form-control rounded-0\" name=\"date\" [(ngModel)]=\"scheduleDate\"\n            (change)=\"selectDate()\"> -->\n    </div>\n    <div class=\"mb-4\">\n        <p *ngIf=\"(purchase | async)?.scheduleDate\" class=\"text-primary text-large mb-3\">\n            {{ 'purchase.event.schedule.selectedDate' | translate: {value: (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}\n        </p>\n        <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\"\n            [innerHTML]=\"'purchase.event.schedule.notfound' | translate\"></p>\n        <app-purchase-event-performance-confirm *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n            [screeningWorkEvent]=\"screeningWorkEvent\" [readonly]=\"true\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n        </app-purchase-event-performance-confirm>\n    </div>\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.terms' | translate }}</h2>\n    <div class=\"mb-4\">\n        <app-purchase-terms [language]=\"(user | async).language\" [screeningEvent]=\"(purchase | async).screeningEvent\">\n        </app-purchase-terms>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button *ngIf=\"isSales\" type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            [disabled]=\"screeningWorkEvents.length === 0\"\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.next' | translate }}</button>\n        <button *ngIf=\"!isSales\" type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" disabled\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.disabled' | translate }}</button>\n        <a *ngIf=\"environment.PORTAL_SITE_URL\" class=\"btn btn-link\"\n            [href]=\"environment.PORTAL_SITE_URL\">{{ 'purchase.event.schedule.prev' | translate }}</a>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -4722,6 +4722,16 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
         this.user.subscribe(function (user) {
             _this.localeService.use(user.language);
         }).unsubscribe();
+    };
+    /**
+     * iOS bugfix
+     */
+    PurchaseEventScheduleComponent.prototype.onShowPicker = function (container) {
+        var dayHoverHandler = container.dayHoverHandler;
+        var hoverWrapper = function (event) {
+            return dayHoverHandler(event);
+        };
+        container.dayHoverHandler = hoverWrapper;
     };
     PurchaseEventScheduleComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -6059,27 +6069,15 @@ var PurchaseInputComponent = /** @class */ (function () {
      */
     PurchaseInputComponent.prototype.copyDomain = function () {
         var str = this.translate.instant('common.domain');
-        if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-            var element = document.createElement('div');
-            element.innerText = str;
-            document.body.appendChild(element);
-            var range = document.createRange();
-            range.selectNode(element);
-            var selection = window.getSelection();
-            if (selection === null) {
-                return;
-            }
-            selection.addRange(range);
-            document.execCommand('copy');
-        }
-        else {
-            var element = document.createElement('textarea');
-            element.value = str;
-            document.body.appendChild(element);
-            element.select();
-            document.execCommand('copy');
-            document.body.removeChild(element);
-        }
+        var element = document.createElement('textarea');
+        element.value = str;
+        element.selectionStart = 0;
+        element.selectionEnd = element.value.length;
+        document.body.appendChild(element);
+        element.focus();
+        document.execCommand('copy');
+        element.blur();
+        document.body.removeChild(element);
     };
     PurchaseInputComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({

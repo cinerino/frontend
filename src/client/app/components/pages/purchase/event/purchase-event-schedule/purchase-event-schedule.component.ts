@@ -6,6 +6,8 @@ import { select, Store } from '@ngrx/store';
 import { SERVICE_UNAVAILABLE, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
 import { BsLocaleService } from 'ngx-bootstrap';
+import { CellHoverEvent } from 'ngx-bootstrap/datepicker/models';
+import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
@@ -269,6 +271,17 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.user.subscribe((user) => {
             this.localeService.use(user.language);
         }).unsubscribe();
+    }
+
+    /**
+     * iOS bugfix
+     */
+    public onShowPicker(container: BsDatepickerContainerComponent) {
+        const dayHoverHandler = container.dayHoverHandler;
+        const hoverWrapper = (event: CellHoverEvent) => {
+            return dayHoverHandler(event);
+        };
+        container.dayHoverHandler = hoverWrapper;
     }
 
 }

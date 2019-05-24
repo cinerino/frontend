@@ -67,7 +67,7 @@
     "libphonenumber-js": "^1.2.15",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
-    "ngx-bootstrap": "^4.1.1",
+    "ngx-bootstrap": "^4.2.0",
     "ngx-swiper-wrapper": "^6.4.0",
     "qrcode": "^1.2.0",
     "redis": "^2.8.0",
