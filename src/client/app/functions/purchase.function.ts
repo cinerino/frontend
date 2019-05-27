@@ -212,7 +212,9 @@ export function createPaymentMethodFromType(args: {
  * 券種金額取得
  */
 export function getTicketPrice(
-    ticket: factory.chevre.event.screeningEvent.ITicketOffer | factory.order.IAcceptedOffer<factory.order.IItemOffered>
+    ticket: factory.chevre.event.screeningEvent.ITicketOffer
+        | factory.order.IAcceptedOffer<factory.order.IItemOffered>
+        | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre
 ) {
     const result = {
         unitPriceSpecification: 0,
@@ -546,4 +548,31 @@ export function createCompleteMail(args: {
     template = template.replace(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/, forReplaceEventText);
 
     return template;
+}
+
+/**
+ * 券種情報を枚数別へ変換
+ */
+export function changeTicketCount(
+    acceptedOffer: factory.chevre.event.screeningEvent.ITicketOffer[]
+        | factory.order.IAcceptedOffer<factory.order.IItemOffered>[]
+        | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre[]
+) {
+    const result: {
+        acceptedOffer: factory.chevre.event.screeningEvent.ITicketOffer
+        | factory.order.IAcceptedOffer<factory.order.IItemOffered>
+        | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre;
+        count: number
+    }[] = [];
+    acceptedOffer.forEach((a: factory.chevre.event.screeningEvent.ITicketOffer
+        | factory.order.IAcceptedOffer<factory.order.IItemOffered>
+        | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre) => {
+        const findResult = result.find(r => r.acceptedOffer.id === a.id);
+        if (findResult === undefined) {
+            result.push({ acceptedOffer: a, count: 1 });
+        } else {
+            findResult.count += 1;
+        }
+    });
+    return result;
 }

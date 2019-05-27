@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { getAmount, getTicketPrice } from '../../../../functions';
+import { changeTicketCount, getAmount, getTicketPrice } from '../../../../functions';
 import { UtilService } from '../../../../services';
 import { purchaseAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
@@ -22,6 +22,7 @@ export class PurchaseConfirmComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
+    public changeTicketCount = changeTicketCount;
     public amount: number;
     public environment = environment;
     public user: Observable<reducers.IUserState>;
