@@ -64,10 +64,16 @@
                     <p class="col-md-8">{{ (purchase | async).customerContact.telephone | libphonenumberFormat }}</p>
                 </div>
             </div>
-            <div class="py-3" *ngIf="amount > 0">
+            <div class="py-3 border-bottom border-gray" *ngIf="amount > 0">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
-                    <p class="col-md-8">クレジットカード</p>
+                    <p class="col-md-8">{{ 'common.paymentMethodType.creditCard' | translate }}</p>
+                </div>
+            </div>
+            <div class="overflow-hidden">
+                <div class="py-3 row align-items-center">
+                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.amount' | translate }}</p>
+                    <p class="col-md-8 font-weight-bold text-large text-info">{{ amount | currency : 'JPY' }}</p>
                 </div>
             </div>
         </div>
