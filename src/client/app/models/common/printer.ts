@@ -25,20 +25,16 @@ export enum connectionType {
  */
 export const printers = [
     {
-        connectionType: connectionType.None,
-        name: { ja: '印刷しない', en: 'Do not print' }
-    },
-    {
         connectionType: connectionType.Image,
-        name: { ja: '画像表示', en: 'Image display' }
+        name: 'setting.printType.image'
     },
     {
         connectionType: connectionType.StarLAN,
-        name: { ja: 'スター精密 LAN接続', en: 'Star precision LAN connection' }
+        name: 'setting.printType.starLAN'
     },
     {
         connectionType: connectionType.StarBluetooth,
-        name: { ja: 'スター精密 Bluetooth接続', en: 'Star precision Bluetooth connection' }
+        name: 'setting.printType.starBluetooth'
     }
 ];
 
