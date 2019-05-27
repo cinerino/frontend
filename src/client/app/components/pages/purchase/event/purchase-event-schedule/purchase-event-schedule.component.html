@@ -50,7 +50,7 @@
             (click)="onSubmit()">{{ 'purchase.event.schedule.next' | translate }}</button>
         <button *ngIf="!isSales" type="button" class="btn btn-primary btn-block py-3 mb-3" disabled
             (click)="onSubmit()">{{ 'purchase.event.schedule.disabled' | translate }}</button>
-        <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-link"
+        <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-link portal-link"
             [href]="environment.PORTAL_SITE_URL">{{ 'purchase.event.schedule.prev' | translate }}</a>
     </div>
 </div>
