@@ -496,13 +496,13 @@ export function createCompleteMail(args: {
         /\{\{ seller.telephone \}\}/g,
         (seller.telephone === undefined) ? '' : formatTelephone(seller.telephone, 'NATIONAL')
     );
-    template = template.replace(/\{\{ orderDateJST \}\}/g, moment().format('YYYY/MM/DD (ddd) HH:mm'));
+    template = template.replace(/\{\{ orderDate \}\}/g, moment().format('YYYY/MM/DD (ddd) HH:mm'));
     // イベント
     const forEventMatchResult = template.match(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/);
     const forEventText = (forEventMatchResult === null) ? '' : forEventMatchResult[0];
     let forReplaceEventText = '';
     const authorizeSeatReservationToEventResuult = authorizeSeatReservationToEvent({ authorizeSeatReservations });
-    authorizeSeatReservationToEventResuult.forEach((eventResult) => {
+    authorizeSeatReservationToEventResuult.forEach((eventResult, index) => {
         const event = eventResult.event;
         let eventText = forEventText;
         eventText = eventText.replace(/\{\{ eventNameJa \}\}/g, event.name.ja);
@@ -512,9 +512,14 @@ export function createCompleteMail(args: {
                 ? '' : event.superEvent.headline.ja
         );
         eventText = eventText.replace(
-            /\{\{ eventStartDateJST \}\}/g,
+            /\{\{ eventStartDate \}\}/g,
             moment(event.startDate).format('YYYY/MM/DD (ddd) HH:mm')
         );
+        eventText = eventText.replace(
+            /\{\{ eventEndDate \}\}/g,
+            moment(event.endDate).format('HH:mm')
+        );
+        eventText = eventText.replace(/\{\{ eventIndex \}\}/g, String(index + 1));
         eventText = eventText.replace(/\{\{ eventLocationNameJa \}\}/g, event.location.name.ja);
         eventText = eventText.replace(/\{\{ forStartEvent \}\}/g, '');
         eventText = eventText.replace(/\{\{ forEndEvent \}\}/g, '');

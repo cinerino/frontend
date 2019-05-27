@@ -1519,7 +1519,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10505,19 +10505,21 @@ function createCompleteMail(args) {
     var authorizeSeatReservations = args.authorizeSeatReservations;
     template = template.replace(/\{\{ seller.name \}\}/g, seller.name.ja);
     template = template.replace(/\{\{ seller.telephone \}\}/g, (seller.telephone === undefined) ? '' : Object(_util_function__WEBPACK_IMPORTED_MODULE_3__["formatTelephone"])(seller.telephone, 'NATIONAL'));
-    template = template.replace(/\{\{ orderDateJST \}\}/g, moment__WEBPACK_IMPORTED_MODULE_1__().format('YYYY/MM/DD (ddd) HH:mm'));
+    template = template.replace(/\{\{ orderDate \}\}/g, moment__WEBPACK_IMPORTED_MODULE_1__().format('YYYY/MM/DD (ddd) HH:mm'));
     // イベント
     var forEventMatchResult = template.match(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/);
     var forEventText = (forEventMatchResult === null) ? '' : forEventMatchResult[0];
     var forReplaceEventText = '';
     var authorizeSeatReservationToEventResuult = authorizeSeatReservationToEvent({ authorizeSeatReservations: authorizeSeatReservations });
-    authorizeSeatReservationToEventResuult.forEach(function (eventResult) {
+    authorizeSeatReservationToEventResuult.forEach(function (eventResult, index) {
         var event = eventResult.event;
         var eventText = forEventText;
         eventText = eventText.replace(/\{\{ eventNameJa \}\}/g, event.name.ja);
         eventText = eventText.replace(/\{\{ eventHeadlineJa \}\}/g, (event.superEvent.headline === undefined || event.superEvent.headline === null)
             ? '' : event.superEvent.headline.ja);
-        eventText = eventText.replace(/\{\{ eventStartDateJST \}\}/g, moment__WEBPACK_IMPORTED_MODULE_1__(event.startDate).format('YYYY/MM/DD (ddd) HH:mm'));
+        eventText = eventText.replace(/\{\{ eventStartDate \}\}/g, moment__WEBPACK_IMPORTED_MODULE_1__(event.startDate).format('YYYY/MM/DD (ddd) HH:mm'));
+        eventText = eventText.replace(/\{\{ eventEndDate \}\}/g, moment__WEBPACK_IMPORTED_MODULE_1__(event.endDate).format('HH:mm'));
+        eventText = eventText.replace(/\{\{ eventIndex \}\}/g, String(index + 1));
         eventText = eventText.replace(/\{\{ eventLocationNameJa \}\}/g, event.location.name.ja);
         eventText = eventText.replace(/\{\{ forStartEvent \}\}/g, '');
         eventText = eventText.replace(/\{\{ forEndEvent \}\}/g, '');
