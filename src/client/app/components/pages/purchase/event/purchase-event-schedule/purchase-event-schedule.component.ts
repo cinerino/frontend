@@ -104,9 +104,17 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             tap(() => {
                 this.purchase.subscribe((purchase) => {
                     this.master.subscribe((master) => {
-                        const seller = (purchase.seller === undefined)
-                            ? master.sellers[0]
-                            : purchase.seller;
+                        let seller = (purchase.seller === undefined)
+                            ? master.sellers[0] : purchase.seller;
+                        const findResult = master.sellers.find((s) => {
+                            return (purchase.external !== undefined
+                                && purchase.external.theaterBranchCode !== undefined
+                                && s.location !== undefined
+                                && s.location.branchCode === purchase.external.theaterBranchCode);
+                        });
+                        if (findResult !== undefined) {
+                            seller = findResult;
+                        }
                         this.selectSeller(seller);
                     }).unsubscribe();
                 }).unsubscribe();

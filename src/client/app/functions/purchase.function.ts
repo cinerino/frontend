@@ -342,7 +342,22 @@ export function orderToEventOrders(params: {
         }
     });
 
-    return results;
+    // 公開日順（降順）へソート
+    const sortResult = results.sort((a, b) => {
+        if (a.event.workPerformed === undefined
+            || b.event.workPerformed === undefined
+            || a.event.workPerformed.datePublished === undefined
+            || b.event.workPerformed.datePublished === undefined) {
+            return 0;
+        }
+        const unixA = moment(a.event.workPerformed.datePublished).unix();
+        const unixB = moment(b.event.workPerformed.datePublished).unix();
+        if (unixA > unixB) { return -1; }
+        if (unixA < unixB) { return 1; }
+        return 0;
+    });
+
+    return sortResult;
 }
 
 /**

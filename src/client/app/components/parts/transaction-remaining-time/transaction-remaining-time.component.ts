@@ -15,6 +15,8 @@ export class TransactionRemainingTimeComponent implements OnInit, OnDestroy {
     public diff: { hours: string; minutes: string; seconds: string; };
     public timer: any;
     public width: number;
+    public environment = environment;
+
     constructor(
         private router: Router
     ) { }

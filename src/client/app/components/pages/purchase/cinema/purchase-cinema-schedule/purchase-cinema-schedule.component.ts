@@ -145,8 +145,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                             ? master.sellers[0] : purchase.seller;
                         const findResult = master.sellers.find((s) => {
                             return (purchase.external !== undefined
-                                && purchase.external.sellerId !== undefined
-                                && s.id === purchase.external.sellerId);
+                                && purchase.external.theaterBranchCode !== undefined
+                                && s.location !== undefined
+                                && s.location.branchCode === purchase.external.theaterBranchCode);
                         });
                         if (findResult !== undefined) {
                             seller = findResult;

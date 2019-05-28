@@ -582,11 +582,12 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             const eventId = payload.eventId;
-            const sellerId = payload.sellerId;
             try {
                 await this.cinerino.getServices();
                 const screeningEvent = await this.cinerino.event.findScreeningEventById({ id: eventId });
-                const seller = await this.cinerino.seller.findById({ id: sellerId });
+                const branchCode = screeningEvent.superEvent.location.branchCode;
+                const searchResult = await this.cinerino.seller.search({ location: { branchCodes: [branchCode] } });
+                const seller = searchResult.data[0];
                 return new purchaseAction.ConvertExternalToPurchaseSuccess({ screeningEvent, seller });
             } catch (error) {
                 return new purchaseAction.ConvertExternalToPurchaseFail({ error: error });

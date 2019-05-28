@@ -17,7 +17,7 @@
                 </div>
                 <div class="form-group mb-0">
                     <label class="mb-2" for="">{{ 'common.telephone' | translate }}</label>
-                    <input type="tel" class="form-control" formControlName="telephone" id="telephone" [placeholder]="'form.placeholder.telephone' | translate">
+                    <input type="password" class="form-control" formControlName="telephone" id="telephone" [placeholder]="'form.placeholder.telephone' | translate">
                     <div *ngIf="inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched" class="mt-2">
                         <p *ngIf="inquiryForm.controls.telephone.errors.required" class="text-danger">{{ 'form.validation.required' | translate }}</p>
                         <p *ngIf="inquiryForm.controls.telephone.errors.minlength" class="text-danger">

@@ -1,9 +1,9 @@
-<div *ngIf="!((purchase | async)?.external?.sellerId)" class="contents-width mx-auto px-3 pt-5">
+<div *ngIf="!((purchase | async)?.external?.theaterBranchCode)" class="contents-width mx-auto px-3 pt-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.seller.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.seller.read' | translate"></p>
 </div>
 
-<ul *ngIf="!((purchase | async)?.external?.sellerId)" class="contents-width mx-auto sellers d-flex flex-wrap p-2">
+<ul *ngIf="!((purchase | async)?.external?.theaterBranchCode)" class="contents-width mx-auto sellers d-flex flex-wrap p-2">
     <li *ngFor="let seller of (master | async)?.sellers" class="px-2 my-2">
         <button type="button" class="btn btn-block py-3 m-0" (click)="selectSeller(seller)"
             [class.btn-primary]="(purchase | async).seller?.id === seller.id"

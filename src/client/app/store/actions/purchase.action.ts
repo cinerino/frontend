@@ -589,7 +589,7 @@ export class CreateGmoTokenObjectFail implements Action {
 export class SetExternal implements Action {
     public readonly type = ActionTypes.SetExternal;
     constructor(public payload: {
-        sellerId?: string;
+        theaterBranchCode?: string;
         superEventId?: string;
         eventId?: string;
         workPerformedId?: string;
@@ -602,7 +602,7 @@ export class SetExternal implements Action {
  */
 export class ConvertExternalToPurchase implements Action {
     public readonly type = ActionTypes.ConvertExternalToPurchase;
-    constructor(public payload: { eventId: string; sellerId: string; }) { }
+    constructor(public payload: { eventId: string; }) { }
 }
 
 /**

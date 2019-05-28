@@ -33,7 +33,7 @@ export interface IPurchaseState {
     isUsedMovieTicket: boolean;
     pendingMovieTickets: IMovieTicket[];
     external?: {
-        sellerId?: string;
+        theaterBranchCode?: string;
         superEventId?: string;
         eventId?: string;
         passportToken?: string;
@@ -433,13 +433,13 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case purchaseAction.ActionTypes.SetExternal: {
-            const sellerId = action.payload.sellerId;
+            const theaterBranchCode = action.payload.theaterBranchCode;
             const superEventId = action.payload.superEventId;
             const eventId = action.payload.eventId;
             const workPerformedId = action.payload.workPerformedId;
             const passportToken = action.payload.passportToken;
             state.purchaseData.external = {
-                sellerId, superEventId, eventId, workPerformedId, passportToken
+                theaterBranchCode, superEventId, eventId, workPerformedId, passportToken
             };
             return { ...state };
         }

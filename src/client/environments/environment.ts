@@ -99,6 +99,10 @@ interface IEnvironment {
      */
     PURCHASE_TRANSACTION_TIME: string;
     /**
+     * 取引時間表示
+     */
+    PURCHASE_TRANSACTION_TIME_DISPLAY: boolean;
+    /**
      * 先行販売期間指定
      */
     PURCHASE_PRE_SCHEDULE_DATE: string;
@@ -111,7 +115,7 @@ interface IEnvironment {
      */
     PURCHASE_SCHEDULE_OPEN_DATE: string;
     /**
-     * スケジュール初期選択日
+     * スケジュール初期選択日（相対的）
      */
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: string;
     /**
@@ -193,6 +197,7 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_CART: false,
     PURCHASE_ITEM_MAX_LENGTH: '50',
     PURCHASE_TRANSACTION_TIME: '15',
+    PURCHASE_TRANSACTION_TIME_DISPLAY: false,
     PURCHASE_PRE_SCHEDULE_DATE: '3',
     PURCHASE_SCHEDULE_DISPLAY_LENGTH: '10',
     PURCHASE_SCHEDULE_OPEN_DATE: '2019-05-01',

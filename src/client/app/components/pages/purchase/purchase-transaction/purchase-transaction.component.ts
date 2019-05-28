@@ -42,8 +42,7 @@ export class PurchaseTransactionComponent implements OnInit {
             const snapshot = this.activatedRoute.snapshot;
             const language = snapshot.params.language;
             const eventId = snapshot.params.eventId;
-            const sellerId = snapshot.params.sellerId;
-            this.store.dispatch(new purchaseAction.SetExternal({ eventId, sellerId }));
+            this.store.dispatch(new purchaseAction.SetExternal({ eventId }));
             if (language !== undefined) {
                 const element = document.querySelector<HTMLSelectElement>('#language');
                 if (element !== null) {
@@ -51,7 +50,7 @@ export class PurchaseTransactionComponent implements OnInit {
                 }
             }
             try {
-                await this.convertExternalToPurchase({eventId, sellerId});
+                await this.convertExternalToPurchase({ eventId });
                 await this.startTransaction();
                 this.router.navigate(['/purchase/cinema/seat']);
             } catch (error) {
@@ -63,11 +62,10 @@ export class PurchaseTransactionComponent implements OnInit {
     /**
      * 外部データを購入データへ変換
      */
-    private async convertExternalToPurchase(params: { eventId: string; sellerId: string }) {
+    private async convertExternalToPurchase(params: { eventId: string; }) {
         return new Promise((resolve, reject) => {
             this.store.dispatch(new purchaseAction.ConvertExternalToPurchase({
-                eventId: params.eventId,
-                sellerId: params.sellerId
+                eventId: params.eventId
             }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.ConvertExternalToPurchaseSuccess),

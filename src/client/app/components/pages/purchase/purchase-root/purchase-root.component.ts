@@ -30,9 +30,9 @@ export class PurchaseRootComponent implements OnInit {
         this.user.subscribe((user) => {
             const snapshot = this.activatedRoute.snapshot;
             const language = snapshot.params.language;
-            const sellerId = snapshot.params.sellerId;
+            const theaterBranchCode = snapshot.params.theaterBranchCode;
             const workPerformedId = snapshot.params.workPerformedId;
-            this.store.dispatch(new purchaseAction.SetExternal({ sellerId, workPerformedId }));
+            this.store.dispatch(new purchaseAction.SetExternal({ theaterBranchCode, workPerformedId }));
             if (language !== undefined) {
                 const element = document.querySelector<HTMLSelectElement>('#language');
                 if (element !== null) {
