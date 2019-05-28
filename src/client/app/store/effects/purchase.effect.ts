@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
@@ -26,7 +27,8 @@ export class PurchaseEffects {
         private actions: Actions,
         private cinerino: CinerinoService,
         private http: HttpClient,
-        private util: UtilService
+        private util: UtilService,
+        private translate: TranslateService
     ) { }
 
     /**
@@ -544,18 +546,35 @@ export class PurchaseEffects {
             const seller = payload.seller;
             try {
                 await this.cinerino.getServices();
+                const email: factory.creativeWork.message.email.ICustomization = {
+                    sender: {
+                        name: (this.translate.instant('email.sender.name') === '')
+                            ? undefined : this.translate.instant('email.sender.name'),
+                        email: (this.translate.instant('email.sender.email') === '')
+                            ? undefined : this.translate.instant('email.sender.email')
+                    },
+                    toRecipient: {
+                        name: (this.translate.instant('email.toRecipient.name') === '')
+                            ? undefined : this.translate.instant('email.toRecipient.name'),
+                        email: (this.translate.instant('email.toRecipient.email') === '')
+                            ? undefined : this.translate.instant('email.toRecipient.email')
+                    },
+                    about: (this.translate.instant('email.about') === '')
+                        ? undefined : this.translate.instant('email.about'),
+                    template: undefined
+                };
                 const params = {
                     id: transaction.id,
                     options: {
                         sendEmailMessage: true,
-                        emailTemplate: <string | undefined>undefined
+                        email
                     }
                 };
                 if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                     // 完了メールをカスタマイズ
                     const url = '/storage/text/purchase/mail/complete.txt';
                     const template = await this.util.getText<string>(url);
-                    params.options.emailTemplate = createCompleteMail({
+                    params.options.email.template = createCompleteMail({
                         template,
                         authorizeSeatReservations,
                         seller
