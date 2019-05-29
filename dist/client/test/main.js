@@ -1367,7 +1367,7 @@ var CongestionComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'error.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'error.read' | translate\"></p>\n        <div class=\"p-3 bg-white select-text\">\n            <code>{{ (error | async) }}</code>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <a *ngIf=\"environment.PORTAL_SITE_URL\" class=\"btn btn-link portal-link\"\n            [href]=\"environment.PORTAL_SITE_URL\">{{ 'error.prev' | translate }}</a>\n        <button *ngIf=\"!environment.PORTAL_SITE_URL\" type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/\">{{ 'error.prev' | translate }}</button>\n    </div>\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'error.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'error.read' | translate\"></p>\n        <div *ngIf=\"(error | async)\" class=\"p-3 bg-white select-text error\">\n            <code>{{ (error | async) }}</code>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <a *ngIf=\"environment.PORTAL_SITE_URL\" class=\"btn btn-link portal-link\"\n            [href]=\"environment.PORTAL_SITE_URL\">{{ 'error.prev' | translate }}</a>\n        <button *ngIf=\"!environment.PORTAL_SITE_URL\" type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/\">{{ 'error.prev' | translate }}</button>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1840,7 +1840,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
                             this.error.subscribe(function (error) {
                                 _this.util.openAlert({
                                     title: _this.translate.instant('common.error'),
-                                    body: "\n                            <p class=\"mb-4\">" + _this.translate.instant('inquiry.confirm.alert.cancel') + "</p>\n                                <div class=\"p-3 bg-light-gray select-text\">\n                                <code>" + JSON.stringify(error) + "</code>\n                            </div>"
+                                    body: "\n                            <p class=\"mb-4\">" + _this.translate.instant('inquiry.confirm.alert.cancel') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text error\">\n                                <code>" + JSON.stringify(error) + "</code>\n                            </div>"
                                 });
                             }).unsubscribe();
                             return [3 /*break*/, 4];
@@ -1915,7 +1915,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
             _this.error.subscribe(function (error) {
                 _this.util.openAlert({
                     title: _this.translate.instant('common.error'),
-                    body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('inquiry.confirm.alert.print') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>" + error + "</code>\n                        </div>"
+                    body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('inquiry.confirm.alert.print') + "</p>\n                        <div class=\"p-3 bg-light-gray select-text error\">\n                            <code>" + error + "</code>\n                        </div>"
                 });
             }).unsubscribe();
         }));
@@ -3209,7 +3209,7 @@ var OrderSearchComponent = /** @class */ (function () {
             _this.error.subscribe(function (error) {
                 _this.util.openAlert({
                     title: _this.translate.instant('common.error'),
-                    body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('order.list.alert.cancel') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>" + error + "</code>\n                        </div>"
+                    body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('order.list.alert.cancel') + "</p>\n                        <div class=\"p-3 bg-light-gray select-text error\">\n                            <code>" + error + "</code>\n                        </div>"
                 });
             }).unsubscribe();
         }));
@@ -5563,6 +5563,10 @@ var PurchaseConfirmComponent = /** @class */ (function () {
         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getUser"]));
         this.amount = 0;
         this.purchase.subscribe(function (purchase) {
+            if (purchase.transaction === undefined) {
+                _this.router.navigate(['/error']);
+                return;
+            }
             _this.amount = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["getAmount"])(purchase.authorizeSeatReservations);
         }).unsubscribe();
     };
@@ -5826,6 +5830,10 @@ var PurchaseInputComponent = /** @class */ (function () {
         this.createCustomerContactForm();
         this.createCreditCardForm();
         this.purchase.subscribe(function (purchase) {
+            if (purchase.transaction === undefined) {
+                _this.router.navigate(['/error']);
+                return;
+            }
             _this.amount = Object(_functions__WEBPACK_IMPORTED_MODULE_12__["getAmount"])(purchase.authorizeSeatReservations);
             if (purchase.customerContact !== undefined
                 && purchase.customerContact.familyName !== undefined
@@ -6171,9 +6179,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6189,38 +6198,54 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var PurchaseRootComponent = /** @class */ (function () {
-    function PurchaseRootComponent(store, router, activatedRoute) {
+    function PurchaseRootComponent(store, router, activatedRoute, translate) {
         this.store = store;
         this.router = router;
         this.activatedRoute = activatedRoute;
+        this.translate = translate;
     }
     /**
      * 初期化
      */
     PurchaseRootComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getUser"]));
-        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getPurchase"]));
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_4__["purchaseAction"].Delete());
+        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
+        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getPurchase"]));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["purchaseAction"].Delete());
         this.user.subscribe(function (user) {
             var snapshot = _this.activatedRoute.snapshot;
             var language = snapshot.params.language;
             var theaterBranchCode = snapshot.params.theaterBranchCode;
             var workPerformedId = snapshot.params.workPerformedId;
-            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_4__["purchaseAction"].SetExternal({ theaterBranchCode: theaterBranchCode, workPerformedId: workPerformedId }));
+            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["purchaseAction"].SetExternal({ theaterBranchCode: theaterBranchCode, workPerformedId: workPerformedId }));
             if (language !== undefined) {
                 var element = document.querySelector('#language');
                 if (element !== null) {
                     element.value = language;
                 }
             }
-            if (user.viewType === _models__WEBPACK_IMPORTED_MODULE_3__["ViewType"].Cinema) {
+            if (user.viewType === _models__WEBPACK_IMPORTED_MODULE_4__["ViewType"].Cinema) {
                 _this.router.navigate(['/purchase/cinema/schedule']);
                 return;
             }
             _this.router.navigate(['/purchase/event/schedule']);
         }).unsubscribe();
+    };
+    PurchaseRootComponent.prototype.ngAfterViewInit = function () {
+        var snapshot = this.activatedRoute.snapshot;
+        var language = snapshot.params.language;
+        if (language !== undefined) {
+            var element = document.querySelector('#language');
+            if (element !== null) {
+                element.value = language;
+            }
+            this.translate.use(language);
+            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["userAction"].UpdateLanguage({ language: language }));
+            var html = document.querySelector('html');
+            html.setAttribute('lang', language);
+        }
     };
     PurchaseRootComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -6230,7 +6255,8 @@ var PurchaseRootComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]])
     ], PurchaseRootComponent);
     return PurchaseRootComponent;
 }());
@@ -6275,14 +6301,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6338,12 +6365,15 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
+
+
 var PurchaseTransactionComponent = /** @class */ (function () {
-    function PurchaseTransactionComponent(store, actions, router, activatedRoute) {
+    function PurchaseTransactionComponent(store, actions, router, activatedRoute, translate) {
         this.store = store;
         this.actions = actions;
         this.router = router;
         this.activatedRoute = activatedRoute;
+        this.translate = translate;
     }
     /**
      * 初期化
@@ -6352,23 +6382,23 @@ var PurchaseTransactionComponent = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
-                this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getUser"]));
-                this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getPurchase"]));
-                this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getError"]));
-                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].Delete());
+                this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getUser"]));
+                this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getPurchase"]));
+                this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getError"]));
+                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].Delete());
                 this.user.subscribe(function (user) { return __awaiter(_this, void 0, void 0, function () {
                     var snapshot, language, eventId, element, error_1;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                if (user.viewType !== _models__WEBPACK_IMPORTED_MODULE_8__["ViewType"].Cinema) {
+                                if (user.viewType !== _models__WEBPACK_IMPORTED_MODULE_9__["ViewType"].Cinema) {
                                     this.router.navigate(['/error']);
                                     return [2 /*return*/];
                                 }
                                 snapshot = this.activatedRoute.snapshot;
                                 language = snapshot.params.language;
                                 eventId = snapshot.params.eventId;
-                                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].SetExternal({ eventId: eventId }));
+                                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].SetExternal({ eventId: eventId }));
                                 if (language !== undefined) {
                                     element = document.querySelector('#language');
                                     if (element !== null) {
@@ -6398,6 +6428,20 @@ var PurchaseTransactionComponent = /** @class */ (function () {
             });
         });
     };
+    PurchaseTransactionComponent.prototype.ngAfterViewInit = function () {
+        var snapshot = this.activatedRoute.snapshot;
+        var language = snapshot.params.language;
+        if (language !== undefined) {
+            var element = document.querySelector('#language');
+            if (element !== null) {
+                element.value = language;
+            }
+            this.translate.use(language);
+            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["userAction"].UpdateLanguage({ language: language }));
+            var html = document.querySelector('html');
+            html.setAttribute('lang', language);
+        }
+    };
     /**
      * 外部データを購入データへ変換
      */
@@ -6406,12 +6450,12 @@ var PurchaseTransactionComponent = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ConvertExternalToPurchase({
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ConvertExternalToPurchase({
                             eventId: params.eventId
                         }));
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.ConvertExternalToPurchaseSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.ConvertExternalToPurchaseFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.ConvertExternalToPurchaseSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.ConvertExternalToPurchaseFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["tap"])(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe();
                     })];
             });
         });
@@ -6429,17 +6473,17 @@ var PurchaseTransactionComponent = /** @class */ (function () {
                                 reject(null);
                                 return;
                             }
-                            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].StartTransaction({
+                            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].StartTransaction({
                                 params: {
-                                    expires: moment__WEBPACK_IMPORTED_MODULE_4__().add(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
+                                    expires: moment__WEBPACK_IMPORTED_MODULE_5__().add(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["environment"].PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                                     seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
                                     object: {}
                                 }
                             }));
                         }).unsubscribe();
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.StartTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.StartTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.StartTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.StartTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["tap"])(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe();
                     })];
             });
         });
@@ -6453,7 +6497,8 @@ var PurchaseTransactionComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
             _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]])
     ], PurchaseTransactionComponent);
     return PurchaseTransactionComponent;
 }());
@@ -6686,7 +6731,7 @@ var SettingComponent = /** @class */ (function () {
             _this.error.subscribe(function (error) {
                 _this.util.openAlert({
                     title: _this.translate.instant('common.error'),
-                    body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('setting.alert.print') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text\">\n                            <code>" + error + "</code>\n                        </div>"
+                    body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('setting.alert.print') + "</p>\n                        <div class=\"p-3 bg-light-gray select-text error\">\n                            <code>" + error + "</code>\n                        </div>"
                 });
             }).unsubscribe();
         }));
@@ -7347,6 +7392,15 @@ var HeaderComponent = /** @class */ (function () {
             html.setAttribute('lang', _this.language);
         }).unsubscribe();
         this.isMenuOpen = false;
+    };
+    HeaderComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.user.subscribe(function (user) {
+            _this.language = user.language;
+            _this.translate.use(_this.language);
+            var html = document.querySelector('html');
+            html.setAttribute('lang', _this.language);
+        }).unsubscribe();
     };
     HeaderComponent.prototype.changeLanguage = function () {
         this.translate.use(this.language);
@@ -11388,6 +11442,7 @@ var schedule = {
         { path: 'root/:language', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseRootComponent"] },
         { path: 'root', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseRootComponent"] },
         { path: 'transaction/:language/:eventId', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseTransactionComponent"] },
+        { path: 'transaction/:eventId', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseTransactionComponent"] },
         {
             path: 'cinema',
             children: [

@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
 import { ViewType } from '../../../../models';
 import { purchaseAction } from '../../../../store/actions';
+import { userAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -15,7 +17,7 @@ import * as reducers from '../../../../store/reducers';
     templateUrl: './purchase-transaction.component.html',
     styleUrls: ['./purchase-transaction.component.scss']
 })
-export class PurchaseTransactionComponent implements OnInit {
+export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public error: Observable<string | null>;
@@ -23,7 +25,8 @@ export class PurchaseTransactionComponent implements OnInit {
         private store: Store<reducers.IState>,
         private actions: Actions,
         private router: Router,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private translate: TranslateService
     ) { }
 
     /**
@@ -57,6 +60,21 @@ export class PurchaseTransactionComponent implements OnInit {
                 this.router.navigate(['/error']);
             }
         }).unsubscribe();
+    }
+
+    public ngAfterViewInit() {
+        const snapshot = this.activatedRoute.snapshot;
+        const language = snapshot.params.language;
+        if (language !== undefined) {
+            const element = document.querySelector<HTMLSelectElement>('#language');
+            if (element !== null) {
+                element.value = language;
+            }
+            this.translate.use(language);
+            this.store.dispatch(new userAction.UpdateLanguage({ language }));
+            const html = <HTMLElement>document.querySelector('html');
+            html.setAttribute('lang', language);
+        }
     }
 
     /**

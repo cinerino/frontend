@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { ViewType } from '../../../../models';
-import { purchaseAction } from '../../../../store/actions';
+import { purchaseAction, userAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -11,13 +12,14 @@ import * as reducers from '../../../../store/reducers';
     templateUrl: './purchase-root.component.html',
     styleUrls: ['./purchase-root.component.scss']
 })
-export class PurchaseRootComponent implements OnInit {
+export class PurchaseRootComponent implements OnInit, AfterViewInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private translate: TranslateService
     ) { }
 
     /**
@@ -46,5 +48,21 @@ export class PurchaseRootComponent implements OnInit {
             this.router.navigate(['/purchase/event/schedule']);
         }).unsubscribe();
     }
+
+    public ngAfterViewInit() {
+        const snapshot = this.activatedRoute.snapshot;
+        const language = snapshot.params.language;
+        if (language !== undefined) {
+            const element = document.querySelector<HTMLSelectElement>('#language');
+            if (element !== null) {
+                element.value = language;
+            }
+            this.translate.use(language);
+            this.store.dispatch(new userAction.UpdateLanguage({ language }));
+            const html = <HTMLElement>document.querySelector('html');
+            html.setAttribute('lang', language);
+        }
+    }
+
 
 }

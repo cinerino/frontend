@@ -123,7 +123,7 @@ export class InquiryConfirmComponent implements OnInit {
                             title: this.translate.instant('common.error'),
                             body: `
                             <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.cancel')}</p>
-                                <div class="p-3 bg-light-gray select-text">
+                            <div class="p-3 bg-light-gray select-text error">
                                 <code>${JSON.stringify(error)}</code>
                             </div>`
                         });
@@ -218,7 +218,7 @@ export class InquiryConfirmComponent implements OnInit {
                         title: this.translate.instant('common.error'),
                         body: `
                         <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.print')}</p>
-                            <div class="p-3 bg-light-gray select-text">
+                        <div class="p-3 bg-light-gray select-text error">
                             <code>${error}</code>
                         </div>`
                     });

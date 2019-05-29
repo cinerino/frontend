@@ -3,7 +3,7 @@
 
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'error.title' | translate }}</h2>
         <p class="mb-4 text-md-center" [innerHTML]="'error.read' | translate"></p>
-        <div class="p-3 bg-white select-text">
+        <div *ngIf="(error | async)" class="p-3 bg-white select-text error">
             <code>{{ (error | async) }}</code>
         </div>
     </div>

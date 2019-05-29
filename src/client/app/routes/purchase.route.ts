@@ -54,6 +54,7 @@ export const schedule = {
         { path: 'root/:language', component: PurchaseRootComponent },
         { path: 'root', component: PurchaseRootComponent },
         { path: 'transaction/:language/:eventId', component: PurchaseTransactionComponent },
+        { path: 'transaction/:eventId', component: PurchaseTransactionComponent },
         {
             path: 'cinema',
             children: [

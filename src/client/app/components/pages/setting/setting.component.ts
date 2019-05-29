@@ -212,7 +212,7 @@ export class SettingComponent implements OnInit {
                         title: this.translate.instant('common.error'),
                         body: `
                         <p class="mb-4">${this.translate.instant('setting.alert.print')}</p>
-                            <div class="p-3 bg-light-gray select-text">
+                        <div class="p-3 bg-light-gray select-text error">
                             <code>${error}</code>
                         </div>`
                     });

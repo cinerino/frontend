@@ -44,6 +44,10 @@ export class PurchaseConfirmComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.amount = 0;
         this.purchase.subscribe((purchase) => {
+            if (purchase.transaction === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
             this.amount = getAmount(purchase.authorizeSeatReservations);
         }).unsubscribe();
     }

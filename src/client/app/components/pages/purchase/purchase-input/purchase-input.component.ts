@@ -60,6 +60,10 @@ export class PurchaseInputComponent implements OnInit {
         this.createCustomerContactForm();
         this.createCreditCardForm();
         this.purchase.subscribe((purchase) => {
+            if (purchase.transaction === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
             this.amount = getAmount(purchase.authorizeSeatReservations);
             if (purchase.customerContact !== undefined
                 && purchase.customerContact.familyName !== undefined

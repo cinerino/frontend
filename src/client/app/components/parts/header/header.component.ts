@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import * as reducers from '../../../store/reducers';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
     public language: string;
     public isMenuOpen: boolean;
     public user: Observable<reducers.IUserState>;
@@ -32,6 +32,15 @@ export class HeaderComponent implements OnInit {
             html.setAttribute('lang', this.language);
         }).unsubscribe();
         this.isMenuOpen = false;
+    }
+
+    public ngAfterViewInit() {
+        this.user.subscribe((user) => {
+            this.language = user.language;
+            this.translate.use(this.language);
+            const html = <HTMLElement>document.querySelector('html');
+            html.setAttribute('lang', this.language);
+        }).unsubscribe();
     }
 
     public changeLanguage() {
