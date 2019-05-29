@@ -1519,7 +1519,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6104,7 +6104,7 @@ var PurchaseInputComponent = /** @class */ (function () {
      * クリップボードへコピー
      */
     PurchaseInputComponent.prototype.copyDomain = function () {
-        var str = this.translate.instant('email.sender.email');
+        var str = this.translate.instant('email.sender.domain');
         var element = document.createElement('textarea');
         element.value = str;
         element.selectionStart = 0;
@@ -8337,7 +8337,7 @@ var PurchaseEventPerformanceComponent = /** @class */ (function () {
                 320: { slidesPerView: 2.5 },
                 767: { slidesPerView: 2.5 },
                 1024: { slidesPerView: 5.5 }
-            },
+            }
         };
     };
     /**
