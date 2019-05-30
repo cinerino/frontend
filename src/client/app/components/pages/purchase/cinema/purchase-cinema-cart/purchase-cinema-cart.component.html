@@ -31,7 +31,7 @@
                         &nbsp;/&nbsp;{{ authorizeSeatReservation.object.event.location.name | changeLanguage }}
                     </span>
                     <span *ngIf="authorizeSeatReservation.object.event.workPerformed?.duration && moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() > 0">
-                        &nbsp;/&nbsp;{{ moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                        &nbsp;/&nbsp;<span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
                     </span>
                 </p>
                 <button type="button" class="btn btn-link btn-sm ml-auto p-0"

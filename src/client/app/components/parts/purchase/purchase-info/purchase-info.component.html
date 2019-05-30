@@ -21,7 +21,7 @@
                 &nbsp;/&nbsp;{{ purchase.screeningEvent?.location.name | changeLanguage }}
             </span>
             <span *ngIf="purchase.screeningEvent?.workPerformed?.duration && moment.duration(purchase.screeningEvent?.workPerformed?.duration).asMinutes() > 0">
-                &nbsp;/&nbsp;{{ moment.duration(purchase.screeningEvent?.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                &nbsp;/&nbsp;<span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(purchase.screeningEvent?.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
             </span>
         </p>
     </div>

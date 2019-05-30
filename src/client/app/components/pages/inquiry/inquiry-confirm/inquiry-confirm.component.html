@@ -37,7 +37,7 @@
                     <span>&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>
                     <span
                         *ngIf="eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0">
-                        &nbsp;/&nbsp;{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                        &nbsp;/&nbsp;<span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
                     </span>
                 </p>
             </div>

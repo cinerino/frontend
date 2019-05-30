@@ -11,8 +11,7 @@
         </div>
         <div class="d-flex align-items-center">
             <div *ngIf="screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0" class="text-small ml-auto">
-                {{
-                moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                <span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
             </div>
         </div>
     </div>
