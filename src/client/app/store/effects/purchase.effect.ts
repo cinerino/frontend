@@ -17,6 +17,8 @@ import { IScreen } from '../../models';
 import { CinerinoService, UtilService } from '../../services';
 import { purchaseAction } from '../actions';
 
+declare const ga: Function;
+
 /**
  * Purchase Effects
  */
@@ -582,6 +584,21 @@ export class PurchaseEffects {
                 }
                 const result = await this.cinerino.transaction.placeOrder.confirm(params);
                 const order = result.order;
+                if (environment.ANALYTICS_ID !== '') {
+                    try {
+                        const sendData = {
+                            hitType: 'event',
+                            eventCategory: 'purchase',
+                            eventAction: 'complete',
+                            eventLabel: (seller.location === undefined || seller.location.branchCode === undefined)
+                                ? 'conversion' : `conversion-${seller.location.branchCode}`
+                        };
+                        ga('send', sendData);
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+
                 return new purchaseAction.ReserveSuccess({ order });
             } catch (error) {
                 await this.cinerino.transaction.placeOrder.cancel({
