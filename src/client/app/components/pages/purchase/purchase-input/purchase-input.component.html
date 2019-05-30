@@ -59,8 +59,9 @@
                                 {{ 'form.validation.email' | translate }}
                             </p>
                         </div>
-                        <p class="mt-2 mb-1 text-small" [innerHTML]="'common.emailDescription' | translate"></p>
-                        <button type="button" class="btn btn-primary btn-sm" (click)="copyDomain()">{{ 'purchase.input.copyDomain' | translate }}</button>
+                        <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.email' | translate"></p>
+                        <button type="button" class="btn btn-primary btn-sm"
+                            (click)="copyDomain()">{{ 'purchase.input.copyDomain' | translate }}</button>
                     </div>
                 </div>
                 <div class="form-group row mb-0">
@@ -84,6 +85,7 @@
                             <p *ngIf="customerContactForm.controls.telephone.errors.telephone" class="text-danger">
                                 {{ 'form.validation.telephone' | translate }}</p>
                         </div>
+                        <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.email' | translate"></p>
                     </div>
                 </div>
             </form>
@@ -115,6 +117,8 @@
                                 {{ 'form.validation.number' | translate }}
                             </p>
                         </div>
+                        <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.email' | translate"></p>
+                        <div class="credit-image"><img class="w-100" src="/assets/images/credit_card.png"></div>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -137,8 +141,8 @@
                 <div class="form-group row">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.securityCode' | translate }}</p>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" id="securityCode" maxlength="4" [placeholder]="'form.placeholder.securityCode' | translate"
-                            formControlName="securityCode">
+                        <input type="text" class="form-control" id="securityCode" maxlength="4"
+                            [placeholder]="'form.placeholder.securityCode' | translate" formControlName="securityCode">
                         <div *ngIf="creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched"
                             class="mt-2">
                             <p *ngIf="creditCardForm.controls.securityCode.errors.required" class="text-danger">
@@ -151,8 +155,8 @@
                 <div class="form-group row mb-0">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.holderName' | translate }}</p>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" id="holderName" [placeholder]="'form.placeholder.holderName' | translate"
-                            formControlName="holderName">
+                        <input type="text" class="form-control" id="holderName"
+                            [placeholder]="'form.placeholder.holderName' | translate" formControlName="holderName">
                         <div *ngIf="creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched"
                             class="mt-2">
                             <p *ngIf="creditCardForm.controls.holderName.errors.required" class="text-danger">

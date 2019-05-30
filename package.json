@@ -68,7 +68,7 @@
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
     "ngx-bootstrap": "^4.2.0",
-    "ngx-swiper-wrapper": "^6.4.0",
+    "ngx-swiper-wrapper": "^7.2.1",
     "qrcode": "^1.2.0",
     "redis": "^2.8.0",
     "rxjs": "^6.5.1",
