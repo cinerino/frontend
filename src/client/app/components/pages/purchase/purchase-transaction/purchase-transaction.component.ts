@@ -43,15 +43,8 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
                 return;
             }
             const snapshot = this.activatedRoute.snapshot;
-            const language = snapshot.params.language;
             const eventId = snapshot.params.eventId;
             this.store.dispatch(new purchaseAction.SetExternal({ eventId }));
-            if (language !== undefined) {
-                const element = document.querySelector<HTMLSelectElement>('#language');
-                if (element !== null) {
-                    element.value = language;
-                }
-            }
             try {
                 await this.convertExternalToPurchase({ eventId });
                 await this.startTransaction();
@@ -82,9 +75,8 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
      */
     private async convertExternalToPurchase(params: { eventId: string; }) {
         return new Promise((resolve, reject) => {
-            this.store.dispatch(new purchaseAction.ConvertExternalToPurchase({
-                eventId: params.eventId
-            }));
+            const eventId = params.eventId;
+            this.store.dispatch(new purchaseAction.ConvertExternalToPurchase({ eventId }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.ConvertExternalToPurchaseSuccess),
                 tap(() => { resolve(); })

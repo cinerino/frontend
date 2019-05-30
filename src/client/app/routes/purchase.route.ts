@@ -49,11 +49,7 @@ export const schedule = {
     path: 'purchase',
     component: BaseComponent,
     children: [
-        { path: 'root/:language/:theaterBranchCode/:workPerformedId', component: PurchaseRootComponent },
-        { path: 'root/:language/:theaterBranchCode', component: PurchaseRootComponent },
-        { path: 'root/:language', component: PurchaseRootComponent },
         { path: 'root', component: PurchaseRootComponent },
-        { path: 'transaction/:language/:eventId', component: PurchaseTransactionComponent },
         { path: 'transaction/:eventId', component: PurchaseTransactionComponent },
         {
             path: 'cinema',

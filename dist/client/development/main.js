@@ -692,7 +692,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\">\n    <router-outlet></router-outlet>\n</div>"
+module.exports = "<div class=\"wrapper\">\n    <router-outlet *ngIf=\"isRouter\"></router-outlet>\n</div>"
 
 /***/ }),
 
@@ -708,8 +708,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../store/actions */ "./app/store/actions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -719,6 +722,41 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 /**
  * AppComponent
  */
@@ -726,20 +764,82 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
 var AppComponent = /** @class */ (function () {
-    function AppComponent(router, translate) {
+    function AppComponent(router, translate, util, store) {
         this.router = router;
         this.translate = translate;
+        this.util = util;
+        this.store = store;
     }
     /**
      * 初期化
      * @method ngOnInit
      */
     AppComponent.prototype.ngOnInit = function () {
-        this.locales();
-        if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].ANALYTICS_ID !== '') {
-            this.analytics();
-        }
+        return __awaiter(this, void 0, void 0, function () {
+            var error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.isRouter = false;
+                        this.locales();
+                        if (_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].ANALYTICS_ID !== '') {
+                            this.analytics();
+                        }
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.external()];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        return [3 /*break*/, 4];
+                    case 4:
+                        this.isRouter = true;
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * 外部情報
+     */
+    AppComponent.prototype.external = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var external, theaterBranchCode, workPerformedId, superEventId, eventId, language;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (location.hash !== '') {
+                            return [2 /*return*/];
+                        }
+                        return [4 /*yield*/, this.util.getExternal()];
+                    case 1:
+                        external = _a.sent();
+                        theaterBranchCode = external.theaterBranchCode;
+                        workPerformedId = external.workPerformedId;
+                        superEventId = external.superEventId;
+                        eventId = external.eventId;
+                        language = external.language;
+                        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["purchaseAction"].SetExternal({
+                            theaterBranchCode: theaterBranchCode,
+                            workPerformedId: workPerformedId,
+                            superEventId: superEventId,
+                            eventId: eventId
+                        }));
+                        if (language !== undefined) {
+                            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].UpdateLanguage({ language: language }));
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * 言語設定
@@ -758,7 +858,7 @@ var AppComponent = /** @class */ (function () {
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"]) {
                 // Googleアナリティクス pageview
                 try {
-                    ga('create', _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].ANALYTICS_ID, 'auto');
+                    ga('create', _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].ANALYTICS_ID, 'auto');
                     ga('set', 'page', event.urlAfterRedirects);
                     ga('send', 'pageview');
                 }
@@ -774,7 +874,9 @@ var AppComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./app.component.html */ "./app/components/app/app.component.html")
         }),
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
-            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"]])
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
+            _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"],
+            _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -1519,7 +1621,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, InquiryConfirmComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1544,9 +1646,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ExpiredComponent", function() { return _expired_expired_component__WEBPACK_IMPORTED_MODULE_4__["ExpiredComponent"]; });
 
 /* harmony import */ var _inquiry_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./inquiry/index */ "./app/components/pages/inquiry/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryConfirmComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryConfirmComponent"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryInputComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryInputComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryConfirmComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryConfirmComponent"]; });
 
 /* harmony import */ var _maintenance_maintenance_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./maintenance/maintenance.component */ "./app/components/pages/maintenance/maintenance.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MaintenanceComponent", function() { return _maintenance_maintenance_component__WEBPACK_IMPORTED_MODULE_6__["MaintenanceComponent"]; });
@@ -1614,7 +1716,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./app/components/pages/inquiry/index.ts ***!
   \***********************************************/
-/*! exports provided: InquiryConfirmComponent, InquiryInputComponent */
+/*! exports provided: InquiryInputComponent, InquiryConfirmComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6179,10 +6281,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6198,54 +6299,26 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var PurchaseRootComponent = /** @class */ (function () {
-    function PurchaseRootComponent(store, router, activatedRoute, translate) {
+    function PurchaseRootComponent(store, router) {
         this.store = store;
         this.router = router;
-        this.activatedRoute = activatedRoute;
-        this.translate = translate;
     }
     /**
      * 初期化
      */
     PurchaseRootComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
-        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getPurchase"]));
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["purchaseAction"].Delete());
+        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getUser"]));
+        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getPurchase"]));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_4__["purchaseAction"].Delete());
         this.user.subscribe(function (user) {
-            var snapshot = _this.activatedRoute.snapshot;
-            var language = snapshot.params.language;
-            var theaterBranchCode = snapshot.params.theaterBranchCode;
-            var workPerformedId = snapshot.params.workPerformedId;
-            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["purchaseAction"].SetExternal({ theaterBranchCode: theaterBranchCode, workPerformedId: workPerformedId }));
-            if (language !== undefined) {
-                var element = document.querySelector('#language');
-                if (element !== null) {
-                    element.value = language;
-                }
-            }
-            if (user.viewType === _models__WEBPACK_IMPORTED_MODULE_4__["ViewType"].Cinema) {
+            if (user.viewType === _models__WEBPACK_IMPORTED_MODULE_3__["ViewType"].Cinema) {
                 _this.router.navigate(['/purchase/cinema/schedule']);
                 return;
             }
             _this.router.navigate(['/purchase/event/schedule']);
         }).unsubscribe();
-    };
-    PurchaseRootComponent.prototype.ngAfterViewInit = function () {
-        var snapshot = this.activatedRoute.snapshot;
-        var language = snapshot.params.language;
-        if (language !== undefined) {
-            var element = document.querySelector('#language');
-            if (element !== null) {
-                element.value = language;
-            }
-            this.translate.use(language);
-            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["userAction"].UpdateLanguage({ language: language }));
-            var html = document.querySelector('html');
-            html.setAttribute('lang', language);
-        }
     };
     PurchaseRootComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -6254,9 +6327,7 @@ var PurchaseRootComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-root.component.scss */ "./app/components/pages/purchase/purchase-root/purchase-root.component.scss")]
         }),
         __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
-            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], PurchaseRootComponent);
     return PurchaseRootComponent;
 }());
@@ -6387,7 +6458,7 @@ var PurchaseTransactionComponent = /** @class */ (function () {
                 this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getError"]));
                 this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].Delete());
                 this.user.subscribe(function (user) { return __awaiter(_this, void 0, void 0, function () {
-                    var snapshot, language, eventId, element, error_1;
+                    var snapshot, eventId, error_1;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
@@ -6396,15 +6467,8 @@ var PurchaseTransactionComponent = /** @class */ (function () {
                                     return [2 /*return*/];
                                 }
                                 snapshot = this.activatedRoute.snapshot;
-                                language = snapshot.params.language;
                                 eventId = snapshot.params.eventId;
                                 this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].SetExternal({ eventId: eventId }));
-                                if (language !== undefined) {
-                                    element = document.querySelector('#language');
-                                    if (element !== null) {
-                                        element.value = language;
-                                    }
-                                }
                                 _a.label = 1;
                             case 1:
                                 _a.trys.push([1, 4, , 5]);
@@ -6450,9 +6514,8 @@ var PurchaseTransactionComponent = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ConvertExternalToPurchase({
-                            eventId: params.eventId
-                        }));
+                        var eventId = params.eventId;
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ConvertExternalToPurchase({ eventId: eventId }));
                         var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.ConvertExternalToPurchaseSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["tap"])(function () { resolve(); }));
                         var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.ConvertExternalToPurchaseFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["tap"])(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
                         Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["take"])(1)).subscribe();
@@ -7369,6 +7432,41 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 
 
 
@@ -7385,22 +7483,17 @@ var HeaderComponent = /** @class */ (function () {
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
-        this.user.subscribe(function (user) {
-            _this.language = user.language;
-            _this.translate.use(_this.language);
-            var html = document.querySelector('html');
-            html.setAttribute('lang', _this.language);
-        }).unsubscribe();
+        this.user.subscribe(function (user) { return __awaiter(_this, void 0, void 0, function () {
+            var html;
+            return __generator(this, function (_a) {
+                this.language = user.language;
+                this.translate.use(this.language);
+                html = document.querySelector('html');
+                html.setAttribute('lang', this.language);
+                return [2 /*return*/];
+            });
+        }); }).unsubscribe();
         this.isMenuOpen = false;
-    };
-    HeaderComponent.prototype.ngAfterViewInit = function () {
-        var _this = this;
-        this.user.subscribe(function (user) {
-            _this.language = user.language;
-            _this.translate.use(_this.language);
-            var html = document.querySelector('html');
-            html.setAttribute('lang', _this.language);
-        }).unsubscribe();
     };
     HeaderComponent.prototype.changeLanguage = function () {
         this.translate.use(this.language);
@@ -7408,7 +7501,6 @@ var HeaderComponent = /** @class */ (function () {
         this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["userAction"].UpdateLanguage({ language: language }));
         var html = document.querySelector('html');
         html.setAttribute('lang', this.language);
-        // console.log('translate', this.translate);
     };
     HeaderComponent.prototype.getLanguageName = function (key) {
         return _models__WEBPACK_IMPORTED_MODULE_4__["Language"][key];
@@ -11437,11 +11529,7 @@ var schedule = {
     path: 'purchase',
     component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["BaseComponent"],
     children: [
-        { path: 'root/:language/:theaterBranchCode/:workPerformedId', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseRootComponent"] },
-        { path: 'root/:language/:theaterBranchCode', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseRootComponent"] },
-        { path: 'root/:language', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseRootComponent"] },
         { path: 'root', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseRootComponent"] },
-        { path: 'transaction/:language/:eventId', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseTransactionComponent"] },
         { path: 'transaction/:eventId', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseTransactionComponent"] },
         {
             path: 'cinema',
@@ -12243,6 +12331,22 @@ var UtilService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.http.get('/api/serverTime').toPromise()];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, result];
+                }
+            });
+        });
+    };
+    /**
+     * 外部連携情報取得
+     */
+    UtilService.prototype.getExternal = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.http.post('/api/external', {}).toPromise()];
                     case 1:
                         result = _a.sent();
                         return [2 /*return*/, result];
