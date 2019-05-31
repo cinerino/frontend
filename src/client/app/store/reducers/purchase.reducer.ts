@@ -38,6 +38,7 @@ export interface IPurchaseState {
         eventId?: string;
         passportToken?: string;
         workPerformedId?: string;
+        scheduleDate?: string;
     };
 }
 
@@ -438,8 +439,14 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             const eventId = action.payload.eventId;
             const workPerformedId = action.payload.workPerformedId;
             const passportToken = action.payload.passportToken;
+            const scheduleDate = action.payload.scheduleDate;
             state.purchaseData.external = {
-                theaterBranchCode, superEventId, eventId, workPerformedId, passportToken
+                theaterBranchCode,
+                superEventId,
+                eventId,
+                workPerformedId,
+                passportToken,
+                scheduleDate
             };
             return { ...state };
         }

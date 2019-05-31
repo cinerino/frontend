@@ -55,13 +55,15 @@ export class AppComponent implements OnInit {
         const workPerformedId = external.workPerformedId;
         const superEventId = external.superEventId;
         const eventId = external.eventId;
-        const language = external.language;
+        const scheduleDate = external.scheduleDate;
         this.store.dispatch(new purchaseAction.SetExternal({
             theaterBranchCode,
             workPerformedId,
             superEventId,
-            eventId
+            eventId,
+            scheduleDate
         }));
+        const language = external.language;
         if (language !== undefined) {
             this.store.dispatch(new userAction.UpdateLanguage({ language }));
         }

@@ -19,7 +19,7 @@ import * as order from './routes/order.route';
 import * as purchase from './routes/purchase.route';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: environment.BASE_URL, pathMatch: 'full' },
+    { path: '', redirectTo: environment.BASE_URL.replace('\/', ''), pathMatch: 'full' },
     purchase.route,
     purchase.schedule,
     auth.route,

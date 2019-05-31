@@ -594,6 +594,7 @@ export class SetExternal implements Action {
         eventId?: string;
         workPerformedId?: string;
         passportToken?: string;
+        scheduleDate?: string;
     }) { }
 }
 

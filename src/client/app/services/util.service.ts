@@ -65,6 +65,7 @@ export class UtilService {
             superEventId?: string;
             eventId?: string;
             workPerformedId?: string;
+            scheduleDate?: string;
             language?: string;
         }>('/api/external', {}).toPromise();
 

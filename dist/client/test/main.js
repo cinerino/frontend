@@ -354,7 +354,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 var appRoutes = [
-    { path: '', redirectTo: _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].BASE_URL, pathMatch: 'full' },
+    { path: '', redirectTo: _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].BASE_URL.replace('\/', ''), pathMatch: 'full' },
     _routes_purchase_route__WEBPACK_IMPORTED_MODULE_15__["route"],
     _routes_purchase_route__WEBPACK_IMPORTED_MODULE_15__["schedule"],
     _routes_auth_route__WEBPACK_IMPORTED_MODULE_11__["route"],
@@ -812,7 +812,7 @@ var AppComponent = /** @class */ (function () {
      */
     AppComponent.prototype.external = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var external, theaterBranchCode, workPerformedId, superEventId, eventId, language;
+            var external, theaterBranchCode, workPerformedId, superEventId, eventId, scheduleDate, language;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -826,13 +826,15 @@ var AppComponent = /** @class */ (function () {
                         workPerformedId = external.workPerformedId;
                         superEventId = external.superEventId;
                         eventId = external.eventId;
-                        language = external.language;
+                        scheduleDate = external.scheduleDate;
                         this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["purchaseAction"].SetExternal({
                             theaterBranchCode: theaterBranchCode,
                             workPerformedId: workPerformedId,
                             superEventId: superEventId,
-                            eventId: eventId
+                            eventId: eventId,
+                            scheduleDate: scheduleDate
                         }));
+                        language = external.language;
                         if (language !== undefined) {
                             this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].UpdateLanguage({ language: language }));
                         }
@@ -1621,7 +1623,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageProfileComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1688,13 +1690,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SettingComponent", function() { return _setting_setting_component__WEBPACK_IMPORTED_MODULE_10__["SettingComponent"]; });
 
 /* harmony import */ var _mypage__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./mypage */ "./app/components/pages/mypage/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MypageProfileComponent", function() { return _mypage__WEBPACK_IMPORTED_MODULE_11__["MypageProfileComponent"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MypageCoinComponent", function() { return _mypage__WEBPACK_IMPORTED_MODULE_11__["MypageCoinComponent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MypageCreditComponent", function() { return _mypage__WEBPACK_IMPORTED_MODULE_11__["MypageCreditComponent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MypageIndexComponent", function() { return _mypage__WEBPACK_IMPORTED_MODULE_11__["MypageIndexComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MypageProfileComponent", function() { return _mypage__WEBPACK_IMPORTED_MODULE_11__["MypageProfileComponent"]; });
 
 
 
@@ -2280,7 +2282,7 @@ var MaintenanceComponent = /** @class */ (function () {
 /*!**********************************************!*\
   !*** ./app/components/pages/mypage/index.ts ***!
   \**********************************************/
-/*! exports provided: MypageProfileComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent */
+/*! exports provided: MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3702,7 +3704,7 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
             if (_this.isPreSchedule) {
                 _this.scheduleDates = [];
                 for (var i = 0; i < Number(_environments_environment__WEBPACK_IMPORTED_MODULE_11__["environment"].PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
-                    _this.scheduleDates.push(moment__WEBPACK_IMPORTED_MODULE_6__().add(i, 'day').format('YYYY-MM-DD'));
+                    _this.scheduleDates.push(moment__WEBPACK_IMPORTED_MODULE_6__().add(i, 'day').format('YYYYMMDD'));
                 }
             }
             else {
@@ -3779,7 +3781,7 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
         this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_14__["purchaseAction"].SelectSeller({ seller: seller }));
         this.scheduleDates = [];
         for (var i = 0; i < Number(_environments_environment__WEBPACK_IMPORTED_MODULE_11__["environment"].PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
-            this.scheduleDates.push(moment__WEBPACK_IMPORTED_MODULE_6__().add(i, 'day').format('YYYY-MM-DD'));
+            this.scheduleDates.push(moment__WEBPACK_IMPORTED_MODULE_6__().add(i, 'day').format('YYYYMMDD'));
         }
         this.isPreSchedule = false;
         this.directiveRef.update();
@@ -3834,7 +3836,11 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                     ? _this.scheduleDates[0]
                     : moment__WEBPACK_IMPORTED_MODULE_6__()
                         .add(_environments_environment__WEBPACK_IMPORTED_MODULE_11__["environment"].PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                        .format('YYYY-MM-DD');
+                        .format('YYYYMMDD');
+                if (purchase.external !== undefined
+                    && purchase.external.scheduleDate !== undefined) {
+                    scheduleDate = purchase.external.scheduleDate;
+                }
             }
             _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_14__["purchaseAction"].SelectScheduleDate({ scheduleDate: scheduleDate }));
             _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_14__["masterAction"].GetSchedule({
@@ -4605,7 +4611,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var defaultDate, openDate, nowDate;
+            var _this = this;
             return __generator(this, function (_a) {
                 this.bsValue = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
                 this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getPurchase"]));
@@ -4614,18 +4620,25 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                 this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getError"]));
                 this.screeningWorkEvents = [];
                 this.isSales = true;
-                if (this.scheduleDate === undefined) {
-                    defaultDate = moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__().format('YYYYMMDD'))
-                        .add(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                        .toDate();
-                    openDate = moment__WEBPACK_IMPORTED_MODULE_5__(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_SCHEDULE_OPEN_DATE).toDate();
-                    this.scheduleDate = defaultDate;
-                    nowDate = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
-                    if (openDate > nowDate) {
-                        this.scheduleDate = openDate;
+                this.purchase.subscribe(function (purchase) {
+                    // this.scheduleDate = moment(purchase.scheduleDate).toDate();
+                    if (_this.scheduleDate === undefined) {
+                        var defaultDate = moment__WEBPACK_IMPORTED_MODULE_5__(moment__WEBPACK_IMPORTED_MODULE_5__().format('YYYYMMDD'))
+                            .add(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                            .toDate();
+                        var openDate = moment__WEBPACK_IMPORTED_MODULE_5__(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["environment"].PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                        _this.scheduleDate = defaultDate;
+                        var nowDate = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
+                        if (openDate > nowDate) {
+                            _this.scheduleDate = openDate;
+                        }
+                        if (purchase.external !== undefined
+                            && purchase.external.scheduleDate !== undefined) {
+                            _this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_5__(purchase.external.scheduleDate).toDate();
+                        }
                     }
-                }
-                this.getSellers();
+                    _this.getSellers();
+                }).unsubscribe();
                 return [2 /*return*/];
             });
         });
@@ -4712,13 +4725,6 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
             var seller = purchase.seller;
             if (seller === undefined) {
                 return;
-            }
-            if (_this.scheduleDate === undefined || _this.scheduleDate === null) {
-                _this.scheduleDate = defaultDate;
-                var nowDate = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
-                if (openDate > nowDate) {
-                    _this.scheduleDate = openDate;
-                }
             }
             var scheduleDate = moment__WEBPACK_IMPORTED_MODULE_5__(_this.scheduleDate).format('YYYY-MM-DD');
             _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].SelectScheduleDate({ scheduleDate: scheduleDate }));
@@ -16729,8 +16735,14 @@ function reducer(state, action) {
             var eventId = action.payload.eventId;
             var workPerformedId = action.payload.workPerformedId;
             var passportToken = action.payload.passportToken;
+            var scheduleDate = action.payload.scheduleDate;
             state.purchaseData.external = {
-                theaterBranchCode: theaterBranchCode, superEventId: superEventId, eventId: eventId, workPerformedId: workPerformedId, passportToken: passportToken
+                theaterBranchCode: theaterBranchCode,
+                superEventId: superEventId,
+                eventId: eventId,
+                workPerformedId: workPerformedId,
+                passportToken: passportToken,
+                scheduleDate: scheduleDate
             };
             return __assign({}, state);
         }

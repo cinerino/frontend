@@ -53,18 +53,25 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.error = this.store.pipe(select(reducers.getError));
         this.screeningWorkEvents = [];
         this.isSales = true;
-        if (this.scheduleDate === undefined) {
-            const defaultDate = moment(moment().format('YYYYMMDD'))
-                .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                .toDate();
-            const openDate = moment(environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
-            this.scheduleDate = defaultDate;
-            const nowDate = moment().toDate();
-            if (openDate > nowDate) {
-                this.scheduleDate = openDate;
+        this.purchase.subscribe((purchase) => {
+            // this.scheduleDate = moment(purchase.scheduleDate).toDate();
+            if (this.scheduleDate === undefined) {
+                const defaultDate = moment(moment().format('YYYYMMDD'))
+                    .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                    .toDate();
+                const openDate = moment(environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                this.scheduleDate = defaultDate;
+                const nowDate = moment().toDate();
+                if (openDate > nowDate) {
+                    this.scheduleDate = openDate;
+                }
+                if (purchase.external !== undefined
+                    && purchase.external.scheduleDate !== undefined) {
+                    this.scheduleDate = moment(purchase.external.scheduleDate).toDate();
+                }
             }
-        }
-        this.getSellers();
+            this.getSellers();
+        }).unsubscribe();
     }
 
     /**
@@ -157,13 +164,6 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             const seller = purchase.seller;
             if (seller === undefined) {
                 return;
-            }
-            if (this.scheduleDate === undefined || this.scheduleDate === null) {
-                this.scheduleDate = defaultDate;
-                const nowDate = moment().toDate();
-                if (openDate > nowDate) {
-                    this.scheduleDate = openDate;
-                }
             }
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
             this.store.dispatch(new purchaseAction.SelectScheduleDate({ scheduleDate }));
