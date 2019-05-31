@@ -118,23 +118,20 @@ async function drawCanvas(args: {
                         context.fillText(
                             eventName.slice(0, limit),
                             changePosition(text.fillText.x),
-                            changePosition(text.fillText.y),
-                            text.fillText.maxWidth
+                            changePosition(text.fillText.y)
                         );
                         context.fillText(
                             (eventName.length - limit < limit)
                                 ? eventName.slice(limit, eventName.length)
                                 : eventName.slice(limit, limit * 2),
                             changePosition(text.fillText.x),
-                            changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 1.5,
-                            text.fillText.maxWidth
+                            changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 1.5
                         );
                     } else {
                         context.fillText(
                             eventName,
                             changePosition(text.fillText.x),
-                            changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 0.75,
-                            text.fillText.maxWidth
+                            changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 0.75
                         );
                     }
                     continue;
@@ -156,8 +153,7 @@ async function drawCanvas(args: {
         context.fillText(
             value,
             changePosition(text.fillText.x),
-            changePosition(text.fillText.y),
-            text.fillText.maxWidth
+            changePosition(text.fillText.y)
         );
     }
 
