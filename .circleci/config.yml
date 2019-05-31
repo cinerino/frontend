@@ -65,9 +65,6 @@ jobs:
           command: |
             git remote add development-staging ${DEPLOY_TARGET_REPOSITORY_DEVELOPMENT}
             git push development-staging $CIRCLE_BRANCH:master -f -v
-      - run:
-          name: deploy to azure webapps development oyatsu
-          command: |
             git remote add development-staging ${DEPLOY_TARGET_REPOSITORY_DEVELOPMENT_OYATSU}
             git push development-staging $CIRCLE_BRANCH:master -f -v
   prerelease:
