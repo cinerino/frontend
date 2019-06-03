@@ -1,13 +1,13 @@
 <div class="bg-white ">
     <div class="p-3">
         <div class="mb-2">
-            <p><strong>{{ screeningWorkEvent.info.name | changeLanguage }}</strong></p>
-            <p
+            <p class="font-weight-bold text-large">{{ screeningWorkEvent.info.name | changeLanguage }}</p>
+            <p class="text-small"
                 *ngIf="screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)">
                 {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>
-            <p
+            <p class="text-small"
                 *ngIf="screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)">{{
-                    screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>
+                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>
         </div>
         <div class="d-flex align-items-center">
             <div *ngIf="screeningWorkEvent.info.workPerformed?.contentRating"
@@ -19,7 +19,8 @@
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.subtitles' | translate }}</div>
             <div *ngIf="screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0"
                 class="text-small ml-auto">
-                <span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                <span
+                    class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
             </div>
         </div>
     </div>
