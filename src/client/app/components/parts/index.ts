@@ -22,3 +22,4 @@ export * from './purchase/event/purchase-event-ticket-modal/purchase-event-ticke
 export * from './transaction-remaining-time/transaction-remaining-time.component';
 export * from './charge-coin-modal/charge-coin-modal.component';
 export * from './registered-credit-card-modal/registered-credit-card-modal.component';
+export * from './print-complete-modal/print-complete-modal.component';

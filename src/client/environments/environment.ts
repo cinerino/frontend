@@ -155,6 +155,14 @@ interface IEnvironment {
      */
     INQUIRY_PRINT: boolean;
     /**
+     * 照会印刷待機時間
+     */
+    INQUIRY_PRINT_WAIT_TIME: string;
+    /**
+     * 照会印刷完了待機時間
+     */
+    INQUIRY_PRINT_SUCCESS_WAIT_TIME: string;
+    /**
      * 印刷QRコードタイプ
      */
     PRINT_QRCODE_TYPE: string;
@@ -211,6 +219,8 @@ const defaultEnvironment: IEnvironment = {
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: false,
     INQUIRY_PRINT: false,
+    INQUIRY_PRINT_WAIT_TIME: '',
+    INQUIRY_PRINT_SUCCESS_WAIT_TIME: '',
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: 'token',
     PRINT_LOADING: true,

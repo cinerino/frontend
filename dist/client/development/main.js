@@ -514,7 +514,8 @@ var AppModule = /** @class */ (function () {
                 _components_parts__WEBPACK_IMPORTED_MODULE_11__["RegisteredCreditCardModalComponent"],
                 _components_pages__WEBPACK_IMPORTED_MODULE_10__["PurchaseTransactionComponent"],
                 _components_parts__WEBPACK_IMPORTED_MODULE_11__["PurchaseTermsComponent"],
-                _components_parts__WEBPACK_IMPORTED_MODULE_11__["PurchaseWarningComponent"]
+                _components_parts__WEBPACK_IMPORTED_MODULE_11__["PurchaseWarningComponent"],
+                _components_parts__WEBPACK_IMPORTED_MODULE_11__["PrintCompleteModalComponent"]
             ],
             entryComponents: [
                 _components_parts__WEBPACK_IMPORTED_MODULE_11__["PurchaseCinemaTicketModalComponent"],
@@ -527,7 +528,8 @@ var AppModule = /** @class */ (function () {
                 _components_parts__WEBPACK_IMPORTED_MODULE_11__["SecurityCodeModalComponent"],
                 _components_parts__WEBPACK_IMPORTED_MODULE_11__["OrderDetailModalComponent"],
                 _components_parts__WEBPACK_IMPORTED_MODULE_11__["ChargeCoinModalComponent"],
-                _components_parts__WEBPACK_IMPORTED_MODULE_11__["RegisteredCreditCardModalComponent"]
+                _components_parts__WEBPACK_IMPORTED_MODULE_11__["RegisteredCreditCardModalComponent"],
+                _components_parts__WEBPACK_IMPORTED_MODULE_11__["PrintCompleteModalComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"],
@@ -1784,7 +1786,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 /* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 /* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../parts/qrcode-modal/qrcode-modal.component */ "./app/components/parts/qrcode-modal/qrcode-modal.component.ts");
+/* harmony import */ var _parts__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../parts */ "./app/components/parts/index.ts");
+/* harmony import */ var _parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../../parts/qrcode-modal/qrcode-modal.component */ "./app/components/parts/qrcode-modal/qrcode-modal.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1845,6 +1848,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
+
 var InquiryConfirmComponent = /** @class */ (function () {
     function InquiryConfirmComponent(store, router, actions, modal, util, translate) {
         this.store = store;
@@ -1876,6 +1880,21 @@ var InquiryConfirmComponent = /** @class */ (function () {
             var order = value.order;
             _this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_11__["orderToEventOrders"])({ order: order });
         }).unsubscribe();
+        if (_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].INQUIRY_PRINT_WAIT_TIME !== '') {
+            var time = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].INQUIRY_PRINT_WAIT_TIME);
+            this.timer = setTimeout(function () {
+                _this.router.navigate(['/inquiry/input']);
+            }, time);
+        }
+    };
+    /**
+     * 破棄
+     */
+    InquiryConfirmComponent.prototype.ngOnDestroy = function () {
+        if (this.timer === undefined) {
+            return;
+        }
+        clearTimeout(this.timer);
     };
     /**
      * QRコード表示
@@ -1903,7 +1922,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
                 if (authorizeOrder === undefined) {
                     return;
                 }
-                _this.modal.show(_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_15__["QrCodeModalComponent"], {
+                _this.modal.show(_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_16__["QrCodeModalComponent"], {
                     initialState: { order: authorizeOrder },
                     class: 'modal-dialog-centered'
                 });
@@ -2000,6 +2019,9 @@ var InquiryConfirmComponent = /** @class */ (function () {
      */
     InquiryConfirmComponent.prototype.print = function () {
         var _this = this;
+        if (this.timer !== undefined) {
+            clearTimeout(this.timer);
+        }
         this.order.subscribe(function (inquiry) {
             _this.user.subscribe(function (user) {
                 if (inquiry.order === undefined
@@ -2014,7 +2036,15 @@ var InquiryConfirmComponent = /** @class */ (function () {
                 _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_13__["orderAction"].Print({ orders: orders, pos: pos, printer: printer }));
             }).unsubscribe();
         }).unsubscribe();
-        var success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_13__["orderAction"].ActionTypes.PrintSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () { }));
+        var success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_13__["orderAction"].ActionTypes.PrintSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
+            if (_environments_environment__WEBPACK_IMPORTED_MODULE_10__["environment"].INQUIRY_PRINT_SUCCESS_WAIT_TIME === '') {
+                return;
+            }
+            _this.modal.show(_parts__WEBPACK_IMPORTED_MODULE_15__["PrintCompleteModalComponent"], {
+                class: 'modal-dialog-centered',
+                backdrop: 'static'
+            });
+        }));
         var fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_13__["orderAction"].ActionTypes.PrintFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["tap"])(function () {
             _this.error.subscribe(function (error) {
                 _this.util.openAlert({
@@ -2052,7 +2082,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.input.read' | translate\"></p>\n\n        <div class=\"inquiry-form mx-auto p-3 bg-white\">\n            <form [formGroup]=\"inquiryForm\">\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.confirmationNumber' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" formControlName=\"confirmationNumber\" id=\"confirmationNumber\"\n                        [placeholder]=\"'form.placeholder.confirmationNumber' | translate\">\n                    <div *ngIf=\"inquiryForm.controls.confirmationNumber.invalid && inquiryForm.controls.confirmationNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.required\" class=\"text-danger\">{{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.pattern\" class=\"text-danger\">{{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.telephone' | translate }}</label>\n                    <input type=\"password\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\" [placeholder]=\"'form.placeholder.telephone' | translate\">\n                    <div *ngIf=\"inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched\" class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.required\" class=\"text-danger\">{{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                {{ 'form.validation.minlength' | translate: { value: inquiryForm.controls.telephone.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate: { value: inquiryForm.controls.telephone.errors.maxlength.requiredLength }\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.pattern\" class=\"text-danger\">{{ 'form.validation.number' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.telephone\" class=\"text-danger\">{{ 'form.validation.telephone' | translate }}</p>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"onSubmit()\">{{ 'inquiry.input.next' | translate }}</button>\n        <a *ngIf=\"environment.PORTAL_SITE_URL\" class=\"btn btn-link portal-link\"\n            [href]=\"environment.PORTAL_SITE_URL\">{{ 'inquiry.input.prev' | translate }}</a>\n        <button *ngIf=\"!environment.PORTAL_SITE_URL\" type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/\">{{ 'inquiry.input.prev' | translate }}</button>\n    </div>\n\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.input.read' | translate\"></p>\n\n        <div class=\"inquiry-form mx-auto p-3 bg-white\">\n            <form [formGroup]=\"inquiryForm\">\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.confirmationNumber' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" formControlName=\"confirmationNumber\" id=\"confirmationNumber\"\n                        [placeholder]=\"'form.placeholder.confirmationNumber' | translate\">\n                    <div *ngIf=\"inquiryForm.controls.confirmationNumber.invalid && inquiryForm.controls.confirmationNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.required\" class=\"text-danger\">{{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.pattern\" class=\"text-danger\">{{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.telephone' | translate }}</label>\n                    <input type=\"password\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\" [placeholder]=\"'form.placeholder.telephone' | translate\">\n                    <div *ngIf=\"inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched\" class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.required\" class=\"text-danger\">{{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                {{ 'form.validation.minlength' | translate: { value: inquiryForm.controls.telephone.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate: { value: inquiryForm.controls.telephone.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.pattern\" class=\"text-danger\">{{ 'form.validation.number' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.telephone\" class=\"text-danger\">{{ 'form.validation.telephone' | translate }}</p>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"onSubmit()\">{{ 'inquiry.input.next' | translate }}</button>\n        <a *ngIf=\"environment.PORTAL_SITE_URL\" class=\"btn btn-link portal-link\"\n            [href]=\"environment.PORTAL_SITE_URL\">{{ 'inquiry.input.prev' | translate }}</a>\n        <button *ngIf=\"!environment.PORTAL_SITE_URL\" type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/\">{{ 'inquiry.input.prev' | translate }}</button>\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -6590,7 +6620,7 @@ var PurchaseTransactionComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'setting.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'setting.read' | translate\"></p>\n\n    <div class=\"mb-4 p-3 bg-white\">\n        <form [formGroup]=\"baseForm\">\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"sellerBranchCode\" (change)=\"changePosList()\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let seller of (master | async).sellers\"\n                                [value]=\"seller.location.branchCode\">{{\n                                    seller.name.ja }}</option>\n                        </select>\n                        <!-- <div *ngIf=\"baseForm.controls.sellerBranchCode.invalid && baseForm.controls.sellerBranchCode.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.sellerBranchCode.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.unselected' | translate }}</p>\n                        </div> -->\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.pos' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"posId\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let pos of posList\" [value]=\"pos.id\">{{ pos.name }}</option>\n                        </select>\n                        <!-- <div *ngIf=\"baseForm.controls.posId.invalid && baseForm.controls.posId.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.posId.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.unselected' | translate }}</p>\n                        </div> -->\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printer' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"printerType\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let printer of printers\" [value]=\"printer.connectionType\">\n                                {{ printer.nmae | translate }}</option>\n                        </select>\n                        <button\n                            *ngIf=\"this.baseForm.controls.printerType.value && this.baseForm.controls.printerType.value !== connectionType.None\"\n                            type=\"button\" class=\"btn btn-sm btn-primary py-2 mt-2\"\n                            (click)=\"print()\">{{ 'setting.testPrinting' | translate }}</button>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printerIpAddress' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"printerIpAddress\"\n                            placeholder=\"0.0.0.0\">\n                        <div *ngIf=\"baseForm.controls.printerIpAddress.invalid && baseForm.controls.printerIpAddress.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.printerIpAddress.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                        <p class=\"text-small mt-2\">\n                            {{ 'setting.printerIpAddressDescription' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div *ngIf=\"environment.SETTING_DEVELOP_OPTION\">\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\"> {{ 'setting.isPurchaseCart' | translate }}\n                        </p>\n                        <div class=\"col-md-8\">\n                            <select type=\"text\" class=\"form-control\" formControlName=\"isPurchaseCart\"\n                                id=\"isPurchaseCart\" placeholder=\"\">\n                                <option value=\"0\">{{ 'common.off' | translate }}</option>\n                                <option value=\"1\">{{ 'common.on' | translate }}</option>\n                            </select>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\"> {{ 'setting.viewType' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" id=\"viewType\" formControlName=\"viewType\">\n                                <option [value]=\"viewType.Cinema\">{{ viewType.Cinema }}</option>\n                                <option [value]=\"viewType.Event\">{{ viewType.Event }}</option>\n                            </select>\n                            <div *ngIf=\"baseForm.controls.viewType.invalid && baseForm.controls.viewType.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"baseForm.controls.viewType.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n        </form>\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"updateBase()\">{{ 'setting.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            [routerLink]=\"environment.BASE_URL\">{{ 'setting.prev' | translate }}</button>\n    </div>\n\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'setting.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'setting.read' | translate\"></p>\n\n    <div class=\"mb-4 p-3 bg-white\">\n        <form [formGroup]=\"baseForm\">\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"sellerBranchCode\" (change)=\"changePosList()\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let seller of (master | async).sellers\"\n                                [value]=\"seller.location.branchCode\">{{\n                                    seller.name.ja }}</option>\n                        </select>\n                        <!-- <div *ngIf=\"baseForm.controls.sellerBranchCode.invalid && baseForm.controls.sellerBranchCode.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.sellerBranchCode.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.unselected' | translate }}</p>\n                        </div> -->\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.pos' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"posId\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let pos of posList\" [value]=\"pos.id\">{{ pos.name }}</option>\n                        </select>\n                        <!-- <div *ngIf=\"baseForm.controls.posId.invalid && baseForm.controls.posId.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.posId.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.unselected' | translate }}</p>\n                        </div> -->\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printer' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"printerType\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let printer of printers\" [value]=\"printer.connectionType\">\n                                {{ printer.name | translate }}</option>\n                        </select>\n                        <button\n                            *ngIf=\"this.baseForm.controls.printerType.value && this.baseForm.controls.printerType.value !== connectionType.None\"\n                            type=\"button\" class=\"btn btn-sm btn-primary py-2 mt-2\"\n                            (click)=\"print()\">{{ 'setting.testPrinting' | translate }}</button>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printerIpAddress' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"printerIpAddress\"\n                            placeholder=\"0.0.0.0\">\n                        <div *ngIf=\"baseForm.controls.printerIpAddress.invalid && baseForm.controls.printerIpAddress.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.printerIpAddress.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                        <p class=\"text-small mt-2\">\n                            {{ 'setting.printerIpAddressDescription' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div *ngIf=\"environment.SETTING_DEVELOP_OPTION\">\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\"> {{ 'setting.isPurchaseCart' | translate }}\n                        </p>\n                        <div class=\"col-md-8\">\n                            <select type=\"text\" class=\"form-control\" formControlName=\"isPurchaseCart\"\n                                id=\"isPurchaseCart\" placeholder=\"\">\n                                <option value=\"0\">{{ 'common.off' | translate }}</option>\n                                <option value=\"1\">{{ 'common.on' | translate }}</option>\n                            </select>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\"> {{ 'setting.viewType' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" id=\"viewType\" formControlName=\"viewType\">\n                                <option [value]=\"viewType.Cinema\">{{ viewType.Cinema }}</option>\n                                <option [value]=\"viewType.Event\">{{ viewType.Event }}</option>\n                            </select>\n                            <div *ngIf=\"baseForm.controls.viewType.invalid && baseForm.controls.viewType.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"baseForm.controls.viewType.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n        </form>\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"updateBase()\">{{ 'setting.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            [routerLink]=\"environment.BASE_URL\">{{ 'setting.prev' | translate }}</button>\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -7544,7 +7574,7 @@ var HeaderComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/parts/index.ts ***!
   \***************************************/
-/*! exports provided: AlertModalComponent, ConfirmModalComponent, ContentsComponent, FooterComponent, HeaderMenuComponent, HeaderComponent, LoadingComponent, MvtkCheckModalComponent, OrderDetailModalComponent, PurchaseCinemaPerformanceComponent, PurchaseEventPerformanceComponent, PurchaseEventPerformanceConfirmComponent, PurchaseInfoComponent, PurchaseTransactionModalComponent, PurchaseTermsComponent, PurchaseWarningComponent, QrCodeModalComponent, ScreenComponent, SecurityCodeModalComponent, PurchaseCinemaTicketModalComponent, PurchaseEventTicketModalComponent, TransactionRemainingTimeComponent, ChargeCoinModalComponent, RegisteredCreditCardModalComponent */
+/*! exports provided: AlertModalComponent, ConfirmModalComponent, ContentsComponent, FooterComponent, HeaderMenuComponent, HeaderComponent, LoadingComponent, MvtkCheckModalComponent, OrderDetailModalComponent, PurchaseCinemaPerformanceComponent, PurchaseEventPerformanceComponent, PurchaseEventPerformanceConfirmComponent, PurchaseInfoComponent, PurchaseTransactionModalComponent, PurchaseTermsComponent, PurchaseWarningComponent, QrCodeModalComponent, ScreenComponent, SecurityCodeModalComponent, PurchaseCinemaTicketModalComponent, PurchaseEventTicketModalComponent, TransactionRemainingTimeComponent, ChargeCoinModalComponent, RegisteredCreditCardModalComponent, PrintCompleteModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7620,6 +7650,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _registered_credit_card_modal_registered_credit_card_modal_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./registered-credit-card-modal/registered-credit-card-modal.component */ "./app/components/parts/registered-credit-card-modal/registered-credit-card-modal.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RegisteredCreditCardModalComponent", function() { return _registered_credit_card_modal_registered_credit_card_modal_component__WEBPACK_IMPORTED_MODULE_23__["RegisteredCreditCardModalComponent"]; });
+
+/* harmony import */ var _print_complete_modal_print_complete_modal_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./print-complete-modal/print-complete-modal.component */ "./app/components/parts/print-complete-modal/print-complete-modal.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrintCompleteModalComponent", function() { return _print_complete_modal_print_complete_modal_component__WEBPACK_IMPORTED_MODULE_24__["PrintCompleteModalComponent"]; });
+
 
 
 
@@ -8096,6 +8130,106 @@ var OrderDetailModalComponent = /** @class */ (function () {
             ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
     ], OrderDetailModalComponent);
     return OrderDetailModalComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./app/components/parts/print-complete-modal/print-complete-modal.component.html":
+/*!***************************************************************************************!*\
+  !*** ./app/components/parts/print-complete-modal/print-complete-modal.component.html ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'common.complete' | translate }}</div>\n    <p class=\"mb-3 text-md-center\" [innerHTML]=\"'inquiry.confirm.alert.printSuccess' | translate\"></p>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"close()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>"
+
+/***/ }),
+
+/***/ "./app/components/parts/print-complete-modal/print-complete-modal.component.scss":
+/*!***************************************************************************************!*\
+  !*** ./app/components/parts/print-complete-modal/print-complete-modal.component.scss ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9jb21wb25lbnRzL3BhcnRzL3ByaW50LWNvbXBsZXRlLW1vZGFsL3ByaW50LWNvbXBsZXRlLW1vZGFsLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./app/components/parts/print-complete-modal/print-complete-modal.component.ts":
+/*!*************************************************************************************!*\
+  !*** ./app/components/parts/print-complete-modal/print-complete-modal.component.ts ***!
+  \*************************************************************************************/
+/*! exports provided: PrintCompleteModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PrintCompleteModalComponent", function() { return PrintCompleteModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../environments/environment */ "./environments/environment.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var PrintCompleteModalComponent = /** @class */ (function () {
+    function PrintCompleteModalComponent(modal, router) {
+        this.modal = modal;
+        this.router = router;
+    }
+    /**
+     * 初期化
+     */
+    PrintCompleteModalComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].INQUIRY_PRINT_SUCCESS_WAIT_TIME === '') {
+            return;
+        }
+        var time = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].INQUIRY_PRINT_SUCCESS_WAIT_TIME);
+        this.timer = setTimeout(function () {
+            _this.router.navigate(['/inquiry/input']);
+            _this.modal.hide(1);
+        }, time);
+    };
+    /**
+     * 閉じる
+     */
+    PrintCompleteModalComponent.prototype.close = function () {
+        this.router.navigate(['/inquiry/input']);
+        this.modal.hide(1);
+    };
+    /**
+     * 破棄
+     */
+    PrintCompleteModalComponent.prototype.ngOnDestroy = function () {
+        if (this.timer === undefined) {
+            return;
+        }
+        clearTimeout(this.timer);
+    };
+    PrintCompleteModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-print-complete-modal',
+            template: __webpack_require__(/*! ./print-complete-modal.component.html */ "./app/components/parts/print-complete-modal/print-complete-modal.component.html"),
+            styles: [__webpack_require__(/*! ./print-complete-modal.component.scss */ "./app/components/parts/print-complete-modal/print-complete-modal.component.scss")]
+        }),
+        __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    ], PrintCompleteModalComponent);
+    return PrintCompleteModalComponent;
 }());
 
 
@@ -12317,11 +12451,10 @@ var UtilService = /** @class */ (function () {
     UtilService.prototype.openAlert = function (args) {
         var title = args.title;
         var body = args.body;
-        var modalRef = this.modal.show(_components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_3__["AlertModalComponent"], {
+        this.modal.show(_components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_3__["AlertModalComponent"], {
             initialState: { title: title, body: body },
             class: 'modal-dialog-centered'
         });
-        modalRef.content.modal = modalRef;
     };
     /**
      * 確認モーダル表示
@@ -17074,6 +17207,8 @@ var defaultEnvironment = {
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: false,
     INQUIRY_PRINT: false,
+    INQUIRY_PRINT_WAIT_TIME: '',
+    INQUIRY_PRINT_SUCCESS_WAIT_TIME: '',
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: 'token',
     PRINT_LOADING: true,

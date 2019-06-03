@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
@@ -13,6 +13,7 @@ import { changeTicketCount, getTicketPrice, IEventOrder, orderToEventOrders } fr
 import { UtilService } from '../../../../services';
 import { orderAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
+import { PrintCompleteModalComponent } from '../../../parts';
 import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.component';
 
 @Component({
@@ -20,7 +21,7 @@ import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.c
     templateUrl: './inquiry-confirm.component.html',
     styleUrls: ['./inquiry-confirm.component.scss']
 })
-export class InquiryConfirmComponent implements OnInit {
+export class InquiryConfirmComponent implements OnInit, OnDestroy {
     public order: Observable<reducers.IOrderState>;
     public user: Observable<reducers.IUserState>;
     public moment: typeof moment = moment;
@@ -30,6 +31,7 @@ export class InquiryConfirmComponent implements OnInit {
     public error: Observable<string | null>;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public environment = environment;
+    private timer: any;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -56,6 +58,22 @@ export class InquiryConfirmComponent implements OnInit {
             const order = value.order;
             this.eventOrders = orderToEventOrders({ order });
         }).unsubscribe();
+        if (environment.INQUIRY_PRINT_WAIT_TIME !== '') {
+            const time = Number(environment.INQUIRY_PRINT_WAIT_TIME);
+            this.timer = setTimeout(() => {
+                this.router.navigate(['/inquiry/input']);
+            }, time);
+        }
+    }
+
+    /**
+     * 破棄
+     */
+    public ngOnDestroy() {
+        if (this.timer === undefined) {
+            return;
+        }
+        clearTimeout(this.timer);
     }
 
     /**
@@ -190,6 +208,9 @@ export class InquiryConfirmComponent implements OnInit {
      * 印刷
      */
     public print() {
+        if (this.timer !== undefined) {
+            clearTimeout(this.timer);
+        }
         this.order.subscribe((inquiry) => {
             this.user.subscribe((user) => {
                 if (inquiry.order === undefined
@@ -207,7 +228,15 @@ export class InquiryConfirmComponent implements OnInit {
 
         const success = this.actions.pipe(
             ofType(orderAction.ActionTypes.PrintSuccess),
-            tap(() => { })
+            tap(() => {
+                if (environment.INQUIRY_PRINT_SUCCESS_WAIT_TIME === '') {
+                    return;
+                }
+                this.modal.show(PrintCompleteModalComponent, {
+                    class: 'modal-dialog-centered',
+                    backdrop: 'static'
+                });
+            })
         );
 
         const fail = this.actions.pipe(

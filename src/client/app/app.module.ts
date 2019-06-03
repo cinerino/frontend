@@ -54,6 +54,7 @@ import {
     LoadingComponent,
     MvtkCheckModalComponent,
     OrderDetailModalComponent,
+    PrintCompleteModalComponent,
     PurchaseCinemaPerformanceComponent,
     PurchaseCinemaTicketModalComponent,
     PurchaseEventPerformanceComponent,
@@ -137,7 +138,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         RegisteredCreditCardModalComponent,
         PurchaseTransactionComponent,
         PurchaseTermsComponent,
-        PurchaseWarningComponent
+        PurchaseWarningComponent,
+        PrintCompleteModalComponent
     ],
     entryComponents: [
         PurchaseCinemaTicketModalComponent,
@@ -150,7 +152,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         SecurityCodeModalComponent,
         OrderDetailModalComponent,
         ChargeCoinModalComponent,
-        RegisteredCreditCardModalComponent
+        RegisteredCreditCardModalComponent,
+        PrintCompleteModalComponent
     ],
     imports: [
         BrowserModule,
