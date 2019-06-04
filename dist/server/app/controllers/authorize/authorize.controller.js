@@ -23,6 +23,7 @@ function getCredentials(req, res) {
             let authModel;
             let userName;
             const endpoint = process.env.API_ENDPOINT;
+            const waiterServerUrl = process.env.WAITER_SERVER_URL;
             if (req.body.member === '0') {
                 authModel = new auth_model_1.AuthModel();
             }
@@ -41,7 +42,7 @@ function getCredentials(req, res) {
                 userName = options.auth.verifyIdToken({}).getUsername();
             }
             const clientId = options.auth.options.clientId;
-            res.json({ accessToken, userName, clientId, endpoint });
+            res.json({ accessToken, userName, clientId, endpoint, waiterServerUrl });
         }
         catch (err) {
             base_controller_1.errorProsess(res, err);

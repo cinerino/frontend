@@ -20,8 +20,9 @@ export class CinerinoService {
         placeOrder: cinerino.service.transaction.PlaceOrder,
         returnOrder: cinerino.service.transaction.ReturnOrder
     };
-    private endpoint: string;
     public userName: string;
+    private endpoint: string;
+    private waiterServerUrl: string;
 
     constructor(
         private http: HttpClient
@@ -81,6 +82,7 @@ export class CinerinoService {
             userName: string;
             clientId: string;
             endpoint: string;
+            waiterServerUrl: string;
         }>(url, body).toPromise();
         const option = {
             domain: '',
@@ -97,6 +99,7 @@ export class CinerinoService {
         this.auth.setCredentials({ accessToken: result.accessToken });
         this.userName = result.userName;
         this.endpoint = result.endpoint;
+        this.waiterServerUrl = result.waiterServerUrl;
     }
 
     /**
@@ -123,11 +126,11 @@ export class CinerinoService {
      * パスポート取得
      */
     public async getPassport(selleId: string) {
-        if (environment.WAITER_SERVER_URL === undefined
-            || environment.WAITER_SERVER_URL === '') {
+        if (this.waiterServerUrl === undefined
+            || this.waiterServerUrl === '') {
             return { token: '' };
         }
-        const url = `${environment.WAITER_SERVER_URL}/projects/${environment.PROJECT_ID}/passports`;
+        const url = `${this.waiterServerUrl}/projects/${environment.PROJECT_ID}/passports`;
         const body = { scope: `Transaction:PlaceOrder:${selleId}` };
         const result = await this.http.post<{ token: string; }>(url, body).toPromise();
 

@@ -14,6 +14,7 @@ export async function getCredentials(req: Request, res: Response) {
         let authModel;
         let userName;
         const endpoint = <string>process.env.API_ENDPOINT;
+        const waiterServerUrl = <string>process.env.WAITER_SERVER_URL;
         if (req.body.member === '0') {
             authModel = new AuthModel();
         } else if (req.body.member === '1') {
@@ -30,7 +31,7 @@ export async function getCredentials(req: Request, res: Response) {
             userName = options.auth.verifyIdToken(<any>{}).getUsername();
         }
         const clientId = options.auth.options.clientId;
-        res.json({ accessToken, userName, clientId, endpoint });
+        res.json({ accessToken, userName, clientId, endpoint, waiterServerUrl });
     } catch (err) {
         errorProsess(res, err);
     }

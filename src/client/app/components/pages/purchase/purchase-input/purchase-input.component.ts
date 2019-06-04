@@ -79,15 +79,6 @@ export class PurchaseInputComponent implements OnInit {
                 return;
             }
             this.user.subscribe((user) => {
-                if (environment.ENV === 'local') {
-                    this.customerContactForm.controls.familyName.setValue('ハタグチ');
-                    this.customerContactForm.controls.givenName.setValue('アキト');
-                    this.customerContactForm.controls.email.setValue('hataguchi@motionpicture.jp');
-                    this.customerContactForm.controls.telephone.setValue('0362778824');
-                    this.creditCardForm.controls.cardNumber.setValue('4111111111111111');
-                    this.creditCardForm.controls.securityCode.setValue('123');
-                    this.creditCardForm.controls.holderName.setValue('HATAGUCHI');
-                }
                 if (user.isMember
                     && user.profile !== undefined
                     && user.profile.familyName !== undefined

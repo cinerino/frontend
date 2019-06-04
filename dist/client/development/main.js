@@ -5992,15 +5992,6 @@ var PurchaseInputComponent = /** @class */ (function () {
                 return;
             }
             _this.user.subscribe(function (user) {
-                if (_environments_environment__WEBPACK_IMPORTED_MODULE_11__["environment"].ENV === 'local') {
-                    _this.customerContactForm.controls.familyName.setValue('ハタグチ');
-                    _this.customerContactForm.controls.givenName.setValue('アキト');
-                    _this.customerContactForm.controls.email.setValue('hataguchi@motionpicture.jp');
-                    _this.customerContactForm.controls.telephone.setValue('0362778824');
-                    _this.creditCardForm.controls.cardNumber.setValue('4111111111111111');
-                    _this.creditCardForm.controls.securityCode.setValue('123');
-                    _this.creditCardForm.controls.holderName.setValue('HATAGUCHI');
-                }
                 if (user.isMember
                     && user.profile !== undefined
                     && user.profile.familyName !== undefined
@@ -11853,6 +11844,7 @@ var CinerinoService = /** @class */ (function () {
                         this.auth.setCredentials({ accessToken: result.accessToken });
                         this.userName = result.userName;
                         this.endpoint = result.endpoint;
+                        this.waiterServerUrl = result.waiterServerUrl;
                         return [2 /*return*/];
                 }
             });
@@ -11907,11 +11899,11 @@ var CinerinoService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].WAITER_SERVER_URL === undefined
-                            || _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].WAITER_SERVER_URL === '') {
+                        if (this.waiterServerUrl === undefined
+                            || this.waiterServerUrl === '') {
                             return [2 /*return*/, { token: '' }];
                         }
-                        url = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].WAITER_SERVER_URL + "/projects/" + _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].PROJECT_ID + "/passports";
+                        url = this.waiterServerUrl + "/projects/" + _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].PROJECT_ID + "/passports";
                         body = { scope: "Transaction:PlaceOrder:" + selleId };
                         return [4 /*yield*/, this.http.post(url, body).toPromise()];
                     case 1:
@@ -17173,9 +17165,7 @@ var defaultEnvironment = {
     APP_TITLE: '',
     APP_PREFIX: '',
     PROJECT_ID: '',
-    ENV: '',
     ENTRANCE_SERVER_URL: '',
-    WAITER_SERVER_URL: '',
     VIEW_TYPE: 'cinema',
     GTM_ID: '',
     ANALYTICS_ID: '',

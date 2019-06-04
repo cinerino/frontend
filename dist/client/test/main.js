@@ -1625,7 +1625,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, InquiryConfirmComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1650,9 +1650,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ExpiredComponent", function() { return _expired_expired_component__WEBPACK_IMPORTED_MODULE_4__["ExpiredComponent"]; });
 
 /* harmony import */ var _inquiry_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./inquiry/index */ "./app/components/pages/inquiry/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryConfirmComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryConfirmComponent"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryInputComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryInputComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryConfirmComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryConfirmComponent"]; });
 
 /* harmony import */ var _maintenance_maintenance_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./maintenance/maintenance.component */ "./app/components/pages/maintenance/maintenance.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MaintenanceComponent", function() { return _maintenance_maintenance_component__WEBPACK_IMPORTED_MODULE_6__["MaintenanceComponent"]; });
@@ -1720,7 +1720,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./app/components/pages/inquiry/index.ts ***!
   \***********************************************/
-/*! exports provided: InquiryConfirmComponent, InquiryInputComponent */
+/*! exports provided: InquiryInputComponent, InquiryConfirmComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5992,15 +5992,6 @@ var PurchaseInputComponent = /** @class */ (function () {
                 return;
             }
             _this.user.subscribe(function (user) {
-                if (_environments_environment__WEBPACK_IMPORTED_MODULE_11__["environment"].ENV === 'local') {
-                    _this.customerContactForm.controls.familyName.setValue('ハタグチ');
-                    _this.customerContactForm.controls.givenName.setValue('アキト');
-                    _this.customerContactForm.controls.email.setValue('hataguchi@motionpicture.jp');
-                    _this.customerContactForm.controls.telephone.setValue('0362778824');
-                    _this.creditCardForm.controls.cardNumber.setValue('4111111111111111');
-                    _this.creditCardForm.controls.securityCode.setValue('123');
-                    _this.creditCardForm.controls.holderName.setValue('HATAGUCHI');
-                }
                 if (user.isMember
                     && user.profile !== undefined
                     && user.profile.familyName !== undefined
@@ -11853,6 +11844,7 @@ var CinerinoService = /** @class */ (function () {
                         this.auth.setCredentials({ accessToken: result.accessToken });
                         this.userName = result.userName;
                         this.endpoint = result.endpoint;
+                        this.waiterServerUrl = result.waiterServerUrl;
                         return [2 /*return*/];
                 }
             });
@@ -11907,11 +11899,11 @@ var CinerinoService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].WAITER_SERVER_URL === undefined
-                            || _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].WAITER_SERVER_URL === '') {
+                        if (this.waiterServerUrl === undefined
+                            || this.waiterServerUrl === '') {
                             return [2 /*return*/, { token: '' }];
                         }
-                        url = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].WAITER_SERVER_URL + "/projects/" + _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].PROJECT_ID + "/passports";
+                        url = this.waiterServerUrl + "/projects/" + _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].PROJECT_ID + "/passports";
                         body = { scope: "Transaction:PlaceOrder:" + selleId };
                         return [4 /*yield*/, this.http.post(url, body).toPromise()];
                     case 1:
@@ -17173,9 +17165,7 @@ var defaultEnvironment = {
     APP_TITLE: '',
     APP_PREFIX: '',
     PROJECT_ID: '',
-    ENV: '',
     ENTRANCE_SERVER_URL: '',
-    WAITER_SERVER_URL: '',
     VIEW_TYPE: 'cinema',
     GTM_ID: '',
     ANALYTICS_ID: '',

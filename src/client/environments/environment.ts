@@ -19,17 +19,9 @@ interface IEnvironment {
      */
     PROJECT_ID: string;
     /**
-     * 環境
-     */
-    ENV: string;
-    /**
      * 入り口URL（非推奨）
      */
     ENTRANCE_SERVER_URL: string;
-    /**
-     * ウェイターURL
-     */
-    WAITER_SERVER_URL: string;
     /**
      * 表示タイプ
      */
@@ -185,9 +177,7 @@ const defaultEnvironment: IEnvironment = {
     APP_TITLE: '',
     APP_PREFIX: '',
     PROJECT_ID: '',
-    ENV: '',
     ENTRANCE_SERVER_URL: '',
-    WAITER_SERVER_URL: '',
     VIEW_TYPE: 'cinema',
     GTM_ID: '',
     ANALYTICS_ID: '',
