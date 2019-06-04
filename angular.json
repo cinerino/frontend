@@ -55,8 +55,8 @@
               "buildOptimizer": false,
               "fileReplacements": [
                 {
-                  "replace": "src/client/index.production.html",
-                  "with": "src/client/index.html"
+                  "replace": "src/client/index.html",
+                  "with": "src/client/index.production.html"
                 }
               ]
             }
