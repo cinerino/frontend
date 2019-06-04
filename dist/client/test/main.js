@@ -11903,7 +11903,7 @@ var CinerinoService = /** @class */ (function () {
                             || this.waiterServerUrl === '') {
                             return [2 /*return*/, { token: '' }];
                         }
-                        url = this.waiterServerUrl + "/projects/" + _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].PROJECT_ID + "/passports";
+                        url = this.waiterServerUrl;
                         body = { scope: "Transaction:PlaceOrder:" + selleId };
                         return [4 /*yield*/, this.http.post(url, body).toPromise()];
                     case 1:

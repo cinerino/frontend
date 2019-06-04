@@ -130,7 +130,7 @@ export class CinerinoService {
             || this.waiterServerUrl === '') {
             return { token: '' };
         }
-        const url = `${this.waiterServerUrl}/projects/${environment.PROJECT_ID}/passports`;
+        const url = this.waiterServerUrl;
         const body = { scope: `Transaction:PlaceOrder:${selleId}` };
         const result = await this.http.post<{ token: string; }>(url, body).toPromise();
 
