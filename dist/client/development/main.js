@@ -1625,7 +1625,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryInputComponent, OrderSearchComponent, InquiryConfirmComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1650,9 +1650,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ExpiredComponent", function() { return _expired_expired_component__WEBPACK_IMPORTED_MODULE_4__["ExpiredComponent"]; });
 
 /* harmony import */ var _inquiry_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./inquiry/index */ "./app/components/pages/inquiry/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryConfirmComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryConfirmComponent"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryInputComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryInputComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryConfirmComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryConfirmComponent"]; });
 
 /* harmony import */ var _maintenance_maintenance_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./maintenance/maintenance.component */ "./app/components/pages/maintenance/maintenance.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MaintenanceComponent", function() { return _maintenance_maintenance_component__WEBPACK_IMPORTED_MODULE_6__["MaintenanceComponent"]; });
@@ -1720,7 +1720,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./app/components/pages/inquiry/index.ts ***!
   \***********************************************/
-/*! exports provided: InquiryConfirmComponent, InquiryInputComponent */
+/*! exports provided: InquiryInputComponent, InquiryConfirmComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3956,7 +3956,7 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                                 this.router.navigate(['/congestion']);
                                 return [2 /*return*/];
                             }
-                            if (errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_5__["SERVICE_UNAVAILABLE"]) {
+                            if (errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_5__["BAD_REQUEST"]) {
                                 this.router.navigate(['/maintenance']);
                                 return [2 /*return*/];
                             }
@@ -4858,7 +4858,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                             this.router.navigate(['/congestion']);
                             return [2 /*return*/];
                         }
-                        if (errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_4__["SERVICE_UNAVAILABLE"]) {
+                        if (errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_4__["BAD_REQUEST"]) {
                             this.router.navigate(['/maintenance']);
                             return [2 /*return*/];
                         }
