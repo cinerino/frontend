@@ -1625,7 +1625,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, InquiryConfirmComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1650,9 +1650,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ExpiredComponent", function() { return _expired_expired_component__WEBPACK_IMPORTED_MODULE_4__["ExpiredComponent"]; });
 
 /* harmony import */ var _inquiry_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./inquiry/index */ "./app/components/pages/inquiry/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryConfirmComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryConfirmComponent"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryInputComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryInputComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryConfirmComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryConfirmComponent"]; });
 
 /* harmony import */ var _maintenance_maintenance_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./maintenance/maintenance.component */ "./app/components/pages/maintenance/maintenance.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MaintenanceComponent", function() { return _maintenance_maintenance_component__WEBPACK_IMPORTED_MODULE_6__["MaintenanceComponent"]; });
@@ -1720,7 +1720,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./app/components/pages/inquiry/index.ts ***!
   \***********************************************/
-/*! exports provided: InquiryConfirmComponent, InquiryInputComponent */
+/*! exports provided: InquiryInputComponent, InquiryConfirmComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6492,7 +6492,7 @@ var PurchaseTransactionComponent = /** @class */ (function () {
                 this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getError"]));
                 this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].Delete());
                 this.user.subscribe(function (user) { return __awaiter(_this, void 0, void 0, function () {
-                    var snapshot, eventId, error_1;
+                    var snapshot, eventId, passportToken, error_1;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
@@ -6502,7 +6502,8 @@ var PurchaseTransactionComponent = /** @class */ (function () {
                                 }
                                 snapshot = this.activatedRoute.snapshot;
                                 eventId = snapshot.params.eventId;
-                                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].SetExternal({ eventId: eventId }));
+                                passportToken = snapshot.params.passportToken;
+                                this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].SetExternal({ eventId: eventId, passportToken: passportToken }));
                                 _a.label = 1;
                             case 1:
                                 _a.trys.push([1, 4, , 5]);
@@ -6574,7 +6575,11 @@ var PurchaseTransactionComponent = /** @class */ (function () {
                                 params: {
                                     expires: moment__WEBPACK_IMPORTED_MODULE_5__().add(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["environment"].PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                                     seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
-                                    object: {}
+                                    object: {
+                                        passport: (purchase.external === undefined
+                                            || purchase.external.passportToken === undefined)
+                                            ? undefined : { token: purchase.external.passportToken }
+                                    }
                                 }
                             }));
                         }).unsubscribe();
@@ -11668,6 +11673,7 @@ var schedule = {
     component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["BaseComponent"],
     children: [
         { path: 'root', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseRootComponent"] },
+        { path: 'transaction/:eventId/:passportToken', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseTransactionComponent"] },
         { path: 'transaction/:eventId', component: _components_pages__WEBPACK_IMPORTED_MODULE_0__["PurchaseTransactionComponent"] },
         {
             path: 'cinema',
@@ -15101,28 +15107,35 @@ var PurchaseEffects = /** @class */ (function () {
          * StartTransaction
          */
         this.startTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.StartTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var params, selleId, passport, transaction, error_2;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var params, selleId, passport, _a, transaction, error_2;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _a.trys.push([0, 4, , 5]);
+                        _b.trys.push([0, 6, , 7]);
                         params = payload.params;
                         selleId = params.seller.id;
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
-                        _a.sent();
+                        _b.sent();
+                        if (!(params.object.passport === undefined)) return [3 /*break*/, 3];
                         return [4 /*yield*/, this.cinerino.getPassport(selleId)];
                     case 2:
-                        passport = _a.sent();
+                        _a = _b.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        _a = params.object.passport;
+                        _b.label = 4;
+                    case 4:
+                        passport = _a;
                         params.object = { passport: passport };
                         return [4 /*yield*/, this.cinerino.transaction.placeOrder.start(params)];
-                    case 3:
-                        transaction = _a.sent();
+                    case 5:
+                        transaction = _b.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].StartTransactionSuccess({ transaction: transaction })];
-                    case 4:
-                        error_2 = _a.sent();
+                    case 6:
+                        error_2 = _b.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].StartTransactionFail({ error: error_2 })];
-                    case 5: return [2 /*return*/];
+                    case 7: return [2 /*return*/];
                 }
             });
         }); }));

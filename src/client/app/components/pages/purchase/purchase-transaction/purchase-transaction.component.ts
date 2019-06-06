@@ -44,7 +44,8 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
             }
             const snapshot = this.activatedRoute.snapshot;
             const eventId = snapshot.params.eventId;
-            this.store.dispatch(new purchaseAction.SetExternal({ eventId }));
+            const passportToken = snapshot.params.passportToken;
+            this.store.dispatch(new purchaseAction.SetExternal({ eventId, passportToken }));
             try {
                 await this.convertExternalToPurchase({ eventId });
                 await this.startTransaction();
@@ -103,7 +104,11 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
                     params: {
                         expires: moment().add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                         seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
-                        object: {}
+                        object: {
+                            passport: (purchase.external === undefined
+                                || purchase.external.passportToken === undefined)
+                                ? undefined : { token: purchase.external.passportToken }
+                        }
                     }
                 }));
             }).unsubscribe();

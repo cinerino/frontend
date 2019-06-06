@@ -98,7 +98,9 @@ export class PurchaseEffects {
                 const params = payload.params;
                 const selleId = params.seller.id;
                 await this.cinerino.getServices();
-                const passport = await this.cinerino.getPassport(selleId);
+                const passport = (params.object.passport === undefined)
+                    ? await this.cinerino.getPassport(selleId)
+                    : params.object.passport;
                 params.object = { passport };
                 const transaction = await this.cinerino.transaction.placeOrder.start(params);
                 return new purchaseAction.StartTransactionSuccess({ transaction });
