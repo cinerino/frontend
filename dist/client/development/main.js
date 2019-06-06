@@ -1625,7 +1625,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryInputComponent, OrderSearchComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent, InquiryConfirmComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, OrderSearchComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1650,9 +1650,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ExpiredComponent", function() { return _expired_expired_component__WEBPACK_IMPORTED_MODULE_4__["ExpiredComponent"]; });
 
 /* harmony import */ var _inquiry_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./inquiry/index */ "./app/components/pages/inquiry/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryInputComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryInputComponent"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryConfirmComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryConfirmComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InquiryInputComponent", function() { return _inquiry_index__WEBPACK_IMPORTED_MODULE_5__["InquiryInputComponent"]; });
 
 /* harmony import */ var _maintenance_maintenance_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./maintenance/maintenance.component */ "./app/components/pages/maintenance/maintenance.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MaintenanceComponent", function() { return _maintenance_maintenance_component__WEBPACK_IMPORTED_MODULE_6__["MaintenanceComponent"]; });
@@ -1720,7 +1720,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./app/components/pages/inquiry/index.ts ***!
   \***********************************************/
-/*! exports provided: InquiryInputComponent, InquiryConfirmComponent */
+/*! exports provided: InquiryConfirmComponent, InquiryInputComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14821,13 +14821,15 @@ var OrderEffects = /** @class */ (function () {
                             // QRコードカスタム文字列
                             qrcode = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QRCODE_CUSTOM;
                             qrcode = qrcode
-                                .replace(/\{\{ orderDate \}\}/g, moment__WEBPACK_IMPORTED_MODULE_3__(order.orderDate).format('YYMMDD'));
+                                .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_3__(order.orderDate).format('YYMMDD'));
                             qrcode = qrcode
                                 .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
                             qrcode = qrcode
                                 .replace(/\{\{ index \}\}/g, String(index));
                             qrcode = qrcode
                                 .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
+                            qrcode = qrcode
+                                .replace(/\{\{ startDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_3__(itemOffered.reservationFor.startDate).format('YYMMDD'));
                         }
                         return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createPrintCanvas"])({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode, index: index })];
                     case 13:

@@ -210,13 +210,18 @@ export class OrderEffects {
                                 // QRコードカスタム文字列
                                 qrcode = environment.PRINT_QRCODE_CUSTOM;
                                 qrcode = qrcode
-                                    .replace(/\{\{ orderDate \}\}/g, moment(order.orderDate).format('YYMMDD'));
+                                    .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment(order.orderDate).format('YYMMDD'));
                                 qrcode = qrcode
                                     .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
                                 qrcode = qrcode
                                     .replace(/\{\{ index \}\}/g, String(index));
                                 qrcode = qrcode
                                     .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
+                                qrcode = qrcode
+                                    .replace(
+                                        /\{\{ startDate \| YYMMDD \}\}/g,
+                                        moment(itemOffered.reservationFor.startDate).format('YYMMDD')
+                                    );
                             }
                             const canvas = await createPrintCanvas({ printData, order, acceptedOffer, pos, qrcode, index });
                             canvasList.push(canvas);

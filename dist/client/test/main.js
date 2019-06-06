@@ -14821,13 +14821,15 @@ var OrderEffects = /** @class */ (function () {
                             // QRコードカスタム文字列
                             qrcode = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QRCODE_CUSTOM;
                             qrcode = qrcode
-                                .replace(/\{\{ orderDate \}\}/g, moment__WEBPACK_IMPORTED_MODULE_3__(order.orderDate).format('YYMMDD'));
+                                .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_3__(order.orderDate).format('YYMMDD'));
                             qrcode = qrcode
                                 .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
                             qrcode = qrcode
                                 .replace(/\{\{ index \}\}/g, String(index));
                             qrcode = qrcode
                                 .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
+                            qrcode = qrcode
+                                .replace(/\{\{ startDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_3__(itemOffered.reservationFor.startDate).format('YYMMDD'));
                         }
                         return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createPrintCanvas"])({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode, index: index })];
                     case 13:
