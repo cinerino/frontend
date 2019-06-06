@@ -1,0 +1,45 @@
+<div class="contents-width mx-auto px-3 py-5">
+
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.ticket.title' | translate }}</h2>
+    <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.ticket.read' | translate"></p>
+
+    <div *ngIf="(purchase | async).isUsedMovieTicket" class="mb-4">
+        <div class="bg-white p-3 d-md-flex align-items-center movieticket">
+            <p class="mb-2 mb-md-0">{{ 'purchase.cinema.ticket.mvtk' | translate }}</p>
+            <div>
+                <button type="button" (click)="openMovieTicket()"
+                    class="btn btn-block bg-white border border-gray py-3">
+                    <img src="/assets/images/mvtk.svg" height="24">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <div *ngFor="let reservation of (purchase | async).reservations"
+            class="bg-white p-3 mb-3 d-md-flex align-items-center ticket">
+            <div class="mb-3 mb-md-0">
+                <span class="mr-3">{{ 'common.seat' | translate }}</span>{{ reservation.seat.seatNumber }}
+            </div>
+            <div>
+                <button *ngIf="reservation.ticket === undefined" type="button" (click)="openTicketList(reservation)"
+                    class="btn btn-primary btn-block py-3">{{ 'purchase.cinema.ticket.unselected' | translate }}</button>
+                <button *ngIf="reservation.ticket !== undefined" type="button" (click)="openTicketList(reservation)"
+                    class="btn btn-block border border-primary text-primary bg-white py-3">{{
+                  reservation.ticket.ticketOffer.name | changeLanguage }} {{
+                  reservation.getTicketPrice().single | currency : 'JPY' }}</button>
+            </div>
+        </div>
+    </div>
+
+    <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
+
+    <div class="buttons mx-auto text-center">
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+            (click)="onSubmit()">{{ 'purchase.cinema.ticket.next' | translate }}</button>
+        <button type="button" class="btn btn-link"
+            routerLink="/purchase/cinema/seat">{{ 'purchase.cinema.ticket.prev' | translate }}</button>
+    </div>
+
+
+</div>

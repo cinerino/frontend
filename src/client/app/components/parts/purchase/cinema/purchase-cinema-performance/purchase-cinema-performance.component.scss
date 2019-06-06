@@ -1,0 +1,21 @@
+@import '../../../../../../assets/scss/theme';
+
+:host {
+    display: block;
+}
+ul {
+    li {
+        width: 20%;
+        @include media-breakpoint-down(sm) {
+            width: 100%;
+        }
+    }
+}
+
+.status {
+    line-height: 30px;
+    img {
+        width: 30px;
+        height: 30px;
+    }
+}

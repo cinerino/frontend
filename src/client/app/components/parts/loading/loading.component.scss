@@ -1,0 +1,57 @@
+.cover {
+    background-color: rgba(0, 0, 0, 0.7);
+    animation: fadein 0.2s both;
+    z-index: 2000;
+}
+
+.loading {
+    opacity: 1;
+    z-index: 2000;
+}
+
+.loader,
+.loader:after {
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+}
+.loader {
+    position: relative;
+    text-indent: -9999em;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-left-color: #FFF;
+    transform: translateZ(0);
+    animation: load8 1.1s infinite linear;
+}
+
+.process {
+    opacity: 1;
+    z-index: 2000;
+    .text {
+        margin-top: 120px;
+    }
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes loading {
+    30% {
+        transform: scaleY(2);
+    }
+}
+
+@keyframes load8 {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

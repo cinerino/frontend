@@ -1,0 +1,30 @@
+<div class="p-3 scroll-vertical">
+    <div class="mb-3 text-large text-center">{{ 'modal.chargeCoin.title' | translate }}</div>
+    <p class="mb-3">{{ 'modal.chargeCoin.read' | translate }}</p>
+
+    <div class="mb-4 p-3 bg-white">
+        <form *ngIf="coinChargeForm" [formGroup]="coinChargeForm">
+            <p class="mb-2">{{ 'modal.chargeCoin.charge' | translate }}</p>
+            <div>
+                <input type="text" class="form-control" id="charge" formControlName="charge" placeholder="0"
+                    maxlength="5">
+                <div *ngIf="coinChargeForm.controls.charge.invalid && coinChargeForm.controls.charge.touched"
+                    class="mt-2">
+                    <p *ngIf="coinChargeForm.controls.charge.errors.required" class="text-danger">
+                        {{ 'form.validation.required' | translate }}</p>
+                    <p *ngIf="coinChargeForm.controls.charge.errors.pattern" class="text-danger">
+                        {{ 'form.validation.number' | translate }}
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="buttons mx-auto text-center">
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3"
+            (click)="close()"
+            [disabled]="coinChargeForm.invalid">{{ 'modal.chargeCoin.next' | translate }}</button>
+        <button type="button" class="btn btn-link btn-sm"
+            (click)="modal.hide()">{{ 'common.close' | translate }}</button>
+    </div>
+</div>

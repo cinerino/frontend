@@ -1,0 +1,11 @@
+@import '../../../../../assets/scss/theme';
+input {
+    width: 75%;
+    @include media-breakpoint-down(sm) {
+        width: 100%;
+    }
+}
+
+.credit-image {
+    max-width: 170px;
+}

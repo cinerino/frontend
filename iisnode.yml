@@ -1,0 +1,8 @@
+devErrorsEnabled: false
+enableXFF: true
+loggingEnabled: false
+maxConcurrentRequestsPerProcess: 1024
+nodeProcessCountPerApplication: 0
+maxNamedPipeConnectionRetry: 200
+namedPipeConnectionRetryDelay: 250
+watchedFiles: *.js;web.config;iisnode.yml

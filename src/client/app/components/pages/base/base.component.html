@@ -1,0 +1,7 @@
+<app-header></app-header>
+<app-contents>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+</app-contents>
+
+<app-loading [isLoading]="isLoading | async" [process]="process | async"></app-loading>

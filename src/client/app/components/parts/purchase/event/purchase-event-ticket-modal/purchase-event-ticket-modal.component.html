@@ -1,0 +1,51 @@
+<div class="p-3 scroll-vertical">
+    <div class="mb-3">
+        <div class="mb-1">
+            <p class="font-weight-bold text-large">{{ screeningEvent.name | changeLanguage }}</p>
+            <p class="text-small"
+                *ngIf="screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)">
+                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>
+            <p class="text-small"
+                *ngIf="screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)">{{
+                    screeningEvent.superEvent.description | changeLanguage }}</p>
+        </div>
+        <p class="mb-1">
+            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
+        </p>
+        <p class="text-small mb-1">
+            <span>
+                {{ screeningEvent.superEvent.location.name | changeLanguage }}
+            </span>
+            <span>
+                &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}
+            </span>
+            <span *ngIf="screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0">
+                &nbsp;/&nbsp;<span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+            </span>
+        </p>
+    </div>
+    <hr class="mb-3">
+    <ul class="mb-4">
+        <li *ngFor="let ticket of tickets" class="ticket mb-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="w-75 text-left">
+                    <p>{{ ticket.name | changeLanguage }} / {{ getTicketPrice(ticket).single | currency : 'JPY' }}</p>
+                </div>
+                <div class="w-25 text-right">
+                    <select class="form-control" [(ngModel)]="selectedTickets[ticket.id]">
+                        <option value="0">0</option>
+                        <option *ngFor="let value of values" [value]="value">{{ value }}</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <div class="buttons mx-auto text-center">
+        <button [disabled]="selectedTickets && createReservationTickets().length === 0" type="button"
+            class="btn btn-primary btn-block py-3 mb-3"
+            (click)="close()">{{ 'purchase.event.ticket.next' | translate }}</button>
+        <button type="button" class="btn btn-link btn-sm"
+            (click)="modal.hide()">{{ 'common.close' | translate }}</button>
+    </div>
+</div>

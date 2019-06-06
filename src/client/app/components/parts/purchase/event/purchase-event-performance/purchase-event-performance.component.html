@@ -1,0 +1,77 @@
+<div class="">
+    <div class="bg-gray p-3">
+        <div class="mb-2">
+            <p class="font-weight-bold text-large">{{ screeningWorkEvent.info.name | changeLanguage }}</p>
+            <p class="text-small"
+                *ngIf="screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)">
+                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>
+            <p class="text-small"
+                *ngIf="screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)">{{
+                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>
+        </div>
+        <div class="d-flex align-items-center">
+            <!-- <div *ngIf="screeningWorkEvent.info.workPerformed.contentRating"
+                class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{
+                screeningWorkEvent.info.workPerformed.contentRating }}</div>
+            <div *ngIf="screeningWorkEvent.info.superEvent.dubLanguage"
+                class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.dubbing' | translate }}</div>
+            <div *ngIf="screeningWorkEvent.info.superEvent.subtitleLanguage"
+                class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.subtitles' | translate }}</div> -->
+            <div *ngIf="screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0" class="text-small ml-auto">
+                <span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+            </div>
+        </div>
+    </div>
+    <div class="position-relative bg-white py-3">
+        <div class="swiper-container px-1" #swiper [swiper]="swiperConfig" (resize)="resize()">
+            <div class="swiper-wrapper">
+                <div *ngFor="let screeningEvent of screeningWorkEvent.data" class="px-1 swiper-slide">
+                    <div class="border boder-gray rounded py-3 text-center pointer" [ngClass]="{ 
+                'bg-white': isSales(screeningEvent) && (screeningEvent.remainingAttendeeCapacity > 0 || !isTicketedSeatScreeningEvent(screeningEvent)), 
+                'bg-dark-gray text-light-gray not-event': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0
+                }" (click)="select.emit(screeningEvent)">
+                        <!-- <div class="mb-2 text-small">
+                            {{ screeningEvent.location.name | changeLanguage }}
+                        </div> -->
+                        <div class="font-weight-bold mb-2">
+                            {{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
+                        </div>
+                        <div class="text-center">
+                            <div class="status"
+                                *ngIf="isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)">
+                                <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'success')"
+                                    class="d-flex justify-content-around align-items-center">
+                                    <img src="/assets/images/icon/status_success.svg">
+                                </div>
+                                <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'warning')"
+                                    class="d-flex justify-content-around align-items-center">
+                                    <img src="/assets/images/icon/status_warning.svg">
+                                </div>
+                                <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'danger')"
+                                    class="d-flex justify-content-around align-items-center">
+                                    <img src="/assets/images/icon/status_danger.svg">
+                                </div>
+                            </div>
+
+                            <div class="status"
+                                *ngIf="isSales(screeningEvent) && !isTicketedSeatScreeningEvent(screeningEvent)">
+                                <div class="d-flex justify-content-around align-items-center">
+                                    <img src="/assets/images/icon/status_success.svg">
+                                </div>
+                            </div>
+
+                            <div class="status" *ngIf="isSales(screeningEvent, 'window')">
+                                {{ 'purchase.event.schedule.status.window' | translate }}</div>
+                            <div class="status" *ngIf="isSales(screeningEvent, 'end')">
+                                {{ 'purchase.event.schedule.status.endSale' | translate }}</div>
+                            <div class="status" *ngIf="isSales(screeningEvent, 'start')">
+                                {{ 'purchase.event.schedule.status.outsideSalesPeriod' | translate }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div> -->
+    </div>
+</div>
