@@ -13,7 +13,6 @@ import { changeTicketCount, getTicketPrice, IEventOrder, orderToEventOrders } fr
 import { UtilService } from '../../../../services';
 import { orderAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
-import { PrintCompleteModalComponent } from '../../../parts';
 import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.component';
 
 @Component({
@@ -229,29 +228,14 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
         const success = this.actions.pipe(
             ofType(orderAction.ActionTypes.PrintSuccess),
             tap(() => {
-                if (environment.INQUIRY_PRINT_SUCCESS_WAIT_TIME === '') {
-                    return;
-                }
-                this.modal.show(PrintCompleteModalComponent, {
-                    class: 'modal-dialog-centered',
-                    backdrop: 'static'
-                });
+                this.router.navigate(['/inquiry/print']);
             })
         );
 
         const fail = this.actions.pipe(
             ofType(orderAction.ActionTypes.PrintFail),
             tap(() => {
-                this.error.subscribe((error) => {
-                    this.util.openAlert({
-                        title: this.translate.instant('common.error'),
-                        body: `
-                        <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.print')}</p>
-                        <div class="p-3 bg-light-gray select-text error">
-                            <code>${error}</code>
-                        </div>`
-                    });
-                }).unsubscribe();
+                this.router.navigate(['/error']);
             })
         );
         race(success, fail).pipe(take(1)).subscribe();
