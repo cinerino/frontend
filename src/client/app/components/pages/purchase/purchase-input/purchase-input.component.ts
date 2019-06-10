@@ -336,7 +336,7 @@ export class PurchaseInputComponent implements OnInit {
      * クリップボードへコピー
      */
     public copyDomain() {
-        const str = this.translate.instant('email.sender.domain');
+        const str = this.translate.instant('email.domain');
         const element = document.createElement('textarea');
         element.value = str;
         element.selectionStart = 0;
