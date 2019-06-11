@@ -76,7 +76,7 @@ jobs:
           name: deploy to azure webapps development-oyatsu-frontend
           command: |
             git remote add development-oyatsu-frontend ${DEPLOY_TARGET_REPOSITORY_DEVELOPMENT_OYATSU_FRONTEND}
-            git push development-staging $CIRCLE_BRANCH:master -f -v
+            git push development-oyatsu-frontend $CIRCLE_BRANCH:master -f -v
   prerelease:
     docker:
       - image: circleci/node:latest
