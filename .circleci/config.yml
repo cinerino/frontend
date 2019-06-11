@@ -145,7 +145,7 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: deploy to azure webapps production
+          name: deploy to azure webapps production-oyatsu-frontend
           command: |
             git remote add production-staging-oyatsu-frontend ${DEPLOY_TARGET_REPOSITORY_PRODUCTION_OYATSU_FRONTEND}
             git push production-staging-oyatsu-frontend $CIRCLE_BRANCH:master -f -v
@@ -157,7 +157,7 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: deploy to azure webapps production
+          name: deploy to azure webapps production-oyatsu-print
           command: |
             git remote add production-staging-oyatsu-print ${DEPLOY_TARGET_REPOSITORY_PRODUCTION_OYATSU_PRINT}
             git push production-staging-oyatsu-print $CIRCLE_BRANCH:master -f -v
@@ -183,13 +183,43 @@ workflows:
           filters:
             branches:
               only: develop
+      - deploy2development-oyatsu-print:
+          requires:
+            - test
+          filters:
+            branches:
+              only: develop
       - prerelease:
           requires:
             - test
           filters:
             branches:
               only: /feature\/.+-alpha.+/
+      - prerelease-oyatsu-frontend:
+          requires:
+            - test
+          filters:
+            branches:
+              only: /feature\/.+-alpha.+/
+      - prerelease-oyatsu-print:
+          requires:
+            - test
+          filters:
+            branches:
+              only: /feature\/.+-alpha.+/
       - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+      - deploy-oyatsu-frontend:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+      - deploy-oyatsu-print:
           requires:
             - test
           filters:
