@@ -11,7 +11,7 @@
                 </select>
             </div>
             <div *ngIf="environment.HEADER_MENU" class="menu-button pointer" [class.active]="isMenuOpen"
-                (click)="(isMenuOpen) ? menuClose() : menuOpen()">
+                (tap)="(isMenuOpen) ? menuClose() : menuOpen()">
                 <div></div>
                 <div></div>
                 <div></div>

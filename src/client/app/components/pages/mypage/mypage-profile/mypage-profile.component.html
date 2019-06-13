@@ -97,7 +97,7 @@
     </div>
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
-            (click)="updateProfile()">{{ 'mypage.profile.next' | translate }}</button>
+            (tap)="updateProfile()">{{ 'mypage.profile.next' | translate }}</button>
         <button type="button" class="btn btn-link"
             routerLink="/mypage">{{ 'mypage.profile.prev' | translate }}</button>
     </div>

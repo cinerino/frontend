@@ -103,7 +103,7 @@
                     <option [value]="OrderActions.Cancel">{{ 'order.list.cancel' | translate }}</option>
                 </select>
                 <button type="button" class="btn btn-primary py-2 px-4"
-                    (click)="selecedtAction()">{{ 'order.list.apply' | translate }}</button>
+                    (tap)="selecedtAction()">{{ 'order.list.apply' | translate }}</button>
             </div>
         </div>
 
@@ -125,9 +125,9 @@
                     <tr *ngFor="let order of (order | async).orders let index = index"
                         [class.bg-light-gray]="index % 2 === 0">
                         <td class="align-middle text-large text-center">
-                            <i *ngIf="!isSelected(order)" class="far fa-square pointer" (click)="addOrder(order)"></i>
+                            <i *ngIf="!isSelected(order)" class="far fa-square pointer" (tap)="addOrder(order)"></i>
                             <i *ngIf="isSelected(order)" class="far fa-check-square pointer"
-                                (click)="removeOrder(order)"></i>
+                                (tap)="removeOrder(order)"></i>
                         </td>
                         <td class="align-middle">
                             <p>{{ order.orderDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}</p>
@@ -158,14 +158,14 @@
                             {{ order.orderStatus }}
                         </td> -->
                         <td class="align-middle">
-                            <button class="btn btn-primary mr-2" (click)="openDetail(order)"><i
+                            <button class="btn btn-primary mr-2" (tap)="openDetail(order)"><i
                                     class="fas fa-search-plus"></i></button>
                             <button [disabled]="order.orderStatus !== orderStatus.OrderDelivered"
-                                class="btn btn-primary mr-2" (click)="openQrCode(order)"><i
+                                class="btn btn-primary mr-2" (tap)="openQrCode(order)"><i
                                     class="fas fa-qrcode"></i></button>
                             <button
                                 [disabled]="order.orderStatus !== orderStatus.OrderDelivered && order.orderStatus === orderStatus.OrderReturned"
-                                class="btn btn-primary" (click)="cancelConfirm([order])"><i
+                                class="btn btn-primary" (tap)="cancelConfirm([order])"><i
                                     class="fas fa-trash-alt"></i></button>
                         </td>
                     </tr>

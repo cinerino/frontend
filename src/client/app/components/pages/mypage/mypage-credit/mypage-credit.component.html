@@ -11,7 +11,7 @@
                 <p>{{ 'common.credit.cardExpiration' | translate }}</p>
                 <p>{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}</p>
             </div>
-            <button type="button" class="close" aria-label="Close" (click)="confirmRemoveCreditCard(creditCard)">
+            <button type="button" class="close" aria-label="Close" (tap)="confirmRemoveCreditCard(creditCard)">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -90,7 +90,7 @@
             </div>
         </form>
         <div class="buttons mx-auto text-center">
-            <button type="button" class="btn btn-primary btn-block py-3"  (click)="addCreditCard()">{{ 'mypage.credit.add' | translate }}</button>
+            <button type="button" class="btn btn-primary btn-block py-3"  (tap)="addCreditCard()">{{ 'mypage.credit.add' | translate }}</button>
         </div>
     </div>
     <div class="buttons mx-auto text-center">

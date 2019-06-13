@@ -61,7 +61,7 @@
                         </div>
                         <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.email' | translate"></p>
                         <button type="button" class="btn btn-primary btn-sm"
-                            (click)="copyDomain()">{{ 'purchase.input.copyDomain' | translate }}</button>
+                            (tap)="copyDomain()">{{ 'purchase.input.copyDomain' | translate }}</button>
                     </div>
                 </div>
                 <div class="form-group row mb-0">
@@ -148,7 +148,7 @@
                             <p *ngIf="creditCardForm.controls.securityCode.errors.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}</p>
                         </div>
-                        <div class="btn btn-link btn-sm" (click)="openSecurityCode()">
+                        <div class="btn btn-link btn-sm" (tap)="openSecurityCode()">
                             {{ 'purchase.input.securityCode' | translate }}</div>
                     </div>
                 </div>
@@ -182,11 +182,11 @@
             </div>
             <div *ngIf="(user | async).creditCards.length > 0" class="buttons mx-auto mt-3">
                 <button type="button" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async"
-                    (click)="openRegisteredCreditCard()">{{ 'purchase.input.registeredCreditCard' | translate }}</button>
+                    (tap)="openRegisteredCreditCard()">{{ 'purchase.input.registeredCreditCard' | translate }}</button>
             </div>
             <div *ngIf="usedCreditCard !== undefined" class="buttons mx-auto mt-3">
                 <button type="button" class="btn btn-link"
-                    (click)="changeInputCreditCard()">{{ 'purchase.input.inputCreditCard' | translate }}</button>
+                    (tap)="changeInputCreditCard()">{{ 'purchase.input.inputCreditCard' | translate }}</button>
             </div>
         </div>
     </div>
@@ -194,7 +194,7 @@
 
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
-            (click)="onSubmit()">{{ 'purchase.input.next' | translate }}</button>
+            (tap)="onSubmit()">{{ 'purchase.input.next' | translate }}</button>
 
         <div *ngIf="(user | async).viewType === viewType.Cinema">
             <button *ngIf="(user | async).isPurchaseCart" type="button" class="btn btn-link"

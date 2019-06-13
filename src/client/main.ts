@@ -21,6 +21,11 @@ import { defineLocale } from 'ngx-bootstrap/chronos';
 import { jaLocale } from 'ngx-bootstrap/locale';
 defineLocale('ja', jaLocale);
 
+/**
+ * タッチイベント対応
+ */
+import 'hammerjs';
+
 if (environment.production) {
     enableProdMode();
 }

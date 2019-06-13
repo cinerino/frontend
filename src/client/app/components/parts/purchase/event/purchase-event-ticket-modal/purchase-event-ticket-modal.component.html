@@ -44,8 +44,8 @@
     <div class="buttons mx-auto text-center">
         <button [disabled]="selectedTickets && createReservationTickets().length === 0" type="button"
             class="btn btn-primary btn-block py-3 mb-3"
-            (click)="close()">{{ 'purchase.event.ticket.next' | translate }}</button>
+            (tap)="close()">{{ 'purchase.event.ticket.next' | translate }}</button>
         <button type="button" class="btn btn-link btn-sm"
-            (click)="modal.hide()">{{ 'common.close' | translate }}</button>
+            (tap)="modal.hide()">{{ 'common.close' | translate }}</button>
     </div>
 </div>

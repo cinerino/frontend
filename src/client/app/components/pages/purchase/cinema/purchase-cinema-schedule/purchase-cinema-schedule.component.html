@@ -5,7 +5,7 @@
 
 <ul *ngIf="!((purchase | async)?.external?.theaterBranchCode)" class="contents-width mx-auto sellers d-flex flex-wrap p-2">
     <li *ngFor="let seller of (master | async)?.sellers" class="px-2 my-2">
-        <button type="button" class="btn btn-block py-3 m-0" (click)="selectSeller(seller)"
+        <button type="button" class="btn btn-block py-3 m-0" (tap)="selectSeller(seller)"
             [class.btn-primary]="(purchase | async).seller?.id === seller.id"
             [class.btn-outline-primary]="(purchase | async).seller?.id !== seller.id">{{ seller.name | changeLanguage }}</button>
     </li>
@@ -18,10 +18,10 @@
     <div *ngIf="(purchase | async)?.preScheduleDates.length > 0" class="buttons mx-auto mb-3">
         <button *ngIf="!isPreSchedule" type="button" class="btn btn-primary btn-block py-3"
             [disabled]="isLoading | async"
-            (click)="changeScheduleType()">{{ 'purchase.cinema.schedule.preSalesSchedule' | translate }}</button>
+            (tap)="changeScheduleType()">{{ 'purchase.cinema.schedule.preSalesSchedule' | translate }}</button>
         <button *ngIf="isPreSchedule" type="button" class="btn btn-outline-primary btn-block py-3"
             [disabled]="isLoading | async"
-            (click)="changeScheduleType()">{{ 'purchase.cinema.schedule.salesSchedule' | translate }}</button>
+            (tap)="changeScheduleType()">{{ 'purchase.cinema.schedule.salesSchedule' | translate }}</button>
     </div>
 </div>
 <div class="bg-light-gray">
@@ -33,7 +33,7 @@
                         <div class="text-center text-white py-4"
                             [class.bg-secondary]="scheduleDate !== (purchase | async).scheduleDate"
                             [class.bg-primary]="scheduleDate === (purchase | async).scheduleDate"
-                            (click)="selectDate(scheduleDate)">
+                            (tap)="selectDate(scheduleDate)">
                             <div>
                                 {{ moment(scheduleDate).format('MM') }}/<span class="text-large">{{
                                   moment(scheduleDate).format('DD') }}</span>({{ scheduleDate | formatDate: 'ddd' }})
