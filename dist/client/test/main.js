@@ -1626,7 +1626,7 @@ var ExpiredComponent = /** @class */ (function () {
 /*!***************************************!*\
   !*** ./app/components/pages/index.ts ***!
   \***************************************/
-/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, AuthSignoutComponent, OrderSearchComponent, InquiryConfirmComponent, InquiryInputComponent, InquiryPrintComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
+/*! exports provided: BaseComponent, CongestionComponent, ErrorComponent, ExpiredComponent, MaintenanceComponent, NotfoundComponent, SettingComponent, AuthIndexComponent, AuthSigninComponent, OrderSearchComponent, AuthSignoutComponent, InquiryConfirmComponent, InquiryInputComponent, InquiryPrintComponent, PurchaseBaseComponent, PurchaseCompleteComponent, PurchaseConfirmComponent, PurchaseInputComponent, PurchaseCinemaCartComponent, PurchaseCinemaScheduleComponent, PurchaseCinemaSeatComponent, PurchaseCinemaTicketComponent, PurchaseEventScheduleComponent, PurchaseEventTicketComponent, PurchaseRootComponent, PurchaseTransactionComponent, MypageCoinComponent, MypageCreditComponent, MypageIndexComponent, MypageProfileComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6342,7 +6342,7 @@ var PurchaseInputComponent = /** @class */ (function () {
      * クリップボードへコピー
      */
     PurchaseInputComponent.prototype.copyDomain = function () {
-        var str = this.translate.instant('email.sender.domain');
+        var str = this.translate.instant('email.domain');
         var element = document.createElement('textarea');
         element.value = str;
         element.selectionStart = 0;
@@ -10133,7 +10133,7 @@ var TransactionRemainingTimeComponent = /** @class */ (function () {
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, createCompleteMail, changeTicketCount, formatTelephone, toFull, toHalf, retry, sleep, createPrintCanvas, createTestPrintCanvas */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, createCompleteMail, changeTicketCount, formatTelephone, toFull, toHalf, retry, sleep, createPrintCanvas, createTestPrintCanvas, createReturnMail */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10187,6 +10187,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createTestPrintCanvas"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createReturnMail", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createReturnMail"]; });
+
 
 
 
@@ -10198,13 +10200,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./app/functions/order.function.ts ***!
   \*****************************************/
-/*! exports provided: createPrintCanvas, createTestPrintCanvas */
+/*! exports provided: createPrintCanvas, createTestPrintCanvas, createReturnMail */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return createPrintCanvas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function() { return createTestPrintCanvas; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createReturnMail", function() { return createReturnMail; });
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
@@ -10212,6 +10215,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qrcode */ "../../node_modules/qrcode/lib/browser.js");
 /* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
+/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -10247,6 +10251,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+
 
 
 
@@ -10485,6 +10490,58 @@ function createTestPrintCanvas(args) {
             }
         });
     });
+}
+/**
+ * 返品メール生成
+ */
+function createReturnMail(args) {
+    var order = args.order;
+    var seller = order.seller;
+    var template = args.template;
+    template = template.replace(/\{\{ seller.name \}\}/g, seller.name);
+    template = template.replace(/\{\{ seller.telephone \}\}/g, (seller.telephone === undefined) ? '' : Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["formatTelephone"])(seller.telephone, 'NATIONAL'));
+    template = template.replace(/\{\{ orderDate \}\}/g, moment__WEBPACK_IMPORTED_MODULE_1__().format('YYYY/MM/DD (ddd) HH:mm'));
+    // イベント
+    var forEventMatchResult = template.match(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/);
+    var forEventText = (forEventMatchResult === null) ? '' : forEventMatchResult[0];
+    var forReplaceEventText = '';
+    var orderToEventOrdersResuult = Object(_purchase_function__WEBPACK_IMPORTED_MODULE_3__["orderToEventOrders"])({ order: order });
+    orderToEventOrdersResuult.forEach(function (eventResult, index) {
+        var event = eventResult.event;
+        var eventText = forEventText;
+        eventText = eventText.replace(/\{\{ eventNameJa \}\}/g, event.name.ja);
+        eventText = eventText.replace(/\{\{ eventHeadlineJa \}\}/g, (event.superEvent.headline === undefined || event.superEvent.headline === null)
+            ? '' : event.superEvent.headline.ja);
+        eventText = eventText.replace(/\{\{ eventStartDate \}\}/g, moment__WEBPACK_IMPORTED_MODULE_1__(event.startDate).format('YYYY/MM/DD (ddd) HH:mm'));
+        eventText = eventText.replace(/\{\{ eventEndDate \}\}/g, moment__WEBPACK_IMPORTED_MODULE_1__(event.endDate).format('HH:mm'));
+        eventText = eventText.replace(/\{\{ eventIndex \}\}/g, String(index + 1));
+        eventText = eventText.replace(/\{\{ eventLocationNameJa \}\}/g, event.location.name.ja);
+        eventText = eventText.replace(/\{\{ forStartEvent \}\}/g, '');
+        eventText = eventText.replace(/\{\{ forEndEvent \}\}/g, '');
+        // 予約
+        var forReservationMatchResult = template.match(/\{\{ forStartReservation \}\}[^>]*\{\{ forEndReservation \}\}/);
+        var forReservationText = (forReservationMatchResult === null) ? '' : forReservationMatchResult[0];
+        var forReplaceReservationText = '';
+        eventResult.data.forEach(function (offer) {
+            var offerText = forReservationText;
+            var itemOffered = offer.itemOffered;
+            if (itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
+                return;
+            }
+            offerText = offerText.replace(/\{\{ reservationSeatNumber \}\}/g, (itemOffered.reservedTicket.ticketedSeat === undefined)
+                ? '' : itemOffered.reservedTicket.ticketedSeat.seatNumber);
+            offerText = offerText.replace(/\{\{ reservationId \}\}/g, itemOffered.id);
+            offerText = offerText.replace(/\{\{ reservationTicketTypeNameJa \}\}/g, itemOffered.reservedTicket.ticketType.name.ja);
+            offerText = offerText.replace(/\{\{ reservationPrice \}\}/g, String(Object(_purchase_function__WEBPACK_IMPORTED_MODULE_3__["getTicketPrice"])({ priceSpecification: itemOffered.price }).total));
+            offerText = offerText.replace(/\{\{ forStartReservation \}\}/g, '');
+            offerText = offerText.replace(/\{\{ forEndReservation \}\}/g, '\n');
+            forReplaceReservationText += offerText;
+        });
+        eventText = eventText.replace(/\{\{ forStartReservation \}\}[^>]*\{\{ forEndReservation \}\}/, forReplaceReservationText);
+        forReplaceEventText += eventText;
+    });
+    template = template.replace(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/, forReplaceEventText);
+    return template;
 }
 
 
@@ -14596,14 +14653,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../models */ "./app/models/index.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../services */ "./app/services/index.ts");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../models */ "./app/models/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../services */ "./app/services/index.ts");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -14669,20 +14727,22 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
+
 /**
  * Order Effects
  */
 var OrderEffects = /** @class */ (function () {
-    function OrderEffects(actions, cinerino, util, starPrint) {
+    function OrderEffects(actions, cinerino, util, starPrint, translate) {
         var _this = this;
         this.actions = actions;
         this.cinerino = cinerino;
         this.util = util;
         this.starPrint = starPrint;
+        this.translate = translate;
         /**
          * Search
          */
-        this.search = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].ActionTypes.Search), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+        this.search = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Search), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
             var params, searchResult, limit, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -14696,10 +14756,10 @@ var OrderEffects = /** @class */ (function () {
                     case 2:
                         searchResult = _a.sent();
                         limit = params.limit;
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].SearchSuccess({ searchResult: searchResult, limit: limit })];
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].SearchSuccess({ searchResult: searchResult, limit: limit })];
                     case 3:
                         error_1 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].SearchFail({ error: error_1 })];
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].SearchFail({ error: error_1 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -14707,8 +14767,8 @@ var OrderEffects = /** @class */ (function () {
         /**
          * Cancel
          */
-        this.cancel = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].ActionTypes.Cancel), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var orders, _i, orders_1, order, startResult, orderStatusWatch, error_2;
+        this.cancel = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Cancel), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+            var orders, _loop_1, this_1, _i, orders_1, order, orderStatusWatch, error_2;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -14716,36 +14776,97 @@ var OrderEffects = /** @class */ (function () {
                         orders = payload.orders;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 9, , 10]);
+                        _a.trys.push([1, 8, , 9]);
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 2:
                         _a.sent();
+                        _loop_1 = function (order) {
+                            var startResult, creditCards, email, url, template;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, this_1.cinerino.transaction.returnOrder.start({
+                                            expires: moment__WEBPACK_IMPORTED_MODULE_4__().add(1, 'day').toDate(),
+                                            object: {
+                                                order: {
+                                                    orderNumber: order.orderNumber,
+                                                    customer: {
+                                                        telephone: order.customer.telephone,
+                                                    }
+                                                }
+                                            }
+                                        })];
+                                    case 1:
+                                        startResult = _a.sent();
+                                        creditCards = order.paymentMethods.filter(function (p) { return p.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType.CreditCard; });
+                                        email = {
+                                            sender: {
+                                                name: (this_1.translate.instant('email.order.return.sender.name') === '')
+                                                    ? undefined : this_1.translate.instant('email.order.return.sender.name'),
+                                                email: (this_1.translate.instant('email.order.return.sender.email') === '')
+                                                    ? undefined : this_1.translate.instant('email.order.return.sender.email')
+                                            },
+                                            toRecipient: {
+                                                name: (this_1.translate.instant('email.order.return.toRecipient.name') === '')
+                                                    ? undefined : this_1.translate.instant('email.order.return.toRecipient.name'),
+                                                email: (this_1.translate.instant('email.order.return.toRecipient.email') === '')
+                                                    ? undefined : this_1.translate.instant('email.order.return.toRecipient.email')
+                                            },
+                                            about: (this_1.translate.instant('email.order.return.about') === '')
+                                                ? undefined : this_1.translate.instant('email.order.return.about'),
+                                            template: undefined
+                                        };
+                                        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 3];
+                                        url = '/storage/text/order/mail/return.txt';
+                                        return [4 /*yield*/, this_1.util.getText(url)];
+                                    case 2:
+                                        template = _a.sent();
+                                        email.template = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["createReturnMail"])({ template: template, order: order });
+                                        _a.label = 3;
+                                    case 3: return [4 /*yield*/, this_1.cinerino.transaction.returnOrder.confirm({
+                                            id: startResult.id,
+                                            potentialActions: {
+                                                returnOrder: {
+                                                    potentialActions: {
+                                                        refundCreditCard: creditCards.map(function (c) {
+                                                            return {
+                                                                object: {
+                                                                    object: [{
+                                                                            paymentMethod: {
+                                                                                paymentMethodId: c.paymentMethodId
+                                                                            }
+                                                                        }]
+                                                                },
+                                                                potentialActions: {
+                                                                    sendEmailMessage: {
+                                                                        object: email
+                                                                    }
+                                                                }
+                                                            };
+                                                        })
+                                                    }
+                                                }
+                                            }
+                                        })];
+                                    case 4:
+                                        _a.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        };
+                        this_1 = this;
                         _i = 0, orders_1 = orders;
                         _a.label = 3;
                     case 3:
-                        if (!(_i < orders_1.length)) return [3 /*break*/, 7];
+                        if (!(_i < orders_1.length)) return [3 /*break*/, 6];
                         order = orders_1[_i];
-                        return [4 /*yield*/, this.cinerino.transaction.returnOrder.start({
-                                expires: moment__WEBPACK_IMPORTED_MODULE_3__().add(1, 'day').toDate(),
-                                object: {
-                                    order: {
-                                        orderNumber: order.orderNumber,
-                                        customer: {
-                                            telephone: order.customer.telephone,
-                                        }
-                                    }
-                                }
-                            })];
+                        return [5 /*yield**/, _loop_1(order)];
                     case 4:
-                        startResult = _a.sent();
-                        return [4 /*yield*/, this.cinerino.transaction.returnOrder.confirm({ id: startResult.id })];
-                    case 5:
                         _a.sent();
-                        _a.label = 6;
-                    case 6:
+                        _a.label = 5;
+                    case 5:
                         _i++;
                         return [3 /*break*/, 3];
-                    case 7:
+                    case 6:
                         orderStatusWatch = function () {
                             return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
                                 var limit, i, searchResultData, searchResult, searchResult, filterResult, error_3;
@@ -14785,7 +14906,7 @@ var OrderEffects = /** @class */ (function () {
                                             if (i > limit) {
                                                 return [2 /*return*/, reject({ error: 'timeout' })];
                                             }
-                                            return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["sleep"])(5000)];
+                                            return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_7__["sleep"])(5000)];
                                         case 7:
                                             _a.sent();
                                             return [3 /*break*/, 9];
@@ -14801,20 +14922,20 @@ var OrderEffects = /** @class */ (function () {
                             }); });
                         };
                         return [4 /*yield*/, orderStatusWatch()];
-                    case 8:
+                    case 7:
                         _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].CancelSuccess()];
-                    case 9:
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].CancelSuccess()];
+                    case 8:
                         error_2 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].CancelFail({ error: error_2 })];
-                    case 10: return [2 /*return*/];
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].CancelFail({ error: error_2 })];
+                    case 9: return [2 /*return*/];
                 }
             });
         }); }));
         /**
          * Inquiry
          */
-        this.load = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].ActionTypes.Inquiry), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+        this.load = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Inquiry), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
             var confirmationNumber, customer, order, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -14826,17 +14947,17 @@ var OrderEffects = /** @class */ (function () {
                         confirmationNumber = Number(payload.confirmationNumber);
                         customer = {
                             telephone: (payload.customer.telephone === undefined)
-                                ? '' : Object(_functions__WEBPACK_IMPORTED_MODULE_6__["formatTelephone"])(payload.customer.telephone)
+                                ? '' : Object(_functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"])(payload.customer.telephone)
                         };
                         return [4 /*yield*/, this.cinerino.order.findByConfirmationNumber({
                                 confirmationNumber: confirmationNumber, customer: customer
                             })];
                     case 2:
                         order = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].InquirySuccess({ order: order })];
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].InquirySuccess({ order: order })];
                     case 3:
                         error_4 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].InquiryFail({ error: error_4 })];
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].InquiryFail({ error: error_4 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -14844,8 +14965,8 @@ var OrderEffects = /** @class */ (function () {
         /**
          * print
          */
-        this.print = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].ActionTypes.Print), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var orders, printer, pos, authorizeOrders, _loop_1, _i, orders_2, order, printData, testFlg, canvasList, canvas, _a, authorizeOrders_1, authorizeOrder, index, _b, _c, acceptedOffer, itemOffered, order, qrcode, additionalProperty, isDisplayQrcode, encyptText, encryptionEncodeResult, canvas, _d, domList, error_5;
+        this.print = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Print), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+            var orders, printer, pos, authorizeOrders, _loop_2, _i, orders_2, order, printData, testFlg, canvasList, canvas, _a, authorizeOrders_1, authorizeOrder, index, _b, _c, acceptedOffer, itemOffered, order, qrcode, additionalProperty, isDisplayQrcode, encyptText, encryptionEncodeResult, canvas, _d, domList, error_5;
             var _this = this;
             return __generator(this, function (_e) {
                 switch (_e.label) {
@@ -14858,11 +14979,11 @@ var OrderEffects = /** @class */ (function () {
                     case 1:
                         _e.sent();
                         authorizeOrders = [];
-                        _loop_1 = function (order) {
+                        _loop_2 = function (order) {
                             var result;
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
-                                    case 0: return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["retry"])({
+                                    case 0: return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_7__["retry"])({
                                             process: (function () { return __awaiter(_this, void 0, void 0, function () {
                                                 var orderNumber, customer, authorizeOrder;
                                                 return __generator(this, function (_a) {
@@ -14895,7 +15016,7 @@ var OrderEffects = /** @class */ (function () {
                     case 2:
                         if (!(_i < orders_2.length)) return [3 /*break*/, 5];
                         order = orders_2[_i];
-                        return [5 /*yield**/, _loop_1(order)];
+                        return [5 /*yield**/, _loop_2(order)];
                     case 3:
                         _e.sent();
                         _e.label = 4;
@@ -14908,7 +15029,7 @@ var OrderEffects = /** @class */ (function () {
                         testFlg = orders.length === 0;
                         canvasList = [];
                         if (!testFlg) return [3 /*break*/, 8];
-                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createTestPrintCanvas"])({ printData: printData })];
+                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_7__["createTestPrintCanvas"])({ printData: printData })];
                     case 7:
                         canvas = _e.sent();
                         canvasList.push(canvas);
@@ -14940,7 +15061,7 @@ var OrderEffects = /** @class */ (function () {
                             }
                         }
                         if (!(qrcode !== undefined
-                            && _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_7__["PrintQrcodeType"].Encryption)) return [3 /*break*/, 12];
+                            && _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Encryption)) return [3 /*break*/, 12];
                         encyptText = itemOffered.reservationFor.id + "=" + itemOffered.reservationFor.startDate;
                         return [4 /*yield*/, this.util.encryptionEncode(encyptText)];
                     case 11:
@@ -14950,11 +15071,11 @@ var OrderEffects = /** @class */ (function () {
                         _e.label = 12;
                     case 12:
                         if (qrcode !== undefined
-                            && _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_7__["PrintQrcodeType"].Custom) {
+                            && _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Custom) {
                             // QRコードカスタム文字列
-                            qrcode = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].PRINT_QRCODE_CUSTOM;
+                            qrcode = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PRINT_QRCODE_CUSTOM;
                             qrcode = qrcode
-                                .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_3__(order.orderDate).format('YYMMDD'));
+                                .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_4__(order.orderDate).format('YYMMDD'));
                             qrcode = qrcode
                                 .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
                             qrcode = qrcode
@@ -14962,9 +15083,9 @@ var OrderEffects = /** @class */ (function () {
                             qrcode = qrcode
                                 .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
                             qrcode = qrcode
-                                .replace(/\{\{ startDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_3__(itemOffered.reservationFor.startDate).format('YYMMDD'));
+                                .replace(/\{\{ startDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_4__(itemOffered.reservationFor.startDate).format('YYMMDD'));
                         }
-                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["createPrintCanvas"])({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode, index: index })];
+                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_7__["createPrintCanvas"])({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode, index: index })];
                     case 13:
                         canvas = _e.sent();
                         canvasList.push(canvas);
@@ -14979,9 +15100,9 @@ var OrderEffects = /** @class */ (function () {
                     case 16:
                         _d = printer.connectionType;
                         switch (_d) {
-                            case _models__WEBPACK_IMPORTED_MODULE_7__["connectionType"].StarBluetooth: return [3 /*break*/, 17];
-                            case _models__WEBPACK_IMPORTED_MODULE_7__["connectionType"].StarLAN: return [3 /*break*/, 19];
-                            case _models__WEBPACK_IMPORTED_MODULE_7__["connectionType"].Image: return [3 /*break*/, 21];
+                            case _models__WEBPACK_IMPORTED_MODULE_8__["connectionType"].StarBluetooth: return [3 /*break*/, 17];
+                            case _models__WEBPACK_IMPORTED_MODULE_8__["connectionType"].StarLAN: return [3 /*break*/, 19];
+                            case _models__WEBPACK_IMPORTED_MODULE_8__["connectionType"].Image: return [3 /*break*/, 21];
                         }
                         return [3 /*break*/, 22];
                     case 17:
@@ -15004,10 +15125,10 @@ var OrderEffects = /** @class */ (function () {
                         });
                         return [3 /*break*/, 23];
                     case 22: return [3 /*break*/, 23];
-                    case 23: return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].PrintSuccess()];
+                    case 23: return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].PrintSuccess()];
                     case 24:
                         error_5 = _e.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].PrintFail({ error: error_5 })];
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].PrintFail({ error: error_5 })];
                     case 25: return [2 /*return*/];
                 }
             });
@@ -15015,7 +15136,7 @@ var OrderEffects = /** @class */ (function () {
         /**
          * orderAuthorize
          */
-        this.orderAuthorize = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].ActionTypes.OrderAuthorize), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+        this.orderAuthorize = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.OrderAuthorize), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
             var params, order, error_6;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -15028,10 +15149,10 @@ var OrderEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerino.order.authorizeOwnershipInfos(params)];
                     case 2:
                         order = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].OrderAuthorizeSuccess({ order: order })];
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].OrderAuthorizeSuccess({ order: order })];
                     case 3:
                         error_6 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].OrderAuthorizeFail({ error: error_6 })];
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].OrderAuthorizeFail({ error: error_6 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -15060,9 +15181,10 @@ var OrderEffects = /** @class */ (function () {
     OrderEffects = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
         __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"],
-            _services__WEBPACK_IMPORTED_MODULE_8__["CinerinoService"],
-            _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"],
-            _services__WEBPACK_IMPORTED_MODULE_8__["StarPrintService"]])
+            _services__WEBPACK_IMPORTED_MODULE_9__["CinerinoService"],
+            _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"],
+            _services__WEBPACK_IMPORTED_MODULE_9__["StarPrintService"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]])
     ], OrderEffects);
     return OrderEffects;
 }());
@@ -15812,16 +15934,16 @@ var PurchaseEffects = /** @class */ (function () {
                         _a.sent();
                         email = {
                             sender: {
-                                name: (this.translate.instant('email.sender.name') === '')
-                                    ? undefined : this.translate.instant('email.sender.name'),
-                                email: (this.translate.instant('email.sender.email') === '')
-                                    ? undefined : this.translate.instant('email.sender.email')
+                                name: (this.translate.instant('email.purchase.complete.sender.name') === '')
+                                    ? undefined : this.translate.instant('email.purchase.complete.sender.name'),
+                                email: (this.translate.instant('email.purchase.complete.sender.email') === '')
+                                    ? undefined : this.translate.instant('email.purchase.complete.sender.email')
                             },
                             toRecipient: {
-                                name: (this.translate.instant('email.toRecipient.name') === '')
-                                    ? undefined : this.translate.instant('email.toRecipient.name'),
-                                email: (this.translate.instant('email.toRecipient.email') === '')
-                                    ? undefined : this.translate.instant('email.toRecipient.email')
+                                name: (this.translate.instant('email.purchase.complete.toRecipient.name') === '')
+                                    ? undefined : this.translate.instant('email.purchase.complete.toRecipient.name'),
+                                email: (this.translate.instant('email.purchase.complete.toRecipient.email') === '')
+                                    ? undefined : this.translate.instant('email.purchase.complete.toRecipient.email')
                             },
                             about: (this.translate.instant('email.about') === '')
                                 ? undefined : this.translate.instant('email.about'),

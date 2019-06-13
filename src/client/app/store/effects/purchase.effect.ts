@@ -552,16 +552,16 @@ export class PurchaseEffects {
                 await this.cinerino.getServices();
                 const email: factory.creativeWork.message.email.ICustomization = {
                     sender: {
-                        name: (this.translate.instant('email.sender.name') === '')
-                            ? undefined : this.translate.instant('email.sender.name'),
-                        email: (this.translate.instant('email.sender.email') === '')
-                            ? undefined : this.translate.instant('email.sender.email')
+                        name: (this.translate.instant('email.purchase.complete.sender.name') === '')
+                            ? undefined : this.translate.instant('email.purchase.complete.sender.name'),
+                        email: (this.translate.instant('email.purchase.complete.sender.email') === '')
+                            ? undefined : this.translate.instant('email.purchase.complete.sender.email')
                     },
                     toRecipient: {
-                        name: (this.translate.instant('email.toRecipient.name') === '')
-                            ? undefined : this.translate.instant('email.toRecipient.name'),
-                        email: (this.translate.instant('email.toRecipient.email') === '')
-                            ? undefined : this.translate.instant('email.toRecipient.email')
+                        name: (this.translate.instant('email.purchase.complete.toRecipient.name') === '')
+                            ? undefined : this.translate.instant('email.purchase.complete.toRecipient.name'),
+                        email: (this.translate.instant('email.purchase.complete.toRecipient.email') === '')
+                            ? undefined : this.translate.instant('email.purchase.complete.toRecipient.email')
                     },
                     about: (this.translate.instant('email.about') === '')
                         ? undefined : this.translate.instant('email.about'),
