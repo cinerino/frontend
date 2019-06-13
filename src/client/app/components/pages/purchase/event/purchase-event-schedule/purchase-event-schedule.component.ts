@@ -32,7 +32,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     private updateTimer: any;
     public bsValue: Date;
     public isSales: boolean;
-    @ViewChild('datepicker')
+    @ViewChild('datepicker', { static: true })
     private datepicker: BsDatepickerDirective;
 
     constructor(
