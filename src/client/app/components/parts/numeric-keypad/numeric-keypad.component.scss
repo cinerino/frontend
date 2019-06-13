@@ -1,0 +1,35 @@
+@import '../../../../assets/scss/theme';
+:host {
+    display: block;
+    width: 100%;
+}
+
+.position-fixed {
+    width: 100vw;
+    height: 100vh;
+    top: 50%;
+    left: 50%;
+    right: 0;
+    bottom: 0;
+    z-index: 1051;
+    margin: -50vh 0 0 -50vw;
+}
+
+.numeric-keypad {
+    position: absolute;
+    width: 300px;
+    z-index: 1051;
+    @include media-breakpoint-down(sm) {
+        width: 200px;
+    }
+}
+
+.number {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0.5rem;
+}
+
+.etc {
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 0.5rem;
+}

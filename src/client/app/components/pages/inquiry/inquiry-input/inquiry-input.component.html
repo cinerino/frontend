@@ -7,27 +7,45 @@
             <form [formGroup]="inquiryForm">
                 <div class="form-group">
                     <label class="mb-2" for="">{{ 'common.confirmationNumber' | translate }}</label>
-                    <input type="text" class="form-control" formControlName="confirmationNumber" id="confirmationNumber"
+                    <app-numeric-keypad *ngIf="environment.INQUIRY_INPUT_KEYPAD" [inputValue]="inquiryForm.controls.confirmationNumber.value"
+                        (change)="changeConfirmationNumber($event)">
+                        <input type="text" class="form-control" formControlName="confirmationNumber"
+                            id="confirmationNumber" [placeholder]="'form.placeholder.confirmationNumber' | translate"
+                            readonly>
+                    </app-numeric-keypad>
+                    <input *ngIf="!environment.INQUIRY_INPUT_KEYPAD" type="text" class="form-control" formControlName="confirmationNumber" id="confirmationNumber"
                         [placeholder]="'form.placeholder.confirmationNumber' | translate">
                     <div *ngIf="inquiryForm.controls.confirmationNumber.invalid && inquiryForm.controls.confirmationNumber.touched"
                         class="mt-2">
-                        <p *ngIf="inquiryForm.controls.confirmationNumber.errors.required" class="text-danger">{{ 'form.validation.required' | translate }}</p>
-                        <p *ngIf="inquiryForm.controls.confirmationNumber.errors.pattern" class="text-danger">{{ 'form.validation.number' | translate }}</p>
+                        <p *ngIf="inquiryForm.controls.confirmationNumber.errors.required" class="text-danger">
+                            {{ 'form.validation.required' | translate }}</p>
+                        <p *ngIf="inquiryForm.controls.confirmationNumber.errors.pattern" class="text-danger">
+                            {{ 'form.validation.number' | translate }}</p>
                     </div>
                 </div>
                 <div class="form-group mb-0">
                     <label class="mb-2" for="">{{ 'common.telephone' | translate }}</label>
-                    <input type="password" class="form-control" formControlName="telephone" id="telephone" [placeholder]="'form.placeholder.telephone' | translate">
-                    <div *ngIf="inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched" class="mt-2">
-                        <p *ngIf="inquiryForm.controls.telephone.errors.required" class="text-danger">{{ 'form.validation.required' | translate }}</p>
+                    <app-numeric-keypad *ngIf="environment.INQUIRY_INPUT_KEYPAD" [inputValue]="inquiryForm.controls.telephone.value"
+                        (change)="changeTelephone($event)">
+                        <input type="password" class="form-control" formControlName="telephone" id="telephone"
+                            [placeholder]="'form.placeholder.telephone' | translate" readonly>
+                    </app-numeric-keypad>
+                    <input *ngIf="!environment.INQUIRY_INPUT_KEYPAD" type="password" class="form-control" formControlName="telephone" id="telephone"
+                        [placeholder]="'form.placeholder.telephone' | translate">
+                    <div *ngIf="inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched"
+                        class="mt-2">
+                        <p *ngIf="inquiryForm.controls.telephone.errors.required" class="text-danger">
+                            {{ 'form.validation.required' | translate }}</p>
                         <p *ngIf="inquiryForm.controls.telephone.errors.minlength" class="text-danger">
-                                {{ 'form.validation.minlength' | translate: { value: inquiryForm.controls.telephone.errors.minlength.requiredLength } }}
+                            {{ 'form.validation.minlength' | translate: { value: inquiryForm.controls.telephone.errors.minlength.requiredLength } }}
                         </p>
                         <p *ngIf="inquiryForm.controls.telephone.errors.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate: { value: inquiryForm.controls.telephone.errors.maxlength.requiredLength } }}
+                            {{ 'form.validation.maxlength' | translate: { value: inquiryForm.controls.telephone.errors.maxlength.requiredLength } }}
                         </p>
-                        <p *ngIf="inquiryForm.controls.telephone.errors.pattern" class="text-danger">{{ 'form.validation.number' | translate }}</p>
-                        <p *ngIf="inquiryForm.controls.telephone.errors.telephone" class="text-danger">{{ 'form.validation.telephone' | translate }}</p>
+                        <p *ngIf="inquiryForm.controls.telephone.errors.pattern" class="text-danger">
+                            {{ 'form.validation.number' | translate }}</p>
+                        <p *ngIf="inquiryForm.controls.telephone.errors.telephone" class="text-danger">
+                            {{ 'form.validation.telephone' | translate }}</p>
                     </div>
                 </div>
             </form>
@@ -35,7 +53,8 @@
     </div>
 
     <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-primary btn-block py-3 mb-3" (click)="onSubmit()">{{ 'inquiry.input.next' | translate }}</button>
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3"
+            (click)="onSubmit()">{{ 'inquiry.input.next' | translate }}</button>
         <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-link portal-link"
             [href]="environment.PORTAL_SITE_URL">{{ 'inquiry.input.prev' | translate }}</a>
         <button *ngIf="!environment.PORTAL_SITE_URL" type="button" class="btn btn-link"

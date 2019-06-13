@@ -22,6 +22,7 @@ import {
     ExpiredComponent,
     InquiryConfirmComponent,
     InquiryInputComponent,
+    InquiryPrintComponent,
     MaintenanceComponent,
     MypageCoinComponent,
     MypageCreditComponent,
@@ -53,8 +54,8 @@ import {
     HeaderMenuComponent,
     LoadingComponent,
     MvtkCheckModalComponent,
+    NumericKeypadComponent,
     OrderDetailModalComponent,
-    PrintCompleteModalComponent,
     PurchaseCinemaPerformanceComponent,
     PurchaseCinemaTicketModalComponent,
     PurchaseEventPerformanceComponent,
@@ -139,7 +140,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         PurchaseTransactionComponent,
         PurchaseTermsComponent,
         PurchaseWarningComponent,
-        PrintCompleteModalComponent
+        InquiryPrintComponent,
+        NumericKeypadComponent
     ],
     entryComponents: [
         PurchaseCinemaTicketModalComponent,
@@ -153,7 +155,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         OrderDetailModalComponent,
         ChargeCoinModalComponent,
         RegisteredCreditCardModalComponent,
-        PrintCompleteModalComponent
+        NumericKeypadComponent
     ],
     imports: [
         BrowserModule,
