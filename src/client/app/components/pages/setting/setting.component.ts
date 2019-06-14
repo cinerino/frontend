@@ -222,4 +222,13 @@ export class SettingComponent implements OnInit {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * プリンター変更
+     */
+    public changePrinterType() {
+        if (this.baseForm.controls.printerType.value === connectionType.StarBluetooth) {
+            this.baseForm.controls.printerIpAddress.setValue(this.translate.instant('setting.starBluetoothAddress'));
+        }
+    }
+
 }

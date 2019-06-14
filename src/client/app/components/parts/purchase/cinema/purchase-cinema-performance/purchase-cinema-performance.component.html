@@ -30,7 +30,7 @@
                 [ngClass]="{ 
                 'bg-white': isSales(screeningEvent) && screeningEvent.remainingAttendeeCapacity > 0, 
                 'bg-dark-gray text-light-gray not-event': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0
-                }" (tap)="select.emit(screeningEvent)">
+                }" (click)="select.emit(screeningEvent)">
                 <div>
                     <div class="mb-2 text-small">
                         {{ screeningEvent.location.name | changeLanguage }}

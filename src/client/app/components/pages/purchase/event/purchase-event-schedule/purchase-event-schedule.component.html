@@ -6,7 +6,7 @@
 <ul *ngIf="!((purchase | async)?.external?.theaterBranchCode)"
     class="contents-width mx-auto sellers d-flex flex-wrap p-2">
     <li *ngFor="let seller of (master | async)?.sellers" class="px-2 my-2">
-        <button type="button" class="btn btn-block py-3 m-0" (tap)="selectSeller(seller)"
+        <button type="button" class="btn btn-block py-3 m-0" (click)="selectSeller(seller)"
             [class.btn-primary]="(purchase | async).seller?.id === seller.id"
             [class.btn-outline-primary]="(purchase | async).seller?.id !== seller.id">{{ seller.name | changeLanguage }}</button>
     </li>
@@ -22,9 +22,9 @@
             <input type="text" placeholder="Datepicker" class="form-control" #datepicker="bsDatepicker" bsDatepicker
                 [(ngModel)]="scheduleDate"
                 [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false, minDate: moment().toDate() }"
-                (bsValueChange)="selectDate($event)" readonly (tap)="setDatePicker()"
+                (bsValueChange)="selectDate($event)" readonly (click)="setDatePicker()"
                 (onShown)="onShowPicker($event)">
-            <div class="input-group-append pointer" (tap)="toggleDatepicker()">
+            <div class="input-group-append pointer" (click)="toggleDatepicker()">
                 <span class="input-group-text"><i class="fas fa-caret-down"></i></span>
             </div>
         </div>
@@ -53,9 +53,9 @@
     <div class="buttons mx-auto text-center">
         <button *ngIf="isSales" type="button" class="btn btn-primary btn-block py-3 mb-3"
             [disabled]="screeningWorkEvents.length === 0"
-            (tap)="onSubmit()">{{ 'purchase.event.schedule.next' | translate }}</button>
+            (click)="onSubmit()">{{ 'purchase.event.schedule.next' | translate }}</button>
         <button *ngIf="!isSales" type="button" class="btn btn-primary btn-block py-3 mb-3" disabled
-            (tap)="onSubmit()">{{ 'purchase.event.schedule.disabled' | translate }}</button>
+            (click)="onSubmit()">{{ 'purchase.event.schedule.disabled' | translate }}</button>
         <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-link portal-link"
             [href]="environment.PORTAL_SITE_URL">{{ 'purchase.event.schedule.prev' | translate }}</a>
     </div>

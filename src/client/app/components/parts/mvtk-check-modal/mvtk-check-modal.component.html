@@ -44,11 +44,11 @@
             <div class="buttons mx-auto text-center">
                 <button *ngIf="stream === null" type="button" class="btn btn-success btn-block py-3"
                     [disabled]="isLoading | async"
-                    (tap)="activationCamera()">{{ 'modal.mvtkCheck.camera.start' | translate }}</button>
+                    (click)="activationCamera()">{{ 'modal.mvtkCheck.camera.start' | translate }}</button>
                 <button type="button" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async"
-                    (tap)="checkMovieTicket()">{{ 'modal.mvtkCheck.next' | translate }}</button>
+                    (click)="checkMovieTicket()">{{ 'modal.mvtkCheck.next' | translate }}</button>
                 <button type="button" class="btn btn-link btn-sm"
-                    (tap)="modal.hide()">{{ 'common.close' | translate }}</button>
+                    (click)="modal.hide()">{{ 'common.close' | translate }}</button>
             </div>
         </div>
         <div [class.d-block]="isShowVideo" [class.d-none]="!isShowVideo">
@@ -61,7 +61,7 @@
             <div class="buttons mx-auto mb-2">
                 <button *ngIf="stream !== null" type="button" class="btn btn-success btn-block"
                     [disabled]="isLoading | async"
-                    (tap)="stopCamera()">{{ 'modal.mvtkCheck.camera.stop' | translate }}</button>
+                    (click)="stopCamera()">{{ 'modal.mvtkCheck.camera.stop' | translate }}</button>
             </div>
         </div>
 

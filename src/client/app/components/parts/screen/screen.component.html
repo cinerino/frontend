@@ -1,6 +1,6 @@
 <div class="bg-white">
     <div class="screen" [class.zoom]="zoomState" style="visibility: visible;" (window:resize)="resize()">
-        <div [class.active]="zoomState" class="zoom-btn text-center" (tap)="scaleDown()">
+        <div [class.active]="zoomState" class="zoom-btn text-center" (click)="scaleDown()">
             <p class="text-x-small">ズーム<br>解除</p>
         </div>
         <div *ngIf="screenData" class="screen-scroll" [ngStyle]="{ 
@@ -9,7 +9,7 @@
             'transform': 'scale(' + scale + ')'
         }">
             <div class="screen-inner {{ screenType }}"
-                [ngStyle]="{ 'width.px': screenData.size.w, 'height.px': screenData.size.h }" (tap)="scaleUp($event)">
+                [ngStyle]="{ 'width.px': screenData.size.w, 'height.px': screenData.size.h }" (click)="scaleUp($event)">
 
                 <div *ngFor="let object of screenData.objects" class="object" [ngStyle]="{
                     'width.px': object.w, 
@@ -47,7 +47,7 @@
                         'left.px': seat.x,
                         'width.px': seat.w,
                         'height.px': seat.h
-                    }" (tap)="selectSeat(seat)">
+                    }" (click)="selectSeat(seat)">
                         <span>{{ seat.code }}</span>
                     </div>
                 </div>

@@ -24,7 +24,7 @@
         </div>
         <div *ngFor="let authorizeSeatReservation of (purchase | async).authorizeSeatReservations"
             class="mb-4 bg-white p-3 position-relative">
-            <button type="button" class="close" aria-label="Close" (tap)="removeItem(authorizeSeatReservation)">
+            <button type="button" class="close" aria-label="Close" (click)="removeItem(authorizeSeatReservation)">
                 <span aria-hidden="true">&times;</span>
             </button>
             <div class="mb-3">
@@ -54,7 +54,7 @@
                     </span>
                 </p>
                 <!-- <button type="button" class="btn btn-link btn-sm ml-auto p-0"
-                    (tap)="removeItem(authorizeSeatReservation)">{{ 'common.remove' | translate }}</button> -->
+                    (click)="removeItem(authorizeSeatReservation)">{{ 'common.remove' | translate }}</button> -->
             </div>
             <hr class="mb-3">
             <div *ngIf="environment.DISPLAY_TICKETED_SEAT">
@@ -79,7 +79,7 @@
 
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3"
-            (tap)="onSubmit()">{{ 'purchase.event.cart.next' | translate }}</button>
+            (click)="onSubmit()">{{ 'purchase.event.cart.next' | translate }}</button>
         <button type="button" class="btn btn-link"
             routerLink="/purchase/event/schedule">{{ 'purchase.event.ticket.prev' | translate }}</button>
     </div>

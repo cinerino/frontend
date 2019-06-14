@@ -1,5 +1,5 @@
 <div class="p-3">
-    <button type="button" *ngFor="let creditCard of creditCards" class="btn btn-block btn-outline-primary text-left mb-3" (tap)="close(creditCard)">
+    <button type="button" *ngFor="let creditCard of creditCards" class="btn btn-block btn-outline-primary text-left mb-3" (click)="close(creditCard)">
         <div class="mb-3">
             <p class="text-small">{{ 'common.credit.cardNumber' | translate }}</p>
             <p>{{ creditCard.cardNo }}</p>

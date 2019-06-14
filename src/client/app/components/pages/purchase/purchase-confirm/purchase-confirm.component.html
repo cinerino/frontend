@@ -98,7 +98,7 @@
 
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
-            (tap)="onSubmit()">{{ 'purchase.confirm.next' | translate }}</button>
+            (click)="onSubmit()">{{ 'purchase.confirm.next' | translate }}</button>
         <button type="button" class="btn btn-link"
             routerLink="/purchase/input">{{ 'purchase.confirm.prev' | translate }}</button>
     </div>
