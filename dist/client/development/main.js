@@ -4880,11 +4880,12 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
             this.scheduleDate = date;
         }
         var selectDate = moment(moment(this.scheduleDate).format('YYYYMMDD')).toDate();
-        var defaultDate = moment(moment().format('YYYYMMDD'))
-            .add(environment_1.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+        var salesStopDate = moment(selectDate)
+            .add(environment_1.environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE, environment_1.environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT)
             .toDate();
         var openDate = moment(environment_1.environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
-        this.isSales = (selectDate >= defaultDate && selectDate >= openDate);
+        var now = moment().toDate();
+        this.isSales = (selectDate >= openDate && salesStopDate > now);
         this.purchase.subscribe(function (purchase) {
             var seller = purchase.seller;
             if (seller === undefined) {
@@ -16469,6 +16470,8 @@ var defaultEnvironment = {
     PURCHASE_PRE_SCHEDULE_DATE: '3',
     PURCHASE_SCHEDULE_DISPLAY_LENGTH: '10',
     PURCHASE_SCHEDULE_OPEN_DATE: '2019-05-01',
+    PURCHASE_SCHEDULE_SALES_DATE_VALUE: '0',
+    PURCHASE_SCHEDULE_SALES_DATE_UNIT: 'hour',
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
     PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES: '-20',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
