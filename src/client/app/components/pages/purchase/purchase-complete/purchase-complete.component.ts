@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
@@ -19,6 +20,7 @@ export class PurchaseCompleteComponent implements OnInit {
     public changeTicketCountByOrder = changeTicketCountByOrder;
     public eventOrders: IEventOrder[];
     public environment = environment;
+    public paymentMethodType = factory.paymentMethodType;
 
     constructor(
         private store: Store<reducers.IState>,
