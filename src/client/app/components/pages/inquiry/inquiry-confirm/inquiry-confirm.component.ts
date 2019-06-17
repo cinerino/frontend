@@ -9,7 +9,7 @@ import { BsModalService } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { changeTicketCount, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
+import { changeTicketCountByOrder, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
 import { UtilService } from '../../../../services';
 import { orderAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
@@ -25,7 +25,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     public user: Observable<reducers.IUserState>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
-    public changeTicketCount = changeTicketCount;
+    public changeTicketCountByOrder = changeTicketCountByOrder;
     public eventOrders: IEventOrder[];
     public error: Observable<string | null>;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;

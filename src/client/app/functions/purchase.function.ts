@@ -575,17 +575,14 @@ export function createCompleteMail(args: {
  */
 export function changeTicketCount(
     acceptedOffer: factory.chevre.event.screeningEvent.ITicketOffer[]
-        | factory.order.IAcceptedOffer<factory.order.IItemOffered>[]
         | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre[]
 ) {
     const result: {
         acceptedOffer: factory.chevre.event.screeningEvent.ITicketOffer
-        | factory.order.IAcceptedOffer<factory.order.IItemOffered>
         | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre;
         count: number
     }[] = [];
     acceptedOffer.forEach((a: factory.chevre.event.screeningEvent.ITicketOffer
-        | factory.order.IAcceptedOffer<factory.order.IItemOffered>
         | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre) => {
         const findResult = result.find(r => r.acceptedOffer.id === a.id);
         if (findResult === undefined) {
