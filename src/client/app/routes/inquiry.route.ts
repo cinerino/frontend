@@ -1,3 +1,4 @@
+import { InquiryPrintComponent } from '../components/pages';
 import { BaseComponent } from '../components/pages/base/base.component';
 import { InquiryConfirmComponent } from '../components/pages/inquiry/inquiry-confirm/inquiry-confirm.component';
 import { InquiryInputComponent } from '../components/pages/inquiry/inquiry-input/inquiry-input.component';
@@ -10,6 +11,7 @@ export const route = {
     component: BaseComponent,
     children: [
         { path: 'input', component: InquiryInputComponent },
-        { path: 'confirm', component: InquiryConfirmComponent }
+        { path: 'confirm', component: InquiryConfirmComponent },
+        { path: 'print', component: InquiryPrintComponent }
     ]
 };

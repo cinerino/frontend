@@ -48,7 +48,7 @@
             </div>
 
             <div *ngIf="!environment.DISPLAY_TICKETED_SEAT">
-                <div *ngFor="let ticket of changeTicketCount(eventOrder.data)">
+                <div *ngFor="let ticket of changeTicketCountByOrder(eventOrder.data)">
                     <p>
                         {{ ticket.acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{
                             getTicketPrice(ticket.acceptedOffer).single | currency : 'JPY' }}&nbsp;×&nbsp;{{ ticket.count }}
@@ -78,10 +78,25 @@
                     <p class="col-md-8">{{ (purchase | async).order.customer.telephone | libphonenumberFormat }}</p>
                 </div>
             </div>
+            <div class="py-3 border-bottom border-gray" *ngIf="(purchase | async).order.price > 0">
+                <div class="row align-items-center">
+                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.amount' | translate }}</p>
+                    <p class="col-md-8 font-weight-bold text-large text-info">{{ (purchase | async).order.price | currency : 'JPY' }}</p>
+                </div>
+            </div>
             <div class="py-3" *ngIf="(purchase | async).order.price > 0">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
-                    <p class="col-md-8">クレジットカード</p>
+                    <div class="col-md-8">
+                        <p *ngFor="let paymentMethod of (purchase | async).order.paymentMethods">
+                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.Cash">{{ 'common.paymentMethodType.cash' | translate }}</span>
+                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.Account">{{ 'common.paymentMethodType.account' | translate }}</span>
+                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.CreditCard">{{ 'common.paymentMethodType.creditCard' | translate }}</span>
+                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.EMoney">{{ 'common.paymentMethodType.eMoney' | translate }}</span>
+                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.MovieTicket">{{ 'common.paymentMethodType.movieTicket' | translate }}</span>
+                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.Others">{{ 'common.paymentMethodType.others' | translate }}</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

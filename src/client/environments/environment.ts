@@ -107,6 +107,23 @@ interface IEnvironment {
      */
     PURCHASE_SCHEDULE_OPEN_DATE: string;
     /**
+     * スケジュール売止相対指定値
+     * 当日24：00から相対的に指定
+     */
+    PURCHASE_SCHEDULE_SALES_DATE_VALUE: string;
+    /**
+     * スケジュール売止相対指定単位
+     * 当日24：00から相対的に指定
+     */
+    PURCHASE_SCHEDULE_SALES_DATE_UNIT: 'year' | 'years' | 'y' |
+    'month' | 'months' | 'M' |
+    'week' | 'weeks' | 'w' |
+    'day' | 'days' | 'd' |
+    'hour' | 'hours' | 'h' |
+    'minute' | 'minutes' | 'm' |
+    'second' | 'seconds' | 's' |
+    'millisecond' | 'milliseconds' | 'ms';
+    /**
      * スケジュール初期選択日（相対的）
      */
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: string;
@@ -155,6 +172,10 @@ interface IEnvironment {
      */
     INQUIRY_PRINT_SUCCESS_WAIT_TIME: string;
     /**
+     * 照会入力キーパッド
+     */
+    INQUIRY_INPUT_KEYPAD: boolean;
+    /**
      * 印刷QRコードタイプ
      */
     PRINT_QRCODE_TYPE: string;
@@ -199,6 +220,8 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_PRE_SCHEDULE_DATE: '3',
     PURCHASE_SCHEDULE_DISPLAY_LENGTH: '10',
     PURCHASE_SCHEDULE_OPEN_DATE: '2019-05-01',
+    PURCHASE_SCHEDULE_SALES_DATE_VALUE: '0',
+    PURCHASE_SCHEDULE_SALES_DATE_UNIT: 'hour',
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
     PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES: '-20',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
@@ -211,6 +234,7 @@ const defaultEnvironment: IEnvironment = {
     INQUIRY_PRINT: false,
     INQUIRY_PRINT_WAIT_TIME: '',
     INQUIRY_PRINT_SUCCESS_WAIT_TIME: '',
+    INQUIRY_INPUT_KEYPAD: false,
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: 'token',
     PRINT_LOADING: true,

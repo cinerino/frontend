@@ -108,4 +108,18 @@ export class InquiryInputComponent implements OnInit {
         race(success, fail).pipe(take(1)).subscribe();
     }
 
+    /**
+     * 確認番号変更
+     */
+    public changeConfirmationNumber(value: string) {
+        this.inquiryForm.controls.confirmationNumber.setValue(value);
+    }
+
+    /**
+     * 電話番号変更
+     */
+    public changeTelephone(value: string) {
+        this.inquiryForm.controls.telephone.setValue(value);
+    }
+
 }

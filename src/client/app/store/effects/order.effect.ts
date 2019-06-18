@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { createPrintCanvas, createTestPrintCanvas, formatTelephone, retry, sleep } from '../../functions';
+import { createPrintCanvas, createReturnMail, createTestPrintCanvas, formatTelephone, retry, sleep } from '../../functions';
 import { connectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import { orderAction } from '../actions';
@@ -19,7 +20,8 @@ export class OrderEffects {
         private actions: Actions,
         private cinerino: CinerinoService,
         private util: UtilService,
-        private starPrint: StarPrintService
+        private starPrint: StarPrintService,
+        private translate: TranslateService
     ) { }
 
     /**
@@ -70,7 +72,55 @@ export class OrderEffects {
                             }
                         }
                     });
-                    await this.cinerino.transaction.returnOrder.confirm({ id: startResult.id });
+                    const creditCards = order.paymentMethods.filter(p => p.typeOf === factory.paymentMethodType.CreditCard);
+                    const email: factory.creativeWork.message.email.ICustomization = {
+                        sender: {
+                            name: (this.translate.instant('email.order.return.sender.name') === '')
+                                ? undefined : this.translate.instant('email.order.return.sender.name'),
+                            email: (this.translate.instant('email.order.return.sender.email') === '')
+                                ? undefined : this.translate.instant('email.order.return.sender.email')
+                        },
+                        toRecipient: {
+                            name: (this.translate.instant('email.order.return.toRecipient.name') === '')
+                                ? undefined : this.translate.instant('email.order.return.toRecipient.name'),
+                            email: (this.translate.instant('email.order.return.toRecipient.email') === '')
+                                ? undefined : this.translate.instant('email.order.return.toRecipient.email')
+                        },
+                        about: (this.translate.instant('email.order.return.about') === '')
+                            ? undefined : this.translate.instant('email.order.return.about'),
+                        template: undefined
+                    };
+                    if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
+                        // メールをカスタマイズ
+                        const url = '/storage/text/order/mail/return.txt';
+                        const template = await this.util.getText<string>(url);
+                        email.template = createReturnMail({ template, order });
+                    }
+                    await this.cinerino.transaction.returnOrder.confirm({
+                        id: startResult.id,
+                        potentialActions: {
+                            returnOrder: {
+                                potentialActions: {
+                                    refundCreditCard: creditCards.map((c) => {
+                                        return {
+                                            object: {
+                                                object: [{
+                                                    paymentMethod: {
+                                                        paymentMethodId: c.paymentMethodId
+                                                    }
+                                                }]
+                                            },
+                                            potentialActions: {
+                                                sendEmailMessage: {
+                                                    object: email
+                                                }
+                                            }
+                                        };
+                                    })
+                                }
+                            }
+                        }
+                    });
                 }
 
                 const orderStatusWatch = () => {
@@ -210,13 +260,18 @@ export class OrderEffects {
                                 // QRコードカスタム文字列
                                 qrcode = environment.PRINT_QRCODE_CUSTOM;
                                 qrcode = qrcode
-                                    .replace(/\{\{ orderDate \}\}/g, moment(order.orderDate).format('YYMMDD'));
+                                    .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment(order.orderDate).format('YYMMDD'));
                                 qrcode = qrcode
                                     .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
                                 qrcode = qrcode
                                     .replace(/\{\{ index \}\}/g, String(index));
                                 qrcode = qrcode
                                     .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
+                                qrcode = qrcode
+                                    .replace(
+                                        /\{\{ startDate \| YYMMDD \}\}/g,
+                                        moment(itemOffered.reservationFor.startDate).format('YYMMDD')
+                                    );
                             }
                             const canvas = await createPrintCanvas({ printData, order, acceptedOffer, pos, qrcode, index });
                             canvasList.push(canvas);

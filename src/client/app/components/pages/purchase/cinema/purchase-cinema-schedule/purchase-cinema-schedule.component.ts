@@ -23,8 +23,8 @@ import { PurchaseTransactionModalComponent } from '../../../../parts';
     styleUrls: ['./purchase-cinema-schedule.component.scss']
 })
 export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
-    @ViewChild(SwiperComponent) public componentRef: SwiperComponent;
-    @ViewChild(SwiperDirective) public directiveRef: SwiperDirective;
+    @ViewChild(SwiperComponent, { static: false }) public componentRef: SwiperComponent;
+    @ViewChild(SwiperDirective, { static: true }) public directiveRef: SwiperDirective;
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public master: Observable<reducers.IMasterState>;

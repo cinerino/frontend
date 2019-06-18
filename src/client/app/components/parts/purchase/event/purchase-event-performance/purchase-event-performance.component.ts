@@ -10,8 +10,8 @@ import { IScreeningEventWork, isSales, isScheduleStatusThreshold, isTicketedSeat
     styleUrls: ['./purchase-event-performance.component.scss']
 })
 export class PurchaseEventPerformanceComponent implements OnInit {
-    @ViewChild(SwiperComponent) public componentRef: SwiperComponent;
-    @ViewChild(SwiperDirective) public directiveRef: SwiperDirective;
+    @ViewChild(SwiperComponent, { static: false }) public componentRef: SwiperComponent;
+    @ViewChild(SwiperDirective, { static: true }) public directiveRef: SwiperDirective;
     @Input() public screeningWorkEvent: IScreeningEventWork;
     @Input() public readonly: boolean;
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();

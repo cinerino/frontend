@@ -98,7 +98,9 @@ export class PurchaseEffects {
                 const params = payload.params;
                 const selleId = params.seller.id;
                 await this.cinerino.getServices();
-                const passport = await this.cinerino.getPassport(selleId);
+                const passport = (params.object.passport === undefined)
+                    ? await this.cinerino.getPassport(selleId)
+                    : params.object.passport;
                 params.object = { passport };
                 const transaction = await this.cinerino.transaction.placeOrder.start(params);
                 return new purchaseAction.StartTransactionSuccess({ transaction });
@@ -550,19 +552,19 @@ export class PurchaseEffects {
                 await this.cinerino.getServices();
                 const email: factory.creativeWork.message.email.ICustomization = {
                     sender: {
-                        name: (this.translate.instant('email.sender.name') === '')
-                            ? undefined : this.translate.instant('email.sender.name'),
-                        email: (this.translate.instant('email.sender.email') === '')
-                            ? undefined : this.translate.instant('email.sender.email')
+                        name: (this.translate.instant('email.purchase.complete.sender.name') === '')
+                            ? undefined : this.translate.instant('email.purchase.complete.sender.name'),
+                        email: (this.translate.instant('email.purchase.complete.sender.email') === '')
+                            ? undefined : this.translate.instant('email.purchase.complete.sender.email')
                     },
                     toRecipient: {
-                        name: (this.translate.instant('email.toRecipient.name') === '')
-                            ? undefined : this.translate.instant('email.toRecipient.name'),
-                        email: (this.translate.instant('email.toRecipient.email') === '')
-                            ? undefined : this.translate.instant('email.toRecipient.email')
+                        name: (this.translate.instant('email.purchase.complete.toRecipient.name') === '')
+                            ? undefined : this.translate.instant('email.purchase.complete.toRecipient.name'),
+                        email: (this.translate.instant('email.purchase.complete.toRecipient.email') === '')
+                            ? undefined : this.translate.instant('email.purchase.complete.toRecipient.email')
                     },
-                    about: (this.translate.instant('email.about') === '')
-                        ? undefined : this.translate.instant('email.about'),
+                    about: (this.translate.instant('email.purchase.complete.about') === '')
+                        ? undefined : this.translate.instant('email.purchase.complete.about'),
                     template: undefined
                 };
                 const params = {

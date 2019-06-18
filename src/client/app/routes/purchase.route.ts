@@ -50,6 +50,7 @@ export const schedule = {
     component: BaseComponent,
     children: [
         { path: 'root', component: PurchaseRootComponent },
+        { path: 'transaction/:eventId/:passportToken', component: PurchaseTransactionComponent },
         { path: 'transaction/:eventId', component: PurchaseTransactionComponent },
         {
             path: 'cinema',

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
-import { changeTicketCount, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
+import { changeTicketCountByOrder, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -16,9 +17,10 @@ export class PurchaseCompleteComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
-    public changeTicketCount = changeTicketCount;
+    public changeTicketCountByOrder = changeTicketCountByOrder;
     public eventOrders: IEventOrder[];
     public environment = environment;
+    public paymentMethodType = factory.paymentMethodType;
 
     constructor(
         private store: Store<reducers.IState>,
