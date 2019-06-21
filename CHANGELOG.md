@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
-## 1.1.1 - 2019-06-22
+## 1.1.2 - 2019-06-22
 ### Fixed
 - 依存関係不具合修正
 
