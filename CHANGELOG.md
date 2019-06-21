@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 1.1.1 - 2019-06-21
+### Fixed
+- 印刷処理修正
+
 ## 1.1.0 - 2019-06-18
 ### Added
 - 外部連携にpassportTokenを追加
