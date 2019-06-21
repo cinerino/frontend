@@ -101,9 +101,6 @@ async function drawCanvas(args: {
                 case 'price':
                     value = `￥${data.price.toLocaleString()}`;
                     break;
-                case 'posName':
-                    value = `端末 ${data.posName}`;
-                    break;
                 case 'date':
                     value = `(${moment().format('YYYY/MM/DD HH:mm')} 発券)`;
                     break;
@@ -136,9 +133,6 @@ async function drawCanvas(args: {
                         );
                     }
                     continue;
-                case 'seatNumber':
-                    value = (data.seatNumber === undefined) ? 'なし' : data.seatNumber;
-                    break;
                 default:
                     value = `${(text.value === undefined) ? '' : text.value}${data[text.name]}`;
             }

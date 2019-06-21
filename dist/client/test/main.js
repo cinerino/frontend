@@ -9656,9 +9656,6 @@ function drawCanvas(args) {
                                 case 'price':
                                     value = "\uFFE5" + data.price.toLocaleString();
                                     break;
-                                case 'posName':
-                                    value = "\u7AEF\u672B " + data.posName;
-                                    break;
                                 case 'date':
                                     value = "(" + moment().format('YYYY/MM/DD HH:mm') + " \u767A\u5238)";
                                     break;
@@ -9680,9 +9677,6 @@ function drawCanvas(args) {
                                         context.fillText(eventName, changePosition(text.fillText.x), changePosition(text.fillText.y) + parseInt(text.font.size, 10) * 0.75);
                                     }
                                     continue;
-                                case 'seatNumber':
-                                    value = (data.seatNumber === undefined) ? 'なし' : data.seatNumber;
-                                    break;
                                 default:
                                     value = "" + ((text.value === undefined) ? '' : text.value) + data[text.name];
                             }
