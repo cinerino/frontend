@@ -189,12 +189,12 @@ workflows:
           filters:
             branches:
               only: develop
-      - prerelease:
-          requires:
-            - test
-          filters:
-            branches:
-              only: /feature\/.+-alpha.+/
+      # - prerelease:
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #         only: /feature\/.+-alpha.+/
       - prerelease-oyatsu-frontend:
           requires:
             - test
