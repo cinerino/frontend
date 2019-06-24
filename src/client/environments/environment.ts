@@ -124,6 +124,11 @@ interface IEnvironment {
     'second' | 'seconds' | 's' |
     'millisecond' | 'milliseconds' | 'ms';
     /**
+     * 売止時間(HHmmss)
+     * 設定しない場合は空文字('')
+     */
+    PURCHASE_SCHEDULE_SALES_STOP_TIME: string;
+    /**
      * スケジュール初期選択日（相対的）
      */
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: string;
@@ -222,6 +227,7 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_SCHEDULE_OPEN_DATE: '2019-05-01',
     PURCHASE_SCHEDULE_SALES_DATE_VALUE: '0',
     PURCHASE_SCHEDULE_SALES_DATE_UNIT: 'hour',
+    PURCHASE_SCHEDULE_SALES_STOP_TIME: '',
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
     PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES: '-20',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
