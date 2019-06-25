@@ -14,7 +14,6 @@ import {
     getRemainingSeatLength,
     getTicketPrice,
     IScreeningEventWork,
-    isTicketedSeatScreeningEvent,
     screeningEventsToWorkEvents
 } from '../../../../../functions';
 import { IReservationTicket } from '../../../../../models';
@@ -145,11 +144,6 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                     return;
                 }
                 this.store.dispatch(new purchaseAction.SelectSchedule({ screeningEvent }));
-                if (screeningEvent !== undefined
-                    && !isTicketedSeatScreeningEvent(screeningEvent)) {
-                        this.getTickets();
-                    return;
-                }
                 this.getScreeningEventOffers().then(() => {
                     this.getTickets();
                 }).catch(() => {
@@ -236,11 +230,6 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                     { value: limit }
                 )
             });
-            return;
-        }
-        if (screeningEvent !== undefined
-            && !isTicketedSeatScreeningEvent(screeningEvent)) {
-            this.temporaryReservation(reservationTickets);
             return;
         }
         this.getScreeningEventOffers().then(() => {

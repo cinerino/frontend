@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
-import { getRemainingSeatLength, getTicketPrice } from '../../../../../functions';
+import { getRemainingSeatLength, getTicketPrice, isTicketedSeatScreeningEvent } from '../../../../../functions';
 import { IReservationTicket } from '../../../../../models';
 
 @Component({
@@ -22,6 +22,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     public selectedTickets: { [key: string]: string; };
     public moment: typeof moment = moment;
     public getRemainingSeatLength = getRemainingSeatLength;
+    public isTicketedSeatScreeningEvent = isTicketedSeatScreeningEvent;
 
     constructor(
         public modal: BsModalRef
@@ -39,8 +40,10 @@ export class PurchaseEventTicketModalComponent implements OnInit {
         let limit = (this.screeningEvent.offers === undefined
             || this.screeningEvent.offers.eligibleQuantity.maxValue === undefined)
             ? 0 : this.screeningEvent.offers.eligibleQuantity.maxValue;
-        const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers);
-        limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
+        if (isTicketedSeatScreeningEvent(this.screeningEvent)) {
+            const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers);
+            limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
+        }
         for (let i = 0; i < limit; i++) {
             this.values.push(i + 1);
         }

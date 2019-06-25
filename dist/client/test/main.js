@@ -791,7 +791,7 @@ module.exports = "<div class=\"\">\n    <div class=\"bg-gray p-3\">\n        <di
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span>\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span>\n                &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p class=\"font-weight-bold\"><span>{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p>{{ ticket.name | changeLanguage }} / {{ getTicketPrice(ticket).single | currency : 'JPY' }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close()\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>"
+module.exports = "<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span>\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span>\n                &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"isTicketedSeatScreeningEvent()\" class=\"font-weight-bold\"><span>{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p>{{ ticket.name | changeLanguage }} / {{ getTicketPrice(ticket).single | currency : 'JPY' }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close()\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -5242,11 +5242,6 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                     return;
                 }
                 _this.store.dispatch(new actions_1.purchaseAction.SelectSchedule({ screeningEvent: screeningEvent }));
-                if (screeningEvent !== undefined
-                    && !functions_1.isTicketedSeatScreeningEvent(screeningEvent)) {
-                    _this.getTickets();
-                    return;
-                }
                 _this.getScreeningEventOffers().then(function () {
                     _this.getTickets();
                 }).catch(function () {
@@ -5319,11 +5314,6 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('purchase.event.ticket.alert.limit', { value: limit })
             });
-            return;
-        }
-        if (screeningEvent !== undefined
-            && !functions_1.isTicketedSeatScreeningEvent(screeningEvent)) {
-            this.temporaryReservation(reservationTickets);
             return;
         }
         this.getScreeningEventOffers().then(function () {
@@ -8409,6 +8399,7 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
         this.getTicketPrice = functions_1.getTicketPrice;
         this.moment = moment;
         this.getRemainingSeatLength = functions_1.getRemainingSeatLength;
+        this.isTicketedSeatScreeningEvent = functions_1.isTicketedSeatScreeningEvent;
     }
     PurchaseEventTicketModalComponent.prototype.ngOnInit = function () {
         this.tickets = [];
@@ -8420,8 +8411,10 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
         var limit = (this.screeningEvent.offers === undefined
             || this.screeningEvent.offers.eligibleQuantity.maxValue === undefined)
             ? 0 : this.screeningEvent.offers.eligibleQuantity.maxValue;
-        var remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers);
-        limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
+        if (functions_1.isTicketedSeatScreeningEvent(this.screeningEvent)) {
+            var remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers);
+            limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
+        }
         for (var i = 0; i < limit; i++) {
             this.values.push(i + 1);
         }
