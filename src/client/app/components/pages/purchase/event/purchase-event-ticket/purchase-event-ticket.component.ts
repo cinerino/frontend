@@ -9,7 +9,14 @@ import { BsModalService } from 'ngx-bootstrap';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
-import { changeTicketCount, getTicketPrice, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../functions';
+import {
+    changeTicketCount,
+    getRemainingSeatLength,
+    getTicketPrice,
+    IScreeningEventWork,
+    isTicketedSeatScreeningEvent,
+    screeningEventsToWorkEvents
+} from '../../../../../functions';
 import { IReservationTicket } from '../../../../../models';
 import { UtilService } from '../../../../../services';
 import { masterAction, purchaseAction } from '../../../../../store/actions';
@@ -138,7 +145,19 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                     return;
                 }
                 this.store.dispatch(new purchaseAction.SelectSchedule({ screeningEvent }));
-                this.getTickets();
+                if (screeningEvent !== undefined
+                    && !isTicketedSeatScreeningEvent(screeningEvent)) {
+                        this.getTickets();
+                    return;
+                }
+                this.getScreeningEventOffers().then(() => {
+                    this.getTickets();
+                }).catch(() => {
+                    this.util.openAlert({
+                        title: this.translate.instant('common.error'),
+                        body: ''
+                    });
+                });
             }).unsubscribe();
         }).unsubscribe();
     }
@@ -167,7 +186,10 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         const fail = this.actions.pipe(
             ofType(purchaseAction.ActionTypes.GetTicketListFail),
             tap(() => {
-                this.router.navigate(['/error']);
+                this.util.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: ''
+                });
             })
         );
         race(success, fail).pipe(take(1)).subscribe();
@@ -179,26 +201,15 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     private openTicketList() {
         this.purchase.subscribe((purchase) => {
             const screeningEvent = purchase.screeningEvent;
+            const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
+            const screeningEventOffers = purchase.screeningEventOffers;
             this.modal.show(PurchaseEventTicketModalComponent, {
                 initialState: {
-                    screeningEventTicketOffers: purchase.screeningEventTicketOffers,
+                    screeningEventTicketOffers,
+                    screeningEventOffers,
                     screeningEvent,
                     cb: (reservationTickets: IReservationTicket[]) => {
-                        const limit = (screeningEvent === undefined
-                            || screeningEvent.offers === undefined
-                            || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
-                            ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
-                        if (reservationTickets.length > limit) {
-                            this.util.openAlert({
-                                title: this.translate.instant('common.error'),
-                                body: this.translate.instant(
-                                    'purchase.event.ticket.alert.limit',
-                                    { value: limit }
-                                )
-                            });
-                            return;
-                        }
-                        this.getScreeningEventOffers(reservationTickets);
+                        this.selectTicket(reservationTickets, screeningEvent);
                     }
                 },
                 class: 'modal-dialog-centered'
@@ -207,33 +218,74 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * 券種選択
+     */
+    private selectTicket(
+        reservationTickets: IReservationTicket[],
+        screeningEvent?: factory.chevre.event.screeningEvent.IEvent
+    ) {
+        const limit = (screeningEvent === undefined
+            || screeningEvent.offers === undefined
+            || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
+            ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
+        if (reservationTickets.length > limit) {
+            this.util.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant(
+                    'purchase.event.ticket.alert.limit',
+                    { value: limit }
+                )
+            });
+            return;
+        }
+        if (screeningEvent !== undefined
+            && !isTicketedSeatScreeningEvent(screeningEvent)) {
+            this.temporaryReservation(reservationTickets);
+            return;
+        }
+        this.getScreeningEventOffers().then(() => {
+            this.purchase.subscribe((purchase) => {
+                const remainingSeatLength = getRemainingSeatLength(purchase.screeningEventOffers);
+                if (remainingSeatLength < reservationTickets.length) {
+                    this.util.openAlert({
+                        title: this.translate.instant('common.error'),
+                        body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
+                    });
+                    return;
+                }
+                this.temporaryReservation(reservationTickets);
+            }).unsubscribe();
+        }).catch(() => {
+            this.util.openAlert({
+                title: this.translate.instant('common.error'),
+                body: ''
+            });
+        });
+    }
+
+    /**
      * 空席情報取得
      */
-    public getScreeningEventOffers(reservationTickets: IReservationTicket[]) {
-        this.purchase.subscribe((purchase) => {
-            if (purchase.screeningEvent === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            const screeningEvent = purchase.screeningEvent;
-            this.store.dispatch(new purchaseAction.GetScreeningEventOffers({ screeningEvent }));
-        }).unsubscribe();
-        const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.GetScreeningEventOffersSuccess),
-            tap(() => {
-                this.temporaryReservation(reservationTickets);
-            })
-        );
-        const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.GetScreeningEventOffersFail),
-            tap(() => {
-                this.util.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
-                });
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+    public getScreeningEventOffers() {
+        return new Promise((resolve, reject) => {
+            this.purchase.subscribe((purchase) => {
+                if (purchase.screeningEvent === undefined) {
+                    this.router.navigate(['/error']);
+                    return;
+                }
+                const screeningEvent = purchase.screeningEvent;
+                this.store.dispatch(new purchaseAction.GetScreeningEventOffers({ screeningEvent }));
+            }).unsubscribe();
+            const success = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.GetScreeningEventOffersSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.GetScreeningEventOffersFail),
+                tap(() => { reject(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
     }
 
     /**
