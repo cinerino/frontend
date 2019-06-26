@@ -5324,13 +5324,16 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
         }
         this.getScreeningEventOffers().then(function () {
             _this.purchase.subscribe(function (purchase) {
-                var remainingSeatLength = functions_1.getRemainingSeatLength(purchase.screeningEventOffers);
-                if (remainingSeatLength < reservationTickets.length) {
-                    _this.util.openAlert({
-                        title: _this.translate.instant('common.error'),
-                        body: _this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
-                    });
-                    return;
+                if (purchase.screeningEvent !== undefined
+                    && functions_1.isTicketedSeatScreeningEvent(purchase.screeningEvent)) {
+                    var remainingSeatLength = functions_1.getRemainingSeatLength(purchase.screeningEventOffers);
+                    if (remainingSeatLength < reservationTickets.length) {
+                        _this.util.openAlert({
+                            title: _this.translate.instant('common.error'),
+                            body: _this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
+                        });
+                        return;
+                    }
                 }
                 _this.temporaryReservation(reservationTickets);
             }).unsubscribe();
