@@ -791,7 +791,7 @@ module.exports = "<div class=\"\">\n    <div class=\"bg-gray p-3\">\n        <di
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span>\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span>\n                &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p>{{ ticket.name | changeLanguage }} / {{ getTicketPrice(ticket).single | currency : 'JPY' }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close()\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>"
+module.exports = "<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span>\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span>\n                &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"isTicketedSeatScreeningEvent(screeningEvent)\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p>{{ ticket.name | changeLanguage }} / {{ getTicketPrice(ticket).single | currency : 'JPY' }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close()\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -5248,7 +5248,14 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                     return;
                 }
                 _this.store.dispatch(new actions_1.purchaseAction.SelectSchedule({ screeningEvent: screeningEvent }));
-                _this.getTickets();
+                _this.getScreeningEventOffers().then(function () {
+                    _this.getTickets();
+                }).catch(function () {
+                    _this.util.openAlert({
+                        title: _this.translate.instant('common.error'),
+                        body: ''
+                    });
+                });
             }).unsubscribe();
         }).unsubscribe();
     };
@@ -5270,7 +5277,10 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
             _this.openTicketList();
         }));
         var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
+            _this.util.openAlert({
+                title: _this.translate.instant('common.error'),
+                body: ''
+            });
         }));
         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
     };
@@ -5281,23 +5291,15 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
         var _this = this;
         this.purchase.subscribe(function (purchase) {
             var screeningEvent = purchase.screeningEvent;
+            var screeningEventTicketOffers = purchase.screeningEventTicketOffers;
+            var screeningEventOffers = purchase.screeningEventOffers;
             _this.modal.show(parts_1.PurchaseEventTicketModalComponent, {
                 initialState: {
-                    screeningEventTicketOffers: purchase.screeningEventTicketOffers,
+                    screeningEventTicketOffers: screeningEventTicketOffers,
+                    screeningEventOffers: screeningEventOffers,
                     screeningEvent: screeningEvent,
                     cb: function (reservationTickets) {
-                        var limit = (screeningEvent === undefined
-                            || screeningEvent.offers === undefined
-                            || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
-                            ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
-                        if (reservationTickets.length > limit) {
-                            _this.util.openAlert({
-                                title: _this.translate.instant('common.error'),
-                                body: _this.translate.instant('purchase.event.ticket.alert.limit', { value: limit })
-                            });
-                            return;
-                        }
-                        _this.getScreeningEventOffers(reservationTickets);
+                        _this.selectTicket(reservationTickets, screeningEvent);
                     }
                 },
                 class: 'modal-dialog-centered'
@@ -5305,28 +5307,58 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
         }).unsubscribe();
     };
     /**
-     * 空席情報取得
+     * 券種選択
      */
-    PurchaseEventTicketComponent.prototype.getScreeningEventOffers = function (reservationTickets) {
+    PurchaseEventTicketComponent.prototype.selectTicket = function (reservationTickets, screeningEvent) {
         var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.screeningEvent === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            var screeningEvent = purchase.screeningEvent;
-            _this.store.dispatch(new actions_1.purchaseAction.GetScreeningEventOffers({ screeningEvent: screeningEvent }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersSuccess), operators_1.tap(function () {
-            _this.temporaryReservation(reservationTickets);
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersFail), operators_1.tap(function () {
+        var limit = (screeningEvent === undefined
+            || screeningEvent.offers === undefined
+            || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
+            ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
+        if (reservationTickets.length > limit) {
+            this.util.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('purchase.event.ticket.alert.limit', { value: limit })
+            });
+            return;
+        }
+        this.getScreeningEventOffers().then(function () {
+            _this.purchase.subscribe(function (purchase) {
+                var remainingSeatLength = functions_1.getRemainingSeatLength(purchase.screeningEventOffers);
+                if (remainingSeatLength < reservationTickets.length) {
+                    _this.util.openAlert({
+                        title: _this.translate.instant('common.error'),
+                        body: _this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
+                    });
+                    return;
+                }
+                _this.temporaryReservation(reservationTickets);
+            }).unsubscribe();
+        }).catch(function () {
             _this.util.openAlert({
                 title: _this.translate.instant('common.error'),
-                body: _this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
+                body: ''
             });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
+    };
+    /**
+     * 空席情報取得
+     */
+    PurchaseEventTicketComponent.prototype.getScreeningEventOffers = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.purchase.subscribe(function (purchase) {
+                if (purchase.screeningEvent === undefined) {
+                    _this.router.navigate(['/error']);
+                    return;
+                }
+                var screeningEvent = purchase.screeningEvent;
+                _this.store.dispatch(new actions_1.purchaseAction.GetScreeningEventOffers({ screeningEvent: screeningEvent }));
+            }).unsubscribe();
+            var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersSuccess), operators_1.tap(function () { resolve(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersFail), operators_1.tap(function () { reject(); }));
+            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     /**
      * 仮予約
@@ -8372,6 +8404,8 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
         this.modal = modal;
         this.getTicketPrice = functions_1.getTicketPrice;
         this.moment = moment;
+        this.getRemainingSeatLength = functions_1.getRemainingSeatLength;
+        this.isTicketedSeatScreeningEvent = functions_1.isTicketedSeatScreeningEvent;
     }
     PurchaseEventTicketModalComponent.prototype.ngOnInit = function () {
         this.tickets = [];
@@ -8383,6 +8417,10 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
         var limit = (this.screeningEvent.offers === undefined
             || this.screeningEvent.offers.eligibleQuantity.maxValue === undefined)
             ? 0 : this.screeningEvent.offers.eligibleQuantity.maxValue;
+        if (functions_1.isTicketedSeatScreeningEvent(this.screeningEvent)) {
+            var remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers);
+            limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
+        }
         for (var i = 0; i < limit; i++) {
             this.values.push(i + 1);
         }
@@ -8416,6 +8454,10 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
         core_1.Input(),
         __metadata("design:type", Array)
     ], PurchaseEventTicketModalComponent.prototype, "screeningEventTicketOffers", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Array)
+    ], PurchaseEventTicketModalComponent.prototype, "screeningEventOffers", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Object)
@@ -10384,6 +10426,21 @@ function changeTicketCount(acceptedOffer) {
     return result;
 }
 exports.changeTicketCount = changeTicketCount;
+/**
+ * 残席数取得
+ */
+function getRemainingSeatLength(screeningEventOffers) {
+    var result = 0;
+    screeningEventOffers.forEach(function (s) {
+        var sectionResult = s.containsPlace.filter(function (c) {
+            return (c.offers !== undefined
+                && c.offers[0].availability === api_javascript_client_1.factory.chevre.itemAvailability.InStock);
+        });
+        result += sectionResult.length;
+    });
+    return result;
+}
+exports.getRemainingSeatLength = getRemainingSeatLength;
 
 
 /***/ }),
@@ -14514,7 +14571,7 @@ var PurchaseEffects = /** @class */ (function () {
          * GetScreeningEventOffers
          */
         this.getScreeningEventOffers = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffers), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var screeningEvent, screeningEventOffers, offersResult, error_4;
+            var screeningEvent, screeningEventOffers, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -14530,16 +14587,6 @@ var PurchaseEffects = /** @class */ (function () {
                             })];
                     case 2:
                         screeningEventOffers = _a.sent();
-                        offersResult = screeningEventOffers.filter(function (s) {
-                            var sectionResult = s.containsPlace.filter(function (c) {
-                                return (c.offers !== undefined
-                                    && c.offers[0].availability === api_javascript_client_1.factory.chevre.itemAvailability.InStock);
-                            });
-                            return (sectionResult.length > 0);
-                        });
-                        if (offersResult.length === 0) {
-                            throw { error: 'itemAvailability.InStock notfound' };
-                        }
                         _a.label = 3;
                     case 3: return [2 /*return*/, new actions_1.purchaseAction.GetScreeningEventOffersSuccess({ screeningEventOffers: screeningEventOffers })];
                     case 4:

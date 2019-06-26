@@ -153,16 +153,6 @@ export class PurchaseEffects {
                     screeningEventOffers = await this.cinerino.event.searchScreeningEventOffers({
                         eventId: screeningEvent.id
                     });
-                    const offersResult = screeningEventOffers.filter((s) => {
-                        const sectionResult = s.containsPlace.filter(c => {
-                            return (c.offers !== undefined
-                                && c.offers[0].availability === factory.chevre.itemAvailability.InStock);
-                        });
-                        return (sectionResult.length > 0);
-                    });
-                    if (offersResult.length === 0) {
-                        throw { error: 'itemAvailability.InStock notfound' };
-                    }
                 }
 
                 return new purchaseAction.GetScreeningEventOffersSuccess({ screeningEventOffers });
