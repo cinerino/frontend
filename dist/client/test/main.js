@@ -791,7 +791,7 @@ module.exports = "<div class=\"\">\n    <div class=\"bg-gray p-3\">\n        <di
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span>\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span>\n                &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"isTicketedSeatScreeningEvent(screeningEvent)\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p>{{ ticket.name | changeLanguage }} / {{ getTicketPrice(ticket).single | currency : 'JPY' }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close()\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>"
+module.exports = "<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span>\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span>\n                &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"isViewRemainingSeatCount()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p>{{ ticket.name | changeLanguage }} / {{ getTicketPrice(ticket).single | currency : 'JPY' }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close()\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -8401,6 +8401,7 @@ var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angul
 var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+var environment_1 = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
 var PurchaseEventTicketModalComponent = /** @class */ (function () {
     function PurchaseEventTicketModalComponent(modal) {
@@ -8452,6 +8453,28 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
             }
         });
         return reservationTickets;
+    };
+    /**
+     * 残席数表示判定
+     */
+    PurchaseEventTicketModalComponent.prototype.isViewRemainingSeatCount = function () {
+        var remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers);
+        var screeningEvent = this.screeningEvent;
+        if (!functions_1.isTicketedSeatScreeningEvent(screeningEvent)) {
+            return false;
+        }
+        var unit = environment_1.environment.PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT;
+        var value = Number(environment_1.environment.PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE);
+        if (unit === '%') {
+            var maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
+            if (maximumAttendeeCapacity === undefined) {
+                return false;
+            }
+            return (Math.floor(remainingSeatLength / maximumAttendeeCapacity * 100) < value);
+        }
+        else {
+            return (remainingSeatLength < value);
+        }
     };
     __decorate([
         core_1.Input(),
@@ -16546,6 +16569,8 @@ var defaultEnvironment = {
     PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES: '-20',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
+    PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE: '0',
+    PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT: 'seat',
     PURCHASE_COMPLETE_MAIL_CUSTOM: false,
     PURCHASE_TERMS: false,
     PURCHASE_WARNING: false,

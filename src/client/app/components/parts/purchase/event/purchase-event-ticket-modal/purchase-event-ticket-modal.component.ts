@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
+import { environment } from '../../../../../../environments/environment';
 import { getRemainingSeatLength, getTicketPrice, isTicketedSeatScreeningEvent } from '../../../../../functions';
 import { IReservationTicket } from '../../../../../models';
 
@@ -74,6 +75,28 @@ export class PurchaseEventTicketModalComponent implements OnInit {
         });
 
         return reservationTickets;
+    }
+
+    /**
+     * 残席数表示判定
+     */
+    public isViewRemainingSeatCount() {
+        const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers);
+        const screeningEvent = this.screeningEvent;
+        if (!isTicketedSeatScreeningEvent(screeningEvent)) {
+            return false;
+        }
+        const unit = environment.PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT;
+        const value = Number(environment.PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE);
+        if (unit === '%') {
+            const maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
+            if (maximumAttendeeCapacity === undefined) {
+                return false;
+            }
+            return (Math.floor(remainingSeatLength / maximumAttendeeCapacity * 100) < value);
+        } else {
+            return (remainingSeatLength < value);
+        }
     }
 
 }

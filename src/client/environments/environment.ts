@@ -145,6 +145,14 @@ interface IEnvironment {
      */
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: string;
     /**
+     * 残席数表示閾値
+     */
+    PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE: string;
+    /**
+     * 残席数表示閾値単位（%, seat）
+     */
+    PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT: string;
+    /**
      * 購入完了メールカスタム
      */
     PURCHASE_COMPLETE_MAIL_CUSTOM: boolean;
@@ -232,6 +240,8 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES: '-20',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
+    PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE: '0',
+    PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT: 'seat',
     PURCHASE_COMPLETE_MAIL_CUSTOM: false,
     PURCHASE_TERMS: false,
     PURCHASE_WARNING: false,
