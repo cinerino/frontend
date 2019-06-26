@@ -14,6 +14,7 @@ import {
     getRemainingSeatLength,
     getTicketPrice,
     IScreeningEventWork,
+    isTicketedSeatScreeningEvent,
     screeningEventsToWorkEvents
 } from '../../../../../functions';
 import { IReservationTicket } from '../../../../../models';
@@ -234,13 +235,16 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         }
         this.getScreeningEventOffers().then(() => {
             this.purchase.subscribe((purchase) => {
-                const remainingSeatLength = getRemainingSeatLength(purchase.screeningEventOffers);
-                if (remainingSeatLength < reservationTickets.length) {
-                    this.util.openAlert({
-                        title: this.translate.instant('common.error'),
-                        body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
-                    });
-                    return;
+                if (purchase.screeningEvent !== undefined
+                    && isTicketedSeatScreeningEvent(purchase.screeningEvent)) {
+                    const remainingSeatLength = getRemainingSeatLength(purchase.screeningEventOffers);
+                    if (remainingSeatLength < reservationTickets.length) {
+                        this.util.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
+                        });
+                        return;
+                    }
                 }
                 this.temporaryReservation(reservationTickets);
             }).unsubscribe();

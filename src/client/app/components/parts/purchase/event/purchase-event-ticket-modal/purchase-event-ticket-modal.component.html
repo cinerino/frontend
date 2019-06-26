@@ -23,7 +23,7 @@
                 &nbsp;/&nbsp;<span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
             </span>
         </p>
-        <p *ngIf="isTicketedSeatScreeningEvent(screeningEvent)" class="font-weight-bold"><span>{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers) }}</p>
+        <p *ngIf="isTicketedSeatScreeningEvent(screeningEvent)" class="font-weight-bold"><span class="mr-1">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers) }}</p>
     </div>
     <hr class="mb-3">
     <ul class="mb-4">
