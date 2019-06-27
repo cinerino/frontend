@@ -593,3 +593,21 @@ export function changeTicketCount(
     });
     return result;
 }
+
+/**
+ * 残席数取得
+ */
+export function getRemainingSeatLength(
+    screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[]
+) {
+    let result = 0;
+    screeningEventOffers.forEach((s) => {
+        const sectionResult = s.containsPlace.filter(c => {
+            return (c.offers !== undefined
+                && c.offers[0].availability === factory.chevre.itemAvailability.InStock);
+        });
+        result += sectionResult.length;
+    });
+
+    return result;
+}

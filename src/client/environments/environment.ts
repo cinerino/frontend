@@ -124,6 +124,11 @@ interface IEnvironment {
     'second' | 'seconds' | 's' |
     'millisecond' | 'milliseconds' | 'ms';
     /**
+     * 売止時間(HHmmss)
+     * 設定しない場合は空文字('')
+     */
+    PURCHASE_SCHEDULE_SALES_STOP_TIME: string;
+    /**
      * スケジュール初期選択日（相対的）
      */
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: string;
@@ -139,6 +144,14 @@ interface IEnvironment {
      * スケジュールステータス閾値単位（%）
      */
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: string;
+    /**
+     * 残席数表示閾値
+     */
+    PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE: string;
+    /**
+     * 残席数表示閾値単位（%, seat）
+     */
+    PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT: string;
     /**
      * 購入完了メールカスタム
      */
@@ -222,10 +235,13 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_SCHEDULE_OPEN_DATE: '2019-05-01',
     PURCHASE_SCHEDULE_SALES_DATE_VALUE: '0',
     PURCHASE_SCHEDULE_SALES_DATE_UNIT: 'hour',
+    PURCHASE_SCHEDULE_SALES_STOP_TIME: '',
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
     PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES: '-20',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
+    PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE: '0',
+    PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT: 'seat',
     PURCHASE_COMPLETE_MAIL_CUSTOM: false,
     PURCHASE_TERMS: false,
     PURCHASE_WARNING: false,
