@@ -154,13 +154,19 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         if (date !== undefined && date !== null) {
             this.scheduleDate = date;
         }
+        const now = moment().toDate();
         const selectDate = moment(moment(this.scheduleDate).format('YYYYMMDD')).toDate();
-        const salesStopDate = moment(selectDate)
+        const salesStopDate = moment(moment().format('YYYYMMDD'))
             .add(environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE, environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT)
             .toDate();
         const openDate = moment(environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
-        const now = moment().toDate();
-        this.isSales = (selectDate >= openDate && salesStopDate > now);
+        this.isSales = (selectDate >= openDate && selectDate >= salesStopDate);
+        if (this.isSales
+            && environment.PURCHASE_SCHEDULE_SALES_STOP_TIME !== ''
+            && moment(salesStopDate).unix() === moment(selectDate).unix()) {
+            const salesStopTime = moment(environment.PURCHASE_SCHEDULE_SALES_STOP_TIME, 'HHmmss').format('HHmmss');
+            this.isSales = (moment(now).format('HHmmss') < salesStopTime);
+        }
         this.purchase.subscribe((purchase) => {
             const seller = purchase.seller;
             if (seller === undefined) {

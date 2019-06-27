@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
-import { getTicketPrice } from '../../../../../functions';
+import { environment } from '../../../../../../environments/environment';
+import { getRemainingSeatLength, getTicketPrice, isTicketedSeatScreeningEvent } from '../../../../../functions';
 import { IReservationTicket } from '../../../../../models';
 
 @Component({
@@ -13,6 +14,7 @@ import { IReservationTicket } from '../../../../../models';
 export class PurchaseEventTicketModalComponent implements OnInit {
 
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
+    @Input() public screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
     @Input() public screeningEvent: factory.event.screeningEvent.IEvent;
     @Input() public cb: (reservationTickets: IReservationTicket[]) => void;
     public tickets: factory.chevre.event.screeningEvent.ITicketOffer[];
@@ -20,6 +22,8 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     public values: Number[];
     public selectedTickets: { [key: string]: string; };
     public moment: typeof moment = moment;
+    public getRemainingSeatLength = getRemainingSeatLength;
+    public isTicketedSeatScreeningEvent = isTicketedSeatScreeningEvent;
 
     constructor(
         public modal: BsModalRef
@@ -34,9 +38,13 @@ export class PurchaseEventTicketModalComponent implements OnInit {
             return movieTicketTypeChargeSpecification === undefined;
         });
         this.values = [];
-        const limit = (this.screeningEvent.offers === undefined
+        let limit = (this.screeningEvent.offers === undefined
             || this.screeningEvent.offers.eligibleQuantity.maxValue === undefined)
             ? 0 : this.screeningEvent.offers.eligibleQuantity.maxValue;
+        if (isTicketedSeatScreeningEvent(this.screeningEvent)) {
+            const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers);
+            limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
+        }
         for (let i = 0; i < limit; i++) {
             this.values.push(i + 1);
         }
@@ -67,6 +75,28 @@ export class PurchaseEventTicketModalComponent implements OnInit {
         });
 
         return reservationTickets;
+    }
+
+    /**
+     * 残席数表示判定
+     */
+    public isViewRemainingSeatCount() {
+        const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers);
+        const screeningEvent = this.screeningEvent;
+        if (!isTicketedSeatScreeningEvent(screeningEvent)) {
+            return false;
+        }
+        const unit = environment.PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT;
+        const value = Number(environment.PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE);
+        if (unit === '%') {
+            const maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
+            if (maximumAttendeeCapacity === undefined) {
+                return false;
+            }
+            return (Math.floor(remainingSeatLength / maximumAttendeeCapacity * 100) < value);
+        } else {
+            return (remainingSeatLength < value);
+        }
     }
 
 }
