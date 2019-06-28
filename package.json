@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "ng": "ng",
-    "build-client": "ng build --configuration=production && ng build --configuration=test && ng build --configuration=development",
+    "build-client": "ng build --configuration=production --stats-json && ng build --configuration=test && ng build --configuration=development",
     "build-client-local": "ng build --configuration=local",
     "test-client": "ng test --code-coverage",
     "lint-client": "tslint --config tslint.json src/client/**/**.ts --exclude **/**.spec.ts --project src/client/tsconfig.json",
@@ -31,7 +31,8 @@
     "postversion": "git push origin --tags",
     "clean": "rimraf src/**/*.spec.ts",
     "update": "npm install @cinerino/api-javascript-client@next @cinerino/api-nodejs-client@next",
-    "uninstall": "npm uninstall @cinerino/api-javascript-client @cinerino/api-nodejs-client"
+    "uninstall": "npm uninstall @cinerino/api-javascript-client @cinerino/api-nodejs-client",
+    "analyze": "webpack-bundle-analyzer dist/client/production/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -113,6 +114,7 @@
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-microsoft-contrib": "^5.1.0",
-    "typescript": "^3.2.4"
+    "typescript": "^3.2.4",
+    "webpack-bundle-analyzer": "^3.3.2"
   }
 }
