@@ -9752,7 +9752,7 @@ function drawCanvas(args) {
                                     }
                                     continue;
                                 default:
-                                    value = "" + ((text.value === undefined) ? '' : text.value) + ((data[text.name] === undefined) ? '' : data[text.name]);
+                                    value = "" + ((text.value === undefined) ? '' : text.value) + ((data[text.name] === undefined) ? '-' : data[text.name]);
                             }
                         }
                         else if (text.value !== undefined) {
