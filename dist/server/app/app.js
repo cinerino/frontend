@@ -1,5 +1,6 @@
 "use strict";
 const bodyParser = require("body-parser");
+const compression = require("compression");
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const helmet = require("helmet");
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.set('views', `${__dirname}/../../../views`); // view設定
 app.set('view engine', 'ejs');
+app.use(compression());
 app.use(express.static(`${__dirname}/../../../public`)); // server
 app.use(express.static(`${__dirname}/../../client/${process.env.NODE_ENV}`, {
     index: false
