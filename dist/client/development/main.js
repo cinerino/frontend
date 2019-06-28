@@ -9752,7 +9752,7 @@ function drawCanvas(args) {
                                     }
                                     continue;
                                 default:
-                                    value = "" + ((text.value === undefined) ? '' : text.value) + ((data[text.name] === undefined) ? '' : data[text.name]);
+                                    value = "" + ((text.value === undefined) ? '' : text.value) + ((data[text.name] === undefined) ? '-' : data[text.name]);
                             }
                         }
                         else if (text.value !== undefined) {
@@ -14150,18 +14150,18 @@ var OrderEffects = /** @class */ (function () {
          * print
          */
         this.print = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.Print), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var orders, printer, pos, authorizeOrders, _loop_2, _i, orders_2, order, printData, testFlg, canvasList, canvas, _a, authorizeOrders_1, authorizeOrder, index, _b, _c, acceptedOffer, itemOffered, order, qrcode, additionalProperty, isDisplayQrcode, encyptText, encryptionEncodeResult, canvas, _d, domList, error_5;
+            var orders, printer, pos, authorizeOrders, _loop_2, _i, orders_2, order, printData, testFlg, canvasList, canvas, _loop_3, this_2, _a, authorizeOrders_1, authorizeOrder, _b, domList, error_5;
             var _this = this;
-            return __generator(this, function (_e) {
-                switch (_e.label) {
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        _e.trys.push([0, 24, , 25]);
+                        _c.trys.push([0, 20, , 21]);
                         orders = payload.orders;
                         printer = payload.printer;
                         pos = payload.pos;
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
-                        _e.sent();
+                        _c.sent();
                         authorizeOrders = [];
                         _loop_2 = function (order) {
                             var result;
@@ -14196,124 +14196,160 @@ var OrderEffects = /** @class */ (function () {
                             });
                         };
                         _i = 0, orders_2 = orders;
-                        _e.label = 2;
+                        _c.label = 2;
                     case 2:
                         if (!(_i < orders_2.length)) return [3 /*break*/, 5];
                         order = orders_2[_i];
                         return [5 /*yield**/, _loop_2(order)];
                     case 3:
-                        _e.sent();
-                        _e.label = 4;
+                        _c.sent();
+                        _c.label = 4;
                     case 4:
                         _i++;
                         return [3 /*break*/, 2];
                     case 5: return [4 /*yield*/, this.util.getJson('/storage/json/print/ticket.json')];
                     case 6:
-                        printData = _e.sent();
+                        printData = _c.sent();
                         testFlg = orders.length === 0;
                         canvasList = [];
                         if (!testFlg) return [3 /*break*/, 8];
                         return [4 /*yield*/, functions_1.createTestPrintCanvas({ printData: printData })];
                     case 7:
-                        canvas = _e.sent();
+                        canvas = _c.sent();
                         canvasList.push(canvas);
-                        return [3 /*break*/, 16];
+                        return [3 /*break*/, 12];
                     case 8:
+                        _loop_3 = function (authorizeOrder) {
+                            var index, _loop_4, _i, _a, acceptedOffer;
+                            return __generator(this, function (_b) {
+                                switch (_b.label) {
+                                    case 0:
+                                        index = 0;
+                                        _loop_4 = function (acceptedOffer) {
+                                            var itemOffered, order, qrcode, additionalProperty, isDisplayQrcode, encyptText, encryptionEncodeResult, canvas;
+                                            return __generator(this, function (_a) {
+                                                switch (_a.label) {
+                                                    case 0:
+                                                        itemOffered = acceptedOffer.itemOffered;
+                                                        if (itemOffered.typeOf !== api_javascript_client_1.factory.chevre.reservationType.EventReservation) {
+                                                            return [2 /*return*/, "continue"];
+                                                        }
+                                                        order = authorizeOrder;
+                                                        qrcode = itemOffered.reservedTicket.ticketToken;
+                                                        additionalProperty = (itemOffered.reservationFor.workPerformed === undefined)
+                                                            ? undefined : itemOffered.reservationFor.workPerformed.additionalProperty;
+                                                        if (additionalProperty !== undefined) {
+                                                            isDisplayQrcode = additionalProperty.find(function (a) { return a.name === 'qrcode'; });
+                                                            if (isDisplayQrcode !== undefined && isDisplayQrcode.value === 'false') {
+                                                                qrcode = undefined;
+                                                            }
+                                                        }
+                                                        if (!(qrcode !== undefined
+                                                            && environment_1.environment.PRINT_QRCODE_TYPE === models_1.PrintQrcodeType.Encryption)) return [3 /*break*/, 2];
+                                                        encyptText = itemOffered.reservationFor.id + "=" + itemOffered.reservationFor.startDate;
+                                                        return [4 /*yield*/, this_2.util.encryptionEncode(encyptText)];
+                                                    case 1:
+                                                        encryptionEncodeResult = _a.sent();
+                                                        qrcode =
+                                                            encryptionEncodeResult.salt + "," + encryptionEncodeResult.iv + "," + encryptionEncodeResult.encrypted;
+                                                        _a.label = 2;
+                                                    case 2:
+                                                        if (qrcode !== undefined
+                                                            && environment_1.environment.PRINT_QRCODE_TYPE === models_1.PrintQrcodeType.Custom) {
+                                                            // QRコードカスタム文字列
+                                                            qrcode = environment_1.environment.PRINT_QRCODE_CUSTOM;
+                                                            qrcode = qrcode
+                                                                .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment(order.orderDate).format('YYMMDD'));
+                                                            qrcode = qrcode
+                                                                .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
+                                                            qrcode = qrcode
+                                                                .replace(/\{\{ confirmationNumber \| [0-9] \}\}/g, function (match) {
+                                                                var digit = Number(match.replace(/\{\{ confirmationNumber \| ([0-9]) \}\}/, '$1'));
+                                                                return ("000000000" + order.confirmationNumber).slice(-1 * digit);
+                                                            });
+                                                            qrcode = qrcode
+                                                                .replace(/\{\{ index \}\}/g, String(index));
+                                                            qrcode = qrcode
+                                                                .replace(/\{\{ index \| [0-9] \}\}/g, function (match) {
+                                                                var digit = Number(match.replace(/\{\{ index \| ([0-9]) \}\}/, '$1'));
+                                                                return ("000000000" + String(index)).slice(-1 * digit);
+                                                            });
+                                                            qrcode = qrcode
+                                                                .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
+                                                            qrcode = qrcode
+                                                                .replace(/\{\{ startDate \| YYMMDD \}\}/g, moment(itemOffered.reservationFor.startDate).format('YYMMDD'));
+                                                        }
+                                                        return [4 /*yield*/, functions_1.createPrintCanvas({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode, index: index })];
+                                                    case 3:
+                                                        canvas = _a.sent();
+                                                        canvasList.push(canvas);
+                                                        index++;
+                                                        return [2 /*return*/];
+                                                }
+                                            });
+                                        };
+                                        _i = 0, _a = authorizeOrder.acceptedOffers;
+                                        _b.label = 1;
+                                    case 1:
+                                        if (!(_i < _a.length)) return [3 /*break*/, 4];
+                                        acceptedOffer = _a[_i];
+                                        return [5 /*yield**/, _loop_4(acceptedOffer)];
+                                    case 2:
+                                        _b.sent();
+                                        _b.label = 3;
+                                    case 3:
+                                        _i++;
+                                        return [3 /*break*/, 1];
+                                    case 4: return [2 /*return*/];
+                                }
+                            });
+                        };
+                        this_2 = this;
                         _a = 0, authorizeOrders_1 = authorizeOrders;
-                        _e.label = 9;
+                        _c.label = 9;
                     case 9:
-                        if (!(_a < authorizeOrders_1.length)) return [3 /*break*/, 16];
+                        if (!(_a < authorizeOrders_1.length)) return [3 /*break*/, 12];
                         authorizeOrder = authorizeOrders_1[_a];
-                        index = 0;
-                        _b = 0, _c = authorizeOrder.acceptedOffers;
-                        _e.label = 10;
+                        return [5 /*yield**/, _loop_3(authorizeOrder)];
                     case 10:
-                        if (!(_b < _c.length)) return [3 /*break*/, 15];
-                        acceptedOffer = _c[_b];
-                        itemOffered = acceptedOffer.itemOffered;
-                        if (itemOffered.typeOf !== api_javascript_client_1.factory.chevre.reservationType.EventReservation) {
-                            return [3 /*break*/, 14];
-                        }
-                        order = authorizeOrder;
-                        qrcode = itemOffered.reservedTicket.ticketToken;
-                        additionalProperty = (itemOffered.reservationFor.workPerformed === undefined)
-                            ? undefined : itemOffered.reservationFor.workPerformed.additionalProperty;
-                        if (additionalProperty !== undefined) {
-                            isDisplayQrcode = additionalProperty.find(function (a) { return a.name === 'qrcode'; });
-                            if (isDisplayQrcode !== undefined && isDisplayQrcode.value === 'false') {
-                                qrcode = undefined;
-                            }
-                        }
-                        if (!(qrcode !== undefined
-                            && environment_1.environment.PRINT_QRCODE_TYPE === models_1.PrintQrcodeType.Encryption)) return [3 /*break*/, 12];
-                        encyptText = itemOffered.reservationFor.id + "=" + itemOffered.reservationFor.startDate;
-                        return [4 /*yield*/, this.util.encryptionEncode(encyptText)];
+                        _c.sent();
+                        _c.label = 11;
                     case 11:
-                        encryptionEncodeResult = _e.sent();
-                        qrcode =
-                            encryptionEncodeResult.salt + "," + encryptionEncodeResult.iv + "," + encryptionEncodeResult.encrypted;
-                        _e.label = 12;
-                    case 12:
-                        if (qrcode !== undefined
-                            && environment_1.environment.PRINT_QRCODE_TYPE === models_1.PrintQrcodeType.Custom) {
-                            // QRコードカスタム文字列
-                            qrcode = environment_1.environment.PRINT_QRCODE_CUSTOM;
-                            qrcode = qrcode
-                                .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment(order.orderDate).format('YYMMDD'));
-                            qrcode = qrcode
-                                .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
-                            qrcode = qrcode
-                                .replace(/\{\{ index \}\}/g, String(index));
-                            qrcode = qrcode
-                                .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
-                            qrcode = qrcode
-                                .replace(/\{\{ startDate \| YYMMDD \}\}/g, moment(itemOffered.reservationFor.startDate).format('YYMMDD'));
-                        }
-                        return [4 /*yield*/, functions_1.createPrintCanvas({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode, index: index })];
-                    case 13:
-                        canvas = _e.sent();
-                        canvasList.push(canvas);
-                        index++;
-                        _e.label = 14;
-                    case 14:
-                        _b++;
-                        return [3 /*break*/, 10];
-                    case 15:
                         _a++;
                         return [3 /*break*/, 9];
-                    case 16:
-                        _d = printer.connectionType;
-                        switch (_d) {
-                            case models_1.connectionType.StarBluetooth: return [3 /*break*/, 17];
-                            case models_1.connectionType.StarLAN: return [3 /*break*/, 19];
-                            case models_1.connectionType.Image: return [3 /*break*/, 21];
+                    case 12:
+                        _b = printer.connectionType;
+                        switch (_b) {
+                            case models_1.connectionType.StarBluetooth: return [3 /*break*/, 13];
+                            case models_1.connectionType.StarLAN: return [3 /*break*/, 15];
+                            case models_1.connectionType.Image: return [3 /*break*/, 17];
                         }
-                        return [3 /*break*/, 22];
+                        return [3 /*break*/, 18];
+                    case 13:
+                        this.starPrint.initialize({ printer: printer, pos: pos });
+                        return [4 /*yield*/, this.starPrint.printProcess({ canvasList: canvasList, testFlg: testFlg })];
+                    case 14:
+                        _c.sent();
+                        return [3 /*break*/, 19];
+                    case 15:
+                        this.starPrint.initialize({ printer: printer, pos: pos });
+                        return [4 /*yield*/, this.starPrint.printProcess({ canvasList: canvasList, testFlg: testFlg })];
+                    case 16:
+                        _c.sent();
+                        return [3 /*break*/, 19];
                     case 17:
-                        this.starPrint.initialize({ printer: printer, pos: pos });
-                        return [4 /*yield*/, this.starPrint.printProcess({ canvasList: canvasList, testFlg: testFlg })];
-                    case 18:
-                        _e.sent();
-                        return [3 /*break*/, 23];
-                    case 19:
-                        this.starPrint.initialize({ printer: printer, pos: pos });
-                        return [4 /*yield*/, this.starPrint.printProcess({ canvasList: canvasList, testFlg: testFlg })];
-                    case 20:
-                        _e.sent();
-                        return [3 /*break*/, 23];
-                    case 21:
                         domList = canvasList.map(function (canvas) { return "<div class=\"mb-3 p-4 border border-light-gray \">\n                        <img class=\"w-100\" src=\"" + canvas.toDataURL() + "\">\n                        </div>"; });
                         this.util.openAlert({
                             title: '',
                             body: "<div class=\"px-5\">" + domList.join('\n') + "</div>"
                         });
-                        return [3 /*break*/, 23];
-                    case 22: return [3 /*break*/, 23];
-                    case 23: return [2 /*return*/, new actions_1.orderAction.PrintSuccess()];
-                    case 24:
-                        error_5 = _e.sent();
+                        return [3 /*break*/, 19];
+                    case 18: return [3 /*break*/, 19];
+                    case 19: return [2 /*return*/, new actions_1.orderAction.PrintSuccess()];
+                    case 20:
+                        error_5 = _c.sent();
                         return [2 /*return*/, new actions_1.orderAction.PrintFail({ error: error_5 })];
-                    case 25: return [2 /*return*/];
+                    case 21: return [2 /*return*/];
                 }
             });
         }); }));

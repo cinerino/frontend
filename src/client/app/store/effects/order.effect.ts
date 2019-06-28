@@ -264,7 +264,17 @@ export class OrderEffects {
                                 qrcode = qrcode
                                     .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
                                 qrcode = qrcode
+                                    .replace(/\{\{ confirmationNumber \| [0-9] \}\}/g, (match) => {
+                                        const digit = Number(match.replace(/\{\{ confirmationNumber \| ([0-9]) \}\}/, '$1'));
+                                        return `000000000${order.confirmationNumber}`.slice(-1 * digit);
+                                    });
+                                qrcode = qrcode
                                     .replace(/\{\{ index \}\}/g, String(index));
+                                qrcode = qrcode
+                                    .replace(/\{\{ index \| [0-9] \}\}/g, (match) => {
+                                        const digit = Number(match.replace(/\{\{ index \| ([0-9]) \}\}/, '$1'));
+                                        return `000000000${String(index)}`.slice(-1 * digit);
+                                    });
                                 qrcode = qrcode
                                     .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
                                 qrcode = qrcode

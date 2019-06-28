@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "author": {
     "name": "Motionpicture co.,ltd."
@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "ng": "ng",
-    "build-client": "ng build --configuration=production && ng build --configuration=test && ng build --configuration=development",
+    "build-client": "ng build --configuration=production --stats-json && ng build --configuration=test && ng build --configuration=development",
     "build-client-local": "ng build --configuration=local",
     "test-client": "ng test --code-coverage",
     "lint-client": "tslint --config tslint.json src/client/**/**.ts --exclude **/**.spec.ts --project src/client/tsconfig.json",
@@ -31,7 +31,8 @@
     "postversion": "git push origin --tags",
     "clean": "rimraf src/**/*.spec.ts",
     "update": "npm install @cinerino/api-javascript-client@next @cinerino/api-nodejs-client@next",
-    "uninstall": "npm uninstall @cinerino/api-javascript-client @cinerino/api-nodejs-client"
+    "uninstall": "npm uninstall @cinerino/api-javascript-client @cinerino/api-nodejs-client",
+    "analyze": "webpack-bundle-analyzer dist/client/production/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -52,6 +53,7 @@
     "basic-auth": "^2.0.0",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.1.3",
+    "compression": "^1.7.4",
     "connect-redis": "^3.3.3",
     "cookie-parser": "^1.4.3",
     "core-js": "^2.5.7",
@@ -84,6 +86,7 @@
     "@angular/language-service": "^8.0.0",
     "@types/basic-auth": "^1.1.2",
     "@types/body-parser": "^1.17.0",
+    "@types/compression": "0.0.36",
     "@types/connect-redis": "0.0.7",
     "@types/cookie-parser": "^1.4.1",
     "@types/crypto-js": "^3.1.43",
@@ -113,6 +116,7 @@
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-microsoft-contrib": "^5.1.0",
-    "typescript": "^3.2.4"
+    "typescript": "^3.2.4",
+    "webpack-bundle-analyzer": "^3.3.2"
   }
 }
