@@ -18,6 +18,9 @@ export enum ActionTypes {
     StartTransaction = '[Purchase] Start Transaction',
     StartTransactionSuccess = '[Purchase] Start Transaction Success',
     StartTransactionFail = '[Purchase] Start Transaction Fail',
+    CancelTransaction = '[Purchase] Cancel Transaction',
+    CancelTransactionSuccess = '[Purchase] Cancel Transaction Success',
+    CancelTransactionFail = '[Purchase] Cancel Transaction Fail',
     GetScreen = '[Purchase] Get Screen',
     GetScreenSuccess = '[Purchase] Get Screen Success',
     GetScreenFail = '[Purchase] Get Screen Fail',
@@ -53,9 +56,9 @@ export enum ActionTypes {
     CheckMovieTicket = '[Purchase] Check Movie Ticket',
     CheckMovieTicketSuccess = '[Purchase] Check Movie Ticket Success',
     CheckMovieTicketFail = '[Purchase] Check Movie Ticket Fail',
-    Reserve = '[Purchase] Reserve',
-    ReserveSuccess = '[Purchase] Reserve Success',
-    ReserveFail = '[Purchase] Reserve Fail',
+    EndTransaction = '[Purchase] End Transaction',
+    EndTransactionSuccess = '[Purchase] End Transaction Success',
+    EndTransactionFail = '[Purchase] End Transaction Fail',
     CreateGmoTokenObject = '[Purchase] Create Gmo Token Object',
     CreateGmoTokenObjectSuccess = '[Purchase] Create Gmo Token Object Success',
     CreateGmoTokenObjectFail = '[Purchase] Create Gmo Token Object Fail',
@@ -176,6 +179,32 @@ export class StartTransactionSuccess implements Action {
  */
 export class StartTransactionFail implements Action {
     public readonly type = ActionTypes.StartTransactionFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * CancelTransaction
+ */
+export class CancelTransaction implements Action {
+    public readonly type = ActionTypes.CancelTransaction;
+    constructor(public payload: {
+        transaction: factory.transaction.placeOrder.ITransaction
+    }) { }
+}
+
+/**
+ * CancelTransactionSuccess
+ */
+export class CancelTransactionSuccess implements Action {
+    public readonly type = ActionTypes.CancelTransactionSuccess;
+    constructor(public payload?: { }) { }
+}
+
+/**
+ * CancelTransactionFail
+ */
+export class CancelTransactionFail implements Action {
+    public readonly type = ActionTypes.CancelTransactionFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -524,10 +553,10 @@ export class CheckMovieTicketFail implements Action {
 }
 
 /**
- * Reserve
+ * EndTransaction
  */
-export class Reserve implements Action {
-    public readonly type = ActionTypes.Reserve;
+export class EndTransaction implements Action {
+    public readonly type = ActionTypes.EndTransaction;
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
@@ -536,18 +565,18 @@ export class Reserve implements Action {
 }
 
 /**
- * ReserveSuccess
+ * EndTransactionSuccess
  */
-export class ReserveSuccess implements Action {
-    public readonly type = ActionTypes.ReserveSuccess;
+export class EndTransactionSuccess implements Action {
+    public readonly type = ActionTypes.EndTransactionSuccess;
     constructor(public payload: { order: factory.order.IOrder; }) { }
 }
 
 /**
- * ReserveFail
+ * EndTransactionFail
  */
-export class ReserveFail implements Action {
-    public readonly type = ActionTypes.ReserveFail;
+export class EndTransactionFail implements Action {
+    public readonly type = ActionTypes.EndTransactionFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -641,6 +670,9 @@ export type Actions =
     | StartTransaction
     | StartTransactionSuccess
     | StartTransactionFail
+    | CancelTransaction
+    | CancelTransactionSuccess
+    | CancelTransactionFail
     | GetScreen
     | GetScreenSuccess
     | GetScreenFail
@@ -676,9 +708,9 @@ export type Actions =
     | CheckMovieTicket
     | CheckMovieTicketSuccess
     | CheckMovieTicketFail
-    | Reserve
-    | ReserveSuccess
-    | ReserveFail
+    | EndTransaction
+    | EndTransactionSuccess
+    | EndTransactionFail
     | CreateGmoTokenObject
     | CreateGmoTokenObjectSuccess
     | CreateGmoTokenObjectFail

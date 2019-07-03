@@ -133,6 +133,32 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
+        case purchaseAction.ActionTypes.CancelTransaction: {
+            return { ...state, loading: true, process: 'purchaseAction.CancelTransaction' };
+        }
+        case purchaseAction.ActionTypes.CancelTransactionSuccess: {
+            state.purchaseData.transaction = undefined;
+            state.purchaseData.preScheduleDates = [];
+            state.purchaseData.authorizeSeatReservations = [];
+            state.purchaseData.authorizeCreditCardPayments = [];
+            state.purchaseData.authorizeMovieTicketPayments = [];
+            state.purchaseData.checkMovieTicketActions = [];
+            state.purchaseData.pendingMovieTickets = [];
+            state.purchaseData.customerContact = undefined;
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case purchaseAction.ActionTypes.CancelTransactionFail: {
+            const error = action.payload.error;
+            state.purchaseData.transaction = undefined;
+            state.purchaseData.preScheduleDates = [];
+            state.purchaseData.authorizeSeatReservations = [];
+            state.purchaseData.authorizeCreditCardPayments = [];
+            state.purchaseData.authorizeMovieTicketPayments = [];
+            state.purchaseData.checkMovieTicketActions = [];
+            state.purchaseData.pendingMovieTickets = [];
+            state.purchaseData.customerContact = undefined;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
         case purchaseAction.ActionTypes.GetScreen: {
             state.purchaseData.screeningEventOffers = [];
             state.purchaseData.screenData = undefined;
@@ -408,10 +434,10 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
-        case purchaseAction.ActionTypes.Reserve: {
+        case purchaseAction.ActionTypes.EndTransaction: {
             return { ...state, loading: true, process: 'purchaseAction.Reserve' };
         }
-        case purchaseAction.ActionTypes.ReserveSuccess: {
+        case purchaseAction.ActionTypes.EndTransactionSuccess: {
             const order = action.payload.order;
             state.purchaseData = {
                 preScheduleDates: [],
@@ -429,7 +455,7 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             state.purchaseData.order = order;
             return { ...state, loading: false, process: '', error: null };
         }
-        case purchaseAction.ActionTypes.ReserveFail: {
+        case purchaseAction.ActionTypes.EndTransactionFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }

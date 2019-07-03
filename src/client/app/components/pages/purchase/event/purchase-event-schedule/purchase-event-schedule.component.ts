@@ -53,25 +53,16 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.error = this.store.pipe(select(reducers.getError));
         this.screeningWorkEvents = [];
         this.isSales = true;
-        this.purchase.subscribe((purchase) => {
-            // this.scheduleDate = moment(purchase.scheduleDate).toDate();
-            if (this.scheduleDate === undefined) {
-                const defaultDate = moment(moment().format('YYYYMMDD'))
-                    .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                    .toDate();
-                const openDate = moment(environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
-                this.scheduleDate = defaultDate;
-                const nowDate = moment().toDate();
-                if (openDate > nowDate) {
-                    this.scheduleDate = openDate;
-                }
-                if (purchase.external !== undefined
-                    && purchase.external.scheduleDate !== undefined) {
-                    this.scheduleDate = moment(purchase.external.scheduleDate).toDate();
-                }
-            }
-            this.getSellers();
-        }).unsubscribe();
+        try {
+            await this.cancelTransaction();
+            await this.setExternal();
+            await this.getSellers();
+            const seller = await this.getDefaultSeller();
+            this.selectSeller(seller);
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
     }
 
     /**
@@ -79,6 +70,57 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     public ngOnDestroy() {
         clearTimeout(this.updateTimer);
+    }
+
+    /**
+     * 取引中止
+     */
+    private async cancelTransaction() {
+        return new Promise<void>((resolve) => {
+            this.purchase.subscribe((purchase) => {
+                const transaction = purchase.transaction;
+                if (transaction === undefined) {
+                    resolve();
+                    return;
+                }
+                this.store.dispatch(new purchaseAction.CancelTransaction({ transaction }));
+                const success = this.actions.pipe(
+                    ofType(purchaseAction.ActionTypes.CancelTransactionSuccess),
+                    tap(() => { resolve(); })
+                );
+                const fail = this.actions.pipe(
+                    ofType(purchaseAction.ActionTypes.CancelTransactionFail),
+                    tap(() => { resolve(); })
+                );
+                race(success, fail).pipe(take(1)).subscribe();
+            }).unsubscribe();
+        });
+    }
+
+    /**
+     * 外部連携設定
+     */
+    private async setExternal() {
+        return new Promise<void>((resolve) => {
+            this.purchase.subscribe((purchase) => {
+                if (this.scheduleDate === undefined) {
+                    const defaultDate = moment(moment().format('YYYYMMDD'))
+                        .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                        .toDate();
+                    const openDate = moment(environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                    this.scheduleDate = defaultDate;
+                    const nowDate = moment().toDate();
+                    if (openDate > nowDate) {
+                        this.scheduleDate = openDate;
+                    }
+                    if (purchase.external !== undefined
+                        && purchase.external.scheduleDate !== undefined) {
+                        this.scheduleDate = moment(purchase.external.scheduleDate).toDate();
+                    }
+                }
+                resolve();
+            }).unsubscribe();
+        });
     }
 
     /**
@@ -103,38 +145,43 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     /**
      * 販売者情報一覧取得
      */
-    public getSellers() {
-        this.store.dispatch(new masterAction.GetSellers({ params: {} }));
+    private getSellers() {
+        return new Promise<void>((resolve, reject) => {
+            this.store.dispatch(new masterAction.GetSellers());
+            const success = this.actions.pipe(
+                ofType(masterAction.ActionTypes.GetSellersSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(masterAction.ActionTypes.GetSellersFail),
+                tap(() => { reject(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
+    }
 
-        const success = this.actions.pipe(
-            ofType(masterAction.ActionTypes.GetSellersSuccess),
-            tap(() => {
-                this.purchase.subscribe((purchase) => {
-                    this.master.subscribe((master) => {
-                        let seller = (purchase.seller === undefined)
-                            ? master.sellers[0] : purchase.seller;
-                        const findResult = master.sellers.find((s) => {
-                            return (purchase.external !== undefined
-                                && purchase.external.theaterBranchCode !== undefined
-                                && s.location !== undefined
-                                && s.location.branchCode === purchase.external.theaterBranchCode);
-                        });
-                        if (findResult !== undefined) {
-                            seller = findResult;
-                        }
-                        this.selectSeller(seller);
-                    }).unsubscribe();
+    /**
+     * デフォルトの販売者取得
+     */
+    private async getDefaultSeller() {
+        return new Promise<factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>>((resolve) => {
+            this.purchase.subscribe((purchase) => {
+                this.master.subscribe((master) => {
+                    let seller = (purchase.seller === undefined)
+                        ? master.sellers[0] : purchase.seller;
+                    const findResult = master.sellers.find((s) => {
+                        return (purchase.external !== undefined
+                            && purchase.external.theaterBranchCode !== undefined
+                            && s.location !== undefined
+                            && s.location.branchCode === purchase.external.theaterBranchCode);
+                    });
+                    if (findResult !== undefined) {
+                        seller = findResult;
+                    }
+                    resolve(seller);
                 }).unsubscribe();
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(masterAction.ActionTypes.GetSellersFail),
-            tap(() => {
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+            }).unsubscribe();
+        });
     }
 
     /**

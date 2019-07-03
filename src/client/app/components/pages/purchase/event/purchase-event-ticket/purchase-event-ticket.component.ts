@@ -58,8 +58,13 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
         this.screeningWorkEvents = [];
-
-        this.getSchedule();
+        this.purchase.subscribe((purchase) => {
+            if (purchase.transaction === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            this.getSchedule();
+        }).unsubscribe();
     }
 
     /**
