@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 1.2.2 - 2019-07-04
+### Fixed
+- 同一注文での別日付予約不具合修正
+
 ## 1.2.1 - 2019-06-28
 ### Added
 - webpack-bundle-analyzer追加
