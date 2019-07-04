@@ -1,16 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { factory } from '@cinerino/api-javascript-client';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import jsqr from 'jsqr';
 import { BsModalRef } from 'ngx-bootstrap';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { movieTicketAuthErroCodeToMessage } from '../../../functions';
 import { ChangeLanguagePipe } from '../../../pipes/change-language.pipe';
-import { purchaseAction } from '../../../store/actions';
+import { PurchaseService } from '../../../services';
 import * as reducers from '../../../store/reducers';
 
 @Component({
@@ -32,8 +29,8 @@ export class MvtkCheckModalComponent implements OnInit, OnDestroy {
     constructor(
         public modal: BsModalRef,
         private store: Store<reducers.IState>,
-        private actions: Actions,
         private formBuilder: FormBuilder,
+        private purchaseService: PurchaseService,
         private translate: TranslateService
     ) { }
 
@@ -70,7 +67,7 @@ export class MvtkCheckModalComponent implements OnInit, OnDestroy {
     /**
      * checkMovieTicket
      */
-    public checkMovieTicket() {
+    public async checkMovieTicket() {
         Object.keys(this.mvtkForm.controls).forEach((key) => {
             this.mvtkForm.controls[key].markAsTouched();
         });
@@ -81,65 +78,44 @@ export class MvtkCheckModalComponent implements OnInit, OnDestroy {
             return;
         }
         this.errorMessage = '';
-        this.purchase.subscribe((purchase) => {
-            if (purchase.transaction === undefined
-                || purchase.screeningEvent === undefined) {
+        try {
+            await this.purchaseService.checkMovieTicket({
+                code: this.mvtkForm.controls.code.value,
+                password: this.mvtkForm.controls.password.value
+            });
+            const purchase = await this.purchaseService.getPurchaseData();
+            const checkMovieTicketAction = purchase.checkMovieTicketAction;
+            if (checkMovieTicketAction === undefined
+                || checkMovieTicketAction.result === undefined
+                || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut === null) {
+                this.isSuccess = false;
+                this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.validation');
                 return;
             }
-            this.store.dispatch(new purchaseAction.CheckMovieTicket({
-                transaction: purchase.transaction,
-                movieTickets: [{
-                    typeOf: factory.paymentMethodType.MovieTicket,
-                    identifier: this.mvtkForm.controls.code.value, // 購入管理番号
-                    accessCode: this.mvtkForm.controls.password.value // PINコード
-                }],
-                screeningEvent: purchase.screeningEvent
-            }));
-        }).unsubscribe();
 
-        const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.CheckMovieTicketSuccess),
-            tap(() => {
-                this.purchase.subscribe((purchase) => {
-                    const checkMovieTicketAction = purchase.checkMovieTicketAction;
-                    if (checkMovieTicketAction === undefined
-                        || checkMovieTicketAction.result === undefined
-                        || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut === null) {
-                        this.isSuccess = false;
-                        this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.validation');
-                        return;
-                    }
-
-                    if (checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknmiNum === '0') {
-                        this.isSuccess = false;
-                        this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.used');
-                        return;
-                    }
-
-                    const knyknrNoMkujyuCd = checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].knyknrNoMkujyuCd;
-                    if (knyknrNoMkujyuCd !== undefined) {
-                        const message = new ChangeLanguagePipe(this.translate)
-                            .transform(movieTicketAuthErroCodeToMessage(knyknrNoMkujyuCd));
-                        this.isSuccess = false;
-                        this.errorMessage = `${this.translate.instant('modal.mvtkCheck.alert.validation')}<br>
-                        [${knyknrNoMkujyuCd}] ${message}`;
-                        return;
-                    }
-
-                    this.createMvtkForm();
-                    this.isSuccess = true;
-                }).unsubscribe();
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.CheckMovieTicketFail),
-            tap(() => {
+            if (checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknmiNum === '0') {
                 this.isSuccess = false;
-                this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.error');
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+                this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.used');
+                return;
+            }
+
+            const knyknrNoMkujyuCd = checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].knyknrNoMkujyuCd;
+            if (knyknrNoMkujyuCd !== undefined) {
+                const message = new ChangeLanguagePipe(this.translate)
+                    .transform(movieTicketAuthErroCodeToMessage(knyknrNoMkujyuCd));
+                this.isSuccess = false;
+                this.errorMessage = `${this.translate.instant('modal.mvtkCheck.alert.validation')}<br>
+                [${knyknrNoMkujyuCd}] ${message}`;
+                return;
+            }
+
+            this.createMvtkForm();
+            this.isSuccess = true;
+        } catch (error) {
+            console.error(error);
+            this.isSuccess = false;
+            this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.error');
+        }
     }
 
     public async activationCamera() {

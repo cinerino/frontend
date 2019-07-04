@@ -1333,10 +1333,11 @@ var environment_1 = __webpack_require__(/*! ../../../environments/environment */
 var services_1 = __webpack_require__(/*! ../../services */ "./app/services/index.ts");
 var actions_1 = __webpack_require__(/*! ../../store/actions */ "./app/store/actions/index.ts");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(router, translate, util, store) {
+    function AppComponent(router, translate, utilService, purchaseService, store) {
         this.router = router;
         this.translate = translate;
-        this.util = util;
+        this.utilService = utilService;
+        this.purchaseService = purchaseService;
         this.store = store;
     }
     /**
@@ -1377,28 +1378,17 @@ var AppComponent = /** @class */ (function () {
      */
     AppComponent.prototype.external = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var external, theaterBranchCode, workPerformedId, superEventId, eventId, scheduleDate, language;
+            var external, language;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         if (location.hash !== '') {
                             return [2 /*return*/];
                         }
-                        return [4 /*yield*/, this.util.getExternal()];
+                        return [4 /*yield*/, this.utilService.getExternal()];
                     case 1:
                         external = _a.sent();
-                        theaterBranchCode = external.theaterBranchCode;
-                        workPerformedId = external.workPerformedId;
-                        superEventId = external.superEventId;
-                        eventId = external.eventId;
-                        scheduleDate = external.scheduleDate;
-                        this.store.dispatch(new actions_1.purchaseAction.SetExternal({
-                            theaterBranchCode: theaterBranchCode,
-                            workPerformedId: workPerformedId,
-                            superEventId: superEventId,
-                            eventId: eventId,
-                            scheduleDate: scheduleDate
-                        }));
+                        this.purchaseService.setExternal(external);
                         language = external.language;
                         if (language !== undefined) {
                             this.store.dispatch(new actions_1.userAction.UpdateLanguage({ language: language }));
@@ -1443,6 +1433,7 @@ var AppComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [router_1.Router,
             core_2.TranslateService,
             services_1.UtilService,
+            services_1.PurchaseService,
             store_1.Store])
     ], AppComponent);
     return AppComponent;
@@ -1625,12 +1616,14 @@ var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/s
 var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
+var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var AuthSigninComponent = /** @class */ (function () {
-    function AuthSigninComponent(router, actions, store) {
+    function AuthSigninComponent(router, actions, purchaseService, store) {
         this.router = router;
         this.actions = actions;
+        this.purchaseService = purchaseService;
         this.store = store;
     }
     /**
@@ -1643,7 +1636,7 @@ var AuthSigninComponent = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.process = this.store.pipe(store_1.select(reducers.getProcess));
-                        this.store.dispatch(new actions_1.purchaseAction.Delete());
+                        this.purchaseService.delete();
                         this.store.dispatch(new actions_1.orderAction.Delete());
                         this.store.dispatch(new actions_1.userAction.Delete());
                         this.store.dispatch(new actions_1.userAction.Initialize());
@@ -1726,6 +1719,7 @@ var AuthSigninComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [router_1.Router,
             effects_1.Actions,
+            services_1.PurchaseService,
             store_1.Store])
     ], AuthSigninComponent);
     return AuthSigninComponent;
@@ -1768,10 +1762,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
+var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var AuthSignoutComponent = /** @class */ (function () {
-    function AuthSignoutComponent(router, store) {
+    function AuthSignoutComponent(router, purchaseService, store) {
         this.router = router;
+        this.purchaseService = purchaseService;
         this.store = store;
     }
     /**
@@ -1779,7 +1775,7 @@ var AuthSignoutComponent = /** @class */ (function () {
      */
     AuthSignoutComponent.prototype.ngOnInit = function () {
         this.store.dispatch(new actions_1.orderAction.Delete());
-        this.store.dispatch(new actions_1.purchaseAction.Delete());
+        this.purchaseService.delete();
         this.store.dispatch(new actions_1.userAction.Delete());
         this.router.navigate(['/']);
     };
@@ -1790,6 +1786,7 @@ var AuthSignoutComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./auth-signout.component.scss */ "./app/components/pages/auth/auth-signout/auth-signout.component.scss")]
         }),
         __metadata("design:paramtypes", [router_1.Router,
+            services_1.PurchaseService,
             store_1.Store])
     ], AuthSignoutComponent);
     return AuthSignoutComponent;
@@ -1982,10 +1979,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var environment_1 = __webpack_require__(/*! ../../../../environments/environment */ "./environments/environment.ts");
+var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/index.ts");
 var actions_1 = __webpack_require__(/*! ../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../store/reducers */ "./app/store/reducers/index.ts");
 var ErrorComponent = /** @class */ (function () {
-    function ErrorComponent(store) {
+    function ErrorComponent(purchaseService, store) {
+        this.purchaseService = purchaseService;
         this.store = store;
         this.environment = environment_1.environment;
     }
@@ -1994,7 +1993,7 @@ var ErrorComponent = /** @class */ (function () {
      */
     ErrorComponent.prototype.ngOnInit = function () {
         this.error = this.store.pipe(store_1.select(reducers.getError));
-        this.store.dispatch(new actions_1.purchaseAction.Delete());
+        this.purchaseService.delete();
         this.store.dispatch(new actions_1.userAction.Delete());
     };
     ErrorComponent = __decorate([
@@ -2003,7 +2002,8 @@ var ErrorComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./error.component.html */ "../../node_modules/raw-loader/index.js!./app/components/pages/error/error.component.html"),
             styles: [__webpack_require__(/*! ./error.component.scss */ "./app/components/pages/error/error.component.scss")]
         }),
-        __metadata("design:paramtypes", [store_1.Store])
+        __metadata("design:paramtypes", [services_1.PurchaseService,
+            store_1.Store])
     ], ErrorComponent);
     return ErrorComponent;
 }());
@@ -2045,9 +2045,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var environment_1 = __webpack_require__(/*! ../../../../environments/environment */ "./environments/environment.ts");
+var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/index.ts");
 var actions_1 = __webpack_require__(/*! ../../../store/actions */ "./app/store/actions/index.ts");
 var ExpiredComponent = /** @class */ (function () {
-    function ExpiredComponent(store) {
+    function ExpiredComponent(purchaseService, store) {
+        this.purchaseService = purchaseService;
         this.store = store;
         this.environment = environment_1.environment;
     }
@@ -2055,7 +2057,7 @@ var ExpiredComponent = /** @class */ (function () {
      * 初期化
      */
     ExpiredComponent.prototype.ngOnInit = function () {
-        this.store.dispatch(new actions_1.purchaseAction.Delete());
+        this.purchaseService.delete();
         this.store.dispatch(new actions_1.userAction.Delete());
     };
     ExpiredComponent = __decorate([
@@ -2064,7 +2066,8 @@ var ExpiredComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./expired.component.html */ "../../node_modules/raw-loader/index.js!./app/components/pages/expired/expired.component.html"),
             styles: [__webpack_require__(/*! ./expired.component.scss */ "./app/components/pages/expired/expired.component.scss")]
         }),
-        __metadata("design:paramtypes", [store_1.Store])
+        __metadata("design:paramtypes", [services_1.PurchaseService,
+            store_1.Store])
     ], ExpiredComponent);
     return ExpiredComponent;
 }());
@@ -2204,12 +2207,12 @@ var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/stor
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var qrcode_modal_component_1 = __webpack_require__(/*! ../../../parts/qrcode-modal/qrcode-modal.component */ "./app/components/parts/qrcode-modal/qrcode-modal.component.ts");
 var InquiryConfirmComponent = /** @class */ (function () {
-    function InquiryConfirmComponent(store, router, actions, modal, util, translate) {
+    function InquiryConfirmComponent(store, router, actions, modal, utilService, translate) {
         this.store = store;
         this.router = router;
         this.actions = actions;
         this.modal = modal;
-        this.util = util;
+        this.utilService = utilService;
         this.translate = translate;
         this.moment = moment;
         this.getTicketPrice = functions_1.getTicketPrice;
@@ -2283,7 +2286,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
             }).unsubscribe();
         }));
         var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeFail), operators_1.tap(function () {
-            _this.util.openAlert({
+            _this.utilService.openAlert({
                 title: _this.translate.instant('common.error'),
                 body: _this.translate.instant('inquiry.confirm.alert.authorize')
             });
@@ -2295,7 +2298,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
      */
     InquiryConfirmComponent.prototype.cancelConfirm = function () {
         var _this = this;
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('inquiry.confirm.confirm.cancel'),
             cb: function () { return __awaiter(_this, void 0, void 0, function () {
@@ -2315,7 +2318,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
                         case 3:
                             error_1 = _a.sent();
                             this.error.subscribe(function (error) {
-                                _this.util.openAlert({
+                                _this.utilService.openAlert({
                                     title: _this.translate.instant('common.error'),
                                     body: "\n                            <p class=\"mb-4\">" + _this.translate.instant('inquiry.confirm.alert.cancel') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text error\">\n                                <code>" + JSON.stringify(error) + "</code>\n                            </div>"
                                 });
@@ -2461,11 +2464,11 @@ var environment_1 = __webpack_require__(/*! ../../../../../environments/environm
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var InquiryInputComponent = /** @class */ (function () {
-    function InquiryInputComponent(actions, formBuilder, store, util, router, translate) {
+    function InquiryInputComponent(actions, formBuilder, store, utilService, router, translate) {
         this.actions = actions;
         this.formBuilder = formBuilder;
         this.store = store;
-        this.util = util;
+        this.utilService = utilService;
         this.router = router;
         this.translate = translate;
         this.environment = environment_1.environment;
@@ -2532,7 +2535,7 @@ var InquiryInputComponent = /** @class */ (function () {
             _this.router.navigate(['/inquiry/confirm']);
         }));
         var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquiryFail), operators_1.tap(function () {
-            _this.util.openAlert({
+            _this.utilService.openAlert({
                 title: _this.translate.instant('common.error'),
                 body: _this.translate.instant('inquiry.input.validation')
             });
@@ -2799,12 +2802,12 @@ var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/stor
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var parts_1 = __webpack_require__(/*! ../../../parts */ "./app/components/parts/index.ts");
 var MypageCoinComponent = /** @class */ (function () {
-    function MypageCoinComponent(store, actions, modal, translate, util) {
+    function MypageCoinComponent(store, actions, modal, translate, utilService) {
         this.store = store;
         this.actions = actions;
         this.modal = modal;
         this.translate = translate;
-        this.util = util;
+        this.utilService = utilService;
     }
     /**
      * 初期化
@@ -2841,7 +2844,7 @@ var MypageCoinComponent = /** @class */ (function () {
         this.store.dispatch(new actions_1.userAction.ChargeCoin({}));
         var success = this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.ChargeCoinSuccess), operators_1.tap(function () { }));
         var fail = this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.ChargeCoinFail), operators_1.tap(function () {
-            _this.util.openAlert({
+            _this.utilService.openAlert({
                 title: _this.translate.instant('common.error'),
                 body: _this.translate.instant('mypage.coin.alert.charge')
             });
@@ -2945,10 +2948,10 @@ var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services
 var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var MypageCreditComponent = /** @class */ (function () {
-    function MypageCreditComponent(store, actions, util, formBuilder, translate, router) {
+    function MypageCreditComponent(store, actions, utilService, formBuilder, translate, router) {
         this.store = store;
         this.actions = actions;
-        this.util = util;
+        this.utilService = utilService;
         this.formBuilder = formBuilder;
         this.translate = translate;
         this.router = router;
@@ -3044,7 +3047,7 @@ var MypageCreditComponent = /** @class */ (function () {
         this.creditCardForm.controls.securityCode.setValue(document.getElementById('securityCode').value);
         this.creditCardForm.controls.holderName.setValue(document.getElementById('holderName').value);
         if (this.creditCardForm.invalid) {
-            this.util.openAlert({
+            this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('mypage.credit.alert.addCredit')
             });
@@ -3063,7 +3066,7 @@ var MypageCreditComponent = /** @class */ (function () {
         this.master.subscribe(function (master) {
             var seller = master.sellers.find(function (s) { return s.id === _this.creditCardForm.controls.sellerId.value; });
             if (seller === undefined) {
-                _this.util.openAlert({
+                _this.utilService.openAlert({
                     title: _this.translate.instant('common.error'),
                     body: _this.translate.instant('mypage.credit.alert.add')
                 });
@@ -3083,7 +3086,7 @@ var MypageCreditComponent = /** @class */ (function () {
      */
     MypageCreditComponent.prototype.confirmRemoveCreditCard = function (creditCard) {
         var _this = this;
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('mypage.credit.confirm.remove'),
             cb: function () {
@@ -3100,7 +3103,7 @@ var MypageCreditComponent = /** @class */ (function () {
         this.store.dispatch(new actions_1.userAction.RemoveCreditCard({ creditCard: creditCard }));
         var success = this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.RemoveCreditCardSuccess), operators_1.tap(function () { }));
         var fail = this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.RemoveCreditCardFail), operators_1.tap(function () {
-            _this.util.openAlert({
+            _this.utilService.openAlert({
                 title: _this.translate.instant('common.error'),
                 body: _this.translate.instant('mypage.credit.alert.remove')
             });
@@ -3223,10 +3226,10 @@ var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services
 var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var MypageProfileComponent = /** @class */ (function () {
-    function MypageProfileComponent(store, actions, util, formBuilder, translate) {
+    function MypageProfileComponent(store, actions, utilService, formBuilder, translate) {
         this.store = store;
         this.actions = actions;
-        this.util = util;
+        this.utilService = utilService;
         this.formBuilder = formBuilder;
         this.translate = translate;
     }
@@ -3307,7 +3310,7 @@ var MypageProfileComponent = /** @class */ (function () {
         this.profileForm.controls.email.setValue(document.getElementById('email').value);
         this.profileForm.controls.telephone.setValue(document.getElementById('telephone').value);
         if (this.profileForm.invalid) {
-            this.util.openAlert({
+            this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('setting.alert.customer')
             });
@@ -3446,12 +3449,12 @@ var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/stor
 var order_detail_modal_component_1 = __webpack_require__(/*! ../../../parts/order-detail-modal/order-detail-modal.component */ "./app/components/parts/order-detail-modal/order-detail-modal.component.ts");
 var qrcode_modal_component_1 = __webpack_require__(/*! ../../../parts/qrcode-modal/qrcode-modal.component */ "./app/components/parts/qrcode-modal/qrcode-modal.component.ts");
 var OrderSearchComponent = /** @class */ (function () {
-    function OrderSearchComponent(store, actions, modal, router, util, translate) {
+    function OrderSearchComponent(store, actions, modal, router, utilService, translate) {
         this.store = store;
         this.actions = actions;
         this.modal = modal;
         this.router = router;
-        this.util = util;
+        this.utilService = utilService;
         this.translate = translate;
         this.moment = moment;
         this.orderStatus = api_javascript_client_1.factory.orderStatus;
@@ -3578,7 +3581,7 @@ var OrderSearchComponent = /** @class */ (function () {
      */
     OrderSearchComponent.prototype.cancelConfirm = function (orders) {
         var _this = this;
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('order.list.confirm.cancel'),
             cb: function () {
@@ -3604,7 +3607,7 @@ var OrderSearchComponent = /** @class */ (function () {
         var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelSuccess), operators_1.tap(function () { }));
         var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelFail), operators_1.tap(function () {
             _this.error.subscribe(function (error) {
-                _this.util.openAlert({
+                _this.utilService.openAlert({
                     title: _this.translate.instant('common.error'),
                     body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('order.list.alert.cancel') + "</p>\n                        <div class=\"p-3 bg-light-gray select-text error\">\n                            <code>" + error + "</code>\n                        </div>"
                 });
@@ -3618,13 +3621,13 @@ var OrderSearchComponent = /** @class */ (function () {
     OrderSearchComponent.prototype.selecedtAction = function () {
         var _this = this;
         if (this.selectedOrders.length === 0) {
-            this.util.openAlert({
+            this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('order.list.alert.unselected')
             });
         }
         if (this.actionSelect === models_1.OrderActions.Cancel) {
-            this.util.openConfirm({
+            this.utilService.openConfirm({
                 title: this.translate.instant('common.confirm'),
                 body: this.translate.instant('order.list.confirm.cancel'),
                 cb: function () {
@@ -3659,7 +3662,7 @@ var OrderSearchComponent = /** @class */ (function () {
             }).unsubscribe();
         }));
         var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeFail), operators_1.tap(function () {
-            _this.util.openAlert({
+            _this.utilService.openAlert({
                 title: _this.translate.instant('common.error'),
                 body: _this.translate.instant('order.list.alert.authorize')
             });
@@ -3718,23 +3721,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseCinemaCartComponent = /** @class */ (function () {
-    function PurchaseCinemaCartComponent(store, actions, router, util, translate) {
+    function PurchaseCinemaCartComponent(purchaseService, store, router, utilService, translate) {
+        this.purchaseService = purchaseService;
         this.store = store;
-        this.actions = actions;
         this.router = router;
-        this.util = util;
+        this.utilService = utilService;
         this.translate = translate;
         this.moment = moment;
         this.getTicketPrice = functions_1.getTicketPrice;
@@ -3747,26 +3746,7 @@ var PurchaseCinemaCartComponent = /** @class */ (function () {
         this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
         this.user = this.store.pipe(store_1.select(reducers.getUser));
         this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
-        this.store.dispatch(new actions_1.purchaseAction.UnsettledDelete());
-    };
-    /**
-     * 仮予約削除
-     * @param authorizeSeatReservations
-     */
-    PurchaseCinemaCartComponent.prototype.removeItemProcess = function (authorizeSeatReservations) {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations: authorizeSeatReservations }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        this.purchaseService.unsettledDelete();
     };
     /**
      * 仮予約削除確認
@@ -3774,12 +3754,14 @@ var PurchaseCinemaCartComponent = /** @class */ (function () {
      */
     PurchaseCinemaCartComponent.prototype.removeItem = function (authorizeSeatReservation) {
         var _this = this;
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('purchase.cinema.cart.confirm.cancel'),
             cb: function () {
                 var authorizeSeatReservations = [authorizeSeatReservation];
-                _this.removeItemProcess(authorizeSeatReservations);
+                _this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations).catch(function () {
+                    _this.router.navigate(['/error']);
+                });
             }
         });
     };
@@ -3789,8 +3771,8 @@ var PurchaseCinemaCartComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./purchase-cinema-cart.component.html */ "../../node_modules/raw-loader/index.js!./app/components/pages/purchase/cinema/purchase-cinema-cart/purchase-cinema-cart.component.html"),
             styles: [__webpack_require__(/*! ./purchase-cinema-cart.component.scss */ "./app/components/pages/purchase/cinema/purchase-cinema-cart/purchase-cinema-cart.component.scss")]
         }),
-        __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
+        __metadata("design:paramtypes", [services_1.PurchaseService,
+            store_1.Store,
             router_1.Router,
             services_1.UtilService,
             core_2.TranslateService])
@@ -3885,11 +3867,12 @@ var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/s
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var parts_1 = __webpack_require__(/*! ../../../../parts */ "./app/components/parts/index.ts");
 var PurchaseCinemaScheduleComponent = /** @class */ (function () {
-    function PurchaseCinemaScheduleComponent(store, actions, router, util, modal, translate) {
+    function PurchaseCinemaScheduleComponent(store, actions, router, utilService, purchaseService, modal, translate) {
         this.store = store;
         this.actions = actions;
         this.router = router;
-        this.util = util;
+        this.utilService = utilService;
+        this.purchaseService = purchaseService;
         this.modal = modal;
         this.translate = translate;
         this.moment = moment;
@@ -4016,210 +3999,169 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
      */
     PurchaseCinemaScheduleComponent.prototype.selectSeller = function (seller) {
         var _this = this;
-        this.store.dispatch(new actions_1.purchaseAction.SelectSeller({ seller: seller }));
+        this.purchaseService.selectSeller(seller);
         this.scheduleDates = [];
         for (var i = 0; i < Number(environment_1.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
             this.scheduleDates.push(moment().add(i, 'day').format('YYYYMMDD'));
         }
         this.isPreSchedule = false;
         this.directiveRef.update();
-        setTimeout(function () {
-            _this.getPreScheduleDates();
-        }, 0);
-    };
-    /**
-     * 先行販売情報取得
-     */
-    PurchaseCinemaScheduleComponent.prototype.getPreScheduleDates = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.seller === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            var seller = purchase.seller;
-            _this.store.dispatch(new actions_1.purchaseAction.GetPreScheduleDates({
-                superEvent: {
-                    ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
-                        ? [] : [purchase.external.superEventId],
-                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                        ? [] : [seller.location.branchCode],
-                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
-                        ? [] : [purchase.external.workPerformedId]
+        setTimeout(function () { return __awaiter(_this, void 0, void 0, function () {
+            var error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.purchaseService.getPreScheduleDates()];
+                    case 1:
+                        _a.sent();
+                        this.isPreSchedule = false;
+                        this.selectDate();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetPreScheduleDatesSuccess), operators_1.tap(function () {
-            _this.isPreSchedule = false;
-            _this.selectDate();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetPreScheduleDatesFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+            });
+        }); }, 0);
     };
     /**
      * 日付選択
      */
     PurchaseCinemaScheduleComponent.prototype.selectDate = function (scheduleDate) {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            var seller = purchase.seller;
-            if (seller === undefined || _this.scheduleDates.length === 0) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            if (scheduleDate === undefined || scheduleDate === '') {
-                scheduleDate = (_this.isPreSchedule)
-                    ? _this.scheduleDates[0]
-                    : moment()
-                        .add(environment_1.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                        .format('YYYYMMDD');
-                if (purchase.external !== undefined
-                    && purchase.external.scheduleDate !== undefined) {
-                    scheduleDate = purchase.external.scheduleDate;
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, seller, success, fail;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        seller = purchase.seller;
+                        if (seller === undefined || this.scheduleDates.length === 0) {
+                            this.router.navigate(['/error']);
+                            return [2 /*return*/];
+                        }
+                        if (scheduleDate === undefined || scheduleDate === '') {
+                            scheduleDate = (this.isPreSchedule)
+                                ? this.scheduleDates[0]
+                                : moment()
+                                    .add(environment_1.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                                    .format('YYYYMMDD');
+                            if (purchase.external !== undefined
+                                && purchase.external.scheduleDate !== undefined) {
+                                scheduleDate = purchase.external.scheduleDate;
+                            }
+                        }
+                        this.purchaseService.selectScheduleDate(scheduleDate);
+                        this.store.dispatch(new actions_1.masterAction.GetSchedule({
+                            superEvent: {
+                                ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
+                                    ? [] : [purchase.external.superEventId],
+                                locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                                    ? [] : [seller.location.branchCode],
+                                workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
+                                    ? [] : [purchase.external.workPerformedId],
+                            },
+                            startFrom: moment(scheduleDate).toDate(),
+                            startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                        }));
+                        success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleSuccess), operators_1.tap(function () {
+                            _this.master.subscribe(function (master) {
+                                var screeningEvents = master.screeningEvents;
+                                _this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
+                                _this.update();
+                            }).unsubscribe();
+                        }));
+                        fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleFail), operators_1.tap(function () {
+                            _this.router.navigate(['/error']);
+                        }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                        return [2 /*return*/];
                 }
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.SelectScheduleDate({ scheduleDate: scheduleDate }));
-            _this.store.dispatch(new actions_1.masterAction.GetSchedule({
-                superEvent: {
-                    ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
-                        ? [] : [purchase.external.superEventId],
-                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                        ? [] : [seller.location.branchCode],
-                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
-                        ? [] : [purchase.external.workPerformedId],
-                },
-                startFrom: moment(scheduleDate).toDate(),
-                startThrough: moment(scheduleDate).add(1, 'day').toDate()
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleSuccess), operators_1.tap(function () {
-            _this.master.subscribe(function (master) {
-                var screeningEvents = master.screeningEvents;
-                _this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
-                _this.update();
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+            });
+        });
     };
     /**
      * パフォーマンス選択
      */
     PurchaseCinemaScheduleComponent.prototype.selectSchedule = function (screeningEvent) {
-        var _this = this;
-        if (screeningEvent.remainingAttendeeCapacity === undefined
-            || screeningEvent.remainingAttendeeCapacity === 0) {
-            return;
-        }
-        if (screeningEvent.offers === undefined
-            || screeningEvent.offers.itemOffered.serviceOutput === undefined
-            || screeningEvent.offers.itemOffered.serviceOutput.reservedTicket === undefined
-            || screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat === undefined) {
-            this.util.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('purchase.cinema.schedule.alert.ticketedSeat')
-            });
-            return;
-        }
-        this.store.dispatch(new actions_1.purchaseAction.UnsettledDelete());
-        this.store.dispatch(new actions_1.purchaseAction.SelectSchedule({ screeningEvent: screeningEvent }));
-        this.purchase.subscribe(function (purchase) {
-            _this.user.subscribe(function (user) { return __awaiter(_this, void 0, void 0, function () {
-                var error_1, errorObject;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            if (purchase.seller === undefined) {
-                                this.router.navigate(['/error']);
-                                return [2 /*return*/];
-                            }
-                            if (user.isPurchaseCart
-                                && purchase.transaction !== undefined
-                                && purchase.authorizeSeatReservations.length > 0) {
-                                this.openTransactionModal();
-                                return [2 /*return*/];
-                            }
-                            _a.label = 1;
-                        case 1:
-                            _a.trys.push([1, 4, , 5]);
-                            return [4 /*yield*/, this.cancelTemporaryReservations()];
-                        case 2:
-                            _a.sent();
-                            return [4 /*yield*/, this.startTransaction()];
-                        case 3:
-                            _a.sent();
-                            this.router.navigate(['/purchase/cinema/seat']);
-                            return [3 /*break*/, 5];
-                        case 4:
-                            error_1 = _a.sent();
-                            if (error_1 === null) {
-                                throw new Error('error is null');
-                            }
-                            errorObject = JSON.parse(error_1);
-                            if (errorObject.status === http_status_1.TOO_MANY_REQUESTS) {
-                                this.router.navigate(['/congestion']);
-                                return [2 /*return*/];
-                            }
-                            if (errorObject.status === http_status_1.BAD_REQUEST) {
-                                this.router.navigate(['/maintenance']);
-                                return [2 /*return*/];
-                            }
-                            this.router.navigate(['/error']);
-                            return [3 /*break*/, 5];
-                        case 5: return [2 /*return*/];
-                    }
-                });
-            }); }).unsubscribe();
-        }).unsubscribe();
-    };
-    /**
-     * 仮予約削除
-     */
-    PurchaseCinemaScheduleComponent.prototype.cancelTemporaryReservations = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var purchase;
             var _this = this;
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.purchase.subscribe(function (purchase) {
-                            var authorizeSeatReservations = purchase.authorizeSeatReservations;
-                            _this.store.dispatch(new actions_1.purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations: authorizeSeatReservations }));
-                        }).unsubscribe();
-                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsFail), operators_1.tap(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
-                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                    })];
-            });
-        });
-    };
-    /**
-     * 取引開始
-     */
-    PurchaseCinemaScheduleComponent.prototype.startTransaction = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.purchase.subscribe(function (purchase) {
-                            if (purchase.seller === undefined) {
-                                reject(null);
-                                return;
-                            }
-                            _this.store.dispatch(new actions_1.purchaseAction.StartTransaction({
-                                params: {
-                                    expires: moment().add(environment_1.environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
-                                    seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
-                                    object: {}
+                switch (_a.label) {
+                    case 0:
+                        if (screeningEvent.remainingAttendeeCapacity === undefined
+                            || screeningEvent.remainingAttendeeCapacity === 0) {
+                            return [2 /*return*/];
+                        }
+                        if (screeningEvent.offers === undefined
+                            || screeningEvent.offers.itemOffered.serviceOutput === undefined
+                            || screeningEvent.offers.itemOffered.serviceOutput.reservedTicket === undefined
+                            || screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat === undefined) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.cinema.schedule.alert.ticketedSeat')
+                            });
+                            return [2 /*return*/];
+                        }
+                        this.purchaseService.unsettledDelete();
+                        this.purchaseService.selectSchedule(screeningEvent);
+                        return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        this.user.subscribe(function (user) { return __awaiter(_this, void 0, void 0, function () {
+                            var error_2, errorObject;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        if (purchase.seller === undefined) {
+                                            this.router.navigate(['/error']);
+                                            return [2 /*return*/];
+                                        }
+                                        if (user.isPurchaseCart
+                                            && purchase.transaction !== undefined
+                                            && purchase.authorizeSeatReservations.length > 0) {
+                                            this.openTransactionModal();
+                                            return [2 /*return*/];
+                                        }
+                                        _a.label = 1;
+                                    case 1:
+                                        _a.trys.push([1, 4, , 5]);
+                                        return [4 /*yield*/, this.purchaseService.cancelTransaction()];
+                                    case 2:
+                                        _a.sent();
+                                        return [4 /*yield*/, this.purchaseService.startTransaction()];
+                                    case 3:
+                                        _a.sent();
+                                        this.router.navigate(['/purchase/cinema/seat']);
+                                        return [3 /*break*/, 5];
+                                    case 4:
+                                        error_2 = _a.sent();
+                                        if (error_2 === null) {
+                                            throw new Error('error is null');
+                                        }
+                                        errorObject = JSON.parse(error_2);
+                                        if (errorObject.status === http_status_1.TOO_MANY_REQUESTS) {
+                                            this.router.navigate(['/congestion']);
+                                            return [2 /*return*/];
+                                        }
+                                        if (errorObject.status === http_status_1.BAD_REQUEST) {
+                                            this.router.navigate(['/maintenance']);
+                                            return [2 /*return*/];
+                                        }
+                                        this.router.navigate(['/error']);
+                                        return [3 /*break*/, 5];
+                                    case 5: return [2 /*return*/];
                                 }
-                            }));
-                        }).unsubscribe();
-                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionFail), operators_1.tap(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
-                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                    })];
+                            });
+                        }); }).unsubscribe();
+                        return [2 /*return*/];
+                }
             });
         });
     };
@@ -4260,6 +4202,7 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
             effects_1.Actions,
             router_1.Router,
             services_1.UtilService,
+            services_1.PurchaseService,
             ngx_bootstrap_1.BsModalService,
             core_2.TranslateService])
     ], PurchaseCinemaScheduleComponent);
@@ -4337,23 +4280,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
 var models_1 = __webpack_require__(/*! ../../../../../models */ "./app/models/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseCinemaSeatComponent = /** @class */ (function () {
-    function PurchaseCinemaSeatComponent(store, actions, router, util, translate) {
+    function PurchaseCinemaSeatComponent(store, router, utilService, translate, purchaseService) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
-        this.util = util;
+        this.utilService = utilService;
         this.translate = translate;
+        this.purchaseService = purchaseService;
         this.environment = environment_1.environment;
     }
     /**
@@ -4361,35 +4300,32 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
      */
     PurchaseCinemaSeatComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var error_1;
             return __generator(this, function (_a) {
-                this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
-                this.user = this.store.pipe(store_1.select(reducers.getUser));
-                this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
-                this.getScreen();
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
+                        this.user = this.store.pipe(store_1.select(reducers.getUser));
+                        this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, this.purchaseService.getScreen()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.purchaseService.getTicketList()];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
             });
         });
-    };
-    /**
-     * スクリーン情報取得
-     */
-    PurchaseCinemaSeatComponent.prototype.getScreen = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            var screeningEvent = purchase.screeningEvent;
-            if (screeningEvent === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.GetScreen({ screeningEvent: screeningEvent }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreenSuccess), operators_1.tap(function () {
-            _this.getTickets();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreenFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
     };
     /**
      * 座席選択
@@ -4402,16 +4338,16 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
                     && purchase.screeningEvent.offers !== undefined
                     && purchase.screeningEvent.offers.eligibleQuantity.maxValue !== undefined
                     && purchase.reservations.length >= purchase.screeningEvent.offers.eligibleQuantity.maxValue) {
-                    _this.util.openAlert({
+                    _this.utilService.openAlert({
                         title: _this.translate.instant('common.error'),
                         body: _this.translate.instant('purchase.cinema.seat.alert.limit', { value: purchase.screeningEvent.offers.eligibleQuantity.maxValue })
                     });
                     return;
                 }
-                _this.store.dispatch(new actions_1.purchaseAction.SelectSeats({ seats: [data.seat] }));
+                _this.purchaseService.selectSeats([data.seat]);
             }
             else {
-                _this.store.dispatch(new actions_1.purchaseAction.CancelSeats({ seats: [data.seat] }));
+                _this.purchaseService.cancelSeats([data.seat]);
             }
         }).unsubscribe();
     };
@@ -4419,66 +4355,36 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
      * 座席決定
      */
     PurchaseCinemaSeatComponent.prototype.onSubmit = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            var transaction = purchase.transaction;
-            var screeningEvent = purchase.screeningEvent;
-            if (purchase.reservations.length === 0) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: _this.translate.instant('purchase.cinema.seat.alert.unselected')
-                });
-                return;
-            }
-            var reservations = purchase.reservations.map(function (reservation) {
-                return new models_1.Reservation({
-                    seat: reservation.seat,
-                    ticket: (reservation.ticket === undefined)
-                        ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
-                        : reservation.ticket
-                });
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        if (purchase.reservations.length === 0) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.cinema.seat.alert.unselected')
+                            });
+                            return [2 /*return*/];
+                        }
+                        return [4 /*yield*/, this.purchaseService.temporaryReservation()];
+                    case 2:
+                        _a.sent();
+                        this.router.navigate(['/purchase/cinema/ticket']);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_2 = _a.sent();
+                        console.error(error_2);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
             });
-            var authorizeSeatReservation = purchase.authorizeSeatReservation;
-            if (transaction === undefined
-                || screeningEvent === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.TemporaryReservation({
-                transaction: transaction,
-                screeningEvent: screeningEvent,
-                reservations: reservations,
-                authorizeSeatReservation: authorizeSeatReservation
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationSuccess), operators_1.tap(function () {
-            _this.router.navigate(['/purchase/cinema/ticket']);
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
-     * 券種情報取得
-     */
-    PurchaseCinemaSeatComponent.prototype.getTickets = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            var screeningEvent = purchase.screeningEvent;
-            var seller = purchase.seller;
-            if (screeningEvent === undefined
-                || seller === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.GetTicketList({ screeningEvent: screeningEvent, seller: seller }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     PurchaseCinemaSeatComponent = __decorate([
         core_1.Component({
@@ -4487,10 +4393,10 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-cinema-seat.component.scss */ "./app/components/pages/purchase/cinema/purchase-cinema-seat/purchase-cinema-seat.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
             services_1.UtilService,
-            core_2.TranslateService])
+            core_2.TranslateService,
+            services_1.PurchaseService])
     ], PurchaseCinemaSeatComponent);
     return PurchaseCinemaSeatComponent;
 }());
@@ -4528,27 +4434,58 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var services_1 = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var parts_1 = __webpack_require__(/*! ../../../../parts */ "./app/components/parts/index.ts");
 var PurchaseCinemaTicketComponent = /** @class */ (function () {
-    function PurchaseCinemaTicketComponent(store, actions, router, modal, util, translate) {
+    function PurchaseCinemaTicketComponent(store, router, modal, utilService, purchaseService, translate) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
         this.modal = modal;
-        this.util = util;
+        this.utilService = utilService;
+        this.purchaseService = purchaseService;
         this.translate = translate;
     }
     /**
@@ -4563,78 +4500,75 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
      * 券種決定
      */
     PurchaseCinemaTicketComponent.prototype.onSubmit = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            var transaction = purchase.transaction;
-            var screeningEvent = purchase.screeningEvent;
-            var reservations = purchase.reservations;
-            var authorizeSeatReservation = purchase.authorizeSeatReservation;
-            if (transaction === undefined
-                || screeningEvent === undefined
-                || authorizeSeatReservation === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            var unselectedReservations = reservations.filter(function (reservation) {
-                return (reservation.ticket === undefined);
-            });
-            if (unselectedReservations.length > 0) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: _this.translate.instant('purchase.cinema.ticket.alert.unselected')
-                });
-                return;
-            }
-            var validResult = reservations.filter(function (reservation) {
-                var unitPriceSpecification = reservation.getUnitPriceSpecification();
-                if (unitPriceSpecification === undefined
-                    || unitPriceSpecification.typeOf !== api_javascript_client_1.factory.chevre.priceSpecificationType.UnitPriceSpecification) {
-                    return false;
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase_1, reservations_1, unselectedReservations, validResult, error_1;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                    case 1:
+                        purchase_1 = _a.sent();
+                        reservations_1 = purchase_1.reservations;
+                        unselectedReservations = reservations_1.filter(function (reservation) {
+                            return (reservation.ticket === undefined);
+                        });
+                        if (unselectedReservations.length > 0) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.cinema.ticket.alert.unselected')
+                            });
+                            return [2 /*return*/];
+                        }
+                        validResult = reservations_1.filter(function (reservation) {
+                            var unitPriceSpecification = reservation.getUnitPriceSpecification();
+                            if (unitPriceSpecification === undefined
+                                || unitPriceSpecification.typeOf !== api_javascript_client_1.factory.chevre.priceSpecificationType.UnitPriceSpecification) {
+                                return false;
+                            }
+                            var filterResult = reservations_1.filter(function (targetReservation) {
+                                return (reservation.ticket !== undefined
+                                    && targetReservation.ticket !== undefined
+                                    && reservation.ticket.ticketOffer.id === targetReservation.ticket.ticketOffer.id);
+                            });
+                            var value = (unitPriceSpecification.referenceQuantity.value === undefined)
+                                ? 1
+                                : unitPriceSpecification.referenceQuantity.value;
+                            return (filterResult.length % value !== 0);
+                        });
+                        if (validResult.length > 0) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.cinema.ticket.alert.ticketCondition')
+                            });
+                            return [2 /*return*/];
+                        }
+                        return [4 /*yield*/, this.purchaseService.temporaryReservation()];
+                    case 2:
+                        _a.sent();
+                        this.user.subscribe(function (user) {
+                            var authorizeSeatReservation = purchase_1.authorizeSeatReservation;
+                            if (authorizeSeatReservation === undefined) {
+                                _this.router.navigate(['/error']);
+                                return;
+                            }
+                            if (!user.isPurchaseCart) {
+                                _this.router.navigate(['/purchase/input']);
+                                return;
+                            }
+                            _this.router.navigate(['/purchase/cinema/cart']);
+                        }).unsubscribe();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
-                var filterResult = reservations.filter(function (targetReservation) {
-                    return (reservation.ticket !== undefined
-                        && targetReservation.ticket !== undefined
-                        && reservation.ticket.ticketOffer.id === targetReservation.ticket.ticketOffer.id);
-                });
-                var value = (unitPriceSpecification.referenceQuantity.value === undefined)
-                    ? 1
-                    : unitPriceSpecification.referenceQuantity.value;
-                return (filterResult.length % value !== 0);
             });
-            if (validResult.length > 0) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: _this.translate.instant('purchase.cinema.ticket.alert.ticketCondition')
-                });
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.TemporaryReservation({
-                transaction: transaction,
-                screeningEvent: screeningEvent,
-                reservations: reservations,
-                authorizeSeatReservation: authorizeSeatReservation
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationSuccess), operators_1.tap(function () {
-            _this.purchase.subscribe(function (purchase) {
-                _this.user.subscribe(function (user) {
-                    var authorizeSeatReservation = purchase.authorizeSeatReservation;
-                    if (authorizeSeatReservation === undefined) {
-                        _this.router.navigate(['/error']);
-                        return;
-                    }
-                    if (!user.isPurchaseCart) {
-                        _this.router.navigate(['/purchase/input']);
-                        return;
-                    }
-                    _this.router.navigate(['/purchase/cinema/cart']);
-                }).unsubscribe();
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     /**
      * 券種一覧表示
@@ -4651,7 +4585,7 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
                     pendingMovieTickets: purchase.pendingMovieTickets,
                     cb: function (ticket) {
                         reservation.ticket = ticket;
-                        _this.store.dispatch(new actions_1.purchaseAction.SelectTickets({ reservations: [reservation] }));
+                        _this.purchaseService.selectTickets([reservation]);
                     }
                 },
                 class: 'modal-dialog-centered'
@@ -4670,10 +4604,10 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-cinema-ticket.component.scss */ "./app/components/pages/purchase/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
             ngx_bootstrap_1.BsModalService,
             services_1.UtilService,
+            services_1.PurchaseService,
             core_2.TranslateService])
     ], PurchaseCinemaTicketComponent);
     return PurchaseCinemaTicketComponent;
@@ -4759,13 +4693,15 @@ var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/inde
 var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+var services_1 = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
 var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseEventScheduleComponent = /** @class */ (function () {
-    function PurchaseEventScheduleComponent(store, actions, router, localeService) {
+    function PurchaseEventScheduleComponent(store, actions, router, purchaseService, localeService) {
         this.store = store;
         this.actions = actions;
         this.router = router;
+        this.purchaseService = purchaseService;
         this.localeService = localeService;
         this.moment = moment;
         this.environment = environment_1.environment;
@@ -4775,7 +4711,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var seller, error_1;
+            var purchase, defaultDate, openDate, nowDate, seller, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -4789,12 +4725,27 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 6, , 7]);
-                        return [4 /*yield*/, this.cancelTransaction()];
+                        return [4 /*yield*/, this.purchaseService.cancelTransaction()];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, this.setExternal()];
+                        return [4 /*yield*/, this.purchaseService.getPurchaseData()];
                     case 3:
-                        _a.sent();
+                        purchase = _a.sent();
+                        if (this.scheduleDate === undefined) {
+                            defaultDate = moment(moment().format('YYYYMMDD'))
+                                .add(environment_1.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                                .toDate();
+                            openDate = moment(environment_1.environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                            this.scheduleDate = defaultDate;
+                            nowDate = moment().toDate();
+                            if (openDate > nowDate) {
+                                this.scheduleDate = openDate;
+                            }
+                            if (purchase.external !== undefined
+                                && purchase.external.scheduleDate !== undefined) {
+                                this.scheduleDate = moment(purchase.external.scheduleDate).toDate();
+                            }
+                        }
                         return [4 /*yield*/, this.getSellers()];
                     case 4:
                         _a.sent();
@@ -4818,59 +4769,6 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.ngOnDestroy = function () {
         clearTimeout(this.updateTimer);
-    };
-    /**
-     * 取引中止
-     */
-    PurchaseEventScheduleComponent.prototype.cancelTransaction = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve) {
-                        _this.purchase.subscribe(function (purchase) {
-                            var transaction = purchase.transaction;
-                            if (transaction === undefined) {
-                                resolve();
-                                return;
-                            }
-                            _this.store.dispatch(new actions_1.purchaseAction.CancelTransaction({ transaction: transaction }));
-                            var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTransactionSuccess), operators_1.tap(function () { resolve(); }));
-                            var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTransactionFail), operators_1.tap(function () { resolve(); }));
-                            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                        }).unsubscribe();
-                    })];
-            });
-        });
-    };
-    /**
-     * 外部連携設定
-     */
-    PurchaseEventScheduleComponent.prototype.setExternal = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve) {
-                        _this.purchase.subscribe(function (purchase) {
-                            if (_this.scheduleDate === undefined) {
-                                var defaultDate = moment(moment().format('YYYYMMDD'))
-                                    .add(environment_1.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                                    .toDate();
-                                var openDate = moment(environment_1.environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
-                                _this.scheduleDate = defaultDate;
-                                var nowDate = moment().toDate();
-                                if (openDate > nowDate) {
-                                    _this.scheduleDate = openDate;
-                                }
-                                if (purchase.external !== undefined
-                                    && purchase.external.scheduleDate !== undefined) {
-                                    _this.scheduleDate = moment(purchase.external.scheduleDate).toDate();
-                                }
-                            }
-                            resolve();
-                        }).unsubscribe();
-                    })];
-            });
-        });
     };
     /**
      * 更新
@@ -4936,108 +4834,65 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.selectSeller = function (seller) {
         var _this = this;
-        this.store.dispatch(new actions_1.purchaseAction.SelectSeller({ seller: seller }));
-        setTimeout(function () {
-            _this.selectDate();
-        }, 0);
+        this.purchaseService.selectSeller(seller);
+        setTimeout(function () { _this.selectDate(); }, 0);
     };
     /**
      * 日付選択
      */
     PurchaseEventScheduleComponent.prototype.selectDate = function (date) {
-        var _this = this;
-        if (date !== undefined && date !== null) {
-            this.scheduleDate = date;
-        }
-        var now = moment().toDate();
-        var selectDate = moment(moment(this.scheduleDate).format('YYYYMMDD')).toDate();
-        var salesStopDate = moment(moment().format('YYYYMMDD'))
-            .add(environment_1.environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE, environment_1.environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT)
-            .toDate();
-        var openDate = moment(environment_1.environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
-        this.isSales = (selectDate >= openDate && selectDate >= salesStopDate);
-        if (this.isSales
-            && environment_1.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME !== ''
-            && moment(salesStopDate).unix() === moment(selectDate).unix()) {
-            var salesStopTime = moment(environment_1.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME, 'HHmmss').format('HHmmss');
-            this.isSales = (moment(now).format('HHmmss') < salesStopTime);
-        }
-        this.purchase.subscribe(function (purchase) {
-            var seller = purchase.seller;
-            if (seller === undefined) {
-                return;
-            }
-            var scheduleDate = moment(_this.scheduleDate).format('YYYY-MM-DD');
-            _this.store.dispatch(new actions_1.purchaseAction.SelectScheduleDate({ scheduleDate: scheduleDate }));
-            _this.store.dispatch(new actions_1.masterAction.GetSchedule({
-                superEvent: {
-                    ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
-                        ? [] : [purchase.external.superEventId],
-                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                        ? [] : [seller.location.branchCode],
-                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
-                        ? [] : [purchase.external.workPerformedId],
-                },
-                startFrom: moment(scheduleDate).toDate(),
-                startThrough: moment(scheduleDate).add(1, 'day').toDate()
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleSuccess), operators_1.tap(function () {
-            _this.master.subscribe(function (master) {
-                var screeningEvents = master.screeningEvents;
-                _this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
-                _this.update();
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
-     * 仮予約削除
-     */
-    PurchaseEventScheduleComponent.prototype.cancelTemporaryReservations = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var now, selectDate, salesStopDate, openDate, salesStopTime, success, fail;
             var _this = this;
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.purchase.subscribe(function (purchase) {
-                            var authorizeSeatReservations = purchase.authorizeSeatReservations;
-                            _this.store.dispatch(new actions_1.purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations: authorizeSeatReservations }));
-                        }).unsubscribe();
-                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsFail), operators_1.tap(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
-                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                    })];
-            });
-        });
-    };
-    /**
-     * 取引開始
-     */
-    PurchaseEventScheduleComponent.prototype.startTransaction = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.purchase.subscribe(function (purchase) {
-                            if (purchase.seller === undefined) {
-                                reject(null);
-                                return;
-                            }
-                            _this.store.dispatch(new actions_1.purchaseAction.StartTransaction({
-                                params: {
-                                    expires: moment().add(environment_1.environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
-                                    seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
-                                    object: {}
-                                }
-                            }));
-                        }).unsubscribe();
-                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionFail), operators_1.tap(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
-                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                    })];
+                if (date !== undefined && date !== null) {
+                    this.scheduleDate = date;
+                }
+                now = moment().toDate();
+                selectDate = moment(moment(this.scheduleDate).format('YYYYMMDD')).toDate();
+                salesStopDate = moment(moment().format('YYYYMMDD'))
+                    .add(environment_1.environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE, environment_1.environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT)
+                    .toDate();
+                openDate = moment(environment_1.environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                this.isSales = (selectDate >= openDate && selectDate >= salesStopDate);
+                if (this.isSales
+                    && environment_1.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME !== ''
+                    && moment(salesStopDate).unix() === moment(selectDate).unix()) {
+                    salesStopTime = moment(environment_1.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME, 'HHmmss').format('HHmmss');
+                    this.isSales = (moment(now).format('HHmmss') < salesStopTime);
+                }
+                this.purchase.subscribe(function (purchase) {
+                    var seller = purchase.seller;
+                    if (seller === undefined) {
+                        return;
+                    }
+                    var scheduleDate = moment(_this.scheduleDate).format('YYYY-MM-DD');
+                    _this.purchaseService.selectScheduleDate(scheduleDate);
+                    _this.store.dispatch(new actions_1.masterAction.GetSchedule({
+                        superEvent: {
+                            ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
+                                ? [] : [purchase.external.superEventId],
+                            locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                                ? [] : [seller.location.branchCode],
+                            workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
+                                ? [] : [purchase.external.workPerformedId],
+                        },
+                        startFrom: moment(scheduleDate).toDate(),
+                        startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                    }));
+                }).unsubscribe();
+                success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleSuccess), operators_1.tap(function () {
+                    _this.master.subscribe(function (master) {
+                        var screeningEvents = master.screeningEvents;
+                        _this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
+                        _this.update();
+                    }).unsubscribe();
+                }));
+                fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleFail), operators_1.tap(function () {
+                    _this.router.navigate(['/error']);
+                }));
+                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                return [2 /*return*/];
             });
         });
     };
@@ -5051,10 +4906,10 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.cancelTemporaryReservations()];
+                        return [4 /*yield*/, this.purchaseService.cancelTransaction()];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.startTransaction()];
+                        return [4 /*yield*/, this.purchaseService.startTransaction()];
                     case 2:
                         _a.sent();
                         this.router.navigate(['/purchase/event/ticket']);
@@ -5127,6 +4982,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [store_1.Store,
             effects_1.Actions,
             router_1.Router,
+            services_1.PurchaseService,
             ngx_bootstrap_1.BsLocaleService])
     ], PurchaseEventScheduleComponent);
     return PurchaseEventScheduleComponent;
@@ -5217,12 +5073,13 @@ var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/s
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var parts_1 = __webpack_require__(/*! ../../../../parts */ "./app/components/parts/index.ts");
 var PurchaseEventTicketComponent = /** @class */ (function () {
-    function PurchaseEventTicketComponent(store, actions, router, util, translate, modal) {
+    function PurchaseEventTicketComponent(store, actions, router, utilService, translate, purchaseService, modal) {
         this.store = store;
         this.actions = actions;
         this.router = router;
-        this.util = util;
+        this.utilService = utilService;
         this.translate = translate;
+        this.purchaseService = purchaseService;
         this.modal = modal;
         this.moment = moment;
         this.getTicketPrice = functions_1.getTicketPrice;
@@ -5314,52 +5171,44 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
      */
     PurchaseEventTicketComponent.prototype.selectSchedule = function (screeningEvent) {
         var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            _this.user.subscribe(function (user) {
-                if (purchase.authorizeSeatReservations.length > 0
-                    && !user.isPurchaseCart) {
-                    _this.util.openAlert({
-                        title: _this.translate.instant('common.error'),
-                        body: _this.translate.instant('purchase.event.ticket.alert.cart')
-                    });
-                    return;
+        this.user.subscribe(function (user) { return __awaiter(_this, void 0, void 0, function () {
+            var purchase, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        if (purchase.authorizeSeatReservations.length > 0
+                            && !user.isPurchaseCart) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.event.ticket.alert.cart')
+                            });
+                            return [2 /*return*/];
+                        }
+                        this.purchaseService.selectSchedule(screeningEvent);
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 5, , 6]);
+                        return [4 /*yield*/, this.purchaseService.getScreeningEventOffers()];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, this.purchaseService.getTicketList()];
+                    case 4:
+                        _a.sent();
+                        this.openTicketList();
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_1 = _a.sent();
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: ''
+                        });
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
-                _this.store.dispatch(new actions_1.purchaseAction.SelectSchedule({ screeningEvent: screeningEvent }));
-                _this.getScreeningEventOffers().then(function () {
-                    _this.getTickets();
-                }).catch(function () {
-                    _this.util.openAlert({
-                        title: _this.translate.instant('common.error'),
-                        body: ''
-                    });
-                });
-            }).unsubscribe();
-        }).unsubscribe();
-    };
-    /**
-     * 券種情報取得
-     */
-    PurchaseEventTicketComponent.prototype.getTickets = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            var screeningEvent = purchase.screeningEvent;
-            var seller = purchase.seller;
-            if (screeningEvent === undefined || seller === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.GetTicketList({ screeningEvent: screeningEvent, seller: seller }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListSuccess), operators_1.tap(function () {
-            _this.openTicketList();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListFail), operators_1.tap(function () {
-            _this.util.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: ''
             });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        }); }).unsubscribe();
     };
     /**
      * 券種一覧表示
@@ -5387,138 +5236,125 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
      * 券種選択
      */
     PurchaseEventTicketComponent.prototype.selectTicket = function (reservationTickets, screeningEvent) {
-        var _this = this;
-        var limit = (screeningEvent === undefined
-            || screeningEvent.offers === undefined
-            || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
-            ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
-        if (reservationTickets.length > limit) {
-            this.util.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('purchase.event.ticket.alert.limit', { value: limit })
-            });
-            return;
-        }
-        this.getScreeningEventOffers().then(function () {
-            _this.purchase.subscribe(function (purchase) {
-                if (purchase.screeningEvent !== undefined
-                    && functions_1.isTicketedSeatScreeningEvent(purchase.screeningEvent)) {
-                    var remainingSeatLength = functions_1.getRemainingSeatLength(purchase.screeningEventOffers);
-                    if (remainingSeatLength < reservationTickets.length) {
-                        _this.util.openAlert({
-                            title: _this.translate.instant('common.error'),
-                            body: _this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
+        return __awaiter(this, void 0, void 0, function () {
+            var limit, purchase, remainingSeatLength, error_2, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        limit = (screeningEvent === undefined
+                            || screeningEvent.offers === undefined
+                            || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
+                            ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
+                        if (reservationTickets.length > limit) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.event.ticket.alert.limit', { value: limit })
+                            });
+                            return [2 /*return*/];
+                        }
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, this.purchaseService.getScreeningEventOffers()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                    case 3:
+                        purchase = _a.sent();
+                        if (purchase.screeningEvent !== undefined
+                            && functions_1.isTicketedSeatScreeningEvent(purchase.screeningEvent)) {
+                            remainingSeatLength = functions_1.getRemainingSeatLength(purchase.screeningEventOffers);
+                            if (remainingSeatLength < reservationTickets.length) {
+                                this.utilService.openAlert({
+                                    title: this.translate.instant('common.error'),
+                                    body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
+                                });
+                                return [2 /*return*/];
+                            }
+                        }
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_2 = _a.sent();
+                        console.error(error_2);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: ''
                         });
-                        return;
-                    }
+                        return [3 /*break*/, 5];
+                    case 5:
+                        _a.trys.push([5, 7, , 8]);
+                        return [4 /*yield*/, this.purchaseService.temporaryReservationFreeSeat(reservationTickets)];
+                    case 6:
+                        _a.sent();
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.complete'),
+                            body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
+                        });
+                        return [3 /*break*/, 8];
+                    case 7:
+                        error_3 = _a.sent();
+                        console.error(error_3);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('purchase.event.ticket.alert.temporaryReservation')
+                        });
+                        return [3 /*break*/, 8];
+                    case 8: return [2 /*return*/];
                 }
-                _this.temporaryReservation(reservationTickets);
-            }).unsubscribe();
-        }).catch(function () {
-            _this.util.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: ''
             });
         });
-    };
-    /**
-     * 空席情報取得
-     */
-    PurchaseEventTicketComponent.prototype.getScreeningEventOffers = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.purchase.subscribe(function (purchase) {
-                if (purchase.screeningEvent === undefined) {
-                    _this.router.navigate(['/error']);
-                    return;
-                }
-                var screeningEvent = purchase.screeningEvent;
-                _this.store.dispatch(new actions_1.purchaseAction.GetScreeningEventOffers({ screeningEvent: screeningEvent }));
-            }).unsubscribe();
-            var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersSuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersFail), operators_1.tap(function () { reject(); }));
-            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-        });
-    };
-    /**
-     * 仮予約
-     * @param reservationTickets
-     */
-    PurchaseEventTicketComponent.prototype.temporaryReservation = function (reservationTickets) {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined
-                || purchase.screeningEvent === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            var transaction = purchase.transaction;
-            var screeningEvent = purchase.screeningEvent;
-            var screeningEventOffers = purchase.screeningEventOffers;
-            _this.store.dispatch(new actions_1.purchaseAction.TemporaryReservationFreeSeat({
-                transaction: transaction,
-                screeningEvent: screeningEvent,
-                screeningEventOffers: screeningEventOffers,
-                reservationTickets: reservationTickets
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFreeSeatSuccess), operators_1.tap(function () {
-            _this.util.openAlert({
-                title: _this.translate.instant('common.complete'),
-                body: _this.translate.instant('purchase.event.ticket.success.temporaryReservation')
-            });
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFreeSeatFail), operators_1.tap(function () {
-            _this.util.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: _this.translate.instant('purchase.event.ticket.alert.temporaryReservation')
-            });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
     };
     /**
      * 券種確定
      */
     PurchaseEventTicketComponent.prototype.onSubmit = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            var authorizeSeatReservations = purchase.authorizeSeatReservations;
-            // チケット未選択判定
-            if (authorizeSeatReservations.length === 0) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: _this.translate.instant('purchase.event.ticket.alert.unselected')
-                });
-                return;
-            }
-            // 単独購入可能作品判定
-            if (_this.isSinglePurchase({ name: 'alert', authorizeSeatReservations: authorizeSeatReservations })) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: _this.translate.instant('purchase.event.ticket.alert.single')
-                });
-                return;
-            }
-            if (_this.isSinglePurchase({ name: 'confirm', authorizeSeatReservations: authorizeSeatReservations })) {
-                _this.util.openConfirm({
-                    title: _this.translate.instant('common.confirm'),
-                    body: _this.translate.instant('purchase.event.ticket.confirm.single'),
-                    cb: function () { _this.router.navigate(['/purchase/input']); }
-                });
-                return;
-            }
-            // チケット枚数上限判定
-            var itemCount = 0;
-            authorizeSeatReservations.forEach(function (a) { return itemCount += a.object.acceptedOffer.length; });
-            if (itemCount > Number(environment_1.environment.PURCHASE_ITEM_MAX_LENGTH)) {
-                _this.util.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: _this.translate.instant('purchase.event.ticket.alert.limit', { value: Number(environment_1.environment.PURCHASE_ITEM_MAX_LENGTH) })
-                });
-                return;
-            }
-            _this.router.navigate(['/purchase/input']);
-        }).unsubscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, authorizeSeatReservations, itemCount;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        authorizeSeatReservations = purchase.authorizeSeatReservations;
+                        // チケット未選択判定
+                        if (authorizeSeatReservations.length === 0) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.event.ticket.alert.unselected')
+                            });
+                            return [2 /*return*/];
+                        }
+                        // 単独購入可能作品判定
+                        if (this.isSinglePurchase({ name: 'alert', authorizeSeatReservations: authorizeSeatReservations })) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.event.ticket.alert.single')
+                            });
+                            return [2 /*return*/];
+                        }
+                        if (this.isSinglePurchase({ name: 'confirm', authorizeSeatReservations: authorizeSeatReservations })) {
+                            this.utilService.openConfirm({
+                                title: this.translate.instant('common.confirm'),
+                                body: this.translate.instant('purchase.event.ticket.confirm.single'),
+                                cb: function () { _this.router.navigate(['/purchase/input']); }
+                            });
+                            return [2 /*return*/];
+                        }
+                        itemCount = 0;
+                        authorizeSeatReservations.forEach(function (a) { return itemCount += a.object.acceptedOffer.length; });
+                        if (itemCount > Number(environment_1.environment.PURCHASE_ITEM_MAX_LENGTH)) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('purchase.event.ticket.alert.limit', { value: Number(environment_1.environment.PURCHASE_ITEM_MAX_LENGTH) })
+                            });
+                            return [2 /*return*/];
+                        }
+                        this.router.navigate(['/purchase/input']);
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * 単独購入可能判定（警告 or 確認）
@@ -5544,36 +5380,26 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
         return findResult;
     };
     /**
-     * 座席の仮予約削除
-     * @param authorizeSeatReservations
-     */
-    PurchaseEventTicketComponent.prototype.removeItemProcess = function (authorizeSeatReservations) {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations: authorizeSeatReservations }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
      * 座席の仮予約削除確認
      */
     PurchaseEventTicketComponent.prototype.removeItem = function (authorizeSeatReservation) {
         var _this = this;
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('purchase.event.cart.confirm.cancel'),
-            cb: function () {
-                var authorizeSeatReservations = [authorizeSeatReservation];
-                _this.removeItemProcess(authorizeSeatReservations);
-            }
+            cb: function () { return __awaiter(_this, void 0, void 0, function () {
+                var authorizeSeatReservations;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            authorizeSeatReservations = [authorizeSeatReservation];
+                            return [4 /*yield*/, this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations)];
+                        case 1:
+                            _a.sent();
+                            return [2 /*return*/];
+                    }
+                });
+            }); }
         });
     };
     PurchaseEventTicketComponent = __decorate([
@@ -5587,6 +5413,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
             router_1.Router,
             services_1.UtilService,
             core_2.TranslateService,
+            services_1.PurchaseService,
             ngx_bootstrap_1.BsModalService])
     ], PurchaseEventTicketComponent);
     return PurchaseEventTicketComponent;
@@ -5810,25 +5637,56 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../functions */ "./app/functions/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseConfirmComponent = /** @class */ (function () {
-    function PurchaseConfirmComponent(store, actions, util, router, translate) {
+    function PurchaseConfirmComponent(store, utilService, purchaseService, router, translate) {
         this.store = store;
-        this.actions = actions;
-        this.util = util;
+        this.utilService = utilService;
+        this.purchaseService = purchaseService;
         this.router = router;
         this.translate = translate;
         this.moment = moment;
@@ -5840,120 +5698,79 @@ var PurchaseConfirmComponent = /** @class */ (function () {
      * 初期化
      */
     PurchaseConfirmComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
-        this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
-        this.user = this.store.pipe(store_1.select(reducers.getUser));
-        this.amount = 0;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.amount = functions_1.getAmount(purchase.authorizeSeatReservations);
-        }).unsubscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
+                this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
+                this.user = this.store.pipe(store_1.select(reducers.getUser));
+                this.amount = 0;
+                this.purchase.subscribe(function (purchase) {
+                    if (purchase.transaction === undefined) {
+                        _this.router.navigate(['/error']);
+                        return;
+                    }
+                    _this.amount = functions_1.getAmount(purchase.authorizeSeatReservations);
+                }).unsubscribe();
+                return [2 /*return*/];
+            });
+        });
     };
     /**
      * 確定
      */
     PurchaseConfirmComponent.prototype.onSubmit = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.pendingMovieTickets.length > 0) {
-                _this.authorizeMovieTicket();
-            }
-            else if (_this.amount > 0) {
-                _this.authorizeCreditCard();
-            }
-            else {
-                _this.endTransaction();
-            }
-        }).unsubscribe();
-    };
-    /**
-     * 取引確定
-     */
-    PurchaseConfirmComponent.prototype.endTransaction = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined || purchase.seller === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            var transaction = purchase.transaction;
-            var authorizeSeatReservations = purchase.authorizeSeatReservations;
-            var seller = purchase.seller;
-            _this.store.dispatch(new actions_1.purchaseAction.EndTransaction({ transaction: transaction, authorizeSeatReservations: authorizeSeatReservations, seller: seller }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionSuccess), operators_1.tap(function () {
-            _this.router.navigate(['/purchase/complete']);
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
-     * クレジットカード認証
-     */
-    PurchaseConfirmComponent.prototype.authorizeCreditCard = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined
-                || purchase.creditCard === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.AuthorizeCreditCard({
-                transaction: purchase.transaction,
-                authorizeCreditCardPayment: purchase.authorizeCreditCardPayments[0],
-                orderCount: purchase.orderCount,
-                amount: _this.amount,
-                method: '1',
-                creditCard: purchase.creditCard
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeCreditCardSuccess), operators_1.tap(function () {
-            _this.endTransaction();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeCreditCardFail), operators_1.tap(function () {
-            _this.util.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: _this.translate.instant('purchase.confirm.alert.authorizeCreditCard')
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, error_1, error_2, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 5, , 6]);
+                        if (!(purchase.pendingMovieTickets.length > 0)) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.purchaseService.authorizeMovieTicket()];
+                    case 3:
+                        _a.sent();
+                        _a.label = 4;
+                    case 4: return [3 /*break*/, 6];
+                    case 5:
+                        error_1 = _a.sent();
+                        this.router.navigate(['/error']);
+                        return [2 /*return*/];
+                    case 6:
+                        _a.trys.push([6, 9, , 10]);
+                        if (!(this.amount > 0)) return [3 /*break*/, 8];
+                        return [4 /*yield*/, this.purchaseService.authorizeCreditCard(this.amount)];
+                    case 7:
+                        _a.sent();
+                        _a.label = 8;
+                    case 8: return [3 /*break*/, 10];
+                    case 9:
+                        error_2 = _a.sent();
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('purchase.confirm.alert.authorizeCreditCard')
+                        });
+                        this.router.navigate(['/purchase/input']);
+                        return [2 /*return*/];
+                    case 10:
+                        _a.trys.push([10, 12, , 13]);
+                        return [4 /*yield*/, this.purchaseService.endTransaction()];
+                    case 11:
+                        _a.sent();
+                        this.router.navigate(['/purchase/complete']);
+                        return [3 /*break*/, 13];
+                    case 12:
+                        error_3 = _a.sent();
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 13];
+                    case 13: return [2 /*return*/];
+                }
             });
-            _this.router.navigate(['/purchase/input']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
-     * ムビチケ認証
-     */
-    PurchaseConfirmComponent.prototype.authorizeMovieTicket = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.AuthorizeMovieTicket({
-                transaction: purchase.transaction,
-                authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
-                authorizeSeatReservations: purchase.authorizeSeatReservations,
-                pendingMovieTickets: purchase.pendingMovieTickets
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeMovieTicketSuccess), operators_1.tap(function () {
-            if (_this.amount > 0) {
-                _this.authorizeCreditCard();
-            }
-            else {
-                _this.endTransaction();
-            }
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeMovieTicketFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     PurchaseConfirmComponent = __decorate([
         core_1.Component({
@@ -5962,8 +5779,8 @@ var PurchaseConfirmComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-confirm.component.scss */ "./app/components/pages/purchase/purchase-confirm/purchase-confirm.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             services_1.UtilService,
+            services_1.PurchaseService,
             router_1.Router,
             core_2.TranslateService])
     ], PurchaseConfirmComponent);
@@ -6042,30 +5859,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var forms_1 = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var libphonenumber = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../functions */ "./app/functions/index.ts");
 var models_1 = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
 var libphonenumber_format_pipe_1 = __webpack_require__(/*! ../../../../pipes/libphonenumber-format.pipe */ "./app/pipes/libphonenumber-format.pipe.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var parts_1 = __webpack_require__(/*! ../../../parts */ "./app/components/parts/index.ts");
 var PurchaseInputComponent = /** @class */ (function () {
-    function PurchaseInputComponent(store, actions, router, modal, formBuilder, util, translate) {
+    function PurchaseInputComponent(store, router, modal, formBuilder, utilService, purchaseService, translate) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
         this.modal = modal;
         this.formBuilder = formBuilder;
-        this.util = util;
+        this.utilService = utilService;
+        this.purchaseService = purchaseService;
         this.translate = translate;
         this.environment = environment_1.environment;
         this.viewType = models_1.ViewType;
@@ -6186,7 +5999,7 @@ var PurchaseInputComponent = /** @class */ (function () {
      */
     PurchaseInputComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var error_1, creditCard, error_2;
+            var cardExpiration, creditCard, error_1, creditCard, contact, error_2;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -6200,13 +6013,13 @@ var PurchaseInputComponent = /** @class */ (function () {
                         this.customerContactForm.controls.email.setValue(document.getElementById('email').value);
                         this.customerContactForm.controls.telephone.setValue(document.getElementById('telephone').value);
                         if (this.customerContactForm.invalid) {
-                            this.util.openAlert({
+                            this.utilService.openAlert({
                                 title: this.translate.instant('common.error'),
                                 body: this.translate.instant('purchase.input.alert.customer')
                             });
                             return [2 /*return*/];
                         }
-                        // クレジットカード情報Form
+                        // クレジットカード情報フォーム
                         if (this.usedCreditCard === undefined && this.amount > 0) {
                             Object.keys(this.creditCardForm.controls).forEach(function (key) {
                                 _this.creditCardForm.controls[key].markAsTouched();
@@ -6215,108 +6028,68 @@ var PurchaseInputComponent = /** @class */ (function () {
                             this.creditCardForm.controls.securityCode.setValue(document.getElementById('securityCode').value);
                             this.creditCardForm.controls.holderName.setValue(document.getElementById('holderName').value);
                             if (this.creditCardForm.invalid) {
-                                this.util.openAlert({
+                                this.utilService.openAlert({
                                     title: this.translate.instant('common.error'),
                                     body: this.translate.instant('purchase.input.alert.payment')
                                 });
                                 return [2 /*return*/];
                             }
                         }
+                        this.purchaseService.removeCreditCard();
+                        if (!(this.amount > 0 && this.usedCreditCard === undefined)) return [3 /*break*/, 4];
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 9, , 10]);
-                        this.store.dispatch(new actions_1.purchaseAction.RemoveCreditCard());
-                        if (!(this.amount > 0)) return [3 /*break*/, 7];
-                        if (!(this.usedCreditCard === undefined)) return [3 /*break*/, 6];
-                        _a.label = 2;
+                        _a.trys.push([1, 3, , 4]);
+                        cardExpiration = {
+                            year: this.creditCardForm.controls.cardExpirationYear.value,
+                            month: this.creditCardForm.controls.cardExpirationMonth.value
+                        };
+                        creditCard = {
+                            cardno: this.creditCardForm.controls.cardNumber.value,
+                            expire: "" + cardExpiration.year + cardExpiration.month,
+                            holderName: this.creditCardForm.controls.holderName.value,
+                            securityCode: this.creditCardForm.controls.securityCode.value
+                        };
+                        return [4 /*yield*/, this.purchaseService.createGmoTokenObject(creditCard)];
                     case 2:
-                        _a.trys.push([2, 4, , 5]);
-                        return [4 /*yield*/, this.createGmoTokenObject()];
-                    case 3:
                         _a.sent();
-                        return [3 /*break*/, 5];
-                    case 4:
+                        return [3 /*break*/, 4];
+                    case 3:
                         error_1 = _a.sent();
-                        this.util.openAlert({
+                        this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
                             body: this.translate.instant('purchase.input.alert.gmoToken')
                         });
                         return [2 /*return*/];
-                    case 5: return [3 /*break*/, 7];
-                    case 6:
-                        creditCard = {
-                            memberId: 'me',
-                            cardSeq: Number(this.usedCreditCard.cardSeq)
+                    case 4:
+                        if (this.amount > 0 && this.usedCreditCard !== undefined) {
+                            creditCard = {
+                                memberId: 'me',
+                                cardSeq: Number(this.usedCreditCard.cardSeq)
+                            };
+                            this.purchaseService.registerCreditCard(creditCard);
+                        }
+                        _a.label = 5;
+                    case 5:
+                        _a.trys.push([5, 7, , 8]);
+                        contact = {
+                            givenName: this.customerContactForm.controls.givenName.value,
+                            familyName: this.customerContactForm.controls.familyName.value,
+                            telephone: this.customerContactForm.controls.telephone.value,
+                            email: this.customerContactForm.controls.email.value,
                         };
-                        this.store.dispatch(new actions_1.purchaseAction.RegisterCreditCard({ creditCard: creditCard }));
-                        _a.label = 7;
-                    case 7: return [4 /*yield*/, this.registerContact()];
-                    case 8:
+                        return [4 /*yield*/, this.purchaseService.registerContact(contact)];
+                    case 6:
                         _a.sent();
                         this.router.navigate(['/purchase/confirm']);
-                        return [3 /*break*/, 10];
-                    case 9:
+                        return [3 /*break*/, 8];
+                    case 7:
                         error_2 = _a.sent();
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 10];
-                    case 10: return [2 /*return*/];
+                        return [3 /*break*/, 8];
+                    case 8: return [2 /*return*/];
                 }
             });
-        });
-    };
-    /**
-     * 購入者情報登録
-     */
-    PurchaseInputComponent.prototype.registerContact = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.purchase.subscribe(function (purchase) {
-                if (purchase.transaction === undefined) {
-                    _this.router.navigate(['/error']);
-                    return;
-                }
-                var transaction = purchase.transaction;
-                var contact = {
-                    givenName: _this.customerContactForm.controls.givenName.value,
-                    familyName: _this.customerContactForm.controls.familyName.value,
-                    telephone: _this.customerContactForm.controls.telephone.value,
-                    email: _this.customerContactForm.controls.email.value,
-                };
-                _this.store.dispatch(new actions_1.purchaseAction.RegisterContact({ transaction: transaction, contact: contact }));
-            }).unsubscribe();
-            var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.RegisterContactSuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.RegisterContactFail), operators_1.tap(function () { reject(); }));
-            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-        });
-    };
-    /**
-     * GMOトークン取得
-     */
-    PurchaseInputComponent.prototype.createGmoTokenObject = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.purchase.subscribe(function (purchase) {
-                if (purchase.seller === undefined) {
-                    _this.router.navigate(['/error']);
-                    return;
-                }
-                var cardExpiration = {
-                    year: _this.creditCardForm.controls.cardExpirationYear.value,
-                    month: _this.creditCardForm.controls.cardExpirationMonth.value
-                };
-                _this.store.dispatch(new actions_1.purchaseAction.CreateGmoTokenObject({
-                    seller: purchase.seller,
-                    creditCard: {
-                        cardno: _this.creditCardForm.controls.cardNumber.value,
-                        expire: "" + cardExpiration.year + cardExpiration.month,
-                        holderName: _this.creditCardForm.controls.holderName.value,
-                        securityCode: _this.creditCardForm.controls.securityCode.value
-                    }
-                }));
-            }).unsubscribe();
-            var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CreateGmoTokenObjectSuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CreateGmoTokenObjectFail), operators_1.tap(function () { reject(); }));
-            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
         });
     };
     /**
@@ -6373,11 +6146,11 @@ var PurchaseInputComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-input.component.scss */ "./app/components/pages/purchase/purchase-input/purchase-input.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
             ngx_bootstrap_1.BsModalService,
             forms_1.FormBuilder,
             services_1.UtilService,
+            services_1.PurchaseService,
             core_2.TranslateService])
     ], PurchaseInputComponent);
     return PurchaseInputComponent;
@@ -6421,11 +6194,12 @@ var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angul
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var models_1 = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
+var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseRootComponent = /** @class */ (function () {
-    function PurchaseRootComponent(store, router) {
+    function PurchaseRootComponent(store, purchaseService, router) {
         this.store = store;
+        this.purchaseService = purchaseService;
         this.router = router;
     }
     /**
@@ -6435,7 +6209,7 @@ var PurchaseRootComponent = /** @class */ (function () {
         var _this = this;
         this.user = this.store.pipe(store_1.select(reducers.getUser));
         this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
-        this.store.dispatch(new actions_1.purchaseAction.Delete());
+        this.purchaseService.delete();
         this.user.subscribe(function (user) {
             if (user.viewType === models_1.ViewType.Cinema) {
                 _this.router.navigate(['/purchase/cinema/schedule']);
@@ -6451,6 +6225,7 @@ var PurchaseRootComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-root.component.scss */ "./app/components/pages/purchase/purchase-root/purchase-root.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
+            services_1.PurchaseService,
             router_1.Router])
     ], PurchaseRootComponent);
     return PurchaseRootComponent;
@@ -6527,23 +6302,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
-var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
-var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var models_1 = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
+var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
-var actions_2 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseTransactionComponent = /** @class */ (function () {
-    function PurchaseTransactionComponent(store, actions, router, activatedRoute, translate) {
+    function PurchaseTransactionComponent(store, router, activatedRoute, purchaseService, translate) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
         this.activatedRoute = activatedRoute;
+        this.purchaseService = purchaseService;
         this.translate = translate;
     }
     /**
@@ -6556,7 +6326,7 @@ var PurchaseTransactionComponent = /** @class */ (function () {
                 this.user = this.store.pipe(store_1.select(reducers.getUser));
                 this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
                 this.error = this.store.pipe(store_1.select(reducers.getError));
-                this.store.dispatch(new actions_1.purchaseAction.Delete());
+                this.purchaseService.delete();
                 this.user.subscribe(function (user) { return __awaiter(_this, void 0, void 0, function () {
                     var snapshot, eventId, passportToken, error_1;
                     return __generator(this, function (_a) {
@@ -6569,14 +6339,14 @@ var PurchaseTransactionComponent = /** @class */ (function () {
                                 snapshot = this.activatedRoute.snapshot;
                                 eventId = snapshot.params.eventId;
                                 passportToken = snapshot.params.passportToken;
-                                this.store.dispatch(new actions_1.purchaseAction.SetExternal({ eventId: eventId, passportToken: passportToken }));
+                                this.purchaseService.setExternal({ eventId: eventId, passportToken: passportToken });
                                 _a.label = 1;
                             case 1:
                                 _a.trys.push([1, 4, , 5]);
-                                return [4 /*yield*/, this.convertExternalToPurchase({ eventId: eventId })];
+                                return [4 /*yield*/, this.purchaseService.convertExternalToPurchase(eventId)];
                             case 2:
                                 _a.sent();
-                                return [4 /*yield*/, this.startTransaction()];
+                                return [4 /*yield*/, this.purchaseService.startTransaction()];
                             case 3:
                                 _a.sent();
                                 this.router.navigate(['/purchase/cinema/seat']);
@@ -6602,59 +6372,10 @@ var PurchaseTransactionComponent = /** @class */ (function () {
                 element.value = language;
             }
             this.translate.use(language);
-            this.store.dispatch(new actions_2.userAction.UpdateLanguage({ language: language }));
+            this.store.dispatch(new actions_1.userAction.UpdateLanguage({ language: language }));
             var html = document.querySelector('html');
             html.setAttribute('lang', language);
         }
-    };
-    /**
-     * 外部データを購入データへ変換
-     */
-    PurchaseTransactionComponent.prototype.convertExternalToPurchase = function (params) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        var eventId = params.eventId;
-                        _this.store.dispatch(new actions_1.purchaseAction.ConvertExternalToPurchase({ eventId: eventId }));
-                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.ConvertExternalToPurchaseSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.ConvertExternalToPurchaseFail), operators_1.tap(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
-                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                    })];
-            });
-        });
-    };
-    /**
-     * 取引開始
-     */
-    PurchaseTransactionComponent.prototype.startTransaction = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.purchase.subscribe(function (purchase) {
-                            if (purchase.seller === undefined) {
-                                reject(null);
-                                return;
-                            }
-                            _this.store.dispatch(new actions_1.purchaseAction.StartTransaction({
-                                params: {
-                                    expires: moment().add(environment_1.environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
-                                    seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
-                                    object: {
-                                        passport: (purchase.external === undefined
-                                            || purchase.external.passportToken === undefined)
-                                            ? undefined : { token: purchase.external.passportToken }
-                                    }
-                                }
-                            }));
-                        }).unsubscribe();
-                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionFail), operators_1.tap(function () { _this.error.subscribe(function (error) { return reject(error); }).unsubscribe(); }));
-                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                    })];
-            });
-        });
     };
     PurchaseTransactionComponent = __decorate([
         core_1.Component({
@@ -6663,9 +6384,9 @@ var PurchaseTransactionComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-transaction.component.scss */ "./app/components/pages/purchase/purchase-transaction/purchase-transaction.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
             router_1.ActivatedRoute,
+            services_1.PurchaseService,
             core_2.TranslateService])
     ], PurchaseTransactionComponent);
     return PurchaseTransactionComponent;
@@ -6719,10 +6440,10 @@ var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/in
 var actions_1 = __webpack_require__(/*! ../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../store/reducers */ "./app/store/reducers/index.ts");
 var SettingComponent = /** @class */ (function () {
-    function SettingComponent(actions, store, util, formBuilder, translate, router) {
+    function SettingComponent(actions, store, utilService, formBuilder, translate, router) {
         this.actions = actions;
         this.store = store;
-        this.util = util;
+        this.utilService = utilService;
         this.formBuilder = formBuilder;
         this.translate = translate;
         this.router = router;
@@ -6814,7 +6535,7 @@ var SettingComponent = /** @class */ (function () {
             _this.baseForm.controls[key].markAsTouched();
         });
         if (this.baseForm.invalid) {
-            this.util.openAlert({
+            this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('setting.alert.validation')
             });
@@ -6845,7 +6566,7 @@ var SettingComponent = /** @class */ (function () {
                 isPurchaseCart: isPurchaseCart,
                 viewType: viewType
             }));
-            _this.util.openAlert({
+            _this.utilService.openAlert({
                 title: _this.translate.instant('common.complete'),
                 body: _this.translate.instant('setting.alert.success')
             });
@@ -6873,7 +6594,7 @@ var SettingComponent = /** @class */ (function () {
         var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintSuccess), operators_1.tap(function () { }));
         var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintFail), operators_1.tap(function () {
             _this.error.subscribe(function (error) {
-                _this.util.openAlert({
+                _this.utilService.openAlert({
                     title: _this.translate.instant('common.error'),
                     body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('setting.alert.print') + "</p>\n                        <div class=\"p-3 bg-light-gray select-text error\">\n                            <code>" + error + "</code>\n                        </div>"
                 });
@@ -7308,11 +7029,11 @@ var environment_1 = __webpack_require__(/*! ../../../../environments/environment
 var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/index.ts");
 var reducers = __webpack_require__(/*! ../../../store/reducers */ "./app/store/reducers/index.ts");
 var HeaderMenuComponent = /** @class */ (function () {
-    function HeaderMenuComponent(store, cinerino, router, util, translate) {
+    function HeaderMenuComponent(store, cinerino, router, utilService, translate) {
         this.store = store;
         this.cinerino = cinerino;
         this.router = router;
-        this.util = util;
+        this.utilService = utilService;
         this.translate = translate;
         this.close = new core_1.EventEmitter();
     }
@@ -7322,7 +7043,7 @@ var HeaderMenuComponent = /** @class */ (function () {
     HeaderMenuComponent.prototype.signIn = function () {
         var _this = this;
         this.close.emit();
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('menu.confirm.login'),
             cb: function () {
@@ -7333,7 +7054,7 @@ var HeaderMenuComponent = /** @class */ (function () {
     HeaderMenuComponent.prototype.signOut = function () {
         var _this = this;
         this.close.emit();
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('menu.confirm.logout'),
             cb: function () { return __awaiter(_this, void 0, void 0, function () {
@@ -7682,24 +7403,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var forms_1 = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
-var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var jsqr_1 = __webpack_require__(/*! jsqr */ "../../node_modules/jsqr/dist/jsQR.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var functions_1 = __webpack_require__(/*! ../../../functions */ "./app/functions/index.ts");
 var change_language_pipe_1 = __webpack_require__(/*! ../../../pipes/change-language.pipe */ "./app/pipes/change-language.pipe.ts");
-var actions_1 = __webpack_require__(/*! ../../../store/actions */ "./app/store/actions/index.ts");
+var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/index.ts");
 var reducers = __webpack_require__(/*! ../../../store/reducers */ "./app/store/reducers/index.ts");
 var MvtkCheckModalComponent = /** @class */ (function () {
-    function MvtkCheckModalComponent(modal, store, actions, formBuilder, translate) {
+    function MvtkCheckModalComponent(modal, store, formBuilder, purchaseService, translate) {
         this.modal = modal;
         this.store = store;
-        this.actions = actions;
         this.formBuilder = formBuilder;
+        this.purchaseService = purchaseService;
         this.translate = translate;
     }
     MvtkCheckModalComponent.prototype.ngOnInit = function () {
@@ -7733,67 +7450,71 @@ var MvtkCheckModalComponent = /** @class */ (function () {
      * checkMovieTicket
      */
     MvtkCheckModalComponent.prototype.checkMovieTicket = function () {
-        var _this = this;
-        Object.keys(this.mvtkForm.controls).forEach(function (key) {
-            _this.mvtkForm.controls[key].markAsTouched();
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, checkMovieTicketAction, knyknrNoMkujyuCd, message, error_1;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        Object.keys(this.mvtkForm.controls).forEach(function (key) {
+                            _this.mvtkForm.controls[key].markAsTouched();
+                        });
+                        this.mvtkForm.controls.code.setValue(document.getElementById('code').value);
+                        this.mvtkForm.controls.password.setValue(document.getElementById('password').value);
+                        if (this.mvtkForm.invalid) {
+                            return [2 /*return*/];
+                        }
+                        this.errorMessage = '';
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, this.purchaseService.checkMovieTicket({
+                                code: this.mvtkForm.controls.code.value,
+                                password: this.mvtkForm.controls.password.value
+                            })];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                    case 3:
+                        purchase = _a.sent();
+                        checkMovieTicketAction = purchase.checkMovieTicketAction;
+                        if (checkMovieTicketAction === undefined
+                            || checkMovieTicketAction.result === undefined
+                            || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut === null) {
+                            this.isSuccess = false;
+                            this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.validation');
+                            return [2 /*return*/];
+                        }
+                        if (checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknmiNum === '0') {
+                            this.isSuccess = false;
+                            this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.used');
+                            return [2 /*return*/];
+                        }
+                        knyknrNoMkujyuCd = checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].knyknrNoMkujyuCd;
+                        if (knyknrNoMkujyuCd !== undefined) {
+                            message = new change_language_pipe_1.ChangeLanguagePipe(this.translate)
+                                .transform(functions_1.movieTicketAuthErroCodeToMessage(knyknrNoMkujyuCd));
+                            this.isSuccess = false;
+                            this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.validation') + "<br>\n                [" + knyknrNoMkujyuCd + "] " + message;
+                            return [2 /*return*/];
+                        }
+                        this.createMvtkForm();
+                        this.isSuccess = true;
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.isSuccess = false;
+                        this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.error');
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
+            });
         });
-        this.mvtkForm.controls.code.setValue(document.getElementById('code').value);
-        this.mvtkForm.controls.password.setValue(document.getElementById('password').value);
-        if (this.mvtkForm.invalid) {
-            return;
-        }
-        this.errorMessage = '';
-        this.purchase.subscribe(function (purchase) {
-            if (purchase.transaction === undefined
-                || purchase.screeningEvent === undefined) {
-                return;
-            }
-            _this.store.dispatch(new actions_1.purchaseAction.CheckMovieTicket({
-                transaction: purchase.transaction,
-                movieTickets: [{
-                        typeOf: api_javascript_client_1.factory.paymentMethodType.MovieTicket,
-                        identifier: _this.mvtkForm.controls.code.value,
-                        accessCode: _this.mvtkForm.controls.password.value // PINコード
-                    }],
-                screeningEvent: purchase.screeningEvent
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CheckMovieTicketSuccess), operators_1.tap(function () {
-            _this.purchase.subscribe(function (purchase) {
-                var checkMovieTicketAction = purchase.checkMovieTicketAction;
-                if (checkMovieTicketAction === undefined
-                    || checkMovieTicketAction.result === undefined
-                    || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut === null) {
-                    _this.isSuccess = false;
-                    _this.errorMessage = _this.translate.instant('modal.mvtkCheck.alert.validation');
-                    return;
-                }
-                if (checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknmiNum === '0') {
-                    _this.isSuccess = false;
-                    _this.errorMessage = _this.translate.instant('modal.mvtkCheck.alert.used');
-                    return;
-                }
-                var knyknrNoMkujyuCd = checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].knyknrNoMkujyuCd;
-                if (knyknrNoMkujyuCd !== undefined) {
-                    var message = new change_language_pipe_1.ChangeLanguagePipe(_this.translate)
-                        .transform(functions_1.movieTicketAuthErroCodeToMessage(knyknrNoMkujyuCd));
-                    _this.isSuccess = false;
-                    _this.errorMessage = _this.translate.instant('modal.mvtkCheck.alert.validation') + "<br>\n                        [" + knyknrNoMkujyuCd + "] " + message;
-                    return;
-                }
-                _this.createMvtkForm();
-                _this.isSuccess = true;
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CheckMovieTicketFail), operators_1.tap(function () {
-            _this.isSuccess = false;
-            _this.errorMessage = _this.translate.instant('modal.mvtkCheck.alert.error');
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
     };
     MvtkCheckModalComponent.prototype.activationCamera = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var constraints, stream, scanLoopTime, error_1;
+            var constraints, stream, scanLoopTime, error_2;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -7823,8 +7544,8 @@ var MvtkCheckModalComponent = /** @class */ (function () {
                         this.isShowVideo = true;
                         return [3 /*break*/, 3];
                     case 2:
-                        error_1 = _a.sent();
-                        console.error(error_1);
+                        error_2 = _a.sent();
+                        console.error(error_2);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
@@ -7869,8 +7590,8 @@ var MvtkCheckModalComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [ngx_bootstrap_1.BsModalRef,
             store_1.Store,
-            effects_1.Actions,
             forms_1.FormBuilder,
+            services_1.PurchaseService,
             core_2.TranslateService])
     ], MvtkCheckModalComponent);
     return MvtkCheckModalComponent;
@@ -8712,8 +8433,8 @@ var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-c
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var PurchaseTermsComponent = /** @class */ (function () {
-    function PurchaseTermsComponent(util) {
-        this.util = util;
+    function PurchaseTermsComponent(utilService) {
+        this.utilService = utilService;
         this.environment = environment_1.environment;
     }
     PurchaseTermsComponent.prototype.ngOnInit = function () {
@@ -8726,7 +8447,7 @@ var PurchaseTermsComponent = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         url = "/storage/text/purchase/terms/" + this.language + ".txt";
-                        return [4 /*yield*/, this.util.getText(url)];
+                        return [4 /*yield*/, this.utilService.getText(url)];
                     case 1:
                         result = _a.sent();
                         this.terms = result.replace(/\n/g, '<br>');
@@ -8903,8 +8624,8 @@ var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-c
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var PurchaseWarningComponent = /** @class */ (function () {
-    function PurchaseWarningComponent(util) {
-        this.util = util;
+    function PurchaseWarningComponent(utilService) {
+        this.utilService = utilService;
         this.environment = environment_1.environment;
     }
     PurchaseWarningComponent.prototype.ngOnInit = function () {
@@ -8917,7 +8638,7 @@ var PurchaseWarningComponent = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         url = "/storage/text/purchase/warning/" + this.language + ".txt";
-                        return [4 /*yield*/, this.util.getText(url)];
+                        return [4 /*yield*/, this.utilService.getText(url)];
                     case 1:
                         result = _a.sent();
                         this.warning = result.replace(/\n/g, '<br>');
@@ -11591,16 +11312,615 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
+var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
+var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+var environment_1 = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
+var models_1 = __webpack_require__(/*! ../models */ "./app/models/index.ts");
+var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
 var PurchaseService = /** @class */ (function () {
-    function PurchaseService() {
+    function PurchaseService(store, actions) {
+        this.store = store;
+        this.actions = actions;
     }
+    /**
+     * 購入データ取得
+     */
+    PurchaseService.prototype.getPurchaseData = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.purchase.subscribe(function (purchase) {
+                            resolve(purchase);
+                        }).unsubscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * データ削除
+     */
+    PurchaseService.prototype.delete = function () {
+        this.store.dispatch(new actions_1.purchaseAction.Delete());
+    };
+    /**
+     * 一時データ削除
+     */
+    PurchaseService.prototype.unsettledDelete = function () {
+        this.store.dispatch(new actions_1.purchaseAction.UnsettledDelete());
+    };
+    /**
+     * スケジュール日選択
+     */
+    PurchaseService.prototype.selectScheduleDate = function (scheduleDate) {
+        this.store.dispatch(new actions_1.purchaseAction.SelectScheduleDate({ scheduleDate: scheduleDate }));
+    };
+    /**
+     * 販売者選択
+     */
+    PurchaseService.prototype.selectSeller = function (seller) {
+        this.store.dispatch(new actions_1.purchaseAction.SelectSeller({ seller: seller }));
+    };
+    /**
+     * 先行販売日取得
+     */
+    PurchaseService.prototype.getPreScheduleDates = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.purchase.subscribe(function (purchase) {
+                if (purchase.seller === undefined) {
+                    reject();
+                    return;
+                }
+                var seller = purchase.seller;
+                _this.store.dispatch(new actions_1.purchaseAction.GetPreScheduleDates({
+                    superEvent: {
+                        ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
+                            ? [] : [purchase.external.superEventId],
+                        locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                            ? [] : [seller.location.branchCode],
+                        workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
+                            ? [] : [purchase.external.workPerformedId]
+                    }
+                }));
+            }).unsubscribe();
+            var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetPreScheduleDatesSuccess), operators_1.tap(function () { resolve(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetPreScheduleDatesFail), operators_1.tap(function () {
+                reject();
+            }));
+            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
+    };
+    /**
+     * スケジュール選択
+     */
+    PurchaseService.prototype.selectSchedule = function (screeningEvent) {
+        this.store.dispatch(new actions_1.purchaseAction.SelectSchedule({ screeningEvent: screeningEvent }));
+    };
+    /**
+     * 取引開始
+     */
+    PurchaseService.prototype.startTransaction = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                if (purchase.seller === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.StartTransaction({
+                                    expires: moment().add(environment_1.environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
+                                    seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
+                                    object: {}
+                                }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionFail), operators_1.tap(function () { reject(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * 取引中止
+     */
+    PurchaseService.prototype.cancelTransaction = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
+                        var purchase, transaction, success, fail;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0: return [4 /*yield*/, this.getPurchaseData()];
+                                case 1:
+                                    purchase = _a.sent();
+                                    transaction = purchase.transaction;
+                                    if (transaction === undefined) {
+                                        resolve();
+                                        return [2 /*return*/];
+                                    }
+                                    this.store.dispatch(new actions_1.purchaseAction.CancelTransaction({ transaction: transaction }));
+                                    success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTransactionSuccess), operators_1.tap(function () { resolve(); }));
+                                    fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTransactionFail), operators_1.tap(function () { resolve(); }));
+                                    rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                                    return [2 /*return*/];
+                            }
+                        });
+                    }); })];
+            });
+        });
+    };
+    /**
+     * スクリーン取得
+     */
+    PurchaseService.prototype.getScreen = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                var screeningEvent = purchase.screeningEvent;
+                                if (screeningEvent === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.GetScreen({ screeningEvent: screeningEvent }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreenSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreenFail), operators_1.tap(function () { reject(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * 空席情報取得
+     */
+    PurchaseService.prototype.getScreeningEventOffers = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                var screeningEvent = purchase.screeningEvent;
+                                if (screeningEvent === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.GetScreeningEventOffers({ screeningEvent: screeningEvent }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersFail), operators_1.tap(function () { reject(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * 座席選択
+     */
+    PurchaseService.prototype.selectSeats = function (seats) {
+        this.store.dispatch(new actions_1.purchaseAction.SelectSeats({ seats: seats }));
+    };
+    /**
+     * 座席選択解除
+     */
+    PurchaseService.prototype.cancelSeats = function (seats) {
+        this.store.dispatch(new actions_1.purchaseAction.CancelSeats({ seats: seats }));
+    };
+    /**
+     * 券種一覧取得
+     */
+    PurchaseService.prototype.getTicketList = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                var screeningEvent = purchase.screeningEvent;
+                                var seller = purchase.seller;
+                                if (screeningEvent === undefined || seller === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.GetTicketList({ screeningEvent: screeningEvent, seller: seller }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListFail), operators_1.tap(function () { reject(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * 券種選択
+     */
+    PurchaseService.prototype.selectTickets = function (reservations) {
+        this.store.dispatch(new actions_1.purchaseAction.SelectTickets({ reservations: reservations }));
+    };
+    /**
+     * 座席仮予約
+     */
+    PurchaseService.prototype.temporaryReservation = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                var transaction = purchase.transaction;
+                                var screeningEvent = purchase.screeningEvent;
+                                var reservations = purchase.reservations.map(function (reservation) {
+                                    return new models_1.Reservation({
+                                        seat: reservation.seat,
+                                        ticket: (reservation.ticket === undefined)
+                                            ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
+                                            : reservation.ticket
+                                    });
+                                });
+                                var authorizeSeatReservation = purchase.authorizeSeatReservation;
+                                if (transaction === undefined
+                                    || screeningEvent === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.TemporaryReservation({
+                                    transaction: transaction,
+                                    screeningEvent: screeningEvent,
+                                    reservations: reservations,
+                                    authorizeSeatReservation: authorizeSeatReservation
+                                }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFail), operators_1.tap(function () { reject(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * 座席仮予約（在庫なし）
+     */
+    PurchaseService.prototype.temporaryReservationFreeSeat = function (reservationTickets) {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                var transaction = purchase.transaction;
+                                var screeningEvent = purchase.screeningEvent;
+                                var screeningEventOffers = purchase.screeningEventOffers;
+                                if (transaction === undefined || screeningEvent === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.TemporaryReservationFreeSeat({
+                                    transaction: transaction,
+                                    screeningEvent: screeningEvent,
+                                    screeningEventOffers: screeningEventOffers,
+                                    reservationTickets: reservationTickets
+                                }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFreeSeatSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFreeSeatFail), operators_1.tap(function () { reject(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * 座席仮予約解除
+     */
+    PurchaseService.prototype.cancelTemporaryReservations = function (authorizeSeatReservations) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations: authorizeSeatReservations }));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsFail), operators_1.tap(function () { reject(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * クレジットカード登録
+     */
+    PurchaseService.prototype.registerCreditCard = function (creditCard) {
+        this.store.dispatch(new actions_1.purchaseAction.RegisterCreditCard({ creditCard: creditCard }));
+    };
+    /**
+     * クレジットカード登録削除
+     */
+    PurchaseService.prototype.removeCreditCard = function () {
+        this.store.dispatch(new actions_1.purchaseAction.RemoveCreditCard());
+    };
+    /**
+     * 連絡先登録
+     */
+    PurchaseService.prototype.registerContact = function (contact) {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                var transaction = purchase.transaction;
+                                if (transaction === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.RegisterContact({ transaction: transaction, contact: contact }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.RegisterContactSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.RegisterContactFail), operators_1.tap(function () { reject(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * クレジットカード承認
+     */
+    PurchaseService.prototype.authorizeCreditCard = function (amount) {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                if (purchase.transaction === undefined || purchase.creditCard === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.AuthorizeCreditCard({
+                                    transaction: purchase.transaction,
+                                    authorizeCreditCardPayment: purchase.authorizeCreditCardPayments[0],
+                                    orderCount: purchase.orderCount,
+                                    amount: amount,
+                                    method: '1',
+                                    creditCard: purchase.creditCard
+                                }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeCreditCardSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeCreditCardFail), operators_1.tap(function () { reject(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * ムビチケ承認
+     */
+    PurchaseService.prototype.authorizeMovieTicket = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                if (purchase.transaction === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.AuthorizeMovieTicket({
+                                    transaction: purchase.transaction,
+                                    authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
+                                    authorizeSeatReservations: purchase.authorizeSeatReservations,
+                                    pendingMovieTickets: purchase.pendingMovieTickets
+                                }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeMovieTicketSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeMovieTicketFail), operators_1.tap(function () { reject(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * ムビチケ認証
+     */
+    PurchaseService.prototype.checkMovieTicket = function (movieTicket) {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                var transaction = purchase.transaction;
+                                var screeningEvent = purchase.screeningEvent;
+                                if (transaction === undefined || screeningEvent === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                _this.store.dispatch(new actions_1.purchaseAction.CheckMovieTicket({
+                                    transaction: transaction,
+                                    screeningEvent: screeningEvent,
+                                    movieTickets: [{
+                                            typeOf: api_javascript_client_1.factory.paymentMethodType.MovieTicket,
+                                            identifier: movieTicket.code,
+                                            accessCode: movieTicket.password // PINコード
+                                        }]
+                                }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CheckMovieTicketSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CheckMovieTicketFail), operators_1.tap(function () { reject(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * 取引確定
+     */
+    PurchaseService.prototype.endTransaction = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 1:
+                        purchase = _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                if (purchase.transaction === undefined || purchase.seller === undefined) {
+                                    reject();
+                                    return;
+                                }
+                                var transaction = purchase.transaction;
+                                var authorizeSeatReservations = purchase.authorizeSeatReservations;
+                                var seller = purchase.seller;
+                                _this.store.dispatch(new actions_1.purchaseAction.EndTransaction({ transaction: transaction, authorizeSeatReservations: authorizeSeatReservations, seller: seller }));
+                                var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionSuccess), operators_1.tap(function () { resolve(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionFail), operators_1.tap(function () { reject(); }));
+                                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                            })];
+                }
+            });
+        });
+    };
+    /**
+     * GMOトークン作成
+     */
+    PurchaseService.prototype.createGmoTokenObject = function (creditCard) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.purchase.subscribe(function (purchase) {
+                            var seller = purchase.seller;
+                            if (seller === undefined) {
+                                reject();
+                                return;
+                            }
+                            _this.store.dispatch(new actions_1.purchaseAction.CreateGmoTokenObject({ seller: seller, creditCard: creditCard }));
+                        }).unsubscribe();
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CreateGmoTokenObjectSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CreateGmoTokenObjectFail), operators_1.tap(function () { reject(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 外部連携情報設定
+     */
+    PurchaseService.prototype.setExternal = function (params) {
+        var theaterBranchCode = params.theaterBranchCode;
+        var workPerformedId = params.workPerformedId;
+        var superEventId = params.superEventId;
+        var eventId = params.eventId;
+        var scheduleDate = params.scheduleDate;
+        this.store.dispatch(new actions_1.purchaseAction.SetExternal({
+            theaterBranchCode: theaterBranchCode,
+            workPerformedId: workPerformedId,
+            superEventId: superEventId,
+            eventId: eventId,
+            scheduleDate: scheduleDate
+        }));
+    };
+    /**
+     * 外部連携情報を購入情報へ変換
+     */
+    PurchaseService.prototype.convertExternalToPurchase = function (eventId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.purchaseAction.ConvertExternalToPurchase({ eventId: eventId }));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.ConvertExternalToPurchaseSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.ConvertExternalToPurchaseFail), operators_1.tap(function () { reject(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
     PurchaseService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [store_1.Store,
+            effects_1.Actions])
     ], PurchaseService);
     return PurchaseService;
 }());
@@ -14029,11 +14349,11 @@ var actions_1 = __webpack_require__(/*! ../actions */ "./app/store/actions/index
  * Order Effects
  */
 var OrderEffects = /** @class */ (function () {
-    function OrderEffects(actions, cinerino, util, starPrint, translate) {
+    function OrderEffects(actions, cinerino, utilService, starPrint, translate) {
         var _this = this;
         this.actions = actions;
         this.cinerino = cinerino;
-        this.util = util;
+        this.utilService = utilService;
         this.starPrint = starPrint;
         this.translate = translate;
         /**
@@ -14114,7 +14434,7 @@ var OrderEffects = /** @class */ (function () {
                                         };
                                         if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 3];
                                         url = '/storage/text/order/mail/return.txt';
-                                        return [4 /*yield*/, this_1.util.getText(url)];
+                                        return [4 /*yield*/, this_1.utilService.getText(url)];
                                     case 2:
                                         template = _a.sent();
                                         email.template = functions_1.createReturnMail({ template: template, order: order });
@@ -14320,7 +14640,7 @@ var OrderEffects = /** @class */ (function () {
                     case 4:
                         _i++;
                         return [3 /*break*/, 2];
-                    case 5: return [4 /*yield*/, this.util.getJson('/storage/json/print/ticket.json')];
+                    case 5: return [4 /*yield*/, this.utilService.getJson('/storage/json/print/ticket.json')];
                     case 6:
                         printData = _c.sent();
                         testFlg = orders.length === 0;
@@ -14360,7 +14680,7 @@ var OrderEffects = /** @class */ (function () {
                                                         if (!(qrcode !== undefined
                                                             && environment_1.environment.PRINT_QRCODE_TYPE === models_1.PrintQrcodeType.Encryption)) return [3 /*break*/, 2];
                                                         encyptText = itemOffered.reservationFor.id + "=" + itemOffered.reservationFor.startDate;
-                                                        return [4 /*yield*/, this_2.util.encryptionEncode(encyptText)];
+                                                        return [4 /*yield*/, this_2.utilService.encryptionEncode(encyptText)];
                                                     case 1:
                                                         encryptionEncodeResult = _a.sent();
                                                         qrcode =
@@ -14452,7 +14772,7 @@ var OrderEffects = /** @class */ (function () {
                         return [3 /*break*/, 19];
                     case 17:
                         domList = canvasList.map(function (canvas) { return "<div class=\"mb-3 p-4 border border-light-gray \">\n                        <img class=\"w-100\" src=\"" + canvas.toDataURL() + "\">\n                        </div>"; });
-                        this.util.openAlert({
+                        this.utilService.openAlert({
                             title: '',
                             body: "<div class=\"px-5\">" + domList.join('\n') + "</div>"
                         });
@@ -14606,12 +14926,12 @@ var actions_1 = __webpack_require__(/*! ../actions */ "./app/store/actions/index
  * Purchase Effects
  */
 var PurchaseEffects = /** @class */ (function () {
-    function PurchaseEffects(actions, cinerino, http, util, translate) {
+    function PurchaseEffects(actions, cinerino, http, utilService, translate) {
         var _this = this;
         this.actions = actions;
         this.cinerino = cinerino;
         this.http = http;
-        this.util = util;
+        this.utilService = utilService;
         this.translate = translate;
         /**
          * GetPreScheduleDates
@@ -14681,7 +15001,7 @@ var PurchaseEffects = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 6, , 7]);
-                        params = payload.params;
+                        params = payload;
                         selleId = params.seller.id;
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
@@ -14817,7 +15137,7 @@ var PurchaseEffects = /** @class */ (function () {
                     case 3:
                         _a.sent();
                         _a.label = 4;
-                    case 4: return [4 /*yield*/, this.util.getServerTime()];
+                    case 4: return [4 /*yield*/, this.utilService.getServerTime()];
                     case 5:
                         serverTime = _a.sent();
                         nowDate = moment(serverTime.date).toDate();
@@ -14878,7 +15198,7 @@ var PurchaseEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 2:
                         _c.sent();
-                        return [4 /*yield*/, this.util.getServerTime()];
+                        return [4 /*yield*/, this.utilService.getServerTime()];
                     case 3:
                         serverTime = _c.sent();
                         nowDate = moment(serverTime.date).toDate();
@@ -15292,7 +15612,7 @@ var PurchaseEffects = /** @class */ (function () {
                         };
                         if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 4];
                         url = '/storage/text/purchase/mail/complete.txt';
-                        return [4 /*yield*/, this.util.getText(url)];
+                        return [4 /*yield*/, this.utilService.getText(url)];
                     case 3:
                         template = _a.sent();
                         params.options.email.template = functions_1.createCompleteMail({

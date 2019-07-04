@@ -455,8 +455,37 @@ export class PurchaseService {
     /**
      * ムビチケ認証
      */
-    public checkMovieTicket() {
-
+    public async checkMovieTicket(movieTicket: {
+        code: string;
+        password: string;
+    }) {
+        const purchase = await this.getPurchaseData();
+        return new Promise<void>((resolve, reject) => {
+            const transaction = purchase.transaction;
+            const screeningEvent = purchase.screeningEvent;
+            if (transaction === undefined || screeningEvent === undefined) {
+                reject();
+                return;
+            }
+            this.store.dispatch(new purchaseAction.CheckMovieTicket({
+                transaction,
+                screeningEvent,
+                movieTickets: [{
+                    typeOf: factory.paymentMethodType.MovieTicket,
+                    identifier: movieTicket.code, // 購入管理番号
+                    accessCode: movieTicket.password // PINコード
+                }]
+            }));
+            const success = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.CheckMovieTicketSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.CheckMovieTicketFail),
+                tap(() => { reject(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
     }
 
     /**
@@ -519,12 +548,12 @@ export class PurchaseService {
      * 外部連携情報設定
      */
     public setExternal(params: {
-        theaterBranchCode?: string | undefined;
-        superEventId?: string | undefined;
-        eventId?: string | undefined;
-        workPerformedId?: string | undefined;
-        scheduleDate?: string | undefined;
-        language?: string | undefined;
+        theaterBranchCode?: string;
+        superEventId?: string;
+        eventId?: string;
+        workPerformedId?: string;
+        passportToken?: string;
+        scheduleDate?: string;
     }) {
         const theaterBranchCode = params.theaterBranchCode;
         const workPerformedId = params.workPerformedId;
@@ -543,8 +572,19 @@ export class PurchaseService {
     /**
      * 外部連携情報を購入情報へ変換
      */
-    public convertExternalToPurchase() {
-
+    public async convertExternalToPurchase(eventId: string) {
+        return new Promise((resolve, reject) => {
+            this.store.dispatch(new purchaseAction.ConvertExternalToPurchase({ eventId }));
+            const success = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.ConvertExternalToPurchaseSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.ConvertExternalToPurchaseFail),
+                tap(() => { reject(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
     }
 
 
