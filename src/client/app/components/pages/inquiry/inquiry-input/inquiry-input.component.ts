@@ -24,7 +24,7 @@ export class InquiryInputComponent implements OnInit {
         private actions: Actions,
         private formBuilder: FormBuilder,
         private store: Store<reducers.IState>,
-        private util: UtilService,
+        private utilService: UtilService,
         private router: Router,
         private translate: TranslateService
     ) { }
@@ -99,7 +99,7 @@ export class InquiryInputComponent implements OnInit {
         const fail = this.actions.pipe(
             ofType(orderAction.ActionTypes.InquiryFail),
             tap(() => {
-                this.util.openAlert({
+                this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('inquiry.input.validation')
                 });

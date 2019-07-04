@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { orderAction, purchaseAction, userAction } from '../../../../store/actions';
+import { PurchaseService } from '../../../../services';
+import { orderAction, userAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -13,6 +14,7 @@ export class AuthSignoutComponent implements OnInit {
 
     constructor(
         private router: Router,
+        private purchaseService: PurchaseService,
         private store: Store<reducers.IState>
     ) { }
 
@@ -21,7 +23,7 @@ export class AuthSignoutComponent implements OnInit {
      */
     public ngOnInit() {
         this.store.dispatch(new orderAction.Delete());
-        this.store.dispatch(new purchaseAction.Delete());
+        this.purchaseService.delete();
         this.store.dispatch(new userAction.Delete());
         this.router.navigate(['/']);
     }

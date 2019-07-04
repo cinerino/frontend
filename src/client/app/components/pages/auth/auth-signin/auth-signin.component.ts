@@ -5,7 +5,8 @@ import { select, Store } from '@ngrx/store';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { orderAction, purchaseAction, userAction } from '../../../../store/actions';
+import { PurchaseService } from '../../../../services';
+import { orderAction, userAction } from '../../../../store/actions';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -19,6 +20,7 @@ export class AuthSigninComponent implements OnInit {
     constructor(
         private router: Router,
         private actions: Actions,
+        private purchaseService: PurchaseService,
         private store: Store<reducers.IState>
     ) { }
 
@@ -27,7 +29,7 @@ export class AuthSigninComponent implements OnInit {
      */
     public async ngOnInit() {
         this.process = this.store.pipe(select(reducers.getProcess));
-        this.store.dispatch(new purchaseAction.Delete());
+        this.purchaseService.delete();
         this.store.dispatch(new orderAction.Delete());
         this.store.dispatch(new userAction.Delete());
         this.store.dispatch(new userAction.Initialize());

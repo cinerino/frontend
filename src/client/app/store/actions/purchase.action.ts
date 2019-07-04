@@ -153,14 +153,12 @@ export class SelectSchedule implements Action {
 export class StartTransaction implements Action {
     public readonly type = ActionTypes.StartTransaction;
     constructor(public payload: {
-        params: {
-            expires: Date;
-            agent?: { identifier?: factory.person.IIdentifier; };
-            seller: { typeOf: factory.organizationType; id: string; };
-            object: {
-                passport?: { token: factory.waiter.passport.IEncodedPassport; };
-            };
-        }
+        expires: Date;
+        agent?: { identifier?: factory.person.IIdentifier; };
+        seller: { typeOf: factory.organizationType; id: string; };
+        object: {
+            passport?: { token: factory.waiter.passport.IEncodedPassport; };
+        };
     }) { }
 }
 
@@ -197,7 +195,7 @@ export class CancelTransaction implements Action {
  */
 export class CancelTransactionSuccess implements Action {
     public readonly type = ActionTypes.CancelTransactionSuccess;
-    constructor(public payload?: { }) { }
+    constructor(public payload?: {}) { }
 }
 
 /**

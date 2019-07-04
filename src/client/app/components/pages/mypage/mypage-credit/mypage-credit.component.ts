@@ -29,7 +29,7 @@ export class MypageCreditComponent implements OnInit {
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
-        private util: UtilService,
+        private utilService: UtilService,
         private formBuilder: FormBuilder,
         private translate: TranslateService,
         private router: Router
@@ -124,7 +124,7 @@ export class MypageCreditComponent implements OnInit {
         this.creditCardForm.controls.holderName.setValue((<HTMLInputElement>document.getElementById('holderName')).value);
 
         if (this.creditCardForm.invalid) {
-            this.util.openAlert({
+            this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('mypage.credit.alert.addCredit')
             });
@@ -145,7 +145,7 @@ export class MypageCreditComponent implements OnInit {
         this.master.subscribe((master) => {
             const seller = master.sellers.find(s => s.id === this.creditCardForm.controls.sellerId.value);
             if (seller === undefined) {
-                this.util.openAlert({
+                this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('mypage.credit.alert.add')
                 });
@@ -173,7 +173,7 @@ export class MypageCreditComponent implements OnInit {
      * @param creditCard
      */
     public confirmRemoveCreditCard(creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('mypage.credit.confirm.remove'),
             cb: () => {
@@ -195,7 +195,7 @@ export class MypageCreditComponent implements OnInit {
         const fail = this.actions.pipe(
             ofType(userAction.ActionTypes.RemoveCreditCardFail),
             tap(() => {
-                this.util.openAlert({
+                this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('mypage.credit.alert.remove')
                 });

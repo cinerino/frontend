@@ -12,7 +12,8 @@ import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
 import { IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../functions';
-import { masterAction, purchaseAction } from '../../../../../store/actions';
+import { PurchaseService } from '../../../../../services';
+import { masterAction } from '../../../../../store/actions';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -39,6 +40,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         private store: Store<reducers.IState>,
         private actions: Actions,
         private router: Router,
+        private purchaseService: PurchaseService,
         private localeService: BsLocaleService
     ) { }
 
@@ -54,8 +56,23 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.screeningWorkEvents = [];
         this.isSales = true;
         try {
-            await this.cancelTransaction();
-            await this.setExternal();
+            await this.purchaseService.cancelTransaction();
+            const purchase = await this.purchaseService.getPurchaseData();
+            if (this.scheduleDate === undefined) {
+                const defaultDate = moment(moment().format('YYYYMMDD'))
+                    .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                    .toDate();
+                const openDate = moment(environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                this.scheduleDate = defaultDate;
+                const nowDate = moment().toDate();
+                if (openDate > nowDate) {
+                    this.scheduleDate = openDate;
+                }
+                if (purchase.external !== undefined
+                    && purchase.external.scheduleDate !== undefined) {
+                    this.scheduleDate = moment(purchase.external.scheduleDate).toDate();
+                }
+            }
             await this.getSellers();
             const seller = await this.getDefaultSeller();
             this.selectSeller(seller);
@@ -70,57 +87,6 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     public ngOnDestroy() {
         clearTimeout(this.updateTimer);
-    }
-
-    /**
-     * 取引中止
-     */
-    private async cancelTransaction() {
-        return new Promise<void>((resolve) => {
-            this.purchase.subscribe((purchase) => {
-                const transaction = purchase.transaction;
-                if (transaction === undefined) {
-                    resolve();
-                    return;
-                }
-                this.store.dispatch(new purchaseAction.CancelTransaction({ transaction }));
-                const success = this.actions.pipe(
-                    ofType(purchaseAction.ActionTypes.CancelTransactionSuccess),
-                    tap(() => { resolve(); })
-                );
-                const fail = this.actions.pipe(
-                    ofType(purchaseAction.ActionTypes.CancelTransactionFail),
-                    tap(() => { resolve(); })
-                );
-                race(success, fail).pipe(take(1)).subscribe();
-            }).unsubscribe();
-        });
-    }
-
-    /**
-     * 外部連携設定
-     */
-    private async setExternal() {
-        return new Promise<void>((resolve) => {
-            this.purchase.subscribe((purchase) => {
-                if (this.scheduleDate === undefined) {
-                    const defaultDate = moment(moment().format('YYYYMMDD'))
-                        .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                        .toDate();
-                    const openDate = moment(environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
-                    this.scheduleDate = defaultDate;
-                    const nowDate = moment().toDate();
-                    if (openDate > nowDate) {
-                        this.scheduleDate = openDate;
-                    }
-                    if (purchase.external !== undefined
-                        && purchase.external.scheduleDate !== undefined) {
-                        this.scheduleDate = moment(purchase.external.scheduleDate).toDate();
-                    }
-                }
-                resolve();
-            }).unsubscribe();
-        });
     }
 
     /**
@@ -187,17 +153,17 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     /**
      * 販売者選択
      */
-    public selectSeller(seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>) {
-        this.store.dispatch(new purchaseAction.SelectSeller({ seller }));
-        setTimeout(() => {
-            this.selectDate();
-        }, 0);
+    public selectSeller(
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
+    ) {
+        this.purchaseService.selectSeller(seller);
+        setTimeout(() => { this.selectDate(); }, 0);
     }
 
     /**
      * 日付選択
      */
-    public selectDate(date?: Date | null) {
+    public async selectDate(date?: Date | null) {
         if (date !== undefined && date !== null) {
             this.scheduleDate = date;
         }
@@ -220,7 +186,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 return;
             }
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
-            this.store.dispatch(new purchaseAction.SelectScheduleDate({ scheduleDate }));
+            this.purchaseService.selectScheduleDate(scheduleDate);
             this.store.dispatch(new masterAction.GetSchedule({
                 superEvent: {
                     ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
@@ -256,63 +222,12 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * 仮予約削除
-     */
-    private async cancelTemporaryReservations() {
-        return new Promise((resolve, reject) => {
-            this.purchase.subscribe((purchase) => {
-                const authorizeSeatReservations = purchase.authorizeSeatReservations;
-                this.store.dispatch(new purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations }));
-            }).unsubscribe();
-            const success = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.CancelTemporaryReservationsFail),
-                tap(() => { this.error.subscribe((error) => reject(error)).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * 取引開始
-     */
-    private async startTransaction() {
-        return new Promise((resolve, reject) => {
-            this.purchase.subscribe((purchase) => {
-                if (purchase.seller === undefined) {
-                    reject(null);
-                    return;
-                }
-                this.store.dispatch(new purchaseAction.StartTransaction({
-                    params: {
-                        expires: moment().add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
-                        seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
-                        object: {}
-                    }
-                }));
-            }).unsubscribe();
-            const success = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.StartTransactionSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.StartTransactionFail),
-                tap(() => { this.error.subscribe((error) => reject(error)).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
      * 次へ
      */
     public async onSubmit() {
         try {
-            await this.cancelTemporaryReservations();
-            await this.startTransaction();
+            await this.purchaseService.cancelTransaction();
+            await this.purchaseService.startTransaction();
             this.router.navigate(['/purchase/event/ticket']);
         } catch (error) {
             if (error === null) {

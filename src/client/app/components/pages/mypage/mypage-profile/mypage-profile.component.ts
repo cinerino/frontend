@@ -23,7 +23,7 @@ export class MypageProfileComponent implements OnInit {
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
-        private util: UtilService,
+        private utilService: UtilService,
         private formBuilder: FormBuilder,
         private translate: TranslateService
     ) { }
@@ -106,7 +106,7 @@ export class MypageProfileComponent implements OnInit {
         this.profileForm.controls.email.setValue((<HTMLInputElement>document.getElementById('email')).value);
         this.profileForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
         if (this.profileForm.invalid) {
-            this.util.openAlert({
+            this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('setting.alert.customer')
             });

@@ -23,7 +23,7 @@ export class HeaderMenuComponent implements OnInit {
         private store: Store<reducers.IState>,
         private cinerino: CinerinoService,
         private router: Router,
-        private util: UtilService,
+        private utilService: UtilService,
         private translate: TranslateService
     ) { }
 
@@ -33,7 +33,7 @@ export class HeaderMenuComponent implements OnInit {
 
     public signIn() {
         this.close.emit();
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('menu.confirm.login'),
             cb: () => {
@@ -44,7 +44,7 @@ export class HeaderMenuComponent implements OnInit {
 
     public signOut() {
         this.close.emit();
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('menu.confirm.logout'),
             cb: async () => {

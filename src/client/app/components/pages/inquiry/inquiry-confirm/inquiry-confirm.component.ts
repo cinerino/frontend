@@ -37,7 +37,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
         private router: Router,
         private actions: Actions,
         private modal: BsModalService,
-        private util: UtilService,
+        private utilService: UtilService,
         private translate: TranslateService
     ) { }
 
@@ -114,7 +114,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
         const fail = this.actions.pipe(
             ofType(orderAction.ActionTypes.OrderAuthorizeFail),
             tap(() => {
-                this.util.openAlert({
+                this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('inquiry.confirm.alert.authorize')
                 });
@@ -127,7 +127,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
      * キャンセル確認
      */
     public cancelConfirm() {
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('inquiry.confirm.confirm.cancel'),
             cb: async () => {
@@ -136,7 +136,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
                     await this.inquiry();
                 } catch (error) {
                     this.error.subscribe((error) => {
-                        this.util.openAlert({
+                        this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
                             body: `
                             <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.cancel')}</p>

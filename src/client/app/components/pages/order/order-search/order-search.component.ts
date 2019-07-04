@@ -39,7 +39,7 @@ export class OrderSearchComponent implements OnInit {
         private actions: Actions,
         private modal: BsModalService,
         private router: Router,
-        private util: UtilService,
+        private utilService: UtilService,
         private translate: TranslateService
     ) { }
 
@@ -175,7 +175,7 @@ export class OrderSearchComponent implements OnInit {
      * キャンセル確認
      */
     public cancelConfirm(orders: factory.order.IOrder[]) {
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('order.list.confirm.cancel'),
             cb: () => {
@@ -209,7 +209,7 @@ export class OrderSearchComponent implements OnInit {
             ofType(orderAction.ActionTypes.CancelFail),
             tap(() => {
                 this.error.subscribe((error) => {
-                    this.util.openAlert({
+                    this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
                         body: `
                         <p class="mb-4">${this.translate.instant('order.list.alert.cancel')}</p>
@@ -229,13 +229,13 @@ export class OrderSearchComponent implements OnInit {
      */
     public selecedtAction() {
         if (this.selectedOrders.length === 0) {
-            this.util.openAlert({
+            this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('order.list.alert.unselected')
             });
         }
         if (this.actionSelect === OrderActions.Cancel) {
-            this.util.openConfirm({
+            this.utilService.openConfirm({
                 title: this.translate.instant('common.confirm'),
                 body: this.translate.instant('order.list.confirm.cancel'),
                 cb: () => {
@@ -277,7 +277,7 @@ export class OrderSearchComponent implements OnInit {
         const fail = this.actions.pipe(
             ofType(orderAction.ActionTypes.OrderAuthorizeFail),
             tap(() => {
-                this.util.openAlert({
+                this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('order.list.alert.authorize')
                 });

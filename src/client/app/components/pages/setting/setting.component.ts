@@ -37,7 +37,7 @@ export class SettingComponent implements OnInit {
     constructor(
         private actions: Actions,
         private store: Store<reducers.IState>,
-        private util: UtilService,
+        private utilService: UtilService,
         private formBuilder: FormBuilder,
         private translate: TranslateService,
         private router: Router
@@ -133,7 +133,7 @@ export class SettingComponent implements OnInit {
             this.baseForm.controls[key].markAsTouched();
         });
         if (this.baseForm.invalid) {
-            this.util.openAlert({
+            this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('setting.alert.validation')
             });
@@ -164,7 +164,7 @@ export class SettingComponent implements OnInit {
                 isPurchaseCart,
                 viewType
             }));
-            this.util.openAlert({
+            this.utilService.openAlert({
                 title: this.translate.instant('common.complete'),
                 body: this.translate.instant('setting.alert.success')
             });
@@ -208,7 +208,7 @@ export class SettingComponent implements OnInit {
             ofType(orderAction.ActionTypes.PrintFail),
             tap(() => {
                 this.error.subscribe((error) => {
-                    this.util.openAlert({
+                    this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
                         body: `
                         <p class="mb-4">${this.translate.instant('setting.alert.print')}</p>

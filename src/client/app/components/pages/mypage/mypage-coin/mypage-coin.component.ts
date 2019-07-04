@@ -24,7 +24,7 @@ export class MypageCoinComponent implements OnInit {
         private actions: Actions,
         private modal: BsModalService,
         private translate: TranslateService,
-        private util: UtilService
+        private utilService: UtilService
     ) { }
 
     /**
@@ -65,7 +65,7 @@ export class MypageCoinComponent implements OnInit {
         const fail = this.actions.pipe(
             ofType(userAction.ActionTypes.ChargeCoinFail),
             tap(() => {
-                this.util.openAlert({
+                this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('mypage.coin.alert.charge')
                 });

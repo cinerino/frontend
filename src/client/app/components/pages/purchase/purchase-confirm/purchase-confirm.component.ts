@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { changeTicketCount, getAmount, getTicketPrice } from '../../../../functions';
-import { UtilService } from '../../../../services';
-import { purchaseAction } from '../../../../store/actions';
+import { PurchaseService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -29,8 +26,8 @@ export class PurchaseConfirmComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions,
-        private util: UtilService,
+        private utilService: UtilService,
+        private purchaseService: PurchaseService,
         private router: Router,
         private translate: TranslateService
     ) { }
@@ -38,7 +35,7 @@ export class PurchaseConfirmComponent implements OnInit {
     /**
      * 初期化
      */
-    public ngOnInit() {
+    public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.user = this.store.pipe(select(reducers.getUser));
@@ -55,125 +52,34 @@ export class PurchaseConfirmComponent implements OnInit {
     /**
      * 確定
      */
-    public onSubmit() {
-        this.purchase.subscribe((purchase) => {
+    public async onSubmit() {
+        const purchase = await this.purchaseService.getPurchaseData();
+        try {
             if (purchase.pendingMovieTickets.length > 0) {
-                this.authorizeMovieTicket();
-            } else if (this.amount > 0) {
-                this.authorizeCreditCard();
-            } else {
-                this.endTransaction();
+                await this.purchaseService.authorizeMovieTicket();
             }
-        }).unsubscribe();
-    }
-
-    /**
-     * 取引確定
-     */
-    private endTransaction() {
-        this.purchase.subscribe((purchase) => {
-            if (purchase.transaction === undefined || purchase.seller === undefined) {
-                this.router.navigate(['/error']);
-                return;
+        } catch (error) {
+            this.router.navigate(['/error']);
+            return;
+        }
+        try {
+            if (this.amount > 0) {
+                await this.purchaseService.authorizeCreditCard(this.amount);
             }
-            const transaction = purchase.transaction;
-            const authorizeSeatReservations = purchase.authorizeSeatReservations;
-            const seller = purchase.seller;
-            this.store.dispatch(new purchaseAction.EndTransaction({ transaction, authorizeSeatReservations, seller }));
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.EndTransactionSuccess),
-            tap(() => {
-                this.router.navigate(['/purchase/complete']);
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.EndTransactionFail),
-            tap(() => {
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
-    }
-
-    /**
-     * クレジットカード認証
-     */
-    private authorizeCreditCard() {
-        this.purchase.subscribe((purchase) => {
-            if (purchase.transaction === undefined
-                || purchase.creditCard === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-
-            this.store.dispatch(new purchaseAction.AuthorizeCreditCard({
-                transaction: purchase.transaction,
-                authorizeCreditCardPayment: purchase.authorizeCreditCardPayments[0],
-                orderCount: purchase.orderCount,
-                amount: this.amount,
-                method: '1',
-                creditCard: purchase.creditCard
-            }));
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.AuthorizeCreditCardSuccess),
-            tap(() => {
-                this.endTransaction();
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.AuthorizeCreditCardFail),
-            tap(() => {
-                this.util.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.confirm.alert.authorizeCreditCard')
-                });
-                this.router.navigate(['/purchase/input']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
-    }
-
-    /**
-     * ムビチケ認証
-     */
-    private authorizeMovieTicket() {
-        this.purchase.subscribe((purchase) => {
-            if (purchase.transaction === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            this.store.dispatch(new purchaseAction.AuthorizeMovieTicket({
-                transaction: purchase.transaction,
-                authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
-                authorizeSeatReservations: purchase.authorizeSeatReservations,
-                pendingMovieTickets: purchase.pendingMovieTickets
-            }));
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.AuthorizeMovieTicketSuccess),
-            tap(() => {
-                if (this.amount > 0) {
-                    this.authorizeCreditCard();
-                } else {
-                    this.endTransaction();
-                }
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.AuthorizeMovieTicketFail),
-            tap(() => {
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+        } catch (error) {
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('purchase.confirm.alert.authorizeCreditCard')
+            });
+            this.router.navigate(['/purchase/input']);
+            return;
+        }
+        try {
+            await this.purchaseService.endTransaction();
+            this.router.navigate(['/purchase/complete']);
+        } catch (error) {
+            this.router.navigate(['/error']);
+        }
     }
 
 }
