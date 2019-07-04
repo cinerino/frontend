@@ -62,15 +62,15 @@ export class PurchaseConfirmComponent implements OnInit {
             } else if (this.amount > 0) {
                 this.authorizeCreditCard();
             } else {
-                this.reserve();
+                this.endTransaction();
             }
         }).unsubscribe();
     }
 
     /**
-     * 予約
+     * 取引確定
      */
-    private reserve() {
+    private endTransaction() {
         this.purchase.subscribe((purchase) => {
             if (purchase.transaction === undefined || purchase.seller === undefined) {
                 this.router.navigate(['/error']);
@@ -79,18 +79,18 @@ export class PurchaseConfirmComponent implements OnInit {
             const transaction = purchase.transaction;
             const authorizeSeatReservations = purchase.authorizeSeatReservations;
             const seller = purchase.seller;
-            this.store.dispatch(new purchaseAction.Reserve({ transaction, authorizeSeatReservations, seller }));
+            this.store.dispatch(new purchaseAction.EndTransaction({ transaction, authorizeSeatReservations, seller }));
         }).unsubscribe();
 
         const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.ReserveSuccess),
+            ofType(purchaseAction.ActionTypes.EndTransactionSuccess),
             tap(() => {
                 this.router.navigate(['/purchase/complete']);
             })
         );
 
         const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.ReserveFail),
+            ofType(purchaseAction.ActionTypes.EndTransactionFail),
             tap(() => {
                 this.router.navigate(['/error']);
             })
@@ -122,7 +122,7 @@ export class PurchaseConfirmComponent implements OnInit {
         const success = this.actions.pipe(
             ofType(purchaseAction.ActionTypes.AuthorizeCreditCardSuccess),
             tap(() => {
-                this.reserve();
+                this.endTransaction();
             })
         );
 
@@ -162,7 +162,7 @@ export class PurchaseConfirmComponent implements OnInit {
                 if (this.amount > 0) {
                     this.authorizeCreditCard();
                 } else {
-                    this.reserve();
+                    this.endTransaction();
                 }
             })
         );

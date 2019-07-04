@@ -4775,35 +4775,41 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
+            var seller, error_1;
             return __generator(this, function (_a) {
-                this.bsValue = moment().toDate();
-                this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
-                this.user = this.store.pipe(store_1.select(reducers.getUser));
-                this.master = this.store.pipe(store_1.select(reducers.getMaster));
-                this.error = this.store.pipe(store_1.select(reducers.getError));
-                this.screeningWorkEvents = [];
-                this.isSales = true;
-                this.purchase.subscribe(function (purchase) {
-                    // this.scheduleDate = moment(purchase.scheduleDate).toDate();
-                    if (_this.scheduleDate === undefined) {
-                        var defaultDate = moment(moment().format('YYYYMMDD'))
-                            .add(environment_1.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                            .toDate();
-                        var openDate = moment(environment_1.environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
-                        _this.scheduleDate = defaultDate;
-                        var nowDate = moment().toDate();
-                        if (openDate > nowDate) {
-                            _this.scheduleDate = openDate;
-                        }
-                        if (purchase.external !== undefined
-                            && purchase.external.scheduleDate !== undefined) {
-                            _this.scheduleDate = moment(purchase.external.scheduleDate).toDate();
-                        }
-                    }
-                    _this.getSellers();
-                }).unsubscribe();
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        this.bsValue = moment().toDate();
+                        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
+                        this.user = this.store.pipe(store_1.select(reducers.getUser));
+                        this.master = this.store.pipe(store_1.select(reducers.getMaster));
+                        this.error = this.store.pipe(store_1.select(reducers.getError));
+                        this.screeningWorkEvents = [];
+                        this.isSales = true;
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 6, , 7]);
+                        return [4 /*yield*/, this.cancelTransaction()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.setExternal()];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, this.getSellers()];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, this.getDefaultSeller()];
+                    case 5:
+                        seller = _a.sent();
+                        this.selectSeller(seller);
+                        return [3 /*break*/, 7];
+                    case 6:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
+                }
             });
         });
     };
@@ -4812,6 +4818,59 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.ngOnDestroy = function () {
         clearTimeout(this.updateTimer);
+    };
+    /**
+     * 取引中止
+     */
+    PurchaseEventScheduleComponent.prototype.cancelTransaction = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.purchase.subscribe(function (purchase) {
+                            var transaction = purchase.transaction;
+                            if (transaction === undefined) {
+                                resolve();
+                                return;
+                            }
+                            _this.store.dispatch(new actions_1.purchaseAction.CancelTransaction({ transaction: transaction }));
+                            var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTransactionSuccess), operators_1.tap(function () { resolve(); }));
+                            var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTransactionFail), operators_1.tap(function () { resolve(); }));
+                            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                        }).unsubscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 外部連携設定
+     */
+    PurchaseEventScheduleComponent.prototype.setExternal = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.purchase.subscribe(function (purchase) {
+                            if (_this.scheduleDate === undefined) {
+                                var defaultDate = moment(moment().format('YYYYMMDD'))
+                                    .add(environment_1.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                                    .toDate();
+                                var openDate = moment(environment_1.environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                                _this.scheduleDate = defaultDate;
+                                var nowDate = moment().toDate();
+                                if (openDate > nowDate) {
+                                    _this.scheduleDate = openDate;
+                                }
+                                if (purchase.external !== undefined
+                                    && purchase.external.scheduleDate !== undefined) {
+                                    _this.scheduleDate = moment(purchase.external.scheduleDate).toDate();
+                                }
+                            }
+                            resolve();
+                        }).unsubscribe();
+                    })];
+            });
+        });
     };
     /**
      * 更新
@@ -4837,29 +4896,40 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.getSellers = function () {
         var _this = this;
-        this.store.dispatch(new actions_1.masterAction.GetSellers({ params: {} }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersSuccess), operators_1.tap(function () {
-            _this.purchase.subscribe(function (purchase) {
-                _this.master.subscribe(function (master) {
-                    var seller = (purchase.seller === undefined)
-                        ? master.sellers[0] : purchase.seller;
-                    var findResult = master.sellers.find(function (s) {
-                        return (purchase.external !== undefined
-                            && purchase.external.theaterBranchCode !== undefined
-                            && s.location !== undefined
-                            && s.location.branchCode === purchase.external.theaterBranchCode);
-                    });
-                    if (findResult !== undefined) {
-                        seller = findResult;
-                    }
-                    _this.selectSeller(seller);
-                }).unsubscribe();
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        return new Promise(function (resolve, reject) {
+            _this.store.dispatch(new actions_1.masterAction.GetSellers());
+            var success = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersSuccess), operators_1.tap(function () { resolve(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersFail), operators_1.tap(function () { reject(); }));
+            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
+    };
+    /**
+     * デフォルトの販売者取得
+     */
+    PurchaseEventScheduleComponent.prototype.getDefaultSeller = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.purchase.subscribe(function (purchase) {
+                            _this.master.subscribe(function (master) {
+                                var seller = (purchase.seller === undefined)
+                                    ? master.sellers[0] : purchase.seller;
+                                var findResult = master.sellers.find(function (s) {
+                                    return (purchase.external !== undefined
+                                        && purchase.external.theaterBranchCode !== undefined
+                                        && s.location !== undefined
+                                        && s.location.branchCode === purchase.external.theaterBranchCode);
+                                });
+                                if (findResult !== undefined) {
+                                    seller = findResult;
+                                }
+                                resolve(seller);
+                            }).unsubscribe();
+                        }).unsubscribe();
+                    })];
+            });
+        });
     };
     /**
      * 販売者選択
@@ -4976,7 +5046,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var error_1, errorObject;
+            var error_2, errorObject;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -4990,11 +5060,11 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                         this.router.navigate(['/purchase/event/ticket']);
                         return [3 /*break*/, 4];
                     case 3:
-                        error_1 = _a.sent();
-                        if (error_1 === null) {
+                        error_2 = _a.sent();
+                        if (error_2 === null) {
                             throw new Error('error is null');
                         }
-                        errorObject = JSON.parse(error_1);
+                        errorObject = JSON.parse(error_2);
                         if (errorObject.status === http_status_1.TOO_MANY_REQUESTS) {
                             this.router.navigate(['/congestion']);
                             return [2 /*return*/];
@@ -5164,13 +5234,20 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
      */
     PurchaseEventTicketComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             return __generator(this, function (_a) {
                 this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
                 this.user = this.store.pipe(store_1.select(reducers.getUser));
                 this.master = this.store.pipe(store_1.select(reducers.getMaster));
                 this.error = this.store.pipe(store_1.select(reducers.getError));
                 this.screeningWorkEvents = [];
-                this.getSchedule();
+                this.purchase.subscribe(function (purchase) {
+                    if (purchase.transaction === undefined) {
+                        _this.router.navigate(['/error']);
+                        return;
+                    }
+                    _this.getSchedule();
+                }).unsubscribe();
                 return [2 /*return*/];
             });
         });
@@ -5789,14 +5866,14 @@ var PurchaseConfirmComponent = /** @class */ (function () {
                 _this.authorizeCreditCard();
             }
             else {
-                _this.reserve();
+                _this.endTransaction();
             }
         }).unsubscribe();
     };
     /**
-     * 予約
+     * 取引確定
      */
-    PurchaseConfirmComponent.prototype.reserve = function () {
+    PurchaseConfirmComponent.prototype.endTransaction = function () {
         var _this = this;
         this.purchase.subscribe(function (purchase) {
             if (purchase.transaction === undefined || purchase.seller === undefined) {
@@ -5806,12 +5883,12 @@ var PurchaseConfirmComponent = /** @class */ (function () {
             var transaction = purchase.transaction;
             var authorizeSeatReservations = purchase.authorizeSeatReservations;
             var seller = purchase.seller;
-            _this.store.dispatch(new actions_1.purchaseAction.Reserve({ transaction: transaction, authorizeSeatReservations: authorizeSeatReservations, seller: seller }));
+            _this.store.dispatch(new actions_1.purchaseAction.EndTransaction({ transaction: transaction, authorizeSeatReservations: authorizeSeatReservations, seller: seller }));
         }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.ReserveSuccess), operators_1.tap(function () {
+        var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionSuccess), operators_1.tap(function () {
             _this.router.navigate(['/purchase/complete']);
         }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.ReserveFail), operators_1.tap(function () {
+        var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionFail), operators_1.tap(function () {
             _this.router.navigate(['/error']);
         }));
         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
@@ -5837,7 +5914,7 @@ var PurchaseConfirmComponent = /** @class */ (function () {
             }));
         }).unsubscribe();
         var success = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeCreditCardSuccess), operators_1.tap(function () {
-            _this.reserve();
+            _this.endTransaction();
         }));
         var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeCreditCardFail), operators_1.tap(function () {
             _this.util.openAlert({
@@ -5870,7 +5947,7 @@ var PurchaseConfirmComponent = /** @class */ (function () {
                 _this.authorizeCreditCard();
             }
             else {
-                _this.reserve();
+                _this.endTransaction();
             }
         }));
         var fail = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeMovieTicketFail), operators_1.tap(function () {
@@ -12500,6 +12577,9 @@ var ActionTypes;
     ActionTypes["StartTransaction"] = "[Purchase] Start Transaction";
     ActionTypes["StartTransactionSuccess"] = "[Purchase] Start Transaction Success";
     ActionTypes["StartTransactionFail"] = "[Purchase] Start Transaction Fail";
+    ActionTypes["CancelTransaction"] = "[Purchase] Cancel Transaction";
+    ActionTypes["CancelTransactionSuccess"] = "[Purchase] Cancel Transaction Success";
+    ActionTypes["CancelTransactionFail"] = "[Purchase] Cancel Transaction Fail";
     ActionTypes["GetScreen"] = "[Purchase] Get Screen";
     ActionTypes["GetScreenSuccess"] = "[Purchase] Get Screen Success";
     ActionTypes["GetScreenFail"] = "[Purchase] Get Screen Fail";
@@ -12535,9 +12615,9 @@ var ActionTypes;
     ActionTypes["CheckMovieTicket"] = "[Purchase] Check Movie Ticket";
     ActionTypes["CheckMovieTicketSuccess"] = "[Purchase] Check Movie Ticket Success";
     ActionTypes["CheckMovieTicketFail"] = "[Purchase] Check Movie Ticket Fail";
-    ActionTypes["Reserve"] = "[Purchase] Reserve";
-    ActionTypes["ReserveSuccess"] = "[Purchase] Reserve Success";
-    ActionTypes["ReserveFail"] = "[Purchase] Reserve Fail";
+    ActionTypes["EndTransaction"] = "[Purchase] End Transaction";
+    ActionTypes["EndTransactionSuccess"] = "[Purchase] End Transaction Success";
+    ActionTypes["EndTransactionFail"] = "[Purchase] End Transaction Fail";
     ActionTypes["CreateGmoTokenObject"] = "[Purchase] Create Gmo Token Object";
     ActionTypes["CreateGmoTokenObjectSuccess"] = "[Purchase] Create Gmo Token Object Success";
     ActionTypes["CreateGmoTokenObjectFail"] = "[Purchase] Create Gmo Token Object Fail";
@@ -12667,6 +12747,39 @@ var StartTransactionFail = /** @class */ (function () {
     return StartTransactionFail;
 }());
 exports.StartTransactionFail = StartTransactionFail;
+/**
+ * CancelTransaction
+ */
+var CancelTransaction = /** @class */ (function () {
+    function CancelTransaction(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.CancelTransaction;
+    }
+    return CancelTransaction;
+}());
+exports.CancelTransaction = CancelTransaction;
+/**
+ * CancelTransactionSuccess
+ */
+var CancelTransactionSuccess = /** @class */ (function () {
+    function CancelTransactionSuccess(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.CancelTransactionSuccess;
+    }
+    return CancelTransactionSuccess;
+}());
+exports.CancelTransactionSuccess = CancelTransactionSuccess;
+/**
+ * CancelTransactionFail
+ */
+var CancelTransactionFail = /** @class */ (function () {
+    function CancelTransactionFail(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.CancelTransactionFail;
+    }
+    return CancelTransactionFail;
+}());
+exports.CancelTransactionFail = CancelTransactionFail;
 /**
  * GetScreen
  */
@@ -13053,38 +13166,38 @@ var CheckMovieTicketFail = /** @class */ (function () {
 }());
 exports.CheckMovieTicketFail = CheckMovieTicketFail;
 /**
- * Reserve
+ * EndTransaction
  */
-var Reserve = /** @class */ (function () {
-    function Reserve(payload) {
+var EndTransaction = /** @class */ (function () {
+    function EndTransaction(payload) {
         this.payload = payload;
-        this.type = ActionTypes.Reserve;
+        this.type = ActionTypes.EndTransaction;
     }
-    return Reserve;
+    return EndTransaction;
 }());
-exports.Reserve = Reserve;
+exports.EndTransaction = EndTransaction;
 /**
- * ReserveSuccess
+ * EndTransactionSuccess
  */
-var ReserveSuccess = /** @class */ (function () {
-    function ReserveSuccess(payload) {
+var EndTransactionSuccess = /** @class */ (function () {
+    function EndTransactionSuccess(payload) {
         this.payload = payload;
-        this.type = ActionTypes.ReserveSuccess;
+        this.type = ActionTypes.EndTransactionSuccess;
     }
-    return ReserveSuccess;
+    return EndTransactionSuccess;
 }());
-exports.ReserveSuccess = ReserveSuccess;
+exports.EndTransactionSuccess = EndTransactionSuccess;
 /**
- * ReserveFail
+ * EndTransactionFail
  */
-var ReserveFail = /** @class */ (function () {
-    function ReserveFail(payload) {
+var EndTransactionFail = /** @class */ (function () {
+    function EndTransactionFail(payload) {
         this.payload = payload;
-        this.type = ActionTypes.ReserveFail;
+        this.type = ActionTypes.EndTransactionFail;
     }
-    return ReserveFail;
+    return EndTransactionFail;
 }());
-exports.ReserveFail = ReserveFail;
+exports.EndTransactionFail = EndTransactionFail;
 /**
  * CreateGmoTokenObject
  */
@@ -14596,10 +14709,34 @@ var PurchaseEffects = /** @class */ (function () {
             });
         }); }));
         /**
+         * CancelTransaction
+         */
+        this.cancelTransaction = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTransaction), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+            var transaction, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        transaction = payload.transaction;
+                        return [4 /*yield*/, this.cinerino.getServices()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.cinerino.transaction.placeOrder.cancel({ id: transaction.id })];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/, new actions_1.purchaseAction.CancelTransactionSuccess()];
+                    case 3:
+                        error_3 = _a.sent();
+                        return [2 /*return*/, new actions_1.purchaseAction.CancelTransactionFail({ error: error_3 })];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        }); }));
+        /**
          * getScreen
          */
         this.getScreen = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreen), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var screeningEventOffers, theaterCode, screenCode, screen_1, setting, screenData, error_3;
+            var screeningEventOffers, theaterCode, screenCode, screen_1, setting, screenData, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -14623,8 +14760,8 @@ var PurchaseEffects = /** @class */ (function () {
                         screenData = Object.assign(setting, screen_1);
                         return [2 /*return*/, new actions_1.purchaseAction.GetScreenSuccess({ screeningEventOffers: screeningEventOffers, screenData: screenData })];
                     case 5:
-                        error_3 = _a.sent();
-                        return [2 /*return*/, new actions_1.purchaseAction.GetScreenFail({ error: error_3 })];
+                        error_4 = _a.sent();
+                        return [2 /*return*/, new actions_1.purchaseAction.GetScreenFail({ error: error_4 })];
                     case 6: return [2 /*return*/];
                 }
             });
@@ -14633,7 +14770,7 @@ var PurchaseEffects = /** @class */ (function () {
          * GetScreeningEventOffers
          */
         this.getScreeningEventOffers = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffers), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var screeningEvent, screeningEventOffers, error_4;
+            var screeningEvent, screeningEventOffers, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -14652,8 +14789,8 @@ var PurchaseEffects = /** @class */ (function () {
                         _a.label = 3;
                     case 3: return [2 /*return*/, new actions_1.purchaseAction.GetScreeningEventOffersSuccess({ screeningEventOffers: screeningEventOffers })];
                     case 4:
-                        error_4 = _a.sent();
-                        return [2 /*return*/, new actions_1.purchaseAction.GetScreeningEventOffersFail({ error: error_4 })];
+                        error_5 = _a.sent();
+                        return [2 /*return*/, new actions_1.purchaseAction.GetScreeningEventOffersFail({ error: error_5 })];
                     case 5: return [2 /*return*/];
                 }
             });
@@ -14662,7 +14799,7 @@ var PurchaseEffects = /** @class */ (function () {
          * temporaryReservation
          */
         this.temporaryReservation = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservation), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, screeningEvent, reservations, serverTime, nowDate, authorizeSeatReservation, error_5;
+            var transaction, screeningEvent, reservations, serverTime, nowDate, authorizeSeatReservation, error_6;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -14716,8 +14853,8 @@ var PurchaseEffects = /** @class */ (function () {
                                 removeAuthorizeSeatReservation: payload.authorizeSeatReservation
                             })];
                     case 7:
-                        error_5 = _a.sent();
-                        return [2 /*return*/, new actions_1.purchaseAction.TemporaryReservationFail({ error: error_5 })];
+                        error_6 = _a.sent();
+                        return [2 /*return*/, new actions_1.purchaseAction.TemporaryReservationFail({ error: error_6 })];
                     case 8: return [2 /*return*/];
                 }
             });
@@ -14726,7 +14863,7 @@ var PurchaseEffects = /** @class */ (function () {
          * temporaryReservationFreeSeat
          */
         this.temporaryReservationFreeSeat = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFreeSeat), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, screeningEvent, screeningEventOffers, reservationTickets, freeSeats, serverTime, nowDate, _i, screeningEventOffers_1, screeningEventOffer, section, _a, _b, containsPlace, authorizeSeatReservation, error_6;
+            var transaction, screeningEvent, screeningEventOffers, reservationTickets, freeSeats, serverTime, nowDate, _i, screeningEventOffers_1, screeningEventOffer, section, _a, _b, containsPlace, authorizeSeatReservation, error_7;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
@@ -14792,8 +14929,8 @@ var PurchaseEffects = /** @class */ (function () {
                                 addAuthorizeSeatReservation: authorizeSeatReservation
                             })];
                     case 5:
-                        error_6 = _c.sent();
-                        return [2 /*return*/, new actions_1.purchaseAction.TemporaryReservationFreeSeatFail({ error: error_6 })];
+                        error_7 = _c.sent();
+                        return [2 /*return*/, new actions_1.purchaseAction.TemporaryReservationFreeSeatFail({ error: error_7 })];
                     case 6: return [2 /*return*/];
                 }
             });
@@ -14802,7 +14939,7 @@ var PurchaseEffects = /** @class */ (function () {
          * cancelTemporaryReservation
          */
         this.cancelTemporaryReservation = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservations), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var authorizeSeatReservations, _i, authorizeSeatReservations_1, authorizeSeatReservation, error_7;
+            var authorizeSeatReservations, _i, authorizeSeatReservations_1, authorizeSeatReservation, error_8;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -14825,8 +14962,8 @@ var PurchaseEffects = /** @class */ (function () {
                         return [3 /*break*/, 2];
                     case 5: return [2 /*return*/, new actions_1.purchaseAction.CancelTemporaryReservationsSuccess({ authorizeSeatReservations: authorizeSeatReservations })];
                     case 6:
-                        error_7 = _a.sent();
-                        return [2 /*return*/, new actions_1.purchaseAction.CancelTemporaryReservationsFail({ error: error_7 })];
+                        error_8 = _a.sent();
+                        return [2 /*return*/, new actions_1.purchaseAction.CancelTemporaryReservationsFail({ error: error_8 })];
                     case 7: return [2 /*return*/];
                 }
             });
@@ -14835,7 +14972,7 @@ var PurchaseEffects = /** @class */ (function () {
          * getTicketList
          */
         this.getTicketList = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketList), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var screeningEventTicketOffers, error_8;
+            var screeningEventTicketOffers, error_9;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -14865,8 +15002,8 @@ var PurchaseEffects = /** @class */ (function () {
                         });
                         return [2 /*return*/, new actions_1.purchaseAction.GetTicketListSuccess({ screeningEventTicketOffers: screeningEventTicketOffers })];
                     case 3:
-                        error_8 = _a.sent();
-                        return [2 /*return*/, new actions_1.purchaseAction.GetTicketListFail({ error: error_8 })];
+                        error_9 = _a.sent();
+                        return [2 /*return*/, new actions_1.purchaseAction.GetTicketListFail({ error: error_9 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -14875,7 +15012,7 @@ var PurchaseEffects = /** @class */ (function () {
          * registerContact
          */
         this.registerContact = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.RegisterContact), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, contact, customerContact, error_9;
+            var transaction, contact, customerContact, error_10;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -14898,8 +15035,8 @@ var PurchaseEffects = /** @class */ (function () {
                         customerContact = _a.sent();
                         return [2 /*return*/, new actions_1.purchaseAction.RegisterContactSuccess({ customerContact: customerContact })];
                     case 3:
-                        error_9 = _a.sent();
-                        return [2 /*return*/, new actions_1.purchaseAction.RegisterContactFail({ error: error_9 })];
+                        error_10 = _a.sent();
+                        return [2 /*return*/, new actions_1.purchaseAction.RegisterContactFail({ error: error_10 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -14908,7 +15045,7 @@ var PurchaseEffects = /** @class */ (function () {
          * authorizeCreditCard
          */
         this.authorizeCreditCard = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeCreditCard), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var creditCard, amount, transaction, authorizeCreditCardPaymentResult, error_10;
+            var creditCard, amount, transaction, authorizeCreditCardPaymentResult, error_11;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -14938,8 +15075,8 @@ var PurchaseEffects = /** @class */ (function () {
                         authorizeCreditCardPaymentResult = _a.sent();
                         return [2 /*return*/, new actions_1.purchaseAction.AuthorizeCreditCardSuccess({ authorizeCreditCardPayment: authorizeCreditCardPaymentResult })];
                     case 5:
-                        error_10 = _a.sent();
-                        return [2 /*return*/, new actions_1.purchaseAction.AuthorizeCreditCardFail({ error: error_10 })];
+                        error_11 = _a.sent();
+                        return [2 /*return*/, new actions_1.purchaseAction.AuthorizeCreditCardFail({ error: error_11 })];
                     case 6: return [2 /*return*/];
                 }
             });
@@ -14948,7 +15085,7 @@ var PurchaseEffects = /** @class */ (function () {
          * createGmoTokenObject
          */
         this.createGmoTokenObject = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CreateGmoTokenObject), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var creditCard, seller, gmoTokenObject, error_11;
+            var creditCard, seller, gmoTokenObject, error_12;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -14962,8 +15099,8 @@ var PurchaseEffects = /** @class */ (function () {
                         gmoTokenObject = _a.sent();
                         return [2 /*return*/, new actions_1.purchaseAction.CreateGmoTokenObjectSuccess({ gmoTokenObject: gmoTokenObject })];
                     case 3:
-                        error_11 = _a.sent();
-                        return [2 /*return*/, new actions_1.purchaseAction.CreateGmoTokenObjectFail({ error: error_11 })];
+                        error_12 = _a.sent();
+                        return [2 /*return*/, new actions_1.purchaseAction.CreateGmoTokenObjectFail({ error: error_12 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -14972,7 +15109,7 @@ var PurchaseEffects = /** @class */ (function () {
          * authorizeMovieTicket
          */
         this.authorizeMovieTicket = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeMovieTicket), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var _i, _a, authorizeMovieTicketPayment, transaction, pendingMovieTickets, authorizeSeatReservations, authorizeMovieTicketPayments, _loop_1, this_1, _b, authorizeSeatReservations_2, authorizeSeatReservation, error_12;
+            var _i, _a, authorizeMovieTicketPayment, transaction, pendingMovieTickets, authorizeSeatReservations, authorizeMovieTicketPayments, _loop_1, this_1, _b, authorizeSeatReservations_2, authorizeSeatReservation, error_13;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
@@ -15058,8 +15195,8 @@ var PurchaseEffects = /** @class */ (function () {
                         return [3 /*break*/, 6];
                     case 9: return [2 /*return*/, new actions_1.purchaseAction.AuthorizeMovieTicketSuccess({ authorizeMovieTicketPayments: authorizeMovieTicketPayments })];
                     case 10:
-                        error_12 = _c.sent();
-                        return [2 /*return*/, new actions_1.purchaseAction.AuthorizeMovieTicketFail({ error: error_12 })];
+                        error_13 = _c.sent();
+                        return [2 /*return*/, new actions_1.purchaseAction.AuthorizeMovieTicketFail({ error: error_13 })];
                     case 11: return [2 /*return*/];
                 }
             });
@@ -15068,7 +15205,7 @@ var PurchaseEffects = /** @class */ (function () {
          * checkMovieTicket
          */
         this.checkMovieTicket = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CheckMovieTicket), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var screeningEvent_1, movieTickets, checkMovieTicketAction, error_13;
+            var screeningEvent_1, movieTickets, checkMovieTicketAction, error_14;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -15106,17 +15243,17 @@ var PurchaseEffects = /** @class */ (function () {
                         checkMovieTicketAction = _a.sent();
                         return [2 /*return*/, new actions_1.purchaseAction.CheckMovieTicketSuccess({ checkMovieTicketAction: checkMovieTicketAction })];
                     case 3:
-                        error_13 = _a.sent();
-                        return [2 /*return*/, new actions_1.purchaseAction.CheckMovieTicketFail({ error: error_13 })];
+                        error_14 = _a.sent();
+                        return [2 /*return*/, new actions_1.purchaseAction.CheckMovieTicketFail({ error: error_14 })];
                     case 4: return [2 /*return*/];
                 }
             });
         }); }));
         /**
-         * reserve
+         * EndTransaction
          */
-        this.reserve = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.Reserve), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, authorizeSeatReservations, seller, email, params, url, template, result, order, sendData, error_14;
+        this.endTransaction = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransaction), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+            var transaction, authorizeSeatReservations, seller, email, params, url, template, result, order, sendData, error_15;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -15183,15 +15320,15 @@ var PurchaseEffects = /** @class */ (function () {
                                 console.error(error);
                             }
                         }
-                        return [2 /*return*/, new actions_1.purchaseAction.ReserveSuccess({ order: order })];
+                        return [2 /*return*/, new actions_1.purchaseAction.EndTransactionSuccess({ order: order })];
                     case 6:
-                        error_14 = _a.sent();
+                        error_15 = _a.sent();
                         return [4 /*yield*/, this.cinerino.transaction.placeOrder.cancel({
                                 id: transaction.id
                             })];
                     case 7:
                         _a.sent();
-                        return [2 /*return*/, new actions_1.purchaseAction.ReserveFail({ error: error_14 })];
+                        return [2 /*return*/, new actions_1.purchaseAction.EndTransactionFail({ error: error_15 })];
                     case 8: return [2 /*return*/];
                 }
             });
@@ -15200,7 +15337,7 @@ var PurchaseEffects = /** @class */ (function () {
          * ConvertExternalToPurchase
          */
         this.convertExternalToPurchase = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.ConvertExternalToPurchase), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var eventId, screeningEvent, branchCode, searchResult, seller, error_15;
+            var eventId, screeningEvent, branchCode, searchResult, seller, error_16;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -15221,8 +15358,8 @@ var PurchaseEffects = /** @class */ (function () {
                         seller = searchResult.data[0];
                         return [2 /*return*/, new actions_1.purchaseAction.ConvertExternalToPurchaseSuccess({ screeningEvent: screeningEvent, seller: seller })];
                     case 5:
-                        error_15 = _a.sent();
-                        return [2 /*return*/, new actions_1.purchaseAction.ConvertExternalToPurchaseFail({ error: error_15 })];
+                        error_16 = _a.sent();
+                        return [2 /*return*/, new actions_1.purchaseAction.ConvertExternalToPurchaseFail({ error: error_16 })];
                     case 6: return [2 /*return*/];
                 }
             });
@@ -15236,6 +15373,10 @@ var PurchaseEffects = /** @class */ (function () {
         effects_1.Effect(),
         __metadata("design:type", Object)
     ], PurchaseEffects.prototype, "startTransaction", void 0);
+    __decorate([
+        effects_1.Effect(),
+        __metadata("design:type", Object)
+    ], PurchaseEffects.prototype, "cancelTransaction", void 0);
     __decorate([
         effects_1.Effect(),
         __metadata("design:type", Object)
@@ -15283,7 +15424,7 @@ var PurchaseEffects = /** @class */ (function () {
     __decorate([
         effects_1.Effect(),
         __metadata("design:type", Object)
-    ], PurchaseEffects.prototype, "reserve", void 0);
+    ], PurchaseEffects.prototype, "endTransaction", void 0);
     __decorate([
         effects_1.Effect(),
         __metadata("design:type", Object)
@@ -15999,6 +16140,32 @@ function reducer(state, action) {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
+        case actions_1.purchaseAction.ActionTypes.CancelTransaction: {
+            return __assign({}, state, { loading: true, process: 'purchaseAction.CancelTransaction' });
+        }
+        case actions_1.purchaseAction.ActionTypes.CancelTransactionSuccess: {
+            state.purchaseData.transaction = undefined;
+            state.purchaseData.preScheduleDates = [];
+            state.purchaseData.authorizeSeatReservations = [];
+            state.purchaseData.authorizeCreditCardPayments = [];
+            state.purchaseData.authorizeMovieTicketPayments = [];
+            state.purchaseData.checkMovieTicketActions = [];
+            state.purchaseData.pendingMovieTickets = [];
+            state.purchaseData.customerContact = undefined;
+            return __assign({}, state, { loading: false, process: '', error: null });
+        }
+        case actions_1.purchaseAction.ActionTypes.CancelTransactionFail: {
+            var error = action.payload.error;
+            state.purchaseData.transaction = undefined;
+            state.purchaseData.preScheduleDates = [];
+            state.purchaseData.authorizeSeatReservations = [];
+            state.purchaseData.authorizeCreditCardPayments = [];
+            state.purchaseData.authorizeMovieTicketPayments = [];
+            state.purchaseData.checkMovieTicketActions = [];
+            state.purchaseData.pendingMovieTickets = [];
+            state.purchaseData.customerContact = undefined;
+            return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
+        }
         case actions_1.purchaseAction.ActionTypes.GetScreen: {
             state.purchaseData.screeningEventOffers = [];
             state.purchaseData.screenData = undefined;
@@ -16261,10 +16428,10 @@ function reducer(state, action) {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case actions_1.purchaseAction.ActionTypes.Reserve: {
+        case actions_1.purchaseAction.ActionTypes.EndTransaction: {
             return __assign({}, state, { loading: true, process: 'purchaseAction.Reserve' });
         }
-        case actions_1.purchaseAction.ActionTypes.ReserveSuccess: {
+        case actions_1.purchaseAction.ActionTypes.EndTransactionSuccess: {
             var order = action.payload.order;
             state.purchaseData = {
                 preScheduleDates: [],
@@ -16282,7 +16449,7 @@ function reducer(state, action) {
             state.purchaseData.order = order;
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case actions_1.purchaseAction.ActionTypes.ReserveFail: {
+        case actions_1.purchaseAction.ActionTypes.EndTransactionFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
