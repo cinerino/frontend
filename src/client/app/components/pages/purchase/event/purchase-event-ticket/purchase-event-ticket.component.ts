@@ -141,7 +141,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      */
     public selectSchedule(screeningEvent: factory.event.screeningEvent.IEvent) {
         this.user.subscribe(async (user) => {
-            const purchase = await this.purchaseService.getPurchaseData();
+            const purchase = await this.purchaseService.getData();
             if (purchase.authorizeSeatReservations.length > 0
                 && !user.isPurchaseCart) {
                 this.utilService.openAlert({
@@ -209,7 +209,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         }
         try {
             await this.purchaseService.getScreeningEventOffers();
-            const purchase = await this.purchaseService.getPurchaseData();
+            const purchase = await this.purchaseService.getData();
             if (purchase.screeningEvent !== undefined
                 && isTicketedSeatScreeningEvent(purchase.screeningEvent)) {
                 const remainingSeatLength = getRemainingSeatLength(purchase.screeningEventOffers);
@@ -247,7 +247,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      * 券種確定
      */
     public async onSubmit() {
-        const purchase = await this.purchaseService.getPurchaseData();
+        const purchase = await this.purchaseService.getData();
         const authorizeSeatReservations = purchase.authorizeSeatReservations;
         // チケット未選択判定
         if (authorizeSeatReservations.length === 0) {

@@ -83,7 +83,7 @@ export class MvtkCheckModalComponent implements OnInit, OnDestroy {
                 code: this.mvtkForm.controls.code.value,
                 password: this.mvtkForm.controls.password.value
             });
-            const purchase = await this.purchaseService.getPurchaseData();
+            const purchase = await this.purchaseService.getData();
             const checkMovieTicketAction = purchase.checkMovieTicketAction;
             if (checkMovieTicketAction === undefined
                 || checkMovieTicketAction.result === undefined

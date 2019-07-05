@@ -53,7 +53,7 @@ export class PurchaseConfirmComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
-        const purchase = await this.purchaseService.getPurchaseData();
+        const purchase = await this.purchaseService.getData();
         try {
             if (purchase.pendingMovieTickets.length > 0) {
                 await this.purchaseService.authorizeMovieTicket();

@@ -1,19 +1,16 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { BAD_REQUEST, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
 import { CellHoverEvent } from 'ngx-bootstrap/datepicker/models';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../functions';
-import { PurchaseService } from '../../../../../services';
-import { masterAction } from '../../../../../store/actions';
+import { MasterService, PurchaseService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -38,9 +35,9 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
 
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions,
         private router: Router,
         private purchaseService: PurchaseService,
+        private masterService: MasterService,
         private localeService: BsLocaleService
     ) { }
 
@@ -57,7 +54,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.isSales = true;
         try {
             await this.purchaseService.cancelTransaction();
-            const purchase = await this.purchaseService.getPurchaseData();
+            const purchase = await this.purchaseService.getData();
             if (this.scheduleDate === undefined) {
                 const defaultDate = moment(moment().format('YYYYMMDD'))
                     .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
@@ -73,7 +70,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                     this.scheduleDate = moment(purchase.external.scheduleDate).toDate();
                 }
             }
-            await this.getSellers();
+            await this.masterService.getSellers();
             const seller = await this.getDefaultSeller();
             this.selectSeller(seller);
         } catch (error) {
@@ -106,24 +103,6 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 this.selectSeller(purchase.seller);
             }).unsubscribe();
         }, time);
-    }
-
-    /**
-     * 販売者情報一覧取得
-     */
-    private getSellers() {
-        return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new masterAction.GetSellers());
-            const success = this.actions.pipe(
-                ofType(masterAction.ActionTypes.GetSellersSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(masterAction.ActionTypes.GetSellersFail),
-                tap(() => { reject(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
     }
 
     /**
@@ -180,14 +159,15 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             const salesStopTime = moment(environment.PURCHASE_SCHEDULE_SALES_STOP_TIME, 'HHmmss').format('HHmmss');
             this.isSales = (moment(now).format('HHmmss') < salesStopTime);
         }
-        this.purchase.subscribe((purchase) => {
+        try {
+            const purchase = await this.purchaseService.getData();
             const seller = purchase.seller;
             if (seller === undefined) {
                 return;
             }
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
             this.purchaseService.selectScheduleDate(scheduleDate);
-            this.store.dispatch(new masterAction.GetSchedule({
+            await this.masterService.getSchedule({
                 superEvent: {
                     ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
                         ? [] : [purchase.external.superEventId],
@@ -198,27 +178,14 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
-            }));
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(masterAction.ActionTypes.GetScheduleSuccess),
-            tap(() => {
-                this.master.subscribe((master) => {
-                    const screeningEvents = master.screeningEvents;
+            });
+            const master = await this.masterService.getData();
+            const screeningEvents = master.screeningEvents;
                     this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
                     this.update();
-                }).unsubscribe();
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(masterAction.ActionTypes.GetScheduleFail),
-            tap(() => {
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+        } catch (error) {
+            this.router.navigate(['/error']);
+        }
     }
 
     /**

@@ -77,7 +77,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
      */
     public async onSubmit() {
         try {
-            const purchase = await this.purchaseService.getPurchaseData();
+            const purchase = await this.purchaseService.getData();
             if (purchase.reservations.length === 0) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),

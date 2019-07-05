@@ -24,7 +24,7 @@ export class PurchaseService {
     /**
      * 購入データ取得
      */
-    public async getPurchaseData() {
+    public async getData() {
         return new Promise<reducers.IPurchaseState>((resolve) => {
             this.purchase.subscribe((purchase) => {
                 resolve(purchase);
@@ -111,7 +111,7 @@ export class PurchaseService {
      * 取引開始
      */
     public async startTransaction() {
-        const purchase = await this.getPurchaseData();
+        const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             if (purchase.seller === undefined) {
                 reject();
@@ -139,7 +139,7 @@ export class PurchaseService {
      */
     public async cancelTransaction() {
         return new Promise<void>(async (resolve) => {
-            const purchase = await this.getPurchaseData();
+            const purchase = await this.getData();
             const transaction = purchase.transaction;
             if (transaction === undefined) {
                 resolve();
@@ -162,7 +162,7 @@ export class PurchaseService {
      * スクリーン取得
      */
     public async getScreen() {
-        const purchase = await this.getPurchaseData();
+        const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             const screeningEvent = purchase.screeningEvent;
             if (screeningEvent === undefined) {
@@ -186,7 +186,7 @@ export class PurchaseService {
      * 空席情報取得
      */
     public async getScreeningEventOffers() {
-        const purchase = await this.getPurchaseData();
+        const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             const screeningEvent = purchase.screeningEvent;
             if (screeningEvent === undefined) {
@@ -224,7 +224,7 @@ export class PurchaseService {
      * 券種一覧取得
      */
     public async getTicketList() {
-        const purchase = await this.getPurchaseData();
+        const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             const screeningEvent = purchase.screeningEvent;
             const seller = purchase.seller;
@@ -256,7 +256,7 @@ export class PurchaseService {
      * 座席仮予約
      */
     public async temporaryReservation() {
-        const purchase = await this.getPurchaseData();
+        const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             const transaction = purchase.transaction;
             const screeningEvent = purchase.screeningEvent;
@@ -297,7 +297,7 @@ export class PurchaseService {
      * 座席仮予約（在庫なし）
      */
     public async temporaryReservationFreeSeat(reservationTickets: IReservationTicket[]) {
-        const purchase = await this.getPurchaseData();
+        const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             const transaction = purchase.transaction;
             const screeningEvent = purchase.screeningEvent;
@@ -374,7 +374,7 @@ export class PurchaseService {
         telephone: string;
         email: string;
     }) {
-        const purchase = await this.getPurchaseData();
+        const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             const transaction = purchase.transaction;
             if (transaction === undefined) {
@@ -398,7 +398,7 @@ export class PurchaseService {
      * クレジットカード承認
      */
     public async authorizeCreditCard(amount: number) {
-        const purchase = await this.getPurchaseData();
+        const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             if (purchase.transaction === undefined || purchase.creditCard === undefined) {
                 reject();
@@ -428,7 +428,7 @@ export class PurchaseService {
      * ムビチケ承認
      */
     public async authorizeMovieTicket() {
-        const purchase = await this.getPurchaseData();
+        const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             if (purchase.transaction === undefined) {
                 reject();
@@ -459,7 +459,7 @@ export class PurchaseService {
         code: string;
         password: string;
     }) {
-        const purchase = await this.getPurchaseData();
+        const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             const transaction = purchase.transaction;
             const screeningEvent = purchase.screeningEvent;
@@ -492,7 +492,7 @@ export class PurchaseService {
      * 取引確定
      */
     public async endTransaction() {
-        const purchase = await this.getPurchaseData();
+        const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             if (purchase.transaction === undefined || purchase.seller === undefined) {
                 reject();

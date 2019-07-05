@@ -2,14 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
-import { UtilService } from '../../../../services';
-import { masterAction, userAction } from '../../../../store/actions';
+import { Observable } from 'rxjs';
+import { MasterService, UserService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -28,8 +25,9 @@ export class MypageCreditComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions,
         private utilService: UtilService,
+        private masterService: MasterService,
+        private userService: UserService,
         private formBuilder: FormBuilder,
         private translate: TranslateService,
         private router: Router
@@ -42,8 +40,8 @@ export class MypageCreditComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.master = this.store.pipe(select(reducers.getMaster));
         try {
-            await this.getSellers();
-            await this.getCreditCards();
+            await this.masterService.getSellers();
+            await this.userService.getCreditCards();
             this.createCreditCardForm();
         } catch (error) {
             console.error(error);
@@ -76,45 +74,9 @@ export class MypageCreditComponent implements OnInit {
     }
 
     /**
-     * 販売者一覧取得
-     */
-    private getSellers() {
-        return new Promise((resolve, reject) => {
-            this.store.dispatch(new masterAction.GetSellers({ params: {} }));
-            const success = this.actions.pipe(
-                ofType(masterAction.ActionTypes.GetSellersSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(masterAction.ActionTypes.GetSellersFail),
-                tap(() => { reject(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * クレジットカード情報一覧取得
-     */
-    private getCreditCards() {
-        return new Promise((resolve, reject) => {
-            this.store.dispatch(new userAction.GetCreditCards());
-            const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.GetCreditCardsSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.GetCreditCardsFail),
-                tap(() => { reject(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
      * クレジットカード情報登録
      */
-    public addCreditCard() {
+    public async addCreditCard() {
         Object.keys(this.creditCardForm.controls).forEach((key) => {
             this.creditCardForm.controls[key].markAsTouched();
         });
@@ -142,7 +104,8 @@ export class MypageCreditComponent implements OnInit {
             holderName: this.creditCardForm.controls.holderName.value,
             securityCode: this.creditCardForm.controls.securityCode.value
         };
-        this.master.subscribe((master) => {
+        try {
+            const master = await this.masterService.getData();
             const seller = master.sellers.find(s => s.id === this.creditCardForm.controls.sellerId.value);
             if (seller === undefined) {
                 this.utilService.openAlert({
@@ -151,21 +114,11 @@ export class MypageCreditComponent implements OnInit {
                 });
                 return;
             }
-            this.store.dispatch(new userAction.AddCreditCard({ creditCard, seller }));
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(userAction.ActionTypes.AddCreditCardSuccess),
-            tap(() => {
-                this.createCreditCardForm();
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(userAction.ActionTypes.AddCreditCardFail),
-            tap(() => { })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+            await this.userService.addCreditCard({ creditCard, seller });
+            this.createCreditCardForm();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     /**
@@ -176,32 +129,18 @@ export class MypageCreditComponent implements OnInit {
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('mypage.credit.confirm.remove'),
-            cb: () => {
-                this.removeCreditCard(creditCard);
+            cb: async () => {
+                try {
+                    await this.userService.removeCreditCard(creditCard);
+                    this.utilService.openAlert({
+                        title: this.translate.instant('common.error'),
+                        body: this.translate.instant('mypage.credit.alert.remove')
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
             }
         });
-    }
-
-    /**
-     * クレジットカード情報削除
-     * @param creditCard
-     */
-    private removeCreditCard(creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
-        this.store.dispatch(new userAction.RemoveCreditCard({ creditCard }));
-        const success = this.actions.pipe(
-            ofType(userAction.ActionTypes.RemoveCreditCardSuccess),
-            tap(() => { })
-        );
-        const fail = this.actions.pipe(
-            ofType(userAction.ActionTypes.RemoveCreditCardFail),
-            tap(() => {
-                this.utilService.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant('mypage.credit.alert.remove')
-                });
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
     }
 
 }

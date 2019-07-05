@@ -42,7 +42,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
      */
     public async onSubmit() {
         try {
-            const purchase = await this.purchaseService.getPurchaseData();
+            const purchase = await this.purchaseService.getData();
             const reservations = purchase.reservations;
             const unselectedReservations = reservations.filter((reservation) => {
                 return (reservation.ticket === undefined);
