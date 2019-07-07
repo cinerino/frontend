@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
@@ -19,7 +19,9 @@ export class UserService {
         private store: Store<reducers.IState>,
         private actions: Actions,
         private translate: TranslateService
-    ) { }
+    ) {
+        this.user = this.store.pipe(select(reducers.getUser));
+     }
 
     /**
      * マスタデータ取得

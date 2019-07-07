@@ -11523,10 +11523,12 @@ var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/s
 var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+var reducers = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
 var MasterService = /** @class */ (function () {
     function MasterService(store, actions) {
         this.store = store;
         this.actions = actions;
+        this.master = this.store.pipe(store_1.select(reducers.getMaster));
     }
     /**
      * マスタデータ取得
@@ -11655,10 +11657,12 @@ var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/s
 var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+var reducers = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
 var OrderService = /** @class */ (function () {
     function OrderService(store, actions) {
         this.store = store;
         this.actions = actions;
+        this.order = this.store.pipe(store_1.select(reducers.getOrder));
     }
     /**
      * 注文データ取得
@@ -11843,10 +11847,12 @@ var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/
 var environment_1 = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
 var models_1 = __webpack_require__(/*! ../models */ "./app/models/index.ts");
 var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+var reducers = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseService = /** @class */ (function () {
     function PurchaseService(store, actions) {
         this.store = store;
         this.actions = actions;
+        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
     }
     /**
      * 購入データ取得
@@ -12796,11 +12802,13 @@ var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/
 var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+var reducers = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
 var UserService = /** @class */ (function () {
     function UserService(store, actions, translate) {
         this.store = store;
         this.actions = actions;
         this.translate = translate;
+        this.user = this.store.pipe(store_1.select(reducers.getUser));
     }
     /**
      * マスタデータ取得

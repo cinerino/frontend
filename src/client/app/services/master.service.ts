@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { masterAction } from '../store/actions';
@@ -16,7 +16,9 @@ export class MasterService {
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions
-    ) { }
+    ) {
+        this.master = this.store.pipe(select(reducers.getMaster));
+    }
 
     /**
      * マスタデータ取得
