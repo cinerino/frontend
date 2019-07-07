@@ -1327,18 +1327,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var environment_1 = __webpack_require__(/*! ../../../environments/environment */ "./environments/environment.ts");
 var services_1 = __webpack_require__(/*! ../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../store/actions */ "./app/store/actions/index.ts");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(router, translate, utilService, purchaseService, store) {
+    function AppComponent(router, translate, utilService, userService, purchaseService) {
         this.router = router;
         this.translate = translate;
         this.utilService = utilService;
+        this.userService = userService;
         this.purchaseService = purchaseService;
-        this.store = store;
     }
     /**
      * 初期化
@@ -1391,7 +1389,7 @@ var AppComponent = /** @class */ (function () {
                         this.purchaseService.setExternal(external);
                         language = external.language;
                         if (language !== undefined) {
-                            this.store.dispatch(new actions_1.userAction.UpdateLanguage({ language: language }));
+                            this.userService.updateLanguage(language);
                         }
                         return [2 /*return*/];
                 }
@@ -1433,8 +1431,8 @@ var AppComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [router_1.Router,
             core_2.TranslateService,
             services_1.UtilService,
-            services_1.PurchaseService,
-            store_1.Store])
+            services_1.UserService,
+            services_1.PurchaseService])
     ], AppComponent);
     return AppComponent;
 }());
@@ -1611,19 +1609,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var AuthSigninComponent = /** @class */ (function () {
-    function AuthSigninComponent(router, actions, purchaseService, store) {
+    function AuthSigninComponent(router, purchaseService, userService, orderService, store) {
         this.router = router;
-        this.actions = actions;
         this.purchaseService = purchaseService;
+        this.userService = userService;
+        this.orderService = orderService;
         this.store = store;
     }
     /**
@@ -1637,19 +1632,19 @@ var AuthSigninComponent = /** @class */ (function () {
                     case 0:
                         this.process = this.store.pipe(store_1.select(reducers.getProcess));
                         this.purchaseService.delete();
-                        this.store.dispatch(new actions_1.orderAction.Delete());
-                        this.store.dispatch(new actions_1.userAction.Delete());
-                        this.store.dispatch(new actions_1.userAction.Initialize());
+                        this.userService.delete();
+                        this.userService.initialize();
+                        this.orderService.delete();
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 5, , 6]);
-                        return [4 /*yield*/, this.initializeProfile()];
+                        return [4 /*yield*/, this.userService.initializeProfile()];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, this.getCreditCards()];
+                        return [4 /*yield*/, this.userService.getCreditCards()];
                     case 3:
                         _a.sent();
-                        return [4 /*yield*/, this.initializeCoinAccount()];
+                        return [4 /*yield*/, this.userService.initializeCoinAccount()];
                     case 4:
                         _a.sent();
                         this.router.navigate([environment_1.environment.BASE_URL]);
@@ -1663,54 +1658,6 @@ var AuthSigninComponent = /** @class */ (function () {
             });
         });
     };
-    /**
-     * プロフィール情報初期化
-     */
-    AuthSigninComponent.prototype.initializeProfile = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.store.dispatch(new actions_1.userAction.InitializeProfile());
-            var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.InitializeProfileSuccess), operators_1.tap(function () {
-                resolve();
-            }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.InitializeProfileFail), operators_1.tap(function () {
-                reject();
-            }));
-            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-        });
-    };
-    /**
-     * コイン口座情報初期化
-     */
-    AuthSigninComponent.prototype.initializeCoinAccount = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.store.dispatch(new actions_1.userAction.InitializeCoinAccount());
-            var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.InitializeCoinAccountSuccess), operators_1.tap(function () {
-                resolve();
-            }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.InitializeCoinAccountFail), operators_1.tap(function () {
-                reject();
-            }));
-            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-        });
-    };
-    /**
-     * クレジットカード情報取得
-     */
-    AuthSigninComponent.prototype.getCreditCards = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.store.dispatch(new actions_1.userAction.GetCreditCards());
-            var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.GetCreditCardsSuccess), operators_1.tap(function () {
-                resolve();
-            }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.GetCreditCardsFail), operators_1.tap(function () {
-                reject();
-            }));
-            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-        });
-    };
     AuthSigninComponent = __decorate([
         core_1.Component({
             selector: 'app-auth-signin',
@@ -1718,8 +1665,9 @@ var AuthSigninComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./auth-signin.component.scss */ "./app/components/pages/auth/auth-signin/auth-signin.component.scss")]
         }),
         __metadata("design:paramtypes", [router_1.Router,
-            effects_1.Actions,
             services_1.PurchaseService,
+            services_1.UserService,
+            services_1.OrderService,
             store_1.Store])
     ], AuthSigninComponent);
     return AuthSigninComponent;
@@ -1761,22 +1709,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var AuthSignoutComponent = /** @class */ (function () {
-    function AuthSignoutComponent(router, purchaseService, store) {
+    function AuthSignoutComponent(router, purchaseService, userService, orderService) {
         this.router = router;
         this.purchaseService = purchaseService;
-        this.store = store;
+        this.userService = userService;
+        this.orderService = orderService;
     }
     /**
      * 初期化
      */
     AuthSignoutComponent.prototype.ngOnInit = function () {
-        this.store.dispatch(new actions_1.orderAction.Delete());
+        this.orderService.delete();
         this.purchaseService.delete();
-        this.store.dispatch(new actions_1.userAction.Delete());
+        this.userService.delete();
         this.router.navigate(['/']);
     };
     AuthSignoutComponent = __decorate([
@@ -1787,7 +1734,8 @@ var AuthSignoutComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [router_1.Router,
             services_1.PurchaseService,
-            store_1.Store])
+            services_1.UserService,
+            services_1.OrderService])
     ], AuthSignoutComponent);
     return AuthSignoutComponent;
 }());
@@ -1980,11 +1928,11 @@ var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angul
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var environment_1 = __webpack_require__(/*! ../../../../environments/environment */ "./environments/environment.ts");
 var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../store/reducers */ "./app/store/reducers/index.ts");
 var ErrorComponent = /** @class */ (function () {
-    function ErrorComponent(purchaseService, store) {
+    function ErrorComponent(purchaseService, userService, store) {
         this.purchaseService = purchaseService;
+        this.userService = userService;
         this.store = store;
         this.environment = environment_1.environment;
     }
@@ -1994,7 +1942,7 @@ var ErrorComponent = /** @class */ (function () {
     ErrorComponent.prototype.ngOnInit = function () {
         this.error = this.store.pipe(store_1.select(reducers.getError));
         this.purchaseService.delete();
-        this.store.dispatch(new actions_1.userAction.Delete());
+        this.userService.delete();
     };
     ErrorComponent = __decorate([
         core_1.Component({
@@ -2003,6 +1951,7 @@ var ErrorComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./error.component.scss */ "./app/components/pages/error/error.component.scss")]
         }),
         __metadata("design:paramtypes", [services_1.PurchaseService,
+            services_1.UserService,
             store_1.Store])
     ], ErrorComponent);
     return ErrorComponent;
@@ -2043,14 +1992,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var environment_1 = __webpack_require__(/*! ../../../../environments/environment */ "./environments/environment.ts");
 var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../store/actions */ "./app/store/actions/index.ts");
 var ExpiredComponent = /** @class */ (function () {
-    function ExpiredComponent(purchaseService, store) {
+    function ExpiredComponent(purchaseService, userService) {
         this.purchaseService = purchaseService;
-        this.store = store;
+        this.userService = userService;
         this.environment = environment_1.environment;
     }
     /**
@@ -2058,7 +2005,7 @@ var ExpiredComponent = /** @class */ (function () {
      */
     ExpiredComponent.prototype.ngOnInit = function () {
         this.purchaseService.delete();
-        this.store.dispatch(new actions_1.userAction.Delete());
+        this.userService.delete();
     };
     ExpiredComponent = __decorate([
         core_1.Component({
@@ -2067,7 +2014,7 @@ var ExpiredComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./expired.component.scss */ "./app/components/pages/expired/expired.component.scss")]
         }),
         __metadata("design:paramtypes", [services_1.PurchaseService,
-            store_1.Store])
+            services_1.UserService])
     ], ExpiredComponent);
     return ExpiredComponent;
 }());
@@ -2193,26 +2140,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../functions */ "./app/functions/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var qrcode_modal_component_1 = __webpack_require__(/*! ../../../parts/qrcode-modal/qrcode-modal.component */ "./app/components/parts/qrcode-modal/qrcode-modal.component.ts");
 var InquiryConfirmComponent = /** @class */ (function () {
-    function InquiryConfirmComponent(store, router, actions, modal, utilService, translate) {
+    function InquiryConfirmComponent(store, router, modal, utilService, orderService, userService, translate) {
         this.store = store;
         this.router = router;
-        this.actions = actions;
         this.modal = modal;
         this.utilService = utilService;
+        this.orderService = orderService;
+        this.userService = userService;
         this.translate = translate;
         this.moment = moment;
         this.getTicketPrice = functions_1.getTicketPrice;
@@ -2257,41 +2201,45 @@ var InquiryConfirmComponent = /** @class */ (function () {
      * QRコード表示
      */
     InquiryConfirmComponent.prototype.showQrCode = function () {
-        var _this = this;
-        this.order.subscribe(function (value) {
-            var order = value.order;
-            if (order === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.orderAction.OrderAuthorize({
-                params: {
-                    orderNumber: order.orderNumber,
-                    customer: {
-                        telephone: order.customer.telephone
-                    }
+        return __awaiter(this, void 0, void 0, function () {
+            var orderData, authorizeOrder, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 4, , 5]);
+                        return [4 /*yield*/, this.orderService.getData()];
+                    case 1:
+                        orderData = _a.sent();
+                        if (orderData.order === undefined) {
+                            throw new Error('order undefined');
+                        }
+                        return [4 /*yield*/, this.orderService.authorize(orderData.order)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.orderService.getData()];
+                    case 3:
+                        orderData = _a.sent();
+                        authorizeOrder = orderData.order;
+                        if (authorizeOrder === undefined) {
+                            throw new Error('authorizeOrder undefined');
+                        }
+                        this.modal.show(qrcode_modal_component_1.QrCodeModalComponent, {
+                            initialState: { order: authorizeOrder },
+                            class: 'modal-dialog-centered'
+                        });
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('inquiry.confirm.alert.authorize')
+                        });
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeSuccess), operators_1.tap(function () {
-            _this.order.subscribe(function (inquiry) {
-                var authorizeOrder = inquiry.order;
-                if (authorizeOrder === undefined) {
-                    return;
-                }
-                _this.modal.show(qrcode_modal_component_1.QrCodeModalComponent, {
-                    initialState: { order: authorizeOrder },
-                    class: 'modal-dialog-centered'
-                });
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeFail), operators_1.tap(function () {
-            _this.utilService.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: _this.translate.instant('inquiry.confirm.alert.authorize')
             });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     /**
      * キャンセル確認
@@ -2302,104 +2250,94 @@ var InquiryConfirmComponent = /** @class */ (function () {
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('inquiry.confirm.confirm.cancel'),
             cb: function () { return __awaiter(_this, void 0, void 0, function () {
-                var error_1;
+                var orderData, orders, error_2;
                 var _this = this;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            _a.trys.push([0, 3, , 4]);
-                            return [4 /*yield*/, this.cancel()];
+                            _a.trys.push([0, 5, , 6]);
+                            return [4 /*yield*/, this.orderService.getData()];
                         case 1:
-                            _a.sent();
-                            return [4 /*yield*/, this.inquiry()];
+                            orderData = _a.sent();
+                            if (orderData.order === undefined) {
+                                throw new Error('order undefined');
+                            }
+                            orders = [orderData.order];
+                            return [4 /*yield*/, this.orderService.cancel(orders)];
                         case 2:
                             _a.sent();
-                            return [3 /*break*/, 4];
+                            return [4 /*yield*/, this.orderService.getData()];
                         case 3:
-                            error_1 = _a.sent();
+                            orderData = _a.sent();
+                            if (orderData.order === undefined) {
+                                throw new Error('order undefined');
+                            }
+                            return [4 /*yield*/, this.orderService.inquiry({
+                                    confirmationNumber: orderData.order.confirmationNumber,
+                                    customer: { telephone: orderData.order.customer.telephone }
+                                })];
+                        case 4:
+                            _a.sent();
+                            return [3 /*break*/, 6];
+                        case 5:
+                            error_2 = _a.sent();
                             this.error.subscribe(function (error) {
                                 _this.utilService.openAlert({
                                     title: _this.translate.instant('common.error'),
                                     body: "\n                            <p class=\"mb-4\">" + _this.translate.instant('inquiry.confirm.alert.cancel') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text error\">\n                                <code>" + JSON.stringify(error) + "</code>\n                            </div>"
                                 });
                             }).unsubscribe();
-                            return [3 /*break*/, 4];
-                        case 4: return [2 /*return*/];
+                            return [3 /*break*/, 6];
+                        case 6: return [2 /*return*/];
                     }
                 });
             }); }
         });
     };
     /**
-     * キャンセル処理
-     */
-    InquiryConfirmComponent.prototype.cancel = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.order.subscribe(function (orderData) {
-                var order = orderData.order;
-                if (order === undefined) {
-                    reject({ error: 'order undefined' });
-                    return;
-                }
-                _this.store.dispatch(new actions_1.orderAction.Cancel({ orders: [order] }));
-            }).unsubscribe();
-            var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelSuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-        });
-    };
-    /**
-     * 照会
-     */
-    InquiryConfirmComponent.prototype.inquiry = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.order.subscribe(function (orderData) {
-                var order = orderData.order;
-                if (order === undefined) {
-                    reject({ error: 'order undefined' });
-                    return;
-                }
-                _this.store.dispatch(new actions_1.orderAction.Inquiry({
-                    confirmationNumber: order.confirmationNumber,
-                    customer: { telephone: order.customer.telephone }
-                }));
-            }).unsubscribe();
-            var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquirySuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquiryFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-        });
-    };
-    /**
      * 印刷
      */
     InquiryConfirmComponent.prototype.print = function () {
-        var _this = this;
-        if (this.timer !== undefined) {
-            clearTimeout(this.timer);
-        }
-        this.order.subscribe(function (inquiry) {
-            _this.user.subscribe(function (user) {
-                if (inquiry.order === undefined
-                    || user.pos === undefined
-                    || user.printer === undefined) {
-                    _this.router.navigate(['/error']);
-                    return;
+        return __awaiter(this, void 0, void 0, function () {
+            var orderData, user, orders, pos, printer, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (this.timer !== undefined) {
+                            clearTimeout(this.timer);
+                        }
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 5, , 6]);
+                        return [4 /*yield*/, this.orderService.getData()];
+                    case 2:
+                        orderData = _a.sent();
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 3:
+                        user = _a.sent();
+                        if (orderData.order === undefined
+                            || user.pos === undefined
+                            || user.printer === undefined) {
+                            this.router.navigate(['/error']);
+                            return [2 /*return*/];
+                        }
+                        orders = [orderData.order];
+                        pos = user.pos;
+                        printer = user.printer;
+                        return [4 /*yield*/, this.orderService.print({ orders: orders, pos: pos, printer: printer })];
+                    case 4:
+                        _a.sent();
+                        this.router.navigate(['/inquiry/print']);
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_3 = _a.sent();
+                        console.error(error_3);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
-                var orders = [inquiry.order];
-                var pos = user.pos;
-                var printer = user.printer;
-                _this.store.dispatch(new actions_1.orderAction.Print({ orders: orders, pos: pos, printer: printer }));
-            }).unsubscribe();
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintSuccess), operators_1.tap(function () {
-            _this.router.navigate(['/inquiry/print']);
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+            });
+        });
     };
     InquiryConfirmComponent = __decorate([
         core_1.Component({
@@ -2409,9 +2347,10 @@ var InquiryConfirmComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [store_1.Store,
             router_1.Router,
-            effects_1.Actions,
             ngx_bootstrap_1.BsModalService,
             services_1.UtilService,
+            services_1.OrderService,
+            services_1.UserService,
             core_2.TranslateService])
     ], InquiryConfirmComponent);
     return InquiryConfirmComponent;
@@ -2450,25 +2389,54 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var forms_1 = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
-var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var libphonenumber = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var InquiryInputComponent = /** @class */ (function () {
-    function InquiryInputComponent(actions, formBuilder, store, utilService, router, translate) {
-        this.actions = actions;
+    function InquiryInputComponent(formBuilder, utilService, orderService, router, translate) {
         this.formBuilder = formBuilder;
-        this.store = store;
         this.utilService = utilService;
+        this.orderService = orderService;
         this.router = router;
         this.translate = translate;
         this.environment = environment_1.environment;
@@ -2516,31 +2484,45 @@ var InquiryInputComponent = /** @class */ (function () {
      * 照会
      */
     InquiryInputComponent.prototype.onSubmit = function () {
-        var _this = this;
-        Object.keys(this.inquiryForm.controls).forEach(function (key) {
-            _this.inquiryForm.controls[key].markAsTouched();
-        });
-        this.inquiryForm.controls.confirmationNumber.setValue(document.getElementById('confirmationNumber').value);
-        this.inquiryForm.controls.telephone.setValue(document.getElementById('telephone').value);
-        if (this.inquiryForm.invalid) {
-            return;
-        }
-        var confirmationNumber = this.inquiryForm.controls.confirmationNumber.value;
-        var telephone = this.inquiryForm.controls.telephone.value;
-        this.store.dispatch(new actions_1.orderAction.Inquiry({
-            confirmationNumber: confirmationNumber,
-            customer: { telephone: telephone }
-        }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquirySuccess), operators_1.tap(function () {
-            _this.router.navigate(['/inquiry/confirm']);
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquiryFail), operators_1.tap(function () {
-            _this.utilService.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: _this.translate.instant('inquiry.input.validation')
+        return __awaiter(this, void 0, void 0, function () {
+            var confirmationNumber, telephone, error_1;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        Object.keys(this.inquiryForm.controls).forEach(function (key) {
+                            _this.inquiryForm.controls[key].markAsTouched();
+                        });
+                        this.inquiryForm.controls.confirmationNumber.setValue(document.getElementById('confirmationNumber').value);
+                        this.inquiryForm.controls.telephone.setValue(document.getElementById('telephone').value);
+                        if (this.inquiryForm.invalid) {
+                            return [2 /*return*/];
+                        }
+                        confirmationNumber = this.inquiryForm.controls.confirmationNumber.value;
+                        telephone = this.inquiryForm.controls.telephone.value;
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.orderService.inquiry({
+                                confirmationNumber: confirmationNumber,
+                                customer: { telephone: telephone }
+                            })];
+                    case 2:
+                        _a.sent();
+                        this.router.navigate(['/inquiry/confirm']);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('inquiry.input.validation')
+                        });
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
             });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     /**
      * 確認番号変更
@@ -2560,10 +2542,9 @@ var InquiryInputComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./inquiry-input.component.html */ "../../node_modules/raw-loader/index.js!./app/components/pages/inquiry/inquiry-input/inquiry-input.component.html"),
             styles: [__webpack_require__(/*! ./inquiry-input.component.scss */ "./app/components/pages/inquiry/inquiry-input/inquiry-input.component.scss")]
         }),
-        __metadata("design:paramtypes", [effects_1.Actions,
-            forms_1.FormBuilder,
-            store_1.Store,
+        __metadata("design:paramtypes", [forms_1.FormBuilder,
             services_1.UtilService,
+            services_1.OrderService,
             router_1.Router,
             core_2.TranslateService])
     ], InquiryInputComponent);
@@ -2791,23 +2772,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var parts_1 = __webpack_require__(/*! ../../../parts */ "./app/components/parts/index.ts");
 var MypageCoinComponent = /** @class */ (function () {
-    function MypageCoinComponent(store, actions, modal, translate, utilService) {
+    function MypageCoinComponent(store, modal, translate, utilService, userService) {
         this.store = store;
-        this.actions = actions;
         this.modal = modal;
         this.translate = translate;
         this.utilService = utilService;
+        this.userService = userService;
     }
     /**
      * 初期化
@@ -2828,28 +2805,32 @@ var MypageCoinComponent = /** @class */ (function () {
         var _this = this;
         this.modal.show(parts_1.ChargeCoinModalComponent, {
             initialState: {
-                cb: function (charge) {
-                    _this.chargeCoin({ charge: charge, creditCard: creditCard });
-                }
+                cb: function (charge) { return __awaiter(_this, void 0, void 0, function () {
+                    var error_1;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                console.log({ charge: charge, creditCard: creditCard });
+                                _a.label = 1;
+                            case 1:
+                                _a.trys.push([1, 3, , 4]);
+                                return [4 /*yield*/, this.userService.chargeCoin()];
+                            case 2:
+                                _a.sent();
+                                return [3 /*break*/, 4];
+                            case 3:
+                                error_1 = _a.sent();
+                                this.utilService.openAlert({
+                                    title: this.translate.instant('common.error'),
+                                    body: this.translate.instant('mypage.coin.alert.charge')
+                                });
+                                return [3 /*break*/, 4];
+                            case 4: return [2 /*return*/];
+                        }
+                    });
+                }); }
             }
         });
-    };
-    /**
-     * コインのチャージ処理
-     * @param args
-     */
-    MypageCoinComponent.prototype.chargeCoin = function (args) {
-        var _this = this;
-        console.log(args);
-        this.store.dispatch(new actions_1.userAction.ChargeCoin({}));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.ChargeCoinSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.ChargeCoinFail), operators_1.tap(function () {
-            _this.utilService.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: _this.translate.instant('mypage.coin.alert.charge')
-            });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
     };
     MypageCoinComponent = __decorate([
         core_1.Component({
@@ -2858,10 +2839,10 @@ var MypageCoinComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./mypage-coin.component.scss */ "./app/components/pages/mypage/mypage-coin/mypage-coin.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             ngx_bootstrap_1.BsModalService,
             core_2.TranslateService,
-            services_1.UtilService])
+            services_1.UtilService,
+            services_1.UserService])
     ], MypageCoinComponent);
     return MypageCoinComponent;
 }());
@@ -2938,20 +2919,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var forms_1 = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var MypageCreditComponent = /** @class */ (function () {
-    function MypageCreditComponent(store, actions, utilService, formBuilder, translate, router) {
+    function MypageCreditComponent(store, utilService, masterService, userService, formBuilder, translate, router) {
         this.store = store;
-        this.actions = actions;
         this.utilService = utilService;
+        this.masterService = masterService;
+        this.userService = userService;
         this.formBuilder = formBuilder;
         this.translate = translate;
         this.router = router;
@@ -2970,10 +2948,10 @@ var MypageCreditComponent = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 4, , 5]);
-                        return [4 /*yield*/, this.getSellers()];
+                        return [4 /*yield*/, this.masterService.getSellers()];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, this.getCreditCards()];
+                        return [4 /*yield*/, this.userService.getCreditCards()];
                     case 3:
                         _a.sent();
                         this.createCreditCardForm();
@@ -3012,73 +2990,65 @@ var MypageCreditComponent = /** @class */ (function () {
         });
     };
     /**
-     * 販売者一覧取得
-     */
-    MypageCreditComponent.prototype.getSellers = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.store.dispatch(new actions_1.masterAction.GetSellers({ params: {} }));
-            var success = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersSuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersFail), operators_1.tap(function () { reject(); }));
-            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-        });
-    };
-    /**
-     * クレジットカード情報一覧取得
-     */
-    MypageCreditComponent.prototype.getCreditCards = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.store.dispatch(new actions_1.userAction.GetCreditCards());
-            var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.GetCreditCardsSuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.GetCreditCardsFail), operators_1.tap(function () { reject(); }));
-            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-        });
-    };
-    /**
      * クレジットカード情報登録
      */
     MypageCreditComponent.prototype.addCreditCard = function () {
-        var _this = this;
-        Object.keys(this.creditCardForm.controls).forEach(function (key) {
-            _this.creditCardForm.controls[key].markAsTouched();
-        });
-        this.creditCardForm.controls.cardNumber.setValue(document.getElementById('cardNumber').value);
-        this.creditCardForm.controls.securityCode.setValue(document.getElementById('securityCode').value);
-        this.creditCardForm.controls.holderName.setValue(document.getElementById('holderName').value);
-        if (this.creditCardForm.invalid) {
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('mypage.credit.alert.addCredit')
+        return __awaiter(this, void 0, void 0, function () {
+            var cardExpiration, creditCard, master, seller, error_2;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        Object.keys(this.creditCardForm.controls).forEach(function (key) {
+                            _this.creditCardForm.controls[key].markAsTouched();
+                        });
+                        this.creditCardForm.controls.cardNumber.setValue(document.getElementById('cardNumber').value);
+                        this.creditCardForm.controls.securityCode.setValue(document.getElementById('securityCode').value);
+                        this.creditCardForm.controls.holderName.setValue(document.getElementById('holderName').value);
+                        if (this.creditCardForm.invalid) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('mypage.credit.alert.addCredit')
+                            });
+                            return [2 /*return*/];
+                        }
+                        cardExpiration = {
+                            year: this.creditCardForm.controls.cardExpirationYear.value,
+                            month: this.creditCardForm.controls.cardExpirationMonth.value
+                        };
+                        creditCard = {
+                            cardno: this.creditCardForm.controls.cardNumber.value,
+                            expire: "" + cardExpiration.year + cardExpiration.month,
+                            holderName: this.creditCardForm.controls.holderName.value,
+                            securityCode: this.creditCardForm.controls.securityCode.value
+                        };
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, this.masterService.getData()];
+                    case 2:
+                        master = _a.sent();
+                        seller = master.sellers.find(function (s) { return s.id === _this.creditCardForm.controls.sellerId.value; });
+                        if (seller === undefined) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('mypage.credit.alert.add')
+                            });
+                            return [2 /*return*/];
+                        }
+                        return [4 /*yield*/, this.userService.addCreditCard({ creditCard: creditCard, seller: seller })];
+                    case 3:
+                        _a.sent();
+                        this.createCreditCardForm();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_2 = _a.sent();
+                        console.error(error_2);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
             });
-            return;
-        }
-        var cardExpiration = {
-            year: this.creditCardForm.controls.cardExpirationYear.value,
-            month: this.creditCardForm.controls.cardExpirationMonth.value
-        };
-        var creditCard = {
-            cardno: this.creditCardForm.controls.cardNumber.value,
-            expire: "" + cardExpiration.year + cardExpiration.month,
-            holderName: this.creditCardForm.controls.holderName.value,
-            securityCode: this.creditCardForm.controls.securityCode.value
-        };
-        this.master.subscribe(function (master) {
-            var seller = master.sellers.find(function (s) { return s.id === _this.creditCardForm.controls.sellerId.value; });
-            if (seller === undefined) {
-                _this.utilService.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: _this.translate.instant('mypage.credit.alert.add')
-                });
-                return;
-            }
-            _this.store.dispatch(new actions_1.userAction.AddCreditCard({ creditCard: creditCard, seller: seller }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.AddCreditCardSuccess), operators_1.tap(function () {
-            _this.createCreditCardForm();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.AddCreditCardFail), operators_1.tap(function () { }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     /**
      * クレジットカード情報削除確認
@@ -3089,26 +3059,29 @@ var MypageCreditComponent = /** @class */ (function () {
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('mypage.credit.confirm.remove'),
-            cb: function () {
-                _this.removeCreditCard(creditCard);
-            }
+            cb: function () { return __awaiter(_this, void 0, void 0, function () {
+                var error_3;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            _a.trys.push([0, 2, , 3]);
+                            return [4 /*yield*/, this.userService.removeCreditCard(creditCard)];
+                        case 1:
+                            _a.sent();
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('mypage.credit.alert.remove')
+                            });
+                            return [3 /*break*/, 3];
+                        case 2:
+                            error_3 = _a.sent();
+                            console.error(error_3);
+                            return [3 /*break*/, 3];
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            }); }
         });
-    };
-    /**
-     * クレジットカード情報削除
-     * @param creditCard
-     */
-    MypageCreditComponent.prototype.removeCreditCard = function (creditCard) {
-        var _this = this;
-        this.store.dispatch(new actions_1.userAction.RemoveCreditCard({ creditCard: creditCard }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.RemoveCreditCardSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.RemoveCreditCardFail), operators_1.tap(function () {
-            _this.utilService.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: _this.translate.instant('mypage.credit.alert.remove')
-            });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
     };
     MypageCreditComponent = __decorate([
         core_1.Component({
@@ -3117,8 +3090,9 @@ var MypageCreditComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./mypage-credit.component.scss */ "./app/components/pages/mypage/mypage-credit/mypage-credit.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             services_1.UtilService,
+            services_1.MasterService,
+            services_1.UserService,
             forms_1.FormBuilder,
             core_2.TranslateService,
             router_1.Router])
@@ -3213,25 +3187,56 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var forms_1 = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var libphonenumber = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var MypageProfileComponent = /** @class */ (function () {
-    function MypageProfileComponent(store, actions, utilService, formBuilder, translate) {
+    function MypageProfileComponent(store, utilService, formBuilder, translate, userService) {
         this.store = store;
-        this.actions = actions;
         this.utilService = utilService;
         this.formBuilder = formBuilder;
         this.translate = translate;
+        this.userService = userService;
     }
     /**
      * 初期化
@@ -3301,31 +3306,47 @@ var MypageProfileComponent = /** @class */ (function () {
      * プロフィール更新
      */
     MypageProfileComponent.prototype.updateProfile = function () {
-        var _this = this;
-        Object.keys(this.profileForm.controls).forEach(function (key) {
-            _this.profileForm.controls[key].markAsTouched();
-        });
-        this.profileForm.controls.familyName.setValue(document.getElementById('familyName').value);
-        this.profileForm.controls.givenName.setValue(document.getElementById('givenName').value);
-        this.profileForm.controls.email.setValue(document.getElementById('email').value);
-        this.profileForm.controls.telephone.setValue(document.getElementById('telephone').value);
-        if (this.profileForm.invalid) {
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('setting.alert.customer')
+        return __awaiter(this, void 0, void 0, function () {
+            var profile, error_1;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        Object.keys(this.profileForm.controls).forEach(function (key) {
+                            _this.profileForm.controls[key].markAsTouched();
+                        });
+                        this.profileForm.controls.familyName.setValue(document.getElementById('familyName').value);
+                        this.profileForm.controls.givenName.setValue(document.getElementById('givenName').value);
+                        this.profileForm.controls.email.setValue(document.getElementById('email').value);
+                        this.profileForm.controls.telephone.setValue(document.getElementById('telephone').value);
+                        if (this.profileForm.invalid) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('setting.alert.customer')
+                            });
+                            return [2 /*return*/];
+                        }
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        profile = {
+                            givenName: this.profileForm.controls.givenName.value,
+                            familyName: this.profileForm.controls.familyName.value,
+                            telephone: this.profileForm.controls.telephone.value,
+                            email: this.profileForm.controls.email.value,
+                        };
+                        return [4 /*yield*/, this.userService.updateProfile(profile)];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
             });
-            return;
-        }
-        var profile = {
-            givenName: this.profileForm.controls.givenName.value,
-            familyName: this.profileForm.controls.familyName.value,
-            telephone: this.profileForm.controls.telephone.value,
-            email: this.profileForm.controls.email.value,
-        };
-        this.store.dispatch(new actions_1.userAction.UpdateProfile({ profile: profile }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.UpdateProfileSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.UpdateProfileFail), operators_1.tap(function () { }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     MypageProfileComponent = __decorate([
         core_1.Component({
@@ -3334,10 +3355,10 @@ var MypageProfileComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./mypage-profile.component.scss */ "./app/components/pages/mypage/mypage-profile/mypage-profile.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             services_1.UtilService,
             forms_1.FormBuilder,
-            core_2.TranslateService])
+            core_2.TranslateService,
+            services_1.UserService])
     ], MypageProfileComponent);
     return MypageProfileComponent;
 }());
@@ -3431,30 +3452,61 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var models_1 = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var order_detail_modal_component_1 = __webpack_require__(/*! ../../../parts/order-detail-modal/order-detail-modal.component */ "./app/components/parts/order-detail-modal/order-detail-modal.component.ts");
 var qrcode_modal_component_1 = __webpack_require__(/*! ../../../parts/qrcode-modal/qrcode-modal.component */ "./app/components/parts/qrcode-modal/qrcode-modal.component.ts");
 var OrderSearchComponent = /** @class */ (function () {
-    function OrderSearchComponent(store, actions, modal, router, utilService, translate) {
+    function OrderSearchComponent(store, modal, router, utilService, orderService, translate) {
         this.store = store;
-        this.actions = actions;
         this.modal = modal;
         this.router = router;
         this.utilService = utilService;
+        this.orderService = orderService;
         this.translate = translate;
         this.moment = moment;
         this.orderStatus = api_javascript_client_1.factory.orderStatus;
@@ -3486,7 +3538,7 @@ var OrderSearchComponent = /** @class */ (function () {
             orderStatuses: '',
             page: 1
         };
-        this.store.dispatch(new actions_1.orderAction.Delete());
+        this.orderService.delete();
     };
     /**
      * 注文選択判定
@@ -3516,65 +3568,78 @@ var OrderSearchComponent = /** @class */ (function () {
      * @param changeConditions
      */
     OrderSearchComponent.prototype.orderSearch = function (changeConditions, event) {
-        var _this = this;
-        this.selectedOrders = [];
-        if (event !== undefined) {
-            this.confirmedConditions.page = event.page;
-        }
-        if (changeConditions) {
-            this.confirmedConditions = {
-                sellerId: this.conditions.sellerId,
-                orderDateFrom: this.conditions.orderDateFrom,
-                orderDateThrough: this.conditions.orderDateThrough,
-                confirmationNumber: this.conditions.confirmationNumber,
-                orderNumber: this.conditions.orderNumber,
-                customer: {
-                    familyName: this.conditions.customer.familyName,
-                    givenName: this.conditions.customer.givenName,
-                    email: this.conditions.customer.email,
-                    telephone: this.conditions.customer.telephone
-                },
-                orderStatuses: this.conditions.orderStatuses,
-                page: 1
-            };
-        }
-        var params = {
-            seller: {
-                ids: (this.confirmedConditions.sellerId === '')
-                    ? undefined : [this.confirmedConditions.sellerId]
-            },
-            customer: {
-                email: (this.confirmedConditions.customer.email === '')
-                    ? undefined : this.confirmedConditions.customer.email,
-                telephone: (this.confirmedConditions.customer.telephone === '')
-                    ? undefined : this.confirmedConditions.customer.telephone,
-                familyName: (this.confirmedConditions.customer.familyName === '')
-                    ? undefined : this.confirmedConditions.customer.familyName,
-                givenName: (this.confirmedConditions.customer.givenName === '')
-                    ? undefined : this.confirmedConditions.customer.givenName,
-            },
-            orderStatuses: (this.confirmedConditions.orderStatuses === '')
-                ? undefined : [this.confirmedConditions.orderStatuses],
-            orderDateFrom: (this.confirmedConditions.orderDateFrom === '')
-                ? moment('1970-01-01').toDate() : moment(this.confirmedConditions.orderDateFrom).toDate(),
-            orderDateThrough: (this.confirmedConditions.orderDateThrough === '')
-                ? moment().add(1, 'day').toDate() : moment(this.confirmedConditions.orderDateThrough).add(1, 'day').toDate(),
-            confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
-                ? undefined : [this.confirmedConditions.confirmationNumber],
-            orderNumbers: (this.confirmedConditions.orderNumber === '')
-                ? undefined : [this.confirmedConditions.orderNumber],
-            limit: this.limit,
-            page: this.confirmedConditions.page,
-            sort: {
-                orderDate: api_javascript_client_1.factory.sortType.Descending
-            }
-        };
-        this.store.dispatch(new actions_1.orderAction.Search({ params: params }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.SearchSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.SearchFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var params, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.selectedOrders = [];
+                        if (event !== undefined) {
+                            this.confirmedConditions.page = event.page;
+                        }
+                        if (changeConditions) {
+                            this.confirmedConditions = {
+                                sellerId: this.conditions.sellerId,
+                                orderDateFrom: this.conditions.orderDateFrom,
+                                orderDateThrough: this.conditions.orderDateThrough,
+                                confirmationNumber: this.conditions.confirmationNumber,
+                                orderNumber: this.conditions.orderNumber,
+                                customer: {
+                                    familyName: this.conditions.customer.familyName,
+                                    givenName: this.conditions.customer.givenName,
+                                    email: this.conditions.customer.email,
+                                    telephone: this.conditions.customer.telephone
+                                },
+                                orderStatuses: this.conditions.orderStatuses,
+                                page: 1
+                            };
+                        }
+                        params = {
+                            seller: {
+                                ids: (this.confirmedConditions.sellerId === '')
+                                    ? undefined : [this.confirmedConditions.sellerId]
+                            },
+                            customer: {
+                                email: (this.confirmedConditions.customer.email === '')
+                                    ? undefined : this.confirmedConditions.customer.email,
+                                telephone: (this.confirmedConditions.customer.telephone === '')
+                                    ? undefined : this.confirmedConditions.customer.telephone,
+                                familyName: (this.confirmedConditions.customer.familyName === '')
+                                    ? undefined : this.confirmedConditions.customer.familyName,
+                                givenName: (this.confirmedConditions.customer.givenName === '')
+                                    ? undefined : this.confirmedConditions.customer.givenName,
+                            },
+                            orderStatuses: (this.confirmedConditions.orderStatuses === '')
+                                ? undefined : [this.confirmedConditions.orderStatuses],
+                            orderDateFrom: (this.confirmedConditions.orderDateFrom === '')
+                                ? moment('1970-01-01').toDate() : moment(this.confirmedConditions.orderDateFrom).toDate(),
+                            orderDateThrough: (this.confirmedConditions.orderDateThrough === '')
+                                ? moment().add(1, 'day').toDate() : moment(this.confirmedConditions.orderDateThrough).add(1, 'day').toDate(),
+                            confirmationNumbers: (this.confirmedConditions.confirmationNumber === '')
+                                ? undefined : [this.confirmedConditions.confirmationNumber],
+                            orderNumbers: (this.confirmedConditions.orderNumber === '')
+                                ? undefined : [this.confirmedConditions.orderNumber],
+                            limit: this.limit,
+                            page: this.confirmedConditions.page,
+                            sort: {
+                                orderDate: api_javascript_client_1.factory.sortType.Descending
+                            }
+                        };
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.orderService.search(params)];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * キャンセル確認
@@ -3584,9 +3649,28 @@ var OrderSearchComponent = /** @class */ (function () {
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('order.list.confirm.cancel'),
-            cb: function () {
-                _this.cancel(orders);
-            }
+            cb: function () { return __awaiter(_this, void 0, void 0, function () {
+                var error_2;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            _a.trys.push([0, 2, , 3]);
+                            return [4 /*yield*/, this.orderService.cancel(orders)];
+                        case 1:
+                            _a.sent();
+                            return [3 /*break*/, 3];
+                        case 2:
+                            error_2 = _a.sent();
+                            console.error(error_2);
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: "\n                        <p class=\"mb-4\">" + this.translate.instant('order.list.alert.cancel') + "</p>\n                        <div class=\"p-3 bg-light-gray select-text error\">\n                            <code>" + error_2 + "</code>\n                        </div>"
+                            });
+                            return [3 /*break*/, 3];
+                        case 3: return [2 /*return*/];
+                    }
+                });
+            }); }
         });
     };
     /**
@@ -3597,23 +3681,6 @@ var OrderSearchComponent = /** @class */ (function () {
             initialState: { order: order },
             class: 'modal-dialog-centered'
         });
-    };
-    /**
-     * キャンセル処理
-     */
-    OrderSearchComponent.prototype.cancel = function (orders) {
-        var _this = this;
-        this.store.dispatch(new actions_1.orderAction.Cancel({ orders: orders }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelFail), operators_1.tap(function () {
-            _this.error.subscribe(function (error) {
-                _this.utilService.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('order.list.alert.cancel') + "</p>\n                        <div class=\"p-3 bg-light-gray select-text error\">\n                            <code>" + error + "</code>\n                        </div>"
-                });
-            }).unsubscribe();
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
     };
     /**
      * 選択した注文へのアクション
@@ -3630,44 +3697,74 @@ var OrderSearchComponent = /** @class */ (function () {
             this.utilService.openConfirm({
                 title: this.translate.instant('common.confirm'),
                 body: this.translate.instant('order.list.confirm.cancel'),
-                cb: function () {
-                    _this.cancel(_this.selectedOrders);
-                }
+                cb: function () { return __awaiter(_this, void 0, void 0, function () {
+                    var error_3;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                _a.trys.push([0, 2, , 3]);
+                                return [4 /*yield*/, this.orderService.cancel(this.selectedOrders)];
+                            case 1:
+                                _a.sent();
+                                return [3 /*break*/, 3];
+                            case 2:
+                                error_3 = _a.sent();
+                                console.error(error_3);
+                                this.utilService.openAlert({
+                                    title: this.translate.instant('common.error'),
+                                    body: "\n                            <p class=\"mb-4\">" + this.translate.instant('order.list.alert.cancel') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text error\">\n                                <code>" + error_3 + "</code>\n                            </div>"
+                                });
+                                return [3 /*break*/, 3];
+                            case 3: return [2 /*return*/];
+                        }
+                    });
+                }); }
             });
         }
     };
     /**
      * QRコード表示
      */
-    OrderSearchComponent.prototype.openQrCode = function (order) {
-        var _this = this;
-        this.store.dispatch(new actions_1.orderAction.OrderAuthorize({
-            params: {
-                orderNumber: order.orderNumber,
-                customer: {
-                    telephone: order.customer.telephone
+    OrderSearchComponent.prototype.openQrCode = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var orderData, authorizeOrder, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 4, , 5]);
+                        return [4 /*yield*/, this.orderService.getData()];
+                    case 1:
+                        orderData = _a.sent();
+                        if (orderData.order === undefined) {
+                            throw new Error('order undefined');
+                        }
+                        return [4 /*yield*/, this.orderService.authorize(orderData.order)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.orderService.getData()];
+                    case 3:
+                        orderData = _a.sent();
+                        authorizeOrder = orderData.order;
+                        if (authorizeOrder === undefined) {
+                            throw new Error('authorizeOrder undefined');
+                        }
+                        this.modal.show(qrcode_modal_component_1.QrCodeModalComponent, {
+                            initialState: { order: authorizeOrder },
+                            class: 'modal-dialog-centered'
+                        });
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_4 = _a.sent();
+                        console.error(error_4);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('order.list.alert.authorize')
+                        });
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
-            }
-        }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeSuccess), operators_1.tap(function () {
-            _this.order.subscribe(function (inquiry) {
-                var authorizeOrder = inquiry.order;
-                if (authorizeOrder === undefined) {
-                    return;
-                }
-                _this.modal.show(qrcode_modal_component_1.QrCodeModalComponent, {
-                    initialState: { order: authorizeOrder },
-                    class: 'modal-dialog-centered'
-                });
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeFail), operators_1.tap(function () {
-            _this.utilService.openAlert({
-                title: _this.translate.instant('common.error'),
-                body: _this.translate.instant('order.list.alert.authorize')
             });
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     OrderSearchComponent = __decorate([
         core_1.Component({
@@ -3676,10 +3773,10 @@ var OrderSearchComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./order-search.component.scss */ "./app/components/pages/order/order-search/order-search.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             ngx_bootstrap_1.BsModalService,
             router_1.Router,
             services_1.UtilService,
+            services_1.OrderService,
             core_2.TranslateService])
     ], OrderSearchComponent);
     return OrderSearchComponent;
@@ -3851,28 +3948,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var http_status_1 = __webpack_require__(/*! http-status */ "../../node_modules/http-status/lib/index.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 var ngx_swiper_wrapper_1 = __webpack_require__(/*! ngx-swiper-wrapper */ "../../node_modules/ngx-swiper-wrapper/dist/ngx-swiper-wrapper.es5.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var parts_1 = __webpack_require__(/*! ../../../../parts */ "./app/components/parts/index.ts");
 var PurchaseCinemaScheduleComponent = /** @class */ (function () {
-    function PurchaseCinemaScheduleComponent(store, actions, router, utilService, purchaseService, modal, translate) {
+    function PurchaseCinemaScheduleComponent(store, router, utilService, purchaseService, masterService, userService, modal, translate) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
         this.utilService = utilService;
         this.purchaseService = purchaseService;
+        this.masterService = masterService;
+        this.userService = userService;
         this.modal = modal;
         this.translate = translate;
         this.moment = moment;
@@ -3883,30 +3977,63 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
      */
     PurchaseCinemaScheduleComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var master, purchase_1, seller, findResult, error_1;
             return __generator(this, function (_a) {
-                this.swiperConfig = {
-                    spaceBetween: 1,
-                    slidesPerView: 7,
-                    freeMode: true,
-                    breakpoints: {
-                        320: { slidesPerView: 2 },
-                        767: { slidesPerView: 3 },
-                        1024: { slidesPerView: 5 }
-                    },
-                    navigation: {
-                        nextEl: '.schedule-slider .swiper-button-next',
-                        prevEl: '.schedule-slider .swiper-button-prev',
-                    },
-                };
-                this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
-                this.user = this.store.pipe(store_1.select(reducers.getUser));
-                this.master = this.store.pipe(store_1.select(reducers.getMaster));
-                this.error = this.store.pipe(store_1.select(reducers.getError));
-                this.isPreSchedule = false;
-                this.scheduleDates = [];
-                this.screeningWorkEvents = [];
-                this.getSellers();
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        this.swiperConfig = {
+                            spaceBetween: 1,
+                            slidesPerView: 7,
+                            freeMode: true,
+                            breakpoints: {
+                                320: { slidesPerView: 2 },
+                                767: { slidesPerView: 3 },
+                                1024: { slidesPerView: 5 }
+                            },
+                            navigation: {
+                                nextEl: '.schedule-slider .swiper-button-next',
+                                prevEl: '.schedule-slider .swiper-button-prev',
+                            },
+                        };
+                        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
+                        this.user = this.store.pipe(store_1.select(reducers.getUser));
+                        this.master = this.store.pipe(store_1.select(reducers.getMaster));
+                        this.error = this.store.pipe(store_1.select(reducers.getError));
+                        this.isPreSchedule = false;
+                        this.scheduleDates = [];
+                        this.screeningWorkEvents = [];
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 5, , 6]);
+                        return [4 /*yield*/, this.masterService.getSellers()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.masterService.getData()];
+                    case 3:
+                        master = _a.sent();
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 4:
+                        purchase_1 = _a.sent();
+                        seller = (purchase_1.seller === undefined)
+                            ? master.sellers[0] : purchase_1.seller;
+                        findResult = master.sellers.find(function (s) {
+                            return (purchase_1.external !== undefined
+                                && purchase_1.external.theaterBranchCode !== undefined
+                                && s.location !== undefined
+                                && s.location.branchCode === purchase_1.external.theaterBranchCode);
+                        });
+                        if (findResult !== undefined) {
+                            seller = findResult;
+                        }
+                        this.selectSeller(seller);
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
+                }
             });
         });
     };
@@ -3920,25 +4047,33 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
      * スケジュールの種類を変更
      */
     PurchaseCinemaScheduleComponent.prototype.changeScheduleType = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            if (_this.isPreSchedule) {
-                _this.scheduleDates = [];
-                for (var i = 0; i < Number(environment_1.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
-                    _this.scheduleDates.push(moment().add(i, 'day').format('YYYYMMDD'));
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, i;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.purchaseService.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        if (this.isPreSchedule) {
+                            this.scheduleDates = [];
+                            for (i = 0; i < Number(environment_1.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
+                                this.scheduleDates.push(moment().add(i, 'day').format('YYYYMMDD'));
+                            }
+                        }
+                        else {
+                            this.scheduleDates = purchase.preScheduleDates;
+                        }
+                        if (purchase.seller === undefined) {
+                            this.router.navigate(['/error']);
+                            return [2 /*return*/];
+                        }
+                        this.selectDate();
+                        this.isPreSchedule = !this.isPreSchedule;
+                        this.directiveRef.update();
+                        return [2 /*return*/];
                 }
-            }
-            else {
-                _this.scheduleDates = purchase.preScheduleDates;
-            }
-            if (purchase.seller === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.selectDate();
-            _this.isPreSchedule = !_this.isPreSchedule;
-            _this.directiveRef.update();
-        }).unsubscribe();
+            });
+        });
     };
     /**
      * 更新
@@ -3966,78 +4101,49 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
         this.directiveRef.update();
     };
     /**
-     * 販売者一覧取得
-     */
-    PurchaseCinemaScheduleComponent.prototype.getSellers = function () {
-        var _this = this;
-        this.store.dispatch(new actions_1.masterAction.GetSellers());
-        var success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersSuccess), operators_1.tap(function () {
-            _this.purchase.subscribe(function (purchase) {
-                _this.master.subscribe(function (master) {
-                    var seller = (purchase.seller === undefined)
-                        ? master.sellers[0] : purchase.seller;
-                    var findResult = master.sellers.find(function (s) {
-                        return (purchase.external !== undefined
-                            && purchase.external.theaterBranchCode !== undefined
-                            && s.location !== undefined
-                            && s.location.branchCode === purchase.external.theaterBranchCode);
-                    });
-                    if (findResult !== undefined) {
-                        seller = findResult;
-                    }
-                    _this.selectSeller(seller);
-                }).unsubscribe();
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-    };
-    /**
      * 販売者選択
      */
     PurchaseCinemaScheduleComponent.prototype.selectSeller = function (seller) {
-        var _this = this;
-        this.purchaseService.selectSeller(seller);
-        this.scheduleDates = [];
-        for (var i = 0; i < Number(environment_1.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
-            this.scheduleDates.push(moment().add(i, 'day').format('YYYYMMDD'));
-        }
-        this.isPreSchedule = false;
-        this.directiveRef.update();
-        setTimeout(function () { return __awaiter(_this, void 0, void 0, function () {
-            var error_1;
+        return __awaiter(this, void 0, void 0, function () {
+            var i, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, this.purchaseService.getPreScheduleDates()];
+                        this.purchaseService.selectSeller(seller);
+                        this.scheduleDates = [];
+                        for (i = 0; i < Number(environment_1.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
+                            this.scheduleDates.push(moment().add(i, 'day').format('YYYYMMDD'));
+                        }
+                        this.isPreSchedule = false;
+                        this.directiveRef.update();
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.purchaseService.getPreScheduleDates()];
+                    case 2:
                         _a.sent();
                         this.isPreSchedule = false;
                         this.selectDate();
-                        return [3 /*break*/, 3];
-                    case 2:
-                        error_1 = _a.sent();
-                        console.error(error_1);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_2 = _a.sent();
+                        console.error(error_2);
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
-        }); }, 0);
+        });
     };
     /**
      * 日付選択
      */
     PurchaseCinemaScheduleComponent.prototype.selectDate = function (scheduleDate) {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, seller, success, fail;
-            var _this = this;
+            var purchase, seller, master, screeningEvents, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
                         purchase = _a.sent();
                         seller = purchase.seller;
@@ -4057,30 +4163,36 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                             }
                         }
                         this.purchaseService.selectScheduleDate(scheduleDate);
-                        this.store.dispatch(new actions_1.masterAction.GetSchedule({
-                            superEvent: {
-                                ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
-                                    ? [] : [purchase.external.superEventId],
-                                locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                                    ? [] : [seller.location.branchCode],
-                                workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
-                                    ? [] : [purchase.external.workPerformedId],
-                            },
-                            startFrom: moment(scheduleDate).toDate(),
-                            startThrough: moment(scheduleDate).add(1, 'day').toDate()
-                        }));
-                        success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleSuccess), operators_1.tap(function () {
-                            _this.master.subscribe(function (master) {
-                                var screeningEvents = master.screeningEvents;
-                                _this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
-                                _this.update();
-                            }).unsubscribe();
-                        }));
-                        fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleFail), operators_1.tap(function () {
-                            _this.router.navigate(['/error']);
-                        }));
-                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                        return [2 /*return*/];
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 5, , 6]);
+                        return [4 /*yield*/, this.masterService.getSchedule({
+                                superEvent: {
+                                    ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
+                                        ? [] : [purchase.external.superEventId],
+                                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                                        ? [] : [seller.location.branchCode],
+                                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
+                                        ? [] : [purchase.external.workPerformedId],
+                                },
+                                startFrom: moment(scheduleDate).toDate(),
+                                startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                            })];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, this.masterService.getData()];
+                    case 4:
+                        master = _a.sent();
+                        screeningEvents = master.screeningEvents;
+                        this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
+                        this.update();
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_3 = _a.sent();
+                        console.error(error_3);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
@@ -4090,8 +4202,7 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
      */
     PurchaseCinemaScheduleComponent.prototype.selectSchedule = function (screeningEvent) {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase;
-            var _this = this;
+            var purchase, user, error_4, errorObject;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -4111,56 +4222,50 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                         }
                         this.purchaseService.unsettledDelete();
                         this.purchaseService.selectSchedule(screeningEvent);
-                        return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                        return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
                         purchase = _a.sent();
-                        this.user.subscribe(function (user) { return __awaiter(_this, void 0, void 0, function () {
-                            var error_2, errorObject;
-                            return __generator(this, function (_a) {
-                                switch (_a.label) {
-                                    case 0:
-                                        if (purchase.seller === undefined) {
-                                            this.router.navigate(['/error']);
-                                            return [2 /*return*/];
-                                        }
-                                        if (user.isPurchaseCart
-                                            && purchase.transaction !== undefined
-                                            && purchase.authorizeSeatReservations.length > 0) {
-                                            this.openTransactionModal();
-                                            return [2 /*return*/];
-                                        }
-                                        _a.label = 1;
-                                    case 1:
-                                        _a.trys.push([1, 4, , 5]);
-                                        return [4 /*yield*/, this.purchaseService.cancelTransaction()];
-                                    case 2:
-                                        _a.sent();
-                                        return [4 /*yield*/, this.purchaseService.startTransaction()];
-                                    case 3:
-                                        _a.sent();
-                                        this.router.navigate(['/purchase/cinema/seat']);
-                                        return [3 /*break*/, 5];
-                                    case 4:
-                                        error_2 = _a.sent();
-                                        if (error_2 === null) {
-                                            throw new Error('error is null');
-                                        }
-                                        errorObject = JSON.parse(error_2);
-                                        if (errorObject.status === http_status_1.TOO_MANY_REQUESTS) {
-                                            this.router.navigate(['/congestion']);
-                                            return [2 /*return*/];
-                                        }
-                                        if (errorObject.status === http_status_1.BAD_REQUEST) {
-                                            this.router.navigate(['/maintenance']);
-                                            return [2 /*return*/];
-                                        }
-                                        this.router.navigate(['/error']);
-                                        return [3 /*break*/, 5];
-                                    case 5: return [2 /*return*/];
-                                }
-                            });
-                        }); }).unsubscribe();
-                        return [2 /*return*/];
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 2:
+                        user = _a.sent();
+                        if (purchase.seller === undefined) {
+                            this.router.navigate(['/error']);
+                            return [2 /*return*/];
+                        }
+                        if (user.isPurchaseCart
+                            && purchase.transaction !== undefined
+                            && purchase.authorizeSeatReservations.length > 0) {
+                            this.openTransactionModal();
+                            return [2 /*return*/];
+                        }
+                        _a.label = 3;
+                    case 3:
+                        _a.trys.push([3, 6, , 7]);
+                        return [4 /*yield*/, this.purchaseService.cancelTransaction()];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, this.purchaseService.startTransaction()];
+                    case 5:
+                        _a.sent();
+                        this.router.navigate(['/purchase/cinema/seat']);
+                        return [3 /*break*/, 7];
+                    case 6:
+                        error_4 = _a.sent();
+                        if (error_4 === null) {
+                            throw new Error('error is null');
+                        }
+                        errorObject = JSON.parse(error_4);
+                        if (errorObject.status === http_status_1.TOO_MANY_REQUESTS) {
+                            this.router.navigate(['/congestion']);
+                            return [2 /*return*/];
+                        }
+                        if (errorObject.status === http_status_1.BAD_REQUEST) {
+                            this.router.navigate(['/maintenance']);
+                            return [2 /*return*/];
+                        }
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
                 }
             });
         });
@@ -4199,10 +4304,11 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-cinema-schedule.component.scss */ "./app/components/pages/purchase/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
             services_1.UtilService,
             services_1.PurchaseService,
+            services_1.MasterService,
+            services_1.UserService,
             ngx_bootstrap_1.BsModalService,
             core_2.TranslateService])
     ], PurchaseCinemaScheduleComponent);
@@ -4361,7 +4467,7 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                        return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
                         purchase = _a.sent();
                         if (purchase.reservations.length === 0) {
@@ -4507,7 +4613,7 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                        return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
                         purchase_1 = _a.sent();
                         reservations_1 = purchase_1.reservations;
@@ -4684,24 +4790,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var http_status_1 = __webpack_require__(/*! http-status */ "../../node_modules/http-status/lib/index.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseEventScheduleComponent = /** @class */ (function () {
-    function PurchaseEventScheduleComponent(store, actions, router, purchaseService, localeService) {
+    function PurchaseEventScheduleComponent(store, router, purchaseService, masterService, localeService) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
         this.purchaseService = purchaseService;
+        this.masterService = masterService;
         this.localeService = localeService;
         this.moment = moment;
         this.environment = environment_1.environment;
@@ -4728,7 +4830,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.purchaseService.cancelTransaction()];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                        return [4 /*yield*/, this.purchaseService.getData()];
                     case 3:
                         purchase = _a.sent();
                         if (this.scheduleDate === undefined) {
@@ -4746,7 +4848,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                                 this.scheduleDate = moment(purchase.external.scheduleDate).toDate();
                             }
                         }
-                        return [4 /*yield*/, this.getSellers()];
+                        return [4 /*yield*/, this.masterService.getSellers()];
                     case 4:
                         _a.sent();
                         return [4 /*yield*/, this.getDefaultSeller()];
@@ -4790,18 +4892,6 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
         }, time);
     };
     /**
-     * 販売者情報一覧取得
-     */
-    PurchaseEventScheduleComponent.prototype.getSellers = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.store.dispatch(new actions_1.masterAction.GetSellers());
-            var success = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersSuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersFail), operators_1.tap(function () { reject(); }));
-            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-        });
-    };
-    /**
      * デフォルトの販売者取得
      */
     PurchaseEventScheduleComponent.prototype.getDefaultSeller = function () {
@@ -4842,57 +4932,65 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.selectDate = function (date) {
         return __awaiter(this, void 0, void 0, function () {
-            var now, selectDate, salesStopDate, openDate, salesStopTime, success, fail;
-            var _this = this;
+            var now, selectDate, salesStopDate, openDate, salesStopTime, purchase, seller, scheduleDate, master, screeningEvents, error_2;
             return __generator(this, function (_a) {
-                if (date !== undefined && date !== null) {
-                    this.scheduleDate = date;
+                switch (_a.label) {
+                    case 0:
+                        if (date !== undefined && date !== null) {
+                            this.scheduleDate = date;
+                        }
+                        now = moment().toDate();
+                        selectDate = moment(moment(this.scheduleDate).format('YYYYMMDD')).toDate();
+                        salesStopDate = moment(moment().format('YYYYMMDD'))
+                            .add(environment_1.environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE, environment_1.environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT)
+                            .toDate();
+                        openDate = moment(environment_1.environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                        this.isSales = (selectDate >= openDate && selectDate >= salesStopDate);
+                        if (this.isSales
+                            && environment_1.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME !== ''
+                            && moment(salesStopDate).unix() === moment(selectDate).unix()) {
+                            salesStopTime = moment(environment_1.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME, 'HHmmss').format('HHmmss');
+                            this.isSales = (moment(now).format('HHmmss') < salesStopTime);
+                        }
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 5, , 6]);
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 2:
+                        purchase = _a.sent();
+                        seller = purchase.seller;
+                        if (seller === undefined) {
+                            return [2 /*return*/];
+                        }
+                        scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
+                        this.purchaseService.selectScheduleDate(scheduleDate);
+                        return [4 /*yield*/, this.masterService.getSchedule({
+                                superEvent: {
+                                    ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
+                                        ? [] : [purchase.external.superEventId],
+                                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                                        ? [] : [seller.location.branchCode],
+                                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
+                                        ? [] : [purchase.external.workPerformedId],
+                                },
+                                startFrom: moment(scheduleDate).toDate(),
+                                startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                            })];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, this.masterService.getData()];
+                    case 4:
+                        master = _a.sent();
+                        screeningEvents = master.screeningEvents;
+                        this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
+                        this.update();
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_2 = _a.sent();
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
-                now = moment().toDate();
-                selectDate = moment(moment(this.scheduleDate).format('YYYYMMDD')).toDate();
-                salesStopDate = moment(moment().format('YYYYMMDD'))
-                    .add(environment_1.environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE, environment_1.environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT)
-                    .toDate();
-                openDate = moment(environment_1.environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
-                this.isSales = (selectDate >= openDate && selectDate >= salesStopDate);
-                if (this.isSales
-                    && environment_1.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME !== ''
-                    && moment(salesStopDate).unix() === moment(selectDate).unix()) {
-                    salesStopTime = moment(environment_1.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME, 'HHmmss').format('HHmmss');
-                    this.isSales = (moment(now).format('HHmmss') < salesStopTime);
-                }
-                this.purchase.subscribe(function (purchase) {
-                    var seller = purchase.seller;
-                    if (seller === undefined) {
-                        return;
-                    }
-                    var scheduleDate = moment(_this.scheduleDate).format('YYYY-MM-DD');
-                    _this.purchaseService.selectScheduleDate(scheduleDate);
-                    _this.store.dispatch(new actions_1.masterAction.GetSchedule({
-                        superEvent: {
-                            ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
-                                ? [] : [purchase.external.superEventId],
-                            locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                                ? [] : [seller.location.branchCode],
-                            workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
-                                ? [] : [purchase.external.workPerformedId],
-                        },
-                        startFrom: moment(scheduleDate).toDate(),
-                        startThrough: moment(scheduleDate).add(1, 'day').toDate()
-                    }));
-                }).unsubscribe();
-                success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleSuccess), operators_1.tap(function () {
-                    _this.master.subscribe(function (master) {
-                        var screeningEvents = master.screeningEvents;
-                        _this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
-                        _this.update();
-                    }).unsubscribe();
-                }));
-                fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleFail), operators_1.tap(function () {
-                    _this.router.navigate(['/error']);
-                }));
-                rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
-                return [2 /*return*/];
             });
         });
     };
@@ -4901,7 +4999,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var error_2, errorObject;
+            var error_3, errorObject;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -4915,11 +5013,11 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                         this.router.navigate(['/purchase/event/ticket']);
                         return [3 /*break*/, 4];
                     case 3:
-                        error_2 = _a.sent();
-                        if (error_2 === null) {
+                        error_3 = _a.sent();
+                        if (error_3 === null) {
                             throw new Error('error is null');
                         }
-                        errorObject = JSON.parse(error_2);
+                        errorObject = JSON.parse(error_3);
                         if (errorObject.status === http_status_1.TOO_MANY_REQUESTS) {
                             this.router.navigate(['/congestion']);
                             return [2 /*return*/];
@@ -4980,9 +5078,9 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-event-schedule.component.scss */ "./app/components/pages/purchase/event/purchase-event-schedule/purchase-event-schedule.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
             services_1.PurchaseService,
+            services_1.MasterService,
             ngx_bootstrap_1.BsLocaleService])
     ], PurchaseEventScheduleComponent);
     return PurchaseEventScheduleComponent;
@@ -5059,25 +5157,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 var ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
 var functions_1 = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var parts_1 = __webpack_require__(/*! ../../../../parts */ "./app/components/parts/index.ts");
 var PurchaseEventTicketComponent = /** @class */ (function () {
-    function PurchaseEventTicketComponent(store, actions, router, utilService, translate, purchaseService, modal) {
+    function PurchaseEventTicketComponent(store, router, utilService, masterService, translate, purchaseService, modal) {
         this.store = store;
-        this.actions = actions;
         this.router = router;
         this.utilService = utilService;
+        this.masterService = masterService;
         this.translate = translate;
         this.purchaseService = purchaseService;
         this.modal = modal;
@@ -5091,21 +5185,29 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
      */
     PurchaseEventTicketComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
+            var error_1;
             return __generator(this, function (_a) {
-                this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
-                this.user = this.store.pipe(store_1.select(reducers.getUser));
-                this.master = this.store.pipe(store_1.select(reducers.getMaster));
-                this.error = this.store.pipe(store_1.select(reducers.getError));
-                this.screeningWorkEvents = [];
-                this.purchase.subscribe(function (purchase) {
-                    if (purchase.transaction === undefined) {
-                        _this.router.navigate(['/error']);
-                        return;
-                    }
-                    _this.getSchedule();
-                }).unsubscribe();
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
+                        this.user = this.store.pipe(store_1.select(reducers.getUser));
+                        this.master = this.store.pipe(store_1.select(reducers.getMaster));
+                        this.error = this.store.pipe(store_1.select(reducers.getError));
+                        this.screeningWorkEvents = [];
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.getSchedule()];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
             });
         });
     };
@@ -5124,46 +5226,69 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
             clearTimeout(this.updateTimer);
         }
         var time = 600000; // 10 * 60 * 1000
-        this.updateTimer = setTimeout(function () {
-            _this.getSchedule();
-        }, time);
+        this.updateTimer = setTimeout(function () { return __awaiter(_this, void 0, void 0, function () {
+            var error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.getSchedule()];
+                    case 1:
+                        _a.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_2 = _a.sent();
+                        console.error(error_2);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); }, time);
     };
     /**
      * スケジュール取得
      */
     PurchaseEventTicketComponent.prototype.getSchedule = function () {
-        var _this = this;
-        this.purchase.subscribe(function (purchase) {
-            var seller = purchase.seller;
-            var scheduleDate = purchase.scheduleDate;
-            if (seller === undefined || scheduleDate === undefined) {
-                _this.router.navigate(['/error']);
-                return;
-            }
-            _this.store.dispatch(new actions_1.masterAction.GetSchedule({
-                superEvent: {
-                    ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
-                        ? [] : [purchase.external.superEventId],
-                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                        ? [] : [seller.location.branchCode],
-                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
-                        ? [] : [purchase.external.workPerformedId],
-                },
-                startFrom: moment(scheduleDate).toDate(),
-                startThrough: moment(scheduleDate).add(1, 'day').toDate()
-            }));
-        }).unsubscribe();
-        var success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleSuccess), operators_1.tap(function () {
-            _this.master.subscribe(function (master) {
-                var screeningEvents = master.screeningEvents;
-                _this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
-                _this.update();
-            }).unsubscribe();
-        }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var purchase, seller, scheduleDate, transaction, master, screeningEvents;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.purchaseService.getData()];
+                    case 1:
+                        purchase = _a.sent();
+                        seller = purchase.seller;
+                        scheduleDate = purchase.scheduleDate;
+                        transaction = purchase.transaction;
+                        if (seller === undefined
+                            || scheduleDate === undefined
+                            || transaction === undefined) {
+                            throw new Error('seller or scheduleDate or transaction undefined');
+                        }
+                        return [4 /*yield*/, this.masterService.getSchedule({
+                                superEvent: {
+                                    ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
+                                        ? [] : [purchase.external.superEventId],
+                                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                                        ? [] : [seller.location.branchCode],
+                                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
+                                        ? [] : [purchase.external.workPerformedId],
+                                },
+                                startFrom: moment(scheduleDate).toDate(),
+                                startThrough: moment(scheduleDate).add(1, 'day').toDate()
+                            })];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, this.masterService.getData()];
+                    case 3:
+                        master = _a.sent();
+                        screeningEvents = master.screeningEvents;
+                        this.screeningWorkEvents = functions_1.screeningEventsToWorkEvents({ screeningEvents: screeningEvents });
+                        this.update();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * パフォーマンス選択
@@ -5172,10 +5297,10 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
     PurchaseEventTicketComponent.prototype.selectSchedule = function (screeningEvent) {
         var _this = this;
         this.user.subscribe(function (user) { return __awaiter(_this, void 0, void 0, function () {
-            var purchase, error_1;
+            var purchase, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
                         purchase = _a.sent();
                         if (purchase.authorizeSeatReservations.length > 0
@@ -5199,7 +5324,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                         this.openTicketList();
                         return [3 /*break*/, 6];
                     case 5:
-                        error_1 = _a.sent();
+                        error_3 = _a.sent();
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
                             body: ''
@@ -5237,7 +5362,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
      */
     PurchaseEventTicketComponent.prototype.selectTicket = function (reservationTickets, screeningEvent) {
         return __awaiter(this, void 0, void 0, function () {
-            var limit, purchase, remainingSeatLength, error_2, error_3;
+            var limit, purchase, remainingSeatLength, error_4, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -5258,7 +5383,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.purchaseService.getScreeningEventOffers()];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                        return [4 /*yield*/, this.purchaseService.getData()];
                     case 3:
                         purchase = _a.sent();
                         if (purchase.screeningEvent !== undefined
@@ -5274,8 +5399,8 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                         }
                         return [3 /*break*/, 5];
                     case 4:
-                        error_2 = _a.sent();
-                        console.error(error_2);
+                        error_4 = _a.sent();
+                        console.error(error_4);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
                             body: ''
@@ -5292,8 +5417,8 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                         });
                         return [3 /*break*/, 8];
                     case 7:
-                        error_3 = _a.sent();
-                        console.error(error_3);
+                        error_5 = _a.sent();
+                        console.error(error_5);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
                             body: this.translate.instant('purchase.event.ticket.alert.temporaryReservation')
@@ -5313,7 +5438,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
                         purchase = _a.sent();
                         authorizeSeatReservations = purchase.authorizeSeatReservations;
@@ -5409,9 +5534,9 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./purchase-event-ticket.component.scss */ "./app/components/pages/purchase/event/purchase-event-ticket/purchase-event-ticket.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions,
             router_1.Router,
             services_1.UtilService,
+            services_1.MasterService,
             core_2.TranslateService,
             services_1.PurchaseService,
             ngx_bootstrap_1.BsModalService])
@@ -5724,7 +5849,7 @@ var PurchaseConfirmComponent = /** @class */ (function () {
             var purchase, error_1, error_2, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
                         purchase = _a.sent();
                         _a.label = 2;
@@ -6303,18 +6428,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
-var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var models_1 = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseTransactionComponent = /** @class */ (function () {
-    function PurchaseTransactionComponent(store, router, activatedRoute, purchaseService, translate) {
+    function PurchaseTransactionComponent(store, router, activatedRoute, purchaseService, userService) {
         this.store = store;
         this.router = router;
         this.activatedRoute = activatedRoute;
         this.purchaseService = purchaseService;
-        this.translate = translate;
+        this.userService = userService;
     }
     /**
      * 初期化
@@ -6367,14 +6490,7 @@ var PurchaseTransactionComponent = /** @class */ (function () {
         var snapshot = this.activatedRoute.snapshot;
         var language = snapshot.params.language;
         if (language !== undefined) {
-            var element = document.querySelector('#language');
-            if (element !== null) {
-                element.value = language;
-            }
-            this.translate.use(language);
-            this.store.dispatch(new actions_1.userAction.UpdateLanguage({ language: language }));
-            var html = document.querySelector('html');
-            html.setAttribute('lang', language);
+            this.userService.updateLanguage(language);
         }
     };
     PurchaseTransactionComponent = __decorate([
@@ -6387,7 +6503,7 @@ var PurchaseTransactionComponent = /** @class */ (function () {
             router_1.Router,
             router_1.ActivatedRoute,
             services_1.PurchaseService,
-            core_2.TranslateService])
+            services_1.UserService])
     ], PurchaseTransactionComponent);
     return PurchaseTransactionComponent;
 }());
@@ -6425,27 +6541,60 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var forms_1 = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
-var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 var environment_1 = __webpack_require__(/*! ../../../../environments/environment */ "./environments/environment.ts");
 var models_1 = __webpack_require__(/*! ../../../models */ "./app/models/index.ts");
 var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../../../store/reducers */ "./app/store/reducers/index.ts");
 var SettingComponent = /** @class */ (function () {
-    function SettingComponent(actions, store, utilService, formBuilder, translate, router) {
-        this.actions = actions;
+    function SettingComponent(store, utilService, masterService, userService, formBuilder, translate, orderService, router) {
         this.store = store;
         this.utilService = utilService;
+        this.masterService = masterService;
+        this.userService = userService;
         this.formBuilder = formBuilder;
         this.translate = translate;
+        this.orderService = orderService;
         this.router = router;
         this.viewType = models_1.ViewType;
         this.printers = models_1.printers;
@@ -6453,24 +6602,32 @@ var SettingComponent = /** @class */ (function () {
         this.environment = environment_1.environment;
     }
     SettingComponent.prototype.ngOnInit = function () {
-        this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
-        this.user = this.store.pipe(store_1.select(reducers.getUser));
-        this.master = this.store.pipe(store_1.select(reducers.getMaster));
-        this.error = this.store.pipe(store_1.select(reducers.getError));
-        this.getSellers();
-        this.createBaseForm();
-    };
-    /**
-     * 販売者一覧取得
-     */
-    SettingComponent.prototype.getSellers = function () {
-        var _this = this;
-        this.store.dispatch(new actions_1.masterAction.GetSellers());
-        var success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
+                        this.user = this.store.pipe(store_1.select(reducers.getUser));
+                        this.master = this.store.pipe(store_1.select(reducers.getMaster));
+                        this.error = this.store.pipe(store_1.select(reducers.getError));
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.masterService.getSellers()];
+                    case 2:
+                        _a.sent();
+                        this.createBaseForm();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
     };
     SettingComponent.prototype.createBaseForm = function () {
         var _this = this;
@@ -6530,77 +6687,87 @@ var SettingComponent = /** @class */ (function () {
      * 更新
      */
     SettingComponent.prototype.updateBase = function () {
-        var _this = this;
-        Object.keys(this.baseForm.controls).forEach(function (key) {
-            _this.baseForm.controls[key].markAsTouched();
-        });
-        if (this.baseForm.invalid) {
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('setting.alert.validation')
-            });
-            return;
-        }
-        this.master.subscribe(function (master) {
-            var findSeller = master.sellers.find(function (s) {
-                return (s.location !== undefined && s.location.branchCode === _this.baseForm.controls.sellerBranchCode.value);
-            });
-            var findPos;
-            if (findSeller !== undefined && findSeller.hasPOS !== undefined) {
-                findPos = findSeller.hasPOS.find(function (pos) {
-                    return pos.id === _this.baseForm.controls.posId.value;
-                });
-                if (findPos === undefined) {
-                    return;
+        return __awaiter(this, void 0, void 0, function () {
+            var master, findSeller, findPos, isPurchaseCart, viewType;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        Object.keys(this.baseForm.controls).forEach(function (key) {
+                            _this.baseForm.controls[key].markAsTouched();
+                        });
+                        if (this.baseForm.invalid) {
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: this.translate.instant('setting.alert.validation')
+                            });
+                            return [2 /*return*/];
+                        }
+                        return [4 /*yield*/, this.masterService.getData()];
+                    case 1:
+                        master = _a.sent();
+                        findSeller = master.sellers.find(function (s) {
+                            return (s.location !== undefined && s.location.branchCode === _this.baseForm.controls.sellerBranchCode.value);
+                        });
+                        if (findSeller !== undefined && findSeller.hasPOS !== undefined) {
+                            findPos = findSeller.hasPOS.find(function (pos) {
+                                return pos.id === _this.baseForm.controls.posId.value;
+                            });
+                            if (findPos === undefined) {
+                                return [2 /*return*/];
+                            }
+                        }
+                        isPurchaseCart = (this.baseForm.controls.isPurchaseCart.value === '1') ? true : false;
+                        viewType = this.baseForm.controls.viewType.value;
+                        this.userService.updateBaseSetting({
+                            seller: findSeller,
+                            pos: findPos,
+                            printer: {
+                                ipAddress: this.baseForm.controls.printerIpAddress.value,
+                                connectionType: this.baseForm.controls.printerType.value
+                            },
+                            isPurchaseCart: isPurchaseCart,
+                            viewType: viewType
+                        });
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.complete'),
+                            body: this.translate.instant('setting.alert.success')
+                        });
+                        return [2 /*return*/];
                 }
-            }
-            var isPurchaseCart = (_this.baseForm.controls.isPurchaseCart.value === '1') ? true : false;
-            var viewType = _this.baseForm.controls.viewType.value;
-            _this.store.dispatch(new actions_1.userAction.UpdateBaseSetting({
-                seller: findSeller,
-                pos: findPos,
-                printer: {
-                    ipAddress: _this.baseForm.controls.printerIpAddress.value,
-                    connectionType: _this.baseForm.controls.printerType.value
-                },
-                isPurchaseCart: isPurchaseCart,
-                viewType: viewType
-            }));
-            _this.utilService.openAlert({
-                title: _this.translate.instant('common.complete'),
-                body: _this.translate.instant('setting.alert.success')
             });
-        }).unsubscribe();
-    };
-    /**
-     * 販売者情報取得
-     */
-    SettingComponent.prototype.getTheaters = function () {
-        var _this = this;
-        this.store.dispatch(new actions_1.masterAction.GetSellers({ params: {} }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersFail), operators_1.tap(function () {
-            _this.router.navigate(['/error']);
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
     };
     SettingComponent.prototype.print = function () {
-        var _this = this;
-        var printer = {
-            connectionType: this.baseForm.controls.printerType.value,
-            ipAddress: this.baseForm.controls.printerIpAddress.value
-        };
-        this.store.dispatch(new actions_1.orderAction.Print({ orders: [], printer: printer }));
-        var success = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintSuccess), operators_1.tap(function () { }));
-        var fail = this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintFail), operators_1.tap(function () {
-            _this.error.subscribe(function (error) {
-                _this.utilService.openAlert({
-                    title: _this.translate.instant('common.error'),
-                    body: "\n                        <p class=\"mb-4\">" + _this.translate.instant('setting.alert.print') + "</p>\n                        <div class=\"p-3 bg-light-gray select-text error\">\n                            <code>" + error + "</code>\n                        </div>"
-                });
-            }).unsubscribe();
-        }));
-        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var printer, error_2;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        printer = {
+                            connectionType: this.baseForm.controls.printerType.value,
+                            ipAddress: this.baseForm.controls.printerIpAddress.value
+                        };
+                        return [4 /*yield*/, this.orderService.print({ orders: [], printer: printer })];
+                    case 1:
+                        _a.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_2 = _a.sent();
+                        console.error(error_2);
+                        this.error.subscribe(function (error) {
+                            _this.utilService.openAlert({
+                                title: _this.translate.instant('common.error'),
+                                body: "\n                    <p class=\"mb-4\">" + _this.translate.instant('setting.alert.print') + "</p>\n                    <div class=\"p-3 bg-light-gray select-text error\">\n                        <code>" + error + "</code>\n                    </div>"
+                            });
+                        }).unsubscribe();
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
     };
     /**
      * プリンター変更
@@ -6616,11 +6783,13 @@ var SettingComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./setting.component.html */ "../../node_modules/raw-loader/index.js!./app/components/pages/setting/setting.component.html"),
             styles: [__webpack_require__(/*! ./setting.component.scss */ "./app/components/pages/setting/setting.component.scss")]
         }),
-        __metadata("design:paramtypes", [effects_1.Actions,
-            store_1.Store,
+        __metadata("design:paramtypes", [store_1.Store,
             services_1.UtilService,
+            services_1.MasterService,
+            services_1.UserService,
             forms_1.FormBuilder,
             core_2.TranslateService,
+            services_1.OrderService,
             router_1.Router])
     ], SettingComponent);
     return SettingComponent;
@@ -7180,12 +7349,13 @@ var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/s
 var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 var environment_1 = __webpack_require__(/*! ../../../../environments/environment */ "./environments/environment.ts");
 var models_1 = __webpack_require__(/*! ../../../models */ "./app/models/index.ts");
-var actions_1 = __webpack_require__(/*! ../../../store/actions */ "./app/store/actions/index.ts");
+var services_1 = __webpack_require__(/*! ../../../services */ "./app/services/index.ts");
 var reducers = __webpack_require__(/*! ../../../store/reducers */ "./app/store/reducers/index.ts");
 var HeaderComponent = /** @class */ (function () {
-    function HeaderComponent(store, translate) {
+    function HeaderComponent(store, translate, userService) {
         this.store = store;
         this.translate = translate;
+        this.userService = userService;
         this.environment = environment_1.environment;
     }
     HeaderComponent.prototype.ngOnInit = function () {
@@ -7204,11 +7374,7 @@ var HeaderComponent = /** @class */ (function () {
         this.isMenuOpen = false;
     };
     HeaderComponent.prototype.changeLanguage = function () {
-        this.translate.use(this.language);
-        var language = this.language;
-        this.store.dispatch(new actions_1.userAction.UpdateLanguage({ language: language }));
-        var html = document.querySelector('html');
-        html.setAttribute('lang', this.language);
+        this.userService.updateLanguage(this.language);
     };
     HeaderComponent.prototype.getLanguageName = function (key) {
         return models_1.Language[key];
@@ -7226,7 +7392,8 @@ var HeaderComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./header.component.scss */ "./app/components/parts/header/header.component.scss")]
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            core_2.TranslateService])
+            core_2.TranslateService,
+            services_1.UserService])
     ], HeaderComponent);
     return HeaderComponent;
 }());
@@ -7474,7 +7641,7 @@ var MvtkCheckModalComponent = /** @class */ (function () {
                             })];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, this.purchaseService.getPurchaseData()];
+                        return [4 /*yield*/, this.purchaseService.getData()];
                     case 3:
                         purchase = _a.sent();
                         checkMovieTicketAction = purchase.checkMovieTicketAction;
@@ -11288,8 +11455,326 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts"));
 __export(__webpack_require__(/*! ./purchase.service */ "./app/services/purchase.service.ts"));
 __export(__webpack_require__(/*! ./user.service */ "./app/services/user.service.ts"));
+__export(__webpack_require__(/*! ./master.service */ "./app/services/master.service.ts"));
+__export(__webpack_require__(/*! ./order.service */ "./app/services/order.service.ts"));
 __export(__webpack_require__(/*! ./star-print.service */ "./app/services/star-print.service.ts"));
 __export(__webpack_require__(/*! ./util.service */ "./app/services/util.service.ts"));
+
+
+/***/ }),
+
+/***/ "./app/services/master.service.ts":
+/*!****************************************!*\
+  !*** ./app/services/master.service.ts ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
+var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
+var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+var MasterService = /** @class */ (function () {
+    function MasterService(store, actions) {
+        this.store = store;
+        this.actions = actions;
+    }
+    /**
+     * マスタデータ取得
+     */
+    MasterService.prototype.getData = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.master.subscribe(function (master) {
+                            resolve(master);
+                        }).unsubscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * データ削除
+     */
+    MasterService.prototype.delete = function () {
+        this.store.dispatch(new actions_1.masterAction.Delete());
+    };
+    /**
+     * 販売者一覧取得
+     */
+    MasterService.prototype.getSellers = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.masterAction.GetSellers(params));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersFail), operators_1.tap(function () { reject(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * スケジュール取得
+     */
+    MasterService.prototype.getSchedule = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.masterAction.GetSchedule(params));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleFail), operators_1.tap(function () { reject(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    MasterService = __decorate([
+        core_1.Injectable({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [store_1.Store,
+            effects_1.Actions])
+    ], MasterService);
+    return MasterService;
+}());
+exports.MasterService = MasterService;
+
+
+/***/ }),
+
+/***/ "./app/services/order.service.ts":
+/*!***************************************!*\
+  !*** ./app/services/order.service.ts ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
+var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
+var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+var OrderService = /** @class */ (function () {
+    function OrderService(store, actions) {
+        this.store = store;
+        this.actions = actions;
+    }
+    /**
+     * 注文データ取得
+     */
+    OrderService.prototype.getData = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.order.subscribe(function (order) {
+                            resolve(order);
+                        }).unsubscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 注文データ削除
+     */
+    OrderService.prototype.delete = function () {
+        this.store.dispatch(new actions_1.orderAction.Delete());
+    };
+    /**
+     * 注文検索
+     */
+    OrderService.prototype.search = function (params) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.store.dispatch(new actions_1.orderAction.Search({ params: params }));
+            var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.SearchSuccess), operators_1.tap(function () { resolve(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.SearchFail), operators_1.tap(function () { reject(); }));
+            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
+    };
+    /**
+     * 注文キャンセル
+     */
+    OrderService.prototype.cancel = function (orders) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.orderAction.Cancel({ orders: orders }));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelFail), operators_1.tap(function () { reject(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 注文照会
+     */
+    OrderService.prototype.inquiry = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.orderAction.Inquiry(params));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquirySuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquiryFail), operators_1.tap(function () { reject(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 注文印刷
+     */
+    OrderService.prototype.print = function (prams) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        var orders = prams.orders;
+                        var pos = prams.pos;
+                        var printer = prams.printer;
+                        _this.store.dispatch(new actions_1.orderAction.Print({ orders: orders, pos: pos, printer: printer }));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintFail), operators_1.tap(function () { reject(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 注文承認
+     */
+    OrderService.prototype.authorize = function (order) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.orderAction.OrderAuthorize({
+                            orderNumber: order.orderNumber,
+                            customer: {
+                                telephone: order.customer.telephone
+                            }
+                        }));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeFail), operators_1.tap(function () { reject(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    OrderService = __decorate([
+        core_1.Injectable({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [store_1.Store,
+            effects_1.Actions])
+    ], OrderService);
+    return OrderService;
+}());
+exports.OrderService = OrderService;
 
 
 /***/ }),
@@ -11366,7 +11851,7 @@ var PurchaseService = /** @class */ (function () {
     /**
      * 購入データ取得
      */
-    PurchaseService.prototype.getPurchaseData = function () {
+    PurchaseService.prototype.getData = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
@@ -11447,7 +11932,7 @@ var PurchaseService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve, reject) {
@@ -11479,7 +11964,7 @@ var PurchaseService = /** @class */ (function () {
                         var purchase, transaction, success, fail;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
-                                case 0: return [4 /*yield*/, this.getPurchaseData()];
+                                case 0: return [4 /*yield*/, this.getData()];
                                 case 1:
                                     purchase = _a.sent();
                                     transaction = purchase.transaction;
@@ -11507,7 +11992,7 @@ var PurchaseService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve, reject) {
@@ -11534,7 +12019,7 @@ var PurchaseService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve, reject) {
@@ -11573,7 +12058,7 @@ var PurchaseService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve, reject) {
@@ -11607,7 +12092,7 @@ var PurchaseService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve, reject) {
@@ -11650,7 +12135,7 @@ var PurchaseService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve, reject) {
@@ -11712,7 +12197,7 @@ var PurchaseService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve, reject) {
@@ -11739,7 +12224,7 @@ var PurchaseService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve, reject) {
@@ -11772,7 +12257,7 @@ var PurchaseService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve, reject) {
@@ -11803,7 +12288,7 @@ var PurchaseService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve, reject) {
@@ -11839,7 +12324,7 @@ var PurchaseService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getPurchaseData()];
+                    case 0: return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve, reject) {
@@ -12268,16 +12753,214 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var effects_1 = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
+var store_1 = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
+var core_2 = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+var rxjs_1 = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+var operators_1 = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
 var UserService = /** @class */ (function () {
-    function UserService() {
+    function UserService(store, actions, translate) {
+        this.store = store;
+        this.actions = actions;
+        this.translate = translate;
     }
+    /**
+     * マスタデータ取得
+     */
+    UserService.prototype.getData = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve) {
+                        _this.user.subscribe(function (user) {
+                            resolve(user);
+                        }).unsubscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * データ削除
+     */
+    UserService.prototype.delete = function () {
+        this.store.dispatch(new actions_1.userAction.Delete());
+    };
+    /**
+     * 初期化
+     */
+    UserService.prototype.initialize = function () {
+        this.store.dispatch(new actions_1.userAction.Initialize());
+    };
+    /**
+     * プロフィール初期化
+     */
+    UserService.prototype.initializeProfile = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.store.dispatch(new actions_1.userAction.InitializeProfile());
+            var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.InitializeProfileSuccess), operators_1.tap(function () {
+                resolve();
+            }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.InitializeProfileFail), operators_1.tap(function () {
+                reject();
+            }));
+            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
+    };
+    /**
+     * コイン口座初期化
+     */
+    UserService.prototype.initializeCoinAccount = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.store.dispatch(new actions_1.userAction.InitializeCoinAccount());
+            var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.InitializeCoinAccountSuccess), operators_1.tap(function () {
+                resolve();
+            }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.InitializeCoinAccountFail), operators_1.tap(function () {
+                reject();
+            }));
+            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
+    };
+    /**
+     * 言語更新
+     */
+    UserService.prototype.updateLanguage = function (language) {
+        var element = document.querySelector('#language');
+        if (element !== null) {
+            element.value = language;
+        }
+        this.translate.use(language);
+        var html = document.querySelector('html');
+        html.setAttribute('lang', language);
+        this.store.dispatch(new actions_1.userAction.UpdateLanguage({ language: language }));
+    };
+    /**
+     * プロフィール更新
+     */
+    UserService.prototype.updateProfile = function (profile) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.userAction.UpdateProfile({ profile: profile }));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.UpdateProfileSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.UpdateProfileFail), operators_1.tap(function () { reject(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * クレジットカード一覧取得
+     */
+    UserService.prototype.getCreditCards = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.store.dispatch(new actions_1.userAction.GetCreditCards());
+            var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.GetCreditCardsSuccess), operators_1.tap(function () { resolve(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.GetCreditCardsFail), operators_1.tap(function () { reject(); }));
+            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
+    };
+    /**
+     * クレジットカード追加
+     */
+    UserService.prototype.addCreditCard = function (params) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.store.dispatch(new actions_1.userAction.AddCreditCard(params));
+            var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.AddCreditCardSuccess), operators_1.tap(function () { resolve(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.AddCreditCardFail), operators_1.tap(function () { reject(); }));
+            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
+    };
+    /**
+     * クレジットカード削除
+     */
+    UserService.prototype.removeCreditCard = function (creditCard) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.store.dispatch(new actions_1.userAction.RemoveCreditCard({ creditCard: creditCard }));
+            var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.RemoveCreditCardSuccess), operators_1.tap(function () { resolve(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.RemoveCreditCardFail), operators_1.tap(function () { reject(); }));
+            rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+        });
+    };
+    /**
+     * 基本設定更新
+     */
+    UserService.prototype.updateBaseSetting = function (params) {
+        this.store.dispatch(new actions_1.userAction.UpdateBaseSetting({
+            seller: params.seller,
+            pos: params.pos,
+            printer: params.printer,
+            isPurchaseCart: params.isPurchaseCart,
+            viewType: params.viewType
+        }));
+    };
+    /**
+     * コイン口座チャージ
+     */
+    UserService.prototype.chargeCoin = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new actions_1.userAction.ChargeCoin({}));
+                        var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.ChargeCoinSuccess), operators_1.tap(function () { resolve(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.ChargeCoinFail), operators_1.tap(function () { reject(); }));
+                        rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
+                    })];
+            });
+        });
+    };
     UserService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [store_1.Store,
+            effects_1.Actions,
+            core_2.TranslateService])
     ], UserService);
     return UserService;
 }());
@@ -14168,7 +14851,7 @@ var MasterEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.cinerino.seller.search((payload === undefined) ? {} : payload.params)];
+                        return [4 /*yield*/, this.cinerino.seller.search((payload === undefined) ? {} : payload)];
                     case 2:
                         searchMovieSellersResult = _a.sent();
                         sellers = searchMovieSellersResult.data;
@@ -14795,7 +15478,7 @@ var OrderEffects = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        params = Object.assign({ personId: 'me' }, payload.params);
+                        params = Object.assign({ personId: 'me' }, payload);
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
                         _a.sent();

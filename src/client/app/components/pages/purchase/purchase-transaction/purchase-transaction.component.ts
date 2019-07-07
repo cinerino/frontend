@@ -1,11 +1,9 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { ViewType } from '../../../../models';
-import { PurchaseService } from '../../../../services';
-import { userAction } from '../../../../store/actions';
+import { PurchaseService, UserService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -22,7 +20,7 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private purchaseService: PurchaseService,
-        private translate: TranslateService
+        private userService: UserService
     ) { }
 
     /**
@@ -56,14 +54,7 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
         const snapshot = this.activatedRoute.snapshot;
         const language = snapshot.params.language;
         if (language !== undefined) {
-            const element = document.querySelector<HTMLSelectElement>('#language');
-            if (element !== null) {
-                element.value = language;
-            }
-            this.translate.use(language);
-            this.store.dispatch(new userAction.UpdateLanguage({ language }));
-            const html = <HTMLElement>document.querySelector('html');
-            html.setAttribute('lang', language);
+            this.userService.updateLanguage(language);
         }
     }
 

@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { connectionType, printers, ViewType } from '../../../models';
-import { UtilService } from '../../../services';
-import { masterAction, orderAction, userAction } from '../../../store/actions';
+import { MasterService, OrderService, UserService, UtilService } from '../../../services';
 import * as reducers from '../../../store/reducers';
 
 @Component({
@@ -35,39 +32,28 @@ export class SettingComponent implements OnInit {
     public environment = environment;
 
     constructor(
-        private actions: Actions,
         private store: Store<reducers.IState>,
         private utilService: UtilService,
+        private masterService: MasterService,
+        private userService: UserService,
         private formBuilder: FormBuilder,
         private translate: TranslateService,
+        private orderService: OrderService,
         private router: Router
     ) { }
 
-    public ngOnInit() {
+    public async ngOnInit() {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.user = this.store.pipe(select(reducers.getUser));
         this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
-        this.getSellers();
-        this.createBaseForm();
-    }
-
-    /**
-     * 販売者一覧取得
-     */
-    public getSellers() {
-        this.store.dispatch(new masterAction.GetSellers());
-        const success = this.actions.pipe(
-            ofType(masterAction.ActionTypes.GetSellersSuccess),
-            tap(() => { })
-        );
-        const fail = this.actions.pipe(
-            ofType(masterAction.ActionTypes.GetSellersFail),
-            tap(() => {
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+        try {
+            await this.masterService.getSellers();
+            this.createBaseForm();
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
     }
 
     private createBaseForm() {
@@ -128,7 +114,7 @@ export class SettingComponent implements OnInit {
     /**
      * 更新
      */
-    public updateBase() {
+    public async updateBase() {
         Object.keys(this.baseForm.controls).forEach((key) => {
             this.baseForm.controls[key].markAsTouched();
         });
@@ -139,87 +125,56 @@ export class SettingComponent implements OnInit {
             });
             return;
         }
-        this.master.subscribe((master) => {
-            const findSeller = master.sellers.find((s) =>
-                (s.location !== undefined && s.location.branchCode === this.baseForm.controls.sellerBranchCode.value));
-            let findPos;
-            if (findSeller !== undefined && findSeller.hasPOS !== undefined) {
-                findPos = findSeller.hasPOS.find((pos: any) => {
-                    return pos.id === this.baseForm.controls.posId.value;
-                });
-                if (findPos === undefined) {
-                    return;
-                }
-            }
-            const isPurchaseCart = (this.baseForm.controls.isPurchaseCart.value === '1') ? true : false;
-            const viewType = this.baseForm.controls.viewType.value;
-
-            this.store.dispatch(new userAction.UpdateBaseSetting({
-                seller: findSeller,
-                pos: findPos,
-                printer: {
-                    ipAddress: this.baseForm.controls.printerIpAddress.value,
-                    connectionType: this.baseForm.controls.printerType.value
-                },
-                isPurchaseCart,
-                viewType
-            }));
-            this.utilService.openAlert({
-                title: this.translate.instant('common.complete'),
-                body: this.translate.instant('setting.alert.success')
+        const master = await this.masterService.getData();
+        const findSeller = master.sellers.find((s) =>
+            (s.location !== undefined && s.location.branchCode === this.baseForm.controls.sellerBranchCode.value));
+        let findPos;
+        if (findSeller !== undefined && findSeller.hasPOS !== undefined) {
+            findPos = findSeller.hasPOS.find((pos: any) => {
+                return pos.id === this.baseForm.controls.posId.value;
             });
-
-        }).unsubscribe();
+            if (findPos === undefined) {
+                return;
+            }
+        }
+        const isPurchaseCart = (this.baseForm.controls.isPurchaseCart.value === '1') ? true : false;
+        const viewType = this.baseForm.controls.viewType.value;
+        this.userService.updateBaseSetting({
+            seller: findSeller,
+            pos: findPos,
+            printer: {
+                ipAddress: this.baseForm.controls.printerIpAddress.value,
+                connectionType: this.baseForm.controls.printerType.value
+            },
+            isPurchaseCart,
+            viewType
+        });
+        this.utilService.openAlert({
+            title: this.translate.instant('common.complete'),
+            body: this.translate.instant('setting.alert.success')
+        });
     }
 
-    /**
-     * 販売者情報取得
-     */
-    public getTheaters() {
-        this.store.dispatch(new masterAction.GetSellers({ params: {} }));
-
-        const success = this.actions.pipe(
-            ofType(masterAction.ActionTypes.GetSellersSuccess),
-            tap(() => { })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(masterAction.ActionTypes.GetSellersFail),
-            tap(() => {
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
-    }
-
-    public print() {
-        const printer = {
-            connectionType: this.baseForm.controls.printerType.value,
-            ipAddress: this.baseForm.controls.printerIpAddress.value
-        };
-        this.store.dispatch(new orderAction.Print({ orders: [], printer }));
-
-        const success = this.actions.pipe(
-            ofType(orderAction.ActionTypes.PrintSuccess),
-            tap(() => {})
-        );
-
-        const fail = this.actions.pipe(
-            ofType(orderAction.ActionTypes.PrintFail),
-            tap(() => {
-                this.error.subscribe((error) => {
-                    this.utilService.openAlert({
-                        title: this.translate.instant('common.error'),
-                        body: `
-                        <p class="mb-4">${this.translate.instant('setting.alert.print')}</p>
-                        <div class="p-3 bg-light-gray select-text error">
-                            <code>${error}</code>
-                        </div>`
-                    });
-                }).unsubscribe();
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+    public async print() {
+        try {
+            const printer = {
+                connectionType: this.baseForm.controls.printerType.value,
+                ipAddress: this.baseForm.controls.printerIpAddress.value
+            };
+            await this.orderService.print({ orders: [], printer });
+        } catch (error) {
+            console.error(error);
+            this.error.subscribe((error) => {
+                this.utilService.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: `
+                    <p class="mb-4">${this.translate.instant('setting.alert.print')}</p>
+                    <div class="p-3 bg-light-gray select-text error">
+                        <code>${error}</code>
+                    </div>`
+                });
+            }).unsubscribe();
+        }
     }
 
     /**

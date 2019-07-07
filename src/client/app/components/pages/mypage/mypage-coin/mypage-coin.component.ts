@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
-import { UtilService } from '../../../../services';
-import { userAction } from '../../../../store/actions';
+import { Observable } from 'rxjs';
+import { UserService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 import { ChargeCoinModalComponent } from '../../../parts';
 
@@ -21,10 +18,10 @@ export class MypageCoinComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions,
         private modal: BsModalService,
         private translate: TranslateService,
-        private utilService: UtilService
+        private utilService: UtilService,
+        private userService: UserService
     ) { }
 
     /**
@@ -41,37 +38,19 @@ export class MypageCoinComponent implements OnInit {
     public openCharge(creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
         this.modal.show(ChargeCoinModalComponent, {
             initialState: {
-                cb: (charge: number) => {
-                    this.chargeCoin({ charge, creditCard });
+                cb: async (charge: number) => {
+                    console.log({ charge, creditCard });
+                    try {
+                        await this.userService.chargeCoin();
+                    } catch (error) {
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('mypage.coin.alert.charge')
+                        });
+                    }
                 }
             }
         });
-    }
-
-    /**
-     * コインのチャージ処理
-     * @param args
-     */
-    private chargeCoin(args: {
-        charge: number;
-        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
-    }) {
-        console.log(args);
-        this.store.dispatch(new userAction.ChargeCoin({}));
-        const success = this.actions.pipe(
-            ofType(userAction.ActionTypes.ChargeCoinSuccess),
-            tap(() => { })
-        );
-        const fail = this.actions.pipe(
-            ofType(userAction.ActionTypes.ChargeCoinFail),
-            tap(() => {
-                this.utilService.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant('mypage.coin.alert.charge')
-                });
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
     }
 
 }

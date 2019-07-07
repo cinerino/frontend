@@ -1,13 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import {
     changeTicketCount,
@@ -18,8 +16,7 @@ import {
     screeningEventsToWorkEvents
 } from '../../../../../functions';
 import { IReservationTicket } from '../../../../../models';
-import { PurchaseService, UtilService } from '../../../../../services';
-import { masterAction } from '../../../../../store/actions';
+import { MasterService, PurchaseService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { PurchaseEventTicketModalComponent } from '../../../../parts';
 
@@ -42,9 +39,9 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
 
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions,
         private router: Router,
         private utilService: UtilService,
+        private masterService: MasterService,
         private translate: TranslateService,
         private purchaseService: PurchaseService,
         private modal: BsModalService
@@ -59,13 +56,12 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
         this.screeningWorkEvents = [];
-        this.purchase.subscribe((purchase) => {
-            if (purchase.transaction === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            this.getSchedule();
-        }).unsubscribe();
+        try {
+            await this.getSchedule();
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
     }
 
     /**
@@ -83,56 +79,47 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             clearTimeout(this.updateTimer);
         }
         const time = 600000; // 10 * 60 * 1000
-        this.updateTimer = setTimeout(() => {
-            this.getSchedule();
+        this.updateTimer = setTimeout(async () => {
+            try {
+                await this.getSchedule();
+            } catch (error) {
+                console.error(error);
+                this.router.navigate(['/error']);
+            }
         }, time);
     }
 
     /**
      * スケジュール取得
      */
-    public getSchedule() {
-        this.purchase.subscribe((purchase) => {
-            const seller = purchase.seller;
-            const scheduleDate = purchase.scheduleDate;
-            if (seller === undefined || scheduleDate === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            this.store.dispatch(new masterAction.GetSchedule({
-                superEvent: {
-                    ids:
-                        (purchase.external === undefined || purchase.external.superEventId === undefined)
-                            ? [] : [purchase.external.superEventId],
-                    locationBranchCodes:
-                        (seller.location === undefined || seller.location.branchCode === undefined)
-                            ? [] : [seller.location.branchCode],
-                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
-                        ? [] : [purchase.external.workPerformedId],
-                },
-                startFrom: moment(scheduleDate).toDate(),
-                startThrough: moment(scheduleDate).add(1, 'day').toDate()
-            }));
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(masterAction.ActionTypes.GetScheduleSuccess),
-            tap(() => {
-                this.master.subscribe((master) => {
-                    const screeningEvents = master.screeningEvents;
-                    this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
-                    this.update();
-                }).unsubscribe();
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(masterAction.ActionTypes.GetScheduleFail),
-            tap(() => {
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+    public async getSchedule() {
+        const purchase = await this.purchaseService.getData();
+        const seller = purchase.seller;
+        const scheduleDate = purchase.scheduleDate;
+        const transaction = purchase.transaction;
+        if (seller === undefined
+            || scheduleDate === undefined
+            || transaction === undefined) {
+            throw new Error('seller or scheduleDate or transaction undefined');
+        }
+        await this.masterService.getSchedule({
+            superEvent: {
+                ids:
+                    (purchase.external === undefined || purchase.external.superEventId === undefined)
+                        ? [] : [purchase.external.superEventId],
+                locationBranchCodes:
+                    (seller.location === undefined || seller.location.branchCode === undefined)
+                        ? [] : [seller.location.branchCode],
+                workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
+                    ? [] : [purchase.external.workPerformedId],
+            },
+            startFrom: moment(scheduleDate).toDate(),
+            startThrough: moment(scheduleDate).add(1, 'day').toDate()
+        });
+        const master = await this.masterService.getData();
+        const screeningEvents = master.screeningEvents;
+        this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
+        this.update();
     }
 
     /**

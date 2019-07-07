@@ -1,16 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
-import { race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
-import { UtilService } from '../../../../services';
-import { orderAction } from '../../../../store/actions';
-import * as reducers from '../../../../store/reducers';
+import { OrderService, UtilService } from '../../../../services';
 
 @Component({
     selector: 'app-inquiry-input',
@@ -21,10 +15,9 @@ export class InquiryInputComponent implements OnInit {
     public inquiryForm: FormGroup;
     public environment = environment;
     constructor(
-        private actions: Actions,
         private formBuilder: FormBuilder,
-        private store: Store<reducers.IState>,
         private utilService: UtilService,
+        private orderService: OrderService,
         private router: Router,
         private translate: TranslateService
     ) { }
@@ -74,7 +67,7 @@ export class InquiryInputComponent implements OnInit {
     /**
      * 照会
      */
-    public onSubmit() {
+    public async onSubmit() {
         Object.keys(this.inquiryForm.controls).forEach((key) => {
             this.inquiryForm.controls[key].markAsTouched();
         });
@@ -85,27 +78,19 @@ export class InquiryInputComponent implements OnInit {
         }
         const confirmationNumber = this.inquiryForm.controls.confirmationNumber.value;
         const telephone = this.inquiryForm.controls.telephone.value;
-        this.store.dispatch(new orderAction.Inquiry({
-            confirmationNumber,
-            customer: { telephone }
-        }));
-        const success = this.actions.pipe(
-            ofType(orderAction.ActionTypes.InquirySuccess),
-            tap(() => {
-                this.router.navigate(['/inquiry/confirm']);
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(orderAction.ActionTypes.InquiryFail),
-            tap(() => {
-                this.utilService.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant('inquiry.input.validation')
-                });
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+        try {
+            await this.orderService.inquiry({
+                confirmationNumber,
+                customer: { telephone }
+            });
+            this.router.navigate(['/inquiry/confirm']);
+        } catch (error) {
+            console.error(error);
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('inquiry.input.validation')
+            });
+        }
     }
 
     /**

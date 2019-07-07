@@ -3,12 +3,9 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
-import { PurchaseService, UtilService } from '../../services';
-import { userAction } from '../../store/actions';
-import * as reducers from '../../store/reducers';
+import { PurchaseService, UserService, UtilService } from '../../services';
 
 declare const ga: Function;
 
@@ -22,8 +19,8 @@ export class AppComponent implements OnInit {
         private router: Router,
         private translate: TranslateService,
         private utilService: UtilService,
-        private purchaseService: PurchaseService,
-        private store: Store<reducers.IState>
+        private userService: UserService,
+        private purchaseService: PurchaseService
     ) { }
 
     /**
@@ -55,7 +52,7 @@ export class AppComponent implements OnInit {
         this.purchaseService.setExternal(external);
         const language = external.language;
         if (language !== undefined) {
-            this.store.dispatch(new userAction.UpdateLanguage({ language }));
+            this.userService.updateLanguage(language);
         }
     }
 

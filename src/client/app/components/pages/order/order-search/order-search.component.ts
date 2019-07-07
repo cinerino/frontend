@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { IOrderSearchConditions, OrderActions } from '../../../../models';
-import { UtilService } from '../../../../services';
-import { orderAction } from '../../../../store/actions';
+import { OrderService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 import { OrderDetailModalComponent } from '../../../parts/order-detail-modal/order-detail-modal.component';
 import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.component';
@@ -36,10 +33,10 @@ export class OrderSearchComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IOrderState>,
-        private actions: Actions,
         private modal: BsModalService,
         private router: Router,
         private utilService: UtilService,
+        private orderService: OrderService,
         private translate: TranslateService
     ) { }
 
@@ -69,7 +66,7 @@ export class OrderSearchComponent implements OnInit {
             orderStatuses: '',
             page: 1
         };
-        this.store.dispatch(new orderAction.Delete());
+        this.orderService.delete();
     }
 
     /**
@@ -102,7 +99,7 @@ export class OrderSearchComponent implements OnInit {
      * 注文を検索
      * @param changeConditions
      */
-    public orderSearch(changeConditions: boolean, event?: { page: number }) {
+    public async orderSearch(changeConditions: boolean, event?: { page: number }) {
         this.selectedOrders = [];
         if (event !== undefined) {
             this.confirmedConditions.page = event.page;
@@ -155,20 +152,11 @@ export class OrderSearchComponent implements OnInit {
                 orderDate: factory.sortType.Descending
             }
         };
-        this.store.dispatch(new orderAction.Search({ params }));
-
-        const success = this.actions.pipe(
-            ofType(orderAction.ActionTypes.SearchSuccess),
-            tap(() => { })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(orderAction.ActionTypes.SearchFail),
-            tap(() => {
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+        try {
+            await this.orderService.search(params);
+        } catch (error) {
+            this.router.navigate(['/error']);
+        }
     }
 
     /**
@@ -178,8 +166,20 @@ export class OrderSearchComponent implements OnInit {
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('order.list.confirm.cancel'),
-            cb: () => {
-                this.cancel(orders);
+            cb: async () => {
+                try {
+                    await this.orderService.cancel(orders);
+                } catch (error) {
+                    console.error(error);
+                    this.utilService.openAlert({
+                        title: this.translate.instant('common.error'),
+                        body: `
+                        <p class="mb-4">${this.translate.instant('order.list.alert.cancel')}</p>
+                        <div class="p-3 bg-light-gray select-text error">
+                            <code>${error}</code>
+                        </div>`
+                    });
+                }
             }
         });
     }
@@ -195,36 +195,6 @@ export class OrderSearchComponent implements OnInit {
     }
 
     /**
-     * キャンセル処理
-     */
-    public cancel(orders: factory.order.IOrder[]) {
-        this.store.dispatch(new orderAction.Cancel({ orders }));
-
-        const success = this.actions.pipe(
-            ofType(orderAction.ActionTypes.CancelSuccess),
-            tap(() => { })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(orderAction.ActionTypes.CancelFail),
-            tap(() => {
-                this.error.subscribe((error) => {
-                    this.utilService.openAlert({
-                        title: this.translate.instant('common.error'),
-                        body: `
-                        <p class="mb-4">${this.translate.instant('order.list.alert.cancel')}</p>
-                        <div class="p-3 bg-light-gray select-text error">
-                            <code>${error}</code>
-                        </div>`
-                    });
-                }).unsubscribe();
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
-    }
-
-
-    /**
      * 選択した注文へのアクション
      */
     public selecedtAction() {
@@ -238,8 +208,20 @@ export class OrderSearchComponent implements OnInit {
             this.utilService.openConfirm({
                 title: this.translate.instant('common.confirm'),
                 body: this.translate.instant('order.list.confirm.cancel'),
-                cb: () => {
-                    this.cancel(this.selectedOrders);
+                cb: async () => {
+                    try {
+                        await this.orderService.cancel(this.selectedOrders);
+                    } catch (error) {
+                        console.error(error);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: `
+                            <p class="mb-4">${this.translate.instant('order.list.alert.cancel')}</p>
+                            <div class="p-3 bg-light-gray select-text error">
+                                <code>${error}</code>
+                            </div>`
+                        });
+                    }
                 }
             });
         }
@@ -248,42 +230,29 @@ export class OrderSearchComponent implements OnInit {
     /**
      * QRコード表示
      */
-    public openQrCode(order: factory.order.IOrder) {
-        this.store.dispatch(new orderAction.OrderAuthorize({
-            params: {
-                orderNumber: order.orderNumber,
-                customer: {
-                    telephone: order.customer.telephone
-                }
+    public async openQrCode() {
+        try {
+            let orderData = await this.orderService.getData();
+            if (orderData.order === undefined) {
+                throw new Error('order undefined');
             }
-        }));
-
-        const success = this.actions.pipe(
-            ofType(orderAction.ActionTypes.OrderAuthorizeSuccess),
-            tap(() => {
-                this.order.subscribe((inquiry) => {
-                    const authorizeOrder = inquiry.order;
-                    if (authorizeOrder === undefined) {
-                        return;
-                    }
-                    this.modal.show(QrCodeModalComponent, {
-                        initialState: { order: authorizeOrder },
-                        class: 'modal-dialog-centered'
-                    });
-                }).unsubscribe();
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(orderAction.ActionTypes.OrderAuthorizeFail),
-            tap(() => {
-                this.utilService.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant('order.list.alert.authorize')
-                });
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+            await this.orderService.authorize(orderData.order);
+            orderData = await this.orderService.getData();
+            const authorizeOrder = orderData.order;
+            if (authorizeOrder === undefined) {
+                throw new Error('authorizeOrder undefined');
+            }
+            this.modal.show(QrCodeModalComponent, {
+                initialState: { order: authorizeOrder },
+                class: 'modal-dialog-centered'
+            });
+        } catch (error) {
+            console.error(error);
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('order.list.alert.authorize')
+            });
+        }
     }
 
 }

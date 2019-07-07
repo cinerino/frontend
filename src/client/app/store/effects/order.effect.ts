@@ -327,7 +327,7 @@ export class OrderEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                const params = Object.assign({ personId: 'me' }, payload.params);
+                const params = Object.assign({ personId: 'me' }, payload);
                 await this.cinerino.getServices();
                 const order = await this.cinerino.order.authorizeOwnershipInfos(params);
                 return new orderAction.OrderAuthorizeSuccess({ order });

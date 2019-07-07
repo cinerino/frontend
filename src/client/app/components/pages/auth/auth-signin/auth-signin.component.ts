@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
-import { PurchaseService } from '../../../../services';
-import { orderAction, userAction } from '../../../../store/actions';
+import { OrderService, PurchaseService, UserService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -19,8 +16,9 @@ export class AuthSigninComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private actions: Actions,
         private purchaseService: PurchaseService,
+        private userService: UserService,
+        private orderService: OrderService,
         private store: Store<reducers.IState>
     ) { }
 
@@ -30,83 +28,18 @@ export class AuthSigninComponent implements OnInit {
     public async ngOnInit() {
         this.process = this.store.pipe(select(reducers.getProcess));
         this.purchaseService.delete();
-        this.store.dispatch(new orderAction.Delete());
-        this.store.dispatch(new userAction.Delete());
-        this.store.dispatch(new userAction.Initialize());
+        this.userService.delete();
+        this.userService.initialize();
+        this.orderService.delete();
+
         try {
-            await this.initializeProfile();
-            await this.getCreditCards();
-            await this.initializeCoinAccount();
+            await this.userService.initializeProfile();
+            await this.userService.getCreditCards();
+            await this.userService.initializeCoinAccount();
             this.router.navigate([environment.BASE_URL]);
         } catch (error) {
             this.router.navigate(['/error']);
         }
-    }
-
-    /**
-     * プロフィール情報初期化
-     */
-    private initializeProfile() {
-        return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.InitializeProfile());
-            const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.InitializeProfileSuccess),
-                tap(() => {
-                    resolve();
-                })
-            );
-            const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.InitializeProfileFail),
-                tap(() => {
-                    reject();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * コイン口座情報初期化
-     */
-    private initializeCoinAccount() {
-        return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.InitializeCoinAccount());
-            const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.InitializeCoinAccountSuccess),
-                tap(() => {
-                    resolve();
-                })
-            );
-            const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.InitializeCoinAccountFail),
-                tap(() => {
-                    reject();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * クレジットカード情報取得
-     */
-    private getCreditCards() {
-        return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.GetCreditCards());
-            const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.GetCreditCardsSuccess),
-                tap(() => {
-                    resolve();
-                })
-            );
-            const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.GetCreditCardsFail),
-                tap(() => {
-                    reject();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
     }
 
 }
