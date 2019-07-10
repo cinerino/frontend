@@ -14,13 +14,14 @@ import * as reducers from '../store/reducers';
 })
 export class UserService {
     public user: Observable<reducers.IUserState>;
-
+    public error: Observable<string | null>;
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
         private translate: TranslateService
     ) {
         this.user = this.store.pipe(select(reducers.getUser));
+        this.error = this.store.pipe(select(reducers.getError));
      }
 
     /**
@@ -120,7 +121,7 @@ export class UserService {
 
             const fail = this.actions.pipe(
                 ofType(userAction.ActionTypes.UpdateProfileFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -138,7 +139,7 @@ export class UserService {
             );
             const fail = this.actions.pipe(
                 ofType(userAction.ActionTypes.GetCreditCardsFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -165,7 +166,7 @@ export class UserService {
 
             const fail = this.actions.pipe(
                 ofType(userAction.ActionTypes.AddCreditCardFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -183,7 +184,7 @@ export class UserService {
             );
             const fail = this.actions.pipe(
                 ofType(userAction.ActionTypes.RemoveCreditCardFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -220,7 +221,7 @@ export class UserService {
             );
             const fail = this.actions.pipe(
                 ofType(userAction.ActionTypes.ChargeCoinFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });

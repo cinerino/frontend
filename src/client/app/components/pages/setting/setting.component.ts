@@ -164,16 +164,14 @@ export class SettingComponent implements OnInit {
             await this.orderService.print({ orders: [], printer });
         } catch (error) {
             console.error(error);
-            this.error.subscribe((error) => {
-                this.utilService.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: `
-                    <p class="mb-4">${this.translate.instant('setting.alert.print')}</p>
-                    <div class="p-3 bg-light-gray select-text error">
-                        <code>${error}</code>
-                    </div>`
-                });
-            }).unsubscribe();
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: `
+                <p class="mb-4">${this.translate.instant('setting.alert.print')}</p>
+                <div class="p-3 bg-light-gray select-text error">
+                    <code>${error}</code>
+                </div>`
+            });
         }
     }
 

@@ -15,12 +15,13 @@ import * as reducers from '../store/reducers';
 })
 export class PurchaseService {
     public purchase: Observable<reducers.IPurchaseState>;
-
+    public error: Observable<string | null>;
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions
     ) {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        this.error = this.store.pipe(select(reducers.getError));
     }
 
     /**
@@ -130,7 +131,7 @@ export class PurchaseService {
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.StartTransactionFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -178,7 +179,7 @@ export class PurchaseService {
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.GetScreenFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -202,7 +203,7 @@ export class PurchaseService {
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.GetScreeningEventOffersFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -241,7 +242,7 @@ export class PurchaseService {
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.GetTicketListFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -289,7 +290,7 @@ export class PurchaseService {
 
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.TemporaryReservationFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -320,7 +321,7 @@ export class PurchaseService {
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.TemporaryReservationFreeSeatFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -342,7 +343,7 @@ export class PurchaseService {
 
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.CancelTemporaryReservationsFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -390,7 +391,7 @@ export class PurchaseService {
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.RegisterContactFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -420,7 +421,7 @@ export class PurchaseService {
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.AuthorizeCreditCardFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -448,7 +449,7 @@ export class PurchaseService {
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.AuthorizeMovieTicketFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -484,7 +485,7 @@ export class PurchaseService {
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.CheckMovieTicketFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -510,7 +511,7 @@ export class PurchaseService {
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.EndTransactionFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -540,7 +541,7 @@ export class PurchaseService {
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.CreateGmoTokenObjectFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -583,7 +584,7 @@ export class PurchaseService {
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.ConvertExternalToPurchaseFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });

@@ -13,12 +13,13 @@ import * as reducers from '../store/reducers';
 })
 export class OrderService {
     public order: Observable<reducers.IOrderState>;
-
+    public error: Observable<string | null>;
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions
     ) {
         this.order = this.store.pipe(select(reducers.getOrder));
+        this.error = this.store.pipe(select(reducers.getError));
     }
 
     /**
@@ -53,7 +54,7 @@ export class OrderService {
 
             const fail = this.actions.pipe(
                 ofType(orderAction.ActionTypes.SearchFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -71,7 +72,7 @@ export class OrderService {
             );
             const fail = this.actions.pipe(
                 ofType(orderAction.ActionTypes.CancelFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -95,7 +96,7 @@ export class OrderService {
             );
             const fail = this.actions.pipe(
                 ofType(orderAction.ActionTypes.InquiryFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -121,7 +122,7 @@ export class OrderService {
             );
             const fail = this.actions.pipe(
                 ofType(orderAction.ActionTypes.PrintFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -145,7 +146,7 @@ export class OrderService {
 
             const fail = this.actions.pipe(
                 ofType(orderAction.ActionTypes.OrderAuthorizeFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });

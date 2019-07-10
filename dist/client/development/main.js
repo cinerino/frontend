@@ -2251,7 +2251,6 @@ var InquiryConfirmComponent = /** @class */ (function () {
             body: this.translate.instant('inquiry.confirm.confirm.cancel'),
             cb: function () { return __awaiter(_this, void 0, void 0, function () {
                 var orderData, orders, error_2;
-                var _this = this;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
@@ -2281,12 +2280,10 @@ var InquiryConfirmComponent = /** @class */ (function () {
                             return [3 /*break*/, 6];
                         case 5:
                             error_2 = _a.sent();
-                            this.error.subscribe(function (error) {
-                                _this.utilService.openAlert({
-                                    title: _this.translate.instant('common.error'),
-                                    body: "\n                            <p class=\"mb-4\">" + _this.translate.instant('inquiry.confirm.alert.cancel') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text error\">\n                                <code>" + JSON.stringify(error) + "</code>\n                            </div>"
-                                });
-                            }).unsubscribe();
+                            this.utilService.openAlert({
+                                title: this.translate.instant('common.error'),
+                                body: "\n                        <p class=\"mb-4\">" + this.translate.instant('inquiry.confirm.alert.cancel') + "</p>\n                        <div class=\"p-3 bg-light-gray select-text error\">\n                            <code>" + error_2 + "</code>\n                        </div>"
+                            });
                             return [3 /*break*/, 6];
                         case 6: return [2 /*return*/];
                     }
@@ -6741,7 +6738,6 @@ var SettingComponent = /** @class */ (function () {
     SettingComponent.prototype.print = function () {
         return __awaiter(this, void 0, void 0, function () {
             var printer, error_2;
-            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -6757,12 +6753,10 @@ var SettingComponent = /** @class */ (function () {
                     case 2:
                         error_2 = _a.sent();
                         console.error(error_2);
-                        this.error.subscribe(function (error) {
-                            _this.utilService.openAlert({
-                                title: _this.translate.instant('common.error'),
-                                body: "\n                    <p class=\"mb-4\">" + _this.translate.instant('setting.alert.print') + "</p>\n                    <div class=\"p-3 bg-light-gray select-text error\">\n                        <code>" + error + "</code>\n                    </div>"
-                            });
-                        }).unsubscribe();
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: "\n                <p class=\"mb-4\">" + this.translate.instant('setting.alert.print') + "</p>\n                <div class=\"p-3 bg-light-gray select-text error\">\n                    <code>" + error_2 + "</code>\n                </div>"
+                        });
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
@@ -11529,6 +11523,7 @@ var MasterService = /** @class */ (function () {
         this.store = store;
         this.actions = actions;
         this.master = this.store.pipe(store_1.select(reducers.getMaster));
+        this.error = this.store.pipe(store_1.select(reducers.getError));
     }
     /**
      * マスタデータ取得
@@ -11561,7 +11556,7 @@ var MasterService = /** @class */ (function () {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
                         _this.store.dispatch(new actions_1.masterAction.GetSellers(params));
                         var success = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersFail), operators_1.tap(function () { reject(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetSellersFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                     })];
             });
@@ -11577,7 +11572,7 @@ var MasterService = /** @class */ (function () {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
                         _this.store.dispatch(new actions_1.masterAction.GetSchedule(params));
                         var success = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleFail), operators_1.tap(function () { reject(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.masterAction.ActionTypes.GetScheduleFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                     })];
             });
@@ -11663,6 +11658,7 @@ var OrderService = /** @class */ (function () {
         this.store = store;
         this.actions = actions;
         this.order = this.store.pipe(store_1.select(reducers.getOrder));
+        this.error = this.store.pipe(store_1.select(reducers.getError));
     }
     /**
      * 注文データ取得
@@ -11693,7 +11689,7 @@ var OrderService = /** @class */ (function () {
         return new Promise(function (resolve, reject) {
             _this.store.dispatch(new actions_1.orderAction.Search({ params: params }));
             var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.SearchSuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.SearchFail), operators_1.tap(function () { reject(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.SearchFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
             rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
         });
     };
@@ -11707,7 +11703,7 @@ var OrderService = /** @class */ (function () {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
                         _this.store.dispatch(new actions_1.orderAction.Cancel({ orders: orders }));
                         var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelFail), operators_1.tap(function () { reject(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                     })];
             });
@@ -11723,7 +11719,7 @@ var OrderService = /** @class */ (function () {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
                         _this.store.dispatch(new actions_1.orderAction.Inquiry(params));
                         var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquirySuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquiryFail), operators_1.tap(function () { reject(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.InquiryFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                     })];
             });
@@ -11742,7 +11738,7 @@ var OrderService = /** @class */ (function () {
                         var printer = prams.printer;
                         _this.store.dispatch(new actions_1.orderAction.Print({ orders: orders, pos: pos, printer: printer }));
                         var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintFail), operators_1.tap(function () { reject(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.PrintFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                     })];
             });
@@ -11763,7 +11759,7 @@ var OrderService = /** @class */ (function () {
                             }
                         }));
                         var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeFail), operators_1.tap(function () { reject(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.OrderAuthorizeFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                     })];
             });
@@ -11853,6 +11849,7 @@ var PurchaseService = /** @class */ (function () {
         this.store = store;
         this.actions = actions;
         this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
+        this.error = this.store.pipe(store_1.select(reducers.getError));
     }
     /**
      * 購入データ取得
@@ -11952,7 +11949,7 @@ var PurchaseService = /** @class */ (function () {
                                     object: {}
                                 }));
                                 var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionSuccess), operators_1.tap(function () { resolve(); }));
-                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionFail), operators_1.tap(function () { reject(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.StartTransactionFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                             })];
                 }
@@ -12009,7 +12006,7 @@ var PurchaseService = /** @class */ (function () {
                                 }
                                 _this.store.dispatch(new actions_1.purchaseAction.GetScreen({ screeningEvent: screeningEvent }));
                                 var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreenSuccess), operators_1.tap(function () { resolve(); }));
-                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreenFail), operators_1.tap(function () { reject(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreenFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                             })];
                 }
@@ -12036,7 +12033,7 @@ var PurchaseService = /** @class */ (function () {
                                 }
                                 _this.store.dispatch(new actions_1.purchaseAction.GetScreeningEventOffers({ screeningEvent: screeningEvent }));
                                 var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersSuccess), operators_1.tap(function () { resolve(); }));
-                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersFail), operators_1.tap(function () { reject(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetScreeningEventOffersFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                             })];
                 }
@@ -12076,7 +12073,7 @@ var PurchaseService = /** @class */ (function () {
                                 }
                                 _this.store.dispatch(new actions_1.purchaseAction.GetTicketList({ screeningEvent: screeningEvent, seller: seller }));
                                 var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListSuccess), operators_1.tap(function () { resolve(); }));
-                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListFail), operators_1.tap(function () { reject(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.GetTicketListFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                             })];
                 }
@@ -12125,7 +12122,7 @@ var PurchaseService = /** @class */ (function () {
                                     authorizeSeatReservation: authorizeSeatReservation
                                 }));
                                 var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationSuccess), operators_1.tap(function () { resolve(); }));
-                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFail), operators_1.tap(function () { reject(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                             })];
                 }
@@ -12159,7 +12156,7 @@ var PurchaseService = /** @class */ (function () {
                                     reservationTickets: reservationTickets
                                 }));
                                 var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFreeSeatSuccess), operators_1.tap(function () { resolve(); }));
-                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFreeSeatFail), operators_1.tap(function () { reject(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.TemporaryReservationFreeSeatFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                             })];
                 }
@@ -12176,7 +12173,7 @@ var PurchaseService = /** @class */ (function () {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
                         _this.store.dispatch(new actions_1.purchaseAction.CancelTemporaryReservations({ authorizeSeatReservations: authorizeSeatReservations }));
                         var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsFail), operators_1.tap(function () { reject(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CancelTemporaryReservationsFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                     })];
             });
@@ -12214,7 +12211,7 @@ var PurchaseService = /** @class */ (function () {
                                 }
                                 _this.store.dispatch(new actions_1.purchaseAction.RegisterContact({ transaction: transaction, contact: contact }));
                                 var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.RegisterContactSuccess), operators_1.tap(function () { resolve(); }));
-                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.RegisterContactFail), operators_1.tap(function () { reject(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.RegisterContactFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                             })];
                 }
@@ -12247,7 +12244,7 @@ var PurchaseService = /** @class */ (function () {
                                     creditCard: purchase.creditCard
                                 }));
                                 var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeCreditCardSuccess), operators_1.tap(function () { resolve(); }));
-                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeCreditCardFail), operators_1.tap(function () { reject(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeCreditCardFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                             })];
                 }
@@ -12278,7 +12275,7 @@ var PurchaseService = /** @class */ (function () {
                                     pendingMovieTickets: purchase.pendingMovieTickets
                                 }));
                                 var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeMovieTicketSuccess), operators_1.tap(function () { resolve(); }));
-                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeMovieTicketFail), operators_1.tap(function () { reject(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.AuthorizeMovieTicketFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                             })];
                 }
@@ -12314,7 +12311,7 @@ var PurchaseService = /** @class */ (function () {
                                         }]
                                 }));
                                 var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CheckMovieTicketSuccess), operators_1.tap(function () { resolve(); }));
-                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CheckMovieTicketFail), operators_1.tap(function () { reject(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CheckMovieTicketFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                             })];
                 }
@@ -12343,7 +12340,7 @@ var PurchaseService = /** @class */ (function () {
                                 var seller = purchase.seller;
                                 _this.store.dispatch(new actions_1.purchaseAction.EndTransaction({ transaction: transaction, authorizeSeatReservations: authorizeSeatReservations, seller: seller }));
                                 var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionSuccess), operators_1.tap(function () { resolve(); }));
-                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionFail), operators_1.tap(function () { reject(); }));
+                                var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                             })];
                 }
@@ -12367,7 +12364,7 @@ var PurchaseService = /** @class */ (function () {
                             _this.store.dispatch(new actions_1.purchaseAction.CreateGmoTokenObject({ seller: seller, creditCard: creditCard }));
                         }).unsubscribe();
                         var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CreateGmoTokenObjectSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CreateGmoTokenObjectFail), operators_1.tap(function () { reject(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.CreateGmoTokenObjectFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                     })];
             });
@@ -12400,7 +12397,7 @@ var PurchaseService = /** @class */ (function () {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
                         _this.store.dispatch(new actions_1.purchaseAction.ConvertExternalToPurchase({ eventId: eventId }));
                         var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.ConvertExternalToPurchaseSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.ConvertExternalToPurchaseFail), operators_1.tap(function () { reject(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.ConvertExternalToPurchaseFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                     })];
             });
@@ -12809,6 +12806,7 @@ var UserService = /** @class */ (function () {
         this.actions = actions;
         this.translate = translate;
         this.user = this.store.pipe(store_1.select(reducers.getUser));
+        this.error = this.store.pipe(store_1.select(reducers.getError));
     }
     /**
      * マスタデータ取得
@@ -12892,7 +12890,7 @@ var UserService = /** @class */ (function () {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
                         _this.store.dispatch(new actions_1.userAction.UpdateProfile({ profile: profile }));
                         var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.UpdateProfileSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.UpdateProfileFail), operators_1.tap(function () { reject(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.UpdateProfileFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                     })];
             });
@@ -12906,7 +12904,7 @@ var UserService = /** @class */ (function () {
         return new Promise(function (resolve, reject) {
             _this.store.dispatch(new actions_1.userAction.GetCreditCards());
             var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.GetCreditCardsSuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.GetCreditCardsFail), operators_1.tap(function () { reject(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.GetCreditCardsFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
             rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
         });
     };
@@ -12918,7 +12916,7 @@ var UserService = /** @class */ (function () {
         return new Promise(function (resolve, reject) {
             _this.store.dispatch(new actions_1.userAction.AddCreditCard(params));
             var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.AddCreditCardSuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.AddCreditCardFail), operators_1.tap(function () { reject(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.AddCreditCardFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
             rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
         });
     };
@@ -12930,7 +12928,7 @@ var UserService = /** @class */ (function () {
         return new Promise(function (resolve, reject) {
             _this.store.dispatch(new actions_1.userAction.RemoveCreditCard({ creditCard: creditCard }));
             var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.RemoveCreditCardSuccess), operators_1.tap(function () { resolve(); }));
-            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.RemoveCreditCardFail), operators_1.tap(function () { reject(); }));
+            var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.RemoveCreditCardFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
             rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
         });
     };
@@ -12956,7 +12954,7 @@ var UserService = /** @class */ (function () {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
                         _this.store.dispatch(new actions_1.userAction.ChargeCoin({}));
                         var success = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.ChargeCoinSuccess), operators_1.tap(function () { resolve(); }));
-                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.ChargeCoinFail), operators_1.tap(function () { reject(); }));
+                        var fail = _this.actions.pipe(effects_1.ofType(actions_1.userAction.ActionTypes.ChargeCoinFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
                     })];
             });

@@ -12,12 +12,13 @@ import * as reducers from '../store/reducers';
 })
 export class MasterService {
     public master: Observable<reducers.IMasterState>;
-
+    public error: Observable<string | null>;
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions
     ) {
         this.master = this.store.pipe(select(reducers.getMaster));
+        this.error = this.store.pipe(select(reducers.getError));
     }
 
     /**
@@ -50,7 +51,7 @@ export class MasterService {
             );
             const fail = this.actions.pipe(
                 ofType(masterAction.ActionTypes.GetSellersFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -76,7 +77,7 @@ export class MasterService {
             );
             const fail = this.actions.pipe(
                 ofType(masterAction.ActionTypes.GetScheduleFail),
-                tap(() => { reject(); })
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
