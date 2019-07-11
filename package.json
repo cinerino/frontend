@@ -25,7 +25,6 @@
     "check": "npm run lint",
     "lint": "npm run lint-client && npm run lint-server",
     "test": "npm run check",
-    "build": "npm run build-server",
     "preversion": "npm run build-server && npm run build-client",
     "version": "git add -A",
     "postversion": "git push origin --tags",
