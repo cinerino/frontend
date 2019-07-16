@@ -49,18 +49,18 @@ export class SettingComponent implements OnInit {
         this.error = this.store.pipe(select(reducers.getError));
         try {
             await this.masterService.getSellers();
-            this.createBaseForm();
+            await this.createBaseForm();
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
         }
     }
 
-    private createBaseForm() {
+    private async createBaseForm() {
         this.baseForm = this.formBuilder.group({
-            sellerBranchCode: [''],
-            posId: [''],
-            printerType: [''],
+            sellerBranchCode: ['', [Validators.required]],
+            posId: ['', [Validators.required]],
+            printerType: ['', [Validators.required]],
             printerIpAddress: [''],
             isPurchaseCart: ['0', [
                 Validators.required,
@@ -70,22 +70,21 @@ export class SettingComponent implements OnInit {
                 Validators.required
             ]]
         });
-        this.user.subscribe((user) => {
-            if (user.seller !== undefined
-                && user.seller.location !== undefined) {
-                this.baseForm.controls.sellerBranchCode.setValue(user.seller.location.branchCode);
-            }
-            if (user.pos !== undefined) {
-                this.changePosList();
-                this.baseForm.controls.posId.setValue(user.pos.id);
-            }
-            if (user.printer !== undefined) {
-                this.baseForm.controls.printerType.setValue(user.printer.connectionType);
-                this.baseForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
-            }
-            this.baseForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
-            this.baseForm.controls.viewType.setValue(user.viewType);
-        }).unsubscribe();
+        const user = await this.userService.getData();
+        if (user.seller !== undefined
+            && user.seller.location !== undefined) {
+            this.baseForm.controls.sellerBranchCode.setValue(user.seller.location.branchCode);
+        }
+        if (user.pos !== undefined) {
+            this.changePosList();
+            this.baseForm.controls.posId.setValue(user.pos.id);
+        }
+        if (user.printer !== undefined) {
+            this.baseForm.controls.printerType.setValue(user.printer.connectionType);
+            this.baseForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
+        }
+        this.baseForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
+        this.baseForm.controls.viewType.setValue(user.viewType);
     }
 
     /**

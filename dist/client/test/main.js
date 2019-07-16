@@ -615,7 +615,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'setting.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'setting.read' | translate\"></p>\n\n    <div class=\"mb-4 p-3 bg-white\">\n        <form [formGroup]=\"baseForm\">\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"sellerBranchCode\" (change)=\"changePosList()\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let seller of (master | async).sellers\"\n                                [value]=\"seller.location.branchCode\">{{\n                                    seller.name.ja }}</option>\n                        </select>\n                        <!-- <div *ngIf=\"baseForm.controls.sellerBranchCode.invalid && baseForm.controls.sellerBranchCode.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.sellerBranchCode.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.unselected' | translate }}</p>\n                        </div> -->\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.pos' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"posId\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let pos of posList\" [value]=\"pos.id\">{{ pos.name }}</option>\n                        </select>\n                        <!-- <div *ngIf=\"baseForm.controls.posId.invalid && baseForm.controls.posId.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.posId.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.unselected' | translate }}</p>\n                        </div> -->\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printer' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"printerType\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let printer of printers\" [value]=\"printer.connectionType\">\n                                {{ printer.name | translate }}</option>\n                        </select>\n                        <button\n                            *ngIf=\"this.baseForm.controls.printerType.value && this.baseForm.controls.printerType.value !== connectionType.None\"\n                            type=\"button\" class=\"btn btn-sm btn-primary py-2 mt-2\"\n                            (click)=\"print()\">{{ 'setting.testPrinting' | translate }}</button>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printerIpAddress' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"printerIpAddress\"\n                            placeholder=\"0.0.0.0\">\n                        <div *ngIf=\"baseForm.controls.printerIpAddress.invalid && baseForm.controls.printerIpAddress.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.printerIpAddress.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                        <p class=\"text-small mt-2\">\n                            {{ 'setting.printerIpAddressDescription' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div *ngIf=\"environment.SETTING_DEVELOP_OPTION\">\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\"> {{ 'setting.isPurchaseCart' | translate }}\n                        </p>\n                        <div class=\"col-md-8\">\n                            <select type=\"text\" class=\"form-control\" formControlName=\"isPurchaseCart\"\n                                id=\"isPurchaseCart\" placeholder=\"\">\n                                <option value=\"0\">{{ 'common.off' | translate }}</option>\n                                <option value=\"1\">{{ 'common.on' | translate }}</option>\n                            </select>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\"> {{ 'setting.viewType' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" id=\"viewType\" formControlName=\"viewType\">\n                                <option [value]=\"viewType.Cinema\">{{ viewType.Cinema }}</option>\n                                <option [value]=\"viewType.Event\">{{ viewType.Event }}</option>\n                            </select>\n                            <div *ngIf=\"baseForm.controls.viewType.invalid && baseForm.controls.viewType.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"baseForm.controls.viewType.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n        </form>\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"updateBase()\">{{ 'setting.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            [routerLink]=\"environment.BASE_URL\">{{ 'setting.prev' | translate }}</button>\n    </div>\n\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'setting.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'setting.read' | translate\"></p>\n\n    <div class=\"mb-4 p-3 bg-white\">\n        <form *ngIf=\"baseForm\" [formGroup]=\"baseForm\">\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"sellerBranchCode\" (change)=\"changePosList()\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let seller of (master | async).sellers\"\n                                [value]=\"seller.location.branchCode\">{{ seller.name.ja }}</option>\n                        </select>\n                        <!-- <div *ngIf=\"baseForm.controls.sellerBranchCode.invalid && baseForm.controls.sellerBranchCode.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.sellerBranchCode.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.unselected' | translate }}</p>\n                        </div> -->\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.pos' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"posId\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let pos of posList\" [value]=\"pos.id\">{{ pos.name }}</option>\n                        </select>\n                        <!-- <div *ngIf=\"baseForm.controls.posId.invalid && baseForm.controls.posId.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.posId.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.unselected' | translate }}</p>\n                        </div> -->\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printer' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"printerType\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let printer of printers\" [value]=\"printer.connectionType\">\n                                {{ printer.name | translate }}</option>\n                        </select>\n                        <button\n                            *ngIf=\"this.baseForm.controls.printerType.value && this.baseForm.controls.printerType.value !== connectionType.None\"\n                            type=\"button\" class=\"btn btn-sm btn-primary py-2 mt-2\"\n                            (click)=\"print()\">{{ 'setting.testPrinting' | translate }}</button>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printerIpAddress' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"printerIpAddress\"\n                            placeholder=\"0.0.0.0\">\n                        <div *ngIf=\"baseForm.controls.printerIpAddress.invalid && baseForm.controls.printerIpAddress.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.printerIpAddress.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                        <p class=\"text-small mt-2\">\n                            {{ 'setting.printerIpAddressDescription' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div *ngIf=\"environment.SETTING_DEVELOP_OPTION\">\n                <div class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\"> {{ 'setting.isPurchaseCart' | translate }}\n                        </p>\n                        <div class=\"col-md-8\">\n                            <select type=\"text\" class=\"form-control\" formControlName=\"isPurchaseCart\"\n                                id=\"isPurchaseCart\" placeholder=\"\">\n                                <option value=\"0\">{{ 'common.off' | translate }}</option>\n                                <option value=\"1\">{{ 'common.on' | translate }}</option>\n                            </select>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\"> {{ 'setting.viewType' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" id=\"viewType\" formControlName=\"viewType\">\n                                <option [value]=\"viewType.Cinema\">{{ viewType.Cinema }}</option>\n                                <option [value]=\"viewType.Event\">{{ viewType.Event }}</option>\n                            </select>\n                            <div *ngIf=\"baseForm.controls.viewType.invalid && baseForm.controls.viewType.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"baseForm.controls.viewType.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n        </form>\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"updateBase()\">{{ 'setting.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            [routerLink]=\"environment.BASE_URL\">{{ 'setting.prev' | translate }}</button>\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -6610,53 +6610,64 @@ var SettingComponent = /** @class */ (function () {
                         this.error = this.store.pipe(store_1.select(reducers.getError));
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
+                        _a.trys.push([1, 4, , 5]);
                         return [4 /*yield*/, this.masterService.getSellers()];
                     case 2:
                         _a.sent();
-                        this.createBaseForm();
-                        return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.createBaseForm()];
                     case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
                         error_1 = _a.sent();
                         console.error(error_1);
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
             });
         });
     };
     SettingComponent.prototype.createBaseForm = function () {
-        var _this = this;
-        this.baseForm = this.formBuilder.group({
-            sellerBranchCode: [''],
-            posId: [''],
-            printerType: [''],
-            printerIpAddress: [''],
-            isPurchaseCart: ['0', [
-                    forms_1.Validators.required,
-                    forms_1.Validators.pattern(/^[0-9]+$/)
-                ]],
-            viewType: ['', [
-                    forms_1.Validators.required
-                ]]
+        return __awaiter(this, void 0, void 0, function () {
+            var user;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.baseForm = this.formBuilder.group({
+                            sellerBranchCode: ['', [forms_1.Validators.required]],
+                            posId: ['', [forms_1.Validators.required]],
+                            printerType: ['', [forms_1.Validators.required]],
+                            printerIpAddress: [''],
+                            isPurchaseCart: ['0', [
+                                    forms_1.Validators.required,
+                                    forms_1.Validators.pattern(/^[0-9]+$/)
+                                ]],
+                            viewType: ['', [
+                                    forms_1.Validators.required
+                                ]]
+                        });
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 1:
+                        user = _a.sent();
+                        if (user.seller !== undefined
+                            && user.seller.location !== undefined) {
+                            this.baseForm.controls.sellerBranchCode.setValue(user.seller.location.branchCode);
+                        }
+                        if (user.pos !== undefined) {
+                            this.changePosList();
+                            this.baseForm.controls.posId.setValue(user.pos.id);
+                        }
+                        if (user.printer !== undefined) {
+                            this.baseForm.controls.printerType.setValue(user.printer.connectionType);
+                            this.baseForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
+                        }
+                        this.baseForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
+                        this.baseForm.controls.viewType.setValue(user.viewType);
+                        return [2 /*return*/];
+                }
+            });
         });
-        this.user.subscribe(function (user) {
-            if (user.seller !== undefined
-                && user.seller.location !== undefined) {
-                _this.baseForm.controls.sellerBranchCode.setValue(user.seller.location.branchCode);
-            }
-            if (user.pos !== undefined) {
-                _this.changePosList();
-                _this.baseForm.controls.posId.setValue(user.pos.id);
-            }
-            if (user.printer !== undefined) {
-                _this.baseForm.controls.printerType.setValue(user.printer.connectionType);
-                _this.baseForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
-            }
-            _this.baseForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
-            _this.baseForm.controls.viewType.setValue(user.viewType);
-        }).unsubscribe();
     };
     /**
      * 端末情報変更
