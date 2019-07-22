@@ -77,7 +77,7 @@ export class Cancel implements Action {
  */
 export class CancelSuccess implements Action {
     public readonly type = ActionTypes.CancelSuccess;
-    constructor(public payload?: { }) { }
+    constructor(public payload?: {}) { }
 }
 
 /**
@@ -155,13 +155,11 @@ export class PrintFail implements Action {
 export class OrderAuthorize implements Action {
     public readonly type = ActionTypes.OrderAuthorize;
     constructor(public payload: {
-        params: {
-            orderNumber: string;
-            customer: {
-                email?: string;
-                telephone?: string;
-            };
-        }
+        orderNumber: string;
+        customer: {
+            email?: string;
+            telephone?: string;
+        };
     }) { }
 }
 

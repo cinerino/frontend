@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ViewType } from '../../../../models';
-import { purchaseAction } from '../../../../store/actions';
+import { PurchaseService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -16,6 +16,7 @@ export class PurchaseRootComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     constructor(
         private store: Store<reducers.IState>,
+        private purchaseService: PurchaseService,
         private router: Router
     ) { }
 
@@ -25,7 +26,7 @@ export class PurchaseRootComponent implements OnInit {
     public ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
-        this.store.dispatch(new purchaseAction.Delete());
+        this.purchaseService.delete();
         this.user.subscribe((user) => {
             if (user.viewType === ViewType.Cinema) {
                 this.router.navigate(['/purchase/cinema/schedule']);

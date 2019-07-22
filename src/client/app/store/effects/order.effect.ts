@@ -19,7 +19,7 @@ export class OrderEffects {
     constructor(
         private actions: Actions,
         private cinerino: CinerinoService,
-        private util: UtilService,
+        private utilService: UtilService,
         private starPrint: StarPrintService,
         private translate: TranslateService
     ) { }
@@ -93,7 +93,7 @@ export class OrderEffects {
                     if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                         // メールをカスタマイズ
                         const url = '/storage/text/order/mail/return.txt';
-                        const template = await this.util.getText<string>(url);
+                        const template = await this.utilService.getText<string>(url);
                         email.template = createReturnMail({ template, order });
                     }
                     await this.cinerino.transaction.returnOrder.confirm({
@@ -222,7 +222,7 @@ export class OrderEffects {
 
                     authorizeOrders.push(result);
                 }
-                const printData = await this.util.getJson<ITicketPrintData>('/storage/json/print/ticket.json');
+                const printData = await this.utilService.getJson<ITicketPrintData>('/storage/json/print/ticket.json');
                 const testFlg = orders.length === 0;
                 const canvasList: HTMLCanvasElement[] = [];
                 if (testFlg) {
@@ -251,7 +251,7 @@ export class OrderEffects {
                                 && environment.PRINT_QRCODE_TYPE === PrintQrcodeType.Encryption) {
                                 // QRコード暗号化(id + startDate)
                                 const encyptText = `${itemOffered.reservationFor.id}=${itemOffered.reservationFor.startDate}`;
-                                const encryptionEncodeResult = await this.util.encryptionEncode(encyptText);
+                                const encryptionEncodeResult = await this.utilService.encryptionEncode(encyptText);
                                 qrcode =
                                     `${encryptionEncodeResult.salt},${encryptionEncodeResult.iv},${encryptionEncodeResult.encrypted}`;
                             }
@@ -302,7 +302,7 @@ export class OrderEffects {
                         const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray ">
                         <img class="w-100" src="${canvas.toDataURL()}">
                         </div>`);
-                        this.util.openAlert({
+                        this.utilService.openAlert({
                             title: '',
                             body: `<div class="px-5">${domList.join('\n')}</div>`
                         });
@@ -327,7 +327,7 @@ export class OrderEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                const params = Object.assign({ personId: 'me' }, payload.params);
+                const params = Object.assign({ personId: 'me' }, payload);
                 await this.cinerino.getServices();
                 const order = await this.cinerino.order.authorizeOwnershipInfos(params);
                 return new orderAction.OrderAuthorizeSuccess({ order });
