@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { environment } from '../../../../environments/environment';
-import { purchaseAction, userAction } from '../../../store/actions';
-import * as reducers from '../../../store/reducers';
+import { PurchaseService, UserService } from '../../../services';
 
 @Component({
     selector: 'app-expired',
@@ -12,15 +10,16 @@ import * as reducers from '../../../store/reducers';
 export class ExpiredComponent implements OnInit {
     public environment = environment;
     constructor(
-        private store: Store<reducers.IState>
+        private purchaseService: PurchaseService,
+        private userService: UserService
     ) { }
 
     /**
      * 初期化
      */
     public ngOnInit() {
-        this.store.dispatch(new purchaseAction.Delete());
-        this.store.dispatch(new userAction.Delete());
+        this.purchaseService.delete();
+        this.userService.delete();
     }
 
 }

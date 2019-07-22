@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
-import { UtilService } from '../../../../services';
-import { userAction } from '../../../../store/actions';
+import { Observable } from 'rxjs';
+import { UserService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -22,10 +19,10 @@ export class MypageProfileComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions,
-        private util: UtilService,
+        private utilService: UtilService,
         private formBuilder: FormBuilder,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private userService: UserService
     ) { }
 
     /**
@@ -97,7 +94,7 @@ export class MypageProfileComponent implements OnInit {
     /**
      * プロフィール更新
      */
-    public updateProfile() {
+    public async updateProfile() {
         Object.keys(this.profileForm.controls).forEach((key) => {
             this.profileForm.controls[key].markAsTouched();
         });
@@ -106,31 +103,23 @@ export class MypageProfileComponent implements OnInit {
         this.profileForm.controls.email.setValue((<HTMLInputElement>document.getElementById('email')).value);
         this.profileForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
         if (this.profileForm.invalid) {
-            this.util.openAlert({
+            this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('setting.alert.customer')
             });
             return;
         }
-
-        const profile = {
-            givenName: this.profileForm.controls.givenName.value,
-            familyName: this.profileForm.controls.familyName.value,
-            telephone: this.profileForm.controls.telephone.value,
-            email: this.profileForm.controls.email.value,
-        };
-        this.store.dispatch(new userAction.UpdateProfile({ profile }));
-
-        const success = this.actions.pipe(
-            ofType(userAction.ActionTypes.UpdateProfileSuccess),
-            tap(() => { })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(userAction.ActionTypes.UpdateProfileFail),
-            tap(() => { })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+        try {
+            const profile = {
+                givenName: this.profileForm.controls.givenName.value,
+                familyName: this.profileForm.controls.familyName.value,
+                telephone: this.profileForm.controls.telephone.value,
+                email: this.profileForm.controls.email.value,
+            };
+            await this.userService.updateProfile(profile);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { purchaseAction, userAction } from '../../../store/actions';
+import { PurchaseService, UserService } from '../../../services';
 import * as reducers from '../../../store/reducers';
 
 @Component({
@@ -14,6 +14,8 @@ export class ErrorComponent implements OnInit {
     public error: Observable<string | null>;
     public environment = environment;
     constructor(
+        private purchaseService: PurchaseService,
+        private userService: UserService,
         private store: Store<reducers.IState>
     ) { }
 
@@ -22,8 +24,8 @@ export class ErrorComponent implements OnInit {
      */
     public ngOnInit() {
         this.error = this.store.pipe(select(reducers.getError));
-        this.store.dispatch(new purchaseAction.Delete());
-        this.store.dispatch(new userAction.Delete());
+        this.purchaseService.delete();
+        this.userService.delete();
     }
 
 }

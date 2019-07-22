@@ -3,12 +3,9 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
-import { UtilService } from '../../services';
-import { purchaseAction, userAction } from '../../store/actions';
-import * as reducers from '../../store/reducers';
+import { PurchaseService, UserService, UtilService } from '../../services';
 
 declare const ga: Function;
 
@@ -21,8 +18,9 @@ export class AppComponent implements OnInit {
     constructor(
         private router: Router,
         private translate: TranslateService,
-        private util: UtilService,
-        private store: Store<reducers.IState>
+        private utilService: UtilService,
+        private userService: UserService,
+        private purchaseService: PurchaseService
     ) { }
 
     /**
@@ -50,22 +48,11 @@ export class AppComponent implements OnInit {
         if (location.hash !== '') {
             return;
         }
-        const external = await this.util.getExternal();
-        const theaterBranchCode = external.theaterBranchCode;
-        const workPerformedId = external.workPerformedId;
-        const superEventId = external.superEventId;
-        const eventId = external.eventId;
-        const scheduleDate = external.scheduleDate;
-        this.store.dispatch(new purchaseAction.SetExternal({
-            theaterBranchCode,
-            workPerformedId,
-            superEventId,
-            eventId,
-            scheduleDate
-        }));
+        const external = await this.utilService.getExternal();
+        this.purchaseService.setExternal(external);
         const language = external.language;
         if (language !== undefined) {
-            this.store.dispatch(new userAction.UpdateLanguage({ language }));
+            this.userService.updateLanguage(language);
         }
     }
 

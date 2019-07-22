@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { IReservationTicket, Reservation } from '../../../../../models/purchase/reservation';
-import { UtilService } from '../../../../../services';
-import { purchaseAction } from '../../../../../store/actions';
+import { PurchaseService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { MvtkCheckModalComponent, PurchaseCinemaTicketModalComponent } from '../../../../parts';
 
@@ -24,10 +21,10 @@ export class PurchaseCinemaTicketComponent implements OnInit {
     public isLoading: Observable<boolean>;
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions,
         private router: Router,
         private modal: BsModalService,
-        private util: UtilService,
+        private utilService: UtilService,
+        private purchaseService: PurchaseService,
         private translate: TranslateService
     ) { }
 
@@ -43,23 +40,15 @@ export class PurchaseCinemaTicketComponent implements OnInit {
     /**
      * 券種決定
      */
-    public onSubmit() {
-        this.purchase.subscribe((purchase) => {
-            const transaction = purchase.transaction;
-            const screeningEvent = purchase.screeningEvent;
+    public async onSubmit() {
+        try {
+            const purchase = await this.purchaseService.getData();
             const reservations = purchase.reservations;
-            const authorizeSeatReservation = purchase.authorizeSeatReservation;
-            if (transaction === undefined
-                || screeningEvent === undefined
-                || authorizeSeatReservation === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
             const unselectedReservations = reservations.filter((reservation) => {
                 return (reservation.ticket === undefined);
             });
             if (unselectedReservations.length > 0) {
-                this.util.openAlert({
+                this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('purchase.cinema.ticket.alert.unselected')
                 });
@@ -83,47 +72,29 @@ export class PurchaseCinemaTicketComponent implements OnInit {
                 return (filterResult.length % value !== 0);
             });
             if (validResult.length > 0) {
-                this.util.openAlert({
+                this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('purchase.cinema.ticket.alert.ticketCondition')
                 });
                 return;
             }
-            this.store.dispatch(new purchaseAction.TemporaryReservation({
-                transaction,
-                screeningEvent,
-                reservations,
-                authorizeSeatReservation
-            }));
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.TemporaryReservationSuccess),
-            tap(() => {
-                this.purchase.subscribe((purchase) => {
-                    this.user.subscribe((user) => {
-                        const authorizeSeatReservation = purchase.authorizeSeatReservation;
-                        if (authorizeSeatReservation === undefined) {
-                            this.router.navigate(['/error']);
-                            return;
-                        }
-                        if (!user.isPurchaseCart) {
-                            this.router.navigate(['/purchase/input']);
-                            return;
-                        }
-                        this.router.navigate(['/purchase/cinema/cart']);
-                    }).unsubscribe();
-                }).unsubscribe();
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(purchaseAction.ActionTypes.TemporaryReservationFail),
-            tap(() => {
-                this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+            await this.purchaseService.temporaryReservation();
+            this.user.subscribe((user) => {
+                const authorizeSeatReservation = purchase.authorizeSeatReservation;
+                if (authorizeSeatReservation === undefined) {
+                    this.router.navigate(['/error']);
+                    return;
+                }
+                if (!user.isPurchaseCart) {
+                    this.router.navigate(['/purchase/input']);
+                    return;
+                }
+                this.router.navigate(['/purchase/cinema/cart']);
+            }).unsubscribe();
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
     }
 
     /**
@@ -140,7 +111,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
                     pendingMovieTickets: purchase.pendingMovieTickets,
                     cb: (ticket: IReservationTicket) => {
                         reservation.ticket = ticket;
-                        this.store.dispatch(new purchaseAction.SelectTickets({ reservations: [reservation] }));
+                        this.purchaseService.selectTickets([reservation]);
                     }
                 },
                 class: 'modal-dialog-centered'

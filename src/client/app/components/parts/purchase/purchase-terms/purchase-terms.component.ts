@@ -15,7 +15,7 @@ export class PurchaseTermsComponent implements OnInit, OnChanges {
     public terms: string;
 
     constructor(
-    private util: UtilService
+    private utilService: UtilService
     ) { }
 
     public ngOnInit() {
@@ -24,7 +24,7 @@ export class PurchaseTermsComponent implements OnInit, OnChanges {
     public async ngOnChanges() {
         try {
             const url = `/storage/text/purchase/terms/${this.language}.txt`;
-            const result = await this.util.getText<string>(url);
+            const result = await this.utilService.getText<string>(url);
             this.terms = result.replace(/\n/g, '<br>');
         } catch (error) {
             console.error(error);

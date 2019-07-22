@@ -1,15 +1,9 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
-import * as moment from 'moment';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
-import { environment } from '../../../../../environments/environment';
+import { Observable } from 'rxjs';
 import { ViewType } from '../../../../models';
-import { purchaseAction } from '../../../../store/actions';
-import { userAction } from '../../../../store/actions';
+import { PurchaseService, UserService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -23,10 +17,10 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
     public error: Observable<string | null>;
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private translate: TranslateService
+        private purchaseService: PurchaseService,
+        private userService: UserService
     ) { }
 
     /**
@@ -36,7 +30,7 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.error = this.store.pipe(select(reducers.getError));
-        this.store.dispatch(new purchaseAction.Delete());
+        this.purchaseService.delete();
         this.user.subscribe(async (user) => {
             if (user.viewType !== ViewType.Cinema) {
                 this.router.navigate(['/error']);
@@ -45,10 +39,10 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
             const snapshot = this.activatedRoute.snapshot;
             const eventId = snapshot.params.eventId;
             const passportToken = snapshot.params.passportToken;
-            this.store.dispatch(new purchaseAction.SetExternal({ eventId, passportToken }));
+            this.purchaseService.setExternal({eventId, passportToken});
             try {
-                await this.convertExternalToPurchase({ eventId });
-                await this.startTransaction();
+                await this.purchaseService.convertExternalToPurchase(eventId);
+                await this.purchaseService.startTransaction();
                 this.router.navigate(['/purchase/cinema/seat']);
             } catch (error) {
                 this.router.navigate(['/error']);
@@ -60,68 +54,8 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
         const snapshot = this.activatedRoute.snapshot;
         const language = snapshot.params.language;
         if (language !== undefined) {
-            const element = document.querySelector<HTMLSelectElement>('#language');
-            if (element !== null) {
-                element.value = language;
-            }
-            this.translate.use(language);
-            this.store.dispatch(new userAction.UpdateLanguage({ language }));
-            const html = <HTMLElement>document.querySelector('html');
-            html.setAttribute('lang', language);
+            this.userService.updateLanguage(language);
         }
-    }
-
-    /**
-     * 外部データを購入データへ変換
-     */
-    private async convertExternalToPurchase(params: { eventId: string; }) {
-        return new Promise((resolve, reject) => {
-            const eventId = params.eventId;
-            this.store.dispatch(new purchaseAction.ConvertExternalToPurchase({ eventId }));
-            const success = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.ConvertExternalToPurchaseSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.ConvertExternalToPurchaseFail),
-                tap(() => { this.error.subscribe((error) => reject(error)).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * 取引開始
-     */
-    private async startTransaction() {
-        return new Promise((resolve, reject) => {
-            this.purchase.subscribe((purchase) => {
-                if (purchase.seller === undefined) {
-                    reject(null);
-                    return;
-                }
-                this.store.dispatch(new purchaseAction.StartTransaction({
-                    params: {
-                        expires: moment().add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
-                        seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
-                        object: {
-                            passport: (purchase.external === undefined
-                                || purchase.external.passportToken === undefined)
-                                ? undefined : { token: purchase.external.passportToken }
-                        }
-                    }
-                }));
-            }).unsubscribe();
-            const success = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.StartTransactionSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.StartTransactionFail),
-                tap(() => { this.error.subscribe((error) => reject(error)).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
     }
 
 }

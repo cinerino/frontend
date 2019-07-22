@@ -29,7 +29,7 @@ export class PurchaseEffects {
         private actions: Actions,
         private cinerino: CinerinoService,
         private http: HttpClient,
-        private util: UtilService,
+        private utilService: UtilService,
         private translate: TranslateService
     ) { }
 
@@ -95,7 +95,7 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
-                const params = payload.params;
+                const params = payload;
                 const selleId = params.seller.id;
                 await this.cinerino.getServices();
                 const passport = (params.object.passport === undefined)
@@ -198,7 +198,7 @@ export class PurchaseEffects {
                     await this.cinerino.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation);
                 }
                 // サーバータイムを使用して販売期間判定
-                const serverTime = await this.util.getServerTime();
+                const serverTime = await this.utilService.getServerTime();
                 const nowDate = moment(serverTime.date).toDate();
                 if (screeningEvent.offers === undefined) {
                     throw new Error('screeningEvent.offers undefined');
@@ -251,7 +251,7 @@ export class PurchaseEffects {
             try {
                 await this.cinerino.getServices();
                 // サーバータイムを使用して販売期間判定
-                const serverTime = await this.util.getServerTime();
+                const serverTime = await this.utilService.getServerTime();
                 const nowDate = moment(serverTime.date).toDate();
                 if (screeningEvent.offers === undefined) {
                     throw new Error('screeningEvent.offers undefined');
@@ -586,7 +586,7 @@ export class PurchaseEffects {
                 if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                     // 完了メールをカスタマイズ
                     const url = '/storage/text/purchase/mail/complete.txt';
-                    const template = await this.util.getText<string>(url);
+                    const template = await this.utilService.getText<string>(url);
                     params.options.email.template = createCompleteMail({
                         template,
                         authorizeSeatReservations,

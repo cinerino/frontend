@@ -27,7 +27,7 @@ export class Delete implements Action {
  */
 export class GetSellers implements Action {
     public readonly type = ActionTypes.GetSellers;
-    constructor(public payload?: { params: factory.seller.ISearchConditions }) { }
+    constructor(public payload?: factory.seller.ISearchConditions) { }
 }
 
 /**

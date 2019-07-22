@@ -28,7 +28,7 @@ export class MasterEffects {
             try {
                 await this.cinerino.getServices();
                 const searchMovieSellersResult =
-                    await this.cinerino.seller.search((payload === undefined) ? {} : payload.params);
+                    await this.cinerino.seller.search((payload === undefined) ? {} : payload);
                 const sellers = searchMovieSellersResult.data;
                 return new masterAction.GetSellersSuccess({ sellers });
             } catch (error) {

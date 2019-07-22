@@ -1,17 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { changeTicketCountByOrder, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../functions';
-import { UtilService } from '../../../../services';
-import { orderAction } from '../../../../store/actions';
+import { OrderService, UserService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.component';
 
@@ -35,9 +32,10 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
-        private actions: Actions,
         private modal: BsModalService,
-        private util: UtilService,
+        private utilService: UtilService,
+        private orderService: OrderService,
+        private userService: UserService,
         private translate: TranslateService
     ) { }
 
@@ -78,166 +76,92 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     /**
      * QRコード表示
      */
-    public showQrCode() {
-        this.order.subscribe((value) => {
-            const order = value.order;
-            if (order === undefined) {
-                this.router.navigate(['/error']);
-                return;
+    public async showQrCode() {
+        try {
+            let orderData = await this.orderService.getData();
+            if (orderData.order === undefined) {
+                throw new Error('order undefined');
             }
-            this.store.dispatch(new orderAction.OrderAuthorize({
-                params: {
-                    orderNumber: order.orderNumber,
-                    customer: {
-                        telephone: order.customer.telephone
-                    }
-                }
-            }));
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(orderAction.ActionTypes.OrderAuthorizeSuccess),
-            tap(() => {
-                this.order.subscribe((inquiry) => {
-                    const authorizeOrder = inquiry.order;
-                    if (authorizeOrder === undefined) {
-                        return;
-                    }
-                    this.modal.show(QrCodeModalComponent, {
-                        initialState: { order: authorizeOrder },
-                        class: 'modal-dialog-centered'
-                    });
-                }).unsubscribe();
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(orderAction.ActionTypes.OrderAuthorizeFail),
-            tap(() => {
-                this.util.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant('inquiry.confirm.alert.authorize')
-                });
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+            await this.orderService.authorize(orderData.order);
+            orderData = await this.orderService.getData();
+            const authorizeOrder = orderData.order;
+            if (authorizeOrder === undefined) {
+                throw new Error('authorizeOrder undefined');
+            }
+            this.modal.show(QrCodeModalComponent, {
+                initialState: { order: authorizeOrder },
+                class: 'modal-dialog-centered'
+            });
+        } catch (error) {
+            console.error(error);
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('inquiry.confirm.alert.authorize')
+            });
+        }
     }
 
     /**
      * キャンセル確認
      */
     public cancelConfirm() {
-        this.util.openConfirm({
+        this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('inquiry.confirm.confirm.cancel'),
             cb: async () => {
                 try {
-                    await this.cancel();
-                    await this.inquiry();
+                    let orderData = await this.orderService.getData();
+                    if (orderData.order === undefined) {
+                        throw new Error('order undefined');
+                    }
+                    const orders = [orderData.order];
+                    await this.orderService.cancel(orders);
+                    orderData = await this.orderService.getData();
+                    if (orderData.order === undefined) {
+                        throw new Error('order undefined');
+                    }
+                    await this.orderService.inquiry({
+                        confirmationNumber: orderData.order.confirmationNumber,
+                        customer: { telephone: orderData.order.customer.telephone }
+                    });
                 } catch (error) {
-                    this.error.subscribe((error) => {
-                        this.util.openAlert({
-                            title: this.translate.instant('common.error'),
-                            body: `
-                            <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.cancel')}</p>
-                            <div class="p-3 bg-light-gray select-text error">
-                                <code>${JSON.stringify(error)}</code>
-                            </div>`
-                        });
-                    }).unsubscribe();
+                    this.utilService.openAlert({
+                        title: this.translate.instant('common.error'),
+                        body: `
+                        <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.cancel')}</p>
+                        <div class="p-3 bg-light-gray select-text error">
+                            <code>${error}</code>
+                        </div>`
+                    });
                 }
             }
         });
     }
 
     /**
-     * キャンセル処理
-     */
-    public cancel() {
-        return new Promise((resolve, reject) => {
-            this.order.subscribe((orderData) => {
-                const order = orderData.order;
-                if (order === undefined) {
-                    reject({ error: 'order undefined' });
-                    return;
-                }
-                this.store.dispatch(new orderAction.Cancel({ orders: [order] }));
-            }).unsubscribe();
-            const success = this.actions.pipe(
-                ofType(orderAction.ActionTypes.CancelSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(orderAction.ActionTypes.CancelFail),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * 照会
-     */
-    private inquiry() {
-        return new Promise((resolve, reject) => {
-            this.order.subscribe((orderData) => {
-                const order = orderData.order;
-                if (order === undefined) {
-                    reject({ error: 'order undefined' });
-                    return;
-                }
-                this.store.dispatch(new orderAction.Inquiry({
-                    confirmationNumber: order.confirmationNumber,
-                    customer: { telephone: order.customer.telephone }
-                }));
-            }).unsubscribe();
-            const success = this.actions.pipe(
-                ofType(orderAction.ActionTypes.InquirySuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(orderAction.ActionTypes.InquiryFail),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
      * 印刷
      */
-    public print() {
+    public async print() {
         if (this.timer !== undefined) {
             clearTimeout(this.timer);
         }
-        this.order.subscribe((inquiry) => {
-            this.user.subscribe((user) => {
-                if (inquiry.order === undefined
-                    || user.pos === undefined
-                    || user.printer === undefined) {
-                    this.router.navigate(['/error']);
-                    return;
-                }
-                const orders = [inquiry.order];
-                const pos = user.pos;
-                const printer = user.printer;
-                this.store.dispatch(new orderAction.Print({ orders, pos, printer }));
-            }).unsubscribe();
-        }).unsubscribe();
-
-        const success = this.actions.pipe(
-            ofType(orderAction.ActionTypes.PrintSuccess),
-            tap(() => {
-                this.router.navigate(['/inquiry/print']);
-            })
-        );
-
-        const fail = this.actions.pipe(
-            ofType(orderAction.ActionTypes.PrintFail),
-            tap(() => {
+        try {
+            const orderData = await this.orderService.getData();
+            const user = await this.userService.getData();
+            if (orderData.order === undefined
+                || user.pos === undefined
+                || user.printer === undefined) {
                 this.router.navigate(['/error']);
-            })
-        );
-        race(success, fail).pipe(take(1)).subscribe();
+                return;
+            }
+            const orders = [orderData.order];
+            const pos = user.pos;
+            const printer = user.printer;
+            await this.orderService.print({ orders, pos, printer });
+            this.router.navigate(['/inquiry/print']);
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
     }
 }
