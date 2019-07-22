@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.0.0 - 2019-07-22
+### Chenged
+- actionをserviceから利用へ変更
+
 ## 1.2.2 - 2019-07-04
 ### Fixed
 - 同一注文での別日付予約不具合修正
