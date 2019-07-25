@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import {
-    createCompleteMail,
+    authorizeSeatReservationToEvent,
     createGmoTokenObject,
     createMovieTicketsFromAuthorizeSeatReservation,
     formatTelephone,
@@ -585,13 +585,12 @@ export class PurchaseEffects {
                 };
                 if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                     // 完了メールをカスタマイズ
-                    const url = '/storage/text/purchase/mail/complete.txt';
-                    const template = await this.utilService.getText<string>(url);
-                    params.options.email.template = createCompleteMail({
-                        template,
-                        authorizeSeatReservations,
-                        seller
-                    });
+                    params.options.email.template = (await this.utilService.postJson<{ template: string }>(
+                        '/api/mail/completeTemplate',
+                        {
+                            authorizeSeatReservations: authorizeSeatReservationToEvent({ authorizeSeatReservations }),
+                            seller
+                        })).template;
                 }
                 const result = await this.cinerino.transaction.placeOrder.confirm(params);
                 const order = result.order;

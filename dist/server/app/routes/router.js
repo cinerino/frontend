@@ -6,6 +6,7 @@ const path = require("path");
 const authorize = require("../controllers/authorize/authorize.controller");
 const authorize_1 = require("./authorize");
 const encryption_1 = require("./encryption");
+const mail_1 = require("./mail");
 exports.default = (app) => {
     app.use((_req, res, next) => {
         res.locals.NODE_ENV = process.env.NODE_ENV;
@@ -17,6 +18,7 @@ exports.default = (app) => {
     });
     app.use('/api/authorize', authorize_1.default);
     app.use('/api/encryption', encryption_1.default);
+    app.use('/api/mail', mail_1.default);
     app.get('/api/storage', (_req, res) => { res.json({ storage: process.env.STORAGE_URL }); });
     app.get('/api/serverTime', (_req, res) => { res.json({ date: moment().toISOString() }); });
     app.post('/api/external', (req, res) => {
