@@ -11855,10 +11855,12 @@ var environment_1 = __webpack_require__(/*! ../../environments/environment */ ".
 var models_1 = __webpack_require__(/*! ../models */ "./app/models/index.ts");
 var actions_1 = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
 var reducers = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+var util_service_1 = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var PurchaseService = /** @class */ (function () {
-    function PurchaseService(store, actions) {
+    function PurchaseService(store, actions, utilService) {
         this.store = store;
         this.actions = actions;
+        this.utilService = utilService;
         this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
         this.error = this.store.pipe(store_1.select(reducers.getError));
     }
@@ -11942,20 +11944,23 @@ var PurchaseService = /** @class */ (function () {
      */
     PurchaseService.prototype.startTransaction = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase;
+            var purchase, now;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
+                        return [4 /*yield*/, this.utilService.getServerTime()];
+                    case 2:
+                        now = (_a.sent()).date;
                         return [2 /*return*/, new Promise(function (resolve, reject) {
                                 if (purchase.seller === undefined) {
                                     reject();
                                     return;
                                 }
                                 _this.store.dispatch(new actions_1.purchaseAction.StartTransaction({
-                                    expires: moment().add(environment_1.environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
+                                    expires: moment(now).add(environment_1.environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                                     seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
                                     object: {}
                                 }));
@@ -12419,7 +12424,8 @@ var PurchaseService = /** @class */ (function () {
             providedIn: 'root'
         }),
         __metadata("design:paramtypes", [store_1.Store,
-            effects_1.Actions])
+            effects_1.Actions,
+            util_service_1.UtilService])
     ], PurchaseService);
     return PurchaseService;
 }());
