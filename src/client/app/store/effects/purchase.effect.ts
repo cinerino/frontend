@@ -586,8 +586,9 @@ export class PurchaseEffects {
                 if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                     // 完了メールをカスタマイズ
                     params.options.email.template = (await this.utilService.postJson<{ template: string }>(
-                        '/api/mail/completeTemplate',
+                        '/api/mail/template',
                         {
+                            view: '/ejs/mail/complete.ejs',
                             authorizeSeatReservations: authorizeSeatReservationToEvent({ authorizeSeatReservations }),
                             seller
                         })).template;

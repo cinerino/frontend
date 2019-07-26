@@ -11,10 +11,10 @@ import * as request from 'request';
 import { errorProsess } from '../base/base.controller';
 const log = debug('frontend:mail');
 
-export async function getCompleteTemplate(req: Request, res: Response) {
-    log('getCompleteTemplate');
+export async function getTemplate(req: Request, res: Response) {
+    log('getTemplate');
     try {
-        const view = await requestAsync(`${<string>process.env.STORAGE_URL}/ejs/mail/complete.ejs`);
+        const view = await requestAsync(`${<string>process.env.STORAGE_URL}${req.body.view}`);
         momentTimezone.tz('Asia/Tokyo');
         const template = await ejs.render(view, {...req.body, moment: momentTimezone, formatTelephone, getTicketPrice }, { async: true });
         res.json({ template });

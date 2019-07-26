@@ -15047,7 +15047,7 @@ var OrderEffects = /** @class */ (function () {
                                         if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 3];
                                         // メールをカスタマイズ
                                         _a = email;
-                                        return [4 /*yield*/, this_1.utilService.postJson('/api/mail/returnTemplate', {})];
+                                        return [4 /*yield*/, this_1.utilService.postJson('/api/mail/template', { view: '/ejs/mail/return.ejs' })];
                                     case 2:
                                         // メールをカスタマイズ
                                         _a.template = (_b.sent()).template;
@@ -16226,7 +16226,8 @@ var PurchaseEffects = /** @class */ (function () {
                         if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 4];
                         // 完了メールをカスタマイズ
                         _a = params.options.email;
-                        return [4 /*yield*/, this.utilService.postJson('/api/mail/completeTemplate', {
+                        return [4 /*yield*/, this.utilService.postJson('/api/mail/template', {
+                                view: '/ejs/mail/complete.ejs',
                                 authorizeSeatReservations: functions_1.authorizeSeatReservationToEvent({ authorizeSeatReservations: authorizeSeatReservations }),
                                 seller: seller
                             })];

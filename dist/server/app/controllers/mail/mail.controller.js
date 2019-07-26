@@ -19,11 +19,11 @@ const momentTimezone = require("moment-timezone");
 const request = require("request");
 const base_controller_1 = require("../base/base.controller");
 const log = debug('frontend:mail');
-function getCompleteTemplate(req, res) {
+function getTemplate(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        log('getCompleteTemplate');
+        log('getTemplate');
         try {
-            const view = yield requestAsync(`${process.env.STORAGE_URL}/ejs/mail/complete.ejs`);
+            const view = yield requestAsync(`${process.env.STORAGE_URL}${req.body.view}`);
             momentTimezone.tz('Asia/Tokyo');
             const template = yield ejs.render(view, Object.assign({}, req.body, { moment: momentTimezone, formatTelephone, getTicketPrice }), { async: true });
             res.json({ template });
@@ -33,7 +33,7 @@ function getCompleteTemplate(req, res) {
         }
     });
 }
-exports.getCompleteTemplate = getCompleteTemplate;
+exports.getTemplate = getTemplate;
 function getReturnTemplate(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         log('getReturnTemplate');

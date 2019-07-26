@@ -93,8 +93,8 @@ export class OrderEffects {
                     if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                         // メールをカスタマイズ
                         email.template = (await this.utilService.postJson<{ template: string }>(
-                            '/api/mail/returnTemplate',
-                            {})).template;
+                            '/api/mail/template',
+                            {view: '/ejs/mail/return.ejs'})).template;
                     }
                     await this.cinerino.transaction.returnOrder.confirm({
                         id: startResult.id,
