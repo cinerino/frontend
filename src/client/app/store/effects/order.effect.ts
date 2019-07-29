@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { createPrintCanvas, createReturnMail, createTestPrintCanvas, formatTelephone, retry, sleep } from '../../functions';
+import { createPrintCanvas, createTestPrintCanvas, formatTelephone, retry, sleep } from '../../functions';
 import { connectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import { orderAction } from '../actions';
@@ -92,9 +92,9 @@ export class OrderEffects {
                     };
                     if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                         // メールをカスタマイズ
-                        const url = '/storage/text/order/mail/return.txt';
-                        const template = await this.utilService.getText<string>(url);
-                        email.template = createReturnMail({ template, order });
+                        email.template = (await this.utilService.postJson<{ template: string }>(
+                            '/api/mail/template',
+                            {view: '/ejs/mail/return.ejs'})).template;
                     }
                     await this.cinerino.transaction.returnOrder.confirm({
                         id: startResult.id,

@@ -6,6 +6,7 @@ import { BAD_REQUEST } from 'http-status';
 import * as moment from 'moment';
 import * as path from 'path';
 import * as authorize from '../controllers/authorize/authorize.controller';
+import * as mail from '../controllers/mail/mail.controller';
 import authorizeRouter from './authorize';
 import encryptionRouter from './encryption';
 
@@ -32,6 +33,7 @@ export default (app: express.Application) => {
         }
         res.json((req.session.external === undefined) ? {} : req.session.external);
     });
+    app.post('/api/mail/template', mail.getTemplate);
 
     app.get('/signIn', authorize.signInRedirect);
     app.get('/signOut', authorize.signOutRedirect);

@@ -9612,7 +9612,6 @@ var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-c
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 var qrcode = __webpack_require__(/*! qrcode */ "../../node_modules/qrcode/lib/browser.js");
 var purchase_function_1 = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
-var util_function_1 = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
 /**
  * キャンバスへ描画
  */
@@ -9845,59 +9844,6 @@ function createTestPrintCanvas(args) {
 }
 exports.createTestPrintCanvas = createTestPrintCanvas;
 /**
- * 返品メール生成
- */
-function createReturnMail(args) {
-    var order = args.order;
-    var seller = order.seller;
-    var template = args.template;
-    template = template.replace(/\{\{ seller.name \}\}/g, seller.name);
-    template = template.replace(/\{\{ seller.telephone \}\}/g, (seller.telephone === undefined) ? '' : util_function_1.formatTelephone(seller.telephone, 'NATIONAL'));
-    template = template.replace(/\{\{ orderDate \}\}/g, moment().format('YYYY/MM/DD (ddd) HH:mm'));
-    // イベント
-    var forEventMatchResult = template.match(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/);
-    var forEventText = (forEventMatchResult === null) ? '' : forEventMatchResult[0];
-    var forReplaceEventText = '';
-    var orderToEventOrdersResuult = purchase_function_1.orderToEventOrders({ order: order });
-    orderToEventOrdersResuult.forEach(function (eventResult, index) {
-        var event = eventResult.event;
-        var eventText = forEventText;
-        eventText = eventText.replace(/\{\{ eventNameJa \}\}/g, event.name.ja);
-        eventText = eventText.replace(/\{\{ eventHeadlineJa \}\}/g, (event.superEvent.headline === undefined || event.superEvent.headline === null)
-            ? '' : event.superEvent.headline.ja);
-        eventText = eventText.replace(/\{\{ eventStartDate \}\}/g, moment(event.startDate).format('YYYY/MM/DD (ddd) HH:mm'));
-        eventText = eventText.replace(/\{\{ eventEndDate \}\}/g, moment(event.endDate).format('HH:mm'));
-        eventText = eventText.replace(/\{\{ eventIndex \}\}/g, String(index + 1));
-        eventText = eventText.replace(/\{\{ eventLocationNameJa \}\}/g, event.location.name.ja);
-        eventText = eventText.replace(/\{\{ forStartEvent \}\}/g, '');
-        eventText = eventText.replace(/\{\{ forEndEvent \}\}/g, '');
-        // 予約
-        var forReservationMatchResult = template.match(/\{\{ forStartReservation \}\}[^>]*\{\{ forEndReservation \}\}/);
-        var forReservationText = (forReservationMatchResult === null) ? '' : forReservationMatchResult[0];
-        var forReplaceReservationText = '';
-        eventResult.data.forEach(function (offer) {
-            var offerText = forReservationText;
-            var itemOffered = offer.itemOffered;
-            if (itemOffered.typeOf !== api_javascript_client_1.factory.chevre.reservationType.EventReservation) {
-                return;
-            }
-            offerText = offerText.replace(/\{\{ reservationSeatNumber \}\}/g, (itemOffered.reservedTicket.ticketedSeat === undefined)
-                ? '' : itemOffered.reservedTicket.ticketedSeat.seatNumber);
-            offerText = offerText.replace(/\{\{ reservationId \}\}/g, itemOffered.id);
-            offerText = offerText.replace(/\{\{ reservationTicketTypeNameJa \}\}/g, itemOffered.reservedTicket.ticketType.name.ja);
-            offerText = offerText.replace(/\{\{ reservationPrice \}\}/g, String(purchase_function_1.getTicketPrice({ priceSpecification: itemOffered.price }).total));
-            offerText = offerText.replace(/\{\{ forStartReservation \}\}/g, '');
-            offerText = offerText.replace(/\{\{ forEndReservation \}\}/g, '\n');
-            forReplaceReservationText += offerText;
-        });
-        eventText = eventText.replace(/\{\{ forStartReservation \}\}[^>]*\{\{ forEndReservation \}\}/, forReplaceReservationText);
-        forReplaceEventText += eventText;
-    });
-    template = template.replace(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/, forReplaceEventText);
-    return template;
-}
-exports.createReturnMail = createReturnMail;
-/**
  * 券種情報を枚数別へ変換
  */
 function changeTicketCountByOrder(acceptedOffer) {
@@ -9931,7 +9877,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var api_javascript_client_1 = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 var moment = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 var environment_1 = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
-var util_function_1 = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
 /**
  * 作品別イベントへ変換
  */
@@ -10356,55 +10301,6 @@ function isTicketedSeatScreeningEvent(screeningEvent) {
         && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat !== undefined);
 }
 exports.isTicketedSeatScreeningEvent = isTicketedSeatScreeningEvent;
-/**
- * 購入メール生成
- */
-function createCompleteMail(args) {
-    var template = args.template;
-    var seller = args.seller;
-    var authorizeSeatReservations = args.authorizeSeatReservations;
-    template = template.replace(/\{\{ seller.name \}\}/g, seller.name.ja);
-    template = template.replace(/\{\{ seller.telephone \}\}/g, (seller.telephone === undefined) ? '' : util_function_1.formatTelephone(seller.telephone, 'NATIONAL'));
-    template = template.replace(/\{\{ orderDate \}\}/g, moment().format('YYYY/MM/DD (ddd) HH:mm'));
-    // イベント
-    var forEventMatchResult = template.match(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/);
-    var forEventText = (forEventMatchResult === null) ? '' : forEventMatchResult[0];
-    var forReplaceEventText = '';
-    var authorizeSeatReservationToEventResuult = authorizeSeatReservationToEvent({ authorizeSeatReservations: authorizeSeatReservations });
-    authorizeSeatReservationToEventResuult.forEach(function (eventResult, index) {
-        var event = eventResult.event;
-        var eventText = forEventText;
-        eventText = eventText.replace(/\{\{ eventNameJa \}\}/g, event.name.ja);
-        eventText = eventText.replace(/\{\{ eventHeadlineJa \}\}/g, (event.superEvent.headline === undefined || event.superEvent.headline === null)
-            ? '' : event.superEvent.headline.ja);
-        eventText = eventText.replace(/\{\{ eventStartDate \}\}/g, moment(event.startDate).format('YYYY/MM/DD (ddd) HH:mm'));
-        eventText = eventText.replace(/\{\{ eventEndDate \}\}/g, moment(event.endDate).format('HH:mm'));
-        eventText = eventText.replace(/\{\{ eventIndex \}\}/g, String(index + 1));
-        eventText = eventText.replace(/\{\{ eventLocationNameJa \}\}/g, event.location.name.ja);
-        eventText = eventText.replace(/\{\{ forStartEvent \}\}/g, '');
-        eventText = eventText.replace(/\{\{ forEndEvent \}\}/g, '');
-        // 予約
-        var forReservationMatchResult = template.match(/\{\{ forStartReservation \}\}[^>]*\{\{ forEndReservation \}\}/);
-        var forReservationText = (forReservationMatchResult === null) ? '' : forReservationMatchResult[0];
-        var forReplaceReservationText = '';
-        eventResult.reservations.forEach(function (reservation) {
-            var reservationText = forReservationText;
-            reservationText = reservationText.replace(/\{\{ reservationSeatNumber \}\}/g, (reservation.reservedTicket.ticketedSeat === undefined)
-                ? '' : reservation.reservedTicket.ticketedSeat.seatNumber);
-            reservationText = reservationText.replace(/\{\{ reservationId \}\}/g, reservation.id);
-            reservationText = reservationText.replace(/\{\{ reservationTicketTypeNameJa \}\}/g, reservation.reservedTicket.ticketType.name.ja);
-            reservationText = reservationText.replace(/\{\{ reservationPrice \}\}/g, String(getTicketPrice({ priceSpecification: reservation.price }).total));
-            reservationText = reservationText.replace(/\{\{ forStartReservation \}\}/g, '');
-            reservationText = reservationText.replace(/\{\{ forEndReservation \}\}/g, '\n');
-            forReplaceReservationText += reservationText;
-        });
-        eventText = eventText.replace(/\{\{ forStartReservation \}\}[^>]*\{\{ forEndReservation \}\}/, forReplaceReservationText);
-        forReplaceEventText += eventText;
-    });
-    template = template.replace(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/, forReplaceEventText);
-    return template;
-}
-exports.createCompleteMail = createCompleteMail;
 /**
  * 券種情報を枚数別へ変換
  */
@@ -13139,6 +13035,22 @@ var UtilService = /** @class */ (function () {
         });
     };
     /**
+     * json送信
+     */
+    UtilService.prototype.postJson = function (url, body, options) {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.http.post(url, body, options).toPromise()];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, result];
+                }
+            });
+        });
+    };
+    /**
      * text取得
      */
     UtilService.prototype.getText = function (url, options) {
@@ -15104,9 +15016,9 @@ var OrderEffects = /** @class */ (function () {
                     case 2:
                         _a.sent();
                         _loop_1 = function (order) {
-                            var startResult, creditCards, email, url, template;
-                            return __generator(this, function (_a) {
-                                switch (_a.label) {
+                            var startResult, creditCards, email, _a;
+                            return __generator(this, function (_b) {
+                                switch (_b.label) {
                                     case 0: return [4 /*yield*/, this_1.cinerino.transaction.returnOrder.start({
                                             expires: moment().add(1, 'day').toDate(),
                                             object: {
@@ -15119,7 +15031,7 @@ var OrderEffects = /** @class */ (function () {
                                             }
                                         })];
                                     case 1:
-                                        startResult = _a.sent();
+                                        startResult = _b.sent();
                                         creditCards = order.paymentMethods.filter(function (p) { return p.typeOf === api_javascript_client_1.factory.paymentMethodType.CreditCard; });
                                         email = {
                                             sender: {
@@ -15139,12 +15051,13 @@ var OrderEffects = /** @class */ (function () {
                                             template: undefined
                                         };
                                         if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 3];
-                                        url = '/storage/text/order/mail/return.txt';
-                                        return [4 /*yield*/, this_1.utilService.getText(url)];
+                                        // メールをカスタマイズ
+                                        _a = email;
+                                        return [4 /*yield*/, this_1.utilService.postJson('/api/mail/template', { view: '/ejs/mail/return.ejs' })];
                                     case 2:
-                                        template = _a.sent();
-                                        email.template = functions_1.createReturnMail({ template: template, order: order });
-                                        _a.label = 3;
+                                        // メールをカスタマイズ
+                                        _a.template = (_b.sent()).template;
+                                        _b.label = 3;
                                     case 3: return [4 /*yield*/, this_1.cinerino.transaction.returnOrder.confirm({
                                             id: startResult.id,
                                             potentialActions: {
@@ -15171,7 +15084,7 @@ var OrderEffects = /** @class */ (function () {
                                             }
                                         })];
                                     case 4:
-                                        _a.sent();
+                                        _b.sent();
                                         return [2 /*return*/];
                                 }
                             });
@@ -16279,19 +16192,19 @@ var PurchaseEffects = /** @class */ (function () {
          * EndTransaction
          */
         this.endTransaction = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransaction), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, authorizeSeatReservations, seller, email, params, url, template, result, order, sendData, error_15;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var transaction, authorizeSeatReservations, seller, email, params, _a, result, order, sendData, error_15;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         transaction = payload.transaction;
                         authorizeSeatReservations = payload.authorizeSeatReservations;
                         seller = payload.seller;
-                        _a.label = 1;
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 6, , 8]);
+                        _b.trys.push([1, 6, , 8]);
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 2:
-                        _a.sent();
+                        _b.sent();
                         email = {
                             sender: {
                                 name: (this.translate.instant('email.purchase.complete.sender.name') === '')
@@ -16317,19 +16230,20 @@ var PurchaseEffects = /** @class */ (function () {
                             }
                         };
                         if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 4];
-                        url = '/storage/text/purchase/mail/complete.txt';
-                        return [4 /*yield*/, this.utilService.getText(url)];
+                        // 完了メールをカスタマイズ
+                        _a = params.options.email;
+                        return [4 /*yield*/, this.utilService.postJson('/api/mail/template', {
+                                view: '/ejs/mail/complete.ejs',
+                                authorizeSeatReservations: functions_1.authorizeSeatReservationToEvent({ authorizeSeatReservations: authorizeSeatReservations }),
+                                seller: seller
+                            })];
                     case 3:
-                        template = _a.sent();
-                        params.options.email.template = functions_1.createCompleteMail({
-                            template: template,
-                            authorizeSeatReservations: authorizeSeatReservations,
-                            seller: seller
-                        });
-                        _a.label = 4;
+                        // 完了メールをカスタマイズ
+                        _a.template = (_b.sent()).template;
+                        _b.label = 4;
                     case 4: return [4 /*yield*/, this.cinerino.transaction.placeOrder.confirm(params)];
                     case 5:
-                        result = _a.sent();
+                        result = _b.sent();
                         order = result.order;
                         if (environment_1.environment.ANALYTICS_ID !== '') {
                             try {
@@ -16348,12 +16262,12 @@ var PurchaseEffects = /** @class */ (function () {
                         }
                         return [2 /*return*/, new actions_1.purchaseAction.EndTransactionSuccess({ order: order })];
                     case 6:
-                        error_15 = _a.sent();
+                        error_15 = _b.sent();
                         return [4 /*yield*/, this.cinerino.transaction.placeOrder.cancel({
                                 id: transaction.id
                             })];
                     case 7:
-                        _a.sent();
+                        _b.sent();
                         return [2 /*return*/, new actions_1.purchaseAction.EndTransactionFail({ error: error_15 })];
                     case 8: return [2 /*return*/];
                 }
