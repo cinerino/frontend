@@ -13,10 +13,10 @@
             {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
         </p>
         <p class="text-small mb-1">
-            <span>
+            <span class="theatre-name">
                 {{ screeningEvent.superEvent.location.name | changeLanguage }}
             </span>
-            <span>
+            <span class="screen-name">
                 &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}
             </span>
             <span *ngIf="screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0">

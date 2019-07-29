@@ -140,10 +140,10 @@
                                 <p
                                     *ngIf="!((acceptedOffer.itemOffered.reservationFor.name | changeLanguage).length > 10)">{{
                                     acceptedOffer.itemOffered.reservationFor.name | changeLanguage }}</p>
-                                <p>{{
-                                    acceptedOffer.itemOffered.reservationFor.superEvent.location.name | changeLanguage }}
-                                    / {{
-                                    acceptedOffer.itemOffered.reservationFor.location.name | changeLanguage }}</p>
+                                <p>
+                                    <span class="theatre-name">{{ acceptedOffer.itemOffered.reservationFor.superEvent.location.name | changeLanguage }}</span>
+                                    <span class="screen-name">&nbsp;/&nbsp;{{ acceptedOffer.itemOffered.reservationFor.location.name | changeLanguage }}</span>
+                                </p>
                                 <p>{{ acceptedOffer.itemOffered.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
                                     -</p>
                             </div>
