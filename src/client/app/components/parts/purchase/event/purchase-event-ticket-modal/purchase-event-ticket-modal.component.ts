@@ -15,7 +15,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
 
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     @Input() public screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
-    @Input() public screeningEvent: factory.event.screeningEvent.IEvent;
+    @Input() public screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     @Input() public cb: (reservationTickets: IReservationTicket[]) => void;
     public tickets: factory.chevre.event.screeningEvent.ITicketOffer[];
     public getTicketPrice = getTicketPrice;
@@ -42,7 +42,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
             || this.screeningEvent.offers.eligibleQuantity.maxValue === undefined)
             ? 0 : this.screeningEvent.offers.eligibleQuantity.maxValue;
         if (isTicketedSeatScreeningEvent(this.screeningEvent)) {
-            const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers);
+            const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
             limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
         }
         for (let i = 0; i < limit; i++) {
@@ -81,7 +81,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
      * 残席数表示判定
      */
     public isViewRemainingSeatCount() {
-        const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers);
+        const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
         const screeningEvent = this.screeningEvent;
         if (!isTicketedSeatScreeningEvent(screeningEvent)) {
             return false;
