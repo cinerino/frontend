@@ -26,7 +26,7 @@ app.set('views', `${__dirname}/../../../views`); // view設定
 app.set('view engine', 'ejs');
 app.use(compression());
 app.use(express.static(`${__dirname}/../../../public`)); // server
-app.use(express.static(`${__dirname}/../../client/${process.env.NODE_ENV}`, {
+app.use(express.static(`${__dirname}/../../client/${(process.env.NODE_ENV === 'production') ? 'production' : 'development'}`, {
     index: false
 })); // client
 router_1.default(app);
