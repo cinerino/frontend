@@ -24,7 +24,6 @@ function getTemplate(req, res) {
         log('getTemplate');
         try {
             const view = yield requestAsync(`${process.env.STORAGE_URL}${req.body.view}`);
-            momentTimezone.tz('Asia/Tokyo');
             const template = yield ejs.render(view, Object.assign({}, req.body, { moment: momentTimezone, formatTelephone, getTicketPrice }), { async: true });
             res.json({ template });
         }
@@ -34,21 +33,6 @@ function getTemplate(req, res) {
     });
 }
 exports.getTemplate = getTemplate;
-function getReturnTemplate(req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        log('getReturnTemplate');
-        try {
-            const view = yield requestAsync(`${process.env.STORAGE_URL}/ejs/mail/return.ejs`);
-            momentTimezone.tz('Asia/Tokyo');
-            const template = yield ejs.render(view, Object.assign({}, req.body, { moment: momentTimezone, formatTelephone, getTicketPrice }), { async: true });
-            res.json({ template });
-        }
-        catch (err) {
-            base_controller_1.errorProsess(res, err);
-        }
-    });
-}
-exports.getReturnTemplate = getReturnTemplate;
 function requestAsync(url, options) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve, reject) => {

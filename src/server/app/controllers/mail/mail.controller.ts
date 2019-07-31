@@ -15,19 +15,6 @@ export async function getTemplate(req: Request, res: Response) {
     log('getTemplate');
     try {
         const view = await requestAsync(`${<string>process.env.STORAGE_URL}${req.body.view}`);
-        momentTimezone.tz('Asia/Tokyo');
-        const template = await ejs.render(view, {...req.body, moment: momentTimezone, formatTelephone, getTicketPrice }, { async: true });
-        res.json({ template });
-    } catch (err) {
-        errorProsess(res, err);
-    }
-}
-
-export async function getReturnTemplate(req: Request, res: Response) {
-    log('getReturnTemplate');
-    try {
-        const view = await requestAsync(`${<string>process.env.STORAGE_URL}/ejs/mail/return.ejs`);
-        momentTimezone.tz('Asia/Tokyo');
         const template = await ejs.render(view, {...req.body, moment: momentTimezone, formatTelephone, getTicketPrice }, { async: true });
         res.json({ template });
     } catch (err) {
