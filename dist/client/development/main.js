@@ -15657,9 +15657,9 @@ var OrderEffects = /** @class */ (function () {
                     case 2:
                         _a.sent();
                         _loop_1 = function (order) {
-                            var startResult, creditCards, email, _a;
-                            return __generator(this, function (_b) {
-                                switch (_b.label) {
+                            var startResult, creditCards, email, view, template;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
                                     case 0: return [4 /*yield*/, this_1.cinerino.transaction.returnOrder.start({
                                             expires: moment().add(1, 'day').toDate(),
                                             object: {
@@ -15672,7 +15672,7 @@ var OrderEffects = /** @class */ (function () {
                                             }
                                         })];
                                     case 1:
-                                        startResult = _b.sent();
+                                        startResult = _a.sent();
                                         creditCards = order.paymentMethods.filter(function (p) { return p.typeOf === api_javascript_client_1.factory.paymentMethodType.CreditCard; });
                                         email = {
                                             sender: {
@@ -15691,15 +15691,16 @@ var OrderEffects = /** @class */ (function () {
                                                 ? undefined : this_1.translate.instant('email.order.return.about'),
                                             template: undefined
                                         };
-                                        if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 3];
-                                        // メールをカスタマイズ
-                                        _a = email;
-                                        return [4 /*yield*/, this_1.utilService.postJson('/api/mail/template', { view: '/ejs/mail/return.ejs' })];
+                                        if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 4];
+                                        return [4 /*yield*/, this_1.utilService.getText('/storage/ejs/mail/return.ejs')];
                                     case 2:
-                                        // メールをカスタマイズ
-                                        _a.template = (_b.sent()).template;
-                                        _b.label = 3;
-                                    case 3: return [4 /*yield*/, this_1.cinerino.transaction.returnOrder.confirm({
+                                        view = _a.sent();
+                                        return [4 /*yield*/, window.ejs.render(view, { moment: moment, formatTelephone: functions_1.formatTelephone, getTicketPrice: functions_1.getTicketPrice }, { async: true })];
+                                    case 3:
+                                        template = _a.sent();
+                                        email.template = template;
+                                        _a.label = 4;
+                                    case 4: return [4 /*yield*/, this_1.cinerino.transaction.returnOrder.confirm({
                                             id: startResult.id,
                                             potentialActions: {
                                                 returnOrder: {
@@ -15724,8 +15725,8 @@ var OrderEffects = /** @class */ (function () {
                                                 }
                                             }
                                         })];
-                                    case 4:
-                                        _b.sent();
+                                    case 5:
+                                        _a.sent();
                                         return [2 /*return*/];
                                 }
                             });
@@ -16840,19 +16841,19 @@ var PurchaseEffects = /** @class */ (function () {
          * EndTransaction
          */
         this.endTransaction = this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransaction), operators_1.map(function (action) { return action.payload; }), operators_1.mergeMap(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, authorizeSeatReservations, seller, email, params, _a, result, order, sendData, error_15;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var transaction, authorizeSeatReservations, seller, email, params, view, template, result, order, sendData, error_15;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         transaction = payload.transaction;
                         authorizeSeatReservations = payload.authorizeSeatReservations;
                         seller = payload.seller;
-                        _b.label = 1;
+                        _a.label = 1;
                     case 1:
-                        _b.trys.push([1, 6, , 8]);
+                        _a.trys.push([1, 7, , 9]);
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 2:
-                        _b.sent();
+                        _a.sent();
                         email = {
                             sender: {
                                 name: (this.translate.instant('email.purchase.complete.sender.name') === '')
@@ -16877,21 +16878,22 @@ var PurchaseEffects = /** @class */ (function () {
                                 email: email
                             }
                         };
-                        if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 4];
-                        // 完了メールをカスタマイズ
-                        _a = params.options.email;
-                        return [4 /*yield*/, this.utilService.postJson('/api/mail/template', {
-                                view: '/ejs/mail/complete.ejs',
-                                authorizeSeatReservations: functions_1.authorizeSeatReservationToEvent({ authorizeSeatReservations: authorizeSeatReservations }),
-                                seller: seller
-                            })];
+                        if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 5];
+                        return [4 /*yield*/, this.utilService.getText('/storage/ejs/mail/complete.ejs')];
                     case 3:
-                        // 完了メールをカスタマイズ
-                        _a.template = (_b.sent()).template;
-                        _b.label = 4;
-                    case 4: return [4 /*yield*/, this.cinerino.transaction.placeOrder.confirm(params)];
-                    case 5:
-                        result = _b.sent();
+                        view = _a.sent();
+                        return [4 /*yield*/, window.ejs.render(view, {
+                                authorizeSeatReservations: functions_1.authorizeSeatReservationToEvent({ authorizeSeatReservations: authorizeSeatReservations }),
+                                seller: seller,
+                                moment: moment, formatTelephone: functions_1.formatTelephone, getTicketPrice: functions_1.getTicketPrice
+                            }, { async: true })];
+                    case 4:
+                        template = _a.sent();
+                        email.template = template;
+                        _a.label = 5;
+                    case 5: return [4 /*yield*/, this.cinerino.transaction.placeOrder.confirm(params)];
+                    case 6:
+                        result = _a.sent();
                         order = result.order;
                         if (environment_1.environment.ANALYTICS_ID !== '') {
                             try {
@@ -16909,15 +16911,15 @@ var PurchaseEffects = /** @class */ (function () {
                             }
                         }
                         return [2 /*return*/, new actions_1.purchaseAction.EndTransactionSuccess({ order: order })];
-                    case 6:
-                        error_15 = _b.sent();
+                    case 7:
+                        error_15 = _a.sent();
                         return [4 /*yield*/, this.cinerino.transaction.placeOrder.cancel({
                                 id: transaction.id
                             })];
-                    case 7:
-                        _b.sent();
+                    case 8:
+                        _a.sent();
                         return [2 /*return*/, new actions_1.purchaseAction.EndTransactionFail({ error: error_15 })];
-                    case 8: return [2 /*return*/];
+                    case 9: return [2 /*return*/];
                 }
             });
         }); }));

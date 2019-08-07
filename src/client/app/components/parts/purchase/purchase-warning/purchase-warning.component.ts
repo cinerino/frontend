@@ -24,7 +24,7 @@ export class PurchaseWarningComponent implements OnInit, OnChanges {
     public async ngOnChanges() {
         try {
             const url = `/storage/text/purchase/warning/${this.language}.txt`;
-            const result = await this.utilService.getText<string>(url);
+            const result = await this.utilService.getText(url);
             this.warning = result.replace(/\n/g, '<br>');
         } catch (error) {
             console.error(error);

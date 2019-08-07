@@ -5,11 +5,10 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { createPrintCanvas, createTestPrintCanvas, formatTelephone, retry, sleep } from '../../functions';
+import { createPrintCanvas, createTestPrintCanvas, formatTelephone, getTicketPrice, retry, sleep } from '../../functions';
 import { connectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import { orderAction } from '../actions';
-
 /**
  * Order Effects
  */
@@ -92,9 +91,9 @@ export class OrderEffects {
                     };
                     if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                         // メールをカスタマイズ
-                        email.template = (await this.utilService.postJson<{ template: string }>(
-                            '/api/mail/template',
-                            {view: '/ejs/mail/return.ejs'})).template;
+                        const view = await this.utilService.getText('/storage/ejs/mail/return.ejs');
+                        const template = await (<any>window).ejs.render(view, { moment, formatTelephone, getTicketPrice }, { async: true });
+                        email.template = template;
                     }
                     await this.cinerino.transaction.returnOrder.confirm({
                         id: startResult.id,

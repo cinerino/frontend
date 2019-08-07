@@ -4,7 +4,6 @@ const http_status_1 = require("http-status");
 const moment = require("moment");
 const path = require("path");
 const authorize = require("../controllers/authorize/authorize.controller");
-const mail = require("../controllers/mail/mail.controller");
 const authorize_1 = require("./authorize");
 const encryption_1 = require("./encryption");
 exports.default = (app) => {
@@ -28,7 +27,6 @@ exports.default = (app) => {
         }
         res.json((req.session.external === undefined) ? {} : req.session.external);
     });
-    app.post('/api/mail/template', mail.getTemplate);
     app.get('/signIn', authorize.signInRedirect);
     app.get('/signOut', authorize.signOutRedirect);
     app.get('*', (req, res, _next) => {
