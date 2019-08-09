@@ -505,7 +505,7 @@ module.exports = "<div *ngIf=\"!((purchase | async)?.external?.theaterBranchCode
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.seat.read' | translate\"></p>\n\n    <app-screen *ngIf=\"(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0\" class=\"mb-4\"\n        [screenData]=\"(purchase | async).screenData\" (select)=\"selectSeat($event)\">\n    </app-screen>\n\n    <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.seat.next' | translate }}</button>\n        <button *ngIf=\"!(purchase | async).external.eventId\" type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/schedule\">{{ 'purchase.cinema.seat.prev' | translate }}</button>\n        <a *ngIf=\"(purchase | async).external.eventId\" class=\"btn btn-link\"\n            [href]=\"(purchase | async).seller.url\">{{ 'purchase.cinema.seat.prev' | translate }}</a>\n    </div>\n\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.seat.read' | translate\"></p>\n\n    <app-screen *ngIf=\"(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0\" class=\"mb-4\"\n        [screenData]=\"(purchase | async).screenData\" (select)=\"selectSeat($event)\">\n    </app-screen>\n\n    <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.seat.next' | translate }}</button>\n        <button *ngIf=\"!(purchase | async).external?.eventId\" type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/schedule\">{{ 'purchase.cinema.seat.prev' | translate }}</button>\n        <a *ngIf=\"(purchase | async).external?.eventId\" class=\"btn btn-link\"\n            [href]=\"(purchase | async).seller.url\">{{ 'purchase.cinema.seat.prev' | translate }}</a>\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -6485,6 +6485,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 var router_1 = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
@@ -6493,30 +6528,50 @@ var models_1 = __webpack_require__(/*! ../../../../models */ "./app/models/index
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseRootComponent = /** @class */ (function () {
-    function PurchaseRootComponent(store, purchaseService, router) {
+    function PurchaseRootComponent(store, purchaseService, userService, router) {
         this.store = store;
         this.purchaseService = purchaseService;
+        this.userService = userService;
         this.router = router;
     }
     /**
      * 初期化
      */
     PurchaseRootComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.user = this.store.pipe(store_1.select(reducers.getUser));
-        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
-        this.purchaseService.delete();
-        this.user.subscribe(function (user) {
-            if (user.viewType === models_1.ViewType.Cinema) {
-                _this.router.navigate(['/purchase/cinema/schedule']);
-                return;
-            }
-            _this.router.navigate(['/purchase/event/schedule']);
-        }).unsubscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var user, purchase;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.user = this.store.pipe(store_1.select(reducers.getUser));
+                        this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
+                        this.purchaseService.delete();
+                        return [4 /*yield*/, this.userService.getData()];
+                    case 1:
+                        user = _a.sent();
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 2:
+                        purchase = _a.sent();
+                        if (user.viewType === models_1.ViewType.Cinema
+                            && purchase.external !== undefined
+                            && purchase.external.eventId !== undefined) {
+                            this.router.navigate(["/purchase/transaction/" + purchase.external.eventId]);
+                            return [2 /*return*/];
+                        }
+                        if (user.viewType === models_1.ViewType.Cinema) {
+                            this.router.navigate(['/purchase/cinema/schedule']);
+                            return [2 /*return*/];
+                        }
+                        this.router.navigate(['/purchase/event/schedule']);
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     PurchaseRootComponent.ctorParameters = function () { return [
         { type: store_1.Store },
         { type: services_1.PurchaseService },
+        { type: services_1.UserService },
         { type: router_1.Router }
     ]; };
     PurchaseRootComponent = __decorate([
@@ -6527,6 +6582,7 @@ var PurchaseRootComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [store_1.Store,
             services_1.PurchaseService,
+            services_1.UserService,
             router_1.Router])
     ], PurchaseRootComponent);
     return PurchaseRootComponent;
