@@ -50,7 +50,6 @@ export class PurchaseInputComponent implements OnInit {
      * 初期化
      */
     public ngOnInit() {
-        this.amount = 0;
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
@@ -99,18 +98,50 @@ export class PurchaseInputComponent implements OnInit {
     private createCustomerContactForm() {
         const NAME_MAX_LENGTH = 12;
         const MAIL_MAX_LENGTH = 50;
-        const TEL_MAX_LENGTH = 11;
+        const TEL_MAX_LENGTH = 15;
         const TEL_MIN_LENGTH = 9;
         this.customerContactForm = this.formBuilder.group({
             familyName: ['', [
                 Validators.required,
                 Validators.maxLength(NAME_MAX_LENGTH),
-                Validators.pattern(/^[ァ-ヶー]+$/)
+                (control: AbstractControl): (ValidationErrors | null) => {
+                    const field = control.root.get('familyName');
+                    const language = document.documentElement.lang;
+                    if (field !== null) {
+                        if (field.value === '') {
+                            return null;
+                        }
+                        if (language === 'ja' && !new RegExp(/^[ァ-ヶー]+$/).test(field.value)) {
+                            return { customPattern: true };
+                        }
+                        if (language !== 'ja' && !new RegExp(/^[a-z]+$/).test(field.value)) {
+                            return { customPattern: true };
+                        }
+                    }
+
+                    return null;
+                }
             ]],
             givenName: ['', [
                 Validators.required,
                 Validators.maxLength(NAME_MAX_LENGTH),
-                Validators.pattern(/^[ァ-ヶー]+$/)
+                (control: AbstractControl): (ValidationErrors | null) => {
+                    const field = control.root.get('givenName');
+                    const language = document.documentElement.lang;
+                    if (field !== null) {
+                        if (field.value === '') {
+                            return null;
+                        }
+                        if (language === 'ja' && !new RegExp(/^[ァ-ヶー]+$/).test(field.value)) {
+                            return { customPattern: true };
+                        }
+                        if (language !== 'ja' && !new RegExp(/^[a-z]+$/).test(field.value)) {
+                            return { customPattern: true };
+                        }
+                    }
+
+                    return null;
+                }
             ]],
             email: ['', [
                 Validators.required,
@@ -121,11 +152,15 @@ export class PurchaseInputComponent implements OnInit {
                 Validators.required,
                 Validators.maxLength(TEL_MAX_LENGTH),
                 Validators.minLength(TEL_MIN_LENGTH),
-                Validators.pattern(/^[0-9]+$/),
                 (control: AbstractControl): ValidationErrors | null => {
                     const field = control.root.get('telephone');
                     if (field !== null) {
-                        const parsedNumber = libphonenumber.parse(field.value, 'JP');
+                        if (field.value === '') {
+                            return null;
+                        }
+                        const parsedNumber = (new RegExp(/^\+/).test(field.value))
+                            ? libphonenumber.parse(field.value)
+                            : libphonenumber.parse(field.value, 'JP');
                         if (parsedNumber.phone === undefined) {
                             return { telephone: true };
                         }

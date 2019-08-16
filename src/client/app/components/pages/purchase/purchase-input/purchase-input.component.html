@@ -18,8 +18,10 @@
                             <p *ngIf="customerContactForm.controls.familyName.errors.maxlength" class="text-danger">
                                 {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.familyName.errors.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="customerContactForm.controls.familyName.errors.pattern" class="text-danger">
+                            <p *ngIf="(user | async)?.language === 'ja' && customerContactForm.controls.familyName.errors.customPattern" class="text-danger">
                                 {{ 'form.validation.fullKana' | translate }}</p>
+                            <p *ngIf="(user | async)?.language !== 'ja' && customerContactForm.controls.familyName.errors.customPattern" class="text-danger">
+                                {{ 'form.validation.lowercaseLetters' | translate }}</p>
                         </div>
                     </div>
                 </div>
@@ -36,9 +38,10 @@
                             <p *ngIf="customerContactForm.controls.givenName.errors.maxlength" class="text-danger">
                                 {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.givenName.errors.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="customerContactForm.controls.givenName.errors.pattern" class="text-danger">
-                                {{ 'form.validation.fullKana' | translate }}
-                            </p>
+                            <p *ngIf="(user | async)?.language === 'ja' && customerContactForm.controls.givenName.errors.customPattern" class="text-danger">
+                                {{ 'form.validation.fullKana' | translate }}</p>
+                            <p *ngIf="(user | async)?.language !== 'ja' && customerContactForm.controls.givenName.errors.customPattern" class="text-danger">
+                                {{ 'form.validation.lowercaseLetters' | translate }}</p>
                         </div>
                     </div>
                 </div>
@@ -80,8 +83,6 @@
                             <p *ngIf="customerContactForm.controls.telephone.errors.maxlength" class="text-danger">
                                 {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.telephone.errors.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="customerContactForm.controls.telephone.errors.pattern" class="text-danger">
-                                {{ 'form.validation.number' | translate }}</p>
                             <p *ngIf="customerContactForm.controls.telephone.errors.telephone" class="text-danger">
                                 {{ 'form.validation.telephone' | translate }}</p>
                         </div>
