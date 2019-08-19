@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 /**
  * 環境変数
  */
@@ -115,14 +117,7 @@ interface IEnvironment {
      * スケジュール売止相対指定単位
      * 当日24：00から相対的に指定
      */
-    PURCHASE_SCHEDULE_SALES_DATE_UNIT: 'year' | 'years' | 'y' |
-    'month' | 'months' | 'M' |
-    'week' | 'weeks' | 'w' |
-    'day' | 'days' | 'd' |
-    'hour' | 'hours' | 'h' |
-    'minute' | 'minutes' | 'm' |
-    'second' | 'seconds' | 's' |
-    'millisecond' | 'milliseconds' | 'ms';
+    PURCHASE_SCHEDULE_SALES_DATE_UNIT: moment.DurationInputArg2;
     /**
      * 売止時間(HHmmss)
      * 設定しない場合は空文字('')
@@ -176,6 +171,14 @@ interface IEnvironment {
      * 照会印刷
      */
     INQUIRY_PRINT: boolean;
+    /**
+     * 照会印刷期限値
+     */
+    INQUIRY_PRINT_EXPIRED_VALUE: string;
+    /**
+     * 照会印刷期限単位
+     */
+    INQUIRY_PRINT_EXPIRED_UNIT: moment.DurationInputArg2;
     /**
      * 照会印刷待機時間
      */
@@ -248,6 +251,8 @@ const defaultEnvironment: IEnvironment = {
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: false,
     INQUIRY_PRINT: false,
+    INQUIRY_PRINT_EXPIRED_VALUE: '0',
+    INQUIRY_PRINT_EXPIRED_UNIT: 'hour',
     INQUIRY_PRINT_WAIT_TIME: '',
     INQUIRY_PRINT_SUCCESS_WAIT_TIME: '',
     INQUIRY_INPUT_KEYPAD: false,

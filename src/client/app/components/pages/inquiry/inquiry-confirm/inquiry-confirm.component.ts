@@ -142,6 +142,18 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
      * 印刷
      */
     public async print() {
+        const today = moment().format('YYYYMMDD');
+        const limit = moment(today)
+            .add(environment.INQUIRY_PRINT_EXPIRED_VALUE, environment.INQUIRY_PRINT_EXPIRED_UNIT)
+            .format('YYYYMMDD');
+        const findResult = this.eventOrders.find(o => moment(o.event.startDate).format('YYYYMMDD') < limit);
+        if (findResult !== undefined) {
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('inquiry.confirm.alert.printExpired')
+            });
+            return;
+        }
         if (this.timer !== undefined) {
             clearTimeout(this.timer);
         }

@@ -12,6 +12,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.1.0 - 2019-08-19
+### Added
+- 発券期限の設定追加
+- 劇場名、スクリーン名へcssクラス追加
+### Changed
+- メールテンプレートをejsへ変更
+- 取引期限をサーバータイムから算出へ変更
+
 ## 2.0.0 - 2019-07-22
 ### Chenged
 - actionをserviceから利用へ変更

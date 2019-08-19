@@ -28,11 +28,11 @@
                 <div *ngFor="let screeningEvent of screeningWorkEvent.data" class="px-1 swiper-slide">
                     <div class="border boder-gray rounded py-3 text-center pointer" [ngClass]="{ 
                 'bg-white': isSales(screeningEvent) && (screeningEvent.remainingAttendeeCapacity > 0 || !isTicketedSeatScreeningEvent(screeningEvent)), 
-                'bg-dark-gray text-light-gray not-event': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0
+                'bg-dark-gray text-light-gray not-event': !isSales(screeningEvent) || isScheduleStatusThreshold(screeningEvent, 'danger')
                 }" (click)="select.emit(screeningEvent)">
-                        <!-- <div class="mb-2 text-small">
+                        <div class="mb-2 text-small screen-name">
                             {{ screeningEvent.location.name | changeLanguage }}
-                        </div> -->
+                        </div>
                         <div class="font-weight-bold mb-2">
                             {{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
                         </div>

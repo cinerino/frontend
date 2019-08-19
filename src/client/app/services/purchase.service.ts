@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 import { IReservationSeat, IReservationTicket, Reservation } from '../models';
 import { purchaseAction } from '../store/actions';
 import * as reducers from '../store/reducers';
+import { UtilService } from './util.service';
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +19,8 @@ export class PurchaseService {
     public error: Observable<string | null>;
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions
+        private actions: Actions,
+        private utilService: UtilService
     ) {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.error = this.store.pipe(select(reducers.getError));
@@ -115,13 +117,14 @@ export class PurchaseService {
      */
     public async startTransaction() {
         const purchase = await this.getData();
+        const now = (await this.utilService.getServerTime()).date;
         return new Promise<void>((resolve, reject) => {
             if (purchase.seller === undefined) {
                 reject();
                 return;
             }
             this.store.dispatch(new purchaseAction.StartTransaction({
-                expires: moment().add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
+                expires: moment(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                 seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
                 object: {}
             }));

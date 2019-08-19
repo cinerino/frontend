@@ -199,7 +199,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             const purchase = await this.purchaseService.getData();
             if (purchase.screeningEvent !== undefined
                 && isTicketedSeatScreeningEvent(purchase.screeningEvent)) {
-                const remainingSeatLength = getRemainingSeatLength(purchase.screeningEventOffers);
+                const remainingSeatLength = getRemainingSeatLength(purchase.screeningEventOffers, purchase.screeningEvent);
                 if (remainingSeatLength < reservationTickets.length) {
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),

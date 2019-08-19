@@ -2,8 +2,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
 import { ITicketPrintData } from '../models';
-import { getTicketPrice, orderToEventOrders } from './purchase.function';
-import { formatTelephone } from './util.function';
+import { getTicketPrice } from './purchase.function';
 
 /**
  * キャンバスへ描画
@@ -238,84 +237,6 @@ export async function createTestPrintCanvas(args: { printData: ITicketPrintData 
     const canvas = await drawCanvas({ printData, data });
 
     return canvas;
-}
-
-/**
- * 返品メール生成
- */
-export function createReturnMail(args: {
-    order: factory.order.IOrder,
-    template: string
-}) {
-    const order = args.order;
-    const seller = order.seller;
-    let template = args.template;
-    template = template.replace(/\{\{ seller.name \}\}/g, seller.name);
-    template = template.replace(
-        /\{\{ seller.telephone \}\}/g,
-        (seller.telephone === undefined) ? '' : formatTelephone(seller.telephone, 'NATIONAL')
-    );
-    template = template.replace(/\{\{ orderDate \}\}/g, moment().format('YYYY/MM/DD (ddd) HH:mm'));
-    // イベント
-    const forEventMatchResult = template.match(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/);
-    const forEventText = (forEventMatchResult === null) ? '' : forEventMatchResult[0];
-    let forReplaceEventText = '';
-    const orderToEventOrdersResuult = orderToEventOrders({ order });
-    orderToEventOrdersResuult.forEach((eventResult, index) => {
-        const event = eventResult.event;
-        let eventText = forEventText;
-        eventText = eventText.replace(/\{\{ eventNameJa \}\}/g, event.name.ja);
-        eventText = eventText.replace(
-            /\{\{ eventHeadlineJa \}\}/g,
-            (event.superEvent.headline === undefined || event.superEvent.headline === null)
-                ? '' : event.superEvent.headline.ja
-        );
-        eventText = eventText.replace(
-            /\{\{ eventStartDate \}\}/g,
-            moment(event.startDate).format('YYYY/MM/DD (ddd) HH:mm')
-        );
-        eventText = eventText.replace(
-            /\{\{ eventEndDate \}\}/g,
-            moment(event.endDate).format('HH:mm')
-        );
-        eventText = eventText.replace(/\{\{ eventIndex \}\}/g, String(index + 1));
-        eventText = eventText.replace(/\{\{ eventLocationNameJa \}\}/g, event.location.name.ja);
-        eventText = eventText.replace(/\{\{ forStartEvent \}\}/g, '');
-        eventText = eventText.replace(/\{\{ forEndEvent \}\}/g, '');
-        // 予約
-        const forReservationMatchResult = template.match(/\{\{ forStartReservation \}\}[^>]*\{\{ forEndReservation \}\}/);
-        const forReservationText = (forReservationMatchResult === null) ? '' : forReservationMatchResult[0];
-        let forReplaceReservationText = '';
-        eventResult.data.forEach((offer) => {
-            let offerText = forReservationText;
-            const itemOffered = offer.itemOffered;
-            if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
-                return;
-            }
-            offerText = offerText.replace(
-                /\{\{ reservationSeatNumber \}\}/g,
-                (itemOffered.reservedTicket.ticketedSeat === undefined)
-                    ? '' : itemOffered.reservedTicket.ticketedSeat.seatNumber
-            );
-            offerText = offerText.replace(/\{\{ reservationId \}\}/g, itemOffered.id);
-            offerText = offerText.replace(
-                /\{\{ reservationTicketTypeNameJa \}\}/g,
-                itemOffered.reservedTicket.ticketType.name.ja
-            );
-            offerText = offerText.replace(
-                /\{\{ reservationPrice \}\}/g,
-                String(getTicketPrice(<any>{ priceSpecification: itemOffered.price }).total)
-            );
-            offerText = offerText.replace(/\{\{ forStartReservation \}\}/g, '');
-            offerText = offerText.replace(/\{\{ forEndReservation \}\}/g, '\n');
-            forReplaceReservationText += offerText;
-        });
-        eventText = eventText.replace(/\{\{ forStartReservation \}\}[^>]*\{\{ forEndReservation \}\}/, forReplaceReservationText);
-        forReplaceEventText += eventText;
-    });
-    template = template.replace(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/, forReplaceEventText);
-
-    return template;
 }
 
 /**

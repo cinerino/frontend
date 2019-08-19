@@ -7,16 +7,16 @@ import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import {
-    createCompleteMail,
+    authorizeSeatReservationToEvent,
     createGmoTokenObject,
     createMovieTicketsFromAuthorizeSeatReservation,
     formatTelephone,
+    getTicketPrice,
     isTicketedSeatScreeningEvent
 } from '../../functions';
 import { IScreen } from '../../models';
 import { CinerinoService, UtilService } from '../../services';
 import { purchaseAction } from '../actions';
-
 declare const ga: Function;
 
 /**
@@ -585,13 +585,13 @@ export class PurchaseEffects {
                 };
                 if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                     // 完了メールをカスタマイズ
-                    const url = '/storage/text/purchase/mail/complete.txt';
-                    const template = await this.utilService.getText<string>(url);
-                    params.options.email.template = createCompleteMail({
-                        template,
-                        authorizeSeatReservations,
-                        seller
-                    });
+                    const view = await this.utilService.getText('/storage/ejs/mail/complete.ejs');
+                    const template = await (<any>window).ejs.render(view, {
+                        authorizeSeatReservations: authorizeSeatReservationToEvent({ authorizeSeatReservations }),
+                        seller,
+                        moment, formatTelephone, getTicketPrice
+                    }, { async: true });
+                    email.template = template;
                 }
                 const result = await this.cinerino.transaction.placeOrder.confirm(params);
                 const order = result.order;

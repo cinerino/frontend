@@ -24,10 +24,10 @@
                     {{ authorizeSeatReservation.object.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ authorizeSeatReservation.object.event.endDate | formatDate: 'HH:mm' }}
                 </p>
                 <p class="text-small mb-1">
-                    <span>
+                    <span class="theatre-name">
                         {{ authorizeSeatReservation.object.event.superEvent.location.name | changeLanguage }}
                     </span>
-                    <span>
+                    <span class="screen-name">
                         &nbsp;/&nbsp;{{ authorizeSeatReservation.object.event.location.name | changeLanguage }}
                     </span>
                     <span *ngIf="authorizeSeatReservation.object.event.workPerformed?.duration && moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() > 0">
