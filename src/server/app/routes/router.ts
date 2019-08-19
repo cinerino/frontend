@@ -44,7 +44,8 @@ export default (app: express.Application) => {
         if (req.session !== undefined) {
             req.session.external = req.query;
         }
-        res.sendFile(path.resolve(`${__dirname}/../../../client/${process.env.NODE_ENV}/index.html`));
+        const dir = (process.env.NODE_ENV === 'production') ? 'production' : 'development';
+        res.sendFile(path.resolve(`${__dirname}/../../../client/${dir}/index.html`));
     });
 
     app.all('*', (req, res, _next) => {

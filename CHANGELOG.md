@@ -5,8 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## Unreleased
 ### Added
+- 発券期限の設定追加
+- 劇場名、スクリーン名へcssクラス追加
 
 ### Changed
+- メールテンプレートをejsへ変更
+- 取引期限をサーバータイムから算出へ変更
 
 ### Fixed
 

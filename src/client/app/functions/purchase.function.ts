@@ -2,7 +2,6 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { environment } from '../../environments/environment';
 import { IMovieTicket } from '../models';
-import { formatTelephone } from './util.function';
 
 export interface IScreeningEventWork {
     info: factory.chevre.event.screeningEvent.IEvent;
@@ -402,10 +401,19 @@ export function isScheduleStatusThreshold(
     screeningEvent: factory.chevre.event.screeningEvent.IEvent,
     status: 'success' | 'warning' | 'danger'
 ) {
-    const remainingAttendeeCapacity = screeningEvent.remainingAttendeeCapacity;
-    const maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
+    const limitSeatNumber = (screeningEvent.workPerformed === undefined
+        || screeningEvent.workPerformed.additionalProperty === undefined)
+        ? undefined : screeningEvent.workPerformed.additionalProperty.find(a => a.name === 'limitSeatNumber');
+    let remainingAttendeeCapacity = screeningEvent.remainingAttendeeCapacity;
+    let maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
     if (remainingAttendeeCapacity === undefined || maximumAttendeeCapacity === undefined) {
         return false;
+    }
+    if (limitSeatNumber !== undefined && maximumAttendeeCapacity > Number(limitSeatNumber.value)) {
+        // 作品追加特性（limitSeatNumber）で座席数制御
+        remainingAttendeeCapacity = (remainingAttendeeCapacity < (maximumAttendeeCapacity - Number(limitSeatNumber.value)))
+            ? 0 : remainingAttendeeCapacity - (maximumAttendeeCapacity - Number(limitSeatNumber.value));
+        maximumAttendeeCapacity = Number(limitSeatNumber.value);
     }
     let result = false;
     const unit = environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
@@ -422,7 +430,7 @@ export function isScheduleStatusThreshold(
                     && remainingAttendeeCapacity > 0);
                 break;
             case 'danger':
-                result = remainingAttendeeCapacity === 0;
+                result = (remainingAttendeeCapacity === 0 || remainingAttendeeCapacity > maximumAttendeeCapacity);
                 break;
             default:
                 break;
@@ -496,81 +504,6 @@ export function isTicketedSeatScreeningEvent(screeningEvent: factory.chevre.even
 }
 
 /**
- * 購入メール生成
- */
-export function createCompleteMail(args: {
-    seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
-    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[],
-    template: string
-}) {
-    let template = args.template;
-    const seller = args.seller;
-    const authorizeSeatReservations = args.authorizeSeatReservations;
-    template = template.replace(/\{\{ seller.name \}\}/g, seller.name.ja);
-    template = template.replace(
-        /\{\{ seller.telephone \}\}/g,
-        (seller.telephone === undefined) ? '' : formatTelephone(seller.telephone, 'NATIONAL')
-    );
-    template = template.replace(/\{\{ orderDate \}\}/g, moment().format('YYYY/MM/DD (ddd) HH:mm'));
-    // イベント
-    const forEventMatchResult = template.match(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/);
-    const forEventText = (forEventMatchResult === null) ? '' : forEventMatchResult[0];
-    let forReplaceEventText = '';
-    const authorizeSeatReservationToEventResuult = authorizeSeatReservationToEvent({ authorizeSeatReservations });
-    authorizeSeatReservationToEventResuult.forEach((eventResult, index) => {
-        const event = eventResult.event;
-        let eventText = forEventText;
-        eventText = eventText.replace(/\{\{ eventNameJa \}\}/g, event.name.ja);
-        eventText = eventText.replace(
-            /\{\{ eventHeadlineJa \}\}/g,
-            (event.superEvent.headline === undefined || event.superEvent.headline === null)
-                ? '' : event.superEvent.headline.ja
-        );
-        eventText = eventText.replace(
-            /\{\{ eventStartDate \}\}/g,
-            moment(event.startDate).format('YYYY/MM/DD (ddd) HH:mm')
-        );
-        eventText = eventText.replace(
-            /\{\{ eventEndDate \}\}/g,
-            moment(event.endDate).format('HH:mm')
-        );
-        eventText = eventText.replace(/\{\{ eventIndex \}\}/g, String(index + 1));
-        eventText = eventText.replace(/\{\{ eventLocationNameJa \}\}/g, event.location.name.ja);
-        eventText = eventText.replace(/\{\{ forStartEvent \}\}/g, '');
-        eventText = eventText.replace(/\{\{ forEndEvent \}\}/g, '');
-        // 予約
-        const forReservationMatchResult = template.match(/\{\{ forStartReservation \}\}[^>]*\{\{ forEndReservation \}\}/);
-        const forReservationText = (forReservationMatchResult === null) ? '' : forReservationMatchResult[0];
-        let forReplaceReservationText = '';
-        eventResult.reservations.forEach((reservation) => {
-            let reservationText = forReservationText;
-            reservationText = reservationText.replace(
-                /\{\{ reservationSeatNumber \}\}/g,
-                (reservation.reservedTicket.ticketedSeat === undefined)
-                    ? '' : reservation.reservedTicket.ticketedSeat.seatNumber
-            );
-            reservationText = reservationText.replace(/\{\{ reservationId \}\}/g, reservation.id);
-            reservationText = reservationText.replace(
-                /\{\{ reservationTicketTypeNameJa \}\}/g,
-                reservation.reservedTicket.ticketType.name.ja
-            );
-            reservationText = reservationText.replace(
-                /\{\{ reservationPrice \}\}/g,
-                String(getTicketPrice(<any>{ priceSpecification: reservation.price }).total)
-            );
-            reservationText = reservationText.replace(/\{\{ forStartReservation \}\}/g, '');
-            reservationText = reservationText.replace(/\{\{ forEndReservation \}\}/g, '\n');
-            forReplaceReservationText += reservationText;
-        });
-        eventText = eventText.replace(/\{\{ forStartReservation \}\}[^>]*\{\{ forEndReservation \}\}/, forReplaceReservationText);
-        forReplaceEventText += eventText;
-    });
-    template = template.replace(/\{\{ forStartEvent \}\}[^>]*\{\{ forEndEvent \}\}/, forReplaceEventText);
-
-    return template;
-}
-
-/**
  * 券種情報を枚数別へ変換
  */
 export function changeTicketCount(
@@ -598,11 +531,21 @@ export function changeTicketCount(
  * 残席数取得
  */
 export function getRemainingSeatLength(
-    screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[]
+    screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[],
+    screeningEvent: factory.chevre.event.screeningEvent.IEvent
 ) {
     let result = 0;
+    const limitSeatNumber = (screeningEvent.workPerformed === undefined
+        || screeningEvent.workPerformed.additionalProperty === undefined)
+        ? undefined : screeningEvent.workPerformed.additionalProperty.find(a => a.name === 'limitSeatNumber');
     screeningEventOffers.forEach((s) => {
         const sectionResult = s.containsPlace.filter(c => {
+            if (limitSeatNumber !== undefined) {
+                // 作品追加特性（limitSeatNumber）で座席数制御
+                return (c.offers !== undefined
+                    && c.offers[0].availability === factory.chevre.itemAvailability.InStock
+                    && Number(c.branchCode) <= Number(limitSeatNumber.value));
+            }
             return (c.offers !== undefined
                 && c.offers[0].availability === factory.chevre.itemAvailability.InStock);
         });

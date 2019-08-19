@@ -29,8 +29,8 @@
                     {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}
                 </p>
                 <p class="text-small mb-1">
-                    <span>{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
-                    <span>&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>
+                    <span class="theatre-name">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
+                    <span class="screen-name">&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>
                     <span
                         *ngIf="eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0">
                         &nbsp;/&nbsp;<span
@@ -102,7 +102,7 @@
                 class="btn btn-primary btn-block py-3 mb-3" (click)="print()"
                 [disabled]="isLoading | async">{{ 'inquiry.confirm.print' | translate }}</button>
             <button *ngIf="environment.INQUIRY_CANCEL"
-                [disabled]="(order | async).order.orderStatus === orderStatus.OrderReturned" type="button"
+                [disabled]="(order | async).order.orderStatus !== orderStatus.OrderDelivered" type="button"
                 class="btn btn-danger btn-block py-3 mb-3"
                 (click)="cancelConfirm()">{{ 'inquiry.confirm.cancel' | translate }}</button>
         </div>

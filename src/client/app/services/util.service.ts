@@ -92,9 +92,9 @@ export class UtilService {
     }
 
     /**
-     * text取得
+     * json送信
      */
-    public async getText<T>(url: string, options?: {
+    public async postJson<T>(url: string, body?: any, options?: {
         headers?: HttpHeaders | {
             [header: string]: string | string[];
         };
@@ -106,7 +106,27 @@ export class UtilService {
         responseType?: 'json';
         withCredentials?: boolean;
     }) {
-        const result = await this.http.get<T>(url, { ...options, responseType: (<any>'text') }).toPromise();
+        const result = await this.http.post<T>(url, body, options).toPromise();
+
+        return result;
+    }
+
+    /**
+     * text取得
+     */
+    public async getText(url: string, options?: {
+        headers?: HttpHeaders | {
+            [header: string]: string | string[];
+        };
+        observe?: 'body';
+        params?: HttpParams | {
+            [param: string]: string | string[];
+        };
+        reportProgress?: boolean;
+        responseType?: 'json';
+        withCredentials?: boolean;
+    }) {
+        const result = await this.http.get<string>(url, { ...options, responseType: (<any>'text') }).toPromise();
 
         return result;
     }

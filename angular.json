@@ -38,10 +38,6 @@
               "outputPath": "./dist/client/development",
               "aot": false
             },
-            "test": {
-              "outputPath": "./dist/client/test",
-              "aot": false
-            },
             "production": {
               "outputPath": "./dist/client/production",
               "optimization": true,
