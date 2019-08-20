@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.1.1 - 2019-08-20
+### Changed
+- @angular-devkit/build-angular@0.800.3へ変更
+
 ## 2.1.0 - 2019-08-19
 ### Added
 - 発券期限の設定追加
