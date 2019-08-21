@@ -559,6 +559,7 @@ export class EndTransaction implements Action {
         transaction: factory.transaction.placeOrder.ITransaction;
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
+        language: string;
     }) { }
 }
 

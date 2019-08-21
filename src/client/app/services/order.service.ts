@@ -63,9 +63,12 @@ export class OrderService {
     /**
      * 注文キャンセル
      */
-    public async cancel(orders: factory.order.IOrder[]) {
+    public async cancel(params: {
+        orders: factory.order.IOrder[];
+        language: string;
+    }) {
         return new Promise((resolve, reject) => {
-            this.store.dispatch(new orderAction.Cancel({ orders }));
+            this.store.dispatch(new orderAction.Cancel(params));
             const success = this.actions.pipe(
                 ofType(orderAction.ActionTypes.CancelSuccess),
                 tap(() => { resolve(); })

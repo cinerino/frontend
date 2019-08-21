@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
 import { IOrderSearchConditions, OrderActions } from '../../../../models';
-import { OrderService, UtilService } from '../../../../services';
+import { OrderService, UserService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 import { OrderDetailModalComponent } from '../../../parts/order-detail-modal/order-detail-modal.component';
 import { QrCodeModalComponent } from '../../../parts/qrcode-modal/qrcode-modal.component';
@@ -35,6 +35,7 @@ export class OrderSearchComponent implements OnInit {
         private store: Store<reducers.IOrderState>,
         private modal: BsModalService,
         private router: Router,
+        private userService: UserService,
         private utilService: UtilService,
         private orderService: OrderService,
         private translate: TranslateService
@@ -168,7 +169,9 @@ export class OrderSearchComponent implements OnInit {
             body: this.translate.instant('order.list.confirm.cancel'),
             cb: async () => {
                 try {
-                    await this.orderService.cancel(orders);
+                    const userData = await this.userService.getData();
+                    const language = userData.language;
+                    await this.orderService.cancel({ orders, language });
                 } catch (error) {
                     console.error(error);
                     this.utilService.openAlert({
@@ -210,7 +213,12 @@ export class OrderSearchComponent implements OnInit {
                 body: this.translate.instant('order.list.confirm.cancel'),
                 cb: async () => {
                     try {
-                        await this.orderService.cancel(this.selectedOrders);
+                        const userData = await this.userService.getData();
+                        const language = userData.language;
+                        await this.orderService.cancel({
+                            orders: this.selectedOrders,
+                            language
+                        });
                     } catch (error) {
                         console.error(error);
                         this.utilService.openAlert({
