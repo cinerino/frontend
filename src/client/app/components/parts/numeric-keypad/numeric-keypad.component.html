@@ -9,18 +9,19 @@
     'left.px': position.x
 }">
         <div class="number d-grid mb-2 text-dark-gray">
-            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputNumber('7')">7</div>
-            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputNumber('8')">8</div>
-            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputNumber('9')">9</div>
-            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputNumber('4')">4</div>
-            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputNumber('5')">5</div>
-            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputNumber('6')">6</div>
-            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputNumber('1')">1</div>
-            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputNumber('2')">2</div>
-            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputNumber('3')">3</div>
-            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputNumber('0')">0</div>
-            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputNumber('00')">00</div>
-            <div class="bg-dark-gray text-white py-2 py-md-3 shadow-sm" (tap)="inputNumber('000')">000</div>
+            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputCode('7')">7</div>
+            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputCode('8')">8</div>
+            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputCode('9')">9</div>
+            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputCode('4')">4</div>
+            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputCode('5')">5</div>
+            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputCode('6')">6</div>
+            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputCode('1')">1</div>
+            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputCode('2')">2</div>
+            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputCode('3')">3</div>
+            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputCode('0')">0</div>
+            <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputCode('00')">00</div>
+            <div *ngIf="inputType === 'number'" class="bg-dark-gray text-white py-2 py-md-3 shadow-sm" (tap)="inputCode('000')">000</div>
+            <div *ngIf="inputType === 'telephone'" class="bg-dark-gray text-white py-2 py-md-3 shadow-sm" (tap)="inputCode('+')">+</div>
         </div>
         <div class="etc d-grid">
             <div class="bg-gray text-white py-2 py-md-3 shadow-sm" (tap)="clear()">C</div>

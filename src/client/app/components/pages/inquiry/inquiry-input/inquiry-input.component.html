@@ -7,7 +7,7 @@
             <form [formGroup]="inquiryForm">
                 <div class="form-group">
                     <label class="mb-2" for="">{{ 'common.confirmationNumber' | translate }}</label>
-                    <app-numeric-keypad *ngIf="environment.INQUIRY_INPUT_KEYPAD" [inputValue]="inquiryForm.controls.confirmationNumber.value"
+                    <app-numeric-keypad *ngIf="environment.INQUIRY_INPUT_KEYPAD" inputType="number" [inputValue]="inquiryForm.controls.confirmationNumber.value"
                         (change)="changeConfirmationNumber($event)">
                         <input type="text" class="form-control" formControlName="confirmationNumber"
                             id="confirmationNumber" [placeholder]="'form.placeholder.confirmationNumber' | translate"
@@ -25,7 +25,7 @@
                 </div>
                 <div class="form-group mb-0">
                     <label class="mb-2" for="">{{ 'common.telephone' | translate }}</label>
-                    <app-numeric-keypad *ngIf="environment.INQUIRY_INPUT_KEYPAD" [inputValue]="inquiryForm.controls.telephone.value"
+                    <app-numeric-keypad *ngIf="environment.INQUIRY_INPUT_KEYPAD" inputType="telephone" [inputValue]="inquiryForm.controls.telephone.value"
                         (change)="changeTelephone($event)">
                         <input type="password" class="form-control" formControlName="telephone" id="telephone"
                             [placeholder]="'form.placeholder.telephone' | translate" readonly>

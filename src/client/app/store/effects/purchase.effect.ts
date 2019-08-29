@@ -585,7 +585,7 @@ export class PurchaseEffects {
                 };
                 if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                     // 完了メールをカスタマイズ
-                    const view = await this.utilService.getText('/storage/ejs/mail/complete.ejs');
+                    const view = await this.utilService.getText(`/storage/ejs/mail/complete/${payload.language}.ejs`);
                     const template = await (<any>window).ejs.render(view, {
                         authorizeSeatReservations: authorizeSeatReservationToEvent({ authorizeSeatReservations }),
                         seller,
