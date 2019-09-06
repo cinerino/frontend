@@ -37,7 +37,80 @@
 </head>
 
 <body>
-    <app-root></app-root>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #eee;
+        }
+
+        .init-cover,
+        .init-loading {
+            z-index: 2000;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .init-cover {
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: init-fadein 0.2s both;
+        }
+
+        .init-loading {
+            opacity: 1;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .init-loader,
+        .init-loader:after {
+            border-radius: 50%;
+            width: 90px;
+            height: 90px;
+        }
+
+        .init-loader {
+            position: relative;
+            text-indent: -9999em;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-left-color: #FFF;
+            transform: translateZ(0);
+            animation: init-load8 1.1s infinite linear;
+        }
+
+        @keyframes init-fadein {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes init-load8 {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <app-root>
+        <div class="init-cover"></div>
+        <div class="init-loading">
+            <div class="init-loader">Loading...</div>
+        </div>
+    </app-root>
 </body>
 
 </html>
