@@ -66,7 +66,12 @@ export class MypageProfileComponent implements OnInit {
                 (control: AbstractControl): ValidationErrors | null => {
                     const field = control.root.get('telephone');
                     if (field !== null) {
-                        const parsedNumber = libphonenumber.parse(field.value, 'JP');
+                        if (field.value === '') {
+                            return null;
+                        }
+                        const parsedNumber = (new RegExp(/^\+/).test(field.value))
+                            ? libphonenumber.parse(field.value)
+                            : libphonenumber.parse(field.value, 'JP');
                         if (parsedNumber.phone === undefined) {
                             return { telephone: true };
                         }

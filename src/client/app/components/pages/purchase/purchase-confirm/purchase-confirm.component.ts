@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { changeTicketCount, getAmount, getTicketPrice } from '../../../../functions';
-import { PurchaseService, UtilService } from '../../../../services';
+import { PurchaseService, UserService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -27,6 +27,7 @@ export class PurchaseConfirmComponent implements OnInit {
     constructor(
         private store: Store<reducers.IState>,
         private utilService: UtilService,
+        private userService: UserService,
         private purchaseService: PurchaseService,
         private router: Router,
         private translate: TranslateService
@@ -53,9 +54,11 @@ export class PurchaseConfirmComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
-        const purchase = await this.purchaseService.getData();
+        const purchaseData = await this.purchaseService.getData();
+        const userData = await this.userService.getData();
+        const language = userData.language;
         try {
-            if (purchase.pendingMovieTickets.length > 0) {
+            if (purchaseData.pendingMovieTickets.length > 0) {
                 await this.purchaseService.authorizeMovieTicket();
             }
         } catch (error) {
@@ -75,7 +78,7 @@ export class PurchaseConfirmComponent implements OnInit {
             return;
         }
         try {
-            await this.purchaseService.endTransaction();
+            await this.purchaseService.endTransaction({ language });
             this.router.navigate(['/purchase/complete']);
         } catch (error) {
             this.router.navigate(['/error']);

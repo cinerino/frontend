@@ -91,7 +91,7 @@ export class OrderEffects {
                     };
                     if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                         // メールをカスタマイズ
-                        const view = await this.utilService.getText('/storage/ejs/mail/return.ejs');
+                        const view = await this.utilService.getText(`/storage/ejs/mail/return/${payload.language}.ejs`);
                         const template = await (<any>window).ejs.render(view, { moment, formatTelephone, getTicketPrice }, { async: true });
                         email.template = template;
                     }

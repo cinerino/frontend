@@ -110,12 +110,14 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
             body: this.translate.instant('inquiry.confirm.confirm.cancel'),
             cb: async () => {
                 try {
+                    const userData = await this.userService.getData();
                     let orderData = await this.orderService.getData();
                     if (orderData.order === undefined) {
                         throw new Error('order undefined');
                     }
                     const orders = [orderData.order];
-                    await this.orderService.cancel(orders);
+                    const language = userData.language;
+                    await this.orderService.cancel({ orders, language });
                     orderData = await this.orderService.getData();
                     if (orderData.order === undefined) {
                         throw new Error('order undefined');

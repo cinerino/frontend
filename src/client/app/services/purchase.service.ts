@@ -497,8 +497,11 @@ export class PurchaseService {
     /**
      * 取引確定
      */
-    public async endTransaction() {
+    public async endTransaction(params: {
+        language: string;
+    }) {
         const purchase = await this.getData();
+        const language = params.language;
         return new Promise<void>((resolve, reject) => {
             if (purchase.transaction === undefined || purchase.seller === undefined) {
                 reject();
@@ -507,7 +510,9 @@ export class PurchaseService {
             const transaction = purchase.transaction;
             const authorizeSeatReservations = purchase.authorizeSeatReservations;
             const seller = purchase.seller;
-            this.store.dispatch(new purchaseAction.EndTransaction({ transaction, authorizeSeatReservations, seller }));
+            this.store.dispatch(new purchaseAction.EndTransaction({
+                transaction, authorizeSeatReservations, seller, language
+            }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.EndTransactionSuccess),
                 tap(() => { resolve(); })

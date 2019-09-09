@@ -15,11 +15,13 @@ export class LibphonenumberFormatPipe implements PipeTransform {
     public transform(
         phoneNumber: string,
         countryCode?: libphonenumber.CountryCode,
-        format?: IFormat): string {
+        format?: IFormat
+    ): string {
         countryCode = (countryCode === undefined) ? 'JP' : countryCode;
         format = (format === undefined) ? 'National' : format;
-        const parsedNumber = libphonenumber.parse(phoneNumber, countryCode);
-        return libphonenumber.format(parsedNumber, format).replace(/\-/g, '');
+        const parsedNumber = libphonenumber.parse(phoneNumber);
+        return (parsedNumber.country !== 'JP')
+            ? phoneNumber : libphonenumber.format(parsedNumber, format).replace(/\-/g, '');
     }
 }
 

@@ -12,6 +12,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.2.0 - 2019-08-29
+###  Added
+- テンキーに電話番号入力追加
+###  Changed
+- メールテンプレートを言語別に変更
+- 電話番号をE.164形式へ対応
+
 ## 2.1.1 - 2019-08-20
 ### Changed
 - @angular-devkit/build-angular@0.800.3へ変更

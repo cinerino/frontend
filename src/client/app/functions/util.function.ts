@@ -7,10 +7,12 @@ export function formatTelephone(telephone: string, format?: libphonenumber.Numbe
     if (telephone === undefined) {
         return '';
     }
-    const parseNumber = libphonenumber.parse(telephone, 'JP');
+    const parsedNumber = (new RegExp(/^\+/).test(telephone))
+        ? libphonenumber.parse(telephone)
+        : libphonenumber.parse(telephone, 'JP');
     format = (format === undefined) ? 'International' : format;
 
-    return libphonenumber.format(parseNumber, format).replace(/\s/g, '');
+    return libphonenumber.format(parsedNumber, format).replace(/\s/g, '');
 }
 
 /**

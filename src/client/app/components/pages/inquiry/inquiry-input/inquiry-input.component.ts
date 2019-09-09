@@ -33,7 +33,7 @@ export class InquiryInputComponent implements OnInit {
      * 照会フォーム作成
      */
     private createInquiryForm() {
-        const TEL_MAX_LENGTH = 11;
+        const TEL_MAX_LENGTH = 15;
         const TEL_MIN_LENGTH = 9;
         this.inquiryForm = this.formBuilder.group({
             confirmationNumber: ['', [
@@ -44,11 +44,15 @@ export class InquiryInputComponent implements OnInit {
                 Validators.required,
                 Validators.maxLength(TEL_MAX_LENGTH),
                 Validators.minLength(TEL_MIN_LENGTH),
-                Validators.pattern(/^[0-9]+$/),
                 (control: AbstractControl): ValidationErrors | null => {
                     const field = control.root.get('telephone');
                     if (field !== null) {
-                        const parsedNumber = libphonenumber.parse(field.value, 'JP');
+                        if (field.value === '') {
+                            return null;
+                        }
+                        const parsedNumber = (new RegExp(/^\+/).test(field.value))
+                            ? libphonenumber.parse(field.value)
+                            : libphonenumber.parse(field.value, 'JP');
                         if (parsedNumber.phone === undefined) {
                             return { telephone: true };
                         }

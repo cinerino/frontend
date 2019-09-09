@@ -384,7 +384,7 @@ module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 clas
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.input.read' | translate\"></p>\n\n        <div class=\"inquiry-form mx-auto p-3 bg-white\">\n            <form [formGroup]=\"inquiryForm\">\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.confirmationNumber' | translate }}</label>\n                    <app-numeric-keypad *ngIf=\"environment.INQUIRY_INPUT_KEYPAD\" [inputValue]=\"inquiryForm.controls.confirmationNumber.value\"\n                        (change)=\"changeConfirmationNumber($event)\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"confirmationNumber\"\n                            id=\"confirmationNumber\" [placeholder]=\"'form.placeholder.confirmationNumber' | translate\"\n                            readonly>\n                    </app-numeric-keypad>\n                    <input *ngIf=\"!environment.INQUIRY_INPUT_KEYPAD\" type=\"text\" class=\"form-control\" formControlName=\"confirmationNumber\" id=\"confirmationNumber\"\n                        [placeholder]=\"'form.placeholder.confirmationNumber' | translate\">\n                    <div *ngIf=\"inquiryForm.controls.confirmationNumber.invalid && inquiryForm.controls.confirmationNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.telephone' | translate }}</label>\n                    <app-numeric-keypad *ngIf=\"environment.INQUIRY_INPUT_KEYPAD\" [inputValue]=\"inquiryForm.controls.telephone.value\"\n                        (change)=\"changeTelephone($event)\">\n                        <input type=\"password\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\"\n                            [placeholder]=\"'form.placeholder.telephone' | translate\" readonly>\n                    </app-numeric-keypad>\n                    <input *ngIf=\"!environment.INQUIRY_INPUT_KEYPAD\" type=\"password\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\"\n                        [placeholder]=\"'form.placeholder.telephone' | translate\">\n                    <div *ngIf=\"inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate: { value: inquiryForm.controls.telephone.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate: { value: inquiryForm.controls.telephone.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.telephone\" class=\"text-danger\">\n                            {{ 'form.validation.telephone' | translate }}</p>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"onSubmit()\">{{ 'inquiry.input.next' | translate }}</button>\n        <a *ngIf=\"environment.PORTAL_SITE_URL\" class=\"btn btn-link portal-link\"\n            [href]=\"environment.PORTAL_SITE_URL\">{{ 'inquiry.input.prev' | translate }}</a>\n        <button *ngIf=\"!environment.PORTAL_SITE_URL\" type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/\">{{ 'inquiry.input.prev' | translate }}</button>\n    </div>\n\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.input.read' | translate\"></p>\n\n        <div class=\"inquiry-form mx-auto p-3 bg-white\">\n            <form [formGroup]=\"inquiryForm\">\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.confirmationNumber' | translate }}</label>\n                    <app-numeric-keypad *ngIf=\"environment.INQUIRY_INPUT_KEYPAD\" inputType=\"number\" [inputValue]=\"inquiryForm.controls.confirmationNumber.value\"\n                        (change)=\"changeConfirmationNumber($event)\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"confirmationNumber\"\n                            id=\"confirmationNumber\" [placeholder]=\"'form.placeholder.confirmationNumber' | translate\"\n                            readonly>\n                    </app-numeric-keypad>\n                    <input *ngIf=\"!environment.INQUIRY_INPUT_KEYPAD\" type=\"text\" class=\"form-control\" formControlName=\"confirmationNumber\" id=\"confirmationNumber\"\n                        [placeholder]=\"'form.placeholder.confirmationNumber' | translate\">\n                    <div *ngIf=\"inquiryForm.controls.confirmationNumber.invalid && inquiryForm.controls.confirmationNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.confirmationNumber.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n                <div class=\"form-group mb-0\">\n                    <label class=\"mb-2\" for=\"\">{{ 'common.telephone' | translate }}</label>\n                    <app-numeric-keypad *ngIf=\"environment.INQUIRY_INPUT_KEYPAD\" inputType=\"telephone\" [inputValue]=\"inquiryForm.controls.telephone.value\"\n                        (change)=\"changeTelephone($event)\">\n                        <input type=\"password\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\"\n                            [placeholder]=\"'form.placeholder.telephone' | translate\" readonly>\n                    </app-numeric-keypad>\n                    <input *ngIf=\"!environment.INQUIRY_INPUT_KEYPAD\" type=\"password\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\"\n                        [placeholder]=\"'form.placeholder.telephone' | translate\">\n                    <div *ngIf=\"inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate: { value: inquiryForm.controls.telephone.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate: { value: inquiryForm.controls.telephone.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                        <p *ngIf=\"inquiryForm.controls.telephone.errors.telephone\" class=\"text-danger\">\n                            {{ 'form.validation.telephone' | translate }}</p>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"onSubmit()\">{{ 'inquiry.input.next' | translate }}</button>\n        <a *ngIf=\"environment.PORTAL_SITE_URL\" class=\"btn btn-link portal-link\"\n            [href]=\"environment.PORTAL_SITE_URL\">{{ 'inquiry.input.prev' | translate }}</a>\n        <button *ngIf=\"!environment.PORTAL_SITE_URL\" type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/\">{{ 'inquiry.input.prev' | translate }}</button>\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -582,7 +582,7 @@ module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div cla
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.input.read' | translate\"></p>\n\n        <div class=\"p-3 bg-white\">\n            <form [formGroup]=\"customerContactForm\">\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.familyName' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"familyName\" id=\"familyName\"\n                            [placeholder]=\"'form.placeholder.familyName' | translate\">\n                        <div *ngIf=\"customerContactForm.controls.familyName.invalid && customerContactForm.controls.familyName.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"customerContactForm.controls.familyName.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.familyName.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.familyName.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.familyName.errors.pattern\" class=\"text-danger\">\n                                {{ 'form.validation.fullKana' | translate }}</p>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.givenName' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"givenName\" id=\"givenName\"\n                            [placeholder]=\"'form.placeholder.givenName' | translate\">\n                        <div *ngIf=\"customerContactForm.controls.givenName.invalid && customerContactForm.controls.givenName.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"customerContactForm.controls.givenName.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.givenName.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.givenName.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.givenName.errors.pattern\" class=\"text-danger\">\n                                {{ 'form.validation.fullKana' | translate }}\n                            </p>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.email' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"email\"\n                            [placeholder]=\"'form.placeholder.email' | translate\">\n                        <div *ngIf=\"customerContactForm.controls.email.invalid && customerContactForm.controls.email.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"customerContactForm.controls.email.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.email.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.email.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.email.errors.email\" class=\"text-danger\">\n                                {{ 'form.validation.email' | translate }}\n                            </p>\n                        </div>\n                        <p class=\"mt-2 mb-1 text-small\" [innerHTML]=\"'form.description.email' | translate\"></p>\n                        <button type=\"button\" class=\"btn btn-primary btn-sm\"\n                            (click)=\"copyDomain()\">{{ 'purchase.input.copyDomain' | translate }}</button>\n                    </div>\n                </div>\n                <div class=\"form-group row mb-0\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.telephone' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"tel\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\"\n                            [placeholder]=\"'form.placeholder.telephone' | translate\">\n                        <div *ngIf=\"customerContactForm.controls.telephone.invalid && customerContactForm.controls.telephone.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"customerContactForm.controls.telephone.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                {{ 'form.validation.minlength' | translate:{ value: customerContactForm.controls.telephone.errors.minlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.telephone.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.telephone.errors.pattern\" class=\"text-danger\">\n                                {{ 'form.validation.number' | translate }}</p>\n                            <p *ngIf=\"customerContactForm.controls.telephone.errors.telephone\" class=\"text-danger\">\n                                {{ 'form.validation.telephone' | translate }}</p>\n                        </div>\n                        <p class=\"mt-2 mb-1 text-small\" [innerHTML]=\"'form.description.telephone' | translate\"></p>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"mb-4\" *ngIf=\"amount > 0\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.input.payment.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.input.payment.read' | translate\"></p>\n\n        <div class=\"p-3 bg-white\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 py-md-3 text-md-right\">{{ 'common.amount' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <p class=\"text-x-large text-info\">{{ amount | currency : 'JPY'}}</p>\n                </div>\n            </div>\n            <form *ngIf=\"usedCreditCard === undefined\" [formGroup]=\"creditCardForm\">\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardNumber' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" id=\"cardNumber\" formControlName=\"cardNumber\"\n                            [placeholder]=\"'form.placeholder.cardNumber' | translate\" maxlength=\"16\">\n                        <div *ngIf=\"creditCardForm.controls.cardNumber.invalid && creditCardForm.controls.cardNumber.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"creditCardForm.controls.cardNumber.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                            <p *ngIf=\"creditCardForm.controls.cardNumber.errors.pattern\" class=\"text-danger\">\n                                {{ 'form.validation.number' | translate }}\n                            </p>\n                        </div>\n                        <p class=\"mt-2 mb-1 text-small\" [innerHTML]=\"'form.description.cardNumber' | translate\"></p>\n                        <div class=\"credit-image\"><img class=\"w-100\" src=\"/assets/images/credit_card.png\"></div>\n                    </div>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <div class=\"form-inline\">\n                            <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationMonth\"\n                                formControlName=\"cardExpirationMonth\">\n                                <option *ngFor=\"let month of cardExpiration.month\" [value]=\"month\">{{ month }}</option>\n                            </select>\n                            <span class=\"mx-2\">{{ 'common.date.month' | translate }}</span>\n                            <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationYear\"\n                                formControlName=\"cardExpirationYear\">\n                                <option *ngFor=\"let year of cardExpiration.year\" [value]=\"year\">{{ year }}</option>\n                            </select>\n                            <span class=\"mx-2\">{{ 'common.date.year' | translate }}</span>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.securityCode' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" id=\"securityCode\" maxlength=\"4\"\n                            [placeholder]=\"'form.placeholder.securityCode' | translate\" formControlName=\"securityCode\">\n                        <div *ngIf=\"creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"creditCardForm.controls.securityCode.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                        <div class=\"btn btn-link btn-sm\" (click)=\"openSecurityCode()\">\n                            {{ 'purchase.input.securityCode' | translate }}</div>\n                    </div>\n                </div>\n                <div class=\"form-group row mb-0\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.holderName' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" id=\"holderName\"\n                            [placeholder]=\"'form.placeholder.holderName' | translate\" formControlName=\"holderName\">\n                        <div *ngIf=\"creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"creditCardForm.controls.holderName.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                    </div>\n                </div>\n            </form>\n            <div *ngIf=\"usedCreditCard !== undefined\" class=\"\">\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardNumber' | translate }}</p>\n                    <p class=\"col-md-8 py-2\">{{ usedCreditCard.cardNo }}</p>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                    <p class=\"col-md-8 py-2\">\n                        {{ usedCreditCard.expire | slice:2:4 }}\n                        <span class=\"mx-2\">{{ 'common.date.month' | translate }}</span>\n                        {{ usedCreditCard.expire | slice:0:2 }}\n                        <span class=\"mx-2\">{{ 'common.date.year' | translate }}</span>\n                    </p>\n                </div>\n            </div>\n            <div *ngIf=\"(user | async).creditCards.length > 0\" class=\"buttons mx-auto mt-3\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-3\" [disabled]=\"isLoading | async\"\n                    (click)=\"openRegisteredCreditCard()\">{{ 'purchase.input.registeredCreditCard' | translate }}</button>\n            </div>\n            <div *ngIf=\"usedCreditCard !== undefined\" class=\"buttons mx-auto mt-3\">\n                <button type=\"button\" class=\"btn btn-link\"\n                    (click)=\"changeInputCreditCard()\">{{ 'purchase.input.inputCreditCard' | translate }}</button>\n            </div>\n        </div>\n    </div>\n\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.input.next' | translate }}</button>\n\n        <div *ngIf=\"(user | async).viewType === viewType.Cinema\">\n            <button *ngIf=\"(user | async).isPurchaseCart\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/cart\">{{ 'purchase.input.prev' | translate }}</button>\n            <button *ngIf=\"!(user | async).isPurchaseCart\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/ticket\">{{ 'purchase.input.prev' | translate }}</button>\n        </div>\n        <div *ngIf=\"(user | async).viewType === viewType.Event\">\n            <button type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/event/ticket\">{{ 'purchase.input.prev' | translate }}</button>\n        </div>\n\n    </div>\n\n</div>"
+module.exports = "<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.input.read' | translate\"></p>\n\n        <div class=\"p-3 bg-white\">\n            <form [formGroup]=\"customerContactForm\">\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.familyName' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"familyName\" id=\"familyName\"\n                            [placeholder]=\"'form.placeholder.familyName' | translate\">\n                        <div *ngIf=\"customerContactForm.controls.familyName.invalid && customerContactForm.controls.familyName.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"customerContactForm.controls.familyName.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.familyName.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.familyName.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"(user | async)?.language === 'ja' && customerContactForm.controls.familyName.errors.customPattern\" class=\"text-danger\">\n                                {{ 'form.validation.fullKana' | translate }}</p>\n                            <p *ngIf=\"(user | async)?.language !== 'ja' && customerContactForm.controls.familyName.errors.customPattern\" class=\"text-danger\">\n                                {{ 'form.validation.lowercaseLetters' | translate }}</p>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.givenName' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"givenName\" id=\"givenName\"\n                            [placeholder]=\"'form.placeholder.givenName' | translate\">\n                        <div *ngIf=\"customerContactForm.controls.givenName.invalid && customerContactForm.controls.givenName.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"customerContactForm.controls.givenName.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.givenName.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.givenName.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"(user | async)?.language === 'ja' && customerContactForm.controls.givenName.errors.customPattern\" class=\"text-danger\">\n                                {{ 'form.validation.fullKana' | translate }}</p>\n                            <p *ngIf=\"(user | async)?.language !== 'ja' && customerContactForm.controls.givenName.errors.customPattern\" class=\"text-danger\">\n                                {{ 'form.validation.lowercaseLetters' | translate }}</p>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.email' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"email\"\n                            [placeholder]=\"'form.placeholder.email' | translate\">\n                        <div *ngIf=\"customerContactForm.controls.email.invalid && customerContactForm.controls.email.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"customerContactForm.controls.email.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.email.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.email.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.email.errors.email\" class=\"text-danger\">\n                                {{ 'form.validation.email' | translate }}\n                            </p>\n                        </div>\n                        <p class=\"mt-2 mb-1 text-small\" [innerHTML]=\"'form.description.email' | translate\"></p>\n                        <button type=\"button\" class=\"btn btn-primary btn-sm\"\n                            (click)=\"copyDomain()\">{{ 'purchase.input.copyDomain' | translate }}</button>\n                    </div>\n                </div>\n                <div class=\"form-group row mb-0\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.telephone' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"tel\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\"\n                            [placeholder]=\"'form.placeholder.telephone' | translate\">\n                        <div *ngIf=\"customerContactForm.controls.telephone.invalid && customerContactForm.controls.telephone.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"customerContactForm.controls.telephone.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                {{ 'form.validation.minlength' | translate:{ value: customerContactForm.controls.telephone.errors.minlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.telephone.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"customerContactForm.controls.telephone.errors.telephone\" class=\"text-danger\">\n                                {{ 'form.validation.telephone' | translate }}</p>\n                        </div>\n                        <p class=\"mt-2 mb-1 text-small\" [innerHTML]=\"'form.description.telephone' | translate\"></p>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"mb-4\" *ngIf=\"amount > 0\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.input.payment.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.input.payment.read' | translate\"></p>\n\n        <div class=\"p-3 bg-white\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 py-md-3 text-md-right\">{{ 'common.amount' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <p class=\"text-x-large text-info\">{{ amount | currency : 'JPY'}}</p>\n                </div>\n            </div>\n            <form *ngIf=\"usedCreditCard === undefined\" [formGroup]=\"creditCardForm\">\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardNumber' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" id=\"cardNumber\" formControlName=\"cardNumber\"\n                            [placeholder]=\"'form.placeholder.cardNumber' | translate\" maxlength=\"16\">\n                        <div *ngIf=\"creditCardForm.controls.cardNumber.invalid && creditCardForm.controls.cardNumber.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"creditCardForm.controls.cardNumber.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                            <p *ngIf=\"creditCardForm.controls.cardNumber.errors.pattern\" class=\"text-danger\">\n                                {{ 'form.validation.number' | translate }}\n                            </p>\n                        </div>\n                        <p class=\"mt-2 mb-1 text-small\" [innerHTML]=\"'form.description.cardNumber' | translate\"></p>\n                        <div class=\"credit-image\"><img class=\"w-100\" src=\"/assets/images/credit_card.png\"></div>\n                    </div>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <div class=\"form-inline\">\n                            <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationMonth\"\n                                formControlName=\"cardExpirationMonth\">\n                                <option *ngFor=\"let month of cardExpiration.month\" [value]=\"month\">{{ month }}</option>\n                            </select>\n                            <span class=\"mx-2\">{{ 'common.date.month' | translate }}</span>\n                            <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationYear\"\n                                formControlName=\"cardExpirationYear\">\n                                <option *ngFor=\"let year of cardExpiration.year\" [value]=\"year\">{{ year }}</option>\n                            </select>\n                            <span class=\"mx-2\">{{ 'common.date.year' | translate }}</span>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.securityCode' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" id=\"securityCode\" maxlength=\"4\"\n                            [placeholder]=\"'form.placeholder.securityCode' | translate\" formControlName=\"securityCode\">\n                        <div *ngIf=\"creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"creditCardForm.controls.securityCode.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                        <div class=\"btn btn-link btn-sm\" (click)=\"openSecurityCode()\">\n                            {{ 'purchase.input.securityCode' | translate }}</div>\n                    </div>\n                </div>\n                <div class=\"form-group row mb-0\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.holderName' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" id=\"holderName\"\n                            [placeholder]=\"'form.placeholder.holderName' | translate\" formControlName=\"holderName\">\n                        <div *ngIf=\"creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"creditCardForm.controls.holderName.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                    </div>\n                </div>\n            </form>\n            <div *ngIf=\"usedCreditCard !== undefined\" class=\"\">\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardNumber' | translate }}</p>\n                    <p class=\"col-md-8 py-2\">{{ usedCreditCard.cardNo }}</p>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                    <p class=\"col-md-8 py-2\">\n                        {{ usedCreditCard.expire | slice:2:4 }}\n                        <span class=\"mx-2\">{{ 'common.date.month' | translate }}</span>\n                        {{ usedCreditCard.expire | slice:0:2 }}\n                        <span class=\"mx-2\">{{ 'common.date.year' | translate }}</span>\n                    </p>\n                </div>\n            </div>\n            <div *ngIf=\"(user | async).creditCards.length > 0\" class=\"buttons mx-auto mt-3\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-3\" [disabled]=\"isLoading | async\"\n                    (click)=\"openRegisteredCreditCard()\">{{ 'purchase.input.registeredCreditCard' | translate }}</button>\n            </div>\n            <div *ngIf=\"usedCreditCard !== undefined\" class=\"buttons mx-auto mt-3\">\n                <button type=\"button\" class=\"btn btn-link\"\n                    (click)=\"changeInputCreditCard()\">{{ 'purchase.input.inputCreditCard' | translate }}</button>\n            </div>\n        </div>\n    </div>\n\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.input.next' | translate }}</button>\n\n        <div *ngIf=\"(user | async).viewType === viewType.Cinema\">\n            <button *ngIf=\"(user | async).isPurchaseCart\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/cart\">{{ 'purchase.input.prev' | translate }}</button>\n            <button *ngIf=\"!(user | async).isPurchaseCart\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/ticket\">{{ 'purchase.input.prev' | translate }}</button>\n        </div>\n        <div *ngIf=\"(user | async).viewType === viewType.Event\">\n            <button type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/event/ticket\">{{ 'purchase.input.prev' | translate }}</button>\n        </div>\n\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -725,7 +725,7 @@ module.exports = "<div class=\"p-3 scroll-vertical\">\n    <form [formGroup]=\"m
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div #trigger (tap)=\"show()\">\n    <ng-content></ng-content>\n</div>\n<div *ngIf=\"isOpen\" class=\"position-fixed\">\n    <div class=\"position-fixed\" (tap)=\"hide()\"></div>\n\n    <div #keypad class=\"numeric-keypad p-3 text-center text-large shadow bg-light-gray\" [ngStyle]=\"{\n    'top.px': position.y, \n    'left.px': position.x\n}\">\n        <div class=\"number d-grid mb-2 text-dark-gray\">\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('7')\">7</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('8')\">8</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('9')\">9</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('4')\">4</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('5')\">5</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('6')\">6</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('1')\">1</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('2')\">2</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('3')\">3</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('0')\">0</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('00')\">00</div>\n            <div class=\"bg-dark-gray text-white py-2 py-md-3 shadow-sm\" (tap)=\"inputNumber('000')\">000</div>\n        </div>\n        <div class=\"etc d-grid\">\n            <div class=\"bg-gray text-white py-2 py-md-3 shadow-sm\" (tap)=\"clear()\">C</div>\n            <div class=\"bg-success text-white py-2 py-md-3 shadow-sm\" (tap)=\"hide()\">確定</div>\n        </div>\n    </div>\n</div>"
+module.exports = "<div #trigger (tap)=\"show()\">\n    <ng-content></ng-content>\n</div>\n<div *ngIf=\"isOpen\" class=\"position-fixed\">\n    <div class=\"position-fixed\" (tap)=\"hide()\"></div>\n\n    <div #keypad class=\"numeric-keypad p-3 text-center text-large shadow bg-light-gray\" [ngStyle]=\"{\n    'top.px': position.y, \n    'left.px': position.x\n}\">\n        <div class=\"number d-grid mb-2 text-dark-gray\">\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('7')\">7</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('8')\">8</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('9')\">9</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('4')\">4</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('5')\">5</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('6')\">6</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('1')\">1</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('2')\">2</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('3')\">3</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('0')\">0</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('00')\">00</div>\n            <div *ngIf=\"inputType === 'number'\" class=\"bg-dark-gray text-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('000')\">000</div>\n            <div *ngIf=\"inputType === 'telephone'\" class=\"bg-dark-gray text-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('+')\">+</div>\n        </div>\n        <div class=\"etc d-grid\">\n            <div class=\"bg-gray text-white py-2 py-md-3 shadow-sm\" (tap)=\"clear()\">C</div>\n            <div class=\"bg-success text-white py-2 py-md-3 shadow-sm\" (tap)=\"hide()\">確定</div>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1401,7 +1401,7 @@ var AppComponent = /** @class */ (function () {
      * @example {{ 'HOME.HELLO' | translate: { value: 'world'} }}
      */
     AppComponent.prototype.locales = function () {
-        this.translate.addLangs(['ja', 'en']);
+        this.translate.addLangs(environment_1.environment.LANGUAGE);
         this.translate.setDefaultLang('ja');
         console.log('translate', this.translate);
     };
@@ -2250,23 +2250,27 @@ var InquiryConfirmComponent = /** @class */ (function () {
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('inquiry.confirm.confirm.cancel'),
             cb: function () { return __awaiter(_this, void 0, void 0, function () {
-                var orderData, orders, error_2;
+                var userData, orderData, orders, language, error_2;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            _a.trys.push([0, 5, , 6]);
-                            return [4 /*yield*/, this.orderService.getData()];
+                            _a.trys.push([0, 6, , 7]);
+                            return [4 /*yield*/, this.userService.getData()];
                         case 1:
+                            userData = _a.sent();
+                            return [4 /*yield*/, this.orderService.getData()];
+                        case 2:
                             orderData = _a.sent();
                             if (orderData.order === undefined) {
                                 throw new Error('order undefined');
                             }
                             orders = [orderData.order];
-                            return [4 /*yield*/, this.orderService.cancel(orders)];
-                        case 2:
+                            language = userData.language;
+                            return [4 /*yield*/, this.orderService.cancel({ orders: orders, language: language })];
+                        case 3:
                             _a.sent();
                             return [4 /*yield*/, this.orderService.getData()];
-                        case 3:
+                        case 4:
                             orderData = _a.sent();
                             if (orderData.order === undefined) {
                                 throw new Error('order undefined');
@@ -2275,17 +2279,17 @@ var InquiryConfirmComponent = /** @class */ (function () {
                                     confirmationNumber: orderData.order.confirmationNumber,
                                     customer: { telephone: orderData.order.customer.telephone }
                                 })];
-                        case 4:
-                            _a.sent();
-                            return [3 /*break*/, 6];
                         case 5:
+                            _a.sent();
+                            return [3 /*break*/, 7];
+                        case 6:
                             error_2 = _a.sent();
                             this.utilService.openAlert({
                                 title: this.translate.instant('common.error'),
                                 body: "\n                        <p class=\"mb-4\">" + this.translate.instant('inquiry.confirm.alert.cancel') + "</p>\n                        <div class=\"p-3 bg-light-gray select-text error\">\n                            <code>" + error_2 + "</code>\n                        </div>"
                             });
-                            return [3 /*break*/, 6];
-                        case 6: return [2 /*return*/];
+                            return [3 /*break*/, 7];
+                        case 7: return [2 /*return*/];
                     }
                 });
             }); }
@@ -2460,7 +2464,7 @@ var InquiryInputComponent = /** @class */ (function () {
      * 照会フォーム作成
      */
     InquiryInputComponent.prototype.createInquiryForm = function () {
-        var TEL_MAX_LENGTH = 11;
+        var TEL_MAX_LENGTH = 15;
         var TEL_MIN_LENGTH = 9;
         this.inquiryForm = this.formBuilder.group({
             confirmationNumber: ['', [
@@ -2471,11 +2475,15 @@ var InquiryInputComponent = /** @class */ (function () {
                     forms_1.Validators.required,
                     forms_1.Validators.maxLength(TEL_MAX_LENGTH),
                     forms_1.Validators.minLength(TEL_MIN_LENGTH),
-                    forms_1.Validators.pattern(/^[0-9]+$/),
                     function (control) {
                         var field = control.root.get('telephone');
                         if (field !== null) {
-                            var parsedNumber = libphonenumber.parse(field.value, 'JP');
+                            if (field.value === '') {
+                                return null;
+                            }
+                            var parsedNumber = (new RegExp(/^\+/).test(field.value))
+                                ? libphonenumber.parse(field.value)
+                                : libphonenumber.parse(field.value, 'JP');
                             if (parsedNumber.phone === undefined) {
                                 return { telephone: true };
                             }
@@ -3288,7 +3296,12 @@ var MypageProfileComponent = /** @class */ (function () {
                     function (control) {
                         var field = control.root.get('telephone');
                         if (field !== null) {
-                            var parsedNumber = libphonenumber.parse(field.value, 'JP');
+                            if (field.value === '') {
+                                return null;
+                            }
+                            var parsedNumber = (new RegExp(/^\+/).test(field.value))
+                                ? libphonenumber.parse(field.value)
+                                : libphonenumber.parse(field.value, 'JP');
                             if (parsedNumber.phone === undefined) {
                                 return { telephone: true };
                             }
@@ -3510,10 +3523,11 @@ var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/stor
 var order_detail_modal_component_1 = __webpack_require__(/*! ../../../parts/order-detail-modal/order-detail-modal.component */ "./app/components/parts/order-detail-modal/order-detail-modal.component.ts");
 var qrcode_modal_component_1 = __webpack_require__(/*! ../../../parts/qrcode-modal/qrcode-modal.component */ "./app/components/parts/qrcode-modal/qrcode-modal.component.ts");
 var OrderSearchComponent = /** @class */ (function () {
-    function OrderSearchComponent(store, modal, router, utilService, orderService, translate) {
+    function OrderSearchComponent(store, modal, router, userService, utilService, orderService, translate) {
         this.store = store;
         this.modal = modal;
         this.router = router;
+        this.userService = userService;
         this.utilService = utilService;
         this.orderService = orderService;
         this.translate = translate;
@@ -3659,24 +3673,28 @@ var OrderSearchComponent = /** @class */ (function () {
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('order.list.confirm.cancel'),
             cb: function () { return __awaiter(_this, void 0, void 0, function () {
-                var error_2;
+                var userData, language, error_2;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            _a.trys.push([0, 2, , 3]);
-                            return [4 /*yield*/, this.orderService.cancel(orders)];
+                            _a.trys.push([0, 3, , 4]);
+                            return [4 /*yield*/, this.userService.getData()];
                         case 1:
-                            _a.sent();
-                            return [3 /*break*/, 3];
+                            userData = _a.sent();
+                            language = userData.language;
+                            return [4 /*yield*/, this.orderService.cancel({ orders: orders, language: language })];
                         case 2:
+                            _a.sent();
+                            return [3 /*break*/, 4];
+                        case 3:
                             error_2 = _a.sent();
                             console.error(error_2);
                             this.utilService.openAlert({
                                 title: this.translate.instant('common.error'),
                                 body: "\n                        <p class=\"mb-4\">" + this.translate.instant('order.list.alert.cancel') + "</p>\n                        <div class=\"p-3 bg-light-gray select-text error\">\n                            <code>" + error_2 + "</code>\n                        </div>"
                             });
-                            return [3 /*break*/, 3];
-                        case 3: return [2 /*return*/];
+                            return [3 /*break*/, 4];
+                        case 4: return [2 /*return*/];
                     }
                 });
             }); }
@@ -3707,24 +3725,31 @@ var OrderSearchComponent = /** @class */ (function () {
                 title: this.translate.instant('common.confirm'),
                 body: this.translate.instant('order.list.confirm.cancel'),
                 cb: function () { return __awaiter(_this, void 0, void 0, function () {
-                    var error_3;
+                    var userData, language, error_3;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                _a.trys.push([0, 2, , 3]);
-                                return [4 /*yield*/, this.orderService.cancel(this.selectedOrders)];
+                                _a.trys.push([0, 3, , 4]);
+                                return [4 /*yield*/, this.userService.getData()];
                             case 1:
-                                _a.sent();
-                                return [3 /*break*/, 3];
+                                userData = _a.sent();
+                                language = userData.language;
+                                return [4 /*yield*/, this.orderService.cancel({
+                                        orders: this.selectedOrders,
+                                        language: language
+                                    })];
                             case 2:
+                                _a.sent();
+                                return [3 /*break*/, 4];
+                            case 3:
                                 error_3 = _a.sent();
                                 console.error(error_3);
                                 this.utilService.openAlert({
                                     title: this.translate.instant('common.error'),
                                     body: "\n                            <p class=\"mb-4\">" + this.translate.instant('order.list.alert.cancel') + "</p>\n                            <div class=\"p-3 bg-light-gray select-text error\">\n                                <code>" + error_3 + "</code>\n                            </div>"
                                 });
-                                return [3 /*break*/, 3];
-                            case 3: return [2 /*return*/];
+                                return [3 /*break*/, 4];
+                            case 4: return [2 /*return*/];
                         }
                     });
                 }); }
@@ -3784,6 +3809,7 @@ var OrderSearchComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [store_1.Store,
             ngx_bootstrap_1.BsModalService,
             router_1.Router,
+            services_1.UserService,
             services_1.UtilService,
             services_1.OrderService,
             core_2.TranslateService])
@@ -5817,9 +5843,10 @@ var functions_1 = __webpack_require__(/*! ../../../../functions */ "./app/functi
 var services_1 = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 var reducers = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 var PurchaseConfirmComponent = /** @class */ (function () {
-    function PurchaseConfirmComponent(store, utilService, purchaseService, router, translate) {
+    function PurchaseConfirmComponent(store, utilService, userService, purchaseService, router, translate) {
         this.store = store;
         this.utilService = utilService;
+        this.userService = userService;
         this.purchaseService = purchaseService;
         this.router = router;
         this.translate = translate;
@@ -5855,34 +5882,38 @@ var PurchaseConfirmComponent = /** @class */ (function () {
      */
     PurchaseConfirmComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, error_1, error_2, error_3;
+            var purchaseData, userData, language, error_1, error_2, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
-                        purchase = _a.sent();
-                        _a.label = 2;
+                        purchaseData = _a.sent();
+                        return [4 /*yield*/, this.userService.getData()];
                     case 2:
-                        _a.trys.push([2, 5, , 6]);
-                        if (!(purchase.pendingMovieTickets.length > 0)) return [3 /*break*/, 4];
-                        return [4 /*yield*/, this.purchaseService.authorizeMovieTicket()];
+                        userData = _a.sent();
+                        language = userData.language;
+                        _a.label = 3;
                     case 3:
+                        _a.trys.push([3, 6, , 7]);
+                        if (!(purchaseData.pendingMovieTickets.length > 0)) return [3 /*break*/, 5];
+                        return [4 /*yield*/, this.purchaseService.authorizeMovieTicket()];
+                    case 4:
                         _a.sent();
-                        _a.label = 4;
-                    case 4: return [3 /*break*/, 6];
-                    case 5:
+                        _a.label = 5;
+                    case 5: return [3 /*break*/, 7];
+                    case 6:
                         error_1 = _a.sent();
                         this.router.navigate(['/error']);
                         return [2 /*return*/];
-                    case 6:
-                        _a.trys.push([6, 9, , 10]);
-                        if (!(this.amount > 0)) return [3 /*break*/, 8];
-                        return [4 /*yield*/, this.purchaseService.authorizeCreditCard(this.amount)];
                     case 7:
+                        _a.trys.push([7, 10, , 11]);
+                        if (!(this.amount > 0)) return [3 /*break*/, 9];
+                        return [4 /*yield*/, this.purchaseService.authorizeCreditCard(this.amount)];
+                    case 8:
                         _a.sent();
-                        _a.label = 8;
-                    case 8: return [3 /*break*/, 10];
-                    case 9:
+                        _a.label = 9;
+                    case 9: return [3 /*break*/, 11];
+                    case 10:
                         error_2 = _a.sent();
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
@@ -5890,18 +5921,18 @@ var PurchaseConfirmComponent = /** @class */ (function () {
                         });
                         this.router.navigate(['/purchase/input']);
                         return [2 /*return*/];
-                    case 10:
-                        _a.trys.push([10, 12, , 13]);
-                        return [4 /*yield*/, this.purchaseService.endTransaction()];
                     case 11:
+                        _a.trys.push([11, 13, , 14]);
+                        return [4 /*yield*/, this.purchaseService.endTransaction({ language: language })];
+                    case 12:
                         _a.sent();
                         this.router.navigate(['/purchase/complete']);
-                        return [3 /*break*/, 13];
-                    case 12:
+                        return [3 /*break*/, 14];
+                    case 13:
                         error_3 = _a.sent();
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 13];
-                    case 13: return [2 /*return*/];
+                        return [3 /*break*/, 14];
+                    case 14: return [2 /*return*/];
                 }
             });
         });
@@ -5914,6 +5945,7 @@ var PurchaseConfirmComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [store_1.Store,
             services_1.UtilService,
+            services_1.UserService,
             services_1.PurchaseService,
             router_1.Router,
             core_2.TranslateService])
@@ -6022,7 +6054,6 @@ var PurchaseInputComponent = /** @class */ (function () {
      */
     PurchaseInputComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.amount = 0;
         this.purchase = this.store.pipe(store_1.select(reducers.getPurchase));
         this.user = this.store.pipe(store_1.select(reducers.getUser));
         this.isLoading = this.store.pipe(store_1.select(reducers.getLoading));
@@ -6066,18 +6097,48 @@ var PurchaseInputComponent = /** @class */ (function () {
     PurchaseInputComponent.prototype.createCustomerContactForm = function () {
         var NAME_MAX_LENGTH = 12;
         var MAIL_MAX_LENGTH = 50;
-        var TEL_MAX_LENGTH = 11;
+        var TEL_MAX_LENGTH = 15;
         var TEL_MIN_LENGTH = 9;
         this.customerContactForm = this.formBuilder.group({
             familyName: ['', [
                     forms_1.Validators.required,
                     forms_1.Validators.maxLength(NAME_MAX_LENGTH),
-                    forms_1.Validators.pattern(/^[ァ-ヶー]+$/)
+                    function (control) {
+                        var field = control.root.get('familyName');
+                        var language = document.documentElement.lang;
+                        if (field !== null) {
+                            if (field.value === '') {
+                                return null;
+                            }
+                            if (language === 'ja' && !new RegExp(/^[ァ-ヶー]+$/).test(field.value)) {
+                                return { customPattern: true };
+                            }
+                            if (language !== 'ja' && !new RegExp(/^[a-z]+$/).test(field.value)) {
+                                return { customPattern: true };
+                            }
+                        }
+                        return null;
+                    }
                 ]],
             givenName: ['', [
                     forms_1.Validators.required,
                     forms_1.Validators.maxLength(NAME_MAX_LENGTH),
-                    forms_1.Validators.pattern(/^[ァ-ヶー]+$/)
+                    function (control) {
+                        var field = control.root.get('givenName');
+                        var language = document.documentElement.lang;
+                        if (field !== null) {
+                            if (field.value === '') {
+                                return null;
+                            }
+                            if (language === 'ja' && !new RegExp(/^[ァ-ヶー]+$/).test(field.value)) {
+                                return { customPattern: true };
+                            }
+                            if (language !== 'ja' && !new RegExp(/^[a-z]+$/).test(field.value)) {
+                                return { customPattern: true };
+                            }
+                        }
+                        return null;
+                    }
                 ]],
             email: ['', [
                     forms_1.Validators.required,
@@ -6088,11 +6149,15 @@ var PurchaseInputComponent = /** @class */ (function () {
                     forms_1.Validators.required,
                     forms_1.Validators.maxLength(TEL_MAX_LENGTH),
                     forms_1.Validators.minLength(TEL_MIN_LENGTH),
-                    forms_1.Validators.pattern(/^[0-9]+$/),
                     function (control) {
                         var field = control.root.get('telephone');
                         if (field !== null) {
-                            var parsedNumber = libphonenumber.parse(field.value, 'JP');
+                            if (field.value === '') {
+                                return null;
+                            }
+                            var parsedNumber = (new RegExp(/^\+/).test(field.value))
+                                ? libphonenumber.parse(field.value)
+                                : libphonenumber.parse(field.value, 'JP');
                             if (parsedNumber.phone === undefined) {
                                 return { telephone: true };
                             }
@@ -7850,8 +7915,8 @@ var NumericKeypadComponent = /** @class */ (function () {
         this.isOpen = false;
         this.hidden.emit(this.inputValue);
     };
-    NumericKeypadComponent.prototype.inputNumber = function (number) {
-        this.inputValue = (this.inputValue + number).slice(0, this.maxlength);
+    NumericKeypadComponent.prototype.inputCode = function (code) {
+        this.inputValue = (this.inputValue + code).slice(0, this.maxlength);
         this.change.emit(this.inputValue);
     };
     NumericKeypadComponent.prototype.clear = function () {
@@ -7872,6 +7937,10 @@ var NumericKeypadComponent = /** @class */ (function () {
         core_1.Input(),
         __metadata("design:type", Number)
     ], NumericKeypadComponent.prototype, "maxlength", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], NumericKeypadComponent.prototype, "inputType", void 0);
     __decorate([
         core_1.Output(),
         __metadata("design:type", Object)
@@ -10420,9 +10489,11 @@ function formatTelephone(telephone, format) {
     if (telephone === undefined) {
         return '';
     }
-    var parseNumber = libphonenumber.parse(telephone, 'JP');
+    var parsedNumber = (new RegExp(/^\+/).test(telephone))
+        ? libphonenumber.parse(telephone)
+        : libphonenumber.parse(telephone, 'JP');
     format = (format === undefined) ? 'International' : format;
-    return libphonenumber.format(parseNumber, format).replace(/\s/g, '');
+    return libphonenumber.format(parsedNumber, format).replace(/\s/g, '');
 }
 exports.formatTelephone = formatTelephone;
 /**
@@ -10936,8 +11007,9 @@ var LibphonenumberFormatPipe = /** @class */ (function () {
     LibphonenumberFormatPipe.prototype.transform = function (phoneNumber, countryCode, format) {
         countryCode = (countryCode === undefined) ? 'JP' : countryCode;
         format = (format === undefined) ? 'National' : format;
-        var parsedNumber = libphonenumber.parse(phoneNumber, countryCode);
-        return libphonenumber.format(parsedNumber, format).replace(/\-/g, '');
+        var parsedNumber = libphonenumber.parse(phoneNumber);
+        return (parsedNumber.country !== 'JP')
+            ? phoneNumber : libphonenumber.format(parsedNumber, format).replace(/\-/g, '');
     };
     LibphonenumberFormatPipe = __decorate([
         core_1.Pipe({
@@ -11633,12 +11705,12 @@ var OrderService = /** @class */ (function () {
     /**
      * 注文キャンセル
      */
-    OrderService.prototype.cancel = function (orders) {
+    OrderService.prototype.cancel = function (params) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new actions_1.orderAction.Cancel({ orders: orders }));
+                        _this.store.dispatch(new actions_1.orderAction.Cancel(params));
                         var success = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelSuccess), operators_1.tap(function () { resolve(); }));
                         var fail = _this.actions.pipe(effects_1.ofType(actions_1.orderAction.ActionTypes.CancelFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
@@ -12263,15 +12335,16 @@ var PurchaseService = /** @class */ (function () {
     /**
      * 取引確定
      */
-    PurchaseService.prototype.endTransaction = function () {
+    PurchaseService.prototype.endTransaction = function (params) {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase;
+            var purchase, language;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
+                        language = params.language;
                         return [2 /*return*/, new Promise(function (resolve, reject) {
                                 if (purchase.transaction === undefined || purchase.seller === undefined) {
                                     reject();
@@ -12280,7 +12353,9 @@ var PurchaseService = /** @class */ (function () {
                                 var transaction = purchase.transaction;
                                 var authorizeSeatReservations = purchase.authorizeSeatReservations;
                                 var seller = purchase.seller;
-                                _this.store.dispatch(new actions_1.purchaseAction.EndTransaction({ transaction: transaction, authorizeSeatReservations: authorizeSeatReservations, seller: seller }));
+                                _this.store.dispatch(new actions_1.purchaseAction.EndTransaction({
+                                    transaction: transaction, authorizeSeatReservations: authorizeSeatReservations, seller: seller, language: language
+                                }));
                                 var success = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionSuccess), operators_1.tap(function () { resolve(); }));
                                 var fail = _this.actions.pipe(effects_1.ofType(actions_1.purchaseAction.ActionTypes.EndTransactionFail), operators_1.tap(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 rxjs_1.race(success, fail).pipe(operators_1.take(1)).subscribe();
@@ -15082,7 +15157,7 @@ var OrderEffects = /** @class */ (function () {
                                             template: undefined
                                         };
                                         if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 4];
-                                        return [4 /*yield*/, this_1.utilService.getText('/storage/ejs/mail/return.ejs')];
+                                        return [4 /*yield*/, this_1.utilService.getText("/storage/ejs/mail/return/" + payload.language + ".ejs")];
                                     case 2:
                                         view = _a.sent();
                                         return [4 /*yield*/, window.ejs.render(view, { moment: moment, formatTelephone: functions_1.formatTelephone, getTicketPrice: functions_1.getTicketPrice }, { async: true })];
@@ -16262,7 +16337,7 @@ var PurchaseEffects = /** @class */ (function () {
                             }
                         };
                         if (!environment_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 5];
-                        return [4 /*yield*/, this.utilService.getText('/storage/ejs/mail/complete.ejs')];
+                        return [4 /*yield*/, this.utilService.getText("/storage/ejs/mail/complete/" + payload.language + ".ejs")];
                     case 3:
                         view = _a.sent();
                         return [4 /*yield*/, window.ejs.render(view, {
