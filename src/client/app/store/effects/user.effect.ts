@@ -3,7 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, mergeMap } from 'rxjs/operators';
 import { createGmoTokenObject } from '../../functions';
-import { LibphonenumberFormatPipe } from '../../pipes/libphonenumber-format.pipe';
+import { LibphonenumberFormatPipe } from '../../modules/shared/pipes/libphonenumber-format.pipe';
 import { CinerinoService } from '../../services';
 import { userAction } from '../actions';
 

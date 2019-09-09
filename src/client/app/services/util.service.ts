@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap';
-import { AlertModalComponent } from '../components/parts/alert-modal/alert-modal.component';
-import { ConfirmModalComponent } from '../components/parts/confirm-modal/confirm-modal.component';
+import { AlertModalComponent } from '../modules/shared/components/parts/alert-modal/alert-modal.component';
+import { ConfirmModalComponent } from '../modules/shared/components/parts/confirm-modal/confirm-modal.component';
 
 @Injectable({
     providedIn: 'root'
