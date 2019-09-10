@@ -1138,7 +1138,6 @@ const http_loader_1 = __webpack_require__(/*! @ngx-translate/http-loader */ "../
 const ngx_bootstrap_1 = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 const app_routing_module_1 = __webpack_require__(/*! ./app-routing.module */ "./app/app-routing.module.ts");
 const app_component_1 = __webpack_require__(/*! ./app/app.component */ "./app/app/app.component.ts");
-const purchase_module_1 = __webpack_require__(/*! ./modules/purchase/purchase.module */ "./app/modules/purchase/purchase.module.ts");
 const shared_module_1 = __webpack_require__(/*! ./modules/shared/shared.module */ "./app/modules/shared/shared.module.ts");
 const store_module_1 = __webpack_require__(/*! ./store.module */ "./app/store.module.ts");
 const store_1 = __webpack_require__(/*! ./store/core/store */ "./app/store/core/store/index.ts");
@@ -1160,7 +1159,6 @@ AppModule = __decorate([
             store_1.CoreStoreModule,
             shared_module_1.SharedModule,
             app_routing_module_1.AppRoutingModule,
-            purchase_module_1.PurchaseModule,
             ngx_bootstrap_1.ModalModule.forRoot(),
             ngx_bootstrap_1.BsDatepickerModule.forRoot(),
             ngx_bootstrap_1.PaginationModule.forRoot(),
