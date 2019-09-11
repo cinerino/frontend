@@ -44,12 +44,13 @@
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
-              "namedChunks": true,
+              "namedChunks": false,
               "aot": false,
               "extractLicenses": true,
               "vendorChunk": true,
               "buildOptimizer": false,
-              "index": "src/client/index.production.html"
+              "index": "src/client/index.production.html",
+              "statsJson": true
             }
           }
         },

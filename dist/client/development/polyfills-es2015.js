@@ -7531,11 +7531,15 @@ Zone.__load_patch('PromiseRejectionEvent', (global, Zone) => {
 /*!**********************!*\
   !*** ./polyfills.ts ***!
   \**********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_es6_reflect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/es6/reflect */ "../../node_modules/core-js/es6/reflect.js");
+/* harmony import */ var core_js_es6_reflect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_es6_reflect__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var zone_js_dist_zone__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! zone.js/dist/zone */ "../../node_modules/zone.js/dist/zone-evergreen.js");
+/* harmony import */ var zone_js_dist_zone__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(zone_js_dist_zone__WEBPACK_IMPORTED_MODULE_1__);
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
  * You can add your own extra polyfills to this file.
@@ -7551,10 +7555,9 @@ Zone.__load_patch('PromiseRejectionEvent', (global, Zone) => {
  *
  * Learn more in https://angular.io/guide/browser-support
  */
-var __importDefault = (this && this.__importDefault) || function (mod) {
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 /***************************************************************************************************
 * BROWSER POLYFILLS
 */
@@ -7565,7 +7568,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Evergreen browsers require these.
  */
-__webpack_require__(/*! core-js/es6/reflect */ "../../node_modules/core-js/es6/reflect.js");
+
 /**
  * Required to support Web Animations `@angular/animation`.
  * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
@@ -7574,7 +7577,7 @@ __webpack_require__(/*! core-js/es6/reflect */ "../../node_modules/core-js/es6/r
 /***************************************************************************************************
  * Zone JS is required by Angular itself.
  */
-__webpack_require__(/*! zone.js/dist/zone */ "../../node_modules/zone.js/dist/zone-evergreen.js"); // Included with Angular CLI.
+ // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */

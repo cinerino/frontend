@@ -14,7 +14,7 @@
     "listEmittedFiles": false,
     "listFiles": false,
     "locale": "en-us",
-    "module": "commonjs",
+    "module": "esnext",
     "newLine": "CRLF",
     "noImplicitAny": true,
     "noImplicitReturns": true,
