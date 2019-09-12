@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from '../environments/environment';
 import { AuthGuardService } from './canActivates';
+import { ErrorModule } from './modules/error/error.module';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: environment.BASE_URL.replace('\/', ''), pathMatch: 'full' },
@@ -37,7 +38,7 @@ const appRoutes: Routes = [
     },
     {
         path: '',
-        loadChildren: () => import('./modules/error/error.module').then(m => m.ErrorModule)
+        loadChildren: () => ErrorModule
     }
 ];
 
