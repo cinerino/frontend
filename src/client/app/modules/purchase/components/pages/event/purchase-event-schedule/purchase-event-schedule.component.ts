@@ -5,11 +5,10 @@ import { select, Store } from '@ngrx/store';
 import { BAD_REQUEST, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
-import { CellHoverEvent } from 'ngx-bootstrap/datepicker/models';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../../../environments/environment';
-import { IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
+import { iOSDatepickerTapBugFix, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
 import { MasterService, PurchaseService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
@@ -234,20 +233,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
-        const dayHoverHandler = container.dayHoverHandler;
-        const hoverWrapper = (event: CellHoverEvent) => {
-            const { cell, isHovered } = event;
-            if ((isHovered &&
-                !!navigator.platform &&
-                /iPad|iPhone|iPod/.test(navigator.platform)) &&
-                'ontouchstart' in window
-            ) {
-                (<any>this.datepicker)._datepickerRef.instance.daySelectHandler(cell);
-            }
-
-            return dayHoverHandler(event);
-        };
-        container.dayHoverHandler = hoverWrapper;
+        iOSDatepickerTapBugFix(container, [this.datepicker]);
     }
 
 }

@@ -1033,7 +1033,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, createPrintCanvas, createTestPrintCanvas, changeTicketCountByOrder */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, createPrintCanvas, createTestPrintCanvas, changeTicketCountByOrder */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1081,6 +1081,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "retry", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["retry"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "sleep", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["sleep"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "iOSDatepickerTapBugFix", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["iOSDatepickerTapBugFix"]; });
 
 /* harmony import */ var _order_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./order.function */ "./app/functions/order.function.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createPrintCanvas"]; });
@@ -1841,7 +1843,7 @@ function getRemainingSeatLength(screeningEventOffers, screeningEvent) {
 /*!****************************************!*\
   !*** ./app/functions/util.function.ts ***!
   \****************************************/
-/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep */
+/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1851,6 +1853,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toHalf", function() { return toHalf; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "retry", function() { return retry; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sleep", function() { return sleep; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "iOSDatepickerTapBugFix", function() { return iOSDatepickerTapBugFix; });
 /* harmony import */ var libphonenumber_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -1939,6 +1942,23 @@ function sleep(time) {
             }, time);
         });
     });
+}
+/**
+ * iOS bugfix（2回タップしないと選択できない）
+ */
+function iOSDatepickerTapBugFix(container, datepickerDirectives) {
+    const dayHoverHandler = container.dayHoverHandler;
+    const hoverWrapper = (event) => {
+        const { cell, isHovered } = event;
+        if ((isHovered &&
+            !!navigator.platform &&
+            /iPad|iPhone|iPod/.test(navigator.platform)) &&
+            'ontouchstart' in window) {
+            datepickerDirectives.forEach(d => d._datepickerRef.instance.daySelectHandler(cell));
+        }
+        return dayHoverHandler(event);
+    };
+    container.dayHoverHandler = hoverWrapper;
 }
 
 
