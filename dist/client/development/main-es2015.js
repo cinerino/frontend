@@ -5550,7 +5550,13 @@ let PurchaseService = class PurchaseService {
                 this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].StartTransaction({
                     expires: moment__WEBPACK_IMPORTED_MODULE_4__(now).add(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                     seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
-                    object: {}
+                    object: {},
+                    agent: {
+                        identifier: [
+                            { name: 'userAgent', value: (navigator && navigator.userAgent !== undefined) ? navigator.userAgent : '' },
+                            { name: 'appVersion', value: (navigator && navigator.appVersion !== undefined) ? navigator.appVersion : '' }
+                        ]
+                    }
                 }));
                 const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.StartTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
                 const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.StartTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
