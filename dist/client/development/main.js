@@ -7215,9 +7215,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UtilService", function() { return UtilService; });
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _modules_shared_components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modules/shared/components/parts/alert-modal/alert-modal.component */ "./app/modules/shared/components/parts/alert-modal/alert-modal.component.ts");
-/* harmony import */ var _modules_shared_components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modules/shared/components/parts/confirm-modal/confirm-modal.component */ "./app/modules/shared/components/parts/confirm-modal/confirm-modal.component.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _modules_shared_components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modules/shared/components/parts/alert-modal/alert-modal.component */ "./app/modules/shared/components/parts/alert-modal/alert-modal.component.ts");
+/* harmony import */ var _modules_shared_components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../modules/shared/components/parts/confirm-modal/confirm-modal.component */ "./app/modules/shared/components/parts/confirm-modal/confirm-modal.component.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -7281,6 +7283,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var UtilService = /** @class */ (function () {
     function UtilService(modal, http) {
         this.modal = modal;
@@ -7292,7 +7295,7 @@ var UtilService = /** @class */ (function () {
     UtilService.prototype.openAlert = function (args) {
         var title = args.title;
         var body = args.body;
-        this.modal.show(_modules_shared_components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_3__["AlertModalComponent"], {
+        this.modal.show(_modules_shared_components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_4__["AlertModalComponent"], {
             initialState: { title: title, body: body },
             class: 'modal-dialog-centered'
         });
@@ -7304,7 +7307,7 @@ var UtilService = /** @class */ (function () {
         var title = args.title;
         var body = args.body;
         var cb = args.cb;
-        this.modal.show(_modules_shared_components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_4__["ConfirmModalComponent"], {
+        this.modal.show(_modules_shared_components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_5__["ConfirmModalComponent"], {
             initialState: { title: title, body: body, cb: cb },
             class: 'modal-dialog-centered'
         });
@@ -7314,10 +7317,12 @@ var UtilService = /** @class */ (function () {
      */
     UtilService.prototype.getServerTime = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var result;
+            var query, result;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.http.get('/api/serverTime').toPromise()];
+                    case 0:
+                        query = "?date=" + moment__WEBPACK_IMPORTED_MODULE_2__().toISOString();
+                        return [4 /*yield*/, this.http.get("/api/serverTime" + query).toPromise()];
                     case 1:
                         result = _a.sent();
                         return [2 /*return*/, result];
@@ -7426,14 +7431,14 @@ var UtilService = /** @class */ (function () {
         });
     };
     UtilService.ctorParameters = function () { return [
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalService"] },
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalService"] },
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"] }
     ]; };
     UtilService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalService"],
+        __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalService"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]])
     ], UtilService);
     return UtilService;
