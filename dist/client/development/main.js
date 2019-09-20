@@ -9585,16 +9585,14 @@ var OrderEffects = /** @class */ (function () {
                                                 ? undefined : this_1.translate.instant('email.order.return.about'),
                                             template: undefined
                                         };
-                                        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 4];
+                                        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 3];
                                         return [4 /*yield*/, this_1.utilService.getText("/storage/ejs/mail/return/" + payload.language + ".ejs")];
                                     case 2:
                                         view = _a.sent();
-                                        return [4 /*yield*/, window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_4__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"], getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"] }, { async: true })];
-                                    case 3:
-                                        template = _a.sent();
+                                        template = window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_4__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"], getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"] });
                                         email.template = template;
-                                        _a.label = 4;
-                                    case 4: return [4 /*yield*/, this_1.cinerino.transaction.returnOrder.confirm({
+                                        _a.label = 3;
+                                    case 3: return [4 /*yield*/, this_1.cinerino.transaction.returnOrder.confirm({
                                             id: startResult.id,
                                             potentialActions: {
                                                 returnOrder: {
@@ -9619,7 +9617,7 @@ var OrderEffects = /** @class */ (function () {
                                                 }
                                             }
                                         })];
-                                    case 5:
+                                    case 4:
                                         _a.sent();
                                         return [2 /*return*/];
                                 }
@@ -10760,7 +10758,7 @@ var PurchaseEffects = /** @class */ (function () {
                         seller = payload.seller;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 7, , 9]);
+                        _a.trys.push([1, 6, , 8]);
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 2:
                         _a.sent();
@@ -10788,21 +10786,19 @@ var PurchaseEffects = /** @class */ (function () {
                                 email: email
                             }
                         };
-                        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 5];
+                        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 4];
                         return [4 /*yield*/, this.utilService.getText("/storage/ejs/mail/complete/" + payload.language + ".ejs")];
                     case 3:
                         view = _a.sent();
-                        return [4 /*yield*/, window.ejs.render(view, {
-                                authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_8__["authorizeSeatReservationToEvent"])({ authorizeSeatReservations: authorizeSeatReservations }),
-                                seller: seller,
-                                moment: moment__WEBPACK_IMPORTED_MODULE_5__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"], getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_8__["getTicketPrice"]
-                            }, { async: true })];
-                    case 4:
-                        template = _a.sent();
+                        template = window.ejs.render(view, {
+                            authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_8__["authorizeSeatReservationToEvent"])({ authorizeSeatReservations: authorizeSeatReservations }),
+                            seller: seller,
+                            moment: moment__WEBPACK_IMPORTED_MODULE_5__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"], getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_8__["getTicketPrice"]
+                        });
                         email.template = template;
-                        _a.label = 5;
-                    case 5: return [4 /*yield*/, this.cinerino.transaction.placeOrder.confirm(params)];
-                    case 6:
+                        _a.label = 4;
+                    case 4: return [4 /*yield*/, this.cinerino.transaction.placeOrder.confirm(params)];
+                    case 5:
                         result = _a.sent();
                         order = result.order;
                         if (_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].ANALYTICS_ID !== '') {
@@ -10821,15 +10817,15 @@ var PurchaseEffects = /** @class */ (function () {
                             }
                         }
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransactionSuccess({ order: order })];
-                    case 7:
+                    case 6:
                         error_15 = _a.sent();
                         return [4 /*yield*/, this.cinerino.transaction.placeOrder.cancel({
                                 id: transaction.id
                             })];
-                    case 8:
+                    case 7:
                         _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransactionFail({ error: error_15 })];
-                    case 9: return [2 /*return*/];
+                    case 8: return [2 /*return*/];
                 }
             });
         }); }));

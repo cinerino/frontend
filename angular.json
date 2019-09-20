@@ -25,7 +25,8 @@
               "node_modules/swiper/dist/css/swiper.css"
             ],
             "scripts": [
-              "node_modules/swiper/dist/js/swiper.js"
+              "node_modules/swiper/dist/js/swiper.js",
+              "src/client/assets/lib/ejs.min.js"
             ]
           },
           "configurations": {
