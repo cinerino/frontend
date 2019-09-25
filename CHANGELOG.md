@@ -12,6 +12,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.3.0 - 2019-09-25
+### Added
+ - 取引へuserAgent、appVersion追加
+### Changed
+ - モジュール分割
+ - モジュールごとに遅延ロード
+### Fixed
+ - サーバータイム取得修正
+ - メールテンプレート作成IE対応
+
 ## 2.2.0 - 2019-08-29
 ###  Added
 - テンキーに電話番号入力追加
