@@ -126,7 +126,13 @@ export class PurchaseService {
             this.store.dispatch(new purchaseAction.StartTransaction({
                 expires: moment(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                 seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
-                object: {}
+                object: {},
+                agent: {
+                    identifier: [
+                        { name: 'userAgent', value: (navigator && navigator.userAgent !== undefined) ? navigator.userAgent : '' },
+                        { name: 'appVersion', value: (navigator && navigator.appVersion !== undefined) ? navigator.appVersion : '' }
+                    ]
+                }
             }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.StartTransactionSuccess),

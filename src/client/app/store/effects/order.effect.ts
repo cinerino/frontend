@@ -92,7 +92,7 @@ export class OrderEffects {
                     if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                         // メールをカスタマイズ
                         const view = await this.utilService.getText(`/storage/ejs/mail/return/${payload.language}.ejs`);
-                        const template = await (<any>window).ejs.render(view, { moment, formatTelephone, getTicketPrice }, { async: true });
+                        const template = (<any>window).ejs.render(view, { moment, formatTelephone, getTicketPrice });
                         email.template = template;
                     }
                     await this.cinerino.transaction.returnOrder.confirm({
