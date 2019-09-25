@@ -1896,12 +1896,13 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 var PurchaseEventScheduleComponent = /** @class */ (function () {
-    function PurchaseEventScheduleComponent(store, router, purchaseService, masterService, localeService) {
+    function PurchaseEventScheduleComponent(store, router, purchaseService, masterService, localeService, liny) {
         this.store = store;
         this.router = router;
         this.purchaseService = purchaseService;
         this.masterService = masterService;
         this.localeService = localeService;
+        this.liny = liny;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
     }
@@ -1921,6 +1922,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                         this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
                         this.screeningWorkEvents = [];
                         this.isSales = true;
+                        this.liny.sendMessage({ uid: '123', message: 'TEST' });
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 6, , 7]);
@@ -2157,7 +2159,8 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
         { type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"] },
         { type: _services__WEBPACK_IMPORTED_MODULE_8__["MasterService"] },
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] }
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_8__["LinyService"] }
     ]; };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('datepicker', { static: true }),
@@ -2173,7 +2176,8 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
             _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"],
             _services__WEBPACK_IMPORTED_MODULE_8__["MasterService"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]])
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"],
+            _services__WEBPACK_IMPORTED_MODULE_8__["LinyService"]])
     ], PurchaseEventScheduleComponent);
     return PurchaseEventScheduleComponent;
 }());

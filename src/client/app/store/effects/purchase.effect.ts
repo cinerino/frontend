@@ -15,7 +15,7 @@ import {
     isTicketedSeatScreeningEvent
 } from '../../functions';
 import { IScreen } from '../../models';
-import { CinerinoService, UtilService } from '../../services';
+import { CinerinoService, LinyService, UtilService } from '../../services';
 import { purchaseAction } from '../actions';
 declare const ga: Function;
 
@@ -28,6 +28,7 @@ export class PurchaseEffects {
     constructor(
         private actions: Actions,
         private cinerino: CinerinoService,
+        private liny: LinyService,
         private http: HttpClient,
         private utilService: UtilService,
         private translate: TranslateService
@@ -557,6 +558,7 @@ export class PurchaseEffects {
             const transaction = payload.transaction;
             const authorizeSeatReservations = payload.authorizeSeatReservations;
             const seller = payload.seller;
+            const linyId = payload.linyId;
             try {
                 await this.cinerino.getServices();
                 const email: factory.creativeWork.message.email.ICustomization = {
@@ -596,6 +598,7 @@ export class PurchaseEffects {
                 const result = await this.cinerino.transaction.placeOrder.confirm(params);
                 const order = result.order;
                 if (environment.ANALYTICS_ID !== '') {
+                    // アナリティクス連携
                     try {
                         const sendData = {
                             hitType: 'event',
@@ -605,6 +608,15 @@ export class PurchaseEffects {
                                 ? 'conversion' : `conversion-${seller.location.branchCode}`
                         };
                         ga('send', sendData);
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+
+                if (linyId !== undefined) {
+                    // liny連携
+                    try {
+                        this.liny.sendMessage({ uid: linyId, message: 'TEST' });
                     } catch (error) {
                         console.error(error);
                     }

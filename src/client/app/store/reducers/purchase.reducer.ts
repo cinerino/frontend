@@ -39,6 +39,7 @@ export interface IPurchaseState {
         passportToken?: string;
         workPerformedId?: string;
         scheduleDate?: string;
+        linyId?: string;
     };
 }
 
@@ -460,20 +461,7 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case purchaseAction.ActionTypes.SetExternal: {
-            const theaterBranchCode = action.payload.theaterBranchCode;
-            const superEventId = action.payload.superEventId;
-            const eventId = action.payload.eventId;
-            const workPerformedId = action.payload.workPerformedId;
-            const passportToken = action.payload.passportToken;
-            const scheduleDate = action.payload.scheduleDate;
-            state.purchaseData.external = {
-                theaterBranchCode,
-                superEventId,
-                eventId,
-                workPerformedId,
-                passportToken,
-                scheduleDate
-            };
+            state.purchaseData.external = action.payload;
             return { ...state };
         }
         case purchaseAction.ActionTypes.ConvertExternalToPurchase: {

@@ -2,6 +2,24 @@
  * 共通
  * @namespace services.util
  */
+import debug = require('debug');
+import * as request from 'request';
+const log = debug('frontend:util');
+
+export async function postRequestAsync<T>(url: string, options?: request.CoreOptions) {
+    return new Promise<T>((resolve, reject) => {
+        log(url, options);
+        request.post(url, options, (error, _response, body) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            resolve(body);
+        });
+    });
+}
+
+
 /**
  * @memberof services.util
  * @enum DIGITS

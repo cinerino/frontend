@@ -1,9 +1,35 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * 共通
  * @namespace services.util
  */
+const debug = require("debug");
+const request = require("request");
+const log = debug('frontend:util');
+function postRequestAsync(url, options) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return new Promise((resolve, reject) => {
+            log(url, options);
+            request.post(url, options, (error, _response, body) => {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+                resolve(body);
+            });
+        });
+    });
+}
+exports.postRequestAsync = postRequestAsync;
 /**
  * @memberof services.util
  * @enum DIGITS

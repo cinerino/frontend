@@ -9,7 +9,7 @@ import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../../../environments/environment';
 import { iOSDatepickerTapBugFix, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
-import { MasterService, PurchaseService } from '../../../../../../services';
+import { LinyService, MasterService, PurchaseService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
 @Component({
@@ -37,7 +37,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         private router: Router,
         private purchaseService: PurchaseService,
         private masterService: MasterService,
-        private localeService: BsLocaleService
+        private localeService: BsLocaleService,
+        private liny: LinyService
     ) { }
 
     /**
@@ -51,6 +52,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.error = this.store.pipe(select(reducers.getError));
         this.screeningWorkEvents = [];
         this.isSales = true;
+        this.liny.sendMessage({ uid: '123', message: 'TEST' });
         try {
             await this.purchaseService.cancelTransaction();
             const purchase = await this.purchaseService.getData();
