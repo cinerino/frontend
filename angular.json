@@ -25,7 +25,8 @@
               "node_modules/swiper/dist/css/swiper.css"
             ],
             "scripts": [
-              "node_modules/swiper/dist/js/swiper.js"
+              "node_modules/swiper/dist/js/swiper.js",
+              "src/client/assets/lib/ejs.min.js"
             ]
           },
           "configurations": {
@@ -44,17 +45,13 @@
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
-              "namedChunks": true,
+              "namedChunks": false,
               "aot": false,
               "extractLicenses": true,
               "vendorChunk": true,
               "buildOptimizer": false,
-              "fileReplacements": [
-                {
-                  "replace": "src/client/index.html",
-                  "with": "src/client/index.production.html"
-                }
-              ]
+              "index": "src/client/index.production.html",
+              "statsJson": true
             }
           }
         },

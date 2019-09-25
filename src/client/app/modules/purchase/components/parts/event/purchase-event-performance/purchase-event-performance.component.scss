@@ -1,0 +1,15 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+:host {
+    display: block;
+}
+
+.status {
+    line-height: 24px;
+    img {
+        width: 24px;
+        height: 24px;
+    }
+}

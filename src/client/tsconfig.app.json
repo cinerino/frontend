@@ -4,7 +4,7 @@
     "outDir": "./out-tsc/app",
     "baseUrl": "./",
     "types": ["node"],
-    "allowUnreachableCode": false,
+    "allowUnreachableCode": true,
     "allowUnusedLabels": false,
     "charset": "utf8",
     "diagnostics": false,
