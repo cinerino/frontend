@@ -27,22 +27,22 @@ function sendMessage(req, res) {
             log('sendMessage');
             const secret = process.env.LINY_API_SECRET;
             const signature = crypto.createHmac('sha256', secret)
-                .update(Buffer.from(JSON.stringify(req.body)))
-                .digest('base64');
+                .update(JSON.stringify(req.body))
+                .digest('hex');
             const uri = `${process.env.LINY_API_ENDPOINT}/send_message`;
-            const json = req.body;
-            const headers = [
-                { name: 'content-type', value: 'application/json' },
-                { name: 'X-OYATSU-TOKEN', value: signature }
-            ];
-            const result = yield util_service_1.postRequestAsync(uri, { headers, json });
-            log('sendMessage result', result);
-            res.json(result);
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-OYATSU-TOKEN': signature
+                },
+                json: req.body,
+            };
+            const requestResult = yield util_service_1.postRequestAsync(uri, options);
+            res.status(requestResult.response.statusCode);
+            res.json(requestResult.body);
         }
-        catch (err) {
-            log('sendMessage err', err);
-            log('sendMessage err.message', err.message);
-            res.json({ error: 'ERROR' });
+        catch (error) {
+            res.json({ error });
         }
     });
 }

@@ -10196,11 +10196,11 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
  * Purchase Effects
  */
 var PurchaseEffects = /** @class */ (function () {
-    function PurchaseEffects(actions, cinerino, liny, http, utilService, translate) {
+    function PurchaseEffects(actions, cinerinoService, linyService, http, utilService, translate) {
         var _this = this;
         this.actions = actions;
-        this.cinerino = cinerino;
-        this.liny = liny;
+        this.cinerinoService = cinerinoService;
+        this.linyService = linyService;
         this.http = http;
         this.utilService = utilService;
         this.translate = translate;
@@ -10213,7 +10213,7 @@ var PurchaseEffects = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 5, , 6]);
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _a.sent();
                         now = moment__WEBPACK_IMPORTED_MODULE_5__().toDate();
@@ -10225,7 +10225,7 @@ var PurchaseEffects = /** @class */ (function () {
                         _a.label = 2;
                     case 2:
                         if (!roop) return [3 /*break*/, 4];
-                        return [4 /*yield*/, this.cinerino.event.searchScreeningEvents({
+                        return [4 /*yield*/, this.cinerinoService.event.searchScreeningEvents({
                                 page: page,
                                 limit: limit,
                                 typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.eventType.ScreeningEvent,
@@ -10274,11 +10274,11 @@ var PurchaseEffects = /** @class */ (function () {
                         _b.trys.push([0, 6, , 7]);
                         params = payload;
                         selleId = params.seller.id;
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _b.sent();
                         if (!(params.object.passport === undefined)) return [3 /*break*/, 3];
-                        return [4 /*yield*/, this.cinerino.getPassport(selleId)];
+                        return [4 /*yield*/, this.cinerinoService.getPassport(selleId)];
                     case 2:
                         _a = _b.sent();
                         return [3 /*break*/, 4];
@@ -10288,7 +10288,7 @@ var PurchaseEffects = /** @class */ (function () {
                     case 4:
                         passport = _a;
                         params.object = { passport: passport };
-                        return [4 /*yield*/, this.cinerino.transaction.placeOrder.start(params)];
+                        return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.start(params)];
                     case 5:
                         transaction = _b.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].StartTransactionSuccess({ transaction: transaction })];
@@ -10309,10 +10309,10 @@ var PurchaseEffects = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
                         transaction = payload.transaction;
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.cinerino.transaction.placeOrder.cancel({ id: transaction.id })];
+                        return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.cancel({ id: transaction.id })];
                     case 2:
                         _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].CancelTransactionSuccess()];
@@ -10332,10 +10332,10 @@ var PurchaseEffects = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 5, , 6]);
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.cinerino.event.searchScreeningEventOffers({
+                        return [4 /*yield*/, this.cinerinoService.event.searchScreeningEventOffers({
                                 eventId: payload.screeningEvent.id
                             })];
                     case 2:
@@ -10366,13 +10366,13 @@ var PurchaseEffects = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 4, , 5]);
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _a.sent();
                         screeningEvent = payload.screeningEvent;
                         screeningEventOffers = [];
                         if (!Object(_functions__WEBPACK_IMPORTED_MODULE_8__["isTicketedSeatScreeningEvent"])(screeningEvent)) return [3 /*break*/, 3];
-                        return [4 /*yield*/, this.cinerino.event.searchScreeningEventOffers({
+                        return [4 /*yield*/, this.cinerinoService.event.searchScreeningEventOffers({
                                 eventId: screeningEvent.id
                             })];
                     case 2:
@@ -10400,11 +10400,11 @@ var PurchaseEffects = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 7, , 8]);
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 2:
                         _a.sent();
                         if (!(payload.authorizeSeatReservation !== undefined)) return [3 /*break*/, 4];
-                        return [4 /*yield*/, this.cinerino.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation)];
+                        return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation)];
                     case 3:
                         _a.sent();
                         _a.label = 4;
@@ -10419,7 +10419,7 @@ var PurchaseEffects = /** @class */ (function () {
                             || screeningEvent.offers.validThrough < nowDate) {
                             throw new Error('Outside sales period');
                         }
-                        return [4 /*yield*/, this.cinerino.transaction.placeOrder.authorizeSeatReservation({
+                        return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                                 object: {
                                     event: {
                                         id: screeningEvent.id
@@ -10466,7 +10466,7 @@ var PurchaseEffects = /** @class */ (function () {
                         _c.label = 1;
                     case 1:
                         _c.trys.push([1, 5, , 6]);
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 2:
                         _c.sent();
                         return [4 /*yield*/, this.utilService.getServerTime()];
@@ -10499,7 +10499,7 @@ var PurchaseEffects = /** @class */ (function () {
                                 }
                             }
                         }
-                        return [4 /*yield*/, this.cinerino.transaction.placeOrder.authorizeSeatReservation({
+                        return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                                 object: {
                                     event: {
                                         id: screeningEvent.id
@@ -10536,7 +10536,7 @@ var PurchaseEffects = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 6, , 7]);
                         authorizeSeatReservations = payload.authorizeSeatReservations;
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _a.sent();
                         _i = 0, authorizeSeatReservations_1 = authorizeSeatReservations;
@@ -10544,7 +10544,7 @@ var PurchaseEffects = /** @class */ (function () {
                     case 2:
                         if (!(_i < authorizeSeatReservations_1.length)) return [3 /*break*/, 5];
                         authorizeSeatReservation = authorizeSeatReservations_1[_i];
-                        return [4 /*yield*/, this.cinerino.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation)];
+                        return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.voidSeatReservation(authorizeSeatReservation)];
                     case 3:
                         _a.sent();
                         _a.label = 4;
@@ -10568,16 +10568,16 @@ var PurchaseEffects = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.cinerino.event.searchScreeningEventTicketOffers({
+                        return [4 /*yield*/, this.cinerinoService.event.searchScreeningEventTicketOffers({
                                 event: { id: payload.screeningEvent.id },
                                 seller: {
                                     typeOf: payload.seller.typeOf,
                                     id: payload.seller.id
                                 },
-                                store: { id: this.cinerino.auth.options.clientId }
+                                store: { id: this.cinerinoService.auth.options.clientId }
                             })];
                     case 2:
                         screeningEventTicketOffers = _a.sent();
@@ -10613,10 +10613,10 @@ var PurchaseEffects = /** @class */ (function () {
                         if (contact.telephone !== undefined) {
                             contact.telephone = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"])(contact.telephone);
                         }
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.cinerino.transaction.placeOrder.setCustomerContact({
+                        return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.setCustomerContact({
                                 id: transaction.id,
                                 object: {
                                     customerContact: contact
@@ -10643,17 +10643,17 @@ var PurchaseEffects = /** @class */ (function () {
                         _a.trys.push([0, 5, , 6]);
                         creditCard = payload.creditCard;
                         amount = payload.amount;
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _a.sent();
                         if (!(payload.authorizeCreditCardPayment !== undefined)) return [3 /*break*/, 3];
-                        return [4 /*yield*/, this.cinerino.payment.voidTransaction(payload.authorizeCreditCardPayment)];
+                        return [4 /*yield*/, this.cinerinoService.payment.voidTransaction(payload.authorizeCreditCardPayment)];
                     case 2:
                         _a.sent();
                         _a.label = 3;
                     case 3:
                         transaction = payload.transaction;
-                        return [4 /*yield*/, this.cinerino.payment.authorizeCreditCard({
+                        return [4 /*yield*/, this.cinerinoService.payment.authorizeCreditCard({
                                 object: {
                                     typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.CreditCard,
                                     amount: amount,
@@ -10705,7 +10705,7 @@ var PurchaseEffects = /** @class */ (function () {
                 switch (_c.label) {
                     case 0:
                         _c.trys.push([0, 10, , 11]);
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _c.sent();
                         if (!(payload.authorizeMovieTicketPayments.length > 0)) return [3 /*break*/, 5];
@@ -10714,7 +10714,7 @@ var PurchaseEffects = /** @class */ (function () {
                     case 2:
                         if (!(_i < _a.length)) return [3 /*break*/, 5];
                         authorizeMovieTicketPayment = _a[_i];
-                        return [4 /*yield*/, this.cinerino.payment.voidTransaction(authorizeMovieTicketPayment)];
+                        return [4 /*yield*/, this.cinerinoService.payment.voidTransaction(authorizeMovieTicketPayment)];
                     case 3:
                         _c.sent();
                         _c.label = 4;
@@ -10752,7 +10752,7 @@ var PurchaseEffects = /** @class */ (function () {
                                     case 1:
                                         if (!(_i < movieTicketIdentifiers_1.length)) return [3 /*break*/, 4];
                                         movieTicketIdentifier = movieTicketIdentifiers_1[_i];
-                                        return [4 /*yield*/, this_1.cinerino.payment.authorizeMovieTicket({
+                                        return [4 /*yield*/, this_1.cinerinoService.payment.authorizeMovieTicket({
                                                 object: {
                                                     typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.MovieTicket,
                                                     amount: 0,
@@ -10801,12 +10801,12 @@ var PurchaseEffects = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _a.sent();
                         screeningEvent_1 = payload.screeningEvent;
                         movieTickets = payload.movieTickets;
-                        return [4 /*yield*/, this.cinerino.payment.checkMovieTicket({
+                        return [4 /*yield*/, this.cinerinoService.payment.checkMovieTicket({
                                 typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType.MovieTicket,
                                 movieTickets: movieTickets.map(function (movieTicket) {
                                     return __assign({}, movieTicket, { serviceType: '', serviceOutput: {
@@ -10844,7 +10844,7 @@ var PurchaseEffects = /** @class */ (function () {
          * EndTransaction
          */
         this.endTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.EndTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, authorizeSeatReservations, seller, linyId, email, params, view, template, result, order, sendData, error_15;
+            var transaction, authorizeSeatReservations, seller, linyId, email, params, view, template, result, order, sendData, view, template, error_15, error_16;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -10854,8 +10854,8 @@ var PurchaseEffects = /** @class */ (function () {
                         linyId = payload.linyId;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 6, , 8]);
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        _a.trys.push([1, 11, , 13]);
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 2:
                         _a.sent();
                         email = {
@@ -10889,11 +10889,13 @@ var PurchaseEffects = /** @class */ (function () {
                         template = window.ejs.render(view, {
                             authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_8__["authorizeSeatReservationToEvent"])({ authorizeSeatReservations: authorizeSeatReservations }),
                             seller: seller,
-                            moment: moment__WEBPACK_IMPORTED_MODULE_5__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"], getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_8__["getTicketPrice"]
+                            moment: moment__WEBPACK_IMPORTED_MODULE_5__,
+                            formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"],
+                            getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_8__["getTicketPrice"]
                         });
                         email.template = template;
                         _a.label = 4;
-                    case 4: return [4 /*yield*/, this.cinerino.transaction.placeOrder.confirm(params)];
+                    case 4: return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.confirm(params)];
                     case 5:
                         result = _a.sent();
                         order = result.order;
@@ -10913,25 +10915,39 @@ var PurchaseEffects = /** @class */ (function () {
                                 console.error(error);
                             }
                         }
-                        if (linyId !== undefined) {
-                            // liny連携
-                            try {
-                                this.liny.sendMessage({ uid: linyId, message: 'TEST' });
-                            }
-                            catch (error) {
-                                console.error(error);
-                            }
-                        }
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransactionSuccess({ order: order })];
+                        if (!(linyId !== undefined)) return [3 /*break*/, 10];
+                        _a.label = 6;
                     case 6:
+                        _a.trys.push([6, 9, , 10]);
+                        return [4 /*yield*/, this.utilService.getText("/storage/ejs/liny/complete/" + payload.language + ".ejs")];
+                    case 7:
+                        view = _a.sent();
+                        template = window.ejs.render(view, {
+                            authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_8__["authorizeSeatReservationToEvent"])({ authorizeSeatReservations: authorizeSeatReservations }),
+                            seller: seller,
+                            order: order,
+                            moment: moment__WEBPACK_IMPORTED_MODULE_5__,
+                            formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"],
+                            getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_8__["getTicketPrice"]
+                        });
+                        return [4 /*yield*/, this.linyService.sendMessage({ uid: linyId, message: template })];
+                    case 8:
+                        _a.sent();
+                        return [3 /*break*/, 10];
+                    case 9:
                         error_15 = _a.sent();
-                        return [4 /*yield*/, this.cinerino.transaction.placeOrder.cancel({
+                        console.error(error_15);
+                        return [3 /*break*/, 10];
+                    case 10: return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransactionSuccess({ order: order })];
+                    case 11:
+                        error_16 = _a.sent();
+                        return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.cancel({
                                 id: transaction.id
                             })];
-                    case 7:
+                    case 12:
                         _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransactionFail({ error: error_15 })];
-                    case 8: return [2 /*return*/];
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransactionFail({ error: error_16 })];
+                    case 13: return [2 /*return*/];
                 }
             });
         }); }));
@@ -10939,7 +10955,7 @@ var PurchaseEffects = /** @class */ (function () {
          * ConvertExternalToPurchase
          */
         this.convertExternalToPurchase = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.ConvertExternalToPurchase), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var eventId, screeningEvent, branchCode, searchResult, seller, error_16;
+            var eventId, screeningEvent, branchCode, searchResult, seller, error_17;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -10947,21 +10963,21 @@ var PurchaseEffects = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 5, , 6]);
-                        return [4 /*yield*/, this.cinerino.getServices()];
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, this.cinerino.event.findScreeningEventById({ id: eventId })];
+                        return [4 /*yield*/, this.cinerinoService.event.findScreeningEventById({ id: eventId })];
                     case 3:
                         screeningEvent = _a.sent();
                         branchCode = screeningEvent.superEvent.location.branchCode;
-                        return [4 /*yield*/, this.cinerino.seller.search({ location: { branchCodes: [branchCode] } })];
+                        return [4 /*yield*/, this.cinerinoService.seller.search({ location: { branchCodes: [branchCode] } })];
                     case 4:
                         searchResult = _a.sent();
                         seller = searchResult.data[0];
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ConvertExternalToPurchaseSuccess({ screeningEvent: screeningEvent, seller: seller })];
                     case 5:
-                        error_16 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ConvertExternalToPurchaseFail({ error: error_16 })];
+                        error_17 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ConvertExternalToPurchaseFail({ error: error_17 })];
                     case 6: return [2 /*return*/];
                 }
             });

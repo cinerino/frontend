@@ -19,12 +19,12 @@ function postRequestAsync(url, options) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve, reject) => {
             log(url, options);
-            request.post(url, options, (error, _response, body) => {
+            request.post(url, options, (error, response, body) => {
                 if (error) {
-                    reject(error);
+                    reject({ error });
                     return;
                 }
-                resolve(body);
+                resolve({ body, response });
             });
         });
     });

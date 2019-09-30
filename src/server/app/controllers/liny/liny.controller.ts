@@ -4,6 +4,7 @@
 import * as crypto from 'crypto';
 import * as debug from 'debug';
 import { Request, Response } from 'express';
+import * as request from 'request';
 import { postRequestAsync } from '../../services/util/util.service';
 const log = debug('frontend:liny');
 
@@ -19,20 +20,20 @@ export async function sendMessage(req: Request, res: Response) {
         log('sendMessage');
         const secret = <string>process.env.LINY_API_SECRET;
         const signature = crypto.createHmac('sha256', secret)
-            .update(Buffer.from(JSON.stringify(req.body)))
-            .digest('base64');
+            .update(JSON.stringify(req.body))
+            .digest('hex');
         const uri = `${process.env.LINY_API_ENDPOINT}/send_message`;
-        const json = req.body;
-        const headers = [
-            { name: 'content-type', value: 'application/json' },
-            { name: 'X-OYATSU-TOKEN', value: signature }
-        ];
-        const result = await postRequestAsync<string>(uri, { headers, json });
-        log('sendMessage result', result);
-        res.json(result);
-    } catch (err) {
-        log('sendMessage err', err);
-        log('sendMessage err.message', err.message);
-        res.json({ error: 'ERROR' });
+        const options: request.CoreOptions = {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-OYATSU-TOKEN': signature
+            },
+            json: req.body,
+        };
+        const requestResult = await postRequestAsync<{ body: any, response: request.Response }>(uri, options);
+        res.status(requestResult.response.statusCode);
+        res.json(requestResult.body);
+    } catch (error) {
+        res.json({ error });
     }
 }

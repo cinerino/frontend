@@ -9,12 +9,12 @@ const log = debug('frontend:util');
 export async function postRequestAsync<T>(url: string, options?: request.CoreOptions) {
     return new Promise<T>((resolve, reject) => {
         log(url, options);
-        request.post(url, options, (error, _response, body) => {
+        request.post(url, options, (error, response, body) => {
             if (error) {
-                reject(error);
+                reject({ error });
                 return;
             }
-            resolve(body);
+            resolve(<any>{ body, response });
         });
     });
 }
