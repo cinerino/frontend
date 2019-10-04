@@ -27,8 +27,16 @@ export class PurchaseRootComponent implements OnInit {
     public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
-        this.purchaseService.delete();
         const user = await this.userService.getData();
+        const tmpPurchase = await this.purchaseService.getData();
+        if (user.viewType === ViewType.Cinema
+            && tmpPurchase.external !== undefined
+            && tmpPurchase.external.eventId !== undefined
+            && tmpPurchase.authorizeSeatReservation !== undefined) {
+            this.router.navigate([`/purchase/cinema/overlap`]);
+            return;
+        }
+        this.purchaseService.delete();
         const purchase = await this.purchaseService.getData();
         if (user.viewType === ViewType.Cinema
             && purchase.external !== undefined
