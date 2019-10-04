@@ -8,6 +8,7 @@ import * as path from 'path';
 import * as authorize from '../controllers/authorize/authorize.controller';
 import authorizeRouter from './authorize';
 import encryptionRouter from './encryption';
+import linyRouter from './liny';
 
 export default (app: express.Application) => {
     app.use((_req, res, next) => {
@@ -22,6 +23,7 @@ export default (app: express.Application) => {
 
     app.use('/api/authorize', authorizeRouter);
     app.use('/api/encryption', encryptionRouter);
+    app.use('/api/liny', linyRouter);
     app.get('/api/storage', (_req, res) => { res.json({ storage: process.env.STORAGE_URL }); });
     app.get('/api/serverTime', (_req, res) => { res.json({ date: moment().toISOString() }); });
     app.post('/api/external', (req, res) => {

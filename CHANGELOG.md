@@ -5,16 +5,41 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## Unreleased
 ### Added
-- 発券期限の設定追加
-- 劇場名、スクリーン名へcssクラス追加
 
 ### Changed
-- メールテンプレートをejsへ変更
-- 取引期限をサーバータイムから算出へ変更
 
 ### Fixed
 
 ### Security
+
+## 2.3.0 - 2019-09-25
+### Added
+ - 取引へuserAgent、appVersion追加
+### Changed
+ - モジュール分割
+ - モジュールごとに遅延ロード
+### Fixed
+ - サーバータイム取得修正
+ - メールテンプレート作成IE対応
+
+## 2.2.0 - 2019-08-29
+###  Added
+- テンキーに電話番号入力追加
+###  Changed
+- メールテンプレートを言語別に変更
+- 電話番号をE.164形式へ対応
+
+## 2.1.1 - 2019-08-20
+### Changed
+- @angular-devkit/build-angular@0.800.3へ変更
+
+## 2.1.0 - 2019-08-19
+### Added
+- 発券期限の設定追加
+- 劇場名、スクリーン名へcssクラス追加
+### Changed
+- メールテンプレートをejsへ変更
+- 取引期限をサーバータイムから算出へ変更
 
 ## 2.0.0 - 2019-07-22
 ### Chenged

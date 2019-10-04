@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap';
-import { AlertModalComponent } from '../components/parts/alert-modal/alert-modal.component';
-import { ConfirmModalComponent } from '../components/parts/confirm-modal/confirm-modal.component';
+import { AlertModalComponent } from '../modules/shared/components/parts/alert-modal/alert-modal.component';
+import { ConfirmModalComponent } from '../modules/shared/components/parts/confirm-modal/confirm-modal.component';
 
 @Injectable({
     providedIn: 'root'
@@ -50,7 +51,8 @@ export class UtilService {
      * サーバータイム取得
      */
     public async getServerTime() {
-        const result = await this.http.get<{ date: string }>('/api/serverTime').toPromise();
+        const query = `?date=${moment().toISOString()}`;
+        const result = await this.http.get<{ date: string }>(`/api/serverTime${query}`).toPromise();
 
         return result;
     }

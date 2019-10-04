@@ -126,7 +126,13 @@ export class PurchaseService {
             this.store.dispatch(new purchaseAction.StartTransaction({
                 expires: moment(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                 seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
-                object: {}
+                object: {},
+                agent: {
+                    identifier: [
+                        { name: 'userAgent', value: (navigator && navigator.userAgent !== undefined) ? navigator.userAgent : '' },
+                        { name: 'appVersion', value: (navigator && navigator.appVersion !== undefined) ? navigator.appVersion : '' }
+                    ]
+                }
             }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.StartTransactionSuccess),
@@ -497,8 +503,11 @@ export class PurchaseService {
     /**
      * 取引確定
      */
-    public async endTransaction() {
+    public async endTransaction(params: {
+        language: string;
+    }) {
         const purchase = await this.getData();
+        const language = params.language;
         return new Promise<void>((resolve, reject) => {
             if (purchase.transaction === undefined || purchase.seller === undefined) {
                 reject();
@@ -507,7 +516,9 @@ export class PurchaseService {
             const transaction = purchase.transaction;
             const authorizeSeatReservations = purchase.authorizeSeatReservations;
             const seller = purchase.seller;
-            this.store.dispatch(new purchaseAction.EndTransaction({ transaction, authorizeSeatReservations, seller }));
+            this.store.dispatch(new purchaseAction.EndTransaction({
+                transaction, authorizeSeatReservations, seller, language
+            }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.EndTransactionSuccess),
                 tap(() => { resolve(); })
@@ -560,19 +571,10 @@ export class PurchaseService {
         workPerformedId?: string;
         passportToken?: string;
         scheduleDate?: string;
+        linyId?: string;
     }) {
-        const theaterBranchCode = params.theaterBranchCode;
-        const workPerformedId = params.workPerformedId;
-        const superEventId = params.superEventId;
-        const eventId = params.eventId;
-        const scheduleDate = params.scheduleDate;
-        this.store.dispatch(new purchaseAction.SetExternal({
-            theaterBranchCode,
-            workPerformedId,
-            superEventId,
-            eventId,
-            scheduleDate
-        }));
+        (<any>params).language = undefined;
+        this.store.dispatch(new purchaseAction.SetExternal(params));
     }
 
     /**

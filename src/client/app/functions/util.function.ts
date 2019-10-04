@@ -1,4 +1,6 @@
 import * as libphonenumber from 'libphonenumber-js';
+import { BsDatepickerContainerComponent, BsDatepickerDirective } from 'ngx-bootstrap';
+import { CellHoverEvent } from 'ngx-bootstrap/datepicker/models';
 
 /**
  * 電話番号変換
@@ -7,10 +9,12 @@ export function formatTelephone(telephone: string, format?: libphonenumber.Numbe
     if (telephone === undefined) {
         return '';
     }
-    const parseNumber = libphonenumber.parse(telephone, 'JP');
+    const parsedNumber = (new RegExp(/^\+/).test(telephone))
+        ? libphonenumber.parse(telephone)
+        : libphonenumber.parse(telephone, 'JP');
     format = (format === undefined) ? 'International' : format;
 
-    return libphonenumber.format(parseNumber, format).replace(/\s/g, '');
+    return libphonenumber.format(parsedNumber, format).replace(/\s/g, '');
 }
 
 /**
@@ -78,3 +82,25 @@ export async function sleep(time: number) {
     });
 }
 
+/**
+ * iOS bugfix（2回タップしないと選択できない）
+ */
+export function iOSDatepickerTapBugFix(
+    container: BsDatepickerContainerComponent,
+    datepickerDirectives: BsDatepickerDirective[]
+) {
+    const dayHoverHandler = container.dayHoverHandler;
+    const hoverWrapper = (event: CellHoverEvent) => {
+        const { cell, isHovered } = event;
+        if ((isHovered &&
+            !!navigator.platform &&
+            /iPad|iPhone|iPod/.test(navigator.platform)) &&
+            'ontouchstart' in window
+        ) {
+            datepickerDirectives.forEach(d => (<any>d)._datepickerRef.instance.daySelectHandler(cell));
+        }
+
+        return dayHoverHandler(event);
+    };
+    container.dayHoverHandler = hoverWrapper;
+}

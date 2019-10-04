@@ -68,7 +68,8 @@ export class SearchFail implements Action {
 export class Cancel implements Action {
     public readonly type = ActionTypes.Cancel;
     constructor(public payload: {
-        orders: factory.order.IOrder[]
+        orders: factory.order.IOrder[];
+        language: string;
     }) { }
 }
 

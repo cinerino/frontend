@@ -50,3 +50,4 @@ dist/server/public/entrance/
 public/
 .oyatsu.bat
 dist/client/production/stats.json
+dist/client/production/stats-es2015.json
