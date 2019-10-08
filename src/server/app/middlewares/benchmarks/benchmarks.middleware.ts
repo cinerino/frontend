@@ -4,7 +4,7 @@
 
 import * as debug from 'debug';
 import * as express from 'express';
-const log = debug('frontend:benchmark');
+const log = debug('benchmark');
 
 export default (req: express.Request, _: express.Response, next: express.NextFunction) => {
     if (process.env.NODE_ENV === 'development') {

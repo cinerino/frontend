@@ -23,4 +23,6 @@
 | `AUTH_LOGUOT_URI`                   | false    | site url + /signOut           | auth loguot uri                         |
 | `WAITER_SERVER_URL`                 | false    |                               | waiter server url                       |
 | `ENCYPT_KEY`                        | false    |                               | encypt key                              |
+| `LINY_API_ENDPOINT`                 | false    |                               | liny api endpoint                       |
+| `LINY_API_SECRET`                   | false    |                               | liny api secret                         |
 | `DEBUG`                             | false    |                               | debug                                   |

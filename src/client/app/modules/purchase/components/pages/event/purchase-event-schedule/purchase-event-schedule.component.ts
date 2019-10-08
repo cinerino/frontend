@@ -9,7 +9,7 @@ import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../../../environments/environment';
 import { iOSDatepickerTapBugFix, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
-import { MasterService, PurchaseService } from '../../../../../../services';
+import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
 @Component({
@@ -37,7 +37,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         private router: Router,
         private purchaseService: PurchaseService,
         private masterService: MasterService,
-        private localeService: BsLocaleService
+        private localeService: BsLocaleService,
+        private utilService: UtilService
     ) { }
 
     /**
@@ -145,7 +146,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         if (date !== undefined && date !== null) {
             this.scheduleDate = date;
         }
-        const now = moment().toDate();
+        const now = (await this.utilService.getServerTime()).date;
         const selectDate = moment(moment(this.scheduleDate).format('YYYYMMDD')).toDate();
         const salesStopDate = moment(moment().format('YYYYMMDD'))
             .add(environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE, environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT)
