@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.3.1 - 2019-10-08
+### Added
+ - Liny連携追加
+### Fixed
+ - イベントスケジュール予約制限をサーバータイム参照へ修正
+
 ## 2.3.0 - 2019-09-25
 ### Added
  - 取引へuserAgent、appVersion追加
