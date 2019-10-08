@@ -1896,12 +1896,13 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 var PurchaseEventScheduleComponent = /** @class */ (function () {
-    function PurchaseEventScheduleComponent(store, router, purchaseService, masterService, localeService) {
+    function PurchaseEventScheduleComponent(store, router, purchaseService, masterService, localeService, utilService) {
         this.store = store;
         this.router = router;
         this.purchaseService = purchaseService;
         this.masterService = masterService;
         this.localeService = localeService;
+        this.utilService = utilService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
     }
@@ -2036,7 +2037,9 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                         if (date !== undefined && date !== null) {
                             this.scheduleDate = date;
                         }
-                        now = moment__WEBPACK_IMPORTED_MODULE_4__().toDate();
+                        return [4 /*yield*/, this.utilService.getServerTime()];
+                    case 1:
+                        now = (_a.sent()).date;
                         selectDate = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYYMMDD')).toDate();
                         salesStopDate = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__().format('YYYYMMDD'))
                             .add(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_SCHEDULE_SALES_DATE_VALUE, _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_SCHEDULE_SALES_DATE_UNIT)
@@ -2049,11 +2052,11 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                             salesStopTime = moment__WEBPACK_IMPORTED_MODULE_4__(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_SCHEDULE_SALES_STOP_TIME, 'HHmmss').format('HHmmss');
                             this.isSales = (moment__WEBPACK_IMPORTED_MODULE_4__(now).format('HHmmss') < salesStopTime);
                         }
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 5, , 6]);
-                        return [4 /*yield*/, this.purchaseService.getData()];
+                        _a.label = 2;
                     case 2:
+                        _a.trys.push([2, 6, , 7]);
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 3:
                         purchase = _a.sent();
                         seller = purchase.seller;
                         if (seller === undefined) {
@@ -2073,20 +2076,20 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                                 startFrom: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).toDate(),
                                 startThrough: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).add(1, 'day').toDate()
                             })];
-                    case 3:
+                    case 4:
                         _a.sent();
                         return [4 /*yield*/, this.masterService.getData()];
-                    case 4:
+                    case 5:
                         master = _a.sent();
                         screeningEvents = master.screeningEvents;
                         this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["screeningEventsToWorkEvents"])({ screeningEvents: screeningEvents });
                         this.update();
-                        return [3 /*break*/, 6];
-                    case 5:
+                        return [3 /*break*/, 7];
+                    case 6:
                         error_2 = _a.sent();
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 6];
-                    case 6: return [2 /*return*/];
+                        return [3 /*break*/, 7];
+                    case 7: return [2 /*return*/];
                 }
             });
         });
@@ -2157,7 +2160,8 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
         { type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"] },
         { type: _services__WEBPACK_IMPORTED_MODULE_8__["MasterService"] },
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] }
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"] }
     ]; };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('datepicker', { static: true }),
@@ -2173,7 +2177,8 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
             _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"],
             _services__WEBPACK_IMPORTED_MODULE_8__["MasterService"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]])
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"],
+            _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]])
     ], PurchaseEventScheduleComponent);
     return PurchaseEventScheduleComponent;
 }());
