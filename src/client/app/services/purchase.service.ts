@@ -571,19 +571,10 @@ export class PurchaseService {
         workPerformedId?: string;
         passportToken?: string;
         scheduleDate?: string;
+        linyId?: string;
     }) {
-        const theaterBranchCode = params.theaterBranchCode;
-        const workPerformedId = params.workPerformedId;
-        const superEventId = params.superEventId;
-        const eventId = params.eventId;
-        const scheduleDate = params.scheduleDate;
-        this.store.dispatch(new purchaseAction.SetExternal({
-            theaterBranchCode,
-            workPerformedId,
-            superEventId,
-            eventId,
-            scheduleDate
-        }));
+        (<any>params).language = undefined;
+        this.store.dispatch(new purchaseAction.SetExternal(params));
     }
 
     /**
