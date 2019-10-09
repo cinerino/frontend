@@ -15,11 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const debug = require("debug");
 const request = require("request");
 const log = debug('frontend:util');
-function postRequestAsync(url, options) {
+function requestAsync(url, options) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve, reject) => {
             log(url, options);
-            request.post(url, options, (error, response, body) => {
+            request(url, options, (error, response, body) => {
                 if (error) {
                     reject({ error });
                     return;
@@ -29,7 +29,7 @@ function postRequestAsync(url, options) {
         });
     });
 }
-exports.postRequestAsync = postRequestAsync;
+exports.requestAsync = requestAsync;
 /**
  * @memberof services.util
  * @enum DIGITS

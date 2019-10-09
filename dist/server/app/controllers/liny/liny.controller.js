@@ -36,8 +36,9 @@ function sendMessage(req, res) {
                     'X-OYATSU-TOKEN': signature
                 },
                 json: req.body,
+                method: 'POST'
             };
-            const requestResult = yield util_service_1.postRequestAsync(uri, options);
+            const requestResult = yield util_service_1.requestAsync(uri, options);
             res.status(requestResult.response.statusCode);
             res.json(requestResult.body);
         }
