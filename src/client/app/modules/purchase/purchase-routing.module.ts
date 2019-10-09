@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BaseComponent } from '../shared/components/pages/base/base.component';
 import { PurchaseCinemaCartComponent } from './components/pages/cinema/purchase-cinema-cart/purchase-cinema-cart.component';
+import { PurchaseCinemaOverlapComponent } from './components/pages/cinema/purchase-cinema-overlap/purchase-cinema-overlap';
 import { PurchaseCinemaScheduleComponent } from './components/pages/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component';
 import { PurchaseCinemaSeatComponent } from './components/pages/cinema/purchase-cinema-seat/purchase-cinema-seat.component';
 import { PurchaseCinemaTicketComponent } from './components/pages/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
       {
         path: 'cinema',
         children: [
+          { path: 'overlap', component: PurchaseCinemaOverlapComponent },
           { path: 'seat', component: PurchaseCinemaSeatComponent },
           { path: 'ticket', component: PurchaseCinemaTicketComponent },
           { path: 'cart', component: PurchaseCinemaCartComponent }

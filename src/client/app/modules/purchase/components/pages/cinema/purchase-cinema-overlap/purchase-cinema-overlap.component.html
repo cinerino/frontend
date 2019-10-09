@@ -1,0 +1,24 @@
+<div class="contents-width mx-auto px-3 py-5">
+
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.overlap.title' | translate }}</h2>
+    <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.overlap.read' | translate"></p>
+    <div *ngIf="tmpPurchaseData">
+        <p class="mb-3">{{ 'purchase.cinema.overlap.nextRead' | translate }}</p>
+        <app-purchase-info class="mb-4" [purchase]="tmpPurchaseData"></app-purchase-info>
+
+        <div class="buttons mx-auto text-center">
+            <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+                (click)="onSubmit()">{{ 'purchase.cinema.overlap.next' | translate }}</button>
+        </div>
+    </div>
+    <div>
+        <p class="mb-3">{{ 'purchase.cinema.overlap.prevRead' | translate }}</p>
+        <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
+
+        <div class="buttons mx-auto text-center">
+            <button type="button" routerLink="/purchase/cinema/seat"
+                class="btn btn-primary btn-block py-3 mb-3">{{ 'purchase.cinema.overlap.prev' | translate }}</button>
+        </div>
+    </div>
+
+</div>

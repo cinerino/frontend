@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ViewType } from '../../../../../models';
-import { PurchaseService } from '../../../../../services';
+import { PurchaseService, UserService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -17,23 +17,38 @@ export class PurchaseRootComponent implements OnInit {
     constructor(
         private store: Store<reducers.IState>,
         private purchaseService: PurchaseService,
+        private userService: UserService,
         private router: Router
     ) { }
 
     /**
      * 初期化
      */
-    public ngOnInit() {
+    public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
+        const user = await this.userService.getData();
+        const tmpPurchase = await this.purchaseService.getData();
+        if (user.viewType === ViewType.Cinema
+            && tmpPurchase.external !== undefined
+            && tmpPurchase.external.eventId !== undefined
+            && tmpPurchase.authorizeSeatReservation !== undefined) {
+            this.router.navigate([`/purchase/cinema/overlap`]);
+            return;
+        }
         this.purchaseService.delete();
-        this.user.subscribe((user) => {
-            if (user.viewType === ViewType.Cinema) {
-                this.router.navigate(['/purchase/cinema/schedule']);
-                return;
-            }
-            this.router.navigate(['/purchase/event/schedule']);
-        }).unsubscribe();
+        const purchase = await this.purchaseService.getData();
+        if (user.viewType === ViewType.Cinema
+            && purchase.external !== undefined
+            && purchase.external.eventId !== undefined) {
+            this.router.navigate([`/purchase/transaction/${purchase.external.eventId}`]);
+            return;
+        }
+        if (user.viewType === ViewType.Cinema) {
+            this.router.navigate(['/purchase/cinema/schedule']);
+            return;
+        }
+        this.router.navigate(['/purchase/event/schedule']);
     }
 
 }

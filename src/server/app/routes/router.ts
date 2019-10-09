@@ -44,6 +44,9 @@ export default (app: express.Application) => {
             return;
         }
         if (req.session !== undefined) {
+            if (req.query.performanceId !== undefined && req.query.eventId === undefined) {
+                req.query.eventId = req.query.performanceId;
+            }
             req.session.external = req.query;
         }
         const dir = (process.env.NODE_ENV === 'production') ? 'production' : 'development';
