@@ -22,7 +22,7 @@ export async function sendMessage(req: Request, res: Response) {
         const signature = crypto.createHmac('sha256', secret)
             .update(JSON.stringify(req.body))
             .digest('hex');
-        const uri = `${process.env.LINY_API_ENDPOINT}/send_message`;
+        const uri = `${process.env.LINY_API_ENDPOINT}`;
         const options: request.CoreOptions = {
             headers: {
                 'Content-Type': 'application/json',
