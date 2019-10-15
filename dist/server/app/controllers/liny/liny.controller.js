@@ -29,15 +29,16 @@ function sendMessage(req, res) {
             const signature = crypto.createHmac('sha256', secret)
                 .update(JSON.stringify(req.body))
                 .digest('hex');
-            const uri = `${process.env.LINY_API_ENDPOINT}/send_message`;
+            const uri = `${process.env.LINY_API_ENDPOINT}`;
             const options = {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-OYATSU-TOKEN': signature
                 },
                 json: req.body,
+                method: 'POST'
             };
-            const requestResult = yield util_service_1.postRequestAsync(uri, options);
+            const requestResult = yield util_service_1.requestAsync(uri, options);
             res.status(requestResult.response.statusCode);
             res.json(requestResult.body);
         }

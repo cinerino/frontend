@@ -5,7 +5,7 @@ import * as crypto from 'crypto';
 import * as debug from 'debug';
 import { Request, Response } from 'express';
 import * as request from 'request';
-import { postRequestAsync } from '../../services/util/util.service';
+import { requestAsync } from '../../services/util/util.service';
 const log = debug('frontend:liny');
 
 
@@ -22,15 +22,16 @@ export async function sendMessage(req: Request, res: Response) {
         const signature = crypto.createHmac('sha256', secret)
             .update(JSON.stringify(req.body))
             .digest('hex');
-        const uri = `${process.env.LINY_API_ENDPOINT}/send_message`;
+        const uri = `${process.env.LINY_API_ENDPOINT}`;
         const options: request.CoreOptions = {
             headers: {
                 'Content-Type': 'application/json',
                 'X-OYATSU-TOKEN': signature
             },
             json: req.body,
+            method: 'POST'
         };
-        const requestResult = await postRequestAsync<{ body: any, response: request.Response }>(uri, options);
+        const requestResult = await requestAsync<{ body: any, response: request.Response }>(uri, options);
         res.status(requestResult.response.statusCode);
         res.json(requestResult.body);
     } catch (error) {

@@ -123,16 +123,22 @@ export class PurchaseService {
                 reject();
                 return;
             }
+            const agent = {
+                identifier: [
+                    { name: 'userAgent', value: (navigator && navigator.userAgent !== undefined) ? navigator.userAgent : '' },
+                    { name: 'appVersion', value: (navigator && navigator.appVersion !== undefined) ? navigator.appVersion : '' }
+                ]
+            };
+            const linyId = (purchase.external === undefined || purchase.external.linyId === undefined)
+                ? undefined : purchase.external.linyId;
+            if (linyId !== undefined) {
+                agent.identifier.push({ name: 'linyId', value: linyId });
+            }
             this.store.dispatch(new purchaseAction.StartTransaction({
                 expires: moment(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                 seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
                 object: {},
-                agent: {
-                    identifier: [
-                        { name: 'userAgent', value: (navigator && navigator.userAgent !== undefined) ? navigator.userAgent : '' },
-                        { name: 'appVersion', value: (navigator && navigator.appVersion !== undefined) ? navigator.appVersion : '' }
-                    ]
-                }
+                agent
             }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.StartTransactionSuccess),
@@ -516,8 +522,14 @@ export class PurchaseService {
             const transaction = purchase.transaction;
             const authorizeSeatReservations = purchase.authorizeSeatReservations;
             const seller = purchase.seller;
+            const linyId = (purchase.external === undefined || purchase.external.linyId === undefined)
+                ? undefined : purchase.external.linyId;
             this.store.dispatch(new purchaseAction.EndTransaction({
-                transaction, authorizeSeatReservations, seller, language
+                transaction,
+                authorizeSeatReservations,
+                seller,
+                language,
+                linyId
             }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.EndTransactionSuccess),
