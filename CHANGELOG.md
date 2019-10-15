@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.3.2 - 2019-10-15
+### Added
+ - 取引にLinyIdを追加
+ - 予約重複画面追加
+
 ## 2.3.1 - 2019-10-08
 ### Added
  - Liny連携追加
