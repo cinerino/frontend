@@ -192,6 +192,14 @@ interface IEnvironment {
      */
     INQUIRY_INPUT_KEYPAD: boolean;
     /**
+     * 照会可能期間値（注文日）
+     */
+    INQUIRY_ORDER_DATE_FROM_VALUE: string;
+    /**
+     * 照会可能期間単位（注文日）
+     */
+    INQUIRY_ORDER_DATE_FROM_UNIT: moment.DurationInputArg2;
+    /**
      * 印刷QRコードタイプ
      */
     PRINT_QRCODE_TYPE: string;
@@ -256,6 +264,8 @@ const defaultEnvironment: IEnvironment = {
     INQUIRY_PRINT_WAIT_TIME: '',
     INQUIRY_PRINT_SUCCESS_WAIT_TIME: '',
     INQUIRY_INPUT_KEYPAD: false,
+    INQUIRY_ORDER_DATE_FROM_VALUE: '-3',
+    INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: 'token',
     PRINT_LOADING: true,

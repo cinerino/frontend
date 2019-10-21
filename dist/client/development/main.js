@@ -9812,29 +9812,41 @@ var OrderEffects = /** @class */ (function () {
          * Inquiry
          */
         this.load = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Inquiry), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var confirmationNumber, customer, order, error_4;
+            var now, today, confirmationNumber, customer, orderDateFrom, params, order, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
+                        _a.trys.push([0, 4, , 5]);
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
                         _a.sent();
+                        return [4 /*yield*/, this.utilService.getServerTime()];
+                    case 2:
+                        now = (_a.sent()).date;
+                        today = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(now).format('YYYYMMDD')).toISOString();
                         confirmationNumber = Number(payload.confirmationNumber);
                         customer = {
                             telephone: (payload.customer.telephone === undefined)
                                 ? '' : Object(_functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"])(payload.customer.telephone)
                         };
-                        return [4 /*yield*/, this.cinerino.order.findByConfirmationNumber({
-                                confirmationNumber: confirmationNumber, customer: customer
-                            })];
-                    case 2:
+                        orderDateFrom = {
+                            value: _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_ORDER_DATE_FROM_VALUE,
+                            unit: _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_ORDER_DATE_FROM_UNIT
+                        };
+                        params = {
+                            confirmationNumber: confirmationNumber,
+                            customer: customer,
+                            orderDateFrom: moment__WEBPACK_IMPORTED_MODULE_4__(today).add(orderDateFrom.value, orderDateFrom.unit).toDate(),
+                            orderDateThrough: moment__WEBPACK_IMPORTED_MODULE_4__(now).toDate()
+                        };
+                        return [4 /*yield*/, this.cinerino.order.findByConfirmationNumber(params)];
+                    case 3:
                         order = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].InquirySuccess({ order: order })];
-                    case 3:
+                    case 4:
                         error_4 = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].InquiryFail({ error: error_4 })];
-                    case 4: return [2 /*return*/];
+                    case 5: return [2 /*return*/];
                 }
             });
         }); }));
@@ -12492,6 +12504,8 @@ var defaultEnvironment = {
     INQUIRY_PRINT_WAIT_TIME: '',
     INQUIRY_PRINT_SUCCESS_WAIT_TIME: '',
     INQUIRY_INPUT_KEYPAD: false,
+    INQUIRY_ORDER_DATE_FROM_VALUE: '-3',
+    INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: 'token',
     PRINT_LOADING: true,

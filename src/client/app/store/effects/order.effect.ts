@@ -173,14 +173,24 @@ export class OrderEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
+                const now = (await this.utilService.getServerTime()).date;
+                const today = moment(moment(now).format('YYYYMMDD')).toISOString();
                 const confirmationNumber = Number(payload.confirmationNumber);
                 const customer = {
                     telephone: (payload.customer.telephone === undefined)
                         ? '' : formatTelephone(payload.customer.telephone)
                 };
-                const order = await this.cinerino.order.findByConfirmationNumber({
-                    confirmationNumber, customer
-                });
+                const orderDateFrom = {
+                    value: environment.INQUIRY_ORDER_DATE_FROM_VALUE,
+                    unit: environment.INQUIRY_ORDER_DATE_FROM_UNIT
+                };
+                const params = {
+                    confirmationNumber,
+                    customer,
+                    orderDateFrom: moment(today).add(orderDateFrom.value, orderDateFrom.unit).toDate(),
+                    orderDateThrough: moment(now).toDate()
+                };
+                const order = await this.cinerino.order.findByConfirmationNumber(params);
 
                 return new orderAction.InquirySuccess({ order });
             } catch (error) {
