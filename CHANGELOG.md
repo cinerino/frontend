@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.3.3 - 2019-10-23
+### Added
+ - 照会可能期間設定を追加
+
 ## 2.3.2 - 2019-10-15
 ### Added
  - 取引にLinyIdを追加
