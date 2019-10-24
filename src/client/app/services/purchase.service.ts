@@ -448,7 +448,8 @@ export class PurchaseService {
     public async authorizeMovieTicket() {
         const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
-            if (purchase.transaction === undefined) {
+            if (purchase.transaction === undefined
+                || purchase.seller === undefined) {
                 reject();
                 return;
             }
@@ -456,7 +457,8 @@ export class PurchaseService {
                 transaction: purchase.transaction,
                 authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
                 authorizeSeatReservations: purchase.authorizeSeatReservations,
-                pendingMovieTickets: purchase.pendingMovieTickets
+                pendingMovieTickets: purchase.pendingMovieTickets,
+                seller: purchase.seller
             }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.AuthorizeMovieTicketSuccess),
@@ -481,7 +483,10 @@ export class PurchaseService {
         return new Promise<void>((resolve, reject) => {
             const transaction = purchase.transaction;
             const screeningEvent = purchase.screeningEvent;
-            if (transaction === undefined || screeningEvent === undefined) {
+            const seller = purchase.seller;
+            if (transaction === undefined
+                || screeningEvent === undefined
+                || seller === undefined) {
                 reject();
                 return;
             }
@@ -490,6 +495,7 @@ export class PurchaseService {
                 screeningEvent,
                 movieTickets: [{
                     typeOf: factory.paymentMethodType.MovieTicket,
+                    project: seller.project,
                     identifier: movieTicket.code, // 購入管理番号
                     accessCode: movieTicket.password // PINコード
                 }]

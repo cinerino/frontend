@@ -1629,6 +1629,7 @@ function createMovieTicketsFromAuthorizeSeatReservation(args) {
     var results = [];
     var authorizeSeatReservation = args.authorizeSeatReservation;
     var pendingMovieTickets = args.pendingMovieTickets;
+    var seller = args.seller;
     if (authorizeSeatReservation.result === undefined) {
         return [];
     }
@@ -1663,7 +1664,8 @@ function createMovieTicketsFromAuthorizeSeatReservation(args) {
             identifier: findReservation.identifier,
             accessCode: findReservation.accessCode,
             serviceType: findReservation.serviceType,
-            serviceOutput: findReservation.serviceOutput
+            serviceOutput: findReservation.serviceOutput,
+            project: seller.project
         });
     });
     return results;
@@ -6571,7 +6573,8 @@ var PurchaseService = /** @class */ (function () {
                     case 1:
                         purchase = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve, reject) {
-                                if (purchase.transaction === undefined) {
+                                if (purchase.transaction === undefined
+                                    || purchase.seller === undefined) {
                                     reject();
                                     return;
                                 }
@@ -6579,7 +6582,8 @@ var PurchaseService = /** @class */ (function () {
                                     transaction: purchase.transaction,
                                     authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
                                     authorizeSeatReservations: purchase.authorizeSeatReservations,
-                                    pendingMovieTickets: purchase.pendingMovieTickets
+                                    pendingMovieTickets: purchase.pendingMovieTickets,
+                                    seller: purchase.seller
                                 }));
                                 var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
                                 var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
@@ -6604,7 +6608,10 @@ var PurchaseService = /** @class */ (function () {
                         return [2 /*return*/, new Promise(function (resolve, reject) {
                                 var transaction = purchase.transaction;
                                 var screeningEvent = purchase.screeningEvent;
-                                if (transaction === undefined || screeningEvent === undefined) {
+                                var seller = purchase.seller;
+                                if (transaction === undefined
+                                    || screeningEvent === undefined
+                                    || seller === undefined) {
                                     reject();
                                     return;
                                 }
@@ -6613,6 +6620,7 @@ var PurchaseService = /** @class */ (function () {
                                     screeningEvent: screeningEvent,
                                     movieTickets: [{
                                             typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType.MovieTicket,
+                                            project: seller.project,
                                             identifier: movieTicket.code,
                                             accessCode: movieTicket.password // PINコード
                                         }]
@@ -9439,7 +9447,7 @@ var MasterEffects = /** @class */ (function () {
                         _a.label = 2;
                     case 2:
                         if (!roop) return [3 /*break*/, 4];
-                        return [4 /*yield*/, this.cinerino.event.searchScreeningEvents({
+                        return [4 /*yield*/, this.cinerino.event.search({
                                 page: page,
                                 limit: limit,
                                 typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventType.ScreeningEvent,
@@ -10249,7 +10257,7 @@ var PurchaseEffects = /** @class */ (function () {
                         _a.label = 2;
                     case 2:
                         if (!roop) return [3 /*break*/, 4];
-                        return [4 /*yield*/, this.cinerinoService.event.searchScreeningEvents({
+                        return [4 /*yield*/, this.cinerinoService.event.search({
                                 page: page,
                                 limit: limit,
                                 typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.eventType.ScreeningEvent,
@@ -10359,8 +10367,8 @@ var PurchaseEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.cinerinoService.event.searchScreeningEventOffers({
-                                eventId: payload.screeningEvent.id
+                        return [4 /*yield*/, this.cinerinoService.event.searchOffers({
+                                event: { id: payload.screeningEvent.id }
                             })];
                     case 2:
                         screeningEventOffers = _a.sent();
@@ -10396,8 +10404,8 @@ var PurchaseEffects = /** @class */ (function () {
                         screeningEvent = payload.screeningEvent;
                         screeningEventOffers = [];
                         if (!Object(_functions__WEBPACK_IMPORTED_MODULE_8__["isTicketedSeatScreeningEvent"])(screeningEvent)) return [3 /*break*/, 3];
-                        return [4 /*yield*/, this.cinerinoService.event.searchScreeningEventOffers({
-                                eventId: screeningEvent.id
+                        return [4 /*yield*/, this.cinerinoService.event.searchOffers({
+                                event: { id: screeningEvent.id }
                             })];
                     case 2:
                         screeningEventOffers = _a.sent();
@@ -10595,7 +10603,7 @@ var PurchaseEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.cinerinoService.event.searchScreeningEventTicketOffers({
+                        return [4 /*yield*/, this.cinerinoService.event.searchTicketOffers({
                                 event: { id: payload.screeningEvent.id },
                                 seller: {
                                     typeOf: payload.seller.typeOf,
@@ -10724,7 +10732,7 @@ var PurchaseEffects = /** @class */ (function () {
          * authorizeMovieTicket
          */
         this.authorizeMovieTicket = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeMovieTicket), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var _i, _a, authorizeMovieTicketPayment, transaction, pendingMovieTickets, authorizeSeatReservations, authorizeMovieTicketPayments, _loop_1, this_1, _b, authorizeSeatReservations_2, authorizeSeatReservation, error_13;
+            var _i, _a, authorizeMovieTicketPayment, transaction, pendingMovieTickets, authorizeSeatReservations, authorizeMovieTicketPayments, seller, _loop_1, this_1, _b, authorizeSeatReservations_2, authorizeSeatReservation, error_13;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
@@ -10750,13 +10758,14 @@ var PurchaseEffects = /** @class */ (function () {
                         pendingMovieTickets = payload.pendingMovieTickets;
                         authorizeSeatReservations = payload.authorizeSeatReservations;
                         authorizeMovieTicketPayments = [];
+                        seller = payload.seller;
                         _loop_1 = function (authorizeSeatReservation) {
                             var movieTickets, movieTicketIdentifiers, _i, movieTicketIdentifiers_1, movieTicketIdentifier, authorizeMovieTicketPaymentResult;
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0:
                                         movieTickets = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["createMovieTicketsFromAuthorizeSeatReservation"])({
-                                            authorizeSeatReservation: authorizeSeatReservation, pendingMovieTickets: pendingMovieTickets
+                                            authorizeSeatReservation: authorizeSeatReservation, pendingMovieTickets: pendingMovieTickets, seller: seller
                                         });
                                         movieTicketIdentifiers = [];
                                         movieTickets.forEach(function (movieTicket) {
@@ -10990,7 +10999,7 @@ var PurchaseEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, this.cinerinoService.event.findScreeningEventById({ id: eventId })];
+                        return [4 /*yield*/, this.cinerinoService.event.findById({ id: eventId })];
                     case 3:
                         screeningEvent = _a.sent();
                         branchCode = screeningEvent.superEvent.location.branchCode;

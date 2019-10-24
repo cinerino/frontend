@@ -51,7 +51,7 @@ export class PurchaseEffects {
                 let roop = true;
                 let screeningEvents: factory.chevre.event.screeningEvent.IEvent[] = [];
                 while (roop) {
-                    const screeningEventsResult = await this.cinerinoService.event.searchScreeningEvents({
+                    const screeningEventsResult = await this.cinerinoService.event.search({
                         page,
                         limit,
                         typeOf: factory.chevre.eventType.ScreeningEvent,
@@ -140,8 +140,8 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerinoService.getServices();
-                const screeningEventOffers = await this.cinerinoService.event.searchScreeningEventOffers({
-                    eventId: payload.screeningEvent.id
+                const screeningEventOffers = await this.cinerinoService.event.searchOffers({
+                    event: { id: payload.screeningEvent.id }
                 });
                 const theaterCode = payload.screeningEvent.superEvent.location.branchCode;
                 const screenCode = `000${payload.screeningEvent.location.branchCode}`.slice(-3);
@@ -170,8 +170,8 @@ export class PurchaseEffects {
                 const screeningEvent = payload.screeningEvent;
                 let screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[] = [];
                 if (isTicketedSeatScreeningEvent(screeningEvent)) {
-                    screeningEventOffers = await this.cinerinoService.event.searchScreeningEventOffers({
-                        eventId: screeningEvent.id
+                    screeningEventOffers = await this.cinerinoService.event.searchOffers({
+                        event: { id: screeningEvent.id }
                     });
                 }
 
@@ -334,7 +334,7 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerinoService.getServices();
-                let screeningEventTicketOffers = await this.cinerinoService.event.searchScreeningEventTicketOffers({
+                let screeningEventTicketOffers = await this.cinerinoService.event.searchTicketOffers({
                     event: { id: payload.screeningEvent.id },
                     seller: {
                         typeOf: payload.seller.typeOf,
@@ -460,9 +460,10 @@ export class PurchaseEffects {
                 const pendingMovieTickets = payload.pendingMovieTickets;
                 const authorizeSeatReservations = payload.authorizeSeatReservations;
                 const authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[] = [];
+                const seller = payload.seller;
                 for (const authorizeSeatReservation of authorizeSeatReservations) {
                     const movieTickets = createMovieTicketsFromAuthorizeSeatReservation({
-                        authorizeSeatReservation, pendingMovieTickets
+                        authorizeSeatReservation, pendingMovieTickets, seller
                     });
                     const movieTicketIdentifiers: {
                         identifier: string;
@@ -654,7 +655,7 @@ export class PurchaseEffects {
             const eventId = payload.eventId;
             try {
                 await this.cinerinoService.getServices();
-                const screeningEvent = await this.cinerinoService.event.findScreeningEventById({ id: eventId });
+                const screeningEvent = await this.cinerinoService.event.findById<factory.chevre.eventType.ScreeningEvent>({ id: eventId });
                 const branchCode = screeningEvent.superEvent.location.branchCode;
                 const searchResult = await this.cinerinoService.seller.search({ location: { branchCodes: [branchCode] } });
                 const seller = searchResult.data[0];

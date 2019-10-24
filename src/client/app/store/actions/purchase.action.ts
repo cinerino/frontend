@@ -431,7 +431,7 @@ export class RegisterContact implements Action {
     public readonly type = ActionTypes.RegisterContact;
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
-        contact: factory.transaction.placeOrder.ICustomerContact;
+        contact: factory.transaction.placeOrder.ICustomerProfile;
     }) { }
 }
 
@@ -440,7 +440,7 @@ export class RegisterContact implements Action {
  */
 export class RegisterContactSuccess implements Action {
     public readonly type = ActionTypes.RegisterContactSuccess;
-    constructor(public payload: { customerContact: factory.transaction.placeOrder.ICustomerContact }) { }
+    constructor(public payload: { customerContact: factory.transaction.placeOrder.ICustomerProfile }) { }
 }
 
 /**
@@ -497,6 +497,7 @@ export class AuthorizeMovieTicket implements Action {
         authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
         pendingMovieTickets: IMovieTicket[];
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
     }) { }
 }
 
@@ -529,6 +530,7 @@ export class CheckMovieTicket implements Action {
             typeOf: factory.paymentMethodType.MovieTicket;
             identifier: string;
             accessCode: string;
+            project: factory.project.IProject;
         }[];
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     }) { }
