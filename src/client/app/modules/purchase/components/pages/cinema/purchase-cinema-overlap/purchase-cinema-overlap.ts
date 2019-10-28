@@ -41,7 +41,8 @@ export class PurchaseCinemaOverlapComponent implements OnInit {
                 throw new Error('eventId is undefined');
             }
             await this.cinerino.getServices();
-            const screeningEvent = await this.cinerino.event.findScreeningEventById({ id: purchaseData.external.eventId });
+            const screeningEvent =
+                await this.cinerino.event.findById<factory.chevre.eventType.ScreeningEvent>({ id: purchaseData.external.eventId });
             this.tmpPurchaseData = {
                 screeningEvent: screeningEvent,
                 reservations: []

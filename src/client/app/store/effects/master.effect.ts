@@ -54,7 +54,7 @@ export class MasterEffects {
                 let roop = true;
                 let screeningEvents: factory.chevre.event.screeningEvent.IEvent[] = [];
                 while (roop) {
-                    const screeningEventsResult = await this.cinerino.event.searchScreeningEvents({
+                    const screeningEventsResult = await this.cinerino.event.search({
                         page,
                         limit,
                         typeOf: factory.chevre.eventType.ScreeningEvent,

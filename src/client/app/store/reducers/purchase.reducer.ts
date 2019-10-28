@@ -19,7 +19,7 @@ export interface IPurchaseState {
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
     authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
-    customerContact?: factory.transaction.placeOrder.ICustomerContact;
+    customerContact?: factory.transaction.placeOrder.ICustomerProfile;
     authorizeCreditCardPayments: factory.action.authorize.paymentMethod.creditCard.IAction[];
     authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
     creditCard?: factory.paymentMethod.paymentCard.creditCard.ICheckedCard

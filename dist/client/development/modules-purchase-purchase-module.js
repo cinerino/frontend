@@ -1011,7 +1011,7 @@ var PurchaseCinemaOverlapComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 3:
                         _a.sent();
-                        return [4 /*yield*/, this.cinerino.event.findScreeningEventById({ id: purchaseData.external.eventId })];
+                        return [4 /*yield*/, this.cinerino.event.findById({ id: purchaseData.external.eventId })];
                     case 4:
                         screeningEvent = _a.sent();
                         this.tmpPurchaseData = {
@@ -2790,6 +2790,9 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
     PurchaseEventTicketComponent.prototype.isSinglePurchase = function (params) {
         var authorizeSeatReservations = params.authorizeSeatReservations;
         var findResult = authorizeSeatReservations.find(function (a) {
+            if (a.object.event === undefined) {
+                return false;
+            }
             var workPerformed = a.object.event.workPerformed;
             if (workPerformed === undefined
                 || workPerformed.additionalProperty === undefined) {
@@ -2800,7 +2803,8 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                 return false;
             }
             var findWorkPerformedResult = authorizeSeatReservations.find(function (a2) {
-                return (a2.object.event.workPerformed !== undefined
+                return (a2.object.event !== undefined
+                    && a2.object.event.workPerformed !== undefined
                     && a2.object.event.workPerformed.identifier === findPropertyResult.value);
             });
             return (findWorkPerformedResult === undefined);

@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.4.0 - 2019-10-28
+### Changed
+ - パッケージ更新対応
+
 ## 2.3.3 - 2019-10-23
 ### Added
  - 照会可能期間設定を追加

@@ -287,6 +287,9 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     }) {
         const authorizeSeatReservations = params.authorizeSeatReservations;
         const findResult = authorizeSeatReservations.find((a) => {
+            if (a.object.event === undefined) {
+                return false;
+            }
             const workPerformed = a.object.event.workPerformed;
             if (workPerformed === undefined
                 || workPerformed.additionalProperty === undefined) {
@@ -297,7 +300,8 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 return false;
             }
             const findWorkPerformedResult = authorizeSeatReservations.find((a2) => {
-                return (a2.object.event.workPerformed !== undefined
+                return (a2.object.event !== undefined
+                    && a2.object.event.workPerformed !== undefined
                     && a2.object.event.workPerformed.identifier === findPropertyResult.value);
             });
             return (findWorkPerformedResult === undefined);
