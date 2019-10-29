@@ -1,9 +1,9 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'setting.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'setting.read' | translate"></p>
+    <form *ngIf="baseForm" [formGroup]="baseForm">
+        <div class="mb-4 p-3 bg-white">
 
-    <div class="mb-4 p-3 bg-white">
-        <form *ngIf="baseForm" [formGroup]="baseForm">
             <div class="form-group">
                 <div class="row align-items-center">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.theater' | translate }}</p>
@@ -103,13 +103,13 @@
                 </div>
             </div>
 
-        </form>
-    </div>
-    <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
-            (click)="updateBase()">{{ 'setting.next' | translate }}</button>
-        <button type="button" class="btn btn-link"
-            [routerLink]="environment.BASE_URL">{{ 'setting.prev' | translate }}</button>
-    </div>
 
+        </div>
+        <div class="buttons mx-auto text-center">
+            <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+                (click)="updateBase()">{{ 'setting.next' | translate }}</button>
+            <button type="button" class="btn btn-link"
+                [routerLink]="environment.BASE_URL">{{ 'setting.prev' | translate }}</button>
+        </div>
+    </form>
 </div>

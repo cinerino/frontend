@@ -35,7 +35,7 @@
     <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
 
     <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+        <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="onSubmit()">{{ 'purchase.cinema.ticket.next' | translate }}</button>
         <button type="button" class="btn btn-link"
             routerLink="/purchase/cinema/seat">{{ 'purchase.cinema.ticket.prev' | translate }}</button>

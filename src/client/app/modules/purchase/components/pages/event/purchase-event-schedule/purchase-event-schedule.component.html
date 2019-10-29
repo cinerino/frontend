@@ -51,7 +51,7 @@
     </div>
 
     <div class="buttons mx-auto text-center">
-        <button *ngIf="isSales" type="button" class="btn btn-primary btn-block py-3 mb-3"
+        <button *ngIf="isSales" type="submit" class="btn btn-primary btn-block py-3 mb-3"
             [disabled]="screeningWorkEvents.length === 0"
             (click)="onSubmit()">{{ 'purchase.event.schedule.next' | translate }}</button>
         <button *ngIf="!isSales" type="button" class="btn btn-primary btn-block py-3 mb-3" disabled
