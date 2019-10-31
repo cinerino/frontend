@@ -17,6 +17,7 @@ import * as reducers from '../../../../../store/reducers';
 export class MypageCreditComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public master: Observable<reducers.IMasterState>;
+    public isLoading: Observable<boolean>;
     public creditCardForm: FormGroup;
     public cardExpiration: {
         year: string[];
@@ -39,6 +40,7 @@ export class MypageCreditComponent implements OnInit {
     public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
         this.master = this.store.pipe(select(reducers.getMaster));
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
         try {
             await this.masterService.getSellers();
             await this.userService.getCreditCards();

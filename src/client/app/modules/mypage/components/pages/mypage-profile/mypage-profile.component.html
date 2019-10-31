@@ -1,10 +1,8 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'mypage.profile.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'mypage.profile.read' | translate"></p>
-
-    <div class="mb-4 p-3 bg-white">
-
-        <form [formGroup]="profileForm">
+    <form [formGroup]="profileForm">
+        <div class="mb-4 p-3 bg-white">
             <div class="form-group">
                 <div class="row align-items-center">
                     <p class="col-md-4 py-2 text-md-right"> {{ 'common.familyName' | translate }}</p>
@@ -93,13 +91,12 @@
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
-    <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
-            (click)="updateProfile()">{{ 'mypage.profile.next' | translate }}</button>
-        <button type="button" class="btn btn-link"
-            routerLink="/mypage">{{ 'mypage.profile.prev' | translate }}</button>
-    </div>
-
+        </div>
+        <div class="buttons mx-auto text-center">
+            <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+                (click)="updateProfile()">{{ 'mypage.profile.next' | translate }}</button>
+            <button type="button" class="btn btn-link"
+                routerLink="/mypage">{{ 'mypage.profile.prev' | translate }}</button>
+        </div>
+    </form>
 </div>

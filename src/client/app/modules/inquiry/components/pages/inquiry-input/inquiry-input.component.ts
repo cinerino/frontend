@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { OrderService, UtilService } from '../../../../../services';
+import * as reducers from '../../../../../store/reducers';
 
 @Component({
     selector: 'app-inquiry-input',
@@ -14,7 +17,9 @@ import { OrderService, UtilService } from '../../../../../services';
 export class InquiryInputComponent implements OnInit {
     public inquiryForm: FormGroup;
     public environment = environment;
+    public isLoading: Observable<boolean>;
     constructor(
+        private store: Store<reducers.IState>,
         private formBuilder: FormBuilder,
         private utilService: UtilService,
         private orderService: OrderService,
@@ -26,6 +31,7 @@ export class InquiryInputComponent implements OnInit {
      * 初期化
      */
     public ngOnInit() {
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.createInquiryForm();
     }
 

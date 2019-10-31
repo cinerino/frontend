@@ -194,7 +194,7 @@
 
 
     <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+        <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="onSubmit()">{{ 'purchase.input.next' | translate }}</button>
 
         <div *ngIf="(user | async).viewType === viewType.Cinema">
