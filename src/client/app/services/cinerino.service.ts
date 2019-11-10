@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as cinerino from '@cinerino/api-javascript-client';
+import * as moment from 'moment';
 import { environment } from '../../environments/environment';
+import { UtilService } from './util.service';
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +27,8 @@ export class CinerinoService {
     private waiterServerUrl: string;
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private utilservice: UtilService
     ) { }
 
     /**
@@ -67,6 +70,16 @@ export class CinerinoService {
      * @method authorize
      */
     public async authorize() {
+        if (this.auth !== undefined && this.auth.credentials.expiryDate !== undefined) {
+            const now = (await this.utilservice.getServerTime()).date;
+            const expiryDate = this.auth.credentials.expiryDate;
+            const isTokenExpired = (expiryDate !== undefined)
+                ? (expiryDate <= (moment(now).add(-5, 'minute').toDate()).getTime()) : false;
+            if (!isTokenExpired) {
+                // アクセストークン取得・更新しない
+                return;
+            }
+        }
         const url = '/api/authorize/getCredentials';
         const body = { member: '0' };
         const data = (<Storage>(<any>window)[environment.STORAGE_TYPE]).getItem(environment.STORAGE_NAME);
@@ -79,6 +92,7 @@ export class CinerinoService {
         }
         const result = await this.http.post<{
             accessToken: string;
+            expiryDate?: number;
             userName: string;
             clientId: string;
             endpoint: string;
@@ -96,7 +110,7 @@ export class CinerinoService {
             tokenIssuer: ''
         };
         this.auth = cinerino.createAuthInstance(option);
-        this.auth.setCredentials({ accessToken: result.accessToken });
+        this.auth.setCredentials({ accessToken: result.accessToken, expiryDate: result.expiryDate });
         this.userName = result.userName;
         this.endpoint = result.endpoint;
         this.waiterServerUrl = result.waiterServerUrl;
