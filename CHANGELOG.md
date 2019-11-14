@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.4.2 - 2019-11-14
+### Fixed
+ - アクセストークン取得最適化
+
 ## 2.4.1 - 2019-10-31
 ### Changed
  - 決定ボタンをsubmitへ変更
