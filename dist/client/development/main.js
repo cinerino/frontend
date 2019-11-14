@@ -5325,7 +5325,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5377,9 +5380,12 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
+
 var CinerinoService = /** @class */ (function () {
-    function CinerinoService(http) {
+    function CinerinoService(http, utilservice) {
         this.http = http;
+        this.utilservice = utilservice;
     }
     /**
      * getServices
@@ -5439,13 +5445,26 @@ var CinerinoService = /** @class */ (function () {
      */
     CinerinoService.prototype.authorize = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var url, body, data, state, result, option;
+            var now, expiryDate, isTokenExpired, url, body, data, state, result, option;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        if (!(this.auth !== undefined && this.auth.credentials.expiryDate !== undefined)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.utilservice.getServerTime()];
+                    case 1:
+                        now = (_a.sent()).date;
+                        expiryDate = this.auth.credentials.expiryDate;
+                        isTokenExpired = (expiryDate !== undefined)
+                            ? (expiryDate <= (moment__WEBPACK_IMPORTED_MODULE_3__(now).add(-5, 'minute').toDate()).getTime()) : false;
+                        if (!isTokenExpired) {
+                            // アクセストークン取得・更新しない
+                            return [2 /*return*/];
+                        }
+                        _a.label = 2;
+                    case 2:
                         url = '/api/authorize/getCredentials';
                         body = { member: '0' };
-                        data = window[_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].STORAGE_TYPE].getItem(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].STORAGE_NAME);
+                        data = window[_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].STORAGE_TYPE].getItem(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].STORAGE_NAME);
                         if (data === null) {
                             throw new Error('state is null');
                         }
@@ -5454,7 +5473,7 @@ var CinerinoService = /** @class */ (function () {
                             body.member = '1';
                         }
                         return [4 /*yield*/, this.http.post(url, body).toPromise()];
-                    case 1:
+                    case 3:
                         result = _a.sent();
                         option = {
                             domain: '',
@@ -5468,7 +5487,7 @@ var CinerinoService = /** @class */ (function () {
                             tokenIssuer: ''
                         };
                         this.auth = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["createAuthInstance"](option);
-                        this.auth.setCredentials({ accessToken: result.accessToken });
+                        this.auth.setCredentials({ accessToken: result.accessToken, expiryDate: result.expiryDate });
                         this.userName = result.userName;
                         this.endpoint = result.endpoint;
                         this.waiterServerUrl = result.waiterServerUrl;
@@ -5541,13 +5560,15 @@ var CinerinoService = /** @class */ (function () {
         });
     };
     CinerinoService.ctorParameters = function () { return [
-        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"] }
+        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"] },
+        { type: _util_service__WEBPACK_IMPORTED_MODULE_5__["UtilService"] }
     ]; };
     CinerinoService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"],
+            _util_service__WEBPACK_IMPORTED_MODULE_5__["UtilService"]])
     ], CinerinoService);
     return CinerinoService;
 }());
