@@ -10898,7 +10898,7 @@ var PurchaseEffects = /** @class */ (function () {
          * EndTransaction
          */
         this.endTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.EndTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, authorizeSeatReservations, seller, linyId, email, params, view, template, result, order, sendData, view, template, error_15, error_16;
+            var transaction, authorizeSeatReservations, seller, linyId, params, view, result, order, sendData, view, template, error_15, error_16;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -10912,42 +10912,38 @@ var PurchaseEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 2:
                         _a.sent();
-                        email = {
-                            sender: {
-                                name: (this.translate.instant('email.purchase.complete.sender.name') === '')
-                                    ? undefined : this.translate.instant('email.purchase.complete.sender.name'),
-                                email: (this.translate.instant('email.purchase.complete.sender.email') === '')
-                                    ? undefined : this.translate.instant('email.purchase.complete.sender.email')
-                            },
-                            toRecipient: {
-                                name: (this.translate.instant('email.purchase.complete.toRecipient.name') === '')
-                                    ? undefined : this.translate.instant('email.purchase.complete.toRecipient.name'),
-                                email: (this.translate.instant('email.purchase.complete.toRecipient.email') === '')
-                                    ? undefined : this.translate.instant('email.purchase.complete.toRecipient.email')
-                            },
-                            about: (this.translate.instant('email.purchase.complete.about') === '')
-                                ? undefined : this.translate.instant('email.purchase.complete.about'),
-                            template: undefined
-                        };
                         params = {
                             id: transaction.id,
-                            options: {
-                                sendEmailMessage: true,
-                                email: email
+                            sendEmailMessage: true,
+                            email: {
+                                sender: {
+                                    name: (this.translate.instant('email.purchase.complete.sender.name') === '')
+                                        ? undefined : this.translate.instant('email.purchase.complete.sender.name'),
+                                    email: (this.translate.instant('email.purchase.complete.sender.email') === '')
+                                        ? undefined : this.translate.instant('email.purchase.complete.sender.email')
+                                },
+                                toRecipient: {
+                                    name: (this.translate.instant('email.purchase.complete.toRecipient.name') === '')
+                                        ? undefined : this.translate.instant('email.purchase.complete.toRecipient.name'),
+                                    email: (this.translate.instant('email.purchase.complete.toRecipient.email') === '')
+                                        ? undefined : this.translate.instant('email.purchase.complete.toRecipient.email')
+                                },
+                                about: (this.translate.instant('email.purchase.complete.about') === '')
+                                    ? undefined : this.translate.instant('email.purchase.complete.about'),
+                                template: undefined
                             }
                         };
-                        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 4];
+                        if (!(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined)) return [3 /*break*/, 4];
                         return [4 /*yield*/, this.utilService.getText("/storage/ejs/mail/complete/" + payload.language + ".ejs")];
                     case 3:
                         view = _a.sent();
-                        template = window.ejs.render(view, {
+                        params.email.template = window.ejs.render(view, {
                             authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_8__["authorizeSeatReservationToEvent"])({ authorizeSeatReservations: authorizeSeatReservations }),
                             seller: seller,
                             moment: moment__WEBPACK_IMPORTED_MODULE_5__,
                             formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"],
                             getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_8__["getTicketPrice"]
                         });
-                        email.template = template;
                         _a.label = 4;
                     case 4: return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.confirm(params)];
                     case 5:
