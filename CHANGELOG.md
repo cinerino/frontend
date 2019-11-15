@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.4.3 - 2019-11-15
+### Fixed
+ - 購入完了メール不具合修正
+
 ## 2.4.2 - 2019-11-14
 ### Fixed
  - アクセストークン取得最適化
