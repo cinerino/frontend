@@ -18,7 +18,7 @@ import { StoreModule } from './store.module';
 import { CoreStoreModule } from './store/core/store';
 
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, '/storage/i18n/', `.json?${moment().toISOString()}`);
+    return new TranslateHttpLoader(http, '/storage/i18n/', `.json?date=${moment().toISOString()}`);
 }
 
 @NgModule({

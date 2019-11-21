@@ -761,7 +761,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 function HttpLoaderFactory(http) {
-    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__["TranslateHttpLoader"](http, '/storage/i18n/', ".json?" + moment__WEBPACK_IMPORTED_MODULE_6__().toISOString());
+    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__["TranslateHttpLoader"](http, '/storage/i18n/', ".json?date=" + moment__WEBPACK_IMPORTED_MODULE_6__().toISOString());
 }
 var AppModule = /** @class */ (function () {
     function AppModule() {
