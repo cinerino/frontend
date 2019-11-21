@@ -725,13 +725,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/platform-browser/animations */ "../../node_modules/@angular/platform-browser/fesm5/animations.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 /* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/http-loader */ "../../node_modules/@ngx-translate/http-loader/fesm5/ngx-translate-http-loader.js");
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app-routing.module */ "./app/app-routing.module.ts");
-/* harmony import */ var _app_app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app/app.component */ "./app/app/app.component.ts");
-/* harmony import */ var _modules_core_core_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/core/core.module */ "./app/modules/core/core.module.ts");
-/* harmony import */ var _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/shared/shared.module */ "./app/modules/shared/shared.module.ts");
-/* harmony import */ var _store_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./store.module */ "./app/store.module.ts");
-/* harmony import */ var _store_core_store__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./store/core/store */ "./app/store/core/store/index.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./app/app-routing.module.ts");
+/* harmony import */ var _app_app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app/app.component */ "./app/app/app.component.ts");
+/* harmony import */ var _modules_core_core_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/core/core.module */ "./app/modules/core/core.module.ts");
+/* harmony import */ var _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/shared/shared.module */ "./app/modules/shared/shared.module.ts");
+/* harmony import */ var _store_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./store.module */ "./app/store.module.ts");
+/* harmony import */ var _store_core_store__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./store/core/store */ "./app/store/core/store/index.ts");
 /**
  * NgModule
  */
@@ -757,8 +759,9 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 function HttpLoaderFactory(http) {
-    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__["TranslateHttpLoader"](http, '/storage/i18n/');
+    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__["TranslateHttpLoader"](http, '/storage/i18n/', ".json?" + moment__WEBPACK_IMPORTED_MODULE_6__().toISOString());
 }
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -766,19 +769,19 @@ var AppModule = /** @class */ (function () {
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
-                _app_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
+                _app_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_3__["BrowserAnimationsModule"],
-                _store_module__WEBPACK_IMPORTED_MODULE_11__["StoreModule"],
-                _store_core_store__WEBPACK_IMPORTED_MODULE_12__["CoreStoreModule"],
-                _modules_core_core_module__WEBPACK_IMPORTED_MODULE_9__["CoreModule"],
-                _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_10__["SharedModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
-                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["ModalModule"].forRoot(),
-                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["BsDatepickerModule"].forRoot(),
-                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["PaginationModule"].forRoot(),
+                _store_module__WEBPACK_IMPORTED_MODULE_12__["StoreModule"],
+                _store_core_store__WEBPACK_IMPORTED_MODULE_13__["CoreStoreModule"],
+                _modules_core_core_module__WEBPACK_IMPORTED_MODULE_10__["CoreModule"],
+                _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_11__["SharedModule"],
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__["ModalModule"].forRoot(),
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__["BsDatepickerModule"].forRoot(),
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__["PaginationModule"].forRoot(),
                 _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"].forRoot({
                     loader: {
                         provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateLoader"],
@@ -788,7 +791,7 @@ var AppModule = /** @class */ (function () {
                 }),
             ],
             providers: [],
-            bootstrap: [_app_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
+            bootstrap: [_app_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;

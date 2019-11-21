@@ -8,6 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import * as moment from 'moment';
 import { BsDatepickerModule, ModalModule, PaginationModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
@@ -17,7 +18,7 @@ import { StoreModule } from './store.module';
 import { CoreStoreModule } from './store/core/store';
 
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, '/storage/i18n/');
+    return new TranslateHttpLoader(http, '/storage/i18n/', `.json?${moment().toISOString()}`);
 }
 
 @NgModule({
