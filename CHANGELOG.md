@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.4.4 - 2019-11-22
+### Fixed
+ - 辞書ファイル読み込みキャッシュを適用しない修正
+
 ## 2.4.3 - 2019-11-15
 ### Fixed
  - 購入完了メール不具合修正
