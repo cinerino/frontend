@@ -22,7 +22,7 @@ export class UserService {
     ) {
         this.user = this.store.pipe(select(reducers.getUser));
         this.error = this.store.pipe(select(reducers.getError));
-     }
+    }
 
     /**
      * マスタデータ取得
@@ -50,44 +50,76 @@ export class UserService {
     }
 
     /**
-     * プロフィール初期化
+     * プロフィール取得
      */
-    public initializeProfile() {
+    public async getProfile() {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.InitializeProfile());
+            this.store.dispatch(new userAction.GetProfile());
             const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.InitializeProfileSuccess),
-                tap(() => {
-                    resolve();
-                })
+                ofType(userAction.ActionTypes.GetProfileSuccess),
+                tap(() => resolve())
             );
             const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.InitializeProfileFail),
-                tap(() => {
-                    reject();
-                })
+                ofType(userAction.ActionTypes.GetProfileFail),
+                tap(() => reject())
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
     }
 
     /**
-     * コイン口座初期化
+     * 口座情報取得
      */
-    public initializeCoinAccount() {
+    public async getAccount() {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.InitializeCoinAccount());
+            this.store.dispatch(new userAction.GetAccount());
             const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.InitializeCoinAccountSuccess),
-                tap(() => {
-                    resolve();
-                })
+                ofType(userAction.ActionTypes.GetAccountSuccess),
+                tap(() => resolve())
             );
             const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.InitializeCoinAccountFail),
-                tap(() => {
-                    reject();
-                })
+                ofType(userAction.ActionTypes.GetAccountFail),
+                tap(() => reject())
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
+    }
+
+    /**
+     * 口座開設
+     */
+    public async openAccount(params: {
+        name: string;
+        accountType: factory.accountType;
+    }) {
+        return new Promise<void>((resolve, reject) => {
+            this.store.dispatch(new userAction.OpenAccount(params));
+            const success = this.actions.pipe(
+                ofType(userAction.ActionTypes.OpenAccountSuccess),
+                tap(() => { resolve(); })
+            );
+
+            const fail = this.actions.pipe(
+                ofType(userAction.ActionTypes.OpenAccountFail),
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
+    }
+
+    /**
+     * 口座閉鎖
+     */
+    public async cloaseAccount(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
+        return new Promise<void>((resolve, reject) => {
+            this.store.dispatch(new userAction.CloseAccount({ account }));
+            const success = this.actions.pipe(
+                ofType(userAction.ActionTypes.CloseAccountSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(userAction.ActionTypes.CloseAccountFail),
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -130,7 +162,7 @@ export class UserService {
     /**
      * クレジットカード一覧取得
      */
-    public getCreditCards() {
+    public async getCreditCards() {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(new userAction.GetCreditCards());
             const success = this.actions.pipe(
@@ -148,7 +180,7 @@ export class UserService {
     /**
      * クレジットカード追加
      */
-    public addCreditCard(params: {
+    public async addCreditCard(params: {
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
         creditCard: {
             cardno: string;
@@ -175,7 +207,7 @@ export class UserService {
     /**
      * クレジットカード削除
      */
-    public removeCreditCard(creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
+    public async removeCreditCard(creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(new userAction.RemoveCreditCard({ creditCard }));
             const success = this.actions.pipe(
@@ -210,17 +242,21 @@ export class UserService {
     }
 
     /**
-     * コイン口座チャージ
+     * 口座チャージ
      */
-    public async chargeCoin() {
+    public async chargeAccount(params: {
+        amount: number;
+        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
+        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
+    }) {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.ChargeCoin({}));
+            this.store.dispatch(new userAction.ChargeAccount(params));
             const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.ChargeCoinSuccess),
+                ofType(userAction.ActionTypes.ChargeAccountSuccess),
                 tap(() => { resolve(); })
             );
             const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.ChargeCoinFail),
+                ofType(userAction.ActionTypes.ChargeAccountFail),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();

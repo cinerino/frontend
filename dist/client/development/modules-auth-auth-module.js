@@ -364,13 +364,13 @@ var AuthSigninComponent = /** @class */ (function () {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 5, , 6]);
-                        return [4 /*yield*/, this.userService.initializeProfile()];
+                        return [4 /*yield*/, this.userService.getProfile()];
                     case 2:
                         _a.sent();
                         return [4 /*yield*/, this.userService.getCreditCards()];
                     case 3:
                         _a.sent();
-                        return [4 /*yield*/, this.userService.initializeCoinAccount()];
+                        return [4 /*yield*/, this.userService.getAccount()];
                     case 4:
                         _a.sent();
                         this.router.navigate([_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].BASE_URL]);
