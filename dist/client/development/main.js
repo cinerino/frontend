@@ -390,16 +390,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/charge-coin-modal/charge-coin-modal.component.html":
-/*!*******************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/charge-coin-modal/charge-coin-modal.component.html ***!
-  \*******************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.html":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.html ***!
+  \*************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.chargeCoin.title' | translate }}</div>\n    <p class=\"mb-3\">{{ 'modal.chargeCoin.read' | translate }}</p>\n\n    <div class=\"mb-4 p-3 bg-white\">\n        <form *ngIf=\"coinChargeForm\" [formGroup]=\"coinChargeForm\">\n            <p class=\"mb-2\">{{ 'modal.chargeCoin.charge' | translate }}</p>\n            <div>\n                <input type=\"text\" class=\"form-control\" id=\"charge\" formControlName=\"charge\" placeholder=\"0\"\n                    maxlength=\"5\">\n                <div *ngIf=\"coinChargeForm.controls.charge.invalid && coinChargeForm.controls.charge.touched\"\n                    class=\"mt-2\">\n                    <p *ngIf=\"coinChargeForm.controls.charge.errors.required\" class=\"text-danger\">\n                        {{ 'form.validation.required' | translate }}</p>\n                    <p *ngIf=\"coinChargeForm.controls.charge.errors.pattern\" class=\"text-danger\">\n                        {{ 'form.validation.number' | translate }}\n                    </p>\n                </div>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close()\"\n            [disabled]=\"coinChargeForm.invalid\">{{ 'modal.chargeCoin.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.chargeAccount.title' | translate }}</div>\n    <p class=\"mb-3\">{{ 'modal.chargeAccount.read' | translate }}</p>\n\n    <div class=\"mb-4 p-3 bg-white\">\n        <form *ngIf=\"chargeAccountForm\" [formGroup]=\"chargeAccountForm\">\n            <div class=\"form-group\">\n                <p class=\"mb-2\">{{ 'modal.chargeAccount.amount' | translate }}</p>\n                <input type=\"number\" class=\"form-control\" id=\"charge\" formControlName=\"amount\" placeholder=\"0\"\n                    maxlength=\"5\">\n                <div *ngIf=\"chargeAccountForm.controls.amount.invalid && chargeAccountForm.controls.amount.touched\"\n                    class=\"mt-2\">\n                    <p *ngIf=\"chargeAccountForm.controls.charge.errors.required\" class=\"text-danger\">\n                        {{ 'form.validation.required' | translate }}</p>\n                    <p *ngIf=\"chargeAccountForm.controls.charge.errors.pattern\" class=\"text-danger\">\n                        {{ 'form.validation.number' | translate }}\n                    </p>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <p class=\"mb-2\">{{ 'modal.chargeAccount.creditCard' | translate }}</p>\n                <button type=\"button\" *ngFor=\"let creditCard of creditCards\" class=\"btn btn-block text-left mb-3 creditCard\"\n                    [class.btn-outline-primary]=\"chargeAccountForm.controls.cregitCard.value !== creditCard\"\n                    [class.btn-primary]=\"chargeAccountForm.controls.cregitCard.value === creditCard\"\n                    (click)=\"selectCreditCard(creditCard)\">\n                    <div class=\"mb-3\">\n                        <p class=\"text-small\">{{ 'common.credit.cardNumber' | translate }}</p>\n                        <p>{{ creditCard.cardNo }}</p>\n                    </div>\n                    <div>\n                        <p class=\"text-small\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                        <p>{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}</p>\n                    </div>\n                </button>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"chargeAccountForm.invalid\">{{ 'modal.chargeAccount.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -504,6 +504,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<div #trigger (tap)=\"show()\">\n    <ng-content></ng-content>\n</div>\n<div *ngIf=\"isOpen\" class=\"position-fixed\">\n    <div class=\"position-fixed\" (tap)=\"hide()\"></div>\n\n    <div #keypad class=\"numeric-keypad p-3 text-center text-large shadow bg-light-gray\" [ngStyle]=\"{\n    'top.px': position.y, \n    'left.px': position.x\n}\">\n        <div class=\"number d-grid mb-2 text-dark-gray\">\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('7')\">7</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('8')\">8</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('9')\">9</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('4')\">4</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('5')\">5</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('6')\">6</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('1')\">1</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('2')\">2</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('3')\">3</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('0')\">0</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('00')\">00</div>\n            <div *ngIf=\"inputType === 'number'\" class=\"bg-dark-gray text-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('000')\">000</div>\n            <div *ngIf=\"inputType === 'telephone'\" class=\"bg-dark-gray text-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('+')\">+</div>\n        </div>\n        <div class=\"etc d-grid\">\n            <div class=\"bg-gray text-white py-2 py-md-3 shadow-sm\" (tap)=\"clear()\">C</div>\n            <div class=\"bg-success text-white py-2 py-md-3 shadow-sm\" (tap)=\"hide()\">確定</div>\n        </div>\n    </div>\n</div>");
+
+/***/ }),
+
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.html":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.html ***!
+  \*********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.openAccount.title' | translate }}</div>\n    <p class=\"mb-3\">{{ 'modal.openAccount.read' | translate }}</p>\n\n    <div class=\"mb-4 p-3 bg-white\">\n        <form *ngIf=\"openAccountForm\" [formGroup]=\"openAccountForm\">\n            <div class=\"form-group\">\n                <p class=\"mb-2\">{{ 'modal.openAccount.name' | translate }}</p>\n                <div>\n                    <input type=\"text\" class=\"form-control\" id=\"name\" formControlName=\"name\" placeholder=\"\"\n                        maxlength=\"30\">\n                    <div *ngIf=\"openAccountForm.controls.name.invalid && openAccountForm.controls.name.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"openAccountForm.controls.name.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <p class=\"mb-2\">{{ 'modal.openAccount.accountType' | translate }}</p>\n                <div>\n                    <select type=\"number\" class=\"form-control\" id=\"accountType\" formControlName=\"accountType\">\n                        <option [value]=\"accountType.Coin\">{{ accountType.Coin }}</option>\n                        <option [value]=\"accountType.Point\">{{ accountType.Point }}</option>\n                    </select>\n                </div>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"openAccountForm.invalid\">{{ 'modal.openAccount.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -3193,29 +3206,29 @@ var AlertModalComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/charge-coin-modal/charge-coin-modal.component.scss":
-/*!************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/charge-coin-modal/charge-coin-modal.component.scss ***!
-  \************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.scss":
+/*!******************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.scss ***!
+  \******************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL2NoYXJnZS1jb2luLW1vZGFsL2NoYXJnZS1jb2luLW1vZGFsLmNvbXBvbmVudC5zY3NzIn0= */");
+/* harmony default export */ __webpack_exports__["default"] = (".creditCard:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvY2hhcmdlLWFjY291bnQtbW9kYWwvQzpcXFVzZXJzXFxoYXRhZ3VjaGlcXERlc2t0b3BcXHdvcmtzcGFjZVxcQ2luZXJpbm9cXGZyb250ZW5kL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXGNoYXJnZS1hY2NvdW50LW1vZGFsXFxjaGFyZ2UtYWNjb3VudC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvY2hhcmdlLWFjY291bnQtbW9kYWwvY2hhcmdlLWFjY291bnQtbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSwyQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvY2hhcmdlLWFjY291bnQtbW9kYWwvY2hhcmdlLWFjY291bnQtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY3JlZGl0Q2FyZDpsYXN0LWNoaWxkIHtcbiAgICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG59IiwiLmNyZWRpdENhcmQ6bGFzdC1jaGlsZCB7XG4gIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iXX0= */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/charge-coin-modal/charge-coin-modal.component.ts":
-/*!**********************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/charge-coin-modal/charge-coin-modal.component.ts ***!
-  \**********************************************************************************************/
-/*! exports provided: ChargeCoinModalComponent */
+/***/ "./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.ts":
+/*!****************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.ts ***!
+  \****************************************************************************************************/
+/*! exports provided: ChargeAccountModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeCoinModalComponent", function() { return ChargeCoinModalComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeAccountModalComponent", function() { return ChargeAccountModalComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
@@ -3234,41 +3247,52 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-var ChargeCoinModalComponent = /** @class */ (function () {
-    function ChargeCoinModalComponent(formBuilder, modal) {
+var ChargeAccountModalComponent = /** @class */ (function () {
+    function ChargeAccountModalComponent(formBuilder, modal) {
         this.formBuilder = formBuilder;
         this.modal = modal;
     }
-    ChargeCoinModalComponent.prototype.ngOnInit = function () {
+    ChargeAccountModalComponent.prototype.ngOnInit = function () {
         this.createChargeForm();
     };
-    ChargeCoinModalComponent.prototype.close = function () {
+    ChargeAccountModalComponent.prototype.close = function () {
         this.modal.hide();
-        this.cb(this.coinChargeForm.controls.charge.value);
-    };
-    ChargeCoinModalComponent.prototype.createChargeForm = function () {
-        this.coinChargeForm = this.formBuilder.group({
-            charge: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]]
+        this.cb({
+            amount: this.chargeAccountForm.controls.amount.value,
+            cregitCard: this.chargeAccountForm.controls.cregitCard.value
         });
     };
-    ChargeCoinModalComponent.ctorParameters = function () { return [
+    ChargeAccountModalComponent.prototype.selectCreditCard = function (cregitCard) {
+        this.chargeAccountForm.controls.cregitCard.setValue(cregitCard);
+    };
+    ChargeAccountModalComponent.prototype.createChargeForm = function () {
+        this.chargeAccountForm = this.formBuilder.group({
+            amount: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
+            cregitCard: [this.creditCards[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
+        });
+    };
+    ChargeAccountModalComponent.ctorParameters = function () { return [
         { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
         { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] }
     ]; };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], ChargeAccountModalComponent.prototype, "creditCards", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Function)
-    ], ChargeCoinModalComponent.prototype, "cb", void 0);
-    ChargeCoinModalComponent = __decorate([
+    ], ChargeAccountModalComponent.prototype, "cb", void 0);
+    ChargeAccountModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-charge-coin-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./charge-coin-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/charge-coin-modal/charge-coin-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./charge-coin-modal.component.scss */ "./app/modules/shared/components/parts/charge-coin-modal/charge-coin-modal.component.scss")).default]
+            selector: 'app-charge-account-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./charge-account-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./charge-account-modal.component.scss */ "./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.scss")).default]
         }),
         __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
             ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]])
-    ], ChargeCoinModalComponent);
-    return ChargeCoinModalComponent;
+    ], ChargeAccountModalComponent);
+    return ChargeAccountModalComponent;
 }());
 
 
@@ -4292,6 +4316,96 @@ var NumericKeypadComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.scss":
+/*!**************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.scss ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL29wZW4tYWNjb3VudC1tb2RhbC9vcGVuLWFjY291bnQtbW9kYWwuY29tcG9uZW50LnNjc3MifQ== */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.ts":
+/*!************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.ts ***!
+  \************************************************************************************************/
+/*! exports provided: OpenAccountModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OpenAccountModalComponent", function() { return OpenAccountModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+var OpenAccountModalComponent = /** @class */ (function () {
+    function OpenAccountModalComponent(formBuilder, modal) {
+        this.formBuilder = formBuilder;
+        this.modal = modal;
+        this.accountType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].accountType;
+    }
+    OpenAccountModalComponent.prototype.ngOnInit = function () {
+        this.createOpenForm();
+    };
+    OpenAccountModalComponent.prototype.close = function () {
+        this.modal.hide();
+        this.cb({
+            name: this.openAccountForm.controls.name.value,
+            accountType: this.openAccountForm.controls.accountType.value
+        });
+    };
+    OpenAccountModalComponent.prototype.createOpenForm = function () {
+        this.openAccountForm = this.formBuilder.group({
+            name: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            accountType: [this.accountType.Coin, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
+        });
+    };
+    OpenAccountModalComponent.ctorParameters = function () { return [
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] }
+    ]; };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Function)
+    ], OpenAccountModalComponent.prototype, "cb", void 0);
+    OpenAccountModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-open-account-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./open-account-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./open-account-modal.component.scss */ "./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.scss")).default]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
+    ], OpenAccountModalComponent);
+    return OpenAccountModalComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.scss":
 /*!**************************************************************************************************!*\
   !*** ./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.scss ***!
@@ -5191,7 +5305,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-swiper-wrapper */ "../../node_modules/ngx-swiper-wrapper/dist/ngx-swiper-wrapper.es5.js");
 /* harmony import */ var _components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/base/base.component */ "./app/modules/shared/components/pages/base/base.component.ts");
 /* harmony import */ var _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/parts/alert-modal/alert-modal.component */ "./app/modules/shared/components/parts/alert-modal/alert-modal.component.ts");
-/* harmony import */ var _components_parts_charge_coin_modal_charge_coin_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/parts/charge-coin-modal/charge-coin-modal.component */ "./app/modules/shared/components/parts/charge-coin-modal/charge-coin-modal.component.ts");
+/* harmony import */ var _components_parts_charge_account_modal_charge_account_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/parts/charge-account-modal/charge-account-modal.component */ "./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.ts");
 /* harmony import */ var _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/parts/confirm-modal/confirm-modal.component */ "./app/modules/shared/components/parts/confirm-modal/confirm-modal.component.ts");
 /* harmony import */ var _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/parts/contents/contents.component */ "./app/modules/shared/components/parts/contents/contents.component.ts");
 /* harmony import */ var _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/parts/footer/footer.component */ "./app/modules/shared/components/parts/footer/footer.component.ts");
@@ -5200,16 +5314,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/parts/loading/loading.component */ "./app/modules/shared/components/parts/loading/loading.component.ts");
 /* harmony import */ var _components_parts_mvtk_check_modal_mvtk_check_modal_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/parts/mvtk-check-modal/mvtk-check-modal.component */ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.ts");
 /* harmony import */ var _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/parts/numeric-keypad/numeric-keypad.component */ "./app/modules/shared/components/parts/numeric-keypad/numeric-keypad.component.ts");
-/* harmony import */ var _components_parts_order_detail_modal_order_detail_modal_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/parts/order-detail-modal/order-detail-modal.component */ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_cinema_ticket_modal_purchase_cinema_ticket_modal_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component */ "./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_event_ticket_modal_purchase_event_ticket_modal_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component */ "./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_transaction_modal_purchase_transaction_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/purchase-transaction-modal/purchase-transaction-modal.component */ "./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.ts");
-/* harmony import */ var _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/qrcode-modal/qrcode-modal.component */ "./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.ts");
-/* harmony import */ var _components_parts_registered_credit_card_modal_registered_credit_card_modal_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/registered-credit-card-modal/registered-credit-card-modal.component */ "./app/modules/shared/components/parts/registered-credit-card-modal/registered-credit-card-modal.component.ts");
-/* harmony import */ var _components_parts_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/security-code-modal/security-code-modal.component */ "./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.ts");
-/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
-/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
-/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
+/* harmony import */ var _components_parts_open_account_modal_open_account_modal_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/parts/open-account-modal/open-account-modal.component */ "./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.ts");
+/* harmony import */ var _components_parts_order_detail_modal_order_detail_modal_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/parts/order-detail-modal/order-detail-modal.component */ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_cinema_ticket_modal_purchase_cinema_ticket_modal_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component */ "./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_event_ticket_modal_purchase_event_ticket_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component */ "./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_transaction_modal_purchase_transaction_modal_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/purchase-transaction-modal/purchase-transaction-modal.component */ "./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.ts");
+/* harmony import */ var _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/qrcode-modal/qrcode-modal.component */ "./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.ts");
+/* harmony import */ var _components_parts_registered_credit_card_modal_registered_credit_card_modal_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/registered-credit-card-modal/registered-credit-card-modal.component */ "./app/modules/shared/components/parts/registered-credit-card-modal/registered-credit-card-modal.component.ts");
+/* harmony import */ var _components_parts_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/parts/security-code-modal/security-code-modal.component */ "./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.ts");
+/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
+/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5247,28 +5362,30 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var components = [
     _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_15__["LoadingComponent"],
     _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_12__["FooterComponent"],
     _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_14__["HeaderComponent"],
     _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_13__["HeaderMenuComponent"],
     _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_11__["ContentsComponent"],
-    _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_22__["QrCodeModalComponent"],
+    _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_23__["QrCodeModalComponent"],
     _components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_7__["BaseComponent"],
 ];
 var entryComponents = [
     _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_8__["AlertModalComponent"],
     _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_10__["ConfirmModalComponent"],
-    _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_22__["QrCodeModalComponent"],
-    _components_parts_registered_credit_card_modal_registered_credit_card_modal_component__WEBPACK_IMPORTED_MODULE_23__["RegisteredCreditCardModalComponent"],
-    _components_parts_charge_coin_modal_charge_coin_modal_component__WEBPACK_IMPORTED_MODULE_9__["ChargeCoinModalComponent"],
-    _components_parts_order_detail_modal_order_detail_modal_component__WEBPACK_IMPORTED_MODULE_18__["OrderDetailModalComponent"],
-    _components_parts_purchase_cinema_ticket_modal_purchase_cinema_ticket_modal_component__WEBPACK_IMPORTED_MODULE_19__["PurchaseCinemaTicketModalComponent"],
-    _components_parts_purchase_event_ticket_modal_purchase_event_ticket_modal_component__WEBPACK_IMPORTED_MODULE_20__["PurchaseEventTicketModalComponent"],
-    _components_parts_purchase_transaction_modal_purchase_transaction_modal_component__WEBPACK_IMPORTED_MODULE_21__["PurchaseTransactionModalComponent"],
+    _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_23__["QrCodeModalComponent"],
+    _components_parts_registered_credit_card_modal_registered_credit_card_modal_component__WEBPACK_IMPORTED_MODULE_24__["RegisteredCreditCardModalComponent"],
+    _components_parts_charge_account_modal_charge_account_modal_component__WEBPACK_IMPORTED_MODULE_9__["ChargeAccountModalComponent"],
+    _components_parts_open_account_modal_open_account_modal_component__WEBPACK_IMPORTED_MODULE_18__["OpenAccountModalComponent"],
+    _components_parts_order_detail_modal_order_detail_modal_component__WEBPACK_IMPORTED_MODULE_19__["OrderDetailModalComponent"],
+    _components_parts_purchase_cinema_ticket_modal_purchase_cinema_ticket_modal_component__WEBPACK_IMPORTED_MODULE_20__["PurchaseCinemaTicketModalComponent"],
+    _components_parts_purchase_event_ticket_modal_purchase_event_ticket_modal_component__WEBPACK_IMPORTED_MODULE_21__["PurchaseEventTicketModalComponent"],
+    _components_parts_purchase_transaction_modal_purchase_transaction_modal_component__WEBPACK_IMPORTED_MODULE_22__["PurchaseTransactionModalComponent"],
     _components_parts_mvtk_check_modal_mvtk_check_modal_component__WEBPACK_IMPORTED_MODULE_16__["MvtkCheckModalComponent"],
     _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_17__["NumericKeypadComponent"],
-    _components_parts_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_24__["SecurityCodeModalComponent"],
+    _components_parts_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_25__["SecurityCodeModalComponent"],
 ];
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
@@ -5276,9 +5393,9 @@ var SharedModule = /** @class */ (function () {
     SharedModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: components.concat(entryComponents, [
-                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_27__["LibphonenumberFormatPipe"],
-                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_25__["ChangeLanguagePipe"],
-                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_26__["FormatDatePipe"],
+                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_28__["LibphonenumberFormatPipe"],
+                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_26__["ChangeLanguagePipe"],
+                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_27__["FormatDatePipe"],
             ]),
             entryComponents: entryComponents,
             imports: [
@@ -5293,9 +5410,9 @@ var SharedModule = /** @class */ (function () {
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["PaginationModule"],
             ],
             exports: components.concat(entryComponents, [
-                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_27__["LibphonenumberFormatPipe"],
-                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_25__["ChangeLanguagePipe"],
-                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_26__["FormatDatePipe"],
+                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_28__["LibphonenumberFormatPipe"],
+                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_26__["ChangeLanguagePipe"],
+                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_27__["FormatDatePipe"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"],
@@ -5403,6 +5520,7 @@ var CinerinoService = /** @class */ (function () {
                         return [4 /*yield*/, this.createOption()];
                     case 1:
                         option = _a.sent();
+                        this.account = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Account(option);
                         this.event = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Event(option);
                         this.order = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Order(option);
                         this.seller = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Seller(option);
@@ -5584,7 +5702,7 @@ var CinerinoService = /** @class */ (function () {
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: CinerinoService, UtilService, PurchaseService, UserService, MasterService, OrderService, StarPrintService, LinyService */
+/*! exports provided: CinerinoService, PurchaseService, UserService, MasterService, OrderService, StarPrintService, UtilService, LinyService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7197,35 +7315,67 @@ var UserService = /** @class */ (function () {
         this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].Initialize());
     };
     /**
-     * プロフィール初期化
+     * プロフィール取得
      */
-    UserService.prototype.initializeProfile = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].InitializeProfile());
-            var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.InitializeProfileSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                resolve();
-            }));
-            var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.InitializeProfileFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                reject();
-            }));
-            Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+    UserService.prototype.getProfile = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].GetProfile());
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.GetProfileSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { return resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.GetProfileFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { return reject(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                    })];
+            });
         });
     };
     /**
-     * コイン口座初期化
+     * 口座情報取得
      */
-    UserService.prototype.initializeCoinAccount = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].InitializeCoinAccount());
-            var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.InitializeCoinAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                resolve();
-            }));
-            var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.InitializeCoinAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () {
-                reject();
-            }));
-            Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+    UserService.prototype.getAccount = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].GetAccount());
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.GetAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { return resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.GetAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { return reject(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 口座開設
+     */
+    UserService.prototype.openAccount = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].OpenAccount(params));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.OpenAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.OpenAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 口座閉鎖
+     */
+    UserService.prototype.cloaseAccount = function (account) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].CloseAccount({ account: account }));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.CloseAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.CloseAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                    })];
+            });
         });
     };
     /**
@@ -7261,36 +7411,48 @@ var UserService = /** @class */ (function () {
      * クレジットカード一覧取得
      */
     UserService.prototype.getCreditCards = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].GetCreditCards());
-            var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.GetCreditCardsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-            var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.GetCreditCardsFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-            Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].GetCreditCards());
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.GetCreditCardsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.GetCreditCardsFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                    })];
+            });
         });
     };
     /**
      * クレジットカード追加
      */
     UserService.prototype.addCreditCard = function (params) {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].AddCreditCard(params));
-            var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.AddCreditCardSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-            var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.AddCreditCardFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-            Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].AddCreditCard(params));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.AddCreditCardSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.AddCreditCardFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                    })];
+            });
         });
     };
     /**
      * クレジットカード削除
      */
     UserService.prototype.removeCreditCard = function (creditCard) {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].RemoveCreditCard({ creditCard: creditCard }));
-            var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.RemoveCreditCardSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-            var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.RemoveCreditCardFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-            Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].RemoveCreditCard({ creditCard: creditCard }));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.RemoveCreditCardSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.RemoveCreditCardFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                    })];
+            });
         });
     };
     /**
@@ -7306,16 +7468,16 @@ var UserService = /** @class */ (function () {
         }));
     };
     /**
-     * コイン口座チャージ
+     * 口座チャージ
      */
-    UserService.prototype.chargeCoin = function () {
+    UserService.prototype.chargeAccount = function (params) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ChargeCoin({}));
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.ChargeCoinSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.ChargeCoinFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ChargeAccount(params));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.ChargeAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.ChargeAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
                     })];
             });
@@ -8797,7 +8959,7 @@ var ConvertExternalToPurchaseFail = /** @class */ (function () {
 /*!******************************************!*\
   !*** ./app/store/actions/user.action.ts ***!
   \******************************************/
-/*! exports provided: ActionTypes, Delete, Initialize, InitializeProfile, InitializeProfileSuccess, InitializeProfileFail, InitializeCoinAccount, InitializeCoinAccountSuccess, InitializeCoinAccountFail, UpdateLanguage, UpdateBaseSetting, UpdateProfile, UpdateProfileSuccess, UpdateProfileFail, GetCreditCards, GetCreditCardsSuccess, GetCreditCardsFail, AddCreditCard, AddCreditCardSuccess, AddCreditCardFail, RemoveCreditCard, RemoveCreditCardSuccess, RemoveCreditCardFail, ChargeCoin, ChargeCoinSuccess, ChargeCoinFail */
+/*! exports provided: ActionTypes, Delete, Initialize, GetProfile, GetProfileSuccess, GetProfileFail, GetAccount, GetAccountSuccess, GetAccountFail, OpenAccount, OpenAccountSuccess, OpenAccountFail, CloseAccount, CloseAccountSuccess, CloseAccountFail, UpdateLanguage, UpdateBaseSetting, UpdateProfile, UpdateProfileSuccess, UpdateProfileFail, GetCreditCards, GetCreditCardsSuccess, GetCreditCardsFail, AddCreditCard, AddCreditCardSuccess, AddCreditCardFail, RemoveCreditCard, RemoveCreditCardSuccess, RemoveCreditCardFail, ChargeAccount, ChargeAccountSuccess, ChargeAccountFail */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8805,12 +8967,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActionTypes", function() { return ActionTypes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Delete", function() { return Delete; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Initialize", function() { return Initialize; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializeProfile", function() { return InitializeProfile; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializeProfileSuccess", function() { return InitializeProfileSuccess; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializeProfileFail", function() { return InitializeProfileFail; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializeCoinAccount", function() { return InitializeCoinAccount; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializeCoinAccountSuccess", function() { return InitializeCoinAccountSuccess; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializeCoinAccountFail", function() { return InitializeCoinAccountFail; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetProfile", function() { return GetProfile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetProfileSuccess", function() { return GetProfileSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetProfileFail", function() { return GetProfileFail; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetAccount", function() { return GetAccount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetAccountSuccess", function() { return GetAccountSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetAccountFail", function() { return GetAccountFail; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OpenAccount", function() { return OpenAccount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OpenAccountSuccess", function() { return OpenAccountSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OpenAccountFail", function() { return OpenAccountFail; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CloseAccount", function() { return CloseAccount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CloseAccountSuccess", function() { return CloseAccountSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CloseAccountFail", function() { return CloseAccountFail; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateLanguage", function() { return UpdateLanguage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateBaseSetting", function() { return UpdateBaseSetting; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateProfile", function() { return UpdateProfile; });
@@ -8825,9 +8993,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RemoveCreditCard", function() { return RemoveCreditCard; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RemoveCreditCardSuccess", function() { return RemoveCreditCardSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RemoveCreditCardFail", function() { return RemoveCreditCardFail; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeCoin", function() { return ChargeCoin; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeCoinSuccess", function() { return ChargeCoinSuccess; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeCoinFail", function() { return ChargeCoinFail; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeAccount", function() { return ChargeAccount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeAccountSuccess", function() { return ChargeAccountSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeAccountFail", function() { return ChargeAccountFail; });
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -8838,12 +9006,18 @@ var ActionTypes;
 (function (ActionTypes) {
     ActionTypes["Delete"] = "[User] Delete";
     ActionTypes["Initialize"] = "[User] Initialize";
-    ActionTypes["InitializeProfile"] = "[User] Initialize Profile";
-    ActionTypes["InitializeProfileSuccess"] = "[User] Initialize Profile Success";
-    ActionTypes["InitializeProfileFail"] = "[User] Initialize Profile Fail";
-    ActionTypes["InitializeCoinAccount"] = "[User] Initialize Coin Account";
-    ActionTypes["InitializeCoinAccountSuccess"] = "[User] Initialize Coin Account Success";
-    ActionTypes["InitializeCoinAccountFail"] = "[User] Initialize Coin Account Fail";
+    ActionTypes["GetProfile"] = "[User] Get Profile";
+    ActionTypes["GetProfileSuccess"] = "[User] Get Profile Success";
+    ActionTypes["GetProfileFail"] = "[User] Get Profile Fail";
+    ActionTypes["GetAccount"] = "[User] Get Account";
+    ActionTypes["GetAccountSuccess"] = "[User] Get Account Success";
+    ActionTypes["GetAccountFail"] = "[User] Get Account Fail";
+    ActionTypes["OpenAccount"] = "[User] Open Account";
+    ActionTypes["OpenAccountSuccess"] = "[User] Open Account Success";
+    ActionTypes["OpenAccountFail"] = "[User] Open Account Fail";
+    ActionTypes["CloseAccount"] = "[User] Close Account";
+    ActionTypes["CloseAccountSuccess"] = "[User] Close Account Success";
+    ActionTypes["CloseAccountFail"] = "[User] Close Account Fail";
     ActionTypes["UpdateLanguage"] = "[User] Update Language";
     ActionTypes["UpdateProfile"] = "[User] Update Customer";
     ActionTypes["UpdateProfileSuccess"] = "[User] Update Customer Success";
@@ -8858,9 +9032,9 @@ var ActionTypes;
     ActionTypes["RemoveCreditCardSuccess"] = "[User] Remove Credit Card Success";
     ActionTypes["RemoveCreditCardFail"] = "[User] Remove Credit Card Fail";
     ActionTypes["UpdateBaseSetting"] = "[User] Update Base Setting";
-    ActionTypes["ChargeCoin"] = "[User] Charge Coin";
-    ActionTypes["ChargeCoinSuccess"] = "[User] Charge Coin Success";
-    ActionTypes["ChargeCoinFail"] = "[User] Charge Coin Fail";
+    ActionTypes["ChargeAccount"] = "[User] Charge Account";
+    ActionTypes["ChargeAccountSuccess"] = "[User] Charge Account Success";
+    ActionTypes["ChargeAccountFail"] = "[User] Charge Account Fail";
 })(ActionTypes || (ActionTypes = {}));
 /**
  * ユーザーデータ削除
@@ -8885,69 +9059,135 @@ var Initialize = /** @class */ (function () {
 }());
 
 /**
- * プロフィール初期化
+ * プロフィール取得
  */
-var InitializeProfile = /** @class */ (function () {
-    function InitializeProfile(payload) {
+var GetProfile = /** @class */ (function () {
+    function GetProfile(payload) {
         this.payload = payload;
-        this.type = ActionTypes.InitializeProfile;
+        this.type = ActionTypes.GetProfile;
     }
-    return InitializeProfile;
+    return GetProfile;
 }());
 
 /**
- * プロフィール初期化成功
+ * プロフィール取得成功
  */
-var InitializeProfileSuccess = /** @class */ (function () {
-    function InitializeProfileSuccess(payload) {
+var GetProfileSuccess = /** @class */ (function () {
+    function GetProfileSuccess(payload) {
         this.payload = payload;
-        this.type = ActionTypes.InitializeProfileSuccess;
+        this.type = ActionTypes.GetProfileSuccess;
     }
-    return InitializeProfileSuccess;
+    return GetProfileSuccess;
 }());
 
 /**
- * プロフィール初期化失敗
+ * プロフィール取得失敗
  */
-var InitializeProfileFail = /** @class */ (function () {
-    function InitializeProfileFail(payload) {
+var GetProfileFail = /** @class */ (function () {
+    function GetProfileFail(payload) {
         this.payload = payload;
-        this.type = ActionTypes.InitializeProfileFail;
+        this.type = ActionTypes.GetProfileFail;
     }
-    return InitializeProfileFail;
+    return GetProfileFail;
 }());
 
 /**
- * コイン口座初期化
+ * 口座取得
  */
-var InitializeCoinAccount = /** @class */ (function () {
-    function InitializeCoinAccount(payload) {
+var GetAccount = /** @class */ (function () {
+    function GetAccount(payload) {
         this.payload = payload;
-        this.type = ActionTypes.InitializeCoinAccount;
+        this.type = ActionTypes.GetAccount;
     }
-    return InitializeCoinAccount;
+    return GetAccount;
 }());
 
 /**
- * コイン口座初期化成功
+ * 口座取得成功
  */
-var InitializeCoinAccountSuccess = /** @class */ (function () {
-    function InitializeCoinAccountSuccess(payload) {
+var GetAccountSuccess = /** @class */ (function () {
+    function GetAccountSuccess(payload) {
         this.payload = payload;
-        this.type = ActionTypes.InitializeCoinAccountSuccess;
+        this.type = ActionTypes.GetAccountSuccess;
     }
-    return InitializeCoinAccountSuccess;
+    return GetAccountSuccess;
 }());
 
 /**
- * コイン口座初期化失敗
+ * 口座取得失敗
  */
-var InitializeCoinAccountFail = /** @class */ (function () {
-    function InitializeCoinAccountFail(payload) {
+var GetAccountFail = /** @class */ (function () {
+    function GetAccountFail(payload) {
         this.payload = payload;
-        this.type = ActionTypes.InitializeCoinAccountFail;
+        this.type = ActionTypes.GetAccountFail;
     }
-    return InitializeCoinAccountFail;
+    return GetAccountFail;
+}());
+
+/**
+ * 口座開設
+ */
+var OpenAccount = /** @class */ (function () {
+    function OpenAccount(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.OpenAccount;
+    }
+    return OpenAccount;
+}());
+
+/**
+ * 口座開設成功
+ */
+var OpenAccountSuccess = /** @class */ (function () {
+    function OpenAccountSuccess(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.OpenAccountSuccess;
+    }
+    return OpenAccountSuccess;
+}());
+
+/**
+ * 口座開設失敗
+ */
+var OpenAccountFail = /** @class */ (function () {
+    function OpenAccountFail(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.OpenAccountFail;
+    }
+    return OpenAccountFail;
+}());
+
+/**
+ * 口座閉鎖
+ */
+var CloseAccount = /** @class */ (function () {
+    function CloseAccount(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.CloseAccount;
+    }
+    return CloseAccount;
+}());
+
+/**
+ * 口座閉鎖成功
+ */
+var CloseAccountSuccess = /** @class */ (function () {
+    function CloseAccountSuccess(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.CloseAccountSuccess;
+    }
+    return CloseAccountSuccess;
+}());
+
+/**
+ * 口座閉鎖失敗
+ */
+var CloseAccountFail = /** @class */ (function () {
+    function CloseAccountFail(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.CloseAccountFail;
+    }
+    return CloseAccountFail;
 }());
 
 /**
@@ -9105,36 +9345,36 @@ var RemoveCreditCardFail = /** @class */ (function () {
 }());
 
 /**
- * コイン口座入金
+ * 口座入金
  */
-var ChargeCoin = /** @class */ (function () {
-    function ChargeCoin(payload) {
+var ChargeAccount = /** @class */ (function () {
+    function ChargeAccount(payload) {
         this.payload = payload;
-        this.type = ActionTypes.ChargeCoin;
+        this.type = ActionTypes.ChargeAccount;
     }
-    return ChargeCoin;
+    return ChargeAccount;
 }());
 
 /**
- * コイン口座入金成功
+ * 口座入金成功
  */
-var ChargeCoinSuccess = /** @class */ (function () {
-    function ChargeCoinSuccess(payload) {
+var ChargeAccountSuccess = /** @class */ (function () {
+    function ChargeAccountSuccess(payload) {
         this.payload = payload;
-        this.type = ActionTypes.ChargeCoinSuccess;
+        this.type = ActionTypes.ChargeAccountSuccess;
     }
-    return ChargeCoinSuccess;
+    return ChargeAccountSuccess;
 }());
 
 /**
- * コイン口座入金失敗
+ * 口座入金失敗
  */
-var ChargeCoinFail = /** @class */ (function () {
-    function ChargeCoinFail(payload) {
+var ChargeAccountFail = /** @class */ (function () {
+    function ChargeAccountFail(payload) {
         this.payload = payload;
-        this.type = ActionTypes.ChargeCoinFail;
+        this.type = ActionTypes.ChargeAccountFail;
     }
-    return ChargeCoinFail;
+    return ChargeAccountFail;
 }());
 
 
@@ -11218,9 +11458,9 @@ var UserEffects = /** @class */ (function () {
         this.actions = actions;
         this.cinerino = cinerino;
         /**
-         * InitializeProfile
+         * GetProfile
          */
-        this.initializeProfile = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.InitializeProfile), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function () { return __awaiter(_this, void 0, void 0, function () {
+        this.getProfile = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetProfile), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function () { return __awaiter(_this, void 0, void 0, function () {
             var id, profile, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -11236,67 +11476,58 @@ var UserEffects = /** @class */ (function () {
                         if (profile.telephone !== undefined) {
                             profile.telephone = new _modules_shared_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_5__["LibphonenumberFormatPipe"]().transform(profile.telephone);
                         }
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].InitializeProfileSuccess({ profile: profile })];
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].GetProfileSuccess({ profile: profile })];
                     case 3:
                         error_1 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].InitializeProfileFail({ error: error_1 })];
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].GetProfileFail({ error: error_1 })];
                     case 4: return [2 /*return*/];
                 }
             });
         }); }));
         /**
-         * InitializeCoinAccount
+         * GetAccount
          */
-        this.initializeCoinAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.InitializeCoinAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function () { return __awaiter(_this, void 0, void 0, function () {
-            var id, searchAccountsResult, accounts, account, coin, error_2;
+        this.getAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function () { return __awaiter(_this, void 0, void 0, function () {
+            var searchCoinAccountsResult, searchPointAccountsResult, searchAccounts, accounts, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 6, , 7]);
+                        _a.trys.push([0, 4, , 5]);
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
                         _a.sent();
-                        id = 'me';
                         return [4 /*yield*/, this.cinerino.ownershipInfo.search({
-                                id: id,
                                 typeOfGood: {
                                     typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].ownershipInfo.AccountGoodType.Account,
                                     accountType: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].accountType.Coin
                                 }
                             })];
                     case 2:
-                        searchAccountsResult = _a.sent();
-                        accounts = searchAccountsResult.data
-                            .filter(function (a) { return a.typeOfGood.status === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].pecorino.accountStatusType.Opened; });
-                        account = void 0;
-                        if (!(accounts.length === 0)) return [3 /*break*/, 4];
-                        return [4 /*yield*/, this.cinerino.ownershipInfo.openAccount({
-                                id: id,
-                                name: this.cinerino.userName,
-                                accountType: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].accountType.Coin
+                        searchCoinAccountsResult = _a.sent();
+                        return [4 /*yield*/, this.cinerino.ownershipInfo.search({
+                                typeOfGood: {
+                                    typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].ownershipInfo.AccountGoodType.Account,
+                                    accountType: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].accountType.Point
+                                }
                             })];
                     case 3:
-                        account = _a.sent();
-                        console.log('account opened', account.typeOfGood.accountNumber);
-                        return [3 /*break*/, 5];
+                        searchPointAccountsResult = _a.sent();
+                        searchAccounts = searchCoinAccountsResult.data.concat(searchPointAccountsResult.data);
+                        accounts = searchAccounts
+                            .filter(function (a) { return a.typeOfGood.status === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].pecorino.accountStatusType.Opened; });
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].GetAccountSuccess({ accounts: accounts })];
                     case 4:
-                        account = accounts[0];
-                        _a.label = 5;
-                    case 5:
-                        coin = { account: account };
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].InitializeCoinAccountSuccess({ coin: coin })];
-                    case 6:
                         error_2 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].InitializeCoinAccountFail({ error: error_2 })];
-                    case 7: return [2 /*return*/];
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].GetAccountFail({ error: error_2 })];
+                    case 5: return [2 /*return*/];
                 }
             });
         }); }));
         /**
-         * UpdateProfile
+         * OpenAccount
          */
-        this.UpdateProfile = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.UpdateProfile), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var id, profile, error_3;
+        this.openAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.OpenAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+            var account, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -11304,12 +11535,64 @@ var UserEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
                         _a.sent();
-                        id = 'me';
+                        return [4 /*yield*/, this.cinerino.ownershipInfo.openAccount({
+                                name: payload.name,
+                                accountType: payload.accountType
+                            })];
+                    case 2:
+                        account = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].OpenAccountSuccess({ account: account })];
+                    case 3:
+                        error_3 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].OpenAccountFail({ error: error_3 })];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        }); }));
+        /**
+         * CloseAccount
+         */
+        this.closeAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.CloseAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+            var account, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        account = payload.account;
+                        return [4 /*yield*/, this.cinerino.getServices()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.cinerino.ownershipInfo.closeAccount({
+                                accountNumber: account.typeOfGood.accountNumber,
+                                accountType: account.typeOfGood.accountType
+                            })];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].CloseAccountSuccess()];
+                    case 3:
+                        error_4 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].CloseAccountFail({ error: error_4 })];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        }); }));
+        /**
+         * UpdateProfile
+         */
+        this.UpdateProfile = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.UpdateProfile), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+            var profile, error_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, this.cinerino.getServices()];
+                    case 1:
+                        _a.sent();
                         profile = payload.profile;
                         if (profile.telephone !== undefined) {
                             profile.telephone = new _modules_shared_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_5__["LibphonenumberFormatPipe"]().transform(profile.telephone, undefined, 'E.164');
                         }
-                        return [4 /*yield*/, this.cinerino.person.updateProfile(__assign({}, profile, { id: id }))];
+                        return [4 /*yield*/, this.cinerino.person.updateProfile(__assign({}, profile))];
                     case 2:
                         _a.sent();
                         if (profile.telephone !== undefined) {
@@ -11317,8 +11600,8 @@ var UserEffects = /** @class */ (function () {
                         }
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateProfileSuccess({ profile: profile })];
                     case 3:
-                        error_3 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateProfileFail({ error: error_3 })];
+                        error_5 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateProfileFail({ error: error_5 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -11327,7 +11610,7 @@ var UserEffects = /** @class */ (function () {
          * GetCreditCards
          */
         this.getreditCard = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetCreditCards), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var id, creditCards, error_4;
+            var creditCards, error_6;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -11338,14 +11621,13 @@ var UserEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 2:
                         _a.sent();
-                        id = 'me';
-                        return [4 /*yield*/, this.cinerino.ownershipInfo.searchCreditCards({ id: id })];
+                        return [4 /*yield*/, this.cinerino.ownershipInfo.searchCreditCards({})];
                     case 3:
                         creditCards = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].GetCreditCardsSuccess({ creditCards: creditCards })];
                     case 4:
-                        error_4 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].GetCreditCardsFail({ error: error_4 })];
+                        error_6 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].GetCreditCardsFail({ error: error_6 })];
                     case 5: return [2 /*return*/];
                 }
             });
@@ -11354,7 +11636,7 @@ var UserEffects = /** @class */ (function () {
          * AddCreditCard
          */
         this.addCreditCard = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.AddCreditCard), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var gmoTokenObject, id, creditCard, error_5;
+            var gmoTokenObject, creditCard, error_7;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -11368,14 +11650,13 @@ var UserEffects = /** @class */ (function () {
                         return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_4__["createGmoTokenObject"])({ creditCard: payload.creditCard, seller: payload.seller })];
                     case 3:
                         gmoTokenObject = _a.sent();
-                        id = 'me';
-                        return [4 /*yield*/, this.cinerino.ownershipInfo.addCreditCard({ id: id, creditCard: gmoTokenObject })];
+                        return [4 /*yield*/, this.cinerino.ownershipInfo.addCreditCard({ creditCard: gmoTokenObject })];
                     case 4:
                         creditCard = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].AddCreditCardSuccess({ creditCard: creditCard })];
                     case 5:
-                        error_5 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].AddCreditCardFail({ error: error_5 })];
+                        error_7 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].AddCreditCardFail({ error: error_7 })];
                     case 6: return [2 /*return*/];
                 }
             });
@@ -11384,7 +11665,7 @@ var UserEffects = /** @class */ (function () {
          * RemoveCreditCard
          */
         this.removeCreditCard = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.RemoveCreditCard), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var id, creditCard, cardSeq, error_6;
+            var creditCard, cardSeq, error_8;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -11395,25 +11676,24 @@ var UserEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 2:
                         _a.sent();
-                        id = 'me';
                         creditCard = payload.creditCard;
                         cardSeq = creditCard.cardSeq;
-                        return [4 /*yield*/, this.cinerino.ownershipInfo.deleteCreditCard({ id: id, cardSeq: cardSeq })];
+                        return [4 /*yield*/, this.cinerino.ownershipInfo.deleteCreditCard({ cardSeq: cardSeq })];
                     case 3:
                         _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].RemoveCreditCardSuccess({ creditCard: creditCard })];
                     case 4:
-                        error_6 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].RemoveCreditCardFail({ error: error_6 })];
+                        error_8 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].RemoveCreditCardFail({ error: error_8 })];
                     case 5: return [2 /*return*/];
                 }
             });
         }); }));
         /**
-         * ChargeCoin
+         * chargeAccount
          */
-        this.chargeCoin = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.ChargeCoin), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var error_7;
+        this.chargeAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.ChargeAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+            var error_9;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -11424,11 +11704,10 @@ var UserEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 2:
                         _a.sent();
-                        // const id = 'me';
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ChargeCoinSuccess({})];
+                        throw new Error('Unimplemented!!');
                     case 3:
-                        error_7 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ChargeCoinFail({ error: error_7 })];
+                        error_9 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ChargeAccountFail({ error: error_9 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -11441,11 +11720,19 @@ var UserEffects = /** @class */ (function () {
     __decorate([
         Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
         __metadata("design:type", Object)
-    ], UserEffects.prototype, "initializeProfile", void 0);
+    ], UserEffects.prototype, "getProfile", void 0);
     __decorate([
         Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
         __metadata("design:type", Object)
-    ], UserEffects.prototype, "initializeCoinAccount", void 0);
+    ], UserEffects.prototype, "getAccount", void 0);
+    __decorate([
+        Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
+        __metadata("design:type", Object)
+    ], UserEffects.prototype, "openAccount", void 0);
+    __decorate([
+        Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
+        __metadata("design:type", Object)
+    ], UserEffects.prototype, "closeAccount", void 0);
     __decorate([
         Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
         __metadata("design:type", Object)
@@ -11465,7 +11752,7 @@ var UserEffects = /** @class */ (function () {
     __decorate([
         Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
         __metadata("design:type", Object)
-    ], UserEffects.prototype, "chargeCoin", void 0);
+    ], UserEffects.prototype, "chargeAccount", void 0);
     UserEffects = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
         __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"],
@@ -12357,7 +12644,8 @@ var userInitialState = {
     language: 'ja',
     isPurchaseCart: _environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].PURCHASE_CART,
     viewType: _environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].VIEW_TYPE,
-    creditCards: []
+    creditCards: [],
+    accounts: []
 };
 /**
  * Reducer
@@ -12369,7 +12657,7 @@ function reducer(state, action) {
         case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.Delete: {
             state.userData.isMember = false;
             state.userData.profile = undefined;
-            state.userData.coin = undefined;
+            state.userData.accounts = [];
             state.userData.creditCards = [];
             return __assign({}, state, { loading: false });
         }
@@ -12377,25 +12665,45 @@ function reducer(state, action) {
             state.userData.isMember = true;
             return __assign({}, state, { loading: false });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.InitializeProfile: {
-            return __assign({}, state, { loading: true, process: 'userAction.InitializeProfile' });
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetProfile: {
+            return __assign({}, state, { loading: true, process: 'userAction.GetProfile' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.InitializeProfileSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetProfileSuccess: {
             state.userData.profile = action.payload.profile;
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.InitializeProfileFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetProfileFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.InitializeCoinAccount: {
-            return __assign({}, state, { loading: true, process: 'userAction.InitializeCoinAccount' });
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetAccount: {
+            return __assign({}, state, { loading: true, process: 'userAction.GetAccount' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.InitializeCoinAccountSuccess: {
-            state.userData.coin = action.payload.coin;
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetAccountSuccess: {
+            state.userData.accounts = action.payload.accounts;
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.InitializeCoinAccountFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetAccountFail: {
+            var error = action.payload.error;
+            return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.OpenAccount: {
+            return __assign({}, state, { loading: true, process: 'userAction.OpenAccount' });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.OpenAccountSuccess: {
+            return __assign({}, state, { loading: false, process: '', error: null });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.OpenAccountFail: {
+            var error = action.payload.error;
+            return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.CloseAccount: {
+            return __assign({}, state, { loading: true, process: 'userAction.CloseAccount' });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.CloseAccountSuccess: {
+            return __assign({}, state, { loading: false, process: '', error: null });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.CloseAccountFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
@@ -12430,11 +12738,11 @@ function reducer(state, action) {
             return __assign({}, state, { loading: true, process: 'userAction.AddCreditCard' });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.AddCreditCardSuccess: {
-            var creditCard_1 = action.payload.creditCard;
-            var findResult = state.userData.creditCards.find(function (c) { return c.cardSeq === creditCard_1.cardSeq; });
-            if (findResult === undefined) {
-                state.userData.creditCards.push(creditCard_1);
-            }
+            // const creditCard = action.payload.creditCard;
+            // const findResult = state.userData.creditCards.find(c => c.cardSeq === creditCard.cardSeq);
+            // if (findResult === undefined) {
+            //     state.userData.creditCards.push(creditCard);
+            // }
             return __assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.AddCreditCardFail: {
@@ -12445,14 +12753,24 @@ function reducer(state, action) {
             return __assign({}, state, { loading: true, process: 'userAction.RemoveCreditCard' });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.RemoveCreditCardSuccess: {
-            var creditCard_2 = action.payload.creditCard;
-            var findIndexResult = state.userData.creditCards.findIndex(function (c) { return c.cardSeq === creditCard_2.cardSeq; });
-            if (findIndexResult > -1) {
-                state.userData.creditCards.splice(findIndexResult, 1);
-            }
+            // const creditCard = action.payload.creditCard;
+            // const findIndexResult = state.userData.creditCards.findIndex(c => c.cardSeq === creditCard.cardSeq);
+            // if (findIndexResult > -1) {
+            //     state.userData.creditCards.splice(findIndexResult, 1);
+            // }
             return __assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.RemoveCreditCardFail: {
+            var error = action.payload.error;
+            return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.ChargeAccount: {
+            return __assign({}, state, { loading: true, process: 'userAction.ChargeAccount' });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.ChargeAccountSuccess: {
+            return __assign({}, state, { loading: false, process: '', error: null });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.ChargeAccountFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }

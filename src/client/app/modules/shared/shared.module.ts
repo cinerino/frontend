@@ -11,7 +11,7 @@ import {
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { BaseComponent } from './components/pages/base/base.component';
 import { AlertModalComponent } from './components/parts/alert-modal/alert-modal.component';
-import { ChargeCoinModalComponent } from './components/parts/charge-coin-modal/charge-coin-modal.component';
+import { ChargeAccountModalComponent } from './components/parts/charge-account-modal/charge-account-modal.component';
 import { ConfirmModalComponent } from './components/parts/confirm-modal/confirm-modal.component';
 import { ContentsComponent } from './components/parts/contents/contents.component';
 import { FooterComponent } from './components/parts/footer/footer.component';
@@ -20,6 +20,7 @@ import { HeaderComponent } from './components/parts/header/header.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MvtkCheckModalComponent } from './components/parts/mvtk-check-modal/mvtk-check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
+import { OpenAccountModalComponent } from './components/parts/open-account-modal/open-account-modal.component';
 import { OrderDetailModalComponent } from './components/parts/order-detail-modal/order-detail-modal.component';
 import { PurchaseCinemaTicketModalComponent } from './components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component';
 import { PurchaseEventTicketModalComponent } from './components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component';
@@ -46,7 +47,8 @@ const entryComponents = [
   ConfirmModalComponent,
   QrCodeModalComponent,
   RegisteredCreditCardModalComponent,
-  ChargeCoinModalComponent,
+  ChargeAccountModalComponent,
+  OpenAccountModalComponent,
   OrderDetailModalComponent,
   PurchaseCinemaTicketModalComponent,
   PurchaseEventTicketModalComponent,

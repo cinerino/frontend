@@ -7,8 +7,6 @@ import { LibphonenumberFormatPipe } from '../../modules/shared/pipes/libphonenum
 import { CinerinoService } from '../../services';
 import { userAction } from '../actions';
 
-type accountType = factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
-
 /**
  * User Effects
  */
@@ -21,11 +19,11 @@ export class UserEffects {
     ) { }
 
     /**
-     * InitializeProfile
+     * GetProfile
      */
     @Effect()
-    public initializeProfile = this.actions.pipe(
-        ofType<userAction.InitializeProfile>(userAction.ActionTypes.InitializeProfile),
+    public getProfile = this.actions.pipe(
+        ofType<userAction.GetProfile>(userAction.ActionTypes.GetProfile),
         map(action => action.payload),
         mergeMap(async () => {
             try {
@@ -36,49 +34,84 @@ export class UserEffects {
                 if (profile.telephone !== undefined) {
                     profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone);
                 }
-                return new userAction.InitializeProfileSuccess({ profile });
+                return new userAction.GetProfileSuccess({ profile });
             } catch (error) {
-                return new userAction.InitializeProfileFail({ error: error });
+                return new userAction.GetProfileFail({ error: error });
             }
         })
     );
 
     /**
-     * InitializeCoinAccount
+     * GetAccount
      */
     @Effect()
-    public initializeCoinAccount = this.actions.pipe(
-        ofType<userAction.InitializeCoinAccount>(userAction.ActionTypes.InitializeCoinAccount),
+    public getAccount = this.actions.pipe(
+        ofType<userAction.GetAccount>(userAction.ActionTypes.GetAccount),
         map(action => action.payload),
         mergeMap(async () => {
             try {
                 await this.cinerino.getServices();
-                // コイン口座
-                const id = 'me';
-                const searchAccountsResult = await this.cinerino.ownershipInfo.search<factory.ownershipInfo.AccountGoodType>({
-                    id,
+                const searchCoinAccountsResult = await this.cinerino.ownershipInfo.search<factory.ownershipInfo.AccountGoodType>({
                     typeOfGood: {
                         typeOf: factory.ownershipInfo.AccountGoodType.Account,
                         accountType: factory.accountType.Coin
                     }
                 });
-                const accounts = searchAccountsResult.data
+                const searchPointAccountsResult = await this.cinerino.ownershipInfo.search<factory.ownershipInfo.AccountGoodType>({
+                    typeOfGood: {
+                        typeOf: factory.ownershipInfo.AccountGoodType.Account,
+                        accountType: factory.accountType.Point
+                    }
+                });
+                const searchAccounts = [...searchCoinAccountsResult.data, ...searchPointAccountsResult.data];
+                const accounts = searchAccounts
                     .filter((a) => a.typeOfGood.status === factory.pecorino.accountStatusType.Opened);
-                let account: accountType;
-                if (accounts.length === 0) {
-                    account = await this.cinerino.ownershipInfo.openAccount({
-                        id,
-                        name: this.cinerino.userName,
-                        accountType: factory.accountType.Coin
-                    });
-                    console.log('account opened', account.typeOfGood.accountNumber);
-                } else {
-                    account = accounts[0];
-                }
-                const coin = { account };
-                return new userAction.InitializeCoinAccountSuccess({ coin });
+                return new userAction.GetAccountSuccess({ accounts });
             } catch (error) {
-                return new userAction.InitializeCoinAccountFail({ error: error });
+                return new userAction.GetAccountFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * OpenAccount
+     */
+    @Effect()
+    public openAccount = this.actions.pipe(
+        ofType<userAction.OpenAccount>(userAction.ActionTypes.OpenAccount),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                await this.cinerino.getServices();
+                const account = await this.cinerino.ownershipInfo.openAccount({
+                    name: payload.name,
+                    accountType: payload.accountType
+                });
+                return new userAction.OpenAccountSuccess({ account });
+            } catch (error) {
+                return new userAction.OpenAccountFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * CloseAccount
+     */
+    @Effect()
+    public closeAccount = this.actions.pipe(
+        ofType<userAction.CloseAccount>(userAction.ActionTypes.CloseAccount),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                const account = payload.account;
+                await this.cinerino.getServices();
+                await this.cinerino.ownershipInfo.closeAccount({
+                    accountNumber: account.typeOfGood.accountNumber,
+                    accountType: account.typeOfGood.accountType
+                });
+                return new userAction.CloseAccountSuccess();
+            } catch (error) {
+                return new userAction.CloseAccountFail({ error: error });
             }
         })
     );
@@ -93,12 +126,11 @@ export class UserEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const id = 'me';
                 const profile = payload.profile;
                 if (profile.telephone !== undefined) {
                     profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone, undefined, 'E.164');
                 }
-                await this.cinerino.person.updateProfile({ ...profile, id });
+                await this.cinerino.person.updateProfile({ ...profile });
                 if (profile.telephone !== undefined) {
                     profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone);
                 }
@@ -120,8 +152,7 @@ export class UserEffects {
             console.log(payload);
             try {
                 await this.cinerino.getServices();
-                const id = 'me';
-                const creditCards = await this.cinerino.ownershipInfo.searchCreditCards({ id });
+                const creditCards = await this.cinerino.ownershipInfo.searchCreditCards({});
                 return new userAction.GetCreditCardsSuccess({ creditCards });
             } catch (error) {
                 return new userAction.GetCreditCardsFail({ error: error });
@@ -141,8 +172,7 @@ export class UserEffects {
             try {
                 await this.cinerino.getServices();
                 const gmoTokenObject = await createGmoTokenObject({ creditCard: payload.creditCard, seller: payload.seller });
-                const id = 'me';
-                const creditCard = await this.cinerino.ownershipInfo.addCreditCard({ id, creditCard: gmoTokenObject });
+                const creditCard = await this.cinerino.ownershipInfo.addCreditCard({ creditCard: gmoTokenObject });
                 return new userAction.AddCreditCardSuccess({ creditCard });
             } catch (error) {
                 return new userAction.AddCreditCardFail({ error: error });
@@ -161,10 +191,9 @@ export class UserEffects {
             console.log(payload);
             try {
                 await this.cinerino.getServices();
-                const id = 'me';
                 const creditCard = payload.creditCard;
                 const cardSeq = creditCard.cardSeq;
-                await this.cinerino.ownershipInfo.deleteCreditCard({ id, cardSeq });
+                await this.cinerino.ownershipInfo.deleteCreditCard({ cardSeq });
                 return new userAction.RemoveCreditCardSuccess({ creditCard });
             } catch (error) {
                 return new userAction.RemoveCreditCardFail({ error: error });
@@ -173,20 +202,21 @@ export class UserEffects {
     );
 
     /**
-     * ChargeCoin
+     * chargeAccount
      */
     @Effect()
-    public chargeCoin = this.actions.pipe(
-        ofType<userAction.ChargeCoin>(userAction.ActionTypes.ChargeCoin),
+    public chargeAccount = this.actions.pipe(
+        ofType<userAction.ChargeAccount>(userAction.ActionTypes.ChargeAccount),
         map(action => action.payload),
         mergeMap(async (payload) => {
             console.log(payload);
             try {
                 await this.cinerino.getServices();
+                throw new Error('Unimplemented!!');
                 // const id = 'me';
-                return new userAction.ChargeCoinSuccess({ });
+                // return new userAction.ChargeAccountSuccess({ });
             } catch (error) {
-                return new userAction.ChargeCoinFail({ error: error });
+                return new userAction.ChargeAccountFail({ error: error });
             }
         })
     );

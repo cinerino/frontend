@@ -20,9 +20,7 @@ export interface IUserState {
     /**
      * コイン口座
      */
-    coin?: {
-        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
-    };
+    accounts: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>[];
     /**
      * クレジットカード
      */
@@ -58,7 +56,8 @@ export const userInitialState: IUserState = {
     language: 'ja',
     isPurchaseCart: environment.PURCHASE_CART,
     viewType: (<ViewType>environment.VIEW_TYPE),
-    creditCards: []
+    creditCards: [],
+    accounts: []
 };
 /**
  * Reducer
@@ -70,7 +69,7 @@ export function reducer(state: IState, action: userAction.Actions): IState {
         case userAction.ActionTypes.Delete: {
             state.userData.isMember = false;
             state.userData.profile = undefined;
-            state.userData.coin = undefined;
+            state.userData.accounts = [];
             state.userData.creditCards = [];
             return { ...state, loading: false };
         }
@@ -78,25 +77,45 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             state.userData.isMember = true;
             return { ...state, loading: false };
         }
-        case userAction.ActionTypes.InitializeProfile: {
-            return { ...state, loading: true, process: 'userAction.InitializeProfile' };
+        case userAction.ActionTypes.GetProfile: {
+            return { ...state, loading: true, process: 'userAction.GetProfile' };
         }
-        case userAction.ActionTypes.InitializeProfileSuccess: {
+        case userAction.ActionTypes.GetProfileSuccess: {
             state.userData.profile = action.payload.profile;
             return { ...state, loading: false, process: '', error: null };
         }
-        case userAction.ActionTypes.InitializeProfileFail: {
+        case userAction.ActionTypes.GetProfileFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
-        case userAction.ActionTypes.InitializeCoinAccount: {
-            return { ...state, loading: true, process: 'userAction.InitializeCoinAccount' };
+        case userAction.ActionTypes.GetAccount: {
+            return { ...state, loading: true, process: 'userAction.GetAccount' };
         }
-        case userAction.ActionTypes.InitializeCoinAccountSuccess: {
-            state.userData.coin = action.payload.coin;
+        case userAction.ActionTypes.GetAccountSuccess: {
+            state.userData.accounts = action.payload.accounts;
             return { ...state, loading: false, process: '', error: null };
         }
-        case userAction.ActionTypes.InitializeCoinAccountFail: {
+        case userAction.ActionTypes.GetAccountFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
+        case userAction.ActionTypes.OpenAccount: {
+            return { ...state, loading: true, process: 'userAction.OpenAccount' };
+        }
+        case userAction.ActionTypes.OpenAccountSuccess: {
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case userAction.ActionTypes.OpenAccountFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
+        case userAction.ActionTypes.CloseAccount: {
+            return { ...state, loading: true, process: 'userAction.CloseAccount' };
+        }
+        case userAction.ActionTypes.CloseAccountSuccess: {
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case userAction.ActionTypes.CloseAccountFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
@@ -131,11 +150,11 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             return { ...state, loading: true, process: 'userAction.AddCreditCard' };
         }
         case userAction.ActionTypes.AddCreditCardSuccess: {
-            const creditCard = action.payload.creditCard;
-            const findResult = state.userData.creditCards.find(c => c.cardSeq === creditCard.cardSeq);
-            if (findResult === undefined) {
-                state.userData.creditCards.push(creditCard);
-            }
+            // const creditCard = action.payload.creditCard;
+            // const findResult = state.userData.creditCards.find(c => c.cardSeq === creditCard.cardSeq);
+            // if (findResult === undefined) {
+            //     state.userData.creditCards.push(creditCard);
+            // }
             return { ...state, loading: false, process: '', error: null };
         }
         case userAction.ActionTypes.AddCreditCardFail: {
@@ -146,14 +165,24 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             return { ...state, loading: true, process: 'userAction.RemoveCreditCard' };
         }
         case userAction.ActionTypes.RemoveCreditCardSuccess: {
-            const creditCard = action.payload.creditCard;
-            const findIndexResult = state.userData.creditCards.findIndex(c => c.cardSeq === creditCard.cardSeq);
-            if (findIndexResult > -1) {
-                state.userData.creditCards.splice(findIndexResult, 1);
-            }
+            // const creditCard = action.payload.creditCard;
+            // const findIndexResult = state.userData.creditCards.findIndex(c => c.cardSeq === creditCard.cardSeq);
+            // if (findIndexResult > -1) {
+            //     state.userData.creditCards.splice(findIndexResult, 1);
+            // }
             return { ...state, loading: false, process: '', error: null };
         }
         case userAction.ActionTypes.RemoveCreditCardFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
+        case userAction.ActionTypes.ChargeAccount: {
+            return { ...state, loading: true, process: 'userAction.ChargeAccount' };
+        }
+        case userAction.ActionTypes.ChargeAccountSuccess: {
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case userAction.ActionTypes.ChargeAccountFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }

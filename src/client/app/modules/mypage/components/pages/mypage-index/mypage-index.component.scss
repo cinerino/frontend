@@ -1,0 +1,10 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+li {
+    width: 33%;
+    @include media-breakpoint-down(sm) {
+        width: auto;
+    }
+}

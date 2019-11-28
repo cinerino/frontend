@@ -8,12 +8,18 @@ import { IPrinter, ViewType } from '../../models';
 export enum ActionTypes {
     Delete = '[User] Delete',
     Initialize = '[User] Initialize',
-    InitializeProfile = '[User] Initialize Profile',
-    InitializeProfileSuccess = '[User] Initialize Profile Success',
-    InitializeProfileFail = '[User] Initialize Profile Fail',
-    InitializeCoinAccount = '[User] Initialize Coin Account',
-    InitializeCoinAccountSuccess = '[User] Initialize Coin Account Success',
-    InitializeCoinAccountFail = '[User] Initialize Coin Account Fail',
+    GetProfile = '[User] Get Profile',
+    GetProfileSuccess = '[User] Get Profile Success',
+    GetProfileFail = '[User] Get Profile Fail',
+    GetAccount = '[User] Get Account',
+    GetAccountSuccess = '[User] Get Account Success',
+    GetAccountFail = '[User] Get Account Fail',
+    OpenAccount = '[User] Open Account',
+    OpenAccountSuccess = '[User] Open Account Success',
+    OpenAccountFail = '[User] Open Account Fail',
+    CloseAccount = '[User] Close Account',
+    CloseAccountSuccess = '[User] Close Account Success',
+    CloseAccountFail = '[User] Close Account Fail',
     UpdateLanguage = '[User] Update Language',
     UpdateProfile = '[User] Update Customer',
     UpdateProfileSuccess = '[User] Update Customer Success',
@@ -28,9 +34,9 @@ export enum ActionTypes {
     RemoveCreditCardSuccess = '[User] Remove Credit Card Success',
     RemoveCreditCardFail = '[User] Remove Credit Card Fail',
     UpdateBaseSetting = '[User] Update Base Setting',
-    ChargeCoin = '[User] Charge Coin',
-    ChargeCoinSuccess = '[User] Charge Coin Success',
-    ChargeCoinFail = '[User] Charge Coin Fail'
+    ChargeAccount = '[User] Charge Account',
+    ChargeAccountSuccess = '[User] Charge Account Success',
+    ChargeAccountFail = '[User] Charge Account Fail'
 }
 
 /**
@@ -50,56 +56,107 @@ export class Initialize implements Action {
 }
 
 /**
- * プロフィール初期化
+ * プロフィール取得
  */
-export class InitializeProfile implements Action {
-    public readonly type = ActionTypes.InitializeProfile;
+export class GetProfile implements Action {
+    public readonly type = ActionTypes.GetProfile;
     constructor(public payload?: {}) { }
 }
 
 /**
- * プロフィール初期化成功
+ * プロフィール取得成功
  */
-export class InitializeProfileSuccess implements Action {
-    public readonly type = ActionTypes.InitializeProfileSuccess;
+export class GetProfileSuccess implements Action {
+    public readonly type = ActionTypes.GetProfileSuccess;
     constructor(public payload: {
         profile: factory.person.IProfile;
     }) { }
 }
 
 /**
- * プロフィール初期化失敗
+ * プロフィール取得失敗
  */
-export class InitializeProfileFail implements Action {
-    public readonly type = ActionTypes.InitializeProfileFail;
+export class GetProfileFail implements Action {
+    public readonly type = ActionTypes.GetProfileFail;
     constructor(public payload: { error: Error }) { }
 }
 
 /**
- * コイン口座初期化
+ * 口座取得
  */
-export class InitializeCoinAccount implements Action {
-    public readonly type = ActionTypes.InitializeCoinAccount;
+export class GetAccount implements Action {
+    public readonly type = ActionTypes.GetAccount;
     constructor(public payload?: {}) { }
 }
 
 /**
- * コイン口座初期化成功
+ * 口座取得成功
  */
-export class InitializeCoinAccountSuccess implements Action {
-    public readonly type = ActionTypes.InitializeCoinAccountSuccess;
+export class GetAccountSuccess implements Action {
+    public readonly type = ActionTypes.GetAccountSuccess;
     constructor(public payload: {
-        coin: {
-            account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
-        }
+        accounts: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>[];
     }) { }
 }
 
 /**
- * コイン口座初期化失敗
+ * 口座取得失敗
  */
-export class InitializeCoinAccountFail implements Action {
-    public readonly type = ActionTypes.InitializeCoinAccountFail;
+export class GetAccountFail implements Action {
+    public readonly type = ActionTypes.GetAccountFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * 口座開設
+ */
+export class OpenAccount implements Action {
+    public readonly type = ActionTypes.OpenAccount;
+    constructor(public payload: {
+        name: string;
+        accountType: factory.accountType;
+    }) { }
+}
+
+/**
+ * 口座開設成功
+ */
+export class OpenAccountSuccess implements Action {
+    public readonly type = ActionTypes.OpenAccountSuccess;
+    constructor(public payload: {
+        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
+    }) { }
+}
+
+/**
+ * 口座開設失敗
+ */
+export class OpenAccountFail implements Action {
+    public readonly type = ActionTypes.OpenAccountFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * 口座閉鎖
+ */
+export class CloseAccount implements Action {
+    public readonly type = ActionTypes.CloseAccount;
+    constructor(public payload: { account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>> }) { }
+}
+
+/**
+ * 口座閉鎖成功
+ */
+export class CloseAccountSuccess implements Action {
+    public readonly type = ActionTypes.CloseAccountSuccess;
+    constructor(public payload?: {}) { }
+}
+
+/**
+ * 口座閉鎖失敗
+ */
+export class CloseAccountFail implements Action {
+    public readonly type = ActionTypes.CloseAccountFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -229,26 +286,30 @@ export class RemoveCreditCardFail implements Action {
 }
 
 /**
- * コイン口座入金
+ * 口座入金
  */
-export class ChargeCoin implements Action {
-    public readonly type = ActionTypes.ChargeCoin;
-    constructor(public payload?: {}) { }
+export class ChargeAccount implements Action {
+    public readonly type = ActionTypes.ChargeAccount;
+    constructor(public payload?: {
+        amount: number;
+        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
+        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
+    }) { }
 }
 
 /**
- * コイン口座入金成功
+ * 口座入金成功
  */
-export class ChargeCoinSuccess implements Action {
-    public readonly type = ActionTypes.ChargeCoinSuccess;
+export class ChargeAccountSuccess implements Action {
+    public readonly type = ActionTypes.ChargeAccountSuccess;
     constructor(public payload: {}) { }
 }
 
 /**
- * コイン口座入金失敗
+ * 口座入金失敗
  */
-export class ChargeCoinFail implements Action {
-    public readonly type = ActionTypes.ChargeCoinFail;
+export class ChargeAccountFail implements Action {
+    public readonly type = ActionTypes.ChargeAccountFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -258,12 +319,18 @@ export class ChargeCoinFail implements Action {
 export type Actions =
     | Delete
     | Initialize
-    | InitializeProfile
-    | InitializeProfileSuccess
-    | InitializeProfileFail
-    | InitializeCoinAccount
-    | InitializeCoinAccountSuccess
-    | InitializeCoinAccountFail
+    | GetProfile
+    | GetProfileSuccess
+    | GetProfileFail
+    | GetAccount
+    | GetAccountSuccess
+    | GetAccountFail
+    | OpenAccount
+    | OpenAccountSuccess
+    | OpenAccountFail
+    | CloseAccount
+    | CloseAccountSuccess
+    | CloseAccountFail
     | UpdateLanguage
     | UpdateProfile
     | UpdateProfileSuccess
@@ -278,6 +345,6 @@ export type Actions =
     | RemoveCreditCardSuccess
     | RemoveCreditCardFail
     | UpdateBaseSetting
-    | ChargeCoin
-    | ChargeCoinSuccess
-    | ChargeCoinFail;
+    | ChargeAccount
+    | ChargeAccountSuccess
+    | ChargeAccountFail;

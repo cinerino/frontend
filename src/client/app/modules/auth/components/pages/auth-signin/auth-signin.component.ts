@@ -33,9 +33,9 @@ export class AuthSigninComponent implements OnInit {
         this.orderService.delete();
 
         try {
-            await this.userService.initializeProfile();
+            await this.userService.getProfile();
             await this.userService.getCreditCards();
-            await this.userService.initializeCoinAccount();
+            await this.userService.getAccount();
             this.router.navigate([environment.BASE_URL]);
         } catch (error) {
             this.router.navigate(['/error']);

@@ -2,16 +2,27 @@
 @import "node_modules/bootstrap/scss/variables";
 @import "node_modules/bootstrap/scss/mixins";
 
+.card-title {
+    margin-bottom: 0;
+}
+
 .close {
     position: absolute;
     top: 10px;
     right: 10px;
 }
 
-.creditCards {
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
+ul {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
     @include media-breakpoint-down(sm) {
-        grid-template-columns: 1fr;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+li {
+    width: 33%;
+    @include media-breakpoint-down(sm) {
+        width: auto;
     }
 }
