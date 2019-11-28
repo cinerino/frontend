@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.4.5 - 2019-11-28
+### Added
+ - 会員クレジット管理追加
+ - 会員口座管理追加
+
 ## 2.4.4 - 2019-11-22
 ### Fixed
  - 辞書ファイル読み込みキャッシュを適用しない修正
