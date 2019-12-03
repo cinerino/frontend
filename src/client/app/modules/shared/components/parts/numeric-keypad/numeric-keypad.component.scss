@@ -35,3 +35,10 @@
     grid-template-columns: 1fr 2fr;
     grid-gap: 0.5rem;
 }
+
+.d-grid > div {
+    &:active {
+        background-color: skyblue !important;
+        color: #fff;
+    }
+}

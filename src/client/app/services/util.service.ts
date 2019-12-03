@@ -1,9 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap';
 import { AlertModalComponent } from '../modules/shared/components/parts/alert-modal/alert-modal.component';
 import { ConfirmModalComponent } from '../modules/shared/components/parts/confirm-modal/confirm-modal.component';
+import { utilAction } from '../store/actions';
+import * as reducers from '../store/reducers';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +15,8 @@ export class UtilService {
 
     constructor(
         private modal: BsModalService,
-        private http: HttpClient
+        private http: HttpClient,
+        private store: Store<reducers.IState>
     ) { }
 
     /**
@@ -159,6 +163,27 @@ export class UtilService {
             }
         ).toPromise();
         return decryptedResult;
+    }
+
+    /**
+     * ローディング開始
+     */
+    public loadStart(params?: { process: string }) {
+        this.store.dispatch(new utilAction.LoadStart(params));
+    }
+
+    /**
+     * ローディング終了
+     */
+    public loadEnd() {
+        this.store.dispatch(new utilAction.LoadEnd());
+    }
+
+    /**
+     * エラー設定
+     */
+    public setError(erorr: any) {
+        this.store.dispatch(new utilAction.SetError(erorr));
     }
 
 }

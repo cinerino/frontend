@@ -1,10 +1,11 @@
 import { environment } from '../../../environments/environment';
 import { Reservation } from '../../models';
-import { masterAction, orderAction, purchaseAction, userAction } from '../actions';
+import { masterAction, orderAction, purchaseAction, userAction, utilAction } from '../actions';
 import * as masterReducer from './master.reducer';
 import * as orderReducer from './order.reducer';
 import * as purchaseReducer from './purchase.reducer';
 import * as userReducer from './user.reducer';
+import * as utilReducer from './util.reducer';
 
 /**
  * State
@@ -50,7 +51,8 @@ type Actions =
     purchaseAction.Actions
     | userAction.Actions
     | masterAction.Actions
-    | orderAction.Actions;
+    | orderAction.Actions
+    | utilAction.Actions;
 
 
 /**
@@ -70,6 +72,8 @@ export function reducer(
         return masterReducer.reducer(state, <masterAction.Actions>action);
     } else if (/\[Order\]/.test(action.type)) {
         return orderReducer.reducer(state, <orderAction.Actions>action);
+    } else if (/\[Util\]/.test(action.type)) {
+        return utilReducer.reducer(state, <utilAction.Actions>action);
     } else {
         return state;
     }

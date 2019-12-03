@@ -1,9 +1,8 @@
 import { factory } from '@cinerino/api-javascript-client';
 
 export interface IOrderSearchConditions {
-    sellerId: string;
-    orderDateFrom: string;
-    orderDateThrough: string;
+    orderDateFrom?: Date;
+    orderDateThrough?: Date;
     confirmationNumber: string;
     orderNumber: string;
     customer: {
@@ -12,6 +11,10 @@ export interface IOrderSearchConditions {
         email: string;
         telephone: string;
     };
-    orderStatuses: '' | factory.orderStatus;
+    seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    orderStatus: '' | factory.orderStatus;
+    paymentMethodType: '' | factory.paymentMethodType;
+    eventStartDateFrom?: Date;
+    eventStartDateThrough?: Date;
     page: number;
 }

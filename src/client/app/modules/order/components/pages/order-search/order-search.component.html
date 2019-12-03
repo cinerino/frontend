@@ -1,20 +1,30 @@
 <div class="contents-width mx-auto px-3 py-5">
-    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'order.list.title' | translate }}</h2>
-    <p class="mb-4 text-md-center" [innerHTML]="'order.list.read' | translate"></p>
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'order.search.title' | translate }}</h2>
+    <p class="mb-4 text-md-center" [innerHTML]="'order.search.read' | translate"></p>
     <div class="conditions p-3 bg-white mb-4">
         <form (submit)="orderSearch(true)">
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="orderDateFrom"
-                        class="mb-2">{{ 'order.list.conditions.orderDateFrom' | translate }}</label>
-                    <input type="date" class="form-control" name="orderDateFrom" id="orderDateFrom"
-                        [(ngModel)]="conditions.orderDateFrom" placeholder="{{ moment().format('YYYY-MM-DD') }}">
+                        class="mb-2">{{ 'order.search.conditions.orderDateFrom' | translate }}</label>
+                    <input type="text" name="orderDateFrom" id="orderDateFrom" placeholder="YYYY/MM/DD"
+                        class="form-control" #orderDateFrom="bsDatepicker" bsDatepicker
+                        [(ngModel)]="conditions.orderDateFrom"
+                        [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
+                        readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
+                    <!-- <input type="date" class="form-control" name="orderDateFrom" id="orderDateFrom"
+                        [(ngModel)]="conditions.orderDateFrom" placeholder="{{ moment().format('YYYY-MM-DD') }}"> -->
                 </div>
                 <div class="form-group col-md-3">
                     <label for="orderDateThrough"
-                        class="mb-2">{{ 'order.list.conditions.orderDateThrough' | translate }}</label>
-                    <input type="date" class="form-control" name="orderDateThrough" id="orderDateThrough"
-                        [(ngModel)]="conditions.orderDateThrough" placeholder="{{ moment().format('YYYY-MM-DD') }}">
+                        class="mb-2">{{ 'order.search.conditions.orderDateThrough' | translate }}</label>
+                    <input type="text" name="orderDateThrough" id="orderDateThrough" placeholder="YYYY/MM/DD"
+                        class="form-control" #orderDateThrough="bsDatepicker" bsDatepicker
+                        [(ngModel)]="conditions.orderDateThrough"
+                        [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
+                        readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
+                    <!-- <input type="date" class="form-control" name="orderDateThrough" id="orderDateThrough"
+                        [(ngModel)]="conditions.orderDateThrough" placeholder="{{ moment().format('YYYY-MM-DD') }}"> -->
                 </div>
                 <div class="form-group col-md-3">
                     <label for="confirmationNumber" class="mb-2">{{ 'common.confirmationNumber' | translate }}</label>
@@ -28,87 +38,127 @@
                         [(ngModel)]="conditions.orderNumber" placeholder="{{ 'common.orderNumber' | translate }}">
                 </div>
             </div>
-            <!-- <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="familyName" class="mb-2">セイ</label>
-                    <input type="text" class="form-control" name="familyName" id="familyName" [(ngModel)]="conditions.customer.familyName"
-                        placeholder="セイ">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="familyName" class="mb-2">{{ 'common.familyName' | translate }}</label>
+                    <input type="text" class="form-control" name="familyName" id="familyName"
+                        [(ngModel)]="conditions.customer.familyName"
+                        placeholder="{{ 'common.familyName' | translate }}">
                 </div>
-                <div class="form-group col-md-6">
-                    <label for="givenName" class="mb-2">メイ</label>
-                    <input type="text" class="form-control" name="givenName" id="givenName" [(ngModel)]="conditions.customer.givenName"
-                        placeholder="メイ">
+                <div class="form-group col-md-3">
+                    <label for="givenName" class="mb-2">{{ 'common.givenName' | translate }}</label>
+                    <input type="text" class="form-control" name="givenName" id="givenName"
+                        [(ngModel)]="conditions.customer.givenName" placeholder="{{ 'common.givenName' | translate }}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="email" class="mb-2">{{ 'common.email' | translate }}</label>
+                    <input type="email" class="form-control" name="email" id="email"
+                        [(ngModel)]="conditions.customer.email" placeholder="{{ 'common.email' | translate }}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="telephone" class="mb-2">{{ 'order.search.conditions.telephone' | translate }}</label>
+                    <input type="telephone" class="form-control" name="telephone" id="telephone"
+                        [(ngModel)]="conditions.customer.telephone"
+                        placeholder="{{ 'order.search.conditions.telephone' | translate }}">
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="email" class="mb-2">メールアドレス</label>
-                    <input type="email" class="form-control" name="email" id="email" [(ngModel)]="conditions.customer.email"
-                        placeholder="メールアドレス">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="telephone" class="mb-2">電話番号（下4桁）</label>
-                    <input type="telephone" class="form-control" name="telephone" id="telephone" [(ngModel)]="conditions.customer.telephone"
-                        placeholder="電話番号">
-                </div>
-            </div> -->
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label for="sellerId" class="mb-2">{{ 'common.theater' | translate }}</label>
-                    <select class="form-control" name="sellerId" id="sellerId" [(ngModel)]="conditions.sellerId">
-                        <option [value]="''">{{ 'common.all' | translate }}</option>
-                        <option *ngFor="let theater of (master | async).sellers" [value]="theater.id">{{
-                            theater.name | changeLanguage }}</option>
-                    </select>
-                </div>
                 <div class="form-group col-md-3">
                     <label for="orderStatus" class="mb-2">{{ 'common.orderStatus' | translate }}</label>
                     <select class="form-control" name="orderStatus" id="orderStatus"
-                        [(ngModel)]="conditions.orderStatuses">
-                        <option [value]="''">{{ 'common.all' | translate }}</option>
-                        <!-- <option [value]="orderStatus.OrderCancelled">{{ 'order.list.orderStatus.orderCancelled' | translate }}</option> -->
+                        [(ngModel)]="conditions.orderStatus">
+                        <option value="">{{ 'common.all' | translate }}</option>
+                        <!-- <option [value]="orderStatus.OrderCancelled">{{ 'order.search.orderStatus.orderCancelled' | translate }}</option> -->
                         <option [value]="orderStatus.OrderDelivered">
-                            {{ 'order.list.orderStatus.orderDelivered' | translate }}</option>
-                        <!-- <option [value]="orderStatus.OrderPaymentDue">{{ 'order.list.orderStatus.orderPaymentDue' | translate }}</option> -->
-                        <!-- <option [value]="orderStatus.OrderPickupAvailable">{{ 'order.list.orderStatus.orderPickupAvailable' | translate }}</option> -->
-                        <!-- <option [value]="orderStatus.OrderProblem">{{ 'order.list.orderStatus.orderProblem' | translate }}</option> -->
+                            {{ 'order.search.orderStatus.orderDelivered' | translate }}</option>
+                        <!-- <option [value]="orderStatus.OrderPaymentDue">{{ 'order.search.orderStatus.orderPaymentDue' | translate }}</option> -->
+                        <!-- <option [value]="orderStatus.OrderPickupAvailable">{{ 'order.search.orderStatus.orderPickupAvailable' | translate }}</option> -->
+                        <!-- <option [value]="orderStatus.OrderProblem">{{ 'order.search.orderStatus.orderProblem' | translate }}</option> -->
                         <option [value]="orderStatus.OrderProcessing">
-                            {{ 'order.list.orderStatus.orderProcessing' | translate }}</option>
+                            {{ 'order.search.orderStatus.orderProcessing' | translate }}</option>
                         <option [value]="orderStatus.OrderReturned">
-                            {{ 'order.list.orderStatus.orderReturned' | translate }}</option>
+                            {{ 'order.search.orderStatus.orderReturned' | translate }}</option>
                     </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="paymentMethodType" class="mb-2">{{ 'common.paymentMethod' | translate }}</label>
+                    <select class="form-control" name="paymentMethodType" id="paymentMethodType"
+                        [(ngModel)]="conditions.paymentMethodType">
+                        <option value="">{{ 'common.all' | translate }}</option>
+                        <option [value]="paymentMethodType.Cash">{{ 'common.paymentMethodType.cash' | translate }}
+                        </option>
+                        <option [value]="paymentMethodType.Account">{{ 'common.paymentMethodType.account' | translate }}
+                        </option>
+                        <option [value]="paymentMethodType.EMoney">{{ 'common.paymentMethodType.eMoney' | translate }}
+                        </option>
+                        <option [value]="paymentMethodType.CreditCard">
+                            {{ 'common.paymentMethodType.creditCard' | translate }}</option>
+                        <option [value]="paymentMethodType.MovieTicket">
+                            {{ 'common.paymentMethodType.movieTicket' | translate }}</option>
+                        <option [value]="paymentMethodType.Others">{{ 'common.paymentMethodType.others' | translate }}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="eventStartDateFrom"
+                        class="mb-2">{{ 'order.search.conditions.eventStartDateFrom' | translate }}</label>
+                    <input type="text" name="eventStartDateFrom" id="eventStartDateFrom" placeholder="YYYY/MM/DD"
+                        class="form-control" #eventStartDateFrom="bsDatepicker" bsDatepicker
+                        [(ngModel)]="conditions.eventStartDateFrom"
+                        [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
+                        readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="eventStartDateThrough"
+                        class="mb-2">{{ 'order.search.conditions.eventStartDateThrough' | translate }}</label>
+                    <input type="text" name="eventStartDateThrough" id="eventStartDateThrough" placeholder="YYYY/MM/DD"
+                        class="form-control" #eventStartDateThrough="bsDatepicker" bsDatepicker
+                        [(ngModel)]="conditions.eventStartDateThrough"
+                        [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false }"
+                        readonly (onShown)="onShowPicker($event)" (click)="setDatePicker()">
                 </div>
             </div>
             <div class="buttons mx-auto text-center">
-                <button type="submit" class="btn btn-primary btn-block py-3"
-                    [disabled]="isLoading | async">{{ 'order.list.search' | translate }}</button>
+                <button type="submit" class="btn btn-primary btn-block py-3 mb-3"
+                    [disabled]="isLoading | async">{{ 'order.search.search' | translate }}</button>
+                <button type="button" class="btn btn-outline-primary btn-block py-3"
+                    (click)="searchConditionClear()">{{ 'order.search.clear' | translate }}</button>
             </div>
         </form>
     </div>
-    <p *ngIf="(order | async).orders.length === 0">{{ 'order.list.notfound' | translate }}</p>
+    <p class="mb-4" *ngIf="orders.length === 0">{{ 'order.search.notfound' | translate }}</p>
 
-    <div *ngIf="(order | async).orders.length > 0">
+    <div class="mb-4" *ngIf="orders.length > 0">
+        <!-- <div class="mb-3 text-md-left text-center">
+            <button id="downloadButton" class="btn btn-primary" (click)="downloadCsv()"
+                [disabled]="isDownload">{{ 'order.search.download' | translate }}</button>
+        </div> -->
         <div class="d-md-flex align-items-center justify-content-between mb-4">
-            <div class="text-md-right text-center mb-3 mb-md-0 order-2">
+            <!-- <div class="text-md-right text-center mb-3 mb-md-0 order-2">
                 <div class="d-inline-block">
-                    <pagination [(ngModel)]="confirmedConditions.page" [totalItems]="(order | async).pageCount * 10"
-                        [maxSize]="5" [boundaryLinks]="false" (pageChanged)="orderSearch(false, $event)"
-                        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+                    <pagination [(ngModel)]="confirmedConditions.page" [totalItems]="pageCount * 10"
+                        [maxSize]="5" [boundaryLinks]="false" previousText="&lsaquo;" nextText="&rsaquo;"
+                        firstText="&laquo;" lastText="&raquo;" (pageChanged)="orderSearch(false, $event)"></pagination>
                 </div>
+            </div> -->
+            <div class="text-md-right text-center mb-3 mb-md-0 order-2">
+                <div class="d-inline-block">{{ 'order.search.count' | translate: {value: totalCount} }}</div>
             </div>
+
             <div class="form-group text-center text-md-left mb-3 mb-md-0 order-1">
                 <select class="form-control d-inline-block w-auto mr-2" name="actionSelect" id="actionSelect"
                     [(ngModel)]="actionSelect">
-                    <option value="">{{ 'order.list.unselected' | translate }}</option>
-                    <option [value]="OrderActions.Cancel">{{ 'order.list.cancel' | translate }}</option>
+                    <option value="">{{ 'order.search.unselected' | translate }}</option>
+                    <option [value]="OrderActions.Cancel">{{ 'order.search.cancel' | translate }}</option>
+                    <option [value]="OrderActions.Print">{{ 'order.search.print' | translate }}</option>
                 </select>
-                <button type="button" class="btn btn-primary py-2 px-4"
-                    (click)="selecedtAction()">{{ 'order.list.apply' | translate }}</button>
+                <button id="selectedActionButton" type="button" class="btn btn-primary py-2 px-4"
+                    (click)="selectedAction()">{{ 'order.search.apply' | translate }}</button>
             </div>
         </div>
 
         <div class="scroll-horizontal">
-            <table class="table bg-white border text-small mb-0">
+            <table class="table bg-white border text-small mb-0 border border-gray">
                 <thead>
                     <tr>
                         <th scope="col"></th>
@@ -122,29 +172,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let order of (order | async).orders let index = index"
+                    <tr *ngFor="let order of orders let index = index"
                         [class.bg-light-gray]="index % 2 === 0">
                         <td class="align-middle text-large text-center">
-                            <i *ngIf="!isSelected(order)" class="far fa-square pointer" (click)="addOrder(order)"></i>
-                            <i *ngIf="isSelected(order)" class="far fa-check-square pointer"
-                                (click)="removeOrder(order)"></i>
+                            <div *ngIf="order.orderStatus === orderStatus.OrderDelivered">
+                                <i *ngIf="!isSelected(order)" class="far fa-square pointer"
+                                    (click)="addOrder(order)"></i>
+                                <i *ngIf="isSelected(order)" class="far fa-check-square pointer"
+                                    (click)="removeOrder(order)"></i>
+                            </div>
+                            <div *ngIf="order.orderStatus !== orderStatus.OrderDelivered">
+                                <i class="far fa-square opacity-0"></i>
+                            </div>
                         </td>
                         <td class="align-middle">
                             <p>{{ order.orderDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}</p>
                         </td>
                         <td class="align-middle">{{ order.confirmationNumber }}</td>
                         <td class="align-middle">
-                            <div *ngFor="let acceptedOffer of order.acceptedOffers">
-                                <p *ngIf="(acceptedOffer.itemOffered.reservationFor.name | changeLanguage).length > 10">{{
-                                    acceptedOffer.itemOffered.reservationFor.name | changeLanguage | slice:0:10 }}</p>
-                                <p
-                                    *ngIf="!((acceptedOffer.itemOffered.reservationFor.name | changeLanguage).length > 10)">{{
-                                    acceptedOffer.itemOffered.reservationFor.name | changeLanguage }}</p>
+                            <div *ngFor="let eventOrder of orderToEventOrders({ order: order })">
+                                <p *ngIf="(eventOrder.event.name | changeLanguage).length > 0">{{
+                                    eventOrder.event.name | changeLanguage | slice:0:10 }}</p>
+                                <p *ngIf="!((eventOrder.event.name | changeLanguage).length > 0)">{{
+                                    eventOrder.event.name | changeLanguage }}</p>
                                 <p>
-                                    <span class="theatre-name">{{ acceptedOffer.itemOffered.reservationFor.superEvent.location.name | changeLanguage }}</span>
-                                    <span class="screen-name">&nbsp;/&nbsp;{{ acceptedOffer.itemOffered.reservationFor.location.name | changeLanguage }}</span>
+                                    <span class="theatre-name">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
+                                    <span class="screen-name">&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>
                                 </p>
-                                <p>{{ acceptedOffer.itemOffered.reservationFor.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
+                                <p>{{ eventOrder.event.startDate | formatDate: 'YYYY/MM/DD (ddd) HH:mm' }}
                                     -</p>
                             </div>
                         </td>
@@ -160,19 +215,25 @@
                         <td class="align-middle">
                             <button class="btn btn-primary mr-2" (click)="openDetail(order)"><i
                                     class="fas fa-search-plus"></i></button>
-                            <button [disabled]="order.orderStatus !== orderStatus.OrderDelivered"
+                            <button *ngIf="environment.ORDER_QRCODE"
+                                [disabled]="order.orderStatus !== orderStatus.OrderDelivered"
                                 class="btn btn-primary mr-2" (click)="openQrCode(order)"><i
                                     class="fas fa-qrcode"></i></button>
-                            <button
-                                [disabled]="order.orderStatus !== orderStatus.OrderDelivered && order.orderStatus === orderStatus.OrderReturned"
-                                class="btn btn-primary" (click)="cancelConfirm([order])"><i
-                                    class="fas fa-trash-alt"></i></button>
+                            <button *ngIf="environment.ORDER_PRINT"
+                                [disabled]="order.orderStatus !== orderStatus.OrderDelivered"
+                                class="btn btn-primary mr-2" (click)="printConfirm([order])"><i
+                                    class="fas fa-print"></i></button>
+                            <button *ngIf="environment.ORDER_CANCEL"
+                                [disabled]="order.orderStatus !== orderStatus.OrderDelivered" class="btn btn-primary"
+                                (click)="cancelConfirm([order])"><i class="fas fa-trash-alt"></i></button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
-
     </div>
+    <!-- <div class="buttons mx-auto text-center">
+        <button type="button" class="btn btn-link"
+            routerLink="/order">{{ 'order.search.prev' | translate }}</button>
+    </div> -->
 </div>
