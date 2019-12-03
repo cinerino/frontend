@@ -681,11 +681,6 @@ var appRoutes = [
         loadChildren: function () { return __webpack_require__.e(/*! import() | modules-inquiry-inquiry-module */ "modules-inquiry-inquiry-module").then(__webpack_require__.bind(null, /*! ./modules/inquiry/inquiry.module */ "./app/modules/inquiry/inquiry.module.ts")).then(function (m) { return m.InquiryModule; }); }
     },
     {
-        path: 'order',
-        canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_3__["AuthGuardService"]],
-        loadChildren: function () { return __webpack_require__.e(/*! import() | modules-order-order-module */ "modules-order-order-module").then(__webpack_require__.bind(null, /*! ./modules/order/order.module */ "./app/modules/order/order.module.ts")).then(function (m) { return m.OrderModule; }); }
-    },
-    {
         path: 'mypage',
         canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_3__["AuthGuardService"]],
         loadChildren: function () { return __webpack_require__.e(/*! import() | modules-mypage-mypage-module */ "modules-mypage-mypage-module").then(__webpack_require__.bind(null, /*! ./modules/mypage/mypage.module */ "./app/modules/mypage/mypage.module.ts")).then(function (m) { return m.MypageModule; }); }
@@ -6008,26 +6003,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../functions */ "./app/functions/index.ts");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
-/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
-var __assign = (undefined && undefined.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6082,18 +6061,12 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
-
-
-
 var OrderService = /** @class */ (function () {
-    function OrderService(store, actions, cinerino, utilService) {
+    function OrderService(store, actions) {
         this.store = store;
         this.actions = actions;
-        this.cinerino = cinerino;
-        this.utilService = utilService;
-        this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getOrder"]));
-        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getError"]));
+        this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getOrder"]));
+        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getError"]));
     }
     /**
      * 注文データ取得
@@ -6114,96 +6087,7 @@ var OrderService = /** @class */ (function () {
      * 注文データ削除
      */
     OrderService.prototype.delete = function () {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Delete());
-    };
-    /**
-     * 注文検索
-     */
-    OrderService.prototype.search = function (params) {
-        return __awaiter(this, void 0, void 0, function () {
-            var searchResult, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        this.utilService.loadStart({ process: 'orderAction.Search' });
-                        return [4 /*yield*/, this.cinerino.getServices()];
-                    case 1:
-                        _a.sent();
-                        return [4 /*yield*/, this.cinerino.order.search(params)];
-                    case 2:
-                        searchResult = _a.sent();
-                        this.utilService.loadEnd();
-                        return [2 /*return*/, searchResult];
-                    case 3:
-                        error_1 = _a.sent();
-                        this.utilService.setError(error_1);
-                        this.utilService.loadEnd();
-                        throw error_1;
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    /**
-     * 分割検索
-     */
-    OrderService.prototype.splitSearch = function (params) {
-        return __awaiter(this, void 0, void 0, function () {
-            var orders, splitDay, splitCount, i, limit, page, roop, orderDateThrough, orderDateFrom, searchResult, lastPage, error_2;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 8, , 9]);
-                        this.utilService.loadStart({ process: 'orderAction.Search' });
-                        return [4 /*yield*/, this.cinerino.getServices()];
-                    case 1:
-                        _a.sent();
-                        orders = [];
-                        splitDay = 7;
-                        splitCount = Math.ceil(moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).diff(moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateFrom), 'days') / splitDay);
-                        i = 0;
-                        _a.label = 2;
-                    case 2:
-                        if (!(i < splitCount)) return [3 /*break*/, 7];
-                        limit = 100;
-                        page = 1;
-                        roop = true;
-                        orderDateThrough = moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).add(-1 * splitDay * i, 'days').toDate();
-                        orderDateFrom = (moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate() > params.orderDateFrom)
-                            ? moment__WEBPACK_IMPORTED_MODULE_3__(params.orderDateThrough).add(-1 * splitDay * (i + 1), 'days').toDate()
-                            : params.orderDateFrom;
-                        _a.label = 3;
-                    case 3:
-                        if (!roop) return [3 /*break*/, 6];
-                        params.limit = limit;
-                        params.page = page;
-                        return [4 /*yield*/, this.cinerino.order.search(__assign({}, params, { orderDateThrough: orderDateThrough, orderDateFrom: orderDateFrom }))];
-                    case 4:
-                        searchResult = _a.sent();
-                        orders = orders.concat(searchResult.data);
-                        lastPage = Math.ceil(searchResult.totalCount / limit);
-                        page++;
-                        roop = !(page > lastPage);
-                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_6__["sleep"])(1000)];
-                    case 5:
-                        _a.sent();
-                        return [3 /*break*/, 3];
-                    case 6:
-                        i++;
-                        return [3 /*break*/, 2];
-                    case 7:
-                        this.utilService.loadEnd();
-                        return [2 /*return*/, { data: orders, totalCount: orders.length }];
-                    case 8:
-                        error_2 = _a.sent();
-                        this.utilService.setError(error_2);
-                        this.utilService.loadEnd();
-                        throw error_2;
-                    case 9: return [2 /*return*/];
-                }
-            });
-        });
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["orderAction"].Delete());
     };
     /**
      * 注文キャンセル
@@ -6213,10 +6097,10 @@ var OrderService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Cancel(params));
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.CancelSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.CancelFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["orderAction"].Cancel(params));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["orderAction"].ActionTypes.CancelSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["orderAction"].ActionTypes.CancelFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
                     })];
             });
         });
@@ -6229,10 +6113,10 @@ var OrderService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Inquiry(params));
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.InquirySuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.InquiryFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["orderAction"].Inquiry(params));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["orderAction"].ActionTypes.InquirySuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["orderAction"].ActionTypes.InquiryFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
                     })];
             });
         });
@@ -6248,10 +6132,10 @@ var OrderService = /** @class */ (function () {
                         var orders = prams.orders;
                         var pos = prams.pos;
                         var printer = prams.printer;
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].Print({ orders: orders, pos: pos, printer: printer }));
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.PrintSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.PrintFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["orderAction"].Print({ orders: orders, pos: pos, printer: printer }));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["orderAction"].ActionTypes.PrintSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["orderAction"].ActionTypes.PrintFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
                     })];
             });
         });
@@ -6264,33 +6148,29 @@ var OrderService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].OrderAuthorize({
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_5__["orderAction"].OrderAuthorize({
                             orderNumber: order.orderNumber,
                             customer: {
                                 telephone: order.customer.telephone
                             }
                         }));
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.OrderAuthorizeSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["orderAction"].ActionTypes.OrderAuthorizeFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["orderAction"].ActionTypes.OrderAuthorizeSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_5__["orderAction"].ActionTypes.OrderAuthorizeFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1)).subscribe();
                     })];
             });
         });
     };
     OrderService.ctorParameters = function () { return [
         { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
-        { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"] },
-        { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_9__["CinerinoService"] },
-        { type: _util_service__WEBPACK_IMPORTED_MODULE_10__["UtilService"] }
+        { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"] }
     ]; };
     OrderService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
         __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
-            _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"],
-            _cinerino_service__WEBPACK_IMPORTED_MODULE_9__["CinerinoService"],
-            _util_service__WEBPACK_IMPORTED_MODULE_10__["UtilService"]])
+            _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"]])
     ], OrderService);
     return OrderService;
 }());
@@ -8070,16 +7950,13 @@ var GetScheduleFail = /** @class */ (function () {
 /*!*******************************************!*\
   !*** ./app/store/actions/order.action.ts ***!
   \*******************************************/
-/*! exports provided: ActionTypes, Delete, Search, SearchSuccess, SearchFail, Cancel, CancelSuccess, CancelFail, Inquiry, InquirySuccess, InquiryFail, Print, PrintSuccess, PrintFail, OrderAuthorize, OrderAuthorizeSuccess, OrderAuthorizeFail */
+/*! exports provided: ActionTypes, Delete, Cancel, CancelSuccess, CancelFail, Inquiry, InquirySuccess, InquiryFail, Print, PrintSuccess, PrintFail, OrderAuthorize, OrderAuthorizeSuccess, OrderAuthorizeFail */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActionTypes", function() { return ActionTypes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Delete", function() { return Delete; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Search", function() { return Search; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchSuccess", function() { return SearchSuccess; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchFail", function() { return SearchFail; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Cancel", function() { return Cancel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CancelSuccess", function() { return CancelSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CancelFail", function() { return CancelFail; });
@@ -8101,9 +7978,6 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 var ActionTypes;
 (function (ActionTypes) {
     ActionTypes["Delete"] = "[Order] Delete";
-    ActionTypes["Search"] = "[Order] Search";
-    ActionTypes["SearchSuccess"] = "[Order] Search Success";
-    ActionTypes["SearchFail"] = "[Order] Search Fail";
     ActionTypes["Cancel"] = "[Order] Cancel";
     ActionTypes["CancelSuccess"] = "[Order] Cancel Success";
     ActionTypes["CancelFail"] = "[Order] Cancel Fail";
@@ -8126,39 +8000,6 @@ var Delete = /** @class */ (function () {
         this.type = ActionTypes.Delete;
     }
     return Delete;
-}());
-
-/**
- * Search
- */
-var Search = /** @class */ (function () {
-    function Search(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.Search;
-    }
-    return Search;
-}());
-
-/**
- * SearchSuccess
- */
-var SearchSuccess = /** @class */ (function () {
-    function SearchSuccess(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.SearchSuccess;
-    }
-    return SearchSuccess;
-}());
-
-/**
- * SearchFail
- */
-var SearchFail = /** @class */ (function () {
-    function SearchFail(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.SearchFail;
-    }
-    return SearchFail;
 }());
 
 /**
@@ -10001,17 +9842,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../models */ "./app/models/index.ts");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../services */ "./app/services/index.ts");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
-var __assign = (undefined && undefined.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10082,35 +9912,10 @@ var OrderEffects = /** @class */ (function () {
         this.starPrint = starPrint;
         this.translate = translate;
         /**
-         * Search
-         */
-        this.search = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Search), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var params, searchResult, limit, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.cinerino.getServices()];
-                    case 1:
-                        _a.sent();
-                        params = payload.params;
-                        return [4 /*yield*/, this.cinerino.person.searchOrders(__assign({}, params))];
-                    case 2:
-                        searchResult = _a.sent();
-                        limit = params.limit;
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].SearchSuccess({ searchResult: searchResult, limit: limit })];
-                    case 3:
-                        error_1 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].SearchFail({ error: error_1 })];
-                    case 4: return [2 /*return*/];
-                }
-            });
-        }); }));
-        /**
          * Cancel
          */
         this.cancel = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Cancel), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var orders, _loop_1, this_1, _i, orders_1, order, orderStatusWatch, error_2;
+            var orders, _loop_1, this_1, _i, orders_1, order, orderStatusWatch, error_1;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -10211,7 +10016,7 @@ var OrderEffects = /** @class */ (function () {
                     case 6:
                         orderStatusWatch = function () {
                             return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-                                var limit, i, searchResultData, searchResult, searchResult, filterResult, error_3;
+                                var limit, i, searchResultData, searchResult, searchResult, filterResult, error_2;
                                 return __generator(this, function (_a) {
                                     switch (_a.label) {
                                         case 0:
@@ -10253,8 +10058,8 @@ var OrderEffects = /** @class */ (function () {
                                             _a.sent();
                                             return [3 /*break*/, 9];
                                         case 8:
-                                            error_3 = _a.sent();
-                                            return [2 /*return*/, reject(error_3)];
+                                            error_2 = _a.sent();
+                                            return [2 /*return*/, reject(error_2)];
                                         case 9:
                                             i++;
                                             return [3 /*break*/, 1];
@@ -10268,8 +10073,8 @@ var OrderEffects = /** @class */ (function () {
                         _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].CancelSuccess()];
                     case 8:
-                        error_2 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].CancelFail({ error: error_2 })];
+                        error_1 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].CancelFail({ error: error_1 })];
                     case 9: return [2 /*return*/];
                 }
             });
@@ -10278,7 +10083,7 @@ var OrderEffects = /** @class */ (function () {
          * Inquiry
          */
         this.load = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Inquiry), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var now, today, confirmationNumber, customer, orderDateFrom, params, order, error_4;
+            var now, today, confirmationNumber, customer, orderDateFrom, params, order, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -10310,8 +10115,8 @@ var OrderEffects = /** @class */ (function () {
                         order = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].InquirySuccess({ order: order })];
                     case 4:
-                        error_4 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].InquiryFail({ error: error_4 })];
+                        error_3 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].InquiryFail({ error: error_3 })];
                     case 5: return [2 /*return*/];
                 }
             });
@@ -10320,7 +10125,7 @@ var OrderEffects = /** @class */ (function () {
          * print
          */
         this.print = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Print), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var orders, printer, pos, authorizeOrders, _loop_2, _i, orders_2, order, printData, testFlg, canvasList, canvas, _loop_3, this_2, _a, authorizeOrders_1, authorizeOrder, _b, domList, error_5;
+            var orders, printer, pos, authorizeOrders, _loop_2, _i, orders_2, order, printData, testFlg, canvasList, canvas, _loop_3, this_2, _a, authorizeOrders_1, authorizeOrder, _b, domList, error_4;
             var _this = this;
             return __generator(this, function (_c) {
                 switch (_c.label) {
@@ -10517,8 +10322,8 @@ var OrderEffects = /** @class */ (function () {
                     case 18: return [3 /*break*/, 19];
                     case 19: return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].PrintSuccess()];
                     case 20:
-                        error_5 = _c.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].PrintFail({ error: error_5 })];
+                        error_4 = _c.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].PrintFail({ error: error_4 })];
                     case 21: return [2 /*return*/];
                 }
             });
@@ -10527,7 +10332,7 @@ var OrderEffects = /** @class */ (function () {
          * orderAuthorize
          */
         this.orderAuthorize = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.OrderAuthorize), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var params, order, error_6;
+            var params, order, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -10541,8 +10346,8 @@ var OrderEffects = /** @class */ (function () {
                         order = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].OrderAuthorizeSuccess({ order: order })];
                     case 3:
-                        error_6 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].OrderAuthorizeFail({ error: error_6 })];
+                        error_5 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].OrderAuthorizeFail({ error: error_5 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -10555,10 +10360,6 @@ var OrderEffects = /** @class */ (function () {
         { type: _services__WEBPACK_IMPORTED_MODULE_9__["StarPrintService"] },
         { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }
     ]; };
-    __decorate([
-        Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
-        __metadata("design:type", Object)
-    ], OrderEffects.prototype, "search", void 0);
     __decorate([
         Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
         __metadata("design:type", Object)
@@ -12166,21 +11967,6 @@ function reducer(state, action) {
                 pageCount: 1
             };
             return __assign({}, state);
-        }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Search: {
-            return __assign({}, state, { loading: true, process: 'orderAction.Search' });
-        }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.SearchSuccess: {
-            var searchResult = action.payload.searchResult;
-            var limit = action.payload.limit;
-            state.orderData.orders = searchResult.data;
-            state.orderData.totalCount = searchResult.totalCount;
-            state.orderData.pageCount = Math.ceil(searchResult.totalCount / limit);
-            return __assign({}, state, { loading: false, process: '', error: null });
-        }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.SearchFail: {
-            var error = action.payload.error;
-            return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Cancel: {
             return __assign({}, state, { loading: true, process: 'orderAction.Cancel' });
