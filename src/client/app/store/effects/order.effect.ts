@@ -24,30 +24,6 @@ export class OrderEffects {
     ) { }
 
     /**
-     * Search
-     */
-    @Effect()
-    public search = this.actions.pipe(
-        ofType<orderAction.Search>(orderAction.ActionTypes.Search),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            try {
-                await this.cinerino.getServices();
-                const params = payload.params;
-                // if (params.customer !== undefined
-                //     && params.customer.telephone !== undefined) {
-                //     params.customer.telephone = formatTelephone(params.customer.telephone)
-                // }
-                const searchResult = await this.cinerino.person.searchOrders({ ...params });
-                const limit = <number>params.limit;
-                return new orderAction.SearchSuccess({ searchResult, limit });
-            } catch (error) {
-                return new orderAction.SearchFail({ error: error });
-            }
-        })
-    );
-
-    /**
      * Cancel
      */
     @Effect()
