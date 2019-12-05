@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.4.6 - 2019-12-05
+### Changed
+ - orderモジュール削除
+### Fixed
+ - テンキーに押したアクション追加
+
 ## 2.4.5 - 2019-11-28
 ### Added
  - 会員クレジット管理追加
