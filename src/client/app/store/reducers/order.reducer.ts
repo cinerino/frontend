@@ -31,21 +31,6 @@ export function reducer(state: IState, action: orderAction.Actions): IState {
             };
             return { ...state };
         }
-        case orderAction.ActionTypes.Search: {
-            return { ...state, loading: true, process: 'orderAction.Search' };
-        }
-        case orderAction.ActionTypes.SearchSuccess: {
-            const searchResult = action.payload.searchResult;
-            const limit = action.payload.limit;
-            state.orderData.orders = searchResult.data;
-            state.orderData.totalCount = searchResult.totalCount;
-            state.orderData.pageCount = Math.ceil(searchResult.totalCount / limit);
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case orderAction.ActionTypes.SearchFail: {
-            const error = action.payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
         case orderAction.ActionTypes.Cancel: {
             return { ...state, loading: true, process: 'orderAction.Cancel' };
         }

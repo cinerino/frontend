@@ -1,4 +1,3 @@
-import { ISearchResult } from '@cinerino/api-abstract-client/lib/service';
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
 import { IPrinter } from '../../models';
@@ -8,9 +7,6 @@ import { IPrinter } from '../../models';
  */
 export enum ActionTypes {
     Delete = '[Order] Delete',
-    Search = '[Order] Search',
-    SearchSuccess = '[Order] Search Success',
-    SearchFail = '[Order] Search Fail',
     Cancel = '[Order] Cancel',
     CancelSuccess = '[Order] Cancel Success',
     CancelFail = '[Order] Cancel Fail',
@@ -31,35 +27,6 @@ export enum ActionTypes {
 export class Delete implements Action {
     public readonly type = ActionTypes.Delete;
     constructor(public payload?: {}) { }
-}
-
-/**
- * Search
- */
-export class Search implements Action {
-    public readonly type = ActionTypes.Search;
-    constructor(public payload: {
-        params: factory.order.ISearchConditions
-    }) { }
-}
-
-/**
- * SearchSuccess
- */
-export class SearchSuccess implements Action {
-    public readonly type = ActionTypes.SearchSuccess;
-    constructor(public payload: {
-        searchResult: ISearchResult<factory.order.IOrder[]>,
-        limit: number;
-    }) { }
-}
-
-/**
- * SearchFail
- */
-export class SearchFail implements Action {
-    public readonly type = ActionTypes.SearchFail;
-    constructor(public payload: { error: Error }) { }
 }
 
 /**
@@ -185,9 +152,6 @@ export class OrderAuthorizeFail implements Action {
  */
 export type Actions =
     | Delete
-    | Search
-    | SearchSuccess
-    | SearchFail
     | Cancel
     | CancelSuccess
     | CancelFail
