@@ -5561,34 +5561,35 @@ var CinerinoService = /** @class */ (function () {
      */
     CinerinoService.prototype.authorize = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var now, expiryDate, isTokenExpired, url, body, data, state, result, option;
+            var data, state, url, body, now, expiryDate, isTokenExpired, result, option;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (!(this.auth !== undefined && this.auth.credentials.expiryDate !== undefined)) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.utilservice.getServerTime()];
-                    case 1:
-                        now = (_a.sent()).date;
-                        expiryDate = this.auth.credentials.expiryDate;
-                        isTokenExpired = (expiryDate !== undefined)
-                            ? (expiryDate <= (moment__WEBPACK_IMPORTED_MODULE_3__(now).add(-5, 'minute').toDate()).getTime()) : false;
-                        if (!isTokenExpired) {
-                            // アクセストークン取得・更新しない
-                            return [2 /*return*/];
-                        }
-                        _a.label = 2;
-                    case 2:
-                        url = '/api/authorize/getCredentials';
-                        body = { member: '0' };
                         data = window[_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].STORAGE_TYPE].getItem(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].STORAGE_NAME);
                         if (data === null) {
                             throw new Error('state is null');
                         }
                         state = JSON.parse(data);
+                        url = '/api/authorize/getCredentials';
+                        body = { member: '0' };
                         if (state.App && state.App.userData.isMember) {
                             body.member = '1';
                         }
-                        return [4 /*yield*/, this.http.post(url, body).toPromise()];
+                        if (!(this.auth !== undefined
+                            && this.auth.credentials.expiryDate !== undefined
+                            && body.member !== '1')) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.utilservice.getServerTime()];
+                    case 1:
+                        now = (_a.sent()).date;
+                        expiryDate = this.auth.credentials.expiryDate;
+                        isTokenExpired = (expiryDate !== undefined)
+                            ? (moment__WEBPACK_IMPORTED_MODULE_3__(expiryDate).add(-5, 'minutes').unix() <= moment__WEBPACK_IMPORTED_MODULE_3__(now).unix()) : false;
+                        if (!isTokenExpired) {
+                            // アクセストークン取得・更新しない
+                            return [2 /*return*/];
+                        }
+                        _a.label = 2;
+                    case 2: return [4 /*yield*/, this.http.post(url, body).toPromise()];
                     case 3:
                         result = _a.sent();
                         option = {
