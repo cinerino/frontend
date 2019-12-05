@@ -49,6 +49,10 @@ export interface IUserState {
      * プリンター
      */
     printer?: IPrinter;
+    /**
+     * バージョン
+     */
+    version?: string;
 }
 
 export const userInitialState: IUserState = {
@@ -192,6 +196,10 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             state.userData.printer = action.payload.printer;
             state.userData.isPurchaseCart = action.payload.isPurchaseCart;
             state.userData.viewType = action.payload.viewType;
+            return { ...state };
+        }
+        case userAction.ActionTypes.SetVersion: {
+            state.userData.version = action.payload.version;
             return { ...state };
         }
         default: {

@@ -2,7 +2,7 @@ import * as createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
 import { FORBIDDEN } from 'http-status';
 
-const debug = createDebug('application:middlewares:ipFilter');
+const debug = createDebug('ipFilter');
 
 /**
  * IP制限ミドルウェア

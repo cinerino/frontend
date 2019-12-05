@@ -3397,6 +3397,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContentsComponent", function() { return ContentsComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3406,33 +3407,81 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 
 
+
 var ContentsComponent = /** @class */ (function () {
-    function ContentsComponent(router, elementRef) {
+    function ContentsComponent(router, elementRef, userService) {
         this.router = router;
         this.elementRef = elementRef;
+        this.userService = userService;
     }
     ContentsComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.router.events.subscribe(function (event) {
-            if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"]) {
-                var element_1 = _this.elementRef.nativeElement.querySelector('.scroll');
-                setTimeout(function () {
-                    element_1.scrollTop = 0;
-                }, 0);
-            }
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.userService.checkVersion()];
+                    case 1:
+                        _a.sent();
+                        this.router.events.subscribe(function (event) {
+                            if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"]) {
+                                var element_1 = _this.elementRef.nativeElement.querySelector('.scroll');
+                                setTimeout(function () {
+                                    element_1.scrollTop = 0;
+                                }, 0);
+                            }
+                        });
+                        if (this.touch === undefined) {
+                            this.touch = true;
+                        }
+                        return [2 /*return*/];
+                }
+            });
         });
-        if (this.touch === undefined) {
-            this.touch = true;
-        }
     };
     ContentsComponent.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_2__["UserService"] }
     ]; };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -3445,7 +3494,8 @@ var ContentsComponent = /** @class */ (function () {
             styles: [__importDefault(__webpack_require__(/*! ./contents.component.scss */ "./app/modules/shared/components/parts/contents/contents.component.scss")).default]
         }),
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"],
+            _services__WEBPACK_IMPORTED_MODULE_2__["UserService"]])
     ], ContentsComponent);
     return ContentsComponent;
 }());
@@ -7204,10 +7254,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7263,16 +7316,19 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
+
 var UserService = /** @class */ (function () {
-    function UserService(store, actions, translate) {
+    function UserService(store, actions, translate, utilService) {
         this.store = store;
         this.actions = actions;
         this.translate = translate;
-        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
-        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getError"]));
+        this.utilService = utilService;
+        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
+        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getError"]));
     }
     /**
-     * マスタデータ取得
+     * データ取得
      */
     UserService.prototype.getData = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -7290,13 +7346,13 @@ var UserService = /** @class */ (function () {
      * データ削除
      */
     UserService.prototype.delete = function () {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].Delete());
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].Delete());
     };
     /**
      * 初期化
      */
     UserService.prototype.initialize = function () {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].Initialize());
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].Initialize());
     };
     /**
      * プロフィール取得
@@ -7306,10 +7362,10 @@ var UserService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].GetProfile());
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.GetProfileSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { return resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.GetProfileFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { return reject(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].GetProfile());
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetProfileSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { return resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetProfileFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { return reject(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     })];
             });
         });
@@ -7322,10 +7378,10 @@ var UserService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].GetAccount());
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.GetAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { return resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.GetAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { return reject(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].GetAccount());
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { return resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { return reject(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     })];
             });
         });
@@ -7338,10 +7394,10 @@ var UserService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].OpenAccount(params));
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.OpenAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.OpenAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].OpenAccount(params));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.OpenAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.OpenAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     })];
             });
         });
@@ -7354,10 +7410,10 @@ var UserService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].CloseAccount({ account: account }));
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.CloseAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.CloseAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].CloseAccount({ account: account }));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.CloseAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.CloseAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     })];
             });
         });
@@ -7373,7 +7429,7 @@ var UserService = /** @class */ (function () {
         this.translate.use(language);
         var html = document.querySelector('html');
         html.setAttribute('lang', language);
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].UpdateLanguage({ language: language }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateLanguage({ language: language }));
     };
     /**
      * プロフィール更新
@@ -7383,10 +7439,10 @@ var UserService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].UpdateProfile({ profile: profile }));
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.UpdateProfileSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.UpdateProfileFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateProfile({ profile: profile }));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.UpdateProfileSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.UpdateProfileFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     })];
             });
         });
@@ -7399,10 +7455,10 @@ var UserService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].GetCreditCards());
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.GetCreditCardsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.GetCreditCardsFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].GetCreditCards());
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetCreditCardsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetCreditCardsFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     })];
             });
         });
@@ -7415,10 +7471,10 @@ var UserService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].AddCreditCard(params));
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.AddCreditCardSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.AddCreditCardFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].AddCreditCard(params));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.AddCreditCardSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.AddCreditCardFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     })];
             });
         });
@@ -7431,10 +7487,10 @@ var UserService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].RemoveCreditCard({ creditCard: creditCard }));
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.RemoveCreditCardSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.RemoveCreditCardFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].RemoveCreditCard({ creditCard: creditCard }));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.RemoveCreditCardSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.RemoveCreditCardFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     })];
             });
         });
@@ -7443,7 +7499,7 @@ var UserService = /** @class */ (function () {
      * 基本設定更新
      */
     UserService.prototype.updateBaseSetting = function (params) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].UpdateBaseSetting({
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateBaseSetting({
             seller: params.seller,
             pos: params.pos,
             printer: params.printer,
@@ -7459,18 +7515,50 @@ var UserService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ChargeAccount(params));
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.ChargeAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_6__["userAction"].ActionTypes.ChargeAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-                        Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["take"])(1)).subscribe();
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ChargeAccount(params));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.ChargeAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.ChargeAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     })];
+            });
+        });
+    };
+    /**
+     * バージョン確認
+     */
+    UserService.prototype.checkVersion = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var query, version, data;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.utilService.loadStart();
+                        query = "?date=" + moment__WEBPACK_IMPORTED_MODULE_4__().toISOString();
+                        return [4 /*yield*/, this.utilService.getJson("/api/version" + query)];
+                    case 1:
+                        version = (_a.sent()).version;
+                        return [4 /*yield*/, this.getData()];
+                    case 2:
+                        data = _a.sent();
+                        if (data.version === undefined) {
+                            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].SetVersion({ version: version }));
+                        }
+                        if (data.version !== undefined
+                            && data.version !== version) {
+                            this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].SetVersion({ version: version }));
+                            location.reload();
+                        }
+                        this.utilService.loadEnd();
+                        return [2 /*return*/];
+                }
             });
         });
     };
     UserService.ctorParameters = function () { return [
         { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
         { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"] },
-        { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }
+        { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] },
+        { type: _util_service__WEBPACK_IMPORTED_MODULE_9__["UtilService"] }
     ]; };
     UserService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -7478,7 +7566,8 @@ var UserService = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
             _ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["Actions"],
-            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]])
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
+            _util_service__WEBPACK_IMPORTED_MODULE_9__["UtilService"]])
     ], UserService);
     return UserService;
 }());
@@ -7612,24 +7701,6 @@ var UtilService = /** @class */ (function () {
                     case 0:
                         query = "?date=" + moment__WEBPACK_IMPORTED_MODULE_3__().toISOString();
                         return [4 /*yield*/, this.http.get("/api/serverTime" + query).toPromise()];
-                    case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, result];
-                }
-            });
-        });
-    };
-    /**
-     * バージョン取得
-     */
-    UtilService.prototype.getVersion = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var query, result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        query = "?date=" + moment__WEBPACK_IMPORTED_MODULE_3__().toISOString();
-                        return [4 /*yield*/, this.http.get("/api/version" + query).toPromise()];
                     case 1:
                         result = _a.sent();
                         return [2 /*return*/, result];
@@ -8951,7 +9022,7 @@ var ConvertExternalToPurchaseFail = /** @class */ (function () {
 /*!******************************************!*\
   !*** ./app/store/actions/user.action.ts ***!
   \******************************************/
-/*! exports provided: ActionTypes, Delete, Initialize, GetProfile, GetProfileSuccess, GetProfileFail, GetAccount, GetAccountSuccess, GetAccountFail, OpenAccount, OpenAccountSuccess, OpenAccountFail, CloseAccount, CloseAccountSuccess, CloseAccountFail, UpdateLanguage, UpdateBaseSetting, UpdateProfile, UpdateProfileSuccess, UpdateProfileFail, GetCreditCards, GetCreditCardsSuccess, GetCreditCardsFail, AddCreditCard, AddCreditCardSuccess, AddCreditCardFail, RemoveCreditCard, RemoveCreditCardSuccess, RemoveCreditCardFail, ChargeAccount, ChargeAccountSuccess, ChargeAccountFail */
+/*! exports provided: ActionTypes, Delete, Initialize, GetProfile, GetProfileSuccess, GetProfileFail, GetAccount, GetAccountSuccess, GetAccountFail, OpenAccount, OpenAccountSuccess, OpenAccountFail, CloseAccount, CloseAccountSuccess, CloseAccountFail, UpdateLanguage, UpdateBaseSetting, UpdateProfile, UpdateProfileSuccess, UpdateProfileFail, GetCreditCards, GetCreditCardsSuccess, GetCreditCardsFail, AddCreditCard, AddCreditCardSuccess, AddCreditCardFail, RemoveCreditCard, RemoveCreditCardSuccess, RemoveCreditCardFail, ChargeAccount, ChargeAccountSuccess, ChargeAccountFail, SetVersion */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8988,6 +9059,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeAccount", function() { return ChargeAccount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeAccountSuccess", function() { return ChargeAccountSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeAccountFail", function() { return ChargeAccountFail; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetVersion", function() { return SetVersion; });
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -9027,6 +9099,7 @@ var ActionTypes;
     ActionTypes["ChargeAccount"] = "[User] Charge Account";
     ActionTypes["ChargeAccountSuccess"] = "[User] Charge Account Success";
     ActionTypes["ChargeAccountFail"] = "[User] Charge Account Fail";
+    ActionTypes["SetVersion"] = "[User] Set Version";
 })(ActionTypes || (ActionTypes = {}));
 /**
  * ユーザーデータ削除
@@ -9367,6 +9440,17 @@ var ChargeAccountFail = /** @class */ (function () {
         this.type = ActionTypes.ChargeAccountFail;
     }
     return ChargeAccountFail;
+}());
+
+/**
+ * バージョン設定
+ */
+var SetVersion = /** @class */ (function () {
+    function SetVersion(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.SetVersion;
+    }
+    return SetVersion;
 }());
 
 
@@ -12784,6 +12868,10 @@ function reducer(state, action) {
             state.userData.printer = action.payload.printer;
             state.userData.isPurchaseCart = action.payload.isPurchaseCart;
             state.userData.viewType = action.payload.viewType;
+            return __assign({}, state);
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.SetVersion: {
+            state.userData.version = action.payload.version;
             return __assign({}, state);
         }
         default: {

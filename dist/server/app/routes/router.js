@@ -24,14 +24,14 @@ exports.default = (app) => {
         res.locals.NODE_ENV = process.env.NODE_ENV;
         next();
     });
+    app.use('/storage', (req, res) => {
+        const url = req.originalUrl.replace('/storage', process.env.STORAGE_URL);
+        res.redirect(url);
+    });
     app.use('/api/authorize', authorize_1.authorizeRouter);
     app.use('/api/encryption', encryption_1.encryptionRouter);
     app.use('/api/liny', liny_1.linyRouter);
     app.use('/api', util_1.utilRouter);
-    app.get('/storage', (req, res) => {
-        const url = req.originalUrl.replace('/storage', process.env.STORAGE_URL);
-        res.redirect(url);
-    });
     app.get('/signIn', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
         log('signInRedirect');
         try {

@@ -17,15 +17,15 @@ export default (app: express.Application) => {
         next();
     });
 
+    app.use('/storage', (req, res) => {
+        const url = req.originalUrl.replace('/storage', <string>process.env.STORAGE_URL);
+        res.redirect(url);
+    });
+
     app.use('/api/authorize', authorizeRouter);
     app.use('/api/encryption', encryptionRouter);
     app.use('/api/liny', linyRouter);
     app.use('/api', utilRouter);
-
-    app.get('/storage', (req, res) => {
-        const url = req.originalUrl.replace('/storage', <string>process.env.STORAGE_URL);
-        res.redirect(url);
-    });
 
     app.get('/signIn', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         log('signInRedirect');
