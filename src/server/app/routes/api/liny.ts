@@ -6,7 +6,7 @@ import * as crypto from 'crypto';
 import * as debug from 'debug';
 import * as express from 'express';
 import * as request from 'request';
-import { requestAsync } from '../../services/util/util.service';
+import { requestAsync } from '../../functions/util';
 const log = debug('application: /api/liny');
 const router = express.Router();
 

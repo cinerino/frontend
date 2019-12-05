@@ -14,7 +14,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const crypto = require("crypto");
 const debug = require("debug");
 const express = require("express");
-const util_service_1 = require("../../services/util/util.service");
+const util_1 = require("../../functions/util");
 const log = debug('application: /api/liny');
 const router = express.Router();
 router.post('/sendMessage', (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -33,7 +33,7 @@ router.post('/sendMessage', (req, res) => __awaiter(this, void 0, void 0, functi
             json: req.body,
             method: 'POST'
         };
-        const requestResult = yield util_service_1.requestAsync(uri, options);
+        const requestResult = yield util_1.requestAsync(uri, options);
         res.status(requestResult.response.statusCode);
         res.json(requestResult.body);
     }

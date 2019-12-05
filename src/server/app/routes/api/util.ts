@@ -20,7 +20,7 @@ router.get('/storage', (_req, res) => {
 /**
  * サーバータイム取得
  */
-router.get('/api/serverTime', (_req, res) => {
+router.get('/serverTime', (_req, res) => {
     log('serverTime');
     res.json({ date: moment().toISOString() });
 });
@@ -28,7 +28,7 @@ router.get('/api/serverTime', (_req, res) => {
 /**
  * 外部連携情報取得
  */
-router.post('/api/external', (req, res) => {
+router.post('/external', (req, res) => {
     log('external');
     if (req.session === undefined) {
         res.sendStatus(BAD_REQUEST);
