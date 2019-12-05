@@ -14,7 +14,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const debug = require("debug");
 const request = require("request");
-const log = debug('frontend:util');
+const log = debug('application:util');
 function requestAsync(url, options) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve, reject) => {

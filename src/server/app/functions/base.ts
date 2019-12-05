@@ -1,13 +1,11 @@
 /**
  * base
  */
-
 import * as debug from 'debug';
 import { Response } from 'express';
 import * as httpStatus from 'http-status';
-// import { AuthModel } from '../../models/auth/auth.model';
 
-const log = debug('frontend:base');
+const log = debug('application:base');
 
 /**
  * エラー

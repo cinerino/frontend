@@ -1,14 +1,15 @@
 /**
  * ルーティング
  */
+import * as debug from 'debug';
 import * as express from 'express';
-import { BAD_REQUEST } from 'http-status';
-import * as moment from 'moment';
 import * as path from 'path';
-import * as authorize from '../controllers/authorize/authorize.controller';
-import authorizeRouter from './authorize';
-import encryptionRouter from './encryption';
-import linyRouter from './liny';
+import { Auth2Model } from '../models/auth2/auth2.model';
+import { authorizeRouter } from './api/authorize';
+import { encryptionRouter } from './api/encryption';
+import { linyRouter } from './api/liny';
+import { utilRouter } from './api/util';
+const log = debug('application: router');
 
 export default (app: express.Application) => {
     app.use((_req, res, next) => {
@@ -24,19 +25,38 @@ export default (app: express.Application) => {
     app.use('/api/authorize', authorizeRouter);
     app.use('/api/encryption', encryptionRouter);
     app.use('/api/liny', linyRouter);
-    app.get('/api/storage', (_req, res) => { res.json({ storage: process.env.STORAGE_URL }); });
-    app.get('/api/serverTime', (_req, res) => { res.json({ date: moment().toISOString() }); });
-    app.post('/api/external', (req, res) => {
-        if (req.session === undefined) {
-            res.sendStatus(BAD_REQUEST);
-            res.json({ error: 'session undefined' });
-            return;
+    app.use('/api', utilRouter);
+
+    app.get('/signIn', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        log('signInRedirect');
+        try {
+            if (req.session === undefined) {
+                throw new Error('session is undefined');
+            }
+            const authModel = new Auth2Model(req.session.auth);
+            if (req.query.state !== authModel.state) {
+                throw (new Error(`state not matched ${req.query.state} !== ${authModel.state}`));
+            }
+            const auth = authModel.create();
+            const credentials = await auth.getToken(
+                req.query.code,
+                <string>authModel.codeVerifier
+            );
+            // log('credentials published', credentials);
+            authModel.credentials = credentials;
+            authModel.save(req.session);
+            auth.setCredentials(credentials);
+            res.redirect('/#/auth/signin');
+        } catch (error) {
+            next(error);
         }
-        res.json((req.session.external === undefined) ? {} : req.session.external);
     });
 
-    app.get('/signIn', authorize.signInRedirect);
-    app.get('/signOut', authorize.signOutRedirect);
+    app.get('/signOut', (req: express.Request, res: express.Response) => {
+        log('signOutRedirect');
+        delete (<Express.Session>req.session).auth;
+        res.redirect('/#/auth/signout');
+    });
 
     app.get('*', (req, res, _next) => {
         if (req.xhr) {

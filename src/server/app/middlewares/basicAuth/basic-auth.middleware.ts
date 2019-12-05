@@ -3,7 +3,7 @@ import * as createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
 import { UNAUTHORIZED } from 'http-status';
 
-const debug = createDebug('frontend:middlewares:basicAuth');
+const debug = createDebug('application:middlewares:basicAuth');
 
 /**
  * ベーシック認証ミドルウェア
