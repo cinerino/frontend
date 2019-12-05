@@ -7631,6 +7631,24 @@ var UtilService = /** @class */ (function () {
         });
     };
     /**
+     * バージョン取得
+     */
+    UtilService.prototype.getVersion = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var query, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        query = "?date=" + moment__WEBPACK_IMPORTED_MODULE_2__().toISOString();
+                        return [4 /*yield*/, this.http.get("/api/version" + query).toPromise()];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, result];
+                }
+            });
+        });
+    };
+    /**
      * 外部連携情報取得
      */
     UtilService.prototype.getExternal = function () {

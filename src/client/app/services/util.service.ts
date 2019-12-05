@@ -58,6 +58,16 @@ export class UtilService {
     }
 
     /**
+     * バージョン取得
+     */
+    public async getVersion() {
+        const query = `?date=${moment().toISOString()}`;
+        const result = await this.http.get<{ date: string }>(`/api/version${query}`).toPromise();
+
+        return result;
+    }
+
+    /**
      * 外部連携情報取得
      */
     public async getExternal() {

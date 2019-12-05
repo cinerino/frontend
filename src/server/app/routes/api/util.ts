@@ -26,6 +26,14 @@ router.get('/serverTime', (_req, res) => {
 });
 
 /**
+ * バージョン取得
+ */
+router.get('/version', (_req, res) => {
+    log('version');
+    res.json({ version: process.env.VERSION });
+});
+
+/**
  * 外部連携情報取得
  */
 router.post('/external', (req, res) => {
