@@ -16,8 +16,7 @@ export class OrderService {
     public error: Observable<string | null>;
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions
-    ) {
+        private actions: Actions    ) {
         this.order = this.store.pipe(select(reducers.getOrder));
         this.error = this.store.pipe(select(reducers.getError));
     }
@@ -38,26 +37,6 @@ export class OrderService {
      */
     public delete() {
         this.store.dispatch(new orderAction.Delete());
-    }
-
-    /**
-     * 注文検索
-     */
-    public search(params: factory.order.ISearchConditions) {
-        return new Promise((resolve, reject) => {
-            this.store.dispatch(new orderAction.Search({ params }));
-
-            const success = this.actions.pipe(
-                ofType(orderAction.ActionTypes.SearchSuccess),
-                tap(() => { resolve(); })
-            );
-
-            const fail = this.actions.pipe(
-                ofType(orderAction.ActionTypes.SearchFail),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
     }
 
     /**

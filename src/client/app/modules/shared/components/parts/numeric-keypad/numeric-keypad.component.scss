@@ -18,7 +18,7 @@
 }
 
 .numeric-keypad {
-    position: absolute;
+    position: fixed;
     width: 300px;
     z-index: 1051;
     @include media-breakpoint-down(sm) {
@@ -34,4 +34,11 @@
 .etc {
     grid-template-columns: 1fr 2fr;
     grid-gap: 0.5rem;
+}
+
+.d-grid > div {
+    &:active {
+        background-color: skyblue !important;
+        color: #fff;
+    }
 }

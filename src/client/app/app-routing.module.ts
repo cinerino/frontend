@@ -22,11 +22,6 @@ const appRoutes: Routes = [
         loadChildren: () => import('./modules/inquiry/inquiry.module').then(m => m.InquiryModule)
     },
     {
-        path: 'order',
-        canActivate: [AuthGuardService],
-        loadChildren: () => import('./modules/order/order.module').then(m => m.OrderModule)
-    },
-    {
         path: 'mypage',
         canActivate: [AuthGuardService],
         loadChildren: () => import('./modules/mypage/mypage.module').then(m => m.MypageModule)
