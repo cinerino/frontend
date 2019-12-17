@@ -1,13 +1,17 @@
 /**
- * encryption
+ * 暗号API
  */
 import * as crypto from 'crypto-js';
 import * as debug from 'debug';
-import { Request, Response } from 'express';
+import * as express from 'express';
 import { BAD_REQUEST } from 'http-status';
-const log = debug('frontend:encryption');
+const router = express.Router();
+const log = debug('application: /api/encryption');
 
-export async function encode(req: Request, res: Response) {
+/**
+ * エンコード
+ */
+router.post('/encode', (req, res) => {
     log('encode', req.body);
     try {
         if (process.env.ENCYPT_KEY === undefined) {
@@ -43,9 +47,12 @@ export async function encode(req: Request, res: Response) {
         res.json({ error });
     }
 
-}
+});
 
-export async function decode(req: Request, res: Response) {
+/**
+ * デコード
+ */
+router.post('/decode', (req, res) => {
     log('encode', req.body);
     try {
         if (process.env.ENCYPT_KEY === undefined) {
@@ -79,4 +86,6 @@ export async function decode(req: Request, res: Response) {
         res.status(httpStatus.BAD_REQUEST);
         res.json({ error });
     }
-}
+});
+
+export const encryptionRouter = router;
