@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.4.9 - 2019-12-18
+### Changed
+ - クレジット管理UI変更
+
 ## 2.4.8 - 2019-12-17
 ### Added
  - バージョン確認追加
