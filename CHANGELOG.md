@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.4.8 - 2019-12-17
+### Added
+ - バージョン確認追加
+
 ## 2.4.7 - 2019-12-05
 ### Fixed
  - アクセストークン更新修正
