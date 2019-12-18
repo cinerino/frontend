@@ -2,12 +2,15 @@ import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import * as express from 'express';
+import * as fs from 'fs';
 import * as helmet from 'helmet';
 import basicAuth from './middlewares/basicAuth/basic-auth.middleware';
 import benchmarks from './middlewares/benchmarks/benchmarks.middleware';
 import ipFilter from './middlewares/ipFilter/ip-filter.middleware';
 import session from './middlewares/session/session.middleware';
 import router from './routes/router';
+
+process.env.VERSION = JSON.parse(fs.readFileSync('./package.json', 'utf8')).version;
 
 /**
  * express設定

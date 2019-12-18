@@ -36,7 +36,8 @@ export enum ActionTypes {
     UpdateBaseSetting = '[User] Update Base Setting',
     ChargeAccount = '[User] Charge Account',
     ChargeAccountSuccess = '[User] Charge Account Success',
-    ChargeAccountFail = '[User] Charge Account Fail'
+    ChargeAccountFail = '[User] Charge Account Fail',
+    SetVersion = '[User] Set Version',
 }
 
 /**
@@ -314,6 +315,14 @@ export class ChargeAccountFail implements Action {
 }
 
 /**
+ * バージョン設定
+ */
+export class SetVersion implements Action {
+    public readonly type = ActionTypes.SetVersion;
+    constructor(public payload: { version: string }) { }
+}
+
+/**
  * Actions
  */
 export type Actions =
@@ -347,4 +356,5 @@ export type Actions =
     | UpdateBaseSetting
     | ChargeAccount
     | ChargeAccountSuccess
-    | ChargeAccountFail;
+    | ChargeAccountFail
+    | SetVersion;

@@ -4,7 +4,7 @@
  */
 import debug = require('debug');
 import * as request from 'request';
-const log = debug('frontend:util');
+const log = debug('application:util');
 
 export async function requestAsync<T>(url: string, options?: request.CoreOptions) {
     return new Promise<T>((resolve, reject) => {
