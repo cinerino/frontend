@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'mypage.credit.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'mypage.credit.read' | translate\"></p>\n\n\n    <ul class=\"d-md-flex creditCards mb-4\">\n        <li *ngFor=\"let creditCard of (user | async).creditCards\" class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body position-relative\">\n                    <h5 class=\"card-title font-weight-bold\">{{ 'common.credit.cardNumber' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ creditCard.cardNo }}</p>\n                    <h5 class=\"card-title font-weight-bold\">{{ 'common.credit.cardExpiration' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}\n                    </p>\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\"\n                        (click)=\"confirmRemoveCreditCard(creditCard)\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <p *ngIf=\"(user | async).creditCards.length === 0\" class=\"mb-4\">{{ 'mypage.credit.notFound' | translate }}</p>\n\n    <div class=\"mb-4 p-3 bg-white\">\n\n        <form *ngIf=\"creditCardForm\" [formGroup]=\"creditCardForm\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <select class=\"form-control\" id=\"sellerId\" formControlName=\"sellerId\">\n                        <option value=\"\">{{ 'form.unselected' | translate }}</option>\n                        <option *ngFor=\"let seller of (master | async)?.sellers\" [value]=\"seller.id\">\n                            {{ seller.name | changeLanguage }}</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardNumber' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"cardNumber\" formControlName=\"cardNumber\" placeholder=\"\"\n                        maxlength=\"16\">\n                    <div *ngIf=\"creditCardForm.controls.cardNumber.invalid && creditCardForm.controls.cardNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.cardNumber.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"creditCardForm.controls.cardNumber.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <div class=\"form-inline\">\n                        <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationMonth\"\n                            formControlName=\"cardExpirationMonth\">\n                            <option *ngFor=\"let month of cardExpiration.month\" [value]=\"month\">{{ month }}\n                            </option>\n                        </select>\n                        <span class=\"mx-2\">{{ 'common.date.month' | translate }}</span>\n                        <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationYear\"\n                            formControlName=\"cardExpirationYear\">\n                            <option *ngFor=\"let year of cardExpiration.year\" [value]=\"year\">{{ year }}</option>\n                        </select>\n                        <span class=\"mx-2\">{{ 'common.date.year' | translate }}</span>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.securityCode' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"securityCode\" placeholder=\"\"\n                        formControlName=\"securityCode\">\n                    <div *ngIf=\"creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.securityCode.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.holderName' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"holderName\" placeholder=\"\" formControlName=\"holderName\">\n                    <div *ngIf=\"creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.holderName.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"buttons mx-auto text-center\">\n                <button type=\"submit\" [disabled]=\"isLoading | async\" class=\"btn btn-primary btn-block py-3\"\n                    (click)=\"addCreditCard()\">{{ 'mypage.credit.add' | translate }}</button>\n            </div>\n        </form>\n\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link\" routerLink=\"/mypage\">{{ 'mypage.credit.prev' | translate }}</button>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'mypage.credit.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'mypage.credit.read' | translate\"></p>\n\n\n    <ul class=\"d-md-flex creditCards mb-4\">\n        <li *ngFor=\"let creditCard of (user | async).creditCards\" class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body position-relative\">\n                    <h5 class=\"card-title font-weight-bold\">{{ 'common.credit.cardNumber' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ creditCard.cardNo }}</p>\n                    <h5 class=\"card-title font-weight-bold\">{{ 'common.credit.cardExpiration' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}\n                    </p>\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\"\n                        (click)=\"confirmRemoveCreditCard(creditCard)\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <p *ngIf=\"(user | async).creditCards.length === 0\" class=\"mb-4\">{{ 'mypage.credit.notFound' | translate }}</p>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"openRegisterCreditcardModal()\"\n            [disabled]=\"isLoading | async\">{{ 'mypage.credit.register' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\" routerLink=\"/mypage\">{{ 'mypage.credit.prev' | translate }}</button>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -344,14 +344,13 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MypageCreditComponent", function() { return MypageCreditComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _shared_components_parts_register_creditcard_modal_register_creditcard_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/components/parts/register-creditcard-modal/register-creditcard-modal.component */ "./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -408,14 +407,14 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 var MypageCreditComponent = /** @class */ (function () {
-    function MypageCreditComponent(store, utilService, masterService, userService, formBuilder, translate, router) {
+    function MypageCreditComponent(store, utilService, masterService, userService, translate, router, modal) {
         this.store = store;
         this.utilService = utilService;
         this.masterService = masterService;
         this.userService = userService;
-        this.formBuilder = formBuilder;
         this.translate = translate;
         this.router = router;
+        this.modal = modal;
     }
     /**
      * 初期化
@@ -426,9 +425,9 @@ var MypageCreditComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
-                        this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getMaster"]));
-                        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getLoading"]));
+                        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
+                        this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getMaster"]));
+                        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getLoading"]));
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 4, , 5]);
@@ -438,96 +437,11 @@ var MypageCreditComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.userService.getCreditCards()];
                     case 3:
                         _a.sent();
-                        this.createCreditCardForm();
                         return [3 /*break*/, 5];
                     case 4:
                         error_1 = _a.sent();
                         console.error(error_1);
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    /**
-     * クレジットカードフォーム作成
-     */
-    MypageCreditComponent.prototype.createCreditCardForm = function () {
-        this.cardExpiration = {
-            year: [],
-            month: []
-        };
-        for (var i = 0; i < 12; i++) {
-            this.cardExpiration.month.push(("0" + String(i + 1)).slice(-2));
-        }
-        for (var i = 0; i < 10; i++) {
-            this.cardExpiration.year.push(moment__WEBPACK_IMPORTED_MODULE_5__().add(i, 'year').format('YYYY'));
-        }
-        this.creditCardForm = this.formBuilder.group({
-            sellerId: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            cardNumber: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
-            cardExpirationMonth: [this.cardExpiration.month[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            cardExpirationYear: [this.cardExpiration.year[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            securityCode: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            holderName: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
-        });
-    };
-    /**
-     * クレジットカード情報登録
-     */
-    MypageCreditComponent.prototype.addCreditCard = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var cardExpiration, creditCard, master, seller, error_2;
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        Object.keys(this.creditCardForm.controls).forEach(function (key) {
-                            _this.creditCardForm.controls[key].markAsTouched();
-                        });
-                        this.creditCardForm.controls.cardNumber.setValue(document.getElementById('cardNumber').value);
-                        this.creditCardForm.controls.securityCode.setValue(document.getElementById('securityCode').value);
-                        this.creditCardForm.controls.holderName.setValue(document.getElementById('holderName').value);
-                        if (this.creditCardForm.invalid) {
-                            this.utilService.openAlert({
-                                title: this.translate.instant('common.error'),
-                                body: this.translate.instant('mypage.credit.alert.addCredit')
-                            });
-                            return [2 /*return*/];
-                        }
-                        cardExpiration = {
-                            year: this.creditCardForm.controls.cardExpirationYear.value,
-                            month: this.creditCardForm.controls.cardExpirationMonth.value
-                        };
-                        creditCard = {
-                            cardno: this.creditCardForm.controls.cardNumber.value,
-                            expire: "" + cardExpiration.year + cardExpiration.month,
-                            holderName: this.creditCardForm.controls.holderName.value,
-                            securityCode: this.creditCardForm.controls.securityCode.value
-                        };
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 4, , 5]);
-                        return [4 /*yield*/, this.masterService.getData()];
-                    case 2:
-                        master = _a.sent();
-                        seller = master.sellers.find(function (s) { return s.id === _this.creditCardForm.controls.sellerId.value; });
-                        if (seller === undefined) {
-                            this.utilService.openAlert({
-                                title: this.translate.instant('common.error'),
-                                body: this.translate.instant('mypage.credit.alert.add')
-                            });
-                            return [2 /*return*/];
-                        }
-                        return [4 /*yield*/, this.userService.addCreditCard({ creditCard: creditCard, seller: seller })];
-                    case 3:
-                        _a.sent();
-                        this.createCreditCardForm();
-                        return [3 /*break*/, 5];
-                    case 4:
-                        error_2 = _a.sent();
-                        console.error(error_2);
                         return [3 /*break*/, 5];
                     case 5: return [2 /*return*/];
                 }
@@ -544,37 +458,94 @@ var MypageCreditComponent = /** @class */ (function () {
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('mypage.credit.confirm.remove'),
             cb: function () { return __awaiter(_this, void 0, void 0, function () {
-                var error_3;
+                var error_2;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            _a.trys.push([0, 2, , 3]);
+                            _a.trys.push([0, 3, , 4]);
                             return [4 /*yield*/, this.userService.removeCreditCard(creditCard)];
                         case 1:
                             _a.sent();
+                            return [4 /*yield*/, this.userService.getCreditCards()];
+                        case 2:
+                            _a.sent();
+                            return [3 /*break*/, 4];
+                        case 3:
+                            error_2 = _a.sent();
+                            console.error(error_2);
                             this.utilService.openAlert({
                                 title: this.translate.instant('common.error'),
-                                body: this.translate.instant('mypage.credit.alert.remove')
+                                body: this.translate.instant('mypage.credit.alert.removeFail')
                             });
-                            return [3 /*break*/, 3];
-                        case 2:
-                            error_3 = _a.sent();
-                            console.error(error_3);
-                            return [3 /*break*/, 3];
-                        case 3: return [2 /*return*/];
+                            return [3 /*break*/, 4];
+                        case 4: return [2 /*return*/];
                     }
                 });
             }); }
         });
     };
+    /**
+     * クレジットカード登録モーダル
+     */
+    MypageCreditComponent.prototype.openRegisterCreditcardModal = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var sellers;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.masterService.getData()];
+                    case 1: return [4 /*yield*/, (_a.sent()).sellers];
+                    case 2:
+                        sellers = _a.sent();
+                        this.modal.show(_shared_components_parts_register_creditcard_modal_register_creditcard_modal_component__WEBPACK_IMPORTED_MODULE_7__["RegisterCreditcardModalComponent"], {
+                            initialState: {
+                                sellers: sellers,
+                                cb: function (params) { return __awaiter(_this, void 0, void 0, function () {
+                                    var creditCard, seller, error_3;
+                                    return __generator(this, function (_a) {
+                                        switch (_a.label) {
+                                            case 0:
+                                                _a.trys.push([0, 3, , 4]);
+                                                creditCard = params.creditCard;
+                                                seller = params.seller;
+                                                if (seller === undefined) {
+                                                    throw new Error('seller undefined');
+                                                }
+                                                return [4 /*yield*/, this.userService.addCreditCard({ creditCard: creditCard, seller: seller })];
+                                            case 1:
+                                                _a.sent();
+                                                return [4 /*yield*/, this.userService.getCreditCards()];
+                                            case 2:
+                                                _a.sent();
+                                                return [3 /*break*/, 4];
+                                            case 3:
+                                                error_3 = _a.sent();
+                                                console.error(error_3);
+                                                this.utilService.openAlert({
+                                                    title: this.translate.instant('common.error'),
+                                                    body: this.translate.instant('mypage.account.alert.registerFail')
+                                                });
+                                                return [3 /*break*/, 4];
+                                            case 4: return [2 /*return*/];
+                                        }
+                                    });
+                                }); }
+                            },
+                            class: 'modal-dialog-centered modal-lg'
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     MypageCreditComponent.ctorParameters = function () { return [
-        { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] },
-        { type: _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"] },
-        { type: _services__WEBPACK_IMPORTED_MODULE_6__["MasterService"] },
-        { type: _services__WEBPACK_IMPORTED_MODULE_6__["UserService"] },
-        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
-        { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+        { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_5__["MasterService"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_5__["UserService"] },
+        { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsModalService"] }
     ]; };
     MypageCreditComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -582,13 +553,13 @@ var MypageCreditComponent = /** @class */ (function () {
             template: __importDefault(__webpack_require__(/*! raw-loader!./mypage-credit.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/mypage/components/pages/mypage-credit/mypage-credit.component.html")).default,
             styles: [__importDefault(__webpack_require__(/*! ./mypage-credit.component.scss */ "./app/modules/mypage/components/pages/mypage-credit/mypage-credit.component.scss")).default]
         }),
-        __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
-            _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"],
-            _services__WEBPACK_IMPORTED_MODULE_6__["MasterService"],
-            _services__WEBPACK_IMPORTED_MODULE_6__["UserService"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
-            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
+            _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"],
+            _services__WEBPACK_IMPORTED_MODULE_5__["MasterService"],
+            _services__WEBPACK_IMPORTED_MODULE_5__["UserService"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsModalService"]])
     ], MypageCreditComponent);
     return MypageCreditComponent;
 }());
