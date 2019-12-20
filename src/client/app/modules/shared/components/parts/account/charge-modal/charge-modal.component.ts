@@ -4,7 +4,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
-    selector: 'app-charge-modal',
+    selector: 'app-account-charge-modal',
     templateUrl: './charge-modal.component.html',
     styleUrls: ['./charge-modal.component.scss']
 })

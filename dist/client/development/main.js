@@ -3221,7 +3221,7 @@ var AccountChargeModalComponent = /** @class */ (function () {
     ], AccountChargeModalComponent.prototype, "cb", void 0);
     AccountChargeModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-charge-modal',
+            selector: 'app-account-charge-modal',
             template: __importDefault(__webpack_require__(/*! raw-loader!./charge-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.html")).default,
             styles: [__importDefault(__webpack_require__(/*! ./charge-modal.component.scss */ "./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.scss")).default]
         }),
@@ -3315,7 +3315,7 @@ var AccountOpenModalComponent = /** @class */ (function () {
     ], AccountOpenModalComponent.prototype, "cb", void 0);
     AccountOpenModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-open-modal',
+            selector: 'app-account-open-modal',
             template: __importDefault(__webpack_require__(/*! raw-loader!./open-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/open-modal/open-modal.component.html")).default,
             styles: [__importDefault(__webpack_require__(/*! ./open-modal.component.scss */ "./app/modules/shared/components/parts/account/open-modal/open-modal.component.scss")).default]
         }),
@@ -3416,7 +3416,7 @@ var AccountTransferModalComponent = /** @class */ (function () {
     ], AccountTransferModalComponent.prototype, "cb", void 0);
     AccountTransferModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-transfer-modal',
+            selector: 'app-account-transfer-modal',
             template: __importDefault(__webpack_require__(/*! raw-loader!./transfer-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.html")).default,
             styles: [__importDefault(__webpack_require__(/*! ./transfer-modal.component.scss */ "./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.scss")).default]
         }),
@@ -3822,7 +3822,7 @@ var CreditcardRegisterModalComponent = /** @class */ (function () {
     ], CreditcardRegisterModalComponent.prototype, "sellers", void 0);
     CreditcardRegisterModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-register-modal',
+            selector: 'app-creditcard-register-modal',
             template: __importDefault(__webpack_require__(/*! raw-loader!./register-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.html")).default,
             styles: [__importDefault(__webpack_require__(/*! ./register-modal.component.scss */ "./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.scss")).default]
         }),
@@ -3897,7 +3897,7 @@ var CreditCardSelectModalComponent = /** @class */ (function () {
     ], CreditCardSelectModalComponent.prototype, "cb", void 0);
     CreditCardSelectModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-select-modal',
+            selector: 'app-creditcard-select-modal',
             template: __importDefault(__webpack_require__(/*! raw-loader!./select-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.html")).default,
             styles: [__importDefault(__webpack_require__(/*! ./select-modal.component.scss */ "./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.scss")).default]
         }),
@@ -4999,7 +4999,7 @@ var PurchaseCinemaTicketModalComponent = /** @class */ (function () {
     ], PurchaseCinemaTicketModalComponent.prototype, "cb", void 0);
     PurchaseCinemaTicketModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-ticket-modal',
+            selector: 'app-purchase-cinema-ticket-modal',
             template: __importDefault(__webpack_require__(/*! raw-loader!./ticket-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.html")).default,
             styles: [__importDefault(__webpack_require__(/*! ./ticket-modal.component.scss */ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.scss")).default]
         }),
@@ -5155,7 +5155,7 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
     ], PurchaseEventTicketModalComponent.prototype, "cb", void 0);
     PurchaseEventTicketModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-ticket-modal',
+            selector: 'app-purchase-event-ticket-modal',
             template: __importDefault(__webpack_require__(/*! raw-loader!./ticket-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.html")).default,
             styles: [__importDefault(__webpack_require__(/*! ./ticket-modal.component.scss */ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.scss")).default]
         }),
@@ -5236,7 +5236,7 @@ var PurchaseTransactionModalComponent = /** @class */ (function () {
     ], PurchaseTransactionModalComponent.prototype, "cb", void 0);
     PurchaseTransactionModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-transaction-modal',
+            selector: 'app-purchase-transaction-modal',
             template: __importDefault(__webpack_require__(/*! raw-loader!./transaction-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.html")).default,
             styles: [__importDefault(__webpack_require__(/*! ./transaction-modal.component.scss */ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.scss")).default]
         }),

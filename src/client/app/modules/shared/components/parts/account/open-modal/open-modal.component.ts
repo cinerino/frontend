@@ -4,7 +4,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
-    selector: 'app-open-modal',
+    selector: 'app-account-open-modal',
     templateUrl: './open-modal.component.html',
     styleUrls: ['./open-modal.component.scss']
 })

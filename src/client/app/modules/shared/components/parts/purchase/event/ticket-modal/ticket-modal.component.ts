@@ -7,7 +7,7 @@ import { getRemainingSeatLength, getTicketPrice, isTicketedSeatScreeningEvent } 
 import { IReservationTicket } from '../../../../../../../models';
 
 @Component({
-    selector: 'app-ticket-modal',
+    selector: 'app-purchase-event-ticket-modal',
     templateUrl: './ticket-modal.component.html',
     styleUrls: ['./ticket-modal.component.scss']
 })

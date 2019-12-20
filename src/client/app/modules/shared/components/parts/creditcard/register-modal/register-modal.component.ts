@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
-    selector: 'app-register-modal',
+    selector: 'app-creditcard-register-modal',
     templateUrl: './register-modal.component.html',
     styleUrls: ['./register-modal.component.scss']
 })

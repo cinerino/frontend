@@ -3,7 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
-    selector: 'app-select-modal',
+    selector: 'app-creditcard-select-modal',
     templateUrl: './select-modal.component.html',
     styleUrls: ['./select-modal.component.scss']
 })

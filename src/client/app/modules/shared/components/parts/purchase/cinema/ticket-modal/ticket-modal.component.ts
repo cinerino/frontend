@@ -8,7 +8,7 @@ type IMovieTicketTypeChargeSpecification =
     factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification>;
 
 @Component({
-    selector: 'app-ticket-modal',
+    selector: 'app-purchase-cinema-ticket-modal',
     templateUrl: './ticket-modal.component.html',
     styleUrls: ['./ticket-modal.component.scss']
 })

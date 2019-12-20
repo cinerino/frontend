@@ -4,7 +4,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
-    selector: 'app-transfer-modal',
+    selector: 'app-account-transfer-modal',
     templateUrl: './transfer-modal.component.html',
     styleUrls: ['./transfer-modal.component.scss']
 })

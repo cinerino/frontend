@@ -3,7 +3,7 @@ import { BsModalRef } from 'ngx-bootstrap';
 import * as reducers from '../../../../../../store/reducers';
 
 @Component({
-    selector: 'app-transaction-modal',
+    selector: 'app-purchase-transaction-modal',
     templateUrl: './transaction-modal.component.html',
     styleUrls: ['./transaction-modal.component.scss']
 })
