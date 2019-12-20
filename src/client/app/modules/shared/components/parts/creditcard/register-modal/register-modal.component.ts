@@ -5,11 +5,11 @@ import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
-    selector: 'app-register-creditcard-modal',
-    templateUrl: './register-creditcard-modal.component.html',
-    styleUrls: ['./register-creditcard-modal.component.scss']
+    selector: 'app-register-modal',
+    templateUrl: './register-modal.component.html',
+    styleUrls: ['./register-modal.component.scss']
 })
-export class RegisterCreditcardModalComponent implements OnInit {
+export class CreditcardRegisterModalComponent implements OnInit {
     @Input() public cb: (value: {
         creditCard: {
             cardno: string;

@@ -2,14 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
-import { environment } from '../../../../../../environments/environment';
-import { getRemainingSeatLength, getTicketPrice, isTicketedSeatScreeningEvent } from '../../../../../functions';
-import { IReservationTicket } from '../../../../../models';
+import { environment } from '../../../../../../../../environments/environment';
+import { getRemainingSeatLength, getTicketPrice, isTicketedSeatScreeningEvent } from '../../../../../../../functions';
+import { IReservationTicket } from '../../../../../../../models';
 
 @Component({
-    selector: 'app-purchase-event-ticket-modal',
-    templateUrl: './purchase-event-ticket-modal.component.html',
-    styleUrls: ['./purchase-event-ticket-modal.component.scss']
+    selector: 'app-ticket-modal',
+    templateUrl: './ticket-modal.component.html',
+    styleUrls: ['./ticket-modal.component.scss']
 })
 export class PurchaseEventTicketModalComponent implements OnInit {
 

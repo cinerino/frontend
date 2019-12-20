@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'mypage.account.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'mypage.account.read' | translate\"></p>\n\n    <ul class=\"d-md-flex flex-wrap mb-4\">\n        <li *ngFor=\"let account of (user | async).accounts\" class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body position-relative\">\n                    <h5 class=\"card-title font-weight-bold\">{{ 'mypage.account.accountNumber' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ account.typeOfGood.accountNumber }}</p>\n                    <h5 class=\"card-title font-weight-bold\">{{ 'mypage.account.accountName' | translate }} [{{ 'mypage.account.accountType' | translate }}]\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ account.typeOfGood.name }} [{{ account.typeOfGood.accountType }}]</p>\n                    <h5 class=\"card-title font-weight-bold\">{{ 'mypage.account.availableBalance' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ account.typeOfGood.availableBalance }}</p>\n                    <button type=\"button\" class=\"btn btn-primary\" (click)=\"openChageAccountModal(account)\">{{ 'mypage.account.charge' | translate }}</button>\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\"\n                        (click)=\"confirmCloseAccount(account)\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"openOpenAccountModal()\"\n            [disabled]=\"isLoading | async\">{{ 'mypage.account.open' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\" routerLink=\"/mypage\">{{ 'mypage.credit.prev' | translate }}</button>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'mypage.account.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'mypage.account.read' | translate\"></p>\n\n    <ul class=\"d-md-flex flex-wrap mb-4\">\n        <li *ngFor=\"let account of (user | async).accounts\" class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body position-relative\">\n                    <div>\n                        <h5 class=\"card-title font-weight-bold\">{{ 'mypage.account.accountNumber' | translate }}\n                        </h5>\n                        <p class=\"card-text mb-3\">{{ account.typeOfGood.accountNumber }}</p>\n                        <h5 class=\"card-title font-weight-bold\">{{ 'mypage.account.accountName' | translate }} [{{ 'mypage.account.accountType' | translate }}]\n                        </h5>\n                        <p class=\"card-text mb-3\">{{ account.typeOfGood.name }} [{{ account.typeOfGood.accountType }}]</p>\n                        <h5 class=\"card-title font-weight-bold\">{{ 'mypage.account.availableBalance' | translate }}\n                        </h5>\n                        <p class=\"card-text mb-3\">{{ account.typeOfGood.availableBalance }}</p>\n                    </div>\n                    <div>\n                        <button type=\"button\" class=\"btn btn-primary mr-2\" (click)=\"openChageAccountModal(account)\">{{ 'mypage.account.charge' | translate }}</button>\n                        <button type=\"button\" class=\"btn btn-primary mr-2\" (click)=\"openTransferAccountModal(account)\">{{ 'mypage.account.transfer' | translate }}</button>\n                    </div>\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\"\n                        (click)=\"confirmCloseAccount(account)\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"openOpenAccountModal()\"\n            [disabled]=\"isLoading | async\">{{ 'mypage.account.open' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\" routerLink=\"/mypage\">{{ 'mypage.credit.prev' | translate }}</button>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -81,8 +81,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
 /* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _shared_components_parts_charge_account_modal_charge_account_modal_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../shared/components/parts/charge-account-modal/charge-account-modal.component */ "./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.ts");
-/* harmony import */ var _shared_components_parts_open_account_modal_open_account_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/components/parts/open-account-modal/open-account-modal.component */ "./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.ts");
+/* harmony import */ var _shared_components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../shared/components/parts/account/charge-modal/charge-modal.component */ "./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.ts");
+/* harmony import */ var _shared_components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/components/parts/account/open-modal/open-modal.component */ "./app/modules/shared/components/parts/account/open-modal/open-modal.component.ts");
+/* harmony import */ var _shared_components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../shared/components/parts/account/transfer-modal/transfer-modal.component */ "./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -149,6 +150,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var MypageAccountComponent = /** @class */ (function () {
     function MypageAccountComponent(store, modal, translate, utilService, userService, masterService) {
         this.store = store;
@@ -185,7 +187,7 @@ var MypageAccountComponent = /** @class */ (function () {
         });
     };
     /**
-     * チャージモーダル
+     * 入金モーダル
      */
     MypageAccountComponent.prototype.openChageAccountModal = function (account) {
         return __awaiter(this, void 0, void 0, function () {
@@ -201,7 +203,7 @@ var MypageAccountComponent = /** @class */ (function () {
                     case 2: return [4 /*yield*/, (_a.sent()).sellers];
                     case 3:
                         sellers = _a.sent();
-                        this.modal.show(_shared_components_parts_charge_account_modal_charge_account_modal_component__WEBPACK_IMPORTED_MODULE_6__["ChargeAccountModalComponent"], {
+                        this.modal.show(_shared_components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_6__["AccountChargeModalComponent"], {
                             initialState: {
                                 sellers: sellers,
                                 creditCards: creditCards,
@@ -251,14 +253,78 @@ var MypageAccountComponent = /** @class */ (function () {
         });
     };
     /**
+     * 転送モーダル
+     */
+    MypageAccountComponent.prototype.openTransferAccountModal = function (account) {
+        return __awaiter(this, void 0, void 0, function () {
+            var userData, sellers;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.userService.getData()];
+                    case 1:
+                        userData = _a.sent();
+                        return [4 /*yield*/, this.masterService.getData()];
+                    case 2: return [4 /*yield*/, (_a.sent()).sellers];
+                    case 3:
+                        sellers = _a.sent();
+                        this.modal.show(_shared_components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_8__["AccountTransferModalComponent"], {
+                            initialState: {
+                                sellers: sellers,
+                                cb: function (params) { return __awaiter(_this, void 0, void 0, function () {
+                                    var creditCard, profile, error_3;
+                                    return __generator(this, function (_a) {
+                                        switch (_a.label) {
+                                            case 0:
+                                                _a.trys.push([0, 3, , 4]);
+                                                creditCard = {
+                                                    memberId: 'me',
+                                                    cardSeq: Number(params.creditCard.cardSeq)
+                                                };
+                                                profile = userData.profile;
+                                                if (profile === undefined) {
+                                                    throw new Error('profile undefined');
+                                                }
+                                                return [4 /*yield*/, this.userService.chargeAccount(__assign({}, params, { account: account, profile: profile, creditCard: creditCard }))];
+                                            case 1:
+                                                _a.sent();
+                                                return [4 /*yield*/, this.userService.getAccount()];
+                                            case 2:
+                                                _a.sent();
+                                                this.utilService.openAlert({
+                                                    title: this.translate.instant('common.complete'),
+                                                    body: this.translate.instant('mypage.account.alert.chargeSuccess')
+                                                });
+                                                return [3 /*break*/, 4];
+                                            case 3:
+                                                error_3 = _a.sent();
+                                                console.error(error_3);
+                                                this.utilService.openAlert({
+                                                    title: this.translate.instant('common.error'),
+                                                    body: this.translate.instant('mypage.account.alert.chargeFail')
+                                                });
+                                                return [3 /*break*/, 4];
+                                            case 4: return [2 /*return*/];
+                                        }
+                                    });
+                                }); }
+                            },
+                            class: 'modal-dialog-centered'
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
      * 口座開設モーダル
      */
     MypageAccountComponent.prototype.openOpenAccountModal = function () {
         var _this = this;
-        this.modal.show(_shared_components_parts_open_account_modal_open_account_modal_component__WEBPACK_IMPORTED_MODULE_7__["OpenAccountModalComponent"], {
+        this.modal.show(_shared_components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_7__["AccountOpenModalComponent"], {
             initialState: {
                 cb: function (params) { return __awaiter(_this, void 0, void 0, function () {
-                    var error_3;
+                    var error_4;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
@@ -275,7 +341,7 @@ var MypageAccountComponent = /** @class */ (function () {
                                 });
                                 return [3 /*break*/, 4];
                             case 3:
-                                error_3 = _a.sent();
+                                error_4 = _a.sent();
                                 this.utilService.openAlert({
                                     title: this.translate.instant('common.error'),
                                     body: this.translate.instant('mypage.account.alert.openAccountFail')
@@ -298,7 +364,7 @@ var MypageAccountComponent = /** @class */ (function () {
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('mypage.account.confirm.closeAccount'),
             cb: function () { return __awaiter(_this, void 0, void 0, function () {
-                var error_4;
+                var error_5;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
@@ -315,8 +381,8 @@ var MypageAccountComponent = /** @class */ (function () {
                             });
                             return [3 /*break*/, 4];
                         case 3:
-                            error_4 = _a.sent();
-                            console.error(error_4);
+                            error_5 = _a.sent();
+                            console.error(error_5);
                             this.utilService.openAlert({
                                 title: this.translate.instant('common.error'),
                                 body: this.translate.instant('mypage.account.alert.closeAccountFail')
@@ -386,7 +452,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
 /* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _shared_components_parts_register_creditcard_modal_register_creditcard_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/components/parts/register-creditcard-modal/register-creditcard-modal.component */ "./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.ts");
+/* harmony import */ var _shared_components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/components/parts/creditcard/register-modal/register-modal.component */ "./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -533,7 +599,7 @@ var MypageCreditComponent = /** @class */ (function () {
                     case 1: return [4 /*yield*/, (_a.sent()).sellers];
                     case 2:
                         sellers = _a.sent();
-                        this.modal.show(_shared_components_parts_register_creditcard_modal_register_creditcard_modal_component__WEBPACK_IMPORTED_MODULE_7__["RegisterCreditcardModalComponent"], {
+                        this.modal.show(_shared_components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_7__["CreditcardRegisterModalComponent"], {
                             initialState: {
                                 sellers: sellers,
                                 cb: function (params) { return __awaiter(_this, void 0, void 0, function () {

@@ -11,7 +11,7 @@ import * as reducers from '../../../../../../store/reducers';
 import { MvtkCheckModalComponent } from '../../../../../shared/components/parts/mvtk-check-modal/mvtk-check-modal.component';
 import {
     PurchaseCinemaTicketModalComponent
-} from '../../../../../shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component';
+} from '../../../../../shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component';
 
 @Component({
     selector: 'app-purchase-cinema-ticket',

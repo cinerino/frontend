@@ -377,6 +377,45 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.html":
+/*!*****************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.html ***!
+  \*****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.chargeAccount.title' | translate }}</div>\n    <p class=\"mb-3\">{{ 'modal.chargeAccount.read' | translate }}</p>\n\n    <div class=\"mb-4\">\n        <form *ngIf=\"chargeAccountForm\" [formGroup]=\"chargeAccountForm\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.seller' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <select class=\"form-control\" id=\"sellerId\" formControlName=\"sellerId\">\n                        <option value=\"\">{{ 'form.unselected' | translate }}</option>\n                        <option *ngFor=\"let seller of sellers\" [value]=\"seller.id\">\n                            {{ seller.name | changeLanguage }}</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'modal.chargeAccount.amount' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"number\" class=\"form-control\" id=\"charge\" formControlName=\"amount\" placeholder=\"0\"\n                        maxlength=\"5\">\n                    <div *ngIf=\"chargeAccountForm.controls.amount.invalid && chargeAccountForm.controls.amount.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"chargeAccountForm.controls.amount.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"chargeAccountForm.controls.amount.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <p class=\"mb-2\">{{ 'modal.chargeAccount.creditCard' | translate }}</p>\n                <button type=\"button\" *ngFor=\"let creditCard of creditCards\"\n                    class=\"btn btn-block text-left mb-3 creditCard\"\n                    [class.btn-outline-primary]=\"chargeAccountForm.controls.cregitCard.value !== creditCard\"\n                    [class.btn-primary]=\"chargeAccountForm.controls.cregitCard.value === creditCard\"\n                    (click)=\"selectCreditCard(creditCard)\">\n                    <div>\n                        <p class=\"text-x-small\">{{ 'common.credit.cardNumber' | translate }}</p>\n                        <p>{{ creditCard.cardNo }}</p>\n                    </div>\n                    <div>\n                        <p class=\"text-x-small\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                        <p>{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}</p>\n                    </div>\n                </button>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"chargeAccountForm.invalid\">{{ 'modal.chargeAccount.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+
+/***/ }),
+
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/open-modal/open-modal.component.html":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/open-modal/open-modal.component.html ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.openAccount.title' | translate }}</div>\n    <p class=\"mb-3 text-left text-md-center\">{{ 'modal.openAccount.read' | translate }}</p>\n\n    <div class=\"mb-4\">\n        <form *ngIf=\"openAccountForm\" [formGroup]=\"openAccountForm\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'modal.openAccount.name' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"name\" formControlName=\"name\" placeholder=\"\"\n                        maxlength=\"30\">\n                    <div *ngIf=\"openAccountForm.controls.name.invalid && openAccountForm.controls.name.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"openAccountForm.controls.name.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'modal.openAccount.accountType' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <select type=\"number\" class=\"form-control\" id=\"accountType\" formControlName=\"accountType\">\n                        <option [value]=\"accountType.Coin\">{{ accountType.Coin }}</option>\n                        <option [value]=\"accountType.Point\">{{ accountType.Point }}</option>\n                    </select>\n                </div>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"openAccountForm.invalid\">{{ 'modal.openAccount.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+
+/***/ }),
+
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.html":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.html ***!
+  \*********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.chargeAccount.title' | translate }}</div>\n    <p class=\"mb-3\">{{ 'modal.chargeAccount.read' | translate }}</p>\n\n    <div class=\"mb-4\">\n        <form *ngIf=\"chargeAccountForm\" [formGroup]=\"chargeAccountForm\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.seller' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <select class=\"form-control\" id=\"sellerId\" formControlName=\"sellerId\">\n                        <option value=\"\">{{ 'form.unselected' | translate }}</option>\n                        <option *ngFor=\"let seller of sellers\" [value]=\"seller.id\">\n                            {{ seller.name | changeLanguage }}</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'modal.chargeAccount.amount' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"number\" class=\"form-control\" id=\"charge\" formControlName=\"amount\" placeholder=\"0\"\n                        maxlength=\"5\">\n                    <div *ngIf=\"chargeAccountForm.controls.amount.invalid && chargeAccountForm.controls.amount.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"chargeAccountForm.controls.amount.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"chargeAccountForm.controls.amount.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <p class=\"mb-2\">{{ 'modal.chargeAccount.creditCard' | translate }}</p>\n                <button type=\"button\" *ngFor=\"let creditCard of creditCards\"\n                    class=\"btn btn-block text-left mb-3 creditCard\"\n                    [class.btn-outline-primary]=\"chargeAccountForm.controls.cregitCard.value !== creditCard\"\n                    [class.btn-primary]=\"chargeAccountForm.controls.cregitCard.value === creditCard\"\n                    (click)=\"selectCreditCard(creditCard)\">\n                    <div>\n                        <p class=\"text-x-small\">{{ 'common.credit.cardNumber' | translate }}</p>\n                        <p>{{ creditCard.cardNo }}</p>\n                    </div>\n                    <div>\n                        <p class=\"text-x-small\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                        <p>{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}</p>\n                    </div>\n                </button>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"chargeAccountForm.invalid\">{{ 'modal.chargeAccount.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+
+/***/ }),
+
 /***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/alert-modal/alert-modal.component.html":
 /*!*******************************************************************************************************************************************************************************!*\
   !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/alert-modal/alert-modal.component.html ***!
@@ -387,19 +426,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div *ngIf=\"title\" class=\"mb-3 text-large text-center\">{{ title }}</div>\n    <p class=\"mb-3 text-md-center\" [innerHTML]=\"body\"></p>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\" (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.html":
-/*!*************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.html ***!
-  \*************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.chargeAccount.title' | translate }}</div>\n    <p class=\"mb-3\">{{ 'modal.chargeAccount.read' | translate }}</p>\n\n    <div class=\"mb-4\">\n        <form *ngIf=\"chargeAccountForm\" [formGroup]=\"chargeAccountForm\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.seller' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <select class=\"form-control\" id=\"sellerId\" formControlName=\"sellerId\">\n                        <option value=\"\">{{ 'form.unselected' | translate }}</option>\n                        <option *ngFor=\"let seller of sellers\" [value]=\"seller.id\">\n                            {{ seller.name | changeLanguage }}</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'modal.chargeAccount.amount' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"number\" class=\"form-control\" id=\"charge\" formControlName=\"amount\" placeholder=\"0\"\n                        maxlength=\"5\">\n                    <div *ngIf=\"chargeAccountForm.controls.amount.invalid && chargeAccountForm.controls.amount.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"chargeAccountForm.controls.amount.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"chargeAccountForm.controls.amount.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <p class=\"mb-2\">{{ 'modal.chargeAccount.creditCard' | translate }}</p>\n                <button type=\"button\" *ngFor=\"let creditCard of creditCards\"\n                    class=\"btn btn-block text-left mb-3 creditCard\"\n                    [class.btn-outline-primary]=\"chargeAccountForm.controls.cregitCard.value !== creditCard\"\n                    [class.btn-primary]=\"chargeAccountForm.controls.cregitCard.value === creditCard\"\n                    (click)=\"selectCreditCard(creditCard)\">\n                    <div>\n                        <p class=\"text-x-small\">{{ 'common.credit.cardNumber' | translate }}</p>\n                        <p>{{ creditCard.cardNo }}</p>\n                    </div>\n                    <div>\n                        <p class=\"text-x-small\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                        <p>{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}</p>\n                    </div>\n                </button>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"chargeAccountForm.invalid\">{{ 'modal.chargeAccount.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -426,6 +452,32 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<div id=\"contents\" class=\"scroll\" [class.touch]=\"touch\">\n    <ng-content></ng-content>\n</div>");
+
+/***/ }),
+
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.html":
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.html ***!
+  \************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.registerCreditCard.title' | translate }}</div>\n    <p class=\"mb-3 text-left text-md-center\">{{ 'modal.registerCreditCard.read' | translate }}</p>\n\n    <div class=\"mb-4\">\n        <form *ngIf=\"creditCardForm\" [formGroup]=\"creditCardForm\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.seller' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <select class=\"form-control\" id=\"sellerId\" formControlName=\"sellerId\">\n                        <option value=\"\">{{ 'form.unselected' | translate }}</option>\n                        <option *ngFor=\"let seller of sellers\" [value]=\"seller.id\">\n                            {{ seller.name | changeLanguage }}</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardNumber' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"cardNumber\" formControlName=\"cardNumber\" placeholder=\"\"\n                        maxlength=\"16\">\n                    <div *ngIf=\"creditCardForm.controls.cardNumber.invalid && creditCardForm.controls.cardNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.cardNumber.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"creditCardForm.controls.cardNumber.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <div class=\"form-inline\">\n                        <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationMonth\"\n                            formControlName=\"cardExpirationMonth\">\n                            <option *ngFor=\"let month of cardExpiration.month\" [value]=\"month\">{{ month }}\n                            </option>\n                        </select>\n                        <span class=\"mx-2\">{{ 'common.date.month' | translate }}</span>\n                        <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationYear\"\n                            formControlName=\"cardExpirationYear\">\n                            <option *ngFor=\"let year of cardExpiration.year\" [value]=\"year\">{{ year }}</option>\n                        </select>\n                        <span class=\"mx-2\">{{ 'common.date.year' | translate }}</span>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.securityCode' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"securityCode\" placeholder=\"\"\n                        formControlName=\"securityCode\">\n                    <div *ngIf=\"creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.securityCode.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.holderName' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"holderName\" placeholder=\"\" formControlName=\"holderName\">\n                    <div *ngIf=\"creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.holderName.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"creditCardForm.invalid\">{{ 'modal.registerCreditCard.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+
+/***/ }),
+
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.html":
+/*!********************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.html ***!
+  \********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3\">\n    <button type=\"button\" *ngFor=\"let creditCard of creditCards\" class=\"btn btn-block btn-outline-primary text-left mb-3\" (click)=\"close(creditCard)\">\n        <div>\n            <p class=\"text-x-small\">{{ 'common.credit.cardNumber' | translate }}</p>\n            <p>{{ creditCard.cardNo }}</p>\n        </div>\n        <div>\n            <p class=\"text-x-small\">{{ 'common.credit.cardExpiration' | translate }}</p>\n            <p>{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}</p>\n        </div>\n    </button>\n</div>");
 
 /***/ }),
 
@@ -507,19 +559,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.html":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.html ***!
-  \*********************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.openAccount.title' | translate }}</div>\n    <p class=\"mb-3 text-left text-md-center\">{{ 'modal.openAccount.read' | translate }}</p>\n\n    <div class=\"mb-4\">\n        <form *ngIf=\"openAccountForm\" [formGroup]=\"openAccountForm\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'modal.openAccount.name' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"name\" formControlName=\"name\" placeholder=\"\"\n                        maxlength=\"30\">\n                    <div *ngIf=\"openAccountForm.controls.name.invalid && openAccountForm.controls.name.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"openAccountForm.controls.name.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'modal.openAccount.accountType' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <select type=\"number\" class=\"form-control\" id=\"accountType\" formControlName=\"accountType\">\n                        <option [value]=\"accountType.Coin\">{{ accountType.Coin }}</option>\n                        <option [value]=\"accountType.Point\">{{ accountType.Point }}</option>\n                    </select>\n                </div>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"openAccountForm.invalid\">{{ 'modal.openAccount.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
-
-/***/ }),
-
 /***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.html":
 /*!*********************************************************************************************************************************************************************************************!*\
   !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.html ***!
@@ -533,10 +572,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.html":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.html ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.html":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.html ***!
+  \*************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -546,10 +585,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.html":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.html ***!
-  \***************************************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.html":
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.html ***!
+  \************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -559,10 +598,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.html":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.html ***!
-  \*************************************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.html":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.html ***!
+  \****************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -585,19 +624,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.html":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.html ***!
-  \***********************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.registerCreditCard.title' | translate }}</div>\n    <p class=\"mb-3 text-left text-md-center\">{{ 'modal.registerCreditCard.read' | translate }}</p>\n\n    <div class=\"mb-4\">\n        <form *ngIf=\"creditCardForm\" [formGroup]=\"creditCardForm\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.seller' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <select class=\"form-control\" id=\"sellerId\" formControlName=\"sellerId\">\n                        <option value=\"\">{{ 'form.unselected' | translate }}</option>\n                        <option *ngFor=\"let seller of sellers\" [value]=\"seller.id\">\n                            {{ seller.name | changeLanguage }}</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardNumber' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"cardNumber\" formControlName=\"cardNumber\" placeholder=\"\"\n                        maxlength=\"16\">\n                    <div *ngIf=\"creditCardForm.controls.cardNumber.invalid && creditCardForm.controls.cardNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.cardNumber.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"creditCardForm.controls.cardNumber.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <div class=\"form-inline\">\n                        <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationMonth\"\n                            formControlName=\"cardExpirationMonth\">\n                            <option *ngFor=\"let month of cardExpiration.month\" [value]=\"month\">{{ month }}\n                            </option>\n                        </select>\n                        <span class=\"mx-2\">{{ 'common.date.month' | translate }}</span>\n                        <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationYear\"\n                            formControlName=\"cardExpirationYear\">\n                            <option *ngFor=\"let year of cardExpiration.year\" [value]=\"year\">{{ year }}</option>\n                        </select>\n                        <span class=\"mx-2\">{{ 'common.date.year' | translate }}</span>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.securityCode' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"securityCode\" placeholder=\"\"\n                        formControlName=\"securityCode\">\n                    <div *ngIf=\"creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.securityCode.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.holderName' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"holderName\" placeholder=\"\" formControlName=\"holderName\">\n                    <div *ngIf=\"creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.holderName.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"creditCardForm.invalid\">{{ 'modal.registerCreditCard.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
-
-/***/ }),
-
 /***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.html":
 /*!***********************************************************************************************************************************************************************************************!*\
   !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.html ***!
@@ -608,19 +634,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.securityCode.title' | translate }}</div>\n    <p class=\"mb-3 text-md-center\">{{ 'modal.securityCode.read' | translate }}</p>\n    <div class=\"bg-light-gray p-3 mb-3\">\n        <p><strong>{{ 'modal.securityCode.back.title' | translate }}</strong></p>\n        <p class=\"mb-3\">{{ 'modal.securityCode.back.read' | translate }}</p>\n        <div class=\"mb-3\">\n            <img src=\"/assets/images/credit_back.svg\">\n        </div>\n        <p><strong>{{ 'modal.securityCode.front.title' | translate }}</strong></p>\n        <p class=\"mb-3\">{{ 'modal.securityCode.front.read' | translate }}</p>\n        <div class=\"mb-3\">\n            <img src=\"/assets/images/credit_front.svg\">\n        </div>\n    </div>\n    <div class=\"buttons mx-auto text-center btn-sm\">\n        <button type=\"button\" class=\"btn btn-link\" (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/select-creditcard-modal/select-creditcard-modal.component.html":
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/select-creditcard-modal/select-creditcard-modal.component.html ***!
-  \*******************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3\">\n    <button type=\"button\" *ngFor=\"let creditCard of creditCards\" class=\"btn btn-block btn-outline-primary text-left mb-3\" (click)=\"close(creditCard)\">\n        <div>\n            <p class=\"text-x-small\">{{ 'common.credit.cardNumber' | translate }}</p>\n            <p>{{ creditCard.cardNo }}</p>\n        </div>\n        <div>\n            <p class=\"text-x-small\">{{ 'common.credit.cardExpiration' | translate }}</p>\n            <p>{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}</p>\n        </div>\n    </button>\n</div>");
 
 /***/ }),
 
@@ -3121,6 +3134,302 @@ var BaseComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.scss":
+/*!**********************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.scss ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".creditCard:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvYWNjb3VudC9jaGFyZ2UtbW9kYWwvQzpcXFVzZXJzXFxoYXRhZ3VjaGlcXERlc2t0b3BcXHdvcmtzcGFjZVxcQ2luZXJpbm9cXGZyb250ZW5kL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXGFjY291bnRcXGNoYXJnZS1tb2RhbFxcY2hhcmdlLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9hY2NvdW50L2NoYXJnZS1tb2RhbC9jaGFyZ2UtbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSwyQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvYWNjb3VudC9jaGFyZ2UtbW9kYWwvY2hhcmdlLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNyZWRpdENhcmQ6bGFzdC1jaGlsZCB7XG4gICAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xufSIsIi5jcmVkaXRDYXJkOmxhc3QtY2hpbGQge1xuICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG59Il19 */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.ts":
+/*!********************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.ts ***!
+  \********************************************************************************************/
+/*! exports provided: AccountChargeModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountChargeModalComponent", function() { return AccountChargeModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+var AccountChargeModalComponent = /** @class */ (function () {
+    function AccountChargeModalComponent(formBuilder, modal) {
+        this.formBuilder = formBuilder;
+        this.modal = modal;
+    }
+    AccountChargeModalComponent.prototype.ngOnInit = function () {
+        this.createChargeForm();
+    };
+    AccountChargeModalComponent.prototype.close = function () {
+        var _this = this;
+        this.modal.hide();
+        var seller = this.sellers.find(function (s) { return s.id === _this.chargeAccountForm.controls.sellerId.value; });
+        this.cb({
+            seller: seller,
+            amount: this.chargeAccountForm.controls.amount.value,
+            creditCard: this.chargeAccountForm.controls.cregitCard.value
+        });
+    };
+    AccountChargeModalComponent.prototype.selectCreditCard = function (cregitCard) {
+        this.chargeAccountForm.controls.cregitCard.setValue(cregitCard);
+    };
+    AccountChargeModalComponent.prototype.createChargeForm = function () {
+        this.chargeAccountForm = this.formBuilder.group({
+            sellerId: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            amount: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
+            cregitCard: [this.creditCards[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
+        });
+    };
+    AccountChargeModalComponent.ctorParameters = function () { return [
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] }
+    ]; };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], AccountChargeModalComponent.prototype, "sellers", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], AccountChargeModalComponent.prototype, "creditCards", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Function)
+    ], AccountChargeModalComponent.prototype, "cb", void 0);
+    AccountChargeModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-charge-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./charge-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./charge-modal.component.scss */ "./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.scss")).default]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]])
+    ], AccountChargeModalComponent);
+    return AccountChargeModalComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/account/open-modal/open-modal.component.scss":
+/*!******************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/account/open-modal/open-modal.component.scss ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL2FjY291bnQvb3Blbi1tb2RhbC9vcGVuLW1vZGFsLmNvbXBvbmVudC5zY3NzIn0= */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/account/open-modal/open-modal.component.ts":
+/*!****************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/account/open-modal/open-modal.component.ts ***!
+  \****************************************************************************************/
+/*! exports provided: AccountOpenModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountOpenModalComponent", function() { return AccountOpenModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+var AccountOpenModalComponent = /** @class */ (function () {
+    function AccountOpenModalComponent(formBuilder, modal) {
+        this.formBuilder = formBuilder;
+        this.modal = modal;
+        this.accountType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].accountType;
+    }
+    AccountOpenModalComponent.prototype.ngOnInit = function () {
+        this.createOpenForm();
+    };
+    AccountOpenModalComponent.prototype.close = function () {
+        this.modal.hide();
+        this.cb({
+            name: this.openAccountForm.controls.name.value,
+            accountType: this.openAccountForm.controls.accountType.value
+        });
+    };
+    AccountOpenModalComponent.prototype.createOpenForm = function () {
+        this.openAccountForm = this.formBuilder.group({
+            name: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            accountType: [this.accountType.Coin, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
+        });
+    };
+    AccountOpenModalComponent.ctorParameters = function () { return [
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] }
+    ]; };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], AccountOpenModalComponent.prototype, "sellers", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Function)
+    ], AccountOpenModalComponent.prototype, "cb", void 0);
+    AccountOpenModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-open-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./open-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/open-modal/open-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./open-modal.component.scss */ "./app/modules/shared/components/parts/account/open-modal/open-modal.component.scss")).default]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
+    ], AccountOpenModalComponent);
+    return AccountOpenModalComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.scss":
+/*!**************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.scss ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".creditCard:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvYWNjb3VudC90cmFuc2Zlci1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcYWNjb3VudFxcdHJhbnNmZXItbW9kYWxcXHRyYW5zZmVyLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9hY2NvdW50L3RyYW5zZmVyLW1vZGFsL3RyYW5zZmVyLW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksMkJBQUE7QUNDSiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL2FjY291bnQvdHJhbnNmZXItbW9kYWwvdHJhbnNmZXItbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY3JlZGl0Q2FyZDpsYXN0LWNoaWxkIHtcbiAgICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG59IiwiLmNyZWRpdENhcmQ6bGFzdC1jaGlsZCB7XG4gIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.ts":
+/*!************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.ts ***!
+  \************************************************************************************************/
+/*! exports provided: AccountTransferModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountTransferModalComponent", function() { return AccountTransferModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+var AccountTransferModalComponent = /** @class */ (function () {
+    function AccountTransferModalComponent(formBuilder, modal) {
+        this.formBuilder = formBuilder;
+        this.modal = modal;
+    }
+    AccountTransferModalComponent.prototype.ngOnInit = function () {
+        this.createChargeForm();
+    };
+    AccountTransferModalComponent.prototype.close = function () {
+        var _this = this;
+        this.modal.hide();
+        var seller = this.sellers.find(function (s) { return s.id === _this.chargeAccountForm.controls.sellerId.value; });
+        this.cb({
+            seller: seller,
+            amount: this.chargeAccountForm.controls.amount.value,
+            creditCard: this.chargeAccountForm.controls.cregitCard.value
+        });
+    };
+    AccountTransferModalComponent.prototype.selectCreditCard = function (cregitCard) {
+        this.chargeAccountForm.controls.cregitCard.setValue(cregitCard);
+    };
+    AccountTransferModalComponent.prototype.createChargeForm = function () {
+        this.chargeAccountForm = this.formBuilder.group({
+            sellerId: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            amount: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
+            cregitCard: [this.creditCards[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
+        });
+    };
+    AccountTransferModalComponent.ctorParameters = function () { return [
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] }
+    ]; };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], AccountTransferModalComponent.prototype, "sellers", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], AccountTransferModalComponent.prototype, "creditCards", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Function)
+    ], AccountTransferModalComponent.prototype, "cb", void 0);
+    AccountTransferModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-transfer-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./transfer-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./transfer-modal.component.scss */ "./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.scss")).default]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]])
+    ], AccountTransferModalComponent);
+    return AccountTransferModalComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./app/modules/shared/components/parts/alert-modal/alert-modal.component.scss":
 /*!************************************************************************************!*\
   !*** ./app/modules/shared/components/parts/alert-modal/alert-modal.component.scss ***!
@@ -3186,107 +3495,6 @@ var AlertModalComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]])
     ], AlertModalComponent);
     return AlertModalComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.scss":
-/*!******************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.scss ***!
-  \******************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".creditCard:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvY2hhcmdlLWFjY291bnQtbW9kYWwvQzpcXFVzZXJzXFxoYXRhZ3VjaGlcXERlc2t0b3BcXHdvcmtzcGFjZVxcQ2luZXJpbm9cXGZyb250ZW5kL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXGNoYXJnZS1hY2NvdW50LW1vZGFsXFxjaGFyZ2UtYWNjb3VudC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvY2hhcmdlLWFjY291bnQtbW9kYWwvY2hhcmdlLWFjY291bnQtbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSwyQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvY2hhcmdlLWFjY291bnQtbW9kYWwvY2hhcmdlLWFjY291bnQtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY3JlZGl0Q2FyZDpsYXN0LWNoaWxkIHtcbiAgICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG59IiwiLmNyZWRpdENhcmQ6bGFzdC1jaGlsZCB7XG4gIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iXX0= */");
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.ts":
-/*!****************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.ts ***!
-  \****************************************************************************************************/
-/*! exports provided: ChargeAccountModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeAccountModalComponent", function() { return ChargeAccountModalComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-
-
-var ChargeAccountModalComponent = /** @class */ (function () {
-    function ChargeAccountModalComponent(formBuilder, modal) {
-        this.formBuilder = formBuilder;
-        this.modal = modal;
-    }
-    ChargeAccountModalComponent.prototype.ngOnInit = function () {
-        this.createChargeForm();
-    };
-    ChargeAccountModalComponent.prototype.close = function () {
-        var _this = this;
-        this.modal.hide();
-        var seller = this.sellers.find(function (s) { return s.id === _this.chargeAccountForm.controls.sellerId.value; });
-        this.cb({
-            seller: seller,
-            amount: this.chargeAccountForm.controls.amount.value,
-            creditCard: this.chargeAccountForm.controls.cregitCard.value
-        });
-    };
-    ChargeAccountModalComponent.prototype.selectCreditCard = function (cregitCard) {
-        this.chargeAccountForm.controls.cregitCard.setValue(cregitCard);
-    };
-    ChargeAccountModalComponent.prototype.createChargeForm = function () {
-        this.chargeAccountForm = this.formBuilder.group({
-            sellerId: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            amount: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
-            cregitCard: [this.creditCards[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
-        });
-    };
-    ChargeAccountModalComponent.ctorParameters = function () { return [
-        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] }
-    ]; };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Array)
-    ], ChargeAccountModalComponent.prototype, "sellers", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Array)
-    ], ChargeAccountModalComponent.prototype, "creditCards", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Function)
-    ], ChargeAccountModalComponent.prototype, "cb", void 0);
-    ChargeAccountModalComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-charge-account-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./charge-account-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./charge-account-modal.component.scss */ "./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.scss")).default]
-        }),
-        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]])
-    ], ChargeAccountModalComponent);
-    return ChargeAccountModalComponent;
 }());
 
 
@@ -3497,6 +3705,205 @@ var ContentsComponent = /** @class */ (function () {
             _services__WEBPACK_IMPORTED_MODULE_2__["UserService"]])
     ], ContentsComponent);
     return ContentsComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.scss":
+/*!*****************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.scss ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL2NyZWRpdGNhcmQvcmVnaXN0ZXItbW9kYWwvcmVnaXN0ZXItbW9kYWwuY29tcG9uZW50LnNjc3MifQ== */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.ts":
+/*!***************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.ts ***!
+  \***************************************************************************************************/
+/*! exports provided: CreditcardRegisterModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreditcardRegisterModalComponent", function() { return CreditcardRegisterModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+var CreditcardRegisterModalComponent = /** @class */ (function () {
+    function CreditcardRegisterModalComponent(formBuilder, modal) {
+        this.formBuilder = formBuilder;
+        this.modal = modal;
+    }
+    CreditcardRegisterModalComponent.prototype.ngOnInit = function () {
+        this.createCreditCardForm();
+    };
+    CreditcardRegisterModalComponent.prototype.close = function () {
+        var _this = this;
+        Object.keys(this.creditCardForm.controls).forEach(function (key) {
+            _this.creditCardForm.controls[key].markAsTouched();
+        });
+        this.creditCardForm.controls.cardNumber.setValue(document.getElementById('cardNumber').value);
+        this.creditCardForm.controls.securityCode.setValue(document.getElementById('securityCode').value);
+        this.creditCardForm.controls.holderName.setValue(document.getElementById('holderName').value);
+        if (this.creditCardForm.invalid) {
+            return;
+        }
+        this.modal.hide();
+        var cardExpiration = {
+            year: this.creditCardForm.controls.cardExpirationYear.value,
+            month: this.creditCardForm.controls.cardExpirationMonth.value
+        };
+        var creditCard = {
+            cardno: this.creditCardForm.controls.cardNumber.value,
+            expire: "" + cardExpiration.year + cardExpiration.month,
+            holderName: this.creditCardForm.controls.holderName.value,
+            securityCode: this.creditCardForm.controls.securityCode.value
+        };
+        var seller = this.sellers.find(function (s) { return s.id === _this.creditCardForm.controls.sellerId.value; });
+        this.cb({ creditCard: creditCard, seller: seller });
+    };
+    /**
+     * クレジットカードフォーム作成
+     */
+    CreditcardRegisterModalComponent.prototype.createCreditCardForm = function () {
+        this.cardExpiration = { year: [], month: [] };
+        for (var i = 0; i < 12; i++) {
+            this.cardExpiration.month.push(("0" + String(i + 1)).slice(-2));
+        }
+        for (var i = 0; i < 10; i++) {
+            this.cardExpiration.year.push(moment__WEBPACK_IMPORTED_MODULE_2__().add(i, 'year').format('YYYY'));
+        }
+        this.creditCardForm = this.formBuilder.group({
+            sellerId: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            cardNumber: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
+            cardExpirationMonth: [this.cardExpiration.month[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            cardExpirationYear: [this.cardExpiration.year[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            securityCode: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
+            holderName: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
+        });
+    };
+    CreditcardRegisterModalComponent.ctorParameters = function () { return [
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] }
+    ]; };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Function)
+    ], CreditcardRegisterModalComponent.prototype, "cb", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], CreditcardRegisterModalComponent.prototype, "sellers", void 0);
+    CreditcardRegisterModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-register-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./register-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./register-modal.component.scss */ "./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.scss")).default]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
+    ], CreditcardRegisterModalComponent);
+    return CreditcardRegisterModalComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.scss":
+/*!*************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.scss ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("button:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvY3JlZGl0Y2FyZC9zZWxlY3QtbW9kYWwvQzpcXFVzZXJzXFxoYXRhZ3VjaGlcXERlc2t0b3BcXHdvcmtzcGFjZVxcQ2luZXJpbm9cXGZyb250ZW5kL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXGNyZWRpdGNhcmRcXHNlbGVjdC1tb2RhbFxcc2VsZWN0LW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9jcmVkaXRjYXJkL3NlbGVjdC1tb2RhbC9zZWxlY3QtbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSwyQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvY3JlZGl0Y2FyZC9zZWxlY3QtbW9kYWwvc2VsZWN0LW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYnV0dG9uOmxhc3QtY2hpbGQge1xuICAgIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iLCJidXR0b246bGFzdC1jaGlsZCB7XG4gIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.ts":
+/*!***********************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.ts ***!
+  \***********************************************************************************************/
+/*! exports provided: CreditCardSelectModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreditCardSelectModalComponent", function() { return CreditCardSelectModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+var CreditCardSelectModalComponent = /** @class */ (function () {
+    function CreditCardSelectModalComponent(modal) {
+        this.modal = modal;
+    }
+    CreditCardSelectModalComponent.prototype.ngOnInit = function () { };
+    CreditCardSelectModalComponent.prototype.close = function (creditCard) {
+        this.modal.hide();
+        this.cb(creditCard);
+    };
+    CreditCardSelectModalComponent.ctorParameters = function () { return [
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"] }
+    ]; };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], CreditCardSelectModalComponent.prototype, "creditCards", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Function)
+    ], CreditCardSelectModalComponent.prototype, "cb", void 0);
+    CreditCardSelectModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-select-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./select-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./select-modal.component.scss */ "./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.scss")).default]
+        }),
+        __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]])
+    ], CreditCardSelectModalComponent);
+    return CreditCardSelectModalComponent;
 }());
 
 
@@ -4360,100 +4767,6 @@ var NumericKeypadComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.scss":
-/*!**************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.scss ***!
-  \**************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL29wZW4tYWNjb3VudC1tb2RhbC9vcGVuLWFjY291bnQtbW9kYWwuY29tcG9uZW50LnNjc3MifQ== */");
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.ts":
-/*!************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.ts ***!
-  \************************************************************************************************/
-/*! exports provided: OpenAccountModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OpenAccountModalComponent", function() { return OpenAccountModalComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-
-
-
-var OpenAccountModalComponent = /** @class */ (function () {
-    function OpenAccountModalComponent(formBuilder, modal) {
-        this.formBuilder = formBuilder;
-        this.modal = modal;
-        this.accountType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].accountType;
-    }
-    OpenAccountModalComponent.prototype.ngOnInit = function () {
-        this.createOpenForm();
-    };
-    OpenAccountModalComponent.prototype.close = function () {
-        this.modal.hide();
-        this.cb({
-            name: this.openAccountForm.controls.name.value,
-            accountType: this.openAccountForm.controls.accountType.value
-        });
-    };
-    OpenAccountModalComponent.prototype.createOpenForm = function () {
-        this.openAccountForm = this.formBuilder.group({
-            name: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            accountType: [this.accountType.Coin, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
-        });
-    };
-    OpenAccountModalComponent.ctorParameters = function () { return [
-        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] }
-    ]; };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Array)
-    ], OpenAccountModalComponent.prototype, "sellers", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Function)
-    ], OpenAccountModalComponent.prototype, "cb", void 0);
-    OpenAccountModalComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-open-account-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./open-account-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./open-account-modal.component.scss */ "./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.scss")).default]
-        }),
-        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
-    ], OpenAccountModalComponent);
-    return OpenAccountModalComponent;
-}());
-
-
-
-/***/ }),
-
 /***/ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.scss":
 /*!**************************************************************************************************!*\
   !*** ./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.scss ***!
@@ -4542,23 +4855,23 @@ var OrderDetailModalComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.scss":
-/*!**********************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.scss ***!
-  \**********************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.scss":
+/*!******************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.scss ***!
+  \******************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".close {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical {\n  max-height: 75vh;\n}\n\n.ticket:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UtY2luZW1hLXRpY2tldC1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xccHVyY2hhc2UtY2luZW1hLXRpY2tldC1tb2RhbFxccHVyY2hhc2UtY2luZW1hLXRpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UtY2luZW1hLXRpY2tldC1tb2RhbC9wdXJjaGFzZS1jaW5lbWEtdGlja2V0LW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsUUFBQTtBQ0NKOztBRENBO0VBQ0ksZ0JBQUE7QUNFSjs7QURDSTtFQUNJLDJCQUFBO0FDRVIiLCJmaWxlIjoic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9wdXJjaGFzZS1jaW5lbWEtdGlja2V0LW1vZGFsL3B1cmNoYXNlLWNpbmVtYS10aWNrZXQtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2xvc2Uge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IC0zMHB4O1xuICAgIHJpZ2h0OiAwO1xufVxuLnNjcm9sbC12ZXJ0aWNhbCB7XG4gICAgbWF4LWhlaWdodDogNzV2aDtcbn1cbi50aWNrZXQge1xuICAgICY6bGFzdC1jaGlsZCB7XG4gICAgICAgIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbiAgICB9XG59IiwiLmNsb3NlIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IC0zMHB4O1xuICByaWdodDogMDtcbn1cblxuLnNjcm9sbC12ZXJ0aWNhbCB7XG4gIG1heC1oZWlnaHQ6IDc1dmg7XG59XG5cbi50aWNrZXQ6bGFzdC1jaGlsZCB7XG4gIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = (".close {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical {\n  max-height: 75vh;\n}\n\n.ticket:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UvY2luZW1hL3RpY2tldC1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xccHVyY2hhc2VcXGNpbmVtYVxcdGlja2V0LW1vZGFsXFx0aWNrZXQtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3B1cmNoYXNlL2NpbmVtYS90aWNrZXQtbW9kYWwvdGlja2V0LW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsUUFBQTtBQ0NKOztBRENBO0VBQ0ksZ0JBQUE7QUNFSjs7QURDSTtFQUNJLDJCQUFBO0FDRVIiLCJmaWxlIjoic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9wdXJjaGFzZS9jaW5lbWEvdGlja2V0LW1vZGFsL3RpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jbG9zZSB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogLTMwcHg7XG4gICAgcmlnaHQ6IDA7XG59XG4uc2Nyb2xsLXZlcnRpY2FsIHtcbiAgICBtYXgtaGVpZ2h0OiA3NXZoO1xufVxuLnRpY2tldCB7XG4gICAgJjpsYXN0LWNoaWxkIHtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xuICAgIH1cbn0iLCIuY2xvc2Uge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogLTMwcHg7XG4gIHJpZ2h0OiAwO1xufVxuXG4uc2Nyb2xsLXZlcnRpY2FsIHtcbiAgbWF4LWhlaWdodDogNzV2aDtcbn1cblxuLnRpY2tldDpsYXN0LWNoaWxkIHtcbiAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xufSJdfQ== */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.ts":
-/*!********************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.ts ***!
-  \********************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts":
+/*!****************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts ***!
+  \****************************************************************************************************/
 /*! exports provided: PurchaseCinemaTicketModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4569,7 +4882,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../functions */ "./app/functions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4686,9 +4999,9 @@ var PurchaseCinemaTicketModalComponent = /** @class */ (function () {
     ], PurchaseCinemaTicketModalComponent.prototype, "cb", void 0);
     PurchaseCinemaTicketModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-purchase-cinema-ticket-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./purchase-cinema-ticket-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./purchase-cinema-ticket-modal.component.scss */ "./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.scss")).default]
+            selector: 'app-ticket-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./ticket-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./ticket-modal.component.scss */ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.scss")).default]
         }),
         __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]])
     ], PurchaseCinemaTicketModalComponent);
@@ -4699,23 +5012,23 @@ var PurchaseCinemaTicketModalComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.scss":
-/*!********************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.scss ***!
-  \********************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.scss":
+/*!*****************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.scss ***!
+  \*****************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".close {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical {\n  max-height: 75vh;\n}\n\n.ticket:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UtZXZlbnQtdGlja2V0LW1vZGFsL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxmcm9udGVuZC9zcmNcXGNsaWVudFxcYXBwXFxtb2R1bGVzXFxzaGFyZWRcXGNvbXBvbmVudHNcXHBhcnRzXFxwdXJjaGFzZS1ldmVudC10aWNrZXQtbW9kYWxcXHB1cmNoYXNlLWV2ZW50LXRpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UtZXZlbnQtdGlja2V0LW1vZGFsL3B1cmNoYXNlLWV2ZW50LXRpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLFFBQUE7QUNDSjs7QURDQTtFQUNJLGdCQUFBO0FDRUo7O0FEQ0k7RUFDSSwyQkFBQTtBQ0VSIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UtZXZlbnQtdGlja2V0LW1vZGFsL3B1cmNoYXNlLWV2ZW50LXRpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jbG9zZSB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogLTMwcHg7XG4gICAgcmlnaHQ6IDA7XG59XG4uc2Nyb2xsLXZlcnRpY2FsIHtcbiAgICBtYXgtaGVpZ2h0OiA3NXZoO1xufVxuLnRpY2tldCB7XG4gICAgJjpsYXN0LWNoaWxkIHtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xuICAgIH1cbn0iLCIuY2xvc2Uge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogLTMwcHg7XG4gIHJpZ2h0OiAwO1xufVxuXG4uc2Nyb2xsLXZlcnRpY2FsIHtcbiAgbWF4LWhlaWdodDogNzV2aDtcbn1cblxuLnRpY2tldDpsYXN0LWNoaWxkIHtcbiAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".close {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical {\n  max-height: 75vh;\n}\n\n.ticket:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UvZXZlbnQvdGlja2V0LW1vZGFsL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxmcm9udGVuZC9zcmNcXGNsaWVudFxcYXBwXFxtb2R1bGVzXFxzaGFyZWRcXGNvbXBvbmVudHNcXHBhcnRzXFxwdXJjaGFzZVxcZXZlbnRcXHRpY2tldC1tb2RhbFxcdGlja2V0LW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9wdXJjaGFzZS9ldmVudC90aWNrZXQtbW9kYWwvdGlja2V0LW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsUUFBQTtBQ0NKOztBRENBO0VBQ0ksZ0JBQUE7QUNFSjs7QURDSTtFQUNJLDJCQUFBO0FDRVIiLCJmaWxlIjoic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9wdXJjaGFzZS9ldmVudC90aWNrZXQtbW9kYWwvdGlja2V0LW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNsb3NlIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgdG9wOiAtMzBweDtcbiAgICByaWdodDogMDtcbn1cbi5zY3JvbGwtdmVydGljYWwge1xuICAgIG1heC1oZWlnaHQ6IDc1dmg7XG59XG4udGlja2V0IHtcbiAgICAmOmxhc3QtY2hpbGQge1xuICAgICAgICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG4gICAgfVxufSIsIi5jbG9zZSB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAtMzBweDtcbiAgcmlnaHQ6IDA7XG59XG5cbi5zY3JvbGwtdmVydGljYWwge1xuICBtYXgtaGVpZ2h0OiA3NXZoO1xufVxuXG4udGlja2V0Omxhc3QtY2hpbGQge1xuICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG59Il19 */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.ts":
-/*!******************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.ts ***!
-  \******************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts":
+/*!***************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts ***!
+  \***************************************************************************************************/
 /*! exports provided: PurchaseEventTicketModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4728,8 +5041,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../../functions */ "./app/functions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4842,9 +5155,9 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
     ], PurchaseEventTicketModalComponent.prototype, "cb", void 0);
     PurchaseEventTicketModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-purchase-event-ticket-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./purchase-event-ticket-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./purchase-event-ticket-modal.component.scss */ "./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.scss")).default]
+            selector: 'app-ticket-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./ticket-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./ticket-modal.component.scss */ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.scss")).default]
         }),
         __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
     ], PurchaseEventTicketModalComponent);
@@ -4855,23 +5168,23 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.scss":
-/*!******************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.scss ***!
-  \******************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.scss":
+/*!*********************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.scss ***!
+  \*********************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3B1cmNoYXNlLXRyYW5zYWN0aW9uLW1vZGFsL3B1cmNoYXNlLXRyYW5zYWN0aW9uLW1vZGFsLmNvbXBvbmVudC5zY3NzIn0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3B1cmNoYXNlL3RyYW5zYWN0aW9uLW1vZGFsL3RyYW5zYWN0aW9uLW1vZGFsLmNvbXBvbmVudC5zY3NzIn0= */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.ts":
-/*!****************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.ts ***!
-  \****************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts":
+/*!*******************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts ***!
+  \*******************************************************************************************************/
 /*! exports provided: PurchaseTransactionModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4880,7 +5193,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PurchaseTransactionModalComponent", function() { return PurchaseTransactionModalComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4923,9 +5236,9 @@ var PurchaseTransactionModalComponent = /** @class */ (function () {
     ], PurchaseTransactionModalComponent.prototype, "cb", void 0);
     PurchaseTransactionModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-purchase-transaction-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./purchase-transaction-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./purchase-transaction-modal.component.scss */ "./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.scss")).default]
+            selector: 'app-transaction-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./transaction-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./transaction-modal.component.scss */ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.scss")).default]
         }),
         __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]])
     ], PurchaseTransactionModalComponent);
@@ -5034,131 +5347,6 @@ var QrCodeModalComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.scss":
-/*!****************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.scss ***!
-  \****************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3JlZ2lzdGVyLWNyZWRpdGNhcmQtbW9kYWwvcmVnaXN0ZXItY3JlZGl0Y2FyZC1tb2RhbC5jb21wb25lbnQuc2NzcyJ9 */");
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.ts":
-/*!**************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.ts ***!
-  \**************************************************************************************************************/
-/*! exports provided: RegisterCreditcardModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisterCreditcardModalComponent", function() { return RegisterCreditcardModalComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-
-
-
-var RegisterCreditcardModalComponent = /** @class */ (function () {
-    function RegisterCreditcardModalComponent(formBuilder, modal) {
-        this.formBuilder = formBuilder;
-        this.modal = modal;
-    }
-    RegisterCreditcardModalComponent.prototype.ngOnInit = function () {
-        this.createCreditCardForm();
-    };
-    RegisterCreditcardModalComponent.prototype.close = function () {
-        var _this = this;
-        Object.keys(this.creditCardForm.controls).forEach(function (key) {
-            _this.creditCardForm.controls[key].markAsTouched();
-        });
-        this.creditCardForm.controls.cardNumber.setValue(document.getElementById('cardNumber').value);
-        this.creditCardForm.controls.securityCode.setValue(document.getElementById('securityCode').value);
-        this.creditCardForm.controls.holderName.setValue(document.getElementById('holderName').value);
-        if (this.creditCardForm.invalid) {
-            return;
-        }
-        this.modal.hide();
-        var cardExpiration = {
-            year: this.creditCardForm.controls.cardExpirationYear.value,
-            month: this.creditCardForm.controls.cardExpirationMonth.value
-        };
-        var creditCard = {
-            cardno: this.creditCardForm.controls.cardNumber.value,
-            expire: "" + cardExpiration.year + cardExpiration.month,
-            holderName: this.creditCardForm.controls.holderName.value,
-            securityCode: this.creditCardForm.controls.securityCode.value
-        };
-        var seller = this.sellers.find(function (s) { return s.id === _this.creditCardForm.controls.sellerId.value; });
-        this.cb({ creditCard: creditCard, seller: seller });
-    };
-    /**
-     * クレジットカードフォーム作成
-     */
-    RegisterCreditcardModalComponent.prototype.createCreditCardForm = function () {
-        this.cardExpiration = { year: [], month: [] };
-        for (var i = 0; i < 12; i++) {
-            this.cardExpiration.month.push(("0" + String(i + 1)).slice(-2));
-        }
-        for (var i = 0; i < 10; i++) {
-            this.cardExpiration.year.push(moment__WEBPACK_IMPORTED_MODULE_2__().add(i, 'year').format('YYYY'));
-        }
-        this.creditCardForm = this.formBuilder.group({
-            sellerId: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            cardNumber: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
-            cardExpirationMonth: [this.cardExpiration.month[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            cardExpirationYear: [this.cardExpiration.year[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            securityCode: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
-            holderName: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
-        });
-    };
-    RegisterCreditcardModalComponent.ctorParameters = function () { return [
-        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] }
-    ]; };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Function)
-    ], RegisterCreditcardModalComponent.prototype, "cb", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Array)
-    ], RegisterCreditcardModalComponent.prototype, "sellers", void 0);
-    RegisterCreditcardModalComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-register-creditcard-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./register-creditcard-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./register-creditcard-modal.component.scss */ "./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.scss")).default]
-        }),
-        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
-    ], RegisterCreditcardModalComponent);
-    return RegisterCreditcardModalComponent;
-}());
-
-
-
-/***/ }),
-
 /***/ "./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.scss":
 /*!****************************************************************************************************!*\
   !*** ./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.scss ***!
@@ -5216,80 +5404,6 @@ var SecurityCodeModalComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]])
     ], SecurityCodeModalComponent);
     return SecurityCodeModalComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/select-creditcard-modal/select-creditcard-modal.component.scss":
-/*!************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/select-creditcard-modal/select-creditcard-modal.component.scss ***!
-  \************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("button:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvc2VsZWN0LWNyZWRpdGNhcmQtbW9kYWwvQzpcXFVzZXJzXFxoYXRhZ3VjaGlcXERlc2t0b3BcXHdvcmtzcGFjZVxcQ2luZXJpbm9cXGZyb250ZW5kL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXHNlbGVjdC1jcmVkaXRjYXJkLW1vZGFsXFxzZWxlY3QtY3JlZGl0Y2FyZC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvc2VsZWN0LWNyZWRpdGNhcmQtbW9kYWwvc2VsZWN0LWNyZWRpdGNhcmQtbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSwyQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvc2VsZWN0LWNyZWRpdGNhcmQtbW9kYWwvc2VsZWN0LWNyZWRpdGNhcmQtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJidXR0b246bGFzdC1jaGlsZCB7XG4gICAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xufSIsImJ1dHRvbjpsYXN0LWNoaWxkIHtcbiAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xufSJdfQ== */");
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/select-creditcard-modal/select-creditcard-modal.component.ts":
-/*!**********************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/select-creditcard-modal/select-creditcard-modal.component.ts ***!
-  \**********************************************************************************************************/
-/*! exports provided: SelectCreditCardModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectCreditCardModalComponent", function() { return SelectCreditCardModalComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-
-var SelectCreditCardModalComponent = /** @class */ (function () {
-    function SelectCreditCardModalComponent(modal) {
-        this.modal = modal;
-    }
-    SelectCreditCardModalComponent.prototype.ngOnInit = function () { };
-    SelectCreditCardModalComponent.prototype.close = function (creditCard) {
-        this.modal.hide();
-        this.cb(creditCard);
-    };
-    SelectCreditCardModalComponent.ctorParameters = function () { return [
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"] }
-    ]; };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Array)
-    ], SelectCreditCardModalComponent.prototype, "creditCards", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Function)
-    ], SelectCreditCardModalComponent.prototype, "cb", void 0);
-    SelectCreditCardModalComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-select-creditcard-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./select-creditcard-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/select-creditcard-modal/select-creditcard-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./select-creditcard-modal.component.scss */ "./app/modules/shared/components/parts/select-creditcard-modal/select-creditcard-modal.component.scss")).default]
-        }),
-        __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]])
-    ], SelectCreditCardModalComponent);
-    return SelectCreditCardModalComponent;
 }());
 
 
@@ -5477,28 +5591,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 /* harmony import */ var ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-swiper-wrapper */ "../../node_modules/ngx-swiper-wrapper/dist/ngx-swiper-wrapper.es5.js");
 /* harmony import */ var _components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/base/base.component */ "./app/modules/shared/components/pages/base/base.component.ts");
-/* harmony import */ var _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/parts/alert-modal/alert-modal.component */ "./app/modules/shared/components/parts/alert-modal/alert-modal.component.ts");
-/* harmony import */ var _components_parts_charge_account_modal_charge_account_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/parts/charge-account-modal/charge-account-modal.component */ "./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.ts");
-/* harmony import */ var _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/parts/confirm-modal/confirm-modal.component */ "./app/modules/shared/components/parts/confirm-modal/confirm-modal.component.ts");
-/* harmony import */ var _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/parts/contents/contents.component */ "./app/modules/shared/components/parts/contents/contents.component.ts");
-/* harmony import */ var _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/parts/footer/footer.component */ "./app/modules/shared/components/parts/footer/footer.component.ts");
-/* harmony import */ var _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/parts/header-menu/header-menu.component */ "./app/modules/shared/components/parts/header-menu/header-menu.component.ts");
-/* harmony import */ var _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/parts/header/header.component */ "./app/modules/shared/components/parts/header/header.component.ts");
-/* harmony import */ var _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/parts/loading/loading.component */ "./app/modules/shared/components/parts/loading/loading.component.ts");
-/* harmony import */ var _components_parts_mvtk_check_modal_mvtk_check_modal_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/parts/mvtk-check-modal/mvtk-check-modal.component */ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.ts");
-/* harmony import */ var _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/parts/numeric-keypad/numeric-keypad.component */ "./app/modules/shared/components/parts/numeric-keypad/numeric-keypad.component.ts");
-/* harmony import */ var _components_parts_open_account_modal_open_account_modal_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/parts/open-account-modal/open-account-modal.component */ "./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.ts");
-/* harmony import */ var _components_parts_order_detail_modal_order_detail_modal_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/parts/order-detail-modal/order-detail-modal.component */ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_cinema_ticket_modal_purchase_cinema_ticket_modal_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component */ "./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_event_ticket_modal_purchase_event_ticket_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component */ "./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_transaction_modal_purchase_transaction_modal_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/purchase-transaction-modal/purchase-transaction-modal.component */ "./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.ts");
-/* harmony import */ var _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/qrcode-modal/qrcode-modal.component */ "./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.ts");
-/* harmony import */ var _components_parts_register_creditcard_modal_register_creditcard_modal_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/register-creditcard-modal/register-creditcard-modal.component */ "./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.ts");
-/* harmony import */ var _components_parts_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/parts/security-code-modal/security-code-modal.component */ "./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.ts");
-/* harmony import */ var _components_parts_select_creditcard_modal_select_creditcard_modal_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/parts/select-creditcard-modal/select-creditcard-modal.component */ "./app/modules/shared/components/parts/select-creditcard-modal/select-creditcard-modal.component.ts");
-/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
-/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
-/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
+/* harmony import */ var _components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/parts/account/charge-modal/charge-modal.component */ "./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.ts");
+/* harmony import */ var _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/parts/account/open-modal/open-modal.component */ "./app/modules/shared/components/parts/account/open-modal/open-modal.component.ts");
+/* harmony import */ var _components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/parts/account/transfer-modal/transfer-modal.component */ "./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.ts");
+/* harmony import */ var _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/parts/alert-modal/alert-modal.component */ "./app/modules/shared/components/parts/alert-modal/alert-modal.component.ts");
+/* harmony import */ var _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/parts/confirm-modal/confirm-modal.component */ "./app/modules/shared/components/parts/confirm-modal/confirm-modal.component.ts");
+/* harmony import */ var _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/parts/contents/contents.component */ "./app/modules/shared/components/parts/contents/contents.component.ts");
+/* harmony import */ var _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/parts/creditcard/register-modal/register-modal.component */ "./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.ts");
+/* harmony import */ var _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/parts/creditcard/select-modal/select-modal.component */ "./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.ts");
+/* harmony import */ var _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/parts/footer/footer.component */ "./app/modules/shared/components/parts/footer/footer.component.ts");
+/* harmony import */ var _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/parts/header-menu/header-menu.component */ "./app/modules/shared/components/parts/header-menu/header-menu.component.ts");
+/* harmony import */ var _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/parts/header/header.component */ "./app/modules/shared/components/parts/header/header.component.ts");
+/* harmony import */ var _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/parts/loading/loading.component */ "./app/modules/shared/components/parts/loading/loading.component.ts");
+/* harmony import */ var _components_parts_mvtk_check_modal_mvtk_check_modal_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/mvtk-check-modal/mvtk-check-modal.component */ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.ts");
+/* harmony import */ var _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/numeric-keypad/numeric-keypad.component */ "./app/modules/shared/components/parts/numeric-keypad/numeric-keypad.component.ts");
+/* harmony import */ var _components_parts_order_detail_modal_order_detail_modal_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/order-detail-modal/order-detail-modal.component */ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/purchase/cinema/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/purchase/event/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/parts/purchase/transaction-modal/transaction-modal.component */ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts");
+/* harmony import */ var _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/parts/qrcode-modal/qrcode-modal.component */ "./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.ts");
+/* harmony import */ var _components_parts_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/parts/security-code-modal/security-code-modal.component */ "./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.ts");
+/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
+/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5538,30 +5653,32 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var components = [
-    _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_15__["LoadingComponent"],
-    _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_12__["FooterComponent"],
-    _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_14__["HeaderComponent"],
-    _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_13__["HeaderMenuComponent"],
-    _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_11__["ContentsComponent"],
-    _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_23__["QrCodeModalComponent"],
+    _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_19__["LoadingComponent"],
+    _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_16__["FooterComponent"],
+    _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_18__["HeaderComponent"],
+    _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_17__["HeaderMenuComponent"],
+    _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_13__["ContentsComponent"],
+    _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_26__["QrCodeModalComponent"],
     _components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_7__["BaseComponent"],
 ];
 var entryComponents = [
-    _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_8__["AlertModalComponent"],
-    _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_10__["ConfirmModalComponent"],
-    _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_23__["QrCodeModalComponent"],
-    _components_parts_register_creditcard_modal_register_creditcard_modal_component__WEBPACK_IMPORTED_MODULE_24__["RegisterCreditcardModalComponent"],
-    _components_parts_select_creditcard_modal_select_creditcard_modal_component__WEBPACK_IMPORTED_MODULE_26__["SelectCreditCardModalComponent"],
-    _components_parts_charge_account_modal_charge_account_modal_component__WEBPACK_IMPORTED_MODULE_9__["ChargeAccountModalComponent"],
-    _components_parts_open_account_modal_open_account_modal_component__WEBPACK_IMPORTED_MODULE_18__["OpenAccountModalComponent"],
-    _components_parts_order_detail_modal_order_detail_modal_component__WEBPACK_IMPORTED_MODULE_19__["OrderDetailModalComponent"],
-    _components_parts_purchase_cinema_ticket_modal_purchase_cinema_ticket_modal_component__WEBPACK_IMPORTED_MODULE_20__["PurchaseCinemaTicketModalComponent"],
-    _components_parts_purchase_event_ticket_modal_purchase_event_ticket_modal_component__WEBPACK_IMPORTED_MODULE_21__["PurchaseEventTicketModalComponent"],
-    _components_parts_purchase_transaction_modal_purchase_transaction_modal_component__WEBPACK_IMPORTED_MODULE_22__["PurchaseTransactionModalComponent"],
-    _components_parts_mvtk_check_modal_mvtk_check_modal_component__WEBPACK_IMPORTED_MODULE_16__["MvtkCheckModalComponent"],
-    _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_17__["NumericKeypadComponent"],
-    _components_parts_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_25__["SecurityCodeModalComponent"],
+    _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_11__["AlertModalComponent"],
+    _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_12__["ConfirmModalComponent"],
+    _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_26__["QrCodeModalComponent"],
+    _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_14__["CreditcardRegisterModalComponent"],
+    _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_15__["CreditCardSelectModalComponent"],
+    _components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_8__["AccountChargeModalComponent"],
+    _components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_10__["AccountTransferModalComponent"],
+    _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_9__["AccountOpenModalComponent"],
+    _components_parts_order_detail_modal_order_detail_modal_component__WEBPACK_IMPORTED_MODULE_22__["OrderDetailModalComponent"],
+    _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_23__["PurchaseCinemaTicketModalComponent"],
+    _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseEventTicketModalComponent"],
+    _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_25__["PurchaseTransactionModalComponent"],
+    _components_parts_mvtk_check_modal_mvtk_check_modal_component__WEBPACK_IMPORTED_MODULE_20__["MvtkCheckModalComponent"],
+    _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_21__["NumericKeypadComponent"],
+    _components_parts_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_27__["SecurityCodeModalComponent"],
 ];
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
@@ -5569,9 +5686,9 @@ var SharedModule = /** @class */ (function () {
     SharedModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: components.concat(entryComponents, [
-                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_29__["LibphonenumberFormatPipe"],
-                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_27__["ChangeLanguagePipe"],
-                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_28__["FormatDatePipe"],
+                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_30__["LibphonenumberFormatPipe"],
+                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_28__["ChangeLanguagePipe"],
+                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_29__["FormatDatePipe"],
             ]),
             entryComponents: entryComponents,
             imports: [
@@ -5586,9 +5703,9 @@ var SharedModule = /** @class */ (function () {
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["PaginationModule"],
             ],
             exports: components.concat(entryComponents, [
-                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_29__["LibphonenumberFormatPipe"],
-                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_27__["ChangeLanguagePipe"],
-                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_28__["FormatDatePipe"],
+                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_30__["LibphonenumberFormatPipe"],
+                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_28__["ChangeLanguagePipe"],
+                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_29__["FormatDatePipe"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"],
@@ -11847,26 +11964,29 @@ var UserEffects = /** @class */ (function () {
          * UpdateProfile
          */
         this.UpdateProfile = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.UpdateProfile), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var profile, error_5;
+            var id, profile, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
+                        _a.trys.push([0, 4, , 5]);
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
                         _a.sent();
-                        profile = payload.profile;
-                        if (profile.telephone !== undefined) {
-                            profile.telephone = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["formatTelephone"])(profile.telephone, 'E.164');
+                        if (payload.profile.telephone !== undefined) {
+                            payload.profile.telephone = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["formatTelephone"])(payload.profile.telephone, 'E.164');
                         }
-                        return [4 /*yield*/, this.cinerino.person.updateProfile(profile)];
+                        return [4 /*yield*/, this.cinerino.person.updateProfile(payload.profile)];
                     case 2:
                         _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateProfileSuccess({ profile: profile })];
+                        id = 'me';
+                        return [4 /*yield*/, this.cinerino.person.getProfile({ id: id })];
                     case 3:
+                        profile = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateProfileSuccess({ profile: profile })];
+                    case 4:
                         error_5 = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateProfileFail({ error: error_5 })];
-                    case 4: return [2 /*return*/];
+                    case 5: return [2 /*return*/];
                 }
             });
         }); }));

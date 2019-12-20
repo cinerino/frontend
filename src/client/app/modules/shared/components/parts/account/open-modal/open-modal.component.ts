@@ -4,11 +4,11 @@ import { factory } from '@cinerino/api-javascript-client';
 import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
-    selector: 'app-open-account-modal',
-    templateUrl: './open-account-modal.component.html',
-    styleUrls: ['./open-account-modal.component.scss']
+    selector: 'app-open-modal',
+    templateUrl: './open-modal.component.html',
+    styleUrls: ['./open-modal.component.scss']
 })
-export class OpenAccountModalComponent implements OnInit {
+export class AccountOpenModalComponent implements OnInit {
     @Input() public sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
     @Input() public cb: (value: {
         name: string;

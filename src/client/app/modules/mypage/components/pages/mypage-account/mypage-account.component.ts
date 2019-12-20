@@ -6,8 +6,9 @@ import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
 import { MasterService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import { ChargeAccountModalComponent } from '../../../../shared/components/parts/charge-account-modal/charge-account-modal.component';
-import { OpenAccountModalComponent } from '../../../../shared/components/parts/open-account-modal/open-account-modal.component';
+import { AccountChargeModalComponent } from '../../../../shared/components/parts/account/charge-modal/charge-modal.component';
+import { AccountOpenModalComponent } from '../../../../shared/components/parts/account/open-modal/open-modal.component';
+import { AccountTransferModalComponent } from '../../../../shared/components/parts/account/transfer-modal/transfer-modal.component';
 
 @Component({
     selector: 'app-mypage-account',
@@ -39,13 +40,13 @@ export class MypageAccountComponent implements OnInit {
     }
 
     /**
-     * チャージモーダル
+     * 入金モーダル
      */
     public async openChageAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
         const userData = await this.userService.getData();
         const creditCards = userData.creditCards;
         const sellers = await (await this.masterService.getData()).sellers;
-        this.modal.show(ChargeAccountModalComponent, {
+        this.modal.show(AccountChargeModalComponent, {
             initialState: {
                 sellers,
                 creditCards,
@@ -83,10 +84,52 @@ export class MypageAccountComponent implements OnInit {
     }
 
     /**
+     * 転送モーダル
+     */
+    public async openTransferAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
+        const userData = await this.userService.getData();
+        const sellers = await (await this.masterService.getData()).sellers;
+        this.modal.show(AccountTransferModalComponent, {
+            initialState: {
+                sellers,
+                cb: async (params: {
+                    amount: number;
+                    creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
+                    seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+                }) => {
+                    try {
+                        const creditCard = {
+                            memberId: 'me',
+                            cardSeq: Number(params.creditCard.cardSeq)
+                        };
+                        const profile = userData.profile;
+                        if (profile === undefined) {
+                            throw new Error('profile undefined');
+                        }
+                        await this.userService.chargeAccount({ ...params, account, profile, creditCard });
+                        await this.userService.getAccount();
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.complete'),
+                            body: this.translate.instant('mypage.account.alert.chargeSuccess')
+                        });
+                    } catch (error) {
+                        console.error(error);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('mypage.account.alert.chargeFail')
+                        });
+                    }
+                }
+            },
+            class: 'modal-dialog-centered'
+        });
+    }
+
+    /**
      * 口座開設モーダル
      */
     public openOpenAccountModal() {
-        this.modal.show(OpenAccountModalComponent, {
+        this.modal.show(AccountOpenModalComponent, {
             initialState: {
                 cb: async (params: {
                     name: string;

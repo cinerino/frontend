@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap';
-import * as reducers from '../../../../../store/reducers';
+import * as reducers from '../../../../../../store/reducers';
 
 @Component({
-    selector: 'app-purchase-transaction-modal',
-    templateUrl: './purchase-transaction-modal.component.html',
-    styleUrls: ['./purchase-transaction-modal.component.scss']
+    selector: 'app-transaction-modal',
+    templateUrl: './transaction-modal.component.html',
+    styleUrls: ['./transaction-modal.component.scss']
 })
 export class PurchaseTransactionModalComponent implements OnInit {
     @Input() public purchase: reducers.IPurchaseState;

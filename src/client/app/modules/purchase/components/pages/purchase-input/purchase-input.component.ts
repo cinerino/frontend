@@ -13,10 +13,8 @@ import { getAmount } from '../../../../../functions';
 import { ViewType } from '../../../../../models';
 import { PurchaseService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
+import { CreditCardSelectModalComponent } from '../../../../shared/components/parts/creditcard/select-modal/select-modal.component';
 import { SecurityCodeModalComponent } from '../../../../shared/components/parts/security-code-modal/security-code-modal.component';
-import {
-    SelectCreditCardModalComponent
-} from '../../../../shared/components/parts/select-creditcard-modal/select-creditcard-modal.component';
 import { LibphonenumberFormatPipe } from '../../../../shared/pipes/libphonenumber-format.pipe';
 
 @Component({
@@ -297,7 +295,7 @@ export class PurchaseInputComponent implements OnInit {
     public openRegisteredCreditCard() {
 
         this.user.subscribe((user) => {
-            this.modal.show(SelectCreditCardModalComponent, {
+            this.modal.show(CreditCardSelectModalComponent, {
                 initialState: {
                     creditCards: user.creditCards,
                     cb: (creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) => {

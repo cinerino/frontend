@@ -7,9 +7,7 @@ import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
 import { MasterService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import {
-    RegisterCreditcardModalComponent
-} from '../../../../shared/components/parts/register-creditcard-modal/register-creditcard-modal.component';
+import { CreditcardRegisterModalComponent } from '../../../../shared/components/parts/creditcard/register-modal/register-modal.component';
 
 @Component({
     selector: 'app-mypage-credit',
@@ -75,7 +73,7 @@ export class MypageCreditComponent implements OnInit {
      */
     public async openRegisterCreditcardModal() {
         const sellers = await (await this.masterService.getData()).sellers;
-        this.modal.show(RegisterCreditcardModalComponent, {
+        this.modal.show(CreditcardRegisterModalComponent, {
             initialState: {
                 sellers,
                 cb: async (params: {

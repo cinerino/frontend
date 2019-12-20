@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { BsModalRef } from 'ngx-bootstrap';
-import { getTicketPrice } from '../../../../../functions';
-import { IMovieTicket, IReservationTicket, Reservation } from '../../../../../models';
+import { getTicketPrice } from '../../../../../../../functions';
+import { IMovieTicket, IReservationTicket, Reservation } from '../../../../../../../models';
 
 type IMovieTicketTypeChargeSpecification =
     factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification>;
 
 @Component({
-    selector: 'app-purchase-cinema-ticket-modal',
-    templateUrl: './purchase-cinema-ticket-modal.component.html',
-    styleUrls: ['./purchase-cinema-ticket-modal.component.scss']
+    selector: 'app-ticket-modal',
+    templateUrl: './ticket-modal.component.html',
+    styleUrls: ['./ticket-modal.component.scss']
 })
 export class PurchaseCinemaTicketModalComponent implements OnInit {
 

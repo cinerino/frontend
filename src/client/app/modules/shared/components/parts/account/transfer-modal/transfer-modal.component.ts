@@ -4,11 +4,11 @@ import { factory } from '@cinerino/api-javascript-client';
 import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
-    selector: 'app-charge-account-modal',
-    templateUrl: './charge-account-modal.component.html',
-    styleUrls: ['./charge-account-modal.component.scss']
+    selector: 'app-transfer-modal',
+    templateUrl: './transfer-modal.component.html',
+    styleUrls: ['./transfer-modal.component.scss']
 })
-export class ChargeAccountModalComponent implements OnInit {
+export class AccountTransferModalComponent implements OnInit {
     @Input() public sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
     @Input() public creditCards: factory.paymentMethod.paymentCard.creditCard.ICheckedCard[];
     @Input() public cb: (value: {

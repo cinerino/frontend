@@ -123,11 +123,12 @@ export class UserEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const profile = payload.profile;
-                if (profile.telephone !== undefined) {
-                    profile.telephone = formatTelephone(profile.telephone, 'E.164');
+                if (payload.profile.telephone !== undefined) {
+                    payload.profile.telephone = formatTelephone(payload.profile.telephone, 'E.164');
                 }
-                await this.cinerino.person.updateProfile(profile);
+                await this.cinerino.person.updateProfile(payload.profile);
+                const id = 'me';
+                const profile = await this.cinerino.person.getProfile({ id });
                 return new userAction.UpdateProfileSuccess({ profile });
             } catch (error) {
                 return new userAction.UpdateProfileFail({ error: error });
