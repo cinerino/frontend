@@ -3,7 +3,7 @@
     <p class="mb-4 text-md-center" [innerHTML]="'mypage.credit.read' | translate"></p>
 
 
-    <ul class="d-md-flex creditCards mb-4">
+    <ul class="d-md-flex flex-wrap creditCards mb-4">
         <li *ngFor="let creditCard of (user | async).creditCards" class="my-md-2 mb-3">
             <div class="card mx-md-2 h-100">
                 <div class="card-body position-relative">
@@ -12,7 +12,7 @@
                     <p class="card-text mb-3">{{ creditCard.cardNo }}</p>
                     <h5 class="card-title font-weight-bold">{{ 'common.credit.cardExpiration' | translate }}
                     </h5>
-                    <p class="card-text mb-3">{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}
+                    <p class="card-text">{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}
                     </p>
                     <button type="button" class="close" aria-label="Close"
                         (click)="confirmRemoveCreditCard(creditCard)">

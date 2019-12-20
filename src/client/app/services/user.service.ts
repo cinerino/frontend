@@ -248,9 +248,11 @@ export class UserService {
      * 口座チャージ
      */
     public async chargeAccount(params: {
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        profile: factory.person.IProfile;
         amount: number;
         account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
-        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
+        creditCard: factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember;
     }) {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(new userAction.ChargeAccount(params));

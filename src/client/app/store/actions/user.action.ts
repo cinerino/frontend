@@ -37,6 +37,9 @@ export enum ActionTypes {
     ChargeAccount = '[User] Charge Account',
     ChargeAccountSuccess = '[User] Charge Account Success',
     ChargeAccountFail = '[User] Charge Account Fail',
+    TransferAccount = '[User] Transfer Account',
+    TransferAccountSuccess = '[User] Transfer Account Success',
+    TransferAccountFail = '[User] Transfer Account Fail',
     SetVersion = '[User] Set Version',
 }
 
@@ -291,10 +294,12 @@ export class RemoveCreditCardFail implements Action {
  */
 export class ChargeAccount implements Action {
     public readonly type = ActionTypes.ChargeAccount;
-    constructor(public payload?: {
+    constructor(public payload: {
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        profile: factory.person.IProfile;
         amount: number;
         account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
-        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
+        creditCard: factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember;
     }) { }
 }
 
@@ -311,6 +316,34 @@ export class ChargeAccountSuccess implements Action {
  */
 export class ChargeAccountFail implements Action {
     public readonly type = ActionTypes.ChargeAccountFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * 口座転送
+ */
+export class TransferAccount implements Action {
+    public readonly type = ActionTypes.TransferAccount;
+    constructor(public payload: {
+        amount: number;
+        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
+        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
+    }) { }
+}
+
+/**
+ * 口座転送成功
+ */
+export class TransferAccountSuccess implements Action {
+    public readonly type = ActionTypes.TransferAccountSuccess;
+    constructor(public payload: {}) { }
+}
+
+/**
+ * 口座転送失敗
+ */
+export class TransferAccountFail implements Action {
+    public readonly type = ActionTypes.TransferAccountFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -357,4 +390,7 @@ export type Actions =
     | ChargeAccount
     | ChargeAccountSuccess
     | ChargeAccountFail
+    | TransferAccount
+    | TransferAccountSuccess
+    | TransferAccountFail
     | SetVersion;

@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
-import { UserService, UtilService } from '../../../../../services';
+import { MasterService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { ChargeAccountModalComponent } from '../../../../shared/components/parts/charge-account-modal/charge-account-modal.component';
 import { OpenAccountModalComponent } from '../../../../shared/components/parts/open-account-modal/open-account-modal.component';
@@ -22,7 +22,8 @@ export class MypageAccountComponent implements OnInit {
         private modal: BsModalService,
         private translate: TranslateService,
         private utilService: UtilService,
-        private userService: UserService
+        private userService: UserService,
+        private masterService: MasterService
     ) { }
 
     /**
@@ -30,6 +31,11 @@ export class MypageAccountComponent implements OnInit {
      */
     public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
+        try {
+            await this.userService.getAccount();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     /**
@@ -37,21 +43,34 @@ export class MypageAccountComponent implements OnInit {
      */
     public async openChageAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
         const userData = await this.userService.getData();
+        const creditCards = userData.creditCards;
+        const sellers = await (await this.masterService.getData()).sellers;
         this.modal.show(ChargeAccountModalComponent, {
             initialState: {
-                creditCards: userData.creditCards,
+                sellers,
+                creditCards,
                 cb: async (params: {
                     amount: number;
                     creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
+                    seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
                 }) => {
-                    // console.log({ amount, account });
                     try {
-                        await this.userService.chargeAccount({ ...params, account });
+                        const creditCard = {
+                            memberId: 'me',
+                            cardSeq: Number(params.creditCard.cardSeq)
+                        };
+                        const profile = userData.profile;
+                        if (profile === undefined) {
+                            throw new Error('profile undefined');
+                        }
+                        await this.userService.chargeAccount({ ...params, account, profile, creditCard });
+                        await this.userService.getAccount();
                         this.utilService.openAlert({
-                            title: this.translate.instant('common.error'),
+                            title: this.translate.instant('common.complete'),
                             body: this.translate.instant('mypage.account.alert.chargeSuccess')
                         });
                     } catch (error) {
+                        console.error(error);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
                             body: this.translate.instant('mypage.account.alert.chargeFail')

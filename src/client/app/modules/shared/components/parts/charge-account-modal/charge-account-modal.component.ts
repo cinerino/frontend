@@ -9,10 +9,12 @@ import { BsModalRef } from 'ngx-bootstrap';
     styleUrls: ['./charge-account-modal.component.scss']
 })
 export class ChargeAccountModalComponent implements OnInit {
+    @Input() public sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
     @Input() public creditCards: factory.paymentMethod.paymentCard.creditCard.ICheckedCard[];
     @Input() public cb: (value: {
+        seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
         amount: number;
-        cregitCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
+        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
     }) => void;
     public chargeAccountForm: FormGroup;
 
@@ -27,9 +29,11 @@ export class ChargeAccountModalComponent implements OnInit {
 
     public close() {
         this.modal.hide();
+        const seller = this.sellers.find(s => s.id === this.chargeAccountForm.controls.sellerId.value);
         this.cb({
+            seller,
             amount: this.chargeAccountForm.controls.amount.value,
-            cregitCard: this.chargeAccountForm.controls.cregitCard.value
+            creditCard: this.chargeAccountForm.controls.cregitCard.value
         });
     }
 
@@ -39,6 +43,7 @@ export class ChargeAccountModalComponent implements OnInit {
 
     private createChargeForm() {
         this.chargeAccountForm = this.formBuilder.group({
+            sellerId: ['', [Validators.required]],
             amount: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
             cregitCard: [this.creditCards[0], [Validators.required]]
         });

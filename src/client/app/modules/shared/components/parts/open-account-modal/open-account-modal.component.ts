@@ -9,6 +9,7 @@ import { BsModalRef } from 'ngx-bootstrap';
     styleUrls: ['./open-account-modal.component.scss']
 })
 export class OpenAccountModalComponent implements OnInit {
+    @Input() public sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
     @Input() public cb: (value: {
         name: string;
         accountType: factory.accountType;

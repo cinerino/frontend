@@ -2,10 +2,10 @@
     <div class="mb-3 text-large text-center">{{ 'modal.registerCreditCard.title' | translate }}</div>
     <p class="mb-3 text-left text-md-center">{{ 'modal.registerCreditCard.read' | translate }}</p>
 
-    <div class="mb-4 p-3 bg-white">
+    <div class="mb-4">
         <form *ngIf="creditCardForm" [formGroup]="creditCardForm">
             <div class="form-group row">
-                <p class="col-md-4 py-2 text-md-right">{{ 'common.theater' | translate }}</p>
+                <p class="col-md-4 py-2 text-md-right">{{ 'common.seller' | translate }}</p>
                 <div class="col-md-8">
                     <select class="form-control" id="sellerId" formControlName="sellerId">
                         <option value="">{{ 'form.unselected' | translate }}</option>

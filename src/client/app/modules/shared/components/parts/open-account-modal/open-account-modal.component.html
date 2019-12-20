@@ -2,11 +2,11 @@
     <div class="mb-3 text-large text-center">{{ 'modal.openAccount.title' | translate }}</div>
     <p class="mb-3 text-left text-md-center">{{ 'modal.openAccount.read' | translate }}</p>
 
-    <div class="mb-4 p-3 bg-white">
+    <div class="mb-4">
         <form *ngIf="openAccountForm" [formGroup]="openAccountForm">
-            <div class="form-group">
-                <p class="mb-2">{{ 'modal.openAccount.name' | translate }}</p>
-                <div>
+            <div class="form-group row">
+                <p class="col-md-4 py-2 text-md-right">{{ 'modal.openAccount.name' | translate }}</p>
+                <div class="col-md-8">
                     <input type="text" class="form-control" id="name" formControlName="name" placeholder=""
                         maxlength="30">
                     <div *ngIf="openAccountForm.controls.name.invalid && openAccountForm.controls.name.touched"
@@ -16,9 +16,9 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <p class="mb-2">{{ 'modal.openAccount.accountType' | translate }}</p>
-                <div>
+            <div class="form-group row">
+                <p class="col-md-4 py-2 text-md-right">{{ 'modal.openAccount.accountType' | translate }}</p>
+                <div class="col-md-8">
                     <select type="number" class="form-control" id="accountType" formControlName="accountType">
                         <option [value]="accountType.Coin">{{ accountType.Coin }}</option>
                         <option [value]="accountType.Point">{{ accountType.Point }}</option>
