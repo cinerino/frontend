@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { connectionType, printers, ViewType } from '../../../../models';
-import { MasterService, OrderService, UserService, UtilService } from '../../../../services';
+import { MasterService, OrderService, QRCodeService, UserService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -39,7 +39,8 @@ export class SettingComponent implements OnInit {
         private formBuilder: FormBuilder,
         private translate: TranslateService,
         private orderService: OrderService,
-        private router: Router
+        private router: Router,
+        private qrcodeService: QRCodeService
     ) { }
 
     public async ngOnInit() {
@@ -54,6 +55,7 @@ export class SettingComponent implements OnInit {
             console.error(error);
             this.router.navigate(['/error']);
         }
+        this.qrcodeService.openQRCodeReader({ cb: (data: string) => { console.log(data); } });
     }
 
     private async createBaseForm() {

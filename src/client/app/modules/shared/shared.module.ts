@@ -29,6 +29,8 @@ import { PurchaseCinemaTicketModalComponent } from './components/parts/purchase/
 import { PurchaseEventTicketModalComponent } from './components/parts/purchase/event/ticket-modal/ticket-modal.component';
 import { PurchaseTransactionModalComponent } from './components/parts/purchase/transaction-modal/transaction-modal.component';
 import { QrCodeModalComponent } from './components/parts/qrcode-modal/qrcode-modal.component';
+import { QRCodeReaderModalComponent } from './components/parts/qrcode/reader-modal/reader-modal.component';
+import { QRCodeViewerModalComponent } from './components/parts/qrcode/viewer-modal/viewer-modal.component';
 import { SecurityCodeModalComponent } from './components/parts/security-code-modal/security-code-modal.component';
 import { ChangeLanguagePipe } from './pipes/change-language.pipe';
 import { FormatDatePipe } from './pipes/format-date.pipe';
@@ -48,6 +50,8 @@ const entryComponents = [
   AlertModalComponent,
   ConfirmModalComponent,
   QrCodeModalComponent,
+  QRCodeReaderModalComponent,
+  QRCodeViewerModalComponent,
   CreditcardRegisterModalComponent,
   CreditCardSelectModalComponent,
   AccountChargeModalComponent,
