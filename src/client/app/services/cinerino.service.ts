@@ -22,7 +22,8 @@ export class CinerinoService {
     public payment: cinerino.service.Payment;
     public transaction: {
         placeOrder: cinerino.service.transaction.PlaceOrder,
-        returnOrder: cinerino.service.transaction.ReturnOrder
+        returnOrder: cinerino.service.transaction.ReturnOrder,
+        moneyTransfer: cinerino.service.transaction.MoneyTransfer,
     };
     public userName: string;
     private endpoint: string;
@@ -51,7 +52,8 @@ export class CinerinoService {
             this.payment = new cinerino.service.Payment(option);
             this.transaction = {
                 placeOrder: new cinerino.service.transaction.PlaceOrder(option),
-                returnOrder: new cinerino.service.transaction.ReturnOrder(option)
+                returnOrder: new cinerino.service.transaction.ReturnOrder(option),
+                moneyTransfer: new cinerino.service.transaction.MoneyTransfer(option)
             };
         } catch (err) {
             console.error(err);

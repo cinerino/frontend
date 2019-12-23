@@ -1,6 +1,6 @@
 <div class="p-3 scroll-vertical">
-    <div class="mb-3 text-large text-center">{{ 'modal.registerCreditCard.title' | translate }}</div>
-    <p class="mb-3 text-left text-md-center">{{ 'modal.registerCreditCard.read' | translate }}</p>
+    <div class="mb-3 text-large text-center">{{ 'modal.creditCard.register.title' | translate }}</div>
+    <p class="mb-3 text-left text-md-center">{{ 'modal.creditCard.register.read' | translate }}</p>
 
     <div class="mb-4">
         <form *ngIf="creditCardForm" [formGroup]="creditCardForm">
@@ -75,7 +75,7 @@
 
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" (click)="close()"
-            [disabled]="creditCardForm.invalid">{{ 'modal.registerCreditCard.next' | translate }}</button>
+            [disabled]="creditCardForm.invalid">{{ 'modal.creditCard.register.next' | translate }}</button>
         <button type="button" class="btn btn-link btn-sm"
             (click)="modal.hide()">{{ 'common.close' | translate }}</button>
     </div>

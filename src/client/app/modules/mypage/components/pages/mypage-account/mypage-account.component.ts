@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
-import { MasterService, UserService, UtilService } from '../../../../../services';
+import { MasterService, QRCodeService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { AccountChargeModalComponent } from '../../../../shared/components/parts/account/charge-modal/charge-modal.component';
 import { AccountOpenModalComponent } from '../../../../shared/components/parts/account/open-modal/open-modal.component';
@@ -24,7 +24,8 @@ export class MypageAccountComponent implements OnInit {
         private translate: TranslateService,
         private utilService: UtilService,
         private userService: UserService,
-        private masterService: MasterService
+        private masterService: MasterService,
+        private qrcodeService: QRCodeService
     ) { }
 
     /**
@@ -93,30 +94,27 @@ export class MypageAccountComponent implements OnInit {
             initialState: {
                 sellers,
                 cb: async (params: {
-                    amount: number;
-                    creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
                     seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+                    amount: number;
+                    description: string;
+                    accountNumber: string
                 }) => {
                     try {
-                        const creditCard = {
-                            memberId: 'me',
-                            cardSeq: Number(params.creditCard.cardSeq)
-                        };
                         const profile = userData.profile;
                         if (profile === undefined) {
                             throw new Error('profile undefined');
                         }
-                        await this.userService.chargeAccount({ ...params, account, profile, creditCard });
+                        await this.userService.transferAccount({ ...params, account, profile });
                         await this.userService.getAccount();
                         this.utilService.openAlert({
                             title: this.translate.instant('common.complete'),
-                            body: this.translate.instant('mypage.account.alert.chargeSuccess')
+                            body: this.translate.instant('mypage.account.alert.transferSuccess')
                         });
                     } catch (error) {
                         console.error(error);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
-                            body: this.translate.instant('mypage.account.alert.chargeFail')
+                            body: this.translate.instant('mypage.account.alert.transferFail')
                         });
                     }
                 }
@@ -178,6 +176,15 @@ export class MypageAccountComponent implements OnInit {
                     });
                 }
             }
+        });
+    }
+
+    public openQRCodeViewer(event: Event, account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
+        event.preventDefault();
+        this.qrcodeService.openQRCodeViewer({
+            title: this.translate.instant('mypage.account.accountNumber'),
+            body: account.typeOfGood.accountNumber,
+            code: account.typeOfGood.accountNumber
         });
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import jsqr from 'jsqr';
 import { BsModalRef } from 'ngx-bootstrap';
 
@@ -8,6 +8,7 @@ import { BsModalRef } from 'ngx-bootstrap';
     styleUrls: ['./reader-modal.component.scss']
 })
 export class QRCodeReaderModalComponent implements OnInit, OnDestroy {
+    @Input() public cb: Function;
     public stream?: MediaStream;
     public video: HTMLVideoElement;
     public scanLoop: any;
@@ -25,7 +26,7 @@ export class QRCodeReaderModalComponent implements OnInit, OnDestroy {
             video: {
                 width: { min: 1024, ideal: 1280, max: 1920 },
                 height: { min: 776, ideal: 720, max: 1080 },
-                frameRate: { ideal: 5, max: 15 },
+                frameRate: { ideal: 5, max: 30 },
                 facingMode: { exact: 'environment' }
             }
         };
@@ -48,10 +49,12 @@ export class QRCodeReaderModalComponent implements OnInit, OnDestroy {
             this.scanLoop = setInterval(() => {
                 if (this.scan()) {
                     this.modal.hide();
+                    this.cb(this.readerResult);
                 }
             }, scanLoopTime);
         } catch (error) {
             console.error(error);
+            this.modal.hide();
         }
     }
 

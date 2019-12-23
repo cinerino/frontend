@@ -29,11 +29,15 @@ export class QRCodeService {
      * QRコードビューアー表示
      */
     public openQRCodeViewer(args: {
-        title: string;
+        title?: string;
+        body?: string;
+        code: string;
     }) {
         const title = args.title;
+        const body = args.body;
+        const code = args.code;
         this.modal.show(QRCodeViewerModalComponent, {
-            initialState: { title },
+            initialState: { title, body, code },
             class: 'modal-dialog-centered'
         });
     }

@@ -22,3 +22,28 @@ video {
     bottom: 1rem;
     left: 0;
 }
+
+.scan {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    border-width: 3px !important;
+    margin: -50px 0 0 -50px;
+    animation: scale 2s infinite linear;
+}
+
+@keyframes scale {
+    0% {
+        transform: scale(0.75);
+    }
+
+    50% {
+        transform: scale(1.5);
+    }
+  
+    100% {
+        transform: scale(0.75);
+    }
+  }

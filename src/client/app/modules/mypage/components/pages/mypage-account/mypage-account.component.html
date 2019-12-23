@@ -9,7 +9,7 @@
                     <div>
                         <h5 class="card-title font-weight-bold">{{ 'mypage.account.accountNumber' | translate }}
                         </h5>
-                        <p class="card-text mb-3">{{ account.typeOfGood.accountNumber }}</p>
+                        <p class="card-text mb-3"><a href="#" (click)="openQRCodeViewer($event, account)">{{ account.typeOfGood.accountNumber }}</a></p>
                         <h5 class="card-title font-weight-bold">{{ 'mypage.account.accountName' | translate }} [{{ 'mypage.account.accountType' | translate }}]
                         </h5>
                         <p class="card-text mb-3">{{ account.typeOfGood.name }} [{{ account.typeOfGood.accountType }}]</p>

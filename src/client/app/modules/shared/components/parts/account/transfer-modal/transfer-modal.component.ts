@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { factory } from '@cinerino/api-javascript-client';
 import { BsModalRef } from 'ngx-bootstrap';
+import { QRCodeService } from '../../../../../../services';
 
 @Component({
     selector: 'app-account-transfer-modal',
@@ -10,42 +11,49 @@ import { BsModalRef } from 'ngx-bootstrap';
 })
 export class AccountTransferModalComponent implements OnInit {
     @Input() public sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
-    @Input() public creditCards: factory.paymentMethod.paymentCard.creditCard.ICheckedCard[];
     @Input() public cb: (value: {
         seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
         amount: number;
-        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
+        description: string;
+        accountNumber: string
     }) => void;
-    public chargeAccountForm: FormGroup;
+    public TransferAccountForm: FormGroup;
 
     constructor(
         public formBuilder: FormBuilder,
-        public modal: BsModalRef
+        public modal: BsModalRef,
+        private qrcodeService: QRCodeService
     ) { }
 
     public ngOnInit() {
-        this.createChargeForm();
+        this.createTransferForm();
     }
 
     public close() {
         this.modal.hide();
-        const seller = this.sellers.find(s => s.id === this.chargeAccountForm.controls.sellerId.value);
+        const seller = this.sellers.find(s => s.id === this.TransferAccountForm.controls.sellerId.value);
         this.cb({
             seller,
-            amount: this.chargeAccountForm.controls.amount.value,
-            creditCard: this.chargeAccountForm.controls.cregitCard.value
+            amount: this.TransferAccountForm.controls.amount.value,
+            description: this.TransferAccountForm.controls.description.value,
+            accountNumber: this.TransferAccountForm.controls.accountNumber.value
         });
     }
 
-    public selectCreditCard(cregitCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
-        this.chargeAccountForm.controls.cregitCard.setValue(cregitCard);
-    }
-
-    private createChargeForm() {
-        this.chargeAccountForm = this.formBuilder.group({
+    private createTransferForm() {
+        this.TransferAccountForm = this.formBuilder.group({
             sellerId: ['', [Validators.required]],
             amount: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
-            cregitCard: [this.creditCards[0], [Validators.required]]
+            description: [''],
+            accountNumber: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
+        });
+    }
+
+    public opeenQRReader() {
+        this.qrcodeService.openQRCodeReader({
+            cb: (data: string) => {
+                this.TransferAccountForm.controls.accountNumber.setValue(data);
+            }
         });
     }
 

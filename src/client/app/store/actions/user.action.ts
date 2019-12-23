@@ -325,9 +325,12 @@ export class ChargeAccountFail implements Action {
 export class TransferAccount implements Action {
     public readonly type = ActionTypes.TransferAccount;
     constructor(public payload: {
-        amount: number;
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        profile: factory.person.IProfile;
         account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
-        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
+        amount: number;
+        description: string;
+        accountNumber: string
     }) { }
 }
 
