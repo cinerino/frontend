@@ -25,9 +25,8 @@ import { FooterComponent } from './components/parts/footer/footer.component';
 import { HeaderMenuComponent } from './components/parts/header-menu/header-menu.component';
 import { HeaderComponent } from './components/parts/header/header.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
-import { MvtkCheckModalComponent } from './components/parts/mvtk-check-modal/mvtk-check-modal.component';
+import { MvtkCheckModalComponent } from './components/parts/mvtk/check-modal/check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
-import { OrderDetailModalComponent } from './components/parts/order-detail-modal/order-detail-modal.component';
 import { PurchaseCinemaTicketModalComponent } from './components/parts/purchase/cinema/ticket-modal/ticket-modal.component';
 import { PurchaseEventTicketModalComponent } from './components/parts/purchase/event/ticket-modal/ticket-modal.component';
 import { PurchaseTransactionModalComponent } from './components/parts/purchase/transaction-modal/transaction-modal.component';
@@ -57,7 +56,6 @@ const entryComponents = [
   AccountChargeModalComponent,
   AccountTransferModalComponent,
   AccountOpenModalComponent,
-  OrderDetailModalComponent,
   PurchaseCinemaTicketModalComponent,
   PurchaseEventTicketModalComponent,
   PurchaseTransactionModalComponent,

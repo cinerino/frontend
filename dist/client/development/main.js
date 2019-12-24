@@ -546,16 +546,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.html":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.html ***!
-  \*****************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.html":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.html ***!
+  \************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <form [formGroup]=\"mvtkForm\">\n        <div [class.d-none]=\"isShowVideo\">\n            <div class=\"mb-4\">\n                <p *ngIf=\"errorMessage !== '' && !isSuccess\" class=\"mb-3 p-2 alert alert-danger\">{{ errorMessage }}</p>\n                <p *ngIf=\"isSuccess\" class=\"mb-3 p-2 alert alert-success\">{{ 'modal.mvtk.check.success' | translate }}\n                </p>\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'modal.mvtk.check.code' | translate }}</label>\n                    <div class=\"input-group\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"code\" id=\"code\" autocomplete=\"off\"\n                        placeholder=\"012345789\" maxlength=\"10\">\n                        <div class=\"input-group-append\" (click)=\"openQRReader()\">\n                            <span class=\"input-group-text\"><i class=\"fas fa-qrcode\"></i></span>\n                        </div>\n                    </div>\n                    <div *ngIf=\"mvtkForm.controls.code.invalid && mvtkForm.controls.code.touched\" class=\"mt-2\">\n                        <p *ngIf=\"mvtkForm.controls.code.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate:{ value: mvtkForm.controls.code.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate:{ value: mvtkForm.controls.code.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'modal.mvtk.check.password' | translate }}</label>\n                    <input type=\"password\" class=\"form-control\" formControlName=\"password\" id=\"password\"\n                        autocomplete=\"off\" placeholder=\"0123\" maxlength=\"4\">\n                    <div *ngIf=\"mvtkForm.controls.password.invalid && mvtkForm.controls.password.touched\" class=\"mt-2\">\n                        <p *ngIf=\"mvtkForm.controls.password.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"mvtkForm.controls.password.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate:{ value: mvtkForm.controls.password.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.password.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate:{ value: customerContactForm.controls.givenName.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.password.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"buttons mx-auto text-center\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n                    (click)=\"checkMovieTicket()\">{{ 'modal.mvtk.check.next' | translate }}</button>\n                <button type=\"button\" class=\"btn btn-link btn-sm\"\n                    (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n            </div>\n        </div>\n\n    </form>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <form [formGroup]=\"mvtkForm\">\n        <div [class.d-none]=\"isShowVideo\">\n            <div class=\"mb-4\">\n                <p *ngIf=\"errorMessage !== '' && !isSuccess\" class=\"mb-3 p-2 alert alert-danger\">{{ errorMessage }}</p>\n                <p *ngIf=\"isSuccess\" class=\"mb-3 p-2 alert alert-success\">{{ 'modal.mvtk.check.success' | translate }}\n                </p>\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'modal.mvtk.check.code' | translate }}</label>\n                    <div class=\"input-group\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"code\" id=\"code\" autocomplete=\"off\"\n                        placeholder=\"012345789\" maxlength=\"10\">\n                        <div class=\"input-group-append\" (click)=\"openQRReader()\">\n                            <span class=\"input-group-text\"><i class=\"fas fa-qrcode\"></i></span>\n                        </div>\n                    </div>\n                    <div *ngIf=\"mvtkForm.controls.code.invalid && mvtkForm.controls.code.touched\" class=\"mt-2\">\n                        <p *ngIf=\"mvtkForm.controls.code.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate:{ value: mvtkForm.controls.code.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate:{ value: mvtkForm.controls.code.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'modal.mvtk.check.password' | translate }}</label>\n                    <input type=\"password\" class=\"form-control\" formControlName=\"password\" id=\"password\"\n                        autocomplete=\"off\" placeholder=\"0123\">\n                    <div *ngIf=\"mvtkForm.controls.password.invalid && mvtkForm.controls.password.touched\" class=\"mt-2\">\n                        <p *ngIf=\"mvtkForm.controls.password.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <!-- <p *ngIf=\"mvtkForm.controls.password.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate:{ value: mvtkForm.controls.password.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.password.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate:{ value: customerContactForm.controls.givenName.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.password.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p> -->\n                    </div>\n                </div>\n            </div>\n            <div class=\"buttons mx-auto text-center\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n                    (click)=\"checkMovieTicket()\">{{ 'modal.mvtk.check.next' | translate }}</button>\n                <button type=\"button\" class=\"btn btn-link btn-sm\"\n                    (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n            </div>\n        </div>\n\n    </form>\n</div>");
 
 /***/ }),
 
@@ -569,19 +569,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<div #trigger (tap)=\"show()\">\n    <ng-content></ng-content>\n</div>\n<div *ngIf=\"isOpen\" class=\"position-fixed\">\n    <div class=\"position-fixed\" (tap)=\"hide()\"></div>\n\n    <div #keypad class=\"numeric-keypad p-3 text-center text-large shadow bg-light-gray\" [ngStyle]=\"{\n    'top.px': position.y, \n    'left.px': position.x\n}\">\n        <div class=\"number d-grid mb-2 text-dark-gray\">\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('7')\">7</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('8')\">8</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('9')\">9</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('4')\">4</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('5')\">5</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('6')\">6</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('1')\">1</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('2')\">2</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('3')\">3</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('0')\">0</div>\n            <div class=\"bg-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('00')\">00</div>\n            <div *ngIf=\"inputType === 'number'\" class=\"bg-dark-gray text-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('000')\">000</div>\n            <div *ngIf=\"inputType === 'telephone'\" class=\"bg-dark-gray text-white py-2 py-md-3 shadow-sm\" (tap)=\"inputCode('+')\">+</div>\n        </div>\n        <div class=\"etc d-grid\">\n            <div class=\"bg-gray text-white py-2 py-md-3 shadow-sm\" (tap)=\"clear()\">C</div>\n            <div class=\"bg-success text-white py-2 py-md-3 shadow-sm\" (tap)=\"hide()\">確定</div>\n        </div>\n    </div>\n</div>");
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.html":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.html ***!
-  \*********************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical text-small\">\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderDate' | translate }}]</p>\n            <p class=\"col-md-8\">{{ moment(order.orderDate).format('YYYY/MM/DD HH:mm') }}</p>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.confirmationNumber' | translate }}]</p>\n            <p class=\"col-md-8\">{{ order.confirmationNumber }}</p>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderNumber' | translate }}]</p>\n            <p class=\"col-md-8\">{{ order.orderNumber }}</p>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.event' | translate }}]</p>\n            <div class=\"col-md-8\">\n                <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-3\">\n                    <div>\n                        <div class=\"mb-1\">\n                            <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                            <p class=\"text-small\"\n                                *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                                {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                            <!-- <p class=\"text-small\"\n                                *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                                        eventOrder.event.superEvent.description | changeLanguage }}</p> -->\n                        </div>\n                        <p class=\"mb-1\">\n                            {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                        </p>\n                        <p class=\"text-small mb-1\">\n                            <span class=\"theatre-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                            <span class=\"screen-name\">&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>\n                            <span *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                            </span>\n                        </p>\n                    </div>\n                    <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                        <p>\n                            <span *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                                {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.customer' | translate }}]</p>\n            <div class=\"col-md-8\">\n                <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>\n                <p>{{ order.customer.email }}</p>\n                <p>{{ order.customer.telephone | libphonenumberFormat }}</p>\n            </div>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderStatus' | translate }}]</p>\n            <p class=\"col-md-8\">{{ order.orderStatus }}</p>\n        </div>\n    </div>\n\n\n</div>\n\n<div class=\"buttons mx-auto text-center\">\n    <button type=\"button\" class=\"btn btn-link btn-sm\" (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n</div>");
 
 /***/ }),
 
@@ -4435,23 +4422,23 @@ var LoadingComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.scss":
-/*!**********************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.scss ***!
-  \**********************************************************************************************/
+/***/ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.scss":
+/*!*****************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.scss ***!
+  \*****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvbXZ0ay1jaGVjay1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcbXZ0ay1jaGVjay1tb2RhbFxcbXZ0ay1jaGVjay1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvbXZ0ay1jaGVjay1tb2RhbC9tdnRrLWNoZWNrLW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7QUNDSiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL212dGstY2hlY2stbW9kYWwvbXZ0ay1jaGVjay1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5zY3JvbGwtdmVydGljYWwge1xuICAgIG1heC1oZWlnaHQ6IDc1dmg7XG59IiwiLnNjcm9sbC12ZXJ0aWNhbCB7XG4gIG1heC1oZWlnaHQ6IDc1dmg7XG59Il19 */");
+/* harmony default export */ __webpack_exports__["default"] = (".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvbXZ0ay9jaGVjay1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcbXZ0a1xcY2hlY2stbW9kYWxcXGNoZWNrLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9tdnRrL2NoZWNrLW1vZGFsL2NoZWNrLW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7QUNDSiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL212dGsvY2hlY2stbW9kYWwvY2hlY2stbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuc2Nyb2xsLXZlcnRpY2FsIHtcbiAgICBtYXgtaGVpZ2h0OiA3NXZoO1xufSIsIi5zY3JvbGwtdmVydGljYWwge1xuICBtYXgtaGVpZ2h0OiA3NXZoO1xufSJdfQ== */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.ts":
-/*!********************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.ts ***!
-  \********************************************************************************************/
+/***/ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.ts":
+/*!***************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.ts ***!
+  \***************************************************************************************/
 /*! exports provided: MvtkCheckModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4463,10 +4450,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../shared/pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../shared/pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4641,8 +4628,8 @@ var MvtkCheckModalComponent = /** @class */ (function () {
     MvtkCheckModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-mvtk-check-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./mvtk-check-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./mvtk-check-modal.component.scss */ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.scss")).default]
+            template: __importDefault(__webpack_require__(/*! raw-loader!./check-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./check-modal.component.scss */ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.scss")).default]
         }),
         __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsModalRef"],
             _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
@@ -4780,94 +4767,6 @@ var NumericKeypadComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], NumericKeypadComponent);
     return NumericKeypadComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.scss":
-/*!**************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.scss ***!
-  \**************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvb3JkZXItZGV0YWlsLW1vZGFsL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxmcm9udGVuZC9zcmNcXGNsaWVudFxcYXBwXFxtb2R1bGVzXFxzaGFyZWRcXGNvbXBvbmVudHNcXHBhcnRzXFxvcmRlci1kZXRhaWwtbW9kYWxcXG9yZGVyLWRldGFpbC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvb3JkZXItZGV0YWlsLW1vZGFsL29yZGVyLWRldGFpbC1tb2RhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9vcmRlci1kZXRhaWwtbW9kYWwvb3JkZXItZGV0YWlsLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnNjcm9sbC12ZXJ0aWNhbCB7XG4gICAgbWF4LWhlaWdodDogNzV2aDtcbn0iLCIuc2Nyb2xsLXZlcnRpY2FsIHtcbiAgbWF4LWhlaWdodDogNzV2aDtcbn0iXX0= */");
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.ts":
-/*!************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.ts ***!
-  \************************************************************************************************/
-/*! exports provided: OrderDetailModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderDetailModalComponent", function() { return OrderDetailModalComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-
-
-
-
-
-var OrderDetailModalComponent = /** @class */ (function () {
-    function OrderDetailModalComponent(elementRef, modal) {
-        this.elementRef = elementRef;
-        this.modal = modal;
-        this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
-        this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_5__["getTicketPrice"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
-    }
-    OrderDetailModalComponent.prototype.ngOnInit = function () {
-        this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["orderToEventOrders"])({ order: this.order });
-        var element = this.elementRef.nativeElement.querySelector('.scroll-vertical');
-        setTimeout(function () {
-            element.scrollTop = 0;
-        }, 0);
-    };
-    OrderDetailModalComponent.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] }
-    ]; };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Object)
-    ], OrderDetailModalComponent.prototype, "order", void 0);
-    OrderDetailModalComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-order-detail-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./order-detail-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./order-detail-modal.component.scss */ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.scss")).default]
-        }),
-        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
-    ], OrderDetailModalComponent);
-    return OrderDetailModalComponent;
 }());
 
 
@@ -5740,17 +5639,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/parts/header-menu/header-menu.component */ "./app/modules/shared/components/parts/header-menu/header-menu.component.ts");
 /* harmony import */ var _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/parts/header/header.component */ "./app/modules/shared/components/parts/header/header.component.ts");
 /* harmony import */ var _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/loading/loading.component */ "./app/modules/shared/components/parts/loading/loading.component.ts");
-/* harmony import */ var _components_parts_mvtk_check_modal_mvtk_check_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/mvtk-check-modal/mvtk-check-modal.component */ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.ts");
+/* harmony import */ var _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/mvtk/check-modal/check-modal.component */ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.ts");
 /* harmony import */ var _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/numeric-keypad/numeric-keypad.component */ "./app/modules/shared/components/parts/numeric-keypad/numeric-keypad.component.ts");
-/* harmony import */ var _components_parts_order_detail_modal_order_detail_modal_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/order-detail-modal/order-detail-modal.component */ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/purchase/cinema/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/parts/purchase/event/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/parts/purchase/transaction-modal/transaction-modal.component */ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts");
-/* harmony import */ var _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/parts/qrcode/reader-modal/reader-modal.component */ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts");
-/* harmony import */ var _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/parts/qrcode/viewer-modal/viewer-modal.component */ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts");
-/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
-/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
-/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
+/* harmony import */ var _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/purchase/cinema/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/purchase/event/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/parts/purchase/transaction-modal/transaction-modal.component */ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts");
+/* harmony import */ var _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/parts/qrcode/reader-modal/reader-modal.component */ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts");
+/* harmony import */ var _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/parts/qrcode/viewer-modal/viewer-modal.component */ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts");
+/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
+/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5760,7 +5658,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
 
 
 
@@ -5803,19 +5700,18 @@ var components = [
 var entryComponents = [
     _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_11__["AlertModalComponent"],
     _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_12__["ConfirmModalComponent"],
-    _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_27__["QRCodeReaderModalComponent"],
-    _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_28__["QRCodeViewerModalComponent"],
+    _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_26__["QRCodeReaderModalComponent"],
+    _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_27__["QRCodeViewerModalComponent"],
     _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_14__["CreditcardRegisterModalComponent"],
     _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_16__["CreditCardSelectModalComponent"],
     _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_15__["CreditcardSecurityCodeModalComponent"],
     _components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_8__["AccountChargeModalComponent"],
     _components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_10__["AccountTransferModalComponent"],
     _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_9__["AccountOpenModalComponent"],
-    _components_parts_order_detail_modal_order_detail_modal_component__WEBPACK_IMPORTED_MODULE_23__["OrderDetailModalComponent"],
-    _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseCinemaTicketModalComponent"],
-    _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_25__["PurchaseEventTicketModalComponent"],
-    _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_26__["PurchaseTransactionModalComponent"],
-    _components_parts_mvtk_check_modal_mvtk_check_modal_component__WEBPACK_IMPORTED_MODULE_21__["MvtkCheckModalComponent"],
+    _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_23__["PurchaseCinemaTicketModalComponent"],
+    _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseEventTicketModalComponent"],
+    _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_25__["PurchaseTransactionModalComponent"],
+    _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_21__["MvtkCheckModalComponent"],
     _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_22__["NumericKeypadComponent"],
 ];
 var SharedModule = /** @class */ (function () {
@@ -5824,9 +5720,9 @@ var SharedModule = /** @class */ (function () {
     SharedModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: components.concat(entryComponents, [
-                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_31__["LibphonenumberFormatPipe"],
-                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_29__["ChangeLanguagePipe"],
-                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_30__["FormatDatePipe"],
+                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_30__["LibphonenumberFormatPipe"],
+                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_28__["ChangeLanguagePipe"],
+                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_29__["FormatDatePipe"],
             ]),
             entryComponents: entryComponents,
             imports: [
@@ -5841,9 +5737,9 @@ var SharedModule = /** @class */ (function () {
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["PaginationModule"],
             ],
             exports: components.concat(entryComponents, [
-                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_31__["LibphonenumberFormatPipe"],
-                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_29__["ChangeLanguagePipe"],
-                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_30__["FormatDatePipe"],
+                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_30__["LibphonenumberFormatPipe"],
+                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_28__["ChangeLanguagePipe"],
+                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_29__["FormatDatePipe"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"],

@@ -4,15 +4,15 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalRef } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
-import { movieTicketAuthErroCodeToMessage } from '../../../../../functions';
-import { PurchaseService, QRCodeService } from '../../../../../services';
-import * as reducers from '../../../../../store/reducers';
-import { ChangeLanguagePipe } from '../../../../shared/pipes/change-language.pipe';
+import { movieTicketAuthErroCodeToMessage } from '../../../../../../functions';
+import { PurchaseService, QRCodeService } from '../../../../../../services';
+import * as reducers from '../../../../../../store/reducers';
+import { ChangeLanguagePipe } from '../../../../../shared/pipes/change-language.pipe';
 
 @Component({
     selector: 'app-mvtk-check-modal',
-    templateUrl: './mvtk-check-modal.component.html',
-    styleUrls: ['./mvtk-check-modal.component.scss']
+    templateUrl: './check-modal.component.html',
+    styleUrls: ['./check-modal.component.scss']
 })
 export class MvtkCheckModalComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;

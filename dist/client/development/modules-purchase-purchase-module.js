@@ -1787,7 +1787,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../services */ "./app/services/index.ts");
 /* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _shared_components_parts_mvtk_check_modal_mvtk_check_modal_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../shared/components/parts/mvtk-check-modal/mvtk-check-modal.component */ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.ts");
+/* harmony import */ var _shared_components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../shared/components/parts/mvtk/check-modal/check-modal.component */ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.ts");
 /* harmony import */ var _shared_components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1960,7 +1960,7 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
         }).unsubscribe();
     };
     PurchaseCinemaTicketComponent.prototype.openMovieTicket = function () {
-        this.modal.show(_shared_components_parts_mvtk_check_modal_mvtk_check_modal_component__WEBPACK_IMPORTED_MODULE_8__["MvtkCheckModalComponent"], {
+        this.modal.show(_shared_components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_8__["MvtkCheckModalComponent"], {
             class: 'modal-dialog-centered'
         });
     };
