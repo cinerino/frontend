@@ -1,8 +1,6 @@
 <div class="p-3 scroll-vertical">
     <div *ngIf="title" class="mb-3 text-large text-center">{{ title }}</div>
-    <p *ngIf="body" class="mb-3 text-center">
-        {{ body }}
-    </p>
+    <p *ngIf="body" class="mb-3 text-center" [innerHTML]="body"></p>
     <div class="mb-3 text-center">
         <img [src]="url | async">
     </div>

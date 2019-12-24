@@ -17,6 +17,9 @@ import { AlertModalComponent } from './components/parts/alert-modal/alert-modal.
 import { ConfirmModalComponent } from './components/parts/confirm-modal/confirm-modal.component';
 import { ContentsComponent } from './components/parts/contents/contents.component';
 import { CreditcardRegisterModalComponent } from './components/parts/creditcard/register-modal/register-modal.component';
+import {
+  CreditcardSecurityCodeModalComponent
+ } from './components/parts/creditcard/security-code-modal/security-code-modal.component';
 import { CreditCardSelectModalComponent } from './components/parts/creditcard/select-modal/select-modal.component';
 import { FooterComponent } from './components/parts/footer/footer.component';
 import { HeaderMenuComponent } from './components/parts/header-menu/header-menu.component';
@@ -28,10 +31,8 @@ import { OrderDetailModalComponent } from './components/parts/order-detail-modal
 import { PurchaseCinemaTicketModalComponent } from './components/parts/purchase/cinema/ticket-modal/ticket-modal.component';
 import { PurchaseEventTicketModalComponent } from './components/parts/purchase/event/ticket-modal/ticket-modal.component';
 import { PurchaseTransactionModalComponent } from './components/parts/purchase/transaction-modal/transaction-modal.component';
-import { QrCodeModalComponent } from './components/parts/qrcode-modal/qrcode-modal.component';
 import { QRCodeReaderModalComponent } from './components/parts/qrcode/reader-modal/reader-modal.component';
 import { QRCodeViewerModalComponent } from './components/parts/qrcode/viewer-modal/viewer-modal.component';
-import { SecurityCodeModalComponent } from './components/parts/security-code-modal/security-code-modal.component';
 import { ChangeLanguagePipe } from './pipes/change-language.pipe';
 import { FormatDatePipe } from './pipes/format-date.pipe';
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
@@ -42,18 +43,17 @@ const components = [
   HeaderComponent,
   HeaderMenuComponent,
   ContentsComponent,
-  QrCodeModalComponent,
   BaseComponent,
 ];
 
 const entryComponents = [
   AlertModalComponent,
   ConfirmModalComponent,
-  QrCodeModalComponent,
   QRCodeReaderModalComponent,
   QRCodeViewerModalComponent,
   CreditcardRegisterModalComponent,
   CreditCardSelectModalComponent,
+  CreditcardSecurityCodeModalComponent,
   AccountChargeModalComponent,
   AccountTransferModalComponent,
   AccountOpenModalComponent,
@@ -63,7 +63,6 @@ const entryComponents = [
   PurchaseTransactionModalComponent,
   MvtkCheckModalComponent,
   NumericKeypadComponent,
-  SecurityCodeModalComponent,
 ];
 
 @NgModule({

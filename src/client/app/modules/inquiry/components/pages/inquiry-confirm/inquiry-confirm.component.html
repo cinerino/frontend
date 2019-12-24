@@ -47,6 +47,10 @@
                             {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{
                             getTicketPrice(acceptedOffer).single | currency : 'JPY' }}
                     </p>
+                    <button *ngIf="environment.INQUIRY_QRCODE"
+                        [disabled]="(order | async).order.orderStatus !== orderStatus.OrderDelivered" type="button"
+                        class="btn btn-primary btn-sm mt-2 mb-3"
+                        (click)="openQRCodeViewer(acceptedOffer.itemOffered.id)">{{ 'inquiry.confirm.next' | translate }}</button>
                 </div>
             </div>
 
@@ -93,10 +97,6 @@
 
     <div class="buttons mx-auto text-center">
         <div *ngIf="(order | async).order.orderStatus !== orderStatus.OrderReturned">
-            <button *ngIf="environment.INQUIRY_QRCODE"
-                [disabled]="(order | async).order.orderStatus !== orderStatus.OrderDelivered" type="button"
-                class="btn btn-primary btn-block py-3 mb-3"
-                (click)="showQrCode()">{{ 'inquiry.confirm.next' | translate }}</button>
             <button *ngIf="environment.INQUIRY_PRINT"
                 [disabled]="(order | async).order.orderStatus !== orderStatus.OrderDelivered" type="button"
                 class="btn btn-primary btn-block py-3 mb-3" (click)="print()"

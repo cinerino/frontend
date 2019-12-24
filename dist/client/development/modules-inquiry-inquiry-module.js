@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.confirm.title' | translate }}</h2>\n    <div *ngIf=\"(order | async).order.orderStatus === orderStatus.OrderReturned\">\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.confirm.canceled' | translate\"></p>\n    </div>\n    <div *ngIf=\"(order | async).order.orderStatus !== orderStatus.OrderReturned\">\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.confirm.read' | translate\"></p>\n        <div class=\"mb-4 px-3 py-2 bg-white\">\n            <div class=\"row align-items-center\">\n                <p class=\"col-4\">\n                    {{ 'common.confirmationNumber' | translate }}</p>\n                <p class=\"col-8 text-large text-info font-weight-bold\">\n                    {{ (order | async).order.confirmationNumber }}\n                </p>\n            </div>\n        </div>\n        <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-4 bg-white p-3\">\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                        {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                        eventOrder.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span class=\"theatre-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                    <span class=\"screen-name\">&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>\n                    <span\n                        *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;<span\n                            class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n            </div>\n            <hr class=\"mb-3\">\n            <div *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n                <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                    <p>\n                        <span\n                            *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                            {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                    </p>\n                </div>\n            </div>\n\n            <div *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n                <div *ngFor=\"let ticket of changeTicketCountByOrder(eventOrder.data)\">\n                    <p>\n                        {{ ticket.acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(ticket.acceptedOffer).single | currency : 'JPY' }}&nbsp;×&nbsp;{{ ticket.count }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n\n        <div class=\"mb-4 px-3 bg-white\">\n            <div class=\"py-3 border-bottom border-gray customer-name\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.customerName' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (order | async).order.customer.familyName }}\n                        {{ (order | async).order.customer.givenName }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray email\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.email' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (order | async).order.customer.email }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 telephone\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.telephone' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (order | async).order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n            <!-- <div class=\"py-3\" *ngIf=\"(order | async).order.price > 0\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.paymentMethod' | translate }}</p>\n                    <p class=\"col-md-8\">クレジットカード</p>\n                </div>\n            </div> -->\n        </div>\n    </div>\n\n\n    <div class=\"buttons mx-auto text-center\">\n        <div *ngIf=\"(order | async).order.orderStatus !== orderStatus.OrderReturned\">\n            <button *ngIf=\"environment.INQUIRY_QRCODE\"\n                [disabled]=\"(order | async).order.orderStatus !== orderStatus.OrderDelivered\" type=\"button\"\n                class=\"btn btn-primary btn-block py-3 mb-3\"\n                (click)=\"showQrCode()\">{{ 'inquiry.confirm.next' | translate }}</button>\n            <button *ngIf=\"environment.INQUIRY_PRINT\"\n                [disabled]=\"(order | async).order.orderStatus !== orderStatus.OrderDelivered\" type=\"button\"\n                class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"print()\"\n                [disabled]=\"isLoading | async\">{{ 'inquiry.confirm.print' | translate }}</button>\n            <button *ngIf=\"environment.INQUIRY_CANCEL\"\n                [disabled]=\"(order | async).order.orderStatus !== orderStatus.OrderDelivered\" type=\"button\"\n                class=\"btn btn-danger btn-block py-3 mb-3\"\n                (click)=\"cancelConfirm()\">{{ 'inquiry.confirm.cancel' | translate }}</button>\n        </div>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/inquiry/input\">{{ 'inquiry.confirm.prev' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'inquiry.confirm.title' | translate }}</h2>\n    <div *ngIf=\"(order | async).order.orderStatus === orderStatus.OrderReturned\">\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.confirm.canceled' | translate\"></p>\n    </div>\n    <div *ngIf=\"(order | async).order.orderStatus !== orderStatus.OrderReturned\">\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'inquiry.confirm.read' | translate\"></p>\n        <div class=\"mb-4 px-3 py-2 bg-white\">\n            <div class=\"row align-items-center\">\n                <p class=\"col-4\">\n                    {{ 'common.confirmationNumber' | translate }}</p>\n                <p class=\"col-8 text-large text-info font-weight-bold\">\n                    {{ (order | async).order.confirmationNumber }}\n                </p>\n            </div>\n        </div>\n        <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-4 bg-white p-3\">\n            <div class=\"mb-3\">\n                <div class=\"mb-1\">\n                    <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                        {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                    <p class=\"text-small\"\n                        *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                        eventOrder.event.superEvent.description | changeLanguage }}</p>\n                </div>\n                <p class=\"mb-1\">\n                    {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                </p>\n                <p class=\"text-small mb-1\">\n                    <span class=\"theatre-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                    <span class=\"screen-name\">&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>\n                    <span\n                        *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                        &nbsp;/&nbsp;<span\n                            class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                    </span>\n                </p>\n            </div>\n            <hr class=\"mb-3\">\n            <div *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n                <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                    <p>\n                        <span\n                            *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                            {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                    </p>\n                    <button *ngIf=\"environment.INQUIRY_QRCODE\"\n                        [disabled]=\"(order | async).order.orderStatus !== orderStatus.OrderDelivered\" type=\"button\"\n                        class=\"btn btn-primary btn-sm mt-2 mb-3\"\n                        (click)=\"openQRCodeViewer(acceptedOffer.itemOffered.id)\">{{ 'inquiry.confirm.next' | translate }}</button>\n                </div>\n            </div>\n\n            <div *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n                <div *ngFor=\"let ticket of changeTicketCountByOrder(eventOrder.data)\">\n                    <p>\n                        {{ ticket.acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                            getTicketPrice(ticket.acceptedOffer).single | currency : 'JPY' }}&nbsp;×&nbsp;{{ ticket.count }}\n                    </p>\n                </div>\n            </div>\n        </div>\n\n\n        <div class=\"mb-4 px-3 bg-white\">\n            <div class=\"py-3 border-bottom border-gray customer-name\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.customerName' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (order | async).order.customer.familyName }}\n                        {{ (order | async).order.customer.givenName }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 border-bottom border-gray email\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.email' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (order | async).order.customer.email }}</p>\n                </div>\n            </div>\n            <div class=\"py-3 telephone\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.telephone' | translate }}</p>\n                    <p class=\"col-md-8\">{{ (order | async).order.customer.telephone | libphonenumberFormat }}</p>\n                </div>\n            </div>\n            <!-- <div class=\"py-3\" *ngIf=\"(order | async).order.price > 0\">\n                <div class=\"row align-items-center\">\n                    <p class=\"mb-2 mb-md-0 col-md-4\">{{ 'common.paymentMethod' | translate }}</p>\n                    <p class=\"col-md-8\">クレジットカード</p>\n                </div>\n            </div> -->\n        </div>\n    </div>\n\n\n    <div class=\"buttons mx-auto text-center\">\n        <div *ngIf=\"(order | async).order.orderStatus !== orderStatus.OrderReturned\">\n            <button *ngIf=\"environment.INQUIRY_PRINT\"\n                [disabled]=\"(order | async).order.orderStatus !== orderStatus.OrderDelivered\" type=\"button\"\n                class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"print()\"\n                [disabled]=\"isLoading | async\">{{ 'inquiry.confirm.print' | translate }}</button>\n            <button *ngIf=\"environment.INQUIRY_CANCEL\"\n                [disabled]=\"(order | async).order.orderStatus !== orderStatus.OrderDelivered\" type=\"button\"\n                class=\"btn btn-danger btn-block py-3 mb-3\"\n                (click)=\"cancelConfirm()\">{{ 'inquiry.confirm.cancel' | translate }}</button>\n        </div>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/inquiry/input\">{{ 'inquiry.confirm.prev' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -70,12 +70,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _shared_components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../shared/components/parts/qrcode-modal/qrcode-modal.component */ "./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -133,22 +131,20 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
-
 var InquiryConfirmComponent = /** @class */ (function () {
-    function InquiryConfirmComponent(store, router, modal, utilService, orderService, userService, translate) {
+    function InquiryConfirmComponent(store, router, utilService, orderService, userService, translate, qrcodeService) {
         this.store = store;
         this.router = router;
-        this.modal = modal;
         this.utilService = utilService;
         this.orderService = orderService;
         this.userService = userService;
         this.translate = translate;
+        this.qrcodeService = qrcodeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
-        this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_8__["getTicketPrice"];
-        this.changeTicketCountByOrder = _functions__WEBPACK_IMPORTED_MODULE_8__["changeTicketCountByOrder"];
+        this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
+        this.changeTicketCountByOrder = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCountByOrder"];
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"];
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
     }
     /**
      * 初期化
@@ -156,19 +152,19 @@ var InquiryConfirmComponent = /** @class */ (function () {
     InquiryConfirmComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.eventOrders = [];
-        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getError"]));
-        this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getOrder"]));
-        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getUser"]));
+        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
+        this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getOrder"]));
+        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getUser"]));
         this.order.subscribe(function (value) {
             if (value.order === undefined) {
                 _this.router.navigate(['/error']);
                 return;
             }
             var order = value.order;
-            _this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["orderToEventOrders"])({ order: order });
+            _this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["orderToEventOrders"])({ order: order });
         }).unsubscribe();
-        if (_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].INQUIRY_PRINT_WAIT_TIME !== '') {
-            var time = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].INQUIRY_PRINT_WAIT_TIME);
+        if (_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_PRINT_WAIT_TIME !== '') {
+            var time = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_PRINT_WAIT_TIME);
             this.timer = setTimeout(function () {
                 _this.router.navigate(['/inquiry/input']);
             }, time);
@@ -186,9 +182,9 @@ var InquiryConfirmComponent = /** @class */ (function () {
     /**
      * QRコード表示
      */
-    InquiryConfirmComponent.prototype.showQrCode = function () {
+    InquiryConfirmComponent.prototype.openQRCodeViewer = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var orderData, authorizeOrder, error_1;
+            var orderData, authorizeOrder, findResult, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -209,9 +205,19 @@ var InquiryConfirmComponent = /** @class */ (function () {
                         if (authorizeOrder === undefined) {
                             throw new Error('authorizeOrder undefined');
                         }
-                        this.modal.show(_shared_components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_11__["QrCodeModalComponent"], {
-                            initialState: { order: authorizeOrder },
-                            class: 'modal-dialog-centered'
+                        findResult = authorizeOrder.acceptedOffers.find(function (a) {
+                            return (a.itemOffered.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.reservationType.EventReservation
+                                && a.itemOffered.id === id);
+                        });
+                        if (findResult === undefined) {
+                            throw new Error('itemOffered notfound');
+                        }
+                        if (findResult.itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.reservationType.EventReservation) {
+                            throw new Error('itemOffered typeOf missmatch');
+                        }
+                        this.qrcodeService.openQRCodeViewer({
+                            title: this.translate.instant('inquiry.confirm.qrcode.title'),
+                            code: (findResult.itemOffered.reservedTicket.ticketToken)
                         });
                         return [3 /*break*/, 5];
                     case 4:
@@ -292,7 +298,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
                     case 0:
                         today = moment__WEBPACK_IMPORTED_MODULE_5__().format('YYYYMMDD');
                         limit = moment__WEBPACK_IMPORTED_MODULE_5__(today)
-                            .add(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].INQUIRY_PRINT_EXPIRED_VALUE, _environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].INQUIRY_PRINT_EXPIRED_UNIT)
+                            .add(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_PRINT_EXPIRED_VALUE, _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_PRINT_EXPIRED_UNIT)
                             .format('YYYYMMDD');
                         findResult = this.eventOrders.find(function (o) { return moment__WEBPACK_IMPORTED_MODULE_5__(o.event.startDate).format('YYYYMMDD') < limit; });
                         if (findResult !== undefined) {
@@ -341,11 +347,11 @@ var InquiryConfirmComponent = /** @class */ (function () {
     InquiryConfirmComponent.ctorParameters = function () { return [
         { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["BsModalService"] },
-        { type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"] },
-        { type: _services__WEBPACK_IMPORTED_MODULE_9__["OrderService"] },
-        { type: _services__WEBPACK_IMPORTED_MODULE_9__["UserService"] },
-        { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"] }
+        { type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_8__["OrderService"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
+        { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_8__["QRCodeService"] }
     ]; };
     InquiryConfirmComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -355,11 +361,11 @@ var InquiryConfirmComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_6__["BsModalService"],
-            _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"],
-            _services__WEBPACK_IMPORTED_MODULE_9__["OrderService"],
-            _services__WEBPACK_IMPORTED_MODULE_9__["UserService"],
-            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]])
+            _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"],
+            _services__WEBPACK_IMPORTED_MODULE_8__["OrderService"],
+            _services__WEBPACK_IMPORTED_MODULE_8__["UserService"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"],
+            _services__WEBPACK_IMPORTED_MODULE_8__["QRCodeService"]])
     ], InquiryConfirmComponent);
     return InquiryConfirmComponent;
 }());

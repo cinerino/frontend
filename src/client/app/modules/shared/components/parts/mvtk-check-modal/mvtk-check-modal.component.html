@@ -3,12 +3,17 @@
         <div [class.d-none]="isShowVideo">
             <div class="mb-4">
                 <p *ngIf="errorMessage !== '' && !isSuccess" class="mb-3 p-2 alert alert-danger">{{ errorMessage }}</p>
-                <p *ngIf="isSuccess" class="mb-3 p-2 alert alert-success">{{ 'modal.mvtkCheck.success' | translate }}
+                <p *ngIf="isSuccess" class="mb-3 p-2 alert alert-success">{{ 'modal.mvtk.check.success' | translate }}
                 </p>
                 <div class="form-group">
-                    <label class="mb-2" for="">{{ 'modal.mvtkCheck.success' | translate }}</label>
-                    <input type="text" class="form-control" formControlName="code" id="code" autocomplete="off"
-                        placeholder="(例)012345789" maxlength="10">
+                    <label class="mb-2" for="">{{ 'modal.mvtk.check.code' | translate }}</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" formControlName="code" id="code" autocomplete="off"
+                        placeholder="012345789" maxlength="10">
+                        <div class="input-group-append" (click)="openQRReader()">
+                            <span class="input-group-text"><i class="fas fa-qrcode"></i></span>
+                        </div>
+                    </div>
                     <div *ngIf="mvtkForm.controls.code.invalid && mvtkForm.controls.code.touched" class="mt-2">
                         <p *ngIf="mvtkForm.controls.code.errors.required" class="text-danger">
                             {{ 'form.validation.required' | translate }}</p>
@@ -24,9 +29,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="mb-2" for="">{{ 'modal.mvtkCheck.success' | translate }}</label>
+                    <label class="mb-2" for="">{{ 'modal.mvtk.check.password' | translate }}</label>
                     <input type="password" class="form-control" formControlName="password" id="password"
-                        autocomplete="off" placeholder="(例)0123" maxlength="4">
+                        autocomplete="off" placeholder="0123" maxlength="4">
                     <div *ngIf="mvtkForm.controls.password.invalid && mvtkForm.controls.password.touched" class="mt-2">
                         <p *ngIf="mvtkForm.controls.password.errors.required" class="text-danger">
                             {{ 'form.validation.required' | translate }}</p>
@@ -42,26 +47,10 @@
                 </div>
             </div>
             <div class="buttons mx-auto text-center">
-                <button *ngIf="stream === null" type="button" class="btn btn-success btn-block py-3"
-                    [disabled]="isLoading | async"
-                    (click)="activationCamera()">{{ 'modal.mvtkCheck.camera.start' | translate }}</button>
-                <button type="button" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async"
-                    (click)="checkMovieTicket()">{{ 'modal.mvtkCheck.next' | translate }}</button>
+                <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+                    (click)="checkMovieTicket()">{{ 'modal.mvtk.check.next' | translate }}</button>
                 <button type="button" class="btn btn-link btn-sm"
                     (click)="modal.hide()">{{ 'common.close' | translate }}</button>
-            </div>
-        </div>
-        <div [class.d-block]="isShowVideo" [class.d-none]="!isShowVideo">
-            <div class="mb-2">
-                <div class="video-area text-center">
-                    <video id="video" class="bg-black mx-auto" src="" autoplay muted playsinline></video>
-                </div>
-                <div class="d-none"><canvas id="canvas"></canvas></div>
-            </div>
-            <div class="buttons mx-auto mb-2">
-                <button *ngIf="stream !== null" type="button" class="btn btn-success btn-block"
-                    [disabled]="isLoading | async"
-                    (click)="stopCamera()">{{ 'modal.mvtkCheck.camera.stop' | translate }}</button>
             </div>
         </div>
 

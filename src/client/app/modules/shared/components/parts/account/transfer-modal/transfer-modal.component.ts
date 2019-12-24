@@ -49,7 +49,7 @@ export class AccountTransferModalComponent implements OnInit {
         });
     }
 
-    public opeenQRReader() {
+    public openQRReader() {
         this.qrcodeService.openQRCodeReader({
             cb: (data: string) => {
                 this.TransferAccountForm.controls.accountNumber.setValue(data);
