@@ -9,5 +9,5 @@
                 (click)="modal.hide()">{{ 'common.close' | translate }}</button>
         </div>
     </div>
-    <div class="scan border border-primary"></div>
+    <div *ngIf="running" class="scan border border-primary"></div>
 </div>

@@ -13,12 +13,14 @@ export class QRCodeReaderModalComponent implements OnInit, OnDestroy {
     public video: HTMLVideoElement;
     public scanLoop: any;
     public readerResult?: string;
+    public running: boolean;
 
     constructor(
         public modal: BsModalRef
     ) { }
 
     public async ngOnInit() {
+        this.running = false;
         this.video = <HTMLVideoElement>document.getElementById('video');
         this.video.width = 300;
         const constraints: MediaStreamConstraints = {
@@ -46,6 +48,7 @@ export class QRCodeReaderModalComponent implements OnInit, OnDestroy {
             this.stream = stream;
             this.video.srcObject = this.stream;
             const scanLoopTime = 500;
+            this.running = true;
             this.scanLoop = setInterval(() => {
                 if (this.scan()) {
                     this.modal.hide();
