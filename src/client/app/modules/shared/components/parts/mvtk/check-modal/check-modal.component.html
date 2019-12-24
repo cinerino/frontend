@@ -2,7 +2,7 @@
     <form [formGroup]="mvtkForm">
         <div [class.d-none]="isShowVideo">
             <div class="mb-4">
-                <p *ngIf="errorMessage !== '' && !isSuccess" class="mb-3 p-2 alert alert-danger">{{ errorMessage }}</p>
+                <p *ngIf="errorMessage !== '' && !isSuccess" class="mb-3 p-2 alert alert-danger" [innerHTML]="errorMessage"></p>
                 <p *ngIf="isSuccess" class="mb-3 p-2 alert alert-success">{{ 'modal.mvtk.check.success' | translate }}
                 </p>
                 <div class="form-group">
