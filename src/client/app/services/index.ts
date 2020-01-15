@@ -6,3 +6,4 @@ export * from './order.service';
 export * from './star-print.service';
 export * from './util.service';
 export * from './liny.service';
+export * from './qrcode.service';

@@ -4,6 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
 import { Observable } from 'rxjs';
+import { formatTelephone } from '../../../../../functions';
 import { UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -92,7 +93,9 @@ export class MypageProfileComponent implements OnInit {
             this.profileForm.controls.familyName.setValue(user.profile.familyName);
             this.profileForm.controls.givenName.setValue(user.profile.givenName);
             this.profileForm.controls.email.setValue(user.profile.email);
-            this.profileForm.controls.telephone.setValue(user.profile.telephone);
+            if (user.profile.telephone !== undefined) {
+                this.profileForm.controls.telephone.setValue(formatTelephone(user.profile.telephone, 'National').replace(/\-/g, ''));
+            }
         }).unsubscribe();
     }
 

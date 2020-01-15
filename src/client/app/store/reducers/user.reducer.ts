@@ -154,11 +154,6 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             return { ...state, loading: true, process: 'userAction.AddCreditCard' };
         }
         case userAction.ActionTypes.AddCreditCardSuccess: {
-            // const creditCard = action.payload.creditCard;
-            // const findResult = state.userData.creditCards.find(c => c.cardSeq === creditCard.cardSeq);
-            // if (findResult === undefined) {
-            //     state.userData.creditCards.push(creditCard);
-            // }
             return { ...state, loading: false, process: '', error: null };
         }
         case userAction.ActionTypes.AddCreditCardFail: {
@@ -169,11 +164,6 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             return { ...state, loading: true, process: 'userAction.RemoveCreditCard' };
         }
         case userAction.ActionTypes.RemoveCreditCardSuccess: {
-            // const creditCard = action.payload.creditCard;
-            // const findIndexResult = state.userData.creditCards.findIndex(c => c.cardSeq === creditCard.cardSeq);
-            // if (findIndexResult > -1) {
-            //     state.userData.creditCards.splice(findIndexResult, 1);
-            // }
             return { ...state, loading: false, process: '', error: null };
         }
         case userAction.ActionTypes.RemoveCreditCardFail: {
@@ -187,6 +177,16 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             return { ...state, loading: false, process: '', error: null };
         }
         case userAction.ActionTypes.ChargeAccountFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
+        case userAction.ActionTypes.TransferAccount: {
+            return { ...state, loading: true, process: 'userAction.TransferAccount' };
+        }
+        case userAction.ActionTypes.TransferAccountSuccess: {
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case userAction.ActionTypes.TransferAccountFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }

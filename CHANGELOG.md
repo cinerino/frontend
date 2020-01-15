@@ -12,6 +12,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 2.5.0 - 2020-01-15
+### Added
+ - 口座入金追加
+ - QRコードリーダー追加
+### Removed
+ - 不要なコンポーネント削除
+
 ## 2.4.9 - 2019-12-18
 ### Changed
  - クレジット管理UI変更

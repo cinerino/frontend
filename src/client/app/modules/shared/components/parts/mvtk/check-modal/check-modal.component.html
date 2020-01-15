@@ -1,0 +1,58 @@
+<div class="p-3 scroll-vertical">
+    <form [formGroup]="mvtkForm">
+        <div [class.d-none]="isShowVideo">
+            <div class="mb-4">
+                <p *ngIf="errorMessage !== '' && !isSuccess" class="mb-3 p-2 alert alert-danger" [innerHTML]="errorMessage"></p>
+                <p *ngIf="isSuccess" class="mb-3 p-2 alert alert-success">{{ 'modal.mvtk.check.success' | translate }}
+                </p>
+                <div class="form-group">
+                    <label class="mb-2" for="">{{ 'modal.mvtk.check.code' | translate }}</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" formControlName="code" id="code" autocomplete="off"
+                        placeholder="012345789" maxlength="10">
+                        <div class="input-group-append" (click)="openQRReader()">
+                            <span class="input-group-text"><i class="fas fa-qrcode"></i></span>
+                        </div>
+                    </div>
+                    <div *ngIf="mvtkForm.controls.code.invalid && mvtkForm.controls.code.touched" class="mt-2">
+                        <p *ngIf="mvtkForm.controls.code.errors.required" class="text-danger">
+                            {{ 'form.validation.required' | translate }}</p>
+                        <p *ngIf="mvtkForm.controls.code.errors.maxlength" class="text-danger">
+                            {{ 'form.validation.maxlength' | translate:{ value: mvtkForm.controls.code.errors.maxlength.requiredLength } }}
+                        </p>
+                        <p *ngIf="mvtkForm.controls.code.errors.minlength" class="text-danger">
+                            {{ 'form.validation.minlength' | translate:{ value: mvtkForm.controls.code.errors.minlength.requiredLength } }}
+                        </p>
+                        <p *ngIf="mvtkForm.controls.code.errors.pattern" class="text-danger">
+                            {{ 'form.validation.number' | translate }}</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="mb-2" for="">{{ 'modal.mvtk.check.password' | translate }}</label>
+                    <input type="password" class="form-control" formControlName="password" id="password"
+                        autocomplete="off" placeholder="0123">
+                    <div *ngIf="mvtkForm.controls.password.invalid && mvtkForm.controls.password.touched" class="mt-2">
+                        <p *ngIf="mvtkForm.controls.password.errors.required" class="text-danger">
+                            {{ 'form.validation.required' | translate }}</p>
+                        <!-- <p *ngIf="mvtkForm.controls.password.errors.maxlength" class="text-danger">
+                            {{ 'form.validation.maxlength' | translate:{ value: mvtkForm.controls.password.errors.maxlength.requiredLength } }}
+                        </p>
+                        <p *ngIf="mvtkForm.controls.password.errors.minlength" class="text-danger">
+                            {{ 'form.validation.minlength' | translate:{ value: customerContactForm.controls.givenName.errors.maxlength.requiredLength } }}
+                        </p>
+                        <p *ngIf="mvtkForm.controls.password.errors.pattern" class="text-danger">
+                            {{ 'form.validation.number' | translate }}</p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="buttons mx-auto text-center">
+                <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+                    (click)="checkMovieTicket()">{{ 'modal.mvtk.check.next' | translate }}</button>
+                <button type="button" class="btn btn-link btn-sm"
+                    (click)="modal.hide()">{{ 'common.close' | translate }}</button>
+            </div>
+        </div>
+
+    </form>
+</div>

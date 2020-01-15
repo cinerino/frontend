@@ -12,6 +12,7 @@ export class CinerinoService {
     public auth: cinerino.IImplicitGrantClient;
     public account: cinerino.service.Account;
     public event: cinerino.service.Event;
+    public offer: cinerino.service.Offer;
     public order: cinerino.service.Order;
     public seller: cinerino.service.Seller;
     public person: cinerino.service.Person;
@@ -21,7 +22,8 @@ export class CinerinoService {
     public payment: cinerino.service.Payment;
     public transaction: {
         placeOrder: cinerino.service.transaction.PlaceOrder,
-        returnOrder: cinerino.service.transaction.ReturnOrder
+        returnOrder: cinerino.service.transaction.ReturnOrder,
+        moneyTransfer: cinerino.service.transaction.MoneyTransfer,
     };
     public userName: string;
     private endpoint: string;
@@ -40,6 +42,7 @@ export class CinerinoService {
             const option = await this.createOption();
             this.account = new cinerino.service.Account(option);
             this.event = new cinerino.service.Event(option);
+            this.offer = new cinerino.service.Offer(option);
             this.order = new cinerino.service.Order(option);
             this.seller = new cinerino.service.Seller(option);
             this.person = new cinerino.service.Person(option);
@@ -49,7 +52,8 @@ export class CinerinoService {
             this.payment = new cinerino.service.Payment(option);
             this.transaction = {
                 placeOrder: new cinerino.service.transaction.PlaceOrder(option),
-                returnOrder: new cinerino.service.transaction.ReturnOrder(option)
+                returnOrder: new cinerino.service.transaction.ReturnOrder(option),
+                moneyTransfer: new cinerino.service.transaction.MoneyTransfer(option)
             };
         } catch (err) {
             console.error(err);

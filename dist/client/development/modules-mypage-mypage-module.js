@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'mypage.account.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'mypage.account.read' | translate\"></p>\n\n    <ul class=\"d-md-flex mb-4\">\n        <li *ngFor=\"let account of (user | async).accounts\" class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body position-relative\">\n                    <h5 class=\"card-title font-weight-bold\">{{ 'mypage.account.accountNumber' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ account.typeOfGood.accountNumber }}</p>\n                    <h5 class=\"card-title font-weight-bold\">{{ 'mypage.account.accountName' | translate }} [{{ 'mypage.account.accountType' | translate }}]\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ account.typeOfGood.name }} [{{ account.typeOfGood.accountType }}]</p>\n                    <h5 class=\"card-title font-weight-bold\">{{ 'mypage.account.availableBalance' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ account.typeOfGood.availableBalance }}</p>\n                    <button type=\"button\" class=\"btn btn-primary\" (click)=\"openChageAccountModal(account)\">{{ 'mypage.account.charge' | translate }}</button>\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\"\n                        (click)=\"confirmCloseAccount(account)\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"openOpenAccountModal()\"\n            [disabled]=\"isLoading | async\">{{ 'mypage.account.open' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\" routerLink=\"/mypage\">{{ 'mypage.credit.prev' | translate }}</button>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'mypage.account.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'mypage.account.read' | translate\"></p>\n\n    <ul class=\"d-md-flex flex-wrap mb-4\">\n        <li *ngFor=\"let account of (user | async).accounts\" class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body position-relative\">\n                    <div>\n                        <h5 class=\"card-title font-weight-bold\">{{ 'mypage.account.accountNumber' | translate }}\n                        </h5>\n                        <p class=\"card-text mb-3\"><a href=\"#\" (click)=\"openQRCodeViewer($event, account)\">{{ account.typeOfGood.accountNumber }}</a></p>\n                        <h5 class=\"card-title font-weight-bold\">{{ 'mypage.account.accountName' | translate }} [{{ 'mypage.account.accountType' | translate }}]\n                        </h5>\n                        <p class=\"card-text mb-3\">{{ account.typeOfGood.name }} [{{ account.typeOfGood.accountType }}]</p>\n                        <h5 class=\"card-title font-weight-bold\">{{ 'mypage.account.availableBalance' | translate }}\n                        </h5>\n                        <p class=\"card-text mb-3\">{{ account.typeOfGood.availableBalance }}</p>\n                    </div>\n                    <div>\n                        <button type=\"button\" class=\"btn btn-primary mr-2\" (click)=\"openChageAccountModal(account)\">{{ 'mypage.account.charge' | translate }}</button>\n                        <button type=\"button\" class=\"btn btn-primary mr-2\" (click)=\"openTransferAccountModal(account)\">{{ 'mypage.account.transfer' | translate }}</button>\n                    </div>\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\"\n                        (click)=\"confirmCloseAccount(account)\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"openOpenAccountModal()\"\n            [disabled]=\"isLoading | async\">{{ 'mypage.account.open' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\" routerLink=\"/mypage\">{{ 'mypage.credit.prev' | translate }}</button>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'mypage.credit.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'mypage.credit.read' | translate\"></p>\n\n\n    <ul class=\"d-md-flex creditCards mb-4\">\n        <li *ngFor=\"let creditCard of (user | async).creditCards\" class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body position-relative\">\n                    <h5 class=\"card-title font-weight-bold\">{{ 'common.credit.cardNumber' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ creditCard.cardNo }}</p>\n                    <h5 class=\"card-title font-weight-bold\">{{ 'common.credit.cardExpiration' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}\n                    </p>\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\"\n                        (click)=\"confirmRemoveCreditCard(creditCard)\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <p *ngIf=\"(user | async).creditCards.length === 0\" class=\"mb-4\">{{ 'mypage.credit.notFound' | translate }}</p>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"openRegisterCreditcardModal()\"\n            [disabled]=\"isLoading | async\">{{ 'mypage.credit.register' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\" routerLink=\"/mypage\">{{ 'mypage.credit.prev' | translate }}</button>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'mypage.credit.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'mypage.credit.read' | translate\"></p>\n\n\n    <ul class=\"d-md-flex flex-wrap creditCards mb-4\">\n        <li *ngFor=\"let creditCard of (user | async).creditCards\" class=\"my-md-2 mb-3\">\n            <div class=\"card mx-md-2 h-100\">\n                <div class=\"card-body position-relative\">\n                    <h5 class=\"card-title font-weight-bold\">{{ 'common.credit.cardNumber' | translate }}\n                    </h5>\n                    <p class=\"card-text mb-3\">{{ creditCard.cardNo }}</p>\n                    <h5 class=\"card-title font-weight-bold\">{{ 'common.credit.cardExpiration' | translate }}\n                    </h5>\n                    <p class=\"card-text\">{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}\n                    </p>\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\"\n                        (click)=\"confirmRemoveCreditCard(creditCard)\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <p *ngIf=\"(user | async).creditCards.length === 0\" class=\"mb-4\">{{ 'mypage.credit.notFound' | translate }}</p>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"openRegisterCreditcardModal()\"\n            [disabled]=\"isLoading | async\">{{ 'mypage.credit.register' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\" routerLink=\"/mypage\">{{ 'mypage.credit.prev' | translate }}</button>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -81,8 +81,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
 /* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _shared_components_parts_charge_account_modal_charge_account_modal_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../shared/components/parts/charge-account-modal/charge-account-modal.component */ "./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.ts");
-/* harmony import */ var _shared_components_parts_open_account_modal_open_account_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/components/parts/open-account-modal/open-account-modal.component */ "./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.ts");
+/* harmony import */ var _shared_components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../shared/components/parts/account/charge-modal/charge-modal.component */ "./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.ts");
+/* harmony import */ var _shared_components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/components/parts/account/open-modal/open-modal.component */ "./app/modules/shared/components/parts/account/open-modal/open-modal.component.ts");
+/* harmony import */ var _shared_components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../shared/components/parts/account/transfer-modal/transfer-modal.component */ "./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -149,62 +150,158 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var MypageAccountComponent = /** @class */ (function () {
-    function MypageAccountComponent(store, modal, translate, utilService, userService) {
+    function MypageAccountComponent(store, modal, translate, utilService, userService, masterService, qrcodeService) {
         this.store = store;
         this.modal = modal;
         this.translate = translate;
         this.utilService = utilService;
         this.userService = userService;
+        this.masterService = masterService;
+        this.qrcodeService = qrcodeService;
     }
     /**
      * 初期化
      */
     MypageAccountComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var error_1;
             return __generator(this, function (_a) {
-                this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getUser"]));
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getUser"]));
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.userService.getAccount()];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
             });
         });
     };
     /**
-     * チャージモーダル
+     * 入金モーダル
      */
     MypageAccountComponent.prototype.openChageAccountModal = function (account) {
         return __awaiter(this, void 0, void 0, function () {
-            var userData;
+            var userData, creditCards, sellers;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.userService.getData()];
                     case 1:
                         userData = _a.sent();
-                        this.modal.show(_shared_components_parts_charge_account_modal_charge_account_modal_component__WEBPACK_IMPORTED_MODULE_6__["ChargeAccountModalComponent"], {
+                        creditCards = userData.creditCards;
+                        return [4 /*yield*/, this.masterService.getData()];
+                    case 2: return [4 /*yield*/, (_a.sent()).sellers];
+                    case 3:
+                        sellers = _a.sent();
+                        this.modal.show(_shared_components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_6__["AccountChargeModalComponent"], {
                             initialState: {
-                                creditCards: userData.creditCards,
+                                sellers: sellers,
+                                creditCards: creditCards,
                                 cb: function (params) { return __awaiter(_this, void 0, void 0, function () {
-                                    var error_1;
+                                    var creditCard, profile, error_2;
                                     return __generator(this, function (_a) {
                                         switch (_a.label) {
                                             case 0:
-                                                _a.trys.push([0, 2, , 3]);
-                                                return [4 /*yield*/, this.userService.chargeAccount(__assign({}, params, { account: account }))];
+                                                _a.trys.push([0, 3, , 4]);
+                                                creditCard = {
+                                                    memberId: 'me',
+                                                    cardSeq: Number(params.creditCard.cardSeq)
+                                                };
+                                                profile = userData.profile;
+                                                if (profile === undefined) {
+                                                    throw new Error('profile undefined');
+                                                }
+                                                return [4 /*yield*/, this.userService.chargeAccount(__assign({}, params, { account: account, profile: profile, creditCard: creditCard }))];
                                             case 1:
                                                 _a.sent();
+                                                return [4 /*yield*/, this.userService.getAccount()];
+                                            case 2:
+                                                _a.sent();
                                                 this.utilService.openAlert({
-                                                    title: this.translate.instant('common.error'),
+                                                    title: this.translate.instant('common.complete'),
                                                     body: this.translate.instant('mypage.account.alert.chargeSuccess')
                                                 });
-                                                return [3 /*break*/, 3];
-                                            case 2:
-                                                error_1 = _a.sent();
+                                                return [3 /*break*/, 4];
+                                            case 3:
+                                                error_2 = _a.sent();
+                                                console.error(error_2);
                                                 this.utilService.openAlert({
                                                     title: this.translate.instant('common.error'),
                                                     body: this.translate.instant('mypage.account.alert.chargeFail')
                                                 });
-                                                return [3 /*break*/, 3];
-                                            case 3: return [2 /*return*/];
+                                                return [3 /*break*/, 4];
+                                            case 4: return [2 /*return*/];
+                                        }
+                                    });
+                                }); }
+                            },
+                            class: 'modal-dialog-centered'
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    /**
+     * 転送モーダル
+     */
+    MypageAccountComponent.prototype.openTransferAccountModal = function (account) {
+        return __awaiter(this, void 0, void 0, function () {
+            var userData, sellers;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.userService.getData()];
+                    case 1:
+                        userData = _a.sent();
+                        return [4 /*yield*/, this.masterService.getData()];
+                    case 2: return [4 /*yield*/, (_a.sent()).sellers];
+                    case 3:
+                        sellers = _a.sent();
+                        this.modal.show(_shared_components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_8__["AccountTransferModalComponent"], {
+                            initialState: {
+                                sellers: sellers,
+                                cb: function (params) { return __awaiter(_this, void 0, void 0, function () {
+                                    var profile, error_3;
+                                    return __generator(this, function (_a) {
+                                        switch (_a.label) {
+                                            case 0:
+                                                _a.trys.push([0, 3, , 4]);
+                                                profile = userData.profile;
+                                                if (profile === undefined) {
+                                                    throw new Error('profile undefined');
+                                                }
+                                                return [4 /*yield*/, this.userService.transferAccount(__assign({}, params, { account: account, profile: profile }))];
+                                            case 1:
+                                                _a.sent();
+                                                return [4 /*yield*/, this.userService.getAccount()];
+                                            case 2:
+                                                _a.sent();
+                                                this.utilService.openAlert({
+                                                    title: this.translate.instant('common.complete'),
+                                                    body: this.translate.instant('mypage.account.alert.transferSuccess')
+                                                });
+                                                return [3 /*break*/, 4];
+                                            case 3:
+                                                error_3 = _a.sent();
+                                                console.error(error_3);
+                                                this.utilService.openAlert({
+                                                    title: this.translate.instant('common.error'),
+                                                    body: this.translate.instant('mypage.account.alert.transferFail')
+                                                });
+                                                return [3 /*break*/, 4];
+                                            case 4: return [2 /*return*/];
                                         }
                                     });
                                 }); }
@@ -221,10 +318,10 @@ var MypageAccountComponent = /** @class */ (function () {
      */
     MypageAccountComponent.prototype.openOpenAccountModal = function () {
         var _this = this;
-        this.modal.show(_shared_components_parts_open_account_modal_open_account_modal_component__WEBPACK_IMPORTED_MODULE_7__["OpenAccountModalComponent"], {
+        this.modal.show(_shared_components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_7__["AccountOpenModalComponent"], {
             initialState: {
                 cb: function (params) { return __awaiter(_this, void 0, void 0, function () {
-                    var error_2;
+                    var error_4;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
@@ -241,7 +338,7 @@ var MypageAccountComponent = /** @class */ (function () {
                                 });
                                 return [3 /*break*/, 4];
                             case 3:
-                                error_2 = _a.sent();
+                                error_4 = _a.sent();
                                 this.utilService.openAlert({
                                     title: this.translate.instant('common.error'),
                                     body: this.translate.instant('mypage.account.alert.openAccountFail')
@@ -264,7 +361,7 @@ var MypageAccountComponent = /** @class */ (function () {
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('mypage.account.confirm.closeAccount'),
             cb: function () { return __awaiter(_this, void 0, void 0, function () {
-                var error_3;
+                var error_5;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
@@ -281,8 +378,8 @@ var MypageAccountComponent = /** @class */ (function () {
                             });
                             return [3 /*break*/, 4];
                         case 3:
-                            error_3 = _a.sent();
-                            console.error(error_3);
+                            error_5 = _a.sent();
+                            console.error(error_5);
                             this.utilService.openAlert({
                                 title: this.translate.instant('common.error'),
                                 body: this.translate.instant('mypage.account.alert.closeAccountFail')
@@ -294,12 +391,22 @@ var MypageAccountComponent = /** @class */ (function () {
             }); }
         });
     };
+    MypageAccountComponent.prototype.openQRCodeViewer = function (event, account) {
+        event.preventDefault();
+        this.qrcodeService.openQRCodeViewer({
+            title: this.translate.instant('mypage.account.accountNumber'),
+            body: account.typeOfGood.accountNumber,
+            code: account.typeOfGood.accountNumber
+        });
+    };
     MypageAccountComponent.ctorParameters = function () { return [
         { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"] },
         { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalService"] },
         { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"] },
         { type: _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"] },
-        { type: _services__WEBPACK_IMPORTED_MODULE_4__["UserService"] }
+        { type: _services__WEBPACK_IMPORTED_MODULE_4__["UserService"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_4__["MasterService"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_4__["QRCodeService"] }
     ]; };
     MypageAccountComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -311,7 +418,9 @@ var MypageAccountComponent = /** @class */ (function () {
             ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalService"],
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"],
             _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"],
-            _services__WEBPACK_IMPORTED_MODULE_4__["UserService"]])
+            _services__WEBPACK_IMPORTED_MODULE_4__["UserService"],
+            _services__WEBPACK_IMPORTED_MODULE_4__["MasterService"],
+            _services__WEBPACK_IMPORTED_MODULE_4__["QRCodeService"]])
     ], MypageAccountComponent);
     return MypageAccountComponent;
 }());
@@ -350,7 +459,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
 /* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _shared_components_parts_register_creditcard_modal_register_creditcard_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/components/parts/register-creditcard-modal/register-creditcard-modal.component */ "./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.ts");
+/* harmony import */ var _shared_components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/components/parts/creditcard/register-modal/register-modal.component */ "./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -497,7 +606,7 @@ var MypageCreditComponent = /** @class */ (function () {
                     case 1: return [4 /*yield*/, (_a.sent()).sellers];
                     case 2:
                         sellers = _a.sent();
-                        this.modal.show(_shared_components_parts_register_creditcard_modal_register_creditcard_modal_component__WEBPACK_IMPORTED_MODULE_7__["RegisterCreditcardModalComponent"], {
+                        this.modal.show(_shared_components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_7__["CreditcardRegisterModalComponent"], {
                             initialState: {
                                 sellers: sellers,
                                 cb: function (params) { return __awaiter(_this, void 0, void 0, function () {
@@ -656,8 +765,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 /* harmony import */ var libphonenumber_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -712,6 +822,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var MypageProfileComponent = /** @class */ (function () {
     function MypageProfileComponent(store, utilService, formBuilder, translate, userService) {
         this.store = store;
@@ -724,8 +835,8 @@ var MypageProfileComponent = /** @class */ (function () {
      * 初期化
      */
     MypageProfileComponent.prototype.ngOnInit = function () {
-        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getLoading"]));
-        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
+        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getLoading"]));
+        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
         this.createProfileForm();
     };
     /**
@@ -786,7 +897,9 @@ var MypageProfileComponent = /** @class */ (function () {
             _this.profileForm.controls.familyName.setValue(user.profile.familyName);
             _this.profileForm.controls.givenName.setValue(user.profile.givenName);
             _this.profileForm.controls.email.setValue(user.profile.email);
-            _this.profileForm.controls.telephone.setValue(user.profile.telephone);
+            if (user.profile.telephone !== undefined) {
+                _this.profileForm.controls.telephone.setValue(Object(_functions__WEBPACK_IMPORTED_MODULE_5__["formatTelephone"])(user.profile.telephone, 'National').replace(/\-/g, ''));
+            }
         }).unsubscribe();
     };
     /**
@@ -837,10 +950,10 @@ var MypageProfileComponent = /** @class */ (function () {
     };
     MypageProfileComponent.ctorParameters = function () { return [
         { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
-        { type: _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"] },
         { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
         { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] },
-        { type: _services__WEBPACK_IMPORTED_MODULE_5__["UserService"] }
+        { type: _services__WEBPACK_IMPORTED_MODULE_6__["UserService"] }
     ]; };
     MypageProfileComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -849,10 +962,10 @@ var MypageProfileComponent = /** @class */ (function () {
             styles: [__importDefault(__webpack_require__(/*! ./mypage-profile.component.scss */ "./app/modules/mypage/components/pages/mypage-profile/mypage-profile.component.scss")).default]
         }),
         __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
-            _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"],
+            _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
-            _services__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
+            _services__WEBPACK_IMPORTED_MODULE_6__["UserService"]])
     ], MypageProfileComponent);
     return MypageProfileComponent;
 }());

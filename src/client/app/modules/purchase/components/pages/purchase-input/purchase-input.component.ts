@@ -14,9 +14,9 @@ import { ViewType } from '../../../../../models';
 import { PurchaseService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import {
-    RegisteredCreditCardModalComponent
-} from '../../../../shared/components/parts/registered-credit-card-modal/registered-credit-card-modal.component';
-import { SecurityCodeModalComponent } from '../../../../shared/components/parts/security-code-modal/security-code-modal.component';
+    CreditcardSecurityCodeModalComponent
+ } from '../../../../shared/components/parts/creditcard/security-code-modal/security-code-modal.component';
+import { CreditCardSelectModalComponent } from '../../../../shared/components/parts/creditcard/select-modal/select-modal.component';
 import { LibphonenumberFormatPipe } from '../../../../shared/pipes/libphonenumber-format.pipe';
 
 @Component({
@@ -286,7 +286,7 @@ export class PurchaseInputComponent implements OnInit {
      * セキュリティコード詳細表示
      */
     public openSecurityCode() {
-        this.modal.show(SecurityCodeModalComponent, {
+        this.modal.show(CreditcardSecurityCodeModalComponent, {
             class: 'modal-dialog-centered'
         });
     }
@@ -297,7 +297,7 @@ export class PurchaseInputComponent implements OnInit {
     public openRegisteredCreditCard() {
 
         this.user.subscribe((user) => {
-            this.modal.show(RegisteredCreditCardModalComponent, {
+            this.modal.show(CreditCardSelectModalComponent, {
                 initialState: {
                     creditCards: user.creditCards,
                     cb: (creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) => {

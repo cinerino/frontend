@@ -1,0 +1,13 @@
+<div class="full-screen bg-black">
+    <video #video id="video" autoplay muted playsinline></video>
+    <div class="top w-100 px-3">
+        <p class="text-white text-center title w-100">{{ 'qrcode.reader.title' | translate }}</p>
+    </div>
+    <div class="bottom w-100">
+        <div class="buttons mx-auto text-center px-3">
+            <button type="button" class="btn btn-primary btn-block py-3"
+                (click)="modal.hide()">{{ 'common.close' | translate }}</button>
+        </div>
+    </div>
+    <div *ngIf="running" class="scan border border-primary"></div>
+</div>

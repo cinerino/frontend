@@ -262,44 +262,21 @@ export function getTicketPrice(
  * ムビチケ認証購入管理番号無効事由区分変換
  */
 export function movieTicketAuthErroCodeToMessage(code?: string): { ja: string; en: string; } {
-    switch (code) {
-        case '01': {
-            return { ja: '存在無', en: 'no existence' };
-        }
-        case '02': {
-            return { ja: 'PINｺｰﾄﾞ必須', en: 'PIN code required' };
-        }
-        case '03': {
-            return { ja: 'PINｺｰﾄﾞ認証ｴﾗｰ', en: 'PIN code authentication error' };
-        }
-        case '04': {
-            return { ja: '作品不一致', en: 'Work disagreement' };
-        }
-        case '05': {
-            return { ja: '未ｱｸﾃｨﾍﾞｰﾄ', en: 'unactivated' };
-        }
-        case '06': {
-            return { ja: '選択興行対象外', en: 'Not eligible for selection box' };
-        }
-        case '07': {
-            return { ja: '有効期限切れ', en: 'expired' };
-        }
-        case '08': {
-            return { ja: '座席予約期間外', en: 'outside the seat reservation period' };
-        }
-        case '09': {
-            return { ja: 'その他', en: 'other' };
-        }
-        case '11': {
-            return { ja: '座席予約開始前', en: 'Before starting seat reservation' };
-        }
-        case '12': {
-            return { ja: '仮お直り購入番号数不一致', en: 'temporary redemption purchase number mismatch' };
-        }
-        default: {
-            return { ja: 'その他', en: 'other' };
-        }
-    }
+    const table = [
+        { code: '01', ja: '存在無', en: 'no existence' },
+        { code: '02', ja: '存在無', en: 'no existence' },
+        { code: '03', ja: 'PINｺｰﾄﾞ認証ｴﾗｰ', en: 'PIN code authentication error' },
+        { code: '04', ja: '作品不一致', en: 'Work disagreement' },
+        { code: '05', ja: '未ｱｸﾃｨﾍﾞｰﾄ', en: 'unactivated' },
+        { code: '06', ja: '選択興行対象外', en: 'Not eligible for selection box' },
+        { code: '07', ja: '有効期限切れ', en: 'expired' },
+        { code: '08', ja: '座席予約期間外', en: 'outside the seat reservation period' },
+        { code: '09', ja: 'その他', en: 'other' },
+        { code: '11', ja: '座席予約開始前', en: 'Before starting seat reservation' },
+        { code: '12', ja: '仮お直り購入番号数不一致', en: 'temporary redemption purchase number mismatch' }
+    ];
+    const findResult = table.find(data => data.code === code);
+    return (findResult === undefined) ? { ja: 'その他', en: 'other' } : { ja: findResult.ja, en: findResult.en };
 }
 
 /**

@@ -4,10 +4,11 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
-import { UserService, UtilService } from '../../../../../services';
+import { MasterService, QRCodeService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import { ChargeAccountModalComponent } from '../../../../shared/components/parts/charge-account-modal/charge-account-modal.component';
-import { OpenAccountModalComponent } from '../../../../shared/components/parts/open-account-modal/open-account-modal.component';
+import { AccountChargeModalComponent } from '../../../../shared/components/parts/account/charge-modal/charge-modal.component';
+import { AccountOpenModalComponent } from '../../../../shared/components/parts/account/open-modal/open-modal.component';
+import { AccountTransferModalComponent } from '../../../../shared/components/parts/account/transfer-modal/transfer-modal.component';
 
 @Component({
     selector: 'app-mypage-account',
@@ -22,7 +23,9 @@ export class MypageAccountComponent implements OnInit {
         private modal: BsModalService,
         private translate: TranslateService,
         private utilService: UtilService,
-        private userService: UserService
+        private userService: UserService,
+        private masterService: MasterService,
+        private qrcodeService: QRCodeService
     ) { }
 
     /**
@@ -30,28 +33,46 @@ export class MypageAccountComponent implements OnInit {
      */
     public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
+        try {
+            await this.userService.getAccount();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     /**
-     * チャージモーダル
+     * 入金モーダル
      */
     public async openChageAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
         const userData = await this.userService.getData();
-        this.modal.show(ChargeAccountModalComponent, {
+        const creditCards = userData.creditCards;
+        const sellers = await (await this.masterService.getData()).sellers;
+        this.modal.show(AccountChargeModalComponent, {
             initialState: {
-                creditCards: userData.creditCards,
+                sellers,
+                creditCards,
                 cb: async (params: {
                     amount: number;
                     creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
+                    seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
                 }) => {
-                    // console.log({ amount, account });
                     try {
-                        await this.userService.chargeAccount({ ...params, account });
+                        const creditCard = {
+                            memberId: 'me',
+                            cardSeq: Number(params.creditCard.cardSeq)
+                        };
+                        const profile = userData.profile;
+                        if (profile === undefined) {
+                            throw new Error('profile undefined');
+                        }
+                        await this.userService.chargeAccount({ ...params, account, profile, creditCard });
+                        await this.userService.getAccount();
                         this.utilService.openAlert({
-                            title: this.translate.instant('common.error'),
+                            title: this.translate.instant('common.complete'),
                             body: this.translate.instant('mypage.account.alert.chargeSuccess')
                         });
                     } catch (error) {
+                        console.error(error);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
                             body: this.translate.instant('mypage.account.alert.chargeFail')
@@ -64,10 +85,49 @@ export class MypageAccountComponent implements OnInit {
     }
 
     /**
+     * 転送モーダル
+     */
+    public async openTransferAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
+        const userData = await this.userService.getData();
+        const sellers = await (await this.masterService.getData()).sellers;
+        this.modal.show(AccountTransferModalComponent, {
+            initialState: {
+                sellers,
+                cb: async (params: {
+                    seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+                    amount: number;
+                    description: string;
+                    accountNumber: string
+                }) => {
+                    try {
+                        const profile = userData.profile;
+                        if (profile === undefined) {
+                            throw new Error('profile undefined');
+                        }
+                        await this.userService.transferAccount({ ...params, account, profile });
+                        await this.userService.getAccount();
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.complete'),
+                            body: this.translate.instant('mypage.account.alert.transferSuccess')
+                        });
+                    } catch (error) {
+                        console.error(error);
+                        this.utilService.openAlert({
+                            title: this.translate.instant('common.error'),
+                            body: this.translate.instant('mypage.account.alert.transferFail')
+                        });
+                    }
+                }
+            },
+            class: 'modal-dialog-centered'
+        });
+    }
+
+    /**
      * 口座開設モーダル
      */
     public openOpenAccountModal() {
-        this.modal.show(OpenAccountModalComponent, {
+        this.modal.show(AccountOpenModalComponent, {
             initialState: {
                 cb: async (params: {
                     name: string;
@@ -116,6 +176,15 @@ export class MypageAccountComponent implements OnInit {
                     });
                 }
             }
+        });
+    }
+
+    public openQRCodeViewer(event: Event, account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
+        event.preventDefault();
+        this.qrcodeService.openQRCodeViewer({
+            title: this.translate.instant('mypage.account.accountNumber'),
+            body: account.typeOfGood.accountNumber,
+            code: account.typeOfGood.accountNumber
         });
     }
 
