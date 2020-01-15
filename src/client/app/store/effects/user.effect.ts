@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { createGmoTokenObject } from '../../functions';
-import { LibphonenumberFormatPipe } from '../../modules/shared/pipes/libphonenumber-format.pipe';
+import { createGmoTokenObject, formatTelephone, sleep } from '../../functions';
 import { CinerinoService } from '../../services';
 import { userAction } from '../actions';
 
@@ -31,9 +31,6 @@ export class UserEffects {
                 // プロフィール
                 const id = 'me';
                 const profile = await this.cinerino.person.getProfile({ id });
-                if (profile.telephone !== undefined) {
-                    profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone);
-                }
                 return new userAction.GetProfileSuccess({ profile });
             } catch (error) {
                 return new userAction.GetProfileFail({ error: error });
@@ -126,14 +123,12 @@ export class UserEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const profile = payload.profile;
-                if (profile.telephone !== undefined) {
-                    profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone, undefined, 'E.164');
+                if (payload.profile.telephone !== undefined) {
+                    payload.profile.telephone = formatTelephone(payload.profile.telephone, 'E.164');
                 }
-                await this.cinerino.person.updateProfile({ ...profile });
-                if (profile.telephone !== undefined) {
-                    profile.telephone = new LibphonenumberFormatPipe().transform(profile.telephone);
-                }
+                await this.cinerino.person.updateProfile(payload.profile);
+                const id = 'me';
+                const profile = await this.cinerino.person.getProfile({ id });
                 return new userAction.UpdateProfileSuccess({ profile });
             } catch (error) {
                 return new userAction.UpdateProfileFail({ error: error });
@@ -148,8 +143,7 @@ export class UserEffects {
     public getreditCard = this.actions.pipe(
         ofType<userAction.GetCreditCards>(userAction.ActionTypes.GetCreditCards),
         map(action => action.payload),
-        mergeMap(async (payload) => {
-            console.log(payload);
+        mergeMap(async () => {
             try {
                 await this.cinerino.getServices();
                 const creditCards = await this.cinerino.ownershipInfo.searchCreditCards({});
@@ -168,7 +162,6 @@ export class UserEffects {
         ofType<userAction.AddCreditCard>(userAction.ActionTypes.AddCreditCard),
         map(action => action.payload),
         mergeMap(async (payload) => {
-            console.log(payload);
             try {
                 await this.cinerino.getServices();
                 const gmoTokenObject = await createGmoTokenObject({ creditCard: payload.creditCard, seller: payload.seller });
@@ -188,7 +181,6 @@ export class UserEffects {
         ofType<userAction.RemoveCreditCard>(userAction.ActionTypes.RemoveCreditCard),
         map(action => action.payload),
         mergeMap(async (payload) => {
-            console.log(payload);
             try {
                 await this.cinerino.getServices();
                 const creditCard = payload.creditCard;
@@ -209,14 +201,121 @@ export class UserEffects {
         ofType<userAction.ChargeAccount>(userAction.ActionTypes.ChargeAccount),
         map(action => action.payload),
         mergeMap(async (payload) => {
+            // console.log(payload);
+            try {
+                const userAgent = (navigator && navigator.userAgent !== undefined) ? navigator.userAgent : '';
+                await this.cinerino.getServices();
+                const transaction = await this.cinerino.transaction.placeOrder.start({
+                    agent: {
+                        identifier: [{ name: 'userAgent', value: userAgent }],
+                    },
+                    seller: { typeOf: payload.seller.typeOf, id: payload.seller.id },
+                    expires: moment().add(1, 'minutes').toDate()
+                });
+                await this.cinerino.transaction.placeOrder.setProfile({
+                    id: transaction.id,
+                    agent: {
+                        ...payload.profile,
+                        ...{ name: `${payload.profile.givenName} ${payload.profile.familyName}` }
+                    }
+                });
+                await this.cinerino.offer.authorizeMonetaryAmount({
+                    object: {
+                        typeOf: 'Offer',
+                        itemOffered: {
+                            typeOf: 'MonetaryAmount',
+                            value: payload.amount,
+                            currency: factory.accountType.Coin
+                        },
+                        priceCurrency: factory.priceCurrency.JPY,
+                        seller: { typeOf: payload.seller.typeOf, name: payload.seller.name.ja },
+                        toLocation: {
+                            typeOf: factory.pecorino.account.TypeOf.Account,
+                            accountType: factory.accountType.Coin,
+                            accountNumber: payload.account.typeOfGood.accountNumber
+                        }
+                    },
+                    purpose: { typeOf: transaction.typeOf, id: transaction.id }
+                });
+
+                await this.cinerino.payment.authorizeCreditCard({
+                    object: {
+                        typeOf: factory.paymentMethodType.CreditCard,
+                        amount: payload.amount,
+                        method: <any>'1',
+                        creditCard: payload.creditCard
+                    },
+                    purpose: { typeOf: transaction.typeOf, id: transaction.id }
+                });
+
+                await this.cinerino.transaction.placeOrder.confirm({
+                    id: transaction.id
+                });
+                await sleep();
+                return new userAction.ChargeAccountSuccess({});
+            } catch (error) {
+                return new userAction.ChargeAccountFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * transferAccount
+     */
+    @Effect()
+    public tansferAccount = this.actions.pipe(
+        ofType<userAction.TransferAccount>(userAction.ActionTypes.TransferAccount),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
             console.log(payload);
             try {
                 await this.cinerino.getServices();
-                throw new Error('Unimplemented!!');
-                // const id = 'me';
-                // return new userAction.ChargeAccountSuccess({ });
+                const transaction =
+                    await this.cinerino.transaction.moneyTransfer.start<factory.accountType.Coin, factory.pecorino.account.TypeOf.Account>({
+                        project: { typeOf: 'Project', id: payload.seller.project.id },
+                        expires: moment().add(1, 'minutes').toDate(),
+                        agent: {
+                            typeOf: factory.personType.Person,
+                            id: this.cinerino.auth.options.clientId,
+                        },
+                        recipient: {
+                            typeOf: factory.personType.Person,
+                            id: '',
+                            url: ''
+                        },
+                        seller: { typeOf: payload.seller.typeOf, id: payload.seller.id },
+                        object: {
+                            amount: payload.amount,
+                            authorizeActions: [],
+                            description: payload.description,
+                            fromLocation: {
+                                typeOf: factory.pecorino.account.TypeOf.Account,
+                                accountType: payload.account.typeOfGood.accountType,
+                                accountNumber: payload.account.typeOfGood.accountNumber
+                            },
+                            toLocation: {
+                                typeOf: factory.pecorino.account.TypeOf.Account,
+                                accountType: payload.account.typeOfGood.accountType,
+                                accountNumber: payload.accountNumber
+                            }
+                        }
+                    });
+                await this.cinerino.transaction.moneyTransfer.setProfile({
+                    id: transaction.id,
+                    agent: {
+                        ...payload.profile,
+                        name: `${payload.profile.givenName} ${payload.profile.familyName}`
+                    }
+                });
+
+                // 取引確定
+                await this.cinerino.transaction.moneyTransfer.confirm({
+                    id: transaction.id
+                });
+                await sleep();
+                return new userAction.TransferAccountSuccess({});
             } catch (error) {
-                return new userAction.ChargeAccountFail({ error: error });
+                return new userAction.TransferAccountFail({ error: error });
             }
         })
     );

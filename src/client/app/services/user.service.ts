@@ -245,12 +245,14 @@ export class UserService {
     }
 
     /**
-     * 口座チャージ
+     * 口座入金
      */
     public async chargeAccount(params: {
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        profile: factory.person.IProfile;
         amount: number;
         account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
-        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
+        creditCard: factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember;
     }) {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(new userAction.ChargeAccount(params));
@@ -260,6 +262,31 @@ export class UserService {
             );
             const fail = this.actions.pipe(
                 ofType(userAction.ActionTypes.ChargeAccountFail),
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
+    }
+
+    /**
+     * 口座転送
+     */
+    public async transferAccount(params: {
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        profile: factory.person.IProfile;
+        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
+        amount: number;
+        description: string;
+        accountNumber: string
+    }) {
+        return new Promise<void>((resolve, reject) => {
+            this.store.dispatch(new userAction.TransferAccount(params));
+            const success = this.actions.pipe(
+                ofType(userAction.ActionTypes.TransferAccountSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(userAction.ActionTypes.TransferAccountFail),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();

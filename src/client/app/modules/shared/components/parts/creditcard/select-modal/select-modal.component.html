@@ -1,0 +1,12 @@
+<div class="p-3">
+    <button type="button" *ngFor="let creditCard of creditCards" class="btn btn-block btn-outline-primary text-left mb-3" (click)="close(creditCard)">
+        <div>
+            <p class="text-x-small">{{ 'common.credit.cardNumber' | translate }}</p>
+            <p>{{ creditCard.cardNo }}</p>
+        </div>
+        <div>
+            <p class="text-x-small">{{ 'common.credit.cardExpiration' | translate }}</p>
+            <p>{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}</p>
+        </div>
+    </button>
+</div>

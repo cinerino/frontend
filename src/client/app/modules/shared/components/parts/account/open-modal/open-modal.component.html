@@ -1,0 +1,37 @@
+<div class="p-3 scroll-vertical">
+    <div class="mb-3 text-large text-center">{{ 'modal.account.open.title' | translate }}</div>
+    <p class="mb-3 text-left text-md-center">{{ 'modal.account.open.read' | translate }}</p>
+
+    <div class="mb-4">
+        <form *ngIf="openAccountForm" [formGroup]="openAccountForm">
+            <div class="form-group row">
+                <p class="col-md-4 py-2 text-md-right">{{ 'modal.account.open.name' | translate }}</p>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" id="name" formControlName="name" placeholder=""
+                        maxlength="30">
+                    <div *ngIf="openAccountForm.controls.name.invalid && openAccountForm.controls.name.touched"
+                        class="mt-2">
+                        <p *ngIf="openAccountForm.controls.name.errors.required" class="text-danger">
+                            {{ 'form.validation.required' | translate }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <p class="col-md-4 py-2 text-md-right">{{ 'modal.account.open.accountType' | translate }}</p>
+                <div class="col-md-8">
+                    <select type="number" class="form-control" id="accountType" formControlName="accountType">
+                        <option [value]="accountType.Coin">{{ accountType.Coin }}</option>
+                        <option [value]="accountType.Point">{{ accountType.Point }}</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="buttons mx-auto text-center">
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3" (click)="close()"
+            [disabled]="openAccountForm.invalid">{{ 'modal.account.open.next' | translate }}</button>
+        <button type="button" class="btn btn-link btn-sm"
+            (click)="modal.hide()">{{ 'common.close' | translate }}</button>
+    </div>
+</div>

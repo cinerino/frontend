@@ -4,13 +4,11 @@ import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { changeTicketCountByOrder, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../../functions';
-import { OrderService, UserService, UtilService } from '../../../../../services';
+import { OrderService, QRCodeService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import { QrCodeModalComponent } from '../../../../shared/components/parts/qrcode-modal/qrcode-modal.component';
 
 @Component({
     selector: 'app-inquiry-confirm',
@@ -32,11 +30,11 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
-        private modal: BsModalService,
         private utilService: UtilService,
         private orderService: OrderService,
         private userService: UserService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private qrcodeService: QRCodeService
     ) { }
 
     /**
@@ -76,7 +74,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     /**
      * QRコード表示
      */
-    public async showQrCode() {
+    public async openQRCodeViewer(id: string) {
         try {
             let orderData = await this.orderService.getData();
             if (orderData.order === undefined) {
@@ -88,9 +86,19 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
             if (authorizeOrder === undefined) {
                 throw new Error('authorizeOrder undefined');
             }
-            this.modal.show(QrCodeModalComponent, {
-                initialState: { order: authorizeOrder },
-                class: 'modal-dialog-centered'
+            const findResult = authorizeOrder.acceptedOffers.find((a) => {
+                return (a.itemOffered.typeOf === factory.chevre.reservationType.EventReservation
+                    && a.itemOffered.id === id);
+            });
+            if (findResult === undefined) {
+                throw new Error('itemOffered notfound');
+            }
+            if (findResult.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+                throw new Error('itemOffered typeOf missmatch');
+            }
+            this.qrcodeService.openQRCodeViewer({
+                title: this.translate.instant('inquiry.confirm.qrcode.title'),
+                code: <string>(findResult.itemOffered.reservedTicket.ticketToken)
             });
         } catch (error) {
             console.error(error);

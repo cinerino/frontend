@@ -20,7 +20,7 @@ import { MasterService, PurchaseService, UtilService } from '../../../../../../s
 import * as reducers from '../../../../../../store/reducers';
 import {
     PurchaseEventTicketModalComponent
-} from '../../../../../shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component';
+} from '../../../../../shared/components/parts/purchase/event/ticket-modal/ticket-modal.component';
 
 @Component({
     selector: 'app-purchase-event-ticket',

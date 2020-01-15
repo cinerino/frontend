@@ -377,6 +377,45 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.html":
+/*!*****************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.html ***!
+  \*****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.account.charge.title' | translate }}</div>\n    <p class=\"mb-3\">{{ 'modal.account.charge.read' | translate }}</p>\n\n    <div class=\"mb-4\">\n        <form *ngIf=\"chargeAccountForm\" [formGroup]=\"chargeAccountForm\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.seller' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <select class=\"form-control\" id=\"sellerId\" formControlName=\"sellerId\">\n                        <option value=\"\">{{ 'form.unselected' | translate }}</option>\n                        <option *ngFor=\"let seller of sellers\" [value]=\"seller.id\">\n                            {{ seller.name | changeLanguage }}</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'modal.account.charge.amount' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"number\" class=\"form-control\" id=\"charge\" formControlName=\"amount\" placeholder=\"0\"\n                        maxlength=\"5\">\n                    <div *ngIf=\"chargeAccountForm.controls.amount.invalid && chargeAccountForm.controls.amount.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"chargeAccountForm.controls.amount.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"chargeAccountForm.controls.amount.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <p class=\"mb-2\">{{ 'modal.account.charge.creditCard' | translate }}</p>\n                <button type=\"button\" *ngFor=\"let creditCard of creditCards\"\n                    class=\"btn btn-block text-left mb-3 creditCard\"\n                    [class.btn-outline-primary]=\"chargeAccountForm.controls.cregitCard.value !== creditCard\"\n                    [class.btn-primary]=\"chargeAccountForm.controls.cregitCard.value === creditCard\"\n                    (click)=\"selectCreditCard(creditCard)\">\n                    <div>\n                        <p class=\"text-x-small\">{{ 'common.credit.cardNumber' | translate }}</p>\n                        <p>{{ creditCard.cardNo }}</p>\n                    </div>\n                    <div>\n                        <p class=\"text-x-small\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                        <p>{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}</p>\n                    </div>\n                </button>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"chargeAccountForm.invalid\">{{ 'modal.account.charge.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+
+/***/ }),
+
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/open-modal/open-modal.component.html":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/open-modal/open-modal.component.html ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.account.open.title' | translate }}</div>\n    <p class=\"mb-3 text-left text-md-center\">{{ 'modal.account.open.read' | translate }}</p>\n\n    <div class=\"mb-4\">\n        <form *ngIf=\"openAccountForm\" [formGroup]=\"openAccountForm\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'modal.account.open.name' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"name\" formControlName=\"name\" placeholder=\"\"\n                        maxlength=\"30\">\n                    <div *ngIf=\"openAccountForm.controls.name.invalid && openAccountForm.controls.name.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"openAccountForm.controls.name.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'modal.account.open.accountType' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <select type=\"number\" class=\"form-control\" id=\"accountType\" formControlName=\"accountType\">\n                        <option [value]=\"accountType.Coin\">{{ accountType.Coin }}</option>\n                        <option [value]=\"accountType.Point\">{{ accountType.Point }}</option>\n                    </select>\n                </div>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"openAccountForm.invalid\">{{ 'modal.account.open.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+
+/***/ }),
+
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.html":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.html ***!
+  \*********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.account.transfer.title' | translate }}</div>\n    <p class=\"mb-3\">{{ 'modal.account.transfer.read' | translate }}</p>\n\n    <div class=\"mb-4\">\n        <form *ngIf=\"TransferAccountForm\" [formGroup]=\"TransferAccountForm\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.seller' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <select class=\"form-control\" id=\"sellerId\" formControlName=\"sellerId\">\n                        <option value=\"\">{{ 'form.unselected' | translate }}</option>\n                        <option *ngFor=\"let seller of sellers\" [value]=\"seller.id\">\n                            {{ seller.name | changeLanguage }}</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'modal.account.transfer.amount' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"number\" class=\"form-control\" id=\"amount\" formControlName=\"amount\" placeholder=\"0\"\n                        maxlength=\"5\">\n                    <div *ngIf=\"TransferAccountForm.controls.amount.invalid && TransferAccountForm.controls.amount.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"TransferAccountForm.controls.amount.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"TransferAccountForm.controls.amount.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'modal.account.transfer.accountNumber' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <div class=\"input-group\">\n                    <input type=\"text\" class=\"form-control\" id=\"accountNumber\" formControlName=\"accountNumber\"\n                        placeholder=\"\">\n                        <div class=\"input-group-append\" (click)=\"openQRReader()\">\n                            <span class=\"input-group-text\"><i class=\"fas fa-qrcode\"></i></span>\n                          </div>\n                    </div>\n                    <div *ngIf=\"TransferAccountForm.controls.accountNumber.invalid && TransferAccountForm.controls.accountNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"TransferAccountForm.controls.accountNumber.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"TransferAccountForm.controls.accountNumber.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'modal.account.transfer.description' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"description\" formControlName=\"description\"\n                        placeholder=\"\">\n                </div>\n            </div>\n\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"TransferAccountForm.invalid\">{{ 'modal.account.transfer.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+
+/***/ }),
+
 /***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/alert-modal/alert-modal.component.html":
 /*!*******************************************************************************************************************************************************************************!*\
   !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/alert-modal/alert-modal.component.html ***!
@@ -387,19 +426,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div *ngIf=\"title\" class=\"mb-3 text-large text-center\">{{ title }}</div>\n    <p class=\"mb-3 text-md-center\" [innerHTML]=\"body\"></p>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\" (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.html":
-/*!*************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.html ***!
-  \*************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.chargeAccount.title' | translate }}</div>\n    <p class=\"mb-3\">{{ 'modal.chargeAccount.read' | translate }}</p>\n\n    <div class=\"mb-4 p-3 bg-white\">\n        <form *ngIf=\"chargeAccountForm\" [formGroup]=\"chargeAccountForm\">\n            <div class=\"form-group\">\n                <p class=\"mb-2\">{{ 'modal.chargeAccount.amount' | translate }}</p>\n                <input type=\"number\" class=\"form-control\" id=\"charge\" formControlName=\"amount\" placeholder=\"0\"\n                    maxlength=\"5\">\n                <div *ngIf=\"chargeAccountForm.controls.amount.invalid && chargeAccountForm.controls.amount.touched\"\n                    class=\"mt-2\">\n                    <p *ngIf=\"chargeAccountForm.controls.charge.errors.required\" class=\"text-danger\">\n                        {{ 'form.validation.required' | translate }}</p>\n                    <p *ngIf=\"chargeAccountForm.controls.charge.errors.pattern\" class=\"text-danger\">\n                        {{ 'form.validation.number' | translate }}\n                    </p>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <p class=\"mb-2\">{{ 'modal.chargeAccount.creditCard' | translate }}</p>\n                <button type=\"button\" *ngFor=\"let creditCard of creditCards\" class=\"btn btn-block text-left mb-3 creditCard\"\n                    [class.btn-outline-primary]=\"chargeAccountForm.controls.cregitCard.value !== creditCard\"\n                    [class.btn-primary]=\"chargeAccountForm.controls.cregitCard.value === creditCard\"\n                    (click)=\"selectCreditCard(creditCard)\">\n                    <div class=\"mb-3\">\n                        <p class=\"text-small\">{{ 'common.credit.cardNumber' | translate }}</p>\n                        <p>{{ creditCard.cardNo }}</p>\n                    </div>\n                    <div>\n                        <p class=\"text-small\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                        <p>{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}</p>\n                    </div>\n                </button>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"chargeAccountForm.invalid\">{{ 'modal.chargeAccount.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -426,6 +452,45 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<div id=\"contents\" class=\"scroll\" [class.touch]=\"touch\">\n    <ng-content></ng-content>\n</div>");
+
+/***/ }),
+
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.html":
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.html ***!
+  \************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.creditCard.register.title' | translate }}</div>\n    <p class=\"mb-3 text-left text-md-center\">{{ 'modal.creditCard.register.read' | translate }}</p>\n\n    <div class=\"mb-4\">\n        <form *ngIf=\"creditCardForm\" [formGroup]=\"creditCardForm\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.seller' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <select class=\"form-control\" id=\"sellerId\" formControlName=\"sellerId\">\n                        <option value=\"\">{{ 'form.unselected' | translate }}</option>\n                        <option *ngFor=\"let seller of sellers\" [value]=\"seller.id\">\n                            {{ seller.name | changeLanguage }}</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardNumber' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"cardNumber\" formControlName=\"cardNumber\" placeholder=\"\"\n                        maxlength=\"16\">\n                    <div *ngIf=\"creditCardForm.controls.cardNumber.invalid && creditCardForm.controls.cardNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.cardNumber.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"creditCardForm.controls.cardNumber.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <div class=\"form-inline\">\n                        <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationMonth\"\n                            formControlName=\"cardExpirationMonth\">\n                            <option *ngFor=\"let month of cardExpiration.month\" [value]=\"month\">{{ month }}\n                            </option>\n                        </select>\n                        <span class=\"mx-2\">{{ 'common.date.month' | translate }}</span>\n                        <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationYear\"\n                            formControlName=\"cardExpirationYear\">\n                            <option *ngFor=\"let year of cardExpiration.year\" [value]=\"year\">{{ year }}</option>\n                        </select>\n                        <span class=\"mx-2\">{{ 'common.date.year' | translate }}</span>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.securityCode' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"securityCode\" placeholder=\"\"\n                        formControlName=\"securityCode\">\n                    <div *ngIf=\"creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.securityCode.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.holderName' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"holderName\" placeholder=\"\" formControlName=\"holderName\">\n                    <div *ngIf=\"creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.holderName.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"creditCardForm.invalid\">{{ 'modal.creditCard.register.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+
+/***/ }),
+
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/security-code-modal/security-code-modal.component.html":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/security-code-modal/security-code-modal.component.html ***!
+  \**********************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.securityCode.title' | translate }}</div>\n    <p class=\"mb-3 text-md-center\">{{ 'modal.securityCode.read' | translate }}</p>\n    <div class=\"bg-light-gray p-3 mb-3\">\n        <p><strong>{{ 'modal.securityCode.back.title' | translate }}</strong></p>\n        <p class=\"mb-3\">{{ 'modal.securityCode.back.read' | translate }}</p>\n        <div class=\"mb-3\">\n            <img src=\"/assets/images/credit_back.svg\">\n        </div>\n        <p><strong>{{ 'modal.securityCode.front.title' | translate }}</strong></p>\n        <p class=\"mb-3\">{{ 'modal.securityCode.front.read' | translate }}</p>\n        <div class=\"mb-3\">\n            <img src=\"/assets/images/credit_front.svg\">\n        </div>\n    </div>\n    <div class=\"buttons mx-auto text-center btn-sm\">\n        <button type=\"button\" class=\"btn btn-link\" (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+
+/***/ }),
+
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.html":
+/*!********************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.html ***!
+  \********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3\">\n    <button type=\"button\" *ngFor=\"let creditCard of creditCards\" class=\"btn btn-block btn-outline-primary text-left mb-3\" (click)=\"close(creditCard)\">\n        <div>\n            <p class=\"text-x-small\">{{ 'common.credit.cardNumber' | translate }}</p>\n            <p>{{ creditCard.cardNo }}</p>\n        </div>\n        <div>\n            <p class=\"text-x-small\">{{ 'common.credit.cardExpiration' | translate }}</p>\n            <p>{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}</p>\n        </div>\n    </button>\n</div>");
 
 /***/ }),
 
@@ -481,16 +546,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.html":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.html ***!
-  \*****************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.html":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.html ***!
+  \************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <form [formGroup]=\"mvtkForm\">\n        <div [class.d-none]=\"isShowVideo\">\n            <div class=\"mb-4\">\n                <p *ngIf=\"errorMessage !== '' && !isSuccess\" class=\"mb-3 p-2 alert alert-danger\">{{ errorMessage }}</p>\n                <p *ngIf=\"isSuccess\" class=\"mb-3 p-2 alert alert-success\">{{ 'modal.mvtkCheck.success' | translate }}\n                </p>\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'modal.mvtkCheck.success' | translate }}</label>\n                    <input type=\"text\" class=\"form-control\" formControlName=\"code\" id=\"code\" autocomplete=\"off\"\n                        placeholder=\"(例)012345789\" maxlength=\"10\">\n                    <div *ngIf=\"mvtkForm.controls.code.invalid && mvtkForm.controls.code.touched\" class=\"mt-2\">\n                        <p *ngIf=\"mvtkForm.controls.code.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate:{ value: mvtkForm.controls.code.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate:{ value: mvtkForm.controls.code.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'modal.mvtkCheck.success' | translate }}</label>\n                    <input type=\"password\" class=\"form-control\" formControlName=\"password\" id=\"password\"\n                        autocomplete=\"off\" placeholder=\"(例)0123\" maxlength=\"4\">\n                    <div *ngIf=\"mvtkForm.controls.password.invalid && mvtkForm.controls.password.touched\" class=\"mt-2\">\n                        <p *ngIf=\"mvtkForm.controls.password.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"mvtkForm.controls.password.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate:{ value: mvtkForm.controls.password.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.password.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate:{ value: customerContactForm.controls.givenName.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.password.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"buttons mx-auto text-center\">\n                <button *ngIf=\"stream === null\" type=\"button\" class=\"btn btn-success btn-block py-3\"\n                    [disabled]=\"isLoading | async\"\n                    (click)=\"activationCamera()\">{{ 'modal.mvtkCheck.camera.start' | translate }}</button>\n                <button type=\"button\" class=\"btn btn-primary btn-block py-3\" [disabled]=\"isLoading | async\"\n                    (click)=\"checkMovieTicket()\">{{ 'modal.mvtkCheck.next' | translate }}</button>\n                <button type=\"button\" class=\"btn btn-link btn-sm\"\n                    (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n            </div>\n        </div>\n        <div [class.d-block]=\"isShowVideo\" [class.d-none]=\"!isShowVideo\">\n            <div class=\"mb-2\">\n                <div class=\"video-area text-center\">\n                    <video id=\"video\" class=\"bg-black mx-auto\" src=\"\" autoplay muted playsinline></video>\n                </div>\n                <div class=\"d-none\"><canvas id=\"canvas\"></canvas></div>\n            </div>\n            <div class=\"buttons mx-auto mb-2\">\n                <button *ngIf=\"stream !== null\" type=\"button\" class=\"btn btn-success btn-block\"\n                    [disabled]=\"isLoading | async\"\n                    (click)=\"stopCamera()\">{{ 'modal.mvtkCheck.camera.stop' | translate }}</button>\n            </div>\n        </div>\n\n    </form>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <form [formGroup]=\"mvtkForm\">\n        <div [class.d-none]=\"isShowVideo\">\n            <div class=\"mb-4\">\n                <p *ngIf=\"errorMessage !== '' && !isSuccess\" class=\"mb-3 p-2 alert alert-danger\" [innerHTML]=\"errorMessage\"></p>\n                <p *ngIf=\"isSuccess\" class=\"mb-3 p-2 alert alert-success\">{{ 'modal.mvtk.check.success' | translate }}\n                </p>\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'modal.mvtk.check.code' | translate }}</label>\n                    <div class=\"input-group\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"code\" id=\"code\" autocomplete=\"off\"\n                        placeholder=\"012345789\" maxlength=\"10\">\n                        <div class=\"input-group-append\" (click)=\"openQRReader()\">\n                            <span class=\"input-group-text\"><i class=\"fas fa-qrcode\"></i></span>\n                        </div>\n                    </div>\n                    <div *ngIf=\"mvtkForm.controls.code.invalid && mvtkForm.controls.code.touched\" class=\"mt-2\">\n                        <p *ngIf=\"mvtkForm.controls.code.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate:{ value: mvtkForm.controls.code.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate:{ value: mvtkForm.controls.code.errors.minlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.code.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p>\n                    </div>\n                </div>\n\n                <div class=\"form-group\">\n                    <label class=\"mb-2\" for=\"\">{{ 'modal.mvtk.check.password' | translate }}</label>\n                    <input type=\"password\" class=\"form-control\" formControlName=\"password\" id=\"password\"\n                        autocomplete=\"off\" placeholder=\"0123\">\n                    <div *ngIf=\"mvtkForm.controls.password.invalid && mvtkForm.controls.password.touched\" class=\"mt-2\">\n                        <p *ngIf=\"mvtkForm.controls.password.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <!-- <p *ngIf=\"mvtkForm.controls.password.errors.maxlength\" class=\"text-danger\">\n                            {{ 'form.validation.maxlength' | translate:{ value: mvtkForm.controls.password.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.password.errors.minlength\" class=\"text-danger\">\n                            {{ 'form.validation.minlength' | translate:{ value: customerContactForm.controls.givenName.errors.maxlength.requiredLength } }}\n                        </p>\n                        <p *ngIf=\"mvtkForm.controls.password.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}</p> -->\n                    </div>\n                </div>\n            </div>\n            <div class=\"buttons mx-auto text-center\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n                    (click)=\"checkMovieTicket()\">{{ 'modal.mvtk.check.next' | translate }}</button>\n                <button type=\"button\" class=\"btn btn-link btn-sm\"\n                    (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n            </div>\n        </div>\n\n    </form>\n</div>");
 
 /***/ }),
 
@@ -507,36 +572,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.html":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.html ***!
-  \*********************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.openAccount.title' | translate }}</div>\n    <p class=\"mb-3 text-left text-md-center\">{{ 'modal.openAccount.read' | translate }}</p>\n\n    <div class=\"mb-4 p-3 bg-white\">\n        <form *ngIf=\"openAccountForm\" [formGroup]=\"openAccountForm\">\n            <div class=\"form-group\">\n                <p class=\"mb-2\">{{ 'modal.openAccount.name' | translate }}</p>\n                <div>\n                    <input type=\"text\" class=\"form-control\" id=\"name\" formControlName=\"name\" placeholder=\"\"\n                        maxlength=\"30\">\n                    <div *ngIf=\"openAccountForm.controls.name.invalid && openAccountForm.controls.name.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"openAccountForm.controls.name.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <p class=\"mb-2\">{{ 'modal.openAccount.accountType' | translate }}</p>\n                <div>\n                    <select type=\"number\" class=\"form-control\" id=\"accountType\" formControlName=\"accountType\">\n                        <option [value]=\"accountType.Coin\">{{ accountType.Coin }}</option>\n                        <option [value]=\"accountType.Point\">{{ accountType.Point }}</option>\n                    </select>\n                </div>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"openAccountForm.invalid\">{{ 'modal.openAccount.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.html":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.html ***!
-  \*********************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical text-small\">\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderDate' | translate }}]</p>\n            <p class=\"col-md-8\">{{ moment(order.orderDate).format('YYYY/MM/DD HH:mm') }}</p>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.confirmationNumber' | translate }}]</p>\n            <p class=\"col-md-8\">{{ order.confirmationNumber }}</p>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderNumber' | translate }}]</p>\n            <p class=\"col-md-8\">{{ order.orderNumber }}</p>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.event' | translate }}]</p>\n            <div class=\"col-md-8\">\n                <div *ngFor=\"let eventOrder of eventOrders\" class=\"mb-3\">\n                    <div>\n                        <div class=\"mb-1\">\n                            <p class=\"font-weight-bold text-large\">{{ eventOrder.event.name | changeLanguage }}</p>\n                            <p class=\"text-small\"\n                                *ngIf=\"eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)\">\n                                {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>\n                            <!-- <p class=\"text-small\"\n                                *ngIf=\"eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)\">{{\n                                        eventOrder.event.superEvent.description | changeLanguage }}</p> -->\n                        </div>\n                        <p class=\"mb-1\">\n                            {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}\n                        </p>\n                        <p class=\"text-small mb-1\">\n                            <span class=\"theatre-name\">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>\n                            <span class=\"screen-name\">&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>\n                            <span *ngIf=\"eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0\">\n                                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n                            </span>\n                        </p>\n                    </div>\n                    <div *ngFor=\"let acceptedOffer of eventOrder.data\">\n                        <p>\n                            <span *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                                {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{\n                                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.customer' | translate }}]</p>\n            <div class=\"col-md-8\">\n                <p>{{ order.customer.familyName }} {{ order.customer.givenName }}</p>\n                <p>{{ order.customer.email }}</p>\n                <p>{{ order.customer.telephone | libphonenumberFormat }}</p>\n            </div>\n        </div>\n    </div>\n    <div class=\"py-3 border-bottom border-gray\">\n        <div class=\"row align-items-center\">\n            <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.orderStatus' | translate }}]</p>\n            <p class=\"col-md-8\">{{ order.orderStatus }}</p>\n        </div>\n    </div>\n\n\n</div>\n\n<div class=\"buttons mx-auto text-center\">\n    <button type=\"button\" class=\"btn btn-link btn-sm\" (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n</div>");
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.html":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.html ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.html":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.html ***!
+  \*************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -546,10 +585,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.html":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.html ***!
-  \***************************************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.html":
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.html ***!
+  \************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -559,10 +598,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.html":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.html ***!
-  \*************************************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.html":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.html ***!
+  \****************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -572,55 +611,29 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.html":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.html ***!
-  \*********************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.html":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.html ***!
+  \****************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3\">\n    <div class=\"mb-4\">\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.confirmationNumber' | translate }}]</p>\n                <p class=\"col-md-8\">{{ order.confirmationNumber }}</p>\n            </div>\n        </div>\n        <div class=\"py-3 border-bottom border-gray\">\n            <div class=\"row align-items-center\">\n                <p class=\"mb-2 mb-md-0 col-md-4\">[{{ 'common.qrcode' | translate }}]</p>\n                <div class=\"col-md-8\">\n                    <div *ngFor=\"let acceptedOffer of order.acceptedOffers; let index = index\" class=\"mb-3\">\n                        <div class=\"mb-2\">\n                            <p class=\"text-x-small\">\n                                {{ acceptedOffer.itemOffered.reservationFor.name | changeLanguage }}\n                            </p>\n                            <p class=\"text-x-small\">\n                                <span *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT\">\n                                    {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>\n                                <span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;\n                                    {{ getTicketPrice(acceptedOffer).single | currency : 'JPY' }}</span>\n                            </p>\n                        </div>\n                        <div><img [src]=\"urlList[index] | async\"></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"full-screen bg-black\">\n    <video #video id=\"video\" autoplay muted playsinline></video>\n    <div class=\"top w-100 px-3\">\n        <p class=\"text-white text-center title w-100\">{{ 'qrcode.reader.title' | translate }}</p>\n    </div>\n    <div class=\"bottom w-100\">\n        <div class=\"buttons mx-auto text-center px-3\">\n            <button type=\"button\" class=\"btn btn-primary btn-block py-3\"\n                (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n        </div>\n    </div>\n    <div *ngIf=\"running\" class=\"scan border border-primary\"></div>\n</div>");
 
 /***/ }),
 
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.html":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.html ***!
-  \***********************************************************************************************************************************************************************************************************/
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.html":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.html ***!
+  \****************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.registerCreditCard.title' | translate }}</div>\n    <p class=\"mb-3 text-left text-md-center\">{{ 'modal.registerCreditCard.read' | translate }}</p>\n\n    <div class=\"mb-4 p-3 bg-white\">\n        <form *ngIf=\"creditCardForm\" [formGroup]=\"creditCardForm\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <select class=\"form-control\" id=\"sellerId\" formControlName=\"sellerId\">\n                        <option value=\"\">{{ 'form.unselected' | translate }}</option>\n                        <option *ngFor=\"let seller of sellers\" [value]=\"seller.id\">\n                            {{ seller.name | changeLanguage }}</option>\n                    </select>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardNumber' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"cardNumber\" formControlName=\"cardNumber\" placeholder=\"\"\n                        maxlength=\"16\">\n                    <div *ngIf=\"creditCardForm.controls.cardNumber.invalid && creditCardForm.controls.cardNumber.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.cardNumber.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                        <p *ngIf=\"creditCardForm.controls.cardNumber.errors.pattern\" class=\"text-danger\">\n                            {{ 'form.validation.number' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <div class=\"form-inline\">\n                        <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationMonth\"\n                            formControlName=\"cardExpirationMonth\">\n                            <option *ngFor=\"let month of cardExpiration.month\" [value]=\"month\">{{ month }}\n                            </option>\n                        </select>\n                        <span class=\"mx-2\">{{ 'common.date.month' | translate }}</span>\n                        <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationYear\"\n                            formControlName=\"cardExpirationYear\">\n                            <option *ngFor=\"let year of cardExpiration.year\" [value]=\"year\">{{ year }}</option>\n                        </select>\n                        <span class=\"mx-2\">{{ 'common.date.year' | translate }}</span>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.securityCode' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"securityCode\" placeholder=\"\"\n                        formControlName=\"securityCode\">\n                    <div *ngIf=\"creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.securityCode.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.holderName' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <input type=\"text\" class=\"form-control\" id=\"holderName\" placeholder=\"\" formControlName=\"holderName\">\n                    <div *ngIf=\"creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched\"\n                        class=\"mt-2\">\n                        <p *ngIf=\"creditCardForm.controls.holderName.errors.required\" class=\"text-danger\">\n                            {{ 'form.validation.required' | translate }}</p>\n                    </div>\n                </div>\n            </div>\n        </form>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" (click)=\"close()\"\n            [disabled]=\"creditCardForm.invalid\">{{ 'modal.registerCreditCard.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/registered-credit-card-modal/registered-credit-card-modal.component.html":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/registered-credit-card-modal/registered-credit-card-modal.component.html ***!
-  \*****************************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3\">\n    <button type=\"button\" *ngFor=\"let creditCard of creditCards\" class=\"btn btn-block btn-outline-primary text-left mb-3\" (click)=\"close(creditCard)\">\n        <div class=\"mb-3\">\n            <p class=\"text-small\">{{ 'common.credit.cardNumber' | translate }}</p>\n            <p>{{ creditCard.cardNo }}</p>\n        </div>\n        <div>\n            <p class=\"text-small\">{{ 'common.credit.cardExpiration' | translate }}</p>\n            <p>{{ creditCard.expire | slice:2:4 }} / {{ creditCard.expire | slice:0:2 }}</p>\n        </div>\n    </button>\n</div>");
-
-/***/ }),
-
-/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.html":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.html ***!
-  \***********************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.securityCode.title' | translate }}</div>\n    <p class=\"mb-3 text-md-center\">{{ 'modal.securityCode.read' | translate }}</p>\n    <div class=\"bg-light-gray p-3 mb-3\">\n        <p><strong>{{ 'modal.securityCode.back.title' | translate }}</strong></p>\n        <p class=\"mb-3\">{{ 'modal.securityCode.back.read' | translate }}</p>\n        <div class=\"mb-3\">\n            <img src=\"/assets/images/credit_back.svg\">\n        </div>\n        <p><strong>{{ 'modal.securityCode.front.title' | translate }}</strong></p>\n        <p class=\"mb-3\">{{ 'modal.securityCode.front.read' | translate }}</p>\n        <div class=\"mb-3\">\n            <img src=\"/assets/images/credit_front.svg\">\n        </div>\n    </div>\n    <div class=\"buttons mx-auto text-center btn-sm\">\n        <button type=\"button\" class=\"btn btn-link\" (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div *ngIf=\"title\" class=\"mb-3 text-large text-center\">{{ title }}</div>\n    <p *ngIf=\"body\" class=\"mb-3 text-center\" [innerHTML]=\"body\"></p>\n    <div class=\"mb-3 text-center\">\n        <img [src]=\"url | async\">\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -1761,44 +1774,21 @@ function getTicketPrice(ticket) {
  * ムビチケ認証購入管理番号無効事由区分変換
  */
 function movieTicketAuthErroCodeToMessage(code) {
-    switch (code) {
-        case '01': {
-            return { ja: '存在無', en: 'no existence' };
-        }
-        case '02': {
-            return { ja: 'PINｺｰﾄﾞ必須', en: 'PIN code required' };
-        }
-        case '03': {
-            return { ja: 'PINｺｰﾄﾞ認証ｴﾗｰ', en: 'PIN code authentication error' };
-        }
-        case '04': {
-            return { ja: '作品不一致', en: 'Work disagreement' };
-        }
-        case '05': {
-            return { ja: '未ｱｸﾃｨﾍﾞｰﾄ', en: 'unactivated' };
-        }
-        case '06': {
-            return { ja: '選択興行対象外', en: 'Not eligible for selection box' };
-        }
-        case '07': {
-            return { ja: '有効期限切れ', en: 'expired' };
-        }
-        case '08': {
-            return { ja: '座席予約期間外', en: 'outside the seat reservation period' };
-        }
-        case '09': {
-            return { ja: 'その他', en: 'other' };
-        }
-        case '11': {
-            return { ja: '座席予約開始前', en: 'Before starting seat reservation' };
-        }
-        case '12': {
-            return { ja: '仮お直り購入番号数不一致', en: 'temporary redemption purchase number mismatch' };
-        }
-        default: {
-            return { ja: 'その他', en: 'other' };
-        }
-    }
+    var table = [
+        { code: '01', ja: '存在無', en: 'no existence' },
+        { code: '02', ja: '存在無', en: 'no existence' },
+        { code: '03', ja: 'PINｺｰﾄﾞ認証ｴﾗｰ', en: 'PIN code authentication error' },
+        { code: '04', ja: '作品不一致', en: 'Work disagreement' },
+        { code: '05', ja: '未ｱｸﾃｨﾍﾞｰﾄ', en: 'unactivated' },
+        { code: '06', ja: '選択興行対象外', en: 'Not eligible for selection box' },
+        { code: '07', ja: '有効期限切れ', en: 'expired' },
+        { code: '08', ja: '座席予約期間外', en: 'outside the seat reservation period' },
+        { code: '09', ja: 'その他', en: 'other' },
+        { code: '11', ja: '座席予約開始前', en: 'Before starting seat reservation' },
+        { code: '12', ja: '仮お直り購入番号数不一致', en: 'temporary redemption purchase number mismatch' }
+    ];
+    var findResult = table.find(function (data) { return data.code === code; });
+    return (findResult === undefined) ? { ja: 'その他', en: 'other' } : { ja: findResult.ja, en: findResult.en };
 }
 /**
  * 予約金額取得
@@ -2176,9 +2166,10 @@ function retry(args) {
 }
 /**
  * ミリ秒待つ
- * @param time
+ * デフォルト値3000ms
  */
 function sleep(time) {
+    if (time === void 0) { time = 3000; }
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             return [2 /*return*/, new Promise(function (resolve) {
@@ -3143,6 +3134,310 @@ var BaseComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.scss":
+/*!**********************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.scss ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".creditCard:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvYWNjb3VudC9jaGFyZ2UtbW9kYWwvQzpcXFVzZXJzXFxoYXRhZ3VjaGlcXERlc2t0b3BcXHdvcmtzcGFjZVxcQ2luZXJpbm9cXGZyb250ZW5kL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXGFjY291bnRcXGNoYXJnZS1tb2RhbFxcY2hhcmdlLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9hY2NvdW50L2NoYXJnZS1tb2RhbC9jaGFyZ2UtbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSwyQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvYWNjb3VudC9jaGFyZ2UtbW9kYWwvY2hhcmdlLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNyZWRpdENhcmQ6bGFzdC1jaGlsZCB7XG4gICAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xufSIsIi5jcmVkaXRDYXJkOmxhc3QtY2hpbGQge1xuICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG59Il19 */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.ts":
+/*!********************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.ts ***!
+  \********************************************************************************************/
+/*! exports provided: AccountChargeModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountChargeModalComponent", function() { return AccountChargeModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+var AccountChargeModalComponent = /** @class */ (function () {
+    function AccountChargeModalComponent(formBuilder, modal) {
+        this.formBuilder = formBuilder;
+        this.modal = modal;
+    }
+    AccountChargeModalComponent.prototype.ngOnInit = function () {
+        this.createChargeForm();
+    };
+    AccountChargeModalComponent.prototype.close = function () {
+        var _this = this;
+        this.modal.hide();
+        var seller = this.sellers.find(function (s) { return s.id === _this.chargeAccountForm.controls.sellerId.value; });
+        this.cb({
+            seller: seller,
+            amount: this.chargeAccountForm.controls.amount.value,
+            creditCard: this.chargeAccountForm.controls.cregitCard.value
+        });
+    };
+    AccountChargeModalComponent.prototype.selectCreditCard = function (cregitCard) {
+        this.chargeAccountForm.controls.cregitCard.setValue(cregitCard);
+    };
+    AccountChargeModalComponent.prototype.createChargeForm = function () {
+        this.chargeAccountForm = this.formBuilder.group({
+            sellerId: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            amount: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
+            cregitCard: [this.creditCards[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
+        });
+    };
+    AccountChargeModalComponent.ctorParameters = function () { return [
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] }
+    ]; };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], AccountChargeModalComponent.prototype, "sellers", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], AccountChargeModalComponent.prototype, "creditCards", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Function)
+    ], AccountChargeModalComponent.prototype, "cb", void 0);
+    AccountChargeModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-account-charge-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./charge-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./charge-modal.component.scss */ "./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.scss")).default]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]])
+    ], AccountChargeModalComponent);
+    return AccountChargeModalComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/account/open-modal/open-modal.component.scss":
+/*!******************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/account/open-modal/open-modal.component.scss ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL2FjY291bnQvb3Blbi1tb2RhbC9vcGVuLW1vZGFsLmNvbXBvbmVudC5zY3NzIn0= */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/account/open-modal/open-modal.component.ts":
+/*!****************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/account/open-modal/open-modal.component.ts ***!
+  \****************************************************************************************/
+/*! exports provided: AccountOpenModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountOpenModalComponent", function() { return AccountOpenModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+var AccountOpenModalComponent = /** @class */ (function () {
+    function AccountOpenModalComponent(formBuilder, modal) {
+        this.formBuilder = formBuilder;
+        this.modal = modal;
+        this.accountType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].accountType;
+    }
+    AccountOpenModalComponent.prototype.ngOnInit = function () {
+        this.createOpenForm();
+    };
+    AccountOpenModalComponent.prototype.close = function () {
+        this.modal.hide();
+        this.cb({
+            name: this.openAccountForm.controls.name.value,
+            accountType: this.openAccountForm.controls.accountType.value
+        });
+    };
+    AccountOpenModalComponent.prototype.createOpenForm = function () {
+        this.openAccountForm = this.formBuilder.group({
+            name: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            accountType: [this.accountType.Coin, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
+        });
+    };
+    AccountOpenModalComponent.ctorParameters = function () { return [
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] }
+    ]; };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], AccountOpenModalComponent.prototype, "sellers", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Function)
+    ], AccountOpenModalComponent.prototype, "cb", void 0);
+    AccountOpenModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-account-open-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./open-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/open-modal/open-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./open-modal.component.scss */ "./app/modules/shared/components/parts/account/open-modal/open-modal.component.scss")).default]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
+    ], AccountOpenModalComponent);
+    return AccountOpenModalComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.scss":
+/*!**************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.scss ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".creditCard:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvYWNjb3VudC90cmFuc2Zlci1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcYWNjb3VudFxcdHJhbnNmZXItbW9kYWxcXHRyYW5zZmVyLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9hY2NvdW50L3RyYW5zZmVyLW1vZGFsL3RyYW5zZmVyLW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksMkJBQUE7QUNDSiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL2FjY291bnQvdHJhbnNmZXItbW9kYWwvdHJhbnNmZXItbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY3JlZGl0Q2FyZDpsYXN0LWNoaWxkIHtcbiAgICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG59IiwiLmNyZWRpdENhcmQ6bGFzdC1jaGlsZCB7XG4gIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.ts":
+/*!************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.ts ***!
+  \************************************************************************************************/
+/*! exports provided: AccountTransferModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountTransferModalComponent", function() { return AccountTransferModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../services */ "./app/services/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+var AccountTransferModalComponent = /** @class */ (function () {
+    function AccountTransferModalComponent(formBuilder, modal, qrcodeService) {
+        this.formBuilder = formBuilder;
+        this.modal = modal;
+        this.qrcodeService = qrcodeService;
+    }
+    AccountTransferModalComponent.prototype.ngOnInit = function () {
+        this.createTransferForm();
+    };
+    AccountTransferModalComponent.prototype.close = function () {
+        var _this = this;
+        this.modal.hide();
+        var seller = this.sellers.find(function (s) { return s.id === _this.TransferAccountForm.controls.sellerId.value; });
+        this.cb({
+            seller: seller,
+            amount: this.TransferAccountForm.controls.amount.value,
+            description: this.TransferAccountForm.controls.description.value,
+            accountNumber: this.TransferAccountForm.controls.accountNumber.value
+        });
+    };
+    AccountTransferModalComponent.prototype.createTransferForm = function () {
+        this.TransferAccountForm = this.formBuilder.group({
+            sellerId: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            amount: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
+            description: [''],
+            accountNumber: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
+        });
+    };
+    AccountTransferModalComponent.prototype.openQRReader = function () {
+        var _this = this;
+        this.qrcodeService.openQRCodeReader({
+            cb: function (data) {
+                _this.TransferAccountForm.controls.accountNumber.setValue(data);
+            }
+        });
+    };
+    AccountTransferModalComponent.ctorParameters = function () { return [
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_3__["QRCodeService"] }
+    ]; };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], AccountTransferModalComponent.prototype, "sellers", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Function)
+    ], AccountTransferModalComponent.prototype, "cb", void 0);
+    AccountTransferModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-account-transfer-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./transfer-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./transfer-modal.component.scss */ "./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.scss")).default]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"],
+            _services__WEBPACK_IMPORTED_MODULE_3__["QRCodeService"]])
+    ], AccountTransferModalComponent);
+    return AccountTransferModalComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./app/modules/shared/components/parts/alert-modal/alert-modal.component.scss":
 /*!************************************************************************************!*\
   !*** ./app/modules/shared/components/parts/alert-modal/alert-modal.component.scss ***!
@@ -3208,99 +3503,6 @@ var AlertModalComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]])
     ], AlertModalComponent);
     return AlertModalComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.scss":
-/*!******************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.scss ***!
-  \******************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".creditCard:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvY2hhcmdlLWFjY291bnQtbW9kYWwvQzpcXFVzZXJzXFxoYXRhZ3VjaGlcXERlc2t0b3BcXHdvcmtzcGFjZVxcQ2luZXJpbm9cXGZyb250ZW5kL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXGNoYXJnZS1hY2NvdW50LW1vZGFsXFxjaGFyZ2UtYWNjb3VudC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvY2hhcmdlLWFjY291bnQtbW9kYWwvY2hhcmdlLWFjY291bnQtbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSwyQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvY2hhcmdlLWFjY291bnQtbW9kYWwvY2hhcmdlLWFjY291bnQtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY3JlZGl0Q2FyZDpsYXN0LWNoaWxkIHtcbiAgICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG59IiwiLmNyZWRpdENhcmQ6bGFzdC1jaGlsZCB7XG4gIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iXX0= */");
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.ts":
-/*!****************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.ts ***!
-  \****************************************************************************************************/
-/*! exports provided: ChargeAccountModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeAccountModalComponent", function() { return ChargeAccountModalComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-
-
-var ChargeAccountModalComponent = /** @class */ (function () {
-    function ChargeAccountModalComponent(formBuilder, modal) {
-        this.formBuilder = formBuilder;
-        this.modal = modal;
-    }
-    ChargeAccountModalComponent.prototype.ngOnInit = function () {
-        this.createChargeForm();
-    };
-    ChargeAccountModalComponent.prototype.close = function () {
-        this.modal.hide();
-        this.cb({
-            amount: this.chargeAccountForm.controls.amount.value,
-            cregitCard: this.chargeAccountForm.controls.cregitCard.value
-        });
-    };
-    ChargeAccountModalComponent.prototype.selectCreditCard = function (cregitCard) {
-        this.chargeAccountForm.controls.cregitCard.setValue(cregitCard);
-    };
-    ChargeAccountModalComponent.prototype.createChargeForm = function () {
-        this.chargeAccountForm = this.formBuilder.group({
-            amount: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
-            cregitCard: [this.creditCards[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
-        });
-    };
-    ChargeAccountModalComponent.ctorParameters = function () { return [
-        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] }
-    ]; };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Array)
-    ], ChargeAccountModalComponent.prototype, "creditCards", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Function)
-    ], ChargeAccountModalComponent.prototype, "cb", void 0);
-    ChargeAccountModalComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-charge-account-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./charge-account-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./charge-account-modal.component.scss */ "./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.scss")).default]
-        }),
-        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]])
-    ], ChargeAccountModalComponent);
-    return ChargeAccountModalComponent;
 }());
 
 
@@ -3511,6 +3713,268 @@ var ContentsComponent = /** @class */ (function () {
             _services__WEBPACK_IMPORTED_MODULE_2__["UserService"]])
     ], ContentsComponent);
     return ContentsComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.scss":
+/*!*****************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.scss ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL2NyZWRpdGNhcmQvcmVnaXN0ZXItbW9kYWwvcmVnaXN0ZXItbW9kYWwuY29tcG9uZW50LnNjc3MifQ== */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.ts":
+/*!***************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.ts ***!
+  \***************************************************************************************************/
+/*! exports provided: CreditcardRegisterModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreditcardRegisterModalComponent", function() { return CreditcardRegisterModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+var CreditcardRegisterModalComponent = /** @class */ (function () {
+    function CreditcardRegisterModalComponent(formBuilder, modal) {
+        this.formBuilder = formBuilder;
+        this.modal = modal;
+    }
+    CreditcardRegisterModalComponent.prototype.ngOnInit = function () {
+        this.createCreditCardForm();
+    };
+    CreditcardRegisterModalComponent.prototype.close = function () {
+        var _this = this;
+        Object.keys(this.creditCardForm.controls).forEach(function (key) {
+            _this.creditCardForm.controls[key].markAsTouched();
+        });
+        this.creditCardForm.controls.cardNumber.setValue(document.getElementById('cardNumber').value);
+        this.creditCardForm.controls.securityCode.setValue(document.getElementById('securityCode').value);
+        this.creditCardForm.controls.holderName.setValue(document.getElementById('holderName').value);
+        if (this.creditCardForm.invalid) {
+            return;
+        }
+        this.modal.hide();
+        var cardExpiration = {
+            year: this.creditCardForm.controls.cardExpirationYear.value,
+            month: this.creditCardForm.controls.cardExpirationMonth.value
+        };
+        var creditCard = {
+            cardno: this.creditCardForm.controls.cardNumber.value,
+            expire: "" + cardExpiration.year + cardExpiration.month,
+            holderName: this.creditCardForm.controls.holderName.value,
+            securityCode: this.creditCardForm.controls.securityCode.value
+        };
+        var seller = this.sellers.find(function (s) { return s.id === _this.creditCardForm.controls.sellerId.value; });
+        this.cb({ creditCard: creditCard, seller: seller });
+    };
+    /**
+     * クレジットカードフォーム作成
+     */
+    CreditcardRegisterModalComponent.prototype.createCreditCardForm = function () {
+        this.cardExpiration = { year: [], month: [] };
+        for (var i = 0; i < 12; i++) {
+            this.cardExpiration.month.push(("0" + String(i + 1)).slice(-2));
+        }
+        for (var i = 0; i < 10; i++) {
+            this.cardExpiration.year.push(moment__WEBPACK_IMPORTED_MODULE_2__().add(i, 'year').format('YYYY'));
+        }
+        this.creditCardForm = this.formBuilder.group({
+            sellerId: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            cardNumber: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
+            cardExpirationMonth: [this.cardExpiration.month[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            cardExpirationYear: [this.cardExpiration.year[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            securityCode: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
+            holderName: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
+        });
+    };
+    CreditcardRegisterModalComponent.ctorParameters = function () { return [
+        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] }
+    ]; };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Function)
+    ], CreditcardRegisterModalComponent.prototype, "cb", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], CreditcardRegisterModalComponent.prototype, "sellers", void 0);
+    CreditcardRegisterModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-creditcard-register-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./register-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./register-modal.component.scss */ "./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.scss")).default]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
+    ], CreditcardRegisterModalComponent);
+    return CreditcardRegisterModalComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/creditcard/security-code-modal/security-code-modal.component.scss":
+/*!***************************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/creditcard/security-code-modal/security-code-modal.component.scss ***!
+  \***************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvY3JlZGl0Y2FyZC9zZWN1cml0eS1jb2RlLW1vZGFsL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxmcm9udGVuZC9zcmNcXGNsaWVudFxcYXBwXFxtb2R1bGVzXFxzaGFyZWRcXGNvbXBvbmVudHNcXHBhcnRzXFxjcmVkaXRjYXJkXFxzZWN1cml0eS1jb2RlLW1vZGFsXFxzZWN1cml0eS1jb2RlLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9jcmVkaXRjYXJkL3NlY3VyaXR5LWNvZGUtbW9kYWwvc2VjdXJpdHktY29kZS1tb2RhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9jcmVkaXRjYXJkL3NlY3VyaXR5LWNvZGUtbW9kYWwvc2VjdXJpdHktY29kZS1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5zY3JvbGwtdmVydGljYWwge1xuICAgIG1heC1oZWlnaHQ6IDc1dmg7XG59XG4iLCIuc2Nyb2xsLXZlcnRpY2FsIHtcbiAgbWF4LWhlaWdodDogNzV2aDtcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/creditcard/security-code-modal/security-code-modal.component.ts":
+/*!*************************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/creditcard/security-code-modal/security-code-modal.component.ts ***!
+  \*************************************************************************************************************/
+/*! exports provided: CreditcardSecurityCodeModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreditcardSecurityCodeModalComponent", function() { return CreditcardSecurityCodeModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+var CreditcardSecurityCodeModalComponent = /** @class */ (function () {
+    function CreditcardSecurityCodeModalComponent(modal) {
+        this.modal = modal;
+    }
+    CreditcardSecurityCodeModalComponent.prototype.ngOnInit = function () {
+    };
+    CreditcardSecurityCodeModalComponent.ctorParameters = function () { return [
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"] }
+    ]; };
+    CreditcardSecurityCodeModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-creditcard-security-code-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./security-code-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/security-code-modal/security-code-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./security-code-modal.component.scss */ "./app/modules/shared/components/parts/creditcard/security-code-modal/security-code-modal.component.scss")).default]
+        }),
+        __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]])
+    ], CreditcardSecurityCodeModalComponent);
+    return CreditcardSecurityCodeModalComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.scss":
+/*!*************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.scss ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("button:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvY3JlZGl0Y2FyZC9zZWxlY3QtbW9kYWwvQzpcXFVzZXJzXFxoYXRhZ3VjaGlcXERlc2t0b3BcXHdvcmtzcGFjZVxcQ2luZXJpbm9cXGZyb250ZW5kL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXGNyZWRpdGNhcmRcXHNlbGVjdC1tb2RhbFxcc2VsZWN0LW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9jcmVkaXRjYXJkL3NlbGVjdC1tb2RhbC9zZWxlY3QtbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSwyQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvY3JlZGl0Y2FyZC9zZWxlY3QtbW9kYWwvc2VsZWN0LW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYnV0dG9uOmxhc3QtY2hpbGQge1xuICAgIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iLCJidXR0b246bGFzdC1jaGlsZCB7XG4gIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iXX0= */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.ts":
+/*!***********************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.ts ***!
+  \***********************************************************************************************/
+/*! exports provided: CreditCardSelectModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreditCardSelectModalComponent", function() { return CreditCardSelectModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+var CreditCardSelectModalComponent = /** @class */ (function () {
+    function CreditCardSelectModalComponent(modal) {
+        this.modal = modal;
+    }
+    CreditCardSelectModalComponent.prototype.ngOnInit = function () { };
+    CreditCardSelectModalComponent.prototype.close = function (creditCard) {
+        this.modal.hide();
+        this.cb(creditCard);
+    };
+    CreditCardSelectModalComponent.ctorParameters = function () { return [
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"] }
+    ]; };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], CreditCardSelectModalComponent.prototype, "creditCards", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Function)
+    ], CreditCardSelectModalComponent.prototype, "cb", void 0);
+    CreditCardSelectModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-creditcard-select-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./select-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./select-modal.component.scss */ "./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.scss")).default]
+        }),
+        __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]])
+    ], CreditCardSelectModalComponent);
+    return CreditCardSelectModalComponent;
 }());
 
 
@@ -3958,23 +4422,23 @@ var LoadingComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.scss":
-/*!**********************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.scss ***!
-  \**********************************************************************************************/
+/***/ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.scss":
+/*!*****************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.scss ***!
+  \*****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvbXZ0ay1jaGVjay1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcbXZ0ay1jaGVjay1tb2RhbFxcbXZ0ay1jaGVjay1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvbXZ0ay1jaGVjay1tb2RhbC9tdnRrLWNoZWNrLW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7QUNDSiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL212dGstY2hlY2stbW9kYWwvbXZ0ay1jaGVjay1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5zY3JvbGwtdmVydGljYWwge1xuICAgIG1heC1oZWlnaHQ6IDc1dmg7XG59IiwiLnNjcm9sbC12ZXJ0aWNhbCB7XG4gIG1heC1oZWlnaHQ6IDc1dmg7XG59Il19 */");
+/* harmony default export */ __webpack_exports__["default"] = (".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvbXZ0ay9jaGVjay1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcbXZ0a1xcY2hlY2stbW9kYWxcXGNoZWNrLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9tdnRrL2NoZWNrLW1vZGFsL2NoZWNrLW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7QUNDSiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL212dGsvY2hlY2stbW9kYWwvY2hlY2stbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuc2Nyb2xsLXZlcnRpY2FsIHtcbiAgICBtYXgtaGVpZ2h0OiA3NXZoO1xufSIsIi5zY3JvbGwtdmVydGljYWwge1xuICBtYXgtaGVpZ2h0OiA3NXZoO1xufSJdfQ== */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.ts":
-/*!********************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.ts ***!
-  \********************************************************************************************/
+/***/ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.ts":
+/*!***************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.ts ***!
+  \***************************************************************************************/
 /*! exports provided: MvtkCheckModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3985,13 +4449,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
-/* harmony import */ var jsqr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jsqr */ "../../node_modules/jsqr/dist/jsQR.js");
-/* harmony import */ var jsqr__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jsqr__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../shared/pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../shared/pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4048,26 +4510,20 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
 var MvtkCheckModalComponent = /** @class */ (function () {
-    function MvtkCheckModalComponent(modal, store, formBuilder, purchaseService, translate) {
+    function MvtkCheckModalComponent(modal, store, formBuilder, purchaseService, translate, qrcodeService) {
         this.modal = modal;
         this.store = store;
         this.formBuilder = formBuilder;
         this.purchaseService = purchaseService;
         this.translate = translate;
+        this.qrcodeService = qrcodeService;
     }
     MvtkCheckModalComponent.prototype.ngOnInit = function () {
-        this.stream = null;
-        this.video = document.getElementById('video');
-        this.video.width = 300;
         this.errorMessage = '';
-        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
-        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getPurchase"]));
+        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getLoading"]));
+        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getPurchase"]));
         this.createMvtkForm();
-    };
-    MvtkCheckModalComponent.prototype.ngOnDestroy = function () {
-        this.stopCamera();
     };
     MvtkCheckModalComponent.prototype.createMvtkForm = function () {
         var CODE_LENGTH = 10;
@@ -4120,20 +4576,20 @@ var MvtkCheckModalComponent = /** @class */ (function () {
                             || checkMovieTicketAction.result === undefined
                             || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut === null) {
                             this.isSuccess = false;
-                            this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.validation');
+                            this.errorMessage = this.translate.instant('modal.mvtk.check.alert.validation');
                             return [2 /*return*/];
                         }
                         if (checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknmiNum === '0') {
                             this.isSuccess = false;
-                            this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.used');
+                            this.errorMessage = this.translate.instant('modal.mvtk.check.alert.used');
                             return [2 /*return*/];
                         }
                         knyknrNoMkujyuCd = checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].knyknrNoMkujyuCd;
                         if (knyknrNoMkujyuCd !== undefined) {
-                            message = new _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_9__["ChangeLanguagePipe"](this.translate)
-                                .transform(Object(_functions__WEBPACK_IMPORTED_MODULE_6__["movieTicketAuthErroCodeToMessage"])(knyknrNoMkujyuCd));
+                            message = new _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_8__["ChangeLanguagePipe"](this.translate)
+                                .transform(Object(_functions__WEBPACK_IMPORTED_MODULE_5__["movieTicketAuthErroCodeToMessage"])(knyknrNoMkujyuCd));
                             this.isSuccess = false;
-                            this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.validation') + "<br>\n                [" + knyknrNoMkujyuCd + "] " + message;
+                            this.errorMessage = this.translate.instant('modal.mvtk.check.alert.validation') + "<br>\n                [" + knyknrNoMkujyuCd + "] " + message;
                             return [2 /*return*/];
                         }
                         this.createMvtkForm();
@@ -4143,101 +4599,44 @@ var MvtkCheckModalComponent = /** @class */ (function () {
                         error_1 = _a.sent();
                         console.error(error_1);
                         this.isSuccess = false;
-                        this.errorMessage = this.translate.instant('modal.mvtkCheck.alert.error');
+                        this.errorMessage = this.translate.instant('modal.mvtk.check.alert.error');
                         return [3 /*break*/, 5];
                     case 5: return [2 /*return*/];
                 }
             });
         });
     };
-    MvtkCheckModalComponent.prototype.activationCamera = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var constraints, stream, scanLoopTime, error_2;
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        constraints = {
-                            audio: false,
-                            video: { facingMode: { exact: 'environment' } }
-                        };
-                        return [4 /*yield*/, navigator.mediaDevices.getUserMedia(constraints)];
-                    case 1:
-                        stream = _a.sent();
-                        this.stream = stream;
-                        this.video.srcObject = this.stream;
-                        scanLoopTime = 500;
-                        this.scanLoop = setInterval(function () {
-                            var result = _this.scan();
-                            if (result !== null) {
-                                // 読み取り完了
-                                var code = result.slice(0, 10);
-                                var password = result.slice(10, result.length);
-                                _this.mvtkForm.controls.code.setValue(code);
-                                _this.mvtkForm.controls.password.setValue(password);
-                                _this.stopCamera();
-                            }
-                        }, scanLoopTime);
-                        this.isShowVideo = true;
-                        return [3 /*break*/, 3];
-                    case 2:
-                        error_2 = _a.sent();
-                        console.error(error_2);
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
-                }
-            });
+    MvtkCheckModalComponent.prototype.openQRReader = function () {
+        var _this = this;
+        this.qrcodeService.openQRCodeReader({
+            cb: function (data) {
+                var code = data.slice(0, 10);
+                var password = data.slice(10, data.length);
+                _this.mvtkForm.controls.code.setValue(code);
+                _this.mvtkForm.controls.password.setValue(password);
+            }
         });
-    };
-    MvtkCheckModalComponent.prototype.stopCamera = function () {
-        if (this.stream === null) {
-            return;
-        }
-        this.stream.getVideoTracks().forEach(function (track) {
-            track.stop();
-        });
-        this.stream = null;
-        this.isShowVideo = false;
-    };
-    MvtkCheckModalComponent.prototype.scan = function () {
-        if (this.stream === null) {
-            return null;
-        }
-        // キャンバスへ反映
-        var canvas = document.getElementById('canvas');
-        var context = canvas.getContext('2d');
-        var width = this.video.offsetWidth;
-        var height = this.video.offsetHeight;
-        canvas.setAttribute('width', String(width));
-        canvas.setAttribute('height', String(height));
-        context.drawImage(this.video, 0, 0, width, height);
-        // QRコードデコード
-        var imageData = context.getImageData(0, 0, width, height);
-        var qrcode = jsqr__WEBPACK_IMPORTED_MODULE_4___default()(imageData.data, width, height);
-        if (qrcode === null) {
-            return null;
-        }
-        return qrcode.data;
     };
     MvtkCheckModalComponent.ctorParameters = function () { return [
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsModalRef"] },
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsModalRef"] },
         { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
         { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
-        { type: _services__WEBPACK_IMPORTED_MODULE_7__["PurchaseService"] },
-        { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }
+        { type: _services__WEBPACK_IMPORTED_MODULE_6__["PurchaseService"] },
+        { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_6__["QRCodeService"] }
     ]; };
     MvtkCheckModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-mvtk-check-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./mvtk-check-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./mvtk-check-modal.component.scss */ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.scss")).default]
+            template: __importDefault(__webpack_require__(/*! raw-loader!./check-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./check-modal.component.scss */ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.scss")).default]
         }),
-        __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["BsModalRef"],
+        __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsModalRef"],
             _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
-            _services__WEBPACK_IMPORTED_MODULE_7__["PurchaseService"],
-            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]])
+            _services__WEBPACK_IMPORTED_MODULE_6__["PurchaseService"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
+            _services__WEBPACK_IMPORTED_MODULE_6__["QRCodeService"]])
     ], MvtkCheckModalComponent);
     return MvtkCheckModalComponent;
 }());
@@ -4374,201 +4773,23 @@ var NumericKeypadComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.scss":
-/*!**************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.scss ***!
-  \**************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.scss":
+/*!******************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.scss ***!
+  \******************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL29wZW4tYWNjb3VudC1tb2RhbC9vcGVuLWFjY291bnQtbW9kYWwuY29tcG9uZW50LnNjc3MifQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".close {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical {\n  max-height: 75vh;\n}\n\n.ticket:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UvY2luZW1hL3RpY2tldC1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xccHVyY2hhc2VcXGNpbmVtYVxcdGlja2V0LW1vZGFsXFx0aWNrZXQtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3B1cmNoYXNlL2NpbmVtYS90aWNrZXQtbW9kYWwvdGlja2V0LW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsUUFBQTtBQ0NKOztBRENBO0VBQ0ksZ0JBQUE7QUNFSjs7QURDSTtFQUNJLDJCQUFBO0FDRVIiLCJmaWxlIjoic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9wdXJjaGFzZS9jaW5lbWEvdGlja2V0LW1vZGFsL3RpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jbG9zZSB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogLTMwcHg7XG4gICAgcmlnaHQ6IDA7XG59XG4uc2Nyb2xsLXZlcnRpY2FsIHtcbiAgICBtYXgtaGVpZ2h0OiA3NXZoO1xufVxuLnRpY2tldCB7XG4gICAgJjpsYXN0LWNoaWxkIHtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xuICAgIH1cbn0iLCIuY2xvc2Uge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogLTMwcHg7XG4gIHJpZ2h0OiAwO1xufVxuXG4uc2Nyb2xsLXZlcnRpY2FsIHtcbiAgbWF4LWhlaWdodDogNzV2aDtcbn1cblxuLnRpY2tldDpsYXN0LWNoaWxkIHtcbiAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xufSJdfQ== */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.ts":
-/*!************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.ts ***!
-  \************************************************************************************************/
-/*! exports provided: OpenAccountModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OpenAccountModalComponent", function() { return OpenAccountModalComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-
-
-
-var OpenAccountModalComponent = /** @class */ (function () {
-    function OpenAccountModalComponent(formBuilder, modal) {
-        this.formBuilder = formBuilder;
-        this.modal = modal;
-        this.accountType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].accountType;
-    }
-    OpenAccountModalComponent.prototype.ngOnInit = function () {
-        this.createOpenForm();
-    };
-    OpenAccountModalComponent.prototype.close = function () {
-        this.modal.hide();
-        this.cb({
-            name: this.openAccountForm.controls.name.value,
-            accountType: this.openAccountForm.controls.accountType.value
-        });
-    };
-    OpenAccountModalComponent.prototype.createOpenForm = function () {
-        this.openAccountForm = this.formBuilder.group({
-            name: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            accountType: [this.accountType.Coin, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
-        });
-    };
-    OpenAccountModalComponent.ctorParameters = function () { return [
-        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] }
-    ]; };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Function)
-    ], OpenAccountModalComponent.prototype, "cb", void 0);
-    OpenAccountModalComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-open-account-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./open-account-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./open-account-modal.component.scss */ "./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.scss")).default]
-        }),
-        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
-    ], OpenAccountModalComponent);
-    return OpenAccountModalComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.scss":
-/*!**************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.scss ***!
-  \**************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvb3JkZXItZGV0YWlsLW1vZGFsL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxmcm9udGVuZC9zcmNcXGNsaWVudFxcYXBwXFxtb2R1bGVzXFxzaGFyZWRcXGNvbXBvbmVudHNcXHBhcnRzXFxvcmRlci1kZXRhaWwtbW9kYWxcXG9yZGVyLWRldGFpbC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvb3JkZXItZGV0YWlsLW1vZGFsL29yZGVyLWRldGFpbC1tb2RhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9vcmRlci1kZXRhaWwtbW9kYWwvb3JkZXItZGV0YWlsLW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnNjcm9sbC12ZXJ0aWNhbCB7XG4gICAgbWF4LWhlaWdodDogNzV2aDtcbn0iLCIuc2Nyb2xsLXZlcnRpY2FsIHtcbiAgbWF4LWhlaWdodDogNzV2aDtcbn0iXX0= */");
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.ts":
-/*!************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.ts ***!
-  \************************************************************************************************/
-/*! exports provided: OrderDetailModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderDetailModalComponent", function() { return OrderDetailModalComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-
-
-
-
-
-var OrderDetailModalComponent = /** @class */ (function () {
-    function OrderDetailModalComponent(elementRef, modal) {
-        this.elementRef = elementRef;
-        this.modal = modal;
-        this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
-        this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_5__["getTicketPrice"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
-    }
-    OrderDetailModalComponent.prototype.ngOnInit = function () {
-        this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["orderToEventOrders"])({ order: this.order });
-        var element = this.elementRef.nativeElement.querySelector('.scroll-vertical');
-        setTimeout(function () {
-            element.scrollTop = 0;
-        }, 0);
-    };
-    OrderDetailModalComponent.ctorParameters = function () { return [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] }
-    ]; };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Object)
-    ], OrderDetailModalComponent.prototype, "order", void 0);
-    OrderDetailModalComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-order-detail-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./order-detail-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./order-detail-modal.component.scss */ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.scss")).default]
-        }),
-        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
-    ], OrderDetailModalComponent);
-    return OrderDetailModalComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.scss":
-/*!**********************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.scss ***!
-  \**********************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".close {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical {\n  max-height: 75vh;\n}\n\n.ticket:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UtY2luZW1hLXRpY2tldC1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xccHVyY2hhc2UtY2luZW1hLXRpY2tldC1tb2RhbFxccHVyY2hhc2UtY2luZW1hLXRpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UtY2luZW1hLXRpY2tldC1tb2RhbC9wdXJjaGFzZS1jaW5lbWEtdGlja2V0LW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsUUFBQTtBQ0NKOztBRENBO0VBQ0ksZ0JBQUE7QUNFSjs7QURDSTtFQUNJLDJCQUFBO0FDRVIiLCJmaWxlIjoic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9wdXJjaGFzZS1jaW5lbWEtdGlja2V0LW1vZGFsL3B1cmNoYXNlLWNpbmVtYS10aWNrZXQtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2xvc2Uge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IC0zMHB4O1xuICAgIHJpZ2h0OiAwO1xufVxuLnNjcm9sbC12ZXJ0aWNhbCB7XG4gICAgbWF4LWhlaWdodDogNzV2aDtcbn1cbi50aWNrZXQge1xuICAgICY6bGFzdC1jaGlsZCB7XG4gICAgICAgIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbiAgICB9XG59IiwiLmNsb3NlIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IC0zMHB4O1xuICByaWdodDogMDtcbn1cblxuLnNjcm9sbC12ZXJ0aWNhbCB7XG4gIG1heC1oZWlnaHQ6IDc1dmg7XG59XG5cbi50aWNrZXQ6bGFzdC1jaGlsZCB7XG4gIG1hcmdpbi1ib3R0b206IDAgIWltcG9ydGFudDtcbn0iXX0= */");
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.ts":
-/*!********************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.ts ***!
-  \********************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts":
+/*!****************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts ***!
+  \****************************************************************************************************/
 /*! exports provided: PurchaseCinemaTicketModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4579,7 +4800,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../functions */ "./app/functions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4697,8 +4918,8 @@ var PurchaseCinemaTicketModalComponent = /** @class */ (function () {
     PurchaseCinemaTicketModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-purchase-cinema-ticket-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./purchase-cinema-ticket-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./purchase-cinema-ticket-modal.component.scss */ "./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.scss")).default]
+            template: __importDefault(__webpack_require__(/*! raw-loader!./ticket-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./ticket-modal.component.scss */ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.scss")).default]
         }),
         __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]])
     ], PurchaseCinemaTicketModalComponent);
@@ -4709,23 +4930,23 @@ var PurchaseCinemaTicketModalComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.scss":
-/*!********************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.scss ***!
-  \********************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.scss":
+/*!*****************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.scss ***!
+  \*****************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".close {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical {\n  max-height: 75vh;\n}\n\n.ticket:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UtZXZlbnQtdGlja2V0LW1vZGFsL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxmcm9udGVuZC9zcmNcXGNsaWVudFxcYXBwXFxtb2R1bGVzXFxzaGFyZWRcXGNvbXBvbmVudHNcXHBhcnRzXFxwdXJjaGFzZS1ldmVudC10aWNrZXQtbW9kYWxcXHB1cmNoYXNlLWV2ZW50LXRpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UtZXZlbnQtdGlja2V0LW1vZGFsL3B1cmNoYXNlLWV2ZW50LXRpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLFFBQUE7QUNDSjs7QURDQTtFQUNJLGdCQUFBO0FDRUo7O0FEQ0k7RUFDSSwyQkFBQTtBQ0VSIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UtZXZlbnQtdGlja2V0LW1vZGFsL3B1cmNoYXNlLWV2ZW50LXRpY2tldC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jbG9zZSB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogLTMwcHg7XG4gICAgcmlnaHQ6IDA7XG59XG4uc2Nyb2xsLXZlcnRpY2FsIHtcbiAgICBtYXgtaGVpZ2h0OiA3NXZoO1xufVxuLnRpY2tldCB7XG4gICAgJjpsYXN0LWNoaWxkIHtcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xuICAgIH1cbn0iLCIuY2xvc2Uge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogLTMwcHg7XG4gIHJpZ2h0OiAwO1xufVxuXG4uc2Nyb2xsLXZlcnRpY2FsIHtcbiAgbWF4LWhlaWdodDogNzV2aDtcbn1cblxuLnRpY2tldDpsYXN0LWNoaWxkIHtcbiAgbWFyZ2luLWJvdHRvbTogMCAhaW1wb3J0YW50O1xufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".close {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical {\n  max-height: 75vh;\n}\n\n.ticket:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcHVyY2hhc2UvZXZlbnQvdGlja2V0LW1vZGFsL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxmcm9udGVuZC9zcmNcXGNsaWVudFxcYXBwXFxtb2R1bGVzXFxzaGFyZWRcXGNvbXBvbmVudHNcXHBhcnRzXFxwdXJjaGFzZVxcZXZlbnRcXHRpY2tldC1tb2RhbFxcdGlja2V0LW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9wdXJjaGFzZS9ldmVudC90aWNrZXQtbW9kYWwvdGlja2V0LW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsUUFBQTtBQ0NKOztBRENBO0VBQ0ksZ0JBQUE7QUNFSjs7QURDSTtFQUNJLDJCQUFBO0FDRVIiLCJmaWxlIjoic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9wdXJjaGFzZS9ldmVudC90aWNrZXQtbW9kYWwvdGlja2V0LW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNsb3NlIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgdG9wOiAtMzBweDtcbiAgICByaWdodDogMDtcbn1cbi5zY3JvbGwtdmVydGljYWwge1xuICAgIG1heC1oZWlnaHQ6IDc1dmg7XG59XG4udGlja2V0IHtcbiAgICAmOmxhc3QtY2hpbGQge1xuICAgICAgICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG4gICAgfVxufSIsIi5jbG9zZSB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAtMzBweDtcbiAgcmlnaHQ6IDA7XG59XG5cbi5zY3JvbGwtdmVydGljYWwge1xuICBtYXgtaGVpZ2h0OiA3NXZoO1xufVxuXG4udGlja2V0Omxhc3QtY2hpbGQge1xuICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG59Il19 */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.ts":
-/*!******************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.ts ***!
-  \******************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts":
+/*!***************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts ***!
+  \***************************************************************************************************/
 /*! exports provided: PurchaseEventTicketModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4738,8 +4959,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../../functions */ "./app/functions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4853,8 +5074,8 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
     PurchaseEventTicketModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-purchase-event-ticket-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./purchase-event-ticket-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./purchase-event-ticket-modal.component.scss */ "./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.scss")).default]
+            template: __importDefault(__webpack_require__(/*! raw-loader!./ticket-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./ticket-modal.component.scss */ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.scss")).default]
         }),
         __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
     ], PurchaseEventTicketModalComponent);
@@ -4865,23 +5086,23 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.scss":
-/*!******************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.scss ***!
-  \******************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.scss":
+/*!*********************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.scss ***!
+  \*********************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3B1cmNoYXNlLXRyYW5zYWN0aW9uLW1vZGFsL3B1cmNoYXNlLXRyYW5zYWN0aW9uLW1vZGFsLmNvbXBvbmVudC5zY3NzIn0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3B1cmNoYXNlL3RyYW5zYWN0aW9uLW1vZGFsL3RyYW5zYWN0aW9uLW1vZGFsLmNvbXBvbmVudC5zY3NzIn0= */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.ts":
-/*!****************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.ts ***!
-  \****************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts":
+/*!*******************************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts ***!
+  \*******************************************************************************************************/
 /*! exports provided: PurchaseTransactionModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4890,7 +5111,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PurchaseTransactionModalComponent", function() { return PurchaseTransactionModalComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4934,8 +5155,8 @@ var PurchaseTransactionModalComponent = /** @class */ (function () {
     PurchaseTransactionModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-purchase-transaction-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./purchase-transaction-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./purchase-transaction-modal.component.scss */ "./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.scss")).default]
+            template: __importDefault(__webpack_require__(/*! raw-loader!./transaction-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./transaction-modal.component.scss */ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.scss")).default]
         }),
         __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]])
     ], PurchaseTransactionModalComponent);
@@ -4946,39 +5167,33 @@ var PurchaseTransactionModalComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.scss":
-/*!**************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.scss ***!
-  \**************************************************************************************/
+/***/ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.scss":
+/*!*********************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.scss ***!
+  \*********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3FyY29kZS1tb2RhbC9xcmNvZGUtbW9kYWwuY29tcG9uZW50LnNjc3MifQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".full-screen {\n  position: fixed;\n  left: 0;\n  top: 0;\n  bottom: 0;\n  right: 0;\n}\n\nvideo {\n  width: 100%;\n  height: 100%;\n}\n\n.top {\n  position: absolute;\n  top: 1rem;\n  left: 0;\n}\n\n.bottom {\n  position: absolute;\n  bottom: 1rem;\n  left: 0;\n}\n\n.scan {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 100px;\n  height: 100px;\n  border-width: 3px !important;\n  margin: -50px 0 0 -50px;\n  -webkit-animation: scale 2s infinite linear;\n          animation: scale 2s infinite linear;\n}\n\n@-webkit-keyframes scale {\n  0% {\n    transform: scale(0.75);\n  }\n  50% {\n    transform: scale(1.5);\n  }\n  100% {\n    transform: scale(0.75);\n  }\n}\n\n@keyframes scale {\n  0% {\n    transform: scale(0.75);\n  }\n  50% {\n    transform: scale(1.5);\n  }\n  100% {\n    transform: scale(0.75);\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcXJjb2RlL3JlYWRlci1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xccXJjb2RlXFxyZWFkZXItbW9kYWxcXHJlYWRlci1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcXJjb2RlL3JlYWRlci1tb2RhbC9yZWFkZXItbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsT0FBQTtFQUNBLE1BQUE7RUFDQSxTQUFBO0VBQ0EsUUFBQTtBQ0NKOztBREVBO0VBQ0ksV0FBQTtFQUNBLFlBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsU0FBQTtFQUNBLE9BQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLE9BQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFNBQUE7RUFDQSxZQUFBO0VBQ0EsYUFBQTtFQUNBLDRCQUFBO0VBQ0EsdUJBQUE7RUFDQSwyQ0FBQTtVQUFBLG1DQUFBO0FDQ0o7O0FERUE7RUFDSTtJQUNJLHNCQUFBO0VDQ047RURDRTtJQUNJLHFCQUFBO0VDQ047RURDRTtJQUNJLHNCQUFBO0VDQ047QUFDRjs7QURWQTtFQUNJO0lBQ0ksc0JBQUE7RUNDTjtFRENFO0lBQ0kscUJBQUE7RUNDTjtFRENFO0lBQ0ksc0JBQUE7RUNDTjtBQUNGIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcXJjb2RlL3JlYWRlci1tb2RhbC9yZWFkZXItbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZnVsbC1zY3JlZW4ge1xuICAgIHBvc2l0aW9uOiBmaXhlZDtcbiAgICBsZWZ0OiAwO1xuICAgIHRvcDogMDtcbiAgICBib3R0b206IDA7XG4gICAgcmlnaHQ6IDA7XG59XG5cbnZpZGVvIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IDEwMCU7XG59XG5cbi50b3Age1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDFyZW07XG4gICAgbGVmdDogMDtcbn1cblxuLmJvdHRvbSB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIGJvdHRvbTogMXJlbTtcbiAgICBsZWZ0OiAwO1xufVxuXG4uc2NhbiB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB3aWR0aDogMTAwcHg7XG4gICAgaGVpZ2h0OiAxMDBweDtcbiAgICBib3JkZXItd2lkdGg6IDNweCAhaW1wb3J0YW50O1xuICAgIG1hcmdpbjogLTUwcHggMCAwIC01MHB4O1xuICAgIGFuaW1hdGlvbjogc2NhbGUgMnMgaW5maW5pdGUgbGluZWFyO1xufVxuXG5Aa2V5ZnJhbWVzIHNjYWxlIHtcbiAgICAwJSB7XG4gICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMC43NSk7XG4gICAgfVxuICAgIDUwJSB7XG4gICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMS41KTtcbiAgICB9ICBcbiAgICAxMDAlIHtcbiAgICAgICAgdHJhbnNmb3JtOiBzY2FsZSgwLjc1KTtcbiAgICB9XG59XG4iLCIuZnVsbC1zY3JlZW4ge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGxlZnQ6IDA7XG4gIHRvcDogMDtcbiAgYm90dG9tOiAwO1xuICByaWdodDogMDtcbn1cblxudmlkZW8ge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4udG9wIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDFyZW07XG4gIGxlZnQ6IDA7XG59XG5cbi5ib3R0b20ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGJvdHRvbTogMXJlbTtcbiAgbGVmdDogMDtcbn1cblxuLnNjYW4ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogNTAlO1xuICBsZWZ0OiA1MCU7XG4gIHdpZHRoOiAxMDBweDtcbiAgaGVpZ2h0OiAxMDBweDtcbiAgYm9yZGVyLXdpZHRoOiAzcHggIWltcG9ydGFudDtcbiAgbWFyZ2luOiAtNTBweCAwIDAgLTUwcHg7XG4gIGFuaW1hdGlvbjogc2NhbGUgMnMgaW5maW5pdGUgbGluZWFyO1xufVxuXG5Aa2V5ZnJhbWVzIHNjYWxlIHtcbiAgMCUge1xuICAgIHRyYW5zZm9ybTogc2NhbGUoMC43NSk7XG4gIH1cbiAgNTAlIHtcbiAgICB0cmFuc2Zvcm06IHNjYWxlKDEuNSk7XG4gIH1cbiAgMTAwJSB7XG4gICAgdHJhbnNmb3JtOiBzY2FsZSgwLjc1KTtcbiAgfVxufSJdfQ== */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.ts":
-/*!************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.ts ***!
-  \************************************************************************************/
-/*! exports provided: QrCodeModalComponent */
+/***/ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts":
+/*!*******************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts ***!
+  \*******************************************************************************************/
+/*! exports provided: QRCodeReaderModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QrCodeModalComponent", function() { return QrCodeModalComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QRCodeReaderModalComponent", function() { return QRCodeReaderModalComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! qrcode */ "../../node_modules/qrcode/lib/browser.js");
-/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var jsqr__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jsqr */ "../../node_modules/jsqr/dist/jsQR.js");
+/* harmony import */ var jsqr__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jsqr__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4988,98 +5203,40 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
-
-
-
-
-
-
-
-var QrCodeModalComponent = /** @class */ (function () {
-    function QrCodeModalComponent(modal) {
-        this.modal = modal;
-        this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
-        this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_6__["getTicketPrice"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
-    }
-    QrCodeModalComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.urlList = [];
-        this.order.acceptedOffers.forEach(function (acceptedOffer) {
-            if (acceptedOffer.itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation) {
-                return;
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
             }
-            var ticketToken = acceptedOffer.itemOffered.reservedTicket.ticketToken;
-            var basicSize = 21;
-            var option = {
-                margin: 0,
-                scale: (60 / basicSize)
-            };
-            var url = qrcode__WEBPACK_IMPORTED_MODULE_4__["toDataURL"](ticketToken, option);
-            _this.urlList.push(url);
-        });
-    };
-    QrCodeModalComponent.ctorParameters = function () { return [
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] }
-    ]; };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Object)
-    ], QrCodeModalComponent.prototype, "order", void 0);
-    QrCodeModalComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-qrcode-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./qrcode-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./qrcode-modal.component.scss */ "./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.scss")).default]
-        }),
-        __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
-    ], QrCodeModalComponent);
-    return QrCodeModalComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.scss":
-/*!****************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.scss ***!
-  \****************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3JlZ2lzdGVyLWNyZWRpdGNhcmQtbW9kYWwvcmVnaXN0ZXItY3JlZGl0Y2FyZC1tb2RhbC5jb21wb25lbnQuc2NzcyJ9 */");
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.ts":
-/*!**************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.ts ***!
-  \**************************************************************************************************************/
-/*! exports provided: RegisterCreditcardModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisterCreditcardModalComponent", function() { return RegisterCreditcardModalComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
 };
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -5087,113 +5244,151 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
-var RegisterCreditcardModalComponent = /** @class */ (function () {
-    function RegisterCreditcardModalComponent(formBuilder, modal) {
-        this.formBuilder = formBuilder;
+var QRCodeReaderModalComponent = /** @class */ (function () {
+    function QRCodeReaderModalComponent(modal) {
         this.modal = modal;
     }
-    RegisterCreditcardModalComponent.prototype.ngOnInit = function () {
-        this.createCreditCardForm();
-    };
-    RegisterCreditcardModalComponent.prototype.close = function () {
-        var _this = this;
-        Object.keys(this.creditCardForm.controls).forEach(function (key) {
-            _this.creditCardForm.controls[key].markAsTouched();
+    QRCodeReaderModalComponent.prototype.ngOnInit = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var constraints;
+            return __generator(this, function (_a) {
+                this.running = false;
+                this.video = document.getElementById('video');
+                this.video.width = 300;
+                constraints = {
+                    audio: false,
+                    video: {
+                        width: { min: 1024, ideal: 1280, max: 1920 },
+                        height: { min: 776, ideal: 720, max: 1080 },
+                        frameRate: { ideal: 5, max: 30 },
+                        facingMode: { exact: 'environment' }
+                    }
+                };
+                this.start(constraints);
+                return [2 /*return*/];
+            });
         });
-        this.creditCardForm.controls.cardNumber.setValue(document.getElementById('cardNumber').value);
-        this.creditCardForm.controls.securityCode.setValue(document.getElementById('securityCode').value);
-        this.creditCardForm.controls.holderName.setValue(document.getElementById('holderName').value);
-        if (this.creditCardForm.invalid) {
-            return;
-        }
-        this.modal.hide();
-        var cardExpiration = {
-            year: this.creditCardForm.controls.cardExpirationYear.value,
-            month: this.creditCardForm.controls.cardExpirationMonth.value
-        };
-        var creditCard = {
-            cardno: this.creditCardForm.controls.cardNumber.value,
-            expire: "" + cardExpiration.year + cardExpiration.month,
-            holderName: this.creditCardForm.controls.holderName.value,
-            securityCode: this.creditCardForm.controls.securityCode.value
-        };
-        var seller = this.sellers.find(function (s) { return s.id === _this.creditCardForm.controls.sellerId.value; });
-        this.cb({ creditCard: creditCard, seller: seller });
+    };
+    QRCodeReaderModalComponent.prototype.ngOnDestroy = function () {
+        this.stop();
     };
     /**
-     * クレジットカードフォーム作成
+     * カメラ起動
      */
-    RegisterCreditcardModalComponent.prototype.createCreditCardForm = function () {
-        this.cardExpiration = { year: [], month: [] };
-        for (var i = 0; i < 12; i++) {
-            this.cardExpiration.month.push(("0" + String(i + 1)).slice(-2));
-        }
-        for (var i = 0; i < 10; i++) {
-            this.cardExpiration.year.push(moment__WEBPACK_IMPORTED_MODULE_2__().add(i, 'year').format('YYYY'));
-        }
-        this.creditCardForm = this.formBuilder.group({
-            sellerId: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            cardNumber: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
-            cardExpirationMonth: [this.cardExpiration.month[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            cardExpirationYear: [this.cardExpiration.year[0], [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            securityCode: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
-            holderName: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
+    QRCodeReaderModalComponent.prototype.start = function (constraints) {
+        return __awaiter(this, void 0, void 0, function () {
+            var stream, scanLoopTime, error_1;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, navigator.mediaDevices.getUserMedia(constraints)];
+                    case 1:
+                        stream = _a.sent();
+                        this.stream = stream;
+                        this.video.srcObject = this.stream;
+                        scanLoopTime = 500;
+                        this.running = true;
+                        this.scanLoop = setInterval(function () {
+                            if (_this.scan()) {
+                                _this.modal.hide();
+                                _this.cb(_this.readerResult);
+                            }
+                        }, scanLoopTime);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        this.modal.hide();
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
         });
     };
-    RegisterCreditcardModalComponent.ctorParameters = function () { return [
-        { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] },
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] }
+    /**
+     * カメラ停止
+     */
+    QRCodeReaderModalComponent.prototype.stop = function () {
+        clearInterval(this.scanLoop);
+        if (this.stream === undefined) {
+            return;
+        }
+        this.stream.getVideoTracks().forEach(function (track) {
+            track.stop();
+        });
+        this.stream = undefined;
+    };
+    /**
+     * カメラ読み取り
+     */
+    QRCodeReaderModalComponent.prototype.scan = function () {
+        // キャンバスへ反映
+        var canvas = document.createElement('canvas');
+        var context = canvas.getContext('2d');
+        var width = this.video.offsetWidth;
+        var height = this.video.offsetHeight;
+        canvas.width = width;
+        canvas.height = height;
+        context.drawImage(this.video, 0, 0, width, height);
+        // QRコードデコード
+        var imageData = context.getImageData(0, 0, width, height);
+        var qrcode = jsqr__WEBPACK_IMPORTED_MODULE_1___default()(imageData.data, width, height);
+        if (qrcode !== null) {
+            this.readerResult = qrcode.data;
+        }
+        return (qrcode !== null);
+    };
+    QRCodeReaderModalComponent.ctorParameters = function () { return [
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] }
     ]; };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Function)
-    ], RegisterCreditcardModalComponent.prototype, "cb", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Array)
-    ], RegisterCreditcardModalComponent.prototype, "sellers", void 0);
-    RegisterCreditcardModalComponent = __decorate([
+    ], QRCodeReaderModalComponent.prototype, "cb", void 0);
+    QRCodeReaderModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-register-creditcard-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./register-creditcard-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./register-creditcard-modal.component.scss */ "./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.scss")).default]
+            selector: 'app-qrcode-reader-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./reader-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./reader-modal.component.scss */ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.scss")).default]
         }),
-        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"]])
-    ], RegisterCreditcardModalComponent);
-    return RegisterCreditcardModalComponent;
+        __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"]])
+    ], QRCodeReaderModalComponent);
+    return QRCodeReaderModalComponent;
 }());
 
 
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/registered-credit-card-modal/registered-credit-card-modal.component.scss":
-/*!**********************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/registered-credit-card-modal/registered-credit-card-modal.component.scss ***!
-  \**********************************************************************************************************************/
+/***/ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.scss":
+/*!*********************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.scss ***!
+  \*********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("button:last-child {\n  margin-bottom: 0 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcmVnaXN0ZXJlZC1jcmVkaXQtY2FyZC1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xccmVnaXN0ZXJlZC1jcmVkaXQtY2FyZC1tb2RhbFxccmVnaXN0ZXJlZC1jcmVkaXQtY2FyZC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcmVnaXN0ZXJlZC1jcmVkaXQtY2FyZC1tb2RhbC9yZWdpc3RlcmVkLWNyZWRpdC1jYXJkLW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksMkJBQUE7QUNDSiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3JlZ2lzdGVyZWQtY3JlZGl0LWNhcmQtbW9kYWwvcmVnaXN0ZXJlZC1jcmVkaXQtY2FyZC1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImJ1dHRvbjpsYXN0LWNoaWxkIHtcbiAgICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG59IiwiYnV0dG9uOmxhc3QtY2hpbGQge1xuICBtYXJnaW4tYm90dG9tOiAwICFpbXBvcnRhbnQ7XG59Il19 */");
+/* harmony default export */ __webpack_exports__["default"] = (".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcXJjb2RlL3ZpZXdlci1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xccXJjb2RlXFx2aWV3ZXItbW9kYWxcXHZpZXdlci1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcXJjb2RlL3ZpZXdlci1tb2RhbC92aWV3ZXItbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxnQkFBQTtBQ0NKIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcXJjb2RlL3ZpZXdlci1tb2RhbC92aWV3ZXItbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuc2Nyb2xsLXZlcnRpY2FsIHtcbiAgICBtYXgtaGVpZ2h0OiA3NXZoO1xufSIsIi5zY3JvbGwtdmVydGljYWwge1xuICBtYXgtaGVpZ2h0OiA3NXZoO1xufSJdfQ== */");
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/registered-credit-card-modal/registered-credit-card-modal.component.ts":
-/*!********************************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/registered-credit-card-modal/registered-credit-card-modal.component.ts ***!
-  \********************************************************************************************************************/
-/*! exports provided: RegisteredCreditCardModalComponent */
+/***/ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts":
+/*!*******************************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts ***!
+  \*******************************************************************************************/
+/*! exports provided: QRCodeViewerModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisteredCreditCardModalComponent", function() { return RegisteredCreditCardModalComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QRCodeViewerModalComponent", function() { return QRCodeViewerModalComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qrcode */ "../../node_modules/qrcode/lib/browser.js");
+/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_2__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5208,98 +5403,42 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 };
 
 
-var RegisteredCreditCardModalComponent = /** @class */ (function () {
-    function RegisteredCreditCardModalComponent(modal) {
+
+var QRCodeViewerModalComponent = /** @class */ (function () {
+    function QRCodeViewerModalComponent(modal) {
         this.modal = modal;
     }
-    RegisteredCreditCardModalComponent.prototype.ngOnInit = function () { };
-    RegisteredCreditCardModalComponent.prototype.close = function (creditCard) {
-        this.modal.hide();
-        this.cb(creditCard);
+    QRCodeViewerModalComponent.prototype.ngOnInit = function () {
+        var option = {
+            margin: 0,
+            scale: 5,
+        };
+        this.url = qrcode__WEBPACK_IMPORTED_MODULE_2__["toDataURL"](this.code, option);
     };
-    RegisteredCreditCardModalComponent.ctorParameters = function () { return [
+    QRCodeViewerModalComponent.ctorParameters = function () { return [
         { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"] }
     ]; };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Array)
-    ], RegisteredCreditCardModalComponent.prototype, "creditCards", void 0);
+        __metadata("design:type", String)
+    ], QRCodeViewerModalComponent.prototype, "title", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Function)
-    ], RegisteredCreditCardModalComponent.prototype, "cb", void 0);
-    RegisteredCreditCardModalComponent = __decorate([
+        __metadata("design:type", String)
+    ], QRCodeViewerModalComponent.prototype, "body", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], QRCodeViewerModalComponent.prototype, "code", void 0);
+    QRCodeViewerModalComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-registered-credit-card-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./registered-credit-card-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/registered-credit-card-modal/registered-credit-card-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./registered-credit-card-modal.component.scss */ "./app/modules/shared/components/parts/registered-credit-card-modal/registered-credit-card-modal.component.scss")).default]
+            selector: 'app-qrcode-viewer-modal',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./viewer-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./viewer-modal.component.scss */ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.scss")).default]
         }),
         __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]])
-    ], RegisteredCreditCardModalComponent);
-    return RegisteredCreditCardModalComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.scss":
-/*!****************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.scss ***!
-  \****************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".scroll-vertical {\n  max-height: 75vh;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvc2VjdXJpdHktY29kZS1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcc2VjdXJpdHktY29kZS1tb2RhbFxcc2VjdXJpdHktY29kZS1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvc2VjdXJpdHktY29kZS1tb2RhbC9zZWN1cml0eS1jb2RlLW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7QUNDSiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL3NlY3VyaXR5LWNvZGUtbW9kYWwvc2VjdXJpdHktY29kZS1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5zY3JvbGwtdmVydGljYWwge1xuICAgIG1heC1oZWlnaHQ6IDc1dmg7XG59XG4iLCIuc2Nyb2xsLXZlcnRpY2FsIHtcbiAgbWF4LWhlaWdodDogNzV2aDtcbn0iXX0= */");
-
-/***/ }),
-
-/***/ "./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.ts":
-/*!**************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.ts ***!
-  \**************************************************************************************************/
-/*! exports provided: SecurityCodeModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecurityCodeModalComponent", function() { return SecurityCodeModalComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-
-var SecurityCodeModalComponent = /** @class */ (function () {
-    function SecurityCodeModalComponent(modal) {
-        this.modal = modal;
-    }
-    SecurityCodeModalComponent.prototype.ngOnInit = function () {
-    };
-    SecurityCodeModalComponent.ctorParameters = function () { return [
-        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"] }
-    ]; };
-    SecurityCodeModalComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-security-code-modal',
-            template: __importDefault(__webpack_require__(/*! raw-loader!./security-code-modal.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.html")).default,
-            styles: [__importDefault(__webpack_require__(/*! ./security-code-modal.component.scss */ "./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.scss")).default]
-        }),
-        __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]])
-    ], SecurityCodeModalComponent);
-    return SecurityCodeModalComponent;
+    ], QRCodeViewerModalComponent);
+    return QRCodeViewerModalComponent;
 }());
 
 
@@ -5487,28 +5626,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 /* harmony import */ var ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-swiper-wrapper */ "../../node_modules/ngx-swiper-wrapper/dist/ngx-swiper-wrapper.es5.js");
 /* harmony import */ var _components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/base/base.component */ "./app/modules/shared/components/pages/base/base.component.ts");
-/* harmony import */ var _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/parts/alert-modal/alert-modal.component */ "./app/modules/shared/components/parts/alert-modal/alert-modal.component.ts");
-/* harmony import */ var _components_parts_charge_account_modal_charge_account_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/parts/charge-account-modal/charge-account-modal.component */ "./app/modules/shared/components/parts/charge-account-modal/charge-account-modal.component.ts");
-/* harmony import */ var _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/parts/confirm-modal/confirm-modal.component */ "./app/modules/shared/components/parts/confirm-modal/confirm-modal.component.ts");
-/* harmony import */ var _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/parts/contents/contents.component */ "./app/modules/shared/components/parts/contents/contents.component.ts");
-/* harmony import */ var _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/parts/footer/footer.component */ "./app/modules/shared/components/parts/footer/footer.component.ts");
-/* harmony import */ var _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/parts/header-menu/header-menu.component */ "./app/modules/shared/components/parts/header-menu/header-menu.component.ts");
-/* harmony import */ var _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/parts/header/header.component */ "./app/modules/shared/components/parts/header/header.component.ts");
-/* harmony import */ var _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/parts/loading/loading.component */ "./app/modules/shared/components/parts/loading/loading.component.ts");
-/* harmony import */ var _components_parts_mvtk_check_modal_mvtk_check_modal_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/parts/mvtk-check-modal/mvtk-check-modal.component */ "./app/modules/shared/components/parts/mvtk-check-modal/mvtk-check-modal.component.ts");
-/* harmony import */ var _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/parts/numeric-keypad/numeric-keypad.component */ "./app/modules/shared/components/parts/numeric-keypad/numeric-keypad.component.ts");
-/* harmony import */ var _components_parts_open_account_modal_open_account_modal_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/parts/open-account-modal/open-account-modal.component */ "./app/modules/shared/components/parts/open-account-modal/open-account-modal.component.ts");
-/* harmony import */ var _components_parts_order_detail_modal_order_detail_modal_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/parts/order-detail-modal/order-detail-modal.component */ "./app/modules/shared/components/parts/order-detail-modal/order-detail-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_cinema_ticket_modal_purchase_cinema_ticket_modal_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component */ "./app/modules/shared/components/parts/purchase-cinema-ticket-modal/purchase-cinema-ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_event_ticket_modal_purchase_event_ticket_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component */ "./app/modules/shared/components/parts/purchase-event-ticket-modal/purchase-event-ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_transaction_modal_purchase_transaction_modal_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/purchase-transaction-modal/purchase-transaction-modal.component */ "./app/modules/shared/components/parts/purchase-transaction-modal/purchase-transaction-modal.component.ts");
-/* harmony import */ var _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/qrcode-modal/qrcode-modal.component */ "./app/modules/shared/components/parts/qrcode-modal/qrcode-modal.component.ts");
-/* harmony import */ var _components_parts_register_creditcard_modal_register_creditcard_modal_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/register-creditcard-modal/register-creditcard-modal.component */ "./app/modules/shared/components/parts/register-creditcard-modal/register-creditcard-modal.component.ts");
-/* harmony import */ var _components_parts_registered_credit_card_modal_registered_credit_card_modal_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/parts/registered-credit-card-modal/registered-credit-card-modal.component */ "./app/modules/shared/components/parts/registered-credit-card-modal/registered-credit-card-modal.component.ts");
-/* harmony import */ var _components_parts_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/parts/security-code-modal/security-code-modal.component */ "./app/modules/shared/components/parts/security-code-modal/security-code-modal.component.ts");
-/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
-/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
-/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
+/* harmony import */ var _components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/parts/account/charge-modal/charge-modal.component */ "./app/modules/shared/components/parts/account/charge-modal/charge-modal.component.ts");
+/* harmony import */ var _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/parts/account/open-modal/open-modal.component */ "./app/modules/shared/components/parts/account/open-modal/open-modal.component.ts");
+/* harmony import */ var _components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/parts/account/transfer-modal/transfer-modal.component */ "./app/modules/shared/components/parts/account/transfer-modal/transfer-modal.component.ts");
+/* harmony import */ var _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/parts/alert-modal/alert-modal.component */ "./app/modules/shared/components/parts/alert-modal/alert-modal.component.ts");
+/* harmony import */ var _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/parts/confirm-modal/confirm-modal.component */ "./app/modules/shared/components/parts/confirm-modal/confirm-modal.component.ts");
+/* harmony import */ var _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/parts/contents/contents.component */ "./app/modules/shared/components/parts/contents/contents.component.ts");
+/* harmony import */ var _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/parts/creditcard/register-modal/register-modal.component */ "./app/modules/shared/components/parts/creditcard/register-modal/register-modal.component.ts");
+/* harmony import */ var _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/parts/creditcard/security-code-modal/security-code-modal.component */ "./app/modules/shared/components/parts/creditcard/security-code-modal/security-code-modal.component.ts");
+/* harmony import */ var _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/parts/creditcard/select-modal/select-modal.component */ "./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.ts");
+/* harmony import */ var _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/parts/footer/footer.component */ "./app/modules/shared/components/parts/footer/footer.component.ts");
+/* harmony import */ var _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/parts/header-menu/header-menu.component */ "./app/modules/shared/components/parts/header-menu/header-menu.component.ts");
+/* harmony import */ var _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/parts/header/header.component */ "./app/modules/shared/components/parts/header/header.component.ts");
+/* harmony import */ var _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/loading/loading.component */ "./app/modules/shared/components/parts/loading/loading.component.ts");
+/* harmony import */ var _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/mvtk/check-modal/check-modal.component */ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.ts");
+/* harmony import */ var _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/numeric-keypad/numeric-keypad.component */ "./app/modules/shared/components/parts/numeric-keypad/numeric-keypad.component.ts");
+/* harmony import */ var _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/purchase/cinema/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/purchase/event/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/parts/purchase/transaction-modal/transaction-modal.component */ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts");
+/* harmony import */ var _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/parts/qrcode/reader-modal/reader-modal.component */ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts");
+/* harmony import */ var _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/parts/qrcode/viewer-modal/viewer-modal.component */ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts");
+/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
+/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5548,30 +5688,31 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var components = [
-    _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_15__["LoadingComponent"],
-    _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_12__["FooterComponent"],
-    _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_14__["HeaderComponent"],
-    _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_13__["HeaderMenuComponent"],
-    _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_11__["ContentsComponent"],
-    _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_23__["QrCodeModalComponent"],
+    _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_20__["LoadingComponent"],
+    _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_17__["FooterComponent"],
+    _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_19__["HeaderComponent"],
+    _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_18__["HeaderMenuComponent"],
+    _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_13__["ContentsComponent"],
     _components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_7__["BaseComponent"],
 ];
 var entryComponents = [
-    _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_8__["AlertModalComponent"],
-    _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_10__["ConfirmModalComponent"],
-    _components_parts_qrcode_modal_qrcode_modal_component__WEBPACK_IMPORTED_MODULE_23__["QrCodeModalComponent"],
-    _components_parts_register_creditcard_modal_register_creditcard_modal_component__WEBPACK_IMPORTED_MODULE_24__["RegisterCreditcardModalComponent"],
-    _components_parts_registered_credit_card_modal_registered_credit_card_modal_component__WEBPACK_IMPORTED_MODULE_25__["RegisteredCreditCardModalComponent"],
-    _components_parts_charge_account_modal_charge_account_modal_component__WEBPACK_IMPORTED_MODULE_9__["ChargeAccountModalComponent"],
-    _components_parts_open_account_modal_open_account_modal_component__WEBPACK_IMPORTED_MODULE_18__["OpenAccountModalComponent"],
-    _components_parts_order_detail_modal_order_detail_modal_component__WEBPACK_IMPORTED_MODULE_19__["OrderDetailModalComponent"],
-    _components_parts_purchase_cinema_ticket_modal_purchase_cinema_ticket_modal_component__WEBPACK_IMPORTED_MODULE_20__["PurchaseCinemaTicketModalComponent"],
-    _components_parts_purchase_event_ticket_modal_purchase_event_ticket_modal_component__WEBPACK_IMPORTED_MODULE_21__["PurchaseEventTicketModalComponent"],
-    _components_parts_purchase_transaction_modal_purchase_transaction_modal_component__WEBPACK_IMPORTED_MODULE_22__["PurchaseTransactionModalComponent"],
-    _components_parts_mvtk_check_modal_mvtk_check_modal_component__WEBPACK_IMPORTED_MODULE_16__["MvtkCheckModalComponent"],
-    _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_17__["NumericKeypadComponent"],
-    _components_parts_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_26__["SecurityCodeModalComponent"],
+    _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_11__["AlertModalComponent"],
+    _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_12__["ConfirmModalComponent"],
+    _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_26__["QRCodeReaderModalComponent"],
+    _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_27__["QRCodeViewerModalComponent"],
+    _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_14__["CreditcardRegisterModalComponent"],
+    _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_16__["CreditCardSelectModalComponent"],
+    _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_15__["CreditcardSecurityCodeModalComponent"],
+    _components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_8__["AccountChargeModalComponent"],
+    _components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_10__["AccountTransferModalComponent"],
+    _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_9__["AccountOpenModalComponent"],
+    _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_23__["PurchaseCinemaTicketModalComponent"],
+    _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseEventTicketModalComponent"],
+    _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_25__["PurchaseTransactionModalComponent"],
+    _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_21__["MvtkCheckModalComponent"],
+    _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_22__["NumericKeypadComponent"],
 ];
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
@@ -5579,9 +5720,9 @@ var SharedModule = /** @class */ (function () {
     SharedModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: components.concat(entryComponents, [
-                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_29__["LibphonenumberFormatPipe"],
-                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_27__["ChangeLanguagePipe"],
-                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_28__["FormatDatePipe"],
+                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_30__["LibphonenumberFormatPipe"],
+                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_28__["ChangeLanguagePipe"],
+                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_29__["FormatDatePipe"],
             ]),
             entryComponents: entryComponents,
             imports: [
@@ -5596,9 +5737,9 @@ var SharedModule = /** @class */ (function () {
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["PaginationModule"],
             ],
             exports: components.concat(entryComponents, [
-                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_29__["LibphonenumberFormatPipe"],
-                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_27__["ChangeLanguagePipe"],
-                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_28__["FormatDatePipe"],
+                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_30__["LibphonenumberFormatPipe"],
+                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_28__["ChangeLanguagePipe"],
+                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_29__["FormatDatePipe"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"],
@@ -5708,6 +5849,7 @@ var CinerinoService = /** @class */ (function () {
                         option = _a.sent();
                         this.account = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Account(option);
                         this.event = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Event(option);
+                        this.offer = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Offer(option);
                         this.order = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Order(option);
                         this.seller = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Seller(option);
                         this.person = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Person(option);
@@ -5717,7 +5859,8 @@ var CinerinoService = /** @class */ (function () {
                         this.payment = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Payment(option);
                         this.transaction = {
                             placeOrder: new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].transaction.PlaceOrder(option),
-                            returnOrder: new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].transaction.ReturnOrder(option)
+                            returnOrder: new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].transaction.ReturnOrder(option),
+                            moneyTransfer: new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].transaction.MoneyTransfer(option)
                         };
                         return [3 /*break*/, 3];
                     case 2:
@@ -5889,7 +6032,7 @@ var CinerinoService = /** @class */ (function () {
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: CinerinoService, PurchaseService, UserService, MasterService, OrderService, StarPrintService, UtilService, LinyService */
+/*! exports provided: CinerinoService, PurchaseService, UserService, MasterService, OrderService, StarPrintService, UtilService, LinyService, QRCodeService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5918,9 +6061,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _liny_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./liny.service */ "./app/services/liny.service.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LinyService", function() { return _liny_service__WEBPACK_IMPORTED_MODULE_7__["LinyService"]; });
 
+/* harmony import */ var _qrcode_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./qrcode.service */ "./app/services/qrcode.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QRCodeService", function() { return _qrcode_service__WEBPACK_IMPORTED_MODULE_8__["QRCodeService"]; });
+
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
 
 
 
@@ -7054,6 +7201,78 @@ var PurchaseService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./app/services/qrcode.service.ts":
+/*!****************************************!*\
+  !*** ./app/services/qrcode.service.ts ***!
+  \****************************************/
+/*! exports provided: QRCodeService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QRCodeService", function() { return QRCodeService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _modules_shared_components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modules/shared/components/parts/qrcode/reader-modal/reader-modal.component */ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts");
+/* harmony import */ var _modules_shared_components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component */ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+var QRCodeService = /** @class */ (function () {
+    function QRCodeService(modal) {
+        this.modal = modal;
+    }
+    /**
+     * QRコードリーダー表示
+     */
+    QRCodeService.prototype.openQRCodeReader = function (args) {
+        this.modal.show(_modules_shared_components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_2__["QRCodeReaderModalComponent"], {
+            initialState: { cb: args.cb },
+            class: 'modal-dialog-centered',
+            animated: false
+        });
+    };
+    /**
+     * QRコードビューアー表示
+     */
+    QRCodeService.prototype.openQRCodeViewer = function (args) {
+        var title = args.title;
+        var body = args.body;
+        var code = args.code;
+        this.modal.show(_modules_shared_components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_3__["QRCodeViewerModalComponent"], {
+            initialState: { title: title, body: body, code: code },
+            class: 'modal-dialog-centered'
+        });
+    };
+    QRCodeService.ctorParameters = function () { return [
+        { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalService"] }
+    ]; };
+    QRCodeService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__["BsModalService"]])
+    ], QRCodeService);
+    return QRCodeService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./app/services/star-print.service.ts":
 /*!********************************************!*\
   !*** ./app/services/star-print.service.ts ***!
@@ -7649,7 +7868,7 @@ var UserService = /** @class */ (function () {
         }));
     };
     /**
-     * 口座チャージ
+     * 口座入金
      */
     UserService.prototype.chargeAccount = function (params) {
         return __awaiter(this, void 0, void 0, function () {
@@ -7659,6 +7878,22 @@ var UserService = /** @class */ (function () {
                         _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ChargeAccount(params));
                         var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.ChargeAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
                         var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.ChargeAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
+                    })];
+            });
+        });
+    };
+    /**
+     * 口座転送
+     */
+    UserService.prototype.transferAccount = function (params) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].TransferAccount(params));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.TransferAccountSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.TransferAccountFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     })];
             });
@@ -9163,7 +9398,7 @@ var ConvertExternalToPurchaseFail = /** @class */ (function () {
 /*!******************************************!*\
   !*** ./app/store/actions/user.action.ts ***!
   \******************************************/
-/*! exports provided: ActionTypes, Delete, Initialize, GetProfile, GetProfileSuccess, GetProfileFail, GetAccount, GetAccountSuccess, GetAccountFail, OpenAccount, OpenAccountSuccess, OpenAccountFail, CloseAccount, CloseAccountSuccess, CloseAccountFail, UpdateLanguage, UpdateBaseSetting, UpdateProfile, UpdateProfileSuccess, UpdateProfileFail, GetCreditCards, GetCreditCardsSuccess, GetCreditCardsFail, AddCreditCard, AddCreditCardSuccess, AddCreditCardFail, RemoveCreditCard, RemoveCreditCardSuccess, RemoveCreditCardFail, ChargeAccount, ChargeAccountSuccess, ChargeAccountFail, SetVersion */
+/*! exports provided: ActionTypes, Delete, Initialize, GetProfile, GetProfileSuccess, GetProfileFail, GetAccount, GetAccountSuccess, GetAccountFail, OpenAccount, OpenAccountSuccess, OpenAccountFail, CloseAccount, CloseAccountSuccess, CloseAccountFail, UpdateLanguage, UpdateBaseSetting, UpdateProfile, UpdateProfileSuccess, UpdateProfileFail, GetCreditCards, GetCreditCardsSuccess, GetCreditCardsFail, AddCreditCard, AddCreditCardSuccess, AddCreditCardFail, RemoveCreditCard, RemoveCreditCardSuccess, RemoveCreditCardFail, ChargeAccount, ChargeAccountSuccess, ChargeAccountFail, TransferAccount, TransferAccountSuccess, TransferAccountFail, SetVersion */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9200,6 +9435,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeAccount", function() { return ChargeAccount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeAccountSuccess", function() { return ChargeAccountSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChargeAccountFail", function() { return ChargeAccountFail; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransferAccount", function() { return TransferAccount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransferAccountSuccess", function() { return TransferAccountSuccess; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransferAccountFail", function() { return TransferAccountFail; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetVersion", function() { return SetVersion; });
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -9240,6 +9478,9 @@ var ActionTypes;
     ActionTypes["ChargeAccount"] = "[User] Charge Account";
     ActionTypes["ChargeAccountSuccess"] = "[User] Charge Account Success";
     ActionTypes["ChargeAccountFail"] = "[User] Charge Account Fail";
+    ActionTypes["TransferAccount"] = "[User] Transfer Account";
+    ActionTypes["TransferAccountSuccess"] = "[User] Transfer Account Success";
+    ActionTypes["TransferAccountFail"] = "[User] Transfer Account Fail";
     ActionTypes["SetVersion"] = "[User] Set Version";
 })(ActionTypes || (ActionTypes = {}));
 /**
@@ -9581,6 +9822,39 @@ var ChargeAccountFail = /** @class */ (function () {
         this.type = ActionTypes.ChargeAccountFail;
     }
     return ChargeAccountFail;
+}());
+
+/**
+ * 口座転送
+ */
+var TransferAccount = /** @class */ (function () {
+    function TransferAccount(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.TransferAccount;
+    }
+    return TransferAccount;
+}());
+
+/**
+ * 口座転送成功
+ */
+var TransferAccountSuccess = /** @class */ (function () {
+    function TransferAccountSuccess(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.TransferAccountSuccess;
+    }
+    return TransferAccountSuccess;
+}());
+
+/**
+ * 口座転送失敗
+ */
+var TransferAccountFail = /** @class */ (function () {
+    function TransferAccountFail(payload) {
+        this.payload = payload;
+        this.type = ActionTypes.TransferAccountFail;
+    }
+    return TransferAccountFail;
 }());
 
 /**
@@ -11617,9 +11891,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/effects */ "../../node_modules/@ngrx/effects/fesm5/effects.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _modules_shared_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../modules/shared/pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../functions */ "./app/functions/index.ts");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services */ "./app/services/index.ts");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
 var __assign = (undefined && undefined.__assign) || function () {
@@ -11699,7 +11974,7 @@ var UserEffects = /** @class */ (function () {
         /**
          * GetProfile
          */
-        this.getProfile = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetProfile), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function () { return __awaiter(_this, void 0, void 0, function () {
+        this.getProfile = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetProfile), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function () { return __awaiter(_this, void 0, void 0, function () {
             var id, profile, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -11712,9 +11987,6 @@ var UserEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerino.person.getProfile({ id: id })];
                     case 2:
                         profile = _a.sent();
-                        if (profile.telephone !== undefined) {
-                            profile.telephone = new _modules_shared_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_5__["LibphonenumberFormatPipe"]().transform(profile.telephone);
-                        }
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].GetProfileSuccess({ profile: profile })];
                     case 3:
                         error_1 = _a.sent();
@@ -11726,7 +11998,7 @@ var UserEffects = /** @class */ (function () {
         /**
          * GetAccount
          */
-        this.getAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function () { return __awaiter(_this, void 0, void 0, function () {
+        this.getAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function () { return __awaiter(_this, void 0, void 0, function () {
             var searchCoinAccountsResult, searchPointAccountsResult, searchAccounts, accounts, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -11765,7 +12037,7 @@ var UserEffects = /** @class */ (function () {
         /**
          * OpenAccount
          */
-        this.openAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.OpenAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+        this.openAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.OpenAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
             var account, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -11791,7 +12063,7 @@ var UserEffects = /** @class */ (function () {
         /**
          * CloseAccount
          */
-        this.closeAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.CloseAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+        this.closeAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.CloseAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
             var account, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -11818,8 +12090,38 @@ var UserEffects = /** @class */ (function () {
         /**
          * UpdateProfile
          */
-        this.UpdateProfile = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.UpdateProfile), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var profile, error_5;
+        this.UpdateProfile = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.UpdateProfile), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+            var id, profile, error_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 4, , 5]);
+                        return [4 /*yield*/, this.cinerino.getServices()];
+                    case 1:
+                        _a.sent();
+                        if (payload.profile.telephone !== undefined) {
+                            payload.profile.telephone = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["formatTelephone"])(payload.profile.telephone, 'E.164');
+                        }
+                        return [4 /*yield*/, this.cinerino.person.updateProfile(payload.profile)];
+                    case 2:
+                        _a.sent();
+                        id = 'me';
+                        return [4 /*yield*/, this.cinerino.person.getProfile({ id: id })];
+                    case 3:
+                        profile = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateProfileSuccess({ profile: profile })];
+                    case 4:
+                        error_5 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateProfileFail({ error: error_5 })];
+                    case 5: return [2 /*return*/];
+                }
+            });
+        }); }));
+        /**
+         * GetCreditCards
+         */
+        this.getreditCard = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetCreditCards), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function () { return __awaiter(_this, void 0, void 0, function () {
+            var creditCards, error_6;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -11827,127 +12129,210 @@ var UserEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
                         _a.sent();
-                        profile = payload.profile;
-                        if (profile.telephone !== undefined) {
-                            profile.telephone = new _modules_shared_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_5__["LibphonenumberFormatPipe"]().transform(profile.telephone, undefined, 'E.164');
-                        }
-                        return [4 /*yield*/, this.cinerino.person.updateProfile(__assign({}, profile))];
-                    case 2:
-                        _a.sent();
-                        if (profile.telephone !== undefined) {
-                            profile.telephone = new _modules_shared_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_5__["LibphonenumberFormatPipe"]().transform(profile.telephone);
-                        }
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateProfileSuccess({ profile: profile })];
-                    case 3:
-                        error_5 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateProfileFail({ error: error_5 })];
-                    case 4: return [2 /*return*/];
-                }
-            });
-        }); }));
-        /**
-         * GetCreditCards
-         */
-        this.getreditCard = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.GetCreditCards), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var creditCards, error_6;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        console.log(payload);
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 4, , 5]);
-                        return [4 /*yield*/, this.cinerino.getServices()];
-                    case 2:
-                        _a.sent();
                         return [4 /*yield*/, this.cinerino.ownershipInfo.searchCreditCards({})];
-                    case 3:
+                    case 2:
                         creditCards = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].GetCreditCardsSuccess({ creditCards: creditCards })];
-                    case 4:
+                    case 3:
                         error_6 = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].GetCreditCardsFail({ error: error_6 })];
-                    case 5: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         }); }));
         /**
          * AddCreditCard
          */
-        this.addCreditCard = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.AddCreditCard), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+        this.addCreditCard = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.AddCreditCard), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
             var gmoTokenObject, creditCard, error_7;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log(payload);
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 5, , 6]);
+                        _a.trys.push([0, 4, , 5]);
                         return [4 /*yield*/, this.cinerino.getServices()];
-                    case 2:
+                    case 1:
                         _a.sent();
-                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_4__["createGmoTokenObject"])({ creditCard: payload.creditCard, seller: payload.seller })];
-                    case 3:
+                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_5__["createGmoTokenObject"])({ creditCard: payload.creditCard, seller: payload.seller })];
+                    case 2:
                         gmoTokenObject = _a.sent();
                         return [4 /*yield*/, this.cinerino.ownershipInfo.addCreditCard({ creditCard: gmoTokenObject })];
-                    case 4:
+                    case 3:
                         creditCard = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].AddCreditCardSuccess({ creditCard: creditCard })];
-                    case 5:
+                    case 4:
                         error_7 = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].AddCreditCardFail({ error: error_7 })];
-                    case 6: return [2 /*return*/];
+                    case 5: return [2 /*return*/];
                 }
             });
         }); }));
         /**
          * RemoveCreditCard
          */
-        this.removeCreditCard = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.RemoveCreditCard), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+        this.removeCreditCard = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.RemoveCreditCard), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
             var creditCard, cardSeq, error_8;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log(payload);
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 4, , 5]);
+                        _a.trys.push([0, 3, , 4]);
                         return [4 /*yield*/, this.cinerino.getServices()];
-                    case 2:
+                    case 1:
                         _a.sent();
                         creditCard = payload.creditCard;
                         cardSeq = creditCard.cardSeq;
                         return [4 /*yield*/, this.cinerino.ownershipInfo.deleteCreditCard({ cardSeq: cardSeq })];
-                    case 3:
+                    case 2:
                         _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].RemoveCreditCardSuccess({ creditCard: creditCard })];
-                    case 4:
+                    case 3:
                         error_8 = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].RemoveCreditCardFail({ error: error_8 })];
-                    case 5: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         }); }));
         /**
          * chargeAccount
          */
-        this.chargeAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.ChargeAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var error_9;
+        this.chargeAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.ChargeAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+            var userAgent, transaction, error_9;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 8, , 9]);
+                        userAgent = (navigator && navigator.userAgent !== undefined) ? navigator.userAgent : '';
+                        return [4 /*yield*/, this.cinerino.getServices()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.cinerino.transaction.placeOrder.start({
+                                agent: {
+                                    identifier: [{ name: 'userAgent', value: userAgent }],
+                                },
+                                seller: { typeOf: payload.seller.typeOf, id: payload.seller.id },
+                                expires: moment__WEBPACK_IMPORTED_MODULE_3__().add(1, 'minutes').toDate()
+                            })];
+                    case 2:
+                        transaction = _a.sent();
+                        return [4 /*yield*/, this.cinerino.transaction.placeOrder.setProfile({
+                                id: transaction.id,
+                                agent: __assign({}, payload.profile, { name: payload.profile.givenName + " " + payload.profile.familyName })
+                            })];
+                    case 3:
+                        _a.sent();
+                        return [4 /*yield*/, this.cinerino.offer.authorizeMonetaryAmount({
+                                object: {
+                                    typeOf: 'Offer',
+                                    itemOffered: {
+                                        typeOf: 'MonetaryAmount',
+                                        value: payload.amount,
+                                        currency: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].accountType.Coin
+                                    },
+                                    priceCurrency: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].priceCurrency.JPY,
+                                    seller: { typeOf: payload.seller.typeOf, name: payload.seller.name.ja },
+                                    toLocation: {
+                                        typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].pecorino.account.TypeOf.Account,
+                                        accountType: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].accountType.Coin,
+                                        accountNumber: payload.account.typeOfGood.accountNumber
+                                    }
+                                },
+                                purpose: { typeOf: transaction.typeOf, id: transaction.id }
+                            })];
+                    case 4:
+                        _a.sent();
+                        return [4 /*yield*/, this.cinerino.payment.authorizeCreditCard({
+                                object: {
+                                    typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType.CreditCard,
+                                    amount: payload.amount,
+                                    method: '1',
+                                    creditCard: payload.creditCard
+                                },
+                                purpose: { typeOf: transaction.typeOf, id: transaction.id }
+                            })];
+                    case 5:
+                        _a.sent();
+                        return [4 /*yield*/, this.cinerino.transaction.placeOrder.confirm({
+                                id: transaction.id
+                            })];
+                    case 6:
+                        _a.sent();
+                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_5__["sleep"])()];
+                    case 7:
+                        _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ChargeAccountSuccess({})];
+                    case 8:
+                        error_9 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ChargeAccountFail({ error: error_9 })];
+                    case 9: return [2 /*return*/];
+                }
+            });
+        }); }));
+        /**
+         * transferAccount
+         */
+        this.tansferAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ActionTypes.TransferAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
+            var transaction, error_10;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.log(payload);
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
+                        _a.trys.push([1, 7, , 8]);
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 2:
                         _a.sent();
-                        throw new Error('Unimplemented!!');
+                        return [4 /*yield*/, this.cinerino.transaction.moneyTransfer.start({
+                                project: { typeOf: 'Project', id: payload.seller.project.id },
+                                expires: moment__WEBPACK_IMPORTED_MODULE_3__().add(1, 'minutes').toDate(),
+                                agent: {
+                                    typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].personType.Person,
+                                    id: this.cinerino.auth.options.clientId,
+                                },
+                                recipient: {
+                                    typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].personType.Person,
+                                    id: '',
+                                    url: ''
+                                },
+                                seller: { typeOf: payload.seller.typeOf, id: payload.seller.id },
+                                object: {
+                                    amount: payload.amount,
+                                    authorizeActions: [],
+                                    description: payload.description,
+                                    fromLocation: {
+                                        typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].pecorino.account.TypeOf.Account,
+                                        accountType: payload.account.typeOfGood.accountType,
+                                        accountNumber: payload.account.typeOfGood.accountNumber
+                                    },
+                                    toLocation: {
+                                        typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].pecorino.account.TypeOf.Account,
+                                        accountType: payload.account.typeOfGood.accountType,
+                                        accountNumber: payload.accountNumber
+                                    }
+                                }
+                            })];
                     case 3:
-                        error_9 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].ChargeAccountFail({ error: error_9 })];
-                    case 4: return [2 /*return*/];
+                        transaction = _a.sent();
+                        return [4 /*yield*/, this.cinerino.transaction.moneyTransfer.setProfile({
+                                id: transaction.id,
+                                agent: __assign({}, payload.profile, { name: payload.profile.givenName + " " + payload.profile.familyName })
+                            })];
+                    case 4:
+                        _a.sent();
+                        // 取引確定
+                        return [4 /*yield*/, this.cinerino.transaction.moneyTransfer.confirm({
+                                id: transaction.id
+                            })];
+                    case 5:
+                        // 取引確定
+                        _a.sent();
+                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_5__["sleep"])()];
+                    case 6:
+                        _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].TransferAccountSuccess({})];
+                    case 7:
+                        error_10 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].TransferAccountFail({ error: error_10 })];
+                    case 8: return [2 /*return*/];
                 }
             });
         }); }));
@@ -11992,6 +12377,10 @@ var UserEffects = /** @class */ (function () {
         Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
         __metadata("design:type", Object)
     ], UserEffects.prototype, "chargeAccount", void 0);
+    __decorate([
+        Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
+        __metadata("design:type", Object)
+    ], UserEffects.prototype, "tansferAccount", void 0);
     UserEffects = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
         __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"],
@@ -12967,11 +13356,6 @@ function reducer(state, action) {
             return __assign({}, state, { loading: true, process: 'userAction.AddCreditCard' });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.AddCreditCardSuccess: {
-            // const creditCard = action.payload.creditCard;
-            // const findResult = state.userData.creditCards.find(c => c.cardSeq === creditCard.cardSeq);
-            // if (findResult === undefined) {
-            //     state.userData.creditCards.push(creditCard);
-            // }
             return __assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.AddCreditCardFail: {
@@ -12982,11 +13366,6 @@ function reducer(state, action) {
             return __assign({}, state, { loading: true, process: 'userAction.RemoveCreditCard' });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.RemoveCreditCardSuccess: {
-            // const creditCard = action.payload.creditCard;
-            // const findIndexResult = state.userData.creditCards.findIndex(c => c.cardSeq === creditCard.cardSeq);
-            // if (findIndexResult > -1) {
-            //     state.userData.creditCards.splice(findIndexResult, 1);
-            // }
             return __assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.RemoveCreditCardFail: {
@@ -13000,6 +13379,16 @@ function reducer(state, action) {
             return __assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.ChargeAccountFail: {
+            var error = action.payload.error;
+            return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.TransferAccount: {
+            return __assign({}, state, { loading: true, process: 'userAction.TransferAccount' });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.TransferAccountSuccess: {
+            return __assign({}, state, { loading: false, process: '', error: null });
+        }
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.TransferAccountFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
