@@ -3,7 +3,6 @@
  */
 export enum PrintQrcodeType {
     Token = 'token',
-    Encryption = 'encryption',
     Custom = 'Custom'
 }
 

@@ -144,7 +144,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCountByOrder = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCountByOrder"];
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -163,8 +163,8 @@ var InquiryConfirmComponent = /** @class */ (function () {
             var order = value.order;
             _this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["orderToEventOrders"])({ order: order });
         }).unsubscribe();
-        if (_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_PRINT_WAIT_TIME !== '') {
-            var time = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_PRINT_WAIT_TIME);
+        if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
+            var time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
             this.timer = setTimeout(function () {
                 _this.router.navigate(['/inquiry/input']);
             }, time);
@@ -298,7 +298,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
                     case 0:
                         today = moment__WEBPACK_IMPORTED_MODULE_5__().format('YYYYMMDD');
                         limit = moment__WEBPACK_IMPORTED_MODULE_5__(today)
-                            .add(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_PRINT_EXPIRED_VALUE, _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_PRINT_EXPIRED_UNIT)
+                            .add(this.environment.INQUIRY_PRINT_EXPIRED_VALUE, this.environment.INQUIRY_PRINT_EXPIRED_UNIT)
                             .format('YYYYMMDD');
                         findResult = this.eventOrders.find(function (o) { return moment__WEBPACK_IMPORTED_MODULE_5__(o.event.startDate).format('YYYYMMDD') < limit; });
                         if (findResult !== undefined) {
@@ -470,7 +470,7 @@ var InquiryInputComponent = /** @class */ (function () {
         this.orderService = orderService;
         this.router = router;
         this.translate = translate;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -644,16 +644,17 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 var InquiryPrintComponent = /** @class */ (function () {
     function InquiryPrintComponent(router) {
         this.router = router;
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     /**
      * 初期化
      */
     InquiryPrintComponent.prototype.ngOnInit = function () {
         var _this = this;
-        if (_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].INQUIRY_PRINT_SUCCESS_WAIT_TIME === '') {
+        if (this.environment.INQUIRY_PRINT_SUCCESS_WAIT_TIME === '') {
             return;
         }
-        var time = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].INQUIRY_PRINT_SUCCESS_WAIT_TIME);
+        var time = Number(this.environment.INQUIRY_PRINT_SUCCESS_WAIT_TIME);
         this.timer = setTimeout(function () {
             _this.router.navigate(['/inquiry/input']);
         }, time);

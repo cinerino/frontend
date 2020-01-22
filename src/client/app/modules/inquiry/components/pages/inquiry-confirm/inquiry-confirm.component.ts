@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { changeTicketCountByOrder, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../../functions';
 import { OrderService, QRCodeService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -24,7 +24,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     public eventOrders: IEventOrder[];
     public error: Observable<string | null>;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
-    public environment = environment;
+    public environment = getEnvironment();
     private timer: any;
 
     constructor(
@@ -53,8 +53,8 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
             const order = value.order;
             this.eventOrders = orderToEventOrders({ order });
         }).unsubscribe();
-        if (environment.INQUIRY_PRINT_WAIT_TIME !== '') {
-            const time = Number(environment.INQUIRY_PRINT_WAIT_TIME);
+        if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
+            const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
             this.timer = setTimeout(() => {
                 this.router.navigate(['/inquiry/input']);
             }, time);
@@ -154,7 +154,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     public async print() {
         const today = moment().format('YYYYMMDD');
         const limit = moment(today)
-            .add(environment.INQUIRY_PRINT_EXPIRED_VALUE, environment.INQUIRY_PRINT_EXPIRED_UNIT)
+            .add(this.environment.INQUIRY_PRINT_EXPIRED_VALUE, this.environment.INQUIRY_PRINT_EXPIRED_UNIT)
             .format('YYYYMMDD');
         const findResult = this.eventOrders.find(o => moment(o.event.startDate).format('YYYYMMDD') < limit);
         if (findResult !== undefined) {

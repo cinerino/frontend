@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { OrderService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -16,7 +16,7 @@ import * as reducers from '../../../../../store/reducers';
 })
 export class InquiryInputComponent implements OnInit {
     public inquiryForm: FormGroup;
-    public environment = environment;
+    public environment = getEnvironment();
     public isLoading: Observable<boolean>;
     constructor(
         private store: Store<reducers.IState>,

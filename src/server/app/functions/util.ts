@@ -108,3 +108,15 @@ export function bace64Encode(str: string): string {
 export function base64Decode(str: string): string {
     return new Buffer(str, 'base64').toString();
 }
+
+/**
+ * プロジェクト情報取得
+ */
+export function getProject(project: string) {
+    const projects: {
+        'PROJECT_NAME': string;
+        'PROJECT_ID': string;
+        'STORAGE_URL': string;
+    }[] = JSON.parse(<string>process.env.PROJECTS);
+    return projects.find(p => p.PROJECT_NAME === project);
+}

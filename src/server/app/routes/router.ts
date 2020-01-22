@@ -3,10 +3,10 @@
  */
 import * as debug from 'debug';
 import * as express from 'express';
+import { NOT_FOUND } from 'http-status';
 import * as path from 'path';
 import { Auth2Model } from '../models/auth2/auth2.model';
 import { authorizeRouter } from './api/authorize';
-import { encryptionRouter } from './api/encryption';
 import { linyRouter } from './api/liny';
 import { utilRouter } from './api/util';
 const log = debug('application: router');
@@ -17,13 +17,7 @@ export default (app: express.Application) => {
         next();
     });
 
-    app.use('/storage', (req, res) => {
-        const url = req.originalUrl.replace('/storage', <string>process.env.STORAGE_URL);
-        res.redirect(url);
-    });
-
     app.use('/api/authorize', authorizeRouter);
-    app.use('/api/encryption', encryptionRouter);
     app.use('/api/liny', linyRouter);
     app.use('/api', utilRouter);
 
@@ -37,7 +31,7 @@ export default (app: express.Application) => {
             if (req.query.state !== authModel.state) {
                 throw (new Error(`state not matched ${req.query.state} !== ${authModel.state}`));
             }
-            const auth = authModel.create();
+            const auth = authModel.create(req);
             const credentials = await auth.getToken(
                 req.query.code,
                 <string>authModel.codeVerifier
@@ -60,7 +54,7 @@ export default (app: express.Application) => {
 
     app.get('*', (req, res, _next) => {
         if (req.xhr) {
-            res.status(httpStatus.NOT_FOUND).json('NOT FOUND');
+            res.status(NOT_FOUND).json('NOT FOUND');
             return;
         }
         if (req.session !== undefined) {
@@ -74,7 +68,7 @@ export default (app: express.Application) => {
     });
 
     app.all('*', (req, res, _next) => {
-        res.status(httpStatus.NOT_FOUND);
+        res.status(NOT_FOUND);
         if (req.xhr) {
             res.json('NOT FOUND');
             return;

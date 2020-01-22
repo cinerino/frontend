@@ -529,7 +529,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<header class=\"fixed-top text-white border-bottom border-gray\">\n    <div class=\"header contents-width mx-auto d-flex align-items-center justify-content-between px-3\">\n        <div class=\"logo\">\n            <img class=\"d-none d-md-block h-100\" src=\"/storage/images/logo.svg\">\n            <img class=\"d-md-none h-100\" src=\"/storage/images/logo-sp.svg\">\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"environment.LANGUAGE.length > 1\" class=\"mr-3 d-flex align-items-center\">\n                <select id=\"language\" class=\"form-control border-0\" [(ngModel)]=\"language\" (change)=\"changeLanguage()\">\n                    <option *ngFor=\"let language of environment.LANGUAGE\" [value]=\"language\">{{ getLanguageName(language) }}</option>\n                </select>\n            </div>\n            <div *ngIf=\"environment.HEADER_MENU\" class=\"menu-button pointer\" [class.active]=\"isMenuOpen\"\n                (click)=\"(isMenuOpen) ? menuClose() : menuOpen()\">\n                <div></div>\n                <div></div>\n                <div></div>\n            </div>\n        </div>\n    </div>\n</header>\n\n<app-header-menu [isOpen]=\"isMenuOpen\" (close)=\"menuClose()\"></app-header-menu>");
+/* harmony default export */ __webpack_exports__["default"] = ("<header class=\"fixed-top text-white border-bottom border-gray\">\n    <div class=\"header contents-width mx-auto d-flex align-items-center justify-content-between px-3\">\n        <div class=\"logo\">\n            <img class=\"d-none d-md-block h-100\" [src]=\"storageUrl + '/images/logo.svg'\">\n            <img class=\"d-md-none h-100\" [src]=\"storageUrl + '/images/logo-sp.svg'\">\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"environment.LANGUAGE.length > 1\" class=\"mr-3 d-flex align-items-center\">\n                <select id=\"language\" class=\"form-control border-0\" [(ngModel)]=\"language\" (change)=\"changeLanguage()\">\n                    <option *ngFor=\"let language of environment.LANGUAGE\" [value]=\"language\">{{ getLanguageName(language) }}</option>\n                </select>\n            </div>\n            <div *ngIf=\"environment.HEADER_MENU\" class=\"menu-button pointer\" [class.active]=\"isMenuOpen\"\n                (click)=\"(isMenuOpen) ? menuClose() : menuOpen()\">\n                <div></div>\n                <div></div>\n                <div></div>\n            </div>\n        </div>\n    </div>\n</header>\n\n<app-header-menu [isOpen]=\"isMenuOpen\" (close)=\"menuClose()\"></app-header-menu>");
 
 /***/ }),
 
@@ -607,7 +607,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.purchaseTransaction.title' | translate }}</div>\n    <p class=\"mb-3\">{{ 'modal.purchaseTransaction.read' | translate }}</p>\n    <div class=\"buttons mx-auto text-center\">\n        <button *ngIf=\"user.isPurchaseCart\" type=\"button\" class=\"btn btn-primary btn-block py-3\" (click)=\"close()\">{{ 'modal.purchaseTransaction.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3\" routerLink=\"/purchase/cinema/cart\" (click)=\"modal.hide()\">{{ 'modal.purchaseTransaction.prev' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\" (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.purchaseTransaction.title' | translate }}</div>\n    <p class=\"mb-3\">{{ 'modal.purchaseTransaction.read' | translate }}</p>\n    <div class=\"buttons mx-auto text-center\">\n        <button *ngIf=\"environment.PURCHASE_CART\" type=\"button\" class=\"btn btn-primary btn-block py-3\" (click)=\"close()\">{{ 'modal.purchaseTransaction.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3\" routerLink=\"/purchase/cinema/cart\" (click)=\"modal.hide()\">{{ 'modal.purchaseTransaction.prev' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\" (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -693,7 +693,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 var appRoutes = [
-    { path: '', redirectTo: _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].BASE_URL.replace('\/', ''), pathMatch: 'full' },
+    { path: '', redirectTo: Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().BASE_URL.replace('\/', ''), pathMatch: 'full' },
     {
         path: 'purchase',
         loadChildren: function () { return __webpack_require__.e(/*! import() | modules-purchase-purchase-module */ "modules-purchase-purchase-module").then(__webpack_require__.bind(null, /*! ./modules/purchase/purchase.module */ "./app/modules/purchase/purchase.module.ts")).then(function (m) { return m.PurchaseModule; }); }
@@ -728,7 +728,7 @@ var AppRoutingModule = /** @class */ (function () {
     AppRoutingModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [
-                _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(appRoutes, { useHash: true, enableTracing: !_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].production })
+                _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(appRoutes, { useHash: true, enableTracing: !Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().production })
             ],
             exports: [
                 _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]
@@ -764,10 +764,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./app/app-routing.module.ts");
 /* harmony import */ var _app_app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app/app.component */ "./app/app/app.component.ts");
-/* harmony import */ var _modules_core_core_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/core/core.module */ "./app/modules/core/core.module.ts");
-/* harmony import */ var _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/shared/shared.module */ "./app/modules/shared/shared.module.ts");
-/* harmony import */ var _store_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./store.module */ "./app/store.module.ts");
-/* harmony import */ var _store_core_store__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./store/core/store */ "./app/store/core/store/index.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./functions */ "./app/functions/index.ts");
+/* harmony import */ var _modules_core_core_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/core/core.module */ "./app/modules/core/core.module.ts");
+/* harmony import */ var _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/shared/shared.module */ "./app/modules/shared/shared.module.ts");
+/* harmony import */ var _store_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./store.module */ "./app/store.module.ts");
+/* harmony import */ var _store_core_store__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./store/core/store */ "./app/store/core/store/index.ts");
 /**
  * NgModule
  */
@@ -794,8 +795,9 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 function HttpLoaderFactory(http) {
-    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__["TranslateHttpLoader"](http, '/storage/i18n/', ".json?date=" + moment__WEBPACK_IMPORTED_MODULE_6__().toISOString());
+    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__["TranslateHttpLoader"](http, Object(_functions__WEBPACK_IMPORTED_MODULE_10__["getProject"])().storageUrl + "/i18n/", ".json?date=" + moment__WEBPACK_IMPORTED_MODULE_6__().toISOString());
 }
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -808,10 +810,10 @@ var AppModule = /** @class */ (function () {
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_3__["BrowserAnimationsModule"],
-                _store_module__WEBPACK_IMPORTED_MODULE_12__["StoreModule"],
-                _store_core_store__WEBPACK_IMPORTED_MODULE_13__["CoreStoreModule"],
-                _modules_core_core_module__WEBPACK_IMPORTED_MODULE_10__["CoreModule"],
-                _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_11__["SharedModule"],
+                _store_module__WEBPACK_IMPORTED_MODULE_13__["StoreModule"],
+                _store_core_store__WEBPACK_IMPORTED_MODULE_14__["CoreStoreModule"],
+                _modules_core_core_module__WEBPACK_IMPORTED_MODULE_11__["CoreModule"],
+                _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_12__["SharedModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__["ModalModule"].forRoot(),
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__["BsDatepickerModule"].forRoot(),
@@ -849,7 +851,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services */ "./app/services/index.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../functions */ "./app/functions/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services */ "./app/services/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -905,13 +908,13 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var AppComponent = /** @class */ (function () {
-    function AppComponent(router, translate, utilService, userService, purchaseService) {
+    function AppComponent(router, translate, userService) {
         this.router = router;
         this.translate = translate;
-        this.utilService = utilService;
         this.userService = userService;
-        this.purchaseService = purchaseService;
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -925,7 +928,7 @@ var AppComponent = /** @class */ (function () {
                     case 0:
                         this.isRouter = false;
                         this.locales();
-                        if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].ANALYTICS_ID !== '') {
+                        if (this.environment.ANALYTICS_ID !== '') {
                             this.analytics();
                         }
                         _a.label = 1;
@@ -951,23 +954,16 @@ var AppComponent = /** @class */ (function () {
      */
     AppComponent.prototype.external = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var external, language;
+            var language;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (location.hash !== '') {
-                            return [2 /*return*/];
-                        }
-                        return [4 /*yield*/, this.utilService.getExternal()];
-                    case 1:
-                        external = _a.sent();
-                        this.purchaseService.setExternal(external);
-                        language = external.language;
-                        if (language !== undefined) {
-                            this.userService.updateLanguage(language);
-                        }
-                        return [2 /*return*/];
+                if (location.hash !== '') {
+                    return [2 /*return*/];
                 }
+                language = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getExternalData"])().language;
+                if (language !== undefined) {
+                    this.userService.updateLanguage(language);
+                }
+                return [2 /*return*/];
             });
         });
     };
@@ -976,19 +972,19 @@ var AppComponent = /** @class */ (function () {
      * @example {{ 'HOME.HELLO' | translate: { value: 'world'} }}
      */
     AppComponent.prototype.locales = function () {
-        this.translate.addLangs(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].LANGUAGE);
+        this.translate.addLangs(this.environment.LANGUAGE);
         this.translate.setDefaultLang('ja');
-        console.log('translate', this.translate);
     };
     /**
      * Googleアナリティクス pageview イベント
      */
     AppComponent.prototype.analytics = function () {
+        var _this = this;
         this.router.events.subscribe(function (event) {
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"]) {
                 // Googleアナリティクス pageview
                 try {
-                    ga('create', _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].ANALYTICS_ID, 'auto');
+                    ga('create', _this.environment.ANALYTICS_ID, 'auto');
                     ga('set', 'page', event.urlAfterRedirects);
                     ga('send', 'pageview');
                 }
@@ -1001,9 +997,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] },
         { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"] },
-        { type: _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"] },
-        { type: _services__WEBPACK_IMPORTED_MODULE_4__["UserService"] },
-        { type: _services__WEBPACK_IMPORTED_MODULE_4__["PurchaseService"] }
+        { type: _services__WEBPACK_IMPORTED_MODULE_5__["UserService"] }
     ]; };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1012,9 +1006,7 @@ var AppComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"],
-            _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"],
-            _services__WEBPACK_IMPORTED_MODULE_4__["UserService"],
-            _services__WEBPACK_IMPORTED_MODULE_4__["PurchaseService"]])
+            _services__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -1162,7 +1154,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, createPrintCanvas, createTestPrintCanvas, changeTicketCountByOrder */
+/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, createPrintCanvas, createTestPrintCanvas, changeTicketCountByOrder */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1213,6 +1205,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "iOSDatepickerTapBugFix", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["iOSDatepickerTapBugFix"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "streamingDownload", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["streamingDownload"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["string2blob"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getParameter"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getProject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getExternalData", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getExternalData"]; });
+
 /* harmony import */ var _order_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./order.function */ "./app/functions/order.function.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createPrintCanvas"]; });
 
@@ -1249,6 +1251,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qrcode */ "../../node_modules/qrcode/lib/browser.js");
 /* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
+/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -1291,12 +1294,13 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 /**
  * キャンバスへ描画
  */
 function drawCanvas(args) {
     return __awaiter(this, void 0, void 0, function () {
-        var printData, data, canvas, size, context, drawImage, changePosition, font, _i, _a, image, response, json, imageInstance, _b, _c, text, value, eventName, limit, _d, _e, qrCode, qrcodeCanvas;
+        var printData, data, canvas, size, context, drawImage, changePosition, font, _i, _a, image, imageInstance, _b, _c, text, value, eventName, limit, _d, _e, qrCode, qrcodeCanvas;
         return __generator(this, function (_f) {
             switch (_f.label) {
                 case 0:
@@ -1341,17 +1345,11 @@ function drawCanvas(args) {
                     _i = 0, _a = printData.image;
                     _f.label = 1;
                 case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 6];
+                    if (!(_i < _a.length)) return [3 /*break*/, 4];
                     image = _a[_i];
-                    return [4 /*yield*/, fetch('/api/storage', { method: 'get' })];
-                case 2:
-                    response = _f.sent();
-                    return [4 /*yield*/, response.json()];
-                case 3:
-                    json = _f.sent();
                     imageInstance = new Image();
                     imageInstance.crossOrigin = 'anonymous';
-                    imageInstance.src = image.src.replace('/storage', json.storage);
+                    imageInstance.src = image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl);
                     return [4 /*yield*/, drawImage({
                             image: imageInstance,
                             x: image.x,
@@ -1359,13 +1357,13 @@ function drawCanvas(args) {
                             width: image.width,
                             height: image.height
                         })];
-                case 4:
+                case 2:
                     _f.sent();
-                    _f.label = 5;
-                case 5:
+                    _f.label = 3;
+                case 3:
                     _i++;
                     return [3 /*break*/, 1];
-                case 6:
+                case 4:
                     // テキスト描画
                     for (_b = 0, _c = printData.text; _b < _c.length; _b++) {
                         text = _c[_b];
@@ -1415,22 +1413,22 @@ function drawCanvas(args) {
                         }
                         context.fillText(value, changePosition(text.fillText.x), changePosition(text.fillText.y));
                     }
-                    if (!(data.qrcode !== undefined)) return [3 /*break*/, 10];
+                    if (!(data.qrcode !== undefined)) return [3 /*break*/, 8];
                     _d = 0, _e = printData.qrCode;
-                    _f.label = 7;
-                case 7:
-                    if (!(_d < _e.length)) return [3 /*break*/, 10];
+                    _f.label = 5;
+                case 5:
+                    if (!(_d < _e.length)) return [3 /*break*/, 8];
                     qrCode = _e[_d];
                     qrcodeCanvas = document.createElement('canvas');
                     return [4 /*yield*/, qrcode__WEBPACK_IMPORTED_MODULE_2__["toCanvas"](qrcodeCanvas, data.qrcode)];
-                case 8:
+                case 6:
                     _f.sent();
                     context.drawImage(qrcodeCanvas, qrCode.x, qrCode.y, qrCode.width, qrCode.height);
-                    _f.label = 9;
-                case 9:
+                    _f.label = 7;
+                case 7:
                     _d++;
-                    return [3 /*break*/, 7];
-                case 10: return [2 /*return*/, canvas];
+                    return [3 /*break*/, 5];
+                case 8: return [2 /*return*/, canvas];
             }
         });
     });
@@ -1891,8 +1889,8 @@ function isScheduleStatusThreshold(screeningEvent, status) {
         maximumAttendeeCapacity = Number(limitSeatNumber.value);
     }
     var result = false;
-    var unit = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
-    var value = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
+    var unit = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
+    var value = Number(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
     if (unit === '%') {
         switch (status) {
             case 'success':
@@ -1945,7 +1943,7 @@ function isSales(screeningEvent, status) {
     }
     var result = false;
     var now = moment__WEBPACK_IMPORTED_MODULE_1__().unix();
-    var window = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES);
+    var window = Number(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES);
     switch (status) {
         case 'window':
             result = moment__WEBPACK_IMPORTED_MODULE_1__(offers.validThrough).unix() > now
@@ -2021,7 +2019,7 @@ function getRemainingSeatLength(screeningEventOffers, screeningEvent) {
 /*!****************************************!*\
   !*** ./app/functions/util.function.ts ***!
   \****************************************/
-/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix */
+/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2032,6 +2030,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "retry", function() { return retry; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sleep", function() { return sleep; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "iOSDatepickerTapBugFix", function() { return iOSDatepickerTapBugFix; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "streamingDownload", function() { return streamingDownload; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return string2blob; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return getParameter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return getProject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getExternalData", function() { return getExternalData; });
 /* harmony import */ var libphonenumber_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -2196,6 +2199,109 @@ function iOSDatepickerTapBugFix(container, datepickerDirectives) {
         return dayHoverHandler(event);
     };
     container.dayHoverHandler = hoverWrapper;
+}
+/**
+ * ストリーミングダウンロード
+ */
+function streamingDownload(stream) {
+    return __awaiter(this, void 0, void 0, function () {
+        var reader, decoder, streamText;
+        var _this = this;
+        return __generator(this, function (_a) {
+            reader = stream.getReader();
+            decoder = new TextDecoder();
+            streamText = '';
+            return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                    var readChunk_1, _a, error_3;
+                    var _this = this;
+                    return __generator(this, function (_b) {
+                        switch (_b.label) {
+                            case 0:
+                                _b.trys.push([0, 3, , 4]);
+                                readChunk_1 = function (chunk) { return __awaiter(_this, void 0, void 0, function () {
+                                    var _a;
+                                    return __generator(this, function (_b) {
+                                        switch (_b.label) {
+                                            case 0:
+                                                if (chunk.done) {
+                                                    resolve(streamText);
+                                                    return [2 /*return*/];
+                                                }
+                                                streamText += decoder.decode(chunk.value);
+                                                _a = readChunk_1;
+                                                return [4 /*yield*/, reader.read()];
+                                            case 1: return [4 /*yield*/, _a.apply(void 0, [_b.sent()])];
+                                            case 2:
+                                                _b.sent();
+                                                return [2 /*return*/];
+                                        }
+                                    });
+                                }); };
+                                _a = readChunk_1;
+                                return [4 /*yield*/, reader.read()];
+                            case 1: return [4 /*yield*/, _a.apply(void 0, [_b.sent()])];
+                            case 2:
+                                _b.sent();
+                                return [3 /*break*/, 4];
+                            case 3:
+                                error_3 = _b.sent();
+                                reject(error_3);
+                                return [3 /*break*/, 4];
+                            case 4: return [2 /*return*/];
+                        }
+                    });
+                }); })];
+        });
+    });
+}
+/**
+ * 文字列をBLOB変換
+ */
+function string2blob(value, options) {
+    var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    return new Blob([bom, value], options);
+}
+/**
+ * パラメータ取得
+ */
+function getParameter() {
+    var result = {};
+    var params = location.search.replace('?', '').split('&');
+    for (var i = 0; i < params.length; i++) {
+        var param = params[i].split('=');
+        var key = param[0];
+        var value = param[1];
+        if (key && value) {
+            result[key] = value;
+        }
+    }
+    if (result.performanceId !== undefined
+        && result.eventId === undefined) {
+        result.eventId = result.performanceId;
+        result.performanceId = undefined;
+    }
+    return result;
+}
+/**
+ * プロジェクト情報取得
+ */
+function getProject() {
+    var project = sessionStorage.getItem('PROJECT');
+    if (project === null || project === '') {
+        return {
+            projectId: '',
+            projectName: '',
+            storageUrl: ''
+        };
+    }
+    return JSON.parse(project);
+}
+function getExternalData() {
+    var external = sessionStorage.getItem('EXTERNAL');
+    if (external === null || external === '') {
+        return {};
+    }
+    return JSON.parse(external);
 }
 
 
@@ -2410,7 +2516,6 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 var PrintQrcodeType;
 (function (PrintQrcodeType) {
     PrintQrcodeType["Token"] = "token";
-    PrintQrcodeType["Encryption"] = "encryption";
     PrintQrcodeType["Custom"] = "Custom";
 })(PrintQrcodeType || (PrintQrcodeType = {}));
 
@@ -2744,7 +2849,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 var CongestionComponent = /** @class */ (function () {
     function CongestionComponent() {
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -2816,7 +2921,7 @@ var ErrorComponent = /** @class */ (function () {
         this.purchaseService = purchaseService;
         this.userService = userService;
         this.store = store;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -2893,7 +2998,7 @@ var ExpiredComponent = /** @class */ (function () {
     function ExpiredComponent(purchaseService, userService) {
         this.purchaseService = purchaseService;
         this.userService = userService;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -2963,7 +3068,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 var MaintenanceComponent = /** @class */ (function () {
     function MaintenanceComponent() {
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -3026,7 +3131,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 var NotfoundComponent = /** @class */ (function () {
     function NotfoundComponent() {
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -4022,7 +4127,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 var FooterComponent = /** @class */ (function () {
     function FooterComponent() {
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
     }
     FooterComponent.prototype.ngOnInit = function () {
     };
@@ -4050,7 +4155,7 @@ var FooterComponent = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".cover, .menu {\n  position: fixed;\n  top: 60px;\n  z-index: 1031;\n}\n\n.cover {\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.75);\n  display: none;\n}\n\n.cover.active {\n  display: block;\n}\n\n.menu {\n  right: -100%;\n  width: 100%;\n  overflow-y: auto;\n  transition: right 0.1s;\n  max-height: calc(100vh - 60px);\n}\n\n.menu.active {\n  right: 0;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvaGVhZGVyLW1lbnUvQzpcXFVzZXJzXFxoYXRhZ3VjaGlcXERlc2t0b3BcXHdvcmtzcGFjZVxcQ2luZXJpbm9cXGZyb250ZW5kL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXGhlYWRlci1tZW51XFxoZWFkZXItbWVudS5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvaGVhZGVyLW1lbnUvaGVhZGVyLW1lbnUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsU0FBQTtFQUNBLGFBQUE7QUNDSjs7QURDQTtFQUNJLE9BQUE7RUFDQSxRQUFBO0VBQ0EsU0FBQTtFQUNBLHFDQUFBO0VBQ0EsYUFBQTtBQ0VKOztBRERJO0VBQ0ksY0FBQTtBQ0dSOztBREFBO0VBQ0ksWUFBQTtFQUNBLFdBQUE7RUFDQSxnQkFBQTtFQUNBLHNCQUFBO0VBQ0EsOEJBQUE7QUNHSjs7QURGSTtFQUNJLFFBQUE7QUNJUiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL2hlYWRlci1tZW51L2hlYWRlci1tZW51LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNvdmVyLCAubWVudSB7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIHRvcDogNjBweDtcbiAgICB6LWluZGV4OiAxMDMxO1xufVxuLmNvdmVyIHtcbiAgICBsZWZ0OiAwO1xuICAgIHJpZ2h0OiAwO1xuICAgIGJvdHRvbTogMDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDAsIDAsIDAsIDAuNzUpO1xuICAgIGRpc3BsYXk6IG5vbmU7XG4gICAgJi5hY3RpdmUge1xuICAgICAgICBkaXNwbGF5OiBibG9jaztcbiAgICB9XG59XG4ubWVudSB7XG4gICAgcmlnaHQ6IC0xMDAlO1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIG92ZXJmbG93LXk6IGF1dG87XG4gICAgdHJhbnNpdGlvbjogcmlnaHQgMC4xcztcbiAgICBtYXgtaGVpZ2h0OiBjYWxjKDEwMHZoIC0gNjBweCk7XG4gICAgJi5hY3RpdmUge1xuICAgICAgICByaWdodDogMDtcbiAgICB9XG59IiwiLmNvdmVyLCAubWVudSB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgdG9wOiA2MHB4O1xuICB6LWluZGV4OiAxMDMxO1xufVxuXG4uY292ZXIge1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbiAgYm90dG9tOiAwO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDAsIDAsIDAsIDAuNzUpO1xuICBkaXNwbGF5OiBub25lO1xufVxuLmNvdmVyLmFjdGl2ZSB7XG4gIGRpc3BsYXk6IGJsb2NrO1xufVxuXG4ubWVudSB7XG4gIHJpZ2h0OiAtMTAwJTtcbiAgd2lkdGg6IDEwMCU7XG4gIG92ZXJmbG93LXk6IGF1dG87XG4gIHRyYW5zaXRpb246IHJpZ2h0IDAuMXM7XG4gIG1heC1oZWlnaHQ6IGNhbGMoMTAwdmggLSA2MHB4KTtcbn1cbi5tZW51LmFjdGl2ZSB7XG4gIHJpZ2h0OiAwO1xufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".cover, .menu {\n  position: fixed;\n  top: 60px;\n  z-index: 1031;\n}\n\n.cover {\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.75);\n  display: none;\n}\n\n.cover.active {\n  display: block;\n}\n\n.menu {\n  right: -100%;\n  width: 100%;\n  overflow-y: auto;\n  -webkit-transition: right 0.1s;\n  transition: right 0.1s;\n  max-height: calc(100vh - 60px);\n}\n\n.menu.active {\n  right: 0;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvaGVhZGVyLW1lbnUvQzpcXFVzZXJzXFxoYXRhZ3VjaGlcXERlc2t0b3BcXHdvcmtzcGFjZVxcQ2luZXJpbm9cXGZyb250ZW5kL3NyY1xcY2xpZW50XFxhcHBcXG1vZHVsZXNcXHNoYXJlZFxcY29tcG9uZW50c1xccGFydHNcXGhlYWRlci1tZW51XFxoZWFkZXItbWVudS5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvaGVhZGVyLW1lbnUvaGVhZGVyLW1lbnUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsU0FBQTtFQUNBLGFBQUE7QUNDSjs7QURDQTtFQUNJLE9BQUE7RUFDQSxRQUFBO0VBQ0EsU0FBQTtFQUNBLHFDQUFBO0VBQ0EsYUFBQTtBQ0VKOztBRERJO0VBQ0ksY0FBQTtBQ0dSOztBREFBO0VBQ0ksWUFBQTtFQUNBLFdBQUE7RUFDQSxnQkFBQTtFQUNBLDhCQUFBO0VBQUEsc0JBQUE7RUFDQSw4QkFBQTtBQ0dKOztBREZJO0VBQ0ksUUFBQTtBQ0lSIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvaGVhZGVyLW1lbnUvaGVhZGVyLW1lbnUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY292ZXIsIC5tZW51IHtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgdG9wOiA2MHB4O1xuICAgIHotaW5kZXg6IDEwMzE7XG59XG4uY292ZXIge1xuICAgIGxlZnQ6IDA7XG4gICAgcmlnaHQ6IDA7XG4gICAgYm90dG9tOiAwO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMC43NSk7XG4gICAgZGlzcGxheTogbm9uZTtcbiAgICAmLmFjdGl2ZSB7XG4gICAgICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgIH1cbn1cbi5tZW51IHtcbiAgICByaWdodDogLTEwMCU7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgb3ZlcmZsb3cteTogYXV0bztcbiAgICB0cmFuc2l0aW9uOiByaWdodCAwLjFzO1xuICAgIG1heC1oZWlnaHQ6IGNhbGMoMTAwdmggLSA2MHB4KTtcbiAgICAmLmFjdGl2ZSB7XG4gICAgICAgIHJpZ2h0OiAwO1xuICAgIH1cbn0iLCIuY292ZXIsIC5tZW51IHtcbiAgcG9zaXRpb246IGZpeGVkO1xuICB0b3A6IDYwcHg7XG4gIHotaW5kZXg6IDEwMzE7XG59XG5cbi5jb3ZlciB7XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBib3R0b206IDA7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMC43NSk7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG4uY292ZXIuYWN0aXZlIHtcbiAgZGlzcGxheTogYmxvY2s7XG59XG5cbi5tZW51IHtcbiAgcmlnaHQ6IC0xMDAlO1xuICB3aWR0aDogMTAwJTtcbiAgb3ZlcmZsb3cteTogYXV0bztcbiAgdHJhbnNpdGlvbjogcmlnaHQgMC4xcztcbiAgbWF4LWhlaWdodDogY2FsYygxMDB2aCAtIDYwcHgpO1xufVxuLm1lbnUuYWN0aXZlIHtcbiAgcmlnaHQ6IDA7XG59Il19 */");
 
 /***/ }),
 
@@ -4136,6 +4241,7 @@ var HeaderMenuComponent = /** @class */ (function () {
         this.utilService = utilService;
         this.translate = translate;
         this.close = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
     }
     HeaderMenuComponent.prototype.ngOnInit = function () {
         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
@@ -4181,7 +4287,7 @@ var HeaderMenuComponent = /** @class */ (function () {
         });
     };
     HeaderMenuComponent.prototype.isVisible = function (value) {
-        return (_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].HEADER_MENU_SCOPE.find(function (h) { return h === value; }) !== undefined);
+        return (this.environment.HEADER_MENU_SCOPE.find(function (h) { return h === value; }) !== undefined);
     };
     HeaderMenuComponent.ctorParameters = function () { return [
         { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] },
@@ -4226,7 +4332,7 @@ var HeaderMenuComponent = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (":host {\n  display: block;\n}\n\n.header {\n  height: 60px;\n}\n\n.logo {\n  height: 50%;\n}\n\n.menu-button {\n  width: 26px;\n  height: 20px;\n  position: relative;\n}\n\n.menu-button div {\n  position: absolute;\n  top: 50%;\n  left: 0;\n  margin-top: -0.5px;\n  width: 100%;\n  height: 1px;\n}\n\n.menu-button div:first-child {\n  top: 0;\n  margin-top: 0;\n}\n\n.menu-button div:last-child {\n  top: auto;\n  bottom: 0;\n  margin-top: 0;\n}\n\n.menu-button.active div {\n  opacity: 0;\n}\n\n.menu-button.active div:first-child {\n  opacity: 1;\n  top: 50%;\n  margin-top: -1px;\n  -ms-transform: rotate(45deg);\n      transform: rotate(45deg);\n}\n\n.menu-button.active div:last-child {\n  opacity: 1;\n  top: 50%;\n  bottom: initial;\n  margin-top: -1px;\n  -ms-transform: rotate(-45deg);\n      transform: rotate(-45deg);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvaGVhZGVyL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxmcm9udGVuZC9zcmNcXGNsaWVudFxcYXBwXFxtb2R1bGVzXFxzaGFyZWRcXGNvbXBvbmVudHNcXHBhcnRzXFxoZWFkZXJcXGhlYWRlci5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvaGVhZGVyL2hlYWRlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFJQTtFQUNJLGNBQUE7QUNISjs7QURNQTtFQUNJLFlBQUE7QUNISjs7QURNQTtFQUNJLFdBQUE7QUNISjs7QURNQTtFQUNJLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7QUNISjs7QURJSTtFQUNJLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLE9BQUE7RUFDQSxrQkFBQTtFQUNBLFdBQUE7RUFDQSxXQUFBO0FDRlI7O0FER1E7RUFDSSxNQUFBO0VBQ0EsYUFBQTtBQ0RaOztBREdRO0VBQ0ksU0FBQTtFQUNBLFNBQUE7RUFDQSxhQUFBO0FDRFo7O0FES1E7RUFDSSxVQUFBO0FDSFo7O0FESVk7RUFDSSxVQUFBO0VBQ0EsUUFBQTtFQUNBLGdCQUFBO0VBQ0EsNEJBQUE7TUFBQSx3QkFBQTtBQ0ZoQjs7QURJWTtFQUNJLFVBQUE7RUFDQSxRQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsNkJBQUE7TUFBQSx5QkFBQTtBQ0ZoQiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL2hlYWRlci9oZWFkZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL2Z1bmN0aW9uc1wiO1xuQGltcG9ydCBcIm5vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy92YXJpYWJsZXNcIjtcbkBpbXBvcnQgXCJub2RlX21vZHVsZXMvYm9vdHN0cmFwL3Njc3MvbWl4aW5zXCI7XG5cbjpob3N0IHtcbiAgICBkaXNwbGF5OiBibG9jaztcbn1cblxuLmhlYWRlciB7XG4gICAgaGVpZ2h0OiA2MHB4O1xufVxuXG4ubG9nbyB7XG4gICAgaGVpZ2h0OiA1MCU7XG59XG5cbi5tZW51LWJ1dHRvbiB7XG4gICAgd2lkdGg6IDI2cHg7XG4gICAgaGVpZ2h0OiAyMHB4O1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICBkaXYge1xuICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICAgIHRvcDogNTAlO1xuICAgICAgICBsZWZ0OiAwO1xuICAgICAgICBtYXJnaW4tdG9wOiAtMC41cHg7XG4gICAgICAgIHdpZHRoOiAxMDAlO1xuICAgICAgICBoZWlnaHQ6IDFweDtcbiAgICAgICAgJjpmaXJzdC1jaGlsZCB7XG4gICAgICAgICAgICB0b3A6IDA7XG4gICAgICAgICAgICBtYXJnaW4tdG9wOiAwO1xuICAgICAgICB9XG4gICAgICAgICY6bGFzdC1jaGlsZCB7XG4gICAgICAgICAgICB0b3A6IGF1dG87XG4gICAgICAgICAgICBib3R0b206IDA7XG4gICAgICAgICAgICBtYXJnaW4tdG9wOiAwO1xuICAgICAgICB9XG4gICAgfVxuICAgICYuYWN0aXZlIHtcbiAgICAgICAgZGl2IHtcbiAgICAgICAgICAgIG9wYWNpdHk6IDA7XG4gICAgICAgICAgICAmOmZpcnN0LWNoaWxkIHtcbiAgICAgICAgICAgICAgICBvcGFjaXR5OiAxO1xuICAgICAgICAgICAgICAgIHRvcDogNTAlO1xuICAgICAgICAgICAgICAgIG1hcmdpbi10b3A6IC0xcHg7XG4gICAgICAgICAgICAgICAgdHJhbnNmb3JtOiByb3RhdGUoNDVkZWcpO1xuICAgICAgICAgICAgfVxuICAgICAgICAgICAgJjpsYXN0LWNoaWxkIHtcbiAgICAgICAgICAgICAgICBvcGFjaXR5OiAxO1xuICAgICAgICAgICAgICAgIHRvcDogNTAlO1xuICAgICAgICAgICAgICAgIGJvdHRvbTogaW5pdGlhbDtcbiAgICAgICAgICAgICAgICBtYXJnaW4tdG9wOiAtMXB4O1xuICAgICAgICAgICAgICAgIHRyYW5zZm9ybTogcm90YXRlKC00NWRlZyk7XG4gICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICB9XG59XG5cblxuIiwiOmhvc3Qge1xuICBkaXNwbGF5OiBibG9jaztcbn1cblxuLmhlYWRlciB7XG4gIGhlaWdodDogNjBweDtcbn1cblxuLmxvZ28ge1xuICBoZWlnaHQ6IDUwJTtcbn1cblxuLm1lbnUtYnV0dG9uIHtcbiAgd2lkdGg6IDI2cHg7XG4gIGhlaWdodDogMjBweDtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xufVxuLm1lbnUtYnV0dG9uIGRpdiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiA1MCU7XG4gIGxlZnQ6IDA7XG4gIG1hcmdpbi10b3A6IC0wLjVweDtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMXB4O1xufVxuLm1lbnUtYnV0dG9uIGRpdjpmaXJzdC1jaGlsZCB7XG4gIHRvcDogMDtcbiAgbWFyZ2luLXRvcDogMDtcbn1cbi5tZW51LWJ1dHRvbiBkaXY6bGFzdC1jaGlsZCB7XG4gIHRvcDogYXV0bztcbiAgYm90dG9tOiAwO1xuICBtYXJnaW4tdG9wOiAwO1xufVxuLm1lbnUtYnV0dG9uLmFjdGl2ZSBkaXYge1xuICBvcGFjaXR5OiAwO1xufVxuLm1lbnUtYnV0dG9uLmFjdGl2ZSBkaXY6Zmlyc3QtY2hpbGQge1xuICBvcGFjaXR5OiAxO1xuICB0b3A6IDUwJTtcbiAgbWFyZ2luLXRvcDogLTFweDtcbiAgdHJhbnNmb3JtOiByb3RhdGUoNDVkZWcpO1xufVxuLm1lbnUtYnV0dG9uLmFjdGl2ZSBkaXY6bGFzdC1jaGlsZCB7XG4gIG9wYWNpdHk6IDE7XG4gIHRvcDogNTAlO1xuICBib3R0b206IGluaXRpYWw7XG4gIG1hcmdpbi10b3A6IC0xcHg7XG4gIHRyYW5zZm9ybTogcm90YXRlKC00NWRlZyk7XG59Il19 */");
+/* harmony default export */ __webpack_exports__["default"] = (":host {\n  display: block;\n}\n\n.header {\n  height: 60px;\n}\n\n.logo {\n  height: 50%;\n}\n\n.menu-button {\n  width: 26px;\n  height: 20px;\n  position: relative;\n}\n\n.menu-button div {\n  position: absolute;\n  top: 50%;\n  left: 0;\n  margin-top: -0.5px;\n  width: 100%;\n  height: 1px;\n}\n\n.menu-button div:first-child {\n  top: 0;\n  margin-top: 0;\n}\n\n.menu-button div:last-child {\n  top: auto;\n  bottom: 0;\n  margin-top: 0;\n}\n\n.menu-button.active div {\n  opacity: 0;\n}\n\n.menu-button.active div:first-child {\n  opacity: 1;\n  top: 50%;\n  margin-top: -1px;\n  -webkit-transform: rotate(45deg);\n      -ms-transform: rotate(45deg);\n          transform: rotate(45deg);\n}\n\n.menu-button.active div:last-child {\n  opacity: 1;\n  top: 50%;\n  bottom: initial;\n  margin-top: -1px;\n  -webkit-transform: rotate(-45deg);\n      -ms-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvaGVhZGVyL0M6XFxVc2Vyc1xcaGF0YWd1Y2hpXFxEZXNrdG9wXFx3b3Jrc3BhY2VcXENpbmVyaW5vXFxmcm9udGVuZC9zcmNcXGNsaWVudFxcYXBwXFxtb2R1bGVzXFxzaGFyZWRcXGNvbXBvbmVudHNcXHBhcnRzXFxoZWFkZXJcXGhlYWRlci5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvaGVhZGVyL2hlYWRlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFJQTtFQUNJLGNBQUE7QUNISjs7QURNQTtFQUNJLFlBQUE7QUNISjs7QURNQTtFQUNJLFdBQUE7QUNISjs7QURNQTtFQUNJLFdBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7QUNISjs7QURJSTtFQUNJLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLE9BQUE7RUFDQSxrQkFBQTtFQUNBLFdBQUE7RUFDQSxXQUFBO0FDRlI7O0FER1E7RUFDSSxNQUFBO0VBQ0EsYUFBQTtBQ0RaOztBREdRO0VBQ0ksU0FBQTtFQUNBLFNBQUE7RUFDQSxhQUFBO0FDRFo7O0FES1E7RUFDSSxVQUFBO0FDSFo7O0FESVk7RUFDSSxVQUFBO0VBQ0EsUUFBQTtFQUNBLGdCQUFBO0VBQ0EsZ0NBQUE7TUFBQSw0QkFBQTtVQUFBLHdCQUFBO0FDRmhCOztBRElZO0VBQ0ksVUFBQTtFQUNBLFFBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxpQ0FBQTtNQUFBLDZCQUFBO1VBQUEseUJBQUE7QUNGaEIiLCJmaWxlIjoic3JjL2NsaWVudC9hcHAvbW9kdWxlcy9zaGFyZWQvY29tcG9uZW50cy9wYXJ0cy9oZWFkZXIvaGVhZGVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCBcIm5vZGVfbW9kdWxlcy9ib290c3RyYXAvc2Nzcy9mdW5jdGlvbnNcIjtcbkBpbXBvcnQgXCJub2RlX21vZHVsZXMvYm9vdHN0cmFwL3Njc3MvdmFyaWFibGVzXCI7XG5AaW1wb3J0IFwibm9kZV9tb2R1bGVzL2Jvb3RzdHJhcC9zY3NzL21peGluc1wiO1xuXG46aG9zdCB7XG4gICAgZGlzcGxheTogYmxvY2s7XG59XG5cbi5oZWFkZXIge1xuICAgIGhlaWdodDogNjBweDtcbn1cblxuLmxvZ28ge1xuICAgIGhlaWdodDogNTAlO1xufVxuXG4ubWVudS1idXR0b24ge1xuICAgIHdpZHRoOiAyNnB4O1xuICAgIGhlaWdodDogMjBweDtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgZGl2IHtcbiAgICAgICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgICAgICB0b3A6IDUwJTtcbiAgICAgICAgbGVmdDogMDtcbiAgICAgICAgbWFyZ2luLXRvcDogLTAuNXB4O1xuICAgICAgICB3aWR0aDogMTAwJTtcbiAgICAgICAgaGVpZ2h0OiAxcHg7XG4gICAgICAgICY6Zmlyc3QtY2hpbGQge1xuICAgICAgICAgICAgdG9wOiAwO1xuICAgICAgICAgICAgbWFyZ2luLXRvcDogMDtcbiAgICAgICAgfVxuICAgICAgICAmOmxhc3QtY2hpbGQge1xuICAgICAgICAgICAgdG9wOiBhdXRvO1xuICAgICAgICAgICAgYm90dG9tOiAwO1xuICAgICAgICAgICAgbWFyZ2luLXRvcDogMDtcbiAgICAgICAgfVxuICAgIH1cbiAgICAmLmFjdGl2ZSB7XG4gICAgICAgIGRpdiB7XG4gICAgICAgICAgICBvcGFjaXR5OiAwO1xuICAgICAgICAgICAgJjpmaXJzdC1jaGlsZCB7XG4gICAgICAgICAgICAgICAgb3BhY2l0eTogMTtcbiAgICAgICAgICAgICAgICB0b3A6IDUwJTtcbiAgICAgICAgICAgICAgICBtYXJnaW4tdG9wOiAtMXB4O1xuICAgICAgICAgICAgICAgIHRyYW5zZm9ybTogcm90YXRlKDQ1ZGVnKTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgICAgICY6bGFzdC1jaGlsZCB7XG4gICAgICAgICAgICAgICAgb3BhY2l0eTogMTtcbiAgICAgICAgICAgICAgICB0b3A6IDUwJTtcbiAgICAgICAgICAgICAgICBib3R0b206IGluaXRpYWw7XG4gICAgICAgICAgICAgICAgbWFyZ2luLXRvcDogLTFweDtcbiAgICAgICAgICAgICAgICB0cmFuc2Zvcm06IHJvdGF0ZSgtNDVkZWcpO1xuICAgICAgICAgICAgfVxuICAgICAgICB9XG4gICAgfVxufVxuXG5cbiIsIjpob3N0IHtcbiAgZGlzcGxheTogYmxvY2s7XG59XG5cbi5oZWFkZXIge1xuICBoZWlnaHQ6IDYwcHg7XG59XG5cbi5sb2dvIHtcbiAgaGVpZ2h0OiA1MCU7XG59XG5cbi5tZW51LWJ1dHRvbiB7XG4gIHdpZHRoOiAyNnB4O1xuICBoZWlnaHQ6IDIwcHg7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbn1cbi5tZW51LWJ1dHRvbiBkaXYge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogNTAlO1xuICBsZWZ0OiAwO1xuICBtYXJnaW4tdG9wOiAtMC41cHg7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDFweDtcbn1cbi5tZW51LWJ1dHRvbiBkaXY6Zmlyc3QtY2hpbGQge1xuICB0b3A6IDA7XG4gIG1hcmdpbi10b3A6IDA7XG59XG4ubWVudS1idXR0b24gZGl2Omxhc3QtY2hpbGQge1xuICB0b3A6IGF1dG87XG4gIGJvdHRvbTogMDtcbiAgbWFyZ2luLXRvcDogMDtcbn1cbi5tZW51LWJ1dHRvbi5hY3RpdmUgZGl2IHtcbiAgb3BhY2l0eTogMDtcbn1cbi5tZW51LWJ1dHRvbi5hY3RpdmUgZGl2OmZpcnN0LWNoaWxkIHtcbiAgb3BhY2l0eTogMTtcbiAgdG9wOiA1MCU7XG4gIG1hcmdpbi10b3A6IC0xcHg7XG4gIHRyYW5zZm9ybTogcm90YXRlKDQ1ZGVnKTtcbn1cbi5tZW51LWJ1dHRvbi5hY3RpdmUgZGl2Omxhc3QtY2hpbGQge1xuICBvcGFjaXR5OiAxO1xuICB0b3A6IDUwJTtcbiAgYm90dG9tOiBpbml0aWFsO1xuICBtYXJnaW4tdG9wOiAtMXB4O1xuICB0cmFuc2Zvcm06IHJvdGF0ZSgtNDVkZWcpO1xufSJdfQ== */");
 
 /***/ }),
 
@@ -4244,9 +4350,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../models */ "./app/models/index.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../models */ "./app/models/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4301,16 +4408,18 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var HeaderComponent = /** @class */ (function () {
     function HeaderComponent(store, translate, userService) {
         this.store = store;
         this.translate = translate;
         this.userService = userService;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
+        this.storageUrl = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl;
     }
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
+        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
         this.user.subscribe(function (user) { return __awaiter(_this, void 0, void 0, function () {
             var html;
             return __generator(this, function (_a) {
@@ -4327,7 +4436,7 @@ var HeaderComponent = /** @class */ (function () {
         this.userService.updateLanguage(this.language);
     };
     HeaderComponent.prototype.getLanguageName = function (key) {
-        return _models__WEBPACK_IMPORTED_MODULE_4__["Language"][key];
+        return _models__WEBPACK_IMPORTED_MODULE_5__["Language"][key];
     };
     HeaderComponent.prototype.menuOpen = function () {
         this.isMenuOpen = true;
@@ -4338,7 +4447,7 @@ var HeaderComponent = /** @class */ (function () {
     HeaderComponent.ctorParameters = function () { return [
         { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"] },
         { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"] },
-        { type: _services__WEBPACK_IMPORTED_MODULE_5__["UserService"] }
+        { type: _services__WEBPACK_IMPORTED_MODULE_6__["UserService"] }
     ]; };
     HeaderComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -4348,7 +4457,7 @@ var HeaderComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"],
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"],
-            _services__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
+            _services__WEBPACK_IMPORTED_MODULE_6__["UserService"]])
     ], HeaderComponent);
     return HeaderComponent;
 }());
@@ -4366,7 +4475,7 @@ var HeaderComponent = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".cover {\n  background-color: rgba(0, 0, 0, 0.7);\n  -webkit-animation: fadein 0.2s both;\n          animation: fadein 0.2s both;\n  z-index: 2000;\n}\n\n.loading {\n  opacity: 1;\n  z-index: 2000;\n}\n\n.loader,\n.loader:after {\n  border-radius: 50%;\n  width: 90px;\n  height: 90px;\n}\n\n.loader {\n  position: relative;\n  text-indent: -9999em;\n  border: 3px solid rgba(255, 255, 255, 0.2);\n  border-left-color: #FFF;\n  transform: translateZ(0);\n  -webkit-animation: load8 1.1s infinite linear;\n          animation: load8 1.1s infinite linear;\n}\n\n.process {\n  opacity: 1;\n  z-index: 2000;\n}\n\n.process .text {\n  margin-top: 120px;\n}\n\n@-webkit-keyframes fadein {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n\n@keyframes fadein {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n\n@-webkit-keyframes loading {\n  30% {\n    transform: scaleY(2);\n  }\n}\n\n@keyframes loading {\n  30% {\n    transform: scaleY(2);\n  }\n}\n\n@-webkit-keyframes load8 {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n@keyframes load8 {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvbG9hZGluZy9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcbG9hZGluZ1xcbG9hZGluZy5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvbG9hZGluZy9sb2FkaW5nLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksb0NBQUE7RUFDQSxtQ0FBQTtVQUFBLDJCQUFBO0VBQ0EsYUFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGFBQUE7QUNDSjs7QURFQTs7RUFFSSxrQkFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0FDQ0o7O0FEQ0E7RUFDSSxrQkFBQTtFQUNBLG9CQUFBO0VBQ0EsMENBQUE7RUFDQSx1QkFBQTtFQUNBLHdCQUFBO0VBQ0EsNkNBQUE7VUFBQSxxQ0FBQTtBQ0VKOztBRENBO0VBQ0ksVUFBQTtFQUNBLGFBQUE7QUNFSjs7QURESTtFQUNJLGlCQUFBO0FDR1I7O0FEQ0E7RUFDSTtJQUNJLFVBQUE7RUNFTjtFREFFO0lBQ0ksVUFBQTtFQ0VOO0FBQ0Y7O0FEUkE7RUFDSTtJQUNJLFVBQUE7RUNFTjtFREFFO0lBQ0ksVUFBQTtFQ0VOO0FBQ0Y7O0FEQ0E7RUFDSTtJQUNJLG9CQUFBO0VDQ047QUFDRjs7QURKQTtFQUNJO0lBQ0ksb0JBQUE7RUNDTjtBQUNGOztBREVBO0VBQ0k7SUFDSSx1QkFBQTtFQ0FOO0VERUU7SUFDSSx5QkFBQTtFQ0FOO0FBQ0Y7O0FETkE7RUFDSTtJQUNJLHVCQUFBO0VDQU47RURFRTtJQUNJLHlCQUFBO0VDQU47QUFDRiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL2xvYWRpbmcvbG9hZGluZy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jb3ZlciB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAwLCAwLCAwLjcpO1xuICAgIGFuaW1hdGlvbjogZmFkZWluIDAuMnMgYm90aDtcbiAgICB6LWluZGV4OiAyMDAwO1xufVxuXG4ubG9hZGluZyB7XG4gICAgb3BhY2l0eTogMTtcbiAgICB6LWluZGV4OiAyMDAwO1xufVxuXG4ubG9hZGVyLFxuLmxvYWRlcjphZnRlciB7XG4gICAgYm9yZGVyLXJhZGl1czogNTAlO1xuICAgIHdpZHRoOiA5MHB4O1xuICAgIGhlaWdodDogOTBweDtcbn1cbi5sb2FkZXIge1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICB0ZXh0LWluZGVudDogLTk5OTllbTtcbiAgICBib3JkZXI6IDNweCBzb2xpZCByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMik7XG4gICAgYm9yZGVyLWxlZnQtY29sb3I6ICNGRkY7XG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGVaKDApO1xuICAgIGFuaW1hdGlvbjogbG9hZDggMS4xcyBpbmZpbml0ZSBsaW5lYXI7XG59XG5cbi5wcm9jZXNzIHtcbiAgICBvcGFjaXR5OiAxO1xuICAgIHotaW5kZXg6IDIwMDA7XG4gICAgLnRleHQge1xuICAgICAgICBtYXJnaW4tdG9wOiAxMjBweDtcbiAgICB9XG59XG5cbkBrZXlmcmFtZXMgZmFkZWluIHtcbiAgICAwJSB7XG4gICAgICAgIG9wYWNpdHk6IDA7XG4gICAgfVxuICAgIDEwMCUge1xuICAgICAgICBvcGFjaXR5OiAxO1xuICAgIH1cbn1cblxuQGtleWZyYW1lcyBsb2FkaW5nIHtcbiAgICAzMCUge1xuICAgICAgICB0cmFuc2Zvcm06IHNjYWxlWSgyKTtcbiAgICB9XG59XG5cbkBrZXlmcmFtZXMgbG9hZDgge1xuICAgIDAlIHtcbiAgICAgICAgdHJhbnNmb3JtOiByb3RhdGUoMGRlZyk7XG4gICAgfVxuICAgIDEwMCUge1xuICAgICAgICB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpO1xuICAgIH1cbn1cbiIsIi5jb3ZlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMC43KTtcbiAgYW5pbWF0aW9uOiBmYWRlaW4gMC4ycyBib3RoO1xuICB6LWluZGV4OiAyMDAwO1xufVxuXG4ubG9hZGluZyB7XG4gIG9wYWNpdHk6IDE7XG4gIHotaW5kZXg6IDIwMDA7XG59XG5cbi5sb2FkZXIsXG4ubG9hZGVyOmFmdGVyIHtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICB3aWR0aDogOTBweDtcbiAgaGVpZ2h0OiA5MHB4O1xufVxuXG4ubG9hZGVyIHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB0ZXh0LWluZGVudDogLTk5OTllbTtcbiAgYm9yZGVyOiAzcHggc29saWQgcmdiYSgyNTUsIDI1NSwgMjU1LCAwLjIpO1xuICBib3JkZXItbGVmdC1jb2xvcjogI0ZGRjtcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGVaKDApO1xuICBhbmltYXRpb246IGxvYWQ4IDEuMXMgaW5maW5pdGUgbGluZWFyO1xufVxuXG4ucHJvY2VzcyB7XG4gIG9wYWNpdHk6IDE7XG4gIHotaW5kZXg6IDIwMDA7XG59XG4ucHJvY2VzcyAudGV4dCB7XG4gIG1hcmdpbi10b3A6IDEyMHB4O1xufVxuXG5Aa2V5ZnJhbWVzIGZhZGVpbiB7XG4gIDAlIHtcbiAgICBvcGFjaXR5OiAwO1xuICB9XG4gIDEwMCUge1xuICAgIG9wYWNpdHk6IDE7XG4gIH1cbn1cbkBrZXlmcmFtZXMgbG9hZGluZyB7XG4gIDMwJSB7XG4gICAgdHJhbnNmb3JtOiBzY2FsZVkoMik7XG4gIH1cbn1cbkBrZXlmcmFtZXMgbG9hZDgge1xuICAwJSB7XG4gICAgdHJhbnNmb3JtOiByb3RhdGUoMGRlZyk7XG4gIH1cbiAgMTAwJSB7XG4gICAgdHJhbnNmb3JtOiByb3RhdGUoMzYwZGVnKTtcbiAgfVxufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".cover {\n  background-color: rgba(0, 0, 0, 0.7);\n  -webkit-animation: fadein 0.2s both;\n          animation: fadein 0.2s both;\n  z-index: 2000;\n}\n\n.loading {\n  opacity: 1;\n  z-index: 2000;\n}\n\n.loader,\n.loader:after {\n  border-radius: 50%;\n  width: 90px;\n  height: 90px;\n}\n\n.loader {\n  position: relative;\n  text-indent: -9999em;\n  border: 3px solid rgba(255, 255, 255, 0.2);\n  border-left-color: #FFF;\n  -webkit-transform: translateZ(0);\n          transform: translateZ(0);\n  -webkit-animation: load8 1.1s infinite linear;\n          animation: load8 1.1s infinite linear;\n}\n\n.process {\n  opacity: 1;\n  z-index: 2000;\n}\n\n.process .text {\n  margin-top: 120px;\n}\n\n@-webkit-keyframes fadein {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n\n@keyframes fadein {\n  0% {\n    opacity: 0;\n  }\n  100% {\n    opacity: 1;\n  }\n}\n\n@-webkit-keyframes loading {\n  30% {\n    -webkit-transform: scaleY(2);\n            transform: scaleY(2);\n  }\n}\n\n@keyframes loading {\n  30% {\n    -webkit-transform: scaleY(2);\n            transform: scaleY(2);\n  }\n}\n\n@-webkit-keyframes load8 {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n\n@keyframes load8 {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvbG9hZGluZy9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xcbG9hZGluZ1xcbG9hZGluZy5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvbG9hZGluZy9sb2FkaW5nLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksb0NBQUE7RUFDQSxtQ0FBQTtVQUFBLDJCQUFBO0VBQ0EsYUFBQTtBQ0NKOztBREVBO0VBQ0ksVUFBQTtFQUNBLGFBQUE7QUNDSjs7QURFQTs7RUFFSSxrQkFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0FDQ0o7O0FEQ0E7RUFDSSxrQkFBQTtFQUNBLG9CQUFBO0VBQ0EsMENBQUE7RUFDQSx1QkFBQTtFQUNBLGdDQUFBO1VBQUEsd0JBQUE7RUFDQSw2Q0FBQTtVQUFBLHFDQUFBO0FDRUo7O0FEQ0E7RUFDSSxVQUFBO0VBQ0EsYUFBQTtBQ0VKOztBRERJO0VBQ0ksaUJBQUE7QUNHUjs7QURDQTtFQUNJO0lBQ0ksVUFBQTtFQ0VOO0VEQUU7SUFDSSxVQUFBO0VDRU47QUFDRjs7QURSQTtFQUNJO0lBQ0ksVUFBQTtFQ0VOO0VEQUU7SUFDSSxVQUFBO0VDRU47QUFDRjs7QURDQTtFQUNJO0lBQ0ksNEJBQUE7WUFBQSxvQkFBQTtFQ0NOO0FBQ0Y7O0FESkE7RUFDSTtJQUNJLDRCQUFBO1lBQUEsb0JBQUE7RUNDTjtBQUNGOztBREVBO0VBQ0k7SUFDSSwrQkFBQTtZQUFBLHVCQUFBO0VDQU47RURFRTtJQUNJLGlDQUFBO1lBQUEseUJBQUE7RUNBTjtBQUNGOztBRE5BO0VBQ0k7SUFDSSwrQkFBQTtZQUFBLHVCQUFBO0VDQU47RURFRTtJQUNJLGlDQUFBO1lBQUEseUJBQUE7RUNBTjtBQUNGIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvbG9hZGluZy9sb2FkaW5nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNvdmVyIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDAsIDAsIDAsIDAuNyk7XG4gICAgYW5pbWF0aW9uOiBmYWRlaW4gMC4ycyBib3RoO1xuICAgIHotaW5kZXg6IDIwMDA7XG59XG5cbi5sb2FkaW5nIHtcbiAgICBvcGFjaXR5OiAxO1xuICAgIHotaW5kZXg6IDIwMDA7XG59XG5cbi5sb2FkZXIsXG4ubG9hZGVyOmFmdGVyIHtcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XG4gICAgd2lkdGg6IDkwcHg7XG4gICAgaGVpZ2h0OiA5MHB4O1xufVxuLmxvYWRlciB7XG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgIHRleHQtaW5kZW50OiAtOTk5OWVtO1xuICAgIGJvcmRlcjogM3B4IHNvbGlkIHJnYmEoMjU1LCAyNTUsIDI1NSwgMC4yKTtcbiAgICBib3JkZXItbGVmdC1jb2xvcjogI0ZGRjtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVooMCk7XG4gICAgYW5pbWF0aW9uOiBsb2FkOCAxLjFzIGluZmluaXRlIGxpbmVhcjtcbn1cblxuLnByb2Nlc3Mge1xuICAgIG9wYWNpdHk6IDE7XG4gICAgei1pbmRleDogMjAwMDtcbiAgICAudGV4dCB7XG4gICAgICAgIG1hcmdpbi10b3A6IDEyMHB4O1xuICAgIH1cbn1cblxuQGtleWZyYW1lcyBmYWRlaW4ge1xuICAgIDAlIHtcbiAgICAgICAgb3BhY2l0eTogMDtcbiAgICB9XG4gICAgMTAwJSB7XG4gICAgICAgIG9wYWNpdHk6IDE7XG4gICAgfVxufVxuXG5Aa2V5ZnJhbWVzIGxvYWRpbmcge1xuICAgIDMwJSB7XG4gICAgICAgIHRyYW5zZm9ybTogc2NhbGVZKDIpO1xuICAgIH1cbn1cblxuQGtleWZyYW1lcyBsb2FkOCB7XG4gICAgMCUge1xuICAgICAgICB0cmFuc2Zvcm06IHJvdGF0ZSgwZGVnKTtcbiAgICB9XG4gICAgMTAwJSB7XG4gICAgICAgIHRyYW5zZm9ybTogcm90YXRlKDM2MGRlZyk7XG4gICAgfVxufVxuIiwiLmNvdmVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAwLCAwLCAwLjcpO1xuICBhbmltYXRpb246IGZhZGVpbiAwLjJzIGJvdGg7XG4gIHotaW5kZXg6IDIwMDA7XG59XG5cbi5sb2FkaW5nIHtcbiAgb3BhY2l0eTogMTtcbiAgei1pbmRleDogMjAwMDtcbn1cblxuLmxvYWRlcixcbi5sb2FkZXI6YWZ0ZXIge1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIHdpZHRoOiA5MHB4O1xuICBoZWlnaHQ6IDkwcHg7XG59XG5cbi5sb2FkZXIge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHRleHQtaW5kZW50OiAtOTk5OWVtO1xuICBib3JkZXI6IDNweCBzb2xpZCByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMik7XG4gIGJvcmRlci1sZWZ0LWNvbG9yOiAjRkZGO1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVooMCk7XG4gIGFuaW1hdGlvbjogbG9hZDggMS4xcyBpbmZpbml0ZSBsaW5lYXI7XG59XG5cbi5wcm9jZXNzIHtcbiAgb3BhY2l0eTogMTtcbiAgei1pbmRleDogMjAwMDtcbn1cbi5wcm9jZXNzIC50ZXh0IHtcbiAgbWFyZ2luLXRvcDogMTIwcHg7XG59XG5cbkBrZXlmcmFtZXMgZmFkZWluIHtcbiAgMCUge1xuICAgIG9wYWNpdHk6IDA7XG4gIH1cbiAgMTAwJSB7XG4gICAgb3BhY2l0eTogMTtcbiAgfVxufVxuQGtleWZyYW1lcyBsb2FkaW5nIHtcbiAgMzAlIHtcbiAgICB0cmFuc2Zvcm06IHNjYWxlWSgyKTtcbiAgfVxufVxuQGtleWZyYW1lcyBsb2FkOCB7XG4gIDAlIHtcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgwZGVnKTtcbiAgfVxuICAxMDAlIHtcbiAgICB0cmFuc2Zvcm06IHJvdGF0ZSgzNjBkZWcpO1xuICB9XG59Il19 */");
 
 /***/ }),
 
@@ -4986,6 +5095,7 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
         this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
         this.getRemainingSeatLength = _functions__WEBPACK_IMPORTED_MODULE_5__["getRemainingSeatLength"];
         this.isTicketedSeatScreeningEvent = _functions__WEBPACK_IMPORTED_MODULE_5__["isTicketedSeatScreeningEvent"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
     }
     PurchaseEventTicketModalComponent.prototype.ngOnInit = function () {
         this.tickets = [];
@@ -5039,8 +5149,8 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
         if (!Object(_functions__WEBPACK_IMPORTED_MODULE_5__["isTicketedSeatScreeningEvent"])(screeningEvent)) {
             return false;
         }
-        var unit = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT;
-        var value = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE);
+        var unit = this.environment.PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT;
+        var value = Number(this.environment.PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE);
         if (unit === '%') {
             var maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
             if (maximumAttendeeCapacity === undefined) {
@@ -5111,7 +5221,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PurchaseTransactionModalComponent", function() { return PurchaseTransactionModalComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../store/reducers */ "./app/store/reducers/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5127,9 +5238,11 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var PurchaseTransactionModalComponent = /** @class */ (function () {
     function PurchaseTransactionModalComponent(modal) {
         this.modal = modal;
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     PurchaseTransactionModalComponent.prototype.ngOnInit = function () {
     };
@@ -5176,7 +5289,7 @@ var PurchaseTransactionModalComponent = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".full-screen {\n  position: fixed;\n  left: 0;\n  top: 0;\n  bottom: 0;\n  right: 0;\n}\n\nvideo {\n  width: 100%;\n  height: 100%;\n}\n\n.top {\n  position: absolute;\n  top: 1rem;\n  left: 0;\n}\n\n.bottom {\n  position: absolute;\n  bottom: 1rem;\n  left: 0;\n}\n\n.scan {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 100px;\n  height: 100px;\n  border-width: 3px !important;\n  margin: -50px 0 0 -50px;\n  -webkit-animation: scale 2s infinite linear;\n          animation: scale 2s infinite linear;\n}\n\n@-webkit-keyframes scale {\n  0% {\n    transform: scale(0.75);\n  }\n  50% {\n    transform: scale(1.5);\n  }\n  100% {\n    transform: scale(0.75);\n  }\n}\n\n@keyframes scale {\n  0% {\n    transform: scale(0.75);\n  }\n  50% {\n    transform: scale(1.5);\n  }\n  100% {\n    transform: scale(0.75);\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcXJjb2RlL3JlYWRlci1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xccXJjb2RlXFxyZWFkZXItbW9kYWxcXHJlYWRlci1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcXJjb2RlL3JlYWRlci1tb2RhbC9yZWFkZXItbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsT0FBQTtFQUNBLE1BQUE7RUFDQSxTQUFBO0VBQ0EsUUFBQTtBQ0NKOztBREVBO0VBQ0ksV0FBQTtFQUNBLFlBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsU0FBQTtFQUNBLE9BQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLE9BQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFNBQUE7RUFDQSxZQUFBO0VBQ0EsYUFBQTtFQUNBLDRCQUFBO0VBQ0EsdUJBQUE7RUFDQSwyQ0FBQTtVQUFBLG1DQUFBO0FDQ0o7O0FERUE7RUFDSTtJQUNJLHNCQUFBO0VDQ047RURDRTtJQUNJLHFCQUFBO0VDQ047RURDRTtJQUNJLHNCQUFBO0VDQ047QUFDRjs7QURWQTtFQUNJO0lBQ0ksc0JBQUE7RUNDTjtFRENFO0lBQ0kscUJBQUE7RUNDTjtFRENFO0lBQ0ksc0JBQUE7RUNDTjtBQUNGIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcXJjb2RlL3JlYWRlci1tb2RhbC9yZWFkZXItbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZnVsbC1zY3JlZW4ge1xuICAgIHBvc2l0aW9uOiBmaXhlZDtcbiAgICBsZWZ0OiAwO1xuICAgIHRvcDogMDtcbiAgICBib3R0b206IDA7XG4gICAgcmlnaHQ6IDA7XG59XG5cbnZpZGVvIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IDEwMCU7XG59XG5cbi50b3Age1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDFyZW07XG4gICAgbGVmdDogMDtcbn1cblxuLmJvdHRvbSB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIGJvdHRvbTogMXJlbTtcbiAgICBsZWZ0OiAwO1xufVxuXG4uc2NhbiB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB3aWR0aDogMTAwcHg7XG4gICAgaGVpZ2h0OiAxMDBweDtcbiAgICBib3JkZXItd2lkdGg6IDNweCAhaW1wb3J0YW50O1xuICAgIG1hcmdpbjogLTUwcHggMCAwIC01MHB4O1xuICAgIGFuaW1hdGlvbjogc2NhbGUgMnMgaW5maW5pdGUgbGluZWFyO1xufVxuXG5Aa2V5ZnJhbWVzIHNjYWxlIHtcbiAgICAwJSB7XG4gICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMC43NSk7XG4gICAgfVxuICAgIDUwJSB7XG4gICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMS41KTtcbiAgICB9ICBcbiAgICAxMDAlIHtcbiAgICAgICAgdHJhbnNmb3JtOiBzY2FsZSgwLjc1KTtcbiAgICB9XG59XG4iLCIuZnVsbC1zY3JlZW4ge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGxlZnQ6IDA7XG4gIHRvcDogMDtcbiAgYm90dG9tOiAwO1xuICByaWdodDogMDtcbn1cblxudmlkZW8ge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4udG9wIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDFyZW07XG4gIGxlZnQ6IDA7XG59XG5cbi5ib3R0b20ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGJvdHRvbTogMXJlbTtcbiAgbGVmdDogMDtcbn1cblxuLnNjYW4ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogNTAlO1xuICBsZWZ0OiA1MCU7XG4gIHdpZHRoOiAxMDBweDtcbiAgaGVpZ2h0OiAxMDBweDtcbiAgYm9yZGVyLXdpZHRoOiAzcHggIWltcG9ydGFudDtcbiAgbWFyZ2luOiAtNTBweCAwIDAgLTUwcHg7XG4gIGFuaW1hdGlvbjogc2NhbGUgMnMgaW5maW5pdGUgbGluZWFyO1xufVxuXG5Aa2V5ZnJhbWVzIHNjYWxlIHtcbiAgMCUge1xuICAgIHRyYW5zZm9ybTogc2NhbGUoMC43NSk7XG4gIH1cbiAgNTAlIHtcbiAgICB0cmFuc2Zvcm06IHNjYWxlKDEuNSk7XG4gIH1cbiAgMTAwJSB7XG4gICAgdHJhbnNmb3JtOiBzY2FsZSgwLjc1KTtcbiAgfVxufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".full-screen {\n  position: fixed;\n  left: 0;\n  top: 0;\n  bottom: 0;\n  right: 0;\n}\n\nvideo {\n  width: 100%;\n  height: 100%;\n}\n\n.top {\n  position: absolute;\n  top: 1rem;\n  left: 0;\n}\n\n.bottom {\n  position: absolute;\n  bottom: 1rem;\n  left: 0;\n}\n\n.scan {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 100px;\n  height: 100px;\n  border-width: 3px !important;\n  margin: -50px 0 0 -50px;\n  -webkit-animation: scale 2s infinite linear;\n          animation: scale 2s infinite linear;\n}\n\n@-webkit-keyframes scale {\n  0% {\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75);\n  }\n  50% {\n    -webkit-transform: scale(1.5);\n            transform: scale(1.5);\n  }\n  100% {\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75);\n  }\n}\n\n@keyframes scale {\n  0% {\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75);\n  }\n  50% {\n    -webkit-transform: scale(1.5);\n            transform: scale(1.5);\n  }\n  100% {\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75);\n  }\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcXJjb2RlL3JlYWRlci1tb2RhbC9DOlxcVXNlcnNcXGhhdGFndWNoaVxcRGVza3RvcFxcd29ya3NwYWNlXFxDaW5lcmlub1xcZnJvbnRlbmQvc3JjXFxjbGllbnRcXGFwcFxcbW9kdWxlc1xcc2hhcmVkXFxjb21wb25lbnRzXFxwYXJ0c1xccXJjb2RlXFxyZWFkZXItbW9kYWxcXHJlYWRlci1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcXJjb2RlL3JlYWRlci1tb2RhbC9yZWFkZXItbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsT0FBQTtFQUNBLE1BQUE7RUFDQSxTQUFBO0VBQ0EsUUFBQTtBQ0NKOztBREVBO0VBQ0ksV0FBQTtFQUNBLFlBQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsU0FBQTtFQUNBLE9BQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLE9BQUE7QUNDSjs7QURFQTtFQUNJLGtCQUFBO0VBQ0EsUUFBQTtFQUNBLFNBQUE7RUFDQSxZQUFBO0VBQ0EsYUFBQTtFQUNBLDRCQUFBO0VBQ0EsdUJBQUE7RUFDQSwyQ0FBQTtVQUFBLG1DQUFBO0FDQ0o7O0FERUE7RUFDSTtJQUNJLDhCQUFBO1lBQUEsc0JBQUE7RUNDTjtFRENFO0lBQ0ksNkJBQUE7WUFBQSxxQkFBQTtFQ0NOO0VEQ0U7SUFDSSw4QkFBQTtZQUFBLHNCQUFBO0VDQ047QUFDRjs7QURWQTtFQUNJO0lBQ0ksOEJBQUE7WUFBQSxzQkFBQTtFQ0NOO0VEQ0U7SUFDSSw2QkFBQTtZQUFBLHFCQUFBO0VDQ047RURDRTtJQUNJLDhCQUFBO1lBQUEsc0JBQUE7RUNDTjtBQUNGIiwiZmlsZSI6InNyYy9jbGllbnQvYXBwL21vZHVsZXMvc2hhcmVkL2NvbXBvbmVudHMvcGFydHMvcXJjb2RlL3JlYWRlci1tb2RhbC9yZWFkZXItbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZnVsbC1zY3JlZW4ge1xuICAgIHBvc2l0aW9uOiBmaXhlZDtcbiAgICBsZWZ0OiAwO1xuICAgIHRvcDogMDtcbiAgICBib3R0b206IDA7XG4gICAgcmlnaHQ6IDA7XG59XG5cbnZpZGVvIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IDEwMCU7XG59XG5cbi50b3Age1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDFyZW07XG4gICAgbGVmdDogMDtcbn1cblxuLmJvdHRvbSB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIGJvdHRvbTogMXJlbTtcbiAgICBsZWZ0OiAwO1xufVxuXG4uc2NhbiB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogNTAlO1xuICAgIGxlZnQ6IDUwJTtcbiAgICB3aWR0aDogMTAwcHg7XG4gICAgaGVpZ2h0OiAxMDBweDtcbiAgICBib3JkZXItd2lkdGg6IDNweCAhaW1wb3J0YW50O1xuICAgIG1hcmdpbjogLTUwcHggMCAwIC01MHB4O1xuICAgIGFuaW1hdGlvbjogc2NhbGUgMnMgaW5maW5pdGUgbGluZWFyO1xufVxuXG5Aa2V5ZnJhbWVzIHNjYWxlIHtcbiAgICAwJSB7XG4gICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMC43NSk7XG4gICAgfVxuICAgIDUwJSB7XG4gICAgICAgIHRyYW5zZm9ybTogc2NhbGUoMS41KTtcbiAgICB9ICBcbiAgICAxMDAlIHtcbiAgICAgICAgdHJhbnNmb3JtOiBzY2FsZSgwLjc1KTtcbiAgICB9XG59XG4iLCIuZnVsbC1zY3JlZW4ge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIGxlZnQ6IDA7XG4gIHRvcDogMDtcbiAgYm90dG9tOiAwO1xuICByaWdodDogMDtcbn1cblxudmlkZW8ge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4udG9wIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDFyZW07XG4gIGxlZnQ6IDA7XG59XG5cbi5ib3R0b20ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGJvdHRvbTogMXJlbTtcbiAgbGVmdDogMDtcbn1cblxuLnNjYW4ge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogNTAlO1xuICBsZWZ0OiA1MCU7XG4gIHdpZHRoOiAxMDBweDtcbiAgaGVpZ2h0OiAxMDBweDtcbiAgYm9yZGVyLXdpZHRoOiAzcHggIWltcG9ydGFudDtcbiAgbWFyZ2luOiAtNTBweCAwIDAgLTUwcHg7XG4gIGFuaW1hdGlvbjogc2NhbGUgMnMgaW5maW5pdGUgbGluZWFyO1xufVxuXG5Aa2V5ZnJhbWVzIHNjYWxlIHtcbiAgMCUge1xuICAgIHRyYW5zZm9ybTogc2NhbGUoMC43NSk7XG4gIH1cbiAgNTAlIHtcbiAgICB0cmFuc2Zvcm06IHNjYWxlKDEuNSk7XG4gIH1cbiAgMTAwJSB7XG4gICAgdHJhbnNmb3JtOiBzY2FsZSgwLjc1KTtcbiAgfVxufSJdfQ== */");
 
 /***/ }),
 
@@ -5775,7 +5888,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../functions */ "./app/functions/index.ts");
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5829,10 +5943,12 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var CinerinoService = /** @class */ (function () {
     function CinerinoService(http, utilservice) {
         this.http = http;
         this.utilservice = utilservice;
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
     }
     /**
      * getServices
@@ -5884,7 +6000,8 @@ var CinerinoService = /** @class */ (function () {
                         _a.sent();
                         return [2 /*return*/, {
                                 endpoint: this.endpoint,
-                                auth: this.auth
+                                auth: this.auth,
+                                project: { id: Object(_functions__WEBPACK_IMPORTED_MODULE_5__["getProject"])().projectId }
                             }];
                 }
             });
@@ -5899,7 +6016,7 @@ var CinerinoService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        data = window[_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].STORAGE_TYPE].getItem(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].STORAGE_NAME);
+                        data = window[this.environment.STORAGE_TYPE].getItem(this.environment.STORAGE_NAME);
                         if (data === null) {
                             throw new Error('state is null');
                         }
@@ -6012,14 +6129,14 @@ var CinerinoService = /** @class */ (function () {
     };
     CinerinoService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"] },
-        { type: _util_service__WEBPACK_IMPORTED_MODULE_5__["UtilService"] }
+        { type: _util_service__WEBPACK_IMPORTED_MODULE_6__["UtilService"] }
     ]; };
     CinerinoService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"],
-            _util_service__WEBPACK_IMPORTED_MODULE_5__["UtilService"]])
+            _util_service__WEBPACK_IMPORTED_MODULE_6__["UtilService"]])
     ], CinerinoService);
     return CinerinoService;
 }());
@@ -6538,10 +6655,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../models */ "./app/models/index.ts");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../functions */ "./app/functions/index.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../models */ "./app/models/index.ts");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6601,13 +6719,15 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var PurchaseService = /** @class */ (function () {
     function PurchaseService(store, actions, utilService) {
         this.store = store;
         this.actions = actions;
         this.utilService = utilService;
-        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getPurchase"]));
-        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getError"]));
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
+        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getPurchase"]));
+        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getError"]));
     }
     /**
      * 購入データ取得
@@ -6628,25 +6748,25 @@ var PurchaseService = /** @class */ (function () {
      * データ削除
      */
     PurchaseService.prototype.delete = function () {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].Delete());
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].Delete());
     };
     /**
      * 一時データ削除
      */
     PurchaseService.prototype.unsettledDelete = function () {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].UnsettledDelete());
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].UnsettledDelete());
     };
     /**
      * スケジュール日選択
      */
     PurchaseService.prototype.selectScheduleDate = function (scheduleDate) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].SelectScheduleDate({ scheduleDate: scheduleDate }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].SelectScheduleDate({ scheduleDate: scheduleDate }));
     };
     /**
      * 販売者選択
      */
     PurchaseService.prototype.selectSeller = function (seller) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].SelectSeller({ seller: seller }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].SelectSeller({ seller: seller }));
     };
     /**
      * 先行販売日取得
@@ -6659,20 +6779,21 @@ var PurchaseService = /** @class */ (function () {
                     reject();
                     return;
                 }
+                var external = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getExternalData"])();
                 var seller = purchase.seller;
-                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].GetPreScheduleDates({
+                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetPreScheduleDates({
                     superEvent: {
-                        ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
-                            ? [] : [purchase.external.superEventId],
+                        ids: (external.superEventId === undefined)
+                            ? [] : [external.superEventId],
                         locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
                             ? [] : [seller.location.branchCode],
-                        workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
-                            ? [] : [purchase.external.workPerformedId]
+                        workPerformedIdentifiers: (external.workPerformedId === undefined)
+                            ? [] : [external.workPerformedId]
                     }
                 }));
             }).unsubscribe();
-            var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetPreScheduleDatesSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-            var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetPreScheduleDatesFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
+            var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetPreScheduleDatesSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+            var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetPreScheduleDatesFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () {
                 reject();
             }));
             Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
@@ -6682,7 +6803,7 @@ var PurchaseService = /** @class */ (function () {
      * スケジュール選択
      */
     PurchaseService.prototype.selectSchedule = function (screeningEvent) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].SelectSchedule({ screeningEvent: screeningEvent }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].SelectSchedule({ screeningEvent: screeningEvent }));
     };
     /**
      * 取引開始
@@ -6710,19 +6831,19 @@ var PurchaseService = /** @class */ (function () {
                                         { name: 'appVersion', value: (navigator && navigator.appVersion !== undefined) ? navigator.appVersion : '' }
                                     ]
                                 };
-                                var linyId = (purchase.external === undefined || purchase.external.linyId === undefined)
-                                    ? undefined : purchase.external.linyId;
+                                var external = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getExternalData"])();
+                                var linyId = (external.linyId === undefined) ? undefined : external.linyId;
                                 if (linyId !== undefined) {
                                     agent.identifier.push({ name: 'linyId', value: linyId });
                                 }
-                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].StartTransaction({
-                                    expires: moment__WEBPACK_IMPORTED_MODULE_4__(now).add(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
+                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].StartTransaction({
+                                    expires: moment__WEBPACK_IMPORTED_MODULE_4__(now).add(_this.environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                                     seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
                                     object: {},
                                     agent: agent
                                 }));
-                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.StartTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.StartTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.StartTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.StartTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                             })];
                 }
@@ -6748,9 +6869,9 @@ var PurchaseService = /** @class */ (function () {
                                         resolve();
                                         return [2 /*return*/];
                                     }
-                                    this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].CancelTransaction({ transaction: transaction }));
-                                    success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CancelTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                                    fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CancelTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                                    this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].CancelTransaction({ transaction: transaction }));
+                                    success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                                    fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
                                     Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                                     return [2 /*return*/];
                             }
@@ -6777,9 +6898,9 @@ var PurchaseService = /** @class */ (function () {
                                     reject();
                                     return;
                                 }
-                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].GetScreen({ screeningEvent: screeningEvent }));
-                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetScreenSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetScreenFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreen({ screeningEvent: screeningEvent }));
+                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreenSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreenFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                             })];
                 }
@@ -6804,9 +6925,9 @@ var PurchaseService = /** @class */ (function () {
                                     reject();
                                     return;
                                 }
-                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].GetScreeningEventOffers({ screeningEvent: screeningEvent }));
-                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetScreeningEventOffersSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetScreeningEventOffersFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreeningEventOffers({ screeningEvent: screeningEvent }));
+                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreeningEventOffersSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreeningEventOffersFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                             })];
                 }
@@ -6817,13 +6938,13 @@ var PurchaseService = /** @class */ (function () {
      * 座席選択
      */
     PurchaseService.prototype.selectSeats = function (seats) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].SelectSeats({ seats: seats }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].SelectSeats({ seats: seats }));
     };
     /**
      * 座席選択解除
      */
     PurchaseService.prototype.cancelSeats = function (seats) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].CancelSeats({ seats: seats }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].CancelSeats({ seats: seats }));
     };
     /**
      * 券種一覧取得
@@ -6844,9 +6965,9 @@ var PurchaseService = /** @class */ (function () {
                                     reject();
                                     return;
                                 }
-                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].GetTicketList({ screeningEvent: screeningEvent, seller: seller }));
-                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetTicketListSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.GetTicketListFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetTicketList({ screeningEvent: screeningEvent, seller: seller }));
+                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetTicketListSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetTicketListFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                             })];
                 }
@@ -6857,7 +6978,7 @@ var PurchaseService = /** @class */ (function () {
      * 券種選択
      */
     PurchaseService.prototype.selectTickets = function (reservations) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].SelectTickets({ reservations: reservations }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].SelectTickets({ reservations: reservations }));
     };
     /**
      * 座席仮予約
@@ -6875,7 +6996,7 @@ var PurchaseService = /** @class */ (function () {
                                 var transaction = purchase.transaction;
                                 var screeningEvent = purchase.screeningEvent;
                                 var reservations = purchase.reservations.map(function (reservation) {
-                                    return new _models__WEBPACK_IMPORTED_MODULE_8__["Reservation"]({
+                                    return new _models__WEBPACK_IMPORTED_MODULE_9__["Reservation"]({
                                         seat: reservation.seat,
                                         ticket: (reservation.ticket === undefined)
                                             ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
@@ -6888,14 +7009,14 @@ var PurchaseService = /** @class */ (function () {
                                     reject();
                                     return;
                                 }
-                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].TemporaryReservation({
+                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].TemporaryReservation({
                                     transaction: transaction,
                                     screeningEvent: screeningEvent,
                                     reservations: reservations,
                                     authorizeSeatReservation: authorizeSeatReservation
                                 }));
-                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.TemporaryReservationSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.TemporaryReservationFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                             })];
                 }
@@ -6922,14 +7043,14 @@ var PurchaseService = /** @class */ (function () {
                                     reject();
                                     return;
                                 }
-                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].TemporaryReservationFreeSeat({
+                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].TemporaryReservationFreeSeat({
                                     transaction: transaction,
                                     screeningEvent: screeningEvent,
                                     screeningEventOffers: screeningEventOffers,
                                     reservationTickets: reservationTickets
                                 }));
-                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                             })];
                 }
@@ -6944,9 +7065,9 @@ var PurchaseService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].CancelTemporaryReservations({ authorizeSeatReservations: authorizeSeatReservations }));
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CancelTemporaryReservationsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CancelTemporaryReservationsFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].CancelTemporaryReservations({ authorizeSeatReservations: authorizeSeatReservations }));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTemporaryReservationsSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CancelTemporaryReservationsFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     })];
             });
@@ -6956,18 +7077,18 @@ var PurchaseService = /** @class */ (function () {
      * クレジットカード登録
      */
     PurchaseService.prototype.registerCreditCard = function (creditCard) {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].RegisterCreditCard({ creditCard: creditCard }));
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].RegisterCreditCard({ creditCard: creditCard }));
     };
     /**
      * クレジットカード登録削除
      */
     PurchaseService.prototype.removeCreditCard = function () {
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].RemoveCreditCard());
+        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].RemoveCreditCard());
     };
     /**
      * 連絡先登録
      */
-    PurchaseService.prototype.registerContact = function (contact) {
+    PurchaseService.prototype.registerContact = function (profile) {
         return __awaiter(this, void 0, void 0, function () {
             var purchase;
             var _this = this;
@@ -6982,9 +7103,9 @@ var PurchaseService = /** @class */ (function () {
                                     reject();
                                     return;
                                 }
-                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].RegisterContact({ transaction: transaction, contact: contact }));
-                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.RegisterContactSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.RegisterContactFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].RegisterContact({ transaction: transaction, profile: profile }));
+                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.RegisterContactSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.RegisterContactFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                             })];
                 }
@@ -7008,7 +7129,7 @@ var PurchaseService = /** @class */ (function () {
                                     reject();
                                     return;
                                 }
-                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].AuthorizeCreditCard({
+                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].AuthorizeCreditCard({
                                     transaction: purchase.transaction,
                                     authorizeCreditCardPayment: purchase.authorizeCreditCardPayments[0],
                                     orderCount: purchase.orderCount,
@@ -7016,8 +7137,8 @@ var PurchaseService = /** @class */ (function () {
                                     method: '1',
                                     creditCard: purchase.creditCard
                                 }));
-                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeCreditCardSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeCreditCardFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeCreditCardSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeCreditCardFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                             })];
                 }
@@ -7042,15 +7163,15 @@ var PurchaseService = /** @class */ (function () {
                                     reject();
                                     return;
                                 }
-                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].AuthorizeMovieTicket({
+                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].AuthorizeMovieTicket({
                                     transaction: purchase.transaction,
                                     authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
                                     authorizeSeatReservations: purchase.authorizeSeatReservations,
                                     pendingMovieTickets: purchase.pendingMovieTickets,
                                     seller: purchase.seller
                                 }));
-                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.AuthorizeMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.AuthorizeMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                             })];
                 }
@@ -7079,7 +7200,7 @@ var PurchaseService = /** @class */ (function () {
                                     reject();
                                     return;
                                 }
-                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].CheckMovieTicket({
+                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].CheckMovieTicket({
                                     transaction: transaction,
                                     screeningEvent: screeningEvent,
                                     movieTickets: [{
@@ -7089,8 +7210,8 @@ var PurchaseService = /** @class */ (function () {
                                             accessCode: movieTicket.password // PINコード
                                         }]
                                 }));
-                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CheckMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CheckMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CheckMovieTicketSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CheckMovieTicketFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                             })];
                 }
@@ -7118,17 +7239,18 @@ var PurchaseService = /** @class */ (function () {
                                 var transaction = purchase.transaction;
                                 var authorizeSeatReservations = purchase.authorizeSeatReservations;
                                 var seller = purchase.seller;
-                                var linyId = (purchase.external === undefined || purchase.external.linyId === undefined)
-                                    ? undefined : purchase.external.linyId;
-                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].EndTransaction({
+                                var external = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getExternalData"])();
+                                var linyId = (external.linyId === undefined)
+                                    ? undefined : external.linyId;
+                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransaction({
                                     transaction: transaction,
                                     authorizeSeatReservations: authorizeSeatReservations,
                                     seller: seller,
                                     language: language,
                                     linyId: linyId
                                 }));
-                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.EndTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.EndTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.EndTransactionSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.EndTransactionFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                             })];
                 }
@@ -7149,21 +7271,14 @@ var PurchaseService = /** @class */ (function () {
                                 reject();
                                 return;
                             }
-                            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].CreateGmoTokenObject({ seller: seller, creditCard: creditCard }));
+                            _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].CreateGmoTokenObject({ seller: seller, creditCard: creditCard }));
                         }).unsubscribe();
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CreateGmoTokenObjectSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.CreateGmoTokenObjectFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CreateGmoTokenObjectSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.CreateGmoTokenObjectFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     })];
             });
         });
-    };
-    /**
-     * 外部連携情報設定
-     */
-    PurchaseService.prototype.setExternal = function (params) {
-        params.language = undefined;
-        this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].SetExternal(params));
     };
     /**
      * 外部連携情報を購入情報へ変換
@@ -7173,9 +7288,9 @@ var PurchaseService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ConvertExternalToPurchase({ eventId: eventId }));
-                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.ConvertExternalToPurchaseSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.ConvertExternalToPurchaseFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
+                        _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ConvertExternalToPurchase({ eventId: eventId }));
+                        var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.ConvertExternalToPurchaseSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
+                        var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.ConvertExternalToPurchaseFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                         Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                     })];
             });
@@ -7184,7 +7299,7 @@ var PurchaseService = /** @class */ (function () {
     PurchaseService.ctorParameters = function () { return [
         { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] },
         { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"] },
-        { type: _util_service__WEBPACK_IMPORTED_MODULE_11__["UtilService"] }
+        { type: _util_service__WEBPACK_IMPORTED_MODULE_12__["UtilService"] }
     ]; };
     PurchaseService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -7192,7 +7307,7 @@ var PurchaseService = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
             _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"],
-            _util_service__WEBPACK_IMPORTED_MODULE_11__["UtilService"]])
+            _util_service__WEBPACK_IMPORTED_MODULE_12__["UtilService"]])
     ], PurchaseService);
     return PurchaseService;
 }());
@@ -7862,9 +7977,7 @@ var UserService = /** @class */ (function () {
         this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateBaseSetting({
             seller: params.seller,
             pos: params.pos,
-            printer: params.printer,
-            isPurchaseCart: params.isPurchaseCart,
-            viewType: params.viewType
+            printer: params.printer
         }));
     };
     /**
@@ -8085,22 +8198,6 @@ var UtilService = /** @class */ (function () {
         });
     };
     /**
-     * 外部連携情報取得
-     */
-    UtilService.prototype.getExternal = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.http.post('/api/external', {}).toPromise()];
-                    case 1:
-                        result = _a.sent();
-                        return [2 /*return*/, result];
-                }
-            });
-        });
-    };
-    /**
      * json取得
      */
     UtilService.prototype.getJson = function (url, options) {
@@ -8144,42 +8241,6 @@ var UtilService = /** @class */ (function () {
                     case 1:
                         result = _a.sent();
                         return [2 /*return*/, result];
-                }
-            });
-        });
-    };
-    /**
-     * 暗号化
-     */
-    UtilService.prototype.encryptionEncode = function (encyptText) {
-        return __awaiter(this, void 0, void 0, function () {
-            var encryptedResult;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.http.post('/api/encryption/encode', { encyptText: encyptText }).toPromise()];
-                    case 1:
-                        encryptedResult = _a.sent();
-                        return [2 /*return*/, encryptedResult];
-                }
-            });
-        });
-    };
-    /**
-     * 復号化
-     */
-    UtilService.prototype.encryptionDecode = function (encryptedResult) {
-        return __awaiter(this, void 0, void 0, function () {
-            var decryptedResult;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.http.post('/api/encryption/decode', {
-                            salt: encryptedResult.salt,
-                            iv: encryptedResult.iv,
-                            encrypted: encryptedResult.encrypted
-                        }).toPromise()];
-                    case 1:
-                        decryptedResult = _a.sent();
-                        return [2 /*return*/, decryptedResult];
                 }
             });
         });
@@ -8608,7 +8669,7 @@ var OrderAuthorizeFail = /** @class */ (function () {
 /*!**********************************************!*\
   !*** ./app/store/actions/purchase.action.ts ***!
   \**********************************************/
-/*! exports provided: ActionTypes, Delete, UnsettledDelete, SelectScheduleDate, SelectSeller, GetPreScheduleDates, GetPreScheduleDatesSuccess, GetPreScheduleDatesFail, SelectSchedule, StartTransaction, StartTransactionSuccess, StartTransactionFail, CancelTransaction, CancelTransactionSuccess, CancelTransactionFail, GetScreen, GetScreenSuccess, GetScreenFail, GetScreeningEventOffers, GetScreeningEventOffersSuccess, GetScreeningEventOffersFail, SelectSeats, CancelSeats, SelectTickets, GetTicketList, GetTicketListSuccess, GetTicketListFail, TemporaryReservation, TemporaryReservationSuccess, TemporaryReservationFail, TemporaryReservationFreeSeat, TemporaryReservationFreeSeatSuccess, TemporaryReservationFreeSeatFail, CancelTemporaryReservations, CancelTemporaryReservationsSuccess, CancelTemporaryReservationsFail, RegisterCreditCard, RemoveCreditCard, RegisterContact, RegisterContactSuccess, RegisterContactFail, AuthorizeCreditCard, AuthorizeCreditCardSuccess, AuthorizeCreditCardFail, AuthorizeMovieTicket, AuthorizeMovieTicketSuccess, AuthorizeMovieTicketFail, CheckMovieTicket, CheckMovieTicketSuccess, CheckMovieTicketFail, EndTransaction, EndTransactionSuccess, EndTransactionFail, CreateGmoTokenObject, CreateGmoTokenObjectSuccess, CreateGmoTokenObjectFail, SetExternal, ConvertExternalToPurchase, ConvertExternalToPurchaseSuccess, ConvertExternalToPurchaseFail */
+/*! exports provided: ActionTypes, Delete, UnsettledDelete, SelectScheduleDate, SelectSeller, GetPreScheduleDates, GetPreScheduleDatesSuccess, GetPreScheduleDatesFail, SelectSchedule, StartTransaction, StartTransactionSuccess, StartTransactionFail, CancelTransaction, CancelTransactionSuccess, CancelTransactionFail, GetScreen, GetScreenSuccess, GetScreenFail, GetScreeningEventOffers, GetScreeningEventOffersSuccess, GetScreeningEventOffersFail, SelectSeats, CancelSeats, SelectTickets, GetTicketList, GetTicketListSuccess, GetTicketListFail, TemporaryReservation, TemporaryReservationSuccess, TemporaryReservationFail, TemporaryReservationFreeSeat, TemporaryReservationFreeSeatSuccess, TemporaryReservationFreeSeatFail, CancelTemporaryReservations, CancelTemporaryReservationsSuccess, CancelTemporaryReservationsFail, RegisterCreditCard, RemoveCreditCard, RegisterContact, RegisterContactSuccess, RegisterContactFail, AuthorizeCreditCard, AuthorizeCreditCardSuccess, AuthorizeCreditCardFail, AuthorizeMovieTicket, AuthorizeMovieTicketSuccess, AuthorizeMovieTicketFail, CheckMovieTicket, CheckMovieTicketSuccess, CheckMovieTicketFail, EndTransaction, EndTransactionSuccess, EndTransactionFail, CreateGmoTokenObject, CreateGmoTokenObjectSuccess, CreateGmoTokenObjectFail, ConvertExternalToPurchase, ConvertExternalToPurchaseSuccess, ConvertExternalToPurchaseFail */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8669,7 +8730,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateGmoTokenObject", function() { return CreateGmoTokenObject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateGmoTokenObjectSuccess", function() { return CreateGmoTokenObjectSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateGmoTokenObjectFail", function() { return CreateGmoTokenObjectFail; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetExternal", function() { return SetExternal; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConvertExternalToPurchase", function() { return ConvertExternalToPurchase; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConvertExternalToPurchaseSuccess", function() { return ConvertExternalToPurchaseSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConvertExternalToPurchaseFail", function() { return ConvertExternalToPurchaseFail; });
@@ -8736,7 +8796,6 @@ var ActionTypes;
     ActionTypes["CreateGmoTokenObject"] = "[Purchase] Create Gmo Token Object";
     ActionTypes["CreateGmoTokenObjectSuccess"] = "[Purchase] Create Gmo Token Object Success";
     ActionTypes["CreateGmoTokenObjectFail"] = "[Purchase] Create Gmo Token Object Fail";
-    ActionTypes["SetExternal"] = "[Purchase] Set External";
     ActionTypes["ConvertExternalToPurchase"] = "[Purchase] Convert External To Purchase";
     ActionTypes["ConvertExternalToPurchaseSuccess"] = "[Purchase] Convert External To Purchase Success";
     ActionTypes["ConvertExternalToPurchaseFail"] = "[Purchase] Convert External To Purchase Fail";
@@ -9344,17 +9403,6 @@ var CreateGmoTokenObjectFail = /** @class */ (function () {
         this.type = ActionTypes.CreateGmoTokenObjectFail;
     }
     return CreateGmoTokenObjectFail;
-}());
-
-/**
- * SetExternal
- */
-var SetExternal = /** @class */ (function () {
-    function SetExternal(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.SetExternal;
-    }
-    return SetExternal;
 }());
 
 /**
@@ -10081,7 +10129,7 @@ function main(reducer) {
  * Logger
  */
 function logger(newState, action) {
-    if (_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].production) {
+    if (Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().production) {
         return;
     }
     console.log('logger action', action);
@@ -10096,7 +10144,7 @@ function storageSync(state) {
         || Object.keys(state).length === 0) {
         return;
     }
-    window[_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].STORAGE_TYPE].setItem(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].STORAGE_NAME, JSON.stringify(state));
+    window[Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().STORAGE_TYPE].setItem(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().STORAGE_NAME, JSON.stringify(state));
 }
 /**
  * Meta reducer
@@ -10429,6 +10477,7 @@ var OrderEffects = /** @class */ (function () {
         this.utilService = utilService;
         this.starPrint = starPrint;
         this.translate = translate;
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
         /**
          * Cancel
          */
@@ -10480,8 +10529,8 @@ var OrderEffects = /** @class */ (function () {
                                                 ? undefined : this_1.translate.instant('email.order.return.about'),
                                             template: undefined
                                         };
-                                        if (!_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 3];
-                                        return [4 /*yield*/, this_1.utilService.getText("/storage/ejs/mail/return/" + payload.language + ".ejs")];
+                                        if (!this_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 3];
+                                        return [4 /*yield*/, this_1.utilService.getText(Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl + "/ejs/mail/return/" + payload.language + ".ejs")];
                                     case 2:
                                         view = _a.sent();
                                         template = window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_4__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"], getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"] });
@@ -10619,8 +10668,8 @@ var OrderEffects = /** @class */ (function () {
                                 ? '' : Object(_functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"])(payload.customer.telephone)
                         };
                         orderDateFrom = {
-                            value: _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_ORDER_DATE_FROM_VALUE,
-                            unit: _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].INQUIRY_ORDER_DATE_FROM_UNIT
+                            value: this.environment.INQUIRY_ORDER_DATE_FROM_VALUE,
+                            unit: this.environment.INQUIRY_ORDER_DATE_FROM_UNIT
                         };
                         params = {
                             confirmationNumber: confirmationNumber,
@@ -10700,7 +10749,7 @@ var OrderEffects = /** @class */ (function () {
                     case 4:
                         _i++;
                         return [3 /*break*/, 2];
-                    case 5: return [4 /*yield*/, this.utilService.getJson('/storage/json/print/ticket.json')];
+                    case 5: return [4 /*yield*/, this.utilService.getJson(Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl + "/json/print/ticket.json")];
                     case 6:
                         printData = _c.sent();
                         testFlg = orders.length === 0;
@@ -10719,7 +10768,7 @@ var OrderEffects = /** @class */ (function () {
                                     case 0:
                                         index = 0;
                                         _loop_4 = function (acceptedOffer) {
-                                            var itemOffered, order, qrcode, additionalProperty, isDisplayQrcode, encyptText, encryptionEncodeResult, canvas;
+                                            var itemOffered, order, qrcode, additionalProperty, isDisplayQrcode, canvas;
                                             return __generator(this, function (_a) {
                                                 switch (_a.label) {
                                                     case 0:
@@ -10737,20 +10786,10 @@ var OrderEffects = /** @class */ (function () {
                                                                 qrcode = undefined;
                                                             }
                                                         }
-                                                        if (!(qrcode !== undefined
-                                                            && _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Encryption)) return [3 /*break*/, 2];
-                                                        encyptText = itemOffered.reservationFor.id + "=" + itemOffered.reservationFor.startDate;
-                                                        return [4 /*yield*/, this_2.utilService.encryptionEncode(encyptText)];
-                                                    case 1:
-                                                        encryptionEncodeResult = _a.sent();
-                                                        qrcode =
-                                                            encryptionEncodeResult.salt + "," + encryptionEncodeResult.iv + "," + encryptionEncodeResult.encrypted;
-                                                        _a.label = 2;
-                                                    case 2:
                                                         if (qrcode !== undefined
-                                                            && _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Custom) {
+                                                            && this_2.environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Custom) {
                                                             // QRコードカスタム文字列
-                                                            qrcode = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].PRINT_QRCODE_CUSTOM;
+                                                            qrcode = this_2.environment.PRINT_QRCODE_CUSTOM;
                                                             qrcode = qrcode
                                                                 .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_4__(order.orderDate).format('YYMMDD'));
                                                             qrcode = qrcode
@@ -10773,7 +10812,7 @@ var OrderEffects = /** @class */ (function () {
                                                                 .replace(/\{\{ startDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_4__(itemOffered.reservationFor.startDate).format('YYMMDD'));
                                                         }
                                                         return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_7__["createPrintCanvas"])({ printData: printData, order: order, acceptedOffer: acceptedOffer, pos: pos, qrcode: qrcode, index: index })];
-                                                    case 3:
+                                                    case 1:
                                                         canvas = _a.sent();
                                                         canvasList.push(canvas);
                                                         index++;
@@ -11013,6 +11052,7 @@ var PurchaseEffects = /** @class */ (function () {
         this.http = http;
         this.utilService = utilService;
         this.translate = translate;
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
         /**
          * GetPreScheduleDates
          */
@@ -11040,7 +11080,7 @@ var PurchaseEffects = /** @class */ (function () {
                                 typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.eventType.ScreeningEvent,
                                 eventStatuses: [_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.eventStatusType.EventScheduled],
                                 superEvent: payload.superEvent,
-                                startFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].PURCHASE_PRE_SCHEDULE_DATE, 'days').toDate(),
+                                startFrom: moment__WEBPACK_IMPORTED_MODULE_5__(today).add(this.environment.PURCHASE_PRE_SCHEDULE_DATE, 'days').toDate(),
                                 offers: {
                                     validFrom: now,
                                     validThrough: now,
@@ -11136,7 +11176,7 @@ var PurchaseEffects = /** @class */ (function () {
          * getScreen
          */
         this.getScreen = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreen), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var screeningEventOffers, theaterCode, screenCode, screen_1, setting, screenData, error_4;
+            var screeningEventOffers, theaterCode, screenCode, screen_1, objects, setting, screenData, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -11151,10 +11191,14 @@ var PurchaseEffects = /** @class */ (function () {
                         screeningEventOffers = _a.sent();
                         theaterCode = payload.screeningEvent.superEvent.location.branchCode;
                         screenCode = ("000" + payload.screeningEvent.location.branchCode).slice(-3);
-                        return [4 /*yield*/, this.http.get("/storage/json/theater/" + theaterCode + "/" + screenCode + ".json").toPromise()];
+                        return [4 /*yield*/, this.http.get(Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getProject"])().storageUrl + "/json/theater/" + theaterCode + "/" + screenCode + ".json").toPromise()];
                     case 3:
                         screen_1 = _a.sent();
-                        return [4 /*yield*/, this.http.get('/storage/json/theater/setting.json').toPromise()];
+                        objects = screen_1.objects.map(function (o) {
+                            return __assign({}, o, { image: o.image.replace('/storage', Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getProject"])().storageUrl) });
+                        });
+                        screen_1.objects = objects;
+                        return [4 /*yield*/, this.http.get(Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getProject"])().storageUrl + "/json/theater/setting.json").toPromise()];
                     case 4:
                         setting = _a.sent();
                         screenData = Object.assign(setting, screen_1);
@@ -11412,28 +11456,26 @@ var PurchaseEffects = /** @class */ (function () {
          * registerContact
          */
         this.registerContact = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.RegisterContact), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, contact, customerContact, error_10;
+            var transaction, profile, error_10;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
                         transaction = payload.transaction;
-                        contact = payload.contact;
-                        if (contact.telephone !== undefined) {
-                            contact.telephone = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"])(contact.telephone);
+                        profile = payload.profile;
+                        if (profile.telephone !== undefined) {
+                            profile.telephone = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"])(profile.telephone);
                         }
                         return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.setCustomerContact({
+                        return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.setProfile({
                                 id: transaction.id,
-                                object: {
-                                    customerContact: contact
-                                }
+                                agent: profile
                             })];
                     case 2:
-                        customerContact = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].RegisterContactSuccess({ customerContact: customerContact })];
+                        _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].RegisterContactSuccess({ profile: profile })];
                     case 3:
                         error_10 = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].RegisterContactFail({ error: error_10 })];
@@ -11689,8 +11731,8 @@ var PurchaseEffects = /** @class */ (function () {
                                 template: undefined
                             }
                         };
-                        if (!(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined)) return [3 /*break*/, 4];
-                        return [4 /*yield*/, this.utilService.getText("/storage/ejs/mail/complete/" + payload.language + ".ejs")];
+                        if (!(this.environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined)) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.utilService.getText(Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getProject"])().storageUrl + "/ejs/mail/complete/" + payload.language + ".ejs")];
                     case 3:
                         view = _a.sent();
                         params.email.template = window.ejs.render(view, {
@@ -11705,7 +11747,7 @@ var PurchaseEffects = /** @class */ (function () {
                     case 5:
                         result = _a.sent();
                         order = result.order;
-                        if (_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].ANALYTICS_ID !== '') {
+                        if (this.environment.ANALYTICS_ID !== '') {
                             // アナリティクス連携
                             try {
                                 sendData = {
@@ -11725,7 +11767,7 @@ var PurchaseEffects = /** @class */ (function () {
                         _a.label = 6;
                     case 6:
                         _a.trys.push([6, 9, , 10]);
-                        return [4 /*yield*/, this.utilService.getText("/storage/ejs/liny/complete/" + payload.language + ".ejs")];
+                        return [4 /*yield*/, this.utilService.getText(Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getProject"])().storageUrl + "/ejs/liny/complete/" + payload.language + ".ejs")];
                     case 7:
                         view = _a.sent();
                         template = window.ejs.render(view, {
@@ -12282,7 +12324,7 @@ var UserEffects = /** @class */ (function () {
                     case 2:
                         _a.sent();
                         return [4 /*yield*/, this.cinerino.transaction.moneyTransfer.start({
-                                project: { typeOf: 'Project', id: payload.seller.project.id },
+                                project: { typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].organizationType.Project, id: payload.seller.project.id },
                                 expires: moment__WEBPACK_IMPORTED_MODULE_3__().add(1, 'minutes').toDate(),
                                 agent: {
                                     typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].personType.Person,
@@ -12636,7 +12678,7 @@ function reducer(state, action) {
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Print: {
-            return __assign({}, state, { loading: _environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].PRINT_LOADING, process: 'orderAction.Print' });
+            return __assign({}, state, { loading: Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().PRINT_LOADING, process: 'orderAction.Print' });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.PrintSuccess: {
             return __assign({}, state, { loading: false, process: '', error: null });
@@ -12771,7 +12813,7 @@ function reducer(state, action) {
             state.purchaseData.authorizeMovieTicketPayments = [];
             state.purchaseData.checkMovieTicketActions = [];
             state.purchaseData.pendingMovieTickets = [];
-            state.purchaseData.customerContact = undefined;
+            state.purchaseData.profile = undefined;
             return __assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.StartTransactionFail: {
@@ -12789,7 +12831,7 @@ function reducer(state, action) {
             state.purchaseData.authorizeMovieTicketPayments = [];
             state.purchaseData.checkMovieTicketActions = [];
             state.purchaseData.pendingMovieTickets = [];
-            state.purchaseData.customerContact = undefined;
+            state.purchaseData.profile = undefined;
             return __assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.CancelTransactionFail: {
@@ -12801,7 +12843,7 @@ function reducer(state, action) {
             state.purchaseData.authorizeMovieTicketPayments = [];
             state.purchaseData.checkMovieTicketActions = [];
             state.purchaseData.pendingMovieTickets = [];
-            state.purchaseData.customerContact = undefined;
+            state.purchaseData.profile = undefined;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.GetScreen: {
@@ -12899,49 +12941,47 @@ function reducer(state, action) {
             var reservations = state.purchaseData.reservations;
             state.purchaseData.authorizeSeatReservation = addAuthorizeSeatReservation;
             state.purchaseData.screeningEventOffers = [];
-            var filterResult = reservations.filter(function (reservation) { return reservation.ticket === undefined; });
-            if (filterResult.length === 0) {
-                if (removeAuthorizeSeatReservation_1 !== undefined) {
-                    // 削除
-                    var findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(function (target) { return target.id === removeAuthorizeSeatReservation_1.id; });
-                    if (findAuthorizeSeatReservation > -1) {
-                        state.purchaseData.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
-                    }
-                    var findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(function (target) { return target.id === removeAuthorizeSeatReservation_1.id; });
-                    if (findPendingMovieTicket > -1) {
-                        state.purchaseData.pendingMovieTickets.splice(findPendingMovieTicket, 1);
-                    }
+            if (removeAuthorizeSeatReservation_1 !== undefined) {
+                // 削除
+                var findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(function (target) { return target.id === removeAuthorizeSeatReservation_1.id; });
+                if (findAuthorizeSeatReservation > -1) {
+                    state.purchaseData.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
                 }
-                // 追加
-                state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
-                var movieTicketReservations = reservations.filter(function (r) { return r.ticket !== undefined && r.ticket.movieTicket !== undefined; });
-                if (movieTicketReservations.length > 0) {
-                    var pendingReservations_1 = addAuthorizeSeatReservation.result.responseBody.object.reservations;
-                    state.purchaseData.pendingMovieTickets.push({
-                        id: addAuthorizeSeatReservation.id,
-                        movieTickets: movieTicketReservations.map(function (r) {
-                            var pendingReservation = pendingReservations_1.find(function (p) {
-                                return (p.reservedTicket.ticketedSeat !== undefined
-                                    && p.reservedTicket.ticketedSeat.seatNumber === r.seat.seatNumber
-                                    && p.reservedTicket.ticketedSeat.seatSection === r.seat.seatSection);
-                            });
-                            if (pendingReservation === undefined
-                                || pendingReservation.reservedTicket.ticketedSeat === undefined) {
-                                throw new Error('pendingReservation is undefined');
-                            }
-                            var movieTicket = r.ticket.movieTicket;
-                            movieTicket.serviceOutput = {
-                                reservationFor: {
-                                    typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.eventType.ScreeningEvent,
-                                    id: pendingReservation.reservationFor.id
-                                },
-                                reservedTicket: { ticketedSeat: pendingReservation.reservedTicket.ticketedSeat }
-                            };
-                            return movieTicket;
-                        })
-                    });
+                var findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(function (target) { return target.id === removeAuthorizeSeatReservation_1.id; });
+                if (findPendingMovieTicket > -1) {
+                    state.purchaseData.pendingMovieTickets.splice(findPendingMovieTicket, 1);
                 }
             }
+            // 追加
+            state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
+            var movieTicketReservations = reservations.filter(function (r) { return r.ticket !== undefined && r.ticket.movieTicket !== undefined; });
+            if (movieTicketReservations.length > 0) {
+                var pendingReservations_1 = addAuthorizeSeatReservation.result.responseBody.object.reservations;
+                state.purchaseData.pendingMovieTickets.push({
+                    id: addAuthorizeSeatReservation.id,
+                    movieTickets: movieTicketReservations.map(function (r) {
+                        var pendingReservation = pendingReservations_1.find(function (p) {
+                            return (p.reservedTicket.ticketedSeat !== undefined
+                                && p.reservedTicket.ticketedSeat.seatNumber === r.seat.seatNumber
+                                && p.reservedTicket.ticketedSeat.seatSection === r.seat.seatSection);
+                        });
+                        if (pendingReservation === undefined
+                            || pendingReservation.reservedTicket.ticketedSeat === undefined) {
+                            throw new Error('pendingReservation is undefined');
+                        }
+                        var movieTicket = r.ticket.movieTicket;
+                        movieTicket.serviceOutput = {
+                            reservationFor: {
+                                typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.eventType.ScreeningEvent,
+                                id: pendingReservation.reservationFor.id
+                            },
+                            reservedTicket: { ticketedSeat: pendingReservation.reservedTicket.ticketedSeat }
+                        };
+                        return movieTicket;
+                    })
+                });
+            }
+            console.log('追加済み', state.purchaseData.authorizeSeatReservations);
             return __assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.TemporaryReservationFail: {
@@ -12997,8 +13037,8 @@ function reducer(state, action) {
             return __assign({}, state, { loading: true, process: 'purchaseAction.RegisterContact' });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.RegisterContactSuccess: {
-            var customerContact = action.payload.customerContact;
-            state.purchaseData.customerContact = customerContact;
+            var profile = action.payload.profile;
+            state.purchaseData.profile = profile;
             return __assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.RegisterContactFail: {
@@ -13091,10 +13131,6 @@ function reducer(state, action) {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.SetExternal: {
-            state.purchaseData.external = action.payload;
-            return __assign({}, state);
-        }
         case _actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].ActionTypes.ConvertExternalToPurchase: {
             return __assign({}, state, { loading: true, process: 'purchaseAction.ConvertExternalToPurchase' });
         }
@@ -13177,7 +13213,7 @@ var initialState = {
     orderData: _order_reducer__WEBPACK_IMPORTED_MODULE_3__["orderInitialState"]
 };
 function getInitialState() {
-    var json = window[_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].STORAGE_TYPE].getItem(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].STORAGE_NAME);
+    var json = window[Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().STORAGE_TYPE].getItem(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])().STORAGE_NAME);
     if (json === undefined || json === null) {
         return initialState;
     }
@@ -13239,8 +13275,7 @@ var getOrder = function (state) { return state.orderData; };
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userInitialState", function() { return userInitialState; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reducer", function() { return reducer; });
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -13256,12 +13291,9 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 
-
 var userInitialState = {
     isMember: false,
     language: 'ja',
-    isPurchaseCart: _environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].PURCHASE_CART,
-    viewType: _environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].VIEW_TYPE,
     creditCards: [],
     accounts: []
 };
@@ -13272,135 +13304,133 @@ var userInitialState = {
  */
 function reducer(state, action) {
     switch (action.type) {
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.Delete: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.Delete: {
             state.userData.isMember = false;
             state.userData.profile = undefined;
             state.userData.accounts = [];
             state.userData.creditCards = [];
             return __assign({}, state, { loading: false });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.Initialize: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.Initialize: {
             state.userData.isMember = true;
             return __assign({}, state, { loading: false });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetProfile: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.GetProfile: {
             return __assign({}, state, { loading: true, process: 'userAction.GetProfile' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetProfileSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.GetProfileSuccess: {
             state.userData.profile = action.payload.profile;
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetProfileFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.GetProfileFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetAccount: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.GetAccount: {
             return __assign({}, state, { loading: true, process: 'userAction.GetAccount' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetAccountSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.GetAccountSuccess: {
             state.userData.accounts = action.payload.accounts;
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetAccountFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.GetAccountFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.OpenAccount: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.OpenAccount: {
             return __assign({}, state, { loading: true, process: 'userAction.OpenAccount' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.OpenAccountSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.OpenAccountSuccess: {
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.OpenAccountFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.OpenAccountFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.CloseAccount: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.CloseAccount: {
             return __assign({}, state, { loading: true, process: 'userAction.CloseAccount' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.CloseAccountSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.CloseAccountSuccess: {
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.CloseAccountFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.CloseAccountFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.UpdateLanguage: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.UpdateLanguage: {
             state.userData.language = action.payload.language;
             return __assign({}, state);
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.UpdateProfile: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.UpdateProfile: {
             return __assign({}, state, { loading: true, process: 'userAction.UpdateProfile' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.UpdateProfileSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.UpdateProfileSuccess: {
             state.userData.profile = action.payload.profile;
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.UpdateProfileFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.UpdateProfileFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetCreditCards: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.GetCreditCards: {
             return __assign({}, state, { loading: true, process: 'userAction.GetCreditCards' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetCreditCardsSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.GetCreditCardsSuccess: {
             var creditCards = action.payload.creditCards;
             state.userData.creditCards = creditCards;
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.GetCreditCardsFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.GetCreditCardsFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.AddCreditCard: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.AddCreditCard: {
             return __assign({}, state, { loading: true, process: 'userAction.AddCreditCard' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.AddCreditCardSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.AddCreditCardSuccess: {
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.AddCreditCardFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.AddCreditCardFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.RemoveCreditCard: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.RemoveCreditCard: {
             return __assign({}, state, { loading: true, process: 'userAction.RemoveCreditCard' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.RemoveCreditCardSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.RemoveCreditCardSuccess: {
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.RemoveCreditCardFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.RemoveCreditCardFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.ChargeAccount: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.ChargeAccount: {
             return __assign({}, state, { loading: true, process: 'userAction.ChargeAccount' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.ChargeAccountSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.ChargeAccountSuccess: {
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.ChargeAccountFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.ChargeAccountFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.TransferAccount: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.TransferAccount: {
             return __assign({}, state, { loading: true, process: 'userAction.TransferAccount' });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.TransferAccountSuccess: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.TransferAccountSuccess: {
             return __assign({}, state, { loading: false, process: '', error: null });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.TransferAccountFail: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.TransferAccountFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.UpdateBaseSetting: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.UpdateBaseSetting: {
             state.userData.seller = action.payload.seller;
             state.userData.pos = action.payload.pos;
             state.userData.printer = action.payload.printer;
-            state.userData.isPurchaseCart = action.payload.isPurchaseCart;
-            state.userData.viewType = action.payload.viewType;
             return __assign({}, state);
         }
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].ActionTypes.SetVersion: {
+        case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.SetVersion: {
             state.userData.version = action.payload.version;
             return __assign({}, state);
         }
@@ -13469,12 +13499,23 @@ function reducer(state, action) {
 /*!*************************************!*\
   !*** ./environments/environment.ts ***!
   \*************************************/
-/*! exports provided: environment */
+/*! exports provided: getEnvironment */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEnvironment", function() { return getEnvironment; });
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13532,7 +13573,9 @@ var defaultEnvironment = {
     PRINT_LOADING: true,
     SETTING_DEVELOP_OPTION: false
 };
-var environment = Object.assign(defaultEnvironment, window.environment);
+function getEnvironment() {
+    return __assign({}, defaultEnvironment, window.environment, { production: (document.querySelector('body.production') !== null) });
+}
 
 
 /***/ }),
@@ -13548,14 +13591,61 @@ var environment = Object.assign(defaultEnvironment, window.environment);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "../../node_modules/@angular/platform-browser-dynamic/fesm5/platform-browser-dynamic.js");
-/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app/app.module */ "./app/app.module.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./environments/environment */ "./environments/environment.ts");
-/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment-timezone */ "../../node_modules/moment-timezone/index.js");
-/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "../../node_modules/ngx-bootstrap/chronos/fesm5/ngx-bootstrap-chronos.js");
-/* harmony import */ var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap/locale */ "../../node_modules/ngx-bootstrap/locale/fesm5/ngx-bootstrap-locale.js");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! hammerjs */ "../../node_modules/hammerjs/hammer.js");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hammerjs */ "../../node_modules/hammerjs/hammer.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment-timezone */ "../../node_modules/moment-timezone/index.js");
+/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "../../node_modules/ngx-bootstrap/chronos/fesm5/ngx-bootstrap-chronos.js");
+/* harmony import */ var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/locale */ "../../node_modules/ngx-bootstrap/locale/fesm5/ngx-bootstrap-locale.js");
+/* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app/app.module */ "./app/app.module.ts");
+/* harmony import */ var _app_functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app/functions */ "./app/functions/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./environments/environment */ "./environments/environment.ts");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13566,26 +13656,135 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-/**
- * タイムゾーン設定
- */
-
-moment_timezone__WEBPACK_IMPORTED_MODULE_4__["tz"].setDefault('Asia/Tokyo');
-moment_timezone__WEBPACK_IMPORTED_MODULE_4__["locale"]('ja');
-/**
- * 言語設定
- */
 
 
-Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_5__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_6__["jaLocale"]);
-/**
- * タッチイベント対応
- */
 
-if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].production) {
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
+
+
+function main() {
+    return __awaiter(this, void 0, void 0, function () {
+        var params, project;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    // タイムゾーン設定
+                    moment_timezone__WEBPACK_IMPORTED_MODULE_3__["tz"].setDefault('Asia/Tokyo');
+                    moment_timezone__WEBPACK_IMPORTED_MODULE_3__["locale"]('ja');
+                    // 言語設定
+                    Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__["jaLocale"]);
+                    params = Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getParameter"])();
+                    if (location.hash === '') {
+                        sessionStorage.setItem('EXTERNAL', JSON.stringify(__assign({}, params, { project: undefined })));
+                    }
+                    project = (params.project === undefined)
+                        ? (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName === '') ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectName
+                        : params.project;
+                    return [4 /*yield*/, setProject({ project: project })];
+                case 1:
+                    _a.sent();
+                    if (Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl === undefined) {
+                        return [2 /*return*/];
+                    }
+                    return [4 /*yield*/, setProjectConfig(Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl)];
+                case 2:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    });
 }
-Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"]);
+/**
+ * プロジェクト情報設定
+ */
+function setProject(params) {
+    return __awaiter(this, void 0, void 0, function () {
+        var fetchResult, json;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch('/api/project', {
+                        method: 'POST',
+                        cache: 'no-cache',
+                        headers: {
+                            'Content-Type': 'application/json; charset=utf-8'
+                        },
+                        body: JSON.stringify(params)
+                    })];
+                case 1:
+                    fetchResult = _a.sent();
+                    if (!fetchResult.ok) {
+                        throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
+                    }
+                    return [4 /*yield*/, fetchResult.json()];
+                case 2:
+                    json = _a.sent();
+                    sessionStorage.setItem('PROJECT', JSON.stringify(json));
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+/**
+ * プロジェクトごとのアプリケーション設定
+ */
+function setProjectConfig(storageUrl) {
+    return __awaiter(this, void 0, void 0, function () {
+        var fetchResult, _a, _b, environment, style, favicon;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0: return [4 /*yield*/, fetch(storageUrl + "/js/environment.js?=date" + moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString(), {
+                        method: 'GET',
+                        cache: 'no-cache',
+                        headers: { 'Content-Type': 'application/json; charset=utf-8' }
+                    })];
+                case 1:
+                    fetchResult = _c.sent();
+                    if (!fetchResult.ok) {
+                        throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
+                    }
+                    if (fetchResult.body === null) {
+                        throw new Error('fetchResult.body null');
+                    }
+                    _b = (_a = window).eval;
+                    return [4 /*yield*/, Object(_app_functions__WEBPACK_IMPORTED_MODULE_7__["streamingDownload"])(fetchResult.body)];
+                case 2:
+                    _b.apply(_a, [_c.sent()]);
+                    environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
+                    style = document.createElement('link');
+                    style.rel = 'stylesheet';
+                    style.href = storageUrl + "/css/style.css?=date" + moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString();
+                    document.head.appendChild(style);
+                    favicon = document.createElement('link');
+                    favicon.rel = 'icon';
+                    favicon.type = 'image/x-icon"';
+                    favicon.href = storageUrl + "/favicon.ico";
+                    document.head.appendChild(favicon);
+                    // タイトル設定
+                    document.title = environment.APP_TITLE;
+                    // GTM設定
+                    if (environment.GTM_ID) {
+                        (function (w, d, s, l, i) {
+                            w[l] = w[l] || [];
+                            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                            var f = d.getElementsByTagName(s)[0];
+                            var j = d.createElement(s), dl = l !== 'dataLayer' ? '&l=' + l : '';
+                            j.async = true;
+                            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                            f.parentNode.insertBefore(j, f);
+                        })(window, document, 'script', 'dataLayer', environment.GTM_ID);
+                    }
+                    if (environment.production) {
+                        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+main().then(function () {
+    Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_6__["AppModule"]);
+}).catch(function (error) {
+    console.error(error);
+});
 
 
 /***/ }),

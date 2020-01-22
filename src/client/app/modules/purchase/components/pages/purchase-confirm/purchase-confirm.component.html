@@ -57,20 +57,20 @@
             <div class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.customerName' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async).customerContact.familyName }} {{ (purchase |
-                        async).customerContact.givenName }}</p>
+                    <p class="col-md-8">{{ (purchase | async).profile.familyName }} {{ (purchase |
+                        async).profile.givenName }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.email' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async).customerContact.email }}</p>
+                    <p class="col-md-8">{{ (purchase | async).profile.email }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.telephone' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async).customerContact.telephone | libphonenumberFormat }}</p>
+                    <p class="col-md-8">{{ (purchase | async).profile.telephone | libphonenumberFormat }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray" *ngIf="amount > 0">

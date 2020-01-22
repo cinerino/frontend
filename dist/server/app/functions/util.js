@@ -117,3 +117,11 @@ function base64Decode(str) {
     return new Buffer(str, 'base64').toString();
 }
 exports.base64Decode = base64Decode;
+/**
+ * プロジェクト情報取得
+ */
+function getProject(project) {
+    const projects = JSON.parse(process.env.PROJECTS);
+    return projects.find(p => p.PROJECT_NAME === project);
+}
+exports.getProject = getProject;

@@ -1,7 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { IState } from '.';
-import { environment } from '../../../environments/environment';
-import { IPrinter, ViewType } from '../../models';
+import { IPrinter } from '../../models';
 import { userAction } from '../actions';
 
 export interface IUserState {
@@ -30,14 +29,6 @@ export interface IUserState {
      */
     language: string;
     /**
-     * 購入カート使用
-     */
-    isPurchaseCart: boolean;
-    /**
-     * 表示形式
-     */
-    viewType: ViewType;
-    /**
      * 販売者情報
      */
     seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
@@ -58,8 +49,6 @@ export interface IUserState {
 export const userInitialState: IUserState = {
     isMember: false,
     language: 'ja',
-    isPurchaseCart: environment.PURCHASE_CART,
-    viewType: (<ViewType>environment.VIEW_TYPE),
     creditCards: [],
     accounts: []
 };
@@ -194,8 +183,6 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             state.userData.seller = action.payload.seller;
             state.userData.pos = action.payload.pos;
             state.userData.printer = action.payload.printer;
-            state.userData.isPurchaseCart = action.payload.isPurchaseCart;
-            state.userData.viewType = action.payload.viewType;
             return { ...state };
         }
         case userAction.ActionTypes.SetVersion: {

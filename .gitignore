@@ -44,10 +44,8 @@ Thumbs.db
 /bk/node_modules
 *.bat
 .env.bat
-.env2.bat
-.prod.bat
-dist/server/public/entrance/
-public/
-.oyatsu.bat
+public/projects
+private/
+old/
 dist/client/production/stats.json
 dist/client/production/stats-es2015.json

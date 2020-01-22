@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { OrderService, PurchaseService, UserService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -13,6 +13,7 @@ import * as reducers from '../../../../../store/reducers';
 })
 export class AuthSigninComponent implements OnInit {
     public process: Observable<string>;
+    public environment = getEnvironment();
 
     constructor(
         private router: Router,
@@ -36,7 +37,7 @@ export class AuthSigninComponent implements OnInit {
             await this.userService.getProfile();
             await this.userService.getCreditCards();
             await this.userService.getAccount();
-            this.router.navigate([environment.BASE_URL]);
+            this.router.navigate([this.environment.BASE_URL]);
         } catch (error) {
             this.router.navigate(['/error']);
         }

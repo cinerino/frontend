@@ -62,7 +62,6 @@ export enum ActionTypes {
     CreateGmoTokenObject = '[Purchase] Create Gmo Token Object',
     CreateGmoTokenObjectSuccess = '[Purchase] Create Gmo Token Object Success',
     CreateGmoTokenObjectFail = '[Purchase] Create Gmo Token Object Fail',
-    SetExternal = '[Purchase] Set External',
     ConvertExternalToPurchase = '[Purchase] Convert External To Purchase',
     ConvertExternalToPurchaseSuccess = '[Purchase] Convert External To Purchase Success',
     ConvertExternalToPurchaseFail = '[Purchase] Convert External To Purchase Fail',
@@ -431,7 +430,7 @@ export class RegisterContact implements Action {
     public readonly type = ActionTypes.RegisterContact;
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
-        contact: factory.transaction.placeOrder.ICustomerProfile;
+        profile: factory.person.IProfile;
     }) { }
 }
 
@@ -440,7 +439,7 @@ export class RegisterContact implements Action {
  */
 export class RegisterContactSuccess implements Action {
     public readonly type = ActionTypes.RegisterContactSuccess;
-    constructor(public payload: { customerContact: factory.transaction.placeOrder.ICustomerProfile }) { }
+    constructor(public payload: { profile: factory.person.IProfile }) { }
 }
 
 /**
@@ -615,22 +614,6 @@ export class CreateGmoTokenObjectFail implements Action {
 }
 
 /**
- * SetExternal
- */
-export class SetExternal implements Action {
-    public readonly type = ActionTypes.SetExternal;
-    constructor(public payload: {
-        theaterBranchCode?: string;
-        superEventId?: string;
-        eventId?: string;
-        workPerformedId?: string;
-        passportToken?: string;
-        scheduleDate?: string;
-        linyId?: string;
-    }) { }
-}
-
-/**
  * ConvertExternalToPurchase
  */
 export class ConvertExternalToPurchase implements Action {
@@ -717,7 +700,6 @@ export type Actions =
     | CreateGmoTokenObject
     | CreateGmoTokenObjectSuccess
     | CreateGmoTokenObjectFail
-    | SetExternal
     | ConvertExternalToPurchase
     | ConvertExternalToPurchaseSuccess
     | ConvertExternalToPurchaseFail;

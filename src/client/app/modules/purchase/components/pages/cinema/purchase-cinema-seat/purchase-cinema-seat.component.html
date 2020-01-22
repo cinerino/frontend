@@ -19,9 +19,9 @@
     <div class="buttons mx-auto text-center">
         <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="onSubmit()">{{ 'purchase.cinema.seat.next' | translate }}</button>
-        <button *ngIf="!(purchase | async).external?.eventId" type="button" class="btn btn-link"
+        <button *ngIf="!external.eventId" type="button" class="btn btn-link"
             routerLink="/purchase/cinema/schedule">{{ 'purchase.cinema.seat.prev' | translate }}</button>
-        <a *ngIf="(purchase | async).external?.eventId" class="btn btn-link"
+        <a *ngIf="external.eventId" class="btn btn-link"
             [href]="(purchase | async).seller.url">{{ 'purchase.cinema.seat.prev' | translate }}</a>
     </div>
 
