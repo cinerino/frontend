@@ -7,9 +7,7 @@ import 'hammerjs';
 import * as momentTimezone from 'moment-timezone';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { jaLocale } from 'ngx-bootstrap/locale';
-import { AppModule } from './app/app.module';
-import { getParameter, getProject, streamingDownload } from './app/functions';
-import { getEnvironment } from './environments/environment';
+import { getParameter, getProject } from './app/functions';
 
 async function main() {
     // タイムゾーン設定
@@ -77,8 +75,8 @@ async function setProjectConfig(storageUrl: string) {
     if (fetchResult.body === null) {
         throw new Error('fetchResult.body null');
     }
-    (<any>window).eval(await streamingDownload(fetchResult.body));
-    const environment = getEnvironment();
+    (<any>window).eval(await fetchResult.text());
+    const { environment } = await import('./environments/environment');
     // スタイル設定
     const style = document.createElement('link');
     style.rel = 'stylesheet';
@@ -110,9 +108,11 @@ async function setProjectConfig(storageUrl: string) {
 }
 
 
-main().then(() => {
+main().then(async () => {
+    const { AppModule } = await import('./app/app.module');
     platformBrowserDynamic().bootstrapModule(AppModule);
 }).catch((error) => {
+    location.href = '/404.html';
     console.error(error);
 });
 

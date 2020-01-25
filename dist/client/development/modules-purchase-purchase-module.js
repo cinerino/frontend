@@ -48,7 +48,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.seat.read' | translate\"></p>\n\n    <app-screen *ngIf=\"(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0\" class=\"mb-4\"\n        [screenData]=\"(purchase | async).screenData\" (select)=\"selectSeat($event)\">\n    </app-screen>\n\n    <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.seat.next' | translate }}</button>\n        <button *ngIf=\"!external.eventId\" type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/schedule\">{{ 'purchase.cinema.seat.prev' | translate }}</button>\n        <a *ngIf=\"external.eventId\" class=\"btn btn-link\"\n            [href]=\"(purchase | async).seller.url\">{{ 'purchase.cinema.seat.prev' | translate }}</a>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.seat.read' | translate\"></p>\n    <div class=\"row\">\n        <div class=\"col-md-9\">\n            <app-screen *ngIf=\"(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0\"\n                class=\"mb-4\" [screenData]=\"(purchase | async).screenData\" (select)=\"selectSeat($event)\">\n            </app-screen>\n        </div>\n        <div class=\"col-md-3\">\n            <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n        </div>\n    </div>\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.seat.next' | translate }}</button>\n        <button *ngIf=\"!external.eventId\" type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/schedule\">{{ 'purchase.cinema.seat.prev' | translate }}</button>\n        <a *ngIf=\"external.eventId\" class=\"btn btn-link\"\n            [href]=\"(purchase | async).seller.url\">{{ 'purchase.cinema.seat.prev' | translate }}</a>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -336,7 +336,7 @@ var PurchaseCinemaCartComponent = /** @class */ (function () {
         this.translate = translate;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_6__["getTicketPrice"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
     }
     /**
      * 初期化
@@ -670,7 +670,7 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
         this.modal = modal;
         this.translate = translate;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_8__["environment"];
         this.external = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["getExternalData"])();
     }
     /**
@@ -1119,7 +1119,7 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
         this.utilService = utilService;
         this.translate = translate;
         this.purchaseService = purchaseService;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
         this.external = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["getExternalData"])();
     }
     /**
@@ -1340,7 +1340,7 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
         this.utilService = utilService;
         this.purchaseService = purchaseService;
         this.translate = translate;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
     }
     /**
      * 初期化
@@ -1577,7 +1577,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
         this.localeService = localeService;
         this.utilService = utilService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
         this.external = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getExternalData"])();
     }
     /**
@@ -1965,7 +1965,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCount = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCount"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
     }
     /**
      * 初期化
@@ -2496,7 +2496,7 @@ var PurchaseCompleteComponent = /** @class */ (function () {
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_6__["getTicketPrice"];
         this.changeTicketCountByOrder = _functions__WEBPACK_IMPORTED_MODULE_6__["changeTicketCountByOrder"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
         this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
     }
     /**
@@ -2635,7 +2635,7 @@ var PurchaseConfirmComponent = /** @class */ (function () {
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_6__["getTicketPrice"];
         this.changeTicketCount = _functions__WEBPACK_IMPORTED_MODULE_6__["changeTicketCount"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
     }
     /**
      * 初期化
@@ -2859,7 +2859,7 @@ var PurchaseInputComponent = /** @class */ (function () {
         this.utilService = utilService;
         this.purchaseService = purchaseService;
         this.translate = translate;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_8__["environment"];
         this.viewType = _models__WEBPACK_IMPORTED_MODULE_10__["ViewType"];
     }
     /**
@@ -3272,7 +3272,7 @@ var PurchaseRootComponent = /** @class */ (function () {
         this.store = store;
         this.purchaseService = purchaseService;
         this.router = router;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
     }
     /**
      * 初期化
@@ -3425,7 +3425,7 @@ var PurchaseTransactionComponent = /** @class */ (function () {
         this.activatedRoute = activatedRoute;
         this.purchaseService = purchaseService;
         this.userService = userService;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
     }
     /**
      * 初期化
@@ -3551,7 +3551,7 @@ var PurchaseCinemaPerformanceComponent = /** @class */ (function () {
         this.moment = moment__WEBPACK_IMPORTED_MODULE_1__;
         this.isScheduleStatusThreshold = _functions__WEBPACK_IMPORTED_MODULE_3__["isScheduleStatusThreshold"];
         this.isSales = _functions__WEBPACK_IMPORTED_MODULE_3__["isSales"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
     }
     PurchaseCinemaPerformanceComponent.prototype.ngOnInit = function () {
     };
@@ -3912,7 +3912,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 var PurchaseTermsComponent = /** @class */ (function () {
     function PurchaseTermsComponent(utilService) {
         this.utilService = utilService;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
     }
     PurchaseTermsComponent.prototype.ngOnInit = function () {
     };
@@ -4048,7 +4048,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 var PurchaseWarningComponent = /** @class */ (function () {
     function PurchaseWarningComponent(utilService) {
         this.utilService = utilService;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
     }
     PurchaseWarningComponent.prototype.ngOnInit = function () {
     };
@@ -4197,7 +4197,7 @@ var ScreenComponent = /** @class */ (function () {
      * @returns {boolean}
      */
     ScreenComponent.prototype.isMobile = function () {
-        if (window.innerWidth > 768) {
+        if (this.screenData.size.w * this.scale > 768) {
             return false;
         }
         return true;
@@ -4580,7 +4580,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 var TransactionRemainingTimeComponent = /** @class */ (function () {
     function TransactionRemainingTimeComponent(router) {
         this.router = router;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
     }
     TransactionRemainingTimeComponent.prototype.ngOnInit = function () {
         this.update();

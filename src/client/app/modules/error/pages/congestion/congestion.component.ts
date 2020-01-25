@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getEnvironment } from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-congestion',
@@ -7,7 +7,7 @@ import { getEnvironment } from '../../../../../environments/environment';
   styleUrls: ['./congestion.component.scss']
 })
 export class CongestionComponent implements OnInit {
-  public environment = getEnvironment();
+  public environment = environment;
   constructor() { }
 
   /**

@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { getEnvironment } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 import { getExternalData } from '../functions';
 import { IReservationSeat, IReservationTicket, Reservation } from '../models';
 import { purchaseAction } from '../store/actions';
@@ -18,7 +18,7 @@ import { UtilService } from './util.service';
 export class PurchaseService {
     public purchase: Observable<reducers.IPurchaseState>;
     public error: Observable<string | null>;
-    public environment = getEnvironment();
+    public environment = environment;
 
     constructor(
         private store: Store<reducers.IState>,

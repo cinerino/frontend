@@ -4,7 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { getEnvironment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { createPrintCanvas, createTestPrintCanvas, formatTelephone, getProject, getTicketPrice, retry, sleep } from '../../functions';
 import { connectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
@@ -14,7 +14,7 @@ import { orderAction } from '../actions';
  */
 @Injectable()
 export class OrderEffects {
-    public environment = getEnvironment();
+    public environment = environment;
 
     constructor(
         private actions: Actions,

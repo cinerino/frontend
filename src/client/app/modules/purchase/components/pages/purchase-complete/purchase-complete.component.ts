@@ -4,7 +4,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { getEnvironment } from '../../../../../../environments/environment';
+import { environment } from '../../../../../../environments/environment';
 import { changeTicketCountByOrder, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../../functions';
 import * as reducers from '../../../../../store/reducers';
 
@@ -19,7 +19,7 @@ export class PurchaseCompleteComponent implements OnInit {
     public getTicketPrice = getTicketPrice;
     public changeTicketCountByOrder = changeTicketCountByOrder;
     public eventOrders: IEventOrder[];
-    public environment = getEnvironment();
+    public environment = environment;
     public paymentMethodType = factory.paymentMethodType;
 
     constructor(

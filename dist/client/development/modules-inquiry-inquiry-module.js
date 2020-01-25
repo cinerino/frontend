@@ -144,7 +144,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
         this.getTicketPrice = _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"];
         this.changeTicketCountByOrder = _functions__WEBPACK_IMPORTED_MODULE_7__["changeTicketCountByOrder"];
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
     }
     /**
      * 初期化
@@ -470,7 +470,7 @@ var InquiryInputComponent = /** @class */ (function () {
         this.orderService = orderService;
         this.router = router;
         this.translate = translate;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
     }
     /**
      * 初期化
@@ -644,7 +644,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 var InquiryPrintComponent = /** @class */ (function () {
     function InquiryPrintComponent(router) {
         this.router = router;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
     }
     /**
      * 初期化

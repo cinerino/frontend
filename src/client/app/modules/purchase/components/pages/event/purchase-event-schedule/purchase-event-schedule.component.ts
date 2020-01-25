@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
-import { getEnvironment } from '../../../../../../../environments/environment';
+import { environment } from '../../../../../../../environments/environment';
 import { getExternalData, iOSDatepickerTapBugFix, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
 import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
@@ -26,7 +26,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public screeningWorkEvents: IScreeningEventWork[];
     public moment: typeof moment = moment;
     public scheduleDate: Date;
-    public environment = getEnvironment();
+    public environment = environment;
     public bsValue: Date;
     public isSales: boolean;
     public external = getExternalData();

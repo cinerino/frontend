@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
-import { getEnvironment } from '../../../../../../../../environments/environment';
+import { environment } from '../../../../../../../../environments/environment';
 import { getRemainingSeatLength, getTicketPrice, isTicketedSeatScreeningEvent } from '../../../../../../../functions';
 import { IReservationTicket } from '../../../../../../../models';
 
@@ -24,7 +24,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     public moment: typeof moment = moment;
     public getRemainingSeatLength = getRemainingSeatLength;
     public isTicketedSeatScreeningEvent = isTicketedSeatScreeningEvent;
-    public environment = getEnvironment();
+    public environment = environment;
 
     constructor(
         public modal: BsModalRef

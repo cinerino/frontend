@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
-import { getEnvironment } from '../../../../../../environments/environment';
+import { environment } from '../../../../../../environments/environment';
 import { getProject } from '../../../../../functions';
 import { UtilService } from '../../../../../services';
 
@@ -12,7 +12,7 @@ import { UtilService } from '../../../../../services';
 export class PurchaseTermsComponent implements OnInit, OnChanges {
     @Input() public language: string;
     @Input() public screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
-    public environment = getEnvironment();
+    public environment = environment;
     public terms: string;
 
     constructor(

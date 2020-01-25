@@ -293,7 +293,6 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
                     })
                 });
             }
-            console.log('追加済み', state.purchaseData.authorizeSeatReservations);
             return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.TemporaryReservationFail: {

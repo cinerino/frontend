@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { getEnvironment } from '../../../../../../environments/environment';
+import { environment } from '../../../../../../environments/environment';
 import { getExternalData } from '../../../../../functions';
 import { ViewType } from '../../../../../models';
 import { PurchaseService } from '../../../../../services';
@@ -16,7 +16,7 @@ import * as reducers from '../../../../../store/reducers';
 export class PurchaseRootComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
-    public environment = getEnvironment();
+    public environment = environment;
 
     constructor(
         private store: Store<reducers.IState>,

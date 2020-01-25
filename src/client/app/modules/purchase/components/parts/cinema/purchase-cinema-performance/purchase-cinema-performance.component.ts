@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { getEnvironment } from '../../../../../../../environments/environment';
+import { environment } from '../../../../../../../environments/environment';
 import { IScreeningEventWork, isSales, isScheduleStatusThreshold } from '../../../../../../functions';
 
 @Component({
@@ -16,7 +16,7 @@ export class PurchaseCinemaPerformanceComponent implements OnInit {
     public moment: typeof moment = moment;
     public isScheduleStatusThreshold = isScheduleStatusThreshold;
     public isSales = isSales;
-    public environment = getEnvironment();
+    public environment = environment;
 
     constructor() { }
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { getEnvironment } from '../../../../../../environments/environment';
+import { environment } from '../../../../../../environments/environment';
 import { OrderService, PurchaseService, UserService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -13,7 +13,7 @@ import * as reducers from '../../../../../store/reducers';
 })
 export class AuthSigninComponent implements OnInit {
     public process: Observable<string>;
-    public environment = getEnvironment();
+    public environment = environment;
 
     constructor(
         private router: Router,

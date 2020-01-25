@@ -272,6 +272,4 @@ const defaultEnvironment: IEnvironment = {
     SETTING_DEVELOP_OPTION: false
 };
 
-export function getEnvironment(): IEnvironment {
-    return { ...defaultEnvironment, ...(<any>window).environment, production: (document.querySelector('body.production') !== null) };
-}
+export const environment: IEnvironment = { ...defaultEnvironment, ...(<any>window).environment, production: (document.querySelector('body.production') !== null) };

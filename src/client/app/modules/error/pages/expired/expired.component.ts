@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getEnvironment } from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 import { PurchaseService, UserService } from '../../../../services';
 
 @Component({
@@ -8,7 +8,7 @@ import { PurchaseService, UserService } from '../../../../services';
     styleUrls: ['./expired.component.scss']
 })
 export class ExpiredComponent implements OnInit {
-    public environment = getEnvironment();
+    public environment = environment;
     constructor(
         private purchaseService: PurchaseService,
         private userService: UserService

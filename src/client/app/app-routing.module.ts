@@ -3,12 +3,12 @@
  */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { getEnvironment } from '../environments/environment';
+import { environment } from '../environments/environment';
 import { AuthGuardService } from './canActivates';
 import { ErrorModule } from './modules/error/error.module';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: getEnvironment().BASE_URL.replace('\/', ''), pathMatch: 'full' },
+    { path: '', redirectTo: environment.BASE_URL.replace('\/', ''), pathMatch: 'full' },
     {
         path: 'purchase',
         loadChildren: () => import('./modules/purchase/purchase.module').then(m => m.PurchaseModule)
@@ -42,7 +42,7 @@ const appRoutes: Routes = [
     imports: [
         RouterModule.forRoot(
             appRoutes,
-            { useHash: true, enableTracing: !getEnvironment().production }
+            { useHash: true, enableTracing: !environment.production }
         )
     ],
     exports: [

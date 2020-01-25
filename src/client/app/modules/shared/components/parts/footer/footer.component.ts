@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getEnvironment } from '../../../../../../environments/environment';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
     selector: 'app-footer',
@@ -7,7 +7,7 @@ import { getEnvironment } from '../../../../../../environments/environment';
     styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-    public environment = getEnvironment();
+    public environment = environment;
     constructor() { }
 
     public ngOnInit() {

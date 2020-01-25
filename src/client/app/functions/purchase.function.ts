@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { getEnvironment } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 import { IMovieTicket } from '../models';
 
 export interface IScreeningEventWork {
@@ -396,8 +396,8 @@ export function isScheduleStatusThreshold(
         maximumAttendeeCapacity = Number(limitSeatNumber.value);
     }
     let result = false;
-    const unit = getEnvironment().PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
-    const value = Number(getEnvironment().PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
+    const unit = environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
+    const value = Number(environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
     if (unit === '%') {
         switch (status) {
             case 'success':
@@ -452,7 +452,7 @@ export function isSales(
     }
     let result = false;
     const now = moment().unix();
-    const window = Number(getEnvironment().PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES);
+    const window = Number(environment.PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES);
     switch (status) {
         case 'window':
             result = moment(offers.validThrough).unix() > now

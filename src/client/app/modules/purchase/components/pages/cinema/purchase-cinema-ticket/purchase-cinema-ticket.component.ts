@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
-import { getEnvironment } from '../../../../../../../environments/environment';
+import { environment } from '../../../../../../../environments/environment';
 import { IReservationTicket, Reservation } from '../../../../../../models/purchase/reservation';
 import { PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
@@ -23,7 +23,7 @@ export class PurchaseCinemaTicketComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
-    public environment = getEnvironment();
+    public environment = environment;
 
     constructor(
         private store: Store<reducers.IState>,

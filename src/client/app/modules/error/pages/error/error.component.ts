@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { getEnvironment } from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 import { PurchaseService, UserService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
@@ -12,7 +12,7 @@ import * as reducers from '../../../../store/reducers';
 })
 export class ErrorComponent implements OnInit {
     public error: Observable<string | null>;
-    public environment = getEnvironment();
+    public environment = environment;
     constructor(
         private purchaseService: PurchaseService,
         private userService: UserService,

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { getEnvironment } from '../../../../../../environments/environment';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
     selector: 'app-inquiry-print',
@@ -8,7 +8,7 @@ import { getEnvironment } from '../../../../../../environments/environment';
     styleUrls: ['./inquiry-print.component.scss']
 })
 export class InquiryPrintComponent implements OnInit, OnDestroy {
-    public environment = getEnvironment();
+    public environment = environment;
     private timer: any;
     constructor(
         private router: Router

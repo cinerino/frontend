@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { getEnvironment } from '../../../../../../../environments/environment';
+import { environment } from '../../../../../../../environments/environment';
 import { getExternalData } from '../../../../../../functions';
 import { IReservationSeat, SeatStatus } from '../../../../../../models';
 import { PurchaseService, UtilService } from '../../../../../../services';
@@ -18,7 +18,7 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
-    public environment = getEnvironment();
+    public environment = environment;
     public external = getExternalData();
 
     constructor(

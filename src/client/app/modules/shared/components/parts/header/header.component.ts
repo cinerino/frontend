@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { getEnvironment } from '../../../../../../environments/environment';
+import { environment } from '../../../../../../environments/environment';
 import { getProject } from '../../../../../functions';
 import { Language } from '../../../../../models';
 import { UserService } from '../../../../../services';
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
     public language: string;
     public isMenuOpen: boolean;
     public user: Observable<reducers.IUserState>;
-    public environment = getEnvironment();
+    public environment = environment;
     public storageUrl = getProject().storageUrl;
 
     constructor(

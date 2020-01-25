@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getEnvironment } from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-notfound',
@@ -7,7 +7,7 @@ import { getEnvironment } from '../../../../../environments/environment';
     styleUrls: ['./notfound.component.scss']
 })
 export class NotfoundComponent implements OnInit {
-    public environment = getEnvironment();
+    public environment = environment;
     constructor() { }
 
     /**

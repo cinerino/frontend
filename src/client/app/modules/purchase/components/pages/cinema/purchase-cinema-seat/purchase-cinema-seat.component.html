@@ -1,13 +1,16 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.seat.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.seat.read' | translate"></p>
-
-    <app-screen *ngIf="(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0" class="mb-4"
-        [screenData]="(purchase | async).screenData" (select)="selectSeat($event)">
-    </app-screen>
-
-    <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
-
+    <div class="row">
+        <div class="col-md-9">
+            <app-screen *ngIf="(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0"
+                class="mb-4" [screenData]="(purchase | async).screenData" (select)="selectSeat($event)">
+            </app-screen>
+        </div>
+        <div class="col-md-3">
+            <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
+        </div>
+    </div>
     <div *ngIf="environment.PURCHASE_TERMS">
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.seat.terms' | translate }}</h2>
         <div class="mb-4">

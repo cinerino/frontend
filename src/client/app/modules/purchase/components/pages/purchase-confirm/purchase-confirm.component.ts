@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { getEnvironment } from '../../../../../../environments/environment';
+import { environment } from '../../../../../../environments/environment';
 import { changeTicketCount, getAmount, getTicketPrice } from '../../../../../functions';
 import { PurchaseService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -21,7 +21,7 @@ export class PurchaseConfirmComponent implements OnInit {
     public getTicketPrice = getTicketPrice;
     public changeTicketCount = changeTicketCount;
     public amount: number;
-    public environment = getEnvironment();
+    public environment = environment;
     public user: Observable<reducers.IUserState>;
 
     constructor(

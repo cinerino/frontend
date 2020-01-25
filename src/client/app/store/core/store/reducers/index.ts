@@ -4,7 +4,7 @@ import {
     ActionReducerMap,
     MetaReducer
 } from '@ngrx/store';
-import { getEnvironment } from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 
 /**
  * Root state
@@ -31,7 +31,7 @@ export function main(reducer: ActionReducer<IState>) {
  * Logger
  */
 export function logger(newState: any, action: any) {
-    if (getEnvironment().production) {
+    if (environment.production) {
         return;
     }
     console.log('logger action', action);
@@ -47,7 +47,7 @@ export function storageSync(state: any) {
         || Object.keys(state).length === 0) {
         return;
     }
-    (<Storage>(<any>window)[getEnvironment().STORAGE_TYPE]).setItem(getEnvironment().STORAGE_NAME, JSON.stringify(state));
+    (<Storage>(<any>window)[environment.STORAGE_TYPE]).setItem(environment.STORAGE_NAME, JSON.stringify(state));
 }
 
 /**
