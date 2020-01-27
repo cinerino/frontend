@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 
 @Component({
     selector: 'app-transaction-remaining-time',
@@ -15,7 +15,7 @@ export class TransactionRemainingTimeComponent implements OnInit, OnDestroy {
     public diff: { hours: string; minutes: string; seconds: string; };
     public timer: any;
     public width: number;
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private router: Router

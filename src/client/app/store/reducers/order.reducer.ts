@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { IState } from '.';
-import { environment } from '../../../environments/environment';
+import { getEnvironment } from '../../../environments/environment';
 import { orderAction } from '../actions';
 
 export interface IOrderState {
@@ -22,6 +22,7 @@ export const orderInitialState: IOrderState = {
  * @param action
  */
 export function reducer(state: IState, action: orderAction.Actions): IState {
+    const environment = getEnvironment();
     switch (action.type) {
         case orderAction.ActionTypes.Delete: {
             state.orderData = {

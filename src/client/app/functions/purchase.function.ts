@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { environment } from '../../environments/environment';
+import { getEnvironment } from '../../environments/environment';
 import { IMovieTicket } from '../models';
 
 export interface IScreeningEventWork {
@@ -381,6 +381,7 @@ export function isScheduleStatusThreshold(
     screeningEvent: factory.chevre.event.screeningEvent.IEvent,
     status: 'success' | 'warning' | 'danger'
 ) {
+    const environment = getEnvironment();
     const limitSeatNumber = (screeningEvent.workPerformed === undefined
         || screeningEvent.workPerformed.additionalProperty === undefined)
         ? undefined : screeningEvent.workPerformed.additionalProperty.find(a => a.name === 'limitSeatNumber');
@@ -446,6 +447,7 @@ export function isSales(
     screeningEvent: factory.chevre.event.screeningEvent.IEvent,
     status?: 'window' | 'start' | 'end'
 ) {
+    const environment = getEnvironment();
     const offers = screeningEvent.offers;
     if (offers === undefined) {
         return false;

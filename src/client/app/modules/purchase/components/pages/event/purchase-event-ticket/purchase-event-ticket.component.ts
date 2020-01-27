@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../../environments/environment';
 import {
     changeTicketCount,
     getExternalData,
@@ -38,7 +38,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
     public changeTicketCount = changeTicketCount;
-    public environment = environment;
+    public environment = getEnvironment();
     private updateTimer: any;
 
     constructor(

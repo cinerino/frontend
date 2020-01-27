@@ -114,7 +114,7 @@ var SettingComponent = /** @class */ (function () {
         this.viewType = _models__WEBPACK_IMPORTED_MODULE_6__["ViewType"];
         this.printers = _models__WEBPACK_IMPORTED_MODULE_6__["printers"];
         this.connectionType = _models__WEBPACK_IMPORTED_MODULE_6__["connectionType"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
     }
     SettingComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {

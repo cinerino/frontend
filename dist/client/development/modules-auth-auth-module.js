@@ -346,7 +346,7 @@ var AuthSigninComponent = /** @class */ (function () {
         this.userService = userService;
         this.orderService = orderService;
         this.store = store;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
     }
     /**
      * 初期化

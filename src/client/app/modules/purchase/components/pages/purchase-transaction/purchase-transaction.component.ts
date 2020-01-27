@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { ViewType } from '../../../../../models';
 import { PurchaseService, UserService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -16,7 +16,7 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public error: Observable<string | null>;
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private store: Store<reducers.IState>,

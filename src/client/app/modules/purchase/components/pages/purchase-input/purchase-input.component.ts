@@ -8,7 +8,7 @@ import * as libphonenumber from 'libphonenumber-js';
 import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { getAmount } from '../../../../../functions';
 import { ViewType } from '../../../../../models';
 import { PurchaseService, UtilService } from '../../../../../services';
@@ -35,7 +35,7 @@ export class PurchaseInputComponent implements OnInit {
         month: string[];
     };
     public amount: number;
-    public environment = environment;
+    public environment = getEnvironment();
     public viewType: typeof ViewType = ViewType;
     public usedCreditCard?: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
 

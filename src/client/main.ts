@@ -8,6 +8,7 @@ import * as momentTimezone from 'moment-timezone';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { jaLocale } from 'ngx-bootstrap/locale';
 import { getParameter, getProject } from './app/functions';
+import { getEnvironment } from './environments/environment';
 
 async function main() {
     // タイムゾーン設定
@@ -76,7 +77,7 @@ async function setProjectConfig(storageUrl: string) {
         throw new Error('fetchResult.body null');
     }
     (<any>window).eval(await fetchResult.text());
-    const { environment } = await import('./environments/environment');
+    const environment = getEnvironment();
     // スタイル設定
     const style = document.createElement('link');
     style.rel = 'stylesheet';

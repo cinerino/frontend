@@ -66099,7 +66099,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 var appRoutes = [
-    { path: '', redirectTo: _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].BASE_URL.replace('\/', ''), pathMatch: 'full' },
+    { path: '', redirectTo: Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().BASE_URL.replace('\/', ''), pathMatch: 'full' },
     {
         path: 'purchase',
         loadChildren: function () { return __webpack_require__.e(/*! import() | modules-purchase-purchase-module */ "modules-purchase-purchase-module").then(__webpack_require__.bind(null, /*! ./modules/purchase/purchase.module */ "./app/modules/purchase/purchase.module.ts")).then(function (m) { return m.PurchaseModule; }); }
@@ -66134,7 +66134,7 @@ var AppRoutingModule = /** @class */ (function () {
     AppRoutingModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [
-                _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(appRoutes, { useHash: true, enableTracing: !_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].production })
+                _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(appRoutes, { useHash: true, enableTracing: !Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])().production })
             ],
             exports: [
                 _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]
@@ -66320,7 +66320,7 @@ var AppComponent = /** @class */ (function () {
         this.router = router;
         this.translate = translate;
         this.userService = userService;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -67098,7 +67098,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 var CongestionComponent = /** @class */ (function () {
     function CongestionComponent() {
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -67170,7 +67170,7 @@ var ErrorComponent = /** @class */ (function () {
         this.purchaseService = purchaseService;
         this.userService = userService;
         this.store = store;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -67247,7 +67247,7 @@ var ExpiredComponent = /** @class */ (function () {
     function ExpiredComponent(purchaseService, userService) {
         this.purchaseService = purchaseService;
         this.userService = userService;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -67317,7 +67317,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 var MaintenanceComponent = /** @class */ (function () {
     function MaintenanceComponent() {
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -67380,7 +67380,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 var NotfoundComponent = /** @class */ (function () {
     function NotfoundComponent() {
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -68376,7 +68376,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 var FooterComponent = /** @class */ (function () {
     function FooterComponent() {
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
     }
     FooterComponent.prototype.ngOnInit = function () {
     };
@@ -68490,7 +68490,7 @@ var HeaderMenuComponent = /** @class */ (function () {
         this.utilService = utilService;
         this.translate = translate;
         this.close = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
     }
     HeaderMenuComponent.prototype.ngOnInit = function () {
         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
@@ -68663,7 +68663,7 @@ var HeaderComponent = /** @class */ (function () {
         this.store = store;
         this.translate = translate;
         this.userService = userService;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
         this.storageUrl = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl;
     }
     HeaderComponent.prototype.ngOnInit = function () {
@@ -69344,7 +69344,7 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
         this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
         this.getRemainingSeatLength = _functions__WEBPACK_IMPORTED_MODULE_5__["getRemainingSeatLength"];
         this.isTicketedSeatScreeningEvent = _functions__WEBPACK_IMPORTED_MODULE_5__["isTicketedSeatScreeningEvent"];
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
     }
     PurchaseEventTicketModalComponent.prototype.ngOnInit = function () {
         this.tickets = [];
@@ -69491,7 +69491,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 var PurchaseTransactionModalComponent = /** @class */ (function () {
     function PurchaseTransactionModalComponent(modal) {
         this.modal = modal;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     PurchaseTransactionModalComponent.prototype.ngOnInit = function () {
     };
@@ -70197,7 +70197,7 @@ var CinerinoService = /** @class */ (function () {
     function CinerinoService(http, utilservice) {
         this.http = http;
         this.utilservice = utilservice;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
     }
     /**
      * getServices
@@ -70974,7 +70974,7 @@ var PurchaseService = /** @class */ (function () {
         this.store = store;
         this.actions = actions;
         this.utilService = utilService;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
         this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getPurchase"]));
         this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getError"]));
     }
@@ -74378,7 +74378,8 @@ function main(reducer) {
  * Logger
  */
 function logger(newState, action) {
-    if (_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].production) {
+    var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])();
+    if (environment.production) {
         return;
     }
     console.log('logger action', action);
@@ -74388,12 +74389,13 @@ function logger(newState, action) {
  * storageSync
  */
 function storageSync(state) {
+    var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])();
     if (state === undefined
         || state === null
         || Object.keys(state).length === 0) {
         return;
     }
-    window[_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].STORAGE_TYPE].setItem(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].STORAGE_NAME, JSON.stringify(state));
+    window[environment.STORAGE_TYPE].setItem(environment.STORAGE_NAME, JSON.stringify(state));
 }
 /**
  * Meta reducer
@@ -74726,7 +74728,7 @@ var OrderEffects = /** @class */ (function () {
         this.utilService = utilService;
         this.starPrint = starPrint;
         this.translate = translate;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
         /**
          * Cancel
          */
@@ -75301,7 +75303,7 @@ var PurchaseEffects = /** @class */ (function () {
         this.http = http;
         this.utilService = utilService;
         this.translate = translate;
-        this.environment = _environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"];
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
         /**
          * GetPreScheduleDates
          */
@@ -76883,6 +76885,7 @@ var orderInitialState = {
  * @param action
  */
 function reducer(state, action) {
+    var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])();
     switch (action.type) {
         case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Delete: {
             state.orderData = {
@@ -76927,7 +76930,7 @@ function reducer(state, action) {
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.Print: {
-            return __assign({}, state, { loading: _environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].PRINT_LOADING, process: 'orderAction.Print' });
+            return __assign({}, state, { loading: environment.PRINT_LOADING, process: 'orderAction.Print' });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_1__["orderAction"].ActionTypes.PrintSuccess: {
             return __assign({}, state, { loading: false, process: '', error: null });
@@ -77461,7 +77464,8 @@ var initialState = {
     orderData: _order_reducer__WEBPACK_IMPORTED_MODULE_3__["orderInitialState"]
 };
 function getInitialState() {
-    var json = window[_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].STORAGE_TYPE].getItem(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["environment"].STORAGE_NAME);
+    var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])();
+    var json = window[environment.STORAGE_TYPE].getItem(environment.STORAGE_NAME);
     if (json === undefined || json === null) {
         return initialState;
     }

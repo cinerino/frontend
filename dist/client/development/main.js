@@ -1033,6 +1033,7 @@ function authorizeSeatReservationToEvent(params) {
  * スケジュールステータス判定
  */
 function isScheduleStatusThreshold(screeningEvent, status) {
+    var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     var limitSeatNumber = (screeningEvent.workPerformed === undefined
         || screeningEvent.workPerformed.additionalProperty === undefined)
         ? undefined : screeningEvent.workPerformed.additionalProperty.find(function (a) { return a.name === 'limitSeatNumber'; });
@@ -1048,8 +1049,8 @@ function isScheduleStatusThreshold(screeningEvent, status) {
         maximumAttendeeCapacity = Number(limitSeatNumber.value);
     }
     var result = false;
-    var unit = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
-    var value = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
+    var unit = environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
+    var value = Number(environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
     if (unit === '%') {
         switch (status) {
             case 'success':
@@ -1096,13 +1097,14 @@ function isScheduleStatusThreshold(screeningEvent, status) {
  * 販売判定
  */
 function isSales(screeningEvent, status) {
+    var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     var offers = screeningEvent.offers;
     if (offers === undefined) {
         return false;
     }
     var result = false;
     var now = moment__WEBPACK_IMPORTED_MODULE_1__().unix();
-    var window = Number(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES);
+    var window = Number(environment.PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES);
     switch (status) {
         case 'window':
             result = moment__WEBPACK_IMPORTED_MODULE_1__(offers.validThrough).unix() > now
@@ -1470,12 +1472,12 @@ function getExternalData() {
 /*!*************************************!*\
   !*** ./environments/environment.ts ***!
   \*************************************/
-/*! exports provided: environment */
+/*! exports provided: getEnvironment */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEnvironment", function() { return getEnvironment; });
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -1544,7 +1546,10 @@ var defaultEnvironment = {
     PRINT_LOADING: true,
     SETTING_DEVELOP_OPTION: false
 };
-var environment = __assign({}, defaultEnvironment, window.environment, { production: (document.querySelector('body.production') !== null) });
+function getEnvironment() {
+    var environment = __assign({}, defaultEnvironment, window.environment, { production: (document.querySelector('body.production') !== null) });
+    return environment;
+}
 
 
 /***/ }),
@@ -1567,6 +1572,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "../../node_modules/ngx-bootstrap/chronos/fesm5/ngx-bootstrap-chronos.js");
 /* harmony import */ var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/locale */ "../../node_modules/ngx-bootstrap/locale/fesm5/ngx-bootstrap-locale.js");
 /* harmony import */ var _app_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app/functions */ "./app/functions/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./environments/environment */ "./environments/environment.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -1620,6 +1626,7 @@ var _this = undefined;
 /**
  * main
  */
+
 
 
 
@@ -1714,9 +1721,7 @@ function setProjectConfig(storageUrl) {
                     return [4 /*yield*/, fetchResult.text()];
                 case 2:
                     _b.apply(_a, [_c.sent()]);
-                    return [4 /*yield*/, Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./environments/environment */ "./environments/environment.ts"))];
-                case 3:
-                    environment = (_c.sent()).environment;
+                    environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
                     style = document.createElement('link');
                     style.rel = 'stylesheet';
                     style.href = storageUrl + "/css/style.css?=date" + moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString();

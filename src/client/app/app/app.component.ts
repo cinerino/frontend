@@ -4,7 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { environment } from '../../environments/environment';
+import { getEnvironment } from '../../environments/environment';
 import { getExternalData } from '../functions';
 import { UserService } from '../services';
 
@@ -16,7 +16,7 @@ declare const ga: Function;
 })
 export class AppComponent implements OnInit {
     public isRouter: boolean;
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private router: Router,

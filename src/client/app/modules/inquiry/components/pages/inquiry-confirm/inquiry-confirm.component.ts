@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { changeTicketCountByOrder, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../../functions';
 import { OrderService, QRCodeService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -24,7 +24,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     public eventOrders: IEventOrder[];
     public error: Observable<string | null>;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
-    public environment = environment;
+    public environment = getEnvironment();
     private timer: any;
 
     constructor(

@@ -5,7 +5,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
+import { getEnvironment } from '../../../environments/environment';
 import {
     authorizeSeatReservationToEvent,
     createGmoTokenObject,
@@ -25,7 +25,7 @@ declare const ga: Function;
  */
 @Injectable()
 export class PurchaseEffects {
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private actions: Actions,

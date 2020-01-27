@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap';
 import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../../environments/environment';
 import { getExternalData, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
 import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
@@ -33,7 +33,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public isPreSchedule: boolean;
     public screeningWorkEvents: IScreeningEventWork[];
     public moment: typeof moment = moment;
-    public environment = environment;
+    public environment = getEnvironment();
     public external = getExternalData();
     private updateTimer: any;
 

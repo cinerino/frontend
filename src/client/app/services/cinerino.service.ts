@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as cinerino from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { environment } from '../../environments/environment';
+import { getEnvironment } from '../../environments/environment';
 import { getProject } from '../functions';
 import { UtilService } from './util.service';
 
@@ -27,7 +27,7 @@ export class CinerinoService {
         moneyTransfer: cinerino.service.transaction.MoneyTransfer,
     };
     public userName: string;
-    public environment = environment;
+    public environment = getEnvironment();
     private endpoint: string;
     private waiterServerUrl: string;
 

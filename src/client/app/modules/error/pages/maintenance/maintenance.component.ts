@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
+import { getEnvironment } from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-maintenance',
@@ -7,7 +7,7 @@ import { environment } from '../../../../../environments/environment';
     styleUrls: ['./maintenance.component.scss']
 })
 export class MaintenanceComponent implements OnInit {
-    public environment = environment;
+    public environment = getEnvironment();
     constructor() { }
 
     /**

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../environments/environment';
+import { getEnvironment } from '../../../../../environments/environment';
 import { connectionType, printers, ViewType } from '../../../../models';
 import { MasterService, OrderService, UserService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
@@ -29,7 +29,7 @@ export class SettingComponent implements OnInit {
     public posList: { id: string; name: string; typeOf: string; }[];
     public printers: typeof printers = printers;
     public connectionType: typeof connectionType = connectionType;
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private store: Store<reducers.IState>,

@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../../environments/environment';
 import { getTicketPrice } from '../../../../../../functions';
 import { PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
@@ -21,7 +21,7 @@ export class PurchaseCinemaCartComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private purchaseService: PurchaseService,

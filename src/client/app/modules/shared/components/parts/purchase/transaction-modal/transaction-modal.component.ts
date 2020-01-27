@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap';
-import { environment } from '../../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../../environments/environment';
 import * as reducers from '../../../../../../store/reducers';
 
 @Component({
@@ -12,7 +12,7 @@ export class PurchaseTransactionModalComponent implements OnInit {
     @Input() public purchase: reducers.IPurchaseState;
     @Input() public user: reducers.IUserState;
     @Input() public cb: () => void;
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         public modal: BsModalRef
