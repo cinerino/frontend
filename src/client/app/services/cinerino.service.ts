@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as cinerino from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { environment } from '../../environments/environment';
+import { getEnvironment } from '../../environments/environment';
+import { getProject } from '../functions';
 import { UtilService } from './util.service';
 
 @Injectable({
@@ -26,6 +27,7 @@ export class CinerinoService {
         moneyTransfer: cinerino.service.transaction.MoneyTransfer,
     };
     public userName: string;
+    public environment = getEnvironment();
     private endpoint: string;
     private waiterServerUrl: string;
 
@@ -68,7 +70,8 @@ export class CinerinoService {
         await this.authorize();
         return {
             endpoint: this.endpoint,
-            auth: this.auth
+            auth: this.auth,
+            project: { id: getProject().projectId }
         };
     }
 
@@ -76,7 +79,7 @@ export class CinerinoService {
      * @method authorize
      */
     public async authorize() {
-        const data = (<Storage>(<any>window)[environment.STORAGE_TYPE]).getItem(environment.STORAGE_NAME);
+        const data = (<Storage>(<any>window)[this.environment.STORAGE_TYPE]).getItem(this.environment.STORAGE_NAME);
         if (data === null) {
             throw new Error('state is null');
         }

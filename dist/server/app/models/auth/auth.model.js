@@ -16,14 +16,7 @@ class AuthModel {
             session = {};
         }
         this.state = (session.state !== undefined) ? session.state : uuid.v1();
-        // const resourceServerUrl  = <string>process.env.RESOURCE_SERVER_URL;
-        this.scopes = (session.scopes !== undefined) ? session.scopes : [
-        // `${resourceServerUrl}/transactions`,
-        // `${resourceServerUrl}/events.read-only`,
-        // `${resourceServerUrl}/organizations.read-only`,
-        // `${resourceServerUrl}/orders.read-only`,
-        // `${resourceServerUrl}/places.read-only`
-        ];
+        this.scopes = [];
         this.credentials = session.credentials;
         this.codeVerifier = session.codeVerifier;
     }

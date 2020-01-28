@@ -1,13 +1,16 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.seat.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.seat.read' | translate"></p>
-
-    <app-screen *ngIf="(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0" class="mb-4"
-        [screenData]="(purchase | async).screenData" (select)="selectSeat($event)">
-    </app-screen>
-
-    <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
-
+    <div class="row">
+        <div class="col-md-9">
+            <app-screen *ngIf="(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0"
+                class="mb-4" [screenData]="(purchase | async).screenData" (select)="selectSeat($event)">
+            </app-screen>
+        </div>
+        <div class="col-md-3">
+            <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
+        </div>
+    </div>
     <div *ngIf="environment.PURCHASE_TERMS">
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.seat.terms' | translate }}</h2>
         <div class="mb-4">
@@ -19,9 +22,9 @@
     <div class="buttons mx-auto text-center">
         <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="onSubmit()">{{ 'purchase.cinema.seat.next' | translate }}</button>
-        <button *ngIf="!(purchase | async).external?.eventId" type="button" class="btn btn-link"
+        <button *ngIf="!external.eventId" type="button" class="btn btn-link"
             routerLink="/purchase/cinema/schedule">{{ 'purchase.cinema.seat.prev' | translate }}</button>
-        <a *ngIf="(purchase | async).external?.eventId" class="btn btn-link"
+        <a *ngIf="external.eventId" class="btn btn-link"
             [href]="(purchase | async).seller.url">{{ 'purchase.cinema.seat.prev' | translate }}</a>
     </div>
 

@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
-import { IPrinter, ViewType } from '../../models';
+import { IPrinter } from '../../models';
 
 /**
  * Action types
@@ -181,8 +181,6 @@ export class UpdateBaseSetting implements Action {
         seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
         pos?: factory.seller.IPOS;
         printer?: IPrinter;
-        isPurchaseCart: boolean;
-        viewType: ViewType;
     }) { }
 }
 

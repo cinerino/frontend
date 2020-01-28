@@ -5,6 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
+import { getEnvironment } from '../../../../../../../environments/environment';
 import { IReservationTicket, Reservation } from '../../../../../../models/purchase/reservation';
 import { PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
@@ -22,6 +23,8 @@ export class PurchaseCinemaTicketComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
+    public environment = getEnvironment();
+
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
@@ -82,18 +85,16 @@ export class PurchaseCinemaTicketComponent implements OnInit {
                 return;
             }
             await this.purchaseService.temporaryReservation();
-            this.user.subscribe((user) => {
-                const authorizeSeatReservation = purchase.authorizeSeatReservation;
-                if (authorizeSeatReservation === undefined) {
-                    this.router.navigate(['/error']);
-                    return;
-                }
-                if (!user.isPurchaseCart) {
-                    this.router.navigate(['/purchase/input']);
-                    return;
-                }
-                this.router.navigate(['/purchase/cinema/cart']);
-            }).unsubscribe();
+            const authorizeSeatReservation = purchase.authorizeSeatReservation;
+            if (authorizeSeatReservation === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            if (!this.environment.PURCHASE_CART) {
+                this.router.navigate(['/purchase/input']);
+                return;
+            }
+            this.router.navigate(['/purchase/cinema/cart']);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);

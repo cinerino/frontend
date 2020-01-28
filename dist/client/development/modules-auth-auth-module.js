@@ -346,6 +346,7 @@ var AuthSigninComponent = /** @class */ (function () {
         this.userService = userService;
         this.orderService = orderService;
         this.store = store;
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -373,7 +374,7 @@ var AuthSigninComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.userService.getAccount()];
                     case 4:
                         _a.sent();
-                        this.router.navigate([_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].BASE_URL]);
+                        this.router.navigate([this.environment.BASE_URL]);
                         return [3 /*break*/, 6];
                     case 5:
                         error_1 = _a.sent();

@@ -8,9 +8,9 @@ import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap';
 import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../../environments/environment';
-import { IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
-import { MasterService, PurchaseService, UserService, UtilService } from '../../../../../../services';
+import { getEnvironment } from '../../../../../../../environments/environment';
+import { getExternalData, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
+import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 import {
     PurchaseTransactionModalComponent
@@ -33,7 +33,8 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public isPreSchedule: boolean;
     public screeningWorkEvents: IScreeningEventWork[];
     public moment: typeof moment = moment;
-    public environment = environment;
+    public environment = getEnvironment();
+    public external = getExternalData();
     private updateTimer: any;
 
     constructor(
@@ -42,7 +43,6 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         private utilService: UtilService,
         private purchaseService: PurchaseService,
         private masterService: MasterService,
-        private userService: UserService,
         private modal: BsModalService,
         private translate: TranslateService
     ) { }
@@ -76,13 +76,13 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             await this.masterService.getSellers();
             const master = await this.masterService.getData();
             const purchase = await this.purchaseService.getData();
+            const external = getExternalData();
             let seller = (purchase.seller === undefined)
                 ? master.sellers[0] : purchase.seller;
             const findResult = master.sellers.find((s) => {
-                return (purchase.external !== undefined
-                    && purchase.external.theaterBranchCode !== undefined
+                return (external.theaterBranchCode !== undefined
                     && s.location !== undefined
-                    && s.location.branchCode === purchase.external.theaterBranchCode);
+                    && s.location.branchCode === external.theaterBranchCode);
             });
             if (findResult !== undefined) {
                 seller = findResult;
@@ -108,7 +108,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         const purchase = await this.purchaseService.getData();
         if (this.isPreSchedule) {
             this.scheduleDates = [];
-            for (let i = 0; i < Number(environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
+            for (let i = 0; i < Number(this.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
                 this.scheduleDates.push(moment().add(i, 'day').format('YYYYMMDD'));
             }
         } else {
@@ -156,7 +156,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public async selectSeller(seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>) {
         this.purchaseService.selectSeller(seller);
         this.scheduleDates = [];
-        for (let i = 0; i < Number(environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
+        for (let i = 0; i < Number(this.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
             this.scheduleDates.push(moment().add(i, 'day').format('YYYYMMDD'));
         }
         this.isPreSchedule = false;
@@ -177,6 +177,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public async selectDate(scheduleDate?: string) {
         const purchase = await this.purchaseService.getData();
         const seller = purchase.seller;
+        const external = getExternalData();
         if (seller === undefined || this.scheduleDates.length === 0) {
             this.router.navigate(['/error']);
             return;
@@ -185,23 +186,21 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             scheduleDate = (this.isPreSchedule)
                 ? this.scheduleDates[0]
                 : moment()
-                    .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                    .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .format('YYYYMMDD');
-            if (purchase.external !== undefined
-                && purchase.external.scheduleDate !== undefined) {
-                scheduleDate = purchase.external.scheduleDate;
+            if (external.scheduleDate !== undefined) {
+                scheduleDate = external.scheduleDate;
             }
         }
         this.purchaseService.selectScheduleDate(scheduleDate);
         try {
             await this.masterService.getSchedule({
                 superEvent: {
-                    ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
-                        ? [] : [purchase.external.superEventId],
+                    ids: (external.superEventId === undefined) ? [] : [external.superEventId],
                     locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
                         ? [] : [seller.location.branchCode],
-                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
-                        ? [] : [purchase.external.workPerformedId],
+                    workPerformedIdentifiers: (external.workPerformedId === undefined)
+                        ? [] : [external.workPerformedId],
                 },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
@@ -237,12 +236,11 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.purchaseService.unsettledDelete();
         this.purchaseService.selectSchedule(screeningEvent);
         const purchase = await this.purchaseService.getData();
-        const user = await this.userService.getData();
         if (purchase.seller === undefined) {
             this.router.navigate(['/error']);
             return;
         }
-        if (user.isPurchaseCart
+        if (this.environment.PURCHASE_CART
             && purchase.transaction !== undefined
             && purchase.authorizeSeatReservations.length > 0) {
             this.openTransactionModal();

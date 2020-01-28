@@ -84,7 +84,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
      * @returns {boolean}
      */
     public isMobile(): boolean {
-        if (window.innerWidth > 768) {
+        if (this.screenData.size.w * this.scale > 768) {
             return false;
         }
 

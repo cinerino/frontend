@@ -7,8 +7,8 @@ import * as moment from 'moment';
 import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../../environments/environment';
-import { iOSDatepickerTapBugFix, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
+import { getEnvironment } from '../../../../../../../environments/environment';
+import { getExternalData, iOSDatepickerTapBugFix, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
 import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
@@ -26,12 +26,12 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public screeningWorkEvents: IScreeningEventWork[];
     public moment: typeof moment = moment;
     public scheduleDate: Date;
-    public environment = environment;
-    private updateTimer: any;
+    public environment = getEnvironment();
     public bsValue: Date;
     public isSales: boolean;
-    @ViewChild('datepicker', { static: true })
-    private datepicker: BsDatepickerDirective;
+    public external = getExternalData();
+    private updateTimer: any;
+    @ViewChild('datepicker', { static: true }) private datepicker: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -56,20 +56,19 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.isSales = true;
         try {
             await this.purchaseService.cancelTransaction();
-            const purchase = await this.purchaseService.getData();
             if (this.scheduleDate === undefined) {
                 const defaultDate = moment(moment().format('YYYYMMDD'))
-                    .add(environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                    .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .toDate();
-                const openDate = moment(environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+                const openDate = moment(this.environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
                 this.scheduleDate = defaultDate;
                 const nowDate = moment().toDate();
                 if (openDate > nowDate) {
                     this.scheduleDate = openDate;
                 }
-                if (purchase.external !== undefined
-                    && purchase.external.scheduleDate !== undefined) {
-                    this.scheduleDate = moment(purchase.external.scheduleDate).toDate();
+                const external = getExternalData();
+                if (external.scheduleDate !== undefined) {
+                    this.scheduleDate = moment(external.scheduleDate).toDate();
                 }
             }
             await this.masterService.getSellers();
@@ -117,10 +116,10 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                     let seller = (purchase.seller === undefined)
                         ? master.sellers[0] : purchase.seller;
                     const findResult = master.sellers.find((s) => {
-                        return (purchase.external !== undefined
-                            && purchase.external.theaterBranchCode !== undefined
+                        const external = getExternalData();
+                        return (external.theaterBranchCode !== undefined
                             && s.location !== undefined
-                            && s.location.branchCode === purchase.external.theaterBranchCode);
+                            && s.location.branchCode === external.theaterBranchCode);
                     });
                     if (findResult !== undefined) {
                         seller = findResult;
@@ -151,14 +150,15 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         const now = (await this.utilService.getServerTime()).date;
         const selectDate = moment(moment(this.scheduleDate).format('YYYYMMDD')).toDate();
         const salesStopDate = moment(moment().format('YYYYMMDD'))
-            .add(environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE, environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT)
+            .add(this.environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE,
+                this.environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT)
             .toDate();
-        const openDate = moment(environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
+        const openDate = moment(this.environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
         this.isSales = (selectDate >= openDate && selectDate >= salesStopDate);
         if (this.isSales
-            && environment.PURCHASE_SCHEDULE_SALES_STOP_TIME !== ''
+            && this.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME !== ''
             && moment(salesStopDate).unix() === moment(selectDate).unix()) {
-            const salesStopTime = moment(environment.PURCHASE_SCHEDULE_SALES_STOP_TIME, 'HHmmss').format('HHmmss');
+            const salesStopTime = moment(this.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME, 'HHmmss').format('HHmmss');
             this.isSales = (moment(now).format('HHmmss') < salesStopTime);
         }
         try {
@@ -169,22 +169,23 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             }
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
             this.purchaseService.selectScheduleDate(scheduleDate);
+            const external = getExternalData();
             await this.masterService.getSchedule({
                 superEvent: {
-                    ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
-                        ? [] : [purchase.external.superEventId],
+                    ids: (external.superEventId === undefined)
+                        ? [] : [external.superEventId],
                     locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
                         ? [] : [seller.location.branchCode],
-                    workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
-                        ? [] : [purchase.external.workPerformedId],
+                    workPerformedIdentifiers: (external.workPerformedId === undefined)
+                        ? [] : [external.workPerformedId],
                 },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
             const master = await this.masterService.getData();
             const screeningEvents = master.screeningEvents;
-                    this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
-                    this.update();
+            this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
+            this.update();
         } catch (error) {
             this.router.navigate(['/error']);
         }

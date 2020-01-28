@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { getEnvironment } from '../../../../../../environments/environment';
+import { getExternalData } from '../../../../../functions';
 import { ViewType } from '../../../../../models';
-import { PurchaseService, UserService } from '../../../../../services';
+import { PurchaseService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -14,10 +16,11 @@ import * as reducers from '../../../../../store/reducers';
 export class PurchaseRootComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
+    public environment = getEnvironment();
+
     constructor(
         private store: Store<reducers.IState>,
         private purchaseService: PurchaseService,
-        private userService: UserService,
         private router: Router
     ) { }
 
@@ -27,24 +30,22 @@ export class PurchaseRootComponent implements OnInit {
     public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
-        const user = await this.userService.getData();
         const tmpPurchase = await this.purchaseService.getData();
-        if (user.viewType === ViewType.Cinema
-            && tmpPurchase.external !== undefined
-            && tmpPurchase.external.eventId !== undefined
+        const external = getExternalData();
+        if (this.environment.VIEW_TYPE === ViewType.Cinema
+            && external !== undefined
+            && external.eventId !== undefined
             && tmpPurchase.authorizeSeatReservation !== undefined) {
             this.router.navigate([`/purchase/cinema/overlap`]);
             return;
         }
         this.purchaseService.delete();
-        const purchase = await this.purchaseService.getData();
-        if (user.viewType === ViewType.Cinema
-            && purchase.external !== undefined
-            && purchase.external.eventId !== undefined) {
-            this.router.navigate([`/purchase/transaction/${purchase.external.eventId}`]);
+        if (this.environment.VIEW_TYPE === ViewType.Cinema
+            && external.eventId !== undefined) {
+            this.router.navigate([`/purchase/transaction/${external.eventId}`]);
             return;
         }
-        if (user.viewType === ViewType.Cinema) {
+        if (this.environment.VIEW_TYPE === ViewType.Cinema) {
             this.router.navigate(['/purchase/cinema/schedule']);
             return;
         }

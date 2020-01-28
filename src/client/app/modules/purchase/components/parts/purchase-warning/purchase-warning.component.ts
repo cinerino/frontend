@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
+import { getProject } from '../../../../../functions';
 import { UtilService } from '../../../../../services';
 
 @Component({
@@ -11,7 +12,7 @@ import { UtilService } from '../../../../../services';
 export class PurchaseWarningComponent implements OnInit, OnChanges {
     @Input() public language: string;
     @Input() public screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
-    public environment = environment;
+    public environment = getEnvironment();
     public warning: string;
 
     constructor(
@@ -23,7 +24,7 @@ export class PurchaseWarningComponent implements OnInit, OnChanges {
 
     public async ngOnChanges() {
         try {
-            const url = `/storage/text/purchase/warning/${this.language}.txt`;
+            const url = `${getProject().storageUrl}/text/purchase/warning/${this.language}.txt`;
             const result = await this.utilService.getText(url);
             this.warning = result.replace(/\n/g, '<br>');
         } catch (error) {

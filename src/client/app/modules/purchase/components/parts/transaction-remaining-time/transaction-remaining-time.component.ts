@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { environment } from '../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../environments/environment';
 
 @Component({
     selector: 'app-transaction-remaining-time',
@@ -15,7 +15,7 @@ export class TransactionRemainingTimeComponent implements OnInit, OnDestroy {
     public diff: { hours: string; minutes: string; seconds: string; };
     public timer: any;
     public width: number;
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private router: Router
@@ -44,7 +44,7 @@ export class TransactionRemainingTimeComponent implements OnInit, OnDestroy {
             minutes: `00${expires.diff(now, 'minutes') % 60}`.slice(-2),
             seconds: `00${expires.diff(now, 'seconds') % 60 % 60}`.slice(-2)
         };
-        this.width = Math.floor(expires.diff(now, 'seconds') / (Number(environment.PURCHASE_TRANSACTION_TIME) * 60) * 100);
+        this.width = Math.floor(expires.diff(now, 'seconds') / (Number(this.environment.PURCHASE_TRANSACTION_TIME) * 60) * 100);
         if (this.isExpired) {
             this.router.navigate(['/expired']);
         }

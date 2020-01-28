@@ -272,7 +272,7 @@ export class UserEffects {
                 await this.cinerino.getServices();
                 const transaction =
                     await this.cinerino.transaction.moneyTransfer.start<factory.accountType.Coin, factory.pecorino.account.TypeOf.Account>({
-                        project: { typeOf: 'Project', id: payload.seller.project.id },
+                        project: { typeOf: factory.organizationType.Project, id: payload.seller.project.id },
                         expires: moment().add(1, 'minutes').toDate(),
                         agent: {
                             typeOf: factory.personType.Person,

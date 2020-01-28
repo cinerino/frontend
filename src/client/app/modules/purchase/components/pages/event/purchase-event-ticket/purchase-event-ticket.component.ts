@@ -6,9 +6,10 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../../environments/environment';
+import { getEnvironment } from '../../../../../../../environments/environment';
 import {
     changeTicketCount,
+    getExternalData,
     getRemainingSeatLength,
     getTicketPrice,
     IScreeningEventWork,
@@ -37,8 +38,8 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public moment: typeof moment = moment;
     public getTicketPrice = getTicketPrice;
     public changeTicketCount = changeTicketCount;
+    public environment = getEnvironment();
     private updateTimer: any;
-    public environment = environment;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -101,6 +102,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         const seller = purchase.seller;
         const scheduleDate = purchase.scheduleDate;
         const transaction = purchase.transaction;
+        const external = getExternalData();
         if (seller === undefined
             || scheduleDate === undefined
             || transaction === undefined) {
@@ -108,14 +110,11 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         }
         await this.masterService.getSchedule({
             superEvent: {
-                ids:
-                    (purchase.external === undefined || purchase.external.superEventId === undefined)
-                        ? [] : [purchase.external.superEventId],
-                locationBranchCodes:
-                    (seller.location === undefined || seller.location.branchCode === undefined)
-                        ? [] : [seller.location.branchCode],
-                workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
-                    ? [] : [purchase.external.workPerformedId],
+                ids: (external.superEventId === undefined) ? [] : [external.superEventId],
+                locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
+                    ? [] : [seller.location.branchCode],
+                workPerformedIdentifiers: (external.workPerformedId === undefined)
+                    ? [] : [external.workPerformedId],
             },
             startFrom: moment(scheduleDate).toDate(),
             startThrough: moment(scheduleDate).add(1, 'day').toDate()
@@ -130,29 +129,27 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      * パフォーマンス選択
      * @param screeningEvent
      */
-    public selectSchedule(screeningEvent: factory.event.screeningEvent.IEvent) {
-        this.user.subscribe(async (user) => {
-            const purchase = await this.purchaseService.getData();
-            if (purchase.authorizeSeatReservations.length > 0
-                && !user.isPurchaseCart) {
-                this.utilService.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.event.ticket.alert.cart')
-                });
-                return;
-            }
-            this.purchaseService.selectSchedule(screeningEvent);
-            try {
-                await this.purchaseService.getScreeningEventOffers();
-                await this.purchaseService.getTicketList();
-                this.openTicketList();
-            } catch (error) {
-                this.utilService.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: ''
-                });
-            }
-        }).unsubscribe();
+    public async selectSchedule(screeningEvent: factory.event.screeningEvent.IEvent) {
+        const purchase = await this.purchaseService.getData();
+        if (purchase.authorizeSeatReservations.length > 0
+            && !this.environment.PURCHASE_CART) {
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('purchase.event.ticket.alert.cart')
+            });
+            return;
+        }
+        this.purchaseService.selectSchedule(screeningEvent);
+        try {
+            await this.purchaseService.getScreeningEventOffers();
+            await this.purchaseService.getTicketList();
+            this.openTicketList();
+        } catch (error) {
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: ''
+            });
+        }
     }
 
     /**
@@ -267,12 +264,12 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         // チケット枚数上限判定
         let itemCount = 0;
         authorizeSeatReservations.forEach(a => itemCount += a.object.acceptedOffer.length);
-        if (itemCount > Number(environment.PURCHASE_ITEM_MAX_LENGTH)) {
+        if (itemCount > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant(
                     'purchase.event.ticket.alert.limit',
-                    { value: Number(environment.PURCHASE_ITEM_MAX_LENGTH) }
+                    { value: Number(this.environment.PURCHASE_ITEM_MAX_LENGTH) }
                 )
             });
             return;

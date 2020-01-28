@@ -28,7 +28,7 @@ router.post('/getCredentials', async (req, res) => {
         }
         const options = {
             endpoint,
-            auth: authModel.create()
+            auth: authModel.create(req)
         };
         const accessToken = await options.auth.getAccessToken();
         const expiryDate = options.auth.credentials.expiry_date;
@@ -49,7 +49,7 @@ router.get('/signIn', (req, res) => {
     }
     delete req.session.auth;
     const authModel = new Auth2Model(req.session.auth);
-    const auth = authModel.create();
+    const auth = authModel.create(req);
     const url = auth.generateAuthUrl({
         scopes: authModel.scopes,
         state: authModel.state,
@@ -62,7 +62,7 @@ router.get('/signIn', (req, res) => {
 router.get('/signOut', (req, res) => {
     log('signOut');
     const authModel = new Auth2Model((<Express.Session>req.session).auth);
-    const auth = authModel.create();
+    const auth = authModel.create(req);
     const url = auth.generateLogoutUrl();
     log('url:', url);
     res.json({ url });

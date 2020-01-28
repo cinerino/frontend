@@ -1,4 +1,4 @@
-import { environment } from '../../../environments/environment';
+import { getEnvironment } from '../../../environments/environment';
 import { Reservation } from '../../models';
 import { masterAction, orderAction, purchaseAction, userAction, utilAction } from '../actions';
 import * as masterReducer from './master.reducer';
@@ -34,6 +34,7 @@ export const initialState: IState = {
 };
 
 function getInitialState(): IState {
+    const environment = getEnvironment();
     const json = (<Storage>(<any>window)[environment.STORAGE_TYPE]).getItem(environment.STORAGE_NAME);
     if (json === undefined || json === null) {
         return initialState;
