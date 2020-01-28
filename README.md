@@ -10,6 +10,9 @@
 | `REDIS_HOST`                        | true     |                               | redis host                              |
 | `REDIS_PORT`                        | true     |                               | redis port                              |
 | `REDIS_KEY`                         | true     |                               | redis key                               |
+| `PROJECTS`                          | true     |                               | projects json                           |
+| `PROJECT_NAME`                      | true     |                               | project name                            |
+| `PROJECT_ID`                        | true     |                               | project id                              |
 | `STORAGE_URL`                       | true     |                               | storage url                             |
 | `API_ENDPOINT`                      | true     |                               | api endpoint                            |
 | `CLIENT_ID`                         | true     |                               | client id                               |

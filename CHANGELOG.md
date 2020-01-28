@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.0 - 2020-01-28
+### Added
+ - マルチプロジェクトへ対応
+
 ## 2.5.0 - 2020-01-15
 ### Added
  - 口座入金追加
