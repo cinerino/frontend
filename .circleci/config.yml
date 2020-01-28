@@ -65,30 +65,6 @@ jobs:
           command: |
             git remote add development-staging ${DEPLOY_TARGET_REPOSITORY_DEVELOPMENT}
             git push development-staging $CIRCLE_BRANCH:master -f -v
-  deploy2development-oyatsu-frontend:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: deploy to azure webapps development-oyatsu-frontend
-          command: |
-            git remote add development-oyatsu-frontend ${DEPLOY_TARGET_REPOSITORY_DEVELOPMENT_OYATSU_FRONTEND}
-            git push development-oyatsu-frontend $CIRCLE_BRANCH:master -f -v
-  deploy2development-oyatsu-print:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: deploy to azure webapps development-oyatsu-print
-          command: |
-            git remote add development-oyatsu-print ${DEPLOY_TARGET_REPOSITORY_DEVELOPMENT_OYATSU_PRINT}
-            git push development-oyatsu-print $CIRCLE_BRANCH:master -f -v
   prerelease:
     docker:
       - image: circleci/node:latest
@@ -172,18 +148,6 @@ workflows:
           requires:
             - build
       - deploy2development:
-          requires:
-            - test
-          filters:
-            branches:
-              only: develop
-      - deploy2development-oyatsu-frontend:
-          requires:
-            - test
-          filters:
-            branches:
-              only: develop
-      - deploy2development-oyatsu-print:
           requires:
             - test
           filters:
