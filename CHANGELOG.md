@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.1 - 2020-01-28
+### Fixed
+ - パスポートトークン取得修正
+
 ## 3.0.0 - 2020-01-28
 ### Added
  - マルチプロジェクトへ対応
