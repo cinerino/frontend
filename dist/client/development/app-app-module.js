@@ -70366,7 +70366,7 @@ var CinerinoService = /** @class */ (function () {
                             || this.waiterServerUrl === '') {
                             return [2 /*return*/, { token: '' }];
                         }
-                        url = this.waiterServerUrl;
+                        url = this.waiterServerUrl + "/projects/" + Object(_functions__WEBPACK_IMPORTED_MODULE_5__["getProject"])().projectId + "/passports";
                         body = { scope: "Transaction:PlaceOrder:" + selleId };
                         return [4 /*yield*/, this.http.post(url, body).toPromise()];
                     case 1:
