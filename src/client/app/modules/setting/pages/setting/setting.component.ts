@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../environments/environment';
+import { getEnvironment } from '../../../../../environments/environment';
 import { connectionType, printers, ViewType } from '../../../../models';
 import { MasterService, OrderService, UserService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
@@ -29,7 +29,7 @@ export class SettingComponent implements OnInit {
     public posList: { id: string; name: string; typeOf: string; }[];
     public printers: typeof printers = printers;
     public connectionType: typeof connectionType = connectionType;
-    public environment = environment;
+    public environment = getEnvironment();
 
     constructor(
         private store: Store<reducers.IState>,
@@ -62,13 +62,6 @@ export class SettingComponent implements OnInit {
             posId: ['', [Validators.required]],
             printerType: ['', [Validators.required]],
             printerIpAddress: [''],
-            isPurchaseCart: ['0', [
-                Validators.required,
-                Validators.pattern(/^[0-9]+$/)
-            ]],
-            viewType: ['', [
-                Validators.required
-            ]]
         });
         const user = await this.userService.getData();
         if (user.seller !== undefined
@@ -83,8 +76,6 @@ export class SettingComponent implements OnInit {
             this.baseForm.controls.printerType.setValue(user.printer.connectionType);
             this.baseForm.controls.printerIpAddress.setValue(user.printer.ipAddress);
         }
-        this.baseForm.controls.isPurchaseCart.setValue((user.isPurchaseCart) ? '1' : '0');
-        this.baseForm.controls.viewType.setValue(user.viewType);
     }
 
     /**
@@ -136,17 +127,13 @@ export class SettingComponent implements OnInit {
                 return;
             }
         }
-        const isPurchaseCart = (this.baseForm.controls.isPurchaseCart.value === '1') ? true : false;
-        const viewType = this.baseForm.controls.viewType.value;
         this.userService.updateBaseSetting({
             seller: findSeller,
             pos: findPos,
             printer: {
                 ipAddress: this.baseForm.controls.printerIpAddress.value,
                 connectionType: this.baseForm.controls.printerType.value
-            },
-            isPurchaseCart,
-            viewType
+            }
         });
         this.utilService.openAlert({
             title: this.translate.instant('common.complete'),

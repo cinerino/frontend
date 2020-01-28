@@ -5,7 +5,8 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
+import { getEnvironment } from '../../environments/environment';
+import { getExternalData } from '../functions';
 import { IReservationSeat, IReservationTicket, Reservation } from '../models';
 import { purchaseAction } from '../store/actions';
 import * as reducers from '../store/reducers';
@@ -17,6 +18,8 @@ import { UtilService } from './util.service';
 export class PurchaseService {
     public purchase: Observable<reducers.IPurchaseState>;
     public error: Observable<string | null>;
+    public environment = getEnvironment();
+
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
@@ -77,15 +80,16 @@ export class PurchaseService {
                     reject();
                     return;
                 }
+                const external = getExternalData();
                 const seller = purchase.seller;
                 this.store.dispatch(new purchaseAction.GetPreScheduleDates({
                     superEvent: {
-                        ids: (purchase.external === undefined || purchase.external.superEventId === undefined)
-                            ? [] : [purchase.external.superEventId],
+                        ids: (external.superEventId === undefined)
+                            ? [] : [external.superEventId],
                         locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
                             ? [] : [seller.location.branchCode],
-                        workPerformedIdentifiers: (purchase.external === undefined || purchase.external.workPerformedId === undefined)
-                            ? [] : [purchase.external.workPerformedId]
+                        workPerformedIdentifiers: (external.workPerformedId === undefined)
+                            ? [] : [external.workPerformedId]
                     }
                 }));
             }).unsubscribe();
@@ -129,13 +133,13 @@ export class PurchaseService {
                     { name: 'appVersion', value: (navigator && navigator.appVersion !== undefined) ? navigator.appVersion : '' }
                 ]
             };
-            const linyId = (purchase.external === undefined || purchase.external.linyId === undefined)
-                ? undefined : purchase.external.linyId;
+            const external = getExternalData();
+            const linyId = (external.linyId === undefined) ? undefined : external.linyId;
             if (linyId !== undefined) {
                 agent.identifier.push({ name: 'linyId', value: linyId });
             }
             this.store.dispatch(new purchaseAction.StartTransaction({
-                expires: moment(now).add(environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
+                expires: moment(now).add(this.environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
                 seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
                 object: {},
                 agent
@@ -386,7 +390,7 @@ export class PurchaseService {
     /**
      * 連絡先登録
      */
-    public async registerContact(contact: {
+    public async registerContact(profile: {
         givenName: string;
         familyName: string;
         telephone: string;
@@ -399,7 +403,7 @@ export class PurchaseService {
                 reject();
                 return;
             }
-            this.store.dispatch(new purchaseAction.RegisterContact({ transaction, contact }));
+            this.store.dispatch(new purchaseAction.RegisterContact({ transaction, profile }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.RegisterContactSuccess),
                 tap(() => { resolve(); })
@@ -528,8 +532,9 @@ export class PurchaseService {
             const transaction = purchase.transaction;
             const authorizeSeatReservations = purchase.authorizeSeatReservations;
             const seller = purchase.seller;
-            const linyId = (purchase.external === undefined || purchase.external.linyId === undefined)
-                ? undefined : purchase.external.linyId;
+            const external = getExternalData();
+            const linyId = (external.linyId === undefined)
+                ? undefined : external.linyId;
             this.store.dispatch(new purchaseAction.EndTransaction({
                 transaction,
                 authorizeSeatReservations,
@@ -577,22 +582,6 @@ export class PurchaseService {
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
-    }
-
-    /**
-     * 外部連携情報設定
-     */
-    public setExternal(params: {
-        theaterBranchCode?: string;
-        superEventId?: string;
-        eventId?: string;
-        workPerformedId?: string;
-        passportToken?: string;
-        scheduleDate?: string;
-        linyId?: string;
-    }) {
-        (<any>params).language = undefined;
-        this.store.dispatch(new purchaseAction.SetExternal(params));
     }
 
     /**

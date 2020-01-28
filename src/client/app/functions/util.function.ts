@@ -104,3 +104,103 @@ export function iOSDatepickerTapBugFix(
     };
     container.dayHoverHandler = hoverWrapper;
 }
+
+/**
+ * ストリーミングダウンロード
+ */
+export async function streamingDownload<T>(stream: ReadableStream<T>) {
+    const reader = stream.getReader();
+    const decoder = new TextDecoder();
+    let streamText = '';
+    return new Promise<string>(async (resolve, reject) => {
+        try {
+            const readChunk = async (chunk: { done: boolean; value: any; }) => {
+                if (chunk.done) {
+                    resolve(streamText);
+                    return;
+                }
+                streamText += decoder.decode(chunk.value);
+                await readChunk(await reader.read());
+            };
+            await readChunk(await reader.read());
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+/**
+ * 文字列をBLOB変換
+ */
+export function string2blob(value: string, options?: BlobPropertyBag) {
+    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    return new Blob([bom, value], options);
+}
+
+/**
+ * パラメータ取得
+ */
+export function getParameter(): {
+    theaterBranchCode?: string;
+    superEventId?: string;
+    eventId?: string;
+    passportToken?: string;
+    workPerformedId?: string;
+    scheduleDate?: string;
+    linyId?: string;
+    language?: string;
+    project?: string;
+} {
+    const result: any = {};
+    const params = location.search.replace('?', '').split('&');
+    for (let i = 0; i < params.length; i++) {
+        const param = params[i].split('=');
+        const key = param[0];
+        const value = param[1];
+        if (key && value) {
+            result[key] = value;
+        }
+    }
+    if (result.performanceId !== undefined
+        && result.eventId === undefined) {
+            result.eventId = result.performanceId;
+            result.performanceId = undefined;
+    }
+    return result;
+}
+
+/**
+ * プロジェクト情報取得
+ */
+export function getProject() {
+    const project = sessionStorage.getItem('PROJECT');
+    if (project === null || project === '') {
+        return {
+            projectId: '',
+            projectName: '',
+            storageUrl: ''
+        };
+    }
+    return <{
+        projectId: string;
+        projectName: string;
+        storageUrl: string;
+    }>JSON.parse(project);
+}
+
+export function getExternalData(): {
+    theaterBranchCode?: string;
+    superEventId?: string;
+    eventId?: string;
+    passportToken?: string;
+    workPerformedId?: string;
+    scheduleDate?: string;
+    linyId?: string;
+    language?: string;
+} {
+    const external = sessionStorage.getItem('EXTERNAL');
+    if (external === null || external === '') {
+        return {};
+    }
+    return JSON.parse(external);
+}

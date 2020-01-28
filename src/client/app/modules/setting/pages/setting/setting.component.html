@@ -70,39 +70,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="environment.SETTING_DEVELOP_OPTION">
-                <div class="form-group">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right"> {{ 'setting.isPurchaseCart' | translate }}
-                        </p>
-                        <div class="col-md-8">
-                            <select type="text" class="form-control" formControlName="isPurchaseCart"
-                                id="isPurchaseCart" placeholder="">
-                                <option value="0">{{ 'common.off' | translate }}</option>
-                                <option value="1">{{ 'common.on' | translate }}</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group mb-0">
-                    <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right"> {{ 'setting.viewType' | translate }}</p>
-                        <div class="col-md-8">
-                            <select class="form-control" id="viewType" formControlName="viewType">
-                                <option [value]="viewType.Cinema">{{ viewType.Cinema }}</option>
-                                <option [value]="viewType.Event">{{ viewType.Event }}</option>
-                            </select>
-                            <div *ngIf="baseForm.controls.viewType.invalid && baseForm.controls.viewType.touched"
-                                class="mt-2">
-                                <p *ngIf="baseForm.controls.viewType.errors.required" class="text-danger">
-                                    {{ 'form.validation.required' | translate }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            
 
         </div>
         <div class="buttons mx-auto text-center">

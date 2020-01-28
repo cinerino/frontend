@@ -4,23 +4,23 @@
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.input.read' | translate"></p>
 
         <div class="p-3 bg-white">
-            <form [formGroup]="customerContactForm">
+            <form [formGroup]="profileForm">
                 <div class="form-group row">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.familyName' | translate }}</p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" formControlName="familyName" id="familyName"
                             [placeholder]="'form.placeholder.familyName' | translate">
-                        <div *ngIf="customerContactForm.controls.familyName.invalid && customerContactForm.controls.familyName.touched"
+                        <div *ngIf="profileForm.controls.familyName.invalid && profileForm.controls.familyName.touched"
                             class="mt-2">
-                            <p *ngIf="customerContactForm.controls.familyName.errors.required" class="text-danger">
+                            <p *ngIf="profileForm.controls.familyName.errors.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}
                             </p>
-                            <p *ngIf="customerContactForm.controls.familyName.errors.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.familyName.errors.maxlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.familyName.errors.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.familyName.errors.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="(user | async)?.language === 'ja' && customerContactForm.controls.familyName.errors.customPattern" class="text-danger">
+                            <p *ngIf="(user | async)?.language === 'ja' && profileForm.controls.familyName.errors.customPattern" class="text-danger">
                                 {{ 'form.validation.fullKana' | translate }}</p>
-                            <p *ngIf="(user | async)?.language !== 'ja' && customerContactForm.controls.familyName.errors.customPattern" class="text-danger">
+                            <p *ngIf="(user | async)?.language !== 'ja' && profileForm.controls.familyName.errors.customPattern" class="text-danger">
                                 {{ 'form.validation.lowercaseLetters' | translate }}</p>
                         </div>
                     </div>
@@ -30,17 +30,17 @@
                     <div class="col-md-8">
                         <input type="text" class="form-control" formControlName="givenName" id="givenName"
                             [placeholder]="'form.placeholder.givenName' | translate">
-                        <div *ngIf="customerContactForm.controls.givenName.invalid && customerContactForm.controls.givenName.touched"
+                        <div *ngIf="profileForm.controls.givenName.invalid && profileForm.controls.givenName.touched"
                             class="mt-2">
-                            <p *ngIf="customerContactForm.controls.givenName.errors.required" class="text-danger">
+                            <p *ngIf="profileForm.controls.givenName.errors.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}
                             </p>
-                            <p *ngIf="customerContactForm.controls.givenName.errors.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.givenName.errors.maxlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.givenName.errors.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.givenName.errors.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="(user | async)?.language === 'ja' && customerContactForm.controls.givenName.errors.customPattern" class="text-danger">
+                            <p *ngIf="(user | async)?.language === 'ja' && profileForm.controls.givenName.errors.customPattern" class="text-danger">
                                 {{ 'form.validation.fullKana' | translate }}</p>
-                            <p *ngIf="(user | async)?.language !== 'ja' && customerContactForm.controls.givenName.errors.customPattern" class="text-danger">
+                            <p *ngIf="(user | async)?.language !== 'ja' && profileForm.controls.givenName.errors.customPattern" class="text-danger">
                                 {{ 'form.validation.lowercaseLetters' | translate }}</p>
                         </div>
                     </div>
@@ -50,15 +50,15 @@
                     <div class="col-md-8">
                         <input type="email" class="form-control" formControlName="email" id="email"
                             [placeholder]="'form.placeholder.email' | translate">
-                        <div *ngIf="customerContactForm.controls.email.invalid && customerContactForm.controls.email.touched"
+                        <div *ngIf="profileForm.controls.email.invalid && profileForm.controls.email.touched"
                             class="mt-2">
-                            <p *ngIf="customerContactForm.controls.email.errors.required" class="text-danger">
+                            <p *ngIf="profileForm.controls.email.errors.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}
                             </p>
-                            <p *ngIf="customerContactForm.controls.email.errors.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.email.errors.maxlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.email.errors.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.email.errors.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="customerContactForm.controls.email.errors.email" class="text-danger">
+                            <p *ngIf="profileForm.controls.email.errors.email" class="text-danger">
                                 {{ 'form.validation.email' | translate }}
                             </p>
                         </div>
@@ -72,18 +72,18 @@
                     <div class="col-md-8">
                         <input type="tel" class="form-control" formControlName="telephone" id="telephone"
                             [placeholder]="'form.placeholder.telephone' | translate">
-                        <div *ngIf="customerContactForm.controls.telephone.invalid && customerContactForm.controls.telephone.touched"
+                        <div *ngIf="profileForm.controls.telephone.invalid && profileForm.controls.telephone.touched"
                             class="mt-2">
-                            <p *ngIf="customerContactForm.controls.telephone.errors.required" class="text-danger">
+                            <p *ngIf="profileForm.controls.telephone.errors.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}
                             </p>
-                            <p *ngIf="customerContactForm.controls.telephone.errors.minlength" class="text-danger">
-                                {{ 'form.validation.minlength' | translate:{ value: customerContactForm.controls.telephone.errors.minlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.telephone.errors.minlength" class="text-danger">
+                                {{ 'form.validation.minlength' | translate:{ value: profileForm.controls.telephone.errors.minlength.requiredLength } }}
                             </p>
-                            <p *ngIf="customerContactForm.controls.telephone.errors.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate:{ value: customerContactForm.controls.telephone.errors.maxlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.telephone.errors.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.telephone.errors.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="customerContactForm.controls.telephone.errors.telephone" class="text-danger">
+                            <p *ngIf="profileForm.controls.telephone.errors.telephone" class="text-danger">
                                 {{ 'form.validation.telephone' | translate }}</p>
                         </div>
                         <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.telephone' | translate"></p>
@@ -197,13 +197,13 @@
         <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="onSubmit()">{{ 'purchase.input.next' | translate }}</button>
 
-        <div *ngIf="(user | async).viewType === viewType.Cinema">
-            <button *ngIf="(user | async).isPurchaseCart" type="button" class="btn btn-link"
+        <div *ngIf="environment.VIEW_TYPE === viewType.Cinema">
+            <button *ngIf="environment.PURCHASE_CART" type="button" class="btn btn-link"
                 routerLink="/purchase/cinema/cart">{{ 'purchase.input.prev' | translate }}</button>
-            <button *ngIf="!(user | async).isPurchaseCart" type="button" class="btn btn-link"
+            <button *ngIf="!environment.PURCHASE_CART" type="button" class="btn btn-link"
                 routerLink="/purchase/cinema/ticket">{{ 'purchase.input.prev' | translate }}</button>
         </div>
-        <div *ngIf="(user | async).viewType === viewType.Event">
+        <div *ngIf="environment.VIEW_TYPE === viewType.Event">
             <button type="button" class="btn btn-link"
                 routerLink="/purchase/event/ticket">{{ 'purchase.input.prev' | translate }}</button>
         </div>

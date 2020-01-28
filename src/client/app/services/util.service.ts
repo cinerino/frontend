@@ -62,22 +62,6 @@ export class UtilService {
     }
 
     /**
-     * 外部連携情報取得
-     */
-    public async getExternal() {
-        const result = await this.http.post<{
-            theaterBranchCode?: string;
-            superEventId?: string;
-            eventId?: string;
-            workPerformedId?: string;
-            scheduleDate?: string;
-            language?: string;
-        }>('/api/external', {}).toPromise();
-
-        return result;
-    }
-
-    /**
      * json取得
      */
     public async getJson<T>(url: string, options?: {
@@ -135,34 +119,6 @@ export class UtilService {
         const result = await this.http.get<string>(url, { ...options, responseType: (<any>'text') }).toPromise();
 
         return result;
-    }
-
-    /**
-     * 暗号化
-     */
-    public async encryptionEncode(encyptText: string) {
-        const encryptedResult = await this.http.post<{ salt: string; iv: string; encrypted: string; }>(
-            '/api/encryption/encode', { encyptText }
-        ).toPromise();
-        return encryptedResult;
-    }
-
-    /**
-     * 復号化
-     */
-    public async encryptionDecode(encryptedResult: {
-        salt: string;
-        iv: string;
-        encrypted: string;
-    }) {
-        const decryptedResult = await this.http.post<{ decrypted: string; }>(
-            '/api/encryption/decode', {
-                salt: encryptedResult.salt,
-                iv: encryptedResult.iv,
-                encrypted: encryptedResult.encrypted
-            }
-        ).toPromise();
-        return decryptedResult;
     }
 
     /**

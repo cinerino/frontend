@@ -12,10 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * ルーティング
  */
 const debug = require("debug");
+const http_status_1 = require("http-status");
 const path = require("path");
 const auth2_model_1 = require("../models/auth2/auth2.model");
 const authorize_1 = require("./api/authorize");
-const encryption_1 = require("./api/encryption");
 const liny_1 = require("./api/liny");
 const util_1 = require("./api/util");
 const log = debug('application: router');
@@ -24,12 +24,7 @@ exports.default = (app) => {
         res.locals.NODE_ENV = process.env.NODE_ENV;
         next();
     });
-    app.use('/storage', (req, res) => {
-        const url = req.originalUrl.replace('/storage', process.env.STORAGE_URL);
-        res.redirect(url);
-    });
     app.use('/api/authorize', authorize_1.authorizeRouter);
-    app.use('/api/encryption', encryption_1.encryptionRouter);
     app.use('/api/liny', liny_1.linyRouter);
     app.use('/api', util_1.utilRouter);
     app.get('/signIn', (req, res, next) => __awaiter(this, void 0, void 0, function* () {
@@ -42,7 +37,7 @@ exports.default = (app) => {
             if (req.query.state !== authModel.state) {
                 throw (new Error(`state not matched ${req.query.state} !== ${authModel.state}`));
             }
-            const auth = authModel.create();
+            const auth = authModel.create(req);
             const credentials = yield auth.getToken(req.query.code, authModel.codeVerifier);
             // log('credentials published', credentials);
             authModel.credentials = credentials;
@@ -61,7 +56,7 @@ exports.default = (app) => {
     });
     app.get('*', (req, res, _next) => {
         if (req.xhr) {
-            res.status(httpStatus.NOT_FOUND).json('NOT FOUND');
+            res.status(http_status_1.NOT_FOUND).json('NOT FOUND');
             return;
         }
         if (req.session !== undefined) {
@@ -74,7 +69,7 @@ exports.default = (app) => {
         res.sendFile(path.resolve(`${__dirname}/../../../client/${dir}/index.html`));
     });
     app.all('*', (req, res, _next) => {
-        res.status(httpStatus.NOT_FOUND);
+        res.status(http_status_1.NOT_FOUND);
         if (req.xhr) {
             res.json('NOT FOUND');
             return;

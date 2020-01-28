@@ -4,8 +4,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { environment } from '../../environments/environment';
-import { PurchaseService, UserService, UtilService } from '../services';
+import { getEnvironment } from '../../environments/environment';
+import { getExternalData } from '../functions';
+import { UserService } from '../services';
 
 declare const ga: Function;
 
@@ -15,12 +16,12 @@ declare const ga: Function;
 })
 export class AppComponent implements OnInit {
     public isRouter: boolean;
+    public environment = getEnvironment();
+
     constructor(
         private router: Router,
         private translate: TranslateService,
-        private utilService: UtilService,
         private userService: UserService,
-        private purchaseService: PurchaseService
     ) { }
 
     /**
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit {
     public async ngOnInit() {
         this.isRouter = false;
         this.locales();
-        if (environment.ANALYTICS_ID !== '') {
+        if (this.environment.ANALYTICS_ID !== '') {
             this.analytics();
         }
         try {
@@ -48,9 +49,7 @@ export class AppComponent implements OnInit {
         if (location.hash !== '') {
             return;
         }
-        const external = await this.utilService.getExternal();
-        this.purchaseService.setExternal(external);
-        const language = external.language;
+        const language = getExternalData().language;
         if (language !== undefined) {
             this.userService.updateLanguage(language);
         }
@@ -61,9 +60,8 @@ export class AppComponent implements OnInit {
      * @example {{ 'HOME.HELLO' | translate: { value: 'world'} }}
      */
     private locales() {
-        this.translate.addLangs(environment.LANGUAGE);
+        this.translate.addLangs(this.environment.LANGUAGE);
         this.translate.setDefaultLang('ja');
-        console.log('translate', this.translate);
     }
 
     /**
@@ -74,7 +72,7 @@ export class AppComponent implements OnInit {
             if (event instanceof NavigationEnd) {
                 // Googleアナリティクス pageview
                 try {
-                    ga('create', environment.ANALYTICS_ID, 'auto');
+                    ga('create', this.environment.ANALYTICS_ID, 'auto');
                     ga('set', 'page', event.urlAfterRedirects);
                     ga('send', 'pageview');
                 } catch (err) {

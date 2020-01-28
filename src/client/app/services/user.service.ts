@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { IPrinter, ViewType } from '../models';
+import { IPrinter } from '../models';
 import { userAction } from '../store/actions';
 import * as reducers from '../store/reducers';
 import { UtilService } from './util.service';
@@ -232,15 +232,11 @@ export class UserService {
         seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
         pos?: factory.seller.IPOS;
         printer?: IPrinter;
-        isPurchaseCart: boolean;
-        viewType: ViewType;
     }) {
         this.store.dispatch(new userAction.UpdateBaseSetting({
             seller: params.seller,
             pos: params.pos,
-            printer: params.printer,
-            isPurchaseCart: params.isPurchaseCart,
-            viewType: params.viewType
+            printer: params.printer
         }));
     }
 

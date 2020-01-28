@@ -19,7 +19,7 @@ export interface IPurchaseState {
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
     authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
-    customerContact?: factory.transaction.placeOrder.ICustomerProfile;
+    profile?: factory.person.IProfile;
     authorizeCreditCardPayments: factory.action.authorize.paymentMethod.creditCard.IAction[];
     authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
     creditCard?: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
@@ -32,15 +32,6 @@ export interface IPurchaseState {
     checkMovieTicketAction?: factory.action.check.paymentMethod.movieTicket.IAction;
     isUsedMovieTicket: boolean;
     pendingMovieTickets: IMovieTicket[];
-    external?: {
-        theaterBranchCode?: string;
-        superEventId?: string;
-        eventId?: string;
-        passportToken?: string;
-        workPerformedId?: string;
-        scheduleDate?: string;
-        linyId?: string;
-    };
 }
 
 export const purchaseInitialState: IPurchaseState = {
@@ -127,7 +118,7 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             state.purchaseData.authorizeMovieTicketPayments = [];
             state.purchaseData.checkMovieTicketActions = [];
             state.purchaseData.pendingMovieTickets = [];
-            state.purchaseData.customerContact = undefined;
+            state.purchaseData.profile = undefined;
             return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.StartTransactionFail: {
@@ -145,7 +136,7 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             state.purchaseData.authorizeMovieTicketPayments = [];
             state.purchaseData.checkMovieTicketActions = [];
             state.purchaseData.pendingMovieTickets = [];
-            state.purchaseData.customerContact = undefined;
+            state.purchaseData.profile = undefined;
             return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.CancelTransactionFail: {
@@ -157,7 +148,7 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             state.purchaseData.authorizeMovieTicketPayments = [];
             state.purchaseData.checkMovieTicketActions = [];
             state.purchaseData.pendingMovieTickets = [];
-            state.purchaseData.customerContact = undefined;
+            state.purchaseData.profile = undefined;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case purchaseAction.ActionTypes.GetScreen: {
@@ -255,55 +246,52 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             const reservations = state.purchaseData.reservations;
             state.purchaseData.authorizeSeatReservation = addAuthorizeSeatReservation;
             state.purchaseData.screeningEventOffers = [];
-            const filterResult = reservations.filter(reservation => reservation.ticket === undefined);
-            if (filterResult.length === 0) {
-                if (removeAuthorizeSeatReservation !== undefined) {
-                    // 削除
-                    const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(
-                        target => target.id === removeAuthorizeSeatReservation.id
-                    );
-                    if (findAuthorizeSeatReservation > -1) {
-                        state.purchaseData.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
-                    }
-                    const findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(
-                        target => target.id === removeAuthorizeSeatReservation.id
-                    );
-                    if (findPendingMovieTicket > -1) {
-                        state.purchaseData.pendingMovieTickets.splice(findPendingMovieTicket, 1);
-                    }
+            if (removeAuthorizeSeatReservation !== undefined) {
+                // 削除
+                const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(
+                    target => target.id === removeAuthorizeSeatReservation.id
+                );
+                if (findAuthorizeSeatReservation > -1) {
+                    state.purchaseData.authorizeSeatReservations.splice(findAuthorizeSeatReservation, 1);
                 }
-                // 追加
-                state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
-                const movieTicketReservations = reservations.filter(r => r.ticket !== undefined && r.ticket.movieTicket !== undefined);
-                if (movieTicketReservations.length > 0) {
-                    const pendingReservations =
-                        (<factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[]>
-                            (<any>addAuthorizeSeatReservation.result).responseBody.object.reservations);
-                    state.purchaseData.pendingMovieTickets.push({
-                        id: addAuthorizeSeatReservation.id,
-                        movieTickets: movieTicketReservations.map((r) => {
-                            const pendingReservation = pendingReservations.find((p) => {
-                                return (p.reservedTicket.ticketedSeat !== undefined
-                                    && p.reservedTicket.ticketedSeat.seatNumber === r.seat.seatNumber
-                                    && p.reservedTicket.ticketedSeat.seatSection === r.seat.seatSection);
-                            });
-                            if (pendingReservation === undefined
-                                || pendingReservation.reservedTicket.ticketedSeat === undefined) {
-                                throw new Error('pendingReservation is undefined');
-                            }
-                            const movieTicket =
-                                (<factory.paymentMethod.paymentCard.movieTicket.IMovieTicket>(<IReservationTicket>r.ticket).movieTicket);
-                            movieTicket.serviceOutput = {
-                                reservationFor: {
-                                    typeOf: factory.chevre.eventType.ScreeningEvent,
-                                    id: pendingReservation.reservationFor.id
-                                },
-                                reservedTicket: { ticketedSeat: pendingReservation.reservedTicket.ticketedSeat }
-                            };
-                            return movieTicket;
-                        })
-                    });
+                const findPendingMovieTicket = state.purchaseData.pendingMovieTickets.findIndex(
+                    target => target.id === removeAuthorizeSeatReservation.id
+                );
+                if (findPendingMovieTicket > -1) {
+                    state.purchaseData.pendingMovieTickets.splice(findPendingMovieTicket, 1);
                 }
+            }
+            // 追加
+            state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
+            const movieTicketReservations = reservations.filter(r => r.ticket !== undefined && r.ticket.movieTicket !== undefined);
+            if (movieTicketReservations.length > 0) {
+                const pendingReservations =
+                    (<factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[]>
+                        (<any>addAuthorizeSeatReservation.result).responseBody.object.reservations);
+                state.purchaseData.pendingMovieTickets.push({
+                    id: addAuthorizeSeatReservation.id,
+                    movieTickets: movieTicketReservations.map((r) => {
+                        const pendingReservation = pendingReservations.find((p) => {
+                            return (p.reservedTicket.ticketedSeat !== undefined
+                                && p.reservedTicket.ticketedSeat.seatNumber === r.seat.seatNumber
+                                && p.reservedTicket.ticketedSeat.seatSection === r.seat.seatSection);
+                        });
+                        if (pendingReservation === undefined
+                            || pendingReservation.reservedTicket.ticketedSeat === undefined) {
+                            throw new Error('pendingReservation is undefined');
+                        }
+                        const movieTicket =
+                            (<factory.paymentMethod.paymentCard.movieTicket.IMovieTicket>(<IReservationTicket>r.ticket).movieTicket);
+                        movieTicket.serviceOutput = {
+                            reservationFor: {
+                                typeOf: factory.chevre.eventType.ScreeningEvent,
+                                id: pendingReservation.reservationFor.id
+                            },
+                            reservedTicket: { ticketedSeat: pendingReservation.reservedTicket.ticketedSeat }
+                        };
+                        return movieTicket;
+                    })
+                });
             }
             return { ...state, loading: false, process: '', error: null };
         }
@@ -365,8 +353,8 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             return { ...state, loading: true, process: 'purchaseAction.RegisterContact' };
         }
         case purchaseAction.ActionTypes.RegisterContactSuccess: {
-            const customerContact = action.payload.customerContact;
-            state.purchaseData.customerContact = customerContact;
+            const profile = action.payload.profile;
+            state.purchaseData.profile = profile;
             return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.RegisterContactFail: {
@@ -459,10 +447,6 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
         case purchaseAction.ActionTypes.EndTransactionFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case purchaseAction.ActionTypes.SetExternal: {
-            state.purchaseData.external = action.payload;
-            return { ...state };
         }
         case purchaseAction.ActionTypes.ConvertExternalToPurchase: {
             return { ...state, loading: true, process: 'purchaseAction.ConvertExternalToPurchase' };

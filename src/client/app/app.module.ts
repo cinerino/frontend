@@ -12,13 +12,14 @@ import * as moment from 'moment';
 import { BsDatepickerModule, ModalModule, PaginationModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
+import { getProject } from './functions';
 import { CoreModule } from './modules/core/core.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { StoreModule } from './store.module';
 import { CoreStoreModule } from './store/core/store';
 
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, '/storage/i18n/', `.json?date=${moment().toISOString()}`);
+    return new TranslateHttpLoader(http, `${getProject().storageUrl}/i18n/`, `.json?date=${moment().toISOString()}`);
 }
 
 @NgModule({

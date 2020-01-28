@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import * as qrcode from 'qrcode';
 import { ITicketPrintData } from '../models';
 import { getTicketPrice } from './purchase.function';
+import { getProject } from './util.function';
 
 /**
  * キャンバスへ描画
@@ -76,11 +77,9 @@ async function drawCanvas(args: {
     const font = `"Hiragino Sans", "Hiragino Kaku Gothic ProN", "游ゴシック  Medium", meiryo, sans-serif`;
     // 画像描画
     for (const image of printData.image) {
-        const response = await fetch('/api/storage', { method: 'get' });
-        const json = await response.json();
         const imageInstance = new Image();
         imageInstance.crossOrigin = 'anonymous';
-        imageInstance.src = image.src.replace('/storage', json.storage);
+        imageInstance.src = image.src.replace('/storage', getProject().storageUrl);
         await drawImage({
             image: imageInstance,
             x: image.x,
