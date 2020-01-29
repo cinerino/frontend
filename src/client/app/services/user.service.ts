@@ -293,7 +293,6 @@ export class UserService {
      * バージョン確認
      */
     public async checkVersion() {
-        this.utilService.loadStart();
         const query = `?date=${moment().toISOString()}`;
         const { version } = await this.utilService.getJson<{ version: string }>(`/api/version${query}`);
         const data = await this.getData();
@@ -305,7 +304,6 @@ export class UserService {
             this.store.dispatch(new userAction.SetVersion({ version }));
             location.reload();
         }
-        this.utilService.loadEnd();
     }
 
 }
