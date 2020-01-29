@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { IScreeningEventWork, isSales, isScheduleStatusThreshold } from '../../../../../../functions';
+import { IScreeningEventWork } from '../../../../../../functions';
 
 @Component({
     selector: 'app-purchase-cinema-performance',
@@ -14,8 +14,6 @@ export class PurchaseCinemaPerformanceComponent implements OnInit {
     @Input() public screeningWorkEvent: IScreeningEventWork;
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();
     public moment: typeof moment = moment;
-    public isScheduleStatusThreshold = isScheduleStatusThreshold;
-    public isSales = isSales;
     public environment = getEnvironment();
 
     constructor() { }

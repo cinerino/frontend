@@ -13,10 +13,9 @@ import {
     formatTelephone,
     getProject,
     getTicketPrice,
-    isTicketedSeatScreeningEvent,
     sleep
 } from '../../functions';
-import { IScreen } from '../../models';
+import { IScreen, Performance } from '../../models';
 import { CinerinoService, LinyService, UtilService } from '../../services';
 import { purchaseAction } from '../actions';
 declare const ga: Function;
@@ -176,7 +175,7 @@ export class PurchaseEffects {
                 await this.cinerinoService.getServices();
                 const screeningEvent = payload.screeningEvent;
                 let screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[] = [];
-                if (isTicketedSeatScreeningEvent(screeningEvent)) {
+                if (new Performance(screeningEvent).isTicketedSeatScreeningEvent()) {
                     screeningEventOffers = await this.cinerinoService.event.searchOffers({
                         event: { id: screeningEvent.id }
                     });
@@ -268,7 +267,7 @@ export class PurchaseEffects {
                     || screeningEvent.offers.validThrough < nowDate) {
                     throw new Error('Outside sales period');
                 }
-                if (isTicketedSeatScreeningEvent(screeningEvent)) {
+                if (new Performance(screeningEvent).isTicketedSeatScreeningEvent()) {
                     for (const screeningEventOffer of screeningEventOffers) {
                         const section = screeningEventOffer.branchCode;
                         for (const containsPlace of screeningEventOffer.containsPlace) {

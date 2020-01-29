@@ -3,8 +3,8 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap';
 import { getEnvironment } from '../../../../../../../../environments/environment';
-import { getRemainingSeatLength, getTicketPrice, isTicketedSeatScreeningEvent } from '../../../../../../../functions';
-import { IReservationTicket } from '../../../../../../../models';
+import { getRemainingSeatLength, getTicketPrice } from '../../../../../../../functions';
+import { IReservationTicket, Performance } from '../../../../../../../models';
 
 @Component({
     selector: 'app-purchase-event-ticket-modal',
@@ -23,7 +23,6 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     public selectedTickets: { [key: string]: string; };
     public moment: typeof moment = moment;
     public getRemainingSeatLength = getRemainingSeatLength;
-    public isTicketedSeatScreeningEvent = isTicketedSeatScreeningEvent;
     public environment = getEnvironment();
 
     constructor(
@@ -31,6 +30,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
+        const screeningEvent = this.screeningEvent;
         this.tickets = [];
         this.tickets = this.screeningEventTicketOffers.filter((offer) => {
             const movieTicketTypeChargeSpecification = offer.priceSpecification.priceComponent.find(
@@ -39,10 +39,10 @@ export class PurchaseEventTicketModalComponent implements OnInit {
             return movieTicketTypeChargeSpecification === undefined;
         });
         this.values = [];
-        let limit = (this.screeningEvent.offers === undefined
-            || this.screeningEvent.offers.eligibleQuantity.maxValue === undefined)
-            ? 0 : this.screeningEvent.offers.eligibleQuantity.maxValue;
-        if (isTicketedSeatScreeningEvent(this.screeningEvent)) {
+        let limit = (screeningEvent.offers === undefined
+            || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
+            ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
+        if (new Performance(this.screeningEvent).isTicketedSeatScreeningEvent()) {
             const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
             limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
         }
@@ -84,7 +84,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     public isViewRemainingSeatCount() {
         const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
         const screeningEvent = this.screeningEvent;
-        if (!isTicketedSeatScreeningEvent(screeningEvent)) {
+        if (!new Performance(screeningEvent).isTicketedSeatScreeningEvent()) {
             return false;
         }
         const unit = this.environment.PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT;

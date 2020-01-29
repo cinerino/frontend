@@ -16,37 +16,37 @@
         </div>
     </div>
     <div class="p-3 bg-white d-flex flex-wrap" [class.not-event]="readonly">
-        <div *ngFor="let screeningEvent of screeningWorkEvent.data" class="performance my-2" [ngClass]="{ 
-            'text-dark-gray': !isSales(screeningEvent) || screeningEvent.remainingAttendeeCapacity === 0
+        <div *ngFor="let performance of screeningWorkEvent.data" class="performance my-2" [ngClass]="{ 
+            'text-dark-gray': !performance.isSales() && !performance.isScheduleStatusThreshold('danger')
             }">
             <div class="d-flex align-items-center">
                 <div class="mr-2 font-weight-bold">
-                    {{ moment(screeningEvent.startDate).format('HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
+                    {{ moment(performance.screeningEvent.startDate).format('HH:mm') }}-{{ moment(performance.screeningEvent.endDate).format('HH:mm') }}
                 </div>
-                <div class="status" *ngIf="isSales(screeningEvent) && isTicketedSeatScreeningEvent(screeningEvent)">
-                    <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'success')">
+                <div class="status" *ngIf="performance.isSales() && performance.isTicketedSeatScreeningEvent()">
+                    <div *ngIf="performance.isScheduleStatusThreshold('success')">
                         <img src="/assets/images/icon/status_success.svg">
                     </div>
-                    <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'warning')"
+                    <div *ngIf="performance.isScheduleStatusThreshold('warning')"
                         class="d-flex justify-content-around align-items-center">
                         <img src="/assets/images/icon/status_warning.svg">
                     </div>
-                    <div *ngIf="isScheduleStatusThreshold(screeningEvent, 'danger')">
+                    <div *ngIf="performance.isScheduleStatusThreshold('danger')">
                         <img src="/assets/images/icon/status_danger.svg">
                     </div>
                 </div>
 
-                <div class="status" *ngIf="isSales(screeningEvent) && !isTicketedSeatScreeningEvent(screeningEvent)">
+                <div class="status" *ngIf="performance.isSales() && !performance.isTicketedSeatScreeningEvent()">
                     <div class="d-flex justify-content-around align-items-center">
                         <img src="/assets/images/icon/status_success.svg">
                     </div>
                 </div>
 
-                <div class="status text-x-small" *ngIf="isSales(screeningEvent, 'window')">
+                <div class="status text-x-small" *ngIf="performance.isSales('window')">
                     {{ 'purchase.event.schedule.status.window' | translate }}</div>
-                <div class="status text-x-small" *ngIf="isSales(screeningEvent, 'end')">
+                <div class="status text-x-small" *ngIf="performance.isSales('end')">
                     {{ 'purchase.event.schedule.status.endSale' | translate }}</div>
-                <div class="status text-x-small" *ngIf="isSales(screeningEvent, 'start')">
+                <div class="status text-x-small" *ngIf="performance.isSales('start')">
                     {{ 'purchase.event.schedule.status.outsideSalesPeriod' | translate }}</div>
             </div>
         </div>

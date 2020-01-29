@@ -313,13 +313,13 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, createPrintCanvas, createTestPrintCanvas, changeTicketCountByOrder */
+/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, createPrintCanvas, createTestPrintCanvas, changeTicketCountByOrder */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "screeningEventsToWorkEvents", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["screeningEventsToWorkEvents"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "screeningEvents2WorkEvents", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["screeningEvents2WorkEvents"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createGmoTokenObject", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["createGmoTokenObject"]; });
 
@@ -340,12 +340,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "orderToEventOrders", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["orderToEventOrders"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "authorizeSeatReservationToEvent", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["authorizeSeatReservationToEvent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isScheduleStatusThreshold", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["isScheduleStatusThreshold"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isSales", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["isSales"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isTicketedSeatScreeningEvent", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["isTicketedSeatScreeningEvent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "changeTicketCount", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["changeTicketCount"]; });
 
@@ -701,12 +695,12 @@ function changeTicketCountByOrder(acceptedOffer) {
 /*!********************************************!*\
   !*** ./app/functions/purchase.function.ts ***!
   \********************************************/
-/*! exports provided: screeningEventsToWorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, isScheduleStatusThreshold, isSales, isTicketedSeatScreeningEvent, changeTicketCount, getRemainingSeatLength */
+/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, orderToEventOrders, authorizeSeatReservationToEvent, changeTicketCount, getRemainingSeatLength */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "screeningEventsToWorkEvents", function() { return screeningEventsToWorkEvents; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "screeningEvents2WorkEvents", function() { return screeningEvents2WorkEvents; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createGmoTokenObject", function() { return createGmoTokenObject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sameMovieTicketFilter", function() { return sameMovieTicketFilter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isAvailabilityMovieTicket", function() { return isAvailabilityMovieTicket; });
@@ -717,16 +711,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAmount", function() { return getAmount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orderToEventOrders", function() { return orderToEventOrders; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "authorizeSeatReservationToEvent", function() { return authorizeSeatReservationToEvent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isScheduleStatusThreshold", function() { return isScheduleStatusThreshold; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isSales", function() { return isSales; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isTicketedSeatScreeningEvent", function() { return isTicketedSeatScreeningEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTicketCount", function() { return changeTicketCount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRemainingSeatLength", function() { return getRemainingSeatLength; });
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models */ "./app/models/index.ts");
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -736,7 +727,7 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 /**
  * 作品別イベントへ変換
  */
-function screeningEventsToWorkEvents(params) {
+function screeningEvents2WorkEvents(params) {
     var result = [];
     var screeningEvents = params.screeningEvents;
     screeningEvents.forEach(function (screeningEvent) {
@@ -746,11 +737,11 @@ function screeningEventsToWorkEvents(params) {
         if (registered === undefined) {
             result.push({
                 info: screeningEvent,
-                data: [screeningEvent]
+                data: [new _models__WEBPACK_IMPORTED_MODULE_2__["Performance"](screeningEvent)]
             });
         }
         else {
-            registered.data.push(screeningEvent);
+            registered.data.push(new _models__WEBPACK_IMPORTED_MODULE_2__["Performance"](screeningEvent));
         }
     });
     return result;
@@ -1028,110 +1019,6 @@ function authorizeSeatReservationToEvent(params) {
         });
     });
     return results;
-}
-/**
- * スケジュールステータス判定
- */
-function isScheduleStatusThreshold(screeningEvent, status) {
-    var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
-    var limitSeatNumber = (screeningEvent.workPerformed === undefined
-        || screeningEvent.workPerformed.additionalProperty === undefined)
-        ? undefined : screeningEvent.workPerformed.additionalProperty.find(function (a) { return a.name === 'limitSeatNumber'; });
-    var remainingAttendeeCapacity = screeningEvent.remainingAttendeeCapacity;
-    var maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
-    if (remainingAttendeeCapacity === undefined || maximumAttendeeCapacity === undefined) {
-        return false;
-    }
-    if (limitSeatNumber !== undefined && maximumAttendeeCapacity > Number(limitSeatNumber.value)) {
-        // 作品追加特性（limitSeatNumber）で座席数制御
-        remainingAttendeeCapacity = (remainingAttendeeCapacity < (maximumAttendeeCapacity - Number(limitSeatNumber.value)))
-            ? 0 : remainingAttendeeCapacity - (maximumAttendeeCapacity - Number(limitSeatNumber.value));
-        maximumAttendeeCapacity = Number(limitSeatNumber.value);
-    }
-    var result = false;
-    var unit = environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
-    var value = Number(environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
-    if (unit === '%') {
-        switch (status) {
-            case 'success':
-                result = (remainingAttendeeCapacity !== 0
-                    && Math.floor(remainingAttendeeCapacity / maximumAttendeeCapacity * 100) >= value);
-                break;
-            case 'warning':
-                result = (remainingAttendeeCapacity !== 0
-                    && Math.floor(remainingAttendeeCapacity / maximumAttendeeCapacity * 100) < value
-                    && remainingAttendeeCapacity > 0);
-                break;
-            case 'danger':
-                result = (remainingAttendeeCapacity === 0 || remainingAttendeeCapacity > maximumAttendeeCapacity);
-                break;
-            default:
-                break;
-        }
-        return result;
-    }
-    else if (unit === 'count') {
-        switch (status) {
-            case 'success':
-                result = (remainingAttendeeCapacity !== 0
-                    && remainingAttendeeCapacity >= value);
-                break;
-            case 'warning':
-                result = (remainingAttendeeCapacity !== 0
-                    && remainingAttendeeCapacity < value
-                    && remainingAttendeeCapacity > 0);
-                break;
-            case 'danger':
-                result = remainingAttendeeCapacity === 0;
-                break;
-            default:
-                break;
-        }
-        return result;
-    }
-    else {
-        return false;
-    }
-}
-/**
- * 販売判定
- */
-function isSales(screeningEvent, status) {
-    var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
-    var offers = screeningEvent.offers;
-    if (offers === undefined) {
-        return false;
-    }
-    var result = false;
-    var now = moment__WEBPACK_IMPORTED_MODULE_1__().unix();
-    var window = Number(environment.PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES);
-    switch (status) {
-        case 'window':
-            result = moment__WEBPACK_IMPORTED_MODULE_1__(offers.validThrough).unix() > now
-                && moment__WEBPACK_IMPORTED_MODULE_1__(screeningEvent.startDate).add(window).unix() < now;
-            break;
-        case 'start':
-            result = !(moment__WEBPACK_IMPORTED_MODULE_1__(offers.validFrom).unix() < now);
-            break;
-        case 'end':
-            result = !(moment__WEBPACK_IMPORTED_MODULE_1__(offers.validThrough).unix() > now);
-            break;
-        default:
-            result = (moment__WEBPACK_IMPORTED_MODULE_1__(offers.validFrom).unix() < now
-                && moment__WEBPACK_IMPORTED_MODULE_1__(offers.validThrough).unix() > now
-                && moment__WEBPACK_IMPORTED_MODULE_1__(screeningEvent.startDate).add(window).unix() > now);
-            break;
-    }
-    return result;
-}
-/**
- * 座席指定ありイベント判定
- */
-function isTicketedSeatScreeningEvent(screeningEvent) {
-    return (screeningEvent.offers !== undefined
-        && screeningEvent.offers.itemOffered.serviceOutput !== undefined
-        && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket !== undefined
-        && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat !== undefined);
 }
 /**
  * 券種情報を枚数別へ変換
@@ -1464,6 +1351,481 @@ function getExternalData() {
     }
     return JSON.parse(external);
 }
+
+
+/***/ }),
+
+/***/ "./app/models/common/language.ts":
+/*!***************************************!*\
+  !*** ./app/models/common/language.ts ***!
+  \***************************************/
+/*! exports provided: Language */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Language", function() { return Language; });
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+/**
+ * 言語
+ */
+var Language;
+(function (Language) {
+    Language["en"] = "English";
+    Language["en-US"] = "English (American English)";
+    Language["en-GB"] = "English (British English\u3001UK English)";
+    Language["en-CA"] = "English (Canadian English)";
+    Language["en-AU"] = "English (Australian English)";
+    Language["fr"] = "French";
+    Language["de"] = "German";
+    Language["it"] = "Italian";
+    Language["ja"] = "\u65E5\u672C\u8A9E";
+    Language["ko"] = "Korean";
+    Language["pt"] = "Portuguese";
+    Language["ru"] = "Russian";
+})(Language || (Language = {}));
+
+
+/***/ }),
+
+/***/ "./app/models/common/printer.ts":
+/*!**************************************!*\
+  !*** ./app/models/common/printer.ts ***!
+  \**************************************/
+/*! exports provided: connectionType, printers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "connectionType", function() { return connectionType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "printers", function() { return printers; });
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+/**
+ * 接続の種類
+ */
+var connectionType;
+(function (connectionType) {
+    /**
+     * なし
+     */
+    connectionType["None"] = "None";
+    /**
+     * 画像
+     */
+    connectionType["Image"] = "Image";
+    /**
+     * スター精密 LAN接続
+     */
+    connectionType["StarLAN"] = "StarLAN";
+    /**
+     * スター精密 Bluetooth接続
+     */
+    connectionType["StarBluetooth"] = "StarBluetooth";
+})(connectionType || (connectionType = {}));
+/**
+ * プリンター一覧
+ */
+var printers = [
+    {
+        connectionType: connectionType.Image,
+        name: 'setting.printType.image'
+    },
+    {
+        connectionType: connectionType.StarLAN,
+        name: 'setting.printType.starLAN'
+    },
+    {
+        connectionType: connectionType.StarBluetooth,
+        name: 'setting.printType.starBluetooth'
+    }
+];
+
+
+/***/ }),
+
+/***/ "./app/models/common/viewType.ts":
+/*!***************************************!*\
+  !*** ./app/models/common/viewType.ts ***!
+  \***************************************/
+/*! exports provided: ViewType */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewType", function() { return ViewType; });
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+var ViewType;
+(function (ViewType) {
+    /**
+     * 映画用
+     */
+    ViewType["Cinema"] = "cinema";
+    /**
+     * イベント用
+     */
+    ViewType["Event"] = "event";
+})(ViewType || (ViewType = {}));
+
+
+/***/ }),
+
+/***/ "./app/models/index.ts":
+/*!*****************************!*\
+  !*** ./app/models/index.ts ***!
+  \*****************************/
+/*! exports provided: SeatStatus, Reservation, Performance, OrderActions, PrintQrcodeType, Language, ViewType, connectionType, printers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _purchase_screen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./purchase/screen */ "./app/models/purchase/screen.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SeatStatus", function() { return _purchase_screen__WEBPACK_IMPORTED_MODULE_0__["SeatStatus"]; });
+
+/* harmony import */ var _purchase_reservation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchase/reservation */ "./app/models/purchase/reservation.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Reservation", function() { return _purchase_reservation__WEBPACK_IMPORTED_MODULE_1__["Reservation"]; });
+
+/* harmony import */ var _purchase_performance__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./purchase/performance */ "./app/models/purchase/performance.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Performance", function() { return _purchase_performance__WEBPACK_IMPORTED_MODULE_2__["Performance"]; });
+
+/* harmony import */ var _order_action__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./order/action */ "./app/models/order/action.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrderActions", function() { return _order_action__WEBPACK_IMPORTED_MODULE_3__["OrderActions"]; });
+
+/* harmony import */ var _order_print__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./order/print */ "./app/models/order/print.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function() { return _order_print__WEBPACK_IMPORTED_MODULE_4__["PrintQrcodeType"]; });
+
+/* harmony import */ var _common_language__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./common/language */ "./app/models/common/language.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Language", function() { return _common_language__WEBPACK_IMPORTED_MODULE_5__["Language"]; });
+
+/* harmony import */ var _common_viewType__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./common/viewType */ "./app/models/common/viewType.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewType", function() { return _common_viewType__WEBPACK_IMPORTED_MODULE_6__["ViewType"]; });
+
+/* harmony import */ var _common_printer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./common/printer */ "./app/models/common/printer.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "connectionType", function() { return _common_printer__WEBPACK_IMPORTED_MODULE_7__["connectionType"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "printers", function() { return _common_printer__WEBPACK_IMPORTED_MODULE_7__["printers"]; });
+
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./app/models/order/action.ts":
+/*!************************************!*\
+  !*** ./app/models/order/action.ts ***!
+  \************************************/
+/*! exports provided: OrderActions */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderActions", function() { return OrderActions; });
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+var OrderActions;
+(function (OrderActions) {
+    /**
+     * キャンセル
+     */
+    OrderActions["Cancel"] = "Cancel";
+})(OrderActions || (OrderActions = {}));
+
+
+/***/ }),
+
+/***/ "./app/models/order/print.ts":
+/*!***********************************!*\
+  !*** ./app/models/order/print.ts ***!
+  \***********************************/
+/*! exports provided: PrintQrcodeType */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function() { return PrintQrcodeType; });
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+/**
+ * QRコード文字列
+ */
+var PrintQrcodeType;
+(function (PrintQrcodeType) {
+    PrintQrcodeType["Token"] = "token";
+    PrintQrcodeType["Custom"] = "Custom";
+})(PrintQrcodeType || (PrintQrcodeType = {}));
+
+
+/***/ }),
+
+/***/ "./app/models/purchase/performance.ts":
+/*!********************************************!*\
+  !*** ./app/models/purchase/performance.ts ***!
+  \********************************************/
+/*! exports provided: Performance */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Performance", function() { return Performance; });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../environments/environment */ "./environments/environment.ts");
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+/**
+ * Performance
+ */
+var Performance = /** @class */ (function () {
+    function Performance(screeningEvent) {
+        this.screeningEvent = screeningEvent;
+    }
+    /**
+     * 販売判定
+     */
+    Performance.prototype.isSales = function (status) {
+        var screeningEvent = this.screeningEvent;
+        var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
+        var offers = screeningEvent.offers;
+        if (offers === undefined) {
+            return false;
+        }
+        var result = false;
+        var now = moment__WEBPACK_IMPORTED_MODULE_0__().unix();
+        var window = Number(environment.PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES);
+        switch (status) {
+            case 'window':
+                result = moment__WEBPACK_IMPORTED_MODULE_0__(offers.validThrough).unix() > now
+                    && moment__WEBPACK_IMPORTED_MODULE_0__(screeningEvent.startDate).add(window).unix() < now;
+                break;
+            case 'start':
+                result = !(moment__WEBPACK_IMPORTED_MODULE_0__(offers.validFrom).unix() < now);
+                break;
+            case 'end':
+                result = !(moment__WEBPACK_IMPORTED_MODULE_0__(offers.validThrough).unix() > now);
+                break;
+            default:
+                result = (moment__WEBPACK_IMPORTED_MODULE_0__(offers.validFrom).unix() < now
+                    && moment__WEBPACK_IMPORTED_MODULE_0__(offers.validThrough).unix() > now
+                    && moment__WEBPACK_IMPORTED_MODULE_0__(screeningEvent.startDate).add(window).unix() > now);
+                break;
+        }
+        return result;
+    };
+    /**
+     * スケジュールステータス判定
+     */
+    Performance.prototype.isScheduleStatusThreshold = function (status) {
+        var screeningEvent = this.screeningEvent;
+        var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
+        var limitSeatNumber = (screeningEvent.workPerformed === undefined
+            || screeningEvent.workPerformed.additionalProperty === undefined)
+            ? undefined : screeningEvent.workPerformed.additionalProperty.find(function (a) { return a.name === 'limitSeatNumber'; });
+        var remainingAttendeeCapacity = screeningEvent.remainingAttendeeCapacity;
+        var maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
+        if (remainingAttendeeCapacity === undefined || maximumAttendeeCapacity === undefined) {
+            return (status === 'success');
+        }
+        if (limitSeatNumber !== undefined && maximumAttendeeCapacity > Number(limitSeatNumber.value)) {
+            // 作品追加特性（limitSeatNumber）で座席数制御
+            remainingAttendeeCapacity = (remainingAttendeeCapacity < (maximumAttendeeCapacity - Number(limitSeatNumber.value)))
+                ? 0 : remainingAttendeeCapacity - (maximumAttendeeCapacity - Number(limitSeatNumber.value));
+            maximumAttendeeCapacity = Number(limitSeatNumber.value);
+        }
+        var result = false;
+        var unit = environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
+        var value = Number(environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
+        if (unit === '%') {
+            // 割合指定
+            switch (status) {
+                case 'success':
+                    result = (remainingAttendeeCapacity !== 0
+                        && Math.floor(remainingAttendeeCapacity / maximumAttendeeCapacity * 100) >= value);
+                    break;
+                case 'warning':
+                    result = (remainingAttendeeCapacity !== 0
+                        && Math.floor(remainingAttendeeCapacity / maximumAttendeeCapacity * 100) < value
+                        && remainingAttendeeCapacity > 0);
+                    break;
+                case 'danger':
+                    result = (remainingAttendeeCapacity === 0 || remainingAttendeeCapacity > maximumAttendeeCapacity);
+                    break;
+                default:
+                    break;
+            }
+            return result;
+        }
+        else if (unit === 'count') {
+            // 数指定
+            switch (status) {
+                case 'success':
+                    result = (remainingAttendeeCapacity !== 0
+                        && remainingAttendeeCapacity >= value);
+                    break;
+                case 'warning':
+                    result = (remainingAttendeeCapacity !== 0
+                        && remainingAttendeeCapacity < value
+                        && remainingAttendeeCapacity > 0);
+                    break;
+                case 'danger':
+                    result = remainingAttendeeCapacity === 0;
+                    break;
+                default:
+                    break;
+            }
+            return result;
+        }
+        else {
+            return false;
+        }
+    };
+    /**
+     * 座席指定ありイベント判定
+     */
+    Performance.prototype.isTicketedSeatScreeningEvent = function () {
+        var screeningEvent = this.screeningEvent;
+        return (screeningEvent.offers !== undefined
+            && screeningEvent.offers.itemOffered.serviceOutput !== undefined
+            && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket !== undefined
+            && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat !== undefined);
+    };
+    return Performance;
+}());
+
+
+
+/***/ }),
+
+/***/ "./app/models/purchase/reservation.ts":
+/*!********************************************!*\
+  !*** ./app/models/purchase/reservation.ts ***!
+  \********************************************/
+/*! exports provided: Reservation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Reservation", function() { return Reservation; });
+/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+/**
+ * Reservation
+ */
+var Reservation = /** @class */ (function () {
+    function Reservation(args) {
+        this.seat = args.seat;
+        this.ticket = args.ticket;
+    }
+    /**
+     * ムビチケ判定
+     */
+    Reservation.prototype.isMovieTicket = function () {
+        if (this.ticket === undefined) {
+            return false;
+        }
+        return (this.ticket.movieTicket !== undefined);
+    };
+    /**
+     * 券種金額取得
+     */
+    Reservation.prototype.getTicketPrice = function () {
+        var result = {
+            unitPriceSpecification: 0,
+            videoFormatCharge: 0,
+            soundFormatCharge: 0,
+            movieTicketTypeCharge: 0,
+            total: 0,
+            single: 0
+        };
+        if (this.ticket === undefined) {
+            return result;
+        }
+        var priceComponent = this.ticket.ticketOffer.priceSpecification.priceComponent;
+        var priceSpecificationType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
+        var unitPriceSpecifications = priceComponent.filter(function (s) { return s.typeOf === priceSpecificationType.UnitPriceSpecification; });
+        var videoFormatCharges = priceComponent.filter(function (s) { return s.typeOf === priceSpecificationType.VideoFormatChargeSpecification; });
+        var soundFormatCharges = priceComponent.filter(function (s) { return s.typeOf === priceSpecificationType.SoundFormatChargeSpecification; });
+        var movieTicketTypeCharges = priceComponent.filter(function (s) { return s.typeOf === priceSpecificationType.MovieTicketTypeChargeSpecification; });
+        result.unitPriceSpecification += unitPriceSpecifications[0].price;
+        videoFormatCharges.forEach(function (videoFormatCharge) {
+            result.videoFormatCharge += videoFormatCharge.price;
+        });
+        soundFormatCharges.forEach(function (soundFormatCharge) {
+            result.soundFormatCharge += soundFormatCharge.price;
+        });
+        movieTicketTypeCharges.forEach(function (movieTicketTypeCharge) {
+            result.movieTicketTypeCharge += movieTicketTypeCharge.price;
+        });
+        result.total = result.unitPriceSpecification + result.videoFormatCharge + result.soundFormatCharge + result.movieTicketTypeCharge;
+        var unitPriceSpecification = unitPriceSpecifications[0];
+        if (unitPriceSpecification.typeOf === priceSpecificationType.UnitPriceSpecification) {
+            var referenceQuantityValue = (unitPriceSpecification.referenceQuantity.value === undefined)
+                ? 1
+                : unitPriceSpecification.referenceQuantity.value;
+            result.single = result.total / referenceQuantityValue;
+        }
+        return result;
+    };
+    /**
+     * 価格仕様取得
+     */
+    Reservation.prototype.getUnitPriceSpecification = function () {
+        if (this.ticket === undefined) {
+            return;
+        }
+        var unitPriceSpecifications = this.ticket.ticketOffer.priceSpecification.priceComponent
+            .filter(function (s) { return s.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.UnitPriceSpecification; });
+        return unitPriceSpecifications[0];
+    };
+    return Reservation;
+}());
+
+
+
+/***/ }),
+
+/***/ "./app/models/purchase/screen.ts":
+/*!***************************************!*\
+  !*** ./app/models/purchase/screen.ts ***!
+  \***************************************/
+/*! exports provided: SeatStatus */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SeatStatus", function() { return SeatStatus; });
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+var SeatStatus;
+(function (SeatStatus) {
+    SeatStatus["Disabled"] = "disabled";
+    SeatStatus["Default"] = "default";
+    SeatStatus["Active"] = "active";
+})(SeatStatus || (SeatStatus = {}));
 
 
 /***/ }),

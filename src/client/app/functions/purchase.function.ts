@@ -1,11 +1,10 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { getEnvironment } from '../../environments/environment';
-import { IMovieTicket } from '../models';
+import { IMovieTicket, Performance } from '../models';
 
 export interface IScreeningEventWork {
     info: factory.chevre.event.screeningEvent.IEvent;
-    data: factory.chevre.event.screeningEvent.IEvent[];
+    data: Performance[];
 }
 
 export interface IGmoTokenObject {
@@ -23,7 +22,7 @@ export interface IEventOrder {
 /**
  * 作品別イベントへ変換
  */
-export function screeningEventsToWorkEvents(params: {
+export function screeningEvents2WorkEvents(params: {
     screeningEvents: factory.chevre.event.screeningEvent.IEvent[]
 }) {
     const result: IScreeningEventWork[] = [];
@@ -35,10 +34,10 @@ export function screeningEventsToWorkEvents(params: {
         if (registered === undefined) {
             result.push({
                 info: screeningEvent,
-                data: [screeningEvent]
+                data: [new Performance(screeningEvent)]
             });
         } else {
-            registered.data.push(screeningEvent);
+            registered.data.push(new Performance(screeningEvent));
         }
     });
 
@@ -372,117 +371,6 @@ export function authorizeSeatReservationToEvent(params: {
     });
 
     return results;
-}
-
-/**
- * スケジュールステータス判定
- */
-export function isScheduleStatusThreshold(
-    screeningEvent: factory.chevre.event.screeningEvent.IEvent,
-    status: 'success' | 'warning' | 'danger'
-) {
-    const environment = getEnvironment();
-    const limitSeatNumber = (screeningEvent.workPerformed === undefined
-        || screeningEvent.workPerformed.additionalProperty === undefined)
-        ? undefined : screeningEvent.workPerformed.additionalProperty.find(a => a.name === 'limitSeatNumber');
-    let remainingAttendeeCapacity = screeningEvent.remainingAttendeeCapacity;
-    let maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
-    if (remainingAttendeeCapacity === undefined || maximumAttendeeCapacity === undefined) {
-        return false;
-    }
-    if (limitSeatNumber !== undefined && maximumAttendeeCapacity > Number(limitSeatNumber.value)) {
-        // 作品追加特性（limitSeatNumber）で座席数制御
-        remainingAttendeeCapacity = (remainingAttendeeCapacity < (maximumAttendeeCapacity - Number(limitSeatNumber.value)))
-            ? 0 : remainingAttendeeCapacity - (maximumAttendeeCapacity - Number(limitSeatNumber.value));
-        maximumAttendeeCapacity = Number(limitSeatNumber.value);
-    }
-    let result = false;
-    const unit = environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT;
-    const value = Number(environment.PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE);
-    if (unit === '%') {
-        switch (status) {
-            case 'success':
-                result = (remainingAttendeeCapacity !== 0
-                    && Math.floor(remainingAttendeeCapacity / maximumAttendeeCapacity * 100) >= value);
-                break;
-            case 'warning':
-                result = (remainingAttendeeCapacity !== 0
-                    && Math.floor(remainingAttendeeCapacity / maximumAttendeeCapacity * 100) < value
-                    && remainingAttendeeCapacity > 0);
-                break;
-            case 'danger':
-                result = (remainingAttendeeCapacity === 0 || remainingAttendeeCapacity > maximumAttendeeCapacity);
-                break;
-            default:
-                break;
-        }
-        return result;
-    } else if (unit === 'count') {
-        switch (status) {
-            case 'success':
-                result = (remainingAttendeeCapacity !== 0
-                    && remainingAttendeeCapacity >= value);
-                break;
-            case 'warning':
-                result = (remainingAttendeeCapacity !== 0
-                    && remainingAttendeeCapacity < value
-                    && remainingAttendeeCapacity > 0);
-                break;
-            case 'danger':
-                result = remainingAttendeeCapacity === 0;
-                break;
-            default:
-                break;
-        }
-        return result;
-    } else {
-        return false;
-    }
-}
-
-/**
- * 販売判定
- */
-export function isSales(
-    screeningEvent: factory.chevre.event.screeningEvent.IEvent,
-    status?: 'window' | 'start' | 'end'
-) {
-    const environment = getEnvironment();
-    const offers = screeningEvent.offers;
-    if (offers === undefined) {
-        return false;
-    }
-    let result = false;
-    const now = moment().unix();
-    const window = Number(environment.PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES);
-    switch (status) {
-        case 'window':
-            result = moment(offers.validThrough).unix() > now
-                && moment(screeningEvent.startDate).add(window).unix() < now;
-            break;
-        case 'start':
-            result = !(moment(offers.validFrom).unix() < now);
-            break;
-        case 'end':
-            result = !(moment(offers.validThrough).unix() > now);
-            break;
-        default:
-            result = (moment(offers.validFrom).unix() < now
-                && moment(offers.validThrough).unix() > now
-                && moment(screeningEvent.startDate).add(window).unix() > now);
-            break;
-    }
-    return result;
-}
-
-/**
- * 座席指定ありイベント判定
- */
-export function isTicketedSeatScreeningEvent(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
-    return (screeningEvent.offers !== undefined
-        && screeningEvent.offers.itemOffered.serviceOutput !== undefined
-        && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket !== undefined
-        && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat !== undefined);
 }
 
 /**
