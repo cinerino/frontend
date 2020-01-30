@@ -27,7 +27,7 @@
             <div class="swiper-wrapper">
                 <div *ngFor="let performance of screeningWorkEvent.data" class="px-1 swiper-slide">
                     <div class="border boder-gray rounded py-3 text-center pointer" [ngClass]="{ 
-                'bg-white': performance.isSales() && (!performance.isScheduleStatusThreshold('danger') || !isTicketedSeatScreeningEvent(screeningEvent)), 
+                'bg-white': performance.isSales() && (!performance.isScheduleStatusThreshold('danger') || !performance.isTicketedSeatScreeningEvent()), 
                 'bg-dark-gray text-light-gray not-event': !performance.isSales() || performance.isScheduleStatusThreshold('danger')
                 }" (click)="select.emit(performance.screeningEvent)">
                         <div class="mb-2 text-small screen-name">
