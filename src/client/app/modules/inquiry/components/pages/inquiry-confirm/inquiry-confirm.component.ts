@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { changeTicketCountByOrder, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../../functions';
+import { changeTicketCountByOrder, getTicketPrice, IEventOrder, order2EventOrders } from '../../../../../functions';
 import { OrderService, QRCodeService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -51,7 +51,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
                 return;
             }
             const order = value.order;
-            this.eventOrders = orderToEventOrders({ order });
+            this.eventOrders = order2EventOrders({ order });
         }).unsubscribe();
         if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
             const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);

@@ -46,9 +46,9 @@ export class Performance {
     }
 
     /**
-     * スケジュールステータス判定
+     * 座席ステータス判定
      */
-    public isScheduleStatusThreshold(status: 'success' | 'warning' | 'danger') {
+    public isSeatStatus(status?: 'success' | 'warning' | 'danger') {
         const screeningEvent = this.screeningEvent;
         const environment = getEnvironment();
         const limitSeatNumber = (screeningEvent.workPerformed === undefined
@@ -57,7 +57,7 @@ export class Performance {
         let remainingAttendeeCapacity = screeningEvent.remainingAttendeeCapacity;
         let maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
         if (remainingAttendeeCapacity === undefined || maximumAttendeeCapacity === undefined) {
-            return (status === 'success');
+            return status === undefined;
         }
         if (limitSeatNumber !== undefined && maximumAttendeeCapacity > Number(limitSeatNumber.value)) {
             // 作品追加特性（limitSeatNumber）で座席数制御
@@ -114,7 +114,7 @@ export class Performance {
     /**
      * 座席指定ありイベント判定
      */
-    public isTicketedSeatScreeningEvent() {
+    public isTicketedSeat() {
         const screeningEvent = this.screeningEvent;
         return (screeningEvent.offers !== undefined
             && screeningEvent.offers.itemOffered.serviceOutput !== undefined

@@ -263,7 +263,7 @@ export function getTicketPrice(
 export function movieTicketAuthErroCodeToMessage(code?: string): { ja: string; en: string; } {
     const table = [
         { code: '01', ja: '存在無', en: 'no existence' },
-        { code: '02', ja: '存在無', en: 'no existence' },
+        { code: '02', ja: 'PINｺｰﾄﾞ必須', en: 'PIN code required' },
         { code: '03', ja: 'PINｺｰﾄﾞ認証ｴﾗｰ', en: 'PIN code authentication error' },
         { code: '04', ja: '作品不一致', en: 'Work disagreement' },
         { code: '05', ja: '未ｱｸﾃｨﾍﾞｰﾄ', en: 'unactivated' },
@@ -297,7 +297,7 @@ export function getAmount(
 /**
  * イベント別オーダーへ変換
  */
-export function orderToEventOrders(params: {
+export function order2EventOrders(params: {
     order: factory.order.IOrder
 }) {
     const results: IEventOrder[] = [];
@@ -341,7 +341,7 @@ export function orderToEventOrders(params: {
 /**
  * 座席予約をイベントごとに変換
  */
-export function authorizeSeatReservationToEvent(params: {
+export function authorizeSeatReservation2Event(params: {
     authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[]
 }) {
     const results: {

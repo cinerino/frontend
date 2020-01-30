@@ -42,7 +42,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
         let limit = (screeningEvent.offers === undefined
             || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
             ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
-        if (new Performance(this.screeningEvent).isTicketedSeatScreeningEvent()) {
+        if (new Performance(this.screeningEvent).isTicketedSeat()) {
             const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
             limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
         }
@@ -84,7 +84,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     public isViewRemainingSeatCount() {
         const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
         const screeningEvent = this.screeningEvent;
-        if (!new Performance(screeningEvent).isTicketedSeatScreeningEvent()) {
+        if (!new Performance(screeningEvent).isTicketedSeat()) {
             return false;
         }
         const unit = this.environment.PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT;

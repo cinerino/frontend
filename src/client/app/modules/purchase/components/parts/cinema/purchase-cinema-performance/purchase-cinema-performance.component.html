@@ -28,8 +28,8 @@
         <li *ngFor="let performance of screeningWorkEvent.data" class="px-md-2 my-2">
             <div class="border boder-gray rounded p-2 py-md-3 text-md-center d-md-block d-flex justify-content-between align-items-center pointer"
                 [ngClass]="{ 
-                'bg-white': performance.isSales() && !performance.isScheduleStatusThreshold('danger'), 
-                'bg-dark-gray text-light-gray not-event': !performance.isSales() || performance.isScheduleStatusThreshold('danger')
+                'bg-white': performance.isSales() && !performance.isSeatStatus('danger'), 
+                'bg-dark-gray text-light-gray not-event': !performance.isSales() || performance.isSeatStatus('danger')
                 }" (click)="select.emit(performance.screeningEvent)">
                 <div>
                     <div class="mb-2 text-small screen-name">
@@ -44,23 +44,29 @@
                 <hr class="border-0 bg-light-gray my-2">
                 <div class="text-center">
                     <div class="status mb-2" *ngIf="performance.isSales()">
-                        <div *ngIf="performance.isScheduleStatusThreshold('success')"
+                        <div *ngIf="performance.isSeatStatus('success')"
                             class="d-flex justify-content-around align-items-center">
                             <div class="text-success mr-2 mr-md-0">
                                 {{ 'purchase.cinema.schedule.status.success' | translate }}</div>
                             <img src="/assets/images/icon/status_success.svg">
                         </div>
-                        <div *ngIf="performance.isScheduleStatusThreshold('warning')"
+                        <div *ngIf="performance.isSeatStatus('warning')"
                             class="d-flex justify-content-around align-items-center">
                             <div class="text-warning mr-2 mr-md-0">
                                 {{ 'purchase.cinema.schedule.status.warning' | translate }}</div>
                             <img src="/assets/images/icon/status_warning.svg">
                         </div>
-                        <div *ngIf="performance.isScheduleStatusThreshold('danger')"
+                        <div *ngIf="performance.isSeatStatus('danger')"
                             class="d-flex justify-content-around align-items-center">
                             <div class="text-danger mr-2 mr-md-0">
                                 {{ 'purchase.cinema.schedule.status.danger' | translate }}</div>
                             <img src="/assets/images/icon/status_danger.svg">
+                        </div>
+                        <div *ngIf="performance.isSeatStatus()"
+                            class="d-flex justify-content-around align-items-center">
+                            <div class="mr-2 mr-md-0">
+                                {{ 'purchase.cinema.schedule.status.success' | translate }}</div>
+                            <img src="/assets/images/icon/status_undefined.svg">
                         </div>
                     </div>
 
@@ -70,11 +76,11 @@
                         {{ 'purchase.cinema.schedule.status.endSale' | translate }}</div>
                     <div class="status mb-2" *ngIf="performance.isSales('start')">
                         {{ 'purchase.cinema.schedule.status.outsideSalesPeriod' | translate }}</div>
-                    <div *ngIf="performance.isTicketedSeatScreeningEvent() && environment.DISPLAY_TICKETED_SEAT"
+                    <div *ngIf="performance.isTicketedSeat() && environment.DISPLAY_TICKETED_SEAT"
                         class="mb-2 text-small">{{ 'common.seat' | translate }}
                         {{ performance.screeningEvent.remainingAttendeeCapacity }} / {{ performance.screeningEvent.maximumAttendeeCapacity }}
                     </div>
-                    <div *ngIf="!(performance.isTicketedSeatScreeningEvent())"
+                    <div *ngIf="!(performance.isTicketedSeat())"
                         class="mb-2 text-small">
                         {{ 'purchase.cinema.schedule.infiniteStock' | translate }}</div>
                 </div>

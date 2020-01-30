@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { getEnvironment } from '../../../environments/environment';
 import {
-    authorizeSeatReservationToEvent,
+    authorizeSeatReservation2Event,
     createGmoTokenObject,
     createMovieTicketsFromAuthorizeSeatReservation,
     formatTelephone,
@@ -175,7 +175,7 @@ export class PurchaseEffects {
                 await this.cinerinoService.getServices();
                 const screeningEvent = payload.screeningEvent;
                 let screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[] = [];
-                if (new Performance(screeningEvent).isTicketedSeatScreeningEvent()) {
+                if (new Performance(screeningEvent).isTicketedSeat()) {
                     screeningEventOffers = await this.cinerinoService.event.searchOffers({
                         event: { id: screeningEvent.id }
                     });
@@ -267,7 +267,7 @@ export class PurchaseEffects {
                     || screeningEvent.offers.validThrough < nowDate) {
                     throw new Error('Outside sales period');
                 }
-                if (new Performance(screeningEvent).isTicketedSeatScreeningEvent()) {
+                if (new Performance(screeningEvent).isTicketedSeat()) {
                     for (const screeningEventOffer of screeningEventOffers) {
                         const section = screeningEventOffer.branchCode;
                         for (const containsPlace of screeningEventOffer.containsPlace) {
@@ -593,7 +593,7 @@ export class PurchaseEffects {
                     // 完了メールをカスタマイズ
                     const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/mail/complete/${payload.language}.ejs`);
                     params.email.template = (<any>window).ejs.render(view, {
-                        authorizeSeatReservations: authorizeSeatReservationToEvent({ authorizeSeatReservations }),
+                        authorizeSeatReservations: authorizeSeatReservation2Event({ authorizeSeatReservations }),
                         seller,
                         moment,
                         formatTelephone,
@@ -623,7 +623,7 @@ export class PurchaseEffects {
                     try {
                         const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/liny/complete/${payload.language}.ejs`);
                         const template = (<any>window).ejs.render(view, {
-                            authorizeSeatReservations: authorizeSeatReservationToEvent({ authorizeSeatReservations }),
+                            authorizeSeatReservations: authorizeSeatReservation2Event({ authorizeSeatReservations }),
                             seller,
                             order,
                             moment,

@@ -17,26 +17,29 @@
     </div>
     <div class="p-3 bg-white d-flex flex-wrap" [class.not-event]="readonly">
         <div *ngFor="let performance of screeningWorkEvent.data" class="performance my-2" [ngClass]="{ 
-            'text-dark-gray': !performance.isSales() && !performance.isScheduleStatusThreshold('danger')
+            'text-dark-gray': !performance.isSales() && performance.isSeatStatus('danger')
             }">
             <div class="d-flex align-items-center">
                 <div class="mr-2 font-weight-bold">
                     {{ moment(performance.screeningEvent.startDate).format('HH:mm') }}-{{ moment(performance.screeningEvent.endDate).format('HH:mm') }}
                 </div>
-                <div class="status" *ngIf="performance.isSales() && performance.isTicketedSeatScreeningEvent()">
-                    <div *ngIf="performance.isScheduleStatusThreshold('success')">
+                <div class="status" *ngIf="performance.isSales() && performance.isTicketedSeat()">
+                    <div *ngIf="performance.isSeatStatus('success')">
                         <img src="/assets/images/icon/status_success.svg">
                     </div>
-                    <div *ngIf="performance.isScheduleStatusThreshold('warning')"
+                    <div *ngIf="performance.isSeatStatus('warning')"
                         class="d-flex justify-content-around align-items-center">
                         <img src="/assets/images/icon/status_warning.svg">
                     </div>
-                    <div *ngIf="performance.isScheduleStatusThreshold('danger')">
+                    <div *ngIf="performance.isSeatStatus('danger')">
                         <img src="/assets/images/icon/status_danger.svg">
+                    </div>
+                    <div *ngIf="performance.isSeatStatus()">
+                        <img src="/assets/images/icon/status_undefined.svg">
                     </div>
                 </div>
 
-                <div class="status" *ngIf="performance.isSales() && !performance.isTicketedSeatScreeningEvent()">
+                <div class="status" *ngIf="performance.isSales() && !performance.isTicketedSeat()">
                     <div class="d-flex justify-content-around align-items-center">
                         <img src="/assets/images/icon/status_success.svg">
                     </div>

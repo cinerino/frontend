@@ -69028,7 +69028,7 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
         var limit = (screeningEvent.offers === undefined
             || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
             ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
-        if (new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](this.screeningEvent).isTicketedSeatScreeningEvent()) {
+        if (new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](this.screeningEvent).isTicketedSeat()) {
             var remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
             limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
         }
@@ -69067,7 +69067,7 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
     PurchaseEventTicketModalComponent.prototype.isViewRemainingSeatCount = function () {
         var remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
         var screeningEvent = this.screeningEvent;
-        if (!new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](screeningEvent).isTicketedSeatScreeningEvent()) {
+        if (!new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](screeningEvent).isTicketedSeat()) {
             return false;
         }
         var unit = this.environment.PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT;
@@ -75153,7 +75153,7 @@ var PurchaseEffects = /** @class */ (function () {
                         _a.sent();
                         screeningEvent = payload.screeningEvent;
                         screeningEventOffers = [];
-                        if (!new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeatScreeningEvent()) return [3 /*break*/, 3];
+                        if (!new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat()) return [3 /*break*/, 3];
                         return [4 /*yield*/, this.cinerinoService.event.searchOffers({
                                 event: { id: screeningEvent.id }
                             })];
@@ -75262,7 +75262,7 @@ var PurchaseEffects = /** @class */ (function () {
                             || screeningEvent.offers.validThrough < nowDate) {
                             throw new Error('Outside sales period');
                         }
-                        if (new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeatScreeningEvent()) {
+                        if (new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat()) {
                             for (_i = 0, screeningEventOffers_1 = screeningEventOffers; _i < screeningEventOffers_1.length; _i++) {
                                 screeningEventOffer = screeningEventOffers_1[_i];
                                 section = screeningEventOffer.branchCode;
@@ -75665,7 +75665,7 @@ var PurchaseEffects = /** @class */ (function () {
                     case 3:
                         view = _a.sent();
                         params.email.template = window.ejs.render(view, {
-                            authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_8__["authorizeSeatReservationToEvent"])({ authorizeSeatReservations: authorizeSeatReservations }),
+                            authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_8__["authorizeSeatReservation2Event"])({ authorizeSeatReservations: authorizeSeatReservations }),
                             seller: seller,
                             moment: moment__WEBPACK_IMPORTED_MODULE_5__,
                             formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_8__["formatTelephone"],
@@ -75700,7 +75700,7 @@ var PurchaseEffects = /** @class */ (function () {
                     case 7:
                         view = _a.sent();
                         template = window.ejs.render(view, {
-                            authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_8__["authorizeSeatReservationToEvent"])({ authorizeSeatReservations: authorizeSeatReservations }),
+                            authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_8__["authorizeSeatReservation2Event"])({ authorizeSeatReservations: authorizeSeatReservations }),
                             seller: seller,
                             order: order,
                             moment: moment__WEBPACK_IMPORTED_MODULE_5__,
