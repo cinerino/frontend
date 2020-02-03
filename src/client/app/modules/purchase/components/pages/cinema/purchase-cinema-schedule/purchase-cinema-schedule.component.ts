@@ -9,7 +9,7 @@ import { BsModalService } from 'ngx-bootstrap';
 import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { getExternalData, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
+import { getExternalData, IScreeningEventWork, screeningEvents2WorkEvents } from '../../../../../../functions';
 import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 import {
@@ -207,7 +207,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             });
             const master = await this.masterService.getData();
             const screeningEvents = master.screeningEvents;
-            this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
+            this.screeningWorkEvents = screeningEvents2WorkEvents({ screeningEvents });
             this.update();
         } catch (error) {
             console.error(error);

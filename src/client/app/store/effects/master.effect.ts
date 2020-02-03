@@ -3,6 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
+import { sleep } from '../../functions';
 import { CinerinoService } from '../../services/cinerino.service';
 import { masterAction } from '../actions';
 
@@ -54,7 +55,7 @@ export class MasterEffects {
                 let roop = true;
                 let screeningEvents: factory.chevre.event.screeningEvent.IEvent[] = [];
                 while (roop) {
-                    const screeningEventsResult = await this.cinerino.event.search({
+                    const searchResult = await this.cinerino.event.search({
                         page,
                         limit,
                         typeOf: factory.chevre.eventType.ScreeningEvent,
@@ -67,10 +68,10 @@ export class MasterEffects {
                             availableThrough: today
                         }
                     });
-                    screeningEvents = screeningEvents.concat(screeningEventsResult.data);
-                    const lastPage = Math.ceil(screeningEventsResult.totalCount / limit);
+                    screeningEvents = screeningEvents.concat(searchResult.data);
                     page++;
-                    roop = !(page > lastPage);
+                    roop = searchResult.data.length > 0;
+                    await sleep(500);
                 }
                 const scheduleDate = moment(payload.startFrom).format('YYYY-MM-DD');
                 // 公開日順（降順）へソート

@@ -7,15 +7,15 @@ import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { getEnvironment } from '../../../environments/environment';
 import {
-    authorizeSeatReservationToEvent,
+    authorizeSeatReservation2Event,
     createGmoTokenObject,
     createMovieTicketsFromAuthorizeSeatReservation,
     formatTelephone,
     getProject,
     getTicketPrice,
-    isTicketedSeatScreeningEvent
+    sleep
 } from '../../functions';
-import { IScreen } from '../../models';
+import { IScreen, Performance } from '../../models';
 import { CinerinoService, LinyService, UtilService } from '../../services';
 import { purchaseAction } from '../actions';
 declare const ga: Function;
@@ -53,7 +53,7 @@ export class PurchaseEffects {
                 let roop = true;
                 let screeningEvents: factory.chevre.event.screeningEvent.IEvent[] = [];
                 while (roop) {
-                    const screeningEventsResult = await this.cinerinoService.event.search({
+                    const searchResult = await this.cinerinoService.event.search({
                         page,
                         limit,
                         typeOf: factory.chevre.eventType.ScreeningEvent,
@@ -67,10 +67,10 @@ export class PurchaseEffects {
                             availableThrough: now
                         }
                     });
-                    screeningEvents = screeningEvents.concat(screeningEventsResult.data);
-                    const lastPage = Math.ceil(screeningEventsResult.totalCount / limit);
+                    screeningEvents = screeningEvents.concat(searchResult.data);
                     page++;
-                    roop = !(page > lastPage);
+                    roop = searchResult.data.length > 0;
+                    await sleep(500);
                 }
                 const sheduleDates: string[] = [];
 
@@ -175,7 +175,7 @@ export class PurchaseEffects {
                 await this.cinerinoService.getServices();
                 const screeningEvent = payload.screeningEvent;
                 let screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[] = [];
-                if (isTicketedSeatScreeningEvent(screeningEvent)) {
+                if (new Performance(screeningEvent).isTicketedSeat()) {
                     screeningEventOffers = await this.cinerinoService.event.searchOffers({
                         event: { id: screeningEvent.id }
                     });
@@ -267,7 +267,7 @@ export class PurchaseEffects {
                     || screeningEvent.offers.validThrough < nowDate) {
                     throw new Error('Outside sales period');
                 }
-                if (isTicketedSeatScreeningEvent(screeningEvent)) {
+                if (new Performance(screeningEvent).isTicketedSeat()) {
                     for (const screeningEventOffer of screeningEventOffers) {
                         const section = screeningEventOffer.branchCode;
                         for (const containsPlace of screeningEventOffer.containsPlace) {
@@ -593,7 +593,7 @@ export class PurchaseEffects {
                     // 完了メールをカスタマイズ
                     const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/mail/complete/${payload.language}.ejs`);
                     params.email.template = (<any>window).ejs.render(view, {
-                        authorizeSeatReservations: authorizeSeatReservationToEvent({ authorizeSeatReservations }),
+                        authorizeSeatReservations: authorizeSeatReservation2Event({ authorizeSeatReservations }),
                         seller,
                         moment,
                         formatTelephone,
@@ -623,7 +623,7 @@ export class PurchaseEffects {
                     try {
                         const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/liny/complete/${payload.language}.ejs`);
                         const template = (<any>window).ejs.render(view, {
-                            authorizeSeatReservations: authorizeSeatReservationToEvent({ authorizeSeatReservations }),
+                            authorizeSeatReservations: authorizeSeatReservation2Event({ authorizeSeatReservations }),
                             seller,
                             order,
                             moment,
