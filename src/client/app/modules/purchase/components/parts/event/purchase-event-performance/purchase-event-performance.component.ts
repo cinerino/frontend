@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
-import { IScreeningEventWork, isSales, isScheduleStatusThreshold, isTicketedSeatScreeningEvent } from '../../../../../../functions';
+import { IScreeningEventWork } from '../../../../../../functions';
 
 @Component({
     selector: 'app-purchase-event-performance',
@@ -16,9 +16,6 @@ export class PurchaseEventPerformanceComponent implements OnInit {
     @Input() public readonly: boolean;
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();
     public moment: typeof moment = moment;
-    public isScheduleStatusThreshold = isScheduleStatusThreshold;
-    public isSales = isSales;
-    public isTicketedSeatScreeningEvent = isTicketedSeatScreeningEvent;
     public swiperConfig: SwiperConfigInterface;
     constructor() { }
 

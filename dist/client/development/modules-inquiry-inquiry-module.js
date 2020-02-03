@@ -161,7 +161,7 @@ var InquiryConfirmComponent = /** @class */ (function () {
                 return;
             }
             var order = value.order;
-            _this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["orderToEventOrders"])({ order: order });
+            _this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({ order: order });
         }).unsubscribe();
         if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
             var time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);

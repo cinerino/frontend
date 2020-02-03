@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "license": "MIT",
   "author": {
     "name": "Motionpicture co.,ltd."
@@ -43,8 +43,8 @@
     "@angular/platform-browser": "^8.2.14",
     "@angular/platform-browser-dynamic": "^8.2.14",
     "@angular/router": "^8.2.14",
-    "@cinerino/api-javascript-client": "^2.0.0-alpha.61",
-    "@cinerino/api-nodejs-client": "^2.0.0-alpha.61",
+    "@cinerino/api-javascript-client": "^2.0.0-alpha.64",
+    "@cinerino/api-nodejs-client": "^2.0.0-alpha.65",
     "@ngrx/effects": "^8.6.0",
     "@ngrx/store": "^8.6.0",
     "@ngx-translate/core": "^11.0.1",

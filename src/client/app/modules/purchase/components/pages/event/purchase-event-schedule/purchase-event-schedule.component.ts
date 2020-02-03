@@ -8,7 +8,7 @@ import { BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap';
 import { BsDatepickerContainerComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-container.component';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { getExternalData, iOSDatepickerTapBugFix, IScreeningEventWork, screeningEventsToWorkEvents } from '../../../../../../functions';
+import { getExternalData, iOSDatepickerTapBugFix, IScreeningEventWork, screeningEvents2WorkEvents } from '../../../../../../functions';
 import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
@@ -184,7 +184,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             });
             const master = await this.masterService.getData();
             const screeningEvents = master.screeningEvents;
-            this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
+            this.screeningWorkEvents = screeningEvents2WorkEvents({ screeningEvents });
             this.update();
         } catch (error) {
             this.router.navigate(['/error']);

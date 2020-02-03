@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { changeTicketCountByOrder, getTicketPrice, IEventOrder, orderToEventOrders } from '../../../../../functions';
+import { changeTicketCountByOrder, getTicketPrice, IEventOrder, order2EventOrders } from '../../../../../functions';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -39,7 +39,7 @@ export class PurchaseCompleteComponent implements OnInit {
                 return;
             }
             const order = purchase.order;
-            this.eventOrders = orderToEventOrders({ order });
+            this.eventOrders = order2EventOrders({ order });
         }).unsubscribe();
     }
 

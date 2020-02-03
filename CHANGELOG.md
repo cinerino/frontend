@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.2 - 2020-02-03
+### Changed
+ - 販売判定を変更
+
 ## 3.0.1 - 2020-01-28
 ### Fixed
  - パスポートトークン取得修正

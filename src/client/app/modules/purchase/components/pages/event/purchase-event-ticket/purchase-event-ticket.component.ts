@@ -13,10 +13,9 @@ import {
     getRemainingSeatLength,
     getTicketPrice,
     IScreeningEventWork,
-    isTicketedSeatScreeningEvent,
-    screeningEventsToWorkEvents
+    screeningEvents2WorkEvents
 } from '../../../../../../functions';
-import { IReservationTicket } from '../../../../../../models';
+import { IReservationTicket, Performance } from '../../../../../../models';
 import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 import {
@@ -121,7 +120,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         });
         const master = await this.masterService.getData();
         const screeningEvents = master.screeningEvents;
-        this.screeningWorkEvents = screeningEventsToWorkEvents({ screeningEvents });
+        this.screeningWorkEvents = screeningEvents2WorkEvents({ screeningEvents });
         this.update();
     }
 
@@ -199,7 +198,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             await this.purchaseService.getScreeningEventOffers();
             const purchase = await this.purchaseService.getData();
             if (purchase.screeningEvent !== undefined
-                && isTicketedSeatScreeningEvent(purchase.screeningEvent)) {
+                && new Performance(purchase.screeningEvent).isTicketedSeat()) {
                 const remainingSeatLength = getRemainingSeatLength(purchase.screeningEventOffers, purchase.screeningEvent);
                 if (remainingSeatLength < reservationTickets.length) {
                     this.utilService.openAlert({

@@ -1,6 +1,7 @@
 export * from './purchase/screen';
 export * from './purchase/reservation';
 export * from './purchase/movieTicket';
+export * from './purchase/performance';
 export * from './order/action';
 export * from './order/print';
 export * from './common/language';
