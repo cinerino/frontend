@@ -30,7 +30,7 @@
         <li *ngFor="let ticket of tickets" class="ticket mb-2">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="w-75 text-left">
-                    <p>{{ ticket.name | changeLanguage }} / {{ getTicketPrice(ticket).single | currency : 'JPY' }}</p>
+                    <p>{{ ticket.name | changeLanguage }} / {{ getItemPrice({ priceComponents: ticket.priceSpecification.priceComponent }) | currency : 'JPY' }}</p>
                 </div>
                 <div class="w-25 text-right">
                     <select class="form-control" [(ngModel)]="selectedTickets[ticket.id]">

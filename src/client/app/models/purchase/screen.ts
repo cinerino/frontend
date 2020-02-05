@@ -1,4 +1,4 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { IReservationSeat } from '..';
 
 export interface ISize {
     w: number;
@@ -71,5 +71,5 @@ export interface ISeat {
     code: string;
     section: string;
     status: SeatStatus;
-    ticketedSeat?: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>;
+    ticketedSeat?: IReservationSeat;
 }

@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { changeTicketCountByOrder, getTicketPrice, IEventOrder, order2EventOrders } from '../../../../../functions';
+import { changeTicketCountByOrder, getItemPrice, IEventOrder, order2EventOrders } from '../../../../../functions';
 import { OrderService, QRCodeService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -19,7 +19,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     public order: Observable<reducers.IOrderState>;
     public user: Observable<reducers.IUserState>;
     public moment: typeof moment = moment;
-    public getTicketPrice = getTicketPrice;
+    public getItemPrice = getItemPrice;
     public changeTicketCountByOrder = changeTicketCountByOrder;
     public eventOrders: IEventOrder[];
     public error: Observable<string | null>;

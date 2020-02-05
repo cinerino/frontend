@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
 import { IGmoTokenObject } from '../../functions';
-import { IMovieTicket, IReservationSeat, IReservationTicket, IScreen, Reservation } from '../../models';
+import { IMovieTicket, IReservation, IReservationSeat, IReservationTicket, IScreen } from '../../models';
 
 /**
  * Action types
@@ -219,7 +219,7 @@ export class GetScreen implements Action {
 export class GetScreenSuccess implements Action {
     public readonly type = ActionTypes.GetScreenSuccess;
     constructor(public payload: {
-        screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
+        screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
         screenData: IScreen;
     }) { }
 }
@@ -246,7 +246,7 @@ export class GetScreeningEventOffers implements Action {
 export class GetScreeningEventOffersSuccess implements Action {
     public readonly type = ActionTypes.GetScreeningEventOffersSuccess;
     constructor(public payload: {
-        screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
+        screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
     }) { }
 }
 
@@ -280,7 +280,7 @@ export class CancelSeats implements Action {
  */
 export class SelectTickets implements Action {
     public readonly type = ActionTypes.SelectTickets;
-    constructor(public payload: { reservations: Reservation[] }) { }
+    constructor(public payload: { reservations: IReservation[] }) { }
 }
 
 /**
@@ -319,7 +319,7 @@ export class TemporaryReservation implements Action {
         transaction: factory.transaction.placeOrder.ITransaction;
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
         authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
-        reservations: Reservation[];
+        reservations: IReservation[];
     }) { }
 }
 
@@ -351,7 +351,7 @@ export class TemporaryReservationFreeSeat implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
+        screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
         reservationTickets: IReservationTicket[]
     }) { }
 }

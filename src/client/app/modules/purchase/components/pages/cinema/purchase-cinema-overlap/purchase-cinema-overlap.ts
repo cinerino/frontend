@@ -4,7 +4,7 @@ import { factory } from '@cinerino/api-javascript-client/lib/abstract';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { getExternalData } from '../../../../../../functions';
-import { Reservation } from '../../../../../../models';
+import { IReservation } from '../../../../../../models';
 import { CinerinoService, PurchaseService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
@@ -19,7 +19,7 @@ export class PurchaseCinemaOverlapComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public tmpPurchaseData: {
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        reservations: Reservation[];
+        reservations: IReservation[];
     };
     constructor(
         private store: Store<reducers.IState>,

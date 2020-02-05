@@ -32,7 +32,7 @@
                 {{ reservation.seat.seatNumber }}
             </span>
             <span *ngIf="reservation.ticket">&nbsp;/&nbsp;{{ reservation.ticket.ticketOffer.name | changeLanguage }}&nbsp;/&nbsp;{{
-                    reservation.getTicketPrice().single | currency : 'JPY' }}</span>
+                    getItemPrice({ priceComponents: reservation.ticket.ticketOffer.priceSpecification.priceComponent, seat: reservation.seat }) | currency : 'JPY' }}</span>
         </p>
     </div>
 </div>

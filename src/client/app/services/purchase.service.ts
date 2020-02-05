@@ -7,7 +7,7 @@ import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { getEnvironment } from '../../environments/environment';
 import { getExternalData } from '../functions';
-import { IReservationSeat, IReservationTicket, Reservation } from '../models';
+import { IReservation, IReservationSeat, IReservationTicket } from '../models';
 import { purchaseAction } from '../store/actions';
 import * as reducers from '../store/reducers';
 import { UtilService } from './util.service';
@@ -270,7 +270,7 @@ export class PurchaseService {
     /**
      * 券種選択
      */
-    public selectTickets(reservations: Reservation[]) {
+    public selectTickets(reservations: IReservation[]) {
         this.store.dispatch(new purchaseAction.SelectTickets({ reservations }));
     }
 
@@ -283,12 +283,12 @@ export class PurchaseService {
             const transaction = purchase.transaction;
             const screeningEvent = purchase.screeningEvent;
             const reservations = purchase.reservations.map((reservation) => {
-                return new Reservation({
+                return {
                     seat: reservation.seat,
                     ticket: (reservation.ticket === undefined)
                         ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
                         : reservation.ticket
-                });
+                };
             });
             const authorizeSeatReservation = purchase.authorizeSeatReservation;
             if (transaction === undefined

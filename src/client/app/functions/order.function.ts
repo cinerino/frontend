@@ -2,7 +2,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
 import { ITicketPrintData } from '../models';
-import { getTicketPrice } from './purchase.function';
+import { getItemPrice } from './purchase.function';
 import { getProject } from './util.function';
 
 /**
@@ -190,7 +190,7 @@ export async function createPrintCanvas(args: {
             ? undefined : acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber,
         ticketNameJa: acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja,
         ticketNameEn: acceptedOffer.itemOffered.reservedTicket.ticketType.name.en,
-        price: getTicketPrice(acceptedOffer).single,
+        price: getItemPrice({ priceComponents: (<any>acceptedOffer.priceSpecification).priceComponent }),
         posName: (args.pos === undefined) ? '' : args.pos.name,
         confirmationNumber: String(args.order.confirmationNumber),
         orderNumber: args.order.orderNumber,

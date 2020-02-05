@@ -6,7 +6,9 @@
                     <div>{{ ticket.ticketOffer.name | changeLanguage }}</div>
                     <p *ngIf="ticket.movieTicket" class="text-left text-small">{{ ticket.movieTicket.identifier }}</p>
                 </div>
-                <div class="w-25 text-right">{{ getTicketPrice(ticket.ticketOffer).single | currency : 'JPY' }}</div>
+                <div class="w-25 text-right">
+                    {{ getItemPrice({ priceComponents: ticket.ticketOffer.priceSpecification.priceComponent, seat: reservation.seat }) | currency : 'JPY' }}
+                </div>
             </div>
         </button>
     </div>

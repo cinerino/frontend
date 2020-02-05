@@ -11,6 +11,7 @@ import {
     createGmoTokenObject,
     createMovieTicketsFromAuthorizeSeatReservation,
     formatTelephone,
+    getItemPrice,
     getProject,
     getTicketPrice,
     sleep
@@ -174,7 +175,7 @@ export class PurchaseEffects {
             try {
                 await this.cinerinoService.getServices();
                 const screeningEvent = payload.screeningEvent;
-                let screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[] = [];
+                let screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[] = [];
                 if (new Performance(screeningEvent).isTicketedSeat()) {
                     screeningEventOffers = await this.cinerinoService.event.searchOffers({
                         event: { id: screeningEvent.id }
@@ -597,6 +598,7 @@ export class PurchaseEffects {
                         seller,
                         moment,
                         formatTelephone,
+                        getItemPrice,
                         getTicketPrice
                     });
                 }
@@ -628,7 +630,7 @@ export class PurchaseEffects {
                             order,
                             moment,
                             formatTelephone,
-                            getTicketPrice
+                            getItemPrice
                         });
                         await this.linyService.sendMessage({ uid: linyId, message: template });
                     } catch (error) {
