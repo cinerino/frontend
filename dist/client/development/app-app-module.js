@@ -57879,7 +57879,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"isViewRemainingSeatCount()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p>{{ ticket.name | changeLanguage }} / {{ getItemPrice({ priceComponents: ticket.priceSpecification.priceComponent }) | currency : 'JPY' }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close()\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;<span *ngIf=\"screeningEvent.location.address\" class=\"mr-2\">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"isViewRemainingSeatCount()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p>{{ ticket.name | changeLanguage }} / {{ getItemPrice({ priceComponents: ticket.priceSpecification.priceComponent }) | currency : 'JPY' }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close()\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -74030,6 +74030,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "storageSync", function() { return storageSync; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "metaReducers", function() { return metaReducers; });
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -74061,13 +74072,25 @@ function logger(newState, action) {
  * storageSync
  */
 function storageSync(state) {
-    var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])();
     if (state === undefined
         || state === null
         || Object.keys(state).length === 0) {
         return;
     }
-    window[environment.STORAGE_TYPE].setItem(environment.STORAGE_NAME, JSON.stringify(state));
+    var sessionData = {
+        App: {
+            purchaseData: state.App.purchaseData,
+            masterData: state.App.masterData,
+            orderData: state.App.orderData,
+        }
+    };
+    sessionStorage.setItem('SESSION_STATE', JSON.stringify(sessionData));
+    var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])();
+    var saveData = {
+        App: __assign({}, state.App, { purchaseData: undefined, masterData: undefined, orderData: undefined })
+    };
+    window[environment.STORAGE_TYPE]
+        .setItem(environment.STORAGE_NAME, JSON.stringify(saveData));
 }
 /**
  * Meta reducer
@@ -77142,12 +77165,14 @@ var initialState = {
 };
 function getInitialState() {
     var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_0__["getEnvironment"])();
-    var json = window[environment.STORAGE_TYPE].getItem(environment.STORAGE_NAME);
-    if (json === undefined || json === null) {
+    var saveJson = window[environment.STORAGE_TYPE].getItem(environment.STORAGE_NAME);
+    if (saveJson === undefined || saveJson === null) {
         return initialState;
     }
-    var tmpData = JSON.parse(json);
-    var data = __assign({}, initialState, tmpData.App);
+    var saveData = JSON.parse(saveJson);
+    var sessonJson = sessionStorage.getItem('SESSION_STATE');
+    var sessionData = (sessonJson === undefined || sessonJson === null) ? { App: {} } : JSON.parse(sessonJson);
+    var data = __assign({}, initialState, saveData.App, sessionData.App);
     data.loading = false;
     return data;
 }

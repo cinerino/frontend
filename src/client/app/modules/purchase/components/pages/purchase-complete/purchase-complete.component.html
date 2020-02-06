@@ -28,7 +28,7 @@
                 </p>
                 <p class="text-small mb-1">
                     <span class="theatre-name">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
-                    <span class="screen-name">&nbsp;/&nbsp;{{ eventOrder.event.location.name | changeLanguage }}</span>
+                    <span class="screen-name">&nbsp;/&nbsp;<span *ngIf="eventOrder.event.location.address" class="mr-2">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>
                     <span
                         *ngIf="eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0">
                         &nbsp;/&nbsp;<span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}

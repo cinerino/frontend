@@ -34,12 +34,14 @@ export const initialState: IState = {
 
 function getInitialState(): IState {
     const environment = getEnvironment();
-    const json = (<Storage>(<any>window)[environment.STORAGE_TYPE]).getItem(environment.STORAGE_NAME);
-    if (json === undefined || json === null) {
+    const saveJson = (<Storage>(<any>window)[environment.STORAGE_TYPE]).getItem(environment.STORAGE_NAME);
+    if (saveJson === undefined || saveJson === null) {
         return initialState;
     }
-    const tmpData: { App: IState } = JSON.parse(json);
-    const data = { ...initialState, ...tmpData.App };
+    const saveData: { App: IState } = JSON.parse(saveJson);
+    const sessonJson = sessionStorage.getItem('SESSION_STATE');
+    const sessionData = (sessonJson === undefined || sessonJson === null) ? {App: {}} : JSON.parse(sessonJson);
+    const data = { ...initialState, ...saveData.App, ...sessionData.App };
     data.loading = false;
 
     return data;

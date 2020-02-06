@@ -17,7 +17,7 @@
                 {{ screeningEvent.superEvent.location.name | changeLanguage }}
             </span>
             <span class="screen-name">
-                &nbsp;/&nbsp;{{ screeningEvent.location.name | changeLanguage }}
+                &nbsp;/&nbsp;<span *ngIf="screeningEvent.location.address" class="mr-2">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}
             </span>
             <span *ngIf="screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0">
                 &nbsp;/&nbsp;<span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}

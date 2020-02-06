@@ -28,7 +28,7 @@
                         {{ authorizeSeatReservation.object.event.superEvent.location.name | changeLanguage }}
                     </span>
                     <span class="screen-name">
-                        &nbsp;/&nbsp;{{ authorizeSeatReservation.object.event.location.name | changeLanguage }}
+                        &nbsp;/&nbsp;<span *ngIf="authorizeSeatReservation.object.event.location.address" class="mr-2">{{ authorizeSeatReservation.object.event.location.address | changeLanguage }}</span>{{ authorizeSeatReservation.object.event.location.name | changeLanguage }}
                     </span>
                     <span *ngIf="authorizeSeatReservation.object.event.workPerformed?.duration && moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() > 0">
                         &nbsp;/&nbsp;<span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
