@@ -313,7 +313,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, createPrintCanvas, createTestPrintCanvas, changeTicketCountByOrder */
+/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, getItemReferenceQuantityValue, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, createPrintCanvas, createTestPrintCanvas, changeTicketCountByOrder */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -332,6 +332,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createPaymentMethodFromType", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["createPaymentMethodFromType"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTicketPrice", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getTicketPrice"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getItemPrice", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getItemPrice"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getItemReferenceQuantityValue", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getItemReferenceQuantityValue"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "movieTicketAuthErroCodeToMessage", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["movieTicketAuthErroCodeToMessage"]; });
 
@@ -612,7 +616,7 @@ function createPrintCanvas(args) {
                             ? undefined : acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber,
                         ticketNameJa: acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja,
                         ticketNameEn: acceptedOffer.itemOffered.reservedTicket.ticketType.name.en,
-                        price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_3__["getTicketPrice"])(acceptedOffer).single,
+                        price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_3__["getItemPrice"])({ priceComponents: acceptedOffer.priceSpecification.priceComponent }),
                         posName: (args.pos === undefined) ? '' : args.pos.name,
                         confirmationNumber: String(args.order.confirmationNumber),
                         orderNumber: args.order.orderNumber,
@@ -695,7 +699,7 @@ function changeTicketCountByOrder(acceptedOffer) {
 /*!********************************************!*\
   !*** ./app/functions/purchase.function.ts ***!
   \********************************************/
-/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, changeTicketCount, getRemainingSeatLength */
+/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, getItemReferenceQuantityValue, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, changeTicketCount, getRemainingSeatLength */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -707,6 +711,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createMovieTicketsFromAuthorizeSeatReservation", function() { return createMovieTicketsFromAuthorizeSeatReservation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPaymentMethodFromType", function() { return createPaymentMethodFromType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTicketPrice", function() { return getTicketPrice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getItemPrice", function() { return getItemPrice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getItemReferenceQuantityValue", function() { return getItemReferenceQuantityValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "movieTicketAuthErroCodeToMessage", function() { return movieTicketAuthErroCodeToMessage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAmount", function() { return getAmount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "order2EventOrders", function() { return order2EventOrders; });
@@ -917,6 +923,52 @@ function getTicketPrice(ticket) {
         result.single = result.total / referenceQuantityValue;
     }
     return result;
+}
+/**
+ * アイテム金額取得
+ */
+function getItemPrice(params) {
+    var price = 0;
+    // 券種価格
+    var priceComponents = params.priceComponents;
+    if (priceComponents === undefined) {
+        return price;
+    }
+    var priceSpecificationType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
+    priceComponents.forEach(function (p) {
+        if (p.typeOf === priceSpecificationType.UnitPriceSpecification) {
+            var value = (p.referenceQuantity.value) ? p.referenceQuantity.value : 1;
+            price += p.price / value;
+            return;
+        }
+        price += p.price;
+    });
+    // 座席価格
+    var seat = params.seat;
+    if (seat === undefined || seat.offers === undefined) {
+        return price;
+    }
+    seat.offers.forEach(function (o) {
+        if (o.priceSpecification === undefined) {
+            return;
+        }
+        o.priceSpecification.priceComponent.forEach(function (p) { return price += p.price; });
+    });
+    return price;
+}
+/**
+ * アイテム数量取得
+ */
+function getItemReferenceQuantityValue(priceComponents) {
+    if (priceComponents === undefined) {
+        return 1;
+    }
+    var priceSpecificationType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
+    var unitPriceSpecification = priceComponents.find(function (p) { return p.typeOf === priceSpecificationType.UnitPriceSpecification; });
+    if (unitPriceSpecification === undefined) {
+        return 1;
+    }
+    return unitPriceSpecification.referenceQuantity.value;
 }
 /**
  * ムビチケ認証購入管理番号無効事由区分変換
@@ -1479,7 +1531,7 @@ var ViewType;
 /*!*****************************!*\
   !*** ./app/models/index.ts ***!
   \*****************************/
-/*! exports provided: SeatStatus, Reservation, Performance, OrderActions, PrintQrcodeType, Language, ViewType, connectionType, printers */
+/*! exports provided: SeatStatus, Performance, OrderActions, PrintQrcodeType, Language, ViewType, connectionType, printers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1487,33 +1539,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _purchase_screen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./purchase/screen */ "./app/models/purchase/screen.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SeatStatus", function() { return _purchase_screen__WEBPACK_IMPORTED_MODULE_0__["SeatStatus"]; });
 
-/* harmony import */ var _purchase_reservation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchase/reservation */ "./app/models/purchase/reservation.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Reservation", function() { return _purchase_reservation__WEBPACK_IMPORTED_MODULE_1__["Reservation"]; });
+/* harmony import */ var _purchase_performance__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchase/performance */ "./app/models/purchase/performance.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Performance", function() { return _purchase_performance__WEBPACK_IMPORTED_MODULE_1__["Performance"]; });
 
-/* harmony import */ var _purchase_performance__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./purchase/performance */ "./app/models/purchase/performance.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Performance", function() { return _purchase_performance__WEBPACK_IMPORTED_MODULE_2__["Performance"]; });
+/* harmony import */ var _order_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./order/action */ "./app/models/order/action.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrderActions", function() { return _order_action__WEBPACK_IMPORTED_MODULE_2__["OrderActions"]; });
 
-/* harmony import */ var _order_action__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./order/action */ "./app/models/order/action.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrderActions", function() { return _order_action__WEBPACK_IMPORTED_MODULE_3__["OrderActions"]; });
+/* harmony import */ var _order_print__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./order/print */ "./app/models/order/print.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function() { return _order_print__WEBPACK_IMPORTED_MODULE_3__["PrintQrcodeType"]; });
 
-/* harmony import */ var _order_print__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./order/print */ "./app/models/order/print.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function() { return _order_print__WEBPACK_IMPORTED_MODULE_4__["PrintQrcodeType"]; });
+/* harmony import */ var _common_language__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./common/language */ "./app/models/common/language.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Language", function() { return _common_language__WEBPACK_IMPORTED_MODULE_4__["Language"]; });
 
-/* harmony import */ var _common_language__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./common/language */ "./app/models/common/language.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Language", function() { return _common_language__WEBPACK_IMPORTED_MODULE_5__["Language"]; });
+/* harmony import */ var _common_viewType__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./common/viewType */ "./app/models/common/viewType.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewType", function() { return _common_viewType__WEBPACK_IMPORTED_MODULE_5__["ViewType"]; });
 
-/* harmony import */ var _common_viewType__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./common/viewType */ "./app/models/common/viewType.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewType", function() { return _common_viewType__WEBPACK_IMPORTED_MODULE_6__["ViewType"]; });
+/* harmony import */ var _common_printer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./common/printer */ "./app/models/common/printer.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "connectionType", function() { return _common_printer__WEBPACK_IMPORTED_MODULE_6__["connectionType"]; });
 
-/* harmony import */ var _common_printer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./common/printer */ "./app/models/common/printer.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "connectionType", function() { return _common_printer__WEBPACK_IMPORTED_MODULE_7__["connectionType"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "printers", function() { return _common_printer__WEBPACK_IMPORTED_MODULE_7__["printers"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "printers", function() { return _common_printer__WEBPACK_IMPORTED_MODULE_6__["printers"]; });
 
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
 
 
 
@@ -1709,98 +1757,6 @@ var Performance = /** @class */ (function () {
             && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat !== undefined);
     };
     return Performance;
-}());
-
-
-
-/***/ }),
-
-/***/ "./app/models/purchase/reservation.ts":
-/*!********************************************!*\
-  !*** ./app/models/purchase/reservation.ts ***!
-  \********************************************/
-/*! exports provided: Reservation */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Reservation", function() { return Reservation; });
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
-var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
-  return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-
-/**
- * Reservation
- */
-var Reservation = /** @class */ (function () {
-    function Reservation(args) {
-        this.seat = args.seat;
-        this.ticket = args.ticket;
-    }
-    /**
-     * ムビチケ判定
-     */
-    Reservation.prototype.isMovieTicket = function () {
-        if (this.ticket === undefined) {
-            return false;
-        }
-        return (this.ticket.movieTicket !== undefined);
-    };
-    /**
-     * 券種金額取得
-     */
-    Reservation.prototype.getTicketPrice = function () {
-        var result = {
-            unitPriceSpecification: 0,
-            videoFormatCharge: 0,
-            soundFormatCharge: 0,
-            movieTicketTypeCharge: 0,
-            total: 0,
-            single: 0
-        };
-        if (this.ticket === undefined) {
-            return result;
-        }
-        var priceComponent = this.ticket.ticketOffer.priceSpecification.priceComponent;
-        var priceSpecificationType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
-        var unitPriceSpecifications = priceComponent.filter(function (s) { return s.typeOf === priceSpecificationType.UnitPriceSpecification; });
-        var videoFormatCharges = priceComponent.filter(function (s) { return s.typeOf === priceSpecificationType.VideoFormatChargeSpecification; });
-        var soundFormatCharges = priceComponent.filter(function (s) { return s.typeOf === priceSpecificationType.SoundFormatChargeSpecification; });
-        var movieTicketTypeCharges = priceComponent.filter(function (s) { return s.typeOf === priceSpecificationType.MovieTicketTypeChargeSpecification; });
-        result.unitPriceSpecification += unitPriceSpecifications[0].price;
-        videoFormatCharges.forEach(function (videoFormatCharge) {
-            result.videoFormatCharge += videoFormatCharge.price;
-        });
-        soundFormatCharges.forEach(function (soundFormatCharge) {
-            result.soundFormatCharge += soundFormatCharge.price;
-        });
-        movieTicketTypeCharges.forEach(function (movieTicketTypeCharge) {
-            result.movieTicketTypeCharge += movieTicketTypeCharge.price;
-        });
-        result.total = result.unitPriceSpecification + result.videoFormatCharge + result.soundFormatCharge + result.movieTicketTypeCharge;
-        var unitPriceSpecification = unitPriceSpecifications[0];
-        if (unitPriceSpecification.typeOf === priceSpecificationType.UnitPriceSpecification) {
-            var referenceQuantityValue = (unitPriceSpecification.referenceQuantity.value === undefined)
-                ? 1
-                : unitPriceSpecification.referenceQuantity.value;
-            result.single = result.total / referenceQuantityValue;
-        }
-        return result;
-    };
-    /**
-     * 価格仕様取得
-     */
-    Reservation.prototype.getUnitPriceSpecification = function () {
-        if (this.ticket === undefined) {
-            return;
-        }
-        var unitPriceSpecifications = this.ticket.ticketOffer.priceSpecification.priceComponent
-            .filter(function (s) { return s.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.UnitPriceSpecification; });
-        return unitPriceSpecifications[0];
-    };
-    return Reservation;
 }());
 
 

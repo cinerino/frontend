@@ -4,7 +4,7 @@ import {
     isAvailabilityMovieTicket,
     sameMovieTicketFilter
 } from '../../functions';
-import { IMovieTicket, IReservationTicket, IScreen, Reservation } from '../../models';
+import { IMovieTicket, IReservation, IReservationTicket, IScreen } from '../../models';
 import { purchaseAction } from '../actions';
 
 export interface IPurchaseState {
@@ -13,9 +13,9 @@ export interface IPurchaseState {
     scheduleDate?: string;
     preScheduleDates: string[];
     transaction?: factory.transaction.placeOrder.ITransaction;
-    screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[];
+    screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
     screenData?: IScreen;
-    reservations: Reservation[];
+    reservations: IReservation[];
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
     authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
@@ -183,13 +183,13 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
         case purchaseAction.ActionTypes.SelectSeats: {
             const reservations = state.purchaseData.reservations;
             action.payload.seats.forEach((seat) => {
-                reservations.push(new Reservation({ seat }));
+                reservations.push({ seat });
             });
             state.purchaseData.reservations = reservations;
             return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.CancelSeats: {
-            const reservations: Reservation[] = [];
+            const reservations: IReservation[] = [];
             const seats = action.payload.seats;
             state.purchaseData.reservations.forEach((reservation) => {
                 const findResult = seats.find((seat) => {
@@ -223,7 +223,7 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case purchaseAction.ActionTypes.SelectTickets: {
-            const reservations: Reservation[] = [];
+            const reservations: IReservation[] = [];
             const selectedReservations = action.payload.reservations;
             state.purchaseData.reservations.forEach((reservation) => {
                 const findResult =

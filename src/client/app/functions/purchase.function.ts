@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { IMovieTicket, Performance } from '../models';
+import { IMovieTicket, IReservationSeat, Performance } from '../models';
 
 export interface IScreeningEventWork {
     info: factory.chevre.event.screeningEvent.IEvent;
@@ -258,6 +258,61 @@ export function getTicketPrice(
 }
 
 /**
+ * アイテム金額取得
+ */
+export function getItemPrice(params: {
+    priceComponents?: factory.chevre.event.screeningEvent.ITicketPriceComponent[];
+    seat?: IReservationSeat;
+}) {
+    let price = 0;
+    // 券種価格
+    const priceComponents = params.priceComponents;
+    if (priceComponents === undefined) {
+        return price;
+    }
+    const priceSpecificationType = factory.chevre.priceSpecificationType;
+    priceComponents.forEach((p) => {
+        if (p.typeOf === priceSpecificationType.UnitPriceSpecification) {
+            const value = (p.referenceQuantity.value) ? p.referenceQuantity.value : 1;
+            price += p.price / value;
+            return;
+        }
+        price += p.price;
+    });
+    // 座席価格
+    const seat = params.seat;
+    if (seat === undefined || seat.offers === undefined) {
+        return price;
+    }
+    seat.offers.forEach((o) => {
+        if (o.priceSpecification === undefined) {
+            return;
+        }
+        o.priceSpecification.priceComponent.forEach(p => price += p.price);
+    });
+    return price;
+}
+
+/**
+ * アイテム数量取得
+ */
+export function getItemReferenceQuantityValue(
+    priceComponents?: factory.chevre.event.screeningEvent.ITicketPriceComponent[]
+) {
+    if (priceComponents === undefined) {
+        return 1;
+    }
+    const priceSpecificationType = factory.chevre.priceSpecificationType;
+    const unitPriceSpecification =
+        priceComponents.find(p => p.typeOf === priceSpecificationType.UnitPriceSpecification);
+    if (unitPriceSpecification === undefined) {
+        return 1;
+    }
+    return  (<any>unitPriceSpecification).referenceQuantity.value;
+
+}
+
+/**
  * ムビチケ認証購入管理番号無効事由区分変換
  */
 export function movieTicketAuthErroCodeToMessage(code?: string): { ja: string; en: string; } {
@@ -401,7 +456,7 @@ export function changeTicketCount(
  * 残席数取得
  */
 export function getRemainingSeatLength(
-    screeningEventOffers: factory.chevre.event.screeningEvent.IScreeningRoomSectionOffer[],
+    screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[],
     screeningEvent: factory.chevre.event.screeningEvent.IEvent
 ) {
     let result = 0;

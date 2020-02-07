@@ -62,7 +62,7 @@
                     <p>
                         <span *ngIf="acceptedOffer.itemOffered.serviceOutput.reservedTicket.ticketedSeat">
                             {{ acceptedOffer.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.name | changeLanguage }}&nbsp;/&nbsp;{{
-                            getTicketPrice(acceptedOffer).single | currency : 'JPY' }}
+                            getItemPrice({ priceComponents: acceptedOffer.priceSpecification.priceComponent }) | currency : 'JPY' }}
                     </p>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                 <div *ngFor="let ticket of changeTicketCount(authorizeSeatReservation.object.acceptedOffer)">
                     <p>
                         {{ ticket.acceptedOffer.name | changeLanguage }}&nbsp;/&nbsp;{{
-                            getTicketPrice(ticket.acceptedOffer).single | currency : 'JPY' }}&nbsp;×&nbsp;{{ ticket.count }}
+                            getItemPrice({ priceComponents: ticket.acceptedOffer.priceSpecification.priceComponent }) | currency : 'JPY' }}&nbsp;×&nbsp;{{ ticket.count }}
                     </p>
                 </div>
             </div>

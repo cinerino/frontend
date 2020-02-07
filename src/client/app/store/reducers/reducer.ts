@@ -1,5 +1,4 @@
 import { getEnvironment } from '../../../environments/environment';
-import { Reservation } from '../../models';
 import { masterAction, orderAction, purchaseAction, userAction, utilAction } from '../actions';
 import * as masterReducer from './master.reducer';
 import * as orderReducer from './order.reducer';
@@ -41,8 +40,6 @@ function getInitialState(): IState {
     }
     const tmpData: { App: IState } = JSON.parse(json);
     const data = { ...initialState, ...tmpData.App };
-    const reservations = data.purchaseData.reservations.map((reservation: Reservation) => new Reservation(reservation));
-    data.purchaseData.reservations = reservations;
     data.loading = false;
 
     return data;

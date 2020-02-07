@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { BsModalRef } from 'ngx-bootstrap';
-import { getTicketPrice } from '../../../../../../../functions';
-import { IMovieTicket, IReservationTicket, Reservation } from '../../../../../../../models';
+import { getItemPrice } from '../../../../../../../functions';
+import { IMovieTicket, IReservation, IReservationTicket } from '../../../../../../../models';
 
 type IMovieTicketTypeChargeSpecification =
     factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification>;
@@ -16,11 +16,12 @@ export class PurchaseCinemaTicketModalComponent implements OnInit {
 
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     @Input() public checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
-    @Input() public reservations: Reservation[];
+    @Input() public reservations: IReservation[];
+    @Input() public reservation?: IReservation;
     @Input() public pendingMovieTickets: IMovieTicket[];
     @Input() public cb: (ticket: IReservationTicket) => void;
     public tickets: IReservationTicket[];
-    public getTicketPrice = getTicketPrice;
+    public getItemPrice = getItemPrice;
 
     constructor(
         public modal: BsModalRef
