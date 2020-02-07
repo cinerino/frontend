@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.3 - 2020-02-06
+### Changed
+ - 価格仕様変更対応
+
 ## 3.0.2 - 2020-02-03
 ### Changed
  - 販売判定を変更
