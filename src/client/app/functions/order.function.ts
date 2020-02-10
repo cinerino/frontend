@@ -241,25 +241,3 @@ export async function createTestPrintCanvas(args: { printData: ITicketPrintData 
 
     return canvas;
 }
-
-/**
- * 券種情報を枚数別へ変換
- */
-export function changeTicketCountByOrder(
-    acceptedOffer: factory.order.IAcceptedOffer<factory.order.IReservation>[]
-) {
-    const result: {
-        acceptedOffer: factory.order.IAcceptedOffer<factory.order.IReservation>;
-        count: number
-    }[] = [];
-    acceptedOffer.forEach((a: factory.order.IAcceptedOffer<factory.order.IReservation>) => {
-        const findResult =
-            result.find(r => r.acceptedOffer.itemOffered.reservedTicket.ticketType.id === a.itemOffered.reservedTicket.ticketType.id);
-        if (findResult === undefined) {
-            result.push({ acceptedOffer: a, count: 1 });
-        } else {
-            findResult.count += 1;
-        }
-    });
-    return result;
-}

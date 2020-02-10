@@ -25,9 +25,15 @@
                 <button *ngIf="reservation.ticket === undefined" type="button" (click)="openTicketList(reservation)"
                     class="btn btn-primary btn-block py-3">{{ 'purchase.cinema.ticket.unselected' | translate }}</button>
                 <button *ngIf="reservation.ticket !== undefined" type="button" (click)="openTicketList(reservation)"
-                    class="btn btn-block border border-primary text-primary bg-white py-3">{{
-                  reservation.ticket.ticketOffer.name | changeLanguage }} {{
-                  getItemPrice({ priceComponents: reservation.ticket.ticketOffer.priceSpecification.priceComponent, seat: reservation.seat }) | currency : 'JPY' }}</button>
+                    class="btn btn-block border border-primary text-primary bg-white py-3">
+                        <div class="d-flex justify-content-between align-items-center" *ngFor="let priceComponent of reservation.ticket?.ticketOffer.priceSpecification.priceComponent">
+                            <p class="w-50 text-left">{{ priceComponent.name | changeLanguage }}</p>
+                            <p class="w-50 text-right">
+                                <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
+                                --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+                            </p>
+                        </div>
+                    </button>
             </div>
         </div>
     </div>

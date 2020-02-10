@@ -33,24 +33,7 @@
                 </p>
             </div>
             <hr class="mb-3">
-            <div *ngIf="environment.DISPLAY_TICKETED_SEAT">
-                <div *ngFor="let acceptedOffer of authorizeSeatReservation.object.acceptedOffer">
-                    <p>
-                        <span
-                            *ngIf="acceptedOffer.itemOffered.serviceOutput.reservedTicket.ticketedSeat && environment.DISPLAY_TICKETED_SEAT">
-                            {{ acceptedOffer.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.name | changeLanguage }}&nbsp;/&nbsp;{{
-                            getItemPrice({ priceComponents: acceptedOffer.priceSpecification.priceComponent }) | currency : 'JPY' }}
-                    </p>
-                </div>
-            </div>
-            <div *ngIf="!environment.DISPLAY_TICKETED_SEAT">
-                <div *ngFor="let ticket of changeTicketCount(authorizeSeatReservation.object.acceptedOffer)">
-                    <p>
-                        {{ ticket.acceptedOffer.name | changeLanguage }}&nbsp;/&nbsp;{{
-                            getItemPrice({ priceComponents: ticket.acceptedOffer.priceSpecification.priceComponent }) | currency : 'JPY' }}&nbsp;×&nbsp;{{ ticket.count }}
-                    </p>
-                </div>
-            </div>
+            <app-item-list [authorizeSeatReservations]="authorizeSeatReservation?.result?.responseBody.object.reservations"></app-item-list>
         </div>
 
         <div class="mb-4 px-3 bg-white">
