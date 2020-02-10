@@ -461,7 +461,6 @@ function drawCanvas(args) {
         return __generator(this, function (_f) {
             switch (_f.label) {
                 case 0:
-                    console.log('printData', args.printData);
                     printData = args.printData;
                     data = args.data;
                     canvas = document.createElement('canvas');
@@ -595,32 +594,37 @@ function drawCanvas(args) {
  */
 function createPrintCanvas(args) {
     return __awaiter(this, void 0, void 0, function () {
-        var acceptedOffer, data, printData, canvas;
+        var acceptedOffer, itemOffered, data, printData, canvas;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     acceptedOffer = args.acceptedOffer;
-                    if (acceptedOffer.itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
+                    itemOffered = acceptedOffer.itemOffered;
+                    if (itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
                         throw new Error('reservationType is not EventReservation');
                     }
                     data = {
-                        sellerNameJa: acceptedOffer.itemOffered.reservationFor.superEvent.location.name.ja,
-                        sellerNameEn: acceptedOffer.itemOffered.reservationFor.superEvent.location.name.en,
-                        eventNameJa: acceptedOffer.itemOffered.reservationFor.name.ja,
-                        eventNameEn: acceptedOffer.itemOffered.reservationFor.name.en,
-                        screenNameJa: acceptedOffer.itemOffered.reservationFor.location.name.ja,
-                        screenNameEn: acceptedOffer.itemOffered.reservationFor.location.name.en,
-                        startDate: moment__WEBPACK_IMPORTED_MODULE_1__(acceptedOffer.itemOffered.reservationFor.startDate).toISOString(),
-                        endDate: moment__WEBPACK_IMPORTED_MODULE_1__(acceptedOffer.itemOffered.reservationFor.endDate).toISOString(),
-                        seatNumber: (acceptedOffer.itemOffered.reservedTicket.ticketedSeat === undefined)
-                            ? undefined : acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber,
-                        ticketNameJa: acceptedOffer.itemOffered.reservedTicket.ticketType.name.ja,
-                        ticketNameEn: acceptedOffer.itemOffered.reservedTicket.ticketType.name.en,
+                        sellerNameJa: itemOffered.reservationFor.superEvent.location.name.ja,
+                        sellerNameEn: itemOffered.reservationFor.superEvent.location.name.en,
+                        eventNameJa: itemOffered.reservationFor.name.ja,
+                        eventNameEn: itemOffered.reservationFor.name.en,
+                        screenNameJa: (itemOffered.reservationFor.location.address === undefined)
+                            ? itemOffered.reservationFor.location.name.ja
+                            : itemOffered.reservationFor.location.address.ja + " " + itemOffered.reservationFor.location.name.ja,
+                        screenNameEn: (itemOffered.reservationFor.location.address === undefined)
+                            ? itemOffered.reservationFor.location.name.en
+                            : itemOffered.reservationFor.location.address.en + " " + itemOffered.reservationFor.location.name.en,
+                        startDate: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.startDate).toISOString(),
+                        endDate: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.endDate).toISOString(),
+                        seatNumber: (itemOffered.reservedTicket.ticketedSeat === undefined)
+                            ? undefined : itemOffered.reservedTicket.ticketedSeat.seatNumber,
+                        ticketNameJa: itemOffered.reservedTicket.ticketType.name.ja,
+                        ticketNameEn: itemOffered.reservedTicket.ticketType.name.en,
                         price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_3__["getItemPrice"])({ priceComponents: acceptedOffer.priceSpecification.priceComponent }),
                         posName: (args.pos === undefined) ? '' : args.pos.name,
                         confirmationNumber: String(args.order.confirmationNumber),
                         orderNumber: args.order.orderNumber,
-                        ticketNumber: acceptedOffer.itemOffered.id,
+                        ticketNumber: itemOffered.id,
                         qrcode: args.qrcode,
                         index: args.index
                     };

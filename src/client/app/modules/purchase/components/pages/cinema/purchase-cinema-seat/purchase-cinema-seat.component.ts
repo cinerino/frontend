@@ -91,7 +91,10 @@ export class PurchaseCinemaSeatComponent implements OnInit {
             this.router.navigate(['/purchase/cinema/ticket']);
         } catch (error) {
             console.error(error);
-            this.router.navigate(['/error']);
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant('purchase.cinema.seat.alert.temporaryReservation')
+            });
         }
     }
 }

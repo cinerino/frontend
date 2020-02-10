@@ -31,7 +31,7 @@
                 'bg-dark-gray text-light-gray not-event': !performance.isSales() || performance.isSeatStatus('danger')
                 }" (click)="select.emit(performance.screeningEvent)">
                         <div class="mb-2 text-small screen-name">
-                            {{ performance.screeningEvent.location.name | changeLanguage }}
+                            <span *ngIf="performance.screeningEvent.location.address" class="mr-2">{{ performance.screeningEvent.location.address | changeLanguage }}</span>{{ performance.screeningEvent.location.name | changeLanguage }}
                         </div>
                         <div class="font-weight-bold mb-2">
                             {{ moment(performance.screeningEvent.startDate).format('HH:mm') }}-{{ moment(performance.screeningEvent.endDate).format('HH:mm') }}
