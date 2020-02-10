@@ -33,7 +33,7 @@
                 }" (click)="select.emit(performance.screeningEvent)">
                 <div>
                     <div class="mb-2 text-small screen-name">
-                        {{ performance.screeningEvent.location.name | changeLanguage }}
+                        <span *ngIf="performance.screeningEvent.location.address" class="mr-2">{{ performance.screeningEvent.location.address | changeLanguage }}</span>{{ performance.screeningEvent.location.name | changeLanguage }}
                     </div>
                     <div>
                         <strong class="text-large">{{ moment(performance.screeningEvent.startDate).format('HH:mm') }}</strong>
@@ -43,7 +43,7 @@
                 </div>
                 <hr class="border-0 bg-light-gray my-2">
                 <div class="text-center">
-                    <div class="status mb-2" *ngIf="performance.isSales()">
+                    <div class="status" *ngIf="performance.isSales()">
                         <div *ngIf="performance.isSeatStatus('success')"
                             class="d-flex justify-content-around align-items-center">
                             <div class="text-success mr-2 mr-md-0">
@@ -70,18 +70,18 @@
                         </div>
                     </div>
 
-                    <div class="status mb-2" *ngIf="performance.isSales('window')">
+                    <div class="status" *ngIf="performance.isSales('window')">
                         {{ 'purchase.cinema.schedule.status.window' | translate }}</div>
-                    <div class="status mb-2" *ngIf="performance.isSales('end')">
+                    <div class="status" *ngIf="performance.isSales('end')">
                         {{ 'purchase.cinema.schedule.status.endSale' | translate }}</div>
-                    <div class="status mb-2" *ngIf="performance.isSales('start')">
+                    <div class="status" *ngIf="performance.isSales('start')">
                         {{ 'purchase.cinema.schedule.status.outsideSalesPeriod' | translate }}</div>
-                    <div *ngIf="performance.isTicketedSeat() && environment.DISPLAY_TICKETED_SEAT"
-                        class="mb-2 text-small">{{ 'common.seat' | translate }}
+                    <!-- <div *ngIf="performance.isTicketedSeat() && environment.DISPLAY_TICKETED_SEAT"
+                        class="mt-2 text-small">{{ 'common.seat' | translate }}
                         {{ performance.screeningEvent.remainingAttendeeCapacity }} / {{ performance.screeningEvent.maximumAttendeeCapacity }}
-                    </div>
+                    </div> -->
                     <div *ngIf="!(performance.isTicketedSeat())"
-                        class="mb-2 text-small">
+                        class="mt-2 text-small">
                         {{ 'purchase.cinema.schedule.infiniteStock' | translate }}</div>
                 </div>
             </div>
