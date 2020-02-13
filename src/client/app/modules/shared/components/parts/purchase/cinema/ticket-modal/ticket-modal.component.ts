@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { BsModalRef } from 'ngx-bootstrap';
-import { getItemPrice } from '../../../../../../../functions';
 import { IMovieTicket, IReservation, IReservationTicket } from '../../../../../../../models';
 
 type IMovieTicketTypeChargeSpecification =
@@ -21,7 +20,6 @@ export class PurchaseCinemaTicketModalComponent implements OnInit {
     @Input() public pendingMovieTickets: IMovieTicket[];
     @Input() public cb: (ticket: IReservationTicket) => void;
     public tickets: IReservationTicket[];
-    public getItemPrice = getItemPrice;
 
     constructor(
         public modal: BsModalRef

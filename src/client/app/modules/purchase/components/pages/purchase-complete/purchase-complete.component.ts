@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { changeTicketCountByOrder, getItemPrice, IEventOrder, order2EventOrders } from '../../../../../functions';
+import { IEventOrder, order2EventOrders } from '../../../../../functions';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -16,8 +16,6 @@ import * as reducers from '../../../../../store/reducers';
 export class PurchaseCompleteComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public moment: typeof moment = moment;
-    public getItemPrice = getItemPrice;
-    public changeTicketCountByOrder = changeTicketCountByOrder;
     public eventOrders: IEventOrder[];
     public environment = getEnvironment();
     public paymentMethodType = factory.paymentMethodType;

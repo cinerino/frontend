@@ -294,25 +294,6 @@ export function getItemPrice(params: {
 }
 
 /**
- * アイテム数量取得
- */
-export function getItemReferenceQuantityValue(
-    priceComponents?: factory.chevre.event.screeningEvent.ITicketPriceComponent[]
-) {
-    if (priceComponents === undefined) {
-        return 1;
-    }
-    const priceSpecificationType = factory.chevre.priceSpecificationType;
-    const unitPriceSpecification =
-        priceComponents.find(p => p.typeOf === priceSpecificationType.UnitPriceSpecification);
-    if (unitPriceSpecification === undefined) {
-        return 1;
-    }
-    return  (<any>unitPriceSpecification).referenceQuantity.value;
-
-}
-
-/**
  * ムビチケ認証購入管理番号無効事由区分変換
  */
 export function movieTicketAuthErroCodeToMessage(code?: string): { ja: string; en: string; } {
@@ -426,30 +407,6 @@ export function authorizeSeatReservation2Event(params: {
     });
 
     return results;
-}
-
-/**
- * 券種情報を枚数別へ変換
- */
-export function changeTicketCount(
-    acceptedOffer: factory.chevre.event.screeningEvent.ITicketOffer[]
-        | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre[]
-) {
-    const result: {
-        acceptedOffer: factory.chevre.event.screeningEvent.ITicketOffer
-        | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre;
-        count: number
-    }[] = [];
-    acceptedOffer.forEach((a: factory.chevre.event.screeningEvent.ITicketOffer
-        | factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre) => {
-        const findResult = result.find(r => r.acceptedOffer.id === a.id);
-        if (findResult === undefined) {
-            result.push({ acceptedOffer: a, count: 1 });
-        } else {
-            findResult.count += 1;
-        }
-    });
-    return result;
 }
 
 /**

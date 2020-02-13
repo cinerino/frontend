@@ -37,24 +37,7 @@
             </div>
             <hr class="mb-3">
 
-            <div *ngIf="environment.DISPLAY_TICKETED_SEAT">
-                <div *ngFor="let acceptedOffer of eventOrder.data">
-                    <p>
-                        <span *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat">
-                            {{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}&nbsp;/&nbsp;</span>{{ acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{
-                            getItemPrice({ priceComponents: acceptedOffer.priceSpecification.priceComponent }) | currency : 'JPY' }}
-                    </p>
-                </div>
-            </div>
-
-            <div *ngIf="!environment.DISPLAY_TICKETED_SEAT">
-                <div *ngFor="let ticket of changeTicketCountByOrder(eventOrder.data)">
-                    <p>
-                        {{ ticket.acceptedOffer.itemOffered.reservedTicket.ticketType.name | changeLanguage }}&nbsp;/&nbsp;{{
-                            getItemPrice({ priceComponents: ticket.acceptedOffer.priceSpecification.priceComponent }) | currency : 'JPY' }}&nbsp;×&nbsp;{{ ticket.count }}
-                    </p>
-                </div>
-            </div>
+            <app-item-list [acceptedOffers]="eventOrder.data"></app-item-list>
         </div>
 
 

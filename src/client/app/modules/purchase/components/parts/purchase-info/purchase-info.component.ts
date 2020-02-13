@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { getItemPrice } from '../../../../../functions';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -11,7 +10,6 @@ import * as reducers from '../../../../../store/reducers';
 export class PurchaseInfoComponent implements OnInit {
     @Input() public purchase: reducers.IPurchaseState;
     public moment: typeof moment = moment;
-    public getItemPrice = getItemPrice;
 
     constructor() { }
 

@@ -26,13 +26,5 @@
     </div>
     <hr *ngIf="purchase.reservations.length > 0" class="mb-3">
 
-    <div *ngFor="let reservation of purchase.reservations">
-        <p>
-            <span>
-                {{ reservation.seat.seatNumber }}
-            </span>
-            <span *ngIf="reservation.ticket">&nbsp;/&nbsp;{{ reservation.ticket.ticketOffer.name | changeLanguage }}&nbsp;/&nbsp;{{
-                    getItemPrice({ priceComponents: reservation.ticket.ticketOffer.priceSpecification.priceComponent, seat: reservation.seat }) | currency : 'JPY' }}</span>
-        </p>
-    </div>
+    <app-item-list [reservations]="purchase.reservations"></app-item-list>
 </div>

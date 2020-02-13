@@ -57818,6 +57818,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/item-list/item-list.component.html":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/item-list/item-list.component.html ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"mb-2\" *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let reservation of reservations\">\n        <p>{{ reservation.seat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of getReservationPriceComponents(reservation)\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let reservation of authorizeSeatReservations\">\n        <p *ngIf=\"reservation.reservedTicket.ticketedSeat\">{{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of reservation.price.priceComponent\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let acceptedOffer of acceptedOffers\">\n        <p *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat\">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of acceptedOffer.priceSpecification.priceComponent\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n</div>\n\n<div class=\"mb-2\" *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let ticket of changeTicketCount()\">\n        <p *ngFor=\"let priceComponent of ticket.priceComponents\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span><!--\n            --><span>&nbsp;×&nbsp;{{ ticket.count }}</span>\n        </p>\n    </div>\n</div>\n\n");
+
+/***/ }),
+
 /***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/loading/loading.component.html":
 /*!***********************************************************************************************************************************************************************!*\
   !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/loading/loading.component.html ***!
@@ -57866,7 +57879,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n        <button type=\"button\" (click)=\"close(ticket)\" class=\"btn btn-block btn-outline-primary py-3\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <div>{{ ticket.ticketOffer.name | changeLanguage }}</div>\n                    <p *ngIf=\"ticket.movieTicket\" class=\"text-left text-small\">{{ ticket.movieTicket.identifier }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    {{ getItemPrice({ priceComponents: ticket.ticketOffer.priceSpecification.priceComponent, seat: reservation.seat }) | currency : 'JPY' }}\n                </div>\n            </div>\n        </button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n        <button type=\"button\" (click)=\"close(ticket)\" class=\"btn btn-block btn-outline-primary py-3\">\n            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of ticket.ticketOffer.priceSpecification.priceComponent\">\n                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                <p class=\"w-50 text-right\">\n                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                </p>\n            </div>\n        </button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -57879,7 +57892,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;<span *ngIf=\"screeningEvent.location.address\" class=\"mr-2\">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"isViewRemainingSeatCount()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p>{{ ticket.name | changeLanguage }} / {{ getItemPrice({ priceComponents: ticket.priceSpecification.priceComponent }) | currency : 'JPY' }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close()\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;<span *ngIf=\"screeningEvent.location.address\" class=\"mr-2\">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"isViewRemainingSeatCount()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p *ngFor=\"let priceComponent of ticket.priceSpecification.priceComponent\">\n                        <span>{{ priceComponent.name | changeLanguage }}</span><!--\n                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                        --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                    </p>\n                    \n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close()\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -68385,6 +68398,146 @@ var HeaderComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./app/modules/shared/components/parts/item-list/item-list.component.scss":
+/*!********************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/item-list/item-list.component.scss ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL2l0ZW0tbGlzdC9pdGVtLWxpc3QuY29tcG9uZW50LnNjc3MifQ== */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/item-list/item-list.component.ts":
+/*!******************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/item-list/item-list.component.ts ***!
+  \******************************************************************************/
+/*! exports provided: ItemListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ItemListComponent", function() { return ItemListComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+var ItemListComponent = /** @class */ (function () {
+    function ItemListComponent() {
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
+    }
+    ItemListComponent.prototype.ngOnInit = function () {
+    };
+    /**
+     * 一時予約から価格取得
+     */
+    ItemListComponent.prototype.getReservationPriceComponents = function (reservation) {
+        var priceComponents = [];
+        if (reservation.ticket !== undefined) {
+            reservation.ticket.ticketOffer.priceSpecification.priceComponent.forEach(function (p) { return priceComponents.push(p); });
+        }
+        if (reservation.seat !== undefined && reservation.seat.offers !== undefined) {
+            reservation.seat.offers.forEach(function (o) {
+                if (o.priceSpecification !== undefined) {
+                    o.priceSpecification.priceComponent.forEach(function (p) { return priceComponents.push(p); });
+                }
+            });
+        }
+        return priceComponents;
+    };
+    /**
+     * 券種情報を枚数別へ変換
+     */
+    ItemListComponent.prototype.changeTicketCount = function () {
+        var _this = this;
+        var priceComponentsList = [];
+        if (this.reservations !== undefined) {
+            this.reservations.forEach(function (r) { return priceComponentsList.push(_this.getReservationPriceComponents(r)); });
+        }
+        else if (this.authorizeSeatReservations !== undefined) {
+            this.authorizeSeatReservations.forEach(function (r) {
+                if (r.price === undefined || typeof (r.price) === 'number') {
+                    return;
+                }
+                priceComponentsList.push(r.price.priceComponent);
+            });
+        }
+        else if (this.acceptedOffers !== undefined) {
+            this.acceptedOffers.forEach(function (o) {
+                if (o.priceSpecification === undefined) {
+                    return;
+                }
+                priceComponentsList.push(o.priceSpecification.priceComponent);
+            });
+        }
+        var result = [];
+        var sortPriceComponent = function (p) {
+            return p.sort(function (a, b) {
+                if (a.price < b.price) {
+                    return -1;
+                }
+                if (a.price > b.price) {
+                    return 1;
+                }
+                return 0;
+            });
+        };
+        priceComponentsList.forEach(function (p) {
+            var findResult = result.find(function (r) {
+                return (r.priceComponents.length === p.length
+                    && JSON.stringify(sortPriceComponent(r.priceComponents)) === JSON.stringify(sortPriceComponent(p)));
+            });
+            if (findResult === undefined) {
+                result.push({ priceComponents: p, count: 1 });
+            }
+            else {
+                findResult.count += 1;
+            }
+        });
+        return result;
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], ItemListComponent.prototype, "reservations", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], ItemListComponent.prototype, "authorizeSeatReservations", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], ItemListComponent.prototype, "acceptedOffers", void 0);
+    ItemListComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-item-list',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./item-list.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/item-list/item-list.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./item-list.component.scss */ "./app/modules/shared/components/parts/item-list/item-list.component.scss")).default]
+        }),
+        __metadata("design:paramtypes", [])
+    ], ItemListComponent);
+    return ItemListComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./app/modules/shared/components/parts/loading/loading.component.scss":
 /*!****************************************************************************!*\
   !*** ./app/modules/shared/components/parts/loading/loading.component.scss ***!
@@ -68828,7 +68981,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../functions */ "./app/functions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -68844,11 +68996,9 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
 var PurchaseCinemaTicketModalComponent = /** @class */ (function () {
     function PurchaseCinemaTicketModalComponent(modal) {
         this.modal = modal;
-        this.getItemPrice = _functions__WEBPACK_IMPORTED_MODULE_3__["getItemPrice"];
     }
     PurchaseCinemaTicketModalComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -69016,7 +69166,6 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 var PurchaseEventTicketModalComponent = /** @class */ (function () {
     function PurchaseEventTicketModalComponent(modal) {
         this.modal = modal;
-        this.getItemPrice = _functions__WEBPACK_IMPORTED_MODULE_5__["getItemPrice"];
         this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
         this.getRemainingSeatLength = _functions__WEBPACK_IMPORTED_MODULE_5__["getRemainingSeatLength"];
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
@@ -69676,17 +69825,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/parts/footer/footer.component */ "./app/modules/shared/components/parts/footer/footer.component.ts");
 /* harmony import */ var _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/parts/header-menu/header-menu.component */ "./app/modules/shared/components/parts/header-menu/header-menu.component.ts");
 /* harmony import */ var _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/parts/header/header.component */ "./app/modules/shared/components/parts/header/header.component.ts");
-/* harmony import */ var _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/loading/loading.component */ "./app/modules/shared/components/parts/loading/loading.component.ts");
-/* harmony import */ var _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/mvtk/check-modal/check-modal.component */ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.ts");
-/* harmony import */ var _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/numeric-keypad/numeric-keypad.component */ "./app/modules/shared/components/parts/numeric-keypad/numeric-keypad.component.ts");
-/* harmony import */ var _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/purchase/cinema/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/purchase/event/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/parts/purchase/transaction-modal/transaction-modal.component */ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts");
-/* harmony import */ var _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/parts/qrcode/reader-modal/reader-modal.component */ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts");
-/* harmony import */ var _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/parts/qrcode/viewer-modal/viewer-modal.component */ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts");
-/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
-/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
-/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
+/* harmony import */ var _components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/item-list/item-list.component */ "./app/modules/shared/components/parts/item-list/item-list.component.ts");
+/* harmony import */ var _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/loading/loading.component */ "./app/modules/shared/components/parts/loading/loading.component.ts");
+/* harmony import */ var _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/mvtk/check-modal/check-modal.component */ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.ts");
+/* harmony import */ var _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/numeric-keypad/numeric-keypad.component */ "./app/modules/shared/components/parts/numeric-keypad/numeric-keypad.component.ts");
+/* harmony import */ var _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/purchase/cinema/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/parts/purchase/event/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/parts/purchase/transaction-modal/transaction-modal.component */ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts");
+/* harmony import */ var _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/parts/qrcode/reader-modal/reader-modal.component */ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts");
+/* harmony import */ var _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/parts/qrcode/viewer-modal/viewer-modal.component */ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts");
+/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
+/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -69727,30 +69877,32 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var components = [
-    _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_20__["LoadingComponent"],
+    _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_21__["LoadingComponent"],
     _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_17__["FooterComponent"],
     _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_19__["HeaderComponent"],
     _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_18__["HeaderMenuComponent"],
     _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_13__["ContentsComponent"],
     _components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_7__["BaseComponent"],
+    _components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_20__["ItemListComponent"]
 ];
 var entryComponents = [
     _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_11__["AlertModalComponent"],
     _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_12__["ConfirmModalComponent"],
-    _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_26__["QRCodeReaderModalComponent"],
-    _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_27__["QRCodeViewerModalComponent"],
+    _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_27__["QRCodeReaderModalComponent"],
+    _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_28__["QRCodeViewerModalComponent"],
     _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_14__["CreditcardRegisterModalComponent"],
     _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_16__["CreditCardSelectModalComponent"],
     _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_15__["CreditcardSecurityCodeModalComponent"],
     _components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_8__["AccountChargeModalComponent"],
     _components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_10__["AccountTransferModalComponent"],
     _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_9__["AccountOpenModalComponent"],
-    _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_23__["PurchaseCinemaTicketModalComponent"],
-    _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseEventTicketModalComponent"],
-    _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_25__["PurchaseTransactionModalComponent"],
-    _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_21__["MvtkCheckModalComponent"],
-    _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_22__["NumericKeypadComponent"],
+    _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseCinemaTicketModalComponent"],
+    _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_25__["PurchaseEventTicketModalComponent"],
+    _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_26__["PurchaseTransactionModalComponent"],
+    _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_22__["MvtkCheckModalComponent"],
+    _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_23__["NumericKeypadComponent"],
 ];
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
@@ -69758,9 +69910,9 @@ var SharedModule = /** @class */ (function () {
     SharedModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: components.concat(entryComponents, [
-                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_30__["LibphonenumberFormatPipe"],
-                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_28__["ChangeLanguagePipe"],
-                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_29__["FormatDatePipe"],
+                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_31__["LibphonenumberFormatPipe"],
+                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_29__["ChangeLanguagePipe"],
+                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_30__["FormatDatePipe"],
             ]),
             entryComponents: entryComponents,
             imports: [
@@ -69775,9 +69927,9 @@ var SharedModule = /** @class */ (function () {
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["PaginationModule"],
             ],
             exports: components.concat(entryComponents, [
-                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_30__["LibphonenumberFormatPipe"],
-                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_28__["ChangeLanguagePipe"],
-                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_29__["FormatDatePipe"],
+                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_31__["LibphonenumberFormatPipe"],
+                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_29__["ChangeLanguagePipe"],
+                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_30__["FormatDatePipe"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"],

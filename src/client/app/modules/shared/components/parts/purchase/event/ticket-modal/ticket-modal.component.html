@@ -30,7 +30,12 @@
         <li *ngFor="let ticket of tickets" class="ticket mb-2">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="w-75 text-left">
-                    <p>{{ ticket.name | changeLanguage }} / {{ getItemPrice({ priceComponents: ticket.priceSpecification.priceComponent }) | currency : 'JPY' }}</p>
+                    <p *ngFor="let priceComponent of ticket.priceSpecification.priceComponent">
+                        <span>{{ priceComponent.name | changeLanguage }}</span><!--
+                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
+                        --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+                    </p>
+                    
                 </div>
                 <div class="w-25 text-right">
                     <select class="form-control" [(ngModel)]="selectedTickets[ticket.id]">

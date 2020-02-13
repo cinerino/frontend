@@ -313,7 +313,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, getItemReferenceQuantityValue, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, changeTicketCount, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, createPrintCanvas, createTestPrintCanvas, changeTicketCountByOrder */
+/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, createPrintCanvas, createTestPrintCanvas */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -335,8 +335,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getItemPrice", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getItemPrice"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getItemReferenceQuantityValue", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getItemReferenceQuantityValue"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "movieTicketAuthErroCodeToMessage", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["movieTicketAuthErroCodeToMessage"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getAmount", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getAmount"]; });
@@ -344,8 +342,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "order2EventOrders", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["order2EventOrders"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "authorizeSeatReservation2Event", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["authorizeSeatReservation2Event"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "changeTicketCount", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["changeTicketCount"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getRemainingSeatLength", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getRemainingSeatLength"]; });
 
@@ -377,8 +373,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createTestPrintCanvas"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "changeTicketCountByOrder", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["changeTicketCountByOrder"]; });
-
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -393,14 +387,13 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 /*!*****************************************!*\
   !*** ./app/functions/order.function.ts ***!
   \*****************************************/
-/*! exports provided: createPrintCanvas, createTestPrintCanvas, changeTicketCountByOrder */
+/*! exports provided: createPrintCanvas, createTestPrintCanvas */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return createPrintCanvas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function() { return createTestPrintCanvas; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTicketCountByOrder", function() { return changeTicketCountByOrder; });
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
@@ -679,22 +672,6 @@ function createTestPrintCanvas(args) {
         });
     });
 }
-/**
- * 券種情報を枚数別へ変換
- */
-function changeTicketCountByOrder(acceptedOffer) {
-    var result = [];
-    acceptedOffer.forEach(function (a) {
-        var findResult = result.find(function (r) { return r.acceptedOffer.itemOffered.reservedTicket.ticketType.id === a.itemOffered.reservedTicket.ticketType.id; });
-        if (findResult === undefined) {
-            result.push({ acceptedOffer: a, count: 1 });
-        }
-        else {
-            findResult.count += 1;
-        }
-    });
-    return result;
-}
 
 
 /***/ }),
@@ -703,7 +680,7 @@ function changeTicketCountByOrder(acceptedOffer) {
 /*!********************************************!*\
   !*** ./app/functions/purchase.function.ts ***!
   \********************************************/
-/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, getItemReferenceQuantityValue, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, changeTicketCount, getRemainingSeatLength */
+/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -716,12 +693,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPaymentMethodFromType", function() { return createPaymentMethodFromType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTicketPrice", function() { return getTicketPrice; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getItemPrice", function() { return getItemPrice; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getItemReferenceQuantityValue", function() { return getItemReferenceQuantityValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "movieTicketAuthErroCodeToMessage", function() { return movieTicketAuthErroCodeToMessage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAmount", function() { return getAmount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "order2EventOrders", function() { return order2EventOrders; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "authorizeSeatReservation2Event", function() { return authorizeSeatReservation2Event; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTicketCount", function() { return changeTicketCount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRemainingSeatLength", function() { return getRemainingSeatLength; });
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
@@ -961,20 +936,6 @@ function getItemPrice(params) {
     return price;
 }
 /**
- * アイテム数量取得
- */
-function getItemReferenceQuantityValue(priceComponents) {
-    if (priceComponents === undefined) {
-        return 1;
-    }
-    var priceSpecificationType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
-    var unitPriceSpecification = priceComponents.find(function (p) { return p.typeOf === priceSpecificationType.UnitPriceSpecification; });
-    if (unitPriceSpecification === undefined) {
-        return 1;
-    }
-    return unitPriceSpecification.referenceQuantity.value;
-}
-/**
  * ムビチケ認証購入管理番号無効事由区分変換
  */
 function movieTicketAuthErroCodeToMessage(code) {
@@ -1075,22 +1036,6 @@ function authorizeSeatReservation2Event(params) {
         });
     });
     return results;
-}
-/**
- * 券種情報を枚数別へ変換
- */
-function changeTicketCount(acceptedOffer) {
-    var result = [];
-    acceptedOffer.forEach(function (a) {
-        var findResult = result.find(function (r) { return r.acceptedOffer.id === a.id; });
-        if (findResult === undefined) {
-            result.push({ acceptedOffer: a, count: 1 });
-        }
-        else {
-            findResult.count += 1;
-        }
-    });
-    return result;
 }
 /**
  * 残席数取得
