@@ -22,6 +22,7 @@ import {
  } from './components/parts/creditcard/security-code-modal/security-code-modal.component';
 import { CreditCardSelectModalComponent } from './components/parts/creditcard/select-modal/select-modal.component';
 import { FooterComponent } from './components/parts/footer/footer.component';
+import { CheckboxComponent } from './components/parts/form/checkbox/checkbox.component';
 import { HeaderMenuComponent } from './components/parts/header-menu/header-menu.component';
 import { HeaderComponent } from './components/parts/header/header.component';
 import { ItemListComponent } from './components/parts/item-list/item-list.component';
@@ -44,7 +45,8 @@ const components = [
   HeaderMenuComponent,
   ContentsComponent,
   BaseComponent,
-  ItemListComponent
+  ItemListComponent,
+  CheckboxComponent
 ];
 
 const entryComponents = [

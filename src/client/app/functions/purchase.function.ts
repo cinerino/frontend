@@ -211,6 +211,7 @@ export function createPaymentMethodFromType(args: {
 
 /**
  * 券種金額取得
+ * @deprecated 非推奨（廃止予定）
  */
 export function getTicketPrice(
     ticket: factory.chevre.event.screeningEvent.ITicketOffer
@@ -231,17 +232,9 @@ export function getTicketPrice(
     const priceComponent = (<factory.chevre.event.screeningEvent.ITicketPriceSpecification>ticket.priceSpecification).priceComponent;
     const priceSpecificationType = factory.chevre.priceSpecificationType;
     const unitPriceSpecifications = priceComponent.filter((s) => s.typeOf === priceSpecificationType.UnitPriceSpecification);
-    const videoFormatCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.VideoFormatChargeSpecification);
-    const soundFormatCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.SoundFormatChargeSpecification);
     const movieTicketTypeCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.MovieTicketTypeChargeSpecification);
 
     result.unitPriceSpecification += unitPriceSpecifications[0].price;
-    videoFormatCharges.forEach((videoFormatCharge) => {
-        result.videoFormatCharge += videoFormatCharge.price;
-    });
-    soundFormatCharges.forEach((soundFormatCharge) => {
-        result.soundFormatCharge += soundFormatCharge.price;
-    });
     movieTicketTypeCharges.forEach((movieTicketTypeCharge) => {
         result.movieTicketTypeCharge += movieTicketTypeCharge.price;
     });

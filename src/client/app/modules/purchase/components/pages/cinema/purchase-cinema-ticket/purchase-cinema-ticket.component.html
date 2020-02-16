@@ -16,26 +16,35 @@
     </div>
 
     <div class="mb-4">
-        <div *ngFor="let reservation of (purchase | async).reservations"
-            class="bg-white p-3 mb-3 d-md-flex align-items-center ticket">
-            <div class="mb-3 mb-md-0">
-                <span class="mr-3">{{ 'common.seat' | translate }}</span>{{ reservation.seat.seatNumber }}
-            </div>
-            <div>
-                <button *ngIf="reservation.ticket === undefined" type="button" (click)="openTicketList(reservation)"
-                    class="btn btn-primary btn-block py-3">{{ 'purchase.cinema.ticket.unselected' | translate }}</button>
-                <button *ngIf="reservation.ticket !== undefined" type="button" (click)="openTicketList(reservation)"
-                    class="btn btn-block border border-primary text-primary bg-white py-3">
-                        <div class="d-flex justify-content-between align-items-center" *ngFor="let priceComponent of reservation.ticket?.ticketOffer.priceSpecification.priceComponent">
-                            <p class="w-50 text-left">{{ priceComponent.name | changeLanguage }}</p>
-                            <p class="w-50 text-right">
-                                <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
-                                --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
-                            </p>
-                        </div>
-                    </button>
-            </div>
-        </div>
+        <ul class="d-flex flex-wrap">
+            <li *ngFor="let reservation of (purchase | async).reservations">
+                <div class="bg-white p-3 m-2">
+                    <p class="mb-2 font-weight-bold text-large">
+                        <span class="mr-2">{{ 'common.seat' | translate }}</span>{{ reservation.seat.seatNumber }}
+                    </p>
+                    <div>
+                        <button *ngIf="reservation.ticket === undefined" type="button" (click)="openTicketList(reservation)"
+                            class="btn btn-primary btn-block py-3">{{ 'purchase.cinema.ticket.unselected' | translate }}</button>
+                        <button *ngIf="reservation.ticket !== undefined" type="button" (click)="openTicketList(reservation)"
+                            class="btn btn-block border border-primary text-primary bg-white py-3">
+                                <div class="d-flex justify-content-between align-items-center" *ngFor="let priceComponent of reservation.ticket?.ticketOffer.priceSpecification.priceComponent">
+                                    <p class="w-50 text-left">{{ priceComponent.name | changeLanguage }}</p>
+                                    <p class="w-50 text-right">
+                                        <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
+                                        --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+                                    </p>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center" *ngFor="let addOn of reservation.ticket?.addOn;">
+                                    <p class="w-50 text-left">{{ addOn.priceSpecification.name | changeLanguage }}<span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">&nbsp;×&nbsp;{{ addOn.priceSpecification.referenceQuantity.value }}</span></p>
+                                    <p class="w-50 text-right">
+                                        {{ addOn.priceSpecification.price | currency : addOn.priceSpecification.priceCurrency }}
+                                    </p>
+                                </div>
+                            </button>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 
     <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>

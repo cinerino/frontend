@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action } from '@ngrx/store';
 import { IGmoTokenObject } from '../../functions';
-import { IMovieTicket, IReservation, IReservationSeat, IReservationTicket, IScreen } from '../../models';
+import { IMovieTicket, IReservation, IReservationSeat, IScreen } from '../../models';
 
 /**
  * Action types
@@ -352,7 +352,7 @@ export class TemporaryReservationFreeSeat implements Action {
         transaction: factory.transaction.placeOrder.ITransaction;
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
         screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
-        reservationTickets: IReservationTicket[]
+        reservations: IReservation[]
     }) { }
 }
 

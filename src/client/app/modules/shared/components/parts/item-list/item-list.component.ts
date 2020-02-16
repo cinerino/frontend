@@ -24,16 +24,28 @@ export class ItemListComponent implements OnInit {
      * 一時予約から価格取得
      */
     public getReservationPriceComponents(reservation: IReservation) {
-        const priceComponents: factory.chevre.event.screeningEvent.ITicketPriceComponent[] = [];
-        if (reservation.ticket !== undefined) {
-            reservation.ticket.ticketOffer.priceSpecification.priceComponent.forEach(p => priceComponents.push(p));
-        }
+        const priceComponents:
+            factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType>[] = [];
         if (reservation.seat !== undefined && reservation.seat.offers !== undefined) {
+            // 座席料金
             reservation.seat.offers.forEach((o) => {
                 if (o.priceSpecification !== undefined) {
                     o.priceSpecification.priceComponent.forEach(p => priceComponents.push(p));
                 }
             });
+        }
+        if (reservation.ticket !== undefined) {
+            // 券種料金
+            reservation.ticket.ticketOffer.priceSpecification.priceComponent.forEach(p => priceComponents.push(p));
+            if (reservation.ticket.addOn !== undefined) {
+                // 券種オプション料金
+                reservation.ticket.addOn.forEach(a => {
+                    if (a.priceSpecification === undefined) {
+                        return;
+                    }
+                    priceComponents.push(<any>{ ...a.priceSpecification, appliesToAddOn: [] });
+                });
+            }
         }
         return priceComponents;
     }
@@ -42,7 +54,8 @@ export class ItemListComponent implements OnInit {
      * 券種情報を枚数別へ変換
      */
     public changeTicketCount() {
-        const priceComponentsList: factory.chevre.event.screeningEvent.ITicketPriceComponent[][] = [];
+        const priceComponentsList:
+            factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType>[][] = [];
         if (this.reservations !== undefined) {
             this.reservations.forEach(r => priceComponentsList.push(this.getReservationPriceComponents(r)));
         } else if (this.authorizeSeatReservations !== undefined) {
