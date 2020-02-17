@@ -70,21 +70,32 @@ export class ItemListComponent implements OnInit {
                 if (o.priceSpecification === undefined) {
                     return;
                 }
-                priceComponentsList.push((<any>o.priceSpecification).priceComponent);
+                const priceComponents:
+                    factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType>[] = [];
+                (<any>o.priceSpecification).priceComponent
+                    .forEach((p: factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType>) => {
+                        if (p.name === undefined) {
+                            p.name = o.name;
+                        }
+                        priceComponents.push(p);
+                    });
+                priceComponentsList.push(priceComponents);
             });
         }
         const result: {
-            priceComponents: factory.chevre.event.screeningEvent.ITicketPriceComponent[];
+            priceComponents: factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType>[];
             count: number;
         }[] = [];
-        const sortPriceComponent = (p: factory.chevre.event.screeningEvent.ITicketPriceComponent[]) => {
+        const sortPriceComponent = (p: factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType>[]) => {
             return p.sort((a, b) => {
-                if (a.price < b.price) { return -1; }
-                if (a.price > b.price) { return 1; }
+                const priceA = (a.price === undefined) ? 0 : a.price;
+                const priceB = (b.price === undefined) ? 0 : b.price;
+                if (priceA < priceB) { return -1; }
+                if (priceA > priceB) { return 1; }
                 return 0;
             });
         };
-        priceComponentsList.forEach((p: factory.chevre.event.screeningEvent.ITicketPriceComponent[]) => {
+        priceComponentsList.forEach((p: factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType>[]) => {
             const findResult = result.find(r => {
                 return (r.priceComponents.length === p.length
                     && JSON.stringify(sortPriceComponent(r.priceComponents)) === JSON.stringify(sortPriceComponent(p)));

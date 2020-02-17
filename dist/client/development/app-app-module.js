@@ -68593,16 +68593,26 @@ var ItemListComponent = /** @class */ (function () {
                 if (o.priceSpecification === undefined) {
                     return;
                 }
-                priceComponentsList.push(o.priceSpecification.priceComponent);
+                var priceComponents = [];
+                o.priceSpecification.priceComponent
+                    .forEach(function (p) {
+                    if (p.name === undefined) {
+                        p.name = o.name;
+                    }
+                    priceComponents.push(p);
+                });
+                priceComponentsList.push(priceComponents);
             });
         }
         var result = [];
         var sortPriceComponent = function (p) {
             return p.sort(function (a, b) {
-                if (a.price < b.price) {
+                var priceA = (a.price === undefined) ? 0 : a.price;
+                var priceB = (b.price === undefined) ? 0 : b.price;
+                if (priceA < priceB) {
                     return -1;
                 }
-                if (a.price > b.price) {
+                if (priceA > priceB) {
                     return 1;
                 }
                 return 0;
@@ -70424,7 +70434,7 @@ var CinerinoService = /** @class */ (function () {
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: CinerinoService, PurchaseService, UserService, MasterService, OrderService, StarPrintService, UtilService, LinyService, QRCodeService */
+/*! exports provided: CinerinoService, UtilService, PurchaseService, UserService, MasterService, OrderService, StarPrintService, LinyService, QRCodeService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
