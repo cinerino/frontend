@@ -57792,6 +57792,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/form/checkbox/checkbox.component.html":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/form/checkbox/checkbox.component.html ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"d-flex align-items-center\" (click)=\"click()\">\n<i [class.d-none]=\"!checked\" class=\"far fa-check-square mr-2 text-large\"></i>\n<i [class.d-none]=\"checked\" class=\"far fa-square pointer mr-2 text-large\"></i>\n<ng-content></ng-content>\n</div>");
+
+/***/ }),
+
 /***/ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/header-menu/header-menu.component.html":
 /*!*******************************************************************************************************************************************************************************!*\
   !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/header-menu/header-menu.component.html ***!
@@ -57827,7 +57840,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"mb-2\" *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let reservation of reservations\">\n        <p>{{ reservation.seat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of getReservationPriceComponents(reservation)\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let reservation of authorizeSeatReservations\">\n        <p *ngIf=\"reservation.reservedTicket.ticketedSeat\">{{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of reservation.price.priceComponent\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let acceptedOffer of acceptedOffers\">\n        <p *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat\">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of acceptedOffer.priceSpecification.priceComponent\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n</div>\n\n<div class=\"mb-2\" *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let ticket of changeTicketCount()\">\n        <p *ngFor=\"let priceComponent of ticket.priceComponents\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span><!--\n            --><span>&nbsp;×&nbsp;{{ ticket.count }}</span>\n        </p>\n    </div>\n</div>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"mb-2\" *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let reservation of reservations\">\n        <p>{{ reservation.seat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of getReservationPriceComponents(reservation)\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"priceComponent?.referenceQuantity?.value && priceComponent?.appliesToAddOn\">&nbsp;×&nbsp;{{ priceComponent.referenceQuantity.value }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value && !priceComponent?.appliesToAddOn\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let reservation of authorizeSeatReservations\">\n        <p *ngIf=\"reservation.reservedTicket.ticketedSeat\">{{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of reservation.price.priceComponent\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"priceComponent?.referenceQuantity?.value && priceComponent?.appliesToAddOn\">&nbsp;×&nbsp;{{ priceComponent.referenceQuantity.value }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value && !priceComponent?.appliesToAddOn\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let acceptedOffer of acceptedOffers\">\n        <p *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat\">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of acceptedOffer.priceSpecification.priceComponent\">\n            <span *ngIf=\"priceComponent.name\">{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"!priceComponent.name\">{{ acceptedOffer.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"priceComponent?.referenceQuantity?.value && priceComponent?.appliesToAddOn\">&nbsp;×&nbsp;{{ priceComponent.referenceQuantity.value }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value && !priceComponent?.appliesToAddOn\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n</div>\n\n<div class=\"mb-2\" *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let ticket of changeTicketCount()\">\n        <p *ngFor=\"let priceComponent of ticket.priceComponents\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span><!--\n            --><span>&nbsp;×&nbsp;{{ ticket.count }}</span>\n        </p>\n    </div>\n</div>\n\n");
 
 /***/ }),
 
@@ -57879,7 +57892,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n        <button type=\"button\" (click)=\"close(ticket)\" class=\"btn btn-block btn-outline-primary py-3\">\n            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of ticket.ticketOffer.priceSpecification.priceComponent\">\n                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                <p class=\"w-50 text-right\">\n                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                </p>\n            </div>\n        </button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"!selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n        <button type=\"button\" (click)=\"selsctTicket(ticket)\" class=\"btn btn-block btn-outline-primary py-3\">\n            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of ticket.ticketOffer.priceSpecification.priceComponent\">\n                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                <p class=\"w-50 text-right\">\n                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                </p>\n            </div>\n            <p *ngIf=\"ticket.ticketOffer.description\" class=\"text-x-small text-left\">{{ ticket.ticketOffer.description | changeLanguage }}</p>\n        </button>\n    </div>\n</div>\n\n<div *ngIf=\"selectedTicket\" class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'purchase.cinema.ticket.addOn' | translate }}</div>\n    <ul class=\"mb-4\">\n        <li class=\"mb-3\" *ngFor=\"let addOn of selectedTicket.ticketOffer.addOn; let index = index\">\n            <app-checkbox class=\"pointer\" (change)=\"changeAddOnList(addOn.id)\">\n                <div class=\"d-flex w-100\">\n                <div class=\"w-50\">{{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">&nbsp;×&nbsp;{{ addOn.priceSpecification.referenceQuantity.value }}</span></div>\n                <div class=\"w-50 text-right\">{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}</div>\n                </div>\n            </app-checkbox>\n        </li>\n    </ul>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"selsctOption()\">{{ 'common.done' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -57892,7 +57905,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;<span *ngIf=\"screeningEvent.location.address\" class=\"mr-2\">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"isViewRemainingSeatCount()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-2\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p *ngFor=\"let priceComponent of ticket.priceSpecification.priceComponent\">\n                        <span>{{ priceComponent.name | changeLanguage }}</span><!--\n                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                        --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                    </p>\n                    \n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" [(ngModel)]=\"selectedTickets[ticket.id]\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button [disabled]=\"selectedTickets && createReservationTickets().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close()\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;<span *ngIf=\"screeningEvent.location.address\" class=\"mr-2\">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"performance.isTicketedSeat()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-3 pb-3 border-bottom border-gray\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p *ngFor=\"let priceComponent of ticket.priceSpecification.priceComponent\">\n                        <span>{{ priceComponent.name | changeLanguage }}</span><!--\n                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                        --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                    </p>\n                    <p *ngIf=\"ticket.description\" class=\"text-x-small text-left\">{{ ticket.description | changeLanguage }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" (change)=\"changeSelect(ticket.id, $event)\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of values\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n            <ul *ngIf=\"ticket.addOn && ticket.addOn.length > 0\" class=\"mt-2 bg-light-gray py-2 px-3\">\n                <li class=\"my-1\" *ngFor=\"let addOn of ticket.addOn; let index = index\">\n                    <app-checkbox class=\"pointer\" (change)=\"changeAddOn(ticket.id, addOn.id)\">\n                        {{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">&nbsp;×&nbsp;{{ addOn.priceSpecification.referenceQuantity.value }}</span><!--\n                        -->&nbsp;/&nbsp;<!--\n                        -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}\n                    </app-checkbox>\n                </li>\n            </ul>\n        </li>\n    </ul>\n\n    <div class=\"buttons mx-auto text-center text-center\">\n        <button [disabled]=\"selectedTickets && createReservations().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close(createReservations())\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -68078,6 +68091,82 @@ var FooterComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./app/modules/shared/components/parts/form/checkbox/checkbox.component.scss":
+/*!***********************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/form/checkbox/checkbox.component.scss ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvY2xpZW50L2FwcC9tb2R1bGVzL3NoYXJlZC9jb21wb25lbnRzL3BhcnRzL2Zvcm0vY2hlY2tib3gvY2hlY2tib3guY29tcG9uZW50LnNjc3MifQ== */");
+
+/***/ }),
+
+/***/ "./app/modules/shared/components/parts/form/checkbox/checkbox.component.ts":
+/*!*********************************************************************************!*\
+  !*** ./app/modules/shared/components/parts/form/checkbox/checkbox.component.ts ***!
+  \*********************************************************************************/
+/*! exports provided: CheckboxComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CheckboxComponent", function() { return CheckboxComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+var CheckboxComponent = /** @class */ (function () {
+    function CheckboxComponent() {
+        this.checked = false;
+        this.disabled = false;
+        this.change = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+    }
+    CheckboxComponent.prototype.ngOnInit = function () {
+    };
+    CheckboxComponent.prototype.click = function () {
+        this.checked = (this.checked) ? false : true;
+        this.change.emit(this.checked);
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], CheckboxComponent.prototype, "checked", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], CheckboxComponent.prototype, "disabled", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], CheckboxComponent.prototype, "change", void 0);
+    CheckboxComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-checkbox',
+            template: __importDefault(__webpack_require__(/*! raw-loader!./checkbox.component.html */ "../../node_modules/raw-loader/dist/cjs.js!./app/modules/shared/components/parts/form/checkbox/checkbox.component.html")).default,
+            styles: [__importDefault(__webpack_require__(/*! ./checkbox.component.scss */ "./app/modules/shared/components/parts/form/checkbox/checkbox.component.scss")).default]
+        }),
+        __metadata("design:paramtypes", [])
+    ], CheckboxComponent);
+    return CheckboxComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./app/modules/shared/components/parts/header-menu/header-menu.component.scss":
 /*!************************************************************************************!*\
   !*** ./app/modules/shared/components/parts/header-menu/header-menu.component.scss ***!
@@ -68423,6 +68512,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ItemListComponent", function() { return ItemListComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -68448,15 +68548,26 @@ var ItemListComponent = /** @class */ (function () {
      */
     ItemListComponent.prototype.getReservationPriceComponents = function (reservation) {
         var priceComponents = [];
-        if (reservation.ticket !== undefined) {
-            reservation.ticket.ticketOffer.priceSpecification.priceComponent.forEach(function (p) { return priceComponents.push(p); });
-        }
         if (reservation.seat !== undefined && reservation.seat.offers !== undefined) {
+            // 座席料金
             reservation.seat.offers.forEach(function (o) {
                 if (o.priceSpecification !== undefined) {
                     o.priceSpecification.priceComponent.forEach(function (p) { return priceComponents.push(p); });
                 }
             });
+        }
+        if (reservation.ticket !== undefined) {
+            // 券種料金
+            reservation.ticket.ticketOffer.priceSpecification.priceComponent.forEach(function (p) { return priceComponents.push(p); });
+            if (reservation.ticket.addOn !== undefined) {
+                // 券種オプション料金
+                reservation.ticket.addOn.forEach(function (a) {
+                    if (a.priceSpecification === undefined) {
+                        return;
+                    }
+                    priceComponents.push(__assign({}, a.priceSpecification, { appliesToAddOn: [] }));
+                });
+            }
         }
         return priceComponents;
     };
@@ -68482,16 +68593,26 @@ var ItemListComponent = /** @class */ (function () {
                 if (o.priceSpecification === undefined) {
                     return;
                 }
-                priceComponentsList.push(o.priceSpecification.priceComponent);
+                var priceComponents = [];
+                o.priceSpecification.priceComponent
+                    .forEach(function (p) {
+                    if (p.name === undefined) {
+                        p.name = o.name;
+                    }
+                    priceComponents.push(p);
+                });
+                priceComponentsList.push(priceComponents);
             });
         }
         var result = [];
         var sortPriceComponent = function (p) {
             return p.sort(function (a, b) {
-                if (a.price < b.price) {
+                var priceA = (a.price === undefined) ? 0 : a.price;
+                var priceB = (b.price === undefined) ? 0 : b.price;
+                if (priceA < priceB) {
                     return -1;
                 }
-                if (a.price > b.price) {
+                if (priceA > priceB) {
                     return 1;
                 }
                 return 0;
@@ -69003,10 +69124,11 @@ var PurchaseCinemaTicketModalComponent = /** @class */ (function () {
     PurchaseCinemaTicketModalComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.tickets = [];
+        this.addOnList = [];
         var movieTickets = [];
         this.screeningEventTicketOffers.forEach(function (ticketOffer) {
             var movieTicketTypeChargeSpecification = ticketOffer.priceSpecification.priceComponent
-                .filter(function (s) { return s.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification; })
+                .filter(function (c) { return c.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification; })
                 .shift();
             if (movieTicketTypeChargeSpecification === undefined) {
                 // ムビチケ以外
@@ -69069,6 +69191,52 @@ var PurchaseCinemaTicketModalComponent = /** @class */ (function () {
     PurchaseCinemaTicketModalComponent.prototype.close = function (ticket) {
         this.modal.hide();
         this.cb(ticket);
+    };
+    /**
+     * 券種選択
+     */
+    PurchaseCinemaTicketModalComponent.prototype.selsctTicket = function (ticket) {
+        if (ticket.ticketOffer.addOn === undefined
+            || ticket.ticketOffer.addOn.length === 0) {
+            this.close(ticket);
+            return;
+        }
+        this.selectedTicket = ticket;
+    };
+    /**
+     * オプション確定
+     */
+    PurchaseCinemaTicketModalComponent.prototype.selsctOption = function () {
+        var _this = this;
+        if (this.selectedTicket === undefined) {
+            this.modal.hide();
+            return;
+        }
+        var addOn = [];
+        this.addOnList.forEach(function (id) {
+            if (_this.selectedTicket === undefined
+                || _this.selectedTicket.ticketOffer.addOn === undefined) {
+                return;
+            }
+            var findResult = _this.selectedTicket.ticketOffer.addOn.find(function (a) { return a.id === id; });
+            if (findResult === undefined) {
+                return;
+            }
+            addOn.push(findResult);
+        });
+        this.selectedTicket.addOn = addOn;
+        this.close(this.selectedTicket);
+    };
+    /**
+     * オプション選択
+     */
+    PurchaseCinemaTicketModalComponent.prototype.changeAddOnList = function (id) {
+        var findResult = this.addOnList.find(function (a) { return a === id; });
+        if (findResult === undefined) {
+            this.addOnList.push(id);
+            return;
+        }
+        this.addOnList = this.addOnList.filter(function (a) { return a !== id; });
     };
     PurchaseCinemaTicketModalComponent.ctorParameters = function () { return [
         { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] }
@@ -69170,17 +69338,18 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
         this.getRemainingSeatLength = _functions__WEBPACK_IMPORTED_MODULE_5__["getRemainingSeatLength"];
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
     }
+    /**
+     * 初期化
+     */
     PurchaseEventTicketModalComponent.prototype.ngOnInit = function () {
-        var screeningEvent = this.screeningEvent;
+        this.performance = new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](this.screeningEvent);
         this.tickets = [];
-        this.tickets = this.screeningEventTicketOffers.filter(function (offer) {
-            var movieTicketTypeChargeSpecification = offer.priceSpecification.priceComponent.find(function (component) { return component.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification; });
+        this.tickets = this.screeningEventTicketOffers.filter(function (ticketOffer) {
+            var movieTicketTypeChargeSpecification = ticketOffer.priceSpecification.priceComponent.find(function (c) { return c.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification; });
             return movieTicketTypeChargeSpecification === undefined;
         });
         this.values = [];
-        var limit = (screeningEvent.offers === undefined
-            || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
-            ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
+        var limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
         if (new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](this.screeningEvent).isTicketedSeat()) {
             var remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
             limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
@@ -69188,53 +69357,89 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
         for (var i = 0; i < limit; i++) {
             this.values.push(i + 1);
         }
-        var selectedTickets = {};
+        var selectedTickets = [];
         this.tickets.forEach(function (ticket) {
-            selectedTickets[ticket.id] = '0';
+            selectedTickets.push({
+                id: ticket.id,
+                count: 0,
+                addOn: []
+            });
         });
         this.selectedTickets = selectedTickets;
     };
+    /**
+     * 閉じる
+     */
     PurchaseEventTicketModalComponent.prototype.close = function () {
         this.modal.hide();
-        var reservationTickets = this.createReservationTickets();
-        this.cb(reservationTickets);
-    };
-    PurchaseEventTicketModalComponent.prototype.createReservationTickets = function () {
-        var _this = this;
-        var reservationTickets = [];
-        Object.keys(this.selectedTickets).forEach(function (key) {
-            var value = Number(_this.selectedTickets[key]);
-            for (var i = 0; i < value; i++) {
-                var findResult = _this.screeningEventTicketOffers.find(function (s) { return s.id === key; });
-                if (findResult === undefined) {
-                    break;
-                }
-                reservationTickets.push({ ticketOffer: findResult });
-            }
-        });
-        return reservationTickets;
+        var reservations = this.createReservations();
+        this.cb(reservations);
     };
     /**
-     * 残席数表示判定
+     * 予約チケット作成
      */
-    PurchaseEventTicketModalComponent.prototype.isViewRemainingSeatCount = function () {
-        var remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
-        var screeningEvent = this.screeningEvent;
-        if (!new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](screeningEvent).isTicketedSeat()) {
-            return false;
-        }
-        var unit = this.environment.PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT;
-        var value = Number(this.environment.PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE);
-        if (unit === '%') {
-            var maximumAttendeeCapacity = screeningEvent.maximumAttendeeCapacity;
-            if (maximumAttendeeCapacity === undefined) {
-                return false;
+    PurchaseEventTicketModalComponent.prototype.createReservations = function () {
+        var _this = this;
+        var reservations = [];
+        this.selectedTickets.forEach(function (t) {
+            var count = t.count;
+            var _loop_1 = function (i) {
+                var findResult = _this.screeningEventTicketOffers.find(function (s) { return s.id === t.id; });
+                var addOn = [];
+                if (findResult === undefined) {
+                    return "break";
+                }
+                t.addOn.forEach(function (a) {
+                    if (findResult.addOn === undefined) {
+                        return;
+                    }
+                    var findAddOnResult = findResult.addOn.find(function (a2) { return a2.id === a.id; });
+                    if (findAddOnResult === undefined) {
+                        return;
+                    }
+                    addOn.push(findAddOnResult);
+                });
+                reservations.push({
+                    ticket: { ticketOffer: findResult, addOn: addOn }
+                });
+            };
+            for (var i = 0; i < count; i++) {
+                var state_1 = _loop_1(i);
+                if (state_1 === "break")
+                    break;
             }
-            return (Math.floor(remainingSeatLength / maximumAttendeeCapacity * 100) < value);
+        });
+        return reservations;
+    };
+    /**
+     * 券種数量変更
+     */
+    PurchaseEventTicketModalComponent.prototype.changeSelect = function (id, event) {
+        if (event.target === null) {
+            return;
         }
-        else {
-            return (remainingSeatLength < value);
+        var element = event.target;
+        var value = Number(element.value);
+        var findResult = this.selectedTickets.find(function (s) { return s.id === id; });
+        if (findResult === undefined) {
+            return;
         }
+        findResult.count = value;
+    };
+    /**
+     * 券種アドオン変更
+     */
+    PurchaseEventTicketModalComponent.prototype.changeAddOn = function (id, addOnId) {
+        var findResult = this.selectedTickets.find(function (s) { return s.id === id; });
+        if (findResult === undefined) {
+            return;
+        }
+        var findAddOnResult = findResult.addOn.find(function (a) { return a.id === addOnId; });
+        if (findAddOnResult === undefined) {
+            findResult.addOn.push({ id: addOnId });
+            return;
+        }
+        findResult.addOn = findResult.addOn.filter(function (a) { return a.id !== addOnId; });
     };
     PurchaseEventTicketModalComponent.ctorParameters = function () { return [
         { type: ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalRef"] }
@@ -69823,20 +70028,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/parts/creditcard/security-code-modal/security-code-modal.component */ "./app/modules/shared/components/parts/creditcard/security-code-modal/security-code-modal.component.ts");
 /* harmony import */ var _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/parts/creditcard/select-modal/select-modal.component */ "./app/modules/shared/components/parts/creditcard/select-modal/select-modal.component.ts");
 /* harmony import */ var _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/parts/footer/footer.component */ "./app/modules/shared/components/parts/footer/footer.component.ts");
-/* harmony import */ var _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/parts/header-menu/header-menu.component */ "./app/modules/shared/components/parts/header-menu/header-menu.component.ts");
-/* harmony import */ var _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/parts/header/header.component */ "./app/modules/shared/components/parts/header/header.component.ts");
-/* harmony import */ var _components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/item-list/item-list.component */ "./app/modules/shared/components/parts/item-list/item-list.component.ts");
-/* harmony import */ var _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/loading/loading.component */ "./app/modules/shared/components/parts/loading/loading.component.ts");
-/* harmony import */ var _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/mvtk/check-modal/check-modal.component */ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.ts");
-/* harmony import */ var _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/numeric-keypad/numeric-keypad.component */ "./app/modules/shared/components/parts/numeric-keypad/numeric-keypad.component.ts");
-/* harmony import */ var _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/purchase/cinema/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/parts/purchase/event/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/parts/purchase/transaction-modal/transaction-modal.component */ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts");
-/* harmony import */ var _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/parts/qrcode/reader-modal/reader-modal.component */ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts");
-/* harmony import */ var _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/parts/qrcode/viewer-modal/viewer-modal.component */ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts");
-/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
-/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
-/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
+/* harmony import */ var _components_parts_form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/parts/form/checkbox/checkbox.component */ "./app/modules/shared/components/parts/form/checkbox/checkbox.component.ts");
+/* harmony import */ var _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/parts/header-menu/header-menu.component */ "./app/modules/shared/components/parts/header-menu/header-menu.component.ts");
+/* harmony import */ var _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/header/header.component */ "./app/modules/shared/components/parts/header/header.component.ts");
+/* harmony import */ var _components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/item-list/item-list.component */ "./app/modules/shared/components/parts/item-list/item-list.component.ts");
+/* harmony import */ var _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/loading/loading.component */ "./app/modules/shared/components/parts/loading/loading.component.ts");
+/* harmony import */ var _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/mvtk/check-modal/check-modal.component */ "./app/modules/shared/components/parts/mvtk/check-modal/check-modal.component.ts");
+/* harmony import */ var _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/numeric-keypad/numeric-keypad.component */ "./app/modules/shared/components/parts/numeric-keypad/numeric-keypad.component.ts");
+/* harmony import */ var _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/parts/purchase/cinema/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/cinema/ticket-modal/ticket-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/parts/purchase/event/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts");
+/* harmony import */ var _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/parts/purchase/transaction-modal/transaction-modal.component */ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts");
+/* harmony import */ var _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/parts/qrcode/reader-modal/reader-modal.component */ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts");
+/* harmony import */ var _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/parts/qrcode/viewer-modal/viewer-modal.component */ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts");
+/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
+/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -69878,31 +70084,33 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var components = [
-    _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_21__["LoadingComponent"],
+    _components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_22__["LoadingComponent"],
     _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_17__["FooterComponent"],
-    _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_19__["HeaderComponent"],
-    _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_18__["HeaderMenuComponent"],
+    _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_20__["HeaderComponent"],
+    _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_19__["HeaderMenuComponent"],
     _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_13__["ContentsComponent"],
     _components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_7__["BaseComponent"],
-    _components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_20__["ItemListComponent"]
+    _components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_21__["ItemListComponent"],
+    _components_parts_form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_18__["CheckboxComponent"]
 ];
 var entryComponents = [
     _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_11__["AlertModalComponent"],
     _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_12__["ConfirmModalComponent"],
-    _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_27__["QRCodeReaderModalComponent"],
-    _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_28__["QRCodeViewerModalComponent"],
+    _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_28__["QRCodeReaderModalComponent"],
+    _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_29__["QRCodeViewerModalComponent"],
     _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_14__["CreditcardRegisterModalComponent"],
     _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_16__["CreditCardSelectModalComponent"],
     _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_15__["CreditcardSecurityCodeModalComponent"],
     _components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_8__["AccountChargeModalComponent"],
     _components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_10__["AccountTransferModalComponent"],
     _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_9__["AccountOpenModalComponent"],
-    _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseCinemaTicketModalComponent"],
-    _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_25__["PurchaseEventTicketModalComponent"],
-    _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_26__["PurchaseTransactionModalComponent"],
-    _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_22__["MvtkCheckModalComponent"],
-    _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_23__["NumericKeypadComponent"],
+    _components_parts_purchase_cinema_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_25__["PurchaseCinemaTicketModalComponent"],
+    _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_26__["PurchaseEventTicketModalComponent"],
+    _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_27__["PurchaseTransactionModalComponent"],
+    _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_23__["MvtkCheckModalComponent"],
+    _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_24__["NumericKeypadComponent"],
 ];
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
@@ -69910,9 +70118,9 @@ var SharedModule = /** @class */ (function () {
     SharedModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: components.concat(entryComponents, [
-                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_31__["LibphonenumberFormatPipe"],
-                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_29__["ChangeLanguagePipe"],
-                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_30__["FormatDatePipe"],
+                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_32__["LibphonenumberFormatPipe"],
+                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_30__["ChangeLanguagePipe"],
+                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_31__["FormatDatePipe"],
             ]),
             entryComponents: entryComponents,
             imports: [
@@ -69927,9 +70135,9 @@ var SharedModule = /** @class */ (function () {
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_5__["PaginationModule"],
             ],
             exports: components.concat(entryComponents, [
-                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_31__["LibphonenumberFormatPipe"],
-                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_29__["ChangeLanguagePipe"],
-                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_30__["FormatDatePipe"],
+                _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_32__["LibphonenumberFormatPipe"],
+                _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_30__["ChangeLanguagePipe"],
+                _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_31__["FormatDatePipe"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"],
@@ -70226,7 +70434,7 @@ var CinerinoService = /** @class */ (function () {
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: CinerinoService, PurchaseService, UserService, MasterService, OrderService, StarPrintService, UtilService, LinyService, QRCodeService */
+/*! exports provided: CinerinoService, UtilService, PurchaseService, UserService, MasterService, OrderService, StarPrintService, LinyService, QRCodeService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -71101,7 +71309,7 @@ var PurchaseService = /** @class */ (function () {
     /**
      * 座席仮予約（在庫なし）
      */
-    PurchaseService.prototype.temporaryReservationFreeSeat = function (reservationTickets) {
+    PurchaseService.prototype.temporaryReservationFreeSeat = function (reservations) {
         return __awaiter(this, void 0, void 0, function () {
             var purchase;
             var _this = this;
@@ -71122,7 +71330,7 @@ var PurchaseService = /** @class */ (function () {
                                     transaction: transaction,
                                     screeningEvent: screeningEvent,
                                     screeningEventOffers: screeningEventOffers,
-                                    reservationTickets: reservationTickets
+                                    reservations: reservations
                                 }));
                                 var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
                                 var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
@@ -75390,6 +75598,9 @@ var PurchaseEffects = /** @class */ (function () {
                                         return {
                                             id: reservation.ticket.ticketOffer.id,
                                             ticketedSeat: reservation.seat,
+                                            addOn: (reservation.ticket.addOn === undefined)
+                                                ? undefined
+                                                : reservation.ticket.addOn.map(function (a) { return ({ id: a.id }); }),
                                             additionalProperty: [] // ここにムビチケ情報を入れる
                                         };
                                     })
@@ -75413,14 +75624,14 @@ var PurchaseEffects = /** @class */ (function () {
          * temporaryReservationFreeSeat
          */
         this.temporaryReservationFreeSeat = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeat), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, screeningEvent, screeningEventOffers, reservationTickets, freeSeats, serverTime, nowDate, _i, screeningEventOffers_1, screeningEventOffer, section, _a, _b, containsPlace, authorizeSeatReservation, error_7;
+            var transaction, screeningEvent, screeningEventOffers, reservations, freeSeats, serverTime, nowDate, _i, screeningEventOffers_1, screeningEventOffer, section, _a, _b, containsPlace, authorizeSeatReservation, error_7;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         transaction = payload.transaction;
                         screeningEvent = payload.screeningEvent;
                         screeningEventOffers = payload.screeningEventOffers;
-                        reservationTickets = payload.reservationTickets;
+                        reservations = payload.reservations;
                         freeSeats = [];
                         _c.label = 1;
                     case 1:
@@ -75463,10 +75674,16 @@ var PurchaseEffects = /** @class */ (function () {
                                     event: {
                                         id: screeningEvent.id
                                     },
-                                    acceptedOffer: reservationTickets.map(function (ticket, index) {
+                                    acceptedOffer: reservations.map(function (reservation, index) {
+                                        if (reservation.ticket === undefined) {
+                                            throw new Error('ticket is undefined');
+                                        }
                                         return {
-                                            id: ticket.ticketOffer.id,
+                                            id: reservation.ticket.ticketOffer.id,
                                             ticketedSeat: (freeSeats.length > 0) ? freeSeats[index] : undefined,
+                                            addOn: (reservation.ticket.addOn === undefined)
+                                                ? undefined
+                                                : reservation.ticket.addOn.map(function (a) { return ({ id: a.id }); }),
                                             additionalProperty: [] // ここにムビチケ情報を入れる
                                         };
                                     })
@@ -76370,6 +76587,7 @@ var UserEffects = /** @class */ (function () {
                         _a.sent();
                         return [4 /*yield*/, this.cinerino.offer.authorizeMonetaryAmount({
                                 object: {
+                                    project: { typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].organizationType.Project, id: payload.seller.project.id },
                                     typeOf: 'Offer',
                                     itemOffered: {
                                         typeOf: 'MonetaryAmount',
@@ -76994,7 +77212,8 @@ function reducer(state, action) {
             var seats_1 = action.payload.seats;
             state.purchaseData.reservations.forEach(function (reservation) {
                 var findResult = seats_1.find(function (seat) {
-                    return (reservation.seat.seatNumber === seat.seatNumber
+                    return (reservation.seat !== undefined
+                        && reservation.seat.seatNumber === seat.seatNumber
                         && reservation.seat.seatSection === seat.seatSection);
                 });
                 if (findResult === undefined) {
@@ -77068,6 +77287,7 @@ function reducer(state, action) {
                     movieTickets: movieTicketReservations.map(function (r) {
                         var pendingReservation = pendingReservations_1.find(function (p) {
                             return (p.reservedTicket.ticketedSeat !== undefined
+                                && r.seat !== undefined
                                 && p.reservedTicket.ticketedSeat.seatNumber === r.seat.seatNumber
                                 && p.reservedTicket.ticketedSeat.seatSection === r.seat.seatSection);
                         });

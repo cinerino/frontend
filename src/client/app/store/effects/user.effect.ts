@@ -221,6 +221,7 @@ export class UserEffects {
                 });
                 await this.cinerino.offer.authorizeMonetaryAmount({
                     object: {
+                        project: { typeOf: factory.organizationType.Project, id: payload.seller.project.id },
                         typeOf: 'Offer',
                         itemOffered: {
                             typeOf: 'MonetaryAmount',

@@ -13,7 +13,7 @@ import {
     IScreeningEventWork,
     screeningEvents2WorkEvents
 } from '../../../../../../functions';
-import { IReservationTicket, Performance } from '../../../../../../models';
+import { IReservation, Performance } from '../../../../../../models';
 import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 import {
@@ -160,8 +160,8 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                     screeningEventTicketOffers,
                     screeningEventOffers,
                     screeningEvent,
-                    cb: (reservationTickets: IReservationTicket[]) => {
-                        this.selectTicket(reservationTickets, screeningEvent);
+                    cb: (reservations: IReservation[]) => {
+                        this.selectTicket(reservations, screeningEvent);
                     }
                 },
                 class: 'modal-dialog-centered'
@@ -173,14 +173,14 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      * 券種選択
      */
     private async selectTicket(
-        reservationTickets: IReservationTicket[],
+        reservations: IReservation[],
         screeningEvent?: factory.chevre.event.screeningEvent.IEvent
     ) {
         const limit = (screeningEvent === undefined
             || screeningEvent.offers === undefined
             || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
             ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
-        if (reservationTickets.length > limit) {
+        if (reservations.length > limit) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant(
@@ -196,7 +196,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             if (purchase.screeningEvent !== undefined
                 && new Performance(purchase.screeningEvent).isTicketedSeat()) {
                 const remainingSeatLength = getRemainingSeatLength(purchase.screeningEventOffers, purchase.screeningEvent);
-                if (remainingSeatLength < reservationTickets.length) {
+                if (remainingSeatLength < reservations.length) {
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
@@ -212,7 +212,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             });
         }
         try {
-            await this.purchaseService.temporaryReservationFreeSeat(reservationTickets);
+            await this.purchaseService.temporaryReservationFreeSeat(reservations);
             this.utilService.openAlert({
                 title: this.translate.instant('common.complete'),
                 body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')

@@ -864,6 +864,7 @@ function createPaymentMethodFromType(args) {
 }
 /**
  * 券種金額取得
+ * @deprecated 非推奨（廃止予定）
  */
 function getTicketPrice(ticket) {
     var result = {
@@ -880,16 +881,8 @@ function getTicketPrice(ticket) {
     var priceComponent = ticket.priceSpecification.priceComponent;
     var priceSpecificationType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
     var unitPriceSpecifications = priceComponent.filter(function (s) { return s.typeOf === priceSpecificationType.UnitPriceSpecification; });
-    var videoFormatCharges = priceComponent.filter(function (s) { return s.typeOf === priceSpecificationType.VideoFormatChargeSpecification; });
-    var soundFormatCharges = priceComponent.filter(function (s) { return s.typeOf === priceSpecificationType.SoundFormatChargeSpecification; });
     var movieTicketTypeCharges = priceComponent.filter(function (s) { return s.typeOf === priceSpecificationType.MovieTicketTypeChargeSpecification; });
     result.unitPriceSpecification += unitPriceSpecifications[0].price;
-    videoFormatCharges.forEach(function (videoFormatCharge) {
-        result.videoFormatCharge += videoFormatCharge.price;
-    });
-    soundFormatCharges.forEach(function (soundFormatCharge) {
-        result.soundFormatCharge += soundFormatCharge.price;
-    });
     movieTicketTypeCharges.forEach(function (movieTicketTypeCharge) {
         result.movieTicketTypeCharge += movieTicketTypeCharge.price;
     });
