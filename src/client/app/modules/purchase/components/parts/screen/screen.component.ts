@@ -103,7 +103,8 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
                         seat.status = SeatStatus.Default;
                     }
                     const findReservationSeatResult = reservations.find((reservation) => {
-                        return (reservation.seat.seatNumber === seat.code
+                        return (reservation.seat !== undefined
+                            && reservation.seat.seatNumber === seat.code
                             && reservation.seat.seatSection === seat.section);
                     });
                     if (findReservationSeatResult !== undefined) {

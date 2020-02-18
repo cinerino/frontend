@@ -20,6 +20,8 @@ export class PurchaseCinemaTicketModalComponent implements OnInit {
     @Input() public pendingMovieTickets: IMovieTicket[];
     @Input() public cb: (ticket: IReservationTicket) => void;
     public tickets: IReservationTicket[];
+    public selectedTicket?: IReservationTicket;
+    public addOnList: string[];
 
     constructor(
         public modal: BsModalRef
@@ -27,11 +29,13 @@ export class PurchaseCinemaTicketModalComponent implements OnInit {
 
     public ngOnInit() {
         this.tickets = [];
+        this.addOnList = [];
         const movieTickets: IReservationTicket[] = [];
         this.screeningEventTicketOffers.forEach((ticketOffer) => {
-            const movieTicketTypeChargeSpecification = <IMovieTicketTypeChargeSpecification>ticketOffer.priceSpecification.priceComponent
-                .filter((s) => s.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification)
-                .shift();
+            const movieTicketTypeChargeSpecification =
+                <IMovieTicketTypeChargeSpecification>ticketOffer.priceSpecification.priceComponent
+                    .filter((c) => c.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification)
+                    .shift();
             if (movieTicketTypeChargeSpecification === undefined) {
                 // ムビチケ以外
                 this.tickets.push({ ticketOffer });
@@ -99,6 +103,54 @@ export class PurchaseCinemaTicketModalComponent implements OnInit {
     public close(ticket: IReservationTicket) {
         this.modal.hide();
         this.cb(ticket);
+    }
+
+    /**
+     * 券種選択
+     */
+    public selsctTicket(ticket: IReservationTicket) {
+        if (ticket.ticketOffer.addOn === undefined
+            || ticket.ticketOffer.addOn.length === 0) {
+                this.close(ticket);
+            return;
+        }
+        this.selectedTicket = ticket;
+    }
+
+    /**
+     * オプション確定
+     */
+    public selsctOption() {
+        if (this.selectedTicket === undefined) {
+            this.modal.hide();
+            return;
+        }
+        const addOn: factory.chevre.offer.IOffer[] = [];
+        this.addOnList.forEach(id => {
+            if (this.selectedTicket === undefined
+                || this.selectedTicket.ticketOffer.addOn === undefined) {
+                return;
+            }
+            const findResult = this.selectedTicket.ticketOffer.addOn.find(a => a.id === id);
+            if (findResult === undefined) {
+                return;
+            }
+            addOn.push(findResult);
+        });
+        this.selectedTicket.addOn = addOn;
+        this.close(this.selectedTicket);
+    }
+
+    /**
+     * オプション選択
+     */
+    public changeAddOnList(id: string) {
+        const findResult = this.addOnList.find(a => a === id);
+        if (findResult === undefined) {
+            this.addOnList.push(id);
+            return;
+        }
+        this.addOnList = this.addOnList.filter(a => a !== id);
     }
 
 }
