@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.6 - 2020-02-17
+### Changed
+ - 券種のアドオン対応
+### Fixed
+ - 過去注文データに対しての価格表記対応
+
 ## 3.0.5 - 2020-02-13
 ### Added
  - 価格表記コンポーネント追加
