@@ -3,9 +3,8 @@
         <p>{{ reservation.seat.seatNumber }}</p>
         <p *ngFor="let priceComponent of getReservationPriceComponents(reservation)">
             <span>{{ priceComponent.name | changeLanguage }}</span><!--
-            --><span *ngIf="priceComponent?.referenceQuantity?.value && priceComponent?.appliesToAddOn">&nbsp;×&nbsp;{{ priceComponent.referenceQuantity.value }}</span><!--
             --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
-            --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value && !priceComponent?.appliesToAddOn">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+            --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
         </p>
     </div>
     
@@ -13,9 +12,8 @@
         <p *ngIf="reservation.reservedTicket.ticketedSeat">{{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>
         <p *ngFor="let priceComponent of reservation.price.priceComponent">
             <span>{{ priceComponent.name | changeLanguage }}</span><!--
-            --><span *ngIf="priceComponent?.referenceQuantity?.value && priceComponent?.appliesToAddOn">&nbsp;×&nbsp;{{ priceComponent.referenceQuantity.value }}</span><!--
             --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
-            --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value && !priceComponent?.appliesToAddOn">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+            --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
         </p>
     </div>
     
@@ -24,9 +22,8 @@
         <p *ngFor="let priceComponent of acceptedOffer.priceSpecification.priceComponent">
             <span *ngIf="priceComponent.name">{{ priceComponent.name | changeLanguage }}</span><!--
             --><span *ngIf="!priceComponent.name">{{ acceptedOffer.name | changeLanguage }}</span><!--
-            --><span *ngIf="priceComponent?.referenceQuantity?.value && priceComponent?.appliesToAddOn">&nbsp;×&nbsp;{{ priceComponent.referenceQuantity.value }}</span><!--
             --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
-            --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value && !priceComponent?.appliesToAddOn">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+            --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
         </p>
     </div>
 </div>

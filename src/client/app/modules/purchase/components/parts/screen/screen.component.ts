@@ -24,7 +24,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
     public static ZOOM_SCALE = 1;
     @Input() public screenData: IScreen;
     @Output() public select = new EventEmitter<{ seat: IReservationSeat; status: SeatStatus; }>();
-    public screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
+    public screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
     public authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
     public purchase: Observable<reducers.IPurchaseState>;
     public seats: IRow[];

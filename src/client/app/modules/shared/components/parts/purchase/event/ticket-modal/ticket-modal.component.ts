@@ -17,11 +17,10 @@ type IMovieTicketTypeChargeSpecification =
 export class PurchaseEventTicketModalComponent implements OnInit {
 
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
-    @Input() public screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
+    @Input() public screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
     @Input() public screeningEvent: factory.event.screeningEvent.IEvent;
     @Input() public cb: (reservations: IReservation[]) => void;
     public tickets: factory.chevre.event.screeningEvent.ITicketOffer[];
-    public values: Number[];
     public selectedTickets: {
         id: string;
         count: number;
@@ -49,15 +48,6 @@ export class PurchaseEventTicketModalComponent implements OnInit {
                 );
             return movieTicketTypeChargeSpecification === undefined;
         });
-        this.values = [];
-        let limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
-        if (new Performance(this.screeningEvent).isTicketedSeat()) {
-            const remainingSeatLength = this.getRemainingSeatLength(this.screeningEventOffers, this.screeningEvent);
-            limit = (limit > remainingSeatLength) ? remainingSeatLength : limit;
-        }
-        for (let i = 0; i < limit; i++) {
-            this.values.push(i + 1);
-        }
         const selectedTickets: {
             id: string;
             count: number;
@@ -71,6 +61,38 @@ export class PurchaseEventTicketModalComponent implements OnInit {
             });
         });
         this.selectedTickets = selectedTickets;
+    }
+
+    /**
+     * 予約可能数計算
+     */
+    public remainingAttendeeCapacityValue(screeningEventTicketOffer: factory.chevre.event.screeningEvent.ITicketOffer) {
+        const values = [];
+        const screeningEvent = this.screeningEvent;
+        const screeningEventOffers = this.screeningEventOffers;
+        let limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
+        if (new Performance(this.screeningEvent).isTicketedSeat()) {
+            // イベント全体の残席数計算
+            const screeningEventLimit = getRemainingSeatLength(screeningEventOffers, screeningEvent);
+            if (limit > screeningEventLimit) {
+                limit = screeningEventLimit;
+            }
+            // 券種ごとの残席数で計算
+            if (screeningEvent.aggregateOffer !== undefined
+                && screeningEvent.aggregateOffer.offers !== undefined) {
+                const findResult =
+                    screeningEvent.aggregateOffer.offers.find(o => o.id === screeningEventTicketOffer.id);
+                if (findResult !== undefined
+                    && findResult.remainingAttendeeCapacity !== undefined
+                    && limit > findResult.remainingAttendeeCapacity) {
+                    limit = findResult.remainingAttendeeCapacity;
+                }
+            }
+        }
+        for (let i = 0; i < limit; i++) {
+            values.push(i + 1);
+        }
+        return values;
     }
 
     /**

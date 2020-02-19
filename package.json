@@ -31,7 +31,8 @@
     "clean": "rimraf src/**/*.spec.ts",
     "update": "npm install @cinerino/api-javascript-client@next @cinerino/api-nodejs-client@next",
     "uninstall": "npm uninstall @cinerino/api-javascript-client @cinerino/api-nodejs-client",
-    "analyze": "webpack-bundle-analyzer dist/client/production/stats-es2015.json"
+    "analyze": "webpack-bundle-analyzer dist/client/production/stats-es2015.json",
+    "build-all": "npm install && npm run build-server && npm run build-client"
   },
   "private": true,
   "dependencies": {
@@ -43,8 +44,8 @@
     "@angular/platform-browser": "^8.2.14",
     "@angular/platform-browser-dynamic": "^8.2.14",
     "@angular/router": "^8.2.14",
-    "@cinerino/api-javascript-client": "^2.0.0-alpha.67",
-    "@cinerino/api-nodejs-client": "^2.0.0-alpha.68",
+    "@cinerino/api-javascript-client": "^2.0.0-alpha.69",
+    "@cinerino/api-nodejs-client": "^2.0.0-alpha.69",
     "@ngrx/effects": "^8.6.0",
     "@ngrx/store": "^8.6.0",
     "@ngx-translate/core": "^11.0.1",

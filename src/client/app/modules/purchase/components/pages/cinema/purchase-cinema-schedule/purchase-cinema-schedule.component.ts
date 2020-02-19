@@ -234,7 +234,13 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             return;
         }
         this.purchaseService.unsettledDelete();
-        this.purchaseService.selectSchedule(screeningEvent);
+        try {
+            await this.purchaseService.getScreeningEvent(screeningEvent);
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+            return;
+        }
         const purchase = await this.purchaseService.getData();
         if (purchase.seller === undefined) {
             this.router.navigate(['/error']);
