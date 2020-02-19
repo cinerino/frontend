@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.7 - 2020-02-19
+### Changed
+ - StarWebPRNTSDK更新
+
 ## 3.0.6 - 2020-02-17
 ### Changed
  - 券種のアドオン対応
