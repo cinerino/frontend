@@ -69367,6 +69367,11 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
         var screeningEvent = this.screeningEvent;
         var screeningEventOffers = this.screeningEventOffers;
         var limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
+        if (screeningEvent.offers !== undefined
+            && screeningEvent.offers.eligibleQuantity.maxValue !== undefined
+            && limit > screeningEvent.offers.eligibleQuantity.maxValue) {
+            limit = screeningEvent.offers.eligibleQuantity.maxValue;
+        }
         if (new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](this.screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算
             var screeningEventLimit = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["getRemainingSeatLength"])(screeningEventOffers, screeningEvent);

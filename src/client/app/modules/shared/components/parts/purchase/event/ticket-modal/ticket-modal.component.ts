@@ -71,6 +71,11 @@ export class PurchaseEventTicketModalComponent implements OnInit {
         const screeningEvent = this.screeningEvent;
         const screeningEventOffers = this.screeningEventOffers;
         let limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
+        if (screeningEvent.offers !== undefined
+            && screeningEvent.offers.eligibleQuantity.maxValue !== undefined
+            && limit > screeningEvent.offers.eligibleQuantity.maxValue) {
+            limit = screeningEvent.offers.eligibleQuantity.maxValue;
+        }
         if (new Performance(this.screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算
             const screeningEventLimit = getRemainingSeatLength(screeningEventOffers, screeningEvent);
