@@ -75743,7 +75743,8 @@ var PurchaseEffects = /** @class */ (function () {
                             throw new Error('Outside sales period');
                         }
                         availableSeats_1 = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["autoSelectAvailableSeat"])({ reservations: reservations, screeningEventOffers: screeningEventOffers });
-                        if (availableSeats_1.length !== reservations.length) {
+                        if (new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat()
+                            && availableSeats_1.length !== reservations.length) {
                             throw new Error('Out of stock').message;
                         }
                         return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
@@ -75757,7 +75758,7 @@ var PurchaseEffects = /** @class */ (function () {
                                         }
                                         return {
                                             id: reservation.ticket.ticketOffer.id,
-                                            ticketedSeat: ((new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat()))
+                                            ticketedSeat: (new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat())
                                                 ? availableSeats_1[index] : undefined,
                                             addOn: (reservation.ticket.addOn === undefined)
                                                 ? undefined
