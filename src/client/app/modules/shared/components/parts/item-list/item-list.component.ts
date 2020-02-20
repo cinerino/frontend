@@ -77,6 +77,10 @@ export class ItemListComponent implements OnInit {
                         if (p.name === undefined) {
                             p.name = o.name;
                         }
+                        if (p.name === undefined
+                            && o.itemOffered.typeOf === factory.chevre.reservationType.EventReservation) {
+                            p.name = o.itemOffered.reservedTicket.ticketType.name;
+                        }
                         priceComponents.push(p);
                     });
                 priceComponentsList.push(priceComponents);
