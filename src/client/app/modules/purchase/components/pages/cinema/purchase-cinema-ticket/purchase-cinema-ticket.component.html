@@ -27,20 +27,21 @@
                             class="btn btn-primary btn-block py-3">{{ 'purchase.cinema.ticket.unselected' | translate }}</button>
                         <button *ngIf="reservation.ticket !== undefined" type="button" (click)="openTicketList(reservation)"
                             class="btn btn-block border border-primary text-primary bg-white py-3">
-                                <div class="d-flex justify-content-between align-items-center" *ngFor="let priceComponent of reservation.ticket?.ticketOffer.priceSpecification.priceComponent">
-                                    <p class="w-50 text-left">{{ priceComponent.name | changeLanguage }}</p>
-                                    <p class="w-50 text-right">
-                                        <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
-                                        --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
-                                    </p>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center" *ngFor="let addOn of reservation.ticket?.addOn;">
-                                    <p class="w-50 text-left">{{ addOn.priceSpecification.name | changeLanguage }}<span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">&nbsp;×&nbsp;{{ addOn.priceSpecification.referenceQuantity.value }}</span></p>
-                                    <p class="w-50 text-right">
-                                        {{ addOn.priceSpecification.price | currency : addOn.priceSpecification.priceCurrency }}
-                                    </p>
-                                </div>
-                            </button>
+                            <div class="d-flex justify-content-between align-items-center" *ngFor="let priceComponent of reservation.ticket?.ticketOffer.priceSpecification.priceComponent">
+                                <p class="w-50 text-left">{{ priceComponent.name | changeLanguage }}</p>
+                                <p class="w-50 text-right">
+                                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
+                                    --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+                                </p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center" *ngFor="let addOn of reservation.ticket?.addOn;">
+                                <p class="w-50 text-left">{{ addOn.priceSpecification.name | changeLanguage }}</p>
+                                <p class="w-50 text-right">
+                                    <span>{{ addOn.priceSpecification.price | currency : addOn.priceSpecification.priceCurrency }}</span><!--
+                                    --><span class="text-small" *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>
+                                </p>
+                            </div>
+                        </button>
                     </div>
                 </div>
             </li>

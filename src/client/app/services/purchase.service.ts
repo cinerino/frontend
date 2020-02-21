@@ -108,12 +108,21 @@ export class PurchaseService {
     }
 
     /**
-     * スケジュール選択
+     * イベント取得
      */
-    public selectSchedule(
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent
-    ) {
-        this.store.dispatch(new purchaseAction.SelectSchedule({ screeningEvent }));
+    public async getScreeningEvent(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
+        return new Promise<void>((resolve, reject) => {
+            this.store.dispatch(new purchaseAction.GetScreeningEvent({ screeningEvent }));
+            const success = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.GetScreeningEventSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.GetScreeningEventFail),
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
     }
 
     /**

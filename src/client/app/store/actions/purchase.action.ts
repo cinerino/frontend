@@ -14,7 +14,9 @@ export enum ActionTypes {
     GetPreScheduleDates = '[Purchase] Get Pre Schedule',
     GetPreScheduleDatesSuccess = '[Purchase] Get Pre Schedule Success',
     GetPreScheduleDatesFail = '[Purchase] Get Pre Schedule Fail',
-    SelectSchedule = '[Purchase] Select Schedule',
+    GetScreeningEvent = '[Purchase] Get Screening Event',
+    GetScreeningEventSuccess = '[Purchase] Get Screening Event Success',
+    GetScreeningEventFail = '[Purchase] Get Screening Event Fail',
     StartTransaction = '[Purchase] Start Transaction',
     StartTransactionSuccess = '[Purchase] Start Transaction Success',
     StartTransactionFail = '[Purchase] Start Transaction Fail',
@@ -139,11 +141,31 @@ export class GetPreScheduleDatesFail implements Action {
 
 
 /**
- * SelectSchedule
+ * GetScreeningEvent
  */
-export class SelectSchedule implements Action {
-    public readonly type = ActionTypes.SelectSchedule;
-    constructor(public payload: { screeningEvent: factory.chevre.event.screeningEvent.IEvent }) { }
+export class GetScreeningEvent implements Action {
+    public readonly type = ActionTypes.GetScreeningEvent;
+    constructor(public payload: {
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent
+    }) { }
+}
+
+/**
+ * GetScreeningEventSuccess
+ */
+export class GetScreeningEventSuccess implements Action {
+    public readonly type = ActionTypes.GetScreeningEventSuccess;
+    constructor(public payload: {
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent
+    }) { }
+}
+
+/**
+ * GetScreeningEventFail
+ */
+export class GetScreeningEventFail implements Action {
+    public readonly type = ActionTypes.GetScreeningEventFail;
+    constructor(public payload: { error: Error }) { }
 }
 
 /**
@@ -219,7 +241,7 @@ export class GetScreen implements Action {
 export class GetScreenSuccess implements Action {
     public readonly type = ActionTypes.GetScreenSuccess;
     constructor(public payload: {
-        screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
+        screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
         screenData: IScreen;
     }) { }
 }
@@ -246,7 +268,7 @@ export class GetScreeningEventOffers implements Action {
 export class GetScreeningEventOffersSuccess implements Action {
     public readonly type = ActionTypes.GetScreeningEventOffersSuccess;
     constructor(public payload: {
-        screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
+        screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
     }) { }
 }
 
@@ -351,7 +373,7 @@ export class TemporaryReservationFreeSeat implements Action {
     constructor(public payload: {
         transaction: factory.transaction.placeOrder.ITransaction;
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
+        screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
         reservations: IReservation[]
     }) { }
 }
@@ -652,7 +674,9 @@ export type Actions =
     | GetPreScheduleDates
     | GetPreScheduleDatesSuccess
     | GetPreScheduleDatesFail
-    | SelectSchedule
+    | GetScreeningEvent
+    | GetScreeningEventSuccess
+    | GetScreeningEventFail
     | StartTransaction
     | StartTransactionSuccess
     | StartTransactionFail

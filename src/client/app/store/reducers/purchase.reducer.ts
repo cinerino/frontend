@@ -13,7 +13,7 @@ export interface IPurchaseState {
     scheduleDate?: string;
     preScheduleDates: string[];
     transaction?: factory.transaction.placeOrder.ITransaction;
-    screeningEventOffers: factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[];
+    screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
     screenData?: IScreen;
     reservations: IReservation[];
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
@@ -102,10 +102,16 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
-        case purchaseAction.ActionTypes.SelectSchedule: {
-            const screeningEvent = action.payload.screeningEvent;
-            state.purchaseData.screeningEvent = screeningEvent;
-            return { ...state, loading: false, process: '' };
+        case purchaseAction.ActionTypes.GetScreeningEvent: {
+            return { ...state, loading: true, process: 'purchaseAction.GetScreeningEvent' };
+        }
+        case purchaseAction.ActionTypes.GetScreeningEventSuccess: {
+            state.purchaseData.screeningEvent = action.payload.screeningEvent;
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case purchaseAction.ActionTypes.GetScreeningEventFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case purchaseAction.ActionTypes.StartTransaction: {
             return { ...state, loading: true, process: 'purchaseAction.StartTransaction' };

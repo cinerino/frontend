@@ -134,8 +134,8 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             });
             return;
         }
-        this.purchaseService.selectSchedule(screeningEvent);
         try {
+            await this.purchaseService.getScreeningEvent(screeningEvent);
             await this.purchaseService.getScreeningEventOffers();
             await this.purchaseService.getTicketList();
             this.openTicketList();

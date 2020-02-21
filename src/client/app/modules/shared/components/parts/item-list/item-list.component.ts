@@ -43,7 +43,7 @@ export class ItemListComponent implements OnInit {
                     if (a.priceSpecification === undefined) {
                         return;
                     }
-                    priceComponents.push(<any>{ ...a.priceSpecification, appliesToAddOn: [] });
+                    priceComponents.push(a.priceSpecification);
                 });
             }
         }
