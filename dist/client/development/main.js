@@ -313,7 +313,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, autoSelectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, createPrintCanvas, createTestPrintCanvas */
+/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, createPrintCanvas, createTestPrintCanvas */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -347,7 +347,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isEligibleSeatingType", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["isEligibleSeatingType"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "autoSelectAvailableSeat", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["autoSelectAvailableSeat"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "selectAvailableSeat", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["selectAvailableSeat"]; });
 
 /* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "formatTelephone", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["formatTelephone"]; });
@@ -684,7 +684,7 @@ function createTestPrintCanvas(args) {
 /*!********************************************!*\
   !*** ./app/functions/purchase.function.ts ***!
   \********************************************/
-/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, autoSelectAvailableSeat */
+/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, selectAvailableSeat */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -703,12 +703,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "authorizeSeatReservation2Event", function() { return authorizeSeatReservation2Event; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRemainingSeatLength", function() { return getRemainingSeatLength; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEligibleSeatingType", function() { return isEligibleSeatingType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "autoSelectAvailableSeat", function() { return autoSelectAvailableSeat; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectAvailableSeat", function() { return selectAvailableSeat; });
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models */ "./app/models/index.ts");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -1065,28 +1076,31 @@ function getRemainingSeatLength(screeningEventOffers, screeningEvent) {
 function isEligibleSeatingType(params) {
     var seat = params.seat;
     var eligibleSeatingType = params.eligibleSeatingType;
-    var SeatingTypeFilterResult = eligibleSeatingType
-        .filter(function (e) { return e.inCodeSet.identifier === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.categoryCode.CategorySetIdentifier.SeatingType; });
-    var filterResult = SeatingTypeFilterResult.filter(function (e) {
+    var filterResult = eligibleSeatingType.filter(function (e) {
         if (Array.isArray(seat.seatingType)) {
             return (seat.seatingType.find(function (s) { return e.codeValue === s; }) !== undefined);
         }
         return (e.codeValue === seat.seatingType);
     });
-    return filterResult.length === SeatingTypeFilterResult.length;
+    return filterResult.length === eligibleSeatingType.length;
 }
 /**
- * 販売可能席自動取得
+ * 予約可能席取得
  */
-function autoSelectAvailableSeat(params) {
+function selectAvailableSeat(params) {
     var reservations = params.reservations;
     var screeningEventOffers = params.screeningEventOffers;
     var seats = [];
     screeningEventOffers.forEach(function (s) {
         var section = s.branchCode;
         s.containsPlace.forEach(function (c) {
-            if (c.offers === undefined
-                || c.offers[0].availability !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock) {
+            var selectedSeat = reservations.find(function (r) {
+                return (r.seat !== undefined
+                    && r.seat.seatNumber === c.branchCode
+                    && r.seat.seatSection === section);
+            });
+            if ((c.offers === undefined || c.offers[0].availability !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock)
+                && selectedSeat === undefined) {
                 // 在庫なし
                 return;
             }
@@ -1101,23 +1115,91 @@ function autoSelectAvailableSeat(params) {
     });
     var availableSeats = [];
     reservations.forEach(function (r) {
-        var findResult = seats.find(function (s) {
-            if (availableSeats.find(function (a) { return a.seatNumber === s.seatNumber && a.seatSection === s.seatSection; }) !== undefined) {
-                // 予約内同一座席判定
+        var findReservationSeat = seats.find(function (s) {
+            var findReservedSeat = availableSeats.find(function (a) {
+                var findSubReservedSeat = a.subReservations.find(function (sub) { return sub.seatNumber === s.seatNumber && sub.seatSection === s.seatSection; });
+                if (findSubReservedSeat !== undefined) {
+                    // サブ予約済み座席
+                    return true;
+                }
+                return (a.seatNumber === s.seatNumber && a.seatSection === s.seatSection);
+            });
+            if (findReservedSeat !== undefined) {
+                // 予約済み座席
                 return false;
             }
             if (r.ticket !== undefined
                 && r.ticket.ticketOffer.eligibleSeatingType !== undefined
                 && !isEligibleSeatingType({ seat: s, eligibleSeatingType: r.ticket.ticketOffer.eligibleSeatingType })) {
-                // 適用座席タイプ判定
+                // 適用座席タイプ違い
                 return false;
+            }
+            if (r.seat !== undefined) {
+                // 座席選択済みの場合予約中の座席を選択
+                return (r.seat.seatNumber === s.seatNumber && r.seat.seatSection === s.seatSection);
             }
             return true;
         });
-        if (findResult === undefined) {
+        if (findReservationSeat === undefined) {
+            // 予約可能席なし
             return;
         }
-        availableSeats.push(findResult);
+        if (r.ticket === undefined
+            || r.ticket.ticketOffer.eligibleSubReservation === undefined) {
+            // サブ予約なし
+            availableSeats.push(__assign({}, findReservationSeat, { subReservations: [] }));
+            return;
+        }
+        // サブ予約分取得
+        var subReservations = [];
+        r.ticket.ticketOffer.eligibleSubReservation.forEach(function (e) {
+            for (var i = 0; i < e.amountOfThisGood; i++) {
+                var subReservation = seats.find(function (s) {
+                    var findReservedSeat = availableSeats.find(function (a) {
+                        var findSubReservedSeat = a.subReservations.find(function (sub) { return sub.seatNumber === s.seatNumber && sub.seatSection === s.seatSection; });
+                        if (findSubReservedSeat !== undefined) {
+                            // サブ予約済み座席
+                            return true;
+                        }
+                        return (a.seatNumber === s.seatNumber && a.seatSection === s.seatSection);
+                    });
+                    if (findReservedSeat !== undefined) {
+                        // 予約済み座席
+                        return false;
+                    }
+                    var findSubReservationSeat = subReservations.find(function (sub) { return sub.seatNumber === s.seatNumber && sub.seatSection === s.seatSection; });
+                    if (findSubReservationSeat !== undefined) {
+                        // サブ予約中座席
+                        return false;
+                    }
+                    if (findReservationSeat.seatNumber === s.seatNumber
+                        && findReservationSeat.seatSection === s.seatSection) {
+                        // 予約中座席
+                        return false;
+                    }
+                    if (Array.isArray(s.seatingType)
+                        && s.seatingType.find(function (t) { return t === e.typeOfGood.seatingType; }) === undefined) {
+                        // 適用座席タイプ違い
+                        return false;
+                    }
+                    if (!Array.isArray(s.seatingType)
+                        && s.seatingType !== e.typeOfGood.seatingType) {
+                        // 適用座席タイプ違い
+                        return false;
+                    }
+                    if (r.seat !== undefined) {
+                        // 座席選択済みの場合予約中の座席以外を選択
+                        return !(r.seat.seatNumber === s.seatNumber && r.seat.seatSection === s.seatSection);
+                    }
+                    return true;
+                });
+                if (subReservation === undefined) {
+                    return;
+                }
+                subReservations.push(subReservation);
+            }
+        });
+        availableSeats.push(__assign({}, findReservationSeat, { subReservations: subReservations }));
     });
     return availableSeats;
 }

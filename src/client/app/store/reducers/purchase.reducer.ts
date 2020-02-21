@@ -252,7 +252,6 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             const removeAuthorizeSeatReservation = action.payload.removeAuthorizeSeatReservation;
             const reservations = state.purchaseData.reservations;
             state.purchaseData.authorizeSeatReservation = addAuthorizeSeatReservation;
-            state.purchaseData.screeningEventOffers = [];
             if (removeAuthorizeSeatReservation !== undefined) {
                 // 削除
                 const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(
@@ -313,7 +312,6 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
         case purchaseAction.ActionTypes.TemporaryReservationFreeSeatSuccess: {
             const addAuthorizeSeatReservation = action.payload.addAuthorizeSeatReservation;
             state.purchaseData.authorizeSeatReservation = addAuthorizeSeatReservation;
-            state.purchaseData.screeningEventOffers = [];
             state.purchaseData.authorizeSeatReservation = undefined;
             state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
             return { ...state, loading: false, process: '', error: null };

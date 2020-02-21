@@ -2,21 +2,12 @@ import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { IMovieTicket, IReservation, IReservationSeat, Performance } from '../models';
 
+/**
+ * 作品別イベント
+ */
 export interface IScreeningEventWork {
     info: factory.chevre.event.screeningEvent.IEvent;
     data: Performance[];
-}
-
-export interface IGmoTokenObject {
-    token: string;
-    toBeExpiredAt: string;
-    maskedCardNo: string;
-    isSecurityCodeSet: boolean;
-}
-
-export interface IEventOrder {
-    event: factory.chevre.event.screeningEvent.IEvent;
-    data: factory.order.IAcceptedOffer<factory.order.IItemOffered>[];
 }
 
 /**
@@ -42,6 +33,16 @@ export function screeningEvents2WorkEvents(params: {
     });
 
     return result;
+}
+
+/**
+ * GMOトークンオブジェクト
+ */
+export interface IGmoTokenObject {
+    token: string;
+    toBeExpiredAt: string;
+    maskedCardNo: string;
+    isSecurityCodeSet: boolean;
 }
 
 /**
@@ -324,6 +325,14 @@ export function getAmount(
 }
 
 /**
+ * イベント別オーダー
+ */
+export interface IEventOrder {
+    event: factory.chevre.event.screeningEvent.IEvent;
+    data: factory.order.IAcceptedOffer<factory.order.IItemOffered>[];
+}
+
+/**
  * イベント別オーダーへ変換
  */
 export function order2EventOrders(params: {
@@ -439,21 +448,26 @@ export function isEligibleSeatingType(params: {
 }) {
     const seat = params.seat;
     const eligibleSeatingType = params.eligibleSeatingType;
-    const SeatingTypeFilterResult = eligibleSeatingType
-        .filter(e => e.inCodeSet.identifier === factory.chevre.categoryCode.CategorySetIdentifier.SeatingType);
-    const filterResult = SeatingTypeFilterResult.filter(e => {
+    const filterResult = eligibleSeatingType.filter(e => {
         if (Array.isArray(seat.seatingType)) {
             return (seat.seatingType.find(s => e.codeValue === s) !== undefined);
         }
         return (e.codeValue === seat.seatingType);
     });
-    return filterResult.length === SeatingTypeFilterResult.length;
+    return filterResult.length === eligibleSeatingType.length;
 }
 
 /**
- * 販売可能席自動取得
+ * 予約可能席
  */
-export function autoSelectAvailableSeat(params: {
+export interface IAvailableSeat extends factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation> {
+    subReservations: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[];
+}
+
+/**
+ * 予約可能席取得
+ */
+export function selectAvailableSeat(params: {
     reservations: IReservation[];
     screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
 }) {
@@ -463,8 +477,13 @@ export function autoSelectAvailableSeat(params: {
     screeningEventOffers.forEach(s => {
         const section = s.branchCode;
         s.containsPlace.forEach(c => {
-            if (c.offers === undefined
-                || c.offers[0].availability !== factory.chevre.itemAvailability.InStock) {
+            const selectedSeat = reservations.find(r => {
+                return (r.seat !== undefined
+                    && r.seat.seatNumber === c.branchCode
+                    && r.seat.seatSection === section);
+            });
+            if ((c.offers === undefined || c.offers[0].availability !== factory.chevre.itemAvailability.InStock)
+                && selectedSeat === undefined) {
                 // 在庫なし
                 return;
             }
@@ -477,25 +496,97 @@ export function autoSelectAvailableSeat(params: {
             });
         });
     });
-    const availableSeats: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
+    const availableSeats: IAvailableSeat[] = [];
     reservations.forEach(r => {
-        const findResult = seats.find(s => {
-            if (availableSeats.find(a => a.seatNumber === s.seatNumber && a.seatSection === s.seatSection) !== undefined) {
-                // 予約内同一座席判定
+        const findReservationSeat = seats.find(s => {
+            const findReservedSeat = availableSeats.find(a => {
+                const findSubReservedSeat =
+                    a.subReservations.find(sub => sub.seatNumber === s.seatNumber && sub.seatSection === s.seatSection);
+                if (findSubReservedSeat !== undefined) {
+                    // サブ予約済み座席
+                    return true;
+                }
+                return (a.seatNumber === s.seatNumber && a.seatSection === s.seatSection);
+            });
+            if (findReservedSeat !== undefined) {
+                // 予約済み座席
                 return false;
             }
             if (r.ticket !== undefined
                 && r.ticket.ticketOffer.eligibleSeatingType !== undefined
                 && !isEligibleSeatingType({ seat: s, eligibleSeatingType: r.ticket.ticketOffer.eligibleSeatingType })) {
-                // 適用座席タイプ判定
+                // 適用座席タイプ違い
                 return false;
+            }
+            if (r.seat !== undefined) {
+                // 座席選択済みの場合予約中の座席を選択
+                return (r.seat.seatNumber === s.seatNumber && r.seat.seatSection === s.seatSection);
             }
             return true;
         });
-        if (findResult === undefined) {
+        if (findReservationSeat === undefined) {
+            // 予約可能席なし
             return;
         }
-        availableSeats.push(findResult);
+        if (r.ticket === undefined
+            || r.ticket.ticketOffer.eligibleSubReservation === undefined) {
+            // サブ予約なし
+            availableSeats.push({ ...findReservationSeat, subReservations: [] });
+            return;
+        }
+        // サブ予約分取得
+        const subReservations: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
+        r.ticket.ticketOffer.eligibleSubReservation.forEach(e => {
+            for (let i = 0; i < e.amountOfThisGood; i++) {
+                const subReservation = seats.find(s => {
+                    const findReservedSeat = availableSeats.find(a => {
+                        const findSubReservedSeat =
+                            a.subReservations.find(sub => sub.seatNumber === s.seatNumber && sub.seatSection === s.seatSection);
+                        if (findSubReservedSeat !== undefined) {
+                            // サブ予約済み座席
+                            return true;
+                        }
+                        return (a.seatNumber === s.seatNumber && a.seatSection === s.seatSection);
+                    });
+                    if (findReservedSeat !== undefined) {
+                        // 予約済み座席
+                        return false;
+                    }
+                    const findSubReservationSeat =
+                        subReservations.find(sub => sub.seatNumber === s.seatNumber && sub.seatSection === s.seatSection);
+                    if (findSubReservationSeat !== undefined) {
+                        // サブ予約中座席
+                        return false;
+                    }
+                    if (findReservationSeat.seatNumber === s.seatNumber
+                        && findReservationSeat.seatSection === s.seatSection) {
+                        // 予約中座席
+                        return false;
+                    }
+                    if (Array.isArray(s.seatingType)
+                        && s.seatingType.find(t => t === e.typeOfGood.seatingType) === undefined) {
+                        // 適用座席タイプ違い
+                        return false;
+                    }
+                    if (!Array.isArray(s.seatingType)
+                        && s.seatingType !== e.typeOfGood.seatingType) {
+                        // 適用座席タイプ違い
+                        return false;
+                    }
+                    if (r.seat !== undefined) {
+                        // 座席選択済みの場合予約中の座席以外を選択
+                        return !(r.seat.seatNumber === s.seatNumber && r.seat.seatSection === s.seatSection);
+                    }
+                    return true;
+                });
+                if (subReservation === undefined) {
+                    return;
+                }
+                subReservations.push(subReservation);
+            }
+        });
+        availableSeats.push({ ...findReservationSeat, subReservations });
     });
+
     return availableSeats;
 }
