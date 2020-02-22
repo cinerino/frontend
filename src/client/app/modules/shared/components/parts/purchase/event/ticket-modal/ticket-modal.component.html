@@ -55,7 +55,7 @@
             </ul>
         </li>
     </ul>
-    <p *ngIf="tickets.length === 0" class="mb-4">{{ 'purchase.event.ticket.notfound.ticket' | translate }}</p>
+    <p *ngIf="tickets.length === 0" class="mb-4">{{ 'modal.ticket.notfound' | translate }}</p>
 
     <div class="buttons mx-auto text-center text-center">
         <button [disabled]="selectedTickets && createReservations().length === 0" type="button"

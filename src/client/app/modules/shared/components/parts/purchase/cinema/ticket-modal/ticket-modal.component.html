@@ -11,7 +11,7 @@
             <p *ngIf="ticket.ticketOffer.description" class="text-x-small text-left">{{ ticket.ticketOffer.description | changeLanguage }}</p>
         </button>
     </div>
-    <p *ngIf="tickets.length === 0">{{ 'purchase.cinema.ticket.notfound' | translate }}</p>
+    <p *ngIf="tickets.length === 0">{{ 'modal.ticket.notfound' | translate }}</p>
 </div>
 
 <div *ngIf="selectedTicket" class="p-3 scroll-vertical">

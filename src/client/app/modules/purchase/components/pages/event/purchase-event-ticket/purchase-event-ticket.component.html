@@ -10,7 +10,7 @@
 
     <div class="mb-4">
         <p *ngIf="screeningWorkEvents.length === 0" class="mb-3">
-            {{ 'purchase.event.ticket.notfound.event' | translate }}
+            {{ 'purchase.event.ticket.notfound' | translate }}
         </p>
         <app-purchase-event-performance *ngFor="let screeningWorkEvent of screeningWorkEvents"
             [screeningWorkEvent]="screeningWorkEvent" [readonly]="false" (select)="selectSchedule($event)" class="mb-3">
