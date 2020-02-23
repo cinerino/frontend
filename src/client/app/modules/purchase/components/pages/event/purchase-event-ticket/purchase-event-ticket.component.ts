@@ -223,6 +223,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 title: this.translate.instant('common.complete'),
                 body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
             });
+            this.purchaseService.unsettledDelete();
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

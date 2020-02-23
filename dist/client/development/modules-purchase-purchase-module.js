@@ -2226,6 +2226,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                             title: this.translate.instant('common.complete'),
                             body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
                         });
+                        this.purchaseService.unsettledDelete();
                         return [3 /*break*/, 8];
                     case 7:
                         error_5 = _a.sent();
