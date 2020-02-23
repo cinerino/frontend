@@ -80,14 +80,15 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     public async onSubmit() {
         try {
             const purchase = await this.purchaseService.getData();
-            if (purchase.reservations.length === 0) {
+            const reservations = purchase.reservations;
+            if (reservations.length === 0) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('purchase.cinema.seat.alert.unselected')
                 });
                 return;
             }
-            await this.purchaseService.temporaryReservation();
+            await this.purchaseService.temporaryReservation({ reservations });
             this.router.navigate(['/purchase/cinema/ticket']);
         } catch (error) {
             console.error(error);

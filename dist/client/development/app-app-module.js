@@ -57905,7 +57905,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;<span *ngIf=\"screeningEvent.location.address\" class=\"mr-2\">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"performance.isTicketedSeat()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul *ngIf=\"tickets.length > 0\" class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-3 pb-3 border-bottom border-gray\" [class.text-gray]=\"remainingAttendeeCapacityValue(ticket).length === 0\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p *ngFor=\"let priceComponent of ticket.priceSpecification.priceComponent\">\n                        <span>{{ priceComponent.name | changeLanguage }}</span><!--\n                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                        --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                    </p>\n                    <p *ngIf=\"ticket.description\" class=\"text-x-small text-left\">{{ ticket.description | changeLanguage }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" (change)=\"changeSelect(ticket.id, $event)\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of remainingAttendeeCapacityValue(ticket)\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n            <ul *ngIf=\"ticket.addOn && ticket.addOn.length > 0\" class=\"mt-2 bg-light-gray py-2 px-3\">\n                <li class=\"my-1\" *ngFor=\"let addOn of ticket.addOn; let index = index\">\n                    <app-checkbox class=\"pointer\" (change)=\"changeAddOn(ticket.id, addOn.id)\">\n                        {{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span><!--\n                        -->&nbsp;/&nbsp;<!--\n                        -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}\n                    </app-checkbox>\n                </li>\n            </ul>\n        </li>\n    </ul>\n    <p *ngIf=\"tickets.length === 0\" class=\"mb-4\">{{ 'modal.ticket.notfound' | translate }}</p>\n\n    <div class=\"buttons mx-auto text-center text-center\">\n        <button [disabled]=\"selectedTickets && createReservations().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close(createReservations())\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3\">\n        <div class=\"mb-1\">\n            <p class=\"font-weight-bold text-large\">{{ screeningEvent.name | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)\">\n                {{ screeningEvent.superEvent.headline | changeLanguage }}</p>\n            <p class=\"text-small\"\n                *ngIf=\"screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)\">{{\n                    screeningEvent.superEvent.description | changeLanguage }}</p>\n        </div>\n        <p class=\"mb-1\">\n            {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}\n        </p>\n        <p class=\"text-small mb-1\">\n            <span class=\"theatre-name\">\n                {{ screeningEvent.superEvent.location.name | changeLanguage }}\n            </span>\n            <span class=\"screen-name\">\n                &nbsp;/&nbsp;<span *ngIf=\"screeningEvent.location.address\" class=\"mr-2\">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}\n            </span>\n            <span *ngIf=\"screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0\">\n                &nbsp;/&nbsp;<span class=\"mr-1\">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}\n            </span>\n        </p>\n        <p *ngIf=\"performance.isTicketedSeat()\" class=\"font-weight-bold\"><span class=\"mr-1\">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>\n    </div>\n    <hr class=\"mb-3\">\n    <ul *ngIf=\"tickets.length > 0\" class=\"mb-4\">\n        <li *ngFor=\"let ticket of tickets\" class=\"ticket mb-3 pb-3 border-bottom border-gray\" [class.text-gray]=\"remainingAttendeeCapacityValue(ticket).length === 0\">\n            <div class=\"d-flex justify-content-between align-items-center\">\n                <div class=\"w-75 text-left\">\n                    <p *ngFor=\"let priceComponent of ticket.priceSpecification.priceComponent\">\n                        <span>{{ priceComponent.name | changeLanguage }}</span><!--\n                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                        --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                    </p>\n                    <p *ngIf=\"ticket.description\" class=\"text-x-small text-left\">{{ ticket.description | changeLanguage }}</p>\n                </div>\n                <div class=\"w-25 text-right\">\n                    <select class=\"form-control\" (change)=\"changeSelect(ticket.id, $event)\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of remainingAttendeeCapacityValue(ticket)\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n            <ul *ngIf=\"ticket.addOn && ticket.addOn.length > 0\" class=\"mt-2 bg-light-gray py-2 px-3\">\n                <li class=\"my-1\" *ngFor=\"let addOn of ticket.addOn; let index = index\">\n                    <app-checkbox class=\"pointer\" (change)=\"changeAddOn(ticket.id, addOn.id)\">\n                        {{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span><!--\n                        -->&nbsp;/&nbsp;<!--\n                        -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}\n                    </app-checkbox>\n                </li>\n            </ul>\n        </li>\n    </ul>\n    <p *ngIf=\"tickets.length === 0\" class=\"mb-4\">{{ 'modal.ticket.notfound' | translate }}</p>\n\n    <div class=\"mb-4 additional-ticket-text d-none\">\n        <p>{{ 'common.additionalTicketText' | translate }}</p>\n        <textarea [(ngModel)]=\"additionalTicketText\" class=\"py-1 px-2\"></textarea>\n    </div>\n\n    <div class=\"buttons mx-auto text-center text-center\">\n        <button [disabled]=\"selectedTickets && createReservations().length === 0\" type=\"button\"\n            class=\"btn btn-primary btn-block py-3 mb-3\"\n            (click)=\"close(createReservations())\">{{ 'purchase.event.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -69365,6 +69365,7 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
             });
         });
         this.selectedTickets = selectedTickets;
+        this.additionalTicketText = '';
     };
     /**
      * 予約可能数計算
@@ -69407,7 +69408,8 @@ var PurchaseEventTicketModalComponent = /** @class */ (function () {
     PurchaseEventTicketModalComponent.prototype.close = function () {
         this.modal.hide();
         var reservations = this.createReservations();
-        this.cb(reservations);
+        var additionalTicketText = this.additionalTicketText;
+        this.cb({ reservations: reservations, additionalTicketText: additionalTicketText });
     };
     /**
      * 予約チケット作成
@@ -71310,13 +71312,16 @@ var PurchaseService = /** @class */ (function () {
     /**
      * 座席仮予約
      */
-    PurchaseService.prototype.temporaryReservation = function () {
+    PurchaseService.prototype.temporaryReservation = function (params) {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase;
+            var additionalTicketText, reservations, purchase;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getData()];
+                    case 0:
+                        additionalTicketText = params.additionalTicketText;
+                        reservations = params.reservations;
+                        return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
                         return [2 /*return*/, new Promise(function (resolve, reject) {
@@ -71327,58 +71332,24 @@ var PurchaseService = /** @class */ (function () {
                                     reject();
                                     return;
                                 }
-                                var reservations = purchase.reservations.map(function (reservation) {
-                                    return {
-                                        seat: reservation.seat,
-                                        ticket: (reservation.ticket === undefined)
-                                            ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
-                                            : reservation.ticket
-                                    };
-                                });
                                 var authorizeSeatReservation = purchase.authorizeSeatReservation;
                                 _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].TemporaryReservation({
+                                    reservations: reservations.map(function (reservation) {
+                                        return {
+                                            seat: reservation.seat,
+                                            ticket: (reservation.ticket === undefined)
+                                                ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
+                                                : reservation.ticket
+                                        };
+                                    }),
                                     transaction: transaction,
                                     screeningEvent: screeningEvent,
-                                    reservations: reservations,
                                     authorizeSeatReservation: authorizeSeatReservation,
-                                    screeningEventOffers: screeningEventOffers
+                                    screeningEventOffers: screeningEventOffers,
+                                    additionalTicketText: additionalTicketText
                                 }));
                                 var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
                                 var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
-                                Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
-                            })];
-                }
-            });
-        });
-    };
-    /**
-     * 座席仮予約（在庫なし）
-     */
-    PurchaseService.prototype.temporaryReservationFreeSeat = function (reservations) {
-        return __awaiter(this, void 0, void 0, function () {
-            var purchase;
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getData()];
-                    case 1:
-                        purchase = _a.sent();
-                        return [2 /*return*/, new Promise(function (resolve, reject) {
-                                var transaction = purchase.transaction;
-                                var screeningEvent = purchase.screeningEvent;
-                                var screeningEventOffers = purchase.screeningEventOffers;
-                                if (transaction === undefined || screeningEvent === undefined) {
-                                    reject();
-                                    return;
-                                }
-                                _this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].TemporaryReservationFreeSeat({
-                                    transaction: transaction,
-                                    screeningEvent: screeningEvent,
-                                    screeningEventOffers: screeningEventOffers,
-                                    reservations: reservations
-                                }));
-                                var success = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatSuccess), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { resolve(); }));
-                                var fail = _this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatFail), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(function () { _this.error.subscribe(function (error) { reject(error); }).unsubscribe(); }));
                                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
                             })];
                 }
@@ -72995,7 +72966,7 @@ var OrderAuthorizeFail = /** @class */ (function () {
 /*!**********************************************!*\
   !*** ./app/store/actions/purchase.action.ts ***!
   \**********************************************/
-/*! exports provided: ActionTypes, Delete, UnsettledDelete, SelectScheduleDate, SelectSeller, GetPreScheduleDates, GetPreScheduleDatesSuccess, GetPreScheduleDatesFail, GetScreeningEvent, GetScreeningEventSuccess, GetScreeningEventFail, StartTransaction, StartTransactionSuccess, StartTransactionFail, CancelTransaction, CancelTransactionSuccess, CancelTransactionFail, GetScreen, GetScreenSuccess, GetScreenFail, GetScreeningEventOffers, GetScreeningEventOffersSuccess, GetScreeningEventOffersFail, SelectSeats, CancelSeats, SelectTickets, GetTicketList, GetTicketListSuccess, GetTicketListFail, TemporaryReservation, TemporaryReservationSuccess, TemporaryReservationFail, TemporaryReservationFreeSeat, TemporaryReservationFreeSeatSuccess, TemporaryReservationFreeSeatFail, CancelTemporaryReservations, CancelTemporaryReservationsSuccess, CancelTemporaryReservationsFail, RegisterCreditCard, RemoveCreditCard, RegisterContact, RegisterContactSuccess, RegisterContactFail, AuthorizeCreditCard, AuthorizeCreditCardSuccess, AuthorizeCreditCardFail, AuthorizeMovieTicket, AuthorizeMovieTicketSuccess, AuthorizeMovieTicketFail, CheckMovieTicket, CheckMovieTicketSuccess, CheckMovieTicketFail, EndTransaction, EndTransactionSuccess, EndTransactionFail, CreateGmoTokenObject, CreateGmoTokenObjectSuccess, CreateGmoTokenObjectFail, ConvertExternalToPurchase, ConvertExternalToPurchaseSuccess, ConvertExternalToPurchaseFail */
+/*! exports provided: ActionTypes, Delete, UnsettledDelete, SelectScheduleDate, SelectSeller, GetPreScheduleDates, GetPreScheduleDatesSuccess, GetPreScheduleDatesFail, GetScreeningEvent, GetScreeningEventSuccess, GetScreeningEventFail, StartTransaction, StartTransactionSuccess, StartTransactionFail, CancelTransaction, CancelTransactionSuccess, CancelTransactionFail, GetScreen, GetScreenSuccess, GetScreenFail, GetScreeningEventOffers, GetScreeningEventOffersSuccess, GetScreeningEventOffersFail, SelectSeats, CancelSeats, SelectTickets, GetTicketList, GetTicketListSuccess, GetTicketListFail, TemporaryReservation, TemporaryReservationSuccess, TemporaryReservationFail, CancelTemporaryReservations, CancelTemporaryReservationsSuccess, CancelTemporaryReservationsFail, RegisterCreditCard, RemoveCreditCard, RegisterContact, RegisterContactSuccess, RegisterContactFail, AuthorizeCreditCard, AuthorizeCreditCardSuccess, AuthorizeCreditCardFail, AuthorizeMovieTicket, AuthorizeMovieTicketSuccess, AuthorizeMovieTicketFail, CheckMovieTicket, CheckMovieTicketSuccess, CheckMovieTicketFail, EndTransaction, EndTransactionSuccess, EndTransactionFail, CreateGmoTokenObject, CreateGmoTokenObjectSuccess, CreateGmoTokenObjectFail, ConvertExternalToPurchase, ConvertExternalToPurchaseSuccess, ConvertExternalToPurchaseFail */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -73032,9 +73003,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemporaryReservation", function() { return TemporaryReservation; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemporaryReservationSuccess", function() { return TemporaryReservationSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemporaryReservationFail", function() { return TemporaryReservationFail; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemporaryReservationFreeSeat", function() { return TemporaryReservationFreeSeat; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemporaryReservationFreeSeatSuccess", function() { return TemporaryReservationFreeSeatSuccess; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TemporaryReservationFreeSeatFail", function() { return TemporaryReservationFreeSeatFail; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CancelTemporaryReservations", function() { return CancelTemporaryReservations; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CancelTemporaryReservationsSuccess", function() { return CancelTemporaryReservationsSuccess; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CancelTemporaryReservationsFail", function() { return CancelTemporaryReservationsFail; });
@@ -73100,9 +73068,6 @@ var ActionTypes;
     ActionTypes["TemporaryReservation"] = "[Purchase] Temporary Reservation";
     ActionTypes["TemporaryReservationSuccess"] = "[Purchase] Temporary Reservation Success";
     ActionTypes["TemporaryReservationFail"] = "[Purchase] Temporary Reservation Fail";
-    ActionTypes["TemporaryReservationFreeSeat"] = "[Purchase] Temporary Reservation Free Seat";
-    ActionTypes["TemporaryReservationFreeSeatSuccess"] = "[Purchase] Temporary Reservation Free Seat Success";
-    ActionTypes["TemporaryReservationFreeSeatFail"] = "[Purchase] Temporary Reservation Free Seat Fail";
     ActionTypes["CancelTemporaryReservations"] = "[Purchase] Cancel Temporary Reservation";
     ActionTypes["CancelTemporaryReservationsSuccess"] = "[Purchase] Cancel Temporary Reservation Success";
     ActionTypes["CancelTemporaryReservationsFail"] = "[Purchase] Cancel Temporary Reservation Fail";
@@ -73469,39 +73434,6 @@ var TemporaryReservationFail = /** @class */ (function () {
         this.type = ActionTypes.TemporaryReservationFail;
     }
     return TemporaryReservationFail;
-}());
-
-/**
- * TemporaryReservationFreeSeat
- */
-var TemporaryReservationFreeSeat = /** @class */ (function () {
-    function TemporaryReservationFreeSeat(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.TemporaryReservationFreeSeat;
-    }
-    return TemporaryReservationFreeSeat;
-}());
-
-/**
- * TemporaryReservationFreeSeatSuccess
- */
-var TemporaryReservationFreeSeatSuccess = /** @class */ (function () {
-    function TemporaryReservationFreeSeatSuccess(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.TemporaryReservationFreeSeatSuccess;
-    }
-    return TemporaryReservationFreeSeatSuccess;
-}());
-
-/**
- * TemporaryReservationFreeSeatFail
- */
-var TemporaryReservationFreeSeatFail = /** @class */ (function () {
-    function TemporaryReservationFreeSeatFail(payload) {
-        this.payload = payload;
-        this.type = ActionTypes.TemporaryReservationFreeSeatFail;
-    }
-    return TemporaryReservationFreeSeatFail;
 }());
 
 /**
@@ -75651,7 +75583,7 @@ var PurchaseEffects = /** @class */ (function () {
          * temporaryReservation
          */
         this.temporaryReservation = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.TemporaryReservation), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, screeningEvent, reservations, screeningEventOffers, serverTime, nowDate, availableSeats_1, authorizeSeatReservation, error_7;
+            var transaction, screeningEvent, reservations, screeningEventOffers, additionalTicketText, serverTime, nowDate, availableSeats_1, authorizeSeatReservation, error_7;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -75659,6 +75591,7 @@ var PurchaseEffects = /** @class */ (function () {
                         screeningEvent = payload.screeningEvent;
                         reservations = payload.reservations;
                         screeningEventOffers = payload.screeningEventOffers;
+                        additionalTicketText = payload.additionalTicketText;
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 7, , 8]);
@@ -75688,9 +75621,7 @@ var PurchaseEffects = /** @class */ (function () {
                         }
                         return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
                                 object: {
-                                    event: {
-                                        id: screeningEvent.id
-                                    },
+                                    event: { id: screeningEvent.id },
                                     acceptedOffer: reservations.map(function (reservation, index) {
                                         if (reservation.ticket === undefined) {
                                             throw new Error('ticket is undefined').message;
@@ -75705,7 +75636,7 @@ var PurchaseEffects = /** @class */ (function () {
                                                 serviceOutput: {
                                                     typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.reservationType.EventReservation,
                                                     additionalProperty: [],
-                                                    additionalTicketText: undefined,
+                                                    additionalTicketText: additionalTicketText,
                                                     reservedTicket: {
                                                         typeOf: 'Ticket',
                                                         ticketedSeat: (new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat())
@@ -75739,93 +75670,10 @@ var PurchaseEffects = /** @class */ (function () {
             });
         }); }));
         /**
-         * temporaryReservationFreeSeat
-         */
-        this.temporaryReservationFreeSeat = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeat), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, screeningEvent, screeningEventOffers, reservations, serverTime, nowDate, availableSeats_2, authorizeSeatReservation, error_8;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        transaction = payload.transaction;
-                        screeningEvent = payload.screeningEvent;
-                        screeningEventOffers = payload.screeningEventOffers;
-                        reservations = payload.reservations;
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 5, , 6]);
-                        return [4 /*yield*/, this.cinerinoService.getServices()];
-                    case 2:
-                        _a.sent();
-                        return [4 /*yield*/, this.utilService.getServerTime()];
-                    case 3:
-                        serverTime = _a.sent();
-                        nowDate = moment__WEBPACK_IMPORTED_MODULE_5__(serverTime.date).toDate();
-                        if (screeningEvent.offers === undefined) {
-                            throw new Error('screeningEvent.offers undefined');
-                        }
-                        if (screeningEvent.offers.validFrom > nowDate
-                            || screeningEvent.offers.validThrough < nowDate) {
-                            throw new Error('Outside sales period');
-                        }
-                        availableSeats_2 = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["selectAvailableSeat"])({ reservations: reservations, screeningEventOffers: screeningEventOffers });
-                        if (new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat()
-                            && availableSeats_2.length !== reservations.length) {
-                            throw new Error('Out of stock').message;
-                        }
-                        return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
-                                object: {
-                                    event: { id: screeningEvent.id },
-                                    acceptedOffer: reservations.map(function (reservation, index) {
-                                        if (reservation.ticket === undefined) {
-                                            throw new Error('ticket is undefined').message;
-                                        }
-                                        return {
-                                            id: reservation.ticket.ticketOffer.id,
-                                            addOn: (reservation.ticket.addOn === undefined)
-                                                ? undefined
-                                                : reservation.ticket.addOn.map(function (a) { return ({ id: a.id }); }),
-                                            additionalProperty: [],
-                                            itemOffered: {
-                                                serviceOutput: {
-                                                    typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.reservationType.EventReservation,
-                                                    additionalProperty: [],
-                                                    additionalTicketText: undefined,
-                                                    reservedTicket: {
-                                                        typeOf: 'Ticket',
-                                                        ticketedSeat: (new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat())
-                                                            ? availableSeats_2[index] : undefined,
-                                                    },
-                                                    subReservation: (new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat())
-                                                        ? availableSeats_2[index].subReservations.map(function (s) {
-                                                            return {
-                                                                reservedTicket: { typeOf: 'Ticket', ticketedSeat: s }
-                                                            };
-                                                        })
-                                                        : undefined
-                                                }
-                                            }
-                                        };
-                                    })
-                                },
-                                purpose: transaction
-                            })];
-                    case 4:
-                        authorizeSeatReservation = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].TemporaryReservationFreeSeatSuccess({
-                                addAuthorizeSeatReservation: authorizeSeatReservation
-                            })];
-                    case 5:
-                        error_8 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].TemporaryReservationFreeSeatFail({ error: error_8 })];
-                    case 6: return [2 /*return*/];
-                }
-            });
-        }); }));
-        /**
          * cancelTemporaryReservation
          */
         this.cancelTemporaryReservation = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.CancelTemporaryReservations), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var authorizeSeatReservations, _i, authorizeSeatReservations_1, authorizeSeatReservation, error_9;
+            var authorizeSeatReservations, _i, authorizeSeatReservations_1, authorizeSeatReservation, error_8;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -75848,8 +75696,8 @@ var PurchaseEffects = /** @class */ (function () {
                         return [3 /*break*/, 2];
                     case 5: return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CancelTemporaryReservationsSuccess({ authorizeSeatReservations: authorizeSeatReservations })];
                     case 6:
-                        error_9 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CancelTemporaryReservationsFail({ error: error_9 })];
+                        error_8 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CancelTemporaryReservationsFail({ error: error_8 })];
                     case 7: return [2 /*return*/];
                 }
             });
@@ -75858,7 +75706,7 @@ var PurchaseEffects = /** @class */ (function () {
          * getTicketList
          */
         this.getTicketList = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.GetTicketList), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var screeningEventTicketOffers, error_10;
+            var screeningEventTicketOffers, error_9;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -75878,8 +75726,8 @@ var PurchaseEffects = /** @class */ (function () {
                         screeningEventTicketOffers = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].GetTicketListSuccess({ screeningEventTicketOffers: screeningEventTicketOffers })];
                     case 3:
-                        error_10 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].GetTicketListFail({ error: error_10 })];
+                        error_9 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].GetTicketListFail({ error: error_9 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -75888,7 +75736,7 @@ var PurchaseEffects = /** @class */ (function () {
          * registerContact
          */
         this.registerContact = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.RegisterContact), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, profile, error_11;
+            var transaction, profile, error_10;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -75909,8 +75757,8 @@ var PurchaseEffects = /** @class */ (function () {
                         _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].RegisterContactSuccess({ profile: profile })];
                     case 3:
-                        error_11 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].RegisterContactFail({ error: error_11 })];
+                        error_10 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].RegisterContactFail({ error: error_10 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -75919,7 +75767,7 @@ var PurchaseEffects = /** @class */ (function () {
          * authorizeCreditCard
          */
         this.authorizeCreditCard = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.AuthorizeCreditCard), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var creditCard, amount, transaction, authorizeCreditCardPaymentResult, error_12;
+            var creditCard, amount, transaction, authorizeCreditCardPaymentResult, error_11;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -75949,8 +75797,8 @@ var PurchaseEffects = /** @class */ (function () {
                         authorizeCreditCardPaymentResult = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeCreditCardSuccess({ authorizeCreditCardPayment: authorizeCreditCardPaymentResult })];
                     case 5:
-                        error_12 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeCreditCardFail({ error: error_12 })];
+                        error_11 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeCreditCardFail({ error: error_11 })];
                     case 6: return [2 /*return*/];
                 }
             });
@@ -75959,7 +75807,7 @@ var PurchaseEffects = /** @class */ (function () {
          * createGmoTokenObject
          */
         this.createGmoTokenObject = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.CreateGmoTokenObject), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var creditCard, seller, gmoTokenObject, error_13;
+            var creditCard, seller, gmoTokenObject, error_12;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -75973,8 +75821,8 @@ var PurchaseEffects = /** @class */ (function () {
                         gmoTokenObject = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CreateGmoTokenObjectSuccess({ gmoTokenObject: gmoTokenObject })];
                     case 3:
-                        error_13 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CreateGmoTokenObjectFail({ error: error_13 })];
+                        error_12 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CreateGmoTokenObjectFail({ error: error_12 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -75983,7 +75831,7 @@ var PurchaseEffects = /** @class */ (function () {
          * authorizeMovieTicket
          */
         this.authorizeMovieTicket = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.AuthorizeMovieTicket), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var _i, _a, authorizeMovieTicketPayment, transaction, pendingMovieTickets, authorizeSeatReservations, authorizeMovieTicketPayments, seller, _loop_1, this_1, _b, authorizeSeatReservations_2, authorizeSeatReservation, error_14;
+            var _i, _a, authorizeMovieTicketPayment, transaction, pendingMovieTickets, authorizeSeatReservations, authorizeMovieTicketPayments, seller, _loop_1, this_1, _b, authorizeSeatReservations_2, authorizeSeatReservation, error_13;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
@@ -76070,8 +75918,8 @@ var PurchaseEffects = /** @class */ (function () {
                         return [3 /*break*/, 6];
                     case 9: return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeMovieTicketSuccess({ authorizeMovieTicketPayments: authorizeMovieTicketPayments })];
                     case 10:
-                        error_14 = _c.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeMovieTicketFail({ error: error_14 })];
+                        error_13 = _c.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].AuthorizeMovieTicketFail({ error: error_13 })];
                     case 11: return [2 /*return*/];
                 }
             });
@@ -76080,7 +75928,7 @@ var PurchaseEffects = /** @class */ (function () {
          * checkMovieTicket
          */
         this.checkMovieTicket = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.CheckMovieTicket), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var screeningEvent_1, movieTickets, checkMovieTicketAction, error_15;
+            var screeningEvent_1, movieTickets, checkMovieTicketAction, error_14;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -76118,8 +75966,8 @@ var PurchaseEffects = /** @class */ (function () {
                         checkMovieTicketAction = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CheckMovieTicketSuccess({ checkMovieTicketAction: checkMovieTicketAction })];
                     case 3:
-                        error_15 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CheckMovieTicketFail({ error: error_15 })];
+                        error_14 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].CheckMovieTicketFail({ error: error_14 })];
                     case 4: return [2 /*return*/];
                 }
             });
@@ -76128,7 +75976,7 @@ var PurchaseEffects = /** @class */ (function () {
          * EndTransaction
          */
         this.endTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.EndTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, authorizeSeatReservations, seller, linyId, params, view, result, order, sendData, view, template, error_16, error_17;
+            var transaction, authorizeSeatReservations, seller, linyId, params, view, result, order, sendData, view, template, error_15, error_16;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -76216,18 +76064,18 @@ var PurchaseEffects = /** @class */ (function () {
                         _a.sent();
                         return [3 /*break*/, 10];
                     case 9:
-                        error_16 = _a.sent();
-                        console.error(error_16);
+                        error_15 = _a.sent();
+                        console.error(error_15);
                         return [3 /*break*/, 10];
                     case 10: return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].EndTransactionSuccess({ order: order })];
                     case 11:
-                        error_17 = _a.sent();
+                        error_16 = _a.sent();
                         return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.cancel({
                                 id: transaction.id
                             })];
                     case 12:
                         _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].EndTransactionFail({ error: error_17 })];
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].EndTransactionFail({ error: error_16 })];
                     case 13: return [2 /*return*/];
                 }
             });
@@ -76236,7 +76084,7 @@ var PurchaseEffects = /** @class */ (function () {
          * ConvertExternalToPurchase
          */
         this.convertExternalToPurchase = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ActionTypes.ConvertExternalToPurchase), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var eventId, screeningEvent, branchCode, searchResult, seller, error_18;
+            var eventId, screeningEvent, branchCode, searchResult, seller, error_17;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -76257,8 +76105,8 @@ var PurchaseEffects = /** @class */ (function () {
                         seller = searchResult.data[0];
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ConvertExternalToPurchaseSuccess({ screeningEvent: screeningEvent, seller: seller })];
                     case 5:
-                        error_18 = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ConvertExternalToPurchaseFail({ error: error_18 })];
+                        error_17 = _a.sent();
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_11__["purchaseAction"].ConvertExternalToPurchaseFail({ error: error_17 })];
                     case 6: return [2 /*return*/];
                 }
             });
@@ -76300,10 +76148,6 @@ var PurchaseEffects = /** @class */ (function () {
         Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["Effect"])(),
         __metadata("design:type", Object)
     ], PurchaseEffects.prototype, "temporaryReservation", void 0);
-    __decorate([
-        Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["Effect"])(),
-        __metadata("design:type", Object)
-    ], PurchaseEffects.prototype, "temporaryReservationFreeSeat", void 0);
     __decorate([
         Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_3__["Effect"])(),
         __metadata("design:type", Object)
@@ -77428,20 +77272,6 @@ function reducer(state, action) {
             return __assign({}, state, { loading: false, process: '', error: null });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.TemporaryReservationFail: {
-            var error = action.payload.error;
-            return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
-        }
-        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeat: {
-            return __assign({}, state, { loading: true, process: 'purchaseAction.TemporaryReservationFreeSeat' });
-        }
-        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatSuccess: {
-            var addAuthorizeSeatReservation = action.payload.addAuthorizeSeatReservation;
-            state.purchaseData.authorizeSeatReservation = addAuthorizeSeatReservation;
-            state.purchaseData.authorizeSeatReservation = undefined;
-            state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
-            return __assign({}, state, { loading: false, process: '', error: null });
-        }
-        case _actions__WEBPACK_IMPORTED_MODULE_2__["purchaseAction"].ActionTypes.TemporaryReservationFreeSeatFail: {
             var error = action.payload.error;
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }

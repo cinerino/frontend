@@ -19,7 +19,10 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     @Input() public screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
     @Input() public screeningEvent: factory.event.screeningEvent.IEvent;
-    @Input() public cb: (reservations: IReservation[]) => void;
+    @Input() public cb: (params: {
+        reservations: IReservation[];
+        additionalTicketText?: string;
+    }) => void;
     public tickets: factory.chevre.event.screeningEvent.ITicketOffer[];
     public selectedTickets: {
         id: string;
@@ -29,6 +32,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     public moment: typeof moment = moment;
     public getRemainingSeatLength = getRemainingSeatLength;
     public performance: Performance;
+    public additionalTicketText: string;
     public environment = getEnvironment();
 
     constructor(
@@ -61,6 +65,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
             });
         });
         this.selectedTickets = selectedTickets;
+        this.additionalTicketText = '';
     }
 
     /**
@@ -106,7 +111,8 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     public close() {
         this.modal.hide();
         const reservations = this.createReservations();
-        this.cb(reservations);
+        const additionalTicketText = this.additionalTicketText;
+        this.cb({ reservations, additionalTicketText });
     }
 
     /**
