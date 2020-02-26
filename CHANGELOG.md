@@ -12,6 +12,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.10 - 2020-02-26
+### Added
+ - 販売可能券種なし時文言追加
+ - 予約に対する追加チケットテキスト実装
+ - その他の決済方法管理追加
+ - 券種の適用サブ予約条件対応
+### Changed
+ - 仮予約メソッドを統一
+ - 券種ソートを削除
+
 ## 3.0.9 - 2020-02-21
 ### Added
  - 券種の適用座席タイプ条件対応
