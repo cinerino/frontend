@@ -342,6 +342,7 @@ export class TemporaryReservation implements Action {
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
         authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
         reservations: IReservation[];
+        screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
     }) { }
 }
 

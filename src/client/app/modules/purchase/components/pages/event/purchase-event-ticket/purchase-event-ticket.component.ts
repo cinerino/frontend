@@ -164,7 +164,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                         this.selectTicket(reservations, screeningEvent);
                     }
                 },
-                class: 'modal-dialog-centered'
+                class: 'modal-dialog-centered modal-lg'
             });
         }).unsubscribe();
     }
