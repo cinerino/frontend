@@ -48,6 +48,11 @@
         </ul>
     </div>
 
+    <div class="mb-4 additional-ticket-text d-none">
+        <p>{{ 'common.additionalTicketText' | translate }}</p>
+        <textarea [(ngModel)]="additionalTicketText" class="py-1 px-2"></textarea>
+    </div>
+
     <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
 
     <div class="buttons mx-auto text-center">

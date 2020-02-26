@@ -221,89 +221,12 @@ export class PurchaseEffects {
             const screeningEvent = payload.screeningEvent;
             const reservations = payload.reservations;
             const screeningEventOffers = payload.screeningEventOffers;
+            const additionalTicketText = payload.additionalTicketText;
             try {
                 await this.cinerinoService.getServices();
                 if (payload.authorizeSeatReservation !== undefined) {
                     await this.cinerinoService.transaction.placeOrder.voidSeatReservation(payload.authorizeSeatReservation);
                 }
-                // サーバータイムを使用して販売期間判定
-                const serverTime = await this.utilService.getServerTime();
-                const nowDate = moment(serverTime.date).toDate();
-                if (screeningEvent.offers === undefined) {
-                    throw new Error('screeningEvent.offers undefined');
-                }
-                if (screeningEvent.offers.validFrom > nowDate
-                    || screeningEvent.offers.validThrough < nowDate) {
-                    throw new Error('Outside sales period');
-                }
-                const availableSeats = selectAvailableSeat({ reservations, screeningEventOffers });
-                if (new Performance(screeningEvent).isTicketedSeat()
-                    && availableSeats.length !== reservations.length) {
-                    throw new Error('Out of stock').message;
-                }
-                const authorizeSeatReservation = await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation({
-                    object: {
-                        event: {
-                            id: screeningEvent.id
-                        },
-                        acceptedOffer: reservations.map((reservation, index) => {
-                            if (reservation.ticket === undefined) {
-                                throw new Error('ticket is undefined').message;
-                            }
-                            return {
-                                id: reservation.ticket.ticketOffer.id,
-                                addOn: (reservation.ticket.addOn === undefined)
-                                    ? undefined
-                                    : reservation.ticket.addOn.map(a => ({ id: a.id })),
-                                additionalProperty: [], // ここにムビチケ情報を入れる
-                                itemOffered: {
-                                    serviceOutput: {
-                                        typeOf: factory.chevre.reservationType.EventReservation,
-                                        additionalProperty: [],
-                                        additionalTicketText: undefined,
-                                        reservedTicket: {
-                                            typeOf: 'Ticket',
-                                            ticketedSeat: (new Performance(screeningEvent).isTicketedSeat())
-                                                ? availableSeats[index] : undefined,
-                                        },
-                                        subReservation: (new Performance(screeningEvent).isTicketedSeat())
-                                            ? availableSeats[index].subReservations.map(s => {
-                                                return {
-                                                    reservedTicket: { typeOf: 'Ticket', ticketedSeat: s }
-                                                };
-                                            })
-                                            : undefined
-                                    }
-                                }
-                            };
-                        })
-                    },
-                    purpose: transaction
-                });
-                return new purchaseAction.TemporaryReservationSuccess({
-                    addAuthorizeSeatReservation: authorizeSeatReservation,
-                    removeAuthorizeSeatReservation: payload.authorizeSeatReservation
-                });
-            } catch (error) {
-                return new purchaseAction.TemporaryReservationFail({ error: error });
-            }
-        })
-    );
-
-    /**
-     * temporaryReservationFreeSeat
-     */
-    @Effect()
-    public temporaryReservationFreeSeat = this.actions.pipe(
-        ofType<purchaseAction.TemporaryReservationFreeSeat>(purchaseAction.ActionTypes.TemporaryReservationFreeSeat),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            const transaction = payload.transaction;
-            const screeningEvent = payload.screeningEvent;
-            const screeningEventOffers = payload.screeningEventOffers;
-            const reservations = payload.reservations;
-            try {
-                await this.cinerinoService.getServices();
                 // サーバータイムを使用して販売期間判定
                 const serverTime = await this.utilService.getServerTime();
                 const nowDate = moment(serverTime.date).toDate();
@@ -338,7 +261,7 @@ export class PurchaseEffects {
                                         serviceOutput: {
                                             typeOf: factory.chevre.reservationType.EventReservation,
                                             additionalProperty: [],
-                                            additionalTicketText: undefined,
+                                            additionalTicketText: additionalTicketText,
                                             reservedTicket: {
                                                 typeOf: 'Ticket',
                                                 ticketedSeat: (new Performance(screeningEvent).isTicketedSeat())
@@ -358,11 +281,12 @@ export class PurchaseEffects {
                         },
                         purpose: transaction
                     });
-                return new purchaseAction.TemporaryReservationFreeSeatSuccess({
-                    addAuthorizeSeatReservation: authorizeSeatReservation
+                return new purchaseAction.TemporaryReservationSuccess({
+                    addAuthorizeSeatReservation: authorizeSeatReservation,
+                    removeAuthorizeSeatReservation: payload.authorizeSeatReservation
                 });
             } catch (error) {
-                return new purchaseAction.TemporaryReservationFreeSeatFail({ error: error });
+                return new purchaseAction.TemporaryReservationFail({ error: error });
             }
         })
     );

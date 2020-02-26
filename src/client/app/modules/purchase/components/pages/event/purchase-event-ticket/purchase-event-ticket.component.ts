@@ -160,8 +160,11 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                     screeningEventTicketOffers,
                     screeningEventOffers,
                     screeningEvent,
-                    cb: (reservations: IReservation[]) => {
-                        this.selectTicket(reservations, screeningEvent);
+                    cb: (params: {
+                        reservations: IReservation[];
+                        additionalTicketText?: string;
+                    }) => {
+                        this.selectTicket(params);
                     }
                 },
                 class: 'modal-dialog-centered modal-lg'
@@ -172,27 +175,30 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     /**
      * 券種選択
      */
-    private async selectTicket(
-        reservations: IReservation[],
-        screeningEvent?: factory.chevre.event.screeningEvent.IEvent
-    ) {
-        const limit = (screeningEvent === undefined
-            || screeningEvent.offers === undefined
-            || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
-            ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
-        if (reservations.length > limit) {
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant(
-                    'purchase.event.ticket.alert.limit',
-                    { value: limit }
-                )
-            });
-            return;
-        }
+    private async selectTicket(params: {
+        reservations: IReservation[];
+        additionalTicketText?: string;
+    }) {
+        const reservations = params.reservations;
+        const additionalTicketText = params.additionalTicketText;
         try {
-            await this.purchaseService.getScreeningEventOffers();
             const purchase = await this.purchaseService.getData();
+            const limit = (purchase.screeningEvent === undefined
+                || purchase.screeningEvent.offers === undefined
+                || purchase.screeningEvent.offers.eligibleQuantity.maxValue === undefined)
+                ? Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)
+                : purchase.screeningEvent.offers.eligibleQuantity.maxValue;
+            if (reservations.length > limit) {
+                this.utilService.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant(
+                        'purchase.event.ticket.alert.limit',
+                        { value: limit }
+                    )
+                });
+                return;
+            }
+            await this.purchaseService.getScreeningEventOffers();
             if (purchase.screeningEvent !== undefined
                 && new Performance(purchase.screeningEvent).isTicketedSeat()) {
                 const remainingSeatLength = getRemainingSeatLength(purchase.screeningEventOffers, purchase.screeningEvent);
@@ -212,11 +218,12 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             });
         }
         try {
-            await this.purchaseService.temporaryReservationFreeSeat(reservations);
+            await this.purchaseService.temporaryReservation({ reservations, additionalTicketText });
             this.utilService.openAlert({
                 title: this.translate.instant('common.complete'),
                 body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
             });
+            this.purchaseService.unsettledDelete();
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
