@@ -48,7 +48,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.seat.read' | translate\"></p>\n    <div class=\"row\">\n        <div class=\"col-md-9\">\n            <app-screen *ngIf=\"(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0\"\n                class=\"mb-4\" [screenData]=\"(purchase | async).screenData\" (select)=\"selectSeat($event)\">\n            </app-screen>\n        </div>\n        <div class=\"col-md-3\">\n            <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n        </div>\n    </div>\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.seat.next' | translate }}</button>\n        <button *ngIf=\"!external.eventId\" type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/schedule\">{{ 'purchase.cinema.seat.prev' | translate }}</button>\n        <a *ngIf=\"external.eventId\" class=\"btn btn-link\"\n            [href]=\"(purchase | async).seller.url\">{{ 'purchase.cinema.seat.prev' | translate }}</a>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.seat.read' | translate\"></p>\n    <div class=\"row\">\n        <div class=\"col-lg-9\">\n            <app-screen *ngIf=\"(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0\"\n                class=\"mb-4\" [screenData]=\"(purchase | async).screenData\" (select)=\"selectSeat($event)\">\n            </app-screen>\n        </div>\n        <div class=\"col-lg-3\">\n            <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n        </div>\n    </div>\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.seat.next' | translate }}</button>\n        <button *ngIf=\"!external.eventId\" type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/schedule\">{{ 'purchase.cinema.seat.prev' | translate }}</button>\n        <a *ngIf=\"external.eventId\" class=\"btn btn-link\"\n            [href]=\"(purchase | async).seller.url\">{{ 'purchase.cinema.seat.prev' | translate }}</a>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -61,7 +61,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.ticket.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.ticket.read' | translate\"></p>\n\n    <div *ngIf=\"(purchase | async).isUsedMovieTicket\" class=\"mb-4\">\n        <div class=\"bg-white p-3 d-md-flex align-items-center movieticket\">\n            <p class=\"mb-2 mb-md-0\">{{ 'purchase.cinema.ticket.mvtk' | translate }}</p>\n            <div>\n                <button type=\"button\" (click)=\"openMovieTicket()\"\n                    class=\"btn btn-block bg-white border border-gray py-3\">\n                    <img src=\"/assets/images/mvtk.svg\" height=\"24\">\n                </button>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"mb-4\">\n        <ul class=\"d-flex flex-wrap\">\n            <li *ngFor=\"let reservation of (purchase | async).reservations\">\n                <div class=\"bg-white p-3 m-2\">\n                    <p class=\"mb-2 font-weight-bold text-large\">\n                        <span class=\"mr-2\">{{ 'common.seat' | translate }}</span>{{ reservation.seat.seatNumber }}\n                    </p>\n                    <div>\n                        <button *ngIf=\"reservation.ticket === undefined\" type=\"button\" (click)=\"openTicketList(reservation)\"\n                            class=\"btn btn-primary btn-block py-3\">{{ 'purchase.cinema.ticket.unselected' | translate }}</button>\n                        <button *ngIf=\"reservation.ticket !== undefined\" type=\"button\" (click)=\"openTicketList(reservation)\"\n                            class=\"btn btn-block border border-primary text-primary bg-white py-3\">\n                            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of reservation.ticket?.ticketOffer.priceSpecification.priceComponent\">\n                                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                                <p class=\"w-50 text-right\">\n                                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                                </p>\n                            </div>\n                            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let addOn of reservation.ticket?.addOn;\">\n                                <p class=\"w-50 text-left\">{{ addOn.priceSpecification.name | changeLanguage }}</p>\n                                <p class=\"w-50 text-right\">\n                                    <span>{{ addOn.priceSpecification.price | currency : addOn.priceSpecification.priceCurrency }}</span><!--\n                                    --><span class=\"text-small\" *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>\n                                </p>\n                            </div>\n                        </button>\n                    </div>\n                </div>\n            </li>\n        </ul>\n    </div>\n\n    <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/seat\">{{ 'purchase.cinema.ticket.prev' | translate }}</button>\n    </div>\n\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.ticket.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.ticket.read' | translate\"></p>\n\n    <div *ngIf=\"(purchase | async).isUsedMovieTicket\" class=\"mb-4\">\n        <div class=\"bg-white p-3 d-md-flex align-items-center movieticket\">\n            <p class=\"mb-2 mb-md-0\">{{ 'purchase.cinema.ticket.mvtk' | translate }}</p>\n            <div>\n                <button type=\"button\" (click)=\"openMovieTicket()\"\n                    class=\"btn btn-block bg-white border border-gray py-3\">\n                    <img src=\"/assets/images/mvtk.svg\" height=\"24\">\n                </button>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"mb-4\">\n        <ul class=\"d-flex flex-wrap\">\n            <li *ngFor=\"let reservation of (purchase | async).reservations\">\n                <div class=\"bg-white p-3 m-2\">\n                    <p class=\"mb-2 font-weight-bold text-large\">\n                        <span class=\"mr-2\">{{ 'common.seat' | translate }}</span>{{ reservation.seat.seatNumber }}\n                    </p>\n                    <div>\n                        <button *ngIf=\"reservation.ticket === undefined\" type=\"button\" (click)=\"openTicketList(reservation)\"\n                            class=\"btn btn-primary btn-block py-3\">{{ 'purchase.cinema.ticket.unselected' | translate }}</button>\n                        <button *ngIf=\"reservation.ticket !== undefined\" type=\"button\" (click)=\"openTicketList(reservation)\"\n                            class=\"btn btn-block border border-primary text-primary bg-white py-3\">\n                            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let priceComponent of reservation.ticket?.ticketOffer.priceSpecification.priceComponent\">\n                                <p class=\"w-50 text-left\">{{ priceComponent.name | changeLanguage }}</p>\n                                <p class=\"w-50 text-right\">\n                                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n                                    --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n                                </p>\n                            </div>\n                            <div class=\"d-flex justify-content-between align-items-center\" *ngFor=\"let addOn of reservation.ticket?.addOn;\">\n                                <p class=\"w-50 text-left\">{{ addOn.priceSpecification.name | changeLanguage }}</p>\n                                <p class=\"w-50 text-right\">\n                                    <span>{{ addOn.priceSpecification.price | currency : addOn.priceSpecification.priceCurrency }}</span><!--\n                                    --><span class=\"text-small\" *ngIf=\"addOn.priceSpecification?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>\n                                </p>\n                            </div>\n                        </button>\n                    </div>\n                </div>\n            </li>\n        </ul>\n    </div>\n\n    <div class=\"mb-4 additional-ticket-text d-none\">\n        <p>{{ 'common.additionalTicketText' | translate }}</p>\n        <textarea [(ngModel)]=\"additionalTicketText\" class=\"py-1 px-2\"></textarea>\n    </div>\n\n    <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.ticket.next' | translate }}</button>\n        <button type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/seat\">{{ 'purchase.cinema.ticket.prev' | translate }}</button>\n    </div>\n\n\n</div>");
 
 /***/ }),
 
@@ -1191,7 +1191,7 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
      */
     PurchaseCinemaSeatComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, error_2;
+            var purchase, reservations, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -1199,14 +1199,15 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
                         purchase = _a.sent();
-                        if (purchase.reservations.length === 0) {
+                        reservations = purchase.reservations;
+                        if (reservations.length === 0) {
                             this.utilService.openAlert({
                                 title: this.translate.instant('common.error'),
                                 body: this.translate.instant('purchase.cinema.seat.alert.unselected')
                             });
                             return [2 /*return*/];
                         }
-                        return [4 /*yield*/, this.purchaseService.temporaryReservation()];
+                        return [4 /*yield*/, this.purchaseService.temporaryReservation({ reservations: reservations })];
                     case 2:
                         _a.sent();
                         this.router.navigate(['/purchase/cinema/ticket']);
@@ -1360,13 +1361,14 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
         this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getPurchase"]));
         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
         this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
+        this.additionalTicketText = '';
     };
     /**
      * 券種決定
      */
     PurchaseCinemaTicketComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, reservations_1, unselectedReservations, validResult, authorizeSeatReservation, error_1;
+            var purchase, reservations_1, unselectedReservations, validResult, additionalTicketText, authorizeSeatReservation, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -1412,7 +1414,8 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
                             });
                             return [2 /*return*/];
                         }
-                        return [4 /*yield*/, this.purchaseService.temporaryReservation()];
+                        additionalTicketText = this.additionalTicketText;
+                        return [4 /*yield*/, this.purchaseService.temporaryReservation({ reservations: reservations_1, additionalTicketText: additionalTicketText })];
                     case 2:
                         _a.sent();
                         authorizeSeatReservation = purchase.authorizeSeatReservation;
@@ -1461,7 +1464,7 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
     };
     PurchaseCinemaTicketComponent.prototype.openMovieTicket = function () {
         this.modal.show(_shared_components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_9__["MvtkCheckModalComponent"], {
-            class: 'modal-dialog-centered'
+            class: 'modal-dialog-centered modal-lg'
         });
     };
     PurchaseCinemaTicketComponent.ctorParameters = function () { return [
@@ -2154,27 +2157,36 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                     screeningEventTicketOffers: screeningEventTicketOffers,
                     screeningEventOffers: screeningEventOffers,
                     screeningEvent: screeningEvent,
-                    cb: function (reservations) {
-                        _this.selectTicket(reservations, screeningEvent);
+                    cb: function (params) {
+                        _this.selectTicket(params);
                     }
                 },
-                class: 'modal-dialog-centered'
+                class: 'modal-dialog-centered modal-lg'
             });
         }).unsubscribe();
     };
     /**
      * 券種選択
      */
-    PurchaseEventTicketComponent.prototype.selectTicket = function (reservations, screeningEvent) {
+    PurchaseEventTicketComponent.prototype.selectTicket = function (params) {
         return __awaiter(this, void 0, void 0, function () {
-            var limit, purchase, remainingSeatLength, error_4, error_5;
+            var reservations, additionalTicketText, purchase, limit, remainingSeatLength, error_4, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        limit = (screeningEvent === undefined
-                            || screeningEvent.offers === undefined
-                            || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
-                            ? 0 : screeningEvent.offers.eligibleQuantity.maxValue;
+                        reservations = params.reservations;
+                        additionalTicketText = params.additionalTicketText;
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 2:
+                        purchase = _a.sent();
+                        limit = (purchase.screeningEvent === undefined
+                            || purchase.screeningEvent.offers === undefined
+                            || purchase.screeningEvent.offers.eligibleQuantity.maxValue === undefined)
+                            ? Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)
+                            : purchase.screeningEvent.offers.eligibleQuantity.maxValue;
                         if (reservations.length > limit) {
                             this.utilService.openAlert({
                                 title: this.translate.instant('common.error'),
@@ -2182,15 +2194,9 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                             });
                             return [2 /*return*/];
                         }
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 4, , 5]);
                         return [4 /*yield*/, this.purchaseService.getScreeningEventOffers()];
-                    case 2:
-                        _a.sent();
-                        return [4 /*yield*/, this.purchaseService.getData()];
                     case 3:
-                        purchase = _a.sent();
+                        _a.sent();
                         if (purchase.screeningEvent !== undefined
                             && new _models__WEBPACK_IMPORTED_MODULE_8__["Performance"](purchase.screeningEvent).isTicketedSeat()) {
                             remainingSeatLength = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getRemainingSeatLength"])(purchase.screeningEventOffers, purchase.screeningEvent);
@@ -2213,13 +2219,14 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                         return [3 /*break*/, 5];
                     case 5:
                         _a.trys.push([5, 7, , 8]);
-                        return [4 /*yield*/, this.purchaseService.temporaryReservationFreeSeat(reservations)];
+                        return [4 /*yield*/, this.purchaseService.temporaryReservation({ reservations: reservations, additionalTicketText: additionalTicketText })];
                     case 6:
                         _a.sent();
                         this.utilService.openAlert({
                             title: this.translate.instant('common.complete'),
                             body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
                         });
+                        this.purchaseService.unsettledDelete();
                         return [3 /*break*/, 8];
                     case 7:
                         error_5 = _a.sent();
@@ -4197,7 +4204,7 @@ var ScreenComponent = /** @class */ (function () {
      * @returns {boolean}
      */
     ScreenComponent.prototype.isMobile = function () {
-        if (this.screenData.size.w * this.scale > 768) {
+        if (this.screenData.size.w * this.scale > 1024) {
             return false;
         }
         return true;

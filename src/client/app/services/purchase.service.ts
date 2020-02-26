@@ -286,48 +286,12 @@ export class PurchaseService {
     /**
      * 座席仮予約
      */
-    public async temporaryReservation() {
-        const purchase = await this.getData();
-        return new Promise<void>((resolve, reject) => {
-            const transaction = purchase.transaction;
-            const screeningEvent = purchase.screeningEvent;
-            const reservations = purchase.reservations.map((reservation) => {
-                return {
-                    seat: reservation.seat,
-                    ticket: (reservation.ticket === undefined)
-                        ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
-                        : reservation.ticket
-                };
-            });
-            const authorizeSeatReservation = purchase.authorizeSeatReservation;
-            if (transaction === undefined
-                || screeningEvent === undefined) {
-                reject();
-                return;
-            }
-            this.store.dispatch(new purchaseAction.TemporaryReservation({
-                transaction,
-                screeningEvent,
-                reservations,
-                authorizeSeatReservation
-            }));
-            const success = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.TemporaryReservationSuccess),
-                tap(() => { resolve(); })
-            );
-
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.TemporaryReservationFail),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * 座席仮予約（在庫なし）
-     */
-    public async temporaryReservationFreeSeat(reservations: IReservation[]) {
+    public async temporaryReservation(params: {
+        reservations: IReservation[];
+        additionalTicketText?: string;
+    }) {
+        const additionalTicketText = params.additionalTicketText;
+        const reservations = params.reservations;
         const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             const transaction = purchase.transaction;
@@ -337,18 +301,29 @@ export class PurchaseService {
                 reject();
                 return;
             }
-            this.store.dispatch(new purchaseAction.TemporaryReservationFreeSeat({
+            const authorizeSeatReservation = purchase.authorizeSeatReservation;
+            this.store.dispatch(new purchaseAction.TemporaryReservation({
+                reservations: reservations.map((reservation) => {
+                    return {
+                        seat: reservation.seat,
+                        ticket: (reservation.ticket === undefined)
+                            ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
+                            : reservation.ticket
+                    };
+                }),
                 transaction,
                 screeningEvent,
+                authorizeSeatReservation,
                 screeningEventOffers,
-                reservations
+                additionalTicketText
             }));
             const success = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.TemporaryReservationFreeSeatSuccess),
+                ofType(purchaseAction.ActionTypes.TemporaryReservationSuccess),
                 tap(() => { resolve(); })
             );
+
             const fail = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.TemporaryReservationFreeSeatFail),
+                ofType(purchaseAction.ActionTypes.TemporaryReservationFail),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();

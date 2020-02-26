@@ -252,7 +252,6 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             const removeAuthorizeSeatReservation = action.payload.removeAuthorizeSeatReservation;
             const reservations = state.purchaseData.reservations;
             state.purchaseData.authorizeSeatReservation = addAuthorizeSeatReservation;
-            state.purchaseData.screeningEventOffers = [];
             if (removeAuthorizeSeatReservation !== undefined) {
                 // 削除
                 const findAuthorizeSeatReservation = state.purchaseData.authorizeSeatReservations.findIndex(
@@ -304,21 +303,6 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.TemporaryReservationFail: {
-            const error = action.payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case purchaseAction.ActionTypes.TemporaryReservationFreeSeat: {
-            return { ...state, loading: true, process: 'purchaseAction.TemporaryReservationFreeSeat' };
-        }
-        case purchaseAction.ActionTypes.TemporaryReservationFreeSeatSuccess: {
-            const addAuthorizeSeatReservation = action.payload.addAuthorizeSeatReservation;
-            state.purchaseData.authorizeSeatReservation = addAuthorizeSeatReservation;
-            state.purchaseData.screeningEventOffers = [];
-            state.purchaseData.authorizeSeatReservation = undefined;
-            state.purchaseData.authorizeSeatReservations.push(addAuthorizeSeatReservation);
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case purchaseAction.ActionTypes.TemporaryReservationFreeSeatFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
