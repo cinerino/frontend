@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { BsModalRef } from 'ngx-bootstrap';
+import { isEligibleSeatingType } from '../../../../../../../functions';
 import { IMovieTicket, IReservation, IReservationTicket } from '../../../../../../../models';
 
 type IMovieTicketTypeChargeSpecification =
@@ -36,8 +37,18 @@ export class PurchaseCinemaTicketModalComponent implements OnInit {
                 <IMovieTicketTypeChargeSpecification>ticketOffer.priceSpecification.priceComponent
                     .filter((c) => c.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification)
                     .shift();
+            if (movieTicketTypeChargeSpecification === undefined
+                && ticketOffer.eligibleSeatingType !== undefined) {
+                // 券種の適用座席タイプ条件あり（ムビチケ以外）
+                if (this.reservation !== undefined
+                    && this.reservation.seat !== undefined
+                    && isEligibleSeatingType({ seat: this.reservation.seat, eligibleSeatingType: ticketOffer.eligibleSeatingType })) {
+                    this.tickets.push({ ticketOffer });
+                }
+                return;
+            }
             if (movieTicketTypeChargeSpecification === undefined) {
-                // ムビチケ以外
+                // 通常券種（ムビチケ以外）
                 this.tickets.push({ ticketOffer });
                 return;
             }
@@ -111,7 +122,7 @@ export class PurchaseCinemaTicketModalComponent implements OnInit {
     public selsctTicket(ticket: IReservationTicket) {
         if (ticket.ticketOffer.addOn === undefined
             || ticket.ticketOffer.addOn.length === 0) {
-                this.close(ticket);
+            this.close(ticket);
             return;
         }
         this.selectedTicket = ticket;

@@ -19,8 +19,8 @@
         <li class="mb-3" *ngFor="let addOn of selectedTicket.ticketOffer.addOn; let index = index">
             <app-checkbox class="pointer" (change)="changeAddOnList(addOn.id)">
                 <div class="d-flex w-100">
-                <div class="w-50">{{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">&nbsp;×&nbsp;{{ addOn.priceSpecification.referenceQuantity.value }}</span></div>
-                <div class="w-50 text-right">{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}</div>
+                    <div class="w-50">{{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span></div>
+                    <div class="w-50 text-right">{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}</div>
                 </div>
             </app-checkbox>
         </li>

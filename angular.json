@@ -155,7 +155,6 @@
   },
   "cli": {
     "warnings": {
-      "typescriptMismatch": false
     }
   }
 }

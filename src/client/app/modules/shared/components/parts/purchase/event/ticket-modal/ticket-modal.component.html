@@ -40,14 +40,14 @@
                 <div class="w-25 text-right">
                     <select class="form-control" (change)="changeSelect(ticket.id, $event)">
                         <option value="0">0</option>
-                        <option *ngFor="let value of values" [value]="value">{{ value }}</option>
+                        <option *ngFor="let value of remainingAttendeeCapacityValue(ticket)" [value]="value">{{ value }}</option>
                     </select>
                 </div>
             </div>
             <ul *ngIf="ticket.addOn && ticket.addOn.length > 0" class="mt-2 bg-light-gray py-2 px-3">
                 <li class="my-1" *ngFor="let addOn of ticket.addOn; let index = index">
                     <app-checkbox class="pointer" (change)="changeAddOn(ticket.id, addOn.id)">
-                        {{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">&nbsp;×&nbsp;{{ addOn.priceSpecification.referenceQuantity.value }}</span><!--
+                        {{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span><!--
                         -->&nbsp;/&nbsp;<!--
                         -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}
                     </app-checkbox>
