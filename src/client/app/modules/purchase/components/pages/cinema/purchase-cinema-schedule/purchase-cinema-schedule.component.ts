@@ -74,20 +74,22 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.screeningWorkEvents = [];
         try {
             await this.masterService.getSellers();
+            await this.masterService.getTheaters();
             const master = await this.masterService.getData();
             const purchase = await this.purchaseService.getData();
             const external = getExternalData();
-            let seller = (purchase.seller === undefined)
-                ? master.sellers[0] : purchase.seller;
-            const findResult = master.sellers.find((s) => {
-                return (external.theaterBranchCode !== undefined
-                    && s.location !== undefined
-                    && s.location.branchCode === external.theaterBranchCode);
+            const filterResult = master.theaters.filter(t => {
+                const findSellerResult = master.sellers.find(s => s.location !== undefined && s.location.branchCode === t.branchCode);
+                return (findSellerResult !== undefined);
+            });
+            let theater = (purchase.theater === undefined) ? filterResult[0] : purchase.theater;
+            const findResult = filterResult.find((t) => {
+                return (external.theaterBranchCode !== undefined && t.branchCode === external.theaterBranchCode);
             });
             if (findResult !== undefined) {
-                seller = findResult;
+                theater = findResult;
             }
-            this.selectSeller(seller);
+            this.selectTheater(theater);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -134,11 +136,11 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         const time = 600000; // 10 * 60 * 1000
         this.updateTimer = setTimeout(() => {
             this.purchase.subscribe((purchase) => {
-                if (purchase.seller === undefined) {
+                if (purchase.theater === undefined) {
                     this.router.navigate(['/error']);
                     return;
                 }
-                this.selectSeller(purchase.seller);
+                this.selectTheater(purchase.theater);
             }).unsubscribe();
         }, time);
     }
@@ -151,17 +153,23 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * 販売者選択
+     * 劇場選択
      */
-    public async selectSeller(seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>) {
-        this.purchaseService.selectSeller(seller);
-        this.scheduleDates = [];
-        for (let i = 0; i < Number(this.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
-            this.scheduleDates.push(moment().add(i, 'day').format('YYYYMMDD'));
-        }
-        this.isPreSchedule = false;
-        this.directiveRef.update();
+    public async selectTheater(theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom) {
         try {
+            const sellers = (await this.masterService.getData()).sellers;
+            const seller = sellers.find(s => s.location !== undefined && s.location.branchCode === theater.branchCode);
+            if (seller === undefined) {
+                return;
+            }
+            this.purchaseService.selectTheater(theater);
+            this.purchaseService.selectSeller(seller);
+            this.scheduleDates = [];
+            for (let i = 0; i < Number(this.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
+                this.scheduleDates.push(moment().add(i, 'day').format('YYYYMMDD'));
+            }
+            this.isPreSchedule = false;
+            this.directiveRef.update();
             await this.purchaseService.getPreScheduleDates();
             this.isPreSchedule = false;
             this.selectDate();

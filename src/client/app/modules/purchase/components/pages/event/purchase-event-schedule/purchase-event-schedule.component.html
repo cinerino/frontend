@@ -1,14 +1,14 @@
 <div *ngIf="!(external.theaterBranchCode)" class="contents-width mx-auto px-3 pt-5">
-    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.seller.title' | translate }}</h2>
-    <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.seller.read' | translate"></p>
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.theater.title' | translate }}</h2>
+    <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.theater.read' | translate"></p>
 </div>
 
 <ul *ngIf="!(external.theaterBranchCode)"
-    class="contents-width mx-auto sellers d-flex flex-wrap p-2">
-    <li *ngFor="let seller of (master | async)?.sellers" class="px-2 my-2">
-        <button type="button" class="btn btn-block py-3 m-0" (click)="selectSeller(seller)"
-            [class.btn-primary]="(purchase | async).seller?.id === seller.id"
-            [class.btn-outline-primary]="(purchase | async).seller?.id !== seller.id">{{ seller.name | changeLanguage }}</button>
+    class="contents-width mx-auto theaters d-flex flex-wrap p-2">
+    <li *ngFor="let theater of (master | async)?.theaters" class="px-2 my-2">
+        <button type="button" class="btn btn-block py-3 m-0" (click)="selectTheater(theater)"
+            [class.btn-primary]="(purchase | async).theater?.id === theater.id"
+            [class.btn-outline-primary]="(purchase | async).theater?.id !== theater.id">{{ theater.name | changeLanguage }}</button>
     </li>
 </ul>
 

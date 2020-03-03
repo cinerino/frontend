@@ -72,8 +72,9 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 }
             }
             await this.masterService.getSellers();
-            const seller = await this.getDefaultSeller();
-            this.selectSeller(seller);
+            await this.masterService.getTheaters();
+            const theater = await this.getDefaultTheater();
+            this.selectTheater(theater);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -97,45 +98,46 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         const time = 600000; // 10 * 60 * 1000
         this.updateTimer = setTimeout(() => {
             this.purchase.subscribe((purchase) => {
-                if (purchase.seller === undefined) {
+                if (purchase.theater === undefined) {
                     this.router.navigate(['/error']);
                     return;
                 }
-                this.selectSeller(purchase.seller);
+                this.selectTheater(purchase.theater);
             }).unsubscribe();
         }, time);
     }
 
     /**
-     * デフォルトの販売者取得
+     * デフォルトの劇場取得
      */
-    private async getDefaultSeller() {
-        return new Promise<factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>>((resolve) => {
-            this.purchase.subscribe((purchase) => {
-                this.master.subscribe((master) => {
-                    let seller = (purchase.seller === undefined)
-                        ? master.sellers[0] : purchase.seller;
-                    const findResult = master.sellers.find((s) => {
-                        const external = getExternalData();
-                        return (external.theaterBranchCode !== undefined
-                            && s.location !== undefined
-                            && s.location.branchCode === external.theaterBranchCode);
-                    });
-                    if (findResult !== undefined) {
-                        seller = findResult;
-                    }
-                    resolve(seller);
-                }).unsubscribe();
-            }).unsubscribe();
+    private async getDefaultTheater() {
+        const purchase = await this.purchaseService.getData();
+        const master = await this.masterService.getData();
+        const filterResult = master.theaters.filter(t => {
+            const findSellerResult = master.sellers.find(s => s.location !== undefined && s.location.branchCode === t.branchCode);
+            return (findSellerResult !== undefined);
         });
+        let theater = (purchase.theater === undefined) ? filterResult[0] : purchase.theater;
+        const findResult = filterResult.find((t) => {
+            const external = getExternalData();
+            return (external.theaterBranchCode !== undefined && t.branchCode === external.theaterBranchCode);
+        });
+        if (findResult !== undefined) {
+            theater = findResult;
+        }
+        return theater;
     }
 
     /**
-     * 販売者選択
+     * 劇場選択
      */
-    public selectSeller(
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
-    ) {
+    public async selectTheater(theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom) {
+        const sellers = (await this.masterService.getData()).sellers;
+        const seller = sellers.find(s => s.location !== undefined && s.location.branchCode === theater.branchCode);
+        if (seller === undefined) {
+            return;
+        }
+        this.purchaseService.selectTheater(theater);
         this.purchaseService.selectSeller(seller);
         setTimeout(() => { this.selectDate(); }, 0);
     }

@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
@@ -33,7 +32,6 @@ export class PurchaseEffects {
         private actions: Actions,
         private cinerinoService: CinerinoService,
         private linyService: LinyService,
-        private http: HttpClient,
         private utilService: UtilService,
         private translate: TranslateService
     ) { }
@@ -144,23 +142,39 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerinoService.getServices();
-                const screeningEventOffers = await this.cinerinoService.event.searchOffers({
-                    event: { id: payload.screeningEvent.id }
-                });
-                const theaterCode = payload.screeningEvent.superEvent.location.branchCode;
+                const searchResult = (await this.cinerinoService.place.searchScreeningRooms(payload)).data;
+                return new purchaseAction.GetScreenSuccess({ screen: searchResult[0] });
+            } catch (error) {
+                return new purchaseAction.GetScreenFail({ error: error });
+            }
+        })
+    );
+
+    /**
+     * getScreenData
+     */
+    @Effect()
+    public getScreenData = this.actions.pipe(
+        ofType<purchaseAction.GetScreenData>(purchaseAction.ActionTypes.GetScreenData),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                await this.cinerinoService.getServices();
+                const screeningEvent = payload.screeningEvent;
+                const setting = await this.utilService.getJson<IScreen>(`${getProject().storageUrl}/json/theater/setting.json`);
+                const theaterCode = screeningEvent.superEvent.location.branchCode;
                 const screenCode = `000${payload.screeningEvent.location.branchCode}`.slice(-3);
-                const screen =
-                    await this.http.get<IScreen>(`${getProject().storageUrl}/json/theater/${theaterCode}/${screenCode}.json`).toPromise();
+                const screen = await this.utilService.getJson<IScreen>(
+                    `${getProject().storageUrl}/json/theater/${theaterCode}/${screenCode}.json?${moment().format('YYYYMMDDHHmm')}`
+                );
                 const objects = screen.objects.map((o) => {
                     return { ...o, image: o.image.replace('/storage', getProject().storageUrl) };
                 });
                 screen.objects = objects;
-                const setting =
-                    await this.http.get<IScreen>(`${getProject().storageUrl}/json/theater/setting.json`).toPromise();
-                const screenData = Object.assign(setting, screen);
-                return new purchaseAction.GetScreenSuccess({ screeningEventOffers, screenData });
+                const screenData = { ...setting, ...screen };
+                return new purchaseAction.GetScreenDataSuccess({ screenData });
             } catch (error) {
-                return new purchaseAction.GetScreenFail({ error: error });
+                return new purchaseAction.GetScreenDataFail({ error: error });
             }
         })
     );

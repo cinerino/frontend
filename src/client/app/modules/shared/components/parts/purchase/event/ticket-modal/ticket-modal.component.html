@@ -13,7 +13,7 @@
             {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('HH:mm') }}
         </p>
         <p class="text-small mb-1">
-            <span class="theatre-name">
+            <span class="theater-name">
                 {{ screeningEvent.superEvent.location.name | changeLanguage }}
             </span>
             <span class="screen-name">
