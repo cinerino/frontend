@@ -37,6 +37,10 @@ export interface IUserState {
      */
     pos?: factory.seller.IPOS;
     /**
+     * 劇場
+     */
+    theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
+    /**
      * プリンター
      */
     printer?: IPrinter;
@@ -182,6 +186,7 @@ export function reducer(state: IState, action: userAction.Actions): IState {
         case userAction.ActionTypes.UpdateBaseSetting: {
             state.userData.seller = action.payload.seller;
             state.userData.pos = action.payload.pos;
+            state.userData.theater = action.payload.theater;
             state.userData.printer = action.payload.printer;
             return { ...state };
         }

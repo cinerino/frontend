@@ -72290,6 +72290,7 @@ var UserService = /** @class */ (function () {
         this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateBaseSetting({
             seller: params.seller,
             pos: params.pos,
+            theater: params.theater,
             printer: params.printer
         }));
     };
@@ -77876,6 +77877,7 @@ function reducer(state, action) {
         case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.UpdateBaseSetting: {
             state.userData.seller = action.payload.seller;
             state.userData.pos = action.payload.pos;
+            state.userData.theater = action.payload.theater;
             state.userData.printer = action.payload.printer;
             return __assign({}, state);
         }
