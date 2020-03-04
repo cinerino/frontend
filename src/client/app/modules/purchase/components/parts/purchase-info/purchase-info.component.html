@@ -13,7 +13,7 @@
             {{ purchase.screeningEvent?.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ purchase.screeningEvent?.endDate | formatDate: 'HH:mm' }}
         </p>
         <p class="text-small mb-1">
-            <span class="theatre-name">
+            <span class="theater-name">
                 {{ purchase.screeningEvent?.superEvent.location.name | changeLanguage }}
             </span>
             <span class="screen-name">

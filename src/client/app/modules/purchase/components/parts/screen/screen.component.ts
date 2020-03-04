@@ -23,6 +23,7 @@ import * as reducers from '../../../../../store/reducers';
 export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked {
     public static ZOOM_SCALE = 1;
     @Input() public screenData: IScreen;
+    @Input() public openSeatingAllowed = false;
     @Output() public select = new EventEmitter<{ seat: IReservationSeat; status: SeatStatus; }>();
     public screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
     public authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;

@@ -9,6 +9,9 @@ export enum ActionTypes {
     GetSellers = '[Master] Get Sellers',
     GetSellersSuccess = '[Master] Get Sellers Success',
     GetSellersFail = '[Master] Get Sellers Fail',
+    GetTheaters = '[Master] Get Theaters',
+    GetTheatersSuccess = '[Master] Get Theaters Success',
+    GetTheatersFail = '[Master] Get Theaters Fail',
     GetSchedule = '[Master] Get Schedule',
     GetScheduleSuccess = '[Master] Get Schedule Success',
     GetScheduleFail = '[Master] Get Schedule Fail'
@@ -43,6 +46,30 @@ export class GetSellersSuccess implements Action {
  */
 export class GetSellersFail implements Action {
     public readonly type = ActionTypes.GetSellersFail;
+    constructor(public payload: { error: Error }) { }
+}
+
+/**
+ * GetTheaters
+ */
+export class GetTheaters implements Action {
+    public readonly type = ActionTypes.GetTheaters;
+    constructor(public payload?: factory.chevre.place.movieTheater.ISearchConditions) { }
+}
+
+/**
+ * GetTheatersSuccess
+ */
+export class GetTheatersSuccess implements Action {
+    public readonly type = ActionTypes.GetTheatersSuccess;
+    constructor(public payload: { theaters: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom[] }) { }
+}
+
+/**
+ * GetTheatersFail
+ */
+export class GetTheatersFail implements Action {
+    public readonly type = ActionTypes.GetTheatersFail;
     constructor(public payload: { error: Error }) { }
 }
 
@@ -95,6 +122,9 @@ export type Actions =
     | GetSellers
     | GetSellersSuccess
     | GetSellersFail
+    | GetTheaters
+    | GetTheatersSuccess
+    | GetTheatersFail
     | GetSchedule
     | GetScheduleSuccess
     | GetScheduleFail;

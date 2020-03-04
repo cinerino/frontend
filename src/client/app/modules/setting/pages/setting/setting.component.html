@@ -8,16 +8,11 @@
                 <div class="row align-items-center">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.theater' | translate }}</p>
                     <div class="col-md-8">
-                        <select class="form-control" formControlName="sellerBranchCode" (change)="changePosList()">
+                        <select class="form-control" formControlName="theaterBranchCode" (change)="changePosList()">
                             <option value="">{{ 'setting.unselected' | translate }}</option>
-                            <option *ngFor="let seller of (master | async).sellers"
-                                [value]="seller.location.branchCode">{{ seller.name.ja }}</option>
+                            <option *ngFor="let theater of (master | async).theaters"
+                                [value]="theater.branchCode">{{ theater.name | changeLanguage }}</option>
                         </select>
-                        <!-- <div *ngIf="baseForm.controls.sellerBranchCode.invalid && baseForm.controls.sellerBranchCode.touched"
-                            class="mt-2">
-                            <p *ngIf="baseForm.controls.sellerBranchCode.errors.required" class="text-danger">
-                                {{ 'form.validation.unselected' | translate }}</p>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -29,11 +24,6 @@
                             <option value="">{{ 'setting.unselected' | translate }}</option>
                             <option *ngFor="let pos of posList" [value]="pos.id">{{ pos.name }}</option>
                         </select>
-                        <!-- <div *ngIf="baseForm.controls.posId.invalid && baseForm.controls.posId.touched"
-                            class="mt-2">
-                            <p *ngIf="baseForm.controls.posId.errors.required" class="text-danger">
-                                {{ 'form.validation.unselected' | translate }}</p>
-                        </div> -->
                     </div>
                 </div>
             </div>

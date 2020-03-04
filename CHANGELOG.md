@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.11 - 2020-03-04
+### Added
+ - 自由席UIを追加
+
 ## 3.0.10 - 2020-02-26
 ### Added
  - 販売可能券種なし時文言追加

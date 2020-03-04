@@ -40,6 +40,24 @@ export class MasterEffects {
     );
 
     /**
+     * getTheaters
+     */
+    @Effect()
+    public getTheaters = this.actions.pipe(
+        ofType<masterAction.GetTheaters>(masterAction.ActionTypes.GetTheaters),
+        map(action => action.payload),
+        mergeMap(async (payload) => {
+            try {
+                await this.cinerino.getServices();
+                const searchResult = await this.cinerino.place.searchMovieTheaters((payload === undefined) ? {} : payload);
+                return new masterAction.GetTheatersSuccess({ theaters: searchResult.data });
+            } catch (error) {
+                return new masterAction.GetTheatersFail({ error: error });
+            }
+        })
+    );
+
+    /**
      * GetSchedule
      */
     @Effect()

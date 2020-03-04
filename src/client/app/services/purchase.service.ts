@@ -71,23 +71,30 @@ export class PurchaseService {
     }
 
     /**
+     * 劇場選択
+     */
+    public selectTheater(
+        theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom
+    ) {
+        this.store.dispatch(new purchaseAction.SelectTheater({ theater }));
+    }
+
+    /**
      * 先行販売日取得
      */
     public getPreScheduleDates() {
         return new Promise<void>((resolve, reject) => {
             this.purchase.subscribe((purchase) => {
-                if (purchase.seller === undefined) {
+                if (purchase.theater === undefined) {
                     reject();
                     return;
                 }
                 const external = getExternalData();
-                const seller = purchase.seller;
+                const theater = purchase.theater;
                 this.store.dispatch(new purchaseAction.GetPreScheduleDates({
                     superEvent: {
-                        ids: (external.superEventId === undefined)
-                            ? [] : [external.superEventId],
-                        locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                            ? [] : [seller.location.branchCode],
+                        ids: (external.superEventId === undefined) ? [] : [external.superEventId],
+                        locationBranchCodes: (theater.branchCode === undefined) ? [] : [theater.branchCode],
                         workPerformedIdentifiers: (external.workPerformedId === undefined)
                             ? [] : [external.workPerformedId]
                     }
@@ -192,21 +199,46 @@ export class PurchaseService {
     /**
      * スクリーン取得
      */
-    public async getScreen() {
-        const purchase = await this.getData();
+    public getScreen(params: {
+        limit?: number;
+        page?: number;
+        branchCode?: {
+            $eq?: string;
+        };
+        containedInPlace?: {
+            branchCode?: {
+                $eq?: string;
+            };
+        };
+    }) {
         return new Promise<void>((resolve, reject) => {
-            const screeningEvent = purchase.screeningEvent;
-            if (screeningEvent === undefined) {
-                reject();
-                return;
-            }
-            this.store.dispatch(new purchaseAction.GetScreen({ screeningEvent }));
+            this.store.dispatch(new purchaseAction.GetScreen(params));
             const success = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.GetScreenSuccess),
                 tap(() => { resolve(); })
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.ActionTypes.GetScreenFail),
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
+    }
+
+    /**
+     * スクリーン情報取得
+     */
+    public getScreenData(params: {
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+    }) {
+        return new Promise<void>((resolve, reject) => {
+            this.store.dispatch(new purchaseAction.GetScreenData(params));
+            const success = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.GetScreenDataSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.GetScreenDataFail),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();

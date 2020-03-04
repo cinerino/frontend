@@ -49,6 +49,27 @@ export class SettingComponent implements OnInit {
         this.error = this.store.pipe(select(reducers.getError));
         try {
             await this.masterService.getSellers();
+            await this.masterService.getTheaters();
+            const userData = await this.userService.getData();
+            const masterData = await this.masterService.getData();
+            if (userData.seller !== undefined
+                && userData.pos !== undefined
+                && userData.printer !== undefined
+                && userData.theater === undefined) {
+                // 互換性担保
+                const seller = userData.seller;
+                const findResult = masterData.theaters.find(t => {
+                    return (seller.location !== undefined
+                        && t.branchCode === seller.location.branchCode);
+                });
+                const theater = (findResult === undefined) ? masterData.theaters[0] : findResult;
+                this.userService.updateBaseSetting({
+                    seller: userData.seller,
+                    pos: userData.pos,
+                    theater: theater,
+                    printer: userData.printer
+                });
+            }
             await this.createBaseForm();
         } catch (error) {
             console.error(error);
@@ -58,15 +79,14 @@ export class SettingComponent implements OnInit {
 
     private async createBaseForm() {
         this.baseForm = this.formBuilder.group({
-            sellerBranchCode: ['', [Validators.required]],
+            theaterBranchCode: ['', [Validators.required]],
             posId: ['', [Validators.required]],
             printerType: ['', [Validators.required]],
             printerIpAddress: [''],
         });
         const user = await this.userService.getData();
-        if (user.seller !== undefined
-            && user.seller.location !== undefined) {
-            this.baseForm.controls.sellerBranchCode.setValue(user.seller.location.branchCode);
+        if (user.theater !== undefined) {
+            this.baseForm.controls.theaterBranchCode.setValue(user.theater.branchCode);
         }
         if (user.pos !== undefined) {
             this.changePosList();
@@ -83,21 +103,19 @@ export class SettingComponent implements OnInit {
      */
     public changePosList() {
         this.baseForm.controls.posId.setValue('');
-        const sellerBranchCode = this.baseForm.controls.sellerBranchCode.value;
-        if (sellerBranchCode === '') {
+        const theaterBranchCode = this.baseForm.controls.theaterBranchCode.value;
+        if (theaterBranchCode === '') {
             this.posList = [];
             return;
         }
         this.master.subscribe((master) => {
-            const findTheater =
-                master.sellers.find(theater =>
-                    (theater.location !== undefined && theater.location.branchCode === sellerBranchCode)
-                );
-            if (findTheater === undefined) {
+            const findResult =
+                master.sellers.find(s => s.location !== undefined && s.location.branchCode === theaterBranchCode);
+            if (findResult === undefined) {
                 this.posList = [];
                 return;
             }
-            this.posList = (findTheater.hasPOS === undefined) ? [] : findTheater.hasPOS;
+            this.posList = (findResult.hasPOS === undefined) ? [] : findResult.hasPOS;
         }).unsubscribe();
     }
 
@@ -115,30 +133,38 @@ export class SettingComponent implements OnInit {
             });
             return;
         }
-        const master = await this.masterService.getData();
-        const findSeller = master.sellers.find((s) =>
-            (s.location !== undefined && s.location.branchCode === this.baseForm.controls.sellerBranchCode.value));
-        let findPos;
-        if (findSeller !== undefined && findSeller.hasPOS !== undefined) {
-            findPos = findSeller.hasPOS.find((pos: any) => {
-                return pos.id === this.baseForm.controls.posId.value;
+        try {
+            const masterData = await this.masterService.getData();
+            const theaterBranchCode = this.baseForm.controls.theaterBranchCode.value;
+            const posId = this.baseForm.controls.posId.value;
+            const seller = masterData.sellers.find(s => (s.location !== undefined && s.location.branchCode === theaterBranchCode));
+            if (seller === undefined || seller.hasPOS === undefined) {
+                throw new Error('seller not found').message;
+            }
+            const pos = seller.hasPOS.find(p => p.id === posId);
+            if (pos === undefined) {
+                throw new Error('pos not found').message;
+            }
+            const theater = masterData.theaters.find(t => (t.branchCode === theaterBranchCode));
+            if (theater === undefined) {
+                throw new Error('theater not found').message;
+            }
+            this.userService.updateBaseSetting({
+                seller,
+                pos,
+                theater,
+                printer: {
+                    ipAddress: this.baseForm.controls.printerIpAddress.value,
+                    connectionType: this.baseForm.controls.printerType.value
+                }
             });
-            if (findPos === undefined) {
-                return;
-            }
+            this.utilService.openAlert({
+                title: this.translate.instant('common.complete'),
+                body: this.translate.instant('setting.alert.success')
+            });
+        } catch (error) {
+            console.error(error);
         }
-        this.userService.updateBaseSetting({
-            seller: findSeller,
-            pos: findPos,
-            printer: {
-                ipAddress: this.baseForm.controls.printerIpAddress.value,
-                connectionType: this.baseForm.controls.printerType.value
-            }
-        });
-        this.utilService.openAlert({
-            title: this.translate.instant('common.complete'),
-            body: this.translate.instant('setting.alert.success')
-        });
     }
 
     public async print() {

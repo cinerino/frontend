@@ -1,6 +1,16 @@
 :host {
     display: block;
 }
+.open-seating-allowed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    opacity: 0.5;
+    z-index: 11;
+}
 .screen {
     position: relative;
     overflow: hidden;

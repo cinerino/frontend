@@ -458,18 +458,11 @@ export function isEligibleSeatingType(params: {
 }
 
 /**
- * 予約可能席
+ * 空席取得
  */
-export interface IAvailableSeat extends factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation> {
-    subReservations: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[];
-}
-
-/**
- * 予約可能席取得
- */
-export function selectAvailableSeat(params: {
+export function getEmptySeat(params: {
     reservations: IReservation[];
-    screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
+    screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[]
 }) {
     const reservations = params.reservations;
     const screeningEventOffers = params.screeningEventOffers;
@@ -496,6 +489,26 @@ export function selectAvailableSeat(params: {
             });
         });
     });
+    return seats;
+}
+
+/**
+ * 予約可能席
+ */
+export interface IAvailableSeat extends factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation> {
+    subReservations: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[];
+}
+
+/**
+ * 予約可能席取得
+ */
+export function selectAvailableSeat(params: {
+    reservations: IReservation[];
+    screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
+}) {
+    const reservations = params.reservations;
+    const screeningEventOffers = params.screeningEventOffers;
+    const seats = getEmptySeat({ reservations, screeningEventOffers });
     const availableSeats: IAvailableSeat[] = [];
     reservations.forEach(r => {
         const findReservationSeat = seats.find(s => {

@@ -3,9 +3,18 @@
     <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.seat.read' | translate"></p>
     <div class="row">
         <div class="col-lg-9">
-            <app-screen *ngIf="(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0"
-                class="mb-4" [screenData]="(purchase | async).screenData" (select)="selectSeat($event)">
+            <app-screen *ngIf="(purchase | async).screenData && (purchase | async).screeningEventOffers.length > 0 && (purchase | async).screen"
+                class="mb-4" [screenData]="(purchase | async).screenData" [openSeatingAllowed]="(purchase | async).screen.openSeatingAllowed" (select)="selectSeat($event)">
             </app-screen>
+            <div *ngIf="(purchase | async).screen?.openSeatingAllowed" class="mb-4">
+                <div class="d-flex align-items-center">
+                    <p class="mr-2">{{ 'purchase.cinema.seat.openSeating' | translate }}</p>
+                    <select class="form-control d-inline-block w-auto" (change)="selectOpenSeating($event)" [ngModel]="(purchase | async).reservations.length">
+                        <option value="0">0</option>
+                        <option *ngFor="let value of remainingAttendeeCapacityValue((purchase | async).screeningEvent, (purchase | async).screeningEventOffers)" [value]="value">{{ value }}</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="col-lg-3">
             <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
