@@ -313,7 +313,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, createPrintCanvas, createTestPrintCanvas */
+/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, createPrintCanvas, createTestPrintCanvas */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -346,6 +346,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getRemainingSeatLength", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getRemainingSeatLength"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isEligibleSeatingType", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["isEligibleSeatingType"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getEmptySeat", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getEmptySeat"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "selectAvailableSeat", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["selectAvailableSeat"]; });
 
@@ -684,7 +686,7 @@ function createTestPrintCanvas(args) {
 /*!********************************************!*\
   !*** ./app/functions/purchase.function.ts ***!
   \********************************************/
-/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, selectAvailableSeat */
+/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -703,6 +705,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "authorizeSeatReservation2Event", function() { return authorizeSeatReservation2Event; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRemainingSeatLength", function() { return getRemainingSeatLength; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEligibleSeatingType", function() { return isEligibleSeatingType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEmptySeat", function() { return getEmptySeat; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectAvailableSeat", function() { return selectAvailableSeat; });
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
@@ -1085,9 +1088,9 @@ function isEligibleSeatingType(params) {
     return filterResult.length === eligibleSeatingType.length;
 }
 /**
- * 予約可能席取得
+ * 空席取得
  */
-function selectAvailableSeat(params) {
+function getEmptySeat(params) {
     var reservations = params.reservations;
     var screeningEventOffers = params.screeningEventOffers;
     var seats = [];
@@ -1113,6 +1116,15 @@ function selectAvailableSeat(params) {
             });
         });
     });
+    return seats;
+}
+/**
+ * 予約可能席取得
+ */
+function selectAvailableSeat(params) {
+    var reservations = params.reservations;
+    var screeningEventOffers = params.screeningEventOffers;
+    var seats = getEmptySeat({ reservations: reservations, screeningEventOffers: screeningEventOffers });
     var availableSeats = [];
     reservations.forEach(function (r) {
         var findReservationSeat = seats.find(function (s) {

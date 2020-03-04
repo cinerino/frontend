@@ -8,29 +8,101 @@ import { IMovieTicket, IReservation, IReservationTicket, IScreen } from '../../m
 import { purchaseAction } from '../actions';
 
 export interface IPurchaseState {
+    /**
+     * 販売者
+     */
     seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    /**
+     * 劇場
+     */
+    theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
+    /**
+     * イベント
+     */
     screeningEvent?: factory.chevre.event.screeningEvent.IEvent;
+    /**
+     * スケジュール日付
+     */
     scheduleDate?: string;
+    /**
+     * 先行販売スケジュール
+     */
     preScheduleDates: string[];
+    /**
+     * 取引
+     */
     transaction?: factory.transaction.placeOrder.ITransaction;
+    /**
+     * 空席情報
+     */
     screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
+    /**
+     * スクリーン
+     */
+    screen?: factory.chevre.place.screeningRoom.IPlace;
+    /**
+     * スクリーン情報
+     */
     screenData?: IScreen;
+    /**
+     * 予約
+     */
     reservations: IReservation[];
+    /**
+     * 券種
+     */
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
+    /**
+     * 座席予約
+     */
     authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    /**
+     * 座席予約リスト
+     */
     authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
+    /**
+     * プロフィール
+     */
     profile?: factory.person.IProfile;
+    /**
+     * クレジットカード決済
+     */
     authorizeCreditCardPayments: factory.action.authorize.paymentMethod.creditCard.IAction[];
+    /**
+     * ムビチケ決済
+     */
     authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
-    creditCard?: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
-    | factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
-    | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
-    | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
+    /**
+     * クレジットカード
+     */
+    creditCard?:
+    factory.paymentMethod.paymentCard.creditCard.ICheckedCard |
+    factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember |
+    factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw |
+    factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
+    /**
+     * オーダーカウント
+     */
     orderCount: number;
+    /**
+     * 注文
+     */
     order?: factory.order.IOrder;
+    /**
+     * ムビチケ認証情報リスト
+     */
     checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
+    /**
+     * ムビチケ認証情報
+     */
     checkMovieTicketAction?: factory.action.check.paymentMethod.movieTicket.IAction;
+    /**
+     * ムビチケ使用判定
+     */
     isUsedMovieTicket: boolean;
+    /**
+     * 使用中ムビチケ
+     */
     pendingMovieTickets: IMovieTicket[];
 }
 
@@ -83,6 +155,10 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
         }
         case purchaseAction.ActionTypes.SelectSeller: {
             state.purchaseData.seller = action.payload.seller;
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case purchaseAction.ActionTypes.SelectTheater: {
+            state.purchaseData.theater = action.payload.theater;
             return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.SelectScheduleDate: {
@@ -158,18 +234,28 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case purchaseAction.ActionTypes.GetScreen: {
-            state.purchaseData.screeningEventOffers = [];
-            state.purchaseData.screenData = undefined;
+            state.purchaseData.screen = undefined;
             return { ...state, loading: true, process: 'purchaseAction.GetScreen' };
         }
         case purchaseAction.ActionTypes.GetScreenSuccess: {
-            const screeningEventOffers = action.payload.screeningEventOffers;
-            const screenData = action.payload.screenData;
-            state.purchaseData.screeningEventOffers = screeningEventOffers;
-            state.purchaseData.screenData = screenData;
+            const screen = action.payload.screen;
+            state.purchaseData.screen = screen;
             return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.GetScreenFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        }
+        case purchaseAction.ActionTypes.GetScreenData: {
+            state.purchaseData.screenData = undefined;
+            return { ...state, loading: true, process: 'purchaseAction.GetScreenData' };
+        }
+        case purchaseAction.ActionTypes.GetScreenDataSuccess: {
+            const screenData = action.payload.screenData;
+            state.purchaseData.screenData = screenData;
+            return { ...state, loading: false, process: '', error: null };
+        }
+        case purchaseAction.ActionTypes.GetScreenDataFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }

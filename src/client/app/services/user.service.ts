@@ -231,11 +231,13 @@ export class UserService {
     public updateBaseSetting(params: {
         seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
         pos?: factory.seller.IPOS;
+        theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
         printer?: IPrinter;
     }) {
         this.store.dispatch(new userAction.UpdateBaseSetting({
             seller: params.seller,
             pos: params.pos,
+            theater: params.theater,
             printer: params.printer
         }));
     }

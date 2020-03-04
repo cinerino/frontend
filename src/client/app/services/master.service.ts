@@ -58,6 +58,24 @@ export class MasterService {
     }
 
     /**
+     * 劇場一覧取得
+     */
+    public getTheaters(params?: factory.chevre.place.movieTheater.ISearchConditions) {
+        return new Promise<void>((resolve, reject) => {
+            this.store.dispatch(new masterAction.GetTheaters(params));
+            const success = this.actions.pipe(
+                ofType(masterAction.ActionTypes.GetTheatersSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(masterAction.ActionTypes.GetTheatersFail),
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
+    }
+
+    /**
      * スケジュール取得
      */
     public async getSchedule(params: {
