@@ -27,7 +27,7 @@
     </div>
     <hr class="mb-3">
     <ul *ngIf="tickets.length > 0" class="mb-4">
-        <li *ngFor="let ticket of tickets" class="ticket mb-3 pb-3 border-bottom border-gray" [class.text-gray]="remainingAttendeeCapacityValue(ticket).length === 0">
+        <li *ngFor="let ticket of tickets" class="ticket mb-3 pb-3 border-bottom border-gray" [class.text-danger]="remainingAttendeeCapacityValue(ticket).length === 0">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="w-75 text-left">
                     <p *ngFor="let priceComponent of ticket.priceSpecification.priceComponent">
