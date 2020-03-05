@@ -4,16 +4,16 @@ import * as moment from 'moment';
 import { IScreeningEventWork } from '../../../../../../functions';
 
 @Component({
-    selector: 'app-purchase-event-performance-confirm',
-    templateUrl: './purchase-event-performance-confirm.component.html',
-    styleUrls: ['./purchase-event-performance-confirm.component.scss']
+    selector: 'app-purchase-event-performances-confirm',
+    templateUrl: './performances-confirm.component.html',
+    styleUrls: ['./performances-confirm.component.scss']
 })
-export class PurchaseEventPerformanceConfirmComponent implements OnInit {
+export class PurchaseEventPerformancesConfirmComponent implements OnInit {
 
     @Input() public screeningWorkEvent: IScreeningEventWork;
     @Input() public readonly: boolean;
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();
-    public moment: typeof moment = moment;
+    public moment = moment;
 
     constructor() { }
 

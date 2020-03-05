@@ -14,15 +14,11 @@ import { PurchaseConfirmComponent } from './components/pages/purchase-confirm/pu
 import { PurchaseInputComponent } from './components/pages/purchase-input/purchase-input.component';
 import { PurchaseRootComponent } from './components/pages/purchase-root/purchase-root.component';
 import { PurchaseTransactionComponent } from './components/pages/purchase-transaction/purchase-transaction.component';
-import {
-  PurchaseCinemaPerformanceComponent
-} from './components/parts/cinema/purchase-cinema-performance/purchase-cinema-performance.component';
-import {
-  PurchaseEventPerformanceConfirmComponent
-} from './components/parts/event/purchase-event-performance-confirm/purchase-event-performance-confirm.component';
-import {
-  PurchaseEventPerformanceComponent
-} from './components/parts/event/purchase-event-performance/purchase-event-performance.component';
+import { PurchaseCinemaPerformanceComponent } from './components/parts/cinema/performance/performance.component';
+import { PurchaseCinemaPerformancesComponent } from './components/parts/cinema/performances/performances.component';
+import { PurchaseEventPerformanceComponent } from './components/parts/event/performance/performance.component';
+import { PurchaseEventPerformancesConfirmComponent } from './components/parts/event/performances-confirm/performances-confirm.component';
+import { PurchaseEventPerformancesComponent } from './components/parts/event/performances/performances.component';
 import { PurchaseInfoComponent } from './components/parts/purchase-info/purchase-info.component';
 import { PurchaseTermsComponent } from './components/parts/purchase-terms/purchase-terms.component';
 import { PurchaseWarningComponent } from './components/parts/purchase-warning/purchase-warning.component';
@@ -46,9 +42,11 @@ import { PurchaseRoutingModule } from './purchase-routing.module';
     PurchaseCinemaOverlapComponent,
     PurchaseEventTicketComponent,
     PurchaseEventPerformanceComponent,
-    PurchaseEventPerformanceConfirmComponent,
+    PurchaseEventPerformancesComponent,
+    PurchaseEventPerformancesConfirmComponent,
     PurchaseRootComponent,
     PurchaseCinemaPerformanceComponent,
+    PurchaseCinemaPerformancesComponent,
     PurchaseEventScheduleComponent,
     PurchaseTransactionComponent,
     PurchaseTermsComponent,

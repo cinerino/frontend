@@ -5,24 +5,24 @@ import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swi
 import { IScreeningEventWork } from '../../../../../../functions';
 
 @Component({
-    selector: 'app-purchase-event-performance',
-    templateUrl: './purchase-event-performance.component.html',
-    styleUrls: ['./purchase-event-performance.component.scss']
+    selector: 'app-purchase-event-performances',
+    templateUrl: './performances.component.html',
+    styleUrls: ['./performances.component.scss']
 })
-export class PurchaseEventPerformanceComponent implements OnInit {
+export class PurchaseEventPerformancesComponent implements OnInit {
     @ViewChild(SwiperComponent, { static: false }) public componentRef: SwiperComponent;
-    @ViewChild(SwiperDirective, { static: true }) public directiveRef: SwiperDirective;
+    @ViewChild(SwiperDirective, { static: false }) public directiveRef: SwiperDirective;
     @Input() public screeningWorkEvent: IScreeningEventWork;
-    @Input() public readonly: boolean;
+    @Input() public isSlider: boolean;
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();
-    public moment: typeof moment = moment;
+    public moment = moment;
     public swiperConfig: SwiperConfigInterface;
     constructor() { }
 
     public ngOnInit() {
         this.swiperConfig = {
             spaceBetween: 0,
-            slidesPerView: 7.5,
+            slidesPerView: 6.5,
             freeMode: true,
             breakpoints: {
                 320: { slidesPerView: 2.5 },

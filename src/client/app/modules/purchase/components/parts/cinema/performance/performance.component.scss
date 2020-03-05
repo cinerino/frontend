@@ -2,14 +2,11 @@
 @import "node_modules/bootstrap/scss/variables";
 @import "node_modules/bootstrap/scss/mixins";
 
-:host {
-    display: block;
-}
-
 .status {
-    line-height: 24px;
+    line-height: 30px;
     img {
-        width: 24px;
-        height: 24px;
+        width: 30px;
+        height: 30px;
     }
 }
+
