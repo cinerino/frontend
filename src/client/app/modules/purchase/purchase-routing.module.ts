@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PurchaseTransactionGuardService } from '../../canActivates';
 import { BaseComponent } from '../shared/components/pages/base/base.component';
 import { PurchaseCinemaCartComponent } from './components/pages/cinema/purchase-cinema-cart/purchase-cinema-cart.component';
 import { PurchaseCinemaOverlapComponent } from './components/pages/cinema/purchase-cinema-overlap/purchase-cinema-overlap';
@@ -36,8 +37,8 @@ const routes: Routes = [
           { path: 'ticket', component: PurchaseEventTicketComponent }
         ]
       },
-      { path: 'input', component: PurchaseInputComponent },
-      { path: 'confirm', component: PurchaseConfirmComponent },
+      { path: 'input', canActivate: [PurchaseTransactionGuardService], component: PurchaseInputComponent },
+      { path: 'confirm', canActivate: [PurchaseTransactionGuardService], component: PurchaseConfirmComponent },
       { path: 'complete', component: PurchaseCompleteComponent }
     ]
   },
