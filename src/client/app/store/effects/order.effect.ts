@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { getEnvironment } from '../../../environments/environment';
-import { createPrintCanvas, createTestPrintCanvas, formatTelephone, getProject, getItemPrice, retry, sleep } from '../../functions';
+import { createPrintCanvas, createTestPrintCanvas, formatTelephone, getItemPrice, getProject, retry, sleep } from '../../functions';
 import { connectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import { orderAction } from '../actions';
@@ -33,6 +33,7 @@ export class OrderEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             const orders = payload.orders;
+            const agent = payload.agent;
             try {
                 await this.cinerino.getServices();
                 for (const order of orders) {
@@ -43,10 +44,10 @@ export class OrderEffects {
                                 orderNumber: order.orderNumber,
                                 customer: {
                                     telephone: order.customer.telephone,
-                                    // email: order.customer.email
                                 }
                             }
-                        }
+                        },
+                        agent
                     });
                     const creditCards = order.paymentMethods.filter(p => p.typeOf === factory.paymentMethodType.CreditCard);
                     const email: factory.creativeWork.message.email.ICustomization = {

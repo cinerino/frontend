@@ -71278,27 +71278,29 @@ var PurchaseService = /** @class */ (function () {
      */
     PurchaseService.prototype.startTransaction = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, now;
+            var environment, purchase, now, agent;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getData()];
+                    case 0:
+                        environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
+                        return [4 /*yield*/, this.getData()];
                     case 1:
                         purchase = _a.sent();
                         return [4 /*yield*/, this.utilService.getServerTime()];
                     case 2:
                         now = (_a.sent()).date;
+                        agent = {
+                            identifier: environment.PURCHASE_TRANSACTION_IDENTIFIER.concat([
+                                { name: 'userAgent', value: (navigator && navigator.userAgent !== undefined) ? navigator.userAgent : '' },
+                                { name: 'appVersion', value: (navigator && navigator.appVersion !== undefined) ? navigator.appVersion : '' }
+                            ])
+                        };
                         return [2 /*return*/, new Promise(function (resolve, reject) {
                                 if (purchase.seller === undefined) {
                                     reject();
                                     return;
                                 }
-                                var agent = {
-                                    identifier: [
-                                        { name: 'userAgent', value: (navigator && navigator.userAgent !== undefined) ? navigator.userAgent : '' },
-                                        { name: 'appVersion', value: (navigator && navigator.appVersion !== undefined) ? navigator.appVersion : '' }
-                                    ]
-                                };
                                 var external = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getExternalData"])();
                                 var linyId = (external.linyId === undefined) ? undefined : external.linyId;
                                 if (linyId !== undefined) {
@@ -75050,12 +75052,13 @@ var OrderEffects = /** @class */ (function () {
          * Cancel
          */
         this.cancel = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Cancel), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var orders, _loop_1, this_1, _i, orders_1, order, orderStatusWatch, error_1;
+            var orders, agent, _loop_1, this_1, _i, orders_1, order, orderStatusWatch, error_1;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         orders = payload.orders;
+                        agent = payload.agent;
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 8, , 9]);
@@ -75075,7 +75078,8 @@ var OrderEffects = /** @class */ (function () {
                                                         telephone: order.customer.telephone,
                                                     }
                                                 }
-                                            }
+                                            },
+                                            agent: agent
                                         })];
                                     case 1:
                                         startResult = _a.sent();

@@ -37,6 +37,9 @@ export class Cancel implements Action {
     constructor(public payload: {
         orders: factory.order.IOrder[];
         language: string;
+        agent?: {
+            identifier?: factory.person.IIdentifier;
+        };
     }) { }
 }
 

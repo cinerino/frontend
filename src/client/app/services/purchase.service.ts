@@ -136,19 +136,21 @@ export class PurchaseService {
      * 取引開始
      */
     public async startTransaction() {
+        const environment = getEnvironment();
         const purchase = await this.getData();
         const now = (await this.utilService.getServerTime()).date;
+        const agent = {
+            identifier: [
+                ...environment.PURCHASE_TRANSACTION_IDENTIFIER,
+                { name: 'userAgent', value: (navigator && navigator.userAgent !== undefined) ? navigator.userAgent : '' },
+                { name: 'appVersion', value: (navigator && navigator.appVersion !== undefined) ? navigator.appVersion : '' }
+            ]
+        };
         return new Promise<void>((resolve, reject) => {
             if (purchase.seller === undefined) {
                 reject();
                 return;
             }
-            const agent = {
-                identifier: [
-                    { name: 'userAgent', value: (navigator && navigator.userAgent !== undefined) ? navigator.userAgent : '' },
-                    { name: 'appVersion', value: (navigator && navigator.appVersion !== undefined) ? navigator.appVersion : '' }
-                ]
-            };
             const external = getExternalData();
             const linyId = (external.linyId === undefined) ? undefined : external.linyId;
             if (linyId !== undefined) {

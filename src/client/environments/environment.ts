@@ -1,5 +1,14 @@
 import * as moment from 'moment';
 
+interface IProfile {
+    key: string;
+    value: string;
+    required?: boolean;
+    pattern?: RegExp;
+    maxLength?: number;
+    minLength?: number;
+}
+
 /**
  * 環境変数
  */
@@ -53,6 +62,10 @@ interface IEnvironment {
      */
     LANGUAGE: string[];
     /**
+     * プロフィール
+     */
+    PROFILE: IProfile[];
+    /**
      * ポータルサイトURL
      */
     PORTAL_SITE_URL: string;
@@ -96,6 +109,10 @@ interface IEnvironment {
      * 取引時間表示
      */
     PURCHASE_TRANSACTION_TIME_DISPLAY: boolean;
+    /**
+     * 取引追加特性
+     */
+    PURCHASE_TRANSACTION_IDENTIFIER: { name: string, value: string }[];
     /**
      * 先行販売期間指定
      */
@@ -230,6 +247,12 @@ const defaultEnvironment: IEnvironment = {
     STORAGE_TYPE: 'sessionStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
+    PROFILE: [
+        { key: 'email', value: '', required: true, maxLength: 50 },
+        { key: 'givenName', value: '', required: true, pattern: /^[ァ-ヶー]+$/, maxLength: 12 },
+        { key: 'familyName', value: '', required: true, pattern: /^[ァ-ヶー]+$/, maxLength: 12 },
+        { key: 'telephone', value: '', required: true, maxLength: 15, minLength: 9 }
+    ],
     PORTAL_SITE_URL: '',
     DISPLAY_TICKETED_SEAT: false,
     HEADER_MENU: false,
@@ -241,6 +264,7 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_ITEM_MAX_LENGTH: '50',
     PURCHASE_TRANSACTION_TIME: '15',
     PURCHASE_TRANSACTION_TIME_DISPLAY: false,
+    PURCHASE_TRANSACTION_IDENTIFIER: [],
     PURCHASE_PRE_SCHEDULE_DATE: '3',
     PURCHASE_SCHEDULE_DISPLAY_LENGTH: '10',
     PURCHASE_SCHEDULE_OPEN_DATE: '2019-05-01',

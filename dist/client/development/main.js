@@ -1927,6 +1927,12 @@ var defaultEnvironment = {
     STORAGE_TYPE: 'sessionStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
+    PROFILE: [
+        { key: 'email', value: '', required: true, maxLength: 50 },
+        { key: 'givenName', value: '', required: true, pattern: /^[ァ-ヶー]+$/, maxLength: 12 },
+        { key: 'familyName', value: '', required: true, pattern: /^[ァ-ヶー]+$/, maxLength: 12 },
+        { key: 'telephone', value: '', required: true, maxLength: 15, minLength: 9 }
+    ],
     PORTAL_SITE_URL: '',
     DISPLAY_TICKETED_SEAT: false,
     HEADER_MENU: false,
@@ -1938,6 +1944,7 @@ var defaultEnvironment = {
     PURCHASE_ITEM_MAX_LENGTH: '50',
     PURCHASE_TRANSACTION_TIME: '15',
     PURCHASE_TRANSACTION_TIME_DISPLAY: false,
+    PURCHASE_TRANSACTION_IDENTIFIER: [],
     PURCHASE_PRE_SCHEDULE_DATE: '3',
     PURCHASE_SCHEDULE_DISPLAY_LENGTH: '10',
     PURCHASE_SCHEDULE_OPEN_DATE: '2019-05-01',
