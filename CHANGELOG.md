@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.12 - 2020-03-11
+### Changed
+ - 注文取引agentのプロフィール属性拡張
+
 ## 3.0.12 - 2020-03-10
 ### Fixed
  - ブラウザバック不具合修正
