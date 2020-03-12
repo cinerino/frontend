@@ -5,7 +5,7 @@
 
         <div class="p-3 bg-white">
             <form [formGroup]="profileForm">
-                <div class="form-group row">
+                <div *ngIf="profileForm.controls.familyName" class="form-group row">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.familyName' | translate }}</p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" formControlName="familyName" id="familyName"
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div *ngIf="profileForm.controls.givenName" class="form-group row">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.givenName' | translate }}</p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" formControlName="givenName" id="givenName"
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div *ngIf="profileForm.controls.email" class="form-group row">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.email' | translate }}</p>
                     <div class="col-md-8">
                         <input type="email" class="form-control" formControlName="email" id="email"
@@ -67,7 +67,7 @@
                             (click)="copyDomain()">{{ 'purchase.input.copyDomain' | translate }}</button>
                     </div>
                 </div>
-                <div class="form-group row mb-0">
+                <div *ngIf="profileForm.controls.telephone" class="form-group row">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.telephone' | translate }}</p>
                     <div class="col-md-8">
                         <input type="tel" class="form-control" formControlName="telephone" id="telephone"
@@ -87,6 +87,76 @@
                                 {{ 'form.validation.telephone' | translate }}</p>
                         </div>
                         <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.telephone' | translate"></p>
+                    </div>
+                </div>
+                <div *ngIf="profileForm.controls.age" class="form-group">
+                    <div class="row align-items-center">
+                        <p class="col-md-4 py-2 text-md-right">{{ 'common.age' | translate }}</p>
+                        <div class="col-md-8">
+                            <input type="tel" class="form-control" formControlName="age" placeholder="">
+                            <div *ngIf="profileForm.controls.age.invalid && profileForm.controls.age.touched"
+                                class="mt-2">
+                                <p *ngIf="profileForm.controls.age.errors.required" class="text-danger">
+                                    {{ 'form.validation.required' | translate }}</p>
+                                <p *ngIf="profileForm.controls.age.errors.minlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.minlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="profileForm.controls.age.errors.maxlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.maxlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="profileForm.controls.age.errors.pattern" class="text-danger">
+                                    {{ 'form.validation.pattern' | translate }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="profileForm.controls.address" class="form-group">
+                    <div class="row align-items-center">
+                        <p class="col-md-4 py-2 text-md-right">{{ 'common.address' | translate }}</p>
+                        <div class="col-md-8">
+                            <input type="tel" class="form-control" formControlName="address" placeholder="">
+                            <div *ngIf="profileForm.controls.address.invalid && profileForm.controls.address.touched"
+                                class="mt-2">
+                                <p *ngIf="profileForm.controls.address.errors.required" class="text-danger">
+                                    {{ 'form.validation.required' | translate }}</p>
+                                <p *ngIf="profileForm.controls.address.errors.minlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.minlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="profileForm.controls.address.errors.maxlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.maxlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="profileForm.controls.address.errors.pattern" class="text-danger">
+                                    {{ 'form.validation.pattern' | translate }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="profileForm.controls.gender" class="form-group">
+                    <div class="row align-items-center">
+                        <p class="col-md-4 py-2 text-md-right">{{ 'common.gender.label' | translate }}</p>
+                        <div class="col-md-8">
+                            <select class="form-control" formControlName="gender">
+                                <option value="">{{ 'common.gender.unselected' | translate }}</option>
+                                <option value="man">{{ 'common.gender.man' | translate }}</option>
+                                <option value="woman">{{ 'common.gender.woman' | translate }}</option>
+                            </select>
+                            <div *ngIf="profileForm.controls.gender.invalid && profileForm.controls.gender.touched"
+                                class="mt-2">
+                                <p *ngIf="profileForm.controls.gender.errors.required" class="text-danger">
+                                    {{ 'form.validation.required' | translate }}</p>
+                                <p *ngIf="profileForm.controls.gender.errors.minlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.minlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="profileForm.controls.gender.errors.maxlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.maxlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="profileForm.controls.gender.errors.pattern" class="text-danger">
+                                    {{ 'form.validation.pattern' | translate }}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -153,7 +223,7 @@
                             {{ 'purchase.input.securityCode' | translate }}</div>
                     </div>
                 </div>
-                <div class="form-group row mb-0">
+                <div class="form-group row">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.holderName' | translate }}</p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" id="holderName"

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
@@ -11,11 +11,11 @@ import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { getAmount } from '../../../../../functions';
 import { ViewType } from '../../../../../models';
-import { PurchaseService, UtilService } from '../../../../../services';
+import { PurchaseService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import {
     CreditcardSecurityCodeModalComponent
- } from '../../../../shared/components/parts/creditcard/security-code-modal/security-code-modal.component';
+} from '../../../../shared/components/parts/creditcard/security-code-modal/security-code-modal.component';
 import { CreditCardSelectModalComponent } from '../../../../shared/components/parts/creditcard/select-modal/select-modal.component';
 import { LibphonenumberFormatPipe } from '../../../../shared/pipes/libphonenumber-format.pipe';
 
@@ -45,6 +45,7 @@ export class PurchaseInputComponent implements OnInit {
         private modal: BsModalService,
         private formBuilder: FormBuilder,
         private utilService: UtilService,
+        private userService: UserService,
         private purchaseService: PurchaseService,
         private translate: TranslateService
     ) { }
@@ -52,63 +53,48 @@ export class PurchaseInputComponent implements OnInit {
     /**
      * 初期化
      */
-    public ngOnInit() {
-        this.purchase = this.store.pipe(select(reducers.getPurchase));
-        this.user = this.store.pipe(select(reducers.getUser));
-        this.isLoading = this.store.pipe(select(reducers.getLoading));
-        this.createCustomerContactForm();
-        this.createCreditCardForm();
-        this.purchase.subscribe((purchase) => {
+    public async ngOnInit() {
+        try {
+            this.purchase = this.store.pipe(select(reducers.getPurchase));
+            this.user = this.store.pipe(select(reducers.getUser));
+            this.isLoading = this.store.pipe(select(reducers.getLoading));
+            await this.createProfileForm();
+            this.createCreditCardForm();
+            const purchase = await this.purchaseService.getData();
             if (purchase.transaction === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
             this.amount = getAmount(purchase.authorizeSeatReservations);
-            if (purchase.profile !== undefined
-                && purchase.profile.familyName !== undefined
-                && purchase.profile.givenName !== undefined
-                && purchase.profile.email !== undefined
-                && purchase.profile.telephone !== undefined) {
-                this.profileForm.controls.familyName.setValue(purchase.profile.familyName);
-                this.profileForm.controls.givenName.setValue(purchase.profile.givenName);
-                this.profileForm.controls.email.setValue(purchase.profile.email);
-                this.profileForm.controls.telephone.setValue(
-                    new LibphonenumberFormatPipe().transform(purchase.profile.telephone)
-                );
-                return;
-            }
-            this.user.subscribe((user) => {
-                if (user.isMember
-                    && user.profile !== undefined
-                    && user.profile.familyName !== undefined
-                    && user.profile.givenName !== undefined
-                    && user.profile.email !== undefined
-                    && user.profile.telephone !== undefined) {
-                    this.profileForm.controls.familyName.setValue(user.profile.familyName);
-                    this.profileForm.controls.givenName.setValue(user.profile.givenName);
-                    this.profileForm.controls.email.setValue(user.profile.email);
-                    this.profileForm.controls.telephone.setValue(
-                        new LibphonenumberFormatPipe().transform(user.profile.telephone)
-                    );
-                }
-            }).unsubscribe();
-        }).unsubscribe();
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
     }
 
     /**
      * 購入情報フォーム作成
      */
-    private createCustomerContactForm() {
-        const NAME_MAX_LENGTH = 12;
-        const MAIL_MAX_LENGTH = 50;
-        const TEL_MAX_LENGTH = 15;
-        const TEL_MIN_LENGTH = 9;
-        this.profileForm = this.formBuilder.group({
-            familyName: ['', [
-                Validators.required,
-                Validators.maxLength(NAME_MAX_LENGTH),
-                (control: AbstractControl): (ValidationErrors | null) => {
-                    const field = control.root.get('familyName');
+    private async createProfileForm() {
+        const profile = this.environment.PROFILE;
+        this.profileForm = this.formBuilder.group({});
+        profile.forEach(p => {
+            const validators: ValidatorFn[] = [];
+            if (p.required !== undefined && p.required) {
+                validators.push(Validators.required);
+            }
+            if (p.maxLength !== undefined) {
+                validators.push(Validators.maxLength(p.maxLength));
+            }
+            if (p.minLength !== undefined) {
+                validators.push(Validators.minLength(p.minLength));
+            }
+            if (p.pattern !== undefined) {
+                validators.push(Validators.pattern(p.pattern));
+            }
+            if (p.key === 'familyName' || p.key === 'givenName') {
+                validators.push((control: AbstractControl) => {
+                    const field = control.root.get(p.key);
                     const language = document.documentElement.lang;
                     if (field !== null) {
                         if (field.value === '') {
@@ -123,39 +109,13 @@ export class PurchaseInputComponent implements OnInit {
                     }
 
                     return null;
-                }
-            ]],
-            givenName: ['', [
-                Validators.required,
-                Validators.maxLength(NAME_MAX_LENGTH),
-                (control: AbstractControl): (ValidationErrors | null) => {
-                    const field = control.root.get('givenName');
-                    const language = document.documentElement.lang;
-                    if (field !== null) {
-                        if (field.value === '') {
-                            return null;
-                        }
-                        if (language === 'ja' && !new RegExp(/^[ァ-ヶー]+$/).test(field.value)) {
-                            return { customPattern: true };
-                        }
-                        if (language !== 'ja' && !new RegExp(/^[a-z]+$/).test(field.value)) {
-                            return { customPattern: true };
-                        }
-                    }
-
-                    return null;
-                }
-            ]],
-            email: ['', [
-                Validators.required,
-                Validators.maxLength(MAIL_MAX_LENGTH),
-                Validators.email
-            ]],
-            telephone: ['', [
-                Validators.required,
-                Validators.maxLength(TEL_MAX_LENGTH),
-                Validators.minLength(TEL_MIN_LENGTH),
-                (control: AbstractControl): ValidationErrors | null => {
+                });
+            }
+            if (p.key === 'email') {
+                validators.push(Validators.email);
+            }
+            if (p.key === 'telephone') {
+                validators.push((control: AbstractControl) => {
                     const field = control.root.get('telephone');
                     if (field !== null) {
                         if (field.value === '') {
@@ -174,8 +134,28 @@ export class PurchaseInputComponent implements OnInit {
                     }
 
                     return null;
-                }
-            ]]
+                });
+            }
+            this.profileForm.addControl(p.key, new FormControl(p.value, validators));
+        });
+        const purchase = await this.purchaseService.getData();
+        const user = await this.userService.getData();
+        const profileData = (user.isMember && purchase.profile === undefined)
+        ? user.profile : purchase.profile;
+        if (profileData === undefined) {
+            return;
+        }
+        Object.keys(profileData).forEach(key => {
+            const value = (<any>profileData)[key];
+            if (value === undefined || this.profileForm.controls[key] === undefined) {
+                return;
+            }
+            if (key === 'telephone') {
+                this.profileForm.controls.telephone
+                    .setValue(new LibphonenumberFormatPipe().transform(value));
+                return;
+            }
+            this.profileForm.controls[key].setValue(value);
         });
     }
 
