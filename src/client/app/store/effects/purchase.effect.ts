@@ -46,7 +46,7 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerinoService.getServices();
-                const now = moment().toDate();
+                const now = moment((await this.utilService.getServerTime()).date).toDate();
                 const today = moment(moment().format('YYYY-MM-DD')).toDate();
                 const limit = 100;
                 let page = 1;
