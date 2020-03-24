@@ -4,7 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { sleep } from '../../functions';
-import { CinerinoService } from '../../services/cinerino.service';
+import { CinerinoService, UtilService } from '../../services';
 import { masterAction } from '../actions';
 
 /**
@@ -15,7 +15,8 @@ export class MasterEffects {
 
     constructor(
         private actions: Actions,
-        private cinerino: CinerinoService
+        private cinerino: CinerinoService,
+        private utilService: UtilService
     ) { }
 
     /**
@@ -67,7 +68,7 @@ export class MasterEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const today = moment(moment().format('YYYY-MM-DD')).toDate();
+                const now = moment((await this.utilService.getServerTime()).date).toDate();
                 const limit = 100;
                 let page = 1;
                 let roop = true;
@@ -82,8 +83,8 @@ export class MasterEffects {
                         startFrom: payload.startFrom,
                         startThrough: payload.startThrough,
                         offers: {
-                            availableFrom: today,
-                            availableThrough: today
+                            availableFrom: now,
+                            availableThrough: now
                         }
                     });
                     screeningEvents = screeningEvents.concat(searchResult.data);

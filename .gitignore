@@ -45,6 +45,7 @@ Thumbs.db
 *.bat
 .env.bat
 public/projects
+public/projects-production
 private/
 old/
 dist/client/production/stats.json

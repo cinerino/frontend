@@ -74743,7 +74743,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../functions */ "./app/functions/index.ts");
-/* harmony import */ var _services_cinerino_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services/cinerino.service */ "./app/services/cinerino.service.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services */ "./app/services/index.ts");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../actions */ "./app/store/actions/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -74804,10 +74804,11 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
  * Master Effects
  */
 var MasterEffects = /** @class */ (function () {
-    function MasterEffects(actions, cinerino) {
+    function MasterEffects(actions, cinerino, utilService) {
         var _this = this;
         this.actions = actions;
         this.cinerino = cinerino;
+        this.utilService = utilService;
         /**
          * GetSellers
          */
@@ -74860,22 +74861,25 @@ var MasterEffects = /** @class */ (function () {
          * GetSchedule
          */
         this.getSchedule = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].ActionTypes.GetSchedule), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var today, limit, page, roop, screeningEvents, searchResult, scheduleDate, error_3;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var now, _a, limit, page, roop, screeningEvents, searchResult, scheduleDate, error_3;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _a.trys.push([0, 6, , 7]);
+                        _b.trys.push([0, 7, , 8]);
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
-                        _a.sent();
-                        today = moment__WEBPACK_IMPORTED_MODULE_3__(moment__WEBPACK_IMPORTED_MODULE_3__().format('YYYY-MM-DD')).toDate();
+                        _b.sent();
+                        _a = moment__WEBPACK_IMPORTED_MODULE_3__;
+                        return [4 /*yield*/, this.utilService.getServerTime()];
+                    case 2:
+                        now = _a.apply(void 0, [(_b.sent()).date]).toDate();
                         limit = 100;
                         page = 1;
                         roop = true;
                         screeningEvents = [];
-                        _a.label = 2;
-                    case 2:
-                        if (!roop) return [3 /*break*/, 5];
+                        _b.label = 3;
+                    case 3:
+                        if (!roop) return [3 /*break*/, 6];
                         return [4 /*yield*/, this.cinerino.event.search({
                                 page: page,
                                 limit: limit,
@@ -74885,20 +74889,20 @@ var MasterEffects = /** @class */ (function () {
                                 startFrom: payload.startFrom,
                                 startThrough: payload.startThrough,
                                 offers: {
-                                    availableFrom: today,
-                                    availableThrough: today
+                                    availableFrom: now,
+                                    availableThrough: now
                                 }
                             })];
-                    case 3:
-                        searchResult = _a.sent();
+                    case 4:
+                        searchResult = _b.sent();
                         screeningEvents = screeningEvents.concat(searchResult.data);
                         page++;
                         roop = searchResult.data.length > 0;
                         return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_5__["sleep"])(500)];
-                    case 4:
-                        _a.sent();
-                        return [3 /*break*/, 2];
                     case 5:
+                        _b.sent();
+                        return [3 /*break*/, 3];
+                    case 6:
                         scheduleDate = moment__WEBPACK_IMPORTED_MODULE_3__(payload.startFrom).format('YYYY-MM-DD');
                         // 公開日順（降順）へソート
                         screeningEvents = screeningEvents.sort(function (a, b) {
@@ -74919,17 +74923,18 @@ var MasterEffects = /** @class */ (function () {
                             return 0;
                         });
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].GetScheduleSuccess({ screeningEvents: screeningEvents, scheduleDate: scheduleDate })];
-                    case 6:
-                        error_3 = _a.sent();
+                    case 7:
+                        error_3 = _b.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_7__["masterAction"].GetScheduleFail({ error: error_3 })];
-                    case 7: return [2 /*return*/];
+                    case 8: return [2 /*return*/];
                 }
             });
         }); }));
     }
     MasterEffects.ctorParameters = function () { return [
         { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"] },
-        { type: _services_cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"] }
+        { type: _services__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"] },
+        { type: _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"] }
     ]; };
     __decorate([
         Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Effect"])(),
@@ -74946,7 +74951,8 @@ var MasterEffects = /** @class */ (function () {
     MasterEffects = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
         __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"],
-            _services_cinerino_service__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"]])
+            _services__WEBPACK_IMPORTED_MODULE_6__["CinerinoService"],
+            _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"]])
     ], MasterEffects);
     return MasterEffects;
 }());
@@ -75628,23 +75634,26 @@ var PurchaseEffects = /** @class */ (function () {
          * GetPreScheduleDates
          */
         this.getPreScheduleDates = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetPreScheduleDates), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var now, today, limit, page, roop, screeningEvents, searchResult, sheduleDates_1, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var now, _a, today, limit, page, roop, screeningEvents, searchResult, sheduleDates_1, error_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _a.trys.push([0, 6, , 7]);
+                        _b.trys.push([0, 7, , 8]);
                         return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
-                        _a.sent();
-                        now = moment__WEBPACK_IMPORTED_MODULE_4__().toDate();
+                        _b.sent();
+                        _a = moment__WEBPACK_IMPORTED_MODULE_4__;
+                        return [4 /*yield*/, this.utilService.getServerTime()];
+                    case 2:
+                        now = _a.apply(void 0, [(_b.sent()).date]).toDate();
                         today = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__().format('YYYY-MM-DD')).toDate();
                         limit = 100;
                         page = 1;
                         roop = true;
                         screeningEvents = [];
-                        _a.label = 2;
-                    case 2:
-                        if (!roop) return [3 /*break*/, 5];
+                        _b.label = 3;
+                    case 3:
+                        if (!roop) return [3 /*break*/, 6];
                         return [4 /*yield*/, this.cinerinoService.event.search({
                                 page: page,
                                 limit: limit,
@@ -75659,16 +75668,16 @@ var PurchaseEffects = /** @class */ (function () {
                                     availableThrough: now
                                 }
                             })];
-                    case 3:
-                        searchResult = _a.sent();
+                    case 4:
+                        searchResult = _b.sent();
                         screeningEvents = screeningEvents.concat(searchResult.data);
                         page++;
                         roop = searchResult.data.length > 0;
                         return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_7__["sleep"])(500)];
-                    case 4:
-                        _a.sent();
-                        return [3 /*break*/, 2];
                     case 5:
+                        _b.sent();
+                        return [3 /*break*/, 3];
+                    case 6:
                         sheduleDates_1 = [];
                         screeningEvents.forEach(function (screeningEvent) {
                             var date = moment__WEBPACK_IMPORTED_MODULE_4__(screeningEvent.startDate).format('YYYY-MM-DD');
@@ -75678,10 +75687,10 @@ var PurchaseEffects = /** @class */ (function () {
                             }
                         });
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetPreScheduleDatesSuccess({ sheduleDates: sheduleDates_1 })];
-                    case 6:
-                        error_1 = _a.sent();
+                    case 7:
+                        error_1 = _b.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetPreScheduleDatesFail({ error: error_1 })];
-                    case 7: return [2 /*return*/];
+                    case 8: return [2 /*return*/];
                 }
             });
         }); }));
