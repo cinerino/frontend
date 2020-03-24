@@ -12,7 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
-## 3.0.12 - 2020-03-11
+## 3.0.14 - 2020-03-24
+### Changed
+ - イベント検索のオンライン表示開始条件変更
+
+## 3.0.13 - 2020-03-11
 ### Changed
  - 注文取引agentのプロフィール属性拡張
 
