@@ -284,19 +284,17 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      */
     private isSinglePurchase(params: {
         name: 'alert' | 'confirm',
-        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[]
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]
     }) {
         const authorizeSeatReservations = params.authorizeSeatReservations;
         const findResult = authorizeSeatReservations.find((a) => {
-            if (a.object.event === undefined) {
+            if (a.result === undefined
+                || a.result.responseBody.object.reservations === undefined
+                || a.result.responseBody.object.reservations[0].additionalProperty === undefined) {
                 return false;
             }
-            const workPerformed = a.object.event.workPerformed;
-            if (workPerformed === undefined
-                || workPerformed.additionalProperty === undefined) {
-                return false;
-            }
-            const findPropertyResult = workPerformed.additionalProperty.find(p => p.name === params.name && p.value !== undefined);
+            const findPropertyResult = a.result.responseBody.object.reservations[0].additionalProperty
+                .find(p => p.name === params.name && p.value !== undefined);
             if (findPropertyResult === undefined) {
                 return false;
             }

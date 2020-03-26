@@ -70407,6 +70407,7 @@ var CinerinoService = /** @class */ (function () {
                     case 1:
                         option = _a.sent();
                         this.account = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Account(option);
+                        this.creativeWork = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].CreativeWork(option);
                         this.event = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Event(option);
                         this.offer = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Offer(option);
                         this.order = new _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["service"].Order(option);
@@ -75356,8 +75357,14 @@ var OrderEffects = /** @class */ (function () {
                                                         }
                                                         order = authorizeOrder;
                                                         qrcode = itemOffered.reservedTicket.ticketToken;
-                                                        additionalProperty = (itemOffered.reservationFor.workPerformed === undefined)
-                                                            ? undefined : itemOffered.reservationFor.workPerformed.additionalProperty;
+                                                        additionalProperty = (itemOffered.reservationFor.workPerformed !== undefined
+                                                            && itemOffered.reservationFor.workPerformed.additionalProperty !== undefined
+                                                            && itemOffered.reservationFor.workPerformed.additionalProperty.length > 0)
+                                                            ? itemOffered.reservationFor.workPerformed.additionalProperty :
+                                                            (itemOffered.additionalProperty !== undefined
+                                                                && itemOffered.additionalProperty.length > 0) ?
+                                                                itemOffered.additionalProperty
+                                                                : undefined;
                                                         if (additionalProperty !== undefined) {
                                                             isDisplayQrcode = additionalProperty.find(function (a) { return a.name === 'qrcode'; });
                                                             if (isDisplayQrcode !== undefined && isDisplayQrcode.value === 'false') {
@@ -75815,22 +75822,31 @@ var PurchaseEffects = /** @class */ (function () {
          * GetScreeningEvent
          */
         this.getScreeningEvent = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetScreeningEvent), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var screeningEvent, error_6;
+            var screeningEvent, searchMovie, error_6;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
+                        _a.trys.push([0, 4, , 5]);
                         return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _a.sent();
                         return [4 /*yield*/, this.cinerinoService.event.findById({ id: payload.screeningEvent.id })];
                     case 2:
                         screeningEvent = _a.sent();
-                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreeningEventSuccess({ screeningEvent: screeningEvent })];
+                        return [4 /*yield*/, this.cinerinoService.creativeWork.searchMovies({
+                                identifier: (screeningEvent.workPerformed === undefined)
+                                    ? undefined : screeningEvent.workPerformed.identifier
+                            })];
                     case 3:
+                        searchMovie = (_a.sent()).data[0];
+                        if (screeningEvent.workPerformed !== undefined) {
+                            screeningEvent.workPerformed.additionalProperty = searchMovie.additionalProperty;
+                        }
+                        return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreeningEventSuccess({ screeningEvent: screeningEvent })];
+                    case 4:
                         error_6 = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].GetScreeningEventFail({ error: error_6 })];
-                    case 4: return [2 /*return*/];
+                    case 5: return [2 /*return*/];
                 }
             });
         }); }));
@@ -75919,7 +75935,9 @@ var PurchaseEffects = /** @class */ (function () {
                                             itemOffered: {
                                                 serviceOutput: {
                                                     typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation,
-                                                    additionalProperty: [],
+                                                    additionalProperty: (screeningEvent.workPerformed === undefined
+                                                        || screeningEvent.workPerformed.additionalProperty === undefined)
+                                                        ? [] : screeningEvent.workPerformed.additionalProperty.slice(),
                                                     additionalTicketText: additionalTicketText,
                                                     reservedTicket: {
                                                         typeOf: 'Ticket',
