@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.15 - 2020-03-27
+### Changed
+ - 作品追加特性の取得方法を変更
+
 ## 3.0.14 - 2020-03-24
 ### Changed
  - イベント検索のオンライン表示開始条件変更
