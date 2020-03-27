@@ -2456,15 +2456,13 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
     PurchaseEventTicketComponent.prototype.isSinglePurchase = function (params) {
         var authorizeSeatReservations = params.authorizeSeatReservations;
         var findResult = authorizeSeatReservations.find(function (a) {
-            if (a.object.event === undefined) {
+            if (a.result === undefined
+                || a.result.responseBody.object.reservations === undefined
+                || a.result.responseBody.object.reservations[0].additionalProperty === undefined) {
                 return false;
             }
-            var workPerformed = a.object.event.workPerformed;
-            if (workPerformed === undefined
-                || workPerformed.additionalProperty === undefined) {
-                return false;
-            }
-            var findPropertyResult = workPerformed.additionalProperty.find(function (p) { return p.name === params.name && p.value !== undefined; });
+            var findPropertyResult = a.result.responseBody.object.reservations[0].additionalProperty
+                .find(function (p) { return p.name === params.name && p.value !== undefined; });
             if (findPropertyResult === undefined) {
                 return false;
             }

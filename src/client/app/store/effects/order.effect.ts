@@ -225,8 +225,14 @@ export class OrderEffects {
                             }
                             const order = authorizeOrder;
                             let qrcode = itemOffered.reservedTicket.ticketToken;
-                            const additionalProperty = (itemOffered.reservationFor.workPerformed === undefined)
-                                ? undefined : itemOffered.reservationFor.workPerformed.additionalProperty;
+                            const additionalProperty = (itemOffered.reservationFor.workPerformed !== undefined
+                                && itemOffered.reservationFor.workPerformed.additionalProperty !== undefined
+                                && itemOffered.reservationFor.workPerformed.additionalProperty.length > 0)
+                                ? itemOffered.reservationFor.workPerformed.additionalProperty :
+                                (itemOffered.additionalProperty !== undefined
+                                    && itemOffered.additionalProperty.length > 0) ?
+                                    itemOffered.additionalProperty
+                                    : undefined;
                             if (additionalProperty !== undefined) {
                                 // 追加特性のqrcodeがfalseの場合QR非表示
                                 const isDisplayQrcode = additionalProperty.find(a => a.name === 'qrcode');

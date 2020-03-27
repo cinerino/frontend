@@ -12,6 +12,7 @@ import { UtilService } from './util.service';
 export class CinerinoService {
     public auth: cinerino.IImplicitGrantClient;
     public account: cinerino.service.Account;
+    public creativeWork: cinerino.service.CreativeWork;
     public event: cinerino.service.Event;
     public offer: cinerino.service.Offer;
     public order: cinerino.service.Order;
@@ -44,6 +45,7 @@ export class CinerinoService {
         try {
             const option = await this.createOption();
             this.account = new cinerino.service.Account(option);
+            this.creativeWork = new cinerino.service.CreativeWork(option);
             this.event = new cinerino.service.Event(option);
             this.offer = new cinerino.service.Offer(option);
             this.order = new cinerino.service.Order(option);
