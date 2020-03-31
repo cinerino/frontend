@@ -24837,60 +24837,148 @@ var TranslateModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../node_modules/@ngx-translate/http-loader/fesm5/ngx-translate-http-loader.js":
-/*!*****************************************************************************************************************************************!*\
-  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/@ngx-translate/http-loader/fesm5/ngx-translate-http-loader.js ***!
-  \*****************************************************************************************************************************************/
-/*! exports provided: TranslateHttpLoader */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "../../node_modules/deepmerge/dist/cjs.js":
+/*!*************************************************************************************************!*\
+  !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/deepmerge/dist/cjs.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TranslateHttpLoader", function() { return TranslateHttpLoader; });
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
- */
-var TranslateHttpLoader = /** @class */ (function () {
-    function TranslateHttpLoader(http, prefix, suffix) {
-        if (prefix === void 0) { prefix = "/assets/i18n/"; }
-        if (suffix === void 0) { suffix = ".json"; }
-        this.http = http;
-        this.prefix = prefix;
-        this.suffix = suffix;
-    }
-    /**
-     * Gets the translations from the server
-     */
-    /**
-     * Gets the translations from the server
-     * @param {?} lang
-     * @return {?}
-     */
-    TranslateHttpLoader.prototype.getTranslation = /**
-     * Gets the translations from the server
-     * @param {?} lang
-     * @return {?}
-     */
-    function (lang) {
-        return this.http.get("" + this.prefix + lang + this.suffix);
-    };
-    return TranslateHttpLoader;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
- */
 
 
+var isMergeableObject = function isMergeableObject(value) {
+	return isNonNullObject(value)
+		&& !isSpecial(value)
+};
 
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmd4LXRyYW5zbGF0ZS1odHRwLWxvYWRlci5qcy5tYXAiLCJzb3VyY2VzIjpbIm5nOi8vQG5neC10cmFuc2xhdGUvaHR0cC1sb2FkZXIvbGliL2h0dHAtbG9hZGVyLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7SHR0cENsaWVudH0gZnJvbSBcIkBhbmd1bGFyL2NvbW1vbi9odHRwXCI7XG5pbXBvcnQge1RyYW5zbGF0ZUxvYWRlcn0gZnJvbSBcIkBuZ3gtdHJhbnNsYXRlL2NvcmVcIjtcbmltcG9ydCB7T2JzZXJ2YWJsZX0gZnJvbSAncnhqcyc7XG5cbmV4cG9ydCBjbGFzcyBUcmFuc2xhdGVIdHRwTG9hZGVyIGltcGxlbWVudHMgVHJhbnNsYXRlTG9hZGVyIHtcbiAgY29uc3RydWN0b3IocHJpdmF0ZSBodHRwOiBIdHRwQ2xpZW50LCBwdWJsaWMgcHJlZml4OiBzdHJpbmcgPSBcIi9hc3NldHMvaTE4bi9cIiwgcHVibGljIHN1ZmZpeDogc3RyaW5nID0gXCIuanNvblwiKSB7fVxuXG4gIC8qKlxuICAgKiBHZXRzIHRoZSB0cmFuc2xhdGlvbnMgZnJvbSB0aGUgc2VydmVyXG4gICAqL1xuICBwdWJsaWMgZ2V0VHJhbnNsYXRpb24obGFuZzogc3RyaW5nKTogT2JzZXJ2YWJsZTxPYmplY3Q+IHtcbiAgICByZXR1cm4gdGhpcy5odHRwLmdldChgJHt0aGlzLnByZWZpeH0ke2xhbmd9JHt0aGlzLnN1ZmZpeH1gKTtcbiAgfVxufVxuIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7QUFJQTtJQUNFLDZCQUFvQixJQUFnQixFQUFTLE1BQWdDLEVBQVMsTUFBd0I7UUFBakUsdUJBQUEsRUFBQSx3QkFBZ0M7UUFBUyx1QkFBQSxFQUFBLGdCQUF3QjtRQUExRixTQUFJLEdBQUosSUFBSSxDQUFZO1FBQVMsV0FBTSxHQUFOLE1BQU0sQ0FBMEI7UUFBUyxXQUFNLEdBQU4sTUFBTSxDQUFrQjtLQUFJOzs7Ozs7Ozs7SUFLM0csNENBQWM7Ozs7O0lBQXJCLFVBQXNCLElBQVk7UUFDaEMsT0FBTyxJQUFJLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxLQUFHLElBQUksQ0FBQyxNQUFNLEdBQUcsSUFBSSxHQUFHLElBQUksQ0FBQyxNQUFRLENBQUMsQ0FBQztLQUM3RDtJQUNILDBCQUFDO0NBQUE7Ozs7Ozs7Ozs7Ozs7OyJ9
+function isNonNullObject(value) {
+	return !!value && typeof value === 'object'
+}
+
+function isSpecial(value) {
+	var stringValue = Object.prototype.toString.call(value);
+
+	return stringValue === '[object RegExp]'
+		|| stringValue === '[object Date]'
+		|| isReactElement(value)
+}
+
+// see https://github.com/facebook/react/blob/b5ac963fb791d1298e7f396236383bc955f916c1/src/isomorphic/classic/element/ReactElement.js#L21-L25
+var canUseSymbol = typeof Symbol === 'function' && Symbol.for;
+var REACT_ELEMENT_TYPE = canUseSymbol ? Symbol.for('react.element') : 0xeac7;
+
+function isReactElement(value) {
+	return value.$$typeof === REACT_ELEMENT_TYPE
+}
+
+function emptyTarget(val) {
+	return Array.isArray(val) ? [] : {}
+}
+
+function cloneUnlessOtherwiseSpecified(value, options) {
+	return (options.clone !== false && options.isMergeableObject(value))
+		? deepmerge(emptyTarget(value), value, options)
+		: value
+}
+
+function defaultArrayMerge(target, source, options) {
+	return target.concat(source).map(function(element) {
+		return cloneUnlessOtherwiseSpecified(element, options)
+	})
+}
+
+function getMergeFunction(key, options) {
+	if (!options.customMerge) {
+		return deepmerge
+	}
+	var customMerge = options.customMerge(key);
+	return typeof customMerge === 'function' ? customMerge : deepmerge
+}
+
+function getEnumerableOwnPropertySymbols(target) {
+	return Object.getOwnPropertySymbols
+		? Object.getOwnPropertySymbols(target).filter(function(symbol) {
+			return target.propertyIsEnumerable(symbol)
+		})
+		: []
+}
+
+function getKeys(target) {
+	return Object.keys(target).concat(getEnumerableOwnPropertySymbols(target))
+}
+
+function propertyIsOnObject(object, property) {
+	try {
+		return property in object
+	} catch(_) {
+		return false
+	}
+}
+
+// Protects from prototype poisoning and unexpected merging up the prototype chain.
+function propertyIsUnsafe(target, key) {
+	return propertyIsOnObject(target, key) // Properties are safe to merge if they don't exist in the target yet,
+		&& !(Object.hasOwnProperty.call(target, key) // unsafe if they exist up the prototype chain,
+			&& Object.propertyIsEnumerable.call(target, key)) // and also unsafe if they're nonenumerable.
+}
+
+function mergeObject(target, source, options) {
+	var destination = {};
+	if (options.isMergeableObject(target)) {
+		getKeys(target).forEach(function(key) {
+			destination[key] = cloneUnlessOtherwiseSpecified(target[key], options);
+		});
+	}
+	getKeys(source).forEach(function(key) {
+		if (propertyIsUnsafe(target, key)) {
+			return
+		}
+
+		if (propertyIsOnObject(target, key) && options.isMergeableObject(source[key])) {
+			destination[key] = getMergeFunction(key, options)(target[key], source[key], options);
+		} else {
+			destination[key] = cloneUnlessOtherwiseSpecified(source[key], options);
+		}
+	});
+	return destination
+}
+
+function deepmerge(target, source, options) {
+	options = options || {};
+	options.arrayMerge = options.arrayMerge || defaultArrayMerge;
+	options.isMergeableObject = options.isMergeableObject || isMergeableObject;
+	// cloneUnlessOtherwiseSpecified is added to `options` so that custom arrayMerge()
+	// implementations can use it. The caller may not replace it.
+	options.cloneUnlessOtherwiseSpecified = cloneUnlessOtherwiseSpecified;
+
+	var sourceIsArray = Array.isArray(source);
+	var targetIsArray = Array.isArray(target);
+	var sourceAndTargetTypesMatch = sourceIsArray === targetIsArray;
+
+	if (!sourceAndTargetTypesMatch) {
+		return cloneUnlessOtherwiseSpecified(source, options)
+	} else if (sourceIsArray) {
+		return options.arrayMerge(target, source, options)
+	} else {
+		return mergeObject(target, source, options)
+	}
+}
+
+deepmerge.all = function deepmergeAll(array, options) {
+	if (!Array.isArray(array)) {
+		throw new Error('first argument should be an array')
+	}
+
+	return array.reduce(function(prev, next) {
+		return deepmerge(prev, next, options)
+	}, {})
+};
+
+var deepmerge_1 = deepmerge;
+
+module.exports = deepmerge_1;
+
 
 /***/ }),
 
@@ -57827,7 +57915,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<header class=\"fixed-top text-white border-bottom border-gray\">\n    <div class=\"header contents-width mx-auto d-flex align-items-center justify-content-between px-3\">\n        <div class=\"logo\">\n            <img class=\"d-none d-md-block h-100\" [src]=\"storageUrl + '/images/logo.svg'\">\n            <img class=\"d-md-none h-100\" [src]=\"storageUrl + '/images/logo-sp.svg'\">\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"environment.LANGUAGE.length > 1\" class=\"mr-3 d-flex align-items-center\">\n                <select id=\"language\" class=\"form-control border-0\" [(ngModel)]=\"language\" (change)=\"changeLanguage()\">\n                    <option *ngFor=\"let language of environment.LANGUAGE\" [value]=\"language\">{{ getLanguageName(language) }}</option>\n                </select>\n            </div>\n            <div *ngIf=\"environment.HEADER_MENU\" class=\"menu-button pointer\" [class.active]=\"isMenuOpen\"\n                (click)=\"(isMenuOpen) ? menuClose() : menuOpen()\">\n                <div></div>\n                <div></div>\n                <div></div>\n            </div>\n        </div>\n    </div>\n</header>\n\n<app-header-menu [isOpen]=\"isMenuOpen\" (close)=\"menuClose()\"></app-header-menu>");
+/* harmony default export */ __webpack_exports__["default"] = ("<header class=\"fixed-top text-white border-bottom border-gray\">\n    <div class=\"header contents-width mx-auto d-flex align-items-center justify-content-between px-3\">\n        <div class=\"logo\">\n            <img class=\"d-none d-md-block h-100\" [src]=\"imageUrl.pc\" (error)=\"imageLoadingError('pc')\">\n            <img class=\"d-md-none h-100\" [src]=\"imageUrl.sp\" (error)=\"imageLoadingError('sp')\">\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"environment.LANGUAGE.length > 1\" class=\"mr-3 d-flex align-items-center\">\n                <select id=\"language\" class=\"form-control border-0\" [(ngModel)]=\"language\" (change)=\"changeLanguage()\">\n                    <option *ngFor=\"let language of environment.LANGUAGE\" [value]=\"language\">{{ getLanguageName(language) }}</option>\n                </select>\n            </div>\n            <div *ngIf=\"environment.HEADER_MENU\" class=\"menu-button pointer\" [class.active]=\"isMenuOpen\"\n                (click)=\"(isMenuOpen) ? menuClose() : menuOpen()\">\n                <div></div>\n                <div></div>\n                <div></div>\n            </div>\n        </div>\n    </div>\n</header>\n\n<app-header-menu [isOpen]=\"isMenuOpen\" (close)=\"menuClose()\"></app-header-menu>");
 
 /***/ }),
 
@@ -57840,7 +57928,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"mb-2\" *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let reservation of reservations\">\n        <p>{{ reservation.seat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of getReservationPriceComponents(reservation)\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let reservation of authorizeSeatReservations\">\n        <p *ngIf=\"reservation.reservedTicket.ticketedSeat\">{{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of reservation.price.priceComponent\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let acceptedOffer of acceptedOffers\">\n        <p *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat\">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of acceptedOffer.priceSpecification.priceComponent\">\n            <span *ngIf=\"priceComponent.name\">{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"!priceComponent.name\">{{ acceptedOffer.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n</div>\n\n<div class=\"mb-2\" *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let ticket of changeTicketCount()\">\n        <p *ngFor=\"let priceComponent of ticket.priceComponents\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span><!--\n            --><span>&nbsp;×&nbsp;{{ ticket.count }}</span>\n        </p>\n    </div>\n</div>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"mb-2\" *ngIf=\"environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let reservation of reservations\">\n        <p>{{ reservation.seat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of getReservationPriceComponents(reservation)\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let reservation of authorizeSeatReservations\">\n        <p *ngIf=\"reservation.reservedTicket.ticketedSeat\">{{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of reservation.price.priceComponent\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n    </div>\n    \n    <div *ngFor=\"let acceptedOffer of acceptedOffers\">\n        <p *ngIf=\"acceptedOffer.itemOffered.reservedTicket.ticketedSeat\">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>\n        <p *ngFor=\"let priceComponent of acceptedOffer.priceSpecification.priceComponent\">\n            <span *ngIf=\"priceComponent.name\">{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span *ngIf=\"!priceComponent.name\">{{ acceptedOffer.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>\n        </p>\n        <button *ngIf=\"qrcode\" class=\"btn btn-primary mb-3\" (click)=\"openQrcode.emit({id: acceptedOffer.itemOffered.id})\">{{ 'common.qrcode' | translate }}</button>\n    </div>\n</div>\n\n<div class=\"mb-2\" *ngIf=\"!environment.DISPLAY_TICKETED_SEAT\">\n    <div *ngFor=\"let ticket of changeTicketCount()\">\n        <p *ngFor=\"let priceComponent of ticket.priceComponents\">\n            <span>{{ priceComponent.name | changeLanguage }}</span><!--\n            --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--\n            --><span class=\"text-small\" *ngIf=\"priceComponent?.referenceQuantity?.value\">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span><!--\n            --><span>&nbsp;×&nbsp;{{ ticket.count }}</span>\n        </p>\n    </div>\n</div>\n\n");
 
 /***/ }),
 
@@ -66178,29 +66266,24 @@ var AppRoutingModule = /** @class */ (function () {
 /*!***************************!*\
   !*** ./app/app.module.ts ***!
   \***************************/
-/*! exports provided: HttpLoaderFactory, AppModule */
+/*! exports provided: AppModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HttpLoaderFactory", function() { return HttpLoaderFactory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "../../node_modules/@angular/platform-browser/fesm5/platform-browser.js");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/platform-browser/animations */ "../../node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
-/* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/http-loader */ "../../node_modules/@ngx-translate/http-loader/fesm5/ngx-translate-http-loader.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./app/app-routing.module.ts");
-/* harmony import */ var _app_app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app/app.component */ "./app/app/app.component.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./functions */ "./app/functions/index.ts");
-/* harmony import */ var _modules_core_core_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/core/core.module */ "./app/modules/core/core.module.ts");
-/* harmony import */ var _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/shared/shared.module */ "./app/modules/shared/shared.module.ts");
-/* harmony import */ var _store_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./store.module */ "./app/store.module.ts");
-/* harmony import */ var _store_core_store__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./store/core/store */ "./app/store/core/store/index.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "../../node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser/animations */ "../../node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap */ "../../node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app-routing.module */ "./app/app-routing.module.ts");
+/* harmony import */ var _app_app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app/app.component */ "./app/app/app.component.ts");
+/* harmony import */ var _functions_translate_function__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./functions/translate.function */ "./app/functions/translate.function.ts");
+/* harmony import */ var _modules_core_core_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/core/core.module */ "./app/modules/core/core.module.ts");
+/* harmony import */ var _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/shared/shared.module */ "./app/modules/shared/shared.module.ts");
+/* harmony import */ var _store_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./store.module */ "./app/store.module.ts");
+/* harmony import */ var _store_core_store__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./store/core/store */ "./app/store/core/store/index.ts");
 /**
  * NgModule
  */
@@ -66225,41 +66308,29 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
-
-
-
-function HttpLoaderFactory(http) {
-    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_5__["TranslateHttpLoader"](http, Object(_functions__WEBPACK_IMPORTED_MODULE_10__["getProject"])().storageUrl + "/i18n/", ".json?date=" + moment__WEBPACK_IMPORTED_MODULE_6__().toISOString());
-}
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             declarations: [
-                _app_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"],
+                _app_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"],
             ],
             imports: [
-                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
-                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_3__["BrowserAnimationsModule"],
-                _store_module__WEBPACK_IMPORTED_MODULE_13__["StoreModule"],
-                _store_core_store__WEBPACK_IMPORTED_MODULE_14__["CoreStoreModule"],
-                _modules_core_core_module__WEBPACK_IMPORTED_MODULE_11__["CoreModule"],
-                _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_12__["SharedModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
-                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__["ModalModule"].forRoot(),
-                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__["BsDatepickerModule"].forRoot(),
-                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_7__["PaginationModule"].forRoot(),
-                _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"].forRoot({
-                    loader: {
-                        provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateLoader"],
-                        useFactory: HttpLoaderFactory,
-                        deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]]
-                    }
-                }),
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_2__["BrowserAnimationsModule"],
+                _store_module__WEBPACK_IMPORTED_MODULE_10__["StoreModule"],
+                _store_core_store__WEBPACK_IMPORTED_MODULE_11__["CoreStoreModule"],
+                _modules_core_core_module__WEBPACK_IMPORTED_MODULE_8__["CoreModule"],
+                _modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_9__["SharedModule"],
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"],
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["ModalModule"].forRoot(),
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsDatepickerModule"].forRoot(),
+                ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["PaginationModule"].forRoot(),
+                _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateModule"].forRoot(Object(_functions_translate_function__WEBPACK_IMPORTED_MODULE_7__["getTranslateModuleConfig"])()),
             ],
             providers: [],
-            bootstrap: [_app_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
+            bootstrap: [_app_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -66700,6 +66771,78 @@ var PurchaseTransactionGuardService = /** @class */ (function () {
     return PurchaseTransactionGuardService;
 }());
 
+
+
+/***/ }),
+
+/***/ "./app/functions/translate.function.ts":
+/*!*********************************************!*\
+  !*** ./app/functions/translate.function.ts ***!
+  \*********************************************/
+/*! exports provided: getTranslateModuleConfig */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTranslateModuleConfig", function() { return getTranslateModuleConfig; });
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var deepmerge__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! deepmerge */ "../../node_modules/deepmerge/dist/cjs.js");
+/* harmony import */ var deepmerge__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(deepmerge__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
+  return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+
+
+
+
+
+
+
+/**
+ * 多言語カスタムローダー
+ */
+var CustomTranslateHttpLoader = /** @class */ (function () {
+    function CustomTranslateHttpLoader(http) {
+        this.http = http;
+    }
+    CustomTranslateHttpLoader.prototype.getTranslation = function (lang) {
+        var _this = this;
+        var suffix = ".json?date=" + moment__WEBPACK_IMPORTED_MODULE_3__().toISOString();
+        var resources = [
+            "/default/i18n/" + lang + suffix,
+            Object(_util_function__WEBPACK_IMPORTED_MODULE_6__["getProject"])().storageUrl + "/i18n/" + lang + suffix,
+        ];
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["forkJoin"])(resources.map(function (url) {
+            return _this.http.get(url).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(function (error) {
+                console.error(error);
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["of"])({});
+            }));
+        })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (response) {
+            return response.reduce(function (a, b) {
+                return deepmerge__WEBPACK_IMPORTED_MODULE_2__(a, b);
+            });
+        }));
+    };
+    return CustomTranslateHttpLoader;
+}());
+/**
+ * 多言語設定取得
+ */
+function getTranslateModuleConfig() {
+    return {
+        loader: {
+            provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__["TranslateLoader"],
+            useClass: CustomTranslateHttpLoader,
+            deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]]
+        }
+    };
+}
 
 
 /***/ }),
@@ -68558,7 +68701,6 @@ var HeaderComponent = /** @class */ (function () {
         this.translate = translate;
         this.userService = userService;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
-        this.storageUrl = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl;
     }
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -68574,6 +68716,10 @@ var HeaderComponent = /** @class */ (function () {
             });
         }); }).unsubscribe();
         this.isMenuOpen = false;
+        this.imageUrl = {
+            pc: Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl + "/images/logo.svg",
+            sp: Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl + "/images/logo-sp.svg"
+        };
     };
     HeaderComponent.prototype.changeLanguage = function () {
         this.userService.updateLanguage(this.language);
@@ -68586,6 +68732,13 @@ var HeaderComponent = /** @class */ (function () {
     };
     HeaderComponent.prototype.menuClose = function () {
         this.isMenuOpen = false;
+    };
+    HeaderComponent.prototype.imageLoadingError = function (screenType) {
+        if (screenType === 'pc') {
+            this.imageUrl.pc = '/default/images/logo.svg';
+            return;
+        }
+        this.imageUrl.sp = '/default/images/logo-sp.svg';
     };
     HeaderComponent.ctorParameters = function () { return [
         { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"] },
@@ -68653,6 +68806,8 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 var ItemListComponent = /** @class */ (function () {
     function ItemListComponent() {
+        this.qrcode = false;
+        this.openQrcode = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     }
     ItemListComponent.prototype.ngOnInit = function () {
@@ -68762,6 +68917,14 @@ var ItemListComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Array)
     ], ItemListComponent.prototype, "acceptedOffers", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], ItemListComponent.prototype, "qrcode", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], ItemListComponent.prototype, "openQrcode", void 0);
     ItemListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-item-list',
@@ -75054,16 +75217,16 @@ var OrderEffects = /** @class */ (function () {
         this.utilService = utilService;
         this.starPrint = starPrint;
         this.translate = translate;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
         /**
          * Cancel
          */
         this.cancel = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Cancel), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var orders, agent, _loop_1, this_1, _i, orders_1, order, orderStatusWatch, error_1;
+            var environment, orders, agent, _loop_1, this_1, _i, orders_1, order, orderStatusWatch, error_1;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
                         orders = payload.orders;
                         agent = payload.agent;
                         _a.label = 1;
@@ -75073,7 +75236,7 @@ var OrderEffects = /** @class */ (function () {
                     case 2:
                         _a.sent();
                         _loop_1 = function (order) {
-                            var startResult, creditCards, email, view, template;
+                            var startResult, creditCards, email, view, template, refundCreditCardEmail, path, url, view, template;
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0: return [4 /*yield*/, this_1.cinerino.transaction.returnOrder.start({
@@ -75108,39 +75271,63 @@ var OrderEffects = /** @class */ (function () {
                                                 ? undefined : this_1.translate.instant('email.order.return.about'),
                                             template: undefined
                                         };
-                                        if (!this_1.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) return [3 /*break*/, 3];
+                                        if (!environment.ORDER_CANCEL_MAIL_CUSTOM) return [3 /*break*/, 3];
                                         return [4 /*yield*/, this_1.utilService.getText(Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl + "/ejs/mail/return/" + payload.language + ".ejs")];
                                     case 2:
                                         view = _a.sent();
                                         template = window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_4__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"], getItemPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getItemPrice"] });
                                         email.template = template;
                                         _a.label = 3;
-                                    case 3: return [4 /*yield*/, this_1.cinerino.transaction.returnOrder.confirm({
+                                    case 3:
+                                        refundCreditCardEmail = {
+                                            sender: {
+                                                name: (this_1.translate.instant('email.order.refundCreditCard.sender.name') === '')
+                                                    ? undefined : this_1.translate.instant('email.order.refundCreditCard.sender.name'),
+                                                email: (this_1.translate.instant('email.order.refundCreditCard.sender.email') === '')
+                                                    ? undefined : this_1.translate.instant('email.order.refundCreditCard.sender.email')
+                                            },
+                                            toRecipient: {
+                                                name: (this_1.translate.instant('email.order.refundCreditCard.toRecipient.name') === '')
+                                                    ? undefined : this_1.translate.instant('email.order.refundCreditCard.toRecipient.name'),
+                                                email: (this_1.translate.instant('email.order.refundCreditCard.toRecipient.email') === '')
+                                                    ? undefined : this_1.translate.instant('email.order.refundCreditCard.toRecipient.email')
+                                            },
+                                            about: (this_1.translate.instant('email.order.refundCreditCard.about') === '')
+                                                ? undefined : this_1.translate.instant('email.order.refundCreditCard.about'),
+                                            template: undefined
+                                        };
+                                        if (!environment.ORDER_CANCEL_MAIL_CUSTOM) return [3 /*break*/, 7];
+                                        path = "/ejs/mail/refundCreditCard/" + payload.language + ".ejs";
+                                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_7__["isFile"])("" + Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl + path)];
+                                    case 4:
+                                        url = (_a.sent())
+                                            ? "" + Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl + path
+                                            : "/default" + path;
+                                        return [4 /*yield*/, this_1.utilService.getText(url)];
+                                    case 5:
+                                        view = _a.sent();
+                                        return [4 /*yield*/, window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_4__, formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"], getItemPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getItemPrice"] }, { async: true })];
+                                    case 6:
+                                        template = _a.sent();
+                                        refundCreditCardEmail.template = template;
+                                        _a.label = 7;
+                                    case 7: return [4 /*yield*/, this_1.cinerino.transaction.returnOrder.confirm({
                                             id: startResult.id,
                                             potentialActions: {
                                                 returnOrder: {
                                                     potentialActions: {
                                                         refundCreditCard: creditCards.map(function (c) {
                                                             return {
-                                                                object: {
-                                                                    object: [{
-                                                                            paymentMethod: {
-                                                                                paymentMethodId: c.paymentMethodId
-                                                                            }
-                                                                        }]
-                                                                },
-                                                                potentialActions: {
-                                                                    sendEmailMessage: {
-                                                                        object: email
-                                                                    }
-                                                                }
+                                                                object: { object: [{ paymentMethod: { paymentMethodId: c.paymentMethodId } }] },
+                                                                potentialActions: { sendEmailMessage: { object: refundCreditCardEmail } }
                                                             };
-                                                        })
+                                                        }),
+                                                        sendEmailMessage: [{ object: email }]
                                                     }
                                                 }
                                             }
                                         })];
-                                    case 4:
+                                    case 8:
                                         _a.sent();
                                         return [2 /*return*/];
                                 }
@@ -75229,11 +75416,12 @@ var OrderEffects = /** @class */ (function () {
          * Inquiry
          */
         this.load = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Inquiry), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var now, today, confirmationNumber, customer, orderDateFrom, params, order, error_3;
+            var environment, now, today, confirmationNumber, customer, orderDateFrom, params, order, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 4, , 5]);
+                        environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
                         return [4 /*yield*/, this.cinerino.getServices()];
                     case 1:
                         _a.sent();
@@ -75247,8 +75435,8 @@ var OrderEffects = /** @class */ (function () {
                                 ? '' : Object(_functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"])(payload.customer.telephone)
                         };
                         orderDateFrom = {
-                            value: this.environment.INQUIRY_ORDER_DATE_FROM_VALUE,
-                            unit: this.environment.INQUIRY_ORDER_DATE_FROM_UNIT
+                            value: environment.INQUIRY_ORDER_DATE_FROM_VALUE,
+                            unit: environment.INQUIRY_ORDER_DATE_FROM_UNIT
                         };
                         params = {
                             confirmationNumber: confirmationNumber,
@@ -75271,12 +75459,13 @@ var OrderEffects = /** @class */ (function () {
          * print
          */
         this.print = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["orderAction"].ActionTypes.Print), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var orders, printer, pos, authorizeOrders, _loop_2, _i, orders_2, order, printData, testFlg, canvasList, canvas, _loop_3, this_2, _a, authorizeOrders_1, authorizeOrder, _b, domList, error_4;
+            var environment, orders, printer, pos, authorizeOrders, _loop_2, _i, orders_2, order, printData, testFlg, canvasList, canvas, _loop_3, _a, authorizeOrders_1, authorizeOrder, _b, domList, error_4;
             var _this = this;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         _c.trys.push([0, 20, , 21]);
+                        environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
                         orders = payload.orders;
                         printer = payload.printer;
                         pos = payload.pos;
@@ -75372,9 +75561,9 @@ var OrderEffects = /** @class */ (function () {
                                                             }
                                                         }
                                                         if (qrcode !== undefined
-                                                            && this_2.environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Custom) {
+                                                            && environment.PRINT_QRCODE_TYPE === _models__WEBPACK_IMPORTED_MODULE_8__["PrintQrcodeType"].Custom) {
                                                             // QRコードカスタム文字列
-                                                            qrcode = this_2.environment.PRINT_QRCODE_CUSTOM;
+                                                            qrcode = environment.PRINT_QRCODE_CUSTOM;
                                                             qrcode = qrcode
                                                                 .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment__WEBPACK_IMPORTED_MODULE_4__(order.orderDate).format('YYMMDD'));
                                                             qrcode = qrcode
@@ -75421,7 +75610,6 @@ var OrderEffects = /** @class */ (function () {
                                 }
                             });
                         };
-                        this_2 = this;
                         _a = 0, authorizeOrders_1 = authorizeOrders;
                         _c.label = 9;
                     case 9:
@@ -75636,16 +75824,16 @@ var PurchaseEffects = /** @class */ (function () {
         this.linyService = linyService;
         this.utilService = utilService;
         this.translate = translate;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
         /**
          * GetPreScheduleDates
          */
         this.getPreScheduleDates = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.GetPreScheduleDates), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var now, _a, today, limit, page, roop, screeningEvents, searchResult, sheduleDates_1, error_1;
+            var environment, now, _a, today, limit, page, roop, screeningEvents, searchResult, sheduleDates_1, error_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 7, , 8]);
+                        environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
                         return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
                         _b.sent();
@@ -75667,7 +75855,7 @@ var PurchaseEffects = /** @class */ (function () {
                                 typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventType.ScreeningEvent,
                                 eventStatuses: [_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventStatusType.EventScheduled],
                                 superEvent: payload.superEvent,
-                                startFrom: moment__WEBPACK_IMPORTED_MODULE_4__(today).add(this.environment.PURCHASE_PRE_SCHEDULE_DATE, 'days').toDate(),
+                                startFrom: moment__WEBPACK_IMPORTED_MODULE_4__(today).add(environment.PURCHASE_PRE_SCHEDULE_DATE, 'days').toDate(),
                                 offers: {
                                     validFrom: now,
                                     validThrough: now,
@@ -76278,17 +76466,18 @@ var PurchaseEffects = /** @class */ (function () {
          * EndTransaction
          */
         this.endTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.EndTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var transaction, authorizeSeatReservations, seller, linyId, params, view, result, order, sendData, view, template, error_16, error_17;
+            var environment, transaction, authorizeSeatReservations, seller, linyId, params, path, url, view, result, order, sendData, view, template, error_16, error_17;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
                         transaction = payload.transaction;
                         authorizeSeatReservations = payload.authorizeSeatReservations;
                         seller = payload.seller;
                         linyId = payload.linyId;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 11, , 13]);
+                        _a.trys.push([1, 12, , 14]);
                         return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 2:
                         _a.sent();
@@ -76313,9 +76502,15 @@ var PurchaseEffects = /** @class */ (function () {
                                 template: undefined
                             }
                         };
-                        if (!(this.environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined)) return [3 /*break*/, 4];
-                        return [4 /*yield*/, this.utilService.getText(Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl + "/ejs/mail/complete/" + payload.language + ".ejs")];
+                        if (!(environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined)) return [3 /*break*/, 5];
+                        path = "/ejs/mail/complete/" + payload.language + ".ejs";
+                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_7__["isFile"])("" + Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl + path)];
                     case 3:
+                        url = (_a.sent())
+                            ? "" + Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl + path
+                            : "/default" + path;
+                        return [4 /*yield*/, this.utilService.getText(url)];
+                    case 4:
                         view = _a.sent();
                         params.email.template = window.ejs.render(view, {
                             authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_7__["authorizeSeatReservation2Event"])({ authorizeSeatReservations: authorizeSeatReservations }),
@@ -76325,12 +76520,12 @@ var PurchaseEffects = /** @class */ (function () {
                             getItemPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getItemPrice"],
                             getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"]
                         });
-                        _a.label = 4;
-                    case 4: return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.confirm(params)];
-                    case 5:
+                        _a.label = 5;
+                    case 5: return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.confirm(params)];
+                    case 6:
                         result = _a.sent();
                         order = result.order;
-                        if (this.environment.ANALYTICS_ID !== '') {
+                        if (environment.ANALYTICS_ID !== '') {
                             // アナリティクス連携
                             try {
                                 sendData = {
@@ -76346,12 +76541,12 @@ var PurchaseEffects = /** @class */ (function () {
                                 console.error(error);
                             }
                         }
-                        if (!(linyId !== undefined)) return [3 /*break*/, 10];
-                        _a.label = 6;
-                    case 6:
-                        _a.trys.push([6, 9, , 10]);
-                        return [4 /*yield*/, this.utilService.getText(Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl + "/ejs/liny/complete/" + payload.language + ".ejs")];
+                        if (!(linyId !== undefined)) return [3 /*break*/, 11];
+                        _a.label = 7;
                     case 7:
+                        _a.trys.push([7, 10, , 11]);
+                        return [4 /*yield*/, this.utilService.getText(Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl + "/ejs/liny/complete/" + payload.language + ".ejs")];
+                    case 8:
                         view = _a.sent();
                         template = window.ejs.render(view, {
                             authorizeSeatReservations: Object(_functions__WEBPACK_IMPORTED_MODULE_7__["authorizeSeatReservation2Event"])({ authorizeSeatReservations: authorizeSeatReservations }),
@@ -76362,23 +76557,23 @@ var PurchaseEffects = /** @class */ (function () {
                             getItemPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getItemPrice"]
                         });
                         return [4 /*yield*/, this.linyService.sendMessage({ uid: linyId, message: template })];
-                    case 8:
-                        _a.sent();
-                        return [3 /*break*/, 10];
                     case 9:
+                        _a.sent();
+                        return [3 /*break*/, 11];
+                    case 10:
                         error_16 = _a.sent();
                         console.error(error_16);
-                        return [3 /*break*/, 10];
-                    case 10: return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransactionSuccess({ order: order })];
-                    case 11:
+                        return [3 /*break*/, 11];
+                    case 11: return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransactionSuccess({ order: order })];
+                    case 12:
                         error_17 = _a.sent();
                         return [4 /*yield*/, this.cinerinoService.transaction.placeOrder.cancel({
                                 id: transaction.id
                             })];
-                    case 12:
+                    case 13:
                         _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].EndTransactionFail({ error: error_17 })];
-                    case 13: return [2 /*return*/];
+                    case 14: return [2 /*return*/];
                 }
             });
         }); }));

@@ -313,7 +313,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, createPrintCanvas, createTestPrintCanvas */
+/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, isFile, createPrintCanvas, createTestPrintCanvas */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -373,6 +373,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getProject"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getExternalData", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getExternalData"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isFile", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["isFile"]; });
 
 /* harmony import */ var _order_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./order.function */ "./app/functions/order.function.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createPrintCanvas"]; });
@@ -1223,7 +1225,7 @@ function selectAvailableSeat(params) {
 /*!****************************************!*\
   !*** ./app/functions/util.function.ts ***!
   \****************************************/
-/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData */
+/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, isFile */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1239,6 +1241,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return getParameter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return getProject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getExternalData", function() { return getExternalData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFile", function() { return isFile; });
 /* harmony import */ var libphonenumber_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -1500,12 +1503,37 @@ function getProject() {
     }
     return JSON.parse(project);
 }
+/**
+ * 外部データ取得
+ */
 function getExternalData() {
     var external = sessionStorage.getItem('EXTERNAL');
     if (external === null || external === '') {
         return {};
     }
     return JSON.parse(external);
+}
+/**
+ * ファイル存在判定
+ */
+function isFile(url) {
+    return __awaiter(this, void 0, void 0, function () {
+        var fetchResult;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch(url, {
+                        method: 'GET',
+                        cache: 'no-cache',
+                        headers: {
+                            'Content-Type': 'charset=utf-8'
+                        },
+                    })];
+                case 1:
+                    fetchResult = _a.sent();
+                    return [2 /*return*/, (fetchResult.ok)];
+            }
+        });
+    });
 }
 
 
@@ -1957,9 +1985,10 @@ var defaultEnvironment = {
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
     PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE: '0',
     PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT: 'seat',
-    PURCHASE_COMPLETE_MAIL_CUSTOM: false,
+    PURCHASE_COMPLETE_MAIL_CUSTOM: true,
     PURCHASE_TERMS: false,
     PURCHASE_WARNING: false,
+    ORDER_CANCEL_MAIL_CUSTOM: true,
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: false,
     INQUIRY_PRINT: false,
@@ -2130,35 +2159,40 @@ function setProject(params) {
  */
 function setProjectConfig(storageUrl) {
     return __awaiter(this, void 0, void 0, function () {
-        var fetchResult, _a, _b, environment, style, favicon;
+        var now, fetchResult, _a, _b, environment, style, favicon;
         return __generator(this, function (_c) {
             switch (_c.label) {
-                case 0: return [4 /*yield*/, fetch(storageUrl + "/js/environment.js?=date" + moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString(), {
-                        method: 'GET',
-                        cache: 'no-cache',
-                        headers: { 'Content-Type': 'application/json; charset=utf-8' }
-                    })];
+                case 0:
+                    now = moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString();
+                    return [4 /*yield*/, fetch(storageUrl + "/js/environment.js?=date" + now, {
+                            method: 'GET',
+                            cache: 'no-cache',
+                            headers: { 'Content-Type': 'application/json; charset=utf-8' }
+                        })];
                 case 1:
                     fetchResult = _c.sent();
-                    if (!fetchResult.ok) {
-                        throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
-                    }
-                    if (fetchResult.body === null) {
-                        throw new Error('fetchResult.body null');
-                    }
+                    if (!fetchResult.ok) return [3 /*break*/, 3];
                     _b = (_a = window).eval;
                     return [4 /*yield*/, fetchResult.text()];
                 case 2:
                     _b.apply(_a, [_c.sent()]);
+                    _c.label = 3;
+                case 3:
                     environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
                     style = document.createElement('link');
                     style.rel = 'stylesheet';
-                    style.href = storageUrl + "/css/style.css?=date" + moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString();
+                    style.href = storageUrl + "/css/style.css?=date" + now;
+                    style.onerror = function () {
+                        this.href = "/default/css/style.css?=date" + now;
+                    };
                     document.head.appendChild(style);
                     favicon = document.createElement('link');
                     favicon.rel = 'icon';
                     favicon.type = 'image/x-icon"';
                     favicon.href = storageUrl + "/favicon.ico";
+                    favicon.onerror = function () {
+                        this.href = '/default/favicon.ico';
+                    };
                     document.head.appendChild(favicon);
                     // タイトル設定
                     document.title = environment.APP_TITLE;

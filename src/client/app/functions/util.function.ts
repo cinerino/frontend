@@ -188,6 +188,9 @@ export function getProject() {
     }>JSON.parse(project);
 }
 
+/**
+ * 外部データ取得
+ */
 export function getExternalData(): {
     theaterBranchCode?: string;
     superEventId?: string;
@@ -203,4 +206,18 @@ export function getExternalData(): {
         return {};
     }
     return JSON.parse(external);
+}
+
+/**
+ * ファイル存在判定
+ */
+export async function isFile(url: string) {
+    const fetchResult = await fetch(url, {
+        method: 'GET',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'charset=utf-8'
+        },
+    });
+    return (fetchResult.ok);
 }

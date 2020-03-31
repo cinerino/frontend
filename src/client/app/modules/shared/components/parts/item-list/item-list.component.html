@@ -25,6 +25,7 @@
             --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
             --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
         </p>
+        <button *ngIf="qrcode" class="btn btn-primary mb-3" (click)="openQrcode.emit({id: acceptedOffer.itemOffered.id})">{{ 'common.qrcode' | translate }}</button>
     </div>
 </div>
 

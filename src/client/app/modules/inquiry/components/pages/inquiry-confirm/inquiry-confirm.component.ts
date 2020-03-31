@@ -72,7 +72,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     /**
      * QRコード表示
      */
-    public async openQRCodeViewer(id: string) {
+    public async openQRCodeViewer(params: { id: string }) {
         try {
             let orderData = await this.orderService.getData();
             if (orderData.order === undefined) {
@@ -86,7 +86,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
             }
             const findResult = authorizeOrder.acceptedOffers.find((a) => {
                 return (a.itemOffered.typeOf === factory.chevre.reservationType.EventReservation
-                    && a.itemOffered.id === id);
+                    && a.itemOffered.id === params.id);
             });
             if (findResult === undefined) {
                 throw new Error('itemOffered notfound');

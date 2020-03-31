@@ -177,6 +177,10 @@ interface IEnvironment {
      */
     PURCHASE_WARNING: boolean;
     /**
+     * 注文キャンセルメールカスタム
+     */
+    ORDER_CANCEL_MAIL_CUSTOM: boolean;
+    /**
      * 照会キャンセル
      */
     INQUIRY_CANCEL: boolean;
@@ -277,9 +281,10 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
     PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE: '0',
     PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT: 'seat',
-    PURCHASE_COMPLETE_MAIL_CUSTOM: false,
+    PURCHASE_COMPLETE_MAIL_CUSTOM: true,
     PURCHASE_TERMS: false,
     PURCHASE_WARNING: false,
+    ORDER_CANCEL_MAIL_CUSTOM: true,
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: false,
     INQUIRY_PRINT: false,

@@ -5,7 +5,16 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
 import { getEnvironment } from '../../../environments/environment';
-import { createPrintCanvas, createTestPrintCanvas, formatTelephone, getItemPrice, getProject, retry, sleep } from '../../functions';
+import {
+    createPrintCanvas,
+    createTestPrintCanvas,
+    formatTelephone,
+    getItemPrice,
+    getProject,
+    isFile,
+    retry,
+    sleep
+} from '../../functions';
 import { connectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import { orderAction } from '../actions';
@@ -14,7 +23,6 @@ import { orderAction } from '../actions';
  */
 @Injectable()
 export class OrderEffects {
-    public environment = getEnvironment();
 
     constructor(
         private actions: Actions,
@@ -32,6 +40,7 @@ export class OrderEffects {
         ofType<orderAction.Cancel>(orderAction.ActionTypes.Cancel),
         map(action => action.payload),
         mergeMap(async (payload) => {
+            const environment = getEnvironment();
             const orders = payload.orders;
             const agent = payload.agent;
             try {
@@ -67,11 +76,38 @@ export class OrderEffects {
                             ? undefined : this.translate.instant('email.order.return.about'),
                         template: undefined
                     };
-                    if (this.environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
-                        // メールをカスタマイズ
+                    if (environment.ORDER_CANCEL_MAIL_CUSTOM) {
+                        // 返品メールをカスタマイズ
                         const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/mail/return/${payload.language}.ejs`);
                         const template = (<any>window).ejs.render(view, { moment, formatTelephone, getItemPrice });
                         email.template = template;
+                    }
+                    const refundCreditCardEmail: factory.creativeWork.message.email.ICustomization = {
+                        sender: {
+                            name: (this.translate.instant('email.order.refundCreditCard.sender.name') === '')
+                                ? undefined : this.translate.instant('email.order.refundCreditCard.sender.name'),
+                            email: (this.translate.instant('email.order.refundCreditCard.sender.email') === '')
+                                ? undefined : this.translate.instant('email.order.refundCreditCard.sender.email')
+                        },
+                        toRecipient: {
+                            name: (this.translate.instant('email.order.refundCreditCard.toRecipient.name') === '')
+                                ? undefined : this.translate.instant('email.order.refundCreditCard.toRecipient.name'),
+                            email: (this.translate.instant('email.order.refundCreditCard.toRecipient.email') === '')
+                                ? undefined : this.translate.instant('email.order.refundCreditCard.toRecipient.email')
+                        },
+                        about: (this.translate.instant('email.order.refundCreditCard.about') === '')
+                            ? undefined : this.translate.instant('email.order.refundCreditCard.about'),
+                        template: undefined
+                    };
+                    if (environment.ORDER_CANCEL_MAIL_CUSTOM) {
+                        // 返金メールをカスタマイズ
+                        const path = `/ejs/mail/refundCreditCard/${payload.language}.ejs`;
+                        const url = (await isFile(`${getProject().storageUrl}${path}`))
+                            ? `${getProject().storageUrl}${path}`
+                            : `/default${path}`;
+                        const view = await this.utilService.getText(url);
+                        const template = await (<any>window).ejs.render(view, { moment, formatTelephone, getItemPrice }, { async: true });
+                        refundCreditCardEmail.template = template;
                     }
                     await this.cinerino.transaction.returnOrder.confirm({
                         id: startResult.id,
@@ -80,20 +116,11 @@ export class OrderEffects {
                                 potentialActions: {
                                     refundCreditCard: creditCards.map((c) => {
                                         return {
-                                            object: {
-                                                object: [{
-                                                    paymentMethod: {
-                                                        paymentMethodId: c.paymentMethodId
-                                                    }
-                                                }]
-                                            },
-                                            potentialActions: {
-                                                sendEmailMessage: {
-                                                    object: email
-                                                }
-                                            }
+                                            object: { object: [{ paymentMethod: { paymentMethodId: c.paymentMethodId } }] },
+                                            potentialActions: { sendEmailMessage: { object: refundCreditCardEmail } }
                                         };
-                                    })
+                                    }),
+                                    sendEmailMessage: [{ object: email }]
                                 }
                             }
                         }
@@ -150,6 +177,7 @@ export class OrderEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
+                const environment = getEnvironment();
                 await this.cinerino.getServices();
                 const now = (await this.utilService.getServerTime()).date;
                 const today = moment(moment(now).format('YYYYMMDD')).toISOString();
@@ -159,8 +187,8 @@ export class OrderEffects {
                         ? '' : formatTelephone(payload.customer.telephone)
                 };
                 const orderDateFrom = {
-                    value: this.environment.INQUIRY_ORDER_DATE_FROM_VALUE,
-                    unit: this.environment.INQUIRY_ORDER_DATE_FROM_UNIT
+                    value: environment.INQUIRY_ORDER_DATE_FROM_VALUE,
+                    unit: environment.INQUIRY_ORDER_DATE_FROM_UNIT
                 };
                 const params = {
                     confirmationNumber,
@@ -186,6 +214,7 @@ export class OrderEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
+                const environment = getEnvironment();
                 const orders = payload.orders;
                 const printer = payload.printer;
                 const pos = payload.pos;
@@ -241,9 +270,9 @@ export class OrderEffects {
                                 }
                             }
                             if (qrcode !== undefined
-                                && this.environment.PRINT_QRCODE_TYPE === PrintQrcodeType.Custom) {
+                                && environment.PRINT_QRCODE_TYPE === PrintQrcodeType.Custom) {
                                 // QRコードカスタム文字列
-                                qrcode = this.environment.PRINT_QRCODE_CUSTOM;
+                                qrcode = environment.PRINT_QRCODE_CUSTOM;
                                 qrcode = qrcode
                                     .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment(order.orderDate).format('YYMMDD'));
                                 qrcode = qrcode

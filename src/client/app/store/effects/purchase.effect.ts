@@ -13,6 +13,7 @@ import {
     getItemPrice,
     getProject,
     getTicketPrice,
+    isFile,
     selectAvailableSeat,
     sleep
 } from '../../functions';
@@ -26,7 +27,6 @@ declare const ga: Function;
  */
 @Injectable()
 export class PurchaseEffects {
-    public environment = getEnvironment();
 
     constructor(
         private actions: Actions,
@@ -45,6 +45,7 @@ export class PurchaseEffects {
         map(action => action.payload),
         mergeMap(async (payload) => {
             try {
+                const environment = getEnvironment();
                 await this.cinerinoService.getServices();
                 const now = moment((await this.utilService.getServerTime()).date).toDate();
                 const today = moment(moment().format('YYYY-MM-DD')).toDate();
@@ -59,7 +60,7 @@ export class PurchaseEffects {
                         typeOf: factory.chevre.eventType.ScreeningEvent,
                         eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
                         superEvent: payload.superEvent,
-                        startFrom: moment(today).add(this.environment.PURCHASE_PRE_SCHEDULE_DATE, 'days').toDate(),
+                        startFrom: moment(today).add(environment.PURCHASE_PRE_SCHEDULE_DATE, 'days').toDate(),
                         offers: {
                             validFrom: now,
                             validThrough: now,
@@ -558,6 +559,7 @@ export class PurchaseEffects {
         ofType<purchaseAction.EndTransaction>(purchaseAction.ActionTypes.EndTransaction),
         map(action => action.payload),
         mergeMap(async (payload) => {
+            const environment = getEnvironment();
             const transaction = payload.transaction;
             const authorizeSeatReservations = payload.authorizeSeatReservations;
             const seller = payload.seller;
@@ -588,9 +590,13 @@ export class PurchaseEffects {
                         template: undefined
                     }
                 };
-                if (this.environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
+                if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
                     // 完了メールをカスタマイズ
-                    const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/mail/complete/${payload.language}.ejs`);
+                    const path = `/ejs/mail/complete/${payload.language}.ejs`;
+                    const url = (await isFile(`${getProject().storageUrl}${path}`))
+                        ? `${getProject().storageUrl}${path}`
+                        : `/default${path}`;
+                    const view = await this.utilService.getText(url);
                     params.email.template = (<any>window).ejs.render(view, {
                         authorizeSeatReservations: authorizeSeatReservation2Event({ authorizeSeatReservations }),
                         seller,
@@ -602,7 +608,7 @@ export class PurchaseEffects {
                 }
                 const result = await this.cinerinoService.transaction.placeOrder.confirm(params);
                 const order = result.order;
-                if (this.environment.ANALYTICS_ID !== '') {
+                if (environment.ANALYTICS_ID !== '') {
                     // アナリティクス連携
                     try {
                         const sendData = {
