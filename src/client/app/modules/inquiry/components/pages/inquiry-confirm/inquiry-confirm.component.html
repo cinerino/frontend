@@ -39,7 +39,7 @@
                 </p>
             </div>
             <hr class="mb-3">
-            <app-item-list [acceptedOffers]="eventOrder.data"></app-item-list>
+            <app-item-list [acceptedOffers]="eventOrder.data" [qrcode]="environment.INQUIRY_QRCODE" (openQrcode)="openQRCodeViewer($event)"></app-item-list>
         </div>
 
 

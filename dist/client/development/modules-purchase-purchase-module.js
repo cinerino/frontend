@@ -4236,22 +4236,27 @@ var PurchaseTermsComponent = /** @class */ (function () {
     };
     PurchaseTermsComponent.prototype.ngOnChanges = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var url, result, error_1;
+            var path, url, result, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        url = Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl + "/text/purchase/terms/" + this.language + ".txt";
-                        return [4 /*yield*/, this.utilService.getText(url)];
+                        _a.trys.push([0, 3, , 4]);
+                        path = "/text/purchase/terms/" + this.language + ".txt";
+                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])("" + Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl + path)];
                     case 1:
+                        url = (_a.sent())
+                            ? "" + Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl + path
+                            : "/default" + path;
+                        return [4 /*yield*/, this.utilService.getText(url)];
+                    case 2:
                         result = _a.sent();
                         this.terms = result.replace(/\n/g, '<br>');
-                        return [3 /*break*/, 3];
-                    case 2:
+                        return [3 /*break*/, 4];
+                    case 3:
                         error_1 = _a.sent();
                         console.error(error_1);
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
@@ -4372,22 +4377,27 @@ var PurchaseWarningComponent = /** @class */ (function () {
     };
     PurchaseWarningComponent.prototype.ngOnChanges = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var url, result, error_1;
+            var path, url, result, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        url = Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl + "/text/purchase/warning/" + this.language + ".txt";
-                        return [4 /*yield*/, this.utilService.getText(url)];
+                        _a.trys.push([0, 3, , 4]);
+                        path = "/text/purchase/warning/" + this.language + ".txt";
+                        return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])("" + Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl + path)];
                     case 1:
+                        url = (_a.sent())
+                            ? "" + Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl + path
+                            : "/default" + path;
+                        return [4 /*yield*/, this.utilService.getText(url)];
+                    case 2:
                         result = _a.sent();
                         this.warning = result.replace(/\n/g, '<br>');
-                        return [3 /*break*/, 3];
-                    case 2:
+                        return [3 /*break*/, 4];
+                    case 3:
                         error_1 = _a.sent();
                         console.error(error_1);
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });

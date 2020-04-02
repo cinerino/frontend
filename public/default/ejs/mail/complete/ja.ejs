@@ -1,0 +1,40 @@
+| #{order.customer.familyName} #{order.customer.givenName} 様
+| 
+| この度は、<%= seller.name.ja %>のオンラインチケットサービスにてご購入頂き、誠にありがとうございます。
+| お客様がご購入されましたチケットの情報は下記の通りです。
+| 
+| [注文日時]
+| <%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %>
+| 
+| [購入番号]
+| #{order.confirmationNumber}
+| ※チケット発券の際に必要になります。
+| 
+<% for (let i = 0; i < authorizeSeatReservations.length; i++) { %>
+<% const event = authorizeSeatReservations[i].event; %>
+<% const reservations = authorizeSeatReservations[i].reservations; %>
+| [<%= (i + 1) %>件目]
+| <%= moment(event.startDate).tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %> - <%= moment(event.endDate).tz('Asia/Tokyo').locale('ja').format('HH:mm') %>
+| <%= event.name.ja %>
+<% for (let reservation of reservations) { %>
+| <%= reservation.reservedTicket.ticketType.name.ja %> / ￥<%= String(getItemPrice({ priceComponents: reservation.price.priceComponent })).toLocaleString() %>
+<% } %>
+| 
+<% } %>
+| [合計]
+| ￥#{order.price}
+| 
+| [注文番号]
+| #{order.orderNumber}
+| 
+| ※周辺道路・駐車場が非常に混雑する場合がございます。時間指定のチケットはお時間に余裕をもってお越しください。
+| 　購入後のチケット変更・キャンセルはできません。
+| 
+| なお、このメールは<%= seller.name.ja %>の予約システムでチケットをご購入頂いた方にお送りしておりますが、
+| チケット購入に覚えのない方に届いております場合は、下記お問い合わせ先までご連絡ください。
+| ※なお、このメールアドレスは送信専用となっておりますので、ご返信頂けません。
+| ご不明な点がございましたら、下記番号までお問合わせください。 
+| 
+| お問い合わせはこちら
+| <%= seller.name.ja %>
+| TEL：<%= formatTelephone(seller.telephone, 'NATIONAL') %>

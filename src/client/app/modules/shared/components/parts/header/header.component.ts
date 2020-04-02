@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
     public isMenuOpen: boolean;
     public user: Observable<reducers.IUserState>;
     public environment = getEnvironment();
-    public storageUrl = getProject().storageUrl;
+    public imageUrl: { pc: string; sp: string };
 
     constructor(
         private store: Store<reducers.IState>,
@@ -35,6 +35,10 @@ export class HeaderComponent implements OnInit {
             html.setAttribute('lang', this.language);
         }).unsubscribe();
         this.isMenuOpen = false;
+        this.imageUrl = {
+            pc: `${getProject().storageUrl}/images/logo.svg`,
+            sp: `${getProject().storageUrl}/images/logo-sp.svg`
+        };
     }
 
     public changeLanguage() {
@@ -51,6 +55,14 @@ export class HeaderComponent implements OnInit {
 
     public menuClose() {
         this.isMenuOpen = false;
+    }
+
+    public imageLoadingError(screenType: 'pc' | 'sp') {
+        if (screenType === 'pc') {
+            this.imageUrl.pc = '/default/images/logo.svg';
+            return;
+        }
+        this.imageUrl.sp = '/default/images/logo-sp.svg';
     }
 
 }
