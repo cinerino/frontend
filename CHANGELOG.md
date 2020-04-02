@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.16 - 2020-04-02
+### Added
+ - プロジェクトごとの設定にデフォルト設定を追加
+
 ## 3.0.15 - 2020-03-27
 ### Changed
  - 作品追加特性の取得方法を変更
