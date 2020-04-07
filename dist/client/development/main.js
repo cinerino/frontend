@@ -2168,9 +2168,9 @@ function setProject(params) {
  */
 function setProjectConfig(storageUrl) {
     return __awaiter(this, void 0, void 0, function () {
-        var now, fetchResult, _a, _b, environment, style, favicon;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var now, fetchResult, _a, _b, environment, style, favicon, _c;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0:
                     now = moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString();
                     return [4 /*yield*/, fetch(storageUrl + "/js/environment.js?=date" + now, {
@@ -2179,13 +2179,13 @@ function setProjectConfig(storageUrl) {
                             headers: { 'Content-Type': 'application/json; charset=utf-8' }
                         })];
                 case 1:
-                    fetchResult = _c.sent();
+                    fetchResult = _d.sent();
                     if (!fetchResult.ok) return [3 /*break*/, 3];
                     _b = (_a = window).eval;
                     return [4 /*yield*/, fetchResult.text()];
                 case 2:
-                    _b.apply(_a, [_c.sent()]);
-                    _c.label = 3;
+                    _b.apply(_a, [_d.sent()]);
+                    _d.label = 3;
                 case 3:
                     environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
                     style = document.createElement('link');
@@ -2198,10 +2198,10 @@ function setProjectConfig(storageUrl) {
                     favicon = document.createElement('link');
                     favicon.rel = 'icon';
                     favicon.type = 'image/x-icon"';
-                    favicon.href = storageUrl + "/favicon.ico";
-                    favicon.onerror = function () {
-                        this.href = '/default/favicon.ico';
-                    };
+                    _c = favicon;
+                    return [4 /*yield*/, Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["isFile"])(storageUrl + "/favicon.ico")];
+                case 4:
+                    _c.href = (_d.sent()) ? storageUrl + "/favicon.ico" : '/default/favicon.ico';
                     document.head.appendChild(favicon);
                     // タイトル設定
                     document.title = environment.APP_TITLE;

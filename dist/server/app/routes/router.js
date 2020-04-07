@@ -24,6 +24,14 @@ exports.default = (app) => {
         res.locals.NODE_ENV = process.env.NODE_ENV;
         next();
     });
+    app.use((req, res, next) => {
+        if ((/\.(css|js|svg|jpg|png|gif|ico|json|html|txt)/).test(req.path)) {
+            res.status(404);
+            res.end();
+            return;
+        }
+        next();
+    });
     app.use('/api/authorize', authorize_1.authorizeRouter);
     app.use('/api/liny', liny_1.linyRouter);
     app.use('/api', util_1.utilRouter);

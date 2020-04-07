@@ -7,7 +7,7 @@ import 'hammerjs';
 import * as momentTimezone from 'moment-timezone';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { jaLocale } from 'ngx-bootstrap/locale';
-import { getParameter, getProject } from './app/functions';
+import { getParameter, getProject, isFile } from './app/functions';
 import { getEnvironment } from './environments/environment';
 
 async function main() {
@@ -91,10 +91,7 @@ async function setProjectConfig(storageUrl: string) {
     const favicon = document.createElement('link');
     favicon.rel = 'icon';
     favicon.type = 'image/x-icon"';
-    favicon.href = `${storageUrl}/favicon.ico`;
-    favicon.onerror = function () {
-        this.href = '/default/favicon.ico';
-    };
+    favicon.href = (await isFile(`${storageUrl}/favicon.ico`)) ? `${storageUrl}/favicon.ico` : '/default/favicon.ico';
     document.head.appendChild(favicon);
     // タイトル設定
     document.title = environment.APP_TITLE;
