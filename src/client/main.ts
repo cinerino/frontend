@@ -25,10 +25,16 @@ async function main() {
     }
 
     // プロジェクト設定
-    const project = (params.project === undefined)
+    if (params.projectId !== undefined) {
+        sessionStorage.removeItem('PROJECT');
+    }
+    const projectId = (params.projectId === undefined)
+        ? (getProject().projectId === '') ? undefined : getProject().projectId
+        : params.projectId;
+    const projectName = (params.projectName === undefined)
         ? (getProject().projectName === '') ? undefined : getProject().projectName
-        : params.project;
-    await setProject({ project });
+        : params.projectName;
+    await setProject({ projectId, projectName });
     if (getProject().storageUrl === undefined) {
         return;
     }
@@ -38,9 +44,7 @@ async function main() {
 /**
  * プロジェクト情報設定
  */
-async function setProject(params: {
-    project?: string;
-}) {
+async function setProject(params: { projectId?: string; projectName?: string; }) {
     const fetchResult = await fetch('/api/project', {
         method: 'POST',
         cache: 'no-cache',

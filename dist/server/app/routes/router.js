@@ -54,6 +54,21 @@ exports.default = (app) => {
         delete req.session.auth;
         res.redirect('/#/auth/signout');
     });
+    app.get(['/:projectId/:projectName', '/:projectId'], (req, res, next) => {
+        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
+            next();
+            return;
+        }
+        let url = `/?projectId=${req.params.projectId}`;
+        if (req.params.projectName !== undefined) {
+            url += `&projectName=${req.params.projectName}`;
+        }
+        const query = req.url.split('?')[1];
+        if (query !== undefined) {
+            url += `&${query}`;
+        }
+        res.redirect(url);
+    });
     app.get('*', (req, res, next) => {
         if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
             next();
