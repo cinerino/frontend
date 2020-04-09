@@ -20,9 +20,9 @@ export interface IScreen {
     objects: IObject[];
     seatStart: IPosition;
     map: number[][];
-    special: string[];
-    hc: string[];
-    pair: string[];
+    special?: string[];
+    hc?: string[];
+    pair?: string[];
     seatSize: ISize;
     seatMargin: ISize;
     aisle: {
@@ -34,9 +34,8 @@ export interface IScreen {
     seatNumberAlign: 'left' | 'right';
     html: string;
     style?: string;
-    columnLabel: boolean;
-    lineLabel: boolean;
-    codeType: 'chevre' | 'coa';
+    columnLabel?: boolean;
+    lineLabel?: boolean;
 }
 
 export interface ILabel {
