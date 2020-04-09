@@ -149,7 +149,8 @@ export function getParameter(): {
     scheduleDate?: string;
     linyId?: string;
     language?: string;
-    project?: string;
+    projectId?: string;
+    projectName?: string;
 } {
     const result: any = {};
     const params = location.search.replace('?', '').split('&');

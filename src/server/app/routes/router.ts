@@ -16,6 +16,14 @@ export default (app: express.Application) => {
         res.locals.NODE_ENV = process.env.NODE_ENV;
         next();
     });
+    app.use((req, res, next) => {
+        if ((/\.(css|js|svg|jpg|png|gif|ico|json|html|txt)/).test(req.path)) {
+            res.status(404);
+            res.end();
+            return;
+        }
+        next();
+    });
 
     app.use('/api/authorize', authorizeRouter);
     app.use('/api/liny', linyRouter);
@@ -50,6 +58,22 @@ export default (app: express.Application) => {
         log('signOutRedirect');
         delete (<Express.Session>req.session).auth;
         res.redirect('/#/auth/signout');
+    });
+
+    app.get(['/:projectId/:projectName', '/:projectId'], (req, res, next) => {
+        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
+            next();
+            return;
+        }
+        let url = `/?projectId=${req.params.projectId}`;
+        if (req.params.projectName !== undefined) {
+            url += `&projectName=${req.params.projectName}`;
+        }
+        const query = req.url.split('?')[1];
+        if (query !== undefined) {
+            url += `&${query}`;
+        }
+        res.redirect(url);
     });
 
     app.get('*', (req, res, next) => {
