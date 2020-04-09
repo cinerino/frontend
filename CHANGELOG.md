@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.17 - 2020-04-09
+### Changed
+ - プロジェクトごとにURLパス変更
+### Fixed
+ - 静的ファイル最適化
+
 ## 3.0.16 - 2020-04-02
 ### Added
  - プロジェクトごとの設定にデフォルト設定を追加
