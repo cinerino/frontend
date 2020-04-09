@@ -313,7 +313,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, isFile, createPrintCanvas, createTestPrintCanvas */
+/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, isFile, screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, createPrintCanvas, createTestPrintCanvas */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1928,6 +1928,7 @@ var SeatStatus;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEnvironment", function() { return getEnvironment; });
+/* harmony import */ var _app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app/functions/util.function */ "./app/functions/util.function.ts");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -1942,6 +1943,7 @@ var __assign = (undefined && undefined.__assign) || function () {
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+
 var defaultEnvironment = {
     production: false,
     APP_TITLE: '',
@@ -1951,7 +1953,7 @@ var defaultEnvironment = {
     VIEW_TYPE: 'cinema',
     GTM_ID: '',
     ANALYTICS_ID: '',
-    STORAGE_NAME: '',
+    STORAGE_NAME: (Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId === '') ? 'FRONTEND-STATE' : Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId.toUpperCase() + "-FRONTEND-STATE",
     STORAGE_TYPE: 'sessionStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
@@ -2094,7 +2096,7 @@ var _this = undefined;
 
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var params, project;
+        var params, projectId, projectName;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -2107,10 +2109,17 @@ function main() {
                     if (location.hash === '') {
                         sessionStorage.setItem('EXTERNAL', JSON.stringify(__assign({}, params, { project: undefined })));
                     }
-                    project = (params.project === undefined)
+                    // プロジェクト設定
+                    if (params.projectId !== undefined) {
+                        sessionStorage.removeItem('PROJECT');
+                    }
+                    projectId = (params.projectId === undefined)
+                        ? (Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectId === '') ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectId
+                        : params.projectId;
+                    projectName = (params.projectName === undefined)
                         ? (Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectName === '') ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectName
-                        : params.project;
-                    return [4 /*yield*/, setProject({ project: project })];
+                        : params.projectName;
+                    return [4 /*yield*/, setProject({ projectId: projectId, projectName: projectName })];
                 case 1:
                     _a.sent();
                     if (Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().storageUrl === undefined) {
@@ -2159,9 +2168,9 @@ function setProject(params) {
  */
 function setProjectConfig(storageUrl) {
     return __awaiter(this, void 0, void 0, function () {
-        var now, fetchResult, _a, _b, environment, style, favicon;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var now, fetchResult, _a, _b, environment, style, favicon, _c;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0:
                     now = moment_timezone__WEBPACK_IMPORTED_MODULE_3__().toISOString();
                     return [4 /*yield*/, fetch(storageUrl + "/js/environment.js?=date" + now, {
@@ -2170,13 +2179,13 @@ function setProjectConfig(storageUrl) {
                             headers: { 'Content-Type': 'application/json; charset=utf-8' }
                         })];
                 case 1:
-                    fetchResult = _c.sent();
+                    fetchResult = _d.sent();
                     if (!fetchResult.ok) return [3 /*break*/, 3];
                     _b = (_a = window).eval;
                     return [4 /*yield*/, fetchResult.text()];
                 case 2:
-                    _b.apply(_a, [_c.sent()]);
-                    _c.label = 3;
+                    _b.apply(_a, [_d.sent()]);
+                    _d.label = 3;
                 case 3:
                     environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
                     style = document.createElement('link');
@@ -2189,10 +2198,10 @@ function setProjectConfig(storageUrl) {
                     favicon = document.createElement('link');
                     favicon.rel = 'icon';
                     favicon.type = 'image/x-icon"';
-                    favicon.href = storageUrl + "/favicon.ico";
-                    favicon.onerror = function () {
-                        this.href = '/default/favicon.ico';
-                    };
+                    _c = favicon;
+                    return [4 /*yield*/, Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["isFile"])(storageUrl + "/favicon.ico")];
+                case 4:
+                    _c.href = (_d.sent()) ? storageUrl + "/favicon.ico" : '/default/favicon.ico';
                     document.head.appendChild(favicon);
                     // タイトル設定
                     document.title = environment.APP_TITLE;

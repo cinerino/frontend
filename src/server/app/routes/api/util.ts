@@ -14,18 +14,23 @@ const router = express.Router();
  * プロジェクト設定取得
  */
 router.post('/project', async (req, res) => {
-    log('project', req.body.project);
-    const project = <string | undefined>(req.body.project);
-    if (project === undefined) {
-        res.json({
-            projectId: process.env.PROJECT_ID,
-            projectName: process.env.PROJECT_NAME,
-            storageUrl: process.env.STORAGE_URL
-        });
-        return;
-    }
+    log('project', req.body);
     try {
-        const findResult = getProject(project);
+        const params = <{ projectId: string; projectName?: string; } | undefined>(req.body);
+        if (params === undefined
+            || params.projectId === undefined) {
+            if (process.env.PROJECT_ID === undefined
+                || process.env.PROJECT_ID === '') {
+                throw new Error('project not found');
+            }
+            res.json({
+                projectId: process.env.PROJECT_ID,
+                projectName: process.env.PROJECT_NAME,
+                storageUrl: process.env.STORAGE_URL
+            });
+            return;
+        }
+        const findResult = getProject(params);
         if (findResult === undefined) {
             throw new Error('project not found');
         }
