@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.18 - 2020-04-09
+### Added
+ - スクリーン自動生成追加
+
 ## 3.0.17 - 2020-04-09
 ### Changed
  - プロジェクトごとにURLパス変更
