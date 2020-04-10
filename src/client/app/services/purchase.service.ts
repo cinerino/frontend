@@ -228,26 +228,6 @@ export class PurchaseService {
     }
 
     /**
-     * スクリーン情報取得
-     */
-    public getScreenData(params: {
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-    }) {
-        return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new purchaseAction.GetScreenData(params));
-            const success = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.GetScreenDataSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.GetScreenDataFail),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
      * 空席情報取得
      */
     public async getScreeningEventOffers() {
