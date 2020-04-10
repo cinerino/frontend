@@ -11,7 +11,7 @@
         }">
             <div class="screen-inner {{ screenType }}"
                 [ngStyle]="{ 'width.px': screenData.size.w, 'height.px': screenData.size.h }" (click)="scaleUp($event)">
-
+                <div class="d-none screen-object">SCREEN</div>
                 <div *ngFor="let object of screenData.objects" class="object" [ngStyle]="{
                     'width.px': object.w, 
                     'height.px': object.h, 

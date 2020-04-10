@@ -4,7 +4,7 @@ import {
     isAvailabilityMovieTicket,
     sameMovieTicketFilter
 } from '../../functions';
-import { IMovieTicket, IReservation, IReservationTicket, IScreen } from '../../models';
+import { IMovieTicket, IReservation, IReservationTicket } from '../../models';
 import { purchaseAction } from '../actions';
 
 export interface IPurchaseState {
@@ -40,10 +40,6 @@ export interface IPurchaseState {
      * スクリーン
      */
     screen?: factory.chevre.place.screeningRoom.IPlace;
-    /**
-     * スクリーン情報
-     */
-    screenData?: IScreen;
     /**
      * 予約
      */
@@ -250,19 +246,6 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             return { ...state, loading: false, process: '', error: null };
         }
         case purchaseAction.ActionTypes.GetScreenFail: {
-            const error = action.payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case purchaseAction.ActionTypes.GetScreenData: {
-            state.purchaseData.screenData = undefined;
-            return { ...state, loading: true, process: 'purchaseAction.GetScreenData' };
-        }
-        case purchaseAction.ActionTypes.GetScreenDataSuccess: {
-            const screenData = action.payload.screenData;
-            state.purchaseData.screenData = screenData;
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case purchaseAction.ActionTypes.GetScreenDataFail: {
             const error = action.payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
