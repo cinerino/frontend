@@ -26,7 +26,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
     @Input() public openSeatingAllowed = false;
     @Output() public select = new EventEmitter<{ seat: IReservationSeat; status: SeatStatus; }>();
     public screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
-    public authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    public authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
     public purchase: Observable<reducers.IPurchaseState>;
     public seats: IRow[];
     public lineLabels: ILabel[];
@@ -283,6 +283,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
                         })();
                         const className = [`seat-${code}`];
                         let section = '';
+                        const row = '';
                         let status = SeatStatus.Disabled;
                         let acceptedOffer;
                         // 席の状態変更
@@ -310,18 +311,18 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterViewChecked 
                             }
                         }
                         if (this.authorizeSeatReservation !== undefined
-                            && this.authorizeSeatReservation.instrument !== undefined) {
-                            if (this.authorizeSeatReservation.instrument.identifier === factory.service.webAPI.Identifier.Chevre) {
-                                // chevre
-                                const findResult = this.authorizeSeatReservation.object.acceptedOffer.find((offer) => {
-                                    const chevreOffer = <factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre>offer;
-                                    return (chevreOffer.ticketedSeat !== undefined
-                                        && chevreOffer.ticketedSeat.seatNumber === code
-                                        && chevreOffer.ticketedSeat.seatSection === section);
-                                });
-                                if (findResult !== undefined) {
-                                    status = SeatStatus.Default;
-                                }
+                            && this.authorizeSeatReservation.result !== undefined
+                            && this.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
+                            // chevre
+                            const findResult = this.authorizeSeatReservation.result.responseBody.object.reservations.find((r) => {
+                                const ticketedSeat = r.reservedTicket.ticketedSeat;
+                                return (ticketedSeat !== undefined
+                                    && ticketedSeat.seatNumber === code
+                                    && ticketedSeat.seatSection === section
+                                    && ticketedSeat.seatRow === row);
+                            });
+                            if (findResult !== undefined) {
+                                status = SeatStatus.Default;
                             }
                         }
                         if (this.screenData.hc.indexOf(code) !== -1) {

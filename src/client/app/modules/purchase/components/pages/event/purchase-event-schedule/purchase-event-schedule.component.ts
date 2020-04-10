@@ -55,7 +55,9 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.screeningWorkEvents = [];
         this.isSales = true;
         try {
-            await this.purchaseService.cancelTransaction();
+            if ((await this.purchaseService.getData()).transaction !== undefined) {
+                await this.purchaseService.cancelTransaction();
+            }
             if (this.scheduleDate === undefined) {
                 const defaultDate = moment(moment().format('YYYYMMDD'))
                     .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
@@ -71,7 +73,6 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                     this.scheduleDate = moment(external.scheduleDate).toDate();
                 }
             }
-            await this.masterService.getSellers();
             await this.masterService.getTheaters();
             const theater = await this.getDefaultTheater();
             this.selectTheater(theater);
@@ -113,12 +114,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     private async getDefaultTheater() {
         const purchase = await this.purchaseService.getData();
         const master = await this.masterService.getData();
-        const filterResult = master.theaters.filter(t => {
-            const findSellerResult = master.sellers.find(s => s.location !== undefined && s.location.branchCode === t.branchCode);
-            return (findSellerResult !== undefined);
-        });
-        let theater = (purchase.theater === undefined) ? filterResult[0] : purchase.theater;
-        const findResult = filterResult.find((t) => {
+        let theater = (purchase.theater === undefined) ? master.theaters[0] : purchase.theater;
+        const findResult = master.theaters.find((t) => {
             const external = getExternalData();
             return (external.theaterBranchCode !== undefined && t.branchCode === external.theaterBranchCode);
         });
@@ -132,13 +129,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      * 劇場選択
      */
     public async selectTheater(theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom) {
-        const sellers = (await this.masterService.getData()).sellers;
-        const seller = sellers.find(s => s.location !== undefined && s.location.branchCode === theater.branchCode);
-        if (seller === undefined) {
-            return;
-        }
         this.purchaseService.selectTheater(theater);
-        this.purchaseService.selectSeller(seller);
         setTimeout(() => { this.selectDate(); }, 0);
     }
 
@@ -165,8 +156,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         }
         try {
             const purchase = await this.purchaseService.getData();
-            const seller = purchase.seller;
-            if (seller === undefined) {
+            const theater = purchase.theater;
+            if (theater === undefined) {
                 return;
             }
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
@@ -176,8 +167,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 superEvent: {
                     ids: (external.superEventId === undefined)
                         ? [] : [external.superEventId],
-                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                        ? [] : [seller.location.branchCode],
+                    locationBranchCodes: [theater.branchCode],
                     workPerformedIdentifiers: (external.workPerformedId === undefined)
                         ? [] : [external.workPerformedId],
                 },
@@ -198,7 +188,26 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     public async onSubmit() {
         try {
-            await this.purchaseService.cancelTransaction();
+            const screeningEvent = (await this.masterService.getData())
+                .screeningEvents
+                .find(s => s.offers !== undefined && s.offers.seller !== undefined && s.offers.seller.id !== undefined);
+            if (screeningEvent === undefined
+                || screeningEvent.offers === undefined
+                || screeningEvent.offers.seller === undefined
+                || screeningEvent.offers.seller.id === undefined) {
+                throw new Error('screeningEvent.offers.seller === undefined');
+            }
+            await this.purchaseService.getSeller(screeningEvent.offers.seller.id);
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
+        try {
+            const purchase = await this.purchaseService.getData();
+            const transaction = purchase.transaction;
+            if (transaction !== undefined) {
+                await this.purchaseService.cancelTransaction();
+            }
             await this.purchaseService.startTransaction();
             this.router.navigate(['/purchase/event/ticket']);
         } catch (error) {

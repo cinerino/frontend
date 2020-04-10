@@ -94,20 +94,19 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      */
     public async getSchedule() {
         const purchase = await this.purchaseService.getData();
-        const seller = purchase.seller;
+        const theater = purchase.theater;
         const scheduleDate = purchase.scheduleDate;
         const transaction = purchase.transaction;
         const external = getExternalData();
-        if (seller === undefined
+        if (theater === undefined
             || scheduleDate === undefined
             || transaction === undefined) {
-            throw new Error('seller or scheduleDate or transaction undefined');
+            throw new Error('theater or scheduleDate or transaction undefined');
         }
         await this.masterService.getSchedule({
             superEvent: {
                 ids: (external.superEventId === undefined) ? [] : [external.superEventId],
-                locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                    ? [] : [seller.location.branchCode],
+                locationBranchCodes: [theater.branchCode],
                 workPerformedIdentifiers: (external.workPerformedId === undefined)
                     ? [] : [external.workPerformedId],
             },

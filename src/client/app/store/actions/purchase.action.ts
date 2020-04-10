@@ -9,7 +9,9 @@ import { IMovieTicket, IReservation, IReservationSeat, IScreen } from '../../mod
 export enum ActionTypes {
     Delete = '[Purchase] Delete',
     UnsettledDelete = '[Purchase] Unsettled Delete',
-    SelectSeller = '[Purchase] Select Seller',
+    GetSeller = '[Purchase] Select Seller',
+    GetSellerSuccess = '[Purchase] Select Seller Success',
+    GetSellerFail = '[Purchase] Select Seller Fail',
     SelectTheater = '[Purchase] Select Theater',
     SelectScheduleDate = '[Purchase] Select Schedule Date',
     GetPreScheduleDates = '[Purchase] Get Pre Schedule',
@@ -95,11 +97,29 @@ export class SelectScheduleDate implements Action {
 }
 
 /**
- * SelectSeller
+ * GetSeller
  */
-export class SelectSeller implements Action {
-    public readonly type = ActionTypes.SelectSeller;
-    constructor(public payload: { seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>> }) { }
+export class GetSeller implements Action {
+    public readonly type = ActionTypes.GetSeller;
+    constructor(public payload: { id: string; }) { }
+}
+
+/**
+ * GetSellerSuccess
+ */
+export class GetSellerSuccess implements Action {
+    public readonly type = ActionTypes.GetSellerSuccess;
+    constructor(public payload: {
+        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
+    }) { }
+}
+
+/**
+ * GetSellerFail
+ */
+export class GetSellerFail implements Action {
+    public readonly type = ActionTypes.GetSellerFail;
+    constructor(public payload: { error: Error }) { }
 }
 
 /**
@@ -684,7 +704,9 @@ export class ConvertExternalToPurchaseFail implements Action {
 export type Actions =
     | Delete
     | UnsettledDelete
-    | SelectSeller
+    | GetSeller
+    | GetSellerSuccess
+    | GetSellerFail
     | SelectTheater
     | SelectScheduleDate
     | GetPreScheduleDates

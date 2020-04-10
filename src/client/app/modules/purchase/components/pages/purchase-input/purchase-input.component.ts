@@ -313,4 +313,11 @@ export class PurchaseInputComponent implements OnInit {
         document.body.removeChild(element);
     }
 
+    /**
+     * 必須判定
+     */
+    public isRequired(key: String) {
+        return this.environment.PROFILE.find(p => p.key === key && p.required) !== undefined;
+    }
+
 }

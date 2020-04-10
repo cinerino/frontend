@@ -50,26 +50,6 @@ export class SettingComponent implements OnInit {
         try {
             await this.masterService.getSellers();
             await this.masterService.getTheaters();
-            const userData = await this.userService.getData();
-            const masterData = await this.masterService.getData();
-            if (userData.seller !== undefined
-                && userData.pos !== undefined
-                && userData.printer !== undefined
-                && userData.theater === undefined) {
-                // 互換性担保
-                const seller = userData.seller;
-                const findResult = masterData.theaters.find(t => {
-                    return (seller.location !== undefined
-                        && t.branchCode === seller.location.branchCode);
-                });
-                const theater = (findResult === undefined) ? masterData.theaters[0] : findResult;
-                this.userService.updateBaseSetting({
-                    seller: userData.seller,
-                    pos: userData.pos,
-                    theater: theater,
-                    printer: userData.printer
-                });
-            }
             await this.createBaseForm();
         } catch (error) {
             console.error(error);
@@ -80,6 +60,7 @@ export class SettingComponent implements OnInit {
     private async createBaseForm() {
         this.baseForm = this.formBuilder.group({
             theaterBranchCode: ['', [Validators.required]],
+            sellerId: ['', [Validators.required]],
             posId: ['', [Validators.required]],
             printerType: ['', [Validators.required]],
             printerIpAddress: [''],
@@ -88,8 +69,11 @@ export class SettingComponent implements OnInit {
         if (user.theater !== undefined) {
             this.baseForm.controls.theaterBranchCode.setValue(user.theater.branchCode);
         }
-        if (user.pos !== undefined) {
+        if (user.seller !== undefined) {
+            this.baseForm.controls.sellerId.setValue(user.seller.id);
             this.changePosList();
+        }
+        if (user.pos !== undefined) {
             this.baseForm.controls.posId.setValue(user.pos.id);
         }
         if (user.printer !== undefined) {
@@ -99,18 +83,17 @@ export class SettingComponent implements OnInit {
     }
 
     /**
-     * 端末情報変更
+     * POS変更
      */
     public changePosList() {
         this.baseForm.controls.posId.setValue('');
-        const theaterBranchCode = this.baseForm.controls.theaterBranchCode.value;
-        if (theaterBranchCode === '') {
+        const sellerId = this.baseForm.controls.sellerId.value;
+        if (sellerId === '') {
             this.posList = [];
             return;
         }
         this.master.subscribe((master) => {
-            const findResult =
-                master.sellers.find(s => s.location !== undefined && s.location.branchCode === theaterBranchCode);
+            const findResult = master.sellers.find(s => (s.id === sellerId));
             if (findResult === undefined) {
                 this.posList = [];
                 return;
@@ -136,8 +119,9 @@ export class SettingComponent implements OnInit {
         try {
             const masterData = await this.masterService.getData();
             const theaterBranchCode = this.baseForm.controls.theaterBranchCode.value;
+            const sellerId = this.baseForm.controls.sellerId.value;
             const posId = this.baseForm.controls.posId.value;
-            const seller = masterData.sellers.find(s => (s.location !== undefined && s.location.branchCode === theaterBranchCode));
+            const seller = masterData.sellers.find(s => (s.id === sellerId));
             if (seller === undefined || seller.hasPOS === undefined) {
                 throw new Error('seller not found').message;
             }

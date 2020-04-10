@@ -178,22 +178,34 @@ export async function createPrintCanvas(args: {
         throw new Error('reservationType is not EventReservation');
     }
     const data = {
-        sellerNameJa: itemOffered.reservationFor.superEvent.location.name.ja,
-        sellerNameEn: itemOffered.reservationFor.superEvent.location.name.en,
-        eventNameJa: itemOffered.reservationFor.name.ja,
-        eventNameEn: itemOffered.reservationFor.name.en,
+        sellerNameJa: (itemOffered.reservationFor.superEvent.location.name === undefined
+            || itemOffered.reservationFor.superEvent.location.name.ja === undefined)
+            ? '' : itemOffered.reservationFor.superEvent.location.name.ja,
+        sellerNameEn: (itemOffered.reservationFor.superEvent.location.name === undefined
+            || itemOffered.reservationFor.superEvent.location.name.en === undefined)
+            ? '' : itemOffered.reservationFor.superEvent.location.name.en,
+        eventNameJa: (itemOffered.reservationFor.name.ja === undefined) ? '' : itemOffered.reservationFor.name.ja,
+        eventNameEn: (itemOffered.reservationFor.name.en === undefined) ? '' : itemOffered.reservationFor.name.en,
         screenNameJa: (itemOffered.reservationFor.location.address === undefined)
-            ? itemOffered.reservationFor.location.name.ja
-            : `${itemOffered.reservationFor.location.address.ja} ${itemOffered.reservationFor.location.name.ja}`,
+            ? (itemOffered.reservationFor.location.name === undefined || itemOffered.reservationFor.location.name.ja === undefined)
+                ? '' : itemOffered.reservationFor.location.name.ja
+            : `${itemOffered.reservationFor.location.address.ja} ${(itemOffered.reservationFor.location.name === undefined) ? '' : itemOffered.reservationFor.location.name.ja}`,
         screenNameEn: (itemOffered.reservationFor.location.address === undefined)
-            ? itemOffered.reservationFor.location.name.en
-            : `${itemOffered.reservationFor.location.address.en} ${itemOffered.reservationFor.location.name.en}`,
+            ? (itemOffered.reservationFor.location.name === undefined || itemOffered.reservationFor.location.name.en === undefined)
+                ? '' : itemOffered.reservationFor.location.name.en
+            : `${itemOffered.reservationFor.location.address.en} ${(itemOffered.reservationFor.location.name === undefined) ? '' : itemOffered.reservationFor.location.name.en}`,
         startDate: moment(itemOffered.reservationFor.startDate).toISOString(),
         endDate: moment(itemOffered.reservationFor.endDate).toISOString(),
         seatNumber: (itemOffered.reservedTicket.ticketedSeat === undefined)
             ? undefined : itemOffered.reservedTicket.ticketedSeat.seatNumber,
-        ticketNameJa: itemOffered.reservedTicket.ticketType.name.ja,
-        ticketNameEn: itemOffered.reservedTicket.ticketType.name.en,
+        ticketNameJa: (itemOffered.reservedTicket.ticketType.name === undefined)
+            ? '' : (typeof itemOffered.reservedTicket.ticketType.name === 'string')
+                ? itemOffered.reservedTicket.ticketType.name : (itemOffered.reservedTicket.ticketType.name.ja === undefined)
+                    ? '' : itemOffered.reservedTicket.ticketType.name.ja,
+        ticketNameEn: (itemOffered.reservedTicket.ticketType.name === undefined)
+            ? '' : (typeof itemOffered.reservedTicket.ticketType.name === 'string')
+                ? itemOffered.reservedTicket.ticketType.name : (itemOffered.reservedTicket.ticketType.name.en === undefined)
+                    ? '' : itemOffered.reservedTicket.ticketType.name.en,
         price: getItemPrice({ priceComponents: (<any>acceptedOffer.priceSpecification).priceComponent }),
         posName: (args.pos === undefined) ? '' : args.pos.name,
         confirmationNumber: String(args.order.confirmationNumber),

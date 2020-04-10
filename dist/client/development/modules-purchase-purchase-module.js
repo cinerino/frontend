@@ -139,7 +139,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.input.read' | translate\"></p>\n\n        <div class=\"p-3 bg-white\">\n            <form [formGroup]=\"profileForm\">\n                <div *ngIf=\"profileForm.controls.familyName\" class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.familyName' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"familyName\" id=\"familyName\"\n                            [placeholder]=\"'form.placeholder.familyName' | translate\">\n                        <div *ngIf=\"profileForm.controls.familyName.invalid && profileForm.controls.familyName.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"profileForm.controls.familyName.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"profileForm.controls.familyName.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.familyName.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"(user | async)?.language === 'ja' && profileForm.controls.familyName.errors.customPattern\" class=\"text-danger\">\n                                {{ 'form.validation.fullKana' | translate }}</p>\n                            <p *ngIf=\"(user | async)?.language !== 'ja' && profileForm.controls.familyName.errors.customPattern\" class=\"text-danger\">\n                                {{ 'form.validation.lowercaseLetters' | translate }}</p>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"profileForm.controls.givenName\" class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.givenName' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"givenName\" id=\"givenName\"\n                            [placeholder]=\"'form.placeholder.givenName' | translate\">\n                        <div *ngIf=\"profileForm.controls.givenName.invalid && profileForm.controls.givenName.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"profileForm.controls.givenName.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"profileForm.controls.givenName.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.givenName.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"(user | async)?.language === 'ja' && profileForm.controls.givenName.errors.customPattern\" class=\"text-danger\">\n                                {{ 'form.validation.fullKana' | translate }}</p>\n                            <p *ngIf=\"(user | async)?.language !== 'ja' && profileForm.controls.givenName.errors.customPattern\" class=\"text-danger\">\n                                {{ 'form.validation.lowercaseLetters' | translate }}</p>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"profileForm.controls.email\" class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.email' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"email\"\n                            [placeholder]=\"'form.placeholder.email' | translate\">\n                        <div *ngIf=\"profileForm.controls.email.invalid && profileForm.controls.email.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"profileForm.controls.email.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"profileForm.controls.email.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.email.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"profileForm.controls.email.errors.email\" class=\"text-danger\">\n                                {{ 'form.validation.email' | translate }}\n                            </p>\n                        </div>\n                        <p class=\"mt-2 mb-1 text-small\" [innerHTML]=\"'form.description.email' | translate\"></p>\n                        <button type=\"button\" class=\"btn btn-primary btn-sm\"\n                            (click)=\"copyDomain()\">{{ 'purchase.input.copyDomain' | translate }}</button>\n                    </div>\n                </div>\n                <div *ngIf=\"profileForm.controls.telephone\" class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.telephone' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"tel\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\"\n                            [placeholder]=\"'form.placeholder.telephone' | translate\">\n                        <div *ngIf=\"profileForm.controls.telephone.invalid && profileForm.controls.telephone.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"profileForm.controls.telephone.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"profileForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                {{ 'form.validation.minlength' | translate:{ value: profileForm.controls.telephone.errors.minlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"profileForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.telephone.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"profileForm.controls.telephone.errors.telephone\" class=\"text-danger\">\n                                {{ 'form.validation.telephone' | translate }}</p>\n                        </div>\n                        <p class=\"mt-2 mb-1 text-small\" [innerHTML]=\"'form.description.telephone' | translate\"></p>\n                    </div>\n                </div>\n                <div *ngIf=\"profileForm.controls.age\" class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.age' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"tel\" class=\"form-control\" formControlName=\"age\" placeholder=\"\">\n                            <div *ngIf=\"profileForm.controls.age.invalid && profileForm.controls.age.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"profileForm.controls.age.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"profileForm.controls.age.errors.minlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.minlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"profileForm.controls.age.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"profileForm.controls.age.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.pattern' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"profileForm.controls.address\" class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.address' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <input type=\"tel\" class=\"form-control\" formControlName=\"address\" placeholder=\"\">\n                            <div *ngIf=\"profileForm.controls.address.invalid && profileForm.controls.address.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"profileForm.controls.address.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"profileForm.controls.address.errors.minlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.minlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"profileForm.controls.address.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"profileForm.controls.address.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.pattern' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"profileForm.controls.gender\" class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.gender.label' | translate }}</p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"gender\">\n                                <option value=\"\">{{ 'common.gender.unselected' | translate }}</option>\n                                <option value=\"man\">{{ 'common.gender.man' | translate }}</option>\n                                <option value=\"woman\">{{ 'common.gender.woman' | translate }}</option>\n                            </select>\n                            <div *ngIf=\"profileForm.controls.gender.invalid && profileForm.controls.gender.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"profileForm.controls.gender.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"profileForm.controls.gender.errors.minlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.minlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"profileForm.controls.gender.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"profileForm.controls.gender.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.pattern' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"mb-4\" *ngIf=\"amount > 0\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.input.payment.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.input.payment.read' | translate\"></p>\n\n        <div class=\"p-3 bg-white\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 py-md-3 text-md-right\">{{ 'common.amount' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <p class=\"text-x-large text-info\">{{ amount | currency : 'JPY'}}</p>\n                </div>\n            </div>\n            <form *ngIf=\"usedCreditCard === undefined\" [formGroup]=\"creditCardForm\">\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardNumber' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" id=\"cardNumber\" formControlName=\"cardNumber\"\n                            [placeholder]=\"'form.placeholder.cardNumber' | translate\" maxlength=\"16\">\n                        <div *ngIf=\"creditCardForm.controls.cardNumber.invalid && creditCardForm.controls.cardNumber.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"creditCardForm.controls.cardNumber.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                            <p *ngIf=\"creditCardForm.controls.cardNumber.errors.pattern\" class=\"text-danger\">\n                                {{ 'form.validation.number' | translate }}\n                            </p>\n                        </div>\n                        <p class=\"mt-2 mb-1 text-small\" [innerHTML]=\"'form.description.cardNumber' | translate\"></p>\n                        <div class=\"credit-image\"><img class=\"w-100\" src=\"/assets/images/credit_card.png\"></div>\n                    </div>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <div class=\"form-inline\">\n                            <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationMonth\"\n                                formControlName=\"cardExpirationMonth\">\n                                <option *ngFor=\"let month of cardExpiration.month\" [value]=\"month\">{{ month }}</option>\n                            </select>\n                            <span class=\"mx-2\">{{ 'common.date.month' | translate }}</span>\n                            <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationYear\"\n                                formControlName=\"cardExpirationYear\">\n                                <option *ngFor=\"let year of cardExpiration.year\" [value]=\"year\">{{ year }}</option>\n                            </select>\n                            <span class=\"mx-2\">{{ 'common.date.year' | translate }}</span>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.securityCode' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" id=\"securityCode\" maxlength=\"4\"\n                            [placeholder]=\"'form.placeholder.securityCode' | translate\" formControlName=\"securityCode\">\n                        <div *ngIf=\"creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"creditCardForm.controls.securityCode.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                        <div class=\"btn btn-link btn-sm\" (click)=\"openSecurityCode()\">\n                            {{ 'purchase.input.securityCode' | translate }}</div>\n                    </div>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.holderName' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" id=\"holderName\"\n                            [placeholder]=\"'form.placeholder.holderName' | translate\" formControlName=\"holderName\">\n                        <div *ngIf=\"creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"creditCardForm.controls.holderName.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                    </div>\n                </div>\n            </form>\n            <div *ngIf=\"usedCreditCard !== undefined\" class=\"\">\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardNumber' | translate }}</p>\n                    <p class=\"col-md-8 py-2\">{{ usedCreditCard.cardNo }}</p>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                    <p class=\"col-md-8 py-2\">\n                        {{ usedCreditCard.expire | slice:2:4 }}\n                        <span class=\"mx-2\">{{ 'common.date.month' | translate }}</span>\n                        {{ usedCreditCard.expire | slice:0:2 }}\n                        <span class=\"mx-2\">{{ 'common.date.year' | translate }}</span>\n                    </p>\n                </div>\n            </div>\n            <div *ngIf=\"(user | async).creditCards.length > 0\" class=\"buttons mx-auto mt-3\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-3\" [disabled]=\"isLoading | async\"\n                    (click)=\"openRegisteredCreditCard()\">{{ 'purchase.input.registeredCreditCard' | translate }}</button>\n            </div>\n            <div *ngIf=\"usedCreditCard !== undefined\" class=\"buttons mx-auto mt-3\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-3\"\n                    (click)=\"changeInputCreditCard()\">{{ 'purchase.input.inputCreditCard' | translate }}</button>\n            </div>\n        </div>\n    </div>\n\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.input.next' | translate }}</button>\n\n        <div *ngIf=\"environment.VIEW_TYPE === viewType.Cinema\">\n            <button *ngIf=\"environment.PURCHASE_CART\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/cart\">{{ 'purchase.input.prev' | translate }}</button>\n            <button *ngIf=\"!environment.PURCHASE_CART\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/ticket\">{{ 'purchase.input.prev' | translate }}</button>\n        </div>\n        <div *ngIf=\"environment.VIEW_TYPE === viewType.Event\">\n            <button type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/event/ticket\">{{ 'purchase.input.prev' | translate }}</button>\n        </div>\n\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <div class=\"mb-4\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.input.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.input.read' | translate\"></p>\n\n        <div class=\"p-3 bg-white\">\n            <form [formGroup]=\"profileForm\">\n                <div *ngIf=\"profileForm.controls.familyName\" class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.familyName' | translate }}<span\n                        *ngIf=\"isRequired('familyName')\"\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"familyName\" id=\"familyName\"\n                            [placeholder]=\"'form.placeholder.familyName' | translate\">\n                        <div *ngIf=\"profileForm.controls.familyName.invalid && profileForm.controls.familyName.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"profileForm.controls.familyName.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"profileForm.controls.familyName.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.familyName.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"(user | async)?.language === 'ja' && profileForm.controls.familyName.errors.customPattern\" class=\"text-danger\">\n                                {{ 'form.validation.fullKana' | translate }}</p>\n                            <p *ngIf=\"(user | async)?.language !== 'ja' && profileForm.controls.familyName.errors.customPattern\" class=\"text-danger\">\n                                {{ 'form.validation.lowercaseLetters' | translate }}</p>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"profileForm.controls.givenName\" class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.givenName' | translate }}<span\n                        *ngIf=\"isRequired('givenName')\"\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"givenName\" id=\"givenName\"\n                            [placeholder]=\"'form.placeholder.givenName' | translate\">\n                        <div *ngIf=\"profileForm.controls.givenName.invalid && profileForm.controls.givenName.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"profileForm.controls.givenName.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"profileForm.controls.givenName.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.givenName.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"(user | async)?.language === 'ja' && profileForm.controls.givenName.errors.customPattern\" class=\"text-danger\">\n                                {{ 'form.validation.fullKana' | translate }}</p>\n                            <p *ngIf=\"(user | async)?.language !== 'ja' && profileForm.controls.givenName.errors.customPattern\" class=\"text-danger\">\n                                {{ 'form.validation.lowercaseLetters' | translate }}</p>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"profileForm.controls.email\" class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.email' | translate }}<span\n                        *ngIf=\"isRequired('email')\"\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"email\"\n                            [placeholder]=\"'form.placeholder.email' | translate\">\n                        <div *ngIf=\"profileForm.controls.email.invalid && profileForm.controls.email.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"profileForm.controls.email.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"profileForm.controls.email.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.email.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"profileForm.controls.email.errors.email\" class=\"text-danger\">\n                                {{ 'form.validation.email' | translate }}\n                            </p>\n                        </div>\n                        <p class=\"mt-2 mb-1 text-small\" [innerHTML]=\"'form.description.email' | translate\"></p>\n                        <button type=\"button\" class=\"btn btn-primary btn-sm\"\n                            (click)=\"copyDomain()\">{{ 'purchase.input.copyDomain' | translate }}</button>\n                    </div>\n                </div>\n                <div *ngIf=\"profileForm.controls.telephone\" class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.telephone' | translate }}<span\n                        *ngIf=\"isRequired('telephone')\"\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <input type=\"tel\" class=\"form-control\" formControlName=\"telephone\" id=\"telephone\"\n                            [placeholder]=\"'form.placeholder.telephone' | translate\">\n                        <div *ngIf=\"profileForm.controls.telephone.invalid && profileForm.controls.telephone.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"profileForm.controls.telephone.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}\n                            </p>\n                            <p *ngIf=\"profileForm.controls.telephone.errors.minlength\" class=\"text-danger\">\n                                {{ 'form.validation.minlength' | translate:{ value: profileForm.controls.telephone.errors.minlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"profileForm.controls.telephone.errors.maxlength\" class=\"text-danger\">\n                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.telephone.errors.maxlength.requiredLength } }}\n                            </p>\n                            <p *ngIf=\"profileForm.controls.telephone.errors.telephone\" class=\"text-danger\">\n                                {{ 'form.validation.telephone' | translate }}</p>\n                        </div>\n                        <p class=\"mt-2 mb-1 text-small\" [innerHTML]=\"'form.description.telephone' | translate\"></p>\n                    </div>\n                </div>\n                <div *ngIf=\"profileForm.controls.age\" class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.age' | translate }}<span\n                            *ngIf=\"isRequired('age')\"\n                            class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                        <div class=\"col-md-8\">\n                            <input type=\"tel\" class=\"form-control\" formControlName=\"age\" placeholder=\"\">\n                            <div *ngIf=\"profileForm.controls.age.invalid && profileForm.controls.age.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"profileForm.controls.age.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"profileForm.controls.age.errors.minlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.minlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"profileForm.controls.age.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"profileForm.controls.age.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.pattern' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"profileForm.controls.address\" class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.address' | translate }}<span\n                            *ngIf=\"isRequired('address')\"\n                            class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                        <div class=\"col-md-8\">\n                            <input type=\"tel\" class=\"form-control\" formControlName=\"address\" placeholder=\"\">\n                            <div *ngIf=\"profileForm.controls.address.invalid && profileForm.controls.address.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"profileForm.controls.address.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"profileForm.controls.address.errors.minlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.minlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"profileForm.controls.address.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"profileForm.controls.address.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.pattern' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"profileForm.controls.gender\" class=\"form-group\">\n                    <div class=\"row align-items-center\">\n                        <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.gender.label' | translate }}<span\n                            *ngIf=\"isRequired('gender')\"\n                            class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                        <div class=\"col-md-8\">\n                            <select class=\"form-control\" formControlName=\"gender\">\n                                <option value=\"\">{{ 'common.gender.unselected' | translate }}</option>\n                                <option value=\"man\">{{ 'common.gender.man' | translate }}</option>\n                                <option value=\"woman\">{{ 'common.gender.woman' | translate }}</option>\n                            </select>\n                            <div *ngIf=\"profileForm.controls.gender.invalid && profileForm.controls.gender.touched\"\n                                class=\"mt-2\">\n                                <p *ngIf=\"profileForm.controls.gender.errors.required\" class=\"text-danger\">\n                                    {{ 'form.validation.required' | translate }}</p>\n                                <p *ngIf=\"profileForm.controls.gender.errors.minlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.minlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"profileForm.controls.gender.errors.maxlength\" class=\"text-danger\">\n                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.maxlength.requiredLength } }}\n                                </p>\n                                <p *ngIf=\"profileForm.controls.gender.errors.pattern\" class=\"text-danger\">\n                                    {{ 'form.validation.pattern' | translate }}\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n\n    <div class=\"mb-4\" *ngIf=\"amount > 0\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.input.payment.title' | translate }}</h2>\n        <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.input.payment.read' | translate\"></p>\n\n        <div class=\"p-3 bg-white\">\n            <div class=\"form-group row\">\n                <p class=\"col-md-4 py-2 py-md-3 text-md-right\">{{ 'common.amount' | translate }}</p>\n                <div class=\"col-md-8\">\n                    <p class=\"text-x-large text-info\">{{ amount | currency : 'JPY'}}</p>\n                </div>\n            </div>\n            <form *ngIf=\"usedCreditCard === undefined\" [formGroup]=\"creditCardForm\">\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardNumber' | translate }}<span\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" id=\"cardNumber\" formControlName=\"cardNumber\"\n                            [placeholder]=\"'form.placeholder.cardNumber' | translate\" maxlength=\"16\">\n                        <div *ngIf=\"creditCardForm.controls.cardNumber.invalid && creditCardForm.controls.cardNumber.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"creditCardForm.controls.cardNumber.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                            <p *ngIf=\"creditCardForm.controls.cardNumber.errors.pattern\" class=\"text-danger\">\n                                {{ 'form.validation.number' | translate }}\n                            </p>\n                        </div>\n                        <p class=\"mt-2 mb-1 text-small\" [innerHTML]=\"'form.description.cardNumber' | translate\"></p>\n                        <div class=\"credit-image\"><img class=\"w-100\" src=\"/assets/images/credit_card.png\"></div>\n                    </div>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardExpiration' | translate }}<span\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <div class=\"form-inline\">\n                            <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationMonth\"\n                                formControlName=\"cardExpirationMonth\">\n                                <option *ngFor=\"let month of cardExpiration.month\" [value]=\"month\">{{ month }}</option>\n                            </select>\n                            <span class=\"mx-2\">{{ 'common.date.month' | translate }}</span>\n                            <select class=\"form-control d-inline-block w-auto\" id=\"cardExpirationYear\"\n                                formControlName=\"cardExpirationYear\">\n                                <option *ngFor=\"let year of cardExpiration.year\" [value]=\"year\">{{ year }}</option>\n                            </select>\n                            <span class=\"mx-2\">{{ 'common.date.year' | translate }}</span>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.securityCode' | translate }}<span\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" id=\"securityCode\" maxlength=\"4\"\n                            [placeholder]=\"'form.placeholder.securityCode' | translate\" formControlName=\"securityCode\">\n                        <div *ngIf=\"creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"creditCardForm.controls.securityCode.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                        <div class=\"btn btn-link btn-sm\" (click)=\"openSecurityCode()\">\n                            {{ 'purchase.input.securityCode' | translate }}</div>\n                    </div>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.holderName' | translate }}<span\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" id=\"holderName\"\n                            [placeholder]=\"'form.placeholder.holderName' | translate\" formControlName=\"holderName\">\n                        <div *ngIf=\"creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"creditCardForm.controls.holderName.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                    </div>\n                </div>\n            </form>\n            <div *ngIf=\"usedCreditCard !== undefined\" class=\"\">\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardNumber' | translate }}</p>\n                    <p class=\"col-md-8 py-2\">{{ usedCreditCard.cardNo }}</p>\n                </div>\n                <div class=\"form-group row\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.credit.cardExpiration' | translate }}</p>\n                    <p class=\"col-md-8 py-2\">\n                        {{ usedCreditCard.expire | slice:2:4 }}\n                        <span class=\"mx-2\">{{ 'common.date.month' | translate }}</span>\n                        {{ usedCreditCard.expire | slice:0:2 }}\n                        <span class=\"mx-2\">{{ 'common.date.year' | translate }}</span>\n                    </p>\n                </div>\n            </div>\n            <div *ngIf=\"(user | async).creditCards.length > 0\" class=\"buttons mx-auto mt-3\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-3\" [disabled]=\"isLoading | async\"\n                    (click)=\"openRegisteredCreditCard()\">{{ 'purchase.input.registeredCreditCard' | translate }}</button>\n            </div>\n            <div *ngIf=\"usedCreditCard !== undefined\" class=\"buttons mx-auto mt-3\">\n                <button type=\"button\" class=\"btn btn-primary btn-block py-3\"\n                    (click)=\"changeInputCreditCard()\">{{ 'purchase.input.inputCreditCard' | translate }}</button>\n            </div>\n        </div>\n    </div>\n\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.input.next' | translate }}</button>\n\n        <div *ngIf=\"environment.VIEW_TYPE === viewType.Cinema\">\n            <button *ngIf=\"environment.PURCHASE_CART\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/cart\">{{ 'purchase.input.prev' | translate }}</button>\n            <button *ngIf=\"!environment.PURCHASE_CART\" type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/cinema/ticket\">{{ 'purchase.input.prev' | translate }}</button>\n        </div>\n        <div *ngIf=\"environment.VIEW_TYPE === viewType.Event\">\n            <button type=\"button\" class=\"btn btn-link\"\n                routerLink=\"/purchase/event/ticket\">{{ 'purchase.input.prev' | translate }}</button>\n        </div>\n\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -701,7 +701,7 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
      */
     PurchaseCinemaScheduleComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var master_1, purchase, external_1, filterResult, theater, findResult, error_1;
+            var master, purchase, external_1, theater, findResult, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -728,39 +728,32 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                         this.screeningWorkEvents = [];
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 6, , 7]);
-                        return [4 /*yield*/, this.masterService.getSellers()];
+                        _a.trys.push([1, 5, , 6]);
+                        return [4 /*yield*/, this.masterService.getTheaters()];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, this.masterService.getTheaters()];
-                    case 3:
-                        _a.sent();
                         return [4 /*yield*/, this.masterService.getData()];
-                    case 4:
-                        master_1 = _a.sent();
+                    case 3:
+                        master = _a.sent();
                         return [4 /*yield*/, this.purchaseService.getData()];
-                    case 5:
+                    case 4:
                         purchase = _a.sent();
                         external_1 = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["getExternalData"])();
-                        filterResult = master_1.theaters.filter(function (t) {
-                            var findSellerResult = master_1.sellers.find(function (s) { return s.location !== undefined && s.location.branchCode === t.branchCode; });
-                            return (findSellerResult !== undefined);
-                        });
-                        theater = (purchase.theater === undefined) ? filterResult[0] : purchase.theater;
-                        findResult = filterResult.find(function (t) {
+                        theater = (purchase.theater === undefined) ? master.theaters[0] : purchase.theater;
+                        findResult = master.theaters.find(function (t) {
                             return (external_1.theaterBranchCode !== undefined && t.branchCode === external_1.theaterBranchCode);
                         });
                         if (findResult !== undefined) {
                             theater = findResult;
                         }
                         this.selectTheater(theater);
-                        return [3 /*break*/, 7];
-                    case 6:
+                        return [3 /*break*/, 6];
+                    case 5:
                         error_1 = _a.sent();
                         console.error(error_1);
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 7];
-                    case 7: return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
@@ -833,20 +826,12 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
      */
     PurchaseCinemaScheduleComponent.prototype.selectTheater = function (theater) {
         return __awaiter(this, void 0, void 0, function () {
-            var sellers, seller, i, error_2;
+            var i, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.masterService.getData()];
-                    case 1:
-                        sellers = (_a.sent()).sellers;
-                        seller = sellers.find(function (s) { return s.location !== undefined && s.location.branchCode === theater.branchCode; });
-                        if (seller === undefined) {
-                            return [2 /*return*/];
-                        }
+                        _a.trys.push([0, 2, , 3]);
                         this.purchaseService.selectTheater(theater);
-                        this.purchaseService.selectSeller(seller);
                         this.scheduleDates = [];
                         for (i = 0; i < Number(this.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
                             this.scheduleDates.push(moment__WEBPACK_IMPORTED_MODULE_5__().add(i, 'day').format('YYYYMMDD'));
@@ -854,17 +839,17 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                         this.isPreSchedule = false;
                         this.directiveRef.update();
                         return [4 /*yield*/, this.purchaseService.getPreScheduleDates()];
-                    case 2:
+                    case 1:
                         _a.sent();
                         this.isPreSchedule = false;
                         this.selectDate();
-                        return [3 /*break*/, 4];
-                    case 3:
+                        return [3 /*break*/, 3];
+                    case 2:
                         error_2 = _a.sent();
                         console.error(error_2);
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
             });
         });
@@ -874,15 +859,15 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
      */
     PurchaseCinemaScheduleComponent.prototype.selectDate = function (scheduleDate) {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, seller, external, master, screeningEvents, error_3;
+            var purchase, theater, external, master, screeningEvents, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
                         purchase = _a.sent();
-                        seller = purchase.seller;
+                        theater = purchase.theater;
                         external = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["getExternalData"])();
-                        if (seller === undefined || this.scheduleDates.length === 0) {
+                        if (theater === undefined || this.scheduleDates.length === 0) {
                             this.router.navigate(['/error']);
                             return [2 /*return*/];
                         }
@@ -903,8 +888,7 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.masterService.getSchedule({
                                 superEvent: {
                                     ids: (external.superEventId === undefined) ? [] : [external.superEventId],
-                                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                                        ? [] : [seller.location.branchCode],
+                                    locationBranchCodes: [theater.branchCode],
                                     workPerformedIdentifiers: (external.workPerformedId === undefined)
                                         ? [] : [external.workPerformedId],
                                 },
@@ -956,18 +940,25 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                         this.purchaseService.unsettledDelete();
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
+                        _a.trys.push([1, 4, , 5]);
                         return [4 /*yield*/, this.purchaseService.getScreeningEvent(screeningEvent)];
                     case 2:
                         _a.sent();
-                        return [3 /*break*/, 4];
+                        if (screeningEvent.offers.seller === undefined
+                            || screeningEvent.offers.seller.id === undefined) {
+                            throw new Error('screeningEvent.offers.seller or screeningEvent.offers.seller.id undefined');
+                        }
+                        return [4 /*yield*/, this.purchaseService.getSeller(screeningEvent.offers.seller.id)];
                     case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
                         error_4 = _a.sent();
                         console.error(error_4);
                         this.router.navigate(['/error']);
                         return [2 /*return*/];
-                    case 4: return [4 /*yield*/, this.purchaseService.getData()];
-                    case 5:
+                    case 5: return [4 /*yield*/, this.purchaseService.getData()];
+                    case 6:
                         purchase = _a.sent();
                         if (purchase.seller === undefined) {
                             this.router.navigate(['/error']);
@@ -979,18 +970,20 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                             this.openTransactionModal();
                             return [2 /*return*/];
                         }
-                        _a.label = 6;
-                    case 6:
-                        _a.trys.push([6, 9, , 10]);
-                        return [4 /*yield*/, this.purchaseService.cancelTransaction()];
+                        _a.label = 7;
                     case 7:
-                        _a.sent();
-                        return [4 /*yield*/, this.purchaseService.startTransaction()];
+                        _a.trys.push([7, 11, , 12]);
+                        if (!(purchase.transaction !== undefined)) return [3 /*break*/, 9];
+                        return [4 /*yield*/, this.purchaseService.cancelTransaction()];
                     case 8:
                         _a.sent();
+                        _a.label = 9;
+                    case 9: return [4 /*yield*/, this.purchaseService.startTransaction()];
+                    case 10:
+                        _a.sent();
                         this.router.navigate(['/purchase/cinema/seat']);
-                        return [3 /*break*/, 10];
-                    case 9:
+                        return [3 /*break*/, 12];
+                    case 11:
                         error_5 = _a.sent();
                         if (error_5 === null) {
                             throw new Error('error is null');
@@ -1005,8 +998,8 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                             return [2 /*return*/];
                         }
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 10];
-                    case 10: return [2 /*return*/];
+                        return [3 /*break*/, 12];
+                    case 12: return [2 /*return*/];
                 }
             });
         });
@@ -1753,10 +1746,15 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                         this.isSales = true;
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 6, , 7]);
-                        return [4 /*yield*/, this.purchaseService.cancelTransaction()];
+                        _a.trys.push([1, 7, , 8]);
+                        return [4 /*yield*/, this.purchaseService.getData()];
                     case 2:
+                        if (!((_a.sent()).transaction !== undefined)) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.purchaseService.cancelTransaction()];
+                    case 3:
                         _a.sent();
+                        _a.label = 4;
+                    case 4:
                         if (this.scheduleDate === undefined) {
                             defaultDate = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__().format('YYYYMMDD'))
                                 .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
@@ -1772,23 +1770,20 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                                 this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__(external_1.scheduleDate).toDate();
                             }
                         }
-                        return [4 /*yield*/, this.masterService.getSellers()];
-                    case 3:
-                        _a.sent();
                         return [4 /*yield*/, this.masterService.getTheaters()];
-                    case 4:
+                    case 5:
                         _a.sent();
                         return [4 /*yield*/, this.getDefaultTheater()];
-                    case 5:
+                    case 6:
                         theater = _a.sent();
                         this.selectTheater(theater);
-                        return [3 /*break*/, 7];
-                    case 6:
+                        return [3 /*break*/, 8];
+                    case 7:
                         error_1 = _a.sent();
                         console.error(error_1);
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 7];
-                    case 7: return [2 /*return*/];
+                        return [3 /*break*/, 8];
+                    case 8: return [2 /*return*/];
                 }
             });
         });
@@ -1823,7 +1818,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.getDefaultTheater = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, master, filterResult, theater, findResult;
+            var purchase, master, theater, findResult;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.purchaseService.getData()];
@@ -1832,12 +1827,8 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.masterService.getData()];
                     case 2:
                         master = _a.sent();
-                        filterResult = master.theaters.filter(function (t) {
-                            var findSellerResult = master.sellers.find(function (s) { return s.location !== undefined && s.location.branchCode === t.branchCode; });
-                            return (findSellerResult !== undefined);
-                        });
-                        theater = (purchase.theater === undefined) ? filterResult[0] : purchase.theater;
-                        findResult = filterResult.find(function (t) {
+                        theater = (purchase.theater === undefined) ? master.theaters[0] : purchase.theater;
+                        findResult = master.theaters.find(function (t) {
                             var external = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getExternalData"])();
                             return (external.theaterBranchCode !== undefined && t.branchCode === external.theaterBranchCode);
                         });
@@ -1854,22 +1845,11 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.selectTheater = function (theater) {
         return __awaiter(this, void 0, void 0, function () {
-            var sellers, seller;
             var _this = this;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.masterService.getData()];
-                    case 1:
-                        sellers = (_a.sent()).sellers;
-                        seller = sellers.find(function (s) { return s.location !== undefined && s.location.branchCode === theater.branchCode; });
-                        if (seller === undefined) {
-                            return [2 /*return*/];
-                        }
-                        this.purchaseService.selectTheater(theater);
-                        this.purchaseService.selectSeller(seller);
-                        setTimeout(function () { _this.selectDate(); }, 0);
-                        return [2 /*return*/];
-                }
+                this.purchaseService.selectTheater(theater);
+                setTimeout(function () { _this.selectDate(); }, 0);
+                return [2 /*return*/];
             });
         });
     };
@@ -1878,7 +1858,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.selectDate = function (date) {
         return __awaiter(this, void 0, void 0, function () {
-            var now, selectDate, salesStopDate, openDate, salesStopTime, purchase, seller, scheduleDate, external_2, master, screeningEvents, error_2;
+            var now, selectDate, salesStopDate, openDate, salesStopTime, purchase, theater, scheduleDate, external_2, master, screeningEvents, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -1906,8 +1886,8 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.purchaseService.getData()];
                     case 3:
                         purchase = _a.sent();
-                        seller = purchase.seller;
-                        if (seller === undefined) {
+                        theater = purchase.theater;
+                        if (theater === undefined) {
                             return [2 /*return*/];
                         }
                         scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYY-MM-DD');
@@ -1917,8 +1897,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                                 superEvent: {
                                     ids: (external_2.superEventId === undefined)
                                         ? [] : [external_2.superEventId],
-                                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                                        ? [] : [seller.location.branchCode],
+                                    locationBranchCodes: [theater.branchCode],
                                     workPerformedIdentifiers: (external_2.workPerformedId === undefined)
                                         ? [] : [external_2.workPerformedId],
                                 },
@@ -1948,25 +1927,53 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var error_3, errorObject;
+            var screeningEvent, error_3, purchase, transaction, error_4, errorObject;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.purchaseService.cancelTransaction()];
+                        return [4 /*yield*/, this.masterService.getData()];
                     case 1:
-                        _a.sent();
-                        return [4 /*yield*/, this.purchaseService.startTransaction()];
+                        screeningEvent = (_a.sent())
+                            .screeningEvents
+                            .find(function (s) { return s.offers !== undefined && s.offers.seller !== undefined && s.offers.seller.id !== undefined; });
+                        if (screeningEvent === undefined
+                            || screeningEvent.offers === undefined
+                            || screeningEvent.offers.seller === undefined
+                            || screeningEvent.offers.seller.id === undefined) {
+                            throw new Error('screeningEvent.offers.seller === undefined');
+                        }
+                        return [4 /*yield*/, this.purchaseService.getSeller(screeningEvent.offers.seller.id)];
                     case 2:
                         _a.sent();
-                        this.router.navigate(['/purchase/event/ticket']);
                         return [3 /*break*/, 4];
                     case 3:
                         error_3 = _a.sent();
-                        if (error_3 === null) {
+                        console.error(error_3);
+                        this.router.navigate(['/error']);
+                        return [3 /*break*/, 4];
+                    case 4:
+                        _a.trys.push([4, 9, , 10]);
+                        return [4 /*yield*/, this.purchaseService.getData()];
+                    case 5:
+                        purchase = _a.sent();
+                        transaction = purchase.transaction;
+                        if (!(transaction !== undefined)) return [3 /*break*/, 7];
+                        return [4 /*yield*/, this.purchaseService.cancelTransaction()];
+                    case 6:
+                        _a.sent();
+                        _a.label = 7;
+                    case 7: return [4 /*yield*/, this.purchaseService.startTransaction()];
+                    case 8:
+                        _a.sent();
+                        this.router.navigate(['/purchase/event/ticket']);
+                        return [3 /*break*/, 10];
+                    case 9:
+                        error_4 = _a.sent();
+                        if (error_4 === null) {
                             throw new Error('error is null');
                         }
-                        errorObject = JSON.parse(error_3);
+                        errorObject = JSON.parse(error_4);
                         if (errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_3__["TOO_MANY_REQUESTS"]) {
                             this.router.navigate(['/congestion']);
                             return [2 /*return*/];
@@ -1976,8 +1983,8 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                             return [2 /*return*/];
                         }
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 10];
+                    case 10: return [2 /*return*/];
                 }
             });
         });
@@ -2215,26 +2222,25 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
      */
     PurchaseEventTicketComponent.prototype.getSchedule = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, seller, scheduleDate, transaction, external, master, screeningEvents;
+            var purchase, theater, scheduleDate, transaction, external, master, screeningEvents;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
                         purchase = _a.sent();
-                        seller = purchase.seller;
+                        theater = purchase.theater;
                         scheduleDate = purchase.scheduleDate;
                         transaction = purchase.transaction;
                         external = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getExternalData"])();
-                        if (seller === undefined
+                        if (theater === undefined
                             || scheduleDate === undefined
                             || transaction === undefined) {
-                            throw new Error('seller or scheduleDate or transaction undefined');
+                            throw new Error('theater or scheduleDate or transaction undefined');
                         }
                         return [4 /*yield*/, this.masterService.getSchedule({
                                 superEvent: {
                                     ids: (external.superEventId === undefined) ? [] : [external.superEventId],
-                                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                                        ? [] : [seller.location.branchCode],
+                                    locationBranchCodes: [theater.branchCode],
                                     workPerformedIdentifiers: (external.workPerformedId === undefined)
                                         ? [] : [external.workPerformedId],
                                 },
@@ -3339,6 +3345,12 @@ var PurchaseInputComponent = /** @class */ (function () {
         document.execCommand('copy');
         element.blur();
         document.body.removeChild(element);
+    };
+    /**
+     * 必須判定
+     */
+    PurchaseInputComponent.prototype.isRequired = function (key) {
+        return this.environment.PROFILE.find(function (p) { return p.key === key && p.required; }) !== undefined;
     };
     PurchaseInputComponent.ctorParameters = function () { return [
         { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] },
@@ -4717,6 +4729,7 @@ var ScreenComponent = /** @class */ (function () {
                         })();
                         var className = ["seat-" + code_1];
                         var section_1 = '';
+                        var row_1 = '';
                         var status_1 = _models__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Disabled;
                         var acceptedOffer = void 0;
                         // 席の状態変更
@@ -4745,18 +4758,18 @@ var ScreenComponent = /** @class */ (function () {
                             }
                         }
                         if (this_1.authorizeSeatReservation !== undefined
-                            && this_1.authorizeSeatReservation.instrument !== undefined) {
-                            if (this_1.authorizeSeatReservation.instrument.identifier === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].service.webAPI.Identifier.Chevre) {
-                                // chevre
-                                var findResult = this_1.authorizeSeatReservation.object.acceptedOffer.find(function (offer) {
-                                    var chevreOffer = offer;
-                                    return (chevreOffer.ticketedSeat !== undefined
-                                        && chevreOffer.ticketedSeat.seatNumber === code_1
-                                        && chevreOffer.ticketedSeat.seatSection === section_1);
-                                });
-                                if (findResult !== undefined) {
-                                    status_1 = _models__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
-                                }
+                            && this_1.authorizeSeatReservation.result !== undefined
+                            && this_1.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
+                            // chevre
+                            var findResult = this_1.authorizeSeatReservation.result.responseBody.object.reservations.find(function (r) {
+                                var ticketedSeat = r.reservedTicket.ticketedSeat;
+                                return (ticketedSeat !== undefined
+                                    && ticketedSeat.seatNumber === code_1
+                                    && ticketedSeat.seatSection === section_1
+                                    && ticketedSeat.seatRow === row_1);
+                            });
+                            if (findResult !== undefined) {
+                                status_1 = _models__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
                             }
                         }
                         if (this_1.screenData.hc.indexOf(code_1) !== -1) {

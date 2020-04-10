@@ -153,9 +153,16 @@ export function reducer(state: IState, action: purchaseAction.Actions): IState {
             state.purchaseData.isUsedMovieTicket = false;
             return { ...state };
         }
-        case purchaseAction.ActionTypes.SelectSeller: {
+        case purchaseAction.ActionTypes.GetSeller: {
+            return { ...state, loading: false, process: 'purchaseAction.GetSeller' };
+        }
+        case purchaseAction.ActionTypes.GetSellerSuccess: {
             state.purchaseData.seller = action.payload.seller;
             return { ...state, loading: false, process: '', error: null };
+        }
+        case purchaseAction.ActionTypes.GetSellerFail: {
+            const error = action.payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case purchaseAction.ActionTypes.SelectTheater: {
             state.purchaseData.theater = action.payload.theater;
