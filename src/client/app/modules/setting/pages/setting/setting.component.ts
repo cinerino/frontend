@@ -60,7 +60,6 @@ export class SettingComponent implements OnInit {
     private async createBaseForm() {
         this.baseForm = this.formBuilder.group({
             theaterBranchCode: ['', [Validators.required]],
-            sellerId: ['', [Validators.required]],
             posId: ['', [Validators.required]],
             printerType: ['', [Validators.required]],
             printerIpAddress: [''],
@@ -68,9 +67,6 @@ export class SettingComponent implements OnInit {
         const user = await this.userService.getData();
         if (user.theater !== undefined) {
             this.baseForm.controls.theaterBranchCode.setValue(user.theater.branchCode);
-        }
-        if (user.seller !== undefined) {
-            this.baseForm.controls.sellerId.setValue(user.seller.id);
             this.changePosList();
         }
         if (user.pos !== undefined) {
@@ -87,13 +83,13 @@ export class SettingComponent implements OnInit {
      */
     public changePosList() {
         this.baseForm.controls.posId.setValue('');
-        const sellerId = this.baseForm.controls.sellerId.value;
-        if (sellerId === '') {
+        const theaterBranchCode = this.baseForm.controls.theaterBranchCode.value;
+        if (theaterBranchCode === '') {
             this.posList = [];
             return;
         }
         this.master.subscribe((master) => {
-            const findResult = master.sellers.find(s => (s.id === sellerId));
+            const findResult = master.theaters.find(t => (t.branchCode === theaterBranchCode));
             if (findResult === undefined) {
                 this.posList = [];
                 return;
@@ -119,22 +115,16 @@ export class SettingComponent implements OnInit {
         try {
             const masterData = await this.masterService.getData();
             const theaterBranchCode = this.baseForm.controls.theaterBranchCode.value;
-            const sellerId = this.baseForm.controls.sellerId.value;
             const posId = this.baseForm.controls.posId.value;
-            const seller = masterData.sellers.find(s => (s.id === sellerId));
-            if (seller === undefined || seller.hasPOS === undefined) {
-                throw new Error('seller not found').message;
+            const theater = masterData.theaters.find(t => (t.branchCode === theaterBranchCode));
+            if (theater === undefined || theater.hasPOS === undefined) {
+                throw new Error('theater not found').message;
             }
-            const pos = seller.hasPOS.find(p => p.id === posId);
+            const pos = theater.hasPOS.find(p => p.id === posId);
             if (pos === undefined) {
                 throw new Error('pos not found').message;
             }
-            const theater = masterData.theaters.find(t => (t.branchCode === theaterBranchCode));
-            if (theater === undefined) {
-                throw new Error('theater not found').message;
-            }
             this.userService.updateBaseSetting({
-                seller,
                 pos,
                 theater,
                 printer: {

@@ -90,7 +90,7 @@ export class OrderService {
     public async print(prams: {
         orders: factory.order.IOrder[];
         printer: IPrinter;
-        pos?: factory.seller.IPOS;
+        pos?: factory.chevre.place.movieTheater.IPOS;
         timeout?: number;
     }) {
         return new Promise<void>((resolve, reject) => {

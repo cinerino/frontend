@@ -10,7 +10,7 @@ export class StarPrintService {
     /**
      * 使用端末ID
      */
-    public pos?: factory.seller.IPOS;
+    public pos?: factory.chevre.place.movieTheater.IPOS;
     /**
      * 印刷内容生成インスタンス
      */
@@ -67,7 +67,7 @@ export class StarPrintService {
      */
     public initialize(args: {
         printer: IPrinter;
-        pos?: factory.seller.IPOS;
+        pos?: factory.chevre.place.movieTheater.IPOS;
         timeout?: number;
     }) {
         this.pos = args.pos;
