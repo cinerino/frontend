@@ -379,6 +379,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                         })();
                         const className = [`seat-${code}`];
                         let section = '';
+                        const row = '';
                         let status = SeatStatus.Disabled;
                         let acceptedOffer;
                         // 席の状態変更
@@ -406,18 +407,18 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                             }
                         }
                         if (this.authorizeSeatReservation !== undefined
-                            && this.authorizeSeatReservation.instrument !== undefined) {
-                            if (this.authorizeSeatReservation.instrument.identifier === factory.service.webAPI.Identifier.Chevre) {
-                                // chevre
-                                const findResult = this.authorizeSeatReservation.object.acceptedOffer.find((offer) => {
-                                    const chevreOffer = <factory.action.authorize.offer.seatReservation.IAcceptedOffer4chevre>offer;
-                                    return (chevreOffer.ticketedSeat !== undefined
-                                        && chevreOffer.ticketedSeat.seatNumber === code
-                                        && chevreOffer.ticketedSeat.seatSection === section);
-                                });
-                                if (findResult !== undefined) {
-                                    status = SeatStatus.Default;
-                                }
+                            && this.authorizeSeatReservation.result !== undefined
+                            && this.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
+                            // chevre
+                            const findResult = this.authorizeSeatReservation.result.responseBody.object.reservations.find((r) => {
+                                const ticketedSeat = r.reservedTicket.ticketedSeat;
+                                return (ticketedSeat !== undefined
+                                    && ticketedSeat.seatNumber === code
+                                    && ticketedSeat.seatSection === section
+                                    && ticketedSeat.seatRow === row);
+                            });
+                            if (findResult !== undefined) {
+                                status = SeatStatus.Default;
                             }
                         }
                         if (this.screenData.hc !== undefined

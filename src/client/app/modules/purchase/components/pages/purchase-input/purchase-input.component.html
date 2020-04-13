@@ -6,7 +6,9 @@
         <div class="p-3 bg-white">
             <form [formGroup]="profileForm">
                 <div *ngIf="profileForm.controls.familyName" class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.familyName' | translate }}</p>
+                    <p class="col-md-4 py-2 text-md-right">{{ 'common.familyName' | translate }}<span
+                        *ngIf="isRequired('familyName')"
+                        class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" formControlName="familyName" id="familyName"
                             [placeholder]="'form.placeholder.familyName' | translate">
@@ -26,7 +28,9 @@
                     </div>
                 </div>
                 <div *ngIf="profileForm.controls.givenName" class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.givenName' | translate }}</p>
+                    <p class="col-md-4 py-2 text-md-right">{{ 'common.givenName' | translate }}<span
+                        *ngIf="isRequired('givenName')"
+                        class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" formControlName="givenName" id="givenName"
                             [placeholder]="'form.placeholder.givenName' | translate">
@@ -46,7 +50,9 @@
                     </div>
                 </div>
                 <div *ngIf="profileForm.controls.email" class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.email' | translate }}</p>
+                    <p class="col-md-4 py-2 text-md-right">{{ 'common.email' | translate }}<span
+                        *ngIf="isRequired('email')"
+                        class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                     <div class="col-md-8">
                         <input type="email" class="form-control" formControlName="email" id="email"
                             [placeholder]="'form.placeholder.email' | translate">
@@ -68,7 +74,9 @@
                     </div>
                 </div>
                 <div *ngIf="profileForm.controls.telephone" class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.telephone' | translate }}</p>
+                    <p class="col-md-4 py-2 text-md-right">{{ 'common.telephone' | translate }}<span
+                        *ngIf="isRequired('telephone')"
+                        class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                     <div class="col-md-8">
                         <input type="tel" class="form-control" formControlName="telephone" id="telephone"
                             [placeholder]="'form.placeholder.telephone' | translate">
@@ -91,7 +99,9 @@
                 </div>
                 <div *ngIf="profileForm.controls.age" class="form-group">
                     <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'common.age' | translate }}</p>
+                        <p class="col-md-4 py-2 text-md-right">{{ 'common.age' | translate }}<span
+                            *ngIf="isRequired('age')"
+                            class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                         <div class="col-md-8">
                             <input type="tel" class="form-control" formControlName="age" placeholder="">
                             <div *ngIf="profileForm.controls.age.invalid && profileForm.controls.age.touched"
@@ -113,7 +123,9 @@
                 </div>
                 <div *ngIf="profileForm.controls.address" class="form-group">
                     <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'common.address' | translate }}</p>
+                        <p class="col-md-4 py-2 text-md-right">{{ 'common.address' | translate }}<span
+                            *ngIf="isRequired('address')"
+                            class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                         <div class="col-md-8">
                             <input type="tel" class="form-control" formControlName="address" placeholder="">
                             <div *ngIf="profileForm.controls.address.invalid && profileForm.controls.address.touched"
@@ -135,7 +147,9 @@
                 </div>
                 <div *ngIf="profileForm.controls.gender" class="form-group">
                     <div class="row align-items-center">
-                        <p class="col-md-4 py-2 text-md-right">{{ 'common.gender.label' | translate }}</p>
+                        <p class="col-md-4 py-2 text-md-right">{{ 'common.gender.label' | translate }}<span
+                            *ngIf="isRequired('gender')"
+                            class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                         <div class="col-md-8">
                             <select class="form-control" formControlName="gender">
                                 <option value="">{{ 'common.gender.unselected' | translate }}</option>
@@ -176,7 +190,8 @@
             </div>
             <form *ngIf="usedCreditCard === undefined" [formGroup]="creditCardForm">
                 <div class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardNumber' | translate }}</p>
+                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardNumber' | translate }}<span
+                        class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" id="cardNumber" formControlName="cardNumber"
                             [placeholder]="'form.placeholder.cardNumber' | translate" maxlength="16">
@@ -193,7 +208,8 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardExpiration' | translate }}</p>
+                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardExpiration' | translate }}<span
+                        class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                     <div class="col-md-8">
                         <div class="form-inline">
                             <select class="form-control d-inline-block w-auto" id="cardExpirationMonth"
@@ -210,7 +226,8 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.securityCode' | translate }}</p>
+                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.securityCode' | translate }}<span
+                        class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" id="securityCode" maxlength="4"
                             [placeholder]="'form.placeholder.securityCode' | translate" formControlName="securityCode">
@@ -224,7 +241,8 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.holderName' | translate }}</p>
+                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.holderName' | translate }}<span
+                        class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" id="holderName"
                             [placeholder]="'form.placeholder.holderName' | translate" formControlName="holderName">

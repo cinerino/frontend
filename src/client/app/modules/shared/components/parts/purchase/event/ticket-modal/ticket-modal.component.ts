@@ -58,11 +58,10 @@ export class PurchaseEventTicketModalComponent implements OnInit {
             addOn: { id: string; }[];
         }[] = [];
         this.tickets.forEach((ticket) => {
-            selectedTickets.push({
-                id: ticket.id,
-                count: 0,
-                addOn: []
-            });
+            if (ticket.id === undefined) {
+                return;
+            }
+            selectedTickets.push({ id: ticket.id, count: 0, addOn: [] });
         });
         this.selectedTickets = selectedTickets;
         this.additionalTicketText = '';

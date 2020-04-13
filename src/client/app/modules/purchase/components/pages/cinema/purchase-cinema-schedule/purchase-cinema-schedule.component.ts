@@ -73,17 +73,12 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.scheduleDates = [];
         this.screeningWorkEvents = [];
         try {
-            await this.masterService.getSellers();
             await this.masterService.getTheaters();
             const master = await this.masterService.getData();
             const purchase = await this.purchaseService.getData();
             const external = getExternalData();
-            const filterResult = master.theaters.filter(t => {
-                const findSellerResult = master.sellers.find(s => s.location !== undefined && s.location.branchCode === t.branchCode);
-                return (findSellerResult !== undefined);
-            });
-            let theater = (purchase.theater === undefined) ? filterResult[0] : purchase.theater;
-            const findResult = filterResult.find((t) => {
+            let theater = (purchase.theater === undefined) ? master.theaters[0] : purchase.theater;
+            const findResult = master.theaters.find((t) => {
                 return (external.theaterBranchCode !== undefined && t.branchCode === external.theaterBranchCode);
             });
             if (findResult !== undefined) {
@@ -157,13 +152,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
      */
     public async selectTheater(theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom) {
         try {
-            const sellers = (await this.masterService.getData()).sellers;
-            const seller = sellers.find(s => s.location !== undefined && s.location.branchCode === theater.branchCode);
-            if (seller === undefined) {
-                return;
-            }
             this.purchaseService.selectTheater(theater);
-            this.purchaseService.selectSeller(seller);
             this.scheduleDates = [];
             for (let i = 0; i < Number(this.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
                 this.scheduleDates.push(moment().add(i, 'day').format('YYYYMMDD'));
@@ -184,9 +173,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
      */
     public async selectDate(scheduleDate?: string) {
         const purchase = await this.purchaseService.getData();
-        const seller = purchase.seller;
+        const theater = purchase.theater;
         const external = getExternalData();
-        if (seller === undefined || this.scheduleDates.length === 0) {
+        if (theater === undefined || this.scheduleDates.length === 0) {
             this.router.navigate(['/error']);
             return;
         }
@@ -205,8 +194,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             await this.masterService.getSchedule({
                 superEvent: {
                     ids: (external.superEventId === undefined) ? [] : [external.superEventId],
-                    locationBranchCodes: (seller.location === undefined || seller.location.branchCode === undefined)
-                        ? [] : [seller.location.branchCode],
+                    locationBranchCodes: [theater.branchCode],
                     workPerformedIdentifiers: (external.workPerformedId === undefined)
                         ? [] : [external.workPerformedId],
                 },
@@ -244,6 +232,11 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.purchaseService.unsettledDelete();
         try {
             await this.purchaseService.getScreeningEvent(screeningEvent);
+            if (screeningEvent.offers.seller === undefined
+                || screeningEvent.offers.seller.id === undefined) {
+                throw new Error('screeningEvent.offers.seller or screeningEvent.offers.seller.id undefined');
+            }
+            await this.purchaseService.getSeller(screeningEvent.offers.seller.id);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -261,7 +254,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             return;
         }
         try {
-            await this.purchaseService.cancelTransaction();
+            if (purchase.transaction !== undefined) {
+                await this.purchaseService.cancelTransaction();
+            }
             await this.purchaseService.startTransaction();
             this.router.navigate(['/purchase/cinema/seat']);
         } catch (error) {

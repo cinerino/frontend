@@ -62,12 +62,21 @@ export class PurchaseService {
     }
 
     /**
-     * 販売者選択
+     * 販売者取得
      */
-    public selectSeller(
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
-    ) {
-        this.store.dispatch(new purchaseAction.SelectSeller({ seller }));
+    public getSeller(id: string) {
+        return new Promise<void>((resolve, reject) => {
+            this.store.dispatch(new purchaseAction.GetSeller({ id }));
+            const success = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.GetSellerSuccess),
+                tap(() => { resolve(); })
+            );
+            const fail = this.actions.pipe(
+                ofType(purchaseAction.ActionTypes.GetSellerFail),
+                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+            );
+            race(success, fail).pipe(take(1)).subscribe();
+        });
     }
 
     /**
