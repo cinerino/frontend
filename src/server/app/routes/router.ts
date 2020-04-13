@@ -60,20 +60,39 @@ export default (app: express.Application) => {
         res.redirect('/#/auth/signout');
     });
 
+    app.get(['/:projectId/:projectName/inquiry', '/:projectId/inquiry'], (req, res, next) => {
+        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
+            next();
+            return;
+        }
+        res.redirect(`/?${getQueryParameter(req)}#/inquiry/input`);
+    });
+
+    app.get([
+        '/:projectId/:projectName/purchase/transaction/:eventId/:passportToken',
+        '/:projectId/:projectName/purchase/transaction/:eventId',
+        '/:projectId/purchase/transaction/:eventId/:passportToken',
+        '/:projectId/purchase/transaction/:eventId'
+    ], (req, res, next) => {
+        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
+            next();
+            return;
+        }
+        const eventId = req.params.eventId;
+        const passportToken = req.params.passportToken;
+        if (passportToken === undefined) {
+            res.redirect(`/?${getQueryParameter(req)}#/purchase/transaction/${eventId}`);
+            return;
+        }
+        res.redirect(`/?${getQueryParameter(req)}#/purchase/transaction/${eventId}/${passportToken}`);
+    });
+
     app.get(['/:projectId/:projectName', '/:projectId'], (req, res, next) => {
         if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
             next();
             return;
         }
-        let url = `/?projectId=${req.params.projectId}`;
-        if (req.params.projectName !== undefined) {
-            url += `&projectName=${req.params.projectName}`;
-        }
-        const query = req.url.split('?')[1];
-        if (query !== undefined) {
-            url += `&${query}`;
-        }
-        res.redirect(url);
+        res.redirect(`/?${getQueryParameter(req)}`);
     });
 
     app.get('*', (req, res, next) => {
@@ -99,3 +118,18 @@ export default (app: express.Application) => {
         }
     });
 };
+
+/**
+ * クエリ取得
+ */
+function getQueryParameter(req: express.Request) {
+    let result = `projectId=${req.params.projectId}`;
+    if (req.params.projectName !== undefined) {
+        result += `&projectName=${req.params.projectName}`;
+    }
+    const query = req.url.split('?')[1];
+    if (query !== undefined) {
+        result += `&${query}`;
+    }
+    return result;
+}
