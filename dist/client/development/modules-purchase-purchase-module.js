@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"!(external.theaterBranchCode)\" class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.theater.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.theater.read' | translate\"></p>\n</div>\n\n<ul *ngIf=\"!(external.theaterBranchCode)\" class=\"contents-width mx-auto theaters d-flex flex-wrap p-2\">\n    <li *ngFor=\"let theater of (master | async)?.theaters\" class=\"px-2 my-2\">\n        <button type=\"button\" class=\"btn btn-block py-3 m-0\" (click)=\"selectTheater(theater)\"\n            [class.btn-primary]=\"(purchase | async).theater?.id === theater.id\"\n            [class.btn-outline-primary]=\"(purchase | async).theater?.id !== theater.id\">{{ theater.name | changeLanguage }}</button>\n    </li>\n</ul>\n\n<div class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.schedule.read' | translate\"></p>\n\n    <div *ngIf=\"(purchase | async)?.preScheduleDates.length > 0\" class=\"buttons mx-auto mb-3\">\n        <button *ngIf=\"!isPreSchedule\" type=\"button\" class=\"btn btn-primary btn-block py-3\"\n            [disabled]=\"isLoading | async\"\n            (click)=\"changeScheduleType()\">{{ 'purchase.cinema.schedule.preSalesSchedule' | translate }}</button>\n        <button *ngIf=\"isPreSchedule\" type=\"button\" class=\"btn btn-outline-primary btn-block py-3\"\n            [disabled]=\"isLoading | async\"\n            (click)=\"changeScheduleType()\">{{ 'purchase.cinema.schedule.salesSchedule' | translate }}</button>\n    </div>\n</div>\n<div [class.d-none]=\"scheduleDates.length === 0\" class=\"bg-light-gray\">\n    <div class=\"contents-width mx-auto px-5 py-4\">\n        <div class=\"position-relative schedule-slider\">\n            <div class=\"swiper-container date\" #swiper [swiper]=\"swiperConfig\" (resize)=\"resize()\">\n                <div class=\"swiper-wrapper\">\n                    <div *ngFor=\"let scheduleDate of scheduleDates\" class=\"swiper-slide pointer\">\n                        <div class=\"text-center text-white py-4\"\n                            [class.bg-secondary]=\"scheduleDate !== (purchase | async).scheduleDate\"\n                            [class.bg-primary]=\"scheduleDate === (purchase | async).scheduleDate\"\n                            (click)=\"selectDate(scheduleDate)\">\n                            <div>\n                                {{ moment(scheduleDate).format('MM') }}/<span class=\"text-large\">{{\n                                  moment(scheduleDate).format('DD') }}</span>({{ scheduleDate | formatDate: 'ddd' }})\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"swiper-button-next\"></div>\n            <div class=\"swiper-button-prev\"></div>\n        </div>\n    </div>\n</div>\n<div class=\"contents-width mx-auto p-3\">\n    <p *ngIf=\"(purchase | async)?.scheduleDate\" class=\"text-primary text-large mb-3\">\n        {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}\n    </p>\n    <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\"\n        [innerHTML]=\"'purchase.cinema.schedule.notfound' | translate\"></p>\n    <app-purchase-cinema-performances *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n        [screeningWorkEvent]=\"screeningWorkEvent\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n    </app-purchase-cinema-performances>\n</div>\n\n<div class=\"buttons mx-auto text-center\">\n    <a *ngIf=\"environment.PORTAL_SITE_URL\" class=\"btn btn-link portal-link\"\n        [href]=\"environment.PORTAL_SITE_URL\">{{ 'purchase.cinema.schedule.prev' | translate }}</a>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"!(external.theaterBranchCode)\" class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.theater.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.theater.read' | translate\"></p>\n</div>\n\n<ul *ngIf=\"!(external.theaterBranchCode)\" class=\"contents-width mx-auto theaters d-flex flex-wrap p-2\">\n    <li *ngFor=\"let theater of theaters\" class=\"px-2 my-2\">\n        <button type=\"button\" class=\"btn btn-block py-3 m-0\" (click)=\"selectTheater(theater)\"\n            [class.btn-primary]=\"(purchase | async).theater?.id === theater.id\"\n            [class.btn-outline-primary]=\"(purchase | async).theater?.id !== theater.id\">{{ theater.name | changeLanguage }}</button>\n    </li>\n</ul>\n\n<div class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.schedule.read' | translate\"></p>\n\n    <div *ngIf=\"(purchase | async)?.preScheduleDates.length > 0\" class=\"buttons mx-auto mb-3\">\n        <button *ngIf=\"!isPreSchedule\" type=\"button\" class=\"btn btn-primary btn-block py-3\"\n            [disabled]=\"isLoading | async\"\n            (click)=\"changeScheduleType()\">{{ 'purchase.cinema.schedule.preSalesSchedule' | translate }}</button>\n        <button *ngIf=\"isPreSchedule\" type=\"button\" class=\"btn btn-outline-primary btn-block py-3\"\n            [disabled]=\"isLoading | async\"\n            (click)=\"changeScheduleType()\">{{ 'purchase.cinema.schedule.salesSchedule' | translate }}</button>\n    </div>\n</div>\n<div [class.d-none]=\"scheduleDates.length === 0\" class=\"bg-light-gray\">\n    <div class=\"contents-width mx-auto px-5 py-4\">\n        <div class=\"position-relative schedule-slider\">\n            <div class=\"swiper-container date\" #swiper [swiper]=\"swiperConfig\" (resize)=\"resize()\">\n                <div class=\"swiper-wrapper\">\n                    <div *ngFor=\"let scheduleDate of scheduleDates\" class=\"swiper-slide pointer\">\n                        <div class=\"text-center text-white py-4\"\n                            [class.bg-secondary]=\"scheduleDate !== (purchase | async).scheduleDate\"\n                            [class.bg-primary]=\"scheduleDate === (purchase | async).scheduleDate\"\n                            (click)=\"selectDate(scheduleDate)\">\n                            <div>\n                                {{ moment(scheduleDate).format('MM') }}/<span class=\"text-large\">{{\n                                  moment(scheduleDate).format('DD') }}</span>({{ scheduleDate | formatDate: 'ddd' }})\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"swiper-button-next\"></div>\n            <div class=\"swiper-button-prev\"></div>\n        </div>\n    </div>\n</div>\n<div class=\"contents-width mx-auto p-3\">\n    <p *ngIf=\"(purchase | async)?.scheduleDate\" class=\"text-primary text-large mb-3\">\n        {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}\n    </p>\n    <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\"\n        [innerHTML]=\"'purchase.cinema.schedule.notfound' | translate\"></p>\n    <app-purchase-cinema-performances *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n        [screeningWorkEvent]=\"screeningWorkEvent\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n    </app-purchase-cinema-performances>\n</div>\n\n<div class=\"buttons mx-auto text-center\">\n    <a *ngIf=\"environment.PORTAL_SITE_URL\" class=\"btn btn-link portal-link\"\n        [href]=\"environment.PORTAL_SITE_URL\">{{ 'purchase.cinema.schedule.prev' | translate }}</a>\n</div>");
 
 /***/ }),
 
@@ -48,7 +48,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.seat.read' | translate\"></p>\n    <div class=\"row\">\n        <div class=\"col-lg-9\">\n            <app-screen *ngIf=\"(purchase | async).theater \n                && (purchase | async).screeningEventOffers.length > 0 \n                && (purchase | async).screen\" class=\"mb-4\"\n                [theaterCode]=\"(purchase | async).theater.branchCode\"\n                [screenCode]=\"(purchase | async).screen.branchCode\"\n                [screeningEventOffers]=\"(purchase | async).screeningEventOffers\"\n                [openSeatingAllowed]=\"(purchase | async).screen.openSeatingAllowed\"\n                [reservations]=\"(purchase | async).reservations\"\n                [authorizeSeatReservation]=\"(purchase | async).authorizeSeatReservation\" (select)=\"selectSeat($event)\">\n            </app-screen>\n            <div *ngIf=\"(purchase | async).screen?.openSeatingAllowed\" class=\"mb-4\">\n                <div class=\"d-flex align-items-center\">\n                    <p class=\"mr-2\">{{ 'purchase.cinema.seat.openSeating' | translate }}</p>\n                    <select class=\"form-control d-inline-block w-auto\" (change)=\"selectOpenSeating($event)\" [ngModel]=\"(purchase | async).reservations.length\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of remainingAttendeeCapacityValue((purchase | async).screeningEvent, (purchase | async).screeningEventOffers)\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-lg-3\">\n            <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n        </div>\n    </div>\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.seat.next' | translate }}</button>\n        <button *ngIf=\"!external.eventId\" type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/schedule\">{{ 'purchase.cinema.seat.prev' | translate }}</button>\n        <a *ngIf=\"external.eventId\" class=\"btn btn-link\"\n            [href]=\"(purchase | async).seller.url\">{{ 'purchase.cinema.seat.prev' | translate }}</a>\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.cinema.seat.read' | translate\"></p>\n    <div class=\"row\">\n        <div class=\"col-lg-9\">\n            <app-screen *ngIf=\"(purchase | async).theater \n                && screeningEventSeats.length > 0 \n                && (purchase | async).screen\" class=\"mb-4\"\n                [theaterCode]=\"(purchase | async).theater.branchCode\"\n                [screenCode]=\"(purchase | async).screen.branchCode\"\n                [screeningEventSeats]=\"screeningEventSeats\"\n                [openSeatingAllowed]=\"(purchase | async).screen.openSeatingAllowed\"\n                [reservations]=\"(purchase | async).reservations\"\n                [authorizeSeatReservation]=\"(purchase | async).authorizeSeatReservation\" (select)=\"selectSeat($event)\">\n            </app-screen>\n            <div *ngIf=\"(purchase | async).screen?.openSeatingAllowed\" class=\"mb-4\">\n                <div class=\"d-flex align-items-center\">\n                    <p class=\"mr-2\">{{ 'purchase.cinema.seat.openSeating' | translate }}</p>\n                    <select class=\"form-control d-inline-block w-auto\" (change)=\"selectOpenSeating($event)\" [ngModel]=\"(purchase | async).reservations.length\">\n                        <option value=\"0\">0</option>\n                        <option *ngFor=\"let value of remainingAttendeeCapacityValue((purchase | async).screeningEvent, screeningEventSeats)\" [value]=\"value\">{{ value }}</option>\n                    </select>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-lg-3\">\n            <app-purchase-info class=\"mb-4\" [purchase]=\"purchase | async\"></app-purchase-info>\n        </div>\n    </div>\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.cinema.seat.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\"></app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n            (click)=\"onSubmit()\">{{ 'purchase.cinema.seat.next' | translate }}</button>\n        <button *ngIf=\"!external.eventId\" type=\"button\" class=\"btn btn-link\"\n            routerLink=\"/purchase/cinema/schedule\">{{ 'purchase.cinema.seat.prev' | translate }}</button>\n        <a *ngIf=\"external.eventId\" class=\"btn btn-link\"\n            [href]=\"(purchase | async).seller.url\">{{ 'purchase.cinema.seat.prev' | translate }}</a>\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -74,7 +74,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"!(external.theaterBranchCode)\" class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.theater.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.theater.read' | translate\"></p>\n</div>\n\n<ul *ngIf=\"!(external.theaterBranchCode)\"\n    class=\"contents-width mx-auto theaters d-flex flex-wrap p-2\">\n    <li *ngFor=\"let theater of (master | async)?.theaters\" class=\"px-2 my-2\">\n        <button type=\"button\" class=\"btn btn-block py-3 m-0\" (click)=\"selectTheater(theater)\"\n            [class.btn-primary]=\"(purchase | async).theater?.id === theater.id\"\n            [class.btn-outline-primary]=\"(purchase | async).theater?.id !== theater.id\">{{ theater.name | changeLanguage }}</button>\n    </li>\n</ul>\n\n<div class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.schedule.read' | translate\"></p>\n</div>\n<div class=\"contents-width mx-auto p-3\">\n    <div class=\"mb-3 position-relative\">\n        <div class=\"input-group\">\n            <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" #datepicker=\"bsDatepicker\" bsDatepicker\n                [(ngModel)]=\"scheduleDate\"\n                [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false, minDate: moment().toDate() }\"\n                (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\"\n                (onShown)=\"onShowPicker($event)\">\n            <div class=\"input-group-append pointer\" (click)=\"toggleDatepicker()\">\n                <span class=\"input-group-text\"><i class=\"fas fa-caret-down\"></i></span>\n            </div>\n        </div>\n\n    </div>\n    <div class=\"mb-4\">\n        <p *ngIf=\"(purchase | async)?.scheduleDate\" class=\"text-primary text-large mb-3\">\n            {{ 'purchase.event.schedule.selectedDate' | translate: {value: (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}\n        </p>\n        <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\"\n            [innerHTML]=\"'purchase.event.schedule.notfound' | translate\"></p>\n        <app-purchase-event-performances-confirm *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n            [screeningWorkEvent]=\"screeningWorkEvent\" [readonly]=\"true\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n        </app-purchase-event-performances-confirm>\n    </div>\n\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\">\n            </app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button *ngIf=\"isSales\" type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            [disabled]=\"screeningWorkEvents.length === 0 || (isLoading | async)\"\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.next' | translate }}</button>\n        <button *ngIf=\"!isSales\" type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" disabled\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.disabled' | translate }}</button>\n        <a *ngIf=\"environment.PORTAL_SITE_URL\" class=\"btn btn-link portal-link\"\n            [href]=\"environment.PORTAL_SITE_URL\">{{ 'purchase.event.schedule.prev' | translate }}</a>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div *ngIf=\"!(external.theaterBranchCode)\" class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.theater.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.theater.read' | translate\"></p>\n</div>\n\n<ul *ngIf=\"!(external.theaterBranchCode)\"\n    class=\"contents-width mx-auto theaters d-flex flex-wrap p-2\">\n    <li *ngFor=\"let theater of theaters\" class=\"px-2 my-2\">\n        <button type=\"button\" class=\"btn btn-block py-3 m-0\" (click)=\"selectTheater(theater)\"\n            [class.btn-primary]=\"(purchase | async).theater?.id === theater.id\"\n            [class.btn-outline-primary]=\"(purchase | async).theater?.id !== theater.id\">{{ theater.name | changeLanguage }}</button>\n    </li>\n</ul>\n\n<div class=\"contents-width mx-auto px-3 pt-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'purchase.event.schedule.read' | translate\"></p>\n</div>\n<div class=\"contents-width mx-auto p-3\">\n    <div class=\"mb-3 position-relative\">\n        <div class=\"input-group\">\n            <input type=\"text\" placeholder=\"Datepicker\" class=\"form-control\" #datepicker=\"bsDatepicker\" bsDatepicker\n                [(ngModel)]=\"scheduleDate\"\n                [bsConfig]=\"{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false, minDate: moment().toDate() }\"\n                (bsValueChange)=\"selectDate($event)\" readonly (click)=\"setDatePicker()\"\n                (onShown)=\"onShowPicker($event)\">\n            <div class=\"input-group-append pointer\" (click)=\"toggleDatepicker()\">\n                <span class=\"input-group-text\"><i class=\"fas fa-caret-down\"></i></span>\n            </div>\n        </div>\n\n    </div>\n    <div class=\"mb-4\">\n        <p *ngIf=\"(purchase | async)?.scheduleDate\" class=\"text-primary text-large mb-3\">\n            {{ 'purchase.event.schedule.selectedDate' | translate: {value: (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}\n        </p>\n        <p *ngIf=\"screeningWorkEvents.length === 0\" class=\"mb-3\"\n            [innerHTML]=\"'purchase.event.schedule.notfound' | translate\"></p>\n        <app-purchase-event-performances-confirm *ngFor=\"let screeningWorkEvent of screeningWorkEvents\"\n            [screeningWorkEvent]=\"screeningWorkEvent\" [readonly]=\"true\" (select)=\"selectSchedule($event)\" class=\"mb-3\">\n        </app-purchase-event-performances-confirm>\n    </div>\n\n    <div *ngIf=\"environment.PURCHASE_TERMS\">\n        <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'purchase.event.schedule.terms' | translate }}</h2>\n        <div class=\"mb-4\">\n            <app-purchase-terms [language]=\"(user | async).language\"\n                [screeningEvent]=\"(purchase | async).screeningEvent\">\n            </app-purchase-terms>\n        </div>\n    </div>\n\n    <div class=\"buttons mx-auto text-center\">\n        <button *ngIf=\"isSales\" type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\"\n            [disabled]=\"screeningWorkEvents.length === 0 || (isLoading | async)\"\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.next' | translate }}</button>\n        <button *ngIf=\"!isSales\" type=\"button\" class=\"btn btn-primary btn-block py-3 mb-3\" disabled\n            (click)=\"onSubmit()\">{{ 'purchase.event.schedule.disabled' | translate }}</button>\n        <a *ngIf=\"environment.PORTAL_SITE_URL\" class=\"btn btn-link portal-link\"\n            [href]=\"environment.PORTAL_SITE_URL\">{{ 'purchase.event.schedule.prev' | translate }}</a>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -701,9 +701,9 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
      */
     PurchaseCinemaScheduleComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var master, purchase, external_1, theater, findResult, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, purchase, external_1, theater, findResult, error_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         this.swiperConfig = {
                             spaceBetween: 1,
@@ -721,39 +721,37 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                         };
                         this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getPurchase"]));
                         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getUser"]));
-                        this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getMaster"]));
                         this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getError"]));
                         this.isPreSchedule = false;
                         this.scheduleDates = [];
                         this.screeningWorkEvents = [];
-                        _a.label = 1;
+                        this.theaters = [];
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 5, , 6]);
+                        _b.trys.push([1, 4, , 5]);
+                        _a = this;
                         return [4 /*yield*/, this.masterService.getTheaters()];
                     case 2:
-                        _a.sent();
-                        return [4 /*yield*/, this.masterService.getData()];
-                    case 3:
-                        master = _a.sent();
+                        _a.theaters = _b.sent();
                         return [4 /*yield*/, this.purchaseService.getData()];
-                    case 4:
-                        purchase = _a.sent();
+                    case 3:
+                        purchase = _b.sent();
                         external_1 = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["getExternalData"])();
-                        theater = (purchase.theater === undefined) ? master.theaters[0] : purchase.theater;
-                        findResult = master.theaters.find(function (t) {
+                        theater = (purchase.theater === undefined) ? this.theaters[0] : purchase.theater;
+                        findResult = this.theaters.find(function (t) {
                             return (external_1.theaterBranchCode !== undefined && t.branchCode === external_1.theaterBranchCode);
                         });
                         if (findResult !== undefined) {
                             theater = findResult;
                         }
                         this.selectTheater(theater);
-                        return [3 /*break*/, 6];
-                    case 5:
-                        error_1 = _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_1 = _b.sent();
                         console.error(error_1);
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 6];
-                    case 6: return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
             });
         });
@@ -859,7 +857,7 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
      */
     PurchaseCinemaScheduleComponent.prototype.selectDate = function (scheduleDate) {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, theater, external, master, screeningEvents, error_3;
+            var purchase, theater, external, screeningEvents, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.purchaseService.getData()];
@@ -884,7 +882,7 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                         this.purchaseService.selectScheduleDate(scheduleDate);
                         _a.label = 2;
                     case 2:
-                        _a.trys.push([2, 5, , 6]);
+                        _a.trys.push([2, 4, , 5]);
                         return [4 /*yield*/, this.masterService.getSchedule({
                                 superEvent: {
                                     ids: (external.superEventId === undefined) ? [] : [external.superEventId],
@@ -896,20 +894,16 @@ var PurchaseCinemaScheduleComponent = /** @class */ (function () {
                                 startThrough: moment__WEBPACK_IMPORTED_MODULE_5__(scheduleDate).add(1, 'day').toDate()
                             })];
                     case 3:
-                        _a.sent();
-                        return [4 /*yield*/, this.masterService.getData()];
-                    case 4:
-                        master = _a.sent();
-                        screeningEvents = master.screeningEvents;
+                        screeningEvents = _a.sent();
                         this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["screeningEvents2WorkEvents"])({ screeningEvents: screeningEvents });
                         this.update();
-                        return [3 /*break*/, 6];
-                    case 5:
+                        return [3 /*break*/, 5];
+                    case 4:
                         error_3 = _a.sent();
                         console.error(error_3);
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 6];
-                    case 6: return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
             });
         });
@@ -1164,19 +1158,20 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
      */
     PurchaseCinemaSeatComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, screeningEvent, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var purchase, screeningEvent, _a, error_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getPurchase"]));
                         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
                         this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
-                        _a.label = 1;
+                        this.screeningEventSeats = [];
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 6, , 7]);
+                        _b.trys.push([1, 6, , 7]);
                         return [4 /*yield*/, this.purchaseService.getData()];
                     case 2:
-                        purchase = _a.sent();
+                        purchase = _b.sent();
                         screeningEvent = purchase.screeningEvent;
                         if (screeningEvent === undefined) {
                             this.router.navigate(['/error']);
@@ -1189,16 +1184,17 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
                                 }
                             })];
                     case 3:
-                        _a.sent();
-                        return [4 /*yield*/, this.purchaseService.getScreeningEventOffers()];
+                        _b.sent();
+                        _a = this;
+                        return [4 /*yield*/, this.purchaseService.getScreeningEventSeats()];
                     case 4:
-                        _a.sent();
+                        _a.screeningEventSeats = _b.sent();
                         return [4 /*yield*/, this.purchaseService.getTicketList()];
                     case 5:
-                        _a.sent();
+                        _b.sent();
                         return [3 /*break*/, 7];
                     case 6:
-                        error_1 = _a.sent();
+                        error_1 = _b.sent();
                         console.error(error_1);
                         this.router.navigate(['/error']);
                         return [3 /*break*/, 7];
@@ -1252,7 +1248,10 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
                             });
                             return [2 /*return*/];
                         }
-                        return [4 /*yield*/, this.purchaseService.temporaryReservation({ reservations: reservations })];
+                        return [4 /*yield*/, this.purchaseService.temporaryReservation({
+                                reservations: reservations,
+                                screeningEventSeats: this.screeningEventSeats
+                            })];
                     case 2:
                         _a.sent();
                         this.router.navigate(['/purchase/cinema/ticket']);
@@ -1299,7 +1298,7 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
      * 自由席予約可能数計算
      */
     PurchaseCinemaSeatComponent.prototype.remainingAttendeeCapacityValue = function (params) {
-        var screeningEventOffers = params.screeningEventOffers;
+        var screeningEventSeats = params.screeningEventSeats;
         var screeningEvent = params.screeningEvent;
         var authorizeSeatReservations = params.authorizeSeatReservations;
         var values = [];
@@ -1312,7 +1311,7 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
         if (new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算
             var screeningEventLimit = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["getRemainingSeatLength"])({
-                screeningEventOffers: screeningEventOffers, screeningEvent: screeningEvent, authorizeSeatReservations: authorizeSeatReservations
+                screeningEventSeats: screeningEventSeats, screeningEvent: screeningEvent, authorizeSeatReservations: authorizeSeatReservations
             });
             if (limit > screeningEventLimit) {
                 limit = screeningEventLimit;
@@ -1328,7 +1327,7 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
      */
     PurchaseCinemaSeatComponent.prototype.selectOpenSeating = function (event) {
         return __awaiter(this, void 0, void 0, function () {
-            var purchaseData, value, reservations, screeningEventOffers, seats, selectSeats, i;
+            var purchaseData, value, reservations, screeningEventSeats, seats, selectSeats, i;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -1340,8 +1339,8 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
                         purchaseData = _a.sent();
                         value = Number(event.target.value);
                         reservations = purchaseData.reservations;
-                        screeningEventOffers = purchaseData.screeningEventOffers;
-                        seats = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["getEmptySeat"])({ reservations: reservations, screeningEventOffers: screeningEventOffers });
+                        screeningEventSeats = this.screeningEventSeats;
+                        seats = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["getEmptySeat"])({ reservations: reservations, screeningEventSeats: screeningEventSeats });
                         return [4 /*yield*/, this.resetSeats()];
                     case 2:
                         _a.sent();
@@ -1498,11 +1497,11 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
      */
     PurchaseCinemaTicketComponent.prototype.onSubmit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, reservations_1, unselectedReservations, validResult, additionalTicketText, authorizeSeatReservation, error_1;
+            var purchase, reservations_1, unselectedReservations, validResult, additionalTicketText, screeningEventSeats, authorizeSeatReservation, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
+                        _a.trys.push([0, 4, , 5]);
                         return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
                         purchase = _a.sent();
@@ -1545,8 +1544,15 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
                             return [2 /*return*/];
                         }
                         additionalTicketText = this.additionalTicketText;
-                        return [4 /*yield*/, this.purchaseService.temporaryReservation({ reservations: reservations_1, additionalTicketText: additionalTicketText })];
+                        return [4 /*yield*/, this.purchaseService.getScreeningEventSeats()];
                     case 2:
+                        screeningEventSeats = _a.sent();
+                        return [4 /*yield*/, this.purchaseService.temporaryReservation({
+                                reservations: reservations_1,
+                                additionalTicketText: additionalTicketText,
+                                screeningEventSeats: screeningEventSeats
+                            })];
+                    case 3:
                         _a.sent();
                         authorizeSeatReservation = purchase.authorizeSeatReservation;
                         if (authorizeSeatReservation === undefined) {
@@ -1558,13 +1564,13 @@ var PurchaseCinemaTicketComponent = /** @class */ (function () {
                             return [2 /*return*/];
                         }
                         this.router.navigate(['/purchase/cinema/cart']);
-                        return [3 /*break*/, 4];
-                    case 3:
+                        return [3 /*break*/, 5];
+                    case 4:
                         error_1 = _a.sent();
                         console.error(error_1);
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
             });
         });
@@ -1734,28 +1740,27 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var defaultDate, openDate, nowDate, external_1, theater, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var defaultDate, openDate, nowDate, external_1, _a, theater, error_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         this.bsValue = moment__WEBPACK_IMPORTED_MODULE_4__().toDate();
                         this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getPurchase"]));
                         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getUser"]));
-                        this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getMaster"]));
                         this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
                         this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
                         this.screeningWorkEvents = [];
                         this.isSales = true;
-                        _a.label = 1;
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 7, , 8]);
+                        _b.trys.push([1, 7, , 8]);
                         return [4 /*yield*/, this.purchaseService.getData()];
                     case 2:
-                        if (!((_a.sent()).transaction !== undefined)) return [3 /*break*/, 4];
+                        if (!((_b.sent()).transaction !== undefined)) return [3 /*break*/, 4];
                         return [4 /*yield*/, this.purchaseService.cancelTransaction()];
                     case 3:
-                        _a.sent();
-                        _a.label = 4;
+                        _b.sent();
+                        _b.label = 4;
                     case 4:
                         if (this.scheduleDate === undefined) {
                             defaultDate = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__().format('YYYYMMDD'))
@@ -1772,16 +1777,17 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                                 this.scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__(external_1.scheduleDate).toDate();
                             }
                         }
+                        _a = this;
                         return [4 /*yield*/, this.masterService.getTheaters()];
                     case 5:
-                        _a.sent();
+                        _a.theaters = _b.sent();
                         return [4 /*yield*/, this.getDefaultTheater()];
                     case 6:
-                        theater = _a.sent();
+                        theater = _b.sent();
                         this.selectTheater(theater);
                         return [3 /*break*/, 8];
                     case 7:
-                        error_1 = _a.sent();
+                        error_1 = _b.sent();
                         console.error(error_1);
                         this.router.navigate(['/error']);
                         return [3 /*break*/, 8];
@@ -1820,17 +1826,14 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.getDefaultTheater = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, master, theater, findResult;
+            var purchase, theater, findResult;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
                         purchase = _a.sent();
-                        return [4 /*yield*/, this.masterService.getData()];
-                    case 2:
-                        master = _a.sent();
-                        theater = (purchase.theater === undefined) ? master.theaters[0] : purchase.theater;
-                        findResult = master.theaters.find(function (t) {
+                        theater = (purchase.theater === undefined) ? this.theaters[0] : purchase.theater;
+                        findResult = this.theaters.find(function (t) {
                             var external = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getExternalData"])();
                             return (external.theaterBranchCode !== undefined && t.branchCode === external.theaterBranchCode);
                         });
@@ -1860,16 +1863,16 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
      */
     PurchaseEventScheduleComponent.prototype.selectDate = function (date) {
         return __awaiter(this, void 0, void 0, function () {
-            var now, selectDate, salesStopDate, openDate, salesStopTime, purchase, theater, scheduleDate, external_2, master, screeningEvents, error_2;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var now, selectDate, salesStopDate, openDate, salesStopTime, purchase, theater, scheduleDate, external_2, _a, error_2;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         if (date !== undefined && date !== null) {
                             this.scheduleDate = date;
                         }
                         return [4 /*yield*/, this.utilService.getServerTime()];
                     case 1:
-                        now = (_a.sent()).date;
+                        now = (_b.sent()).date;
                         selectDate = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYYMMDD')).toDate();
                         salesStopDate = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__().format('YYYYMMDD'))
                             .add(this.environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE, this.environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT)
@@ -1882,12 +1885,12 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                             salesStopTime = moment__WEBPACK_IMPORTED_MODULE_4__(this.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME, 'HHmmss').format('HHmmss');
                             this.isSales = (moment__WEBPACK_IMPORTED_MODULE_4__(now).format('HHmmss') < salesStopTime);
                         }
-                        _a.label = 2;
+                        _b.label = 2;
                     case 2:
-                        _a.trys.push([2, 6, , 7]);
+                        _b.trys.push([2, 5, , 6]);
                         return [4 /*yield*/, this.purchaseService.getData()];
                     case 3:
-                        purchase = _a.sent();
+                        purchase = _b.sent();
                         theater = purchase.theater;
                         if (theater === undefined) {
                             return [2 /*return*/];
@@ -1895,6 +1898,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                         scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYY-MM-DD');
                         this.purchaseService.selectScheduleDate(scheduleDate);
                         external_2 = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getExternalData"])();
+                        _a = this;
                         return [4 /*yield*/, this.masterService.getSchedule({
                                 superEvent: {
                                     ids: (external_2.superEventId === undefined)
@@ -1907,19 +1911,15 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                                 startThrough: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).add(1, 'day').toDate()
                             })];
                     case 4:
-                        _a.sent();
-                        return [4 /*yield*/, this.masterService.getData()];
-                    case 5:
-                        master = _a.sent();
-                        screeningEvents = master.screeningEvents;
-                        this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["screeningEvents2WorkEvents"])({ screeningEvents: screeningEvents });
+                        _a.screeningEvents = _b.sent();
+                        this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["screeningEvents2WorkEvents"])({ screeningEvents: this.screeningEvents });
                         this.update();
-                        return [3 /*break*/, 7];
-                    case 6:
-                        error_2 = _a.sent();
+                        return [3 /*break*/, 6];
+                    case 5:
+                        error_2 = _b.sent();
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 7];
-                    case 7: return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
@@ -1933,11 +1933,8 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.masterService.getData()];
-                    case 1:
-                        screeningEvent = (_a.sent())
-                            .screeningEvents
+                        _a.trys.push([0, 2, , 3]);
+                        screeningEvent = this.screeningEvents
                             .find(function (s) { return s.offers !== undefined && s.offers.seller !== undefined && s.offers.seller.id !== undefined; });
                         if (screeningEvent === undefined
                             || screeningEvent.offers === undefined
@@ -1946,31 +1943,31 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                             throw new Error('screeningEvent.offers.seller === undefined');
                         }
                         return [4 /*yield*/, this.purchaseService.getSeller(screeningEvent.offers.seller.id)];
-                    case 2:
+                    case 1:
                         _a.sent();
-                        return [3 /*break*/, 4];
-                    case 3:
+                        return [3 /*break*/, 3];
+                    case 2:
                         error_3 = _a.sent();
                         console.error(error_3);
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 4];
-                    case 4:
-                        _a.trys.push([4, 9, , 10]);
+                        return [3 /*break*/, 3];
+                    case 3:
+                        _a.trys.push([3, 8, , 9]);
                         return [4 /*yield*/, this.purchaseService.getData()];
-                    case 5:
+                    case 4:
                         purchase = _a.sent();
                         transaction = purchase.transaction;
-                        if (!(transaction !== undefined)) return [3 /*break*/, 7];
+                        if (!(transaction !== undefined)) return [3 /*break*/, 6];
                         return [4 /*yield*/, this.purchaseService.cancelTransaction()];
-                    case 6:
+                    case 5:
                         _a.sent();
-                        _a.label = 7;
-                    case 7: return [4 /*yield*/, this.purchaseService.startTransaction()];
-                    case 8:
+                        _a.label = 6;
+                    case 6: return [4 /*yield*/, this.purchaseService.startTransaction()];
+                    case 7:
                         _a.sent();
                         this.router.navigate(['/purchase/event/ticket']);
-                        return [3 /*break*/, 10];
-                    case 9:
+                        return [3 /*break*/, 9];
+                    case 8:
                         error_4 = _a.sent();
                         if (error_4 === null) {
                             throw new Error('error is null');
@@ -1985,8 +1982,8 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                             return [2 /*return*/];
                         }
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 10];
-                    case 10: return [2 /*return*/];
+                        return [3 /*break*/, 9];
+                    case 9: return [2 /*return*/];
                 }
             });
         });
@@ -2163,7 +2160,6 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                     case 0:
                         this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getPurchase"]));
                         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getUser"]));
-                        this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getMaster"]));
                         this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getError"]));
                         this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getLoading"]));
                         this.screeningWorkEvents = [];
@@ -2224,7 +2220,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
      */
     PurchaseEventTicketComponent.prototype.getSchedule = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, theater, scheduleDate, transaction, external, master, screeningEvents;
+            var purchase, theater, scheduleDate, transaction, external, screeningEvents;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.purchaseService.getData()];
@@ -2250,11 +2246,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                                 startThrough: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).add(1, 'day').toDate()
                             })];
                     case 2:
-                        _a.sent();
-                        return [4 /*yield*/, this.masterService.getData()];
-                    case 3:
-                        master = _a.sent();
-                        screeningEvents = master.screeningEvents;
+                        screeningEvents = _a.sent();
                         this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["screeningEvents2WorkEvents"])({ screeningEvents: screeningEvents });
                         this.update();
                         return [2 /*return*/];
@@ -2268,12 +2260,12 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
      */
     PurchaseEventTicketComponent.prototype.selectSchedule = function (screeningEvent) {
         return __awaiter(this, void 0, void 0, function () {
-            var purchase, error_3;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var purchase, _a, error_3;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0: return [4 /*yield*/, this.purchaseService.getData()];
                     case 1:
-                        purchase = _a.sent();
+                        purchase = _b.sent();
                         if (purchase.authorizeSeatReservations.length > 0
                             && !this.environment.PURCHASE_CART) {
                             this.utilService.openAlert({
@@ -2282,22 +2274,23 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                             });
                             return [2 /*return*/];
                         }
-                        _a.label = 2;
+                        _b.label = 2;
                     case 2:
-                        _a.trys.push([2, 6, , 7]);
+                        _b.trys.push([2, 6, , 7]);
                         return [4 /*yield*/, this.purchaseService.getScreeningEvent(screeningEvent)];
                     case 3:
-                        _a.sent();
-                        return [4 /*yield*/, this.purchaseService.getScreeningEventOffers()];
+                        _b.sent();
+                        _a = this;
+                        return [4 /*yield*/, this.purchaseService.getScreeningEventSeats()];
                     case 4:
-                        _a.sent();
+                        _a.screeningEventSeats = _b.sent();
                         return [4 /*yield*/, this.purchaseService.getTicketList()];
                     case 5:
-                        _a.sent();
+                        _b.sent();
                         this.openTicketList();
                         return [3 /*break*/, 7];
                     case 6:
-                        error_3 = _a.sent();
+                        error_3 = _b.sent();
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
                             body: ''
@@ -2316,12 +2309,12 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
         this.purchase.subscribe(function (purchase) {
             var screeningEvent = purchase.screeningEvent;
             var screeningEventTicketOffers = purchase.screeningEventTicketOffers;
-            var screeningEventOffers = purchase.screeningEventOffers;
+            var screeningEventSeats = _this.screeningEventSeats;
             var authorizeSeatReservations = purchase.authorizeSeatReservations;
             _this.modal.show(_shared_components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseEventTicketModalComponent"], {
                 initialState: {
                     screeningEventTicketOffers: screeningEventTicketOffers,
-                    screeningEventOffers: screeningEventOffers,
+                    screeningEventSeats: screeningEventSeats,
                     screeningEvent: screeningEvent,
                     authorizeSeatReservations: authorizeSeatReservations,
                     cb: function (params) {
@@ -2337,18 +2330,18 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
      */
     PurchaseEventTicketComponent.prototype.selectTicket = function (params) {
         return __awaiter(this, void 0, void 0, function () {
-            var reservations, additionalTicketText, purchase, limit, remainingSeatLength, error_4, error_5;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var reservations, additionalTicketText, purchase, limit, _a, remainingSeatLength, error_4, error_5;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         reservations = params.reservations;
                         additionalTicketText = params.additionalTicketText;
-                        _a.label = 1;
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 4, , 5]);
+                        _b.trys.push([1, 4, , 5]);
                         return [4 /*yield*/, this.purchaseService.getData()];
                     case 2:
-                        purchase = _a.sent();
+                        purchase = _b.sent();
                         limit = (purchase.screeningEvent === undefined
                             || purchase.screeningEvent.offers === undefined
                             || purchase.screeningEvent.offers.eligibleQuantity.maxValue === undefined)
@@ -2361,27 +2354,28 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                             });
                             return [2 /*return*/];
                         }
-                        return [4 /*yield*/, this.purchaseService.getScreeningEventOffers()];
+                        _a = this;
+                        return [4 /*yield*/, this.purchaseService.getScreeningEventSeats()];
                     case 3:
-                        _a.sent();
+                        _a.screeningEventSeats = _b.sent();
                         if (purchase.screeningEvent !== undefined
                             && new _models__WEBPACK_IMPORTED_MODULE_8__["Performance"](purchase.screeningEvent).isTicketedSeat()) {
                             remainingSeatLength = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getRemainingSeatLength"])({
-                                screeningEventOffers: purchase.screeningEventOffers,
+                                screeningEventSeats: this.screeningEventSeats,
                                 screeningEvent: purchase.screeningEvent,
                                 authorizeSeatReservations: purchase.authorizeSeatReservations
                             });
                             if (remainingSeatLength < reservations.length) {
                                 this.utilService.openAlert({
                                     title: this.translate.instant('common.error'),
-                                    body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
+                                    body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventSeats')
                                 });
                                 return [2 /*return*/];
                             }
                         }
                         return [3 /*break*/, 5];
                     case 4:
-                        error_4 = _a.sent();
+                        error_4 = _b.sent();
                         console.error(error_4);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
@@ -2389,10 +2383,14 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                         });
                         return [3 /*break*/, 5];
                     case 5:
-                        _a.trys.push([5, 7, , 8]);
-                        return [4 /*yield*/, this.purchaseService.temporaryReservation({ reservations: reservations, additionalTicketText: additionalTicketText })];
+                        _b.trys.push([5, 7, , 8]);
+                        return [4 /*yield*/, this.purchaseService.temporaryReservation({
+                                reservations: reservations,
+                                additionalTicketText: additionalTicketText,
+                                screeningEventSeats: this.screeningEventSeats
+                            })];
                     case 6:
-                        _a.sent();
+                        _b.sent();
                         this.utilService.openAlert({
                             title: this.translate.instant('common.complete'),
                             body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
@@ -2400,7 +2398,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                         this.purchaseService.unsettledDelete();
                         return [3 /*break*/, 8];
                     case 7:
-                        error_5 = _a.sent();
+                        error_5 = _b.sent();
                         console.error(error_5);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
@@ -4669,7 +4667,7 @@ var ScreenComponent = /** @class */ (function () {
      * 座席自動生成
      */
     ScreenComponent.prototype.generateScreenMap = function (setting) {
-        if (this.screeningEventOffers.length === 0) {
+        if (this.screeningEventSeats.length === 0) {
             return {
                 type: 0,
                 size: { w: 0, h: 0 },
@@ -4679,18 +4677,16 @@ var ScreenComponent = /** @class */ (function () {
             };
         }
         var array = [];
-        this.screeningEventOffers.forEach(function (s) {
-            s.containsPlace.forEach(function (c) {
-                var branchCode = c.branchCode;
-                var line = c.branchCode.split('-')[0];
-                var column = c.branchCode.split('-')[1];
-                var findResult = array.find(function (a) { return a.length > 0 && a[0].line === line; });
-                if (findResult === undefined) {
-                    array.push([{ branchCode: branchCode, line: line, column: column }]);
-                    return;
-                }
-                findResult.push({ branchCode: branchCode, line: line, column: column });
-            });
+        this.screeningEventSeats.forEach(function (s) {
+            var branchCode = s.branchCode;
+            var line = s.branchCode.split('-')[0];
+            var column = s.branchCode.split('-')[1];
+            var findResult = array.find(function (a) { return a.length > 0 && a[0].line === line; });
+            if (findResult === undefined) {
+                array.push([{ branchCode: branchCode, line: line, column: column }]);
+                return;
+            }
+            findResult.push({ branchCode: branchCode, line: line, column: column });
         });
         var lineMaxArray = array.reduce(function (a, b) { return a[a.length - 1].line > b[a.length - 1].line ? a : b; });
         var lineMax = lineMaxArray[lineMaxArray.length - 1].line;
@@ -4929,32 +4925,30 @@ var ScreenComponent = /** @class */ (function () {
                         var section_1 = '';
                         var row_1 = '';
                         var status_1 = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Disabled;
-                        var acceptedOffer = void 0;
+                        var acceptedOffer_1;
                         // 席の状態変更
-                        for (var _i = 0, _a = this_1.screeningEventOffers; _i < _a.length; _i++) {
-                            var screeningEventOffer = _a[_i];
-                            section_1 = screeningEventOffer.branchCode;
-                            var findContainsPlaceResult = screeningEventOffer.containsPlace.find(function (containsPlace) {
-                                return (containsPlace.branchCode === code_1);
-                            });
-                            if (findContainsPlaceResult !== undefined
-                                && findContainsPlaceResult.offers !== undefined) {
-                                if (findContainsPlaceResult.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.itemAvailability.InStock) {
-                                    status_1 = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
-                                }
-                                acceptedOffer = {
-                                    ticketedSeat: {
-                                        typeOf: findContainsPlaceResult.typeOf,
-                                        seatingType: findContainsPlaceResult.seatingType,
-                                        seatNumber: findContainsPlaceResult.branchCode,
-                                        seatRow: '',
-                                        seatSection: section_1,
-                                        offers: findContainsPlaceResult.offers
-                                    }
-                                };
-                                break;
+                        this_1.screeningEventSeats.forEach(function (s) {
+                            if (s.containedInPlace !== undefined
+                                && s.containedInPlace.branchCode !== undefined) {
+                                section_1 = s.containedInPlace.branchCode;
                             }
-                        }
+                            if (s.branchCode !== code_1 || s.offers === undefined) {
+                                return;
+                            }
+                            if (s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.itemAvailability.InStock) {
+                                status_1 = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Default;
+                            }
+                            acceptedOffer_1 = {
+                                ticketedSeat: {
+                                    typeOf: s.typeOf,
+                                    seatingType: s.seatingType,
+                                    seatNumber: s.branchCode,
+                                    seatRow: row_1,
+                                    seatSection: section_1,
+                                    offers: s.offers
+                                }
+                            };
+                        });
                         if (this_1.authorizeSeatReservation !== undefined
                             && this_1.authorizeSeatReservation.result !== undefined
                             && this_1.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
@@ -4983,7 +4977,7 @@ var ScreenComponent = /** @class */ (function () {
                             code: code_1,
                             section: section_1,
                             status: status_1,
-                            ticketedSeat: (acceptedOffer !== undefined) ? acceptedOffer.ticketedSeat : undefined
+                            ticketedSeat: (acceptedOffer_1 !== undefined) ? acceptedOffer_1.ticketedSeat : undefined
                         };
                         seats[labelCount].data.push(seat);
                     }
@@ -5065,7 +5059,7 @@ var ScreenComponent = /** @class */ (function () {
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Array)
-    ], ScreenComponent.prototype, "screeningEventOffers", void 0);
+    ], ScreenComponent.prototype, "screeningEventSeats", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Array)

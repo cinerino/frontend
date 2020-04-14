@@ -4,7 +4,7 @@
 </div>
 
 <ul *ngIf="!(external.theaterBranchCode)" class="contents-width mx-auto theaters d-flex flex-wrap p-2">
-    <li *ngFor="let theater of (master | async)?.theaters" class="px-2 my-2">
+    <li *ngFor="let theater of theaters" class="px-2 my-2">
         <button type="button" class="btn btn-block py-3 m-0" (click)="selectTheater(theater)"
             [class.btn-primary]="(purchase | async).theater?.id === theater.id"
             [class.btn-outline-primary]="(purchase | async).theater?.id !== theater.id">{{ theater.name | changeLanguage }}</button>

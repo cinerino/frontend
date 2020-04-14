@@ -18,6 +18,7 @@ export class CinerinoService {
     public order: cinerino.service.Order;
     public seller: cinerino.service.Seller;
     public person: cinerino.service.Person;
+    public project: cinerino.service.Project;
     public place: cinerino.service.Place;
     public ownershipInfo: cinerino.service.person.OwnershipInfo;
     public reservation: cinerino.service.Reservation;
@@ -52,6 +53,7 @@ export class CinerinoService {
             this.seller = new cinerino.service.Seller(option);
             this.place = new cinerino.service.Place(option);
             this.person = new cinerino.service.Person(option);
+            this.project = new cinerino.service.Project({ ...option, project: undefined });
             this.ownershipInfo = new cinerino.service.person.OwnershipInfo(option);
             this.reservation = new cinerino.service.Reservation(option);
             this.task = new cinerino.service.Task(option);

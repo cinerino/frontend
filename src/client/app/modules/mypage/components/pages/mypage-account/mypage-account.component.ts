@@ -17,6 +17,7 @@ import { AccountTransferModalComponent } from '../../../../shared/components/par
 })
 export class MypageAccountComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
+    public sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
 
     constructor(
         private store: Store<reducers.IState>,
@@ -33,7 +34,9 @@ export class MypageAccountComponent implements OnInit {
      */
     public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
+        this.sellers = [];
         try {
+            this.sellers = await this.masterService.getSellers();
             await this.userService.getAccount();
         } catch (error) {
             console.error(error);
@@ -46,10 +49,9 @@ export class MypageAccountComponent implements OnInit {
     public async openChageAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
         const userData = await this.userService.getData();
         const creditCards = userData.creditCards;
-        const sellers = await (await this.masterService.getData()).sellers;
         this.modal.show(AccountChargeModalComponent, {
             initialState: {
-                sellers,
+                sellers: this.sellers,
                 creditCards,
                 cb: async (params: {
                     amount: number;
@@ -89,10 +91,9 @@ export class MypageAccountComponent implements OnInit {
      */
     public async openTransferAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
         const userData = await this.userService.getData();
-        const sellers = await (await this.masterService.getData()).sellers;
         this.modal.show(AccountTransferModalComponent, {
             initialState: {
-                sellers,
+                sellers: this.sellers,
                 cb: async (params: {
                     seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
                     amount: number;

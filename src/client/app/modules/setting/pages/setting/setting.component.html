@@ -11,7 +11,7 @@
                     <div class="col-md-8">
                         <select class="form-control" formControlName="theaterBranchCode" (change)="changePosList()">
                             <option value="">{{ 'setting.unselected' | translate }}</option>
-                            <option *ngFor="let theater of (master | async).theaters"
+                            <option *ngFor="let theater of theaters"
                                 [value]="theater.branchCode">{{ theater.name | changeLanguage }}</option>
                         </select>
                     </div>

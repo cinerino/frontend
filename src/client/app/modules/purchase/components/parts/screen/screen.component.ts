@@ -25,7 +25,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
     @Input() public openSeatingAllowed = false;
     @Input() public theaterCode: string;
     @Input() public screenCode: string;
-    @Input() public screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
+    @Input() public screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
     @Input() public reservations: IReservation[];
     @Input() public authorizeSeatReservation?:
         factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
@@ -121,7 +121,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
      * 座席自動生成
      */
     public generateScreenMap(setting: IScreen) {
-        if (this.screeningEventOffers.length === 0) {
+        if (this.screeningEventSeats.length === 0) {
             return {
                 type: 0,
                 size: { w: 0, h: 0 },
@@ -131,18 +131,16 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
             };
         }
         const array: { branchCode: string; line: string; column: string; }[][] = [];
-        this.screeningEventOffers.forEach((s) => {
-            s.containsPlace.forEach((c) => {
-                const branchCode = c.branchCode;
-                const line = c.branchCode.split('-')[0];
-                const column = c.branchCode.split('-')[1];
-                const findResult = array.find(a => a.length > 0 && a[0].line === line);
-                if (findResult === undefined) {
-                    array.push([{ branchCode, line, column }]);
-                    return;
-                }
-                findResult.push({ branchCode, line, column });
-            });
+        this.screeningEventSeats.forEach((s) => {
+            const branchCode = s.branchCode;
+            const line = s.branchCode.split('-')[0];
+            const column = s.branchCode.split('-')[1];
+            const findResult = array.find(a => a.length > 0 && a[0].line === line);
+            if (findResult === undefined) {
+                array.push([{ branchCode, line, column }]);
+                return;
+            }
+            findResult.push({ branchCode, line, column });
         });
         const lineMaxArray = array.reduce((a, b) => a[a.length - 1].line > b[a.length - 1].line ? a : b);
         const lineMax = lineMaxArray[lineMaxArray.length - 1].line;
@@ -383,29 +381,28 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                         let status = SeatStatus.Disabled;
                         let acceptedOffer;
                         // 席の状態変更
-                        for (const screeningEventOffer of this.screeningEventOffers) {
-                            section = screeningEventOffer.branchCode;
-                            const findContainsPlaceResult = screeningEventOffer.containsPlace.find((containsPlace) => {
-                                return (containsPlace.branchCode === code);
-                            });
-                            if (findContainsPlaceResult !== undefined
-                                && findContainsPlaceResult.offers !== undefined) {
-                                if (findContainsPlaceResult.offers[0].availability === factory.chevre.itemAvailability.InStock) {
-                                    status = SeatStatus.Default;
-                                }
-                                acceptedOffer = {
-                                    ticketedSeat: {
-                                        typeOf: findContainsPlaceResult.typeOf,
-                                        seatingType: findContainsPlaceResult.seatingType,
-                                        seatNumber: findContainsPlaceResult.branchCode,
-                                        seatRow: '',
-                                        seatSection: section,
-                                        offers: findContainsPlaceResult.offers
-                                    }
-                                };
-                                break;
+                        this.screeningEventSeats.forEach((s) => {
+                            if (s.containedInPlace !== undefined
+                                && s.containedInPlace.branchCode !== undefined) {
+                                section = s.containedInPlace.branchCode;
                             }
-                        }
+                            if (s.branchCode !== code || s.offers === undefined) {
+                                return;
+                            }
+                            if (s.offers[0].availability === factory.chevre.itemAvailability.InStock) {
+                                status = SeatStatus.Default;
+                            }
+                            acceptedOffer = {
+                                ticketedSeat: <IReservationSeat>{
+                                    typeOf: s.typeOf,
+                                    seatingType: s.seatingType,
+                                    seatNumber: s.branchCode,
+                                    seatRow: row,
+                                    seatSection: section,
+                                    offers: s.offers
+                                }
+                            };
+                        });
                         if (this.authorizeSeatReservation !== undefined
                             && this.authorizeSeatReservation.result !== undefined
                             && this.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {

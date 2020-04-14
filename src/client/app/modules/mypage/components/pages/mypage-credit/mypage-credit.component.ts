@@ -18,6 +18,7 @@ export class MypageCreditComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public master: Observable<reducers.IMasterState>;
     public isLoading: Observable<boolean>;
+    public sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
 
     constructor(
         private store: Store<reducers.IState>,
@@ -34,10 +35,10 @@ export class MypageCreditComponent implements OnInit {
      */
     public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
-        this.master = this.store.pipe(select(reducers.getMaster));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
+        this.sellers = [];
         try {
-            await this.masterService.getSellers();
+            this.sellers = await this.masterService.getSellers();
             await this.userService.getCreditCards();
         } catch (error) {
             console.error(error);
@@ -72,10 +73,9 @@ export class MypageCreditComponent implements OnInit {
      * クレジットカード登録モーダル
      */
     public async openRegisterCreditcardModal() {
-        const sellers = await (await this.masterService.getData()).sellers;
         this.modal.show(CreditcardRegisterModalComponent, {
             initialState: {
-                sellers,
+                sellers: this.sellers,
                 cb: async (params: {
                     creditCard: {
                         cardno: string;

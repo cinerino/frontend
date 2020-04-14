@@ -28,13 +28,13 @@ import {
 export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
-    public master: Observable<reducers.IMasterState>;
     public error: Observable<string | null>;
     public isLoading: Observable<boolean>;
     public screeningWorkEvents: IScreeningEventWork[];
     public moment: typeof moment = moment;
     public environment = getEnvironment();
     private updateTimer: any;
+    public screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
 
     constructor(
         private store: Store<reducers.IState>,
@@ -52,7 +52,6 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
-        this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.screeningWorkEvents = [];
@@ -103,7 +102,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             || transaction === undefined) {
             throw new Error('theater or scheduleDate or transaction undefined');
         }
-        await this.masterService.getSchedule({
+        const screeningEvents = await this.masterService.getSchedule({
             superEvent: {
                 ids: (external.superEventId === undefined) ? [] : [external.superEventId],
                 locationBranchCodes: [theater.branchCode],
@@ -113,8 +112,6 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             startFrom: moment(scheduleDate).toDate(),
             startThrough: moment(scheduleDate).add(1, 'day').toDate()
         });
-        const master = await this.masterService.getData();
-        const screeningEvents = master.screeningEvents;
         this.screeningWorkEvents = screeningEvents2WorkEvents({ screeningEvents });
         this.update();
     }
@@ -135,7 +132,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         }
         try {
             await this.purchaseService.getScreeningEvent(screeningEvent);
-            await this.purchaseService.getScreeningEventOffers();
+            this.screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
             await this.purchaseService.getTicketList();
             this.openTicketList();
         } catch (error) {
@@ -153,12 +150,12 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         this.purchase.subscribe((purchase) => {
             const screeningEvent = purchase.screeningEvent;
             const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
-            const screeningEventOffers = purchase.screeningEventOffers;
+            const screeningEventSeats = this.screeningEventSeats;
             const authorizeSeatReservations = purchase.authorizeSeatReservations;
             this.modal.show(PurchaseEventTicketModalComponent, {
                 initialState: {
                     screeningEventTicketOffers,
-                    screeningEventOffers,
+                    screeningEventSeats,
                     screeningEvent,
                     authorizeSeatReservations,
                     cb: (params: {
@@ -199,18 +196,18 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 });
                 return;
             }
-            await this.purchaseService.getScreeningEventOffers();
+            this.screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
             if (purchase.screeningEvent !== undefined
                 && new Performance(purchase.screeningEvent).isTicketedSeat()) {
                 const remainingSeatLength = getRemainingSeatLength({
-                    screeningEventOffers: purchase.screeningEventOffers,
+                    screeningEventSeats: this.screeningEventSeats,
                     screeningEvent: purchase.screeningEvent,
                     authorizeSeatReservations: purchase.authorizeSeatReservations
                 });
                 if (remainingSeatLength < reservations.length) {
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
-                        body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventOffers')
+                        body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventSeats')
                     });
                     return;
                 }
@@ -223,7 +220,11 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             });
         }
         try {
-            await this.purchaseService.temporaryReservation({ reservations, additionalTicketText });
+            await this.purchaseService.temporaryReservation({
+                reservations,
+                additionalTicketText,
+                screeningEventSeats: this.screeningEventSeats
+            });
             this.utilService.openAlert({
                 title: this.translate.instant('common.complete'),
                 body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')

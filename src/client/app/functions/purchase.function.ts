@@ -415,30 +415,28 @@ export function authorizeSeatReservation2Event(params: {
  * 残席数取得
  */
 export function getRemainingSeatLength(params: {
-    screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
+    screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
     screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
 }) {
-    const screeningEventOffers = params.screeningEventOffers;
+    const screeningEventSeats = params.screeningEventSeats;
     const screeningEvent = params.screeningEvent;
     const authorizeSeatReservations = params.authorizeSeatReservations;
     let result = 0;
     const limitSeatNumber = (screeningEvent.workPerformed === undefined
         || screeningEvent.workPerformed.additionalProperty === undefined)
         ? undefined : screeningEvent.workPerformed.additionalProperty.find(a => a.name === 'limitSeatNumber');
-    screeningEventOffers.forEach((s) => {
-        const sectionResult = s.containsPlace.filter(c => {
-            if (limitSeatNumber !== undefined) {
-                // 作品追加特性（limitSeatNumber）で座席数制御
-                return (c.offers !== undefined
-                    && c.offers[0].availability === factory.chevre.itemAvailability.InStock
-                    && Number(c.branchCode) <= Number(limitSeatNumber.value));
-            }
-            return (c.offers !== undefined
-                && c.offers[0].availability === factory.chevre.itemAvailability.InStock);
-        });
-        result += sectionResult.length;
+    const filterResult = screeningEventSeats.filter((s) => {
+        if (limitSeatNumber !== undefined) {
+            // 作品追加特性（limitSeatNumber）で座席数制御
+            return (s.offers !== undefined
+                && s.offers[0].availability === factory.chevre.itemAvailability.InStock
+                && Number(s.branchCode) <= Number(limitSeatNumber.value));
+        }
+        return (s.offers !== undefined
+            && s.offers[0].availability === factory.chevre.itemAvailability.InStock);
     });
+    result += filterResult.length;
 
     let reservationCount = 0;
     authorizeSeatReservations.forEach((a) => {
@@ -487,31 +485,30 @@ export function isEligibleSeatingType(params: {
  */
 export function getEmptySeat(params: {
     reservations: IReservation[];
-    screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[]
+    screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
 }) {
     const reservations = params.reservations;
-    const screeningEventOffers = params.screeningEventOffers;
+    const screeningEventSeats = params.screeningEventSeats;
     const seats: factory.chevre.reservation.ISeat<factory.chevre.reservationType.EventReservation>[] = [];
-    screeningEventOffers.forEach(s => {
-        const section = s.branchCode;
-        s.containsPlace.forEach(c => {
-            const selectedSeat = reservations.find(r => {
-                return (r.seat !== undefined
-                    && r.seat.seatNumber === c.branchCode
-                    && r.seat.seatSection === section);
-            });
-            if ((c.offers === undefined || c.offers[0].availability !== factory.chevre.itemAvailability.InStock)
-                && selectedSeat === undefined) {
-                // 在庫なし
-                return;
-            }
-            seats.push({
-                typeOf: c.typeOf,
-                seatingType: c.seatingType,
-                seatNumber: c.branchCode,
-                seatRow: '',
-                seatSection: section
-            });
+    screeningEventSeats.forEach(s => {
+        const section = (s.containedInPlace === undefined || s.containedInPlace.branchCode === undefined)
+            ? '' : s.containedInPlace.branchCode;
+        const selectedSeat = reservations.find(r => {
+            return (r.seat !== undefined
+                && r.seat.seatNumber === s.branchCode
+                && r.seat.seatSection === section);
+        });
+        if ((s.offers === undefined || s.offers[0].availability !== factory.chevre.itemAvailability.InStock)
+            && selectedSeat === undefined) {
+            // 在庫なし
+            return;
+        }
+        seats.push({
+            typeOf: s.typeOf,
+            seatingType: s.seatingType,
+            seatNumber: s.branchCode,
+            seatRow: '',
+            seatSection: section
         });
     });
     return seats;
@@ -529,11 +526,11 @@ export interface IAvailableSeat extends factory.chevre.reservation.ISeat<factory
  */
 export function selectAvailableSeat(params: {
     reservations: IReservation[];
-    screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
+    screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
 }) {
     const reservations = params.reservations;
-    const screeningEventOffers = params.screeningEventOffers;
-    const seats = getEmptySeat({ reservations, screeningEventOffers });
+    const screeningEventSeats = params.screeningEventSeats;
+    const seats = getEmptySeat({ reservations, screeningEventSeats });
     const availableSeats: IAvailableSeat[] = [];
     reservations.forEach(r => {
         const findReservationSeat = seats.find(s => {

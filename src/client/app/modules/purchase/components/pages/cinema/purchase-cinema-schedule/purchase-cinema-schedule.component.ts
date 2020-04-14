@@ -26,7 +26,6 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     @ViewChild(SwiperDirective, { static: true }) public directiveRef: SwiperDirective;
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
-    public master: Observable<reducers.IMasterState>;
     public error: Observable<string | null>;
     public swiperConfig: SwiperConfigInterface;
     public scheduleDates: string[];
@@ -36,6 +35,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public environment = getEnvironment();
     public external = getExternalData();
     private updateTimer: any;
+    public theaters: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom[];
 
     constructor(
         private store: Store<reducers.IState>,
@@ -67,18 +67,17 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         };
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
-        this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
         this.isPreSchedule = false;
         this.scheduleDates = [];
         this.screeningWorkEvents = [];
+        this.theaters = [];
         try {
-            await this.masterService.getTheaters();
-            const master = await this.masterService.getData();
+            this.theaters = await this.masterService.getTheaters();
             const purchase = await this.purchaseService.getData();
             const external = getExternalData();
-            let theater = (purchase.theater === undefined) ? master.theaters[0] : purchase.theater;
-            const findResult = master.theaters.find((t) => {
+            let theater = (purchase.theater === undefined) ? this.theaters[0] : purchase.theater;
+            const findResult = this.theaters.find((t) => {
                 return (external.theaterBranchCode !== undefined && t.branchCode === external.theaterBranchCode);
             });
             if (findResult !== undefined) {
@@ -191,7 +190,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         }
         this.purchaseService.selectScheduleDate(scheduleDate);
         try {
-            await this.masterService.getSchedule({
+            const screeningEvents = await this.masterService.getSchedule({
                 superEvent: {
                     ids: (external.superEventId === undefined) ? [] : [external.superEventId],
                     locationBranchCodes: [theater.branchCode],
@@ -201,8 +200,6 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            const master = await this.masterService.getData();
-            const screeningEvents = master.screeningEvents;
             this.screeningWorkEvents = screeningEvents2WorkEvents({ screeningEvents });
             this.update();
         } catch (error) {
