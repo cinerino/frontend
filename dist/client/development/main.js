@@ -1070,7 +1070,6 @@ function authorizeSeatReservation2Event(params) {
 function getRemainingSeatLength(params) {
     var screeningEventSeats = params.screeningEventSeats;
     var screeningEvent = params.screeningEvent;
-    var authorizeSeatReservations = params.authorizeSeatReservations;
     var result = 0;
     var limitSeatNumber = (screeningEvent.workPerformed === undefined
         || screeningEvent.workPerformed.additionalProperty === undefined)
@@ -1086,24 +1085,13 @@ function getRemainingSeatLength(params) {
             && s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock);
     });
     result += filterResult.length;
-    var reservationCount = 0;
-    authorizeSeatReservations.forEach(function (a) {
-        if (a.result === undefined
-            || a.result.responseBody.object.reservations === undefined) {
-            return;
-        }
-        a.result.responseBody.object.reservations
-            .filter(function (r) { return r.reservationFor.id === screeningEvent.id; })
-            .forEach(function (r) {
-            if (r.numSeats === undefined) {
-                return;
-            }
-            reservationCount += r.numSeats;
-        });
-    });
-    if (screeningEvent.remainingAttendeeCapacity !== undefined
-        && result > screeningEvent.remainingAttendeeCapacity - reservationCount) {
-        result = screeningEvent.remainingAttendeeCapacity - reservationCount;
+    var reservationCount = screeningEventSeats.filter(function (s) {
+        return (s.offers !== undefined
+            && s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.OutOfStock);
+    }).length;
+    if (screeningEvent.maximumAttendeeCapacity !== undefined
+        && result > screeningEvent.maximumAttendeeCapacity - reservationCount) {
+        result = screeningEvent.maximumAttendeeCapacity - reservationCount;
     }
     return result;
 }

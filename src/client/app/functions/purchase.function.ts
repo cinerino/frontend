@@ -417,11 +417,9 @@ export function authorizeSeatReservation2Event(params: {
 export function getRemainingSeatLength(params: {
     screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
     screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
 }) {
     const screeningEventSeats = params.screeningEventSeats;
     const screeningEvent = params.screeningEvent;
-    const authorizeSeatReservations = params.authorizeSeatReservations;
     let result = 0;
     const limitSeatNumber = (screeningEvent.workPerformed === undefined
         || screeningEvent.workPerformed.additionalProperty === undefined)
@@ -438,25 +436,14 @@ export function getRemainingSeatLength(params: {
     });
     result += filterResult.length;
 
-    let reservationCount = 0;
-    authorizeSeatReservations.forEach((a) => {
-        if (a.result === undefined
-            || a.result.responseBody.object.reservations === undefined) {
-            return;
-        }
-        a.result.responseBody.object.reservations
-            .filter(r => r.reservationFor.id === screeningEvent.id)
-            .forEach((r) => {
-                if (r.numSeats === undefined) {
-                    return;
-                }
-                reservationCount += r.numSeats;
-            });
-    });
+    const reservationCount = screeningEventSeats.filter((s) => {
+        return (s.offers !== undefined
+            && s.offers[0].availability === factory.chevre.itemAvailability.OutOfStock);
+    }).length;
 
-    if (screeningEvent.remainingAttendeeCapacity !== undefined
-        && result > screeningEvent.remainingAttendeeCapacity - reservationCount) {
-        result = screeningEvent.remainingAttendeeCapacity - reservationCount;
+    if (screeningEvent.maximumAttendeeCapacity !== undefined
+        && result > screeningEvent.maximumAttendeeCapacity - reservationCount) {
+        result = screeningEvent.maximumAttendeeCapacity - reservationCount;
     }
 
     return result;

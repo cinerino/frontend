@@ -1300,7 +1300,6 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
     PurchaseCinemaSeatComponent.prototype.remainingAttendeeCapacityValue = function (params) {
         var screeningEventSeats = params.screeningEventSeats;
         var screeningEvent = params.screeningEvent;
-        var authorizeSeatReservations = params.authorizeSeatReservations;
         var values = [];
         var limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
         if (screeningEvent.offers !== undefined
@@ -1311,7 +1310,7 @@ var PurchaseCinemaSeatComponent = /** @class */ (function () {
         if (new _models__WEBPACK_IMPORTED_MODULE_6__["Performance"](screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算
             var screeningEventLimit = Object(_functions__WEBPACK_IMPORTED_MODULE_5__["getRemainingSeatLength"])({
-                screeningEventSeats: screeningEventSeats, screeningEvent: screeningEvent, authorizeSeatReservations: authorizeSeatReservations
+                screeningEventSeats: screeningEventSeats, screeningEvent: screeningEvent
             });
             if (limit > screeningEventLimit) {
                 limit = screeningEventLimit;
@@ -2310,13 +2309,11 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
             var screeningEvent = purchase.screeningEvent;
             var screeningEventTicketOffers = purchase.screeningEventTicketOffers;
             var screeningEventSeats = _this.screeningEventSeats;
-            var authorizeSeatReservations = purchase.authorizeSeatReservations;
             _this.modal.show(_shared_components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseEventTicketModalComponent"], {
                 initialState: {
                     screeningEventTicketOffers: screeningEventTicketOffers,
                     screeningEventSeats: screeningEventSeats,
                     screeningEvent: screeningEvent,
-                    authorizeSeatReservations: authorizeSeatReservations,
                     cb: function (params) {
                         _this.selectTicket(params);
                     }
@@ -2362,8 +2359,7 @@ var PurchaseEventTicketComponent = /** @class */ (function () {
                             && new _models__WEBPACK_IMPORTED_MODULE_8__["Performance"](purchase.screeningEvent).isTicketedSeat()) {
                             remainingSeatLength = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getRemainingSeatLength"])({
                                 screeningEventSeats: this.screeningEventSeats,
-                                screeningEvent: purchase.screeningEvent,
-                                authorizeSeatReservations: purchase.authorizeSeatReservations
+                                screeningEvent: purchase.screeningEvent
                             });
                             if (remainingSeatLength < reservations.length) {
                                 this.utilService.openAlert({

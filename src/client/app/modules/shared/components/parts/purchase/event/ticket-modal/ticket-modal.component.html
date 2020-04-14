@@ -29,8 +29,7 @@
         <p *ngIf="performance.isTicketedSeat()" class="font-weight-bold"><span
                 class="mr-1">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength({
                     screeningEventSeats: screeningEventSeats, 
-                    screeningEvent: screeningEvent, 
-                    authorizeSeatReservations:authorizeSeatReservations
+                    screeningEvent: screeningEvent
                 }) }}
         </p>
     </div>

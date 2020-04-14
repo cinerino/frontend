@@ -19,8 +19,6 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     @Input() public screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
     @Input() public screeningEvent: factory.event.screeningEvent.IEvent;
-    @Input() public authorizeSeatReservations:
-        factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
     @Input() public cb: (params: {
         reservations: IReservation[];
         additionalTicketText?: string;
@@ -76,7 +74,6 @@ export class PurchaseEventTicketModalComponent implements OnInit {
         const values = [];
         const screeningEvent = this.screeningEvent;
         const screeningEventSeats = this.screeningEventSeats;
-        const authorizeSeatReservations = this.authorizeSeatReservations;
         let limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
         if (screeningEvent.offers !== undefined
             && screeningEvent.offers.eligibleQuantity.maxValue !== undefined
@@ -87,8 +84,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
             // イベント全体の残席数計算
             const screeningEventLimit = getRemainingSeatLength({
                 screeningEvent,
-                screeningEventSeats,
-                authorizeSeatReservations
+                screeningEventSeats
             });
             if (limit > screeningEventLimit) {
                 limit = screeningEventLimit;
