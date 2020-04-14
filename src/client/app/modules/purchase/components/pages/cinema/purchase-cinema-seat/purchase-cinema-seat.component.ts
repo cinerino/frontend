@@ -130,10 +130,14 @@ export class PurchaseCinemaSeatComponent implements OnInit {
     /**
      * 自由席予約可能数計算
      */
-    public remainingAttendeeCapacityValue(
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent,
-        screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[]
-    ) {
+    public remainingAttendeeCapacityValue(params: {
+        screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
+    }) {
+        const screeningEventOffers = params.screeningEventOffers;
+        const screeningEvent = params.screeningEvent;
+        const authorizeSeatReservations = params.authorizeSeatReservations;
         const values = [];
         let limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
         if (screeningEvent.offers !== undefined
@@ -143,7 +147,9 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         }
         if (new Performance(screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算
-            const screeningEventLimit = getRemainingSeatLength(screeningEventOffers, screeningEvent);
+            const screeningEventLimit = getRemainingSeatLength({
+                screeningEventOffers, screeningEvent, authorizeSeatReservations
+            });
             if (limit > screeningEventLimit) {
                 limit = screeningEventLimit;
             }

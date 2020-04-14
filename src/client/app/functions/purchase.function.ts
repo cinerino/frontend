@@ -414,10 +414,14 @@ export function authorizeSeatReservation2Event(params: {
 /**
  * 残席数取得
  */
-export function getRemainingSeatLength(
-    screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[],
-    screeningEvent: factory.chevre.event.screeningEvent.IEvent
-) {
+export function getRemainingSeatLength(params: {
+    screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
+    screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
+}) {
+    const screeningEventOffers = params.screeningEventOffers;
+    const screeningEvent = params.screeningEvent;
+    const authorizeSeatReservations = params.authorizeSeatReservations;
     let result = 0;
     const limitSeatNumber = (screeningEvent.workPerformed === undefined
         || screeningEvent.workPerformed.additionalProperty === undefined)
@@ -435,6 +439,27 @@ export function getRemainingSeatLength(
         });
         result += sectionResult.length;
     });
+
+    let reservationCount = 0;
+    authorizeSeatReservations.forEach((a) => {
+        if (a.result === undefined
+            || a.result.responseBody.object.reservations === undefined) {
+            return;
+        }
+        a.result.responseBody.object.reservations
+            .filter(r => r.reservationFor.id === screeningEvent.id)
+            .forEach((r) => {
+                if (r.numSeats === undefined) {
+                    return;
+                }
+                reservationCount += r.numSeats;
+            });
+    });
+
+    if (screeningEvent.remainingAttendeeCapacity !== undefined
+        && result > screeningEvent.remainingAttendeeCapacity - reservationCount) {
+        result = screeningEvent.remainingAttendeeCapacity - reservationCount;
+    }
 
     return result;
 }

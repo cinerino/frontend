@@ -1067,7 +1067,10 @@ function authorizeSeatReservation2Event(params) {
 /**
  * 残席数取得
  */
-function getRemainingSeatLength(screeningEventOffers, screeningEvent) {
+function getRemainingSeatLength(params) {
+    var screeningEventOffers = params.screeningEventOffers;
+    var screeningEvent = params.screeningEvent;
+    var authorizeSeatReservations = params.authorizeSeatReservations;
     var result = 0;
     var limitSeatNumber = (screeningEvent.workPerformed === undefined
         || screeningEvent.workPerformed.additionalProperty === undefined)
@@ -1085,6 +1088,25 @@ function getRemainingSeatLength(screeningEventOffers, screeningEvent) {
         });
         result += sectionResult.length;
     });
+    var reservationCount = 0;
+    authorizeSeatReservations.forEach(function (a) {
+        if (a.result === undefined
+            || a.result.responseBody.object.reservations === undefined) {
+            return;
+        }
+        a.result.responseBody.object.reservations
+            .filter(function (r) { return r.reservationFor.id === screeningEvent.id; })
+            .forEach(function (r) {
+            if (r.numSeats === undefined) {
+                return;
+            }
+            reservationCount += r.numSeats;
+        });
+    });
+    if (screeningEvent.remainingAttendeeCapacity !== undefined
+        && result > screeningEvent.remainingAttendeeCapacity - reservationCount) {
+        result = screeningEvent.remainingAttendeeCapacity - reservationCount;
+    }
     return result;
 }
 /**

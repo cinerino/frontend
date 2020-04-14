@@ -154,11 +154,13 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             const screeningEvent = purchase.screeningEvent;
             const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
             const screeningEventOffers = purchase.screeningEventOffers;
+            const authorizeSeatReservations = purchase.authorizeSeatReservations;
             this.modal.show(PurchaseEventTicketModalComponent, {
                 initialState: {
                     screeningEventTicketOffers,
                     screeningEventOffers,
                     screeningEvent,
+                    authorizeSeatReservations,
                     cb: (params: {
                         reservations: IReservation[];
                         additionalTicketText?: string;
@@ -200,7 +202,11 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             await this.purchaseService.getScreeningEventOffers();
             if (purchase.screeningEvent !== undefined
                 && new Performance(purchase.screeningEvent).isTicketedSeat()) {
-                const remainingSeatLength = getRemainingSeatLength(purchase.screeningEventOffers, purchase.screeningEvent);
+                const remainingSeatLength = getRemainingSeatLength({
+                    screeningEventOffers: purchase.screeningEventOffers,
+                    screeningEvent: purchase.screeningEvent,
+                    authorizeSeatReservations: purchase.authorizeSeatReservations
+                });
                 if (remainingSeatLength < reservations.length) {
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
