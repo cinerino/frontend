@@ -178,8 +178,7 @@ export class UpdateLanguage implements Action {
 export class UpdateBaseSetting implements Action {
     public readonly type = ActionTypes.UpdateBaseSetting;
     constructor(public payload: {
-        seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
-        pos?: factory.seller.IPOS;
+        pos?: factory.chevre.place.movieTheater.IPOS;
         theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
         printer?: IPrinter;
     }) { }

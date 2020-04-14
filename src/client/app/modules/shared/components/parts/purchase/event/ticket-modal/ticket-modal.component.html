@@ -17,38 +17,56 @@
                 {{ screeningEvent.superEvent.location.name | changeLanguage }}
             </span>
             <span class="screen-name">
-                &nbsp;/&nbsp;<span *ngIf="screeningEvent.location.address" class="mr-2">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}
+                &nbsp;/&nbsp;<span *ngIf="screeningEvent.location.address"
+                    class="mr-2">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}
             </span>
-            <span *ngIf="screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0">
-                &nbsp;/&nbsp;<span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+            <span
+                *ngIf="screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0">
+                &nbsp;/&nbsp;<span
+                    class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
             </span>
         </p>
-        <p *ngIf="performance.isTicketedSeat()" class="font-weight-bold"><span class="mr-1">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength(screeningEventOffers, screeningEvent) }}</p>
+        <p *ngIf="performance.isTicketedSeat()" class="font-weight-bold"><span
+                class="mr-1">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength({
+                    screeningEventOffers: screeningEventOffers, 
+                    screeningEvent: screeningEvent, 
+                    authorizeSeatReservations:authorizeSeatReservations
+                }) }}
+        </p>
     </div>
     <hr class="mb-3">
     <ul *ngIf="tickets.length > 0" class="mb-4">
-        <li *ngFor="let ticket of tickets" class="ticket mb-3 pb-3 border-bottom border-gray" [class.text-danger]="remainingAttendeeCapacityValue(ticket).length === 0">
+        <li *ngFor="let ticket of tickets" class="ticket mb-3 pb-3 border-bottom border-gray"
+            [class.text-danger]="remainingAttendeeCapacityValue(ticket).length === 0">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="w-75 text-left">
                     <p *ngFor="let priceComponent of ticket.priceSpecification.priceComponent">
-                        <span>{{ priceComponent.name | changeLanguage }}</span><!--
-                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
-                        --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+                        <span>{{ priceComponent.name | changeLanguage }}</span>
+                        <!--
+                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span>
+                        <!--
+                        --><span class="text-small"
+                            *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
                     </p>
-                    <p *ngIf="ticket.description" class="text-x-small text-left">{{ ticket.description | changeLanguage }}</p>
+                    <p *ngIf="ticket.description" class="text-x-small text-left">
+                        {{ ticket.description | changeLanguage }}</p>
                 </div>
                 <div class="w-25 text-right">
                     <select class="form-control" (change)="changeSelect(ticket.id, $event)">
                         <option value="0">0</option>
-                        <option *ngFor="let value of remainingAttendeeCapacityValue(ticket)" [value]="value">{{ value }}</option>
+                        <option *ngFor="let value of remainingAttendeeCapacityValue(ticket)" [value]="value">{{ value }}
+                        </option>
                     </select>
                 </div>
             </div>
             <ul *ngIf="ticket.addOn && ticket.addOn.length > 0" class="mt-2 bg-light-gray py-2 px-3">
                 <li class="my-1" *ngFor="let addOn of ticket.addOn; let index = index">
                     <app-checkbox class="pointer" (change)="changeAddOn(ticket.id, addOn.id)">
-                        {{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span><!--
-                        -->&nbsp;/&nbsp;<!--
+                        {{ addOn.priceSpecification?.name | changeLanguage }}<span
+                            *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>
+                        <!--
+                        -->&nbsp;/&nbsp;
+                        <!--
                         -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}
                     </app-checkbox>
                 </li>

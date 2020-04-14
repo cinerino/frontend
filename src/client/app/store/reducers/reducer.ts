@@ -40,8 +40,9 @@ function getInitialState(): IState {
     }
     const saveData: { App: IState } = JSON.parse(saveJson);
     const sessonJson = sessionStorage.getItem('SESSION_STATE');
-    const sessionData = (sessonJson === undefined || sessonJson === null) ? {App: {}} : JSON.parse(sessonJson);
-    const data = { ...initialState, ...saveData.App, ...sessionData.App };
+    const sessionData = (sessonJson === undefined || sessonJson === null) ? { App: {} } : JSON.parse(sessonJson);
+    const data: IState = { ...initialState, ...saveData.App, ...sessionData.App };
+    (<any>data).userData.seller = undefined;
     data.loading = false;
 
     return data;

@@ -29,13 +29,9 @@ export interface IUserState {
      */
     language: string;
     /**
-     * 販売者情報
-     */
-    seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
-    /**
      * 端末情報
      */
-    pos?: factory.seller.IPOS;
+    pos?: factory.chevre.place.movieTheater.IPOS;
     /**
      * 劇場
      */
@@ -184,7 +180,6 @@ export function reducer(state: IState, action: userAction.Actions): IState {
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }
         case userAction.ActionTypes.UpdateBaseSetting: {
-            state.userData.seller = action.payload.seller;
             state.userData.pos = action.payload.pos;
             state.userData.theater = action.payload.theater;
             state.userData.printer = action.payload.printer;
