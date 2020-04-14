@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'setting.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'setting.read' | translate\"></p>\n    <form *ngIf=\"baseForm\" [formGroup]=\"baseForm\">\n        <div class=\"mb-4 p-3 bg-white\">\n\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.seller' | translate }}<span\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"sellerId\" (change)=\"changePosList()\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let seller of (master | async).sellers\"\n                                [value]=\"seller.id\">{{ seller.name | changeLanguage }}</option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.pos' | translate }}<span\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"posId\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let pos of posList\" [value]=\"pos.id\">{{ pos.name }}</option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}<span\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"theaterBranchCode\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let theater of (master | async).theaters\"\n                                [value]=\"theater.branchCode\">{{ theater.name | changeLanguage }}</option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n            \n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printer' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"printerType\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let printer of printers\" [value]=\"printer.connectionType\">\n                                {{ printer.name | translate }}</option>\n                        </select>\n                        <button\n                            *ngIf=\"this.baseForm.controls.printerType.value && this.baseForm.controls.printerType.value !== connectionType.None\"\n                            type=\"button\" class=\"btn btn-sm btn-primary py-2 mt-2\"\n                            (click)=\"print()\">{{ 'setting.testPrinting' | translate }}</button>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printerIpAddress' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"printerIpAddress\"\n                            placeholder=\"0.0.0.0\">\n                        <div *ngIf=\"baseForm.controls.printerIpAddress.invalid && baseForm.controls.printerIpAddress.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.printerIpAddress.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                        <p class=\"text-small mt-2\">\n                            {{ 'setting.printerIpAddressDescription' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            \n\n        </div>\n        <div class=\"buttons mx-auto text-center\">\n            <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n                (click)=\"updateBase()\">{{ 'setting.next' | translate }}</button>\n            <button type=\"button\" class=\"btn btn-link\"\n                [routerLink]=\"environment.BASE_URL\">{{ 'setting.prev' | translate }}</button>\n        </div>\n    </form>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'setting.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'setting.read' | translate\"></p>\n    <form *ngIf=\"baseForm\" [formGroup]=\"baseForm\">\n        <div class=\"mb-4 p-3 bg-white\">\n\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}<span\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"theaterBranchCode\" (change)=\"changePosList()\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let theater of (master | async).theaters\"\n                                [value]=\"theater.branchCode\">{{ theater.name | changeLanguage }}</option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.pos' | translate }}<span\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"posId\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let pos of posList\" [value]=\"pos.id\">{{ pos.name }}</option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n            \n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printer' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"printerType\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let printer of printers\" [value]=\"printer.connectionType\">\n                                {{ printer.name | translate }}</option>\n                        </select>\n                        <button\n                            *ngIf=\"this.baseForm.controls.printerType.value && this.baseForm.controls.printerType.value !== connectionType.None\"\n                            type=\"button\" class=\"btn btn-sm btn-primary py-2 mt-2\"\n                            (click)=\"print()\">{{ 'setting.testPrinting' | translate }}</button>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printerIpAddress' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"printerIpAddress\"\n                            placeholder=\"0.0.0.0\">\n                        <div *ngIf=\"baseForm.controls.printerIpAddress.invalid && baseForm.controls.printerIpAddress.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.printerIpAddress.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                        <p class=\"text-small mt-2\">\n                            {{ 'setting.printerIpAddressDescription' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            \n\n        </div>\n        <div class=\"buttons mx-auto text-center\">\n            <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n                (click)=\"updateBase()\">{{ 'setting.next' | translate }}</button>\n            <button type=\"button\" class=\"btn btn-link\"\n                [routerLink]=\"environment.BASE_URL\">{{ 'setting.prev' | translate }}</button>\n        </div>\n    </form>\n</div>");
 
 /***/ }),
 
@@ -157,7 +157,6 @@ var SettingComponent = /** @class */ (function () {
                     case 0:
                         this.baseForm = this.formBuilder.group({
                             theaterBranchCode: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-                            sellerId: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
                             posId: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
                             printerType: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
                             printerIpAddress: [''],
@@ -167,9 +166,6 @@ var SettingComponent = /** @class */ (function () {
                         user = _a.sent();
                         if (user.theater !== undefined) {
                             this.baseForm.controls.theaterBranchCode.setValue(user.theater.branchCode);
-                        }
-                        if (user.seller !== undefined) {
-                            this.baseForm.controls.sellerId.setValue(user.seller.id);
                             this.changePosList();
                         }
                         if (user.pos !== undefined) {
@@ -190,13 +186,13 @@ var SettingComponent = /** @class */ (function () {
     SettingComponent.prototype.changePosList = function () {
         var _this = this;
         this.baseForm.controls.posId.setValue('');
-        var sellerId = this.baseForm.controls.sellerId.value;
-        if (sellerId === '') {
+        var theaterBranchCode = this.baseForm.controls.theaterBranchCode.value;
+        if (theaterBranchCode === '') {
             this.posList = [];
             return;
         }
         this.master.subscribe(function (master) {
-            var findResult = master.sellers.find(function (s) { return (s.id === sellerId); });
+            var findResult = master.theaters.find(function (t) { return (t.branchCode === theaterBranchCode); });
             if (findResult === undefined) {
                 _this.posList = [];
                 return;
@@ -209,7 +205,7 @@ var SettingComponent = /** @class */ (function () {
      */
     SettingComponent.prototype.updateBase = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var masterData, theaterBranchCode_1, sellerId_1, posId_1, seller, pos, theater, error_2;
+            var masterData, theaterBranchCode_1, posId_1, theater, pos, error_2;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -231,22 +227,16 @@ var SettingComponent = /** @class */ (function () {
                     case 2:
                         masterData = _a.sent();
                         theaterBranchCode_1 = this.baseForm.controls.theaterBranchCode.value;
-                        sellerId_1 = this.baseForm.controls.sellerId.value;
                         posId_1 = this.baseForm.controls.posId.value;
-                        seller = masterData.sellers.find(function (s) { return (s.id === sellerId_1); });
-                        if (seller === undefined || seller.hasPOS === undefined) {
-                            throw new Error('seller not found').message;
+                        theater = masterData.theaters.find(function (t) { return (t.branchCode === theaterBranchCode_1); });
+                        if (theater === undefined || theater.hasPOS === undefined) {
+                            throw new Error('theater not found').message;
                         }
-                        pos = seller.hasPOS.find(function (p) { return p.id === posId_1; });
+                        pos = theater.hasPOS.find(function (p) { return p.id === posId_1; });
                         if (pos === undefined) {
                             throw new Error('pos not found').message;
                         }
-                        theater = masterData.theaters.find(function (t) { return (t.branchCode === theaterBranchCode_1); });
-                        if (theater === undefined) {
-                            throw new Error('theater not found').message;
-                        }
                         this.userService.updateBaseSetting({
-                            seller: seller,
                             pos: pos,
                             theater: theater,
                             printer: {

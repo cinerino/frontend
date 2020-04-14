@@ -72569,7 +72569,6 @@ var UserService = /** @class */ (function () {
      */
     UserService.prototype.updateBaseSetting = function (params) {
         this.store.dispatch(new _store_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].UpdateBaseSetting({
-            seller: params.seller,
             pos: params.pos,
             theater: params.theater,
             printer: params.printer
@@ -77981,6 +77980,7 @@ function getInitialState() {
     var sessonJson = sessionStorage.getItem('SESSION_STATE');
     var sessionData = (sessonJson === undefined || sessonJson === null) ? { App: {} } : JSON.parse(sessonJson);
     var data = __assign({}, initialState, saveData.App, sessionData.App);
+    data.userData.seller = undefined;
     data.loading = false;
     return data;
 }
@@ -78185,7 +78185,6 @@ function reducer(state, action) {
             return __assign({}, state, { loading: false, process: '', error: JSON.stringify(error) });
         }
         case _actions__WEBPACK_IMPORTED_MODULE_0__["userAction"].ActionTypes.UpdateBaseSetting: {
-            state.userData.seller = action.payload.seller;
             state.userData.pos = action.payload.pos;
             state.userData.theater = action.payload.theater;
             state.userData.printer = action.payload.printer;
