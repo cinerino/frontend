@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.20 - 2020-04-14
+### Changed
+ - 劇場のPOSリスト参照先変更
+
 ## 3.0.19 - 2020-04-13
 ### Changed
  - イベントの販売者参照先変更
