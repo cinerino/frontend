@@ -92,7 +92,12 @@ export class PurchaseCinemaTicketComponent implements OnInit {
                 return;
             }
             const additionalTicketText = this.additionalTicketText;
-            await this.purchaseService.temporaryReservation({ reservations, additionalTicketText });
+            const screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
+            await this.purchaseService.temporaryReservation({
+                reservations,
+                additionalTicketText,
+                screeningEventSeats
+            });
             const authorizeSeatReservation = purchase.authorizeSeatReservation;
             if (authorizeSeatReservation === undefined) {
                 this.router.navigate(['/error']);

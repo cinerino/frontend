@@ -166,23 +166,28 @@ var MypageAccountComponent = /** @class */ (function () {
      */
     MypageAccountComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, error_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getUser"]));
-                        _a.label = 1;
+                        this.sellers = [];
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.userService.getAccount()];
+                        _b.trys.push([1, 4, , 5]);
+                        _a = this;
+                        return [4 /*yield*/, this.masterService.getSellers()];
                     case 2:
-                        _a.sent();
-                        return [3 /*break*/, 4];
+                        _a.sellers = _b.sent();
+                        return [4 /*yield*/, this.userService.getAccount()];
                     case 3:
-                        error_1 = _a.sent();
+                        _b.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_1 = _b.sent();
                         console.error(error_1);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
             });
         });
@@ -192,7 +197,7 @@ var MypageAccountComponent = /** @class */ (function () {
      */
     MypageAccountComponent.prototype.openChageAccountModal = function (account) {
         return __awaiter(this, void 0, void 0, function () {
-            var userData, creditCards, sellers;
+            var userData, creditCards;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -200,13 +205,9 @@ var MypageAccountComponent = /** @class */ (function () {
                     case 1:
                         userData = _a.sent();
                         creditCards = userData.creditCards;
-                        return [4 /*yield*/, this.masterService.getData()];
-                    case 2: return [4 /*yield*/, (_a.sent()).sellers];
-                    case 3:
-                        sellers = _a.sent();
                         this.modal.show(_shared_components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_6__["AccountChargeModalComponent"], {
                             initialState: {
-                                sellers: sellers,
+                                sellers: this.sellers,
                                 creditCards: creditCards,
                                 cb: function (params) { return __awaiter(_this, void 0, void 0, function () {
                                     var creditCard, profile, error_2;
@@ -258,20 +259,16 @@ var MypageAccountComponent = /** @class */ (function () {
      */
     MypageAccountComponent.prototype.openTransferAccountModal = function (account) {
         return __awaiter(this, void 0, void 0, function () {
-            var userData, sellers;
+            var userData;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.userService.getData()];
                     case 1:
                         userData = _a.sent();
-                        return [4 /*yield*/, this.masterService.getData()];
-                    case 2: return [4 /*yield*/, (_a.sent()).sellers];
-                    case 3:
-                        sellers = _a.sent();
                         this.modal.show(_shared_components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_8__["AccountTransferModalComponent"], {
                             initialState: {
-                                sellers: sellers,
+                                sellers: this.sellers,
                                 cb: function (params) { return __awaiter(_this, void 0, void 0, function () {
                                     var profile, error_3;
                                     return __generator(this, function (_a) {
@@ -530,25 +527,26 @@ var MypageCreditComponent = /** @class */ (function () {
      */
     MypageCreditComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, error_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
-                        this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getMaster"]));
                         this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getLoading"]));
-                        _a.label = 1;
+                        this.sellers = [];
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 4, , 5]);
+                        _b.trys.push([1, 4, , 5]);
+                        _a = this;
                         return [4 /*yield*/, this.masterService.getSellers()];
                     case 2:
-                        _a.sent();
+                        _a.sellers = _b.sent();
                         return [4 /*yield*/, this.userService.getCreditCards()];
                     case 3:
-                        _a.sent();
+                        _b.sent();
                         return [3 /*break*/, 5];
                     case 4:
-                        error_1 = _a.sent();
+                        error_1 = _b.sent();
                         console.error(error_1);
                         this.router.navigate(['/error']);
                         return [3 /*break*/, 5];
@@ -598,52 +596,45 @@ var MypageCreditComponent = /** @class */ (function () {
      */
     MypageCreditComponent.prototype.openRegisterCreditcardModal = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var sellers;
             var _this = this;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.masterService.getData()];
-                    case 1: return [4 /*yield*/, (_a.sent()).sellers];
-                    case 2:
-                        sellers = _a.sent();
-                        this.modal.show(_shared_components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_7__["CreditcardRegisterModalComponent"], {
-                            initialState: {
-                                sellers: sellers,
-                                cb: function (params) { return __awaiter(_this, void 0, void 0, function () {
-                                    var creditCard, seller, error_3;
-                                    return __generator(this, function (_a) {
-                                        switch (_a.label) {
-                                            case 0:
-                                                _a.trys.push([0, 3, , 4]);
-                                                creditCard = params.creditCard;
-                                                seller = params.seller;
-                                                if (seller === undefined) {
-                                                    throw new Error('seller undefined');
-                                                }
-                                                return [4 /*yield*/, this.userService.addCreditCard({ creditCard: creditCard, seller: seller })];
-                                            case 1:
-                                                _a.sent();
-                                                return [4 /*yield*/, this.userService.getCreditCards()];
-                                            case 2:
-                                                _a.sent();
-                                                return [3 /*break*/, 4];
-                                            case 3:
-                                                error_3 = _a.sent();
-                                                console.error(error_3);
-                                                this.utilService.openAlert({
-                                                    title: this.translate.instant('common.error'),
-                                                    body: this.translate.instant('mypage.account.alert.registerFail')
-                                                });
-                                                return [3 /*break*/, 4];
-                                            case 4: return [2 /*return*/];
+                this.modal.show(_shared_components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_7__["CreditcardRegisterModalComponent"], {
+                    initialState: {
+                        sellers: this.sellers,
+                        cb: function (params) { return __awaiter(_this, void 0, void 0, function () {
+                            var creditCard, seller, error_3;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        _a.trys.push([0, 3, , 4]);
+                                        creditCard = params.creditCard;
+                                        seller = params.seller;
+                                        if (seller === undefined) {
+                                            throw new Error('seller undefined');
                                         }
-                                    });
-                                }); }
-                            },
-                            class: 'modal-dialog-centered modal-lg'
-                        });
-                        return [2 /*return*/];
-                }
+                                        return [4 /*yield*/, this.userService.addCreditCard({ creditCard: creditCard, seller: seller })];
+                                    case 1:
+                                        _a.sent();
+                                        return [4 /*yield*/, this.userService.getCreditCards()];
+                                    case 2:
+                                        _a.sent();
+                                        return [3 /*break*/, 4];
+                                    case 3:
+                                        error_3 = _a.sent();
+                                        console.error(error_3);
+                                        this.utilService.openAlert({
+                                            title: this.translate.instant('common.error'),
+                                            body: this.translate.instant('mypage.account.alert.registerFail')
+                                        });
+                                        return [3 /*break*/, 4];
+                                    case 4: return [2 /*return*/];
+                                }
+                            });
+                        }); }
+                    },
+                    class: 'modal-dialog-centered modal-lg'
+                });
+                return [2 /*return*/];
             });
         });
     };

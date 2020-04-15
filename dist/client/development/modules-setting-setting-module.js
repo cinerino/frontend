@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'setting.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'setting.read' | translate\"></p>\n    <form *ngIf=\"baseForm\" [formGroup]=\"baseForm\">\n        <div class=\"mb-4 p-3 bg-white\">\n\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}<span\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"theaterBranchCode\" (change)=\"changePosList()\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let theater of (master | async).theaters\"\n                                [value]=\"theater.branchCode\">{{ theater.name | changeLanguage }}</option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.pos' | translate }}<span\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"posId\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let pos of posList\" [value]=\"pos.id\">{{ pos.name }}</option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n            \n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printer' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"printerType\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let printer of printers\" [value]=\"printer.connectionType\">\n                                {{ printer.name | translate }}</option>\n                        </select>\n                        <button\n                            *ngIf=\"this.baseForm.controls.printerType.value && this.baseForm.controls.printerType.value !== connectionType.None\"\n                            type=\"button\" class=\"btn btn-sm btn-primary py-2 mt-2\"\n                            (click)=\"print()\">{{ 'setting.testPrinting' | translate }}</button>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printerIpAddress' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"printerIpAddress\"\n                            placeholder=\"0.0.0.0\">\n                        <div *ngIf=\"baseForm.controls.printerIpAddress.invalid && baseForm.controls.printerIpAddress.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.printerIpAddress.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                        <p class=\"text-small mt-2\">\n                            {{ 'setting.printerIpAddressDescription' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            \n\n        </div>\n        <div class=\"buttons mx-auto text-center\">\n            <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n                (click)=\"updateBase()\">{{ 'setting.next' | translate }}</button>\n            <button type=\"button\" class=\"btn btn-link\"\n                [routerLink]=\"environment.BASE_URL\">{{ 'setting.prev' | translate }}</button>\n        </div>\n    </form>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"contents-width mx-auto px-3 py-5\">\n    <h2 class=\"text-large mb-4 text-center font-weight-bold\">{{ 'setting.title' | translate }}</h2>\n    <p class=\"mb-4 text-md-center\" [innerHTML]=\"'setting.read' | translate\"></p>\n    <form *ngIf=\"baseForm\" [formGroup]=\"baseForm\">\n        <div class=\"mb-4 p-3 bg-white\">\n\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'common.theater' | translate }}<span\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"theaterBranchCode\" (change)=\"changePosList()\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let theater of theaters\"\n                                [value]=\"theater.branchCode\">{{ theater.name | changeLanguage }}</option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.pos' | translate }}<span\n                        class=\"badge badge-danger ml-2\">{{ 'common.required' | translate }}</span></p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"posId\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let pos of posList\" [value]=\"pos.id\">{{ pos.name }}</option>\n                        </select>\n                    </div>\n                </div>\n            </div>\n            \n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printer' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <select class=\"form-control\" formControlName=\"printerType\">\n                            <option value=\"\">{{ 'setting.unselected' | translate }}</option>\n                            <option *ngFor=\"let printer of printers\" [value]=\"printer.connectionType\">\n                                {{ printer.name | translate }}</option>\n                        </select>\n                        <button\n                            *ngIf=\"this.baseForm.controls.printerType.value && this.baseForm.controls.printerType.value !== connectionType.None\"\n                            type=\"button\" class=\"btn btn-sm btn-primary py-2 mt-2\"\n                            (click)=\"print()\">{{ 'setting.testPrinting' | translate }}</button>\n                    </div>\n                </div>\n            </div>\n            <div class=\"form-group\">\n                <div class=\"row align-items-center\">\n                    <p class=\"col-md-4 py-2 text-md-right\">{{ 'setting.printerIpAddress' | translate }}</p>\n                    <div class=\"col-md-8\">\n                        <input type=\"text\" class=\"form-control\" formControlName=\"printerIpAddress\"\n                            placeholder=\"0.0.0.0\">\n                        <div *ngIf=\"baseForm.controls.printerIpAddress.invalid && baseForm.controls.printerIpAddress.touched\"\n                            class=\"mt-2\">\n                            <p *ngIf=\"baseForm.controls.printerIpAddress.errors.required\" class=\"text-danger\">\n                                {{ 'form.validation.required' | translate }}</p>\n                        </div>\n                        <p class=\"text-small mt-2\">\n                            {{ 'setting.printerIpAddressDescription' | translate }}\n                        </p>\n                    </div>\n                </div>\n            </div>\n            \n\n        </div>\n        <div class=\"buttons mx-auto text-center\">\n            <button type=\"submit\" class=\"btn btn-primary btn-block py-3 mb-3\" [disabled]=\"isLoading | async\"\n                (click)=\"updateBase()\">{{ 'setting.next' | translate }}</button>\n            <button type=\"button\" class=\"btn btn-link\"\n                [routerLink]=\"environment.BASE_URL\">{{ 'setting.prev' | translate }}</button>\n        </div>\n    </form>\n</div>");
 
 /***/ }),
 
@@ -118,33 +118,31 @@ var SettingComponent = /** @class */ (function () {
     }
     SettingComponent.prototype.ngOnInit = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, error_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
                         this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
-                        this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getMaster"]));
                         this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getError"]));
-                        _a.label = 1;
+                        this.theaters = [];
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 5, , 6]);
-                        return [4 /*yield*/, this.masterService.getSellers()];
-                    case 2:
-                        _a.sent();
+                        _b.trys.push([1, 4, , 5]);
+                        _a = this;
                         return [4 /*yield*/, this.masterService.getTheaters()];
-                    case 3:
-                        _a.sent();
+                    case 2:
+                        _a.theaters = _b.sent();
                         return [4 /*yield*/, this.createBaseForm()];
+                    case 3:
+                        _b.sent();
+                        return [3 /*break*/, 5];
                     case 4:
-                        _a.sent();
-                        return [3 /*break*/, 6];
-                    case 5:
-                        error_1 = _a.sent();
+                        error_1 = _b.sent();
                         console.error(error_1);
                         this.router.navigate(['/error']);
-                        return [3 /*break*/, 6];
-                    case 6: return [2 /*return*/];
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
             });
         });
@@ -184,83 +182,71 @@ var SettingComponent = /** @class */ (function () {
      * POS変更
      */
     SettingComponent.prototype.changePosList = function () {
-        var _this = this;
         this.baseForm.controls.posId.setValue('');
         var theaterBranchCode = this.baseForm.controls.theaterBranchCode.value;
         if (theaterBranchCode === '') {
             this.posList = [];
             return;
         }
-        this.master.subscribe(function (master) {
-            var findResult = master.theaters.find(function (t) { return (t.branchCode === theaterBranchCode); });
-            if (findResult === undefined) {
-                _this.posList = [];
-                return;
-            }
-            _this.posList = (findResult.hasPOS === undefined) ? [] : findResult.hasPOS;
-        }).unsubscribe();
+        var findResult = this.theaters.find(function (t) { return (t.branchCode === theaterBranchCode); });
+        if (findResult === undefined) {
+            this.posList = [];
+            return;
+        }
+        this.posList = (findResult.hasPOS === undefined) ? [] : findResult.hasPOS;
     };
     /**
      * 更新
      */
     SettingComponent.prototype.updateBase = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var masterData, theaterBranchCode_1, posId_1, theater, pos, error_2;
+            var theaterBranchCode_1, posId_1, theater, pos;
             var _this = this;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        Object.keys(this.baseForm.controls).forEach(function (key) {
-                            _this.baseForm.controls[key].markAsTouched();
-                        });
-                        if (this.baseForm.invalid) {
-                            this.utilService.openAlert({
-                                title: this.translate.instant('common.error'),
-                                body: this.translate.instant('setting.alert.validation')
-                            });
-                            return [2 /*return*/];
-                        }
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.masterService.getData()];
-                    case 2:
-                        masterData = _a.sent();
-                        theaterBranchCode_1 = this.baseForm.controls.theaterBranchCode.value;
-                        posId_1 = this.baseForm.controls.posId.value;
-                        theater = masterData.theaters.find(function (t) { return (t.branchCode === theaterBranchCode_1); });
-                        if (theater === undefined || theater.hasPOS === undefined) {
-                            throw new Error('theater not found').message;
-                        }
-                        pos = theater.hasPOS.find(function (p) { return p.id === posId_1; });
-                        if (pos === undefined) {
-                            throw new Error('pos not found').message;
-                        }
-                        this.userService.updateBaseSetting({
-                            pos: pos,
-                            theater: theater,
-                            printer: {
-                                ipAddress: this.baseForm.controls.printerIpAddress.value,
-                                connectionType: this.baseForm.controls.printerType.value
-                            }
-                        });
-                        this.utilService.openAlert({
-                            title: this.translate.instant('common.complete'),
-                            body: this.translate.instant('setting.alert.success')
-                        });
-                        return [3 /*break*/, 4];
-                    case 3:
-                        error_2 = _a.sent();
-                        console.error(error_2);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                Object.keys(this.baseForm.controls).forEach(function (key) {
+                    _this.baseForm.controls[key].markAsTouched();
+                });
+                if (this.baseForm.invalid) {
+                    this.utilService.openAlert({
+                        title: this.translate.instant('common.error'),
+                        body: this.translate.instant('setting.alert.validation')
+                    });
+                    return [2 /*return*/];
                 }
+                try {
+                    theaterBranchCode_1 = this.baseForm.controls.theaterBranchCode.value;
+                    posId_1 = this.baseForm.controls.posId.value;
+                    theater = this.theaters.find(function (t) { return (t.branchCode === theaterBranchCode_1); });
+                    if (theater === undefined || theater.hasPOS === undefined) {
+                        throw new Error('theater not found').message;
+                    }
+                    pos = theater.hasPOS.find(function (p) { return p.id === posId_1; });
+                    if (pos === undefined) {
+                        throw new Error('pos not found').message;
+                    }
+                    this.userService.updateBaseSetting({
+                        pos: pos,
+                        theater: theater,
+                        printer: {
+                            ipAddress: this.baseForm.controls.printerIpAddress.value,
+                            connectionType: this.baseForm.controls.printerType.value
+                        }
+                    });
+                    this.utilService.openAlert({
+                        title: this.translate.instant('common.complete'),
+                        body: this.translate.instant('setting.alert.success')
+                    });
+                }
+                catch (error) {
+                    console.error(error);
+                }
+                return [2 /*return*/];
             });
         });
     };
     SettingComponent.prototype.print = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var printer, error_3;
+            var printer, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -274,11 +260,11 @@ var SettingComponent = /** @class */ (function () {
                         _a.sent();
                         return [3 /*break*/, 3];
                     case 2:
-                        error_3 = _a.sent();
-                        console.error(error_3);
+                        error_2 = _a.sent();
+                        console.error(error_2);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
-                            body: "\n                <p class=\"mb-4\">" + this.translate.instant('setting.alert.print') + "</p>\n                <div class=\"p-3 bg-light-gray select-text error\">\n                    <code>" + error_3 + "</code>\n                </div>"
+                            body: "\n                <p class=\"mb-4\">" + this.translate.instant('setting.alert.print') + "</p>\n                <div class=\"p-3 bg-light-gray select-text error\">\n                    <code>" + error_2 + "</code>\n                </div>"
                         });
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];

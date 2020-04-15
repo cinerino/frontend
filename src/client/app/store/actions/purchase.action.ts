@@ -29,9 +29,6 @@ export enum ActionTypes {
     GetScreen = '[Purchase] Get Screen',
     GetScreenSuccess = '[Purchase] Get Screen Success',
     GetScreenFail = '[Purchase] Get Screen Fail',
-    GetScreeningEventOffers = '[Purchase] Get ScreeningEvent Offers',
-    GetScreeningEventOffersSuccess = '[Purchase] Get ScreeningEvent Offers Success',
-    GetScreeningEventOffersFail = '[Purchase] Get ScreeningEvent Offers Fail',
     SelectSeats = '[Purchase] Select Seats',
     CancelSeats = '[Purchase] Cancel Seats',
     GetTicketList = '[Purchase] Get Ticket List',
@@ -291,33 +288,6 @@ export class GetScreenFail implements Action {
 }
 
 /**
- * GetScreeningEventOffers
- */
-export class GetScreeningEventOffers implements Action {
-    public readonly type = ActionTypes.GetScreeningEventOffers;
-    constructor(public payload: { screeningEvent: factory.chevre.event.screeningEvent.IEvent }) { }
-}
-
-/**
- * GetScreeningEventOffersSuccess
- */
-export class GetScreeningEventOffersSuccess implements Action {
-    public readonly type = ActionTypes.GetScreeningEventOffersSuccess;
-    constructor(public payload: {
-        screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
-    }) { }
-}
-
-/**
- * GetScreeningEventOffersFail
- */
-export class GetScreeningEventOffersFail implements Action {
-    public readonly type = ActionTypes.GetScreeningEventOffersFail;
-    constructor(public payload: { error: Error }) { }
-}
-
-
-/**
  * SelectSeats
  */
 export class SelectSeats implements Action {
@@ -378,7 +348,7 @@ export class TemporaryReservation implements Action {
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
         authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
         reservations: IReservation[];
-        screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[];
+        screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
         additionalTicketText?: string;
     }) { }
 }
@@ -695,9 +665,6 @@ export type Actions =
     | GetScreen
     | GetScreenSuccess
     | GetScreenFail
-    | GetScreeningEventOffers
-    | GetScreeningEventOffersSuccess
-    | GetScreeningEventOffersFail
     | SelectSeats
     | CancelSeats
     | GetTicketList

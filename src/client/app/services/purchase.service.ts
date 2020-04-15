@@ -6,10 +6,11 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { getEnvironment } from '../../environments/environment';
-import { getExternalData } from '../functions';
-import { IReservation, IReservationSeat } from '../models';
+import { getExternalData, sleep } from '../functions';
+import { IReservation, IReservationSeat, Performance } from '../models';
 import { purchaseAction } from '../store/actions';
 import * as reducers from '../store/reducers';
+import { CinerinoService } from './cinerino.service';
 import { UtilService } from './util.service';
 
 @Injectable({
@@ -23,7 +24,8 @@ export class PurchaseService {
     constructor(
         private store: Store<reducers.IState>,
         private actions: Actions,
-        private utilService: UtilService
+        private utilService: UtilService,
+        private cinerinoService: CinerinoService
     ) {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.error = this.store.pipe(select(reducers.getError));
@@ -239,25 +241,40 @@ export class PurchaseService {
     /**
      * 空席情報取得
      */
-    public async getScreeningEventOffers() {
-        const purchase = await this.getData();
-        return new Promise<void>((resolve, reject) => {
-            const screeningEvent = purchase.screeningEvent;
-            if (screeningEvent === undefined) {
-                reject();
-                return;
+    public async getScreeningEventSeats() {
+        try {
+            this.utilService.loadStart({ process: 'purchaseAction.GetScreeningEventSeats' });
+            const purchase = await this.getData();
+            if (purchase.screeningEvent === undefined) {
+                throw new Error('purchase.screeningEvent === undefined').message;
             }
-            this.store.dispatch(new purchaseAction.GetScreeningEventOffers({ screeningEvent }));
-            const success = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.GetScreeningEventOffersSuccess),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.ActionTypes.GetScreeningEventOffersFail),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
+            const screeningEvent = purchase.screeningEvent;
+            const limit = 100;
+            let page = 1;
+            let roop = true;
+            let screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[] = [];
+            if (!new Performance(screeningEvent).isTicketedSeat()) {
+                return screeningEventSeats;
+            }
+            await this.cinerinoService.getServices();
+            while (roop) {
+                const searchResult = await this.cinerinoService.event.searchSeats({
+                    event: { id: screeningEvent.id },
+                    page,
+                    limit
+                });
+                screeningEventSeats = screeningEventSeats.concat(searchResult.data);
+                page++;
+                roop = searchResult.data.length > 0;
+                await sleep(500);
+            }
+            this.utilService.loadEnd();
+            return screeningEventSeats;
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
     }
 
     /**
@@ -312,6 +329,7 @@ export class PurchaseService {
     public async temporaryReservation(params: {
         reservations: IReservation[];
         additionalTicketText?: string;
+        screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
     }) {
         const additionalTicketText = params.additionalTicketText;
         const reservations = params.reservations;
@@ -319,7 +337,7 @@ export class PurchaseService {
         return new Promise<void>((resolve, reject) => {
             const transaction = purchase.transaction;
             const screeningEvent = purchase.screeningEvent;
-            const screeningEventOffers = purchase.screeningEventOffers;
+            const screeningEventSeats = params.screeningEventSeats;
             if (transaction === undefined || screeningEvent === undefined) {
                 reject();
                 return;
@@ -337,7 +355,7 @@ export class PurchaseService {
                 transaction,
                 screeningEvent,
                 authorizeSeatReservation,
-                screeningEventOffers,
+                screeningEventSeats,
                 additionalTicketText
             }));
             const success = this.actions.pipe(

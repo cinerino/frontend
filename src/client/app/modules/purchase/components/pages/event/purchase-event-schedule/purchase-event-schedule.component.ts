@@ -20,9 +20,9 @@ import * as reducers from '../../../../../../store/reducers';
 export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
-    public master: Observable<reducers.IMasterState>;
     public error: Observable<string | null>;
     public isLoading: Observable<boolean>;
+    public screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
     public screeningWorkEvents: IScreeningEventWork[];
     public moment: typeof moment = moment;
     public scheduleDate: Date;
@@ -31,6 +31,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public isSales: boolean;
     public external = getExternalData();
     private updateTimer: any;
+    public theaters: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom[];
     @ViewChild('datepicker', { static: true }) private datepicker: BsDatepickerDirective;
 
     constructor(
@@ -49,7 +50,6 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.bsValue = moment().toDate();
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
-        this.master = this.store.pipe(select(reducers.getMaster));
         this.error = this.store.pipe(select(reducers.getError));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.screeningWorkEvents = [];
@@ -73,7 +73,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                     this.scheduleDate = moment(external.scheduleDate).toDate();
                 }
             }
-            await this.masterService.getTheaters();
+            this.theaters = await this.masterService.getTheaters();
             const theater = await this.getDefaultTheater();
             this.selectTheater(theater);
         } catch (error) {
@@ -113,9 +113,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     private async getDefaultTheater() {
         const purchase = await this.purchaseService.getData();
-        const master = await this.masterService.getData();
-        let theater = (purchase.theater === undefined) ? master.theaters[0] : purchase.theater;
-        const findResult = master.theaters.find((t) => {
+        let theater = (purchase.theater === undefined) ? this.theaters[0] : purchase.theater;
+        const findResult = this.theaters.find((t) => {
             const external = getExternalData();
             return (external.theaterBranchCode !== undefined && t.branchCode === external.theaterBranchCode);
         });
@@ -163,7 +162,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
             this.purchaseService.selectScheduleDate(scheduleDate);
             const external = getExternalData();
-            await this.masterService.getSchedule({
+            this.screeningEvents = await this.masterService.getSchedule({
                 superEvent: {
                     ids: (external.superEventId === undefined)
                         ? [] : [external.superEventId],
@@ -174,11 +173,10 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            const master = await this.masterService.getData();
-            const screeningEvents = master.screeningEvents;
-            this.screeningWorkEvents = screeningEvents2WorkEvents({ screeningEvents });
+            this.screeningWorkEvents = screeningEvents2WorkEvents({ screeningEvents: this.screeningEvents });
             this.update();
         } catch (error) {
+            console.error(error);
             this.router.navigate(['/error']);
         }
     }
@@ -188,8 +186,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     public async onSubmit() {
         try {
-            const screeningEvent = (await this.masterService.getData())
-                .screeningEvents
+            const screeningEvent = this.screeningEvents
                 .find(s => s.offers !== undefined && s.offers.seller !== undefined && s.offers.seller.id !== undefined);
             if (screeningEvent === undefined
                 || screeningEvent.offers === undefined
