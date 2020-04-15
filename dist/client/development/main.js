@@ -1068,44 +1068,30 @@ function authorizeSeatReservation2Event(params) {
  * 残席数取得
  */
 function getRemainingSeatLength(params) {
-    var screeningEventOffers = params.screeningEventOffers;
+    var screeningEventSeats = params.screeningEventSeats;
     var screeningEvent = params.screeningEvent;
-    var authorizeSeatReservations = params.authorizeSeatReservations;
     var result = 0;
     var limitSeatNumber = (screeningEvent.workPerformed === undefined
         || screeningEvent.workPerformed.additionalProperty === undefined)
         ? undefined : screeningEvent.workPerformed.additionalProperty.find(function (a) { return a.name === 'limitSeatNumber'; });
-    screeningEventOffers.forEach(function (s) {
-        var sectionResult = s.containsPlace.filter(function (c) {
-            if (limitSeatNumber !== undefined) {
-                // 作品追加特性（limitSeatNumber）で座席数制御
-                return (c.offers !== undefined
-                    && c.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock
-                    && Number(c.branchCode) <= Number(limitSeatNumber.value));
-            }
-            return (c.offers !== undefined
-                && c.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock);
-        });
-        result += sectionResult.length;
-    });
-    var reservationCount = 0;
-    authorizeSeatReservations.forEach(function (a) {
-        if (a.result === undefined
-            || a.result.responseBody.object.reservations === undefined) {
-            return;
+    var filterResult = screeningEventSeats.filter(function (s) {
+        if (limitSeatNumber !== undefined) {
+            // 作品追加特性（limitSeatNumber）で座席数制御
+            return (s.offers !== undefined
+                && s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock
+                && Number(s.branchCode) <= Number(limitSeatNumber.value));
         }
-        a.result.responseBody.object.reservations
-            .filter(function (r) { return r.reservationFor.id === screeningEvent.id; })
-            .forEach(function (r) {
-            if (r.numSeats === undefined) {
-                return;
-            }
-            reservationCount += r.numSeats;
-        });
+        return (s.offers !== undefined
+            && s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock);
     });
-    if (screeningEvent.remainingAttendeeCapacity !== undefined
-        && result > screeningEvent.remainingAttendeeCapacity - reservationCount) {
-        result = screeningEvent.remainingAttendeeCapacity - reservationCount;
+    result += filterResult.length;
+    var reservationCount = screeningEventSeats.filter(function (s) {
+        return (s.offers !== undefined
+            && s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.OutOfStock);
+    }).length;
+    if (screeningEvent.maximumAttendeeCapacity !== undefined
+        && result > screeningEvent.maximumAttendeeCapacity - reservationCount) {
+        result = screeningEvent.maximumAttendeeCapacity - reservationCount;
     }
     return result;
 }
@@ -1128,28 +1114,27 @@ function isEligibleSeatingType(params) {
  */
 function getEmptySeat(params) {
     var reservations = params.reservations;
-    var screeningEventOffers = params.screeningEventOffers;
+    var screeningEventSeats = params.screeningEventSeats;
     var seats = [];
-    screeningEventOffers.forEach(function (s) {
-        var section = s.branchCode;
-        s.containsPlace.forEach(function (c) {
-            var selectedSeat = reservations.find(function (r) {
-                return (r.seat !== undefined
-                    && r.seat.seatNumber === c.branchCode
-                    && r.seat.seatSection === section);
-            });
-            if ((c.offers === undefined || c.offers[0].availability !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock)
-                && selectedSeat === undefined) {
-                // 在庫なし
-                return;
-            }
-            seats.push({
-                typeOf: c.typeOf,
-                seatingType: c.seatingType,
-                seatNumber: c.branchCode,
-                seatRow: '',
-                seatSection: section
-            });
+    screeningEventSeats.forEach(function (s) {
+        var section = (s.containedInPlace === undefined || s.containedInPlace.branchCode === undefined)
+            ? '' : s.containedInPlace.branchCode;
+        var selectedSeat = reservations.find(function (r) {
+            return (r.seat !== undefined
+                && r.seat.seatNumber === s.branchCode
+                && r.seat.seatSection === section);
+        });
+        if ((s.offers === undefined || s.offers[0].availability !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock)
+            && selectedSeat === undefined) {
+            // 在庫なし
+            return;
+        }
+        seats.push({
+            typeOf: s.typeOf,
+            seatingType: s.seatingType,
+            seatNumber: s.branchCode,
+            seatRow: '',
+            seatSection: section
         });
     });
     return seats;
@@ -1159,8 +1144,8 @@ function getEmptySeat(params) {
  */
 function selectAvailableSeat(params) {
     var reservations = params.reservations;
-    var screeningEventOffers = params.screeningEventOffers;
-    var seats = getEmptySeat({ reservations: reservations, screeningEventOffers: screeningEventOffers });
+    var screeningEventSeats = params.screeningEventSeats;
+    var seats = getEmptySeat({ reservations: reservations, screeningEventSeats: screeningEventSeats });
     var availableSeats = [];
     reservations.forEach(function (r) {
         var findReservationSeat = seats.find(function (s) {

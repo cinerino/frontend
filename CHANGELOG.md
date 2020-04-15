@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.21 - 2020-04-15
+### Added
+ - イベントのキャパシティ設定対応
+### Changed
+ - イベントの座席検索をページング機能つきに変更
+
 ## 3.0.20 - 2020-04-14
 ### Changed
  - 劇場のPOSリスト参照先変更

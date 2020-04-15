@@ -197,31 +197,6 @@ export class PurchaseEffects {
     );
 
     /**
-     * GetScreeningEventOffers
-     */
-    @Effect()
-    public getScreeningEventOffers = this.actions.pipe(
-        ofType<purchaseAction.GetScreeningEventOffers>(purchaseAction.ActionTypes.GetScreeningEventOffers),
-        map(action => action.payload),
-        mergeMap(async (payload) => {
-            try {
-                await this.cinerinoService.getServices();
-                const screeningEvent = payload.screeningEvent;
-                let screeningEventOffers: factory.chevre.place.screeningRoomSection.IPlaceWithOffer[] = [];
-                if (new Performance(screeningEvent).isTicketedSeat()) {
-                    screeningEventOffers = await this.cinerinoService.event.searchOffers({
-                        event: { id: screeningEvent.id }
-                    });
-                }
-
-                return new purchaseAction.GetScreeningEventOffersSuccess({ screeningEventOffers });
-            } catch (error) {
-                return new purchaseAction.GetScreeningEventOffersFail({ error: error });
-            }
-        })
-    );
-
-    /**
      * temporaryReservation
      */
     @Effect()
@@ -232,7 +207,7 @@ export class PurchaseEffects {
             const transaction = payload.transaction;
             const screeningEvent = payload.screeningEvent;
             const reservations = payload.reservations;
-            const screeningEventOffers = payload.screeningEventOffers;
+            const screeningEventSeats = payload.screeningEventSeats;
             const additionalTicketText = payload.additionalTicketText;
             try {
                 await this.cinerinoService.getServices();
@@ -249,7 +224,7 @@ export class PurchaseEffects {
                     || screeningEvent.offers.validThrough < nowDate) {
                     throw new Error('Outside sales period');
                 }
-                const availableSeats = selectAvailableSeat({ reservations, screeningEventOffers });
+                const availableSeats = selectAvailableSeat({ reservations, screeningEventSeats });
                 if (new Performance(screeningEvent).isTicketedSeat()
                     && availableSeats.length !== reservations.length) {
                     throw new Error('Out of stock').message;
