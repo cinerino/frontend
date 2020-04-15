@@ -98,6 +98,7 @@ export class MasterService {
             let roop = true;
             let screeningEvents: factory.chevre.event.screeningEvent.IEvent[] = [];
             await this.cinerinoService.getServices();
+            const now = moment((await this.utilService.getServerTime()).date).toDate();
             while (roop) {
                 const searchResult = await this.cinerinoService.event.search({
                     page,
@@ -106,7 +107,11 @@ export class MasterService {
                     eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
                     superEvent: params.superEvent,
                     startFrom: params.startFrom,
-                    startThrough: params.startThrough
+                    startThrough: params.startThrough,
+                    offers: {
+                        availableFrom: now,
+                        availableThrough: now
+                    }
                 });
                 screeningEvents = screeningEvents.concat(searchResult.data);
                 page++;

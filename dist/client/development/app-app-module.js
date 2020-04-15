@@ -71095,11 +71095,11 @@ var MasterService = /** @class */ (function () {
      */
     MasterService.prototype.getSchedule = function (params) {
         return __awaiter(this, void 0, void 0, function () {
-            var limit, page, roop, screeningEvents, searchResult, error_3;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var limit, page, roop, screeningEvents, now, _a, searchResult, error_3;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _a.trys.push([0, 6, , 7]);
+                        _b.trys.push([0, 7, , 8]);
                         this.utilService.loadStart({ process: 'masterAction.GetSchedule' });
                         limit = 100;
                         page = 1;
@@ -71107,10 +71107,14 @@ var MasterService = /** @class */ (function () {
                         screeningEvents = [];
                         return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
-                        _a.sent();
-                        _a.label = 2;
+                        _b.sent();
+                        _a = moment__WEBPACK_IMPORTED_MODULE_4__;
+                        return [4 /*yield*/, this.utilService.getServerTime()];
                     case 2:
-                        if (!roop) return [3 /*break*/, 5];
+                        now = _a.apply(void 0, [(_b.sent()).date]).toDate();
+                        _b.label = 3;
+                    case 3:
+                        if (!roop) return [3 /*break*/, 6];
                         return [4 /*yield*/, this.cinerinoService.event.search({
                                 page: page,
                                 limit: limit,
@@ -71118,18 +71122,22 @@ var MasterService = /** @class */ (function () {
                                 eventStatuses: [_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventStatusType.EventScheduled],
                                 superEvent: params.superEvent,
                                 startFrom: params.startFrom,
-                                startThrough: params.startThrough
+                                startThrough: params.startThrough,
+                                offers: {
+                                    availableFrom: now,
+                                    availableThrough: now
+                                }
                             })];
-                    case 3:
-                        searchResult = _a.sent();
+                    case 4:
+                        searchResult = _b.sent();
                         screeningEvents = screeningEvents.concat(searchResult.data);
                         page++;
                         roop = searchResult.data.length > 0;
                         return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_7__["sleep"])(500)];
-                    case 4:
-                        _a.sent();
-                        return [3 /*break*/, 2];
                     case 5:
+                        _b.sent();
+                        return [3 /*break*/, 3];
+                    case 6:
                         // 公開日順（降順）へソート
                         screeningEvents = screeningEvents.sort(function (a, b) {
                             if (a.workPerformed === undefined
@@ -71150,12 +71158,12 @@ var MasterService = /** @class */ (function () {
                         });
                         this.utilService.loadEnd();
                         return [2 /*return*/, screeningEvents];
-                    case 6:
-                        error_3 = _a.sent();
+                    case 7:
+                        error_3 = _b.sent();
                         this.utilService.setError(error_3);
                         this.utilService.loadEnd();
                         throw error_3;
-                    case 7: return [2 /*return*/];
+                    case 8: return [2 /*return*/];
                 }
             });
         });
