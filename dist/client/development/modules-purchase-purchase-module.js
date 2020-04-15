@@ -1916,6 +1916,7 @@ var PurchaseEventScheduleComponent = /** @class */ (function () {
                         return [3 /*break*/, 6];
                     case 5:
                         error_2 = _b.sent();
+                        console.error(error_2);
                         this.router.navigate(['/error']);
                         return [3 /*break*/, 6];
                     case 6: return [2 /*return*/];

@@ -71099,15 +71099,18 @@ var MasterService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 5, , 6]);
+                        _a.trys.push([0, 6, , 7]);
                         this.utilService.loadStart({ process: 'masterAction.GetSchedule' });
                         limit = 100;
                         page = 1;
                         roop = true;
                         screeningEvents = [];
-                        _a.label = 1;
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 1:
-                        if (!roop) return [3 /*break*/, 4];
+                        _a.sent();
+                        _a.label = 2;
+                    case 2:
+                        if (!roop) return [3 /*break*/, 5];
                         return [4 /*yield*/, this.cinerinoService.event.search({
                                 page: page,
                                 limit: limit,
@@ -71117,16 +71120,16 @@ var MasterService = /** @class */ (function () {
                                 startFrom: params.startFrom,
                                 startThrough: params.startThrough
                             })];
-                    case 2:
+                    case 3:
                         searchResult = _a.sent();
                         screeningEvents = screeningEvents.concat(searchResult.data);
                         page++;
                         roop = searchResult.data.length > 0;
                         return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_7__["sleep"])(500)];
-                    case 3:
-                        _a.sent();
-                        return [3 /*break*/, 1];
                     case 4:
+                        _a.sent();
+                        return [3 /*break*/, 2];
+                    case 5:
                         // 公開日順（降順）へソート
                         screeningEvents = screeningEvents.sort(function (a, b) {
                             if (a.workPerformed === undefined
@@ -71147,12 +71150,12 @@ var MasterService = /** @class */ (function () {
                         });
                         this.utilService.loadEnd();
                         return [2 /*return*/, screeningEvents];
-                    case 5:
+                    case 6:
                         error_3 = _a.sent();
                         this.utilService.setError(error_3);
                         this.utilService.loadEnd();
                         throw error_3;
-                    case 6: return [2 /*return*/];
+                    case 7: return [2 /*return*/];
                 }
             });
         });
@@ -71675,7 +71678,7 @@ var PurchaseService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 6, , 7]);
+                        _a.trys.push([0, 7, , 8]);
                         this.utilService.loadStart({ process: 'purchaseAction.GetScreeningEventSeats' });
                         return [4 /*yield*/, this.getData()];
                     case 1:
@@ -71691,32 +71694,35 @@ var PurchaseService = /** @class */ (function () {
                         if (!new _models__WEBPACK_IMPORTED_MODULE_9__["Performance"](screeningEvent).isTicketedSeat()) {
                             return [2 /*return*/, screeningEventSeats];
                         }
-                        _a.label = 2;
+                        return [4 /*yield*/, this.cinerinoService.getServices()];
                     case 2:
-                        if (!roop) return [3 /*break*/, 5];
+                        _a.sent();
+                        _a.label = 3;
+                    case 3:
+                        if (!roop) return [3 /*break*/, 6];
                         return [4 /*yield*/, this.cinerinoService.event.searchSeats({
                                 event: { id: screeningEvent.id },
                                 page: page,
                                 limit: limit
                             })];
-                    case 3:
+                    case 4:
                         searchResult = _a.sent();
                         screeningEventSeats = screeningEventSeats.concat(searchResult.data);
                         page++;
                         roop = searchResult.data.length > 0;
                         return [4 /*yield*/, Object(_functions__WEBPACK_IMPORTED_MODULE_8__["sleep"])(500)];
-                    case 4:
-                        _a.sent();
-                        return [3 /*break*/, 2];
                     case 5:
+                        _a.sent();
+                        return [3 /*break*/, 3];
+                    case 6:
                         this.utilService.loadEnd();
                         return [2 /*return*/, screeningEventSeats];
-                    case 6:
+                    case 7:
                         error_1 = _a.sent();
                         this.utilService.setError(error_1);
                         this.utilService.loadEnd();
                         throw error_1;
-                    case 7: return [2 /*return*/];
+                    case 8: return [2 /*return*/];
                 }
             });
         });

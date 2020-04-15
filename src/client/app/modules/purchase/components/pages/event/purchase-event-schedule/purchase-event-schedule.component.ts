@@ -176,6 +176,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             this.screeningWorkEvents = screeningEvents2WorkEvents({ screeningEvents: this.screeningEvents });
             this.update();
         } catch (error) {
+            console.error(error);
             this.router.navigate(['/error']);
         }
     }

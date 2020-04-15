@@ -97,6 +97,7 @@ export class MasterService {
             let page = 1;
             let roop = true;
             let screeningEvents: factory.chevre.event.screeningEvent.IEvent[] = [];
+            await this.cinerinoService.getServices();
             while (roop) {
                 const searchResult = await this.cinerinoService.event.search({
                     page,
