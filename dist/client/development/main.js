@@ -1969,7 +1969,7 @@ var defaultEnvironment = {
     APP_PREFIX: '',
     PROJECT_ID: '',
     ENTRANCE_SERVER_URL: '',
-    VIEW_TYPE: 'cinema',
+    VIEW_TYPE: 'event',
     GTM_ID: '',
     ANALYTICS_ID: '',
     STORAGE_NAME: (Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId === '') ? 'FRONTEND-STATE' : Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId.toUpperCase() + "-FRONTEND-STATE",
@@ -2256,7 +2256,6 @@ main().then(function () { return __awaiter(_this, void 0, void 0, function () {
         }
     });
 }); }).catch(function (error) {
-    location.href = '/404.html';
     console.error(error);
 });
 

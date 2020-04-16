@@ -13,9 +13,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const debug = require("debug");
 const express = require("express");
-const http_status_1 = require("http-status");
 const moment = require("moment");
-const util_1 = require("../../functions/util");
 const log = debug('application: /api/util');
 const router = express.Router();
 /**
@@ -23,36 +21,24 @@ const router = express.Router();
  */
 router.post('/project', (req, res) => __awaiter(this, void 0, void 0, function* () {
     log('project', req.body);
-    try {
-        const params = (req.body);
-        if (params === undefined
-            || params.projectId === undefined) {
-            if (process.env.PROJECT_ID === undefined
-                || process.env.PROJECT_ID === '') {
-                throw new Error('project not found');
-            }
-            res.json({
-                projectId: process.env.PROJECT_ID,
-                projectName: process.env.PROJECT_NAME,
-                storageUrl: process.env.STORAGE_URL
-            });
-            return;
-        }
-        const findResult = util_1.getProject(params);
-        if (findResult === undefined) {
-            throw new Error('project not found');
-        }
+    if (process.env.PROJECT_ID !== undefined && process.env.PROJECT_ID !== '') {
         res.json({
-            projectId: findResult.PROJECT_ID,
-            projectName: findResult.PROJECT_NAME,
-            storageUrl: findResult.STORAGE_URL
+            projectId: process.env.PROJECT_ID,
+            projectName: process.env.PROJECT_NAME,
+            storageUrl: process.env.PROJECT_STORAGE_URL
         });
+        return;
     }
-    catch (error) {
-        log('project', error.message);
-        res.status(http_status_1.NOT_FOUND);
-        res.json({ error: error.message });
-    }
+    const params = (req.body);
+    res.json({
+        projectId: (params === undefined) ? '' : params.projectId,
+        projectName: (params === undefined || params.projectName === undefined) ? '' : params.projectName,
+        storageUrl: (params === undefined)
+            ? ''
+            : (params.projectName === undefined)
+                ? `${process.env.STORAGE_URL}/${params.projectId}`
+                : `${process.env.STORAGE_URL}/${params.projectId}-${params.projectName}`
+    });
 }));
 /**
  * サーバータイム取得

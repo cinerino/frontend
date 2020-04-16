@@ -10,9 +10,6 @@
 | `REDIS_HOST`                        | true     |                               | redis host                              |
 | `REDIS_PORT`                        | true     |                               | redis port                              |
 | `REDIS_KEY`                         | true     |                               | redis key                               |
-| `PROJECTS`                          | true     |                               | projects json                           |
-| `PROJECT_NAME`                      | true     |                               | project name                            |
-| `PROJECT_ID`                        | true     |                               | project id                              |
 | `STORAGE_URL`                       | true     |                               | storage url                             |
 | `API_ENDPOINT`                      | true     |                               | api endpoint                            |
 | `CLIENT_ID`                         | true     |                               | client id                               |
@@ -24,4 +21,7 @@
 | `WAITER_SERVER_URL`                 | false    |                               | waiter server url                       |
 | `LINY_API_ENDPOINT`                 | false    |                               | liny api endpoint                       |
 | `LINY_API_SECRET`                   | false    |                               | liny api secret                         |
+| `PROJECT_NAME`                      | false    |                               | project name                            |
+| `PROJECT_ID`                        | false    |                               | project id                              |
+| `PROJECT_STORAGE_URL`               | false    |                               | project storage url                     |
 | `DEBUG`                             | false    |                               | debug                                   |
