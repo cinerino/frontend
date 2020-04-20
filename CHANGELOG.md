@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.22 - 2020-04-20
+### Changed
+ - 環境変数PROJECTSを廃止
+
 ## 3.0.21 - 2020-04-15
 ### Added
  - イベントのキャパシティ設定対応

@@ -4,13 +4,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { getEnvironment } from '../environments/environment';
-import { AuthGuardService } from './canActivates';
+import { AuthGuardService, ProjectGuardService } from './canActivates';
 import { ErrorModule } from './modules/error/error.module';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: getEnvironment().BASE_URL.replace('\/', ''), pathMatch: 'full' },
     {
         path: 'purchase',
+        canActivate: [ProjectGuardService],
         loadChildren: () => import('./modules/purchase/purchase.module').then(m => m.PurchaseModule)
     },
     {
@@ -19,16 +20,17 @@ const appRoutes: Routes = [
     },
     {
         path: 'inquiry',
+        canActivate: [ProjectGuardService],
         loadChildren: () => import('./modules/inquiry/inquiry.module').then(m => m.InquiryModule)
     },
     {
         path: 'mypage',
-        canActivate: [AuthGuardService],
+        canActivate: [ProjectGuardService, AuthGuardService],
         loadChildren: () => import('./modules/mypage/mypage.module').then(m => m.MypageModule)
     },
     {
         path: 'setting',
-        canActivate: [AuthGuardService],
+        canActivate: [ProjectGuardService, AuthGuardService],
         loadChildren: () => import('./modules/setting/setting.module').then(m => m.SettingModule)
     },
     {

@@ -245,7 +245,7 @@ const defaultEnvironment: IEnvironment = {
     APP_PREFIX: '',
     PROJECT_ID: '',
     ENTRANCE_SERVER_URL: '',
-    VIEW_TYPE: 'cinema',
+    VIEW_TYPE: 'event',
     GTM_ID: '',
     ANALYTICS_ID: '',
     STORAGE_NAME: (getProject().projectId === '') ? 'FRONTEND-STATE' : `${getProject().projectId.toUpperCase()}-FRONTEND-STATE`,

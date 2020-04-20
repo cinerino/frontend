@@ -117,7 +117,6 @@ main().then(async () => {
     const { AppModule } = await import('./app/app.module');
     platformBrowserDynamic().bootstrapModule(AppModule);
 }).catch((error) => {
-    location.href = '/404.html';
     console.error(error);
 });
 
