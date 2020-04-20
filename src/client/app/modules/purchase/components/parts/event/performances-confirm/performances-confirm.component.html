@@ -25,23 +25,23 @@
                 </div>
                 <div class="status" *ngIf="performance.isSales() && performance.isTicketedSeat()">
                     <div *ngIf="performance.isSeatStatus('success')">
-                        <img src="/assets/images/icon/status_success.svg">
+                        <img src="/assets/images/icon/status_success.svg" alt="">
                     </div>
                     <div *ngIf="performance.isSeatStatus('warning')"
                         class="d-flex justify-content-around align-items-center">
-                        <img src="/assets/images/icon/status_warning.svg">
+                        <img src="/assets/images/icon/status_warning.svg" alt="">
                     </div>
                     <div *ngIf="performance.isSeatStatus('danger')">
-                        <img src="/assets/images/icon/status_danger.svg">
+                        <img src="/assets/images/icon/status_danger.svg" alt="">
                     </div>
                     <div *ngIf="performance.isSeatStatus()">
-                        <img src="/assets/images/icon/status_undefined.svg">
+                        <img src="/assets/images/icon/status_undefined.svg" alt="">
                     </div>
                 </div>
 
                 <div class="status" *ngIf="performance.isSales() && !performance.isTicketedSeat()">
                     <div class="d-flex justify-content-around align-items-center">
-                        <img src="/assets/images/icon/status_success.svg">
+                        <img src="/assets/images/icon/status_success.svg" alt="">
                     </div>
                 </div>
 

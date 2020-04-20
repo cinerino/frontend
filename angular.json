@@ -21,10 +21,13 @@
               "src/client/favicon.ico"
             ],
             "styles": [
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/client/styles.scss",
               "node_modules/swiper/dist/css/swiper.css"
             ],
             "scripts": [
+              "src/client/assets/lib/star-web-print/StarWebPrintTrader.js",
+              "src/client/assets/lib/star-web-print/StarWebPrintBuilder.js",
               "node_modules/swiper/dist/js/swiper.js",
               "src/client/assets/lib/ejs.min.js"
             ]

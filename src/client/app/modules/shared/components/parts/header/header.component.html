@@ -1,8 +1,8 @@
 <header class="fixed-top text-white border-bottom border-gray">
     <div class="header contents-width mx-auto d-flex align-items-center justify-content-between px-3">
         <div class="logo">
-            <img class="d-none d-md-block h-100" [src]="imageUrl.pc" (error)="imageLoadingError('pc')">
-            <img class="d-md-none h-100" [src]="imageUrl.sp" (error)="imageLoadingError('sp')">
+            <img class="d-none d-md-block h-100" [src]="imageUrl.pc" (error)="imageLoadingError('pc')" alt="">
+            <img class="d-md-none h-100" [src]="imageUrl.sp" (error)="imageLoadingError('sp')" alt="">
         </div>
         <div class="d-flex align-items-center">
             <div *ngIf="environment.LANGUAGE.length > 1" class="mr-3 d-flex align-items-center">

@@ -1,7 +1,7 @@
 <div class="bg-white position-relative">
     <div *ngIf="openSeatingAllowed" class="open-seating-allowed"></div>
-    <div class="screen" [class.zoom]="zoomState" (window:resize)="resize()">
-        <div [class.active]="zoomState" class="zoom-btn text-center" (click)="scaleDown()">
+    <div #screen class="screen" [class.zoom]="zoomState" (window:resize)="resize()">
+        <div #zoomBtn [class.active]="zoomState" class="zoom-btn text-center" (click)="scaleDown()">
             <i class="fas fa-search-minus"></i>
         </div>
         <div *ngIf="screenData" class="screen-scroll" [ngStyle]="{ 

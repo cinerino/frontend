@@ -62,7 +62,7 @@ exports.default = (app) => {
         delete req.session.auth;
         res.redirect('/#/auth/signout');
     });
-    app.get(['/:projectId/:projectName/inquiry', '/:projectId/inquiry'], (req, res, next) => {
+    app.get(['/projects/:projectId/:projectName/inquiry', '/projects/:projectId/inquiry'], (req, res, next) => {
         if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
             next();
             return;
@@ -70,10 +70,10 @@ exports.default = (app) => {
         res.redirect(`/?${getQueryParameter(req)}#/inquiry/input`);
     });
     app.get([
-        '/:projectId/:projectName/purchase/transaction/:eventId/:passportToken',
-        '/:projectId/:projectName/purchase/transaction/:eventId',
-        '/:projectId/purchase/transaction/:eventId/:passportToken',
-        '/:projectId/purchase/transaction/:eventId'
+        '/projects/:projectId/:projectName/purchase/transaction/:eventId/:passportToken',
+        '/projects/:projectId/:projectName/purchase/transaction/:eventId',
+        '/projects/:projectId/purchase/transaction/:eventId/:passportToken',
+        '/projects/:projectId/purchase/transaction/:eventId'
     ], (req, res, next) => {
         if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
             next();
@@ -87,7 +87,7 @@ exports.default = (app) => {
         }
         res.redirect(`/?${getQueryParameter(req)}#/purchase/transaction/${eventId}/${passportToken}`);
     });
-    app.get(['/:projectId/:projectName', '/:projectId'], (req, res, next) => {
+    app.get(['/projects/:projectId/:projectName', '/projects/:projectId'], (req, res, next) => {
         if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
             next();
             return;
