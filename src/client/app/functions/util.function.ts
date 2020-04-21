@@ -175,18 +175,18 @@ export function getParameter(): {
  */
 export function getProject() {
     const project = sessionStorage.getItem('PROJECT');
+    const defaultProject = { projectId: '', projectName: '', storageUrl: '' };
     if (project === null || project === '') {
-        return {
-            projectId: '',
-            projectName: '',
-            storageUrl: ''
-        };
+        return defaultProject;
     }
-    return <{
-        projectId: string;
-        projectName: string;
-        storageUrl: string;
-    }>JSON.parse(project);
+    return {
+        ...defaultProject,
+        ...<{
+            projectId: string;
+            projectName: string;
+            storageUrl: string;
+        }>JSON.parse(project)
+    };
 }
 
 /**
