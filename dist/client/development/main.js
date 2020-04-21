@@ -1019,10 +1019,12 @@ function order2EventOrders(params) {
     // 公開日順（降順）へソート
     var sortResult = results.sort(function (a, b) {
         if (a.event.workPerformed === undefined
-            || b.event.workPerformed === undefined
-            || a.event.workPerformed.datePublished === undefined
+            || a.event.workPerformed.datePublished === undefined) {
+            return 1;
+        }
+        if (b.event.workPerformed === undefined
             || b.event.workPerformed.datePublished === undefined) {
-            return 0;
+            return -1;
         }
         var unixA = moment__WEBPACK_IMPORTED_MODULE_1__(a.event.workPerformed.datePublished).unix();
         var unixB = moment__WEBPACK_IMPORTED_MODULE_1__(b.event.workPerformed.datePublished).unix();

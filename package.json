@@ -1,6 +1,6 @@
 {
-  "name": "frontend",
-  "version": "3.0.22",
+  "name": "smart-theater-frontend",
+  "version": "3.0.23",
   "license": "MIT",
   "author": {
     "name": "Motionpicture co.,ltd."
@@ -46,6 +46,7 @@
     "@angular/router": "^8.2.14",
     "@cinerino/api-javascript-client": "^2.0.0-alpha.75",
     "@cinerino/api-nodejs-client": "^2.0.0-alpha.75",
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "@ngrx/effects": "^8.6.0",
     "@ngrx/store": "^8.6.0",
     "@ngx-translate/core": "^11.0.1",

@@ -121,10 +121,12 @@ export class MasterService {
             // 公開日順（降順）へソート
             screeningEvents = screeningEvents.sort((a, b) => {
                 if (a.workPerformed === undefined
-                    || b.workPerformed === undefined
-                    || a.workPerformed.datePublished === undefined
+                    || a.workPerformed.datePublished === undefined) {
+                    return 1;
+                }
+                if (b.workPerformed === undefined
                     || b.workPerformed.datePublished === undefined) {
-                    return 0;
+                    return -1;
                 }
                 const unixA = moment(a.workPerformed.datePublished).unix();
                 const unixB = moment(b.workPerformed.datePublished).unix();

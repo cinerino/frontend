@@ -1,4 +1,4 @@
-# frontend
+# smart-theater-frontend
 
 # Usage
 

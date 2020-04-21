@@ -361,10 +361,12 @@ export function order2EventOrders(params: {
     // 公開日順（降順）へソート
     const sortResult = results.sort((a, b) => {
         if (a.event.workPerformed === undefined
-            || b.event.workPerformed === undefined
-            || a.event.workPerformed.datePublished === undefined
+            || a.event.workPerformed.datePublished === undefined) {
+            return 1;
+        }
+        if (b.event.workPerformed === undefined
             || b.event.workPerformed.datePublished === undefined) {
-            return 0;
+            return -1;
         }
         const unixA = moment(a.event.workPerformed.datePublished).unix();
         const unixB = moment(b.event.workPerformed.datePublished).unix();

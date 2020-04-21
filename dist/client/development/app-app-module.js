@@ -57850,7 +57850,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.securityCode.title' | translate }}</div>\n    <p class=\"mb-3 text-md-center\">{{ 'modal.securityCode.read' | translate }}</p>\n    <div class=\"bg-light-gray p-3 mb-3\">\n        <p><strong>{{ 'modal.securityCode.back.title' | translate }}</strong></p>\n        <p class=\"mb-3\">{{ 'modal.securityCode.back.read' | translate }}</p>\n        <div class=\"mb-3\">\n            <img src=\"/assets/images/credit_back.svg\">\n        </div>\n        <p><strong>{{ 'modal.securityCode.front.title' | translate }}</strong></p>\n        <p class=\"mb-3\">{{ 'modal.securityCode.front.read' | translate }}</p>\n        <div class=\"mb-3\">\n            <img src=\"/assets/images/credit_front.svg\">\n        </div>\n    </div>\n    <div class=\"buttons mx-auto text-center btn-sm\">\n        <button type=\"button\" class=\"btn btn-link\" (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div class=\"mb-3 text-large text-center\">{{ 'modal.securityCode.title' | translate }}</div>\n    <p class=\"mb-3 text-md-center\">{{ 'modal.securityCode.read' | translate }}</p>\n    <div class=\"bg-light-gray p-3 mb-3\">\n        <p><strong>{{ 'modal.securityCode.back.title' | translate }}</strong></p>\n        <p class=\"mb-3\">{{ 'modal.securityCode.back.read' | translate }}</p>\n        <div class=\"mb-3\">\n            <img src=\"/assets/images/credit_back.svg\" alt=\"\">\n        </div>\n        <p><strong>{{ 'modal.securityCode.front.title' | translate }}</strong></p>\n        <p class=\"mb-3\">{{ 'modal.securityCode.front.read' | translate }}</p>\n        <div class=\"mb-3\">\n            <img src=\"/assets/images/credit_front.svg\" alt=\"\">\n        </div>\n    </div>\n    <div class=\"buttons mx-auto text-center btn-sm\">\n        <button type=\"button\" class=\"btn btn-link\" (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -57915,7 +57915,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<header class=\"fixed-top text-white border-bottom border-gray\">\n    <div class=\"header contents-width mx-auto d-flex align-items-center justify-content-between px-3\">\n        <div class=\"logo\">\n            <img class=\"d-none d-md-block h-100\" [src]=\"imageUrl.pc\" (error)=\"imageLoadingError('pc')\">\n            <img class=\"d-md-none h-100\" [src]=\"imageUrl.sp\" (error)=\"imageLoadingError('sp')\">\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"environment.LANGUAGE.length > 1\" class=\"mr-3 d-flex align-items-center\">\n                <select id=\"language\" class=\"form-control border-0\" [(ngModel)]=\"language\" (change)=\"changeLanguage()\">\n                    <option *ngFor=\"let language of environment.LANGUAGE\" [value]=\"language\">{{ getLanguageName(language) }}</option>\n                </select>\n            </div>\n            <div *ngIf=\"environment.HEADER_MENU\" class=\"menu-button pointer\" [class.active]=\"isMenuOpen\"\n                (click)=\"(isMenuOpen) ? menuClose() : menuOpen()\">\n                <div></div>\n                <div></div>\n                <div></div>\n            </div>\n        </div>\n    </div>\n</header>\n\n<app-header-menu [isOpen]=\"isMenuOpen\" (close)=\"menuClose()\"></app-header-menu>");
+/* harmony default export */ __webpack_exports__["default"] = ("<header class=\"fixed-top text-white border-bottom border-gray\">\n    <div class=\"header contents-width mx-auto d-flex align-items-center justify-content-between px-3\">\n        <div class=\"logo\">\n            <img class=\"d-none d-md-block h-100\" [src]=\"imageUrl.pc\" (error)=\"imageLoadingError('pc')\" alt=\"\">\n            <img class=\"d-md-none h-100\" [src]=\"imageUrl.sp\" (error)=\"imageLoadingError('sp')\" alt=\"\">\n        </div>\n        <div class=\"d-flex align-items-center\">\n            <div *ngIf=\"environment.LANGUAGE.length > 1\" class=\"mr-3 d-flex align-items-center\">\n                <select id=\"language\" class=\"form-control border-0\" [(ngModel)]=\"language\" (change)=\"changeLanguage()\">\n                    <option *ngFor=\"let language of environment.LANGUAGE\" [value]=\"language\">{{ getLanguageName(language) }}</option>\n                </select>\n            </div>\n            <div *ngIf=\"environment.HEADER_MENU\" class=\"menu-button pointer\" [class.active]=\"isMenuOpen\"\n                (click)=\"(isMenuOpen) ? menuClose() : menuOpen()\">\n                <div></div>\n                <div></div>\n                <div></div>\n            </div>\n        </div>\n    </div>\n</header>\n\n<app-header-menu [isOpen]=\"isMenuOpen\" (close)=\"menuClose()\"></app-header-menu>");
 
 /***/ }),
 
@@ -58032,7 +58032,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div *ngIf=\"title\" class=\"mb-3 text-large text-center\">{{ title }}</div>\n    <p *ngIf=\"body\" class=\"mb-3 text-center\" [innerHTML]=\"body\"></p>\n    <div class=\"mb-3 text-center\">\n        <img [src]=\"url | async\">\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"p-3 scroll-vertical\">\n    <div *ngIf=\"title\" class=\"mb-3 text-large text-center\">{{ title }}</div>\n    <p *ngIf=\"body\" class=\"mb-3 text-center\" [innerHTML]=\"body\"></p>\n    <div class=\"mb-3 text-center\">\n        <img [src]=\"url | async\" alt=\"\">\n    </div>\n    <div class=\"buttons mx-auto text-center\">\n        <button type=\"button\" class=\"btn btn-link btn-sm\"\n            (click)=\"modal.hide()\">{{ 'common.close' | translate }}</button>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -70097,9 +70097,9 @@ var QRCodeReaderModalComponent = /** @class */ (function () {
                 constraints = {
                     audio: false,
                     video: {
-                        width: { min: 1024, ideal: 1280, max: 1920 },
-                        height: { min: 776, ideal: 720, max: 1080 },
-                        frameRate: { ideal: 5, max: 30 },
+                        width: { min: 640, ideal: 1280, max: 1920 },
+                        height: { min: 360, ideal: 720, max: 1080 },
+                        frameRate: { ideal: 5, max: 20 },
                         facingMode: { exact: 'environment' }
                     }
                 };
@@ -71265,10 +71265,12 @@ var MasterService = /** @class */ (function () {
                         // 公開日順（降順）へソート
                         screeningEvents = screeningEvents.sort(function (a, b) {
                             if (a.workPerformed === undefined
-                                || b.workPerformed === undefined
-                                || a.workPerformed.datePublished === undefined
+                                || a.workPerformed.datePublished === undefined) {
+                                return 1;
+                            }
+                            if (b.workPerformed === undefined
                                 || b.workPerformed.datePublished === undefined) {
-                                return 0;
+                                return -1;
                             }
                             var unixA = moment__WEBPACK_IMPORTED_MODULE_4__(a.workPerformed.datePublished).unix();
                             var unixB = moment__WEBPACK_IMPORTED_MODULE_4__(b.workPerformed.datePublished).unix();
@@ -75710,7 +75712,7 @@ var OrderEffects = /** @class */ (function () {
                         _c.sent();
                         return [3 /*break*/, 19];
                     case 17:
-                        domList = canvasList.map(function (canvas) { return "<div class=\"mb-3 p-4 border border-light-gray \">\n                        <img class=\"w-100\" src=\"" + canvas.toDataURL() + "\">\n                        </div>"; });
+                        domList = canvasList.map(function (canvas) { return "<div class=\"mb-3 p-4 border border-light-gray \">\n                        <img class=\"w-100\" src=\"" + canvas.toDataURL() + "\" alt=\"\">\n                        </div>"; });
                         this.utilService.openAlert({
                             title: '',
                             body: "<div class=\"px-5\">" + domList.join('\n') + "</div>"

@@ -20,22 +20,22 @@
             <div *ngIf="performance.isSeatStatus('success')" class="d-flex justify-content-around align-items-center">
                 <div class="text-success mr-2 mr-md-0">
                     {{ 'purchase.cinema.schedule.status.success' | translate }}</div>
-                <img src="/assets/images/icon/status_success.svg">
+                <img src="/assets/images/icon/status_success.svg" alt="">
             </div>
             <div *ngIf="performance.isSeatStatus('warning')" class="d-flex justify-content-around align-items-center">
                 <div class="text-warning mr-2 mr-md-0">
                     {{ 'purchase.cinema.schedule.status.warning' | translate }}</div>
-                <img src="/assets/images/icon/status_warning.svg">
+                <img src="/assets/images/icon/status_warning.svg" alt="">
             </div>
             <div *ngIf="performance.isSeatStatus('danger')" class="d-flex justify-content-around align-items-center">
                 <div class="text-danger mr-2 mr-md-0">
                     {{ 'purchase.cinema.schedule.status.danger' | translate }}</div>
-                <img src="/assets/images/icon/status_danger.svg">
+                <img src="/assets/images/icon/status_danger.svg" alt="">
             </div>
             <div *ngIf="performance.isSeatStatus()" class="d-flex justify-content-around align-items-center">
                 <div class="mr-2 mr-md-0">
                     {{ 'purchase.cinema.schedule.status.success' | translate }}</div>
-                <img src="/assets/images/icon/status_undefined.svg">
+                <img src="/assets/images/icon/status_undefined.svg" alt="">
             </div>
         </div>
 

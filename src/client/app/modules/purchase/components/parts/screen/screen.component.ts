@@ -5,8 +5,10 @@ import {
     ElementRef,
     EventEmitter,
     Input,
+    OnDestroy,
     OnInit,
-    Output
+    Output,
+    ViewChild
 } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
@@ -20,7 +22,7 @@ import { UtilService } from '../../../../../services';
     templateUrl: './screen.component.html',
     styleUrls: ['./screen.component.scss']
 })
-export class ScreenComponent implements OnInit, AfterViewInit, AfterContentChecked {
+export class ScreenComponent implements OnInit, AfterViewInit, AfterContentChecked, OnDestroy {
     public static ZOOM_SCALE = 1;
     @Input() public openSeatingAllowed = false;
     @Input() public theaterCode: string;
@@ -39,6 +41,9 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
     public height: number;
     public origin: string;
     public screenData: IScreen;
+    public onWindowScroll: (event: Event) => void;
+    @ViewChild('screen', { static: true }) public screen: ElementRef<HTMLDivElement>;
+    @ViewChild('zoomBtn', { static: true }) public zoomBtn: ElementRef<HTMLDivElement>;
 
     constructor(
         private utilService: UtilService,
@@ -57,6 +62,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
             this.screenData = await this.getScreenData();
             this.createScreen();
             this.scaleDown();
+            this.setScrollEvent();
         } catch (error) {
             console.error(error);
         }
@@ -86,6 +92,33 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
             return;
         }
         this.changeStatus();
+    }
+
+    /**
+     * 破棄
+     */
+    public ngOnDestroy() {
+        const element = <HTMLDivElement>document.getElementById('contents');
+        element.removeEventListener('scroll', this.onWindowScroll);
+    }
+
+    /**
+     * スクロールイベント設定
+     */
+    public setScrollEvent() {
+        this.onWindowScroll = ((event: Event) => {
+            const target = <HTMLDivElement>event.target;
+            const rect = this.screen.nativeElement.getBoundingClientRect();
+            const offsetTop = rect.top - target.getBoundingClientRect().top;
+            const screenHeight = this.screen.nativeElement.clientHeight;
+            const btnHeight = this.zoomBtn.nativeElement.clientHeight;
+            const space = 10;
+            const top = (offsetTop > 0 || (screenHeight + offsetTop - btnHeight - space) < 0)
+                ? space : (offsetTop - space) * -1;
+            this.zoomBtn.nativeElement.style.top = `${top}px`;
+        }).bind(this);
+        const element = <HTMLDivElement>document.getElementById('contents');
+        element.addEventListener('scroll', this.onWindowScroll);
     }
 
     /**
