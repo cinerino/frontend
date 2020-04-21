@@ -12,6 +12,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.23 - 2020-04-21
+### Fixed
+ - 座席選択拡大ボタンレイアウト調整
+ - QRリーダー調整
+ - パフォーマンス改善
+ - アクセシビリティ改善
+ - 作品公開日なしへ対応
+
 ## 3.0.22 - 2020-04-20
 ### Changed
  - 環境変数PROJECTSを廃止
