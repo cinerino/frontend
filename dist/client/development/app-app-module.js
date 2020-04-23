@@ -76611,7 +76611,7 @@ var PurchaseEffects = /** @class */ (function () {
          * ConvertExternalToPurchase
          */
         this.convertExternalToPurchase = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ActionTypes.ConvertExternalToPurchase), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (action) { return action.payload; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) { return __awaiter(_this, void 0, void 0, function () {
-            var eventId, screeningEvent, branchCode, searchResult, seller, error_17;
+            var eventId, screeningEvent, seller, error_17;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -76625,11 +76625,14 @@ var PurchaseEffects = /** @class */ (function () {
                         return [4 /*yield*/, this.cinerinoService.event.findById({ id: eventId })];
                     case 3:
                         screeningEvent = _a.sent();
-                        branchCode = screeningEvent.superEvent.location.branchCode;
-                        return [4 /*yield*/, this.cinerinoService.seller.search({ location: { branchCodes: [branchCode] } })];
+                        if (screeningEvent.superEvent.offers === undefined
+                            || screeningEvent.superEvent.offers.seller === undefined
+                            || screeningEvent.superEvent.offers.seller.id === undefined) {
+                            throw new Error('screeningEvent.superEvent.offers.seller.id undefined');
+                        }
+                        return [4 /*yield*/, this.cinerinoService.seller.findById({ id: screeningEvent.superEvent.offers.seller.id })];
                     case 4:
-                        searchResult = _a.sent();
-                        seller = searchResult.data[0];
+                        seller = _a.sent();
                         return [2 /*return*/, new _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].ConvertExternalToPurchaseSuccess({ screeningEvent: screeningEvent, seller: seller })];
                     case 5:
                         error_17 = _a.sent();

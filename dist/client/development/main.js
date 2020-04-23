@@ -1264,6 +1264,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getExternalData", function() { return getExternalData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFile", function() { return isFile; });
 /* harmony import */ var libphonenumber_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -1515,14 +1526,11 @@ function getParameter() {
  */
 function getProject() {
     var project = sessionStorage.getItem('PROJECT');
+    var defaultProject = { projectId: '', projectName: '', storageUrl: '' };
     if (project === null || project === '') {
-        return {
-            projectId: '',
-            projectName: '',
-            storageUrl: ''
-        };
+        return defaultProject;
     }
-    return JSON.parse(project);
+    return __assign({}, defaultProject, JSON.parse(project));
 }
 /**
  * 外部データ取得

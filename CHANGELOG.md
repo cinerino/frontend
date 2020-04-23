@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.24 - 2020-04-23
+### Fixed
+ - ストレージ作成不具合修正
+
 ## 3.0.23 - 2020-04-21
 ### Fixed
  - 座席選択拡大ボタンレイアウト調整
