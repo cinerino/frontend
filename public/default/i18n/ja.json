@@ -38,8 +38,8 @@
                 "alert": {
                     "unselected": "座席が未選択です。",
                     "limit": "同時購入可能数は{{value}}件までです。",
-                    "temporaryReservation": "仮予約に失敗しました。"
-
+                    "temporaryReservation": "仮予約に失敗しました。",
+                    "ticketNotfound": "販売可能券種がありません。"
                 }
             },
             "ticket": {

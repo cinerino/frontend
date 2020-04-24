@@ -96,10 +96,25 @@ export class PurchaseCinemaSeatComponent implements OnInit {
         try {
             const purchase = await this.purchaseService.getData();
             const reservations = purchase.reservations;
+            const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
             if (reservations.length === 0) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('purchase.cinema.seat.alert.unselected')
+                });
+                return;
+            }
+            if (reservations.length === 0) {
+                this.utilService.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('purchase.cinema.seat.alert.unselected')
+                });
+                return;
+            }
+            if (screeningEventTicketOffers.length === 0) {
+                this.utilService.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('purchase.cinema.seat.alert.ticketNotfound')
                 });
                 return;
             }
