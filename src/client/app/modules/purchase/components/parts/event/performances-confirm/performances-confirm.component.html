@@ -23,7 +23,7 @@
                 <div class="mr-2 font-weight-bold">
                     {{ moment(performance.screeningEvent.startDate).format('HH:mm') }}-{{ moment(performance.screeningEvent.endDate).format('HH:mm') }}
                 </div>
-                <div class="status" *ngIf="performance.isSales() && performance.isTicketedSeat()">
+                <div class="status" *ngIf="performance.isSales() && !performance.isInfinitetock()">
                     <div *ngIf="performance.isSeatStatus('success')">
                         <img src="/assets/images/icon/status_success.svg" alt="">
                     </div>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-                <div class="status" *ngIf="performance.isSales() && !performance.isTicketedSeat()">
+                <div class="status" *ngIf="performance.isSales() && performance.isInfinitetock()">
                     <div class="d-flex justify-content-around align-items-center">
                         <img src="/assets/images/icon/status_success.svg" alt="">
                     </div>

@@ -1908,7 +1908,7 @@ var Performance = /** @class */ (function () {
         }
     };
     /**
-     * 座席指定ありイベント判定
+     * 座席あり判定
      */
     Performance.prototype.isTicketedSeat = function () {
         var screeningEvent = this.screeningEvent;
@@ -1916,6 +1916,13 @@ var Performance = /** @class */ (function () {
             && screeningEvent.offers.itemOffered.serviceOutput !== undefined
             && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket !== undefined
             && screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat !== undefined);
+    };
+    /**
+     * 在庫無限判定
+     */
+    Performance.prototype.isInfinitetock = function () {
+        var screeningEvent = this.screeningEvent;
+        return (screeningEvent.maximumAttendeeCapacity === undefined);
     };
     return Performance;
 }());

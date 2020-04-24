@@ -1,5 +1,5 @@
 <div class="border boder-gray rounded py-3 text-center pointer" [ngClass]="{ 
-    'bg-white': performance.isSales() && (!performance.isSeatStatus('danger') || !performance.isTicketedSeat()), 
+    'bg-white': performance.isSales() && (!performance.isSeatStatus('danger') || performance.isInfinitetock()), 
     'bg-dark-gray text-light-gray not-event': !performance.isSales() || performance.isSeatStatus('danger')
     }" (click)="select.emit(performance.screeningEvent)">
     <div class="mb-2 text-small screen-name">
@@ -10,7 +10,7 @@
         {{ moment(performance.screeningEvent.startDate).format('HH:mm') }}-{{ moment(performance.screeningEvent.endDate).format('HH:mm') }}
     </div>
     <div class="text-center">
-        <div class="status" *ngIf="performance.isSales() && performance.isTicketedSeat()">
+        <div class="status" *ngIf="performance.isSales() && !performance.isInfinitetock()">
             <div *ngIf="performance.isSeatStatus('success')" class="d-flex justify-content-around align-items-center">
                 <img src="/assets/images/icon/status_success.svg" alt="">
             </div>
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="status" *ngIf="performance.isSales() && !performance.isTicketedSeat()">
+        <div class="status" *ngIf="performance.isSales() && performance.isInfinitetock()">
             <div class="d-flex justify-content-around align-items-center">
                 <img src="/assets/images/icon/status_success.svg" alt="">
             </div>
