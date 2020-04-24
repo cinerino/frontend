@@ -121,7 +121,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="profileForm.controls.address" class="form-group">
+                <div *ngIf="profileForm.controls.address | changeLanguage" class="form-group">
                     <div class="row align-items-center">
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.address' | translate }}<span
                             *ngIf="isRequired('address')"
