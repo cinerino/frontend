@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.26 - 2020-04-24
+### Fixed
+ - 在庫無限判定修正
+
 ## 3.0.25 - 2020-04-24
 ### Fixed
  - 券種ない場合に対応
