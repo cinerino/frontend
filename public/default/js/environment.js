@@ -5,7 +5,7 @@ window.environment = {
     APP_PREFIX: 'CI',
     PROJECT_ID: 'cinerino',
     ENTRANCE_SERVER_URL: '',
-    VIEW_TYPE: 'cinema',
+    VIEW_TYPE: 'event',
     GTM_ID: '',
     ANALYTICS_ID: '',
     STORAGE_NAME: 'CINERINO-FRONTEND-STATE',

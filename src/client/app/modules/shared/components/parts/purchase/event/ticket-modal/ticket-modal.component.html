@@ -17,7 +17,7 @@
                 {{ screeningEvent.superEvent.location.name | changeLanguage }}
             </span>
             <span class="screen-name">
-                &nbsp;/&nbsp;<span *ngIf="screeningEvent.location.address"
+                &nbsp;/&nbsp;<span *ngIf="screeningEvent.location.address | changeLanguage"
                     class="mr-2">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}
             </span>
             <span

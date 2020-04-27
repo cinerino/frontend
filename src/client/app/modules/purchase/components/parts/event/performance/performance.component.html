@@ -2,9 +2,10 @@
     'bg-white': performance.isSales() && (!performance.isSeatStatus('danger') || performance.isInfinitetock()), 
     'bg-dark-gray text-light-gray not-event': !performance.isSales() || performance.isSeatStatus('danger')
     }" (click)="select.emit(performance.screeningEvent)">
-    <div class="mb-2 text-small screen-name">
-        <span *ngIf="performance.screeningEvent.location.address"
-            class="mr-2">{{ performance.screeningEvent.location.address | changeLanguage }}</span>{{ performance.screeningEvent.location.name | changeLanguage }}
+    <div class="mb-1 text-small screen-name">
+        <p *ngIf="performance.screeningEvent.location.address | changeLanguage" class="text-overflow-ellipsis">
+            {{ performance.screeningEvent.location.address | changeLanguage }}</p>
+        <p class="text-overflow-ellipsis">{{ performance.screeningEvent.location.name | changeLanguage }}</p>
     </div>
     <div class="font-weight-bold mb-2">
         {{ moment(performance.screeningEvent.startDate).format('HH:mm') }}-{{ moment(performance.screeningEvent.endDate).format('HH:mm') }}

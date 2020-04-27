@@ -22,12 +22,13 @@ export class PurchaseEventPerformancesComponent implements OnInit {
     public ngOnInit() {
         this.swiperConfig = {
             spaceBetween: 0,
-            slidesPerView: 6.5,
+            slidesPerView: 5.5,
             freeMode: true,
+            autoHeight: true,
             breakpoints: {
                 320: { slidesPerView: 2.5 },
                 767: { slidesPerView: 2.5 },
-                1024: { slidesPerView: 5.5 }
+                1024: { slidesPerView: 4.5 }
             }
         };
     }
