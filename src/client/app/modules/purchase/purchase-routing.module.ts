@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PurchaseTransactionGuardService } from '../../canActivates';
+import { PurchaseTransactionGuardService, ViewTypeGuardService } from '../../canActivates';
 import { BaseComponent } from '../shared/components/pages/base/base.component';
 import { PurchaseCinemaCartComponent } from './components/pages/cinema/purchase-cinema-cart/purchase-cinema-cart.component';
 import { PurchaseCinemaOverlapComponent } from './components/pages/cinema/purchase-cinema-overlap/purchase-cinema-overlap';
@@ -24,6 +24,7 @@ const routes: Routes = [
     children: [
       {
         path: 'cinema',
+        canActivate: [ViewTypeGuardService],
         children: [
           { path: 'overlap', component: PurchaseCinemaOverlapComponent },
           { path: 'seat', component: PurchaseCinemaSeatComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
       },
       {
         path: 'event',
+        canActivate: [ViewTypeGuardService],
         children: [
           { path: 'ticket', component: PurchaseEventTicketComponent }
         ]
@@ -51,12 +53,14 @@ const routes: Routes = [
       { path: 'transaction/:eventId', component: PurchaseTransactionComponent },
       {
         path: 'cinema',
+        canActivate: [ViewTypeGuardService],
         children: [
           { path: 'schedule', component: PurchaseCinemaScheduleComponent }
         ]
       },
       {
         path: 'event',
+        canActivate: [ViewTypeGuardService],
         children: [
           { path: 'schedule', component: PurchaseEventScheduleComponent }
         ]

@@ -8,6 +8,9 @@
 ul {
     li {
         width: 20%;
+        @include media-breakpoint-down(md) {
+            width: 25%;
+        }
         @include media-breakpoint-down(sm) {
             width: 100%;
         }

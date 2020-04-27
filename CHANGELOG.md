@@ -12,6 +12,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.27 - 2020-04-27
+### Changed
+ - 辞書ファイル分割
+ - ビュータイプごとにルーティング規制
+### Fixed
+ - スケジュールUI調整
+
 ## 3.0.26 - 2020-04-24
 ### Fixed
  - 在庫無限判定修正

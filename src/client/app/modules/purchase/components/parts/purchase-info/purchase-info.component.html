@@ -17,7 +17,7 @@
                 {{ purchase.screeningEvent?.superEvent.location.name | changeLanguage }}
             </span>
             <span class="screen-name">
-                &nbsp;/&nbsp;<span *ngIf="purchase.screeningEvent?.location.address" class="mr-2">{{ purchase.screeningEvent?.location.address | changeLanguage }}</span>{{ purchase.screeningEvent?.location.name | changeLanguage }}
+                &nbsp;/&nbsp;<span *ngIf="purchase.screeningEvent?.location.address | changeLanguage" class="mr-2">{{ purchase.screeningEvent?.location.address | changeLanguage }}</span>{{ purchase.screeningEvent?.location.name | changeLanguage }}
             </span>
             <span *ngIf="purchase.screeningEvent?.workPerformed?.duration && moment.duration(purchase.screeningEvent?.workPerformed?.duration).asMinutes() > 0">
                 &nbsp;/&nbsp;<span class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(purchase.screeningEvent?.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}

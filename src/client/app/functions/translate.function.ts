@@ -4,6 +4,7 @@ import * as deepmerge from 'deepmerge';
 import * as moment from 'moment';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { getEnvironment } from '../../environments/environment';
 import { getProject } from './util.function';
 
 /**
@@ -15,7 +16,8 @@ class CustomTranslateHttpLoader implements TranslateLoader {
     public getTranslation(lang: string) {
         const suffix = `.json?date=${moment().toISOString()}`;
         const resources = [
-            `/default/i18n/${lang}${suffix}`,
+            `/default/i18n/common/${lang}${suffix}`,
+            `/default/i18n/${getEnvironment().VIEW_TYPE}/${lang}${suffix}`,
             `${getProject().storageUrl}/i18n/${lang}${suffix}`,
         ];
 

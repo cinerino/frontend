@@ -1,0 +1,89 @@
+{
+    "purchase": {
+        "cinema": {
+            "theater": {
+                "title": "劇場選択",
+                "read": "劇場を選択してください。",
+                "next": "",
+                "prev": ""
+            },
+            "schedule": {
+                "title": "スケジュール選択",
+                "read": "スケジュールを選択してください。",
+                "preSalesSchedule": "先行販売スケジュール",
+                "salesSchedule": "通常販売スケジュール",
+                "notfound": "スケジュールがありません。",
+                "status": {
+                    "success": "購入",
+                    "warning": "購入",
+                    "danger": "満席",
+                    "endSale": "販売終了",
+                    "outsideSalesPeriod": "販売期間外",
+                    "window": "窓口"
+                },
+                "infiniteStock": "在庫管理なし",
+                "next": "次へ",
+                "prev": "戻る",
+                "alert": {
+                    "ticketedSeat": "劇場表示では座席管理なしのパフォーマンスを選択できません。"
+                }
+            },
+            "seat": {
+                "title": "座席選択",
+                "read": "座席を選択してください。",
+                "next": "利用規約に同意して次へ",
+                "terms": "利用規約",
+                "prev": "戻る",
+                "openSeating": "座席数", 
+                "alert": {
+                    "unselected": "座席が未選択です。",
+                    "limit": "同時購入可能数は{{value}}件までです。",
+                    "temporaryReservation": "仮予約に失敗しました。",
+                    "ticketNotfound": "販売可能券種がありません。"
+                }
+            },
+            "ticket": {
+                "title": "チケット選択",
+                "read": "チケットを選択してください。",
+                "unselected": "チケットを選択してください",
+                "mvtk": "ムビチケ券を利用される方",
+                "next": "次へ",
+                "prev": "戻る",
+                "addOn": "オプション選択",
+                "alert": {
+                    "unselected": "チケットが未選択です。",
+                    "ticketCondition": "割引券の適用条件を再度ご確認ください。"
+                }
+            },
+            "cart": {
+                "title": "購入情報",
+                "read": "購入情報をご確認ください。",
+                "notfound": "購入中のアイテムがありません。",
+                "next": "次へ",
+                "prev": "戻る",
+                "add": "追加する",
+                "confirm": {
+                    "cancel": "キャンセルしてよろしいですか。"
+                }
+            },
+            "overlap": {
+                "title": "仮予約の座席があります",
+                "read": "現在、仮予約の座席があります。<br>仮予約の座席の購入を進めるか、新しく選択した内容で購入を進めるか選択してください。",
+                "nextRead": "新しく選択したスケジュール",
+                "next": "仮予約を削除して次へ進む",
+                "prevRead": "仮予約のスケジュール",
+                "prev": "仮予約の購入手続きへ戻る"
+                
+            }
+        }
+    },
+    "process": {
+        "masterAction": {
+            "GetTheaters": "劇場情報を取得しています"
+        }
+    },
+    "common": {
+        "theater": "劇場",
+        "duration": "上映時間"
+    }
+}
