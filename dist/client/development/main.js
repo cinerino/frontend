@@ -2000,7 +2000,7 @@ var defaultEnvironment = {
         { key: 'telephone', value: '', required: true, maxLength: 15, minLength: 9 }
     ],
     PORTAL_SITE_URL: '',
-    DISPLAY_TICKETED_SEAT: false,
+    DISPLAY_TICKETED_SEAT: true,
     HEADER_MENU: false,
     HEADER_MENU_SCOPE: [],
     FOOTER_COMPANY_URL: '',
@@ -2009,7 +2009,7 @@ var defaultEnvironment = {
     PURCHASE_CART: false,
     PURCHASE_ITEM_MAX_LENGTH: '50',
     PURCHASE_TRANSACTION_TIME: '15',
-    PURCHASE_TRANSACTION_TIME_DISPLAY: false,
+    PURCHASE_TRANSACTION_TIME_DISPLAY: true,
     PURCHASE_TRANSACTION_IDENTIFIER: [],
     PURCHASE_PRE_SCHEDULE_DATE: '3',
     PURCHASE_SCHEDULE_DISPLAY_LENGTH: '10',
