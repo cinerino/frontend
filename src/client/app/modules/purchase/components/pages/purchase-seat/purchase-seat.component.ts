@@ -24,10 +24,10 @@ export class PurchaseSeatComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private router: Router,
         private utilService: UtilService,
         private translate: TranslateService,
-        private purchaseService: PurchaseService
+        protected router: Router,
+        protected purchaseService: PurchaseService
     ) { }
 
     /**

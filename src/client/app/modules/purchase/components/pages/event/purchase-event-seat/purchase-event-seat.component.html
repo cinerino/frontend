@@ -31,8 +31,7 @@
     <div class="buttons mx-auto text-center">
         <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
             (click)="onSubmit()">{{ 'purchase.event.seat.next' | translate }}</button>
-        <button type="button" class="btn btn-link"
-            routerLink="/purchase/event/ticket">{{ 'purchase.event.seat.prev' | translate }}</button>
+        <button type="button" class="btn btn-link" (click)="prev()">{{ 'purchase.event.seat.prev' | translate }}</button>
     </div>
 
 </div>
