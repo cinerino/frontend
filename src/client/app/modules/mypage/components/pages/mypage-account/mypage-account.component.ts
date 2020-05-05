@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { MasterService, QRCodeService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -17,6 +17,7 @@ import { AccountTransferModalComponent } from '../../../../shared/components/par
 })
 export class MypageAccountComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
+    public isLoading: Observable<boolean>;
     public sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
 
     constructor(
@@ -34,6 +35,7 @@ export class MypageAccountComponent implements OnInit {
      */
     public async ngOnInit() {
         this.user = this.store.pipe(select(reducers.getUser));
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.sellers = [];
         try {
             this.sellers = await this.masterService.getSellers();

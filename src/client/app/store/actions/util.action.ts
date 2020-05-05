@@ -1,42 +1,17 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
-/**
- * Action types
- */
-export enum ActionTypes {
-    LoadStart = '[Util] Load Start',
-    LoadEnd = '[Util] Load End',
-    SetError = '[Util] Set Error'
-}
+const LABEL = '[Util]';
 
-/**
- * LoadStart
- */
-export class LoadStart implements Action {
-    public readonly type = ActionTypes.LoadStart;
-    constructor(public payload?: { process: string; }) { }
-}
+export const loadStart = createAction(
+    `${LABEL} loadStart`,
+    props<{ process: string; }>()
+);
 
-/**
- * LoadEnd
- */
-export class LoadEnd implements Action {
-    public readonly type = ActionTypes.LoadEnd;
-    constructor(public payload?: {}) { }
-}
+export const loadEnd = createAction(
+    `${LABEL} loadEnd`,
+);
 
-/**
- * SetError
- */
-export class SetError implements Action {
-    public readonly type = ActionTypes.SetError;
-    constructor(public payload: { error: any }) { }
-}
-
-/**
- * Actions
- */
-export type Actions =
-    | LoadStart
-    | LoadEnd
-    | SetError;
+export const setError = createAction(
+    `${LABEL} setError`,
+    props<{ error: any }>()
+);

@@ -42,7 +42,7 @@ export class MasterService {
      * データ削除
      */
     public delete() {
-        this.store.dispatch(new masterAction.Delete());
+        this.store.dispatch(masterAction.remove());
     }
 
     /**
@@ -148,13 +148,13 @@ export class MasterService {
      */
     public async getProjects() {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new masterAction.GetProjects());
+            this.store.dispatch(masterAction.getProjects());
             const success = this.actions.pipe(
-                ofType(masterAction.ActionTypes.GetProjectsSuccess),
+                ofType(masterAction.getProjectsSuccess.type),
                 tap(() => { resolve(); })
             );
             const fail = this.actions.pipe(
-                ofType(masterAction.ActionTypes.GetProjectsFail),
+                ofType(masterAction.getProjectsFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();

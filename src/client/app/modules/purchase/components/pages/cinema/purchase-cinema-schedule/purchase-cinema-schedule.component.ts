@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BAD_REQUEST, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../../environments/environment';
@@ -22,8 +22,8 @@ import {
     styleUrls: ['./purchase-cinema-schedule.component.scss']
 })
 export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
-    @ViewChild(SwiperComponent, { static: false }) public componentRef: SwiperComponent;
-    @ViewChild(SwiperDirective, { static: true }) public directiveRef: SwiperDirective;
+    @ViewChild(SwiperComponent) public componentRef: SwiperComponent;
+    @ViewChild(SwiperDirective) public directiveRef: SwiperDirective;
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public error: Observable<string | null>;

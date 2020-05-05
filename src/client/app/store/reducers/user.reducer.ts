@@ -1,4 +1,5 @@
 import { factory } from '@cinerino/api-javascript-client';
+import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
 import { IPrinter } from '../../models';
 import { userAction } from '../actions';
@@ -52,145 +53,152 @@ export const userInitialState: IUserState = {
     creditCards: [],
     accounts: []
 };
-/**
- * Reducer
- * @param state
- * @param action
- */
-export function reducer(state: IState, action: userAction.Actions): IState {
-    switch (action.type) {
-        case userAction.ActionTypes.Delete: {
-            state.userData.isMember = false;
-            state.userData.profile = undefined;
-            state.userData.accounts = [];
-            state.userData.creditCards = [];
-            return { ...state, loading: false };
-        }
-        case userAction.ActionTypes.Initialize: {
-            state.userData.isMember = true;
-            return { ...state, loading: false };
-        }
-        case userAction.ActionTypes.GetProfile: {
+
+export function reducer(initialState: IState, action: Action) {
+    return createReducer(
+        initialState,
+        on(userAction.remove, state => {
+            return {
+                ...state,
+                userData: {
+                    isMember: false,
+                    profile: undefined,
+                    accounts: [],
+                    creditCards: [],
+                    language: 'ja'
+                }, loading: false, process: ''
+            };
+        }),
+        on(userAction.initialize, (state, payload) => {
+            const isMember = payload.isMember;
+            return {
+                ...state, userData: {
+                    ...state.userData,
+                    isMember
+                }, loading: false, process: ''
+            };
+        }),
+        on(userAction.updateLanguage, (state, payload) => {
+            const language = payload.language;
+            return { ...state, userData: { ...state.userData, language } };
+        }),
+        on(userAction.setVersion, (state, payload) => {
+            const version = payload.version;
+            return { ...state, userData: { ...state.userData, version } };
+        }),
+        on(userAction.getProfile, (state) => {
             return { ...state, loading: true, process: 'userAction.GetProfile' };
-        }
-        case userAction.ActionTypes.GetProfileSuccess: {
-            state.userData.profile = action.payload.profile;
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case userAction.ActionTypes.GetProfileFail: {
-            const error = action.payload.error;
+        }),
+        on(userAction.getProfileSuccess, (state, payload) => {
+            const profile = payload.profile;
+            return { ...state, userData: { ...state.userData, profile } };
+        }),
+        on(userAction.getProfileFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case userAction.ActionTypes.GetAccount: {
+        }),
+        on(userAction.getAccount, (state) => {
             return { ...state, loading: true, process: 'userAction.GetAccount' };
-        }
-        case userAction.ActionTypes.GetAccountSuccess: {
-            state.userData.accounts = action.payload.accounts;
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case userAction.ActionTypes.GetAccountFail: {
-            const error = action.payload.error;
+        }),
+        on(userAction.getAccountSuccess, (state, payload) => {
+            const accounts = payload.accounts;
+            return { ...state, userData: { ...state.userData, accounts } };
+        }),
+        on(userAction.getAccountFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case userAction.ActionTypes.OpenAccount: {
+        }),
+        on(userAction.openAccount, (state) => {
             return { ...state, loading: true, process: 'userAction.OpenAccount' };
-        }
-        case userAction.ActionTypes.OpenAccountSuccess: {
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case userAction.ActionTypes.OpenAccountFail: {
-            const error = action.payload.error;
+        }),
+        on(userAction.openAccountSuccess, (state) => {
+            return { ...state, userData: { ...state.userData } };
+        }),
+        on(userAction.openAccountFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case userAction.ActionTypes.CloseAccount: {
+        }),
+        on(userAction.closeAccount, (state) => {
             return { ...state, loading: true, process: 'userAction.CloseAccount' };
-        }
-        case userAction.ActionTypes.CloseAccountSuccess: {
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case userAction.ActionTypes.CloseAccountFail: {
-            const error = action.payload.error;
+        }),
+        on(userAction.closeAccountSuccess, (state) => {
+            return { ...state, userData: { ...state.userData } };
+        }),
+        on(userAction.closeAccountFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case userAction.ActionTypes.UpdateLanguage: {
-            state.userData.language = action.payload.language;
-            return { ...state };
-        }
-        case userAction.ActionTypes.UpdateProfile: {
+        }),
+        on(userAction.updateProfile, (state) => {
             return { ...state, loading: true, process: 'userAction.UpdateProfile' };
-        }
-        case userAction.ActionTypes.UpdateProfileSuccess: {
-            state.userData.profile = action.payload.profile;
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case userAction.ActionTypes.UpdateProfileFail: {
-            const error = action.payload.error;
+        }),
+        on(userAction.updateProfileSuccess, (state, payload) => {
+            const profile = payload.profile;
+            return { ...state, userData: { ...state.userData, profile } };
+        }),
+        on(userAction.updateProfileFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case userAction.ActionTypes.GetCreditCards: {
+        }),
+        on(userAction.getCreditCards, (state) => {
             return { ...state, loading: true, process: 'userAction.GetCreditCards' };
-        }
-        case userAction.ActionTypes.GetCreditCardsSuccess: {
-            const creditCards = action.payload.creditCards;
-            state.userData.creditCards = creditCards;
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case userAction.ActionTypes.GetCreditCardsFail: {
-            const error = action.payload.error;
+        }),
+        on(userAction.getCreditCardsSuccess, (state, payload) => {
+            const creditCards = payload.creditCards;
+            return { ...state, userData: { ...state.userData, creditCards } };
+        }),
+        on(userAction.getCreditCardsFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case userAction.ActionTypes.AddCreditCard: {
+        }),
+        on(userAction.addCreditCard, (state) => {
             return { ...state, loading: true, process: 'userAction.AddCreditCard' };
-        }
-        case userAction.ActionTypes.AddCreditCardSuccess: {
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case userAction.ActionTypes.AddCreditCardFail: {
-            const error = action.payload.error;
+        }),
+        on(userAction.addCreditCardSuccess, (state) => {
+            return { ...state, userData: { ...state.userData } };
+        }),
+        on(userAction.addCreditCardFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case userAction.ActionTypes.RemoveCreditCard: {
+        }),
+        on(userAction.removeCreditCard, (state) => {
             return { ...state, loading: true, process: 'userAction.RemoveCreditCard' };
-        }
-        case userAction.ActionTypes.RemoveCreditCardSuccess: {
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case userAction.ActionTypes.RemoveCreditCardFail: {
-            const error = action.payload.error;
+        }),
+        on(userAction.removeCreditCardSuccess, (state) => {
+            return { ...state, userData: { ...state.userData } };
+        }),
+        on(userAction.removeCreditCardFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case userAction.ActionTypes.ChargeAccount: {
+        }),
+        on(userAction.chargeAccount, (state) => {
             return { ...state, loading: true, process: 'userAction.ChargeAccount' };
-        }
-        case userAction.ActionTypes.ChargeAccountSuccess: {
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case userAction.ActionTypes.ChargeAccountFail: {
-            const error = action.payload.error;
+        }),
+        on(userAction.chargeAccountSuccess, (state) => {
+            return { ...state, userData: { ...state.userData } };
+        }),
+        on(userAction.chargeAccountFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case userAction.ActionTypes.TransferAccount: {
+        }),
+        on(userAction.transferAccount, (state) => {
             return { ...state, loading: true, process: 'userAction.TransferAccount' };
-        }
-        case userAction.ActionTypes.TransferAccountSuccess: {
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case userAction.ActionTypes.TransferAccountFail: {
-            const error = action.payload.error;
+        }),
+        on(userAction.transferAccountSuccess, (state) => {
+            return { ...state, userData: { ...state.userData } };
+        }),
+        on(userAction.transferAccountFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case userAction.ActionTypes.UpdateBaseSetting: {
-            state.userData.pos = action.payload.pos;
-            state.userData.theater = action.payload.theater;
-            state.userData.printer = action.payload.printer;
-            return { ...state };
-        }
-        case userAction.ActionTypes.SetVersion: {
-            state.userData.version = action.payload.version;
-            return { ...state };
-        }
-        default: {
-            return state;
-        }
-    }
+        }),
+        on(userAction.updateBaseSetting, (state, payload) => {
+            return {
+                ...state, userData: {
+                    ...state.userData,
+                    pos: payload.pos,
+                    theater: payload.theater,
+                    printer: payload.printer
+                }
+            };
+        }),
+    )(initialState, action);
 }

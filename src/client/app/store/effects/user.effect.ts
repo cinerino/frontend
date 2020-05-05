@@ -23,17 +23,17 @@ export class UserEffects {
      */
     @Effect()
     public getProfile = this.actions.pipe(
-        ofType<userAction.GetProfile>(userAction.ActionTypes.GetProfile),
-        map(action => action.payload),
+        ofType(userAction.getProfile),
+        map(action => action),
         mergeMap(async () => {
             try {
                 await this.cinerino.getServices();
                 // プロフィール
                 const id = 'me';
                 const profile = await this.cinerino.person.getProfile({ id });
-                return new userAction.GetProfileSuccess({ profile });
+                return userAction.getProfileSuccess({ profile });
             } catch (error) {
-                return new userAction.GetProfileFail({ error: error });
+                return userAction.getProfileFail({ error: error });
             }
         })
     );
@@ -43,8 +43,8 @@ export class UserEffects {
      */
     @Effect()
     public getAccount = this.actions.pipe(
-        ofType<userAction.GetAccount>(userAction.ActionTypes.GetAccount),
-        map(action => action.payload),
+        ofType(userAction.getAccount),
+        map(action => action),
         mergeMap(async () => {
             try {
                 await this.cinerino.getServices();
@@ -63,9 +63,9 @@ export class UserEffects {
                 const searchAccounts = [...searchCoinAccountsResult.data, ...searchPointAccountsResult.data];
                 const accounts = searchAccounts
                     .filter((a) => a.typeOfGood.status === factory.pecorino.accountStatusType.Opened);
-                return new userAction.GetAccountSuccess({ accounts });
+                return userAction.getAccountSuccess({ accounts });
             } catch (error) {
-                return new userAction.GetAccountFail({ error: error });
+                return userAction.getAccountFail({ error: error });
             }
         })
     );
@@ -75,8 +75,8 @@ export class UserEffects {
      */
     @Effect()
     public openAccount = this.actions.pipe(
-        ofType<userAction.OpenAccount>(userAction.ActionTypes.OpenAccount),
-        map(action => action.payload),
+        ofType(userAction.openAccount),
+        map(action => action),
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
@@ -84,9 +84,9 @@ export class UserEffects {
                     name: payload.name,
                     accountType: payload.accountType
                 });
-                return new userAction.OpenAccountSuccess({ account });
+                return userAction.openAccountSuccess({ account });
             } catch (error) {
-                return new userAction.OpenAccountFail({ error: error });
+                return userAction.openAccountFail({ error: error });
             }
         })
     );
@@ -96,8 +96,8 @@ export class UserEffects {
      */
     @Effect()
     public closeAccount = this.actions.pipe(
-        ofType<userAction.CloseAccount>(userAction.ActionTypes.CloseAccount),
-        map(action => action.payload),
+        ofType(userAction.closeAccount),
+        map(action => action),
         mergeMap(async (payload) => {
             try {
                 const account = payload.account;
@@ -106,9 +106,9 @@ export class UserEffects {
                     accountNumber: account.typeOfGood.accountNumber,
                     accountType: account.typeOfGood.accountType
                 });
-                return new userAction.CloseAccountSuccess();
+                return userAction.closeAccountSuccess();
             } catch (error) {
-                return new userAction.CloseAccountFail({ error: error });
+                return userAction.closeAccountFail({ error: error });
             }
         })
     );
@@ -118,8 +118,8 @@ export class UserEffects {
      */
     @Effect()
     public UpdateProfile = this.actions.pipe(
-        ofType<userAction.UpdateProfile>(userAction.ActionTypes.UpdateProfile),
-        map(action => action.payload),
+        ofType(userAction.updateProfile),
+        map(action => action),
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
@@ -129,9 +129,9 @@ export class UserEffects {
                 await this.cinerino.person.updateProfile(payload.profile);
                 const id = 'me';
                 const profile = await this.cinerino.person.getProfile({ id });
-                return new userAction.UpdateProfileSuccess({ profile });
+                return userAction.updateProfileSuccess({ profile });
             } catch (error) {
-                return new userAction.UpdateProfileFail({ error: error });
+                return userAction.updateProfileFail({ error: error });
             }
         })
     );
@@ -141,15 +141,15 @@ export class UserEffects {
      */
     @Effect()
     public getreditCard = this.actions.pipe(
-        ofType<userAction.GetCreditCards>(userAction.ActionTypes.GetCreditCards),
-        map(action => action.payload),
+        ofType(userAction.getCreditCards),
+        map(action => action),
         mergeMap(async () => {
             try {
                 await this.cinerino.getServices();
                 const creditCards = await this.cinerino.ownershipInfo.searchCreditCards({});
-                return new userAction.GetCreditCardsSuccess({ creditCards });
+                return userAction.getCreditCardsSuccess({ creditCards });
             } catch (error) {
-                return new userAction.GetCreditCardsFail({ error: error });
+                return userAction.getCreditCardsFail({ error: error });
             }
         })
     );
@@ -159,16 +159,16 @@ export class UserEffects {
      */
     @Effect()
     public addCreditCard = this.actions.pipe(
-        ofType<userAction.AddCreditCard>(userAction.ActionTypes.AddCreditCard),
-        map(action => action.payload),
+        ofType(userAction.addCreditCard),
+        map(action => action),
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
                 const gmoTokenObject = await createGmoTokenObject({ creditCard: payload.creditCard, seller: payload.seller });
                 const creditCard = await this.cinerino.ownershipInfo.addCreditCard({ creditCard: gmoTokenObject });
-                return new userAction.AddCreditCardSuccess({ creditCard });
+                return userAction.addCreditCardSuccess({ creditCard });
             } catch (error) {
-                return new userAction.AddCreditCardFail({ error: error });
+                return userAction.addCreditCardFail({ error: error });
             }
         })
     );
@@ -178,17 +178,17 @@ export class UserEffects {
      */
     @Effect()
     public removeCreditCard = this.actions.pipe(
-        ofType<userAction.RemoveCreditCard>(userAction.ActionTypes.RemoveCreditCard),
-        map(action => action.payload),
+        ofType(userAction.removeCreditCard),
+        map(action => action),
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
                 const creditCard = payload.creditCard;
                 const cardSeq = creditCard.cardSeq;
                 await this.cinerino.ownershipInfo.deleteCreditCard({ cardSeq });
-                return new userAction.RemoveCreditCardSuccess({ creditCard });
+                return userAction.removeCreditCardSuccess({ creditCard });
             } catch (error) {
-                return new userAction.RemoveCreditCardFail({ error: error });
+                return userAction.removeCreditCardFail({ error: error });
             }
         })
     );
@@ -198,8 +198,8 @@ export class UserEffects {
      */
     @Effect()
     public chargeAccount = this.actions.pipe(
-        ofType<userAction.ChargeAccount>(userAction.ActionTypes.ChargeAccount),
-        map(action => action.payload),
+        ofType(userAction.chargeAccount),
+        map(action => action),
         mergeMap(async (payload) => {
             // console.log(payload);
             try {
@@ -253,9 +253,9 @@ export class UserEffects {
                     id: transaction.id
                 });
                 await sleep();
-                return new userAction.ChargeAccountSuccess({});
+                return userAction.chargeAccountSuccess();
             } catch (error) {
-                return new userAction.ChargeAccountFail({ error: error });
+                return userAction.chargeAccountFail({ error: error });
             }
         })
     );
@@ -265,10 +265,9 @@ export class UserEffects {
      */
     @Effect()
     public tansferAccount = this.actions.pipe(
-        ofType<userAction.TransferAccount>(userAction.ActionTypes.TransferAccount),
-        map(action => action.payload),
+        ofType(userAction.transferAccount),
+        map(action => action),
         mergeMap(async (payload) => {
-            console.log(payload);
             try {
                 await this.cinerino.getServices();
                 const transaction =
@@ -314,9 +313,9 @@ export class UserEffects {
                     id: transaction.id
                 });
                 await sleep();
-                return new userAction.TransferAccountSuccess({});
+                return userAction.transferAccountSuccess();
             } catch (error) {
-                return new userAction.TransferAccountFail({ error: error });
+                return userAction.transferAccountFail({ error: error });
             }
         })
     );

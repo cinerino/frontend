@@ -313,7 +313,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, isFile, screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, createPrintCanvas, createTestPrintCanvas */
+/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, string2blob, getParameter, getProject, getExternalData, isFile, deepCopy, createPrintCanvas, createTestPrintCanvas */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -364,8 +364,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "iOSDatepickerTapBugFix", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["iOSDatepickerTapBugFix"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "streamingDownload", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["streamingDownload"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["string2blob"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getParameter"]; });
@@ -375,6 +373,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getExternalData", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getExternalData"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isFile", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["isFile"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "deepCopy", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["deepCopy"]; });
 
 /* harmony import */ var _order_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./order.function */ "./app/functions/order.function.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createPrintCanvas"]; });
@@ -411,10 +411,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
 /* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -1182,7 +1183,7 @@ function selectAvailableSeat(params) {
         if (r.ticket === undefined
             || r.ticket.ticketOffer.eligibleSubReservation === undefined) {
             // サブ予約なし
-            availableSeats.push(__assign({}, findReservationSeat, { subReservations: [] }));
+            availableSeats.push(__assign(__assign({}, findReservationSeat), { subReservations: [] }));
             return;
         }
         // サブ予約分取得
@@ -1234,7 +1235,7 @@ function selectAvailableSeat(params) {
                 subReservations.push(subReservation);
             }
         });
-        availableSeats.push(__assign({}, findReservationSeat, { subReservations: subReservations }));
+        availableSeats.push(__assign(__assign({}, findReservationSeat), { subReservations: subReservations }));
     });
     return availableSeats;
 }
@@ -1246,7 +1247,7 @@ function selectAvailableSeat(params) {
 /*!****************************************!*\
   !*** ./app/functions/util.function.ts ***!
   \****************************************/
-/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, streamingDownload, string2blob, getParameter, getProject, getExternalData, isFile */
+/*! exports provided: formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, string2blob, getParameter, getProject, getExternalData, isFile, deepCopy */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1257,12 +1258,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "retry", function() { return retry; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sleep", function() { return sleep; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "iOSDatepickerTapBugFix", function() { return iOSDatepickerTapBugFix; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "streamingDownload", function() { return streamingDownload; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return string2blob; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return getParameter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return getProject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getExternalData", function() { return getExternalData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFile", function() { return isFile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deepCopy", function() { return deepCopy; });
 /* harmony import */ var libphonenumber_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
@@ -1276,10 +1277,11 @@ var __assign = (undefined && undefined.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -1442,57 +1444,26 @@ function iOSDatepickerTapBugFix(container, datepickerDirectives) {
 /**
  * ストリーミングダウンロード
  */
-function streamingDownload(stream) {
-    return __awaiter(this, void 0, void 0, function () {
-        var reader, decoder, streamText;
-        var _this = this;
-        return __generator(this, function (_a) {
-            reader = stream.getReader();
-            decoder = new TextDecoder();
-            streamText = '';
-            return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-                    var readChunk_1, _a, error_3;
-                    var _this = this;
-                    return __generator(this, function (_b) {
-                        switch (_b.label) {
-                            case 0:
-                                _b.trys.push([0, 3, , 4]);
-                                readChunk_1 = function (chunk) { return __awaiter(_this, void 0, void 0, function () {
-                                    var _a;
-                                    return __generator(this, function (_b) {
-                                        switch (_b.label) {
-                                            case 0:
-                                                if (chunk.done) {
-                                                    resolve(streamText);
-                                                    return [2 /*return*/];
-                                                }
-                                                streamText += decoder.decode(chunk.value);
-                                                _a = readChunk_1;
-                                                return [4 /*yield*/, reader.read()];
-                                            case 1: return [4 /*yield*/, _a.apply(void 0, [_b.sent()])];
-                                            case 2:
-                                                _b.sent();
-                                                return [2 /*return*/];
-                                        }
-                                    });
-                                }); };
-                                _a = readChunk_1;
-                                return [4 /*yield*/, reader.read()];
-                            case 1: return [4 /*yield*/, _a.apply(void 0, [_b.sent()])];
-                            case 2:
-                                _b.sent();
-                                return [3 /*break*/, 4];
-                            case 3:
-                                error_3 = _b.sent();
-                                reject(error_3);
-                                return [3 /*break*/, 4];
-                            case 4: return [2 /*return*/];
-                        }
-                    });
-                }); })];
-        });
-    });
-}
+// export async function streamingDownload<T>(stream: ReadableStream<T>) {
+//     const reader = stream.getReader();
+//     const decoder = new TextDecoder();
+//     let streamText = '';
+//     return new Promise<string>(async (resolve, reject) => {
+//         try {
+//             const readChunk = async (chunk: { done: boolean; value: any; }) => {
+//                 if (chunk.done) {
+//                     resolve(streamText);
+//                     return;
+//                 }
+//                 streamText += decoder.decode(chunk.value);
+//                 await readChunk(await reader.read());
+//             };
+//             await readChunk(await reader.read());
+//         } catch (error) {
+//             reject(error);
+//         }
+//     });
+// }
 /**
  * 文字列をBLOB変換
  */
@@ -1530,7 +1501,7 @@ function getProject() {
     if (project === null || project === '') {
         return defaultProject;
     }
-    return __assign({}, defaultProject, JSON.parse(project));
+    return __assign(__assign({}, defaultProject), JSON.parse(project));
 }
 /**
  * 外部データ取得
@@ -1563,6 +1534,12 @@ function isFile(url) {
             }
         });
     });
+}
+/**
+ * オブジェクトディープコピー
+ */
+function deepCopy(obj) {
+    return JSON.parse(JSON.stringify(obj));
 }
 
 
@@ -2043,7 +2020,7 @@ var defaultEnvironment = {
     SETTING_DEVELOP_OPTION: false
 };
 function getEnvironment() {
-    var environment = __assign({}, defaultEnvironment, window.environment, { production: (document.querySelector('body.production') !== null) });
+    var environment = __assign(__assign(__assign({}, defaultEnvironment), window.environment), { production: (document.querySelector('body.production') !== null) });
     return environment;
 }
 
@@ -2059,14 +2036,14 @@ function getEnvironment() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "../../node_modules/@angular/platform-browser-dynamic/fesm5/platform-browser-dynamic.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm5/core.js");
+/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "../../node_modules/@angular/platform-browser-dynamic/__ivy_ngcc__/fesm5/platform-browser-dynamic.js");
 /* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hammerjs */ "../../node_modules/hammerjs/hammer.js");
 /* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment-timezone */ "../../node_modules/moment-timezone/index.js");
 /* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "../../node_modules/ngx-bootstrap/chronos/fesm5/ngx-bootstrap-chronos.js");
-/* harmony import */ var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/locale */ "../../node_modules/ngx-bootstrap/locale/fesm5/ngx-bootstrap-locale.js");
+/* harmony import */ var ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap/chronos */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/chronos/fesm5/ngx-bootstrap-chronos.js");
+/* harmony import */ var ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/locale */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/locale/fesm5/ngx-bootstrap-locale.js");
 /* harmony import */ var _app_functions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app/functions */ "./app/functions/index.ts");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./environments/environment */ "./environments/environment.ts");
 var __assign = (undefined && undefined.__assign) || function () {
@@ -2081,10 +2058,11 @@ var __assign = (undefined && undefined.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -2118,7 +2096,6 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
   return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _this = undefined;
 /**
  * main
  */
@@ -2143,7 +2120,7 @@ function main() {
                     Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__["jaLocale"]);
                     params = Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getParameter"])();
                     if (location.hash === '') {
-                        sessionStorage.setItem('EXTERNAL', JSON.stringify(__assign({}, params, { project: undefined })));
+                        sessionStorage.setItem('EXTERNAL', JSON.stringify(__assign(__assign({}, params), { project: undefined })));
                     }
                     // プロジェクト設定
                     if (params.projectId !== undefined) {
@@ -2261,7 +2238,7 @@ function setProjectConfig(storageUrl) {
         });
     });
 }
-main().then(function () { return __awaiter(_this, void 0, void 0, function () {
+main().then(function () { return __awaiter(void 0, void 0, void 0, function () {
     var AppModule;
     return __generator(this, function (_a) {
         switch (_a.label) {

@@ -42,14 +42,16 @@ export class UserService {
      * データ削除
      */
     public delete() {
-        this.store.dispatch(new userAction.Delete());
+        this.store.dispatch(userAction.remove());
     }
 
     /**
      * 初期化
      */
-    public initialize() {
-        this.store.dispatch(new userAction.Initialize());
+    public initialize(params: {
+        isMember: boolean;
+    }) {
+        this.store.dispatch(userAction.initialize(params));
     }
 
     /**
@@ -57,13 +59,13 @@ export class UserService {
      */
     public async getProfile() {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.GetProfile());
+            this.store.dispatch(userAction.getProfile());
             const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.GetProfileSuccess),
+                ofType(userAction.getProfileSuccess.type),
                 tap(() => resolve())
             );
             const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.GetProfileFail),
+                ofType(userAction.getProfileFail.type),
                 tap(() => reject())
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -75,13 +77,13 @@ export class UserService {
      */
     public async getAccount() {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.GetAccount());
+            this.store.dispatch(userAction.getAccount());
             const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.GetAccountSuccess),
+                ofType(userAction.getAccountSuccess.type),
                 tap(() => resolve())
             );
             const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.GetAccountFail),
+                ofType(userAction.getAccountFail.type),
                 tap(() => reject())
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -96,14 +98,14 @@ export class UserService {
         accountType: factory.accountType;
     }) {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.OpenAccount(params));
+            this.store.dispatch(userAction.openAccount(params));
             const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.OpenAccountSuccess),
+                ofType(userAction.openAccountSuccess.type),
                 tap(() => { resolve(); })
             );
 
             const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.OpenAccountFail),
+                ofType(userAction.openAccountFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -115,13 +117,13 @@ export class UserService {
      */
     public async cloaseAccount(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.CloseAccount({ account }));
+            this.store.dispatch(userAction.closeAccount({ account }));
             const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.CloseAccountSuccess),
+                ofType(userAction.closeAccountSuccess.type),
                 tap(() => { resolve(); })
             );
             const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.CloseAccountFail),
+                ofType(userAction.closeAccountFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -139,7 +141,7 @@ export class UserService {
         this.translate.use(language);
         const html = <HTMLElement>document.querySelector('html');
         html.setAttribute('lang', language);
-        this.store.dispatch(new userAction.UpdateLanguage({ language }));
+        this.store.dispatch(userAction.updateLanguage({ language }));
     }
 
     /**
@@ -147,15 +149,15 @@ export class UserService {
      */
     public async updateProfile(profile: factory.person.IProfile) {
         return new Promise((resolve, reject) => {
-            this.store.dispatch(new userAction.UpdateProfile({ profile }));
+            this.store.dispatch(userAction.updateProfile({ profile }));
 
             const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.UpdateProfileSuccess),
+                ofType(userAction.updateProfileSuccess.type),
                 tap(() => { resolve(); })
             );
 
             const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.UpdateProfileFail),
+                ofType(userAction.updateProfileFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -167,13 +169,13 @@ export class UserService {
      */
     public async getCreditCards() {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.GetCreditCards());
+            this.store.dispatch(userAction.getCreditCards());
             const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.GetCreditCardsSuccess),
+                ofType(userAction.getCreditCardsSuccess.type),
                 tap(() => { resolve(); })
             );
             const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.GetCreditCardsFail),
+                ofType(userAction.getCreditCardsFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -193,14 +195,14 @@ export class UserService {
         };
     }) {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.AddCreditCard(params));
+            this.store.dispatch(userAction.addCreditCard(params));
             const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.AddCreditCardSuccess),
+                ofType(userAction.addCreditCardSuccess.type),
                 tap(() => { resolve(); })
             );
 
             const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.AddCreditCardFail),
+                ofType(userAction.addCreditCardFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -212,13 +214,13 @@ export class UserService {
      */
     public async removeCreditCard(creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.RemoveCreditCard({ creditCard }));
+            this.store.dispatch(userAction.removeCreditCard({ creditCard }));
             const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.RemoveCreditCardSuccess),
+                ofType(userAction.removeCreditCardSuccess.type),
                 tap(() => { resolve(); })
             );
             const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.RemoveCreditCardFail),
+                ofType(userAction.removeCreditCardFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -233,7 +235,7 @@ export class UserService {
         theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
         printer?: IPrinter;
     }) {
-        this.store.dispatch(new userAction.UpdateBaseSetting({
+        this.store.dispatch(userAction.updateBaseSetting({
             pos: params.pos,
             theater: params.theater,
             printer: params.printer
@@ -251,13 +253,13 @@ export class UserService {
         creditCard: factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember;
     }) {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.ChargeAccount(params));
+            this.store.dispatch(userAction.chargeAccount(params));
             const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.ChargeAccountSuccess),
+                ofType(userAction.chargeAccountSuccess.type),
                 tap(() => { resolve(); })
             );
             const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.ChargeAccountFail),
+                ofType(userAction.chargeAccountFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -276,13 +278,13 @@ export class UserService {
         accountNumber: string
     }) {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new userAction.TransferAccount(params));
+            this.store.dispatch(userAction.transferAccount(params));
             const success = this.actions.pipe(
-                ofType(userAction.ActionTypes.TransferAccountSuccess),
+                ofType(userAction.transferAccountSuccess.type),
                 tap(() => { resolve(); })
             );
             const fail = this.actions.pipe(
-                ofType(userAction.ActionTypes.TransferAccountFail),
+                ofType(userAction.transferAccountFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -297,11 +299,11 @@ export class UserService {
         const { version } = await this.utilService.getJson<{ version: string }>(`/api/version${query}`);
         const data = await this.getData();
         if (data.version === undefined) {
-            this.store.dispatch(new userAction.SetVersion({ version }));
+            this.store.dispatch(userAction.setVersion({ version }));
         }
         if (data.version !== undefined
             && data.version !== version) {
-            this.store.dispatch(new userAction.SetVersion({ version }));
+            this.store.dispatch(userAction.setVersion({ version }));
             location.reload();
         }
     }

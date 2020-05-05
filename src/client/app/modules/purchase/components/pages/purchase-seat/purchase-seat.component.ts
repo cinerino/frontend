@@ -12,6 +12,7 @@ import * as reducers from '../../../../../store/reducers';
 
 @Component({
     selector: 'app-purchase-seat',
+    template: ''
 })
 export class PurchaseSeatComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;

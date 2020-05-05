@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
-import { BsModalRef } from 'ngx-bootstrap';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { isEligibleSeatingType } from '../../../../../../functions';
 import { IMovieTicket, IReservation, IReservationTicket } from '../../../../../../models';
 

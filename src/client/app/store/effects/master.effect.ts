@@ -22,8 +22,8 @@ export class MasterEffects {
      */
     @Effect()
     public GetProjects = this.actions.pipe(
-        ofType<masterAction.GetProjects>(masterAction.ActionTypes.GetProjects),
-        map(action => action.payload),
+        ofType(masterAction.getProjects),
+        map(action => action),
         mergeMap(async () => {
             try {
                 await this.cinerino.getServices();
@@ -42,9 +42,9 @@ export class MasterEffects {
                     await sleep(500);
                 }
 
-                return new masterAction.GetProjectsSuccess({ projects });
+                return masterAction.getProjectsSuccess({ projects });
             } catch (error) {
-                return new masterAction.GetProjectsFail({ error: error });
+                return masterAction.getProjectsFail({ error: error });
             }
         })
     );

@@ -3,11 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  BsDatepickerModule,
-  ModalModule,
-  PaginationModule
-} from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { BaseComponent } from './components/pages/base/base.component';
 import { AccountChargeModalComponent } from './components/parts/account/charge-modal/charge-modal.component';

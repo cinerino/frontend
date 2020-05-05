@@ -35,12 +35,14 @@
     "suppressExcessPropertyErrors": false,
     "suppressImplicitAnyIndexErrors": false
   },
-  "exclude": [
-    "test.ts",
-    "**/*.d.ts",
-    "**/*.spec.ts"
-  ],
   "angularCompilerOptions": {
     "disableTypeScriptVersionCheck": true
-  }
+  },
+  "files": [
+    "main.ts",
+    "polyfills.ts"
+  ],
+  "include": [
+    "src/client/**/*.d.ts"
+  ]
 }

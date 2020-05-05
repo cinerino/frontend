@@ -37,8 +37,8 @@ export class OrderEffects {
      */
     @Effect()
     public cancel = this.actions.pipe(
-        ofType<orderAction.Cancel>(orderAction.ActionTypes.Cancel),
-        map(action => action.payload),
+        ofType(orderAction.cancel),
+        map(action => action),
         mergeMap(async (payload) => {
             const environment = getEnvironment();
             const orders = payload.orders;
@@ -161,9 +161,9 @@ export class OrderEffects {
                 };
                 await orderStatusWatch();
 
-                return new orderAction.CancelSuccess();
+                return orderAction.cancelSuccess();
             } catch (error) {
-                return new orderAction.CancelFail({ error: error });
+                return orderAction.cancelFail({ error: error });
             }
         })
     );
@@ -173,8 +173,8 @@ export class OrderEffects {
      */
     @Effect()
     public load = this.actions.pipe(
-        ofType<orderAction.Inquiry>(orderAction.ActionTypes.Inquiry),
-        map(action => action.payload),
+        ofType(orderAction.inquiry),
+        map(action => action),
         mergeMap(async (payload) => {
             try {
                 const environment = getEnvironment();
@@ -198,9 +198,9 @@ export class OrderEffects {
                 };
                 const order = await this.cinerino.order.findByConfirmationNumber(params);
 
-                return new orderAction.InquirySuccess({ order });
+                return orderAction.inquirySuccess({ order });
             } catch (error) {
-                return new orderAction.InquiryFail({ error: error });
+                return orderAction.inquiryFail({ error: error });
             }
         })
     );
@@ -210,8 +210,8 @@ export class OrderEffects {
      */
     @Effect()
     public print = this.actions.pipe(
-        ofType<orderAction.Print>(orderAction.ActionTypes.Print),
-        map(action => action.payload),
+        ofType(orderAction.print),
+        map(action => action),
         mergeMap(async (payload) => {
             try {
                 const environment = getEnvironment();
@@ -325,9 +325,9 @@ export class OrderEffects {
                         break;
                 }
 
-                return new orderAction.PrintSuccess();
+                return orderAction.printSuccess();
             } catch (error) {
-                return new orderAction.PrintFail({ error: error });
+                return orderAction.printFail({ error: error });
             }
         })
     );
@@ -337,16 +337,16 @@ export class OrderEffects {
      */
     @Effect()
     public orderAuthorize = this.actions.pipe(
-        ofType<orderAction.OrderAuthorize>(orderAction.ActionTypes.OrderAuthorize),
-        map(action => action.payload),
+        ofType(orderAction.orderAuthorize),
+        map(action => action),
         mergeMap(async (payload) => {
             try {
                 const params = Object.assign({ personId: 'me' }, payload);
                 await this.cinerino.getServices();
                 const order = await this.cinerino.order.authorizeOwnershipInfos(params);
-                return new orderAction.OrderAuthorizeSuccess({ order });
+                return orderAction.orderAuthorizeSuccess({ order });
             } catch (error) {
-                return new orderAction.OrderAuthorizeFail({ error: error });
+                return orderAction.orderAuthorizeFail({ error: error });
             }
         })
     );

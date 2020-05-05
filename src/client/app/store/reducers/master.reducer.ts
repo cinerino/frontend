@@ -1,4 +1,5 @@
 import { factory } from '@cinerino/api-javascript-client';
+import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
 import { masterAction } from '../actions';
 
@@ -13,34 +14,23 @@ export const masterInitialState: IMasterState = {
     projects: []
 };
 
-/**
- * Reducer
- * @param state
- * @param action
- */
-export function reducer(state: IState, action: masterAction.Actions): IState {
-    switch (action.type) {
-        case masterAction.ActionTypes.Delete: {
-            state.masterData = {
-                projects: []
-            };
-            return { ...state };
-        }
-        case masterAction.ActionTypes.GetProjects: {
+export function reducer(initialState: IState, action: Action) {
+    return createReducer(
+        initialState,
+        on(masterAction.remove, state => {
+            return { ...state, masterData: { projects: [] } };
+        }),
+        on(masterAction.getProjects, (state) => {
             return { ...state, loading: true, process: 'masterAction.GetProjects' };
-        }
-        case masterAction.ActionTypes.GetProjectsSuccess: {
-            const projects = action.payload.projects;
-            state.masterData.projects = projects;
+        }),
+        on(masterAction.getProjectsSuccess, (state, payload) => {
+            const projects = payload.projects;
 
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case masterAction.ActionTypes.GetProjectsFail: {
-            const error = action.payload.error;
+            return { ...state, masterData: { projects }, loading: false, process: '', error: null };
+        }),
+        on(masterAction.getProjectsFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        default: {
-            return state;
-        }
-    }
+        }),
+    )(initialState, action);
 }
