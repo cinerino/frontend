@@ -1,0 +1,37 @@
+<div class="contents-width mx-auto px-3 py-5">
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.seat.title' | translate }}</h2>
+    <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.seat.read' | translate"></p>
+    <div class="row">
+        <div class="col-lg-9">
+            <app-screen *ngIf="(purchase | async).theater 
+                && screeningEventSeats.length > 0 
+                && (purchase | async).screen" class="mb-4"
+                [theaterCode]="(purchase | async).theater.branchCode"
+                [screenCode]="(purchase | async).screen.branchCode"
+                [screeningEventSeats]="screeningEventSeats"
+                [openSeatingAllowed]="(purchase | async).screen.openSeatingAllowed"
+                [reservations]="(purchase | async).reservations"
+                [authorizeSeatReservation]="(purchase | async).authorizeSeatReservation" (select)="selectSeat($event)">
+            </app-screen>
+            <div *ngIf="(purchase | async).screen?.openSeatingAllowed" class="mb-4">
+                <div class="d-flex align-items-center">
+                    <p class="mr-2">{{ 'purchase.event.seat.openSeating' | translate }}</p>
+                    <select class="form-control d-inline-block w-auto" (change)="selectOpenSeating($event)" [ngModel]="(purchase | async).reservations.length">
+                        <option value="0">0</option>
+                        <option *ngFor="let value of remainingAttendeeCapacityValue((purchase | async).screeningEvent, screeningEventSeats)" [value]="value">{{ value }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
+        </div>
+    </div>
+
+    <div class="buttons mx-auto text-center">
+        <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+            (click)="onSubmit()">{{ 'purchase.event.seat.next' | translate }}</button>
+        <button type="button" class="btn btn-link" (click)="prev()">{{ 'purchase.event.seat.prev' | translate }}</button>
+    </div>
+
+</div>
