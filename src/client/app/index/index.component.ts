@@ -24,7 +24,6 @@ export class IndexComponent implements OnInit {
     public async ngOnInit() {
         const environment = getEnvironment();
         const navigate = environment.BASE_URL;
-        console.warn(this.router.url, navigate);
         setTimeout(() => {
             this.router.navigate([navigate]);
         }, 0);

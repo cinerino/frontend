@@ -62102,7 +62102,6 @@ var IndexComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
                 navigate = environment.BASE_URL;
-                console.warn(this.router.url, navigate);
                 setTimeout(function () {
                     _this.router.navigate([navigate]);
                 }, 0);
