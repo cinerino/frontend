@@ -12,6 +12,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
 import { getTranslateModuleConfig } from './functions/translate.function';
+import { IndexComponent } from './index/index.component';
 import { CoreModule } from './modules/core/core.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { StoreModule } from './store.module';
@@ -20,6 +21,7 @@ import { CoreStoreModule } from './store/core/store';
 @NgModule({
     declarations: [
         AppComponent,
+        IndexComponent
     ],
     imports: [
         BrowserModule,

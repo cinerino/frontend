@@ -173,8 +173,8 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: true, process: 'purchaseAction.GetPreScheduleDates' };
         }),
         on(purchaseAction.getPreScheduleDatesSuccess, (state, payload) => {
-            const sheduleDates = payload.sheduleDates;
-            return { ...state, purchaseData: { ...state.purchaseData, sheduleDates }, loading: false, process: '', error: null };
+            const preScheduleDates = payload.sheduleDates;
+            return { ...state, purchaseData: { ...state.purchaseData, preScheduleDates }, loading: false, process: '', error: null };
         }),
         on(purchaseAction.getPreScheduleDatesFail, (state, payload) => {
             const error = payload.error;
@@ -525,11 +525,13 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(purchaseAction.createGmoTokenObjectSuccess, (state, payload) => {
             const gmoTokenObject = payload.gmoTokenObject;
+            const creditCard = payload.gmoTokenObject;
             return {
                 ...state,
                 purchaseData: {
                     ...state.purchaseData,
-                    gmoTokenObject
+                    gmoTokenObject,
+                    creditCard
                 }, loading: false, process: '', error: null
             };
         }),

@@ -22,30 +22,35 @@
         background-color: #000;
         opacity: 0.3;
     }
-    // .swiper-button-next,
-    // .swiper-button-prev {
-    //     width: 27px;
-    //     height: 27px;
-    //     background-image: url(/assets/images/icon/slider_arrow.svg);
-    //     background-size: 27px;
-    //     margin-top: -13px;
-    // }
+    .swiper-button-next,
+    .swiper-button-prev {
+        top: 0;
+        bottom: 0;
+        margin-top: 0;
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 60%;
+        &::after {
+            display: none;
+        }
+    }
 
     .swiper-button-next {
-        right: -38px;
+        right: 0px;
     }
 
     .swiper-button-prev {
-        left: -38px;
+        left: 0px;
         // transform: rotate(180deg);
     }
 
     .swiper-button-prev,
     .swiper-container-rtl .swiper-button-next {
-        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23666666'%2F%3E%3C%2Fsvg%3E");
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E");
     }
     .swiper-button-next,
     .swiper-container-rtl .swiper-button-prev {
-        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23666666'%2F%3E%3C%2Fsvg%3E");
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E");
     }
 }

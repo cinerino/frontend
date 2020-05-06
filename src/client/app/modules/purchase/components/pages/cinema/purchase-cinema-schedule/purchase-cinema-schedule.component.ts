@@ -57,8 +57,8 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             freeMode: true,
             breakpoints: {
                 320: { slidesPerView: 2 },
-                767: { slidesPerView: 3 },
-                1024: { slidesPerView: 5 }
+                767: { slidesPerView: 4 },
+                1024: { slidesPerView: 7 }
             },
             navigation: {
                 nextEl: '.schedule-slider .swiper-button-next',
@@ -109,10 +109,6 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             }
         } else {
             this.scheduleDates = purchase.preScheduleDates;
-        }
-        if (purchase.seller === undefined) {
-            this.router.navigate(['/error']);
-            return;
         }
         this.selectDate();
         this.isPreSchedule = !this.isPreSchedule;
@@ -244,8 +240,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             this.router.navigate(['/error']);
             return;
         }
-        if (this.environment.PURCHASE_CART
-            && purchase.transaction !== undefined
+        if (purchase.transaction !== undefined
             && purchase.authorizeSeatReservations.length > 0) {
             this.openTransactionModal();
             return;

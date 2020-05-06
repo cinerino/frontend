@@ -54,7 +54,7 @@
               ],
               "outputPath": "./dist/client/development",
               "sourceMap": false,
-              "aot": false
+              "aot": true
             },
             "production": {
               "budgets": [

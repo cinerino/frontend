@@ -25,7 +25,7 @@
     </div>
 </div>
 <div [class.d-none]="scheduleDates.length === 0" class="bg-light-gray">
-    <div class="contents-width mx-auto px-5 py-4">
+    <div class="contents-width mx-auto py-4 px-3">
         <div class="position-relative schedule-slider">
             <div class="swiper-container date" #swiper [swiper]="swiperConfig" (resize)="resize()">
                 <div class="swiper-wrapper">
@@ -35,8 +35,7 @@
                             [class.bg-primary]="scheduleDate === (purchase | async).scheduleDate"
                             (click)="selectDate(scheduleDate)">
                             <div>
-                                {{ moment(scheduleDate).format('MM') }}/<span class="text-large">{{
-                                  moment(scheduleDate).format('DD') }}</span>({{ scheduleDate | formatDate: 'ddd' }})
+                                <p>{{ moment(scheduleDate).format('MM/DD(ddd)') }}</p>
                             </div>
                         </div>
                     </div>

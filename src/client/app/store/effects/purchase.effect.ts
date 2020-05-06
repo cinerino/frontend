@@ -341,13 +341,13 @@ export class PurchaseEffects {
             try {
                 const transaction = payload.transaction;
                 const profile = payload.profile;
-                if (profile.telephone !== undefined) {
-                    profile.telephone = formatTelephone(profile.telephone);
-                }
                 await this.cinerinoService.getServices();
                 await this.cinerinoService.transaction.placeOrder.setProfile({
                     id: transaction.id,
-                    agent: profile
+                    agent: {
+                        ...profile,
+                        telephone: (profile.telephone === undefined) ? undefined : formatTelephone(profile.telephone)
+                    }
                 });
 
                 return purchaseAction.registerContactSuccess({ profile });
@@ -634,8 +634,8 @@ export class PurchaseEffects {
                 if (screeningEvent.superEvent.offers === undefined
                     || screeningEvent.superEvent.offers.seller === undefined
                     || screeningEvent.superEvent.offers.seller.id === undefined) {
-                        throw new Error('screeningEvent.superEvent.offers.seller.id undefined');
-                    }
+                    throw new Error('screeningEvent.superEvent.offers.seller.id undefined');
+                }
                 const seller = await this.cinerinoService.seller.findById({ id: screeningEvent.superEvent.offers.seller.id });
                 return purchaseAction.convertExternalToPurchaseSuccess({ screeningEvent, seller });
             } catch (error) {

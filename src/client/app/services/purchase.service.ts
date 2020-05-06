@@ -93,24 +93,23 @@ export class PurchaseService {
     /**
      * 先行販売日取得
      */
-    public getPreScheduleDates() {
-        return new Promise<void>((resolve, reject) => {
-            this.purchase.subscribe((purchase) => {
-                if (purchase.theater === undefined) {
-                    reject();
-                    return;
+    public async getPreScheduleDates() {
+        return new Promise<void>(async (resolve, reject) => {
+            const purchase = await this.getData();
+            if (purchase.theater === undefined) {
+                reject();
+                return;
+            }
+            const external = getExternalData();
+            const theater = purchase.theater;
+            this.store.dispatch(purchaseAction.getPreScheduleDates({
+                superEvent: {
+                    ids: (external.superEventId === undefined) ? [] : [external.superEventId],
+                    locationBranchCodes: (theater.branchCode === undefined) ? [] : [theater.branchCode],
+                    workPerformedIdentifiers: (external.workPerformedId === undefined)
+                        ? [] : [external.workPerformedId]
                 }
-                const external = getExternalData();
-                const theater = purchase.theater;
-                this.store.dispatch(purchaseAction.getPreScheduleDates({
-                    superEvent: {
-                        ids: (external.superEventId === undefined) ? [] : [external.superEventId],
-                        locationBranchCodes: (theater.branchCode === undefined) ? [] : [theater.branchCode],
-                        workPerformedIdentifiers: (external.workPerformedId === undefined)
-                            ? [] : [external.workPerformedId]
-                    }
-                }));
-            }).unsubscribe();
+            }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.getPreScheduleDatesSuccess.type),
                 tap(() => { resolve(); })

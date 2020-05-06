@@ -65,30 +65,29 @@ export class PurchaseSeatComponent implements OnInit {
     /**
      * 座席選択
      */
-    public selectSeat(data: {
+    public async selectSeat(data: {
         seat: IReservationSeat,
         status: SeatStatus
     }) {
-        this.purchase.subscribe((purchase) => {
-            if (data.status === SeatStatus.Default) {
-                if (purchase.screeningEvent !== undefined
-                    && purchase.screeningEvent.offers !== undefined
-                    && purchase.screeningEvent.offers.eligibleQuantity.maxValue !== undefined
-                    && purchase.reservations.length >= purchase.screeningEvent.offers.eligibleQuantity.maxValue) {
-                    this.utilService.openAlert({
-                        title: this.translate.instant('common.error'),
-                        body: this.translate.instant(
-                            `${this.translateName}.alert.limit`,
-                            { value: purchase.screeningEvent.offers.eligibleQuantity.maxValue }
-                        )
-                    });
-                    return;
-                }
-                this.purchaseService.selectSeats([data.seat]);
-            } else {
-                this.purchaseService.cancelSeats([data.seat]);
+        const purchase = await this.purchaseService.getData();
+        if (data.status === SeatStatus.Default) {
+            if (purchase.screeningEvent !== undefined
+                && purchase.screeningEvent.offers !== undefined
+                && purchase.screeningEvent.offers.eligibleQuantity.maxValue !== undefined
+                && purchase.reservations.length >= purchase.screeningEvent.offers.eligibleQuantity.maxValue) {
+                this.utilService.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant(
+                        `${this.translateName}.alert.limit`,
+                        { value: purchase.screeningEvent.offers.eligibleQuantity.maxValue }
+                    )
+                });
+                return;
             }
-        }).unsubscribe();
+            this.purchaseService.selectSeats([data.seat]);
+        } else {
+            this.purchaseService.cancelSeats([data.seat]);
+        }
     }
 
     /**

@@ -5,10 +5,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { getEnvironment } from '../environments/environment';
 import { AuthGuardService, ProjectGuardService } from './canActivates';
+import { IndexComponent } from './index/index.component';
 import { ErrorModule } from './modules/error/error.module';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: getEnvironment().BASE_URL.replace('\/', ''), pathMatch: 'full' },
+    // { path: '', redirectTo: '/index', pathMatch: 'full' },
+    { path: '', component: IndexComponent },
     {
         path: 'purchase',
         canActivate: [ProjectGuardService],

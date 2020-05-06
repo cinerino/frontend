@@ -99,7 +99,7 @@ export class PurchaseTicketComponent implements OnInit {
                 screeningEventSeats
             });
             const navigate = (this.environment.VIEW_TYPE === 'cinema')
-                ? '/purchase/payment'
+                ? '/purchase/input'
                 : '/purchase/event/ticket';
             this.router.navigate([navigate]);
         } catch (error) {
