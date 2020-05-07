@@ -15,7 +15,7 @@ export class NumericKeypadComponent implements OnInit {
     @Output() public change = new EventEmitter<string>();
     @Output() public hidden = new EventEmitter<string>();
     @ViewChild('trigger', { static: true }) private trigger: { nativeElement: HTMLElement };
-    @ViewChild('keypad', { static: false }) private keypad: { nativeElement: HTMLElement };
+    @ViewChild('keypad') private keypad: { nativeElement: HTMLElement };
     constructor() { }
 
     public ngOnInit() {

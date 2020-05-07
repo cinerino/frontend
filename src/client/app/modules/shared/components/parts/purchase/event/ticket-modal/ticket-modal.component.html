@@ -82,7 +82,7 @@
     <div class="buttons mx-auto text-center text-center">
         <button [disabled]="selectedTickets && createReservations().length === 0" type="button"
             class="btn btn-primary btn-block py-3 mb-3"
-            (click)="close(createReservations())">{{ 'purchase.event.ticket.next' | translate }}</button>
+            (click)="close()">{{ 'purchase.event.ticket.next' | translate }}</button>
         <button type="button" class="btn btn-link btn-sm"
             (click)="modal.hide()">{{ 'common.close' | translate }}</button>
     </div>

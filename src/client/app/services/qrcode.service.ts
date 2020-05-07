@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { QRCodeReaderModalComponent } from '../modules/shared/components/parts/qrcode/reader-modal/reader-modal.component';
 import { QRCodeViewerModalComponent } from '../modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component';
 

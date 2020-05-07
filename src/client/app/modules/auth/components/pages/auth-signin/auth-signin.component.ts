@@ -30,7 +30,7 @@ export class AuthSigninComponent implements OnInit {
         this.process = this.store.pipe(select(reducers.getProcess));
         this.purchaseService.delete();
         this.userService.delete();
-        this.userService.initialize();
+        this.userService.initialize({ isMember: true });
         this.orderService.delete();
 
         try {

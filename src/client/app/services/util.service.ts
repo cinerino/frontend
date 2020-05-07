@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
-import { BsModalService } from 'ngx-bootstrap';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { AlertModalComponent } from '../modules/shared/components/parts/alert-modal/alert-modal.component';
 import { ConfirmModalComponent } from '../modules/shared/components/parts/confirm-modal/confirm-modal.component';
 import { utilAction } from '../store/actions';
@@ -124,22 +124,22 @@ export class UtilService {
     /**
      * ローディング開始
      */
-    public loadStart(params?: { process: string }) {
-        this.store.dispatch(new utilAction.LoadStart(params));
+    public loadStart(params: { process: string }) {
+        this.store.dispatch(utilAction.loadStart(params));
     }
 
     /**
      * ローディング終了
      */
     public loadEnd() {
-        this.store.dispatch(new utilAction.LoadEnd());
+        this.store.dispatch(utilAction.loadEnd());
     }
 
     /**
      * エラー設定
      */
     public setError(erorr: any) {
-        this.store.dispatch(new utilAction.SetError(erorr));
+        this.store.dispatch(utilAction.setError(erorr));
     }
 
 }

@@ -1,4 +1,5 @@
 import { factory } from '@cinerino/api-javascript-client';
+import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
 import { getEnvironment } from '../../../environments/environment';
 import { orderAction } from '../actions';
@@ -16,69 +17,58 @@ export const orderInitialState: IOrderState = {
     pageCount: 1
 };
 
-/**
- * Reducer
- * @param state
- * @param action
- */
-export function reducer(state: IState, action: orderAction.Actions): IState {
+export function reducer(initialState: IState, action: Action) {
     const environment = getEnvironment();
-    switch (action.type) {
-        case orderAction.ActionTypes.Delete: {
-            state.orderData = {
+    return createReducer(
+        initialState,
+        on(orderAction.remove, state => {
+            return { ...state, orderData: {
                 orders: [],
                 totalCount: 0,
                 pageCount: 1
-            };
-            return { ...state };
-        }
-        case orderAction.ActionTypes.Cancel: {
+            } };
+        }),
+        on(orderAction.cancel, (state) => {
             return { ...state, loading: true, process: 'orderAction.Cancel' };
-        }
-        case orderAction.ActionTypes.CancelSuccess: {
+        }),
+        on(orderAction.cancelSuccess, (state) => {
             return { ...state, loading: false, process: '', error: null };
-        }
-        case orderAction.ActionTypes.CancelFail: {
-            const error = action.payload.error;
+        }),
+        on(orderAction.cancelFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case orderAction.ActionTypes.Inquiry: {
+        }),
+        on(orderAction.inquiry, (state) => {
             return { ...state, loading: true, process: 'orderAction.Inquiry' };
-        }
-        case orderAction.ActionTypes.InquirySuccess: {
-            const order = action.payload.order;
-            state.orderData.order = order;
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case orderAction.ActionTypes.InquiryFail: {
-            const error = action.payload.error;
+        }),
+        on(orderAction.inquirySuccess, (state, payload) => {
+            const order = payload.order;
+            return { ...state, orderData: { ...state.orderData, order }, loading: false, process: '', error: null };
+        }),
+        on(orderAction.inquiryFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case orderAction.ActionTypes.OrderAuthorize: {
-            return { ...state, loading: true, process: 'orderAction.OrderAuthorize', };
-        }
-        case orderAction.ActionTypes.OrderAuthorizeSuccess: {
-            const authorizeOrder = action.payload.order;
-            state.orderData.order = authorizeOrder;
-
-            return { ...state, loading: false, process: '', error: null };
-        }
-        case orderAction.ActionTypes.OrderAuthorizeFail: {
-            const error = action.payload.error;
-            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        case orderAction.ActionTypes.Print: {
+        }),
+        on(orderAction.print, (state) => {
             return { ...state, loading: environment.PRINT_LOADING, process: 'orderAction.Print' };
-        }
-        case orderAction.ActionTypes.PrintSuccess: {
+        }),
+        on(orderAction.printSuccess, (state) => {
             return { ...state, loading: false, process: '', error: null };
-        }
-        case orderAction.ActionTypes.PrintFail: {
-            const error = action.payload.error;
+        }),
+        on(orderAction.printFail, (state, payload) => {
+            const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
-        }
-        default: {
-            return state;
-        }
-    }
+        }),
+        on(orderAction.orderAuthorize, (state) => {
+            return { ...state, loading: true, process: 'orderAction.OrderAuthorize' };
+        }),
+        on(orderAction.orderAuthorizeSuccess, (state, payload) => {
+            const order = payload.order;
+            return { ...state, orderData: { ...state.orderData, order }, loading: false, process: '', error: null };
+        }),
+        on(orderAction.orderAuthorizeFail, (state, payload) => {
+            const error = payload.error;
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
+        })
+    )(initialState, action);
 }

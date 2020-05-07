@@ -11,6 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/client",
             "index": "src/client/index.html",
             "main": "src/client/main.ts",
@@ -23,26 +24,45 @@
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/client/styles.scss",
-              "node_modules/swiper/dist/css/swiper.css"
+              "node_modules/swiper/css/swiper.css"
             ],
             "scripts": [
               "src/client/assets/lib/star-web-print/StarWebPrintTrader.js",
               "src/client/assets/lib/star-web-print/StarWebPrintBuilder.js",
-              "node_modules/swiper/dist/js/swiper.js",
+              "node_modules/swiper/js/swiper.js",
               "src/client/assets/lib/ejs.min.js"
             ]
           },
           "configurations": {
             "local": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "15kb"
+                }
+              ],
               "outputPath": "./dist/client/development",
               "watch": true,
               "aot": false
             },
             "development": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "15kb"
+                }
+              ],
               "outputPath": "./dist/client/development",
-              "aot": false
+              "sourceMap": false,
+              "aot": true
             },
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "15kb"
+                }
+              ],
               "outputPath": "./dist/client/production",
               "optimization": true,
               "outputHashing": "all",
@@ -149,15 +169,15 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
-      "styleext": "scss",
-      "spec": false
+      "style": "scss",
+      "skipTests": true
     },
     "@schematics/angular:directive": {
       "prefix": "app"
     }
   },
   "cli": {
-    "warnings": {
-    }
+    "warnings": {},
+    "analytics": "fe747f02-b465-4e19-990a-cedc78677a31"
   }
 }

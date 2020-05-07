@@ -36,7 +36,7 @@ export class OrderService {
      * 注文データ削除
      */
     public delete() {
-        this.store.dispatch(new orderAction.Delete());
+        this.store.dispatch(orderAction.remove());
     }
 
     /**
@@ -47,13 +47,13 @@ export class OrderService {
         language: string;
     }) {
         return new Promise((resolve, reject) => {
-            this.store.dispatch(new orderAction.Cancel(params));
+            this.store.dispatch(orderAction.cancel(params));
             const success = this.actions.pipe(
-                ofType(orderAction.ActionTypes.CancelSuccess),
+                ofType(orderAction.cancelSuccess.type),
                 tap(() => { resolve(); })
             );
             const fail = this.actions.pipe(
-                ofType(orderAction.ActionTypes.CancelFail),
+                ofType(orderAction.cancelFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -71,13 +71,13 @@ export class OrderService {
         }
     }) {
         return new Promise((resolve, reject) => {
-            this.store.dispatch(new orderAction.Inquiry(params));
+            this.store.dispatch(orderAction.inquiry(params));
             const success = this.actions.pipe(
-                ofType(orderAction.ActionTypes.InquirySuccess),
+                ofType(orderAction.inquirySuccess.type),
                 tap(() => { resolve(); })
             );
             const fail = this.actions.pipe(
-                ofType(orderAction.ActionTypes.InquiryFail),
+                ofType(orderAction.inquiryFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -97,13 +97,13 @@ export class OrderService {
             const orders = prams.orders;
             const pos = prams.pos;
             const printer = prams.printer;
-            this.store.dispatch(new orderAction.Print({ orders, pos, printer }));
+            this.store.dispatch(orderAction.print({ orders, pos, printer }));
             const success = this.actions.pipe(
-                ofType(orderAction.ActionTypes.PrintSuccess),
+                ofType(orderAction.printSuccess.type),
                 tap(() => { resolve(); })
             );
             const fail = this.actions.pipe(
-                ofType(orderAction.ActionTypes.PrintFail),
+                ofType(orderAction.printFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
@@ -115,19 +115,19 @@ export class OrderService {
      */
     public async authorize(order: factory.order.IOrder) {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(new orderAction.OrderAuthorize({
+            this.store.dispatch(orderAction.orderAuthorize({
                 orderNumber: order.orderNumber,
                 customer: {
                     telephone: order.customer.telephone
                 }
             }));
             const success = this.actions.pipe(
-                ofType(orderAction.ActionTypes.OrderAuthorizeSuccess),
+                ofType(orderAction.orderAuthorizeSuccess.type),
                 tap(() => { resolve(); })
             );
 
             const fail = this.actions.pipe(
-                ofType(orderAction.ActionTypes.OrderAuthorizeFail),
+                ofType(orderAction.orderAuthorizeFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();

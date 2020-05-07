@@ -43,7 +43,8 @@ export class PurchaseCinemaCartComponent implements OnInit {
      * 仮予約削除確認
      * @param authorizeSeatReservation
      */
-    public removeItem(authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>) {
+    public removeItem(
+        authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>) {
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('purchase.cinema.cart.confirm.cancel'),
