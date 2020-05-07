@@ -55,6 +55,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         this.error = this.store.pipe(select(reducers.getError));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.screeningWorkEvents = [];
+        this.purchaseService.unsettledDelete();
         try {
             await this.getSchedule();
         } catch (error) {
@@ -134,6 +135,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             await this.purchaseService.getScreeningEvent(screeningEvent);
             this.screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
             await this.purchaseService.getTicketList();
+            await this.purchaseService.getScreen({ branchCode: { $eq: screeningEvent.location.branchCode } });
             this.openTicketList();
         } catch (error) {
             this.utilService.openAlert({
@@ -146,26 +148,38 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     /**
      * 券種一覧表示
      */
-    private openTicketList() {
-        this.purchase.subscribe((purchase) => {
-            const screeningEvent = purchase.screeningEvent;
-            const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
-            const screeningEventSeats = this.screeningEventSeats;
-            this.modal.show(PurchaseEventTicketModalComponent, {
-                initialState: {
-                    screeningEventTicketOffers,
-                    screeningEventSeats,
-                    screeningEvent,
-                    cb: (params: {
-                        reservations: IReservation[];
-                        additionalTicketText?: string;
-                    }) => {
-                        this.selectTicket(params);
-                    }
-                },
-                class: 'modal-dialog-centered modal-lg'
-            });
-        }).unsubscribe();
+    private async openTicketList() {
+        const purchase = await this.purchaseService.getData();
+        const screeningEvent = purchase.screeningEvent;
+        const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
+        const screeningEventSeats = this.screeningEventSeats;
+        const screen = purchase.screen;
+        if (screeningEvent === undefined || screen === undefined) {
+            return;
+        }
+        const performance = new Performance(screeningEvent);
+        if (!performance.isInfinitetock()
+            && !screen.openSeatingAllowed
+            && performance.isTicketedSeat()) {
+            // 座席選択あり
+            this.router.navigate(['/purchase/event/seat']);
+            return;
+        }
+        this.modal.show(PurchaseEventTicketModalComponent, {
+            class: 'modal-dialog-centered modal-lg',
+            backdrop: 'static',
+            initialState: {
+                screeningEventTicketOffers,
+                screeningEventSeats,
+                screeningEvent,
+                cb: (params: {
+                    reservations: IReservation[];
+                    additionalTicketText?: string;
+                }) => {
+                    this.selectTicket(params);
+                }
+            }
+        });
     }
 
     /**

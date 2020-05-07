@@ -50,6 +50,33 @@
                     "single": "入場券が含まれていませんがよろしいですか？"
                 }
             },
+            "seat": {
+                "title": "座席選択",
+                "read": "座席を選択してください。",
+                "next": "次へ",
+                "terms": "利用規約",
+                "prev": "戻る",
+                "openSeating": "座席数", 
+                "alert": {
+                    "unselected": "座席が未選択です。",
+                    "limit": "同時購入可能数は{{value}}件までです。",
+                    "temporaryReservation": "仮予約に失敗しました。",
+                    "ticketNotfound": "販売可能券種がありません。"
+                }
+            },
+            "seatTicket": {
+                "title": "チケット選択",
+                "read": "チケットを選択してください。",
+                "unselected": "チケットを選択してください",
+                "mvtk": "ムビチケ券を利用される方",
+                "next": "次へ",
+                "prev": "戻る",
+                "addOn": "オプション選択",
+                "alert": {
+                    "unselected": "チケットが未選択です。",
+                    "ticketCondition": "割引券の適用条件を再度ご確認ください。"
+                }
+            },
             "cart": {
                 "title": "選択中チケット",
                 "read": "選択中チケットをご確認ください。",

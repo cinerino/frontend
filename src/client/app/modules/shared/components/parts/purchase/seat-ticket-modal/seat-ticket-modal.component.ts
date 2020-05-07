@@ -1,18 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { BsModalRef } from 'ngx-bootstrap';
-import { isEligibleSeatingType } from '../../../../../../../functions';
-import { IMovieTicket, IReservation, IReservationTicket } from '../../../../../../../models';
+import { isEligibleSeatingType } from '../../../../../../functions';
+import { IMovieTicket, IReservation, IReservationTicket } from '../../../../../../models';
 
 type IMovieTicketTypeChargeSpecification =
     factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification>;
 
 @Component({
-    selector: 'app-purchase-cinema-ticket-modal',
-    templateUrl: './ticket-modal.component.html',
-    styleUrls: ['./ticket-modal.component.scss']
+    selector: 'app-purchase-seat-ticket-modal',
+    templateUrl: './seat-ticket-modal.component.html',
+    styleUrls: ['./seat-ticket-modal.component.scss']
 })
-export class PurchaseCinemaTicketModalComponent implements OnInit {
+export class PurchaseSeatTicketModalComponent implements OnInit {
 
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     @Input() public checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];

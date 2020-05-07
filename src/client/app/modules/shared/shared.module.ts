@@ -29,8 +29,8 @@ import { ItemListComponent } from './components/parts/item-list/item-list.compon
 import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MvtkCheckModalComponent } from './components/parts/mvtk/check-modal/check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
-import { PurchaseCinemaTicketModalComponent } from './components/parts/purchase/cinema/ticket-modal/ticket-modal.component';
 import { PurchaseEventTicketModalComponent } from './components/parts/purchase/event/ticket-modal/ticket-modal.component';
+import { PurchaseSeatTicketModalComponent } from './components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
 import { PurchaseTransactionModalComponent } from './components/parts/purchase/transaction-modal/transaction-modal.component';
 import { QRCodeReaderModalComponent } from './components/parts/qrcode/reader-modal/reader-modal.component';
 import { QRCodeViewerModalComponent } from './components/parts/qrcode/viewer-modal/viewer-modal.component';
@@ -60,7 +60,7 @@ const entryComponents = [
   AccountChargeModalComponent,
   AccountTransferModalComponent,
   AccountOpenModalComponent,
-  PurchaseCinemaTicketModalComponent,
+  PurchaseSeatTicketModalComponent,
   PurchaseEventTicketModalComponent,
   PurchaseTransactionModalComponent,
   MvtkCheckModalComponent,

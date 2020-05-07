@@ -12,26 +12,36 @@ const appRoutes: Routes = [
     {
         path: 'purchase',
         canActivate: [ProjectGuardService],
-        loadChildren: () => import('./modules/purchase/purchase.module').then(m => m.PurchaseModule)
+        loadChildren: () => import('./modules/purchase/purchase.module')
+            .then(m => m.PurchaseModule)
+            .catch(() => location.reload())
     },
     {
         path: 'auth',
-        loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+        loadChildren: () => import('./modules/auth/auth.module')
+            .then(m => m.AuthModule)
+            .catch(() => location.reload())
     },
     {
         path: 'inquiry',
         canActivate: [ProjectGuardService],
-        loadChildren: () => import('./modules/inquiry/inquiry.module').then(m => m.InquiryModule)
+        loadChildren: () => import('./modules/inquiry/inquiry.module')
+            .then(m => m.InquiryModule)
+            .catch(() => location.reload())
     },
     {
         path: 'mypage',
         canActivate: [ProjectGuardService, AuthGuardService],
-        loadChildren: () => import('./modules/mypage/mypage.module').then(m => m.MypageModule)
+        loadChildren: () => import('./modules/mypage/mypage.module')
+            .then(m => m.MypageModule)
+            .catch(() => location.reload())
     },
     {
         path: 'setting',
         canActivate: [ProjectGuardService, AuthGuardService],
-        loadChildren: () => import('./modules/setting/setting.module').then(m => m.SettingModule)
+        loadChildren: () => import('./modules/setting/setting.module')
+            .then(m => m.SettingModule)
+            .catch(() => location.reload())
     },
     {
         path: '',
