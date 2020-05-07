@@ -115,7 +115,7 @@ export class MasterService {
                 });
                 screeningEvents = screeningEvents.concat(searchResult.data);
                 page++;
-                roop = searchResult.data.length > 0;
+                roop = searchResult.data.length === limit;
                 await sleep(500);
             }
             // 公開日順（降順）へソート
