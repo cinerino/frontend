@@ -117622,7 +117622,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           process: '',
           error: null
         });
-      }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTemporaryReservationsFail, function (state, payload) {
+      }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].temporaryReservationFail, function (state, payload) {
         var error = payload.error;
         return Object.assign(Object.assign({}, state), {
           loading: false,

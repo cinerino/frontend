@@ -79355,7 +79355,7 @@ function reducer(initialState, action) {
                 reservations,
                 authorizeSeatReservations,
                 pendingMovieTickets }), loading: false, process: '', error: null });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTemporaryReservationsFail, (state, payload) => {
+    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].temporaryReservationFail, (state, payload) => {
         const error = payload.error;
         return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTemporaryReservations, (state) => {
