@@ -1,5 +1,5 @@
+import { Action } from '@ngrx/store';
 import { getEnvironment } from '../../../environments/environment';
-import { masterAction, orderAction, purchaseAction, userAction, utilAction } from '../actions';
 import * as masterReducer from './master.reducer';
 import * as orderReducer from './order.reducer';
 import * as purchaseReducer from './purchase.reducer';
@@ -48,14 +48,6 @@ function getInitialState(): IState {
     return data;
 }
 
-type Actions =
-    purchaseAction.Actions
-    | userAction.Actions
-    | masterAction.Actions
-    | orderAction.Actions
-    | utilAction.Actions;
-
-
 /**
  * Reducer
  * @param state
@@ -63,18 +55,18 @@ type Actions =
  */
 export function reducer(
     state = getInitialState(),
-    action: Actions
+    action: Action
 ): IState {
     if (/\[Purchase\]/.test(action.type)) {
-        return purchaseReducer.reducer(state, <purchaseAction.Actions>action);
+        return purchaseReducer.reducer(state, action);
     } else if (/\[User\]/.test(action.type)) {
-        return userReducer.reducer(state, <userAction.Actions>action);
+        return userReducer.reducer(state, action);
     } else if (/\[Master\]/.test(action.type)) {
-        return masterReducer.reducer(state, <masterAction.Actions>action);
+        return masterReducer.reducer(state, action);
     } else if (/\[Order\]/.test(action.type)) {
-        return orderReducer.reducer(state, <orderAction.Actions>action);
+        return orderReducer.reducer(state, action);
     } else if (/\[Util\]/.test(action.type)) {
-        return utilReducer.reducer(state, <utilAction.Actions>action);
+        return utilReducer.reducer(state, action);
     } else {
         return state;
     }

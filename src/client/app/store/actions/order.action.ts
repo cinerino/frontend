@@ -1,169 +1,89 @@
 import { factory } from '@cinerino/api-javascript-client';
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { IPrinter } from '../../models';
+const LABEL = '[Order]';
 
-/**
- * Action types
- */
-export enum ActionTypes {
-    Delete = '[Order] Delete',
-    Cancel = '[Order] Cancel',
-    CancelSuccess = '[Order] Cancel Success',
-    CancelFail = '[Order] Cancel Fail',
-    Inquiry = '[Order] Inquiry',
-    InquirySuccess = '[Order] Inquiry Success',
-    InquiryFail = '[Order] Inquiry Fail',
-    Print = '[Order] Print',
-    PrintSuccess = '[Order] Print Success',
-    PrintFail = '[Order] Print Fail',
-    OrderAuthorize = '[Order] Order Authorize',
-    OrderAuthorizeSuccess = '[Order] Order Authorize Success',
-    OrderAuthorizeFail = '[Order] Order Authorize Fail'
-}
+export const remove = createAction(
+    `${LABEL} remove`,
+);
 
-/**
- * Delete
- */
-export class Delete implements Action {
-    public readonly type = ActionTypes.Delete;
-    constructor(public payload?: {}) { }
-}
-
-/**
- * Cancel
- */
-export class Cancel implements Action {
-    public readonly type = ActionTypes.Cancel;
-    constructor(public payload: {
+export const cancel = createAction(
+    `${LABEL} cancel`,
+    props<{
         orders: factory.order.IOrder[];
         language: string;
         agent?: {
             identifier?: factory.person.IIdentifier;
         };
-    }) { }
-}
+    }>()
+);
 
-/**
- * CancelSuccess
- */
-export class CancelSuccess implements Action {
-    public readonly type = ActionTypes.CancelSuccess;
-    constructor(public payload?: {}) { }
-}
+export const cancelSuccess = createAction(
+    `${LABEL} cancelSuccess`,
+);
 
-/**
- * CancelFail
- */
-export class CancelFail implements Action {
-    public readonly type = ActionTypes.CancelFail;
-    constructor(public payload: { error: Error }) { }
-}
+export const cancelFail = createAction(
+    `${LABEL} cancelFail`,
+    props<{ error: Error }>()
+);
 
-
-/**
- * Inquiry
- */
-export class Inquiry implements Action {
-    public readonly type = ActionTypes.Inquiry;
-    constructor(public payload: {
+export const inquiry = createAction(
+    `${LABEL} inquiry`,
+    props<{
         confirmationNumber: string;
         customer: {
             email?: string;
             telephone?: string;
         };
-    }) { }
-}
+    }>()
+);
 
-/**
- * InquirySuccess
- */
-export class InquirySuccess implements Action {
-    public readonly type = ActionTypes.InquirySuccess;
-    constructor(public payload: { order: factory.order.IOrder }) { }
-}
+export const inquirySuccess = createAction(
+    `${LABEL} inquirySuccess`,
+    props<{ order: factory.order.IOrder }>()
+);
 
-/**
- * InquiryFail
- */
-export class InquiryFail implements Action {
-    public readonly type = ActionTypes.InquiryFail;
-    constructor(public payload: { error: Error }) { }
-}
+export const inquiryFail = createAction(
+    `${LABEL} inquiryFail`,
+    props<{ error: Error }>()
+);
 
-/**
- * Print
- */
-export class Print implements Action {
-    public readonly type = ActionTypes.Print;
-    constructor(public payload: {
+export const print = createAction(
+    `${LABEL} print`,
+    props<{
         orders: factory.order.IOrder[];
         printer: IPrinter;
         pos?: factory.chevre.place.movieTheater.IPOS;
         timeout?: number;
-    }) { }
-}
+    }>()
+);
 
-/**
- * PrintSuccess
- */
-export class PrintSuccess implements Action {
-    public readonly type = ActionTypes.PrintSuccess;
-    constructor(public payload?: {}) { }
-}
+export const printSuccess = createAction(
+    `${LABEL} printSuccess`,
+);
 
-/**
- * PrintFail
- */
-export class PrintFail implements Action {
-    public readonly type = ActionTypes.PrintFail;
-    constructor(public payload: { error: Error }) { }
-}
+export const printFail = createAction(
+    `${LABEL} printFail`,
+    props<{ error: Error }>()
+);
 
-
-/**
- * OrderAuthorize
- */
-export class OrderAuthorize implements Action {
-    public readonly type = ActionTypes.OrderAuthorize;
-    constructor(public payload: {
+export const orderAuthorize = createAction(
+    `${LABEL} orderAuthorize`,
+    props<{
         orderNumber: string;
         customer: {
             email?: string;
             telephone?: string;
         };
-    }) { }
-}
+    }>()
+);
 
-/**
- * OrderAuthorizeSuccess
- */
-export class OrderAuthorizeSuccess implements Action {
-    public readonly type = ActionTypes.OrderAuthorizeSuccess;
-    constructor(public payload: { order: factory.order.IOrder }) { }
-}
+export const orderAuthorizeSuccess = createAction(
+    `${LABEL} orderAuthorizeSuccess`,
+    props<{ order: factory.order.IOrder }>()
+);
 
-/**
- * OrderAuthorizeFail
- */
-export class OrderAuthorizeFail implements Action {
-    public readonly type = ActionTypes.OrderAuthorizeFail;
-    constructor(public payload: { error: Error }) { }
-}
-
-/**
- * Actions
- */
-export type Actions =
-    | Delete
-    | Cancel
-    | CancelSuccess
-    | CancelFail
-    | Inquiry
-    | InquirySuccess
-    | InquiryFail
-    | Print
-    | PrintSuccess
-    | PrintFail
-    | OrderAuthorize
-    | OrderAuthorizeSuccess
-    | OrderAuthorizeFail;
+export const orderAuthorizeFail = createAction(
+    `${LABEL} orderAuthorizeFail`,
+    props<{ error: Error }>()
+);

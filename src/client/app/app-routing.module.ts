@@ -5,33 +5,45 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { getEnvironment } from '../environments/environment';
 import { AuthGuardService, ProjectGuardService } from './canActivates';
+import { IndexComponent } from './index/index.component';
 import { ErrorModule } from './modules/error/error.module';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: getEnvironment().BASE_URL.replace('\/', ''), pathMatch: 'full' },
+    // { path: '', redirectTo: '/index', pathMatch: 'full' },
+    { path: '', component: IndexComponent },
     {
         path: 'purchase',
         canActivate: [ProjectGuardService],
-        loadChildren: () => import('./modules/purchase/purchase.module').then(m => m.PurchaseModule)
+        loadChildren: () => import('./modules/purchase/purchase.module')
+            .then(m => m.PurchaseModule)
+            .catch(() => location.reload())
     },
     {
         path: 'auth',
-        loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
+        loadChildren: () => import('./modules/auth/auth.module')
+            .then(m => m.AuthModule)
+            .catch(() => location.reload())
     },
     {
         path: 'inquiry',
         canActivate: [ProjectGuardService],
-        loadChildren: () => import('./modules/inquiry/inquiry.module').then(m => m.InquiryModule)
+        loadChildren: () => import('./modules/inquiry/inquiry.module')
+            .then(m => m.InquiryModule)
+            .catch(() => location.reload())
     },
     {
         path: 'mypage',
         canActivate: [ProjectGuardService, AuthGuardService],
-        loadChildren: () => import('./modules/mypage/mypage.module').then(m => m.MypageModule)
+        loadChildren: () => import('./modules/mypage/mypage.module')
+            .then(m => m.MypageModule)
+            .catch(() => location.reload())
     },
     {
         path: 'setting',
         canActivate: [ProjectGuardService, AuthGuardService],
-        loadChildren: () => import('./modules/setting/setting.module').then(m => m.SettingModule)
+        loadChildren: () => import('./modules/setting/setting.module')
+            .then(m => m.SettingModule)
+            .catch(() => location.reload())
     },
     {
         path: '',

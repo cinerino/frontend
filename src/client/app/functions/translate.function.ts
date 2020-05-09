@@ -10,7 +10,7 @@ import { getProject } from './util.function';
 /**
  * 多言語カスタムローダー
  */
-class CustomTranslateHttpLoader implements TranslateLoader {
+export class CustomTranslateHttpLoader implements TranslateLoader {
     constructor(private http: HttpClient) { }
 
     public getTranslation(lang: string) {

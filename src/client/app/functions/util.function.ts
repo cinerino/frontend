@@ -1,5 +1,5 @@
 import * as libphonenumber from 'libphonenumber-js';
-import { BsDatepickerContainerComponent, BsDatepickerDirective } from 'ngx-bootstrap';
+import { BsDatepickerContainerComponent, BsDatepickerDirective } from 'ngx-bootstrap/datepicker';
 import { CellHoverEvent } from 'ngx-bootstrap/datepicker/models';
 
 /**
@@ -108,26 +108,26 @@ export function iOSDatepickerTapBugFix(
 /**
  * ストリーミングダウンロード
  */
-export async function streamingDownload<T>(stream: ReadableStream<T>) {
-    const reader = stream.getReader();
-    const decoder = new TextDecoder();
-    let streamText = '';
-    return new Promise<string>(async (resolve, reject) => {
-        try {
-            const readChunk = async (chunk: { done: boolean; value: any; }) => {
-                if (chunk.done) {
-                    resolve(streamText);
-                    return;
-                }
-                streamText += decoder.decode(chunk.value);
-                await readChunk(await reader.read());
-            };
-            await readChunk(await reader.read());
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
+// export async function streamingDownload<T>(stream: ReadableStream<T>) {
+//     const reader = stream.getReader();
+//     const decoder = new TextDecoder();
+//     let streamText = '';
+//     return new Promise<string>(async (resolve, reject) => {
+//         try {
+//             const readChunk = async (chunk: { done: boolean; value: any; }) => {
+//                 if (chunk.done) {
+//                     resolve(streamText);
+//                     return;
+//                 }
+//                 streamText += decoder.decode(chunk.value);
+//                 await readChunk(await reader.read());
+//             };
+//             await readChunk(await reader.read());
+//         } catch (error) {
+//             reject(error);
+//         }
+//     });
+// }
 
 /**
  * 文字列をBLOB変換
@@ -221,4 +221,11 @@ export async function isFile(url: string) {
         },
     });
     return (fetchResult.ok);
+}
+
+/**
+ * オブジェクトディープコピー
+ */
+export function deepCopy<T>(obj: any) {
+    return <T>JSON.parse(JSON.stringify(obj));
 }

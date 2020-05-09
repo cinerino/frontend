@@ -12,6 +12,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.28 - 2020-04-27
+### Added
+ - イベント用テンプレートに座席選択を追加
+### Changed
+ - angular9へアップデート
+ - AOTコンパイル対応
+
 ## 3.0.27 - 2020-04-27
 ### Changed
  - 辞書ファイル分割

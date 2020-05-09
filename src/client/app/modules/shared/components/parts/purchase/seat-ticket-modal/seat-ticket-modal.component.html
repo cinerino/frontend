@@ -1,0 +1,35 @@
+<div *ngIf="!selectedTicket" class="p-3 scroll-vertical">
+    <div *ngFor="let ticket of tickets" class="ticket mb-2">
+        <button type="button" (click)="selsctTicket(ticket)" class="btn btn-block btn-outline-primary py-3">
+            <div class="d-flex justify-content-between align-items-center" *ngFor="let priceComponent of ticket.ticketOffer.priceSpecification.priceComponent">
+                <p class="w-50 text-left">{{ priceComponent.name | changeLanguage }}</p>
+                <p class="w-50 text-right">
+                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
+                    --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+                </p>
+            </div>
+            <p *ngIf="ticket.ticketOffer.description" class="text-x-small text-left">{{ ticket.ticketOffer.description | changeLanguage }}</p>
+        </button>
+    </div>
+    <p *ngIf="tickets.length === 0">{{ 'modal.purchase.seatTicket.notfound' | translate }}</p>
+</div>
+
+<div *ngIf="selectedTicket" class="p-3 scroll-vertical">
+    <div class="mb-3 text-large text-center">{{ 'modal.purchase.seatTicket.addOn' | translate }}</div>
+    <ul class="mb-4">
+        <li class="mb-3" *ngFor="let addOn of selectedTicket.ticketOffer.addOn; let index = index">
+            <app-checkbox class="pointer" (change)="changeAddOnList(addOn.id)">
+                <div class="d-flex w-100">
+                    <div class="w-50">{{ addOn.priceSpecification?.name | changeLanguage }}<span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span></div>
+                    <div class="w-50 text-right">{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}</div>
+                </div>
+            </app-checkbox>
+        </li>
+    </ul>
+    <div class="buttons mx-auto text-center">
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3"
+            (click)="selsctOption()">{{ 'common.done' | translate }}</button>
+        <button type="button" class="btn btn-link btn-sm"
+            (click)="modal.hide()">{{ 'common.close' | translate }}</button>
+    </div>
+</div>

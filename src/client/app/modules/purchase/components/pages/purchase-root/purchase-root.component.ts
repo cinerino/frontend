@@ -36,7 +36,7 @@ export class PurchaseRootComponent implements OnInit {
             && external !== undefined
             && external.eventId !== undefined
             && tmpPurchase.authorizeSeatReservation !== undefined) {
-            this.router.navigate([`/purchase/cinema/overlap`]);
+            this.router.navigate(['/purchase/cinema/overlap']);
             return;
         }
         this.purchaseService.delete();

@@ -3,6 +3,7 @@
  */
 
 import * as http from 'http';
+import { AddressInfo } from 'net';
 import * as app from './app/app';
 
 /**
@@ -59,18 +60,15 @@ function onError(error: any) {
         : 'Port ' + port;
 
     // handle specific listen errors with friendly messages
-    switch (error.code) {
-        case 'EACCES':
-            console.error(bind + ' requires elevated privileges');
-            process.exit(1);
-            break;
-        case 'EADDRINUSE':
-            console.error(bind + ' is already in use');
-            process.exit(1);
-            break;
-        default:
-            throw error;
+    if (error.code === 'EACCES') {
+        console.error(bind + ' requires elevated privileges');
+        process.exit(1);
     }
+    if (error.code === 'EADDRINUSE') {
+        console.error(bind + ' is already in use');
+        process.exit(1);
+    }
+    throw error;
 }
 
 /**
@@ -78,7 +76,7 @@ function onError(error: any) {
  */
 
 function onListening() {
-    const addr = server.address();
+    const addr = <string | AddressInfo>server.address();
     // tslint:disable-next-line:no-unused-variable
     const bind = typeof addr === 'string'
         ? 'pipe ' + addr

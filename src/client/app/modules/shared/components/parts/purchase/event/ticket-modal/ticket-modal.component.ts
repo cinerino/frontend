@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { BsModalRef } from 'ngx-bootstrap';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { getEnvironment } from '../../../../../../../../environments/environment';
 import { getRemainingSeatLength } from '../../../../../../../functions';
 import { IReservation, Performance } from '../../../../../../../models';

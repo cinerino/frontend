@@ -10,8 +10,8 @@ import { IScreeningEventWork } from '../../../../../../functions';
     styleUrls: ['./performances.component.scss']
 })
 export class PurchaseEventPerformancesComponent implements OnInit {
-    @ViewChild(SwiperComponent, { static: false }) public componentRef: SwiperComponent;
-    @ViewChild(SwiperDirective, { static: false }) public directiveRef: SwiperDirective;
+    @ViewChild(SwiperComponent) public componentRef: SwiperComponent;
+    @ViewChild(SwiperDirective) public directiveRef: SwiperDirective;
     @Input() public screeningWorkEvent: IScreeningEventWork;
     @Input() public isSlider: boolean;
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();
