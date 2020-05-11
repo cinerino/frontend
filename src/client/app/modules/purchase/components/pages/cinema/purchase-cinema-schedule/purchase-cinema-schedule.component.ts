@@ -74,6 +74,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.theaters = [];
         try {
             this.theaters = await this.masterService.getTheaters();
+            if (this.theaters.length === 0) {
+                throw new Error('theater notfound');
+            }
             const purchase = await this.purchaseService.getData();
             const external = getExternalData();
             let theater = (purchase.theater === undefined) ? this.theaters[0] : purchase.theater;
