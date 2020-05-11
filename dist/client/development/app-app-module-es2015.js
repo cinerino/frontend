@@ -75486,7 +75486,7 @@ class MasterService {
                     });
                     screeningEvents = screeningEvents.concat(searchResult.data);
                     page++;
-                    roop = searchResult.data.length > 0;
+                    roop = searchResult.data.length === limit;
                     yield Object(_functions__WEBPACK_IMPORTED_MODULE_7__["sleep"])(500);
                 }
                 // 公開日順（降順）へソート
@@ -75927,7 +75927,7 @@ class PurchaseService {
                     });
                     screeningEventSeats = screeningEventSeats.concat(searchResult.data);
                     page++;
-                    roop = searchResult.data.length > 0;
+                    roop = searchResult.data.length === limit;
                     yield Object(_functions__WEBPACK_IMPORTED_MODULE_8__["sleep"])(500);
                 }
                 this.utilService.loadEnd();
@@ -78084,7 +78084,7 @@ class PurchaseEffects {
                     });
                     screeningEvents = screeningEvents.concat(searchResult.data);
                     page++;
-                    roop = searchResult.data.length > 0;
+                    roop = searchResult.data.length === limit;
                     yield Object(_functions__WEBPACK_IMPORTED_MODULE_7__["sleep"])(500);
                 }
                 const sheduleDates = [];
@@ -79355,7 +79355,7 @@ function reducer(initialState, action) {
                 reservations,
                 authorizeSeatReservations,
                 pendingMovieTickets }), loading: false, process: '', error: null });
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTemporaryReservationsFail, (state, payload) => {
+    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].temporaryReservationFail, (state, payload) => {
         const error = payload.error;
         return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTemporaryReservations, (state) => {
