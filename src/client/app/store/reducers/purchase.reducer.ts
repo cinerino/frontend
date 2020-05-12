@@ -424,7 +424,7 @@ export function reducer(initialState: IState, action: Action) {
                 }, loading: false, process: '', error: null
             };
         }),
-        on(purchaseAction.cancelTemporaryReservationsFail, (state, payload) => {
+        on(purchaseAction.temporaryReservationFail, (state, payload) => {
             const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),

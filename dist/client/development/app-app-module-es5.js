@@ -108502,7 +108502,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     searchResult = _context26.sent;
                     screeningEvents = screeningEvents.concat(searchResult.data);
                     page++;
-                    roop = searchResult.data.length > 0;
+                    roop = searchResult.data.length === limit;
                     _context26.next = 22;
                     return Object(_functions__WEBPACK_IMPORTED_MODULE_7__["sleep"])(500);
 
@@ -109569,7 +109569,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     searchResult = _context40.sent;
                     screeningEventSeats = screeningEventSeats.concat(searchResult.data);
                     page++;
-                    roop = searchResult.data.length > 0;
+                    roop = searchResult.data.length === limit;
                     _context40.next = 25;
                     return Object(_functions__WEBPACK_IMPORTED_MODULE_8__["sleep"])(500);
 
@@ -114764,7 +114764,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   searchResult = _context83.sent;
                   screeningEvents = screeningEvents.concat(searchResult.data);
                   page++;
-                  roop = searchResult.data.length > 0;
+                  roop = searchResult.data.length === limit;
                   _context83.next = 23;
                   return Object(_functions__WEBPACK_IMPORTED_MODULE_7__["sleep"])(500);
 
@@ -117622,7 +117622,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           process: '',
           error: null
         });
-      }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTemporaryReservationsFail, function (state, payload) {
+      }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].temporaryReservationFail, function (state, payload) {
         var error = payload.error;
         return Object.assign(Object.assign({}, state), {
           loading: false,

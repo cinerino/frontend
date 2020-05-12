@@ -264,7 +264,7 @@ export class PurchaseService {
                 });
                 screeningEventSeats = screeningEventSeats.concat(searchResult.data);
                 page++;
-                roop = searchResult.data.length > 0;
+                roop = searchResult.data.length === limit;
                 await sleep(500);
             }
             this.utilService.loadEnd();
