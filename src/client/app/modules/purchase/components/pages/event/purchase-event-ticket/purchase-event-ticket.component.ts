@@ -135,7 +135,12 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             await this.purchaseService.getScreeningEvent(screeningEvent);
             this.screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
             await this.purchaseService.getTicketList();
-            await this.purchaseService.getScreen({ branchCode: { $eq: screeningEvent.location.branchCode } });
+            await this.purchaseService.getScreen({
+                branchCode: { $eq: screeningEvent.location.branchCode },
+                containedInPlace: {
+                    branchCode: { $eq: screeningEvent.superEvent.location.branchCode }
+                }
+            });
             this.openTicketList();
         } catch (error) {
             this.utilService.openAlert({
@@ -157,6 +162,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         if (screeningEvent === undefined || screen === undefined) {
             return;
         }
+        console.error('screen', screen);
         const performance = new Performance(screeningEvent);
         if (!performance.isInfinitetock()
             && !screen.openSeatingAllowed

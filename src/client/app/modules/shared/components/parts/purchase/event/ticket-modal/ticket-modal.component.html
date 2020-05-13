@@ -42,10 +42,11 @@
                     <p *ngFor="let priceComponent of ticket.priceSpecification.priceComponent">
                         <span>{{ priceComponent.name | changeLanguage }}</span>
                         <!--
-                        --><span>&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span>
+                        --><span
+                            *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span>
                         <!--
-                        --><span class="text-small"
-                            *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+                        --><span
+                            *ngIf="priceComponent?.referenceQuantity?.value && priceComponent.price > 0">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
                     </p>
                     <p *ngIf="ticket.description" class="text-x-small text-left">
                         {{ ticket.description | changeLanguage }}</p>
@@ -61,12 +62,12 @@
             <ul *ngIf="ticket.addOn && ticket.addOn.length > 0" class="mt-2 bg-light-gray py-2 px-3">
                 <li class="my-1" *ngFor="let addOn of ticket.addOn; let index = index">
                     <app-checkbox class="pointer" (change)="changeAddOn(ticket.id, addOn.id)">
-                        {{ addOn.priceSpecification?.name | changeLanguage }}<span
-                            *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>
+                        {{ addOn.priceSpecification?.name | changeLanguage }}
                         <!--
                         -->&nbsp;/&nbsp;
                         <!--
-                        -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}
+                        -->{{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}<span
+                            *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>
                     </app-checkbox>
                 </li>
             </ul>

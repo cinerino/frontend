@@ -73,6 +73,9 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 }
             }
             this.theaters = await this.masterService.getTheaters();
+            if (this.theaters.length === 0) {
+                throw new Error('theater notfound');
+            }
             const theater = await this.getDefaultTheater();
             this.selectTheater(theater);
         } catch (error) {
