@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.30 - 2020-05-13
+### Changed
+ - 料金表示変更(0円非表示)
+
 ## 3.0.29 - 2020-05-11
 ### Fixed
  - reducer修正
