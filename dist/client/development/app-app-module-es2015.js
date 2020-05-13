@@ -72922,7 +72922,7 @@ class ItemListComponent {
     }
 }
 ItemListComponent.ɵfac = function ItemListComponent_Factory(t) { return new (t || ItemListComponent)(); };
-ItemListComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ItemListComponent, selectors: [["app-item-list"]], inputs: { reservations: "reservations", authorizeSeatReservations: "authorizeSeatReservations", acceptedOffers: "acceptedOffers", qrcode: "qrcode" }, outputs: { openQrcode: "openQrcode" }, decls: 2, vars: 2, consts: [["class", "mb-2", 4, "ngIf"], [1, "mb-2"], [4, "ngFor", "ngForOf"], [4, "ngIf"], ["class", "btn btn-primary mb-3", 3, "click", 4, "ngIf"], [1, "btn", "btn-primary", "mb-3", 3, "click"]], template: function ItemListComponent_Template(rf, ctx) { if (rf & 1) {
+ItemListComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ItemListComponent, selectors: [["app-item-list"]], inputs: { reservations: "reservations", authorizeSeatReservations: "authorizeSeatReservations", acceptedOffers: "acceptedOffers", qrcode: "qrcode" }, outputs: { openQrcode: "openQrcode" }, decls: 2, vars: 2, consts: [["class", "mb-2", 4, "ngIf"], [1, "mb-2"], [4, "ngFor", "ngForOf"], [4, "ngIf"], ["class", "btn btn-primary mt-2 mb-3", 3, "click", 4, "ngIf"], [1, "btn", "btn-primary", "mt-2", "mb-3", 3, "click"]], template: function ItemListComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, ItemListComponent_div_0_Template, 4, 3, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, ItemListComponent_div_1_Template, 2, 1, "div", 0);
     } if (rf & 2) {
@@ -78521,7 +78521,8 @@ class PurchaseEffects {
                         moment: moment__WEBPACK_IMPORTED_MODULE_4__,
                         formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"],
                         getItemPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getItemPrice"],
-                        getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"]
+                        getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"],
+                        projectId: Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectId
                     });
                 }
                 const result = yield this.cinerinoService.transaction.placeOrder.confirm(params);

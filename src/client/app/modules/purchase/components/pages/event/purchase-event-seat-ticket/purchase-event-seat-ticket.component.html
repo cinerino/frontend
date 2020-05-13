@@ -36,7 +36,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center" *ngFor="let addOn of reservation.ticket?.addOn;">
                                 <p class="w-50 text-left">{{ addOn.priceSpecification.name | changeLanguage }}</p>
-                                <p *ngIf="priceComponent.price > 0" class="w-50 text-right">
+                                <p *ngIf="addOn.priceSpecification.price > 0" class="w-50 text-right">
                                     <span>{{ addOn.priceSpecification.price | currency : addOn.priceSpecification.priceCurrency }}</span><!--
                                     --><span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>
                                 </p>

@@ -6,7 +6,7 @@
 | [注文日時]
 | <%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %>
 | 
-| [購入番号]
+| [確認番号]
 | #{order.confirmationNumber}
 | ※チケット発券の際に必要になります。
 | 
@@ -17,7 +17,12 @@
 | <%= moment(event.startDate).tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %> - <%= moment(event.endDate).tz('Asia/Tokyo').locale('ja').format('HH:mm') %>
 | <%= event.name.ja %>
 <% for (let reservation of reservations) { %>
-| <%= reservation.reservedTicket.ticketType.name.ja %> / ￥<%= String(getItemPrice({ priceComponents: reservation.price.priceComponent })).toLocaleString() %>
+<% if (reservation.reservedTicket.ticketedSeat) { %>| <%= reservation.reservedTicket.ticketedSeat.seatNumber %> <% } %>
+<% for (let priceComponent of reservation.price.priceComponent) { %>
+<% if (priceComponent.price > 0) { %>
+| <%= priceComponent.name.ja %> / ￥<%= priceComponent.price %> <% if (priceComponent.referenceQuantity && priceComponent.referenceQuantity.value) { %>[<%= priceComponent.referenceQuantity.value %>枚あたり] <% } %>
+<% } %>
+<% } %>
 <% } %>
 | 
 <% } %>
@@ -26,6 +31,10 @@
 | 
 | [注文番号]
 | #{order.orderNumber}
+|
+| [照会URL]
+| <%= location.origin %>/projects/<%= projectId %>/inquiry
+|  
 | 
 | ※周辺道路・駐車場が非常に混雑する場合がございます。時間指定のチケットはお時間に余裕をもってお越しください。
 | 　購入後のチケット変更・キャンセルはできません。
