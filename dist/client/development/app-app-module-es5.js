@@ -103280,7 +103280,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       },
       decls: 2,
       vars: 2,
-      consts: [["class", "mb-2", 4, "ngIf"], [1, "mb-2"], [4, "ngFor", "ngForOf"], [4, "ngIf"], ["class", "btn btn-primary mb-3", 3, "click", 4, "ngIf"], [1, "btn", "btn-primary", "mb-3", 3, "click"]],
+      consts: [["class", "mb-2", 4, "ngIf"], [1, "mb-2"], [4, "ngFor", "ngForOf"], [4, "ngIf"], ["class", "btn btn-primary mt-2 mb-3", 3, "click", 4, "ngIf"], [1, "btn", "btn-primary", "mt-2", "mb-3", 3, "click"]],
       template: function ItemListComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, ItemListComponent_div_0_Template, 4, 3, "div", 0);
@@ -115859,7 +115859,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     moment: moment__WEBPACK_IMPORTED_MODULE_4__,
                     formatTelephone: _functions__WEBPACK_IMPORTED_MODULE_7__["formatTelephone"],
                     getItemPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getItemPrice"],
-                    getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"]
+                    getTicketPrice: _functions__WEBPACK_IMPORTED_MODULE_7__["getTicketPrice"],
+                    projectId: Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getProject"])().projectId
                   });
 
                 case 23:

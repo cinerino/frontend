@@ -570,7 +570,8 @@ export class PurchaseEffects {
                         moment,
                         formatTelephone,
                         getItemPrice,
-                        getTicketPrice
+                        getTicketPrice,
+                        projectId: getProject().projectId
                     });
                 }
                 const result = await this.cinerinoService.transaction.placeOrder.confirm(params);

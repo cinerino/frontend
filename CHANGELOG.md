@@ -12,6 +12,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.31 - 2020-05-14
+### Added
+ - 購入完了メールへ照会URL追加
+### Changed
+ - 購入完了メールの料金を詳細表示へ変更
+### Fixed
+ - アドオン不具合修正
+ - 購入確認UI調整
+
+
 ## 3.0.30 - 2020-05-13
 ### Changed
  - 料金表示変更(0円非表示)
