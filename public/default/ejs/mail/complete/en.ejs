@@ -1,42 +1,49 @@
 | #{order.customer.familyName} #{order.customer.givenName}
-|
-| Thank you for purchasing this online ticket service from <%= seller.name.en %>. Information on the tickets you have
-purchased is as follows.
-|
-| [Order Date]
-<%= moment (). tz ('Asia / Tokyo'). locale ('ja'). format ('YYYY / MM / DD (ddd) HH: mm') %>
-|
-| [Purchase Number]
+| 
+| Thank you for purchasing this online ticket service from <%= seller.name.ja%>.
+| The information on the ticket purchased by the customer is as follows.
+| 
+| [Order date and time]
+| <%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %>
+| 
+| [Authorization number]
 | #{order.confirmationNumber}
-| * Required when issuing tickets.
-|
-<% for (let i = 0; i < authorizeSeatReservations.length; i ++) { %>
-<% const event = authorizeSeatReservations [i] .event; %>
-<% const reservations = authorizeSeatReservations [i] .reservations; %>
-| [<%= (i + 1) %> items]
-<%= moment (event.startDate) .tz ('Asia / Tokyo'). locale ('ja'). format ('YYYY / MM / DD (ddd) HH: mm') %>-<%= moment (event.endDate) .tz ('Asia / Tokyo'). locale ('ja'). format ('HH: mm') %>
-| <%= event.name.en %>
+| ※You will need it when issuing tickets.
+| 
+<% for (let i = 0; i < authorizeSeatReservations.length; i++) { %>
+<% const event = authorizeSeatReservations[i].event; %>
+<% const reservations = authorizeSeatReservations[i].reservations; %>
+| [<%= (i + 1) %>件目]
+| <%= moment(event.startDate).tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %> - <%= moment(event.endDate).tz('Asia/Tokyo').locale('ja').format('HH:mm') %>
+| <%= event.name.ja %>
 <% for (let reservation of reservations) { %>
-<%= reservation.reservedTicket.ticketType.name.ja %> / ¥
-<%= String (getTicketPrice ({priceSpecification: reservation.price}). total) .toLocaleString () %>
+<% if (reservation.reservedTicket.ticketedSeat) { %>| <%= reservation.reservedTicket.ticketedSeat.seatNumber %> <% } %>
+<% for (let priceComponent of reservation.price.priceComponent) { %>
+<% if (priceComponent.price > 0) { %>
+| <%= priceComponent.name.ja %> / ￥<%= priceComponent.price %> <% if (priceComponent.referenceQuantity && priceComponent.referenceQuantity.value) { %>[<%= priceComponent.referenceQuantity.value %>枚あたり] <% } %>
 <% } %>
-|
 <% } %>
-| [Total]
-| ¥ #{order.price}
-|
-| [Order number]
+<% } %>
+| 
+<% } %>
+| [total]
+| ￥#{order.price}
+| 
+| [order number]
 | #{order.orderNumber}
 |
-| * The surrounding roads and parking lots may be very crowded. Please come with a time allowance for timed tickets.
+| [inquiry URL]
+| <%= location.origin %>/projects/<%= projectId %>/inquiry
+|  
+| 
+| * The surrounding roads and parking lots may be extremely crowded. Please make sure you have enough time for time-specified tickets.
 | Tickets cannot be changed or canceled after purchase.
+| 
+| In addition, this email is sent to those who purchased tickets using the reservation system of <% = seller.name.ja%>,
+| If you have not received the ticket yet, please contact us using the contact details below.
+| * Please note that this email address is for sending only, so we cannot reply.
+| If you have any questions, please contact the number below.
 |
-| Please note that this email was sent to those who purchased tickets using the reservation system of
-<%= seller.name.en %>
-| If you are not familiar with purchasing tickets, please contact us at the address below.
-* Please note that this e-mail address is for sending only, so you cannot reply.
-If you have any questions, please contact the following number.
-|
-Contact us here
-| <%= seller.name.en %>
-| TEL: <%= formatTelephone (seller.telephone, 'NATIONAL') %>
+| Contact us
+| <%= seller.name.ja %>
+| TEL：<%= formatTelephone(seller.telephone, 'NATIONAL') %>

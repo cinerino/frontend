@@ -287,7 +287,7 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_WARNING: false,
     ORDER_CANCEL_MAIL_CUSTOM: true,
     INQUIRY_CANCEL: false,
-    INQUIRY_QRCODE: false,
+    INQUIRY_QRCODE: true,
     INQUIRY_PRINT: false,
     INQUIRY_PRINT_EXPIRED_VALUE: '0',
     INQUIRY_PRINT_EXPIRED_UNIT: 'hour',
