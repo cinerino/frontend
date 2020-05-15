@@ -10,13 +10,17 @@ export class ChangeLanguagePipe implements PipeTransform {
         private translate: TranslateService
     ) { }
 
-    public transform(lang?: { [key: string]: string; }) {
+    public transform(lang?: {
+        ja?: string;
+        en?: string;
+        kr?: string;
+    }) {
         if (lang === undefined) {
             return '';
         }
         const currentLang = this.translate.currentLang || this.translate.defaultLang;
-        if (lang[currentLang] !== undefined) {
-            return lang[currentLang];
+        if ((<any>lang)[currentLang] !== undefined) {
+            return (<any>lang)[currentLang];
         }
         if (lang.en !== undefined) {
             return lang.en;

@@ -12,7 +12,7 @@
         <div class="d-flex align-items-center">
             <div *ngIf="screeningWorkEvent.info.workPerformed?.contentRating"
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{
-                    screeningWorkEvent.info.workPerformed.contentRating }}</div>
+                    screeningWorkEvent.info.workPerformed?.contentRating }}</div>
             <div *ngIf="screeningWorkEvent.info.superEvent.dubLanguage"
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.dubbing' | translate }}</div>
             <div *ngIf="screeningWorkEvent.info.superEvent.subtitleLanguage"

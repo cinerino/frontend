@@ -11,13 +11,13 @@
                             placeholder="モーション">
                         <div *ngIf="profileForm.controls.familyName.invalid && profileForm.controls.familyName.touched"
                             class="mt-2">
-                            <p *ngIf="profileForm.controls.familyName.errors.required" class="text-danger">
+                            <p *ngIf="profileForm.controls.familyName.errors?.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}
                             </p>
-                            <p *ngIf="profileForm.controls.familyName.errors.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.familyName.errors.maxlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.familyName.errors?.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.familyName.errors?.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="profileForm.controls.familyName.errors.pattern" class="text-danger">
+                            <p *ngIf="profileForm.controls.familyName.errors?.pattern" class="text-danger">
                                 {{ 'form.validation.fullKana' | translate }}</p>
                         </div>
                     </div>
@@ -31,13 +31,13 @@
                             placeholder="ピクチャー">
                         <div *ngIf="profileForm.controls.givenName.invalid && profileForm.controls.givenName.touched"
                             class="mt-2">
-                            <p *ngIf="profileForm.controls.givenName.errors.required" class="text-danger">
+                            <p *ngIf="profileForm.controls.givenName.errors?.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}
                             </p>
-                            <p *ngIf="profileForm.controls.givenName.errors.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.givenName.errors.maxlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.givenName.errors?.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.givenName.errors?.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="profileForm.controls.givenName.errors.pattern" class="text-danger">
+                            <p *ngIf="profileForm.controls.givenName.errors?.pattern" class="text-danger">
                                 {{ 'form.validation.fullKana' | translate }}
                             </p>
                         </div>
@@ -52,13 +52,13 @@
                             placeholder="motionpicture@example.jp">
                         <div *ngIf="profileForm.controls.email.invalid && profileForm.controls.email.touched"
                             class="mt-2">
-                            <p *ngIf="profileForm.controls.email.errors.required" class="text-danger">
+                            <p *ngIf="profileForm.controls.email.errors?.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}
                             </p>
-                            <p *ngIf="profileForm.controls.email.errors.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.email.errors.maxlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.email.errors?.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.email.errors?.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="profileForm.controls.email.errors.email" class="text-danger">
+                            <p *ngIf="profileForm.controls.email.errors?.email" class="text-danger">
                                 {{ 'form.validation.email' | translate }}
                             </p>
                         </div>
@@ -74,18 +74,18 @@
                             placeholder="0362778824">
                         <div *ngIf="profileForm.controls.telephone.invalid && profileForm.controls.telephone.touched"
                             class="mt-2">
-                            <p *ngIf="profileForm.controls.telephone.errors.required" class="text-danger">
+                            <p *ngIf="profileForm.controls.telephone.errors?.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}
                             </p>
-                            <p *ngIf="profileForm.controls.telephone.errors.minlength" class="text-danger">
-                                {{ 'form.validation.minlength' | translate:{ value: profileForm.controls.telephone.errors.minlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.telephone.errors?.minlength" class="text-danger">
+                                {{ 'form.validation.minlength' | translate:{ value: profileForm.controls.telephone.errors?.minlength.requiredLength } }}
                             </p>
-                            <p *ngIf="profileForm.controls.telephone.errors.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.telephone.errors.maxlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.telephone.errors?.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.telephone.errors?.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="profileForm.controls.telephone.errors.pattern" class="text-danger">
+                            <p *ngIf="profileForm.controls.telephone.errors?.pattern" class="text-danger">
                                 {{ 'form.validation.number' | translate }}</p>
-                            <p *ngIf="profileForm.controls.telephone.errors.telephone" class="text-danger">
+                            <p *ngIf="profileForm.controls.telephone.errors?.telephone" class="text-danger">
                                 {{ 'form.validation.telephone' | translate }}</p>
                         </div>
                     </div>

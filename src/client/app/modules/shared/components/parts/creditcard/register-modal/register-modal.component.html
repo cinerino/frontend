@@ -21,9 +21,9 @@
                         maxlength="16">
                     <div *ngIf="creditCardForm.controls.cardNumber.invalid && creditCardForm.controls.cardNumber.touched"
                         class="mt-2">
-                        <p *ngIf="creditCardForm.controls.cardNumber.errors.required" class="text-danger">
+                        <p *ngIf="creditCardForm.controls.cardNumber.errors?.required" class="text-danger">
                             {{ 'form.validation.required' | translate }}</p>
-                        <p *ngIf="creditCardForm.controls.cardNumber.errors.pattern" class="text-danger">
+                        <p *ngIf="creditCardForm.controls.cardNumber.errors?.pattern" class="text-danger">
                             {{ 'form.validation.number' | translate }}
                         </p>
                     </div>
@@ -54,7 +54,7 @@
                         formControlName="securityCode">
                     <div *ngIf="creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched"
                         class="mt-2">
-                        <p *ngIf="creditCardForm.controls.securityCode.errors.required" class="text-danger">
+                        <p *ngIf="creditCardForm.controls.securityCode.errors?.required" class="text-danger">
                             {{ 'form.validation.required' | translate }}</p>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                     <input type="text" class="form-control" id="holderName" placeholder="" formControlName="holderName">
                     <div *ngIf="creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched"
                         class="mt-2">
-                        <p *ngIf="creditCardForm.controls.holderName.errors.required" class="text-danger">
+                        <p *ngIf="creditCardForm.controls.holderName.errors?.required" class="text-danger">
                             {{ 'form.validation.required' | translate }}</p>
                     </div>
                 </div>

@@ -7,8 +7,8 @@
     class="contents-width mx-auto theaters d-flex flex-wrap p-2">
     <li *ngFor="let theater of theaters" class="px-2 my-2">
         <button type="button" class="btn btn-block py-3 m-0" (click)="selectTheater(theater)"
-            [class.btn-primary]="(purchase | async).theater?.id === theater.id"
-            [class.btn-outline-primary]="(purchase | async).theater?.id !== theater.id">{{ theater.name | changeLanguage }}</button>
+            [class.btn-primary]="(purchase | async)?.theater?.id === theater.id"
+            [class.btn-outline-primary]="(purchase | async)?.theater?.id !== theater.id">{{ theater.name | changeLanguage }}</button>
     </li>
 </ul>
 
@@ -32,20 +32,20 @@
     </div>
     <div class="mb-4">
         <p *ngIf="(purchase | async)?.scheduleDate" class="text-primary text-large mb-3">
-            {{ 'purchase.event.schedule.selectedDate' | translate: {value: (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}
+            {{ 'purchase.event.schedule.selectedDate' | translate: {value: (purchase | async)?.scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}
         </p>
         <p *ngIf="screeningWorkEvents.length === 0" class="mb-3"
             [innerHTML]="'purchase.event.schedule.notfound' | translate"></p>
         <app-purchase-event-performances-confirm *ngFor="let screeningWorkEvent of screeningWorkEvents"
-            [screeningWorkEvent]="screeningWorkEvent" [readonly]="true" (select)="selectSchedule($event)" class="mb-3">
+            [screeningWorkEvent]="screeningWorkEvent" [readonly]="true" class="mb-3">
         </app-purchase-event-performances-confirm>
     </div>
 
     <div *ngIf="environment.PURCHASE_TERMS">
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.schedule.terms' | translate }}</h2>
         <div class="mb-4">
-            <app-purchase-terms [language]="(user | async).language"
-                [screeningEvent]="(purchase | async).screeningEvent">
+            <app-purchase-terms [language]="(user | async)?.language"
+                [screeningEvent]="(purchase | async)?.screeningEvent">
             </app-purchase-terms>
         </div>
     </div>

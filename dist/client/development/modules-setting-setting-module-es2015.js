@@ -106,7 +106,7 @@ function SettingComponent_form_6_div_49_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r5.baseForm.controls.printerIpAddress.errors.required);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r5.baseForm.controls.printerIpAddress.errors == null ? null : ctx_r5.baseForm.controls.printerIpAddress.errors.required);
 } }
 function SettingComponent_form_6_Template(rf, ctx) { if (rf & 1) {
     const _r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();

@@ -36,7 +36,8 @@
     "suppressImplicitAnyIndexErrors": false
   },
   "angularCompilerOptions": {
-    "disableTypeScriptVersionCheck": true
+    "disableTypeScriptVersionCheck": true,
+    "fullTemplateTypeCheck": true
   },
   "files": [
     "main.ts",

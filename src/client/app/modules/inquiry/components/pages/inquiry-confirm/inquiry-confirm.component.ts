@@ -16,6 +16,7 @@ import * as reducers from '../../../../../store/reducers';
     styleUrls: ['./inquiry-confirm.component.scss']
 })
 export class InquiryConfirmComponent implements OnInit, OnDestroy {
+    public isLoading: Observable<boolean>;
     public order: Observable<reducers.IOrderState>;
     public user: Observable<reducers.IUserState>;
     public moment: typeof moment = moment;
@@ -40,6 +41,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
      */
     public ngOnInit() {
         this.eventOrders = [];
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
         this.order = this.store.pipe(select(reducers.getOrder));
         this.user = this.store.pipe(select(reducers.getUser));

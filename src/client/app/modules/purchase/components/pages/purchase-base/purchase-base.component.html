@@ -1,6 +1,6 @@
 <app-header></app-header>
 <app-contents class="purchase">
-    <app-transaction-remaining-time *ngIf="(purchase | async).transaction" [transaction]="(purchase | async).transaction"></app-transaction-remaining-time>
+    <app-transaction-remaining-time *ngIf="(purchase | async)?.transaction" [transaction]="(purchase | async)?.transaction"></app-transaction-remaining-time>
     <router-outlet></router-outlet>
     <app-footer></app-footer>
 </app-contents>

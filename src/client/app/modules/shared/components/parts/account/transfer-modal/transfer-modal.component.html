@@ -21,9 +21,9 @@
                         maxlength="5">
                     <div *ngIf="TransferAccountForm.controls.amount.invalid && TransferAccountForm.controls.amount.touched"
                         class="mt-2">
-                        <p *ngIf="TransferAccountForm.controls.amount.errors.required" class="text-danger">
+                        <p *ngIf="TransferAccountForm.controls.amount.errors?.required" class="text-danger">
                             {{ 'form.validation.required' | translate }}</p>
-                        <p *ngIf="TransferAccountForm.controls.amount.errors.pattern" class="text-danger">
+                        <p *ngIf="TransferAccountForm.controls.amount.errors?.pattern" class="text-danger">
                             {{ 'form.validation.number' | translate }}
                         </p>
                     </div>
@@ -41,9 +41,9 @@
                     </div>
                     <div *ngIf="TransferAccountForm.controls.accountNumber.invalid && TransferAccountForm.controls.accountNumber.touched"
                         class="mt-2">
-                        <p *ngIf="TransferAccountForm.controls.accountNumber.errors.required" class="text-danger">
+                        <p *ngIf="TransferAccountForm.controls.accountNumber.errors?.required" class="text-danger">
                             {{ 'form.validation.required' | translate }}</p>
-                        <p *ngIf="TransferAccountForm.controls.accountNumber.errors.pattern" class="text-danger">
+                        <p *ngIf="TransferAccountForm.controls.accountNumber.errors?.pattern" class="text-danger">
                             {{ 'form.validation.number' | translate }}
                         </p>
                     </div>

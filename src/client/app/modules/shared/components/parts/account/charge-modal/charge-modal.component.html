@@ -21,9 +21,9 @@
                         maxlength="5">
                     <div *ngIf="chargeAccountForm.controls.amount.invalid && chargeAccountForm.controls.amount.touched"
                         class="mt-2">
-                        <p *ngIf="chargeAccountForm.controls.amount.errors.required" class="text-danger">
+                        <p *ngIf="chargeAccountForm.controls.amount.errors?.required" class="text-danger">
                             {{ 'form.validation.required' | translate }}</p>
-                        <p *ngIf="chargeAccountForm.controls.amount.errors.pattern" class="text-danger">
+                        <p *ngIf="chargeAccountForm.controls.amount.errors?.pattern" class="text-danger">
                             {{ 'form.validation.number' | translate }}
                         </p>
                     </div>

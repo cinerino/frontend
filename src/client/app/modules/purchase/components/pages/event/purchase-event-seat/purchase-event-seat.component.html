@@ -3,22 +3,26 @@
     <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.seat.read' | translate"></p>
     <div class="row">
         <div class="col-lg-9">
-            <app-screen *ngIf="(purchase | async).theater 
+            <app-screen *ngIf="(purchase | async)?.theater 
                 && screeningEventSeats.length > 0 
-                && (purchase | async).screen" class="mb-4"
-                [theaterCode]="(purchase | async).theater.branchCode"
-                [screenCode]="(purchase | async).screen.branchCode"
+                && (purchase | async)?.screen" class="mb-4"
+                [theaterCode]="(purchase | async)?.theater.branchCode"
+                [screenCode]="(purchase | async)?.screen.branchCode"
                 [screeningEventSeats]="screeningEventSeats"
-                [openSeatingAllowed]="(purchase | async).screen.openSeatingAllowed"
-                [reservations]="(purchase | async).reservations"
-                [authorizeSeatReservation]="(purchase | async).authorizeSeatReservation" (select)="selectSeat($event)">
+                [openSeatingAllowed]="(purchase | async)?.screen.openSeatingAllowed"
+                [reservations]="(purchase | async)?.reservations"
+                [authorizeSeatReservation]="(purchase | async)?.authorizeSeatReservation" (select)="selectSeat($event)">
             </app-screen>
-            <div *ngIf="(purchase | async).screen?.openSeatingAllowed" class="mb-4">
+            <div *ngIf="(purchase | async)?.screen?.openSeatingAllowed" class="mb-4">
                 <div class="d-flex align-items-center">
                     <p class="mr-2">{{ 'purchase.event.seat.openSeating' | translate }}</p>
-                    <select class="form-control d-inline-block w-auto" (change)="selectOpenSeating($event)" [ngModel]="(purchase | async).reservations.length">
+                    <select class="form-control d-inline-block w-auto" (change)="selectOpenSeating($event)" [ngModel]="(purchase | async)?.reservations.length">
                         <option value="0">0</option>
-                        <option *ngFor="let value of remainingAttendeeCapacityValue((purchase | async).screeningEvent, screeningEventSeats)" [value]="value">{{ value }}</option>
+                        <option *ngFor="let value of remainingAttendeeCapacityValue({
+                            screeningEventSeats: screeningEventSeats,
+                            screeningEvent: (purchase | async)?.screeningEvent,
+                            authorizeSeatReservations: (purchase | async)?.authorizeSeatReservations
+                        })" [value]="value">{{ value }}</option>
                     </select>
                 </div>
             </div>

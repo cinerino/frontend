@@ -24,6 +24,7 @@ import {
 export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     @ViewChild(SwiperComponent) public componentRef: SwiperComponent;
     @ViewChild(SwiperDirective) public directiveRef: SwiperDirective;
+    public isLoading: Observable<boolean>;
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public error: Observable<string | null>;
@@ -65,6 +66,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 prevEl: '.schedule-slider .swiper-button-prev',
             },
         };
+        this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.error = this.store.pipe(select(reducers.getError));

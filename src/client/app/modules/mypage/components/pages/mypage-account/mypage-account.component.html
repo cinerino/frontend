@@ -3,7 +3,7 @@
     <p class="mb-4 text-md-center" [innerHTML]="'mypage.account.read' | translate"></p>
 
     <ul class="d-md-flex flex-wrap mb-4">
-        <li *ngFor="let account of (user | async).accounts" class="my-md-2 mb-3">
+        <li *ngFor="let account of (user | async)?.accounts" class="my-md-2 mb-3">
             <div class="card mx-md-2 h-100">
                 <div class="card-body position-relative">
                     <div>

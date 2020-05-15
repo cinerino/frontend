@@ -1,16 +1,16 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'inquiry.confirm.title' | translate }}</h2>
-    <div *ngIf="(order | async).order.orderStatus === orderStatus.OrderReturned">
+    <div *ngIf="(order | async)?.order.orderStatus === orderStatus.OrderReturned">
         <p class="mb-4 text-md-center" [innerHTML]="'inquiry.confirm.canceled' | translate"></p>
     </div>
-    <div *ngIf="(order | async).order.orderStatus !== orderStatus.OrderReturned">
+    <div *ngIf="(order | async)?.order.orderStatus !== orderStatus.OrderReturned">
         <p class="mb-4 text-md-center" [innerHTML]="'inquiry.confirm.read' | translate"></p>
         <div class="mb-4 px-3 py-2 bg-white">
             <div class="row align-items-center">
                 <p class="col-4">
                     {{ 'common.confirmationNumber' | translate }}</p>
                 <p class="col-8 text-large text-info font-weight-bold">
-                    {{ (order | async).order.confirmationNumber }}
+                    {{ (order | async)?.order.confirmationNumber }}
                 </p>
             </div>
         </div>
@@ -47,23 +47,23 @@
             <div class="py-3 border-bottom border-gray customer-name">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.customerName' | translate }}</p>
-                    <p class="col-md-8">{{ (order | async).order.customer.familyName }}
-                        {{ (order | async).order.customer.givenName }}</p>
+                    <p class="col-md-8">{{ (order | async)?.order.customer.familyName }}
+                        {{ (order | async)?.order.customer.givenName }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray email">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.email' | translate }}</p>
-                    <p class="col-md-8">{{ (order | async).order.customer.email }}</p>
+                    <p class="col-md-8">{{ (order | async)?.order.customer.email }}</p>
                 </div>
             </div>
             <div class="py-3 telephone">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.telephone' | translate }}</p>
-                    <p class="col-md-8">{{ (order | async).order.customer.telephone | libphonenumberFormat }}</p>
+                    <p class="col-md-8">{{ (order | async)?.order.customer.telephone | libphonenumberFormat }}</p>
                 </div>
             </div>
-            <!-- <div class="py-3" *ngIf="(order | async).order.price > 0">
+            <!-- <div class="py-3" *ngIf="(order | async)?.order.price > 0">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
                     <p class="col-md-8">クレジットカード</p>
@@ -74,13 +74,13 @@
 
 
     <div class="buttons mx-auto text-center">
-        <div *ngIf="(order | async).order.orderStatus !== orderStatus.OrderReturned">
+        <div *ngIf="(order | async)?.order.orderStatus !== orderStatus.OrderReturned">
             <button *ngIf="environment.INQUIRY_PRINT"
-                [disabled]="(order | async).order.orderStatus !== orderStatus.OrderDelivered" type="button"
+                [disabled]="(order | async)?.order.orderStatus !== orderStatus.OrderDelivered" type="button"
                 class="btn btn-primary btn-block py-3 mb-3" (click)="print()"
                 [disabled]="isLoading | async">{{ 'inquiry.confirm.print' | translate }}</button>
             <button *ngIf="environment.INQUIRY_CANCEL"
-                [disabled]="(order | async).order.orderStatus !== orderStatus.OrderDelivered" type="button"
+                [disabled]="(order | async)?.order.orderStatus !== orderStatus.OrderDelivered" type="button"
                 class="btn btn-danger btn-block py-3 mb-3"
                 (click)="cancelConfirm()">{{ 'inquiry.confirm.cancel' | translate }}</button>
         </div>
