@@ -247,7 +247,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r5.baseForm.controls.printerIpAddress.errors.required);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r5.baseForm.controls.printerIpAddress.errors == null ? null : ctx_r5.baseForm.controls.printerIpAddress.errors.required);
       }
     }
 
