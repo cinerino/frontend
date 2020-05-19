@@ -390,6 +390,7 @@ export const convertExternalToPurchaseSuccess = createAction(
     props<{
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
     }>()
 );
 

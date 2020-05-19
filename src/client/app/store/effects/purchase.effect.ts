@@ -632,13 +632,20 @@ export class PurchaseEffects {
             try {
                 await this.cinerinoService.getServices();
                 const screeningEvent = await this.cinerinoService.event.findById<factory.chevre.eventType.ScreeningEvent>({ id: eventId });
-                if (screeningEvent.superEvent.offers === undefined
-                    || screeningEvent.superEvent.offers.seller === undefined
-                    || screeningEvent.superEvent.offers.seller.id === undefined) {
-                    throw new Error('screeningEvent.superEvent.offers.seller.id undefined');
+                if (screeningEvent.offers === undefined
+                    || screeningEvent.offers.seller === undefined
+                    || screeningEvent.offers.seller.id === undefined) {
+                    throw new Error('screeningEvent.offers.seller.id undefined');
                 }
-                const seller = await this.cinerinoService.seller.findById({ id: screeningEvent.superEvent.offers.seller.id });
-                return purchaseAction.convertExternalToPurchaseSuccess({ screeningEvent, seller });
+                const searchResult = await this.cinerinoService.place.searchMovieTheaters({
+                    id: { $eq: screeningEvent.superEvent.location.id }
+                });
+                if (searchResult.data.length === 0) {
+                    throw new Error('searchMovieTheaters notfound');
+                }
+                const theater = searchResult.data[0];
+                const seller = await this.cinerinoService.seller.findById({ id: screeningEvent.offers.seller.id });
+                return purchaseAction.convertExternalToPurchaseSuccess({ screeningEvent, seller, theater });
             } catch (error) {
                 return purchaseAction.convertExternalToPurchaseFail({ error: error });
             }
