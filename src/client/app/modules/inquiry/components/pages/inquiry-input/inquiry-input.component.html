@@ -20,9 +20,9 @@
                         [placeholder]="'form.placeholder.confirmationNumber' | translate">
                     <div *ngIf="inquiryForm.controls.confirmationNumber.invalid && inquiryForm.controls.confirmationNumber.touched"
                         class="mt-2">
-                        <p *ngIf="inquiryForm.controls.confirmationNumber.errors.required" class="text-danger">
+                        <p *ngIf="inquiryForm.controls.confirmationNumber.errors?.required" class="text-danger">
                             {{ 'form.validation.required' | translate }}</p>
-                        <p *ngIf="inquiryForm.controls.confirmationNumber.errors.pattern" class="text-danger">
+                        <p *ngIf="inquiryForm.controls.confirmationNumber.errors?.pattern" class="text-danger">
                             {{ 'form.validation.number' | translate }}</p>
                     </div>
                 </div>
@@ -38,17 +38,17 @@
                         [placeholder]="'form.placeholder.telephone' | translate">
                     <div *ngIf="inquiryForm.controls.telephone.invalid && inquiryForm.controls.telephone.touched"
                         class="mt-2">
-                        <p *ngIf="inquiryForm.controls.telephone.errors.required" class="text-danger">
+                        <p *ngIf="inquiryForm.controls.telephone.errors?.required" class="text-danger">
                             {{ 'form.validation.required' | translate }}</p>
-                        <p *ngIf="inquiryForm.controls.telephone.errors.minlength" class="text-danger">
-                            {{ 'form.validation.minlength' | translate: { value: inquiryForm.controls.telephone.errors.minlength.requiredLength } }}
+                        <p *ngIf="inquiryForm.controls.telephone.errors?.minlength" class="text-danger">
+                            {{ 'form.validation.minlength' | translate: { value: inquiryForm.controls.telephone.errors?.minlength.requiredLength } }}
                         </p>
-                        <p *ngIf="inquiryForm.controls.telephone.errors.maxlength" class="text-danger">
-                            {{ 'form.validation.maxlength' | translate: { value: inquiryForm.controls.telephone.errors.maxlength.requiredLength } }}
+                        <p *ngIf="inquiryForm.controls.telephone.errors?.maxlength" class="text-danger">
+                            {{ 'form.validation.maxlength' | translate: { value: inquiryForm.controls.telephone.errors?.maxlength.requiredLength } }}
                         </p>
-                        <p *ngIf="inquiryForm.controls.telephone.errors.pattern" class="text-danger">
+                        <p *ngIf="inquiryForm.controls.telephone.errors?.pattern" class="text-danger">
                             {{ 'form.validation.number' | translate }}</p>
-                        <p *ngIf="inquiryForm.controls.telephone.errors.telephone" class="text-danger">
+                        <p *ngIf="inquiryForm.controls.telephone.errors?.telephone" class="text-danger">
                             {{ 'form.validation.telephone' | translate }}</p>
                     </div>
                 </div>

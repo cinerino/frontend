@@ -8,7 +8,7 @@
                 <p class="col-4">
                     {{ 'common.confirmationNumber' | translate }}</p>
                 <p class="col-8 text-large text-info font-weight-bold">
-                    {{ (purchase | async).order.confirmationNumber }}
+                    {{ (purchase | async)?.order.confirmationNumber }}
                 </p>
             </div>
         </div>
@@ -45,33 +45,33 @@
             <div class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.customerName' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async).order.customer.familyName }} {{ (purchase |
-                        async).order.customer.givenName }}</p>
+                    <p class="col-md-8">{{ (purchase | async)?.order.customer.familyName }} {{ (purchase |
+                        async)?.order.customer.givenName }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.email' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async).order.customer.email }}</p>
+                    <p class="col-md-8">{{ (purchase | async)?.order.customer.email }}</p>
                 </div>
             </div>
-            <div class="py-3 border-bottom border-gray" [class.border-0]="(purchase | async).order.price === 0">
+            <div class="py-3 border-bottom border-gray" [class.border-0]="(purchase | async)?.order.price === 0">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.telephone' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async).order.customer.telephone | libphonenumberFormat }}</p>
+                    <p class="col-md-8">{{ (purchase | async)?.order.customer.telephone | libphonenumberFormat }}</p>
                 </div>
             </div>
-            <div class="py-3 border-bottom border-gray" *ngIf="(purchase | async).order.price > 0">
+            <div class="py-3 border-bottom border-gray" *ngIf="(purchase | async)?.order.price > 0">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.amount' | translate }}</p>
-                    <p class="col-md-8 font-weight-bold text-large text-info">{{ (purchase | async).order.price | currency : 'JPY' }}</p>
+                    <p class="col-md-8 font-weight-bold text-large text-info">{{ (purchase | async)?.order.price | currency : 'JPY' }}</p>
                 </div>
             </div>
-            <div class="py-3" *ngIf="(purchase | async).order.price > 0">
+            <div class="py-3" *ngIf="(purchase | async)?.order.price > 0">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
                     <div class="col-md-8">
-                        <p *ngFor="let paymentMethod of (purchase | async).order.paymentMethods">
+                        <p *ngFor="let paymentMethod of (purchase | async)?.order.paymentMethods">
                             <span *ngIf="paymentMethod.typeOf === paymentMethodType.Cash">{{ 'common.paymentMethodType.cash' | translate }}</span>
                             <span *ngIf="paymentMethod.typeOf === paymentMethodType.Account">{{ 'common.paymentMethodType.account' | translate }}</span>
                             <span *ngIf="paymentMethod.typeOf === paymentMethodType.CreditCard">{{ 'common.paymentMethodType.creditCard' | translate }}</span>

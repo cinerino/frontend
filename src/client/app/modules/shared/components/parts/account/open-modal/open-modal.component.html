@@ -11,7 +11,7 @@
                         maxlength="30">
                     <div *ngIf="openAccountForm.controls.name.invalid && openAccountForm.controls.name.touched"
                         class="mt-2">
-                        <p *ngIf="openAccountForm.controls.name.errors.required" class="text-danger">
+                        <p *ngIf="openAccountForm.controls.name.errors?.required" class="text-danger">
                             {{ 'form.validation.required' | translate }}</p>
                     </div>
                 </div>

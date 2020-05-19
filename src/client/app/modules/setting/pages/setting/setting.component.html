@@ -55,7 +55,7 @@
                             placeholder="0.0.0.0">
                         <div *ngIf="baseForm.controls.printerIpAddress.invalid && baseForm.controls.printerIpAddress.touched"
                             class="mt-2">
-                            <p *ngIf="baseForm.controls.printerIpAddress.errors.required" class="text-danger">
+                            <p *ngIf="baseForm.controls.printerIpAddress.errors?.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}</p>
                         </div>
                         <p class="text-small mt-2">

@@ -14,15 +14,15 @@
                             [placeholder]="'form.placeholder.familyName' | translate">
                         <div *ngIf="profileForm.controls.familyName.invalid && profileForm.controls.familyName.touched"
                             class="mt-2">
-                            <p *ngIf="profileForm.controls.familyName.errors.required" class="text-danger">
+                            <p *ngIf="profileForm.controls.familyName.errors?.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}
                             </p>
-                            <p *ngIf="profileForm.controls.familyName.errors.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.familyName.errors.maxlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.familyName.errors?.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.familyName.errors?.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="(user | async)?.language === 'ja' && profileForm.controls.familyName.errors.customPattern" class="text-danger">
+                            <p *ngIf="(user | async)?.language === 'ja' && profileForm.controls.familyName.errors?.customPattern" class="text-danger">
                                 {{ 'form.validation.fullKana' | translate }}</p>
-                            <p *ngIf="(user | async)?.language !== 'ja' && profileForm.controls.familyName.errors.customPattern" class="text-danger">
+                            <p *ngIf="(user | async)?.language !== 'ja' && profileForm.controls.familyName.errors?.customPattern" class="text-danger">
                                 {{ 'form.validation.lowercaseLetters' | translate }}</p>
                         </div>
                     </div>
@@ -36,15 +36,15 @@
                             [placeholder]="'form.placeholder.givenName' | translate">
                         <div *ngIf="profileForm.controls.givenName.invalid && profileForm.controls.givenName.touched"
                             class="mt-2">
-                            <p *ngIf="profileForm.controls.givenName.errors.required" class="text-danger">
+                            <p *ngIf="profileForm.controls.givenName.errors?.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}
                             </p>
-                            <p *ngIf="profileForm.controls.givenName.errors.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.givenName.errors.maxlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.givenName.errors?.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.givenName.errors?.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="(user | async)?.language === 'ja' && profileForm.controls.givenName.errors.customPattern" class="text-danger">
+                            <p *ngIf="(user | async)?.language === 'ja' && profileForm.controls.givenName.errors?.customPattern" class="text-danger">
                                 {{ 'form.validation.fullKana' | translate }}</p>
-                            <p *ngIf="(user | async)?.language !== 'ja' && profileForm.controls.givenName.errors.customPattern" class="text-danger">
+                            <p *ngIf="(user | async)?.language !== 'ja' && profileForm.controls.givenName.errors?.customPattern" class="text-danger">
                                 {{ 'form.validation.lowercaseLetters' | translate }}</p>
                         </div>
                     </div>
@@ -58,13 +58,13 @@
                             [placeholder]="'form.placeholder.email' | translate">
                         <div *ngIf="profileForm.controls.email.invalid && profileForm.controls.email.touched"
                             class="mt-2">
-                            <p *ngIf="profileForm.controls.email.errors.required" class="text-danger">
+                            <p *ngIf="profileForm.controls.email.errors?.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}
                             </p>
-                            <p *ngIf="profileForm.controls.email.errors.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.email.errors.maxlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.email.errors?.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.email.errors?.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="profileForm.controls.email.errors.email" class="text-danger">
+                            <p *ngIf="profileForm.controls.email.errors?.email" class="text-danger">
                                 {{ 'form.validation.email' | translate }}
                             </p>
                         </div>
@@ -82,16 +82,16 @@
                             [placeholder]="'form.placeholder.telephone' | translate">
                         <div *ngIf="profileForm.controls.telephone.invalid && profileForm.controls.telephone.touched"
                             class="mt-2">
-                            <p *ngIf="profileForm.controls.telephone.errors.required" class="text-danger">
+                            <p *ngIf="profileForm.controls.telephone.errors?.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}
                             </p>
-                            <p *ngIf="profileForm.controls.telephone.errors.minlength" class="text-danger">
-                                {{ 'form.validation.minlength' | translate:{ value: profileForm.controls.telephone.errors.minlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.telephone.errors?.minlength" class="text-danger">
+                                {{ 'form.validation.minlength' | translate:{ value: profileForm.controls.telephone.errors?.minlength.requiredLength } }}
                             </p>
-                            <p *ngIf="profileForm.controls.telephone.errors.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.telephone.errors.maxlength.requiredLength } }}
+                            <p *ngIf="profileForm.controls.telephone.errors?.maxlength" class="text-danger">
+                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls.telephone.errors?.maxlength.requiredLength } }}
                             </p>
-                            <p *ngIf="profileForm.controls.telephone.errors.telephone" class="text-danger">
+                            <p *ngIf="profileForm.controls.telephone.errors?.telephone" class="text-danger">
                                 {{ 'form.validation.telephone' | translate }}</p>
                         </div>
                         <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.telephone' | translate"></p>
@@ -106,22 +106,22 @@
                             <input type="tel" class="form-control" formControlName="age" placeholder="">
                             <div *ngIf="profileForm.controls.age.invalid && profileForm.controls.age.touched"
                                 class="mt-2">
-                                <p *ngIf="profileForm.controls.age.errors.required" class="text-danger">
+                                <p *ngIf="profileForm.controls.age.errors?.required" class="text-danger">
                                     {{ 'form.validation.required' | translate }}</p>
-                                <p *ngIf="profileForm.controls.age.errors.minlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.minlength.requiredLength } }}
+                                <p *ngIf="profileForm.controls.age.errors?.minlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors?.minlength.requiredLength } }}
                                 </p>
-                                <p *ngIf="profileForm.controls.age.errors.maxlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.maxlength.requiredLength } }}
+                                <p *ngIf="profileForm.controls.age.errors?.maxlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors?.maxlength.requiredLength } }}
                                 </p>
-                                <p *ngIf="profileForm.controls.age.errors.pattern" class="text-danger">
+                                <p *ngIf="profileForm.controls.age.errors?.pattern" class="text-danger">
                                     {{ 'form.validation.pattern' | translate }}
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="profileForm.controls.address | changeLanguage" class="form-group">
+                <div *ngIf="profileForm.controls.address" class="form-group">
                     <div class="row align-items-center">
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.address' | translate }}<span
                             *ngIf="isRequired('address')"
@@ -130,15 +130,15 @@
                             <input type="tel" class="form-control" formControlName="address" placeholder="">
                             <div *ngIf="profileForm.controls.address.invalid && profileForm.controls.address.touched"
                                 class="mt-2">
-                                <p *ngIf="profileForm.controls.address.errors.required" class="text-danger">
+                                <p *ngIf="profileForm.controls.address.errors?.required" class="text-danger">
                                     {{ 'form.validation.required' | translate }}</p>
-                                <p *ngIf="profileForm.controls.address.errors.minlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.minlength.requiredLength } }}
+                                <p *ngIf="profileForm.controls.address.errors?.minlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors?.minlength.requiredLength } }}
                                 </p>
-                                <p *ngIf="profileForm.controls.address.errors.maxlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.maxlength.requiredLength } }}
+                                <p *ngIf="profileForm.controls.address.errors?.maxlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors?.maxlength.requiredLength } }}
                                 </p>
-                                <p *ngIf="profileForm.controls.address.errors.pattern" class="text-danger">
+                                <p *ngIf="profileForm.controls.address.errors?.pattern" class="text-danger">
                                     {{ 'form.validation.pattern' | translate }}
                                 </p>
                             </div>
@@ -158,15 +158,15 @@
                             </select>
                             <div *ngIf="profileForm.controls.gender.invalid && profileForm.controls.gender.touched"
                                 class="mt-2">
-                                <p *ngIf="profileForm.controls.gender.errors.required" class="text-danger">
+                                <p *ngIf="profileForm.controls.gender.errors?.required" class="text-danger">
                                     {{ 'form.validation.required' | translate }}</p>
-                                <p *ngIf="profileForm.controls.gender.errors.minlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.minlength.requiredLength } }}
+                                <p *ngIf="profileForm.controls.gender.errors?.minlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors?.minlength.requiredLength } }}
                                 </p>
-                                <p *ngIf="profileForm.controls.gender.errors.maxlength" class="text-danger">
-                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors.maxlength.requiredLength } }}
+                                <p *ngIf="profileForm.controls.gender.errors?.maxlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors?.maxlength.requiredLength } }}
                                 </p>
-                                <p *ngIf="profileForm.controls.gender.errors.pattern" class="text-danger">
+                                <p *ngIf="profileForm.controls.gender.errors?.pattern" class="text-danger">
                                     {{ 'form.validation.pattern' | translate }}
                                 </p>
                             </div>
@@ -197,9 +197,9 @@
                             [placeholder]="'form.placeholder.cardNumber' | translate" maxlength="16">
                         <div *ngIf="creditCardForm.controls.cardNumber.invalid && creditCardForm.controls.cardNumber.touched"
                             class="mt-2">
-                            <p *ngIf="creditCardForm.controls.cardNumber.errors.required" class="text-danger">
+                            <p *ngIf="creditCardForm.controls.cardNumber.errors?.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}</p>
-                            <p *ngIf="creditCardForm.controls.cardNumber.errors.pattern" class="text-danger">
+                            <p *ngIf="creditCardForm.controls.cardNumber.errors?.pattern" class="text-danger">
                                 {{ 'form.validation.number' | translate }}
                             </p>
                         </div>
@@ -233,7 +233,7 @@
                             [placeholder]="'form.placeholder.securityCode' | translate" formControlName="securityCode">
                         <div *ngIf="creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched"
                             class="mt-2">
-                            <p *ngIf="creditCardForm.controls.securityCode.errors.required" class="text-danger">
+                            <p *ngIf="creditCardForm.controls.securityCode.errors?.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}</p>
                         </div>
                         <div class="btn btn-link btn-sm" (click)="openSecurityCode()">
@@ -248,7 +248,7 @@
                             [placeholder]="'form.placeholder.holderName' | translate" formControlName="holderName">
                         <div *ngIf="creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched"
                             class="mt-2">
-                            <p *ngIf="creditCardForm.controls.holderName.errors.required" class="text-danger">
+                            <p *ngIf="creditCardForm.controls.holderName.errors?.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}</p>
                         </div>
                     </div>
@@ -269,7 +269,7 @@
                     </p>
                 </div>
             </div>
-            <div *ngIf="(user | async).creditCards.length > 0" class="buttons mx-auto mt-3">
+            <div *ngIf="(user | async)?.creditCards.length > 0" class="buttons mx-auto mt-3">
                 <button type="button" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async"
                     (click)="openRegisteredCreditCard()">{{ 'purchase.input.registeredCreditCard' | translate }}</button>
             </div>

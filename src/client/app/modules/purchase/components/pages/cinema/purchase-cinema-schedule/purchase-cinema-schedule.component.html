@@ -6,8 +6,8 @@
 <ul *ngIf="!(external.theaterBranchCode)" class="contents-width mx-auto theaters d-flex flex-wrap p-2">
     <li *ngFor="let theater of theaters" class="px-2 my-2">
         <button type="button" class="btn btn-block py-3 m-0" (click)="selectTheater(theater)"
-            [class.btn-primary]="(purchase | async).theater?.id === theater.id"
-            [class.btn-outline-primary]="(purchase | async).theater?.id !== theater.id">{{ theater.name | changeLanguage }}</button>
+            [class.btn-primary]="(purchase | async)?.theater?.id === theater.id"
+            [class.btn-outline-primary]="(purchase | async)?.theater?.id !== theater.id">{{ theater.name | changeLanguage }}</button>
     </li>
 </ul>
 
@@ -31,8 +31,8 @@
                 <div class="swiper-wrapper">
                     <div *ngFor="let scheduleDate of scheduleDates" class="swiper-slide pointer">
                         <div class="text-center text-white py-4"
-                            [class.bg-secondary]="scheduleDate !== (purchase | async).scheduleDate"
-                            [class.bg-primary]="scheduleDate === (purchase | async).scheduleDate"
+                            [class.bg-secondary]="scheduleDate !== (purchase | async)?.scheduleDate"
+                            [class.bg-primary]="scheduleDate === (purchase | async)?.scheduleDate"
                             (click)="selectDate(scheduleDate)">
                             <div>
                                 <p>{{ moment(scheduleDate).format('MM/DD(ddd)') }}</p>
@@ -48,7 +48,7 @@
 </div>
 <div class="contents-width mx-auto p-3">
     <p *ngIf="(purchase | async)?.scheduleDate" class="text-primary text-large mb-3">
-        {{ (purchase | async).scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}
+        {{ (purchase | async)?.scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}
     </p>
     <p *ngIf="screeningWorkEvents.length === 0" class="mb-3"
         [innerHTML]="'purchase.cinema.schedule.notfound' | translate"></p>

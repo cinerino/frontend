@@ -4,7 +4,7 @@
 
 
     <ul class="d-md-flex flex-wrap creditCards mb-4">
-        <li *ngFor="let creditCard of (user | async).creditCards" class="my-md-2 mb-3">
+        <li *ngFor="let creditCard of (user | async)?.creditCards" class="my-md-2 mb-3">
             <div class="card mx-md-2 h-100">
                 <div class="card-body position-relative">
                     <h5 class="card-title font-weight-bold">{{ 'common.credit.cardNumber' | translate }}
@@ -23,7 +23,7 @@
         </li>
     </ul>
 
-    <p *ngIf="(user | async).creditCards.length === 0" class="mb-4">{{ 'mypage.credit.notFound' | translate }}</p>
+    <p *ngIf="(user | async)?.creditCards.length === 0" class="mb-4">{{ 'mypage.credit.notFound' | translate }}</p>
 
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" (click)="openRegisterCreditcardModal()"

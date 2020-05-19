@@ -3,7 +3,7 @@
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.confirm.title' | translate }}</h2>
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.confirm.read' | translate"></p>
 
-        <div *ngFor="let authorizeSeatReservation of (purchase | async).authorizeSeatReservations"
+        <div *ngFor="let authorizeSeatReservation of (purchase | async)?.authorizeSeatReservations"
             class="mb-4 bg-white p-3">
             <div class="mb-3">
                 <div class="mb-1">
@@ -40,20 +40,20 @@
             <div class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.customerName' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async).profile.familyName }} {{ (purchase |
-                        async).profile.givenName }}</p>
+                    <p class="col-md-8">{{ (purchase | async)?.profile.familyName }} {{ (purchase |
+                        async)?.profile.givenName }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.email' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async).profile.email }}</p>
+                    <p class="col-md-8">{{ (purchase | async)?.profile.email }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray" [class.border-0]="amount === 0">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.telephone' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async).profile.telephone | libphonenumberFormat }}</p>
+                    <p class="col-md-8">{{ (purchase | async)?.profile.telephone | libphonenumberFormat }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray" *ngIf="amount > 0">
@@ -74,8 +74,8 @@
     <div *ngIf="environment.PURCHASE_WARNING">
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.confirm.warning' | translate }}</h2>
         <div class="mb-4">
-            <app-purchase-warning [language]="(user | async).language"
-                [screeningEvent]="(purchase | async).screeningEvent"></app-purchase-warning>
+            <app-purchase-warning [language]="(user | async)?.language"
+                [screeningEvent]="(purchase | async)?.screeningEvent"></app-purchase-warning>
         </div>
     </div>
 

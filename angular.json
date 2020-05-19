@@ -42,8 +42,7 @@
                 }
               ],
               "outputPath": "./dist/client/development",
-              "watch": true,
-              "aot": false
+              "watch": true
             },
             "development": {
               "budgets": [
