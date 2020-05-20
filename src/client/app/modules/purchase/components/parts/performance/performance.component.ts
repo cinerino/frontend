@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { IScreeningEventWork } from '../../../../../../functions';
+import { Performance } from '../../../../../models';
 
 @Component({
-    selector: 'app-purchase-cinema-performances',
-    templateUrl: './performances.component.html',
-    styleUrls: ['./performances.component.scss']
+    selector: 'app-purchase-performance',
+    templateUrl: './performance.component.html',
+    styleUrls: ['./performance.component.scss']
 })
-export class PurchaseCinemaPerformancesComponent implements OnInit {
+export class PurchasePerformanceComponent implements OnInit {
 
-    @Input() public screeningWorkEvent: IScreeningEventWork;
+    @Input() public performance: Performance;
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();
     public moment = moment;
 

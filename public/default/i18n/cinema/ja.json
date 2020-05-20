@@ -13,15 +13,6 @@
                 "preSalesSchedule": "先行販売スケジュール",
                 "salesSchedule": "通常販売スケジュール",
                 "notfound": "スケジュールがありません。",
-                "status": {
-                    "success": "購入",
-                    "warning": "購入",
-                    "danger": "満席",
-                    "endSale": "販売終了",
-                    "outsideSalesPeriod": "販売期間外",
-                    "window": "窓口"
-                },
-                "infiniteStock": "在庫管理なし",
                 "next": "次へ",
                 "prev": "戻る",
                 "alert": {

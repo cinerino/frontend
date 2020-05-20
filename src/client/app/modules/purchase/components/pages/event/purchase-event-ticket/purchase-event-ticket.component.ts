@@ -162,7 +162,6 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         if (screeningEvent === undefined || screen === undefined) {
             return;
         }
-        console.error('screen', screen);
         const performance = new Performance(screeningEvent);
         if (!performance.isInfinitetock()
             && !screen.openSeatingAllowed

@@ -99887,6 +99887,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! ../../../../../services */
     "./app/services/index.ts");
+    /* harmony import */
+
+
+    var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/common */
+    "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+    /* harmony import */
+
+
+    var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @ngx-translate/core */
+    "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
 
     var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
       function adopt(value) {
@@ -99919,6 +99931,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
     };
+
+    function ContentsComponent_div_1_Template(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 2);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "p", 3);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "translate");
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+      }
+
+      if (rf & 2) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("innerHTML", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, "supportBrowser"), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeHtml"]);
+      }
+    }
 
     var _c0 = ["*"];
 
@@ -99967,6 +99997,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }, _callee9, this);
           }));
         }
+      }, {
+        key: "isSupportBrowser",
+        value: function isSupportBrowser() {
+          var userAgent = window.navigator.userAgent.toLowerCase();
+          return userAgent.indexOf('edge') !== -1 || userAgent.indexOf('chrome') !== -1 || userAgent.indexOf('safari') !== -1;
+        }
       }]);
 
       return ContentsComponent;
@@ -99983,24 +100019,32 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         touch: "touch"
       },
       ngContentSelectors: _c0,
-      decls: 2,
-      vars: 2,
-      consts: [["id", "contents", 1, "scroll"]],
+      decls: 3,
+      vars: 3,
+      consts: [["id", "contents", 1, "scroll"], ["class", "alert alert-warning mb-0 support-browser", 4, "ngIf"], [1, "alert", "alert-warning", "mb-0", "support-browser"], [1, "contents-width", "mx-auto", 3, "innerHTML"]],
       template: function ContentsComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵprojectionDef"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵprojection"](1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, ContentsComponent_div_1_Template, 3, 3, "div", 1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵprojection"](2);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
 
         if (rf & 2) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("touch", ctx.touch);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !ctx.isSupportBrowser());
         }
       },
+      directives: [_angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"]],
+      pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"]],
       styles: ["[_nghost-%COMP%] {\n  box-sizing: border-box;\n  position: absolute;\n  top: 60px;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n\n.scroll[_ngcontent-%COMP%] {\n  overflow-x: hidden;\n  overflow-y: auto;\n  height: 100%;\n}\n\n.touch[_ngcontent-%COMP%] {\n  -webkit-overflow-scrolling: touch;\n}"]
     });
     /*@__PURE__*/
