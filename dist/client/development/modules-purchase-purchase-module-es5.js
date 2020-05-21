@@ -983,7 +983,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       },
       directives: [_angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _parts_purchase_info_purchase_info_component__WEBPACK_IMPORTED_MODULE_7__["PurchaseInfoComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLink"]],
       pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_8__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["AsyncPipe"]],
-      styles: [".movieticket[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%], .movieticket[_ngcontent-%COMP%]    > p[_ngcontent-%COMP%] {\n  width: 50%;\n}\n@media (max-width: 767.98px) {\n  .movieticket[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%], .movieticket[_ngcontent-%COMP%]    > p[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n}\n.ticket[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%] {\n  width: 50%;\n}\n@media (max-width: 767.98px) {\n  .ticket[_ngcontent-%COMP%]    > div[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n}"]
+      styles: [""]
     });
     /*@__PURE__*/
 
