@@ -12,6 +12,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.33 - 2020-05-21
+### Changed
+ -  デフォルトをカート機能ONへ変更
+### Fixed
+ - スクリーン自動生成不具合修正
+ - スケジュール定期更新不具合修正
+
 ## 3.0.32 - 2020-05-19
 ### Changed
  - fullTemplateTypeCheck対応
