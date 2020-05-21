@@ -241,7 +241,7 @@ interface IEnvironment {
 
 const defaultEnvironment: IEnvironment = {
     production: false,
-    APP_TITLE: '',
+    APP_TITLE: 'SMART THEATER',
     APP_PREFIX: '',
     PROJECT_ID: '',
     ENTRANCE_SERVER_URL: '',
