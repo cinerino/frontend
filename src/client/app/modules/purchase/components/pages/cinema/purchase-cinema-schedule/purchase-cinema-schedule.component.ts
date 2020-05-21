@@ -5,16 +5,12 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BAD_REQUEST, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../../environments/environment';
 import { getExternalData, IScreeningEventWork, screeningEvents2WorkEvents } from '../../../../../../functions';
 import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
-import {
-    PurchaseTransactionModalComponent
-} from '../../../../../shared/components/parts/purchase/transaction-modal/transaction-modal.component';
 
 @Component({
     selector: 'app-purchase-cinema-schedule',
@@ -44,7 +40,6 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         private utilService: UtilService,
         private purchaseService: PurchaseService,
         private masterService: MasterService,
-        private modal: BsModalService,
         private translate: TranslateService
     ) { }
 
@@ -129,14 +124,13 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             clearTimeout(this.updateTimer);
         }
         const time = 600000; // 10 * 60 * 1000
-        this.updateTimer = setTimeout(() => {
-            this.purchase.subscribe((purchase) => {
-                if (purchase.theater === undefined) {
-                    this.router.navigate(['/error']);
-                    return;
-                }
-                this.selectTheater(purchase.theater);
-            }).unsubscribe();
+        this.updateTimer = setTimeout(async () => {
+            const purchase = await this.purchaseService.getData();
+            if (purchase.theater === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            this.selectTheater(purchase.theater);
         }, time);
     }
 
@@ -245,11 +239,6 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             this.router.navigate(['/error']);
             return;
         }
-        if (purchase.transaction !== undefined
-            && purchase.authorizeSeatReservations.length > 0) {
-            this.openTransactionModal();
-            return;
-        }
         try {
             if (purchase.transaction !== undefined) {
                 await this.purchaseService.cancelTransaction();
@@ -271,25 +260,6 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             }
             this.router.navigate(['/error']);
         }
-    }
-
-    /**
-     * 取引重複警告
-     */
-    public openTransactionModal() {
-        this.purchase.subscribe((purchase) => {
-            this.user.subscribe((user) => {
-                this.modal.show(PurchaseTransactionModalComponent, {
-                    initialState: {
-                        purchase, user,
-                        cb: () => {
-                            this.router.navigate(['/purchase/cinema/seat']);
-                        }
-                    },
-                    class: 'modal-dialog-centered'
-                });
-            }).unsubscribe();
-        }).unsubscribe();
     }
 
 }

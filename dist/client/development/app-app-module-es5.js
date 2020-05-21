@@ -106337,179 +106337,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts":
-  /*!*******************************************************************************************************!*\
-    !*** ./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts ***!
-    \*******************************************************************************************************/
-
-  /*! exports provided: PurchaseTransactionModalComponent */
-
-  /***/
-  function appModulesSharedComponentsPartsPurchaseTransactionModalTransactionModalComponentTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "PurchaseTransactionModalComponent", function () {
-      return PurchaseTransactionModalComponent;
-    });
-    /* harmony import */
-
-
-    var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! @angular/core */
-    "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-    /* harmony import */
-
-
-    var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! ngx-bootstrap/modal */
-    "../../node_modules/ngx-bootstrap/__ivy_ngcc__/modal/fesm2015/ngx-bootstrap-modal.js");
-    /* harmony import */
-
-
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ../../../../../../../environments/environment */
-    "./environments/environment.ts");
-    /* harmony import */
-
-
-    var _store_reducers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! ../../../../../../store/reducers */
-    "./app/store/reducers/index.ts");
-    /* harmony import */
-
-
-    var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! @ngx-translate/core */
-    "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
-
-    var PurchaseTransactionModalComponent = /*#__PURE__*/function () {
-      function PurchaseTransactionModalComponent(modal) {
-        _classCallCheck(this, PurchaseTransactionModalComponent);
-
-        this.modal = modal;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
-      }
-
-      _createClass(PurchaseTransactionModalComponent, [{
-        key: "ngOnInit",
-        value: function ngOnInit() {}
-      }, {
-        key: "close",
-        value: function close() {
-          this.modal.hide();
-          this.cb();
-        }
-      }]);
-
-      return PurchaseTransactionModalComponent;
-    }();
-
-    PurchaseTransactionModalComponent.ɵfac = function PurchaseTransactionModalComponent_Factory(t) {
-      return new (t || PurchaseTransactionModalComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]));
-    };
-
-    PurchaseTransactionModalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
-      type: PurchaseTransactionModalComponent,
-      selectors: [["app-purchase-transaction-modal"]],
-      inputs: {
-        purchase: "purchase",
-        user: "user",
-        cb: "cb"
-      },
-      decls: 11,
-      vars: 9,
-      consts: [[1, "p-3"], [1, "mb-3", "text-large", "text-center"], [1, "mb-3"], [1, "buttons", "mx-auto", "text-center"], ["type", "button", 1, "btn", "btn-link", "btn-sm", 3, "click"]],
-      template: function PurchaseTransactionModalComponent_Template(rf, ctx) {
-        if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](3, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "p", 2);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](6, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div", 3);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "button", 4);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseTransactionModalComponent_Template_button_click_8_listener() {
-            return ctx.modal.hide();
-          });
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](9);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](10, "translate");
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        }
-
-        if (rf & 2) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 3, "modal.purchaseTransaction.title"));
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](6, 5, "modal.purchaseTransaction.read"));
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](10, 7, "common.close"));
-        }
-      },
-      pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"]],
-      styles: [""]
-    });
-    /*@__PURE__*/
-
-    (function () {
-      _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PurchaseTransactionModalComponent, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
-        args: [{
-          selector: 'app-purchase-transaction-modal',
-          templateUrl: './transaction-modal.component.html',
-          styleUrls: ['./transaction-modal.component.scss']
-        }]
-      }], function () {
-        return [{
-          type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"]
-        }];
-      }, {
-        purchase: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }],
-        user: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }],
-        cb: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }]
-      });
-    })();
-    /***/
-
-  },
-
-  /***/
   "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts":
   /*!*******************************************************************************************!*\
     !*** ./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts ***!
@@ -107515,42 +107342,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(
-    /*! ./components/parts/purchase/transaction-modal/transaction-modal.component */
-    "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts");
-    /* harmony import */
-
-
-    var _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(
+    var _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(
     /*! ./components/parts/qrcode/reader-modal/reader-modal.component */
     "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts");
     /* harmony import */
 
 
-    var _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(
+    var _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(
     /*! ./components/parts/qrcode/viewer-modal/viewer-modal.component */
     "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts");
     /* harmony import */
 
 
-    var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(
+    var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(
     /*! ./pipes/change-language.pipe */
     "./app/modules/shared/pipes/change-language.pipe.ts");
     /* harmony import */
 
 
-    var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(
+    var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(
     /*! ./pipes/format-date.pipe */
     "./app/modules/shared/pipes/format-date.pipe.ts");
     /* harmony import */
 
 
-    var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(
+    var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(
     /*! ./pipes/libphonenumber-format.pipe */
     "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
 
     var components = [_components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_24__["LoadingComponent"], _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_19__["FooterComponent"], _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_22__["HeaderComponent"], _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_21__["HeaderMenuComponent"], _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_15__["ContentsComponent"], _components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_9__["BaseComponent"], _components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_23__["ItemListComponent"], _components_parts_form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_20__["CheckboxComponent"]];
-    var entryComponents = [_components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_13__["AlertModalComponent"], _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_14__["ConfirmModalComponent"], _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_30__["QRCodeReaderModalComponent"], _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_31__["QRCodeViewerModalComponent"], _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_16__["CreditcardRegisterModalComponent"], _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_18__["CreditCardSelectModalComponent"], _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_17__["CreditcardSecurityCodeModalComponent"], _components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_10__["AccountChargeModalComponent"], _components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_12__["AccountTransferModalComponent"], _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_11__["AccountOpenModalComponent"], _components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_28__["PurchaseSeatTicketModalComponent"], _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_27__["PurchaseEventTicketModalComponent"], _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_29__["PurchaseTransactionModalComponent"], _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_25__["MvtkCheckModalComponent"], _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_26__["NumericKeypadComponent"]];
+    var entryComponents = [_components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_13__["AlertModalComponent"], _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_14__["ConfirmModalComponent"], _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_29__["QRCodeReaderModalComponent"], _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_30__["QRCodeViewerModalComponent"], _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_16__["CreditcardRegisterModalComponent"], _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_18__["CreditCardSelectModalComponent"], _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_17__["CreditcardSecurityCodeModalComponent"], _components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_10__["AccountChargeModalComponent"], _components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_12__["AccountTransferModalComponent"], _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_11__["AccountOpenModalComponent"], _components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_28__["PurchaseSeatTicketModalComponent"], _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_27__["PurchaseEventTicketModalComponent"], _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_25__["MvtkCheckModalComponent"], _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_26__["NumericKeypadComponent"]];
 
     var SharedModule = function SharedModule() {
       _classCallCheck(this, SharedModule);
@@ -107569,9 +107390,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     (function () {
       (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](SharedModule, {
-        declarations: [_components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_24__["LoadingComponent"], _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_19__["FooterComponent"], _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_22__["HeaderComponent"], _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_21__["HeaderMenuComponent"], _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_15__["ContentsComponent"], _components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_9__["BaseComponent"], _components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_23__["ItemListComponent"], _components_parts_form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_20__["CheckboxComponent"], _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_13__["AlertModalComponent"], _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_14__["ConfirmModalComponent"], _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_30__["QRCodeReaderModalComponent"], _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_31__["QRCodeViewerModalComponent"], _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_16__["CreditcardRegisterModalComponent"], _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_18__["CreditCardSelectModalComponent"], _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_17__["CreditcardSecurityCodeModalComponent"], _components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_10__["AccountChargeModalComponent"], _components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_12__["AccountTransferModalComponent"], _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_11__["AccountOpenModalComponent"], _components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_28__["PurchaseSeatTicketModalComponent"], _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_27__["PurchaseEventTicketModalComponent"], _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_29__["PurchaseTransactionModalComponent"], _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_25__["MvtkCheckModalComponent"], _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_26__["NumericKeypadComponent"], _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_34__["LibphonenumberFormatPipe"], _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_32__["ChangeLanguagePipe"], _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_33__["FormatDatePipe"]],
+        declarations: [_components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_24__["LoadingComponent"], _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_19__["FooterComponent"], _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_22__["HeaderComponent"], _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_21__["HeaderMenuComponent"], _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_15__["ContentsComponent"], _components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_9__["BaseComponent"], _components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_23__["ItemListComponent"], _components_parts_form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_20__["CheckboxComponent"], _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_13__["AlertModalComponent"], _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_14__["ConfirmModalComponent"], _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_29__["QRCodeReaderModalComponent"], _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_30__["QRCodeViewerModalComponent"], _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_16__["CreditcardRegisterModalComponent"], _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_18__["CreditCardSelectModalComponent"], _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_17__["CreditcardSecurityCodeModalComponent"], _components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_10__["AccountChargeModalComponent"], _components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_12__["AccountTransferModalComponent"], _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_11__["AccountOpenModalComponent"], _components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_28__["PurchaseSeatTicketModalComponent"], _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_27__["PurchaseEventTicketModalComponent"], _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_25__["MvtkCheckModalComponent"], _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_26__["NumericKeypadComponent"], _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_33__["LibphonenumberFormatPipe"], _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_31__["ChangeLanguagePipe"], _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_32__["FormatDatePipe"]],
         imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"], ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_8__["SwiperModule"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["ModalModule"], ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsDatepickerModule"], ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_7__["PaginationModule"]],
-        exports: [_components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_24__["LoadingComponent"], _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_19__["FooterComponent"], _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_22__["HeaderComponent"], _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_21__["HeaderMenuComponent"], _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_15__["ContentsComponent"], _components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_9__["BaseComponent"], _components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_23__["ItemListComponent"], _components_parts_form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_20__["CheckboxComponent"], _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_13__["AlertModalComponent"], _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_14__["ConfirmModalComponent"], _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_30__["QRCodeReaderModalComponent"], _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_31__["QRCodeViewerModalComponent"], _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_16__["CreditcardRegisterModalComponent"], _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_18__["CreditCardSelectModalComponent"], _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_17__["CreditcardSecurityCodeModalComponent"], _components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_10__["AccountChargeModalComponent"], _components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_12__["AccountTransferModalComponent"], _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_11__["AccountOpenModalComponent"], _components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_28__["PurchaseSeatTicketModalComponent"], _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_27__["PurchaseEventTicketModalComponent"], _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_29__["PurchaseTransactionModalComponent"], _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_25__["MvtkCheckModalComponent"], _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_26__["NumericKeypadComponent"], _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_34__["LibphonenumberFormatPipe"], _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_32__["ChangeLanguagePipe"], _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_33__["FormatDatePipe"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"], ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_8__["SwiperModule"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["ModalModule"], ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsDatepickerModule"], ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_7__["PaginationModule"]]
+        exports: [_components_parts_loading_loading_component__WEBPACK_IMPORTED_MODULE_24__["LoadingComponent"], _components_parts_footer_footer_component__WEBPACK_IMPORTED_MODULE_19__["FooterComponent"], _components_parts_header_header_component__WEBPACK_IMPORTED_MODULE_22__["HeaderComponent"], _components_parts_header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_21__["HeaderMenuComponent"], _components_parts_contents_contents_component__WEBPACK_IMPORTED_MODULE_15__["ContentsComponent"], _components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_9__["BaseComponent"], _components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_23__["ItemListComponent"], _components_parts_form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_20__["CheckboxComponent"], _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_13__["AlertModalComponent"], _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_14__["ConfirmModalComponent"], _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_29__["QRCodeReaderModalComponent"], _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_30__["QRCodeViewerModalComponent"], _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_16__["CreditcardRegisterModalComponent"], _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_18__["CreditCardSelectModalComponent"], _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_17__["CreditcardSecurityCodeModalComponent"], _components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_10__["AccountChargeModalComponent"], _components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_12__["AccountTransferModalComponent"], _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_11__["AccountOpenModalComponent"], _components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_28__["PurchaseSeatTicketModalComponent"], _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_27__["PurchaseEventTicketModalComponent"], _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_25__["MvtkCheckModalComponent"], _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_26__["NumericKeypadComponent"], _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_33__["LibphonenumberFormatPipe"], _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_31__["ChangeLanguagePipe"], _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_32__["FormatDatePipe"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"], ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_8__["SwiperModule"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["ModalModule"], ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsDatepickerModule"], ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_7__["PaginationModule"]]
       });
     })();
     /*@__PURE__*/
@@ -107581,10 +107402,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](SharedModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
         args: [{
-          declarations: [].concat(components, entryComponents, [_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_34__["LibphonenumberFormatPipe"], _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_32__["ChangeLanguagePipe"], _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_33__["FormatDatePipe"]]),
+          declarations: [].concat(components, entryComponents, [_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_33__["LibphonenumberFormatPipe"], _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_31__["ChangeLanguagePipe"], _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_32__["FormatDatePipe"]]),
           entryComponents: entryComponents,
           imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"], ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_8__["SwiperModule"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["ModalModule"], ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsDatepickerModule"], ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_7__["PaginationModule"]],
-          exports: [].concat(components, entryComponents, [_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_34__["LibphonenumberFormatPipe"], _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_32__["ChangeLanguagePipe"], _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_33__["FormatDatePipe"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"], ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_8__["SwiperModule"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["ModalModule"], ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsDatepickerModule"], ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_7__["PaginationModule"]]),
+          exports: [].concat(components, entryComponents, [_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_33__["LibphonenumberFormatPipe"], _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_31__["ChangeLanguagePipe"], _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_32__["FormatDatePipe"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"], ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_8__["SwiperModule"], ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["ModalModule"], ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsDatepickerModule"], ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_7__["PaginationModule"]]),
           providers: []
         }]
       }], null, null);
@@ -115956,7 +115777,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return action;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])(function (payload) {
         return __awaiter(_this292, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee92() {
-          var eventId, screeningEvent, seller;
+          var eventId, screeningEvent, searchResult, theater, seller;
           return regeneratorRuntime.wrap(function _callee92$(_context98) {
             while (1) {
               switch (_context98.prev = _context98.next) {
@@ -115975,39 +115796,59 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 case 6:
                   screeningEvent = _context98.sent;
 
-                  if (!(screeningEvent.superEvent.offers === undefined || screeningEvent.superEvent.offers.seller === undefined || screeningEvent.superEvent.offers.seller.id === undefined)) {
+                  if (!(screeningEvent.offers === undefined || screeningEvent.offers.seller === undefined || screeningEvent.offers.seller.id === undefined)) {
                     _context98.next = 9;
                     break;
                   }
 
-                  throw new Error('screeningEvent.superEvent.offers.seller.id undefined');
+                  throw new Error('screeningEvent.offers.seller.id undefined');
 
                 case 9:
                   _context98.next = 11;
-                  return this.cinerinoService.seller.findById({
-                    id: screeningEvent.superEvent.offers.seller.id
+                  return this.cinerinoService.place.searchMovieTheaters({
+                    id: {
+                      $eq: screeningEvent.superEvent.location.id
+                    }
                   });
 
                 case 11:
+                  searchResult = _context98.sent;
+
+                  if (!(searchResult.data.length === 0)) {
+                    _context98.next = 14;
+                    break;
+                  }
+
+                  throw new Error('searchMovieTheaters notfound');
+
+                case 14:
+                  theater = searchResult.data[0];
+                  _context98.next = 17;
+                  return this.cinerinoService.seller.findById({
+                    id: screeningEvent.offers.seller.id
+                  });
+
+                case 17:
                   seller = _context98.sent;
                   return _context98.abrupt("return", _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].convertExternalToPurchaseSuccess({
                     screeningEvent: screeningEvent,
-                    seller: seller
+                    seller: seller,
+                    theater: theater
                   }));
 
-                case 15:
-                  _context98.prev = 15;
+                case 21:
+                  _context98.prev = 21;
                   _context98.t0 = _context98["catch"](1);
                   return _context98.abrupt("return", _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].convertExternalToPurchaseFail({
                     error: _context98.t0
                   }));
 
-                case 18:
+                case 24:
                 case "end":
                   return _context98.stop();
               }
             }
-          }, _callee92, this, [[1, 15]]);
+          }, _callee92, this, [[1, 21]]);
         }));
       }));
     };
@@ -117407,7 +117248,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           purchaseData: Object.assign(Object.assign({}, state.purchaseData), {
             theater: theater
           }),
-          loading: true,
+          loading: false,
           process: '',
           error: null
         });
@@ -117950,10 +117791,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].convertExternalToPurchaseSuccess, function (state, payload) {
         var screeningEvent = payload.screeningEvent;
         var seller = payload.seller;
+        var theater = payload.theater;
         return Object.assign(Object.assign({}, state), {
           purchaseData: Object.assign(Object.assign({}, state.purchaseData), {
             screeningEvent: screeningEvent,
-            seller: seller
+            seller: seller,
+            theater: theater
           }),
           loading: false,
           process: '',

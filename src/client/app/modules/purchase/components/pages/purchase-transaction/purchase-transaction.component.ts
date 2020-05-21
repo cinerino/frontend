@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
+import { getExternalData } from '../../../../../functions';
 import { ViewType } from '../../../../../models';
 import { PurchaseService, UserService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -33,15 +34,24 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.error = this.store.pipe(select(reducers.getError));
+        const snapshot = this.activatedRoute.snapshot;
+        const eventId = snapshot.params.eventId;
+        const passportToken = snapshot.params.passportToken;
+        sessionStorage.setItem('EXTERNAL', JSON.stringify({ eventId, passportToken }));
+        const tmpPurchase = await this.purchaseService.getData();
+        const external = getExternalData();
+        if (this.environment.VIEW_TYPE === ViewType.Cinema
+            && external !== undefined
+            && external.eventId !== undefined
+            && tmpPurchase.authorizeSeatReservation !== undefined) {
+            this.router.navigate(['/purchase/cinema/overlap']);
+            return;
+        }
         this.purchaseService.delete();
         if (this.environment.VIEW_TYPE !== ViewType.Cinema) {
             this.router.navigate(['/error']);
             return;
         }
-        const snapshot = this.activatedRoute.snapshot;
-        const eventId = snapshot.params.eventId;
-        const passportToken = snapshot.params.passportToken;
-        sessionStorage.setItem('EXTERNAL', JSON.stringify({ eventId, passportToken }));
         try {
             await this.purchaseService.convertExternalToPurchase(eventId);
             await this.purchaseService.startTransaction();

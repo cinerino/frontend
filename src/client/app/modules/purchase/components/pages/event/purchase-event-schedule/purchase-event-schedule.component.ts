@@ -99,14 +99,13 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             clearTimeout(this.updateTimer);
         }
         const time = 600000; // 10 * 60 * 1000
-        this.updateTimer = setTimeout(() => {
-            this.purchase.subscribe((purchase) => {
-                if (purchase.theater === undefined) {
-                    this.router.navigate(['/error']);
-                    return;
-                }
-                this.selectTheater(purchase.theater);
-            }).unsubscribe();
+        this.updateTimer = setTimeout(async () => {
+            const purchase = await this.purchaseService.getData();
+            if (purchase.theater === undefined) {
+                this.router.navigate(['/error']);
+                return;
+            }
+            this.selectTheater(purchase.theater);
         }, time);
     }
 

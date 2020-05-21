@@ -175,9 +175,9 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
             }
             findResult.push({ branchCode, line, column });
         });
-        const lineMaxArray = array.reduce((a, b) => a[a.length - 1].line > b[a.length - 1].line ? a : b);
+        const lineMaxArray = array.reduce((a, b) => a[a.length - 1].line > b[b.length - 1].line ? a : b);
         const lineMax = lineMaxArray[lineMaxArray.length - 1].line;
-        const columnMaxArray = array.reduce((a, b) => a[a.length - 1].column > b[a.length - 1].column ? a : b);
+        const columnMaxArray = array.reduce((a, b) => a[a.length - 1].column > b[b.length - 1].column ? a : b);
         const columnMax = Number(columnMaxArray[columnMaxArray.length - 1].column);
         const map: number[][] = [];
         const lineLabels = this.createLineLabel();

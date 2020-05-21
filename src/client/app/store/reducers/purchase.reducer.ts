@@ -163,7 +163,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(purchaseAction.selectTheater, (state, payload) => {
             const theater = payload.theater;
-            return { ...state, purchaseData: { ...state.purchaseData, theater }, loading: true, process: '', error: null };
+            return { ...state, purchaseData: { ...state.purchaseData, theater }, loading: false, process: '', error: null };
         }),
         on(purchaseAction.selectScheduleDate, (state, payload) => {
             const scheduleDate = payload.scheduleDate;
@@ -616,12 +616,14 @@ export function reducer(initialState: IState, action: Action) {
         on(purchaseAction.convertExternalToPurchaseSuccess, (state, payload) => {
             const screeningEvent = payload.screeningEvent;
             const seller = payload.seller;
+            const theater = payload.theater;
             return {
                 ...state,
                 purchaseData: {
                     ...state.purchaseData,
                     screeningEvent,
-                    seller
+                    seller,
+                    theater
                 }, loading: false, process: '', error: null
             };
         }),

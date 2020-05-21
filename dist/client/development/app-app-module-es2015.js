@@ -74400,85 +74400,6 @@ PurchaseSeatTicketModalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_
 
 /***/ }),
 
-/***/ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts":
-/*!*******************************************************************************************************!*\
-  !*** ./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts ***!
-  \*******************************************************************************************************/
-/*! exports provided: PurchaseTransactionModalComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PurchaseTransactionModalComponent", function() { return PurchaseTransactionModalComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-bootstrap/modal */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/modal/fesm2015/ngx-bootstrap-modal.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
-
-
-
-
-
-
-
-class PurchaseTransactionModalComponent {
-    constructor(modal) {
-        this.modal = modal;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
-    }
-    ngOnInit() {
-    }
-    close() {
-        this.modal.hide();
-        this.cb();
-    }
-}
-PurchaseTransactionModalComponent.ɵfac = function PurchaseTransactionModalComponent_Factory(t) { return new (t || PurchaseTransactionModalComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"])); };
-PurchaseTransactionModalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchaseTransactionModalComponent, selectors: [["app-purchase-transaction-modal"]], inputs: { purchase: "purchase", user: "user", cb: "cb" }, decls: 11, vars: 9, consts: [[1, "p-3"], [1, "mb-3", "text-large", "text-center"], [1, "mb-3"], [1, "buttons", "mx-auto", "text-center"], ["type", "button", 1, "btn", "btn-link", "btn-sm", 3, "click"]], template: function PurchaseTransactionModalComponent_Template(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](3, "translate");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "p", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](6, "translate");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "button", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseTransactionModalComponent_Template_button_click_8_listener() { return ctx.modal.hide(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](10, "translate");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 3, "modal.purchaseTransaction.title"));
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](6, 5, "modal.purchaseTransaction.read"));
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](10, 7, "common.close"));
-    } }, pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"]], styles: [""] });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PurchaseTransactionModalComponent, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
-        args: [{
-                selector: 'app-purchase-transaction-modal',
-                templateUrl: './transaction-modal.component.html',
-                styleUrls: ['./transaction-modal.component.scss']
-            }]
-    }], function () { return [{ type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_1__["BsModalRef"] }]; }, { purchase: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }], user: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }], cb: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }] }); })();
-
-
-/***/ }),
-
 /***/ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts":
 /*!*******************************************************************************************!*\
   !*** ./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts ***!
@@ -74904,13 +74825,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/parts/numeric-keypad/numeric-keypad.component */ "./app/modules/shared/components/parts/numeric-keypad/numeric-keypad.component.ts");
 /* harmony import */ var _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/parts/purchase/event/ticket-modal/ticket-modal.component */ "./app/modules/shared/components/parts/purchase/event/ticket-modal/ticket-modal.component.ts");
 /* harmony import */ var _components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component */ "./app/modules/shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component.ts");
-/* harmony import */ var _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/parts/purchase/transaction-modal/transaction-modal.component */ "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts");
-/* harmony import */ var _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/parts/qrcode/reader-modal/reader-modal.component */ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts");
-/* harmony import */ var _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./components/parts/qrcode/viewer-modal/viewer-modal.component */ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts");
-/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
-/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
-/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
-
+/* harmony import */ var _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/parts/qrcode/reader-modal/reader-modal.component */ "./app/modules/shared/components/parts/qrcode/reader-modal/reader-modal.component.ts");
+/* harmony import */ var _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/parts/qrcode/viewer-modal/viewer-modal.component */ "./app/modules/shared/components/parts/qrcode/viewer-modal/viewer-modal.component.ts");
+/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
+/* harmony import */ var _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./pipes/libphonenumber-format.pipe */ "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
 
 
 
@@ -74959,8 +74878,8 @@ const components = [
 const entryComponents = [
     _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_13__["AlertModalComponent"],
     _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_14__["ConfirmModalComponent"],
-    _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_30__["QRCodeReaderModalComponent"],
-    _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_31__["QRCodeViewerModalComponent"],
+    _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_29__["QRCodeReaderModalComponent"],
+    _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_30__["QRCodeViewerModalComponent"],
     _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_16__["CreditcardRegisterModalComponent"],
     _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_18__["CreditCardSelectModalComponent"],
     _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_17__["CreditcardSecurityCodeModalComponent"],
@@ -74969,7 +74888,6 @@ const entryComponents = [
     _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_11__["AccountOpenModalComponent"],
     _components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_28__["PurchaseSeatTicketModalComponent"],
     _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_27__["PurchaseEventTicketModalComponent"],
-    _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_29__["PurchaseTransactionModalComponent"],
     _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_25__["MvtkCheckModalComponent"],
     _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_26__["NumericKeypadComponent"],
 ];
@@ -75004,8 +74922,8 @@ SharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjec
         _components_parts_form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_20__["CheckboxComponent"],
         _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_13__["AlertModalComponent"],
         _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_14__["ConfirmModalComponent"],
-        _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_30__["QRCodeReaderModalComponent"],
-        _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_31__["QRCodeViewerModalComponent"],
+        _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_29__["QRCodeReaderModalComponent"],
+        _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_30__["QRCodeViewerModalComponent"],
         _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_16__["CreditcardRegisterModalComponent"],
         _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_18__["CreditCardSelectModalComponent"],
         _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_17__["CreditcardSecurityCodeModalComponent"],
@@ -75014,12 +74932,11 @@ SharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjec
         _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_11__["AccountOpenModalComponent"],
         _components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_28__["PurchaseSeatTicketModalComponent"],
         _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_27__["PurchaseEventTicketModalComponent"],
-        _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_29__["PurchaseTransactionModalComponent"],
         _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_25__["MvtkCheckModalComponent"],
         _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_26__["NumericKeypadComponent"],
-        _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_34__["LibphonenumberFormatPipe"],
-        _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_32__["ChangeLanguagePipe"],
-        _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_33__["FormatDatePipe"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
+        _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_33__["LibphonenumberFormatPipe"],
+        _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_31__["ChangeLanguagePipe"],
+        _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_32__["FormatDatePipe"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
         _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
@@ -75037,8 +74954,8 @@ SharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjec
         _components_parts_form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_20__["CheckboxComponent"],
         _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_13__["AlertModalComponent"],
         _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_14__["ConfirmModalComponent"],
-        _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_30__["QRCodeReaderModalComponent"],
-        _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_31__["QRCodeViewerModalComponent"],
+        _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_29__["QRCodeReaderModalComponent"],
+        _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_30__["QRCodeViewerModalComponent"],
         _components_parts_creditcard_register_modal_register_modal_component__WEBPACK_IMPORTED_MODULE_16__["CreditcardRegisterModalComponent"],
         _components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_18__["CreditCardSelectModalComponent"],
         _components_parts_creditcard_security_code_modal_security_code_modal_component__WEBPACK_IMPORTED_MODULE_17__["CreditcardSecurityCodeModalComponent"],
@@ -75047,12 +74964,11 @@ SharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjec
         _components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_11__["AccountOpenModalComponent"],
         _components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_28__["PurchaseSeatTicketModalComponent"],
         _components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_27__["PurchaseEventTicketModalComponent"],
-        _components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_29__["PurchaseTransactionModalComponent"],
         _components_parts_mvtk_check_modal_check_modal_component__WEBPACK_IMPORTED_MODULE_25__["MvtkCheckModalComponent"],
         _components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_26__["NumericKeypadComponent"],
-        _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_34__["LibphonenumberFormatPipe"],
-        _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_32__["ChangeLanguagePipe"],
-        _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_33__["FormatDatePipe"],
+        _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_33__["LibphonenumberFormatPipe"],
+        _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_31__["ChangeLanguagePipe"],
+        _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_32__["FormatDatePipe"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
         _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"],
@@ -75066,9 +74982,9 @@ SharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjec
                 declarations: [
                     ...components,
                     ...entryComponents,
-                    _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_34__["LibphonenumberFormatPipe"],
-                    _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_32__["ChangeLanguagePipe"],
-                    _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_33__["FormatDatePipe"],
+                    _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_33__["LibphonenumberFormatPipe"],
+                    _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_31__["ChangeLanguagePipe"],
+                    _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_32__["FormatDatePipe"],
                 ],
                 entryComponents,
                 imports: [
@@ -75085,9 +75001,9 @@ SharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjec
                 exports: [
                     ...components,
                     ...entryComponents,
-                    _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_34__["LibphonenumberFormatPipe"],
-                    _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_32__["ChangeLanguagePipe"],
-                    _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_33__["FormatDatePipe"],
+                    _pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_33__["LibphonenumberFormatPipe"],
+                    _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_31__["ChangeLanguagePipe"],
+                    _pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_32__["FormatDatePipe"],
                     _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
                     _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                     _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"],
@@ -78578,13 +78494,20 @@ class PurchaseEffects {
             try {
                 yield this.cinerinoService.getServices();
                 const screeningEvent = yield this.cinerinoService.event.findById({ id: eventId });
-                if (screeningEvent.superEvent.offers === undefined
-                    || screeningEvent.superEvent.offers.seller === undefined
-                    || screeningEvent.superEvent.offers.seller.id === undefined) {
-                    throw new Error('screeningEvent.superEvent.offers.seller.id undefined');
+                if (screeningEvent.offers === undefined
+                    || screeningEvent.offers.seller === undefined
+                    || screeningEvent.offers.seller.id === undefined) {
+                    throw new Error('screeningEvent.offers.seller.id undefined');
                 }
-                const seller = yield this.cinerinoService.seller.findById({ id: screeningEvent.superEvent.offers.seller.id });
-                return _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].convertExternalToPurchaseSuccess({ screeningEvent, seller });
+                const searchResult = yield this.cinerinoService.place.searchMovieTheaters({
+                    id: { $eq: screeningEvent.superEvent.location.id }
+                });
+                if (searchResult.data.length === 0) {
+                    throw new Error('searchMovieTheaters notfound');
+                }
+                const theater = searchResult.data[0];
+                const seller = yield this.cinerinoService.seller.findById({ id: screeningEvent.offers.seller.id });
+                return _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].convertExternalToPurchaseSuccess({ screeningEvent, seller, theater });
             }
             catch (error) {
                 return _actions__WEBPACK_IMPORTED_MODULE_10__["purchaseAction"].convertExternalToPurchaseFail({ error: error });
@@ -79251,7 +79174,7 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].selectTheater, (state, payload) => {
         const theater = payload.theater;
-        return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { theater }), loading: true, process: '', error: null });
+        return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { theater }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].selectScheduleDate, (state, payload) => {
         const scheduleDate = payload.scheduleDate;
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { scheduleDate }), loading: true, process: '', error: null });
@@ -79512,8 +79435,10 @@ function reducer(initialState, action) {
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].convertExternalToPurchaseSuccess, (state, payload) => {
         const screeningEvent = payload.screeningEvent;
         const seller = payload.seller;
+        const theater = payload.theater;
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { screeningEvent,
-                seller }), loading: false, process: '', error: null });
+                seller,
+                theater }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].convertExternalToPurchaseFail, (state, payload) => {
         const error = payload.error;
         return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });

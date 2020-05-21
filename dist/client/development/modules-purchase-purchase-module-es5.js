@@ -1077,67 +1077,55 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-    /*! ngx-bootstrap/modal */
-    "../../node_modules/ngx-bootstrap/__ivy_ngcc__/modal/fesm2015/ngx-bootstrap-modal.js");
-    /* harmony import */
-
-
-    var ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    var ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! ngx-swiper-wrapper */
     "../../node_modules/ngx-swiper-wrapper/__ivy_ngcc__/fesm2015/ngx-swiper-wrapper.js");
     /* harmony import */
 
 
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! ../../../../../../../environments/environment */
     "./environments/environment.ts");
     /* harmony import */
 
 
-    var _functions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    var _functions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
     /*! ../../../../../../functions */
     "./app/functions/index.ts");
     /* harmony import */
 
 
-    var _services__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    var _services__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
     /*! ../../../../../../services */
     "./app/services/index.ts");
     /* harmony import */
 
 
-    var _store_reducers__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    var _store_reducers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
     /*! ../../../../../../store/reducers */
     "./app/store/reducers/index.ts");
     /* harmony import */
 
 
-    var _shared_components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
-    /*! ../../../../../shared/components/parts/purchase/transaction-modal/transaction-modal.component */
-    "./app/modules/shared/components/parts/purchase/transaction-modal/transaction-modal.component.ts");
-    /* harmony import */
-
-
-    var _angular_common__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+    var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
     /*! @angular/common */
     "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
     /* harmony import */
 
 
-    var _parts_cinema_performances_performances_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+    var _parts_cinema_performances_performances_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
     /*! ../../../parts/cinema/performances/performances.component */
     "./app/modules/purchase/components/parts/cinema/performances/performances.component.ts");
     /* harmony import */
 
 
-    var _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+    var _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
     /*! ../../../../../shared/pipes/change-language.pipe */
     "./app/modules/shared/pipes/change-language.pipe.ts");
     /* harmony import */
 
 
-    var _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
+    var _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
     /*! ../../../../../shared/pipes/format-date.pipe */
     "./app/modules/shared/pipes/format-date.pipe.ts");
 
@@ -1504,7 +1492,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     }
 
     var PurchaseCinemaScheduleComponent = /*#__PURE__*/function () {
-      function PurchaseCinemaScheduleComponent(store, router, utilService, purchaseService, masterService, modal, translate) {
+      function PurchaseCinemaScheduleComponent(store, router, utilService, purchaseService, masterService, translate) {
         _classCallCheck(this, PurchaseCinemaScheduleComponent);
 
         this.store = store;
@@ -1512,11 +1500,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.utilService = utilService;
         this.purchaseService = purchaseService;
         this.masterService = masterService;
-        this.modal = modal;
         this.translate = translate;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
-        this.external = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["getExternalData"])();
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
+        this.external = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getExternalData"])();
       }
       /**
        * 初期化
@@ -1552,10 +1539,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         prevEl: '.schedule-slider .swiper-button-prev'
                       }
                     };
-                    this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getLoading"]));
-                    this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getPurchase"]));
-                    this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getUser"]));
-                    this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getError"]));
+                    this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getLoading"]));
+                    this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getPurchase"]));
+                    this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getUser"]));
+                    this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getError"]));
                     this.isPreSchedule = false;
                     this.scheduleDates = [];
                     this.screeningWorkEvents = [];
@@ -1580,7 +1567,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 17:
                     purchase = _context3.sent;
-                    external = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["getExternalData"])();
+                    external = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getExternalData"])();
                     theater = purchase.theater === undefined ? this.theaters[0] : purchase.theater;
                     findResult = this.theaters.find(function (t) {
                       return external.theaterBranchCode !== undefined && t.branchCode === external.theaterBranchCode;
@@ -1674,15 +1661,36 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var time = 600000; // 10 * 60 * 1000
 
           this.updateTimer = setTimeout(function () {
-            _this2.purchase.subscribe(function (purchase) {
-              if (purchase.theater === undefined) {
-                _this2.router.navigate(['/error']);
+            return __awaiter(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              var purchase;
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                while (1) {
+                  switch (_context5.prev = _context5.next) {
+                    case 0:
+                      _context5.next = 2;
+                      return this.purchaseService.getData();
 
-                return;
-              }
+                    case 2:
+                      purchase = _context5.sent;
 
-              _this2.selectTheater(purchase.theater);
-            }).unsubscribe();
+                      if (!(purchase.theater === undefined)) {
+                        _context5.next = 6;
+                        break;
+                      }
+
+                      this.router.navigate(['/error']);
+                      return _context5.abrupt("return");
+
+                    case 6:
+                      this.selectTheater(purchase.theater);
+
+                    case 7:
+                    case "end":
+                      return _context5.stop();
+                  }
+                }
+              }, _callee5, this);
+            }));
           }, time);
         }
         /**
@@ -1701,13 +1709,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "selectTheater",
         value: function selectTheater(theater) {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
             var i;
-            return regeneratorRuntime.wrap(function _callee5$(_context5) {
+            return regeneratorRuntime.wrap(function _callee6$(_context6) {
               while (1) {
-                switch (_context5.prev = _context5.next) {
+                switch (_context6.prev = _context6.next) {
                   case 0:
-                    _context5.prev = 0;
+                    _context6.prev = 0;
                     this.purchaseService.selectTheater(theater);
                     this.scheduleDates = [];
 
@@ -1717,27 +1725,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                     this.isPreSchedule = false;
                     this.directiveRef.update();
-                    _context5.next = 8;
+                    _context6.next = 8;
                     return this.purchaseService.getPreScheduleDates();
 
                   case 8:
                     this.isPreSchedule = false;
                     this.selectDate();
-                    _context5.next = 16;
+                    _context6.next = 16;
                     break;
 
                   case 12:
-                    _context5.prev = 12;
-                    _context5.t0 = _context5["catch"](0);
-                    console.error(_context5.t0);
+                    _context6.prev = 12;
+                    _context6.t0 = _context6["catch"](0);
+                    console.error(_context6.t0);
                     this.router.navigate(['/error']);
 
                   case 16:
                   case "end":
-                    return _context5.stop();
+                    return _context6.stop();
                 }
               }
-            }, _callee5, this, [[0, 12]]);
+            }, _callee6, this, [[0, 12]]);
           }));
         }
         /**
@@ -1747,27 +1755,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "selectDate",
         value: function selectDate(scheduleDate) {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
             var purchase, theater, external, screeningEvents;
-            return regeneratorRuntime.wrap(function _callee6$(_context6) {
+            return regeneratorRuntime.wrap(function _callee7$(_context7) {
               while (1) {
-                switch (_context6.prev = _context6.next) {
+                switch (_context7.prev = _context7.next) {
                   case 0:
-                    _context6.next = 2;
+                    _context7.next = 2;
                     return this.purchaseService.getData();
 
                   case 2:
-                    purchase = _context6.sent;
+                    purchase = _context7.sent;
                     theater = purchase.theater;
-                    external = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["getExternalData"])();
+                    external = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["getExternalData"])();
 
                     if (!(theater === undefined || this.scheduleDates.length === 0)) {
-                      _context6.next = 8;
+                      _context7.next = 8;
                       break;
                     }
 
                     this.router.navigate(['/error']);
-                    return _context6.abrupt("return");
+                    return _context7.abrupt("return");
 
                   case 8:
                     if (scheduleDate === undefined || scheduleDate === '') {
@@ -1779,8 +1787,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     }
 
                     this.purchaseService.selectScheduleDate(scheduleDate);
-                    _context6.prev = 10;
-                    _context6.next = 13;
+                    _context7.prev = 10;
+                    _context7.next = 13;
                     return this.masterService.getSchedule({
                       superEvent: {
                         ids: external.superEventId === undefined ? [] : [external.superEventId],
@@ -1792,26 +1800,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
 
                   case 13:
-                    screeningEvents = _context6.sent;
-                    this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["screeningEvents2WorkEvents"])({
+                    screeningEvents = _context7.sent;
+                    this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_8__["screeningEvents2WorkEvents"])({
                       screeningEvents: screeningEvents
                     });
                     this.update();
-                    _context6.next = 22;
+                    _context7.next = 22;
                     break;
 
                   case 18:
-                    _context6.prev = 18;
-                    _context6.t0 = _context6["catch"](10);
-                    console.error(_context6.t0);
+                    _context7.prev = 18;
+                    _context7.t0 = _context7["catch"](10);
+                    console.error(_context7.t0);
                     this.router.navigate(['/error']);
 
                   case 22:
                   case "end":
-                    return _context6.stop();
+                    return _context7.stop();
                 }
               }
-            }, _callee6, this, [[10, 18]]);
+            }, _callee7, this, [[10, 18]]);
           }));
         }
         /**
@@ -1821,22 +1829,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "selectSchedule",
         value: function selectSchedule(screeningEvent) {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
             var purchase, errorObject;
-            return regeneratorRuntime.wrap(function _callee7$(_context7) {
+            return regeneratorRuntime.wrap(function _callee8$(_context8) {
               while (1) {
-                switch (_context7.prev = _context7.next) {
+                switch (_context8.prev = _context8.next) {
                   case 0:
                     if (!(screeningEvent.remainingAttendeeCapacity === undefined || screeningEvent.remainingAttendeeCapacity === 0)) {
-                      _context7.next = 2;
+                      _context8.next = 2;
                       break;
                     }
 
-                    return _context7.abrupt("return");
+                    return _context8.abrupt("return");
 
                   case 2:
                     if (!(screeningEvent.offers === undefined || screeningEvent.offers.itemOffered.serviceOutput === undefined || screeningEvent.offers.itemOffered.serviceOutput.reservedTicket === undefined || screeningEvent.offers.itemOffered.serviceOutput.reservedTicket.ticketedSeat === undefined)) {
-                      _context7.next = 5;
+                      _context8.next = 5;
                       break;
                     }
 
@@ -1844,146 +1852,113 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('purchase.cinema.schedule.alert.ticketedSeat')
                     });
-                    return _context7.abrupt("return");
+                    return _context8.abrupt("return");
 
                   case 5:
                     this.purchaseService.unsettledDelete();
-                    _context7.prev = 6;
-                    _context7.next = 9;
+                    _context8.prev = 6;
+                    _context8.next = 9;
                     return this.purchaseService.getScreeningEvent(screeningEvent);
 
                   case 9:
                     if (!(screeningEvent.offers.seller === undefined || screeningEvent.offers.seller.id === undefined)) {
-                      _context7.next = 11;
+                      _context8.next = 11;
                       break;
                     }
 
                     throw new Error('screeningEvent.offers.seller or screeningEvent.offers.seller.id undefined');
 
                   case 11:
-                    _context7.next = 13;
+                    _context8.next = 13;
                     return this.purchaseService.getSeller(screeningEvent.offers.seller.id);
 
                   case 13:
-                    _context7.next = 20;
+                    _context8.next = 20;
                     break;
 
                   case 15:
-                    _context7.prev = 15;
-                    _context7.t0 = _context7["catch"](6);
-                    console.error(_context7.t0);
+                    _context8.prev = 15;
+                    _context8.t0 = _context8["catch"](6);
+                    console.error(_context8.t0);
                     this.router.navigate(['/error']);
-                    return _context7.abrupt("return");
+                    return _context8.abrupt("return");
 
                   case 20:
-                    _context7.next = 22;
+                    _context8.next = 22;
                     return this.purchaseService.getData();
 
                   case 22:
-                    purchase = _context7.sent;
+                    purchase = _context8.sent;
 
                     if (!(purchase.seller === undefined)) {
-                      _context7.next = 26;
+                      _context8.next = 26;
                       break;
                     }
 
                     this.router.navigate(['/error']);
-                    return _context7.abrupt("return");
+                    return _context8.abrupt("return");
 
                   case 26:
-                    if (!(purchase.transaction !== undefined && purchase.authorizeSeatReservations.length > 0)) {
-                      _context7.next = 29;
-                      break;
-                    }
-
-                    this.openTransactionModal();
-                    return _context7.abrupt("return");
-
-                  case 29:
-                    _context7.prev = 29;
+                    _context8.prev = 26;
 
                     if (!(purchase.transaction !== undefined)) {
-                      _context7.next = 33;
+                      _context8.next = 30;
                       break;
                     }
 
-                    _context7.next = 33;
+                    _context8.next = 30;
                     return this.purchaseService.cancelTransaction();
 
-                  case 33:
-                    _context7.next = 35;
+                  case 30:
+                    _context8.next = 32;
                     return this.purchaseService.startTransaction();
 
-                  case 35:
+                  case 32:
                     this.router.navigate(['/purchase/cinema/seat']);
-                    _context7.next = 50;
+                    _context8.next = 47;
                     break;
 
-                  case 38:
-                    _context7.prev = 38;
-                    _context7.t1 = _context7["catch"](29);
+                  case 35:
+                    _context8.prev = 35;
+                    _context8.t1 = _context8["catch"](26);
 
-                    if (!(_context7.t1 === null)) {
-                      _context7.next = 42;
+                    if (!(_context8.t1 === null)) {
+                      _context8.next = 39;
                       break;
                     }
 
                     throw new Error('error is null');
 
-                  case 42:
-                    errorObject = JSON.parse(_context7.t1);
+                  case 39:
+                    errorObject = JSON.parse(_context8.t1);
 
                     if (!(errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_4__["TOO_MANY_REQUESTS"])) {
-                      _context7.next = 46;
+                      _context8.next = 43;
                       break;
                     }
 
                     this.router.navigate(['/congestion']);
-                    return _context7.abrupt("return");
+                    return _context8.abrupt("return");
 
-                  case 46:
+                  case 43:
                     if (!(errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_4__["BAD_REQUEST"])) {
-                      _context7.next = 49;
+                      _context8.next = 46;
                       break;
                     }
 
                     this.router.navigate(['/maintenance']);
-                    return _context7.abrupt("return");
+                    return _context8.abrupt("return");
 
-                  case 49:
+                  case 46:
                     this.router.navigate(['/error']);
 
-                  case 50:
+                  case 47:
                   case "end":
-                    return _context7.stop();
+                    return _context8.stop();
                 }
               }
-            }, _callee7, this, [[6, 15], [29, 38]]);
+            }, _callee8, this, [[6, 15], [26, 35]]);
           }));
-        }
-        /**
-         * 取引重複警告
-         */
-
-      }, {
-        key: "openTransactionModal",
-        value: function openTransactionModal() {
-          var _this3 = this;
-
-          this.purchase.subscribe(function (purchase) {
-            _this3.user.subscribe(function (user) {
-              _this3.modal.show(_shared_components_parts_purchase_transaction_modal_transaction_modal_component__WEBPACK_IMPORTED_MODULE_12__["PurchaseTransactionModalComponent"], {
-                initialState: {
-                  purchase: purchase,
-                  user: user,
-                  cb: function cb() {
-                    _this3.router.navigate(['/purchase/cinema/seat']);
-                  }
-                },
-                "class": 'modal-dialog-centered'
-              });
-            }).unsubscribe();
-          }).unsubscribe();
         }
       }]);
 
@@ -1991,7 +1966,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     }();
 
     PurchaseCinemaScheduleComponent.ɵfac = function PurchaseCinemaScheduleComponent_Factory(t) {
-      return new (t || PurchaseCinemaScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]));
+      return new (t || PurchaseCinemaScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]));
     };
 
     PurchaseCinemaScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -1999,9 +1974,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       selectors: [["app-purchase-cinema-schedule"]],
       viewQuery: function PurchaseCinemaScheduleComponent_Query(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_7__["SwiperComponent"], true);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_6__["SwiperComponent"], true);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_7__["SwiperDirective"], true);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_6__["SwiperDirective"], true);
         }
 
         if (rf & 2) {
@@ -2142,8 +2117,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.environment.PORTAL_SITE_URL);
         }
       },
-      directives: [_angular_common__WEBPACK_IMPORTED_MODULE_13__["NgIf"], ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_7__["SwiperDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_13__["NgForOf"], _parts_cinema_performances_performances_component__WEBPACK_IMPORTED_MODULE_14__["PurchaseCinemaPerformancesComponent"]],
-      pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_13__["AsyncPipe"], _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_15__["ChangeLanguagePipe"], _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_16__["FormatDatePipe"]],
+      directives: [_angular_common__WEBPACK_IMPORTED_MODULE_11__["NgIf"], ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_6__["SwiperDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgForOf"], _parts_cinema_performances_performances_component__WEBPACK_IMPORTED_MODULE_12__["PurchaseCinemaPerformancesComponent"]],
+      pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["AsyncPipe"], _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_13__["ChangeLanguagePipe"], _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_14__["FormatDatePipe"]],
       styles: [".theaters[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  width: 50%;\n}\n@media (max-width: 767.98px) {\n  .theaters[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-slide[_ngcontent-%COMP%]::after {\n  content: \"\";\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 4px;\n  background-color: #000;\n  opacity: 0.3;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%], .schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%] {\n  top: 0;\n  bottom: 0;\n  margin-top: 0;\n  height: 100%;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: 60%;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%]::after, .schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%]::after {\n  display: none;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%] {\n  right: 0px;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%] {\n  left: 0px;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%], .schedule-slider[_ngcontent-%COMP%]   .swiper-container-rtl[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%] {\n  background-image: url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E\");\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%], .schedule-slider[_ngcontent-%COMP%]   .swiper-container-rtl[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%] {\n  background-image: url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E\");\n}"]
     });
     /*@__PURE__*/
@@ -2162,24 +2137,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
         }, {
-          type: _services__WEBPACK_IMPORTED_MODULE_10__["UtilService"]
+          type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]
         }, {
-          type: _services__WEBPACK_IMPORTED_MODULE_10__["PurchaseService"]
+          type: _services__WEBPACK_IMPORTED_MODULE_9__["PurchaseService"]
         }, {
-          type: _services__WEBPACK_IMPORTED_MODULE_10__["MasterService"]
-        }, {
-          type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]
+          type: _services__WEBPACK_IMPORTED_MODULE_9__["MasterService"]
         }, {
           type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]
         }];
       }, {
         componentRef: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
-          args: [ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_7__["SwiperComponent"]]
+          args: [ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_6__["SwiperComponent"]]
         }],
         directiveRef: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
-          args: [ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_7__["SwiperDirective"]]
+          args: [ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_6__["SwiperDirective"]]
         }]
       });
     })();
@@ -3712,11 +3685,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(PurchaseEventScheduleComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
             var defaultDate, openDate, nowDate, external, theater;
-            return regeneratorRuntime.wrap(function _callee8$(_context8) {
+            return regeneratorRuntime.wrap(function _callee9$(_context9) {
               while (1) {
-                switch (_context8.prev = _context8.next) {
+                switch (_context9.prev = _context9.next) {
                   case 0:
                     this.bsValue = moment__WEBPACK_IMPORTED_MODULE_4__().toDate();
                     this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getPurchase"]));
@@ -3725,20 +3698,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
                     this.screeningWorkEvents = [];
                     this.isSales = true;
-                    _context8.prev = 7;
-                    _context8.next = 10;
+                    _context9.prev = 7;
+                    _context9.next = 10;
                     return this.purchaseService.getData();
 
                   case 10:
-                    _context8.t0 = _context8.sent.transaction;
-                    _context8.t1 = undefined;
+                    _context9.t0 = _context9.sent.transaction;
+                    _context9.t1 = undefined;
 
-                    if (!(_context8.t0 !== _context8.t1)) {
-                      _context8.next = 15;
+                    if (!(_context9.t0 !== _context9.t1)) {
+                      _context9.next = 15;
                       break;
                     }
 
-                    _context8.next = 15;
+                    _context9.next = 15;
                     return this.purchaseService.cancelTransaction();
 
                   case 15:
@@ -3759,41 +3732,41 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       }
                     }
 
-                    _context8.next = 18;
+                    _context9.next = 18;
                     return this.masterService.getTheaters();
 
                   case 18:
-                    this.theaters = _context8.sent;
+                    this.theaters = _context9.sent;
 
                     if (!(this.theaters.length === 0)) {
-                      _context8.next = 21;
+                      _context9.next = 21;
                       break;
                     }
 
                     throw new Error('theater notfound');
 
                   case 21:
-                    _context8.next = 23;
+                    _context9.next = 23;
                     return this.getDefaultTheater();
 
                   case 23:
-                    theater = _context8.sent;
+                    theater = _context9.sent;
                     this.selectTheater(theater);
-                    _context8.next = 31;
+                    _context9.next = 31;
                     break;
 
                   case 27:
-                    _context8.prev = 27;
-                    _context8.t2 = _context8["catch"](7);
-                    console.error(_context8.t2);
+                    _context9.prev = 27;
+                    _context9.t2 = _context9["catch"](7);
+                    console.error(_context9.t2);
                     this.router.navigate(['/error']);
 
                   case 31:
                   case "end":
-                    return _context8.stop();
+                    return _context9.stop();
                 }
               }
-            }, _callee8, this, [[7, 27]]);
+            }, _callee9, this, [[7, 27]]);
           }));
         }
         /**
@@ -3812,7 +3785,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "update",
         value: function update() {
-          var _this4 = this;
+          var _this3 = this;
 
           if (this.updateTimer !== undefined) {
             clearTimeout(this.updateTimer);
@@ -3821,15 +3794,36 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var time = 600000; // 10 * 60 * 1000
 
           this.updateTimer = setTimeout(function () {
-            _this4.purchase.subscribe(function (purchase) {
-              if (purchase.theater === undefined) {
-                _this4.router.navigate(['/error']);
+            return __awaiter(_this3, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+              var purchase;
+              return regeneratorRuntime.wrap(function _callee10$(_context10) {
+                while (1) {
+                  switch (_context10.prev = _context10.next) {
+                    case 0:
+                      _context10.next = 2;
+                      return this.purchaseService.getData();
 
-                return;
-              }
+                    case 2:
+                      purchase = _context10.sent;
 
-              _this4.selectTheater(purchase.theater);
-            }).unsubscribe();
+                      if (!(purchase.theater === undefined)) {
+                        _context10.next = 6;
+                        break;
+                      }
+
+                      this.router.navigate(['/error']);
+                      return _context10.abrupt("return");
+
+                    case 6:
+                      this.selectTheater(purchase.theater);
+
+                    case 7:
+                    case "end":
+                      return _context10.stop();
+                  }
+                }
+              }, _callee10, this);
+            }));
           }, time);
         }
         /**
@@ -3839,17 +3833,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getDefaultTheater",
         value: function getDefaultTheater() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
             var purchase, theater, findResult;
-            return regeneratorRuntime.wrap(function _callee9$(_context9) {
+            return regeneratorRuntime.wrap(function _callee11$(_context11) {
               while (1) {
-                switch (_context9.prev = _context9.next) {
+                switch (_context11.prev = _context11.next) {
                   case 0:
-                    _context9.next = 2;
+                    _context11.next = 2;
                     return this.purchaseService.getData();
 
                   case 2:
-                    purchase = _context9.sent;
+                    purchase = _context11.sent;
                     theater = purchase.theater === undefined ? this.theaters[0] : purchase.theater;
                     findResult = this.theaters.find(function (t) {
                       var external = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getExternalData"])();
@@ -3860,14 +3854,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       theater = findResult;
                     }
 
-                    return _context9.abrupt("return", theater);
+                    return _context11.abrupt("return", theater);
 
                   case 7:
                   case "end":
-                    return _context9.stop();
+                    return _context11.stop();
                 }
               }
-            }, _callee9, this);
+            }, _callee11, this);
           }));
         }
         /**
@@ -3877,24 +3871,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "selectTheater",
         value: function selectTheater(theater) {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
-            var _this5 = this;
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+            var _this4 = this;
 
-            return regeneratorRuntime.wrap(function _callee10$(_context10) {
+            return regeneratorRuntime.wrap(function _callee12$(_context12) {
               while (1) {
-                switch (_context10.prev = _context10.next) {
+                switch (_context12.prev = _context12.next) {
                   case 0:
                     this.purchaseService.selectTheater(theater);
                     setTimeout(function () {
-                      _this5.selectDate();
+                      _this4.selectDate();
                     }, 0);
 
                   case 2:
                   case "end":
-                    return _context10.stop();
+                    return _context12.stop();
                 }
               }
-            }, _callee10, this);
+            }, _callee12, this);
           }));
         }
         /**
@@ -3904,21 +3898,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "selectDate",
         value: function selectDate(date) {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
             var now, selectDate, salesStopDate, openDate, salesStopTime, purchase, theater, scheduleDate, external;
-            return regeneratorRuntime.wrap(function _callee11$(_context11) {
+            return regeneratorRuntime.wrap(function _callee13$(_context13) {
               while (1) {
-                switch (_context11.prev = _context11.next) {
+                switch (_context13.prev = _context13.next) {
                   case 0:
                     if (date !== undefined && date !== null) {
                       this.scheduleDate = date;
                     }
 
-                    _context11.next = 3;
+                    _context13.next = 3;
                     return this.utilService.getServerTime();
 
                   case 3:
-                    now = _context11.sent.date;
+                    now = _context13.sent.date;
                     selectDate = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYYMMDD')).toDate();
                     salesStopDate = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__().format('YYYYMMDD')).add(this.environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE, this.environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT).toDate();
                     openDate = moment__WEBPACK_IMPORTED_MODULE_4__(this.environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
@@ -3929,26 +3923,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       this.isSales = moment__WEBPACK_IMPORTED_MODULE_4__(now).format('HHmmss') < salesStopTime;
                     }
 
-                    _context11.prev = 9;
-                    _context11.next = 12;
+                    _context13.prev = 9;
+                    _context13.next = 12;
                     return this.purchaseService.getData();
 
                   case 12:
-                    purchase = _context11.sent;
+                    purchase = _context13.sent;
                     theater = purchase.theater;
 
                     if (!(theater === undefined)) {
-                      _context11.next = 16;
+                      _context13.next = 16;
                       break;
                     }
 
-                    return _context11.abrupt("return");
+                    return _context13.abrupt("return");
 
                   case 16:
                     scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYY-MM-DD');
                     this.purchaseService.selectScheduleDate(scheduleDate);
                     external = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getExternalData"])();
-                    _context11.next = 21;
+                    _context13.next = 21;
                     return this.masterService.getSchedule({
                       superEvent: {
                         ids: external.superEventId === undefined ? [] : [external.superEventId],
@@ -3960,26 +3954,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
 
                   case 21:
-                    this.screeningEvents = _context11.sent;
+                    this.screeningEvents = _context13.sent;
                     this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["screeningEvents2WorkEvents"])({
                       screeningEvents: this.screeningEvents
                     });
                     this.update();
-                    _context11.next = 30;
+                    _context13.next = 30;
                     break;
 
                   case 26:
-                    _context11.prev = 26;
-                    _context11.t0 = _context11["catch"](9);
-                    console.error(_context11.t0);
+                    _context13.prev = 26;
+                    _context13.t0 = _context13["catch"](9);
+                    console.error(_context13.t0);
                     this.router.navigate(['/error']);
 
                   case 30:
                   case "end":
-                    return _context11.stop();
+                    return _context13.stop();
                 }
               }
-            }, _callee11, this, [[9, 26]]);
+            }, _callee13, this, [[9, 26]]);
           }));
         }
         /**
@@ -3989,104 +3983,104 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
             var screeningEvent, purchase, transaction, errorObject;
-            return regeneratorRuntime.wrap(function _callee12$(_context12) {
+            return regeneratorRuntime.wrap(function _callee14$(_context14) {
               while (1) {
-                switch (_context12.prev = _context12.next) {
+                switch (_context14.prev = _context14.next) {
                   case 0:
-                    _context12.prev = 0;
+                    _context14.prev = 0;
                     screeningEvent = this.screeningEvents.find(function (s) {
                       return s.offers !== undefined && s.offers.seller !== undefined && s.offers.seller.id !== undefined;
                     });
 
                     if (!(screeningEvent === undefined || screeningEvent.offers === undefined || screeningEvent.offers.seller === undefined || screeningEvent.offers.seller.id === undefined)) {
-                      _context12.next = 4;
+                      _context14.next = 4;
                       break;
                     }
 
                     throw new Error('screeningEvent.offers.seller === undefined');
 
                   case 4:
-                    _context12.next = 6;
+                    _context14.next = 6;
                     return this.purchaseService.getSeller(screeningEvent.offers.seller.id);
 
                   case 6:
-                    _context12.next = 12;
+                    _context14.next = 12;
                     break;
 
                   case 8:
-                    _context12.prev = 8;
-                    _context12.t0 = _context12["catch"](0);
-                    console.error(_context12.t0);
+                    _context14.prev = 8;
+                    _context14.t0 = _context14["catch"](0);
+                    console.error(_context14.t0);
                     this.router.navigate(['/error']);
 
                   case 12:
-                    _context12.prev = 12;
-                    _context12.next = 15;
+                    _context14.prev = 12;
+                    _context14.next = 15;
                     return this.purchaseService.getData();
 
                   case 15:
-                    purchase = _context12.sent;
+                    purchase = _context14.sent;
                     transaction = purchase.transaction;
 
                     if (!(transaction !== undefined)) {
-                      _context12.next = 20;
+                      _context14.next = 20;
                       break;
                     }
 
-                    _context12.next = 20;
+                    _context14.next = 20;
                     return this.purchaseService.cancelTransaction();
 
                   case 20:
-                    _context12.next = 22;
+                    _context14.next = 22;
                     return this.purchaseService.startTransaction();
 
                   case 22:
                     this.router.navigate(['/purchase/event/ticket']);
-                    _context12.next = 37;
+                    _context14.next = 37;
                     break;
 
                   case 25:
-                    _context12.prev = 25;
-                    _context12.t1 = _context12["catch"](12);
+                    _context14.prev = 25;
+                    _context14.t1 = _context14["catch"](12);
 
-                    if (!(_context12.t1 === null)) {
-                      _context12.next = 29;
+                    if (!(_context14.t1 === null)) {
+                      _context14.next = 29;
                       break;
                     }
 
                     throw new Error('error is null');
 
                   case 29:
-                    errorObject = JSON.parse(_context12.t1);
+                    errorObject = JSON.parse(_context14.t1);
 
                     if (!(errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_3__["TOO_MANY_REQUESTS"])) {
-                      _context12.next = 33;
+                      _context14.next = 33;
                       break;
                     }
 
                     this.router.navigate(['/congestion']);
-                    return _context12.abrupt("return");
+                    return _context14.abrupt("return");
 
                   case 33:
                     if (!(errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_3__["BAD_REQUEST"])) {
-                      _context12.next = 36;
+                      _context14.next = 36;
                       break;
                     }
 
                     this.router.navigate(['/maintenance']);
-                    return _context12.abrupt("return");
+                    return _context14.abrupt("return");
 
                   case 36:
                     this.router.navigate(['/error']);
 
                   case 37:
                   case "end":
-                    return _context12.stop();
+                    return _context14.stop();
                 }
               }
-            }, _callee12, this, [[0, 8], [12, 25]]);
+            }, _callee14, this, [[0, 8], [12, 25]]);
           }));
         }
         /**
@@ -4096,10 +4090,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setDatePicker",
         value: function setDatePicker() {
-          var _this6 = this;
+          var _this5 = this;
 
           this.user.subscribe(function (user) {
-            _this6.localeService.use(user.language);
+            _this5.localeService.use(user.language);
           }).unsubscribe();
         }
         /**
@@ -5156,43 +5150,43 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(PurchaseEventSeatComponent, [{
         key: "prev",
         value: function prev() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
             var authorizeSeatReservation;
-            return regeneratorRuntime.wrap(function _callee13$(_context13) {
+            return regeneratorRuntime.wrap(function _callee15$(_context15) {
               while (1) {
-                switch (_context13.prev = _context13.next) {
+                switch (_context15.prev = _context15.next) {
                   case 0:
-                    _context13.prev = 0;
-                    _context13.next = 3;
+                    _context15.prev = 0;
+                    _context15.next = 3;
                     return this.purchaseService.getData();
 
                   case 3:
-                    authorizeSeatReservation = _context13.sent.authorizeSeatReservation;
+                    authorizeSeatReservation = _context15.sent.authorizeSeatReservation;
 
                     if (!(authorizeSeatReservation !== undefined)) {
-                      _context13.next = 7;
+                      _context15.next = 7;
                       break;
                     }
 
-                    _context13.next = 7;
+                    _context15.next = 7;
                     return this.purchaseService.cancelTemporaryReservations([authorizeSeatReservation]);
 
                   case 7:
                     this.router.navigate(['/purchase/event/ticket']);
-                    _context13.next = 13;
+                    _context15.next = 13;
                     break;
 
                   case 10:
-                    _context13.prev = 10;
-                    _context13.t0 = _context13["catch"](0);
-                    console.error(_context13.t0);
+                    _context15.prev = 10;
+                    _context15.t0 = _context15["catch"](0);
+                    console.error(_context15.t0);
 
                   case 13:
                   case "end":
-                    return _context13.stop();
+                    return _context15.stop();
                 }
               }
-            }, _callee13, this, [[0, 10]]);
+            }, _callee15, this, [[0, 10]]);
           }));
         }
       }]);
@@ -5868,10 +5862,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(PurchaseEventTicketComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
-            return regeneratorRuntime.wrap(function _callee14$(_context14) {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
+            return regeneratorRuntime.wrap(function _callee16$(_context16) {
               while (1) {
-                switch (_context14.prev = _context14.next) {
+                switch (_context16.prev = _context16.next) {
                   case 0:
                     this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getPurchase"]));
                     this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getUser"]));
@@ -5879,26 +5873,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getLoading"]));
                     this.screeningWorkEvents = [];
                     this.purchaseService.unsettledDelete();
-                    _context14.prev = 6;
-                    _context14.next = 9;
+                    _context16.prev = 6;
+                    _context16.next = 9;
                     return this.getSchedule();
 
                   case 9:
-                    _context14.next = 15;
+                    _context16.next = 15;
                     break;
 
                   case 11:
-                    _context14.prev = 11;
-                    _context14.t0 = _context14["catch"](6);
-                    console.error(_context14.t0);
+                    _context16.prev = 11;
+                    _context16.t0 = _context16["catch"](6);
+                    console.error(_context16.t0);
                     this.router.navigate(['/error']);
 
                   case 15:
                   case "end":
-                    return _context14.stop();
+                    return _context16.stop();
                 }
               }
-            }, _callee14, this, [[6, 11]]);
+            }, _callee16, this, [[6, 11]]);
           }));
         }
         /**
@@ -5917,7 +5911,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "update",
         value: function update() {
-          var _this7 = this;
+          var _this6 = this;
 
           if (this.updateTimer !== undefined) {
             clearTimeout(this.updateTimer);
@@ -5926,31 +5920,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var time = 600000; // 10 * 60 * 1000
 
           this.updateTimer = setTimeout(function () {
-            return __awaiter(_this7, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
-              return regeneratorRuntime.wrap(function _callee15$(_context15) {
+            return __awaiter(_this6, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
+              return regeneratorRuntime.wrap(function _callee17$(_context17) {
                 while (1) {
-                  switch (_context15.prev = _context15.next) {
+                  switch (_context17.prev = _context17.next) {
                     case 0:
-                      _context15.prev = 0;
-                      _context15.next = 3;
+                      _context17.prev = 0;
+                      _context17.next = 3;
                       return this.getSchedule();
 
                     case 3:
-                      _context15.next = 9;
+                      _context17.next = 9;
                       break;
 
                     case 5:
-                      _context15.prev = 5;
-                      _context15.t0 = _context15["catch"](0);
-                      console.error(_context15.t0);
+                      _context17.prev = 5;
+                      _context17.t0 = _context17["catch"](0);
+                      console.error(_context17.t0);
                       this.router.navigate(['/error']);
 
                     case 9:
                     case "end":
-                      return _context15.stop();
+                      return _context17.stop();
                   }
                 }
-              }, _callee15, this, [[0, 5]]);
+              }, _callee17, this, [[0, 5]]);
             }));
           }, time);
         }
@@ -5961,31 +5955,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getSchedule",
         value: function getSchedule() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
             var purchase, theater, scheduleDate, transaction, external, screeningEvents;
-            return regeneratorRuntime.wrap(function _callee16$(_context16) {
+            return regeneratorRuntime.wrap(function _callee18$(_context18) {
               while (1) {
-                switch (_context16.prev = _context16.next) {
+                switch (_context18.prev = _context18.next) {
                   case 0:
-                    _context16.next = 2;
+                    _context18.next = 2;
                     return this.purchaseService.getData();
 
                   case 2:
-                    purchase = _context16.sent;
+                    purchase = _context18.sent;
                     theater = purchase.theater;
                     scheduleDate = purchase.scheduleDate;
                     transaction = purchase.transaction;
                     external = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["getExternalData"])();
 
                     if (!(theater === undefined || scheduleDate === undefined || transaction === undefined)) {
-                      _context16.next = 9;
+                      _context18.next = 9;
                       break;
                     }
 
                     throw new Error('theater or scheduleDate or transaction undefined');
 
                   case 9:
-                    _context16.next = 11;
+                    _context18.next = 11;
                     return this.masterService.getSchedule({
                       superEvent: {
                         ids: external.superEventId === undefined ? [] : [external.superEventId],
@@ -5997,7 +5991,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
 
                   case 11:
-                    screeningEvents = _context16.sent;
+                    screeningEvents = _context18.sent;
                     this.screeningWorkEvents = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["screeningEvents2WorkEvents"])({
                       screeningEvents: screeningEvents
                     });
@@ -6005,10 +5999,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 14:
                   case "end":
-                    return _context16.stop();
+                    return _context18.stop();
                 }
               }
-            }, _callee16, this);
+            }, _callee18, this);
           }));
         }
         /**
@@ -6019,20 +6013,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "selectSchedule",
         value: function selectSchedule(screeningEvent) {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
             var purchase;
-            return regeneratorRuntime.wrap(function _callee17$(_context17) {
+            return regeneratorRuntime.wrap(function _callee19$(_context19) {
               while (1) {
-                switch (_context17.prev = _context17.next) {
+                switch (_context19.prev = _context19.next) {
                   case 0:
-                    _context17.next = 2;
+                    _context19.next = 2;
                     return this.purchaseService.getData();
 
                   case 2:
-                    purchase = _context17.sent;
+                    purchase = _context19.sent;
 
                     if (!(purchase.authorizeSeatReservations.length > 0 && !this.environment.PURCHASE_CART)) {
-                      _context17.next = 6;
+                      _context19.next = 6;
                       break;
                     }
 
@@ -6040,24 +6034,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('purchase.event.ticket.alert.cart')
                     });
-                    return _context17.abrupt("return");
+                    return _context19.abrupt("return");
 
                   case 6:
-                    _context17.prev = 6;
-                    _context17.next = 9;
+                    _context19.prev = 6;
+                    _context19.next = 9;
                     return this.purchaseService.getScreeningEvent(screeningEvent);
 
                   case 9:
-                    _context17.next = 11;
+                    _context19.next = 11;
                     return this.purchaseService.getScreeningEventSeats();
 
                   case 11:
-                    this.screeningEventSeats = _context17.sent;
-                    _context17.next = 14;
+                    this.screeningEventSeats = _context19.sent;
+                    _context19.next = 14;
                     return this.purchaseService.getTicketList();
 
                   case 14:
-                    _context17.next = 16;
+                    _context19.next = 16;
                     return this.purchaseService.getScreen({
                       branchCode: {
                         $eq: screeningEvent.location.branchCode
@@ -6071,12 +6065,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 16:
                     this.openTicketList();
-                    _context17.next = 22;
+                    _context19.next = 22;
                     break;
 
                   case 19:
-                    _context17.prev = 19;
-                    _context17.t0 = _context17["catch"](6);
+                    _context19.prev = 19;
+                    _context19.t0 = _context19["catch"](6);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: ''
@@ -6084,10 +6078,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 22:
                   case "end":
-                    return _context17.stop();
+                    return _context19.stop();
                 }
               }
-            }, _callee17, this, [[6, 19]]);
+            }, _callee19, this, [[6, 19]]);
           }));
         }
         /**
@@ -6097,43 +6091,43 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openTicketList",
         value: function openTicketList() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
-            var _this8 = this;
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
+            var _this7 = this;
 
             var purchase, screeningEvent, screeningEventTicketOffers, screeningEventSeats, screen, performance;
-            return regeneratorRuntime.wrap(function _callee18$(_context18) {
+            return regeneratorRuntime.wrap(function _callee20$(_context20) {
               while (1) {
-                switch (_context18.prev = _context18.next) {
+                switch (_context20.prev = _context20.next) {
                   case 0:
-                    _context18.next = 2;
+                    _context20.next = 2;
                     return this.purchaseService.getData();
 
                   case 2:
-                    purchase = _context18.sent;
+                    purchase = _context20.sent;
                     screeningEvent = purchase.screeningEvent;
                     screeningEventTicketOffers = purchase.screeningEventTicketOffers;
                     screeningEventSeats = this.screeningEventSeats;
                     screen = purchase.screen;
 
                     if (!(screeningEvent === undefined || screen === undefined)) {
-                      _context18.next = 9;
+                      _context20.next = 9;
                       break;
                     }
 
-                    return _context18.abrupt("return");
+                    return _context20.abrupt("return");
 
                   case 9:
                     console.error('screen', screen);
                     performance = new _models__WEBPACK_IMPORTED_MODULE_8__["Performance"](screeningEvent);
 
                     if (!(!performance.isInfinitetock() && !screen.openSeatingAllowed && performance.isTicketedSeat())) {
-                      _context18.next = 14;
+                      _context20.next = 14;
                       break;
                     }
 
                     // 座席選択あり
                     this.router.navigate(['/purchase/event/seat']);
-                    return _context18.abrupt("return");
+                    return _context20.abrupt("return");
 
                   case 14:
                     this.modal.show(_shared_components_parts_purchase_event_ticket_modal_ticket_modal_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseEventTicketModalComponent"], {
@@ -6144,17 +6138,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         screeningEventSeats: screeningEventSeats,
                         screeningEvent: screeningEvent,
                         cb: function cb(params) {
-                          _this8.selectTicket(params);
+                          _this7.selectTicket(params);
                         }
                       }
                     });
 
                   case 15:
                   case "end":
-                    return _context18.stop();
+                    return _context20.stop();
                 }
               }
-            }, _callee18, this);
+            }, _callee20, this);
           }));
         }
         /**
@@ -6164,24 +6158,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "selectTicket",
         value: function selectTicket(params) {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
             var reservations, additionalTicketText, purchase, limit, remainingSeatLength;
-            return regeneratorRuntime.wrap(function _callee19$(_context19) {
+            return regeneratorRuntime.wrap(function _callee21$(_context21) {
               while (1) {
-                switch (_context19.prev = _context19.next) {
+                switch (_context21.prev = _context21.next) {
                   case 0:
                     reservations = params.reservations;
                     additionalTicketText = params.additionalTicketText;
-                    _context19.prev = 2;
-                    _context19.next = 5;
+                    _context21.prev = 2;
+                    _context21.next = 5;
                     return this.purchaseService.getData();
 
                   case 5:
-                    purchase = _context19.sent;
+                    purchase = _context21.sent;
                     limit = purchase.screeningEvent === undefined || purchase.screeningEvent.offers === undefined || purchase.screeningEvent.offers.eligibleQuantity.maxValue === undefined ? Number(this.environment.PURCHASE_ITEM_MAX_LENGTH) : purchase.screeningEvent.offers.eligibleQuantity.maxValue;
 
                     if (!(reservations.length > limit)) {
-                      _context19.next = 10;
+                      _context21.next = 10;
                       break;
                     }
 
@@ -6191,17 +6185,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         value: limit
                       })
                     });
-                    return _context19.abrupt("return");
+                    return _context21.abrupt("return");
 
                   case 10:
-                    _context19.next = 12;
+                    _context21.next = 12;
                     return this.purchaseService.getScreeningEventSeats();
 
                   case 12:
-                    this.screeningEventSeats = _context19.sent;
+                    this.screeningEventSeats = _context21.sent;
 
                     if (!(purchase.screeningEvent !== undefined && new _models__WEBPACK_IMPORTED_MODULE_8__["Performance"](purchase.screeningEvent).isTicketedSeat())) {
-                      _context19.next = 18;
+                      _context21.next = 18;
                       break;
                     }
 
@@ -6211,7 +6205,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
 
                     if (!(remainingSeatLength < reservations.length)) {
-                      _context19.next = 18;
+                      _context21.next = 18;
                       break;
                     }
 
@@ -6219,24 +6213,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventSeats')
                     });
-                    return _context19.abrupt("return");
+                    return _context21.abrupt("return");
 
                   case 18:
-                    _context19.next = 24;
+                    _context21.next = 24;
                     break;
 
                   case 20:
-                    _context19.prev = 20;
-                    _context19.t0 = _context19["catch"](2);
-                    console.error(_context19.t0);
+                    _context21.prev = 20;
+                    _context21.t0 = _context21["catch"](2);
+                    console.error(_context21.t0);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: ''
                     });
 
                   case 24:
-                    _context19.prev = 24;
-                    _context19.next = 27;
+                    _context21.prev = 24;
+                    _context21.next = 27;
                     return this.purchaseService.temporaryReservation({
                       reservations: reservations,
                       additionalTicketText: additionalTicketText,
@@ -6249,13 +6243,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
                     });
                     this.purchaseService.unsettledDelete();
-                    _context19.next = 35;
+                    _context21.next = 35;
                     break;
 
                   case 31:
-                    _context19.prev = 31;
-                    _context19.t1 = _context19["catch"](24);
-                    console.error(_context19.t1);
+                    _context21.prev = 31;
+                    _context21.t1 = _context21["catch"](24);
+                    console.error(_context21.t1);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('purchase.event.ticket.alert.temporaryReservation')
@@ -6263,10 +6257,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 35:
                   case "end":
-                    return _context19.stop();
+                    return _context21.stop();
                 }
               }
-            }, _callee19, this, [[2, 20], [24, 31]]);
+            }, _callee21, this, [[2, 20], [24, 31]]);
           }));
         }
         /**
@@ -6276,23 +6270,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
-            var _this9 = this;
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
+            var _this8 = this;
 
             var purchase, authorizeSeatReservations, itemCount;
-            return regeneratorRuntime.wrap(function _callee20$(_context20) {
+            return regeneratorRuntime.wrap(function _callee22$(_context22) {
               while (1) {
-                switch (_context20.prev = _context20.next) {
+                switch (_context22.prev = _context22.next) {
                   case 0:
-                    _context20.next = 2;
+                    _context22.next = 2;
                     return this.purchaseService.getData();
 
                   case 2:
-                    purchase = _context20.sent;
+                    purchase = _context22.sent;
                     authorizeSeatReservations = purchase.authorizeSeatReservations; // チケット未選択判定
 
                     if (!(authorizeSeatReservations.length === 0)) {
-                      _context20.next = 7;
+                      _context22.next = 7;
                       break;
                     }
 
@@ -6300,14 +6294,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('purchase.event.ticket.alert.unselected')
                     });
-                    return _context20.abrupt("return");
+                    return _context22.abrupt("return");
 
                   case 7:
                     if (!this.isSinglePurchase({
                       name: 'alert',
                       authorizeSeatReservations: authorizeSeatReservations
                     })) {
-                      _context20.next = 10;
+                      _context22.next = 10;
                       break;
                     }
 
@@ -6315,14 +6309,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('purchase.event.ticket.alert.single')
                     });
-                    return _context20.abrupt("return");
+                    return _context22.abrupt("return");
 
                   case 10:
                     if (!this.isSinglePurchase({
                       name: 'confirm',
                       authorizeSeatReservations: authorizeSeatReservations
                     })) {
-                      _context20.next = 13;
+                      _context22.next = 13;
                       break;
                     }
 
@@ -6330,10 +6324,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.confirm'),
                       body: this.translate.instant('purchase.event.ticket.confirm.single'),
                       cb: function cb() {
-                        _this9.router.navigate(['/purchase/input']);
+                        _this8.router.navigate(['/purchase/input']);
                       }
                     });
-                    return _context20.abrupt("return");
+                    return _context22.abrupt("return");
 
                   case 13:
                     // チケット枚数上限判定
@@ -6343,7 +6337,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
 
                     if (!(itemCount > Number(this.environment.PURCHASE_ITEM_MAX_LENGTH))) {
-                      _context20.next = 18;
+                      _context22.next = 18;
                       break;
                     }
 
@@ -6353,17 +6347,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         value: Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)
                       })
                     });
-                    return _context20.abrupt("return");
+                    return _context22.abrupt("return");
 
                   case 18:
                     this.router.navigate(['/purchase/input']);
 
                   case 19:
                   case "end":
-                    return _context20.stop();
+                    return _context22.stop();
                 }
               }
-            }, _callee20, this);
+            }, _callee22, this);
           }));
         }
         /**
@@ -6401,28 +6395,28 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "removeItem",
         value: function removeItem(authorizeSeatReservation) {
-          var _this10 = this;
+          var _this9 = this;
 
           this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('purchase.event.cart.confirm.cancel'),
             cb: function cb() {
-              return __awaiter(_this10, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee21() {
+              return __awaiter(_this9, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
                 var authorizeSeatReservations;
-                return regeneratorRuntime.wrap(function _callee21$(_context21) {
+                return regeneratorRuntime.wrap(function _callee23$(_context23) {
                   while (1) {
-                    switch (_context21.prev = _context21.next) {
+                    switch (_context23.prev = _context23.next) {
                       case 0:
                         authorizeSeatReservations = [authorizeSeatReservation];
-                        _context21.next = 3;
+                        _context23.next = 3;
                         return this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations);
 
                       case 3:
                       case "end":
-                        return _context21.stop();
+                        return _context23.stop();
                     }
                   }
-                }, _callee21, this);
+                }, _callee23, this);
               }));
             }
           });
@@ -7448,19 +7442,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(PurchaseCompleteComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this11 = this;
+          var _this10 = this;
 
           this.eventOrders = [];
           this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getPurchase"]));
           this.purchase.subscribe(function (purchase) {
             if (purchase.order === undefined) {
-              _this11.router.navigate(['/error']);
+              _this10.router.navigate(['/error']);
 
               return;
             }
 
             var order = purchase.order;
-            _this11.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_6__["order2EventOrders"])({
+            _this10.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_6__["order2EventOrders"])({
               order: order
             });
           }).unsubscribe();
@@ -8230,12 +8224,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(PurchaseConfirmComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
-            var _this12 = this;
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
+            var _this11 = this;
 
-            return regeneratorRuntime.wrap(function _callee22$(_context22) {
+            return regeneratorRuntime.wrap(function _callee24$(_context24) {
               while (1) {
-                switch (_context22.prev = _context22.next) {
+                switch (_context24.prev = _context24.next) {
                   case 0:
                     this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getPurchase"]));
                     this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
@@ -8243,20 +8237,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     this.amount = 0;
                     this.purchase.subscribe(function (purchase) {
                       if (purchase.transaction === undefined) {
-                        _this12.router.navigate(['/error']);
+                        _this11.router.navigate(['/error']);
 
                         return;
                       }
 
-                      _this12.amount = Object(_functions__WEBPACK_IMPORTED_MODULE_6__["getAmount"])(purchase.authorizeSeatReservations);
+                      _this11.amount = Object(_functions__WEBPACK_IMPORTED_MODULE_6__["getAmount"])(purchase.authorizeSeatReservations);
                     }).unsubscribe();
 
                   case 5:
                   case "end":
-                    return _context22.stop();
+                    return _context24.stop();
                 }
               }
-            }, _callee22, this);
+            }, _callee24, this);
           }));
         }
         /**
@@ -8266,91 +8260,91 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
             var purchaseData, userData, language;
-            return regeneratorRuntime.wrap(function _callee23$(_context23) {
+            return regeneratorRuntime.wrap(function _callee25$(_context25) {
               while (1) {
-                switch (_context23.prev = _context23.next) {
+                switch (_context25.prev = _context25.next) {
                   case 0:
-                    _context23.next = 2;
+                    _context25.next = 2;
                     return this.purchaseService.getData();
 
                   case 2:
-                    purchaseData = _context23.sent;
-                    _context23.next = 5;
+                    purchaseData = _context25.sent;
+                    _context25.next = 5;
                     return this.userService.getData();
 
                   case 5:
-                    userData = _context23.sent;
+                    userData = _context25.sent;
                     language = userData.language;
-                    _context23.prev = 7;
+                    _context25.prev = 7;
 
                     if (!(purchaseData.pendingMovieTickets.length > 0)) {
-                      _context23.next = 11;
+                      _context25.next = 11;
                       break;
                     }
 
-                    _context23.next = 11;
+                    _context25.next = 11;
                     return this.purchaseService.authorizeMovieTicket();
 
                   case 11:
-                    _context23.next = 17;
+                    _context25.next = 17;
                     break;
 
                   case 13:
-                    _context23.prev = 13;
-                    _context23.t0 = _context23["catch"](7);
+                    _context25.prev = 13;
+                    _context25.t0 = _context25["catch"](7);
                     this.router.navigate(['/error']);
-                    return _context23.abrupt("return");
+                    return _context25.abrupt("return");
 
                   case 17:
-                    _context23.prev = 17;
+                    _context25.prev = 17;
 
                     if (!(this.amount > 0)) {
-                      _context23.next = 21;
+                      _context25.next = 21;
                       break;
                     }
 
-                    _context23.next = 21;
+                    _context25.next = 21;
                     return this.purchaseService.authorizeCreditCard(this.amount);
 
                   case 21:
-                    _context23.next = 28;
+                    _context25.next = 28;
                     break;
 
                   case 23:
-                    _context23.prev = 23;
-                    _context23.t1 = _context23["catch"](17);
+                    _context25.prev = 23;
+                    _context25.t1 = _context25["catch"](17);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('purchase.confirm.alert.authorizeCreditCard')
                     });
                     this.router.navigate(['/purchase/input']);
-                    return _context23.abrupt("return");
+                    return _context25.abrupt("return");
 
                   case 28:
-                    _context23.prev = 28;
-                    _context23.next = 31;
+                    _context25.prev = 28;
+                    _context25.next = 31;
                     return this.purchaseService.endTransaction({
                       language: language
                     });
 
                   case 31:
                     this.router.navigate(['/purchase/complete']);
-                    _context23.next = 37;
+                    _context25.next = 37;
                     break;
 
                   case 34:
-                    _context23.prev = 34;
-                    _context23.t2 = _context23["catch"](28);
+                    _context25.prev = 34;
+                    _context25.t2 = _context25["catch"](28);
                     this.router.navigate(['/error']);
 
                   case 37:
                   case "end":
-                    return _context23.stop();
+                    return _context25.stop();
                 }
               }
-            }, _callee23, this, [[7, 13], [17, 23], [28, 34]]);
+            }, _callee25, this, [[7, 13], [17, 23], [28, 34]]);
           }));
         }
       }]);
@@ -10855,52 +10849,52 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(PurchaseInputComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
             var purchase;
-            return regeneratorRuntime.wrap(function _callee24$(_context24) {
+            return regeneratorRuntime.wrap(function _callee26$(_context26) {
               while (1) {
-                switch (_context24.prev = _context24.next) {
+                switch (_context26.prev = _context26.next) {
                   case 0:
-                    _context24.prev = 0;
+                    _context26.prev = 0;
                     this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getPurchase"]));
                     this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getUser"]));
                     this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_12__["getLoading"]));
-                    _context24.next = 6;
+                    _context26.next = 6;
                     return this.createProfileForm();
 
                   case 6:
                     this.createCreditCardForm();
-                    _context24.next = 9;
+                    _context26.next = 9;
                     return this.purchaseService.getData();
 
                   case 9:
-                    purchase = _context24.sent;
+                    purchase = _context26.sent;
 
                     if (!(purchase.transaction === undefined)) {
-                      _context24.next = 13;
+                      _context26.next = 13;
                       break;
                     }
 
                     this.router.navigate(['/error']);
-                    return _context24.abrupt("return");
+                    return _context26.abrupt("return");
 
                   case 13:
                     this.amount = Object(_functions__WEBPACK_IMPORTED_MODULE_9__["getAmount"])(purchase.authorizeSeatReservations);
-                    _context24.next = 20;
+                    _context26.next = 20;
                     break;
 
                   case 16:
-                    _context24.prev = 16;
-                    _context24.t0 = _context24["catch"](0);
-                    console.error(_context24.t0);
+                    _context26.prev = 16;
+                    _context26.t0 = _context26["catch"](0);
+                    console.error(_context26.t0);
                     this.router.navigate(['/error']);
 
                   case 20:
                   case "end":
-                    return _context24.stop();
+                    return _context26.stop();
                 }
               }
-            }, _callee24, this, [[0, 16]]);
+            }, _callee26, this, [[0, 16]]);
           }));
         }
         /**
@@ -10910,13 +10904,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "createProfileForm",
         value: function createProfileForm() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
-            var _this13 = this;
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
+            var _this12 = this;
 
             var profile, purchase, user, profileData;
-            return regeneratorRuntime.wrap(function _callee25$(_context25) {
+            return regeneratorRuntime.wrap(function _callee27$(_context27) {
               while (1) {
-                switch (_context25.prev = _context25.next) {
+                switch (_context27.prev = _context27.next) {
                   case 0:
                     profile = this.environment.PROFILE;
                     this.profileForm = this.formBuilder.group({});
@@ -11000,50 +10994,50 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         });
                       }
 
-                      _this13.profileForm.addControl(p.key, new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](p.value, validators));
+                      _this12.profileForm.addControl(p.key, new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](p.value, validators));
                     });
-                    _context25.next = 5;
+                    _context27.next = 5;
                     return this.purchaseService.getData();
 
                   case 5:
-                    purchase = _context25.sent;
-                    _context25.next = 8;
+                    purchase = _context27.sent;
+                    _context27.next = 8;
                     return this.userService.getData();
 
                   case 8:
-                    user = _context25.sent;
+                    user = _context27.sent;
                     profileData = user.isMember && purchase.profile === undefined ? user.profile : purchase.profile;
 
                     if (!(profileData === undefined)) {
-                      _context25.next = 12;
+                      _context27.next = 12;
                       break;
                     }
 
-                    return _context25.abrupt("return");
+                    return _context27.abrupt("return");
 
                   case 12:
                     Object.keys(profileData).forEach(function (key) {
                       var value = profileData[key];
 
-                      if (value === undefined || _this13.profileForm.controls[key] === undefined) {
+                      if (value === undefined || _this12.profileForm.controls[key] === undefined) {
                         return;
                       }
 
                       if (key === 'telephone') {
-                        _this13.profileForm.controls.telephone.setValue(new _shared_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_15__["LibphonenumberFormatPipe"]().transform(value));
+                        _this12.profileForm.controls.telephone.setValue(new _shared_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_15__["LibphonenumberFormatPipe"]().transform(value));
 
                         return;
                       }
 
-                      _this13.profileForm.controls[key].setValue(value);
+                      _this12.profileForm.controls[key].setValue(value);
                     });
 
                   case 13:
                   case "end":
-                    return _context25.stop();
+                    return _context27.stop();
                 }
               }
-            }, _callee25, this);
+            }, _callee27, this);
           }));
         }
         /**
@@ -11081,18 +11075,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
-            var _this14 = this;
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
+            var _this13 = this;
 
             var cardExpiration, creditCard, _creditCard, contact;
 
-            return regeneratorRuntime.wrap(function _callee26$(_context26) {
+            return regeneratorRuntime.wrap(function _callee28$(_context28) {
               while (1) {
-                switch (_context26.prev = _context26.next) {
+                switch (_context28.prev = _context28.next) {
                   case 0:
                     // 購入者情報Form
                     Object.keys(this.profileForm.controls).forEach(function (key) {
-                      _this14.profileForm.controls[key].markAsTouched();
+                      _this13.profileForm.controls[key].markAsTouched();
                     });
                     this.profileForm.controls.familyName.setValue(document.getElementById('familyName').value);
                     this.profileForm.controls.givenName.setValue(document.getElementById('givenName').value);
@@ -11100,7 +11094,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     this.profileForm.controls.telephone.setValue(document.getElementById('telephone').value);
 
                     if (!this.profileForm.invalid) {
-                      _context26.next = 8;
+                      _context28.next = 8;
                       break;
                     }
 
@@ -11108,23 +11102,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('purchase.input.alert.customer')
                     });
-                    return _context26.abrupt("return");
+                    return _context28.abrupt("return");
 
                   case 8:
                     if (!(this.usedCreditCard === undefined && this.amount > 0)) {
-                      _context26.next = 16;
+                      _context28.next = 16;
                       break;
                     }
 
                     Object.keys(this.creditCardForm.controls).forEach(function (key) {
-                      _this14.creditCardForm.controls[key].markAsTouched();
+                      _this13.creditCardForm.controls[key].markAsTouched();
                     });
                     this.creditCardForm.controls.cardNumber.setValue(document.getElementById('cardNumber').value);
                     this.creditCardForm.controls.securityCode.setValue(document.getElementById('securityCode').value);
                     this.creditCardForm.controls.holderName.setValue(document.getElementById('holderName').value);
 
                     if (!this.creditCardForm.invalid) {
-                      _context26.next = 16;
+                      _context28.next = 16;
                       break;
                     }
 
@@ -11132,17 +11126,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('purchase.input.alert.payment')
                     });
-                    return _context26.abrupt("return");
+                    return _context28.abrupt("return");
 
                   case 16:
                     this.purchaseService.removeCreditCard();
 
                     if (!(this.amount > 0 && this.usedCreditCard === undefined)) {
-                      _context26.next = 29;
+                      _context28.next = 29;
                       break;
                     }
 
-                    _context26.prev = 18;
+                    _context28.prev = 18;
                     cardExpiration = {
                       year: this.creditCardForm.controls.cardExpirationYear.value,
                       month: this.creditCardForm.controls.cardExpirationMonth.value
@@ -11153,21 +11147,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       holderName: this.creditCardForm.controls.holderName.value,
                       securityCode: this.creditCardForm.controls.securityCode.value
                     };
-                    _context26.next = 23;
+                    _context28.next = 23;
                     return this.purchaseService.createGmoTokenObject(creditCard);
 
                   case 23:
-                    _context26.next = 29;
+                    _context28.next = 29;
                     break;
 
                   case 25:
-                    _context26.prev = 25;
-                    _context26.t0 = _context26["catch"](18);
+                    _context28.prev = 25;
+                    _context28.t0 = _context28["catch"](18);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('purchase.input.alert.gmoToken')
                     });
-                    return _context26.abrupt("return");
+                    return _context28.abrupt("return");
 
                   case 29:
                     if (this.amount > 0 && this.usedCreditCard !== undefined) {
@@ -11179,32 +11173,32 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       this.purchaseService.registerCreditCard(_creditCard);
                     }
 
-                    _context26.prev = 30;
+                    _context28.prev = 30;
                     contact = {
                       givenName: this.profileForm.controls.givenName.value,
                       familyName: this.profileForm.controls.familyName.value,
                       telephone: this.profileForm.controls.telephone.value,
                       email: this.profileForm.controls.email.value
                     };
-                    _context26.next = 34;
+                    _context28.next = 34;
                     return this.purchaseService.registerContact(contact);
 
                   case 34:
                     this.router.navigate(['/purchase/confirm']);
-                    _context26.next = 40;
+                    _context28.next = 40;
                     break;
 
                   case 37:
-                    _context26.prev = 37;
-                    _context26.t1 = _context26["catch"](30);
+                    _context28.prev = 37;
+                    _context28.t1 = _context28["catch"](30);
                     this.router.navigate(['/error']);
 
                   case 40:
                   case "end":
-                    return _context26.stop();
+                    return _context28.stop();
                 }
               }
-            }, _callee26, this, [[18, 25], [30, 37]]);
+            }, _callee28, this, [[18, 25], [30, 37]]);
           }));
         }
         /**
@@ -11225,14 +11219,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openRegisteredCreditCard",
         value: function openRegisteredCreditCard() {
-          var _this15 = this;
+          var _this14 = this;
 
           this.user.subscribe(function (user) {
-            _this15.modal.show(_shared_components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_14__["CreditCardSelectModalComponent"], {
+            _this14.modal.show(_shared_components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_14__["CreditCardSelectModalComponent"], {
               initialState: {
                 creditCards: user.creditCards,
                 cb: function cb(creditCard) {
-                  _this15.usedCreditCard = creditCard;
+                  _this14.usedCreditCard = creditCard;
                 }
               },
               "class": 'modal-dialog-centered'
@@ -11508,25 +11502,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! ../../../../../functions */
-    "./app/functions/index.ts");
-    /* harmony import */
-
-
-    var _models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! ../../../../../models */
     "./app/models/index.ts");
     /* harmony import */
 
 
-    var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! ../../../../../services */
     "./app/services/index.ts");
     /* harmony import */
 
 
-    var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! ../../../../../store/reducers */
     "./app/store/reducers/index.ts");
 
@@ -11579,58 +11567,32 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(PurchaseRootComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
-            var tmpPurchase, external;
-            return regeneratorRuntime.wrap(function _callee27$(_context27) {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
+            return regeneratorRuntime.wrap(function _callee29$(_context29) {
               while (1) {
-                switch (_context27.prev = _context27.next) {
+                switch (_context29.prev = _context29.next) {
                   case 0:
-                    this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
-                    this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getPurchase"]));
-                    _context27.next = 4;
-                    return this.purchaseService.getData();
-
-                  case 4:
-                    tmpPurchase = _context27.sent;
-                    external = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getExternalData"])();
-
-                    if (!(this.environment.VIEW_TYPE === _models__WEBPACK_IMPORTED_MODULE_5__["ViewType"].Cinema && external !== undefined && external.eventId !== undefined && tmpPurchase.authorizeSeatReservation !== undefined)) {
-                      _context27.next = 9;
-                      break;
-                    }
-
-                    this.router.navigate(['/purchase/cinema/overlap']);
-                    return _context27.abrupt("return");
-
-                  case 9:
+                    this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
+                    this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getPurchase"]));
                     this.purchaseService["delete"]();
 
-                    if (!(this.environment.VIEW_TYPE === _models__WEBPACK_IMPORTED_MODULE_5__["ViewType"].Cinema && external.eventId !== undefined)) {
-                      _context27.next = 13;
-                      break;
-                    }
-
-                    this.router.navigate(["/purchase/transaction/".concat(external.eventId)]);
-                    return _context27.abrupt("return");
-
-                  case 13:
-                    if (!(this.environment.VIEW_TYPE === _models__WEBPACK_IMPORTED_MODULE_5__["ViewType"].Cinema)) {
-                      _context27.next = 16;
+                    if (!(this.environment.VIEW_TYPE === _models__WEBPACK_IMPORTED_MODULE_4__["ViewType"].Cinema)) {
+                      _context29.next = 6;
                       break;
                     }
 
                     this.router.navigate(['/purchase/cinema/schedule']);
-                    return _context27.abrupt("return");
+                    return _context29.abrupt("return");
 
-                  case 16:
+                  case 6:
                     this.router.navigate(['/purchase/event/schedule']);
 
-                  case 17:
+                  case 7:
                   case "end":
-                    return _context27.stop();
+                    return _context29.stop();
                 }
               }
-            }, _callee27, this);
+            }, _callee29, this);
           }));
         }
       }]);
@@ -11639,7 +11601,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     }();
 
     PurchaseRootComponent.ɵfac = function PurchaseRootComponent_Factory(t) {
-      return new (t || PurchaseRootComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]));
+      return new (t || PurchaseRootComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]));
     };
 
     PurchaseRootComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -11664,7 +11626,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         return [{
           type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]
         }, {
-          type: _services__WEBPACK_IMPORTED_MODULE_6__["PurchaseService"]
+          type: _services__WEBPACK_IMPORTED_MODULE_5__["PurchaseService"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
         }];
@@ -11800,35 +11762,35 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(PurchaseSeatComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
             var purchase, screeningEvent;
-            return regeneratorRuntime.wrap(function _callee28$(_context28) {
+            return regeneratorRuntime.wrap(function _callee30$(_context30) {
               while (1) {
-                switch (_context28.prev = _context28.next) {
+                switch (_context30.prev = _context30.next) {
                   case 0:
                     this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getPurchase"]));
                     this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
                     this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
                     this.translateName = this.environment.VIEW_TYPE === 'cinema' ? 'purchase.cinema.seat' : 'purchase.event.seat';
                     this.screeningEventSeats = [];
-                    _context28.prev = 5;
-                    _context28.next = 8;
+                    _context30.prev = 5;
+                    _context30.next = 8;
                     return this.purchaseService.getData();
 
                   case 8:
-                    purchase = _context28.sent;
+                    purchase = _context30.sent;
                     screeningEvent = purchase.screeningEvent;
 
                     if (!(screeningEvent === undefined)) {
-                      _context28.next = 13;
+                      _context30.next = 13;
                       break;
                     }
 
                     this.router.navigate(['/error']);
-                    return _context28.abrupt("return");
+                    return _context30.abrupt("return");
 
                   case 13:
-                    _context28.next = 15;
+                    _context30.next = 15;
                     return this.purchaseService.getScreen({
                       branchCode: {
                         $eq: screeningEvent.location.branchCode
@@ -11841,30 +11803,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
 
                   case 15:
-                    _context28.next = 17;
+                    _context30.next = 17;
                     return this.purchaseService.getScreeningEventSeats();
 
                   case 17:
-                    this.screeningEventSeats = _context28.sent;
-                    _context28.next = 20;
+                    this.screeningEventSeats = _context30.sent;
+                    _context30.next = 20;
                     return this.purchaseService.getTicketList();
 
                   case 20:
-                    _context28.next = 26;
+                    _context30.next = 26;
                     break;
 
                   case 22:
-                    _context28.prev = 22;
-                    _context28.t0 = _context28["catch"](5);
-                    console.error(_context28.t0);
+                    _context30.prev = 22;
+                    _context30.t0 = _context30["catch"](5);
+                    console.error(_context30.t0);
                     this.router.navigate(['/error']);
 
                   case 26:
                   case "end":
-                    return _context28.stop();
+                    return _context30.stop();
                 }
               }
-            }, _callee28, this, [[5, 22]]);
+            }, _callee30, this, [[5, 22]]);
           }));
         }
         /**
@@ -11874,25 +11836,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "selectSeat",
         value: function selectSeat(data) {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
             var purchase;
-            return regeneratorRuntime.wrap(function _callee29$(_context29) {
+            return regeneratorRuntime.wrap(function _callee31$(_context31) {
               while (1) {
-                switch (_context29.prev = _context29.next) {
+                switch (_context31.prev = _context31.next) {
                   case 0:
-                    _context29.next = 2;
+                    _context31.next = 2;
                     return this.purchaseService.getData();
 
                   case 2:
-                    purchase = _context29.sent;
+                    purchase = _context31.sent;
 
                     if (!(data.status === _models__WEBPACK_IMPORTED_MODULE_6__["SeatStatus"].Default)) {
-                      _context29.next = 10;
+                      _context31.next = 10;
                       break;
                     }
 
                     if (!(purchase.screeningEvent !== undefined && purchase.screeningEvent.offers !== undefined && purchase.screeningEvent.offers.eligibleQuantity.maxValue !== undefined && purchase.reservations.length >= purchase.screeningEvent.offers.eligibleQuantity.maxValue)) {
-                      _context29.next = 7;
+                      _context31.next = 7;
                       break;
                     }
 
@@ -11902,11 +11864,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         value: purchase.screeningEvent.offers.eligibleQuantity.maxValue
                       })
                     });
-                    return _context29.abrupt("return");
+                    return _context31.abrupt("return");
 
                   case 7:
                     this.purchaseService.selectSeats([data.seat]);
-                    _context29.next = 11;
+                    _context31.next = 11;
                     break;
 
                   case 10:
@@ -11914,10 +11876,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 11:
                   case "end":
-                    return _context29.stop();
+                    return _context31.stop();
                 }
               }
-            }, _callee29, this);
+            }, _callee31, this);
           }));
         }
         /**
@@ -11927,23 +11889,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
             var purchase, reservations, screeningEventTicketOffers, navigate;
-            return regeneratorRuntime.wrap(function _callee30$(_context30) {
+            return regeneratorRuntime.wrap(function _callee32$(_context32) {
               while (1) {
-                switch (_context30.prev = _context30.next) {
+                switch (_context32.prev = _context32.next) {
                   case 0:
-                    _context30.prev = 0;
-                    _context30.next = 3;
+                    _context32.prev = 0;
+                    _context32.next = 3;
                     return this.purchaseService.getData();
 
                   case 3:
-                    purchase = _context30.sent;
+                    purchase = _context32.sent;
                     reservations = purchase.reservations;
                     screeningEventTicketOffers = purchase.screeningEventTicketOffers;
 
                     if (!(reservations.length === 0)) {
-                      _context30.next = 9;
+                      _context32.next = 9;
                       break;
                     }
 
@@ -11951,11 +11913,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant("".concat(this.translateName, ".alert.unselected"))
                     });
-                    return _context30.abrupt("return");
+                    return _context32.abrupt("return");
 
                   case 9:
                     if (!(screeningEventTicketOffers.length === 0)) {
-                      _context30.next = 12;
+                      _context32.next = 12;
                       break;
                     }
 
@@ -11963,10 +11925,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant("".concat(this.translateName, ".alert.ticketNotfound"))
                     });
-                    return _context30.abrupt("return");
+                    return _context32.abrupt("return");
 
                   case 12:
-                    _context30.next = 14;
+                    _context32.next = 14;
                     return this.purchaseService.temporaryReservation({
                       reservations: reservations,
                       screeningEventSeats: this.screeningEventSeats
@@ -11975,13 +11937,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   case 14:
                     navigate = this.environment.VIEW_TYPE === 'cinema' ? '/purchase/cinema/ticket' : '/purchase/event/seat/ticket';
                     this.router.navigate([navigate]);
-                    _context30.next = 22;
+                    _context32.next = 22;
                     break;
 
                   case 18:
-                    _context30.prev = 18;
-                    _context30.t0 = _context30["catch"](0);
-                    console.error(_context30.t0);
+                    _context32.prev = 18;
+                    _context32.t0 = _context32["catch"](0);
+                    console.error(_context32.t0);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant("".concat(this.translateName, ".alert.temporaryReservation"))
@@ -11989,10 +11951,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 22:
                   case "end":
-                    return _context30.stop();
+                    return _context32.stop();
                 }
               }
-            }, _callee30, this, [[0, 18]]);
+            }, _callee32, this, [[0, 18]]);
           }));
         }
         /**
@@ -12002,18 +11964,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "resetSeats",
         value: function resetSeats() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
             var seats, purchase;
-            return regeneratorRuntime.wrap(function _callee31$(_context31) {
+            return regeneratorRuntime.wrap(function _callee33$(_context33) {
               while (1) {
-                switch (_context31.prev = _context31.next) {
+                switch (_context33.prev = _context33.next) {
                   case 0:
                     seats = [];
-                    _context31.next = 3;
+                    _context33.next = 3;
                     return this.purchaseService.getData();
 
                   case 3:
-                    purchase = _context31.sent;
+                    purchase = _context33.sent;
                     purchase.reservations.forEach(function (reservation) {
                       if (reservation.seat === undefined) {
                         return;
@@ -12025,10 +11987,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 6:
                   case "end":
-                    return _context31.stop();
+                    return _context33.stop();
                 }
               }
-            }, _callee31, this);
+            }, _callee33, this);
           }));
         }
         /**
@@ -12072,25 +12034,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "selectOpenSeating",
         value: function selectOpenSeating(event) {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
             var purchaseData, value, reservations, screeningEventSeats, seats, selectSeats, i;
-            return regeneratorRuntime.wrap(function _callee32$(_context32) {
+            return regeneratorRuntime.wrap(function _callee34$(_context34) {
               while (1) {
-                switch (_context32.prev = _context32.next) {
+                switch (_context34.prev = _context34.next) {
                   case 0:
                     if (!(event.target === null)) {
-                      _context32.next = 2;
+                      _context34.next = 2;
                       break;
                     }
 
-                    return _context32.abrupt("return");
+                    return _context34.abrupt("return");
 
                   case 2:
-                    _context32.next = 4;
+                    _context34.next = 4;
                     return this.purchaseService.getData();
 
                   case 4:
-                    purchaseData = _context32.sent;
+                    purchaseData = _context34.sent;
                     value = Number(event.target.value);
                     reservations = purchaseData.reservations;
                     screeningEventSeats = this.screeningEventSeats;
@@ -12098,7 +12060,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       reservations: reservations,
                       screeningEventSeats: screeningEventSeats
                     });
-                    _context32.next = 11;
+                    _context34.next = 11;
                     return this.resetSeats();
 
                   case 11:
@@ -12112,10 +12074,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 14:
                   case "end":
-                    return _context32.stop();
+                    return _context34.stop();
                 }
               }
-            }, _callee32, this);
+            }, _callee34, this);
           }));
         }
       }]);
@@ -12317,25 +12279,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
             var purchase, reservations, unselectedReservations, validResult, additionalTicketText, screeningEventSeats, navigate;
-            return regeneratorRuntime.wrap(function _callee33$(_context33) {
+            return regeneratorRuntime.wrap(function _callee35$(_context35) {
               while (1) {
-                switch (_context33.prev = _context33.next) {
+                switch (_context35.prev = _context35.next) {
                   case 0:
-                    _context33.prev = 0;
-                    _context33.next = 3;
+                    _context35.prev = 0;
+                    _context35.next = 3;
                     return this.purchaseService.getData();
 
                   case 3:
-                    purchase = _context33.sent;
+                    purchase = _context35.sent;
                     reservations = purchase.reservations;
                     unselectedReservations = reservations.filter(function (reservation) {
                       return reservation.ticket === undefined;
                     });
 
                     if (!(unselectedReservations.length > 0)) {
-                      _context33.next = 9;
+                      _context35.next = 9;
                       break;
                     }
 
@@ -12343,7 +12305,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant("".concat(this.translateName, ".alert.unselected"))
                     });
-                    return _context33.abrupt("return");
+                    return _context35.abrupt("return");
 
                   case 9:
                     validResult = reservations.filter(function (reservation) {
@@ -12367,7 +12329,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
 
                     if (!(validResult.length > 0)) {
-                      _context33.next = 13;
+                      _context35.next = 13;
                       break;
                     }
 
@@ -12375,16 +12337,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant("".concat(this.translateName, ".alert.ticketCondition"))
                     });
-                    return _context33.abrupt("return");
+                    return _context35.abrupt("return");
 
                   case 13:
                     additionalTicketText = this.additionalTicketText;
-                    _context33.next = 16;
+                    _context35.next = 16;
                     return this.purchaseService.getScreeningEventSeats();
 
                   case 16:
-                    screeningEventSeats = _context33.sent;
-                    _context33.next = 19;
+                    screeningEventSeats = _context35.sent;
+                    _context35.next = 19;
                     return this.purchaseService.temporaryReservation({
                       reservations: reservations,
                       additionalTicketText: additionalTicketText,
@@ -12394,21 +12356,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   case 19:
                     navigate = this.environment.VIEW_TYPE === 'cinema' ? '/purchase/input' : '/purchase/event/ticket';
                     this.router.navigate([navigate]);
-                    _context33.next = 27;
+                    _context35.next = 27;
                     break;
 
                   case 23:
-                    _context33.prev = 23;
-                    _context33.t0 = _context33["catch"](0);
-                    console.error(_context33.t0);
+                    _context35.prev = 23;
+                    _context35.t0 = _context35["catch"](0);
+                    console.error(_context35.t0);
                     this.router.navigate(['/error']);
 
                   case 27:
                   case "end":
-                    return _context33.stop();
+                    return _context35.stop();
                 }
               }
-            }, _callee33, this, [[0, 23]]);
+            }, _callee35, this, [[0, 23]]);
           }));
         }
         /**
@@ -12419,19 +12381,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openTicketList",
         value: function openTicketList(reservation) {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
-            var _this16 = this;
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
+            var _this15 = this;
 
             var purchase;
-            return regeneratorRuntime.wrap(function _callee34$(_context34) {
+            return regeneratorRuntime.wrap(function _callee36$(_context36) {
               while (1) {
-                switch (_context34.prev = _context34.next) {
+                switch (_context36.prev = _context36.next) {
                   case 0:
-                    _context34.next = 2;
+                    _context36.next = 2;
                     return this.purchaseService.getData();
 
                   case 2:
-                    purchase = _context34.sent;
+                    purchase = _context36.sent;
                     this.modal.show(_shared_components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseSeatTicketModalComponent"], {
                       initialState: {
                         screeningEventTicketOffers: purchase.screeningEventTicketOffers,
@@ -12440,7 +12402,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         reservation: reservation,
                         pendingMovieTickets: purchase.pendingMovieTickets,
                         cb: function cb(ticket) {
-                          _this16.purchaseService.selectTickets([Object.assign(Object.assign({}, reservation), {
+                          _this15.purchaseService.selectTickets([Object.assign(Object.assign({}, reservation), {
                             ticket: ticket
                           })]);
                         }
@@ -12450,10 +12412,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 4:
                   case "end":
-                    return _context34.stop();
+                    return _context36.stop();
                 }
               }
-            }, _callee34, this);
+            }, _callee36, this);
           }));
         }
       }, {
@@ -12555,19 +12517,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var _functions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ../../../../../functions */
+    "./app/functions/index.ts");
+    /* harmony import */
+
+
+    var _models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! ../../../../../models */
     "./app/models/index.ts");
     /* harmony import */
 
 
-    var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! ../../../../../services */
     "./app/services/index.ts");
     /* harmony import */
 
 
-    var _store_reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! ../../../../../store/reducers */
     "./app/store/reducers/index.ts");
 
@@ -12622,26 +12590,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(PurchaseTransactionComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
-            var snapshot, eventId, passportToken;
-            return regeneratorRuntime.wrap(function _callee35$(_context35) {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
+            var snapshot, eventId, passportToken, tmpPurchase, external;
+            return regeneratorRuntime.wrap(function _callee37$(_context37) {
               while (1) {
-                switch (_context35.prev = _context35.next) {
+                switch (_context37.prev = _context37.next) {
                   case 0:
-                    this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
-                    this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getPurchase"]));
-                    this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getError"]));
-                    this.purchaseService["delete"]();
-
-                    if (!(this.environment.VIEW_TYPE !== _models__WEBPACK_IMPORTED_MODULE_4__["ViewType"].Cinema)) {
-                      _context35.next = 7;
-                      break;
-                    }
-
-                    this.router.navigate(['/error']);
-                    return _context35.abrupt("return");
-
-                  case 7:
+                    this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
+                    this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getPurchase"]));
+                    this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getError"]));
                     snapshot = this.activatedRoute.snapshot;
                     eventId = snapshot.params.eventId;
                     passportToken = snapshot.params.passportToken;
@@ -12649,30 +12606,57 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       eventId: eventId,
                       passportToken: passportToken
                     }));
-                    _context35.prev = 11;
-                    _context35.next = 14;
-                    return this.purchaseService.convertExternalToPurchase(eventId);
+                    _context37.next = 9;
+                    return this.purchaseService.getData();
+
+                  case 9:
+                    tmpPurchase = _context37.sent;
+                    external = Object(_functions__WEBPACK_IMPORTED_MODULE_4__["getExternalData"])();
+
+                    if (!(this.environment.VIEW_TYPE === _models__WEBPACK_IMPORTED_MODULE_5__["ViewType"].Cinema && external !== undefined && external.eventId !== undefined && tmpPurchase.authorizeSeatReservation !== undefined)) {
+                      _context37.next = 14;
+                      break;
+                    }
+
+                    this.router.navigate(['/purchase/cinema/overlap']);
+                    return _context37.abrupt("return");
 
                   case 14:
-                    _context35.next = 16;
+                    this.purchaseService["delete"]();
+
+                    if (!(this.environment.VIEW_TYPE !== _models__WEBPACK_IMPORTED_MODULE_5__["ViewType"].Cinema)) {
+                      _context37.next = 18;
+                      break;
+                    }
+
+                    this.router.navigate(['/error']);
+                    return _context37.abrupt("return");
+
+                  case 18:
+                    _context37.prev = 18;
+                    _context37.next = 21;
+                    return this.purchaseService.convertExternalToPurchase(eventId);
+
+                  case 21:
+                    _context37.next = 23;
                     return this.purchaseService.startTransaction();
 
-                  case 16:
+                  case 23:
                     this.router.navigate(['/purchase/cinema/seat']);
-                    _context35.next = 22;
+                    _context37.next = 29;
                     break;
 
-                  case 19:
-                    _context35.prev = 19;
-                    _context35.t0 = _context35["catch"](11);
+                  case 26:
+                    _context37.prev = 26;
+                    _context37.t0 = _context37["catch"](18);
                     this.router.navigate(['/error']);
 
-                  case 22:
+                  case 29:
                   case "end":
-                    return _context35.stop();
+                    return _context37.stop();
                 }
               }
-            }, _callee35, this, [[11, 19]]);
+            }, _callee37, this, [[18, 26]]);
           }));
         }
       }, {
@@ -12691,7 +12675,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     }();
 
     PurchaseTransactionComponent.ɵfac = function PurchaseTransactionComponent_Factory(t) {
-      return new (t || PurchaseTransactionComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["UserService"]));
+      return new (t || PurchaseTransactionComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["UserService"]));
     };
 
     PurchaseTransactionComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -12720,9 +12704,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]
         }, {
-          type: _services__WEBPACK_IMPORTED_MODULE_5__["PurchaseService"]
+          type: _services__WEBPACK_IMPORTED_MODULE_6__["PurchaseService"]
         }, {
-          type: _services__WEBPACK_IMPORTED_MODULE_5__["UserService"]
+          type: _services__WEBPACK_IMPORTED_MODULE_6__["UserService"]
         }];
       }, null);
     })();
@@ -15272,52 +15256,52 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngOnChanges",
         value: function ngOnChanges() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
             var path, url, result;
-            return regeneratorRuntime.wrap(function _callee36$(_context36) {
+            return regeneratorRuntime.wrap(function _callee38$(_context38) {
               while (1) {
-                switch (_context36.prev = _context36.next) {
+                switch (_context38.prev = _context38.next) {
                   case 0:
-                    _context36.prev = 0;
+                    _context38.prev = 0;
                     path = "/text/purchase/terms/".concat(this.language, ".txt");
-                    _context36.next = 4;
+                    _context38.next = 4;
                     return Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path));
 
                   case 4:
-                    if (!_context36.sent) {
-                      _context36.next = 8;
+                    if (!_context38.sent) {
+                      _context38.next = 8;
                       break;
                     }
 
-                    _context36.t0 = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path);
-                    _context36.next = 9;
+                    _context38.t0 = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path);
+                    _context38.next = 9;
                     break;
 
                   case 8:
-                    _context36.t0 = "/default".concat(path);
+                    _context38.t0 = "/default".concat(path);
 
                   case 9:
-                    url = _context36.t0;
-                    _context36.next = 12;
+                    url = _context38.t0;
+                    _context38.next = 12;
                     return this.utilService.getText(url);
 
                   case 12:
-                    result = _context36.sent;
+                    result = _context38.sent;
                     this.terms = result.replace(/\n/g, '<br>');
-                    _context36.next = 19;
+                    _context38.next = 19;
                     break;
 
                   case 16:
-                    _context36.prev = 16;
-                    _context36.t1 = _context36["catch"](0);
-                    console.error(_context36.t1);
+                    _context38.prev = 16;
+                    _context38.t1 = _context38["catch"](0);
+                    console.error(_context38.t1);
 
                   case 19:
                   case "end":
-                    return _context36.stop();
+                    return _context38.stop();
                 }
               }
-            }, _callee36, this, [[0, 16]]);
+            }, _callee38, this, [[0, 16]]);
           }));
         }
       }]);
@@ -15478,52 +15462,52 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngOnChanges",
         value: function ngOnChanges() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
             var path, url, result;
-            return regeneratorRuntime.wrap(function _callee37$(_context37) {
+            return regeneratorRuntime.wrap(function _callee39$(_context39) {
               while (1) {
-                switch (_context37.prev = _context37.next) {
+                switch (_context39.prev = _context39.next) {
                   case 0:
-                    _context37.prev = 0;
+                    _context39.prev = 0;
                     path = "/text/purchase/warning/".concat(this.language, ".txt");
-                    _context37.next = 4;
+                    _context39.next = 4;
                     return Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path));
 
                   case 4:
-                    if (!_context37.sent) {
-                      _context37.next = 8;
+                    if (!_context39.sent) {
+                      _context39.next = 8;
                       break;
                     }
 
-                    _context37.t0 = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path);
-                    _context37.next = 9;
+                    _context39.t0 = "".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl).concat(path);
+                    _context39.next = 9;
                     break;
 
                   case 8:
-                    _context37.t0 = "/default".concat(path);
+                    _context39.t0 = "/default".concat(path);
 
                   case 9:
-                    url = _context37.t0;
-                    _context37.next = 12;
+                    url = _context39.t0;
+                    _context39.next = 12;
                     return this.utilService.getText(url);
 
                   case 12:
-                    result = _context37.sent;
+                    result = _context39.sent;
                     this.warning = result.replace(/\n/g, '<br>');
-                    _context37.next = 19;
+                    _context39.next = 19;
                     break;
 
                   case 16:
-                    _context37.prev = 16;
-                    _context37.t1 = _context37["catch"](0);
-                    console.error(_context37.t1);
+                    _context39.prev = 16;
+                    _context39.t1 = _context39["catch"](0);
+                    console.error(_context39.t1);
 
                   case 19:
                   case "end":
-                    return _context37.stop();
+                    return _context39.stop();
                 }
               }
-            }, _callee37, this, [[0, 16]]);
+            }, _callee39, this, [[0, 16]]);
           }));
         }
       }]);
@@ -15949,38 +15933,38 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ScreenComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
-            return regeneratorRuntime.wrap(function _callee38$(_context38) {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
+            return regeneratorRuntime.wrap(function _callee40$(_context40) {
               while (1) {
-                switch (_context38.prev = _context38.next) {
+                switch (_context40.prev = _context40.next) {
                   case 0:
-                    _context38.prev = 0;
+                    _context40.prev = 0;
                     this.zoomState = false;
                     this.scale = 1;
                     this.height = 0;
                     this.origin = '0 0';
-                    _context38.next = 7;
+                    _context40.next = 7;
                     return this.getScreenData();
 
                   case 7:
-                    this.screenData = _context38.sent;
+                    this.screenData = _context40.sent;
                     this.createScreen();
                     this.scaleDown();
                     this.setScrollEvent();
-                    _context38.next = 16;
+                    _context40.next = 16;
                     break;
 
                   case 13:
-                    _context38.prev = 13;
-                    _context38.t0 = _context38["catch"](0);
-                    console.error(_context38.t0);
+                    _context40.prev = 13;
+                    _context40.t0 = _context40["catch"](0);
+                    console.error(_context40.t0);
 
                   case 16:
                   case "end":
-                    return _context38.stop();
+                    return _context40.stop();
                 }
               }
-            }, _callee38, this, [[0, 13]]);
+            }, _callee40, this, [[0, 13]]);
           }));
         }
         /**
@@ -15990,16 +15974,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngAfterViewInit",
         value: function ngAfterViewInit() {
-          var _this17 = this;
+          var _this16 = this;
 
           var time = 300;
           var timer = setInterval(function () {
-            if (_this17.screenData !== undefined) {
+            if (_this16.screenData !== undefined) {
               clearInterval(timer);
               var screenElement = document.querySelector('.screen-style');
 
-              if (screenElement !== null && _this17.screenData.style !== undefined) {
-                screenElement.innerHTML = _this17.screenData.style;
+              if (screenElement !== null && _this16.screenData.style !== undefined) {
+                screenElement.innerHTML = _this16.screenData.style;
               }
             }
           }, time);
@@ -16011,27 +15995,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "ngAfterContentChecked",
         value: function ngAfterContentChecked() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
-            return regeneratorRuntime.wrap(function _callee39$(_context39) {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee41() {
+            return regeneratorRuntime.wrap(function _callee41$(_context41) {
               while (1) {
-                switch (_context39.prev = _context39.next) {
+                switch (_context41.prev = _context41.next) {
                   case 0:
                     if (!(this.screenData === undefined)) {
-                      _context39.next = 2;
+                      _context41.next = 2;
                       break;
                     }
 
-                    return _context39.abrupt("return");
+                    return _context41.abrupt("return");
 
                   case 2:
                     this.changeStatus();
 
                   case 3:
                   case "end":
-                    return _context39.stop();
+                    return _context41.stop();
                 }
               }
-            }, _callee39, this);
+            }, _callee41, this);
           }));
         }
         /**
@@ -16051,19 +16035,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setScrollEvent",
         value: function setScrollEvent() {
-          var _this18 = this;
+          var _this17 = this;
 
           this.onWindowScroll = function (event) {
             var target = event.target;
 
-            var rect = _this18.screen.nativeElement.getBoundingClientRect();
+            var rect = _this17.screen.nativeElement.getBoundingClientRect();
 
             var offsetTop = rect.top - target.getBoundingClientRect().top;
-            var screenHeight = _this18.screen.nativeElement.clientHeight;
-            var btnHeight = _this18.zoomBtn.nativeElement.clientHeight;
+            var screenHeight = _this17.screen.nativeElement.clientHeight;
+            var btnHeight = _this17.zoomBtn.nativeElement.clientHeight;
             var space = 10;
             var top = offsetTop > 0 || screenHeight + offsetTop - btnHeight - space < 0 ? space : (offsetTop - space) * -1;
-            _this18.zoomBtn.nativeElement.style.top = "".concat(top, "px");
+            _this17.zoomBtn.nativeElement.style.top = "".concat(top, "px");
           }.bind(this);
 
           var element = document.getElementById('contents');
@@ -16087,77 +16071,77 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getScreenData",
         value: function getScreenData() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee42() {
             var now, settingPath, setting, screenPath, screen, objects;
-            return regeneratorRuntime.wrap(function _callee40$(_context40) {
+            return regeneratorRuntime.wrap(function _callee42$(_context42) {
               while (1) {
-                switch (_context40.prev = _context40.next) {
+                switch (_context42.prev = _context42.next) {
                   case 0:
                     now = moment__WEBPACK_IMPORTED_MODULE_2__().toISOString();
                     settingPath = 'json/theater/setting.json';
-                    _context40.next = 4;
+                    _context42.next = 4;
                     return Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl, "/").concat(settingPath));
 
                   case 4:
-                    if (!_context40.sent) {
-                      _context40.next = 10;
+                    if (!_context42.sent) {
+                      _context42.next = 10;
                       break;
                     }
 
-                    _context40.next = 7;
+                    _context42.next = 7;
                     return this.utilService.getJson("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl, "/").concat(settingPath));
 
                   case 7:
-                    _context40.t0 = _context40.sent;
-                    _context40.next = 13;
+                    _context42.t0 = _context42.sent;
+                    _context42.next = 13;
                     break;
 
                   case 10:
-                    _context40.next = 12;
+                    _context42.next = 12;
                     return this.utilService.getJson("/default/".concat(settingPath));
 
                   case 12:
-                    _context40.t0 = _context40.sent;
+                    _context42.t0 = _context42.sent;
 
                   case 13:
-                    setting = _context40.t0;
+                    setting = _context42.t0;
                     screenPath = "json/theater/".concat(this.theaterCode, "/").concat(this.screenCode, ".json?date=").concat(now);
-                    _context40.next = 17;
+                    _context42.next = 17;
                     return Object(_functions__WEBPACK_IMPORTED_MODULE_3__["isFile"])("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl, "/").concat(screenPath));
 
                   case 17:
-                    if (!_context40.sent) {
-                      _context40.next = 23;
+                    if (!_context42.sent) {
+                      _context42.next = 23;
                       break;
                     }
 
-                    _context40.next = 20;
+                    _context42.next = 20;
                     return this.utilService.getJson("".concat(Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl, "/").concat(screenPath));
 
                   case 20:
-                    _context40.t1 = _context40.sent;
-                    _context40.next = 24;
+                    _context42.t1 = _context42.sent;
+                    _context42.next = 24;
                     break;
 
                   case 23:
-                    _context40.t1 = this.generateScreenMap(setting);
+                    _context42.t1 = this.generateScreenMap(setting);
 
                   case 24:
-                    screen = _context40.t1;
+                    screen = _context42.t1;
                     objects = screen.objects.map(function (o) {
                       return Object.assign(Object.assign({}, o), {
                         image: o.image.replace('/storage', Object(_functions__WEBPACK_IMPORTED_MODULE_3__["getProject"])().storageUrl)
                       });
                     });
                     screen.objects = objects;
-                    return _context40.abrupt("return", Object.assign(Object.assign({}, setting), screen));
+                    return _context42.abrupt("return", Object.assign(Object.assign({}, setting), screen));
 
                   case 28:
                   case "end":
-                    return _context40.stop();
+                    return _context42.stop();
                 }
               }
-            }, _callee40, this);
+            }, _callee42, this);
           }));
         }
         /**
@@ -16208,11 +16192,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             });
           });
           var lineMaxArray = array.reduce(function (a, b) {
-            return a[a.length - 1].line > b[a.length - 1].line ? a : b;
+            return a[a.length - 1].line > b[b.length - 1].line ? a : b;
           });
           var lineMax = lineMaxArray[lineMaxArray.length - 1].line;
           var columnMaxArray = array.reduce(function (a, b) {
-            return a[a.length - 1].column > b[a.length - 1].column ? a : b;
+            return a[a.length - 1].column > b[b.length - 1].column ? a : b;
           });
           var columnMax = Number(columnMaxArray[columnMaxArray.length - 1].column);
           var map = [];
@@ -16401,7 +16385,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "createScreen",
         value: function createScreen() {
-          var _this19 = this;
+          var _this18 = this;
 
           // y軸ラベル
           var labels = this.createLineLabel(); // 行ラベル
@@ -16424,15 +16408,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
             if (y === 0) {
-              pos.y += _this19.screenData.seatStart.y;
-            } else if (_this19.screenData.map[y].length === 0) {
-              pos.y += _this19.screenData.aisle.middle.h - _this19.screenData.seatMargin.h;
+              pos.y += _this18.screenData.seatStart.y;
+            } else if (_this18.screenData.map[y].length === 0) {
+              pos.y += _this18.screenData.aisle.middle.h - _this18.screenData.seatMargin.h;
             } else {
               labelCount++;
-              pos.y += _this19.screenData.seatSize.h + _this19.screenData.seatMargin.h;
+              pos.y += _this18.screenData.seatSize.h + _this18.screenData.seatMargin.h;
             }
 
-            if (_this19.screenData.map[y].length > 0) {
+            if (_this18.screenData.map[y].length > 0) {
               seats.push({
                 className: "seat-".concat(labels[labelCount]),
                 code: labels[labelCount],
@@ -16443,49 +16427,49 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
               var _loop4 = function _loop4(x) {
                 if (x === 0) {
-                  pos.x = _this19.screenData.seatStart.x;
+                  pos.x = _this18.screenData.seatStart.x;
                 } // 座席ラベルHTML生成
 
 
-                if (x === 0 && _this19.screenData.lineLabel) {
-                  _this19.lineLabels.push({
+                if (x === 0 && _this18.screenData.lineLabel) {
+                  _this18.lineLabels.push({
                     id: labelCount,
-                    w: _this19.screenData.seatSize.w,
-                    h: _this19.screenData.seatSize.h,
+                    w: _this18.screenData.seatSize.w,
+                    h: _this18.screenData.seatSize.h,
                     y: pos.y,
-                    x: pos.x - _this19.screenData.seatLabelPos,
+                    x: pos.x - _this18.screenData.seatLabelPos,
                     label: labels[labelCount]
                   });
                 }
 
-                if (_this19.screenData.map[y][x] === 8) {
-                  pos.x += _this19.screenData.aisle.middle.w;
-                } else if (_this19.screenData.map[y][x] === 9) {
-                  pos.x += _this19.screenData.aisle.middle.w;
-                } else if (_this19.screenData.map[y][x] === 10) {
-                  pos.x += _this19.screenData.seatSize.w / 2 + _this19.screenData.seatMargin.w;
-                } else if (_this19.screenData.map[y][x] === 11) {
-                  pos.x += _this19.screenData.seatSize.w / 2 + _this19.screenData.seatMargin.w;
+                if (_this18.screenData.map[y][x] === 8) {
+                  pos.x += _this18.screenData.aisle.middle.w;
+                } else if (_this18.screenData.map[y][x] === 9) {
+                  pos.x += _this18.screenData.aisle.middle.w;
+                } else if (_this18.screenData.map[y][x] === 10) {
+                  pos.x += _this18.screenData.seatSize.w / 2 + _this18.screenData.seatMargin.w;
+                } else if (_this18.screenData.map[y][x] === 11) {
+                  pos.x += _this18.screenData.seatSize.w / 2 + _this18.screenData.seatMargin.w;
                 } // 座席番号HTML生成
 
 
-                if (y === 0 && _this19.screenData.columnLabel) {
-                  var label = _this19.screenData.seatNumberAlign === 'left' ? String(x + 1) : String(_this19.screenData.map[0].length - x);
+                if (y === 0 && _this18.screenData.columnLabel) {
+                  var label = _this18.screenData.seatNumberAlign === 'left' ? String(x + 1) : String(_this18.screenData.map[0].length - x);
 
-                  _this19.columnLabels.push({
+                  _this18.columnLabels.push({
                     id: x,
-                    w: _this19.screenData.seatSize.w,
-                    h: _this19.screenData.seatSize.h,
-                    y: pos.y - _this19.screenData.seatNumberPos,
+                    w: _this18.screenData.seatSize.w,
+                    h: _this18.screenData.seatSize.h,
+                    y: pos.y - _this18.screenData.seatNumberPos,
                     x: pos.x,
                     label: label
                   });
                 }
 
-                if (_this19.screenData.map[y][x] === 1 || _this19.screenData.map[y][x] === 4 || _this19.screenData.map[y][x] === 5 || _this19.screenData.map[y][x] === 8 || _this19.screenData.map[y][x] === 10) {
+                if (_this18.screenData.map[y][x] === 1 || _this18.screenData.map[y][x] === 4 || _this18.screenData.map[y][x] === 5 || _this18.screenData.map[y][x] === 8 || _this18.screenData.map[y][x] === 10) {
                   // 座席HTML生成
                   var code = function () {
-                    return _this19.screenData.seatNumberAlign === 'left' ? "".concat(labels[labelCount], "-").concat(String(x + 1)) : "".concat(labels[labelCount], "-").concat(String(_this19.screenData.map[y].length - x));
+                    return _this18.screenData.seatNumberAlign === 'left' ? "".concat(labels[labelCount], "-").concat(String(x + 1)) : "".concat(labels[labelCount], "-").concat(String(_this18.screenData.map[y].length - x));
                   }();
 
                   var className = ["seat-".concat(code)];
@@ -16494,7 +16478,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   var status = _models_purchase_screen__WEBPACK_IMPORTED_MODULE_4__["SeatStatus"].Disabled;
                   var acceptedOffer; // 席の状態変更
 
-                  _this19.screeningEventSeats.forEach(function (s) {
+                  _this18.screeningEventSeats.forEach(function (s) {
                     if (s.containedInPlace !== undefined && s.containedInPlace.branchCode !== undefined) {
                       section = s.containedInPlace.branchCode;
                     }
@@ -16519,9 +16503,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     };
                   });
 
-                  if (_this19.authorizeSeatReservation !== undefined && _this19.authorizeSeatReservation.result !== undefined && _this19.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
+                  if (_this18.authorizeSeatReservation !== undefined && _this18.authorizeSeatReservation.result !== undefined && _this18.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
                     // chevre
-                    var findResult = _this19.authorizeSeatReservation.result.responseBody.object.reservations.find(function (r) {
+                    var findResult = _this18.authorizeSeatReservation.result.responseBody.object.reservations.find(function (r) {
                       var ticketedSeat = r.reservedTicket.ticketedSeat;
                       return ticketedSeat !== undefined && ticketedSeat.seatNumber === code && ticketedSeat.seatSection === section && ticketedSeat.seatRow === row;
                     });
@@ -16531,14 +16515,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     }
                   }
 
-                  if (_this19.screenData.hc !== undefined && _this19.screenData.hc.indexOf(code) !== -1) {
+                  if (_this18.screenData.hc !== undefined && _this18.screenData.hc.indexOf(code) !== -1) {
                     className.push('seat-hc');
                   }
 
                   var seat = {
                     className: className.join(' '),
-                    w: _this19.screenData.seatSize.w,
-                    h: _this19.screenData.seatSize.h,
+                    w: _this18.screenData.seatSize.w,
+                    h: _this18.screenData.seatSize.h,
                     y: 0,
                     x: pos.x,
                     code: code,
@@ -16550,24 +16534,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 } // ポジション設定
 
 
-                if (_this19.screenData.map[y][x] === 2) {
-                  pos.x += _this19.screenData.aisle.middle.w + _this19.screenData.seatMargin.w;
-                } else if (_this19.screenData.map[y][x] === 3) {
-                  pos.x += _this19.screenData.aisle.small.w + _this19.screenData.seatMargin.w;
-                } else if (_this19.screenData.map[y][x] === 4) {
-                  pos.x += _this19.screenData.aisle.middle.w + _this19.screenData.seatSize.w + _this19.screenData.seatMargin.w;
-                } else if (_this19.screenData.map[y][x] === 5) {
-                  pos.x += _this19.screenData.aisle.small.w + _this19.screenData.seatSize.w + _this19.screenData.seatMargin.w;
-                } else if (_this19.screenData.map[y][x] === 6) {
-                  pos.x += _this19.screenData.aisle.middle.w + _this19.screenData.seatSize.w + _this19.screenData.seatMargin.w;
-                } else if (_this19.screenData.map[y][x] === 7) {
-                  pos.x += _this19.screenData.aisle.small.w + _this19.screenData.seatSize.w + _this19.screenData.seatMargin.w;
+                if (_this18.screenData.map[y][x] === 2) {
+                  pos.x += _this18.screenData.aisle.middle.w + _this18.screenData.seatMargin.w;
+                } else if (_this18.screenData.map[y][x] === 3) {
+                  pos.x += _this18.screenData.aisle.small.w + _this18.screenData.seatMargin.w;
+                } else if (_this18.screenData.map[y][x] === 4) {
+                  pos.x += _this18.screenData.aisle.middle.w + _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
+                } else if (_this18.screenData.map[y][x] === 5) {
+                  pos.x += _this18.screenData.aisle.small.w + _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
+                } else if (_this18.screenData.map[y][x] === 6) {
+                  pos.x += _this18.screenData.aisle.middle.w + _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
+                } else if (_this18.screenData.map[y][x] === 7) {
+                  pos.x += _this18.screenData.aisle.small.w + _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
                 } else {
-                  pos.x += _this19.screenData.seatSize.w + _this19.screenData.seatMargin.w;
+                  pos.x += _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
                 }
               };
 
-              for (var x = 0; x < _this19.screenData.map[y].length; x++) {
+              for (var x = 0; x < _this18.screenData.map[y].length; x++) {
                 _loop4(x);
               }
             }
@@ -16879,12 +16863,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "update",
         value: function update() {
-          var _this20 = this;
+          var _this19 = this;
 
           this.updateProcess();
           var time = 1000;
           this.timer = setTimeout(function () {
-            _this20.update();
+            _this19.update();
           }, time);
         }
       }, {
