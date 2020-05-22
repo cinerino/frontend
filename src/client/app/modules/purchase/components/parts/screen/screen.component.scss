@@ -54,11 +54,16 @@
         cursor: default;
         background-image: url(/assets/images/seat/hc.svg) !important;
         background-size: 40px 50px;
+        padding-top: 35px;
         &.disabled {
             background-image: url(/assets/images/seat/hc_disabled.svg) !important;
         }
-        span {
-            display: none !important;
+    }
+    .space {
+        padding-top: 20px;
+        &.disabled {
+            background-image: url(/assets/images/seat/space_disabled.svg) !important;
+            cursor: default;
         }
     }
     .object {
