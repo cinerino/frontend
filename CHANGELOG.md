@@ -12,9 +12,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.34 - 2020-05-22
+### Added
+ - 座席なし判定追加
+### Changed
+ - 利用規約、注意事項同意文言を動的に変更
+ - 汎用テンプレートの場合スクリーン自動生成時「SCREEN」削除
+### Fixed
+ - IEでのcss読み込み不具合修正
+ - cssサイズ削減
+
 ## 3.0.33 - 2020-05-21
 ### Changed
- -  デフォルトをカート機能ONへ変更
+ - デフォルトをカート機能ONへ変更
 ### Fixed
  - スクリーン自動生成不具合修正
  - スケジュール定期更新不具合修正

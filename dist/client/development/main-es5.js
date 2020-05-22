@@ -2843,7 +2843,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     var defaultEnvironment = {
       production: false,
-      APP_TITLE: '',
+      APP_TITLE: 'SMART THEATER',
       APP_PREFIX: '',
       PROJECT_ID: '',
       ENTRANCE_SERVER_URL: '',
@@ -3188,35 +3188,47 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
                 style = document.createElement('link');
                 style.rel = 'stylesheet';
-                style.href = "".concat(storageUrl, "/css/style.css?=date").concat(now);
+                _context11.next = 15;
+                return Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["isFile"])("".concat(storageUrl, "/css/style.css?=date").concat(now));
 
-                style.onerror = function () {
-                  this.href = "/default/css/style.css?=date".concat(now);
-                };
+              case 15:
+                if (!_context11.sent) {
+                  _context11.next = 19;
+                  break;
+                }
 
+                _context11.t2 = "".concat(storageUrl, "/css/style.css?=date").concat(now);
+                _context11.next = 20;
+                break;
+
+              case 19:
+                _context11.t2 = "/default/css/style.css?=date".concat(now);
+
+              case 20:
+                style.href = _context11.t2;
                 document.head.appendChild(style); // ファビコン設定
 
                 favicon = document.createElement('link');
                 favicon.rel = 'icon';
                 favicon.type = 'image/x-icon"';
-                _context11.next = 21;
+                _context11.next = 27;
                 return Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["isFile"])("".concat(storageUrl, "/favicon.ico"));
 
-              case 21:
+              case 27:
                 if (!_context11.sent) {
-                  _context11.next = 25;
+                  _context11.next = 31;
                   break;
                 }
 
-                _context11.t2 = "".concat(storageUrl, "/favicon.ico");
-                _context11.next = 26;
+                _context11.t3 = "".concat(storageUrl, "/favicon.ico");
+                _context11.next = 32;
                 break;
 
-              case 25:
-                _context11.t2 = '/default/favicon.ico';
+              case 31:
+                _context11.t3 = '/default/favicon.ico';
 
-              case 26:
-                favicon.href = _context11.t2;
+              case 32:
+                favicon.href = _context11.t3;
                 document.head.appendChild(favicon); // タイトル設定
 
                 document.title = environment.APP_TITLE; // GTM設定
@@ -3241,7 +3253,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                   Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["enableProdMode"])();
                 }
 
-              case 31:
+              case 37:
               case "end":
                 return _context11.stop();
             }

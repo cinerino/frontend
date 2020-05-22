@@ -3,8 +3,7 @@
     <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.theater.read' | translate"></p>
 </div>
 
-<ul *ngIf="!(external.theaterBranchCode)"
-    class="contents-width mx-auto theaters d-flex flex-wrap p-2">
+<ul *ngIf="!(external.theaterBranchCode)" class="contents-width mx-auto theaters d-flex flex-wrap p-2">
     <li *ngFor="let theater of theaters" class="px-2 my-2">
         <button type="button" class="btn btn-block py-3 m-0" (click)="selectTheater(theater)"
             [class.btn-primary]="(purchase | async)?.theater?.id === theater.id"
@@ -51,9 +50,12 @@
     </div>
 
     <div class="buttons mx-auto text-center">
-        <button *ngIf="isSales" type="submit" class="btn btn-primary btn-block py-3 mb-3"
+        <button *ngIf="isSales && !environment.PURCHASE_TERMS" type="submit" class="btn btn-primary btn-block py-3 mb-3"
             [disabled]="screeningWorkEvents.length === 0 || (isLoading | async)"
             (click)="onSubmit()">{{ 'purchase.event.schedule.next' | translate }}</button>
+        <button *ngIf="isSales && environment.PURCHASE_TERMS" type="submit" class="btn btn-primary btn-block py-3 mb-3"
+            [disabled]="screeningWorkEvents.length === 0 || (isLoading | async)"
+            (click)="onSubmit()">{{ 'purchase.event.schedule.consent' | translate }}</button>
         <button *ngIf="!isSales" type="button" class="btn btn-primary btn-block py-3 mb-3" disabled
             (click)="onSubmit()">{{ 'purchase.event.schedule.disabled' | translate }}</button>
         <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-link portal-link"

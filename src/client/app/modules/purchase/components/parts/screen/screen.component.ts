@@ -12,8 +12,9 @@ import {
 } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
+import { getEnvironment } from '../../../../../../environments/environment';
 import { getProject, isFile } from '../../../../../functions';
-import { IReservation, IReservationSeat } from '../../../../../models';
+import { IReservation, IReservationSeat, ViewType } from '../../../../../models';
 import { ILabel, IObject, IRow, IScreen, ISeat, SeatStatus } from '../../../../../models/purchase/screen';
 import { UtilService } from '../../../../../services';
 
@@ -41,6 +42,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
     public height: number;
     public origin: string;
     public screenData: IScreen;
+    public environment = getEnvironment();
     public onWindowScroll: (event: Event) => void;
     @ViewChild('screen', { static: true }) public screen: ElementRef<HTMLDivElement>;
     @ViewChild('zoomBtn', { static: true }) public zoomBtn: ElementRef<HTMLDivElement>;
@@ -195,7 +197,8 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
             map.push(lineMap);
         }
         const space = 90;
-        const screenSpace = space * 2 + 50;
+        const screenSpace = (this.environment.VIEW_TYPE === ViewType.Cinema)
+            ? space * 2 + 50 : space + 30;
         const minWidth = 1346;
         const size = {
             w: map[0].length * setting.seatSize.w + (map[0].length - 1) * setting.seatMargin.w + space * 2,
@@ -214,7 +217,9 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                 y: screenSpace
             },
             map,
-            style: '<style>.screen-object { display: block !important }</style>'
+            style: (this.environment.VIEW_TYPE === ViewType.Cinema)
+                ? '<style>.screen-object { display: block !important }</style>'
+                : undefined
         };
     }
 
@@ -353,12 +358,10 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                     y: pos.y,
                     data: []
                 });
-
                 for (let x = 0; x < this.screenData.map[y].length; x++) {
                     if (x === 0) {
                         pos.x = this.screenData.seatStart.x;
                     }
-
                     // 座席ラベルHTML生成
                     if (x === 0 && this.screenData.lineLabel) {
                         this.lineLabels.push({
@@ -370,7 +373,6 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                             label: labels[labelCount]
                         });
                     }
-
                     if (this.screenData.map[y][x] === 8) {
                         pos.x += this.screenData.aisle.middle.w;
                     } else if (this.screenData.map[y][x] === 9) {
@@ -380,10 +382,8 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                     } else if (this.screenData.map[y][x] === 11) {
                         pos.x += (this.screenData.seatSize.w / 2) + this.screenData.seatMargin.w;
                     }
-
                     // 座席番号HTML生成
                     if (y === 0 && this.screenData.columnLabel) {
-
                         const label = (this.screenData.seatNumberAlign === 'left')
                             ? String(x + 1)
                             : String(this.screenData.map[0].length - x);
@@ -395,7 +395,6 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                             x: pos.x,
                             label: label
                         });
-
                     }
                     if (this.screenData.map[y][x] === 1
                         || this.screenData.map[y][x] === 4
@@ -414,28 +413,31 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                         let status = SeatStatus.Disabled;
                         let acceptedOffer;
                         // 席の状態変更
-                        this.screeningEventSeats.forEach((s) => {
-                            if (s.containedInPlace !== undefined
-                                && s.containedInPlace.branchCode !== undefined) {
-                                section = s.containedInPlace.branchCode;
+                        const findSeat =
+                            this.screeningEventSeats.find(s => s.branchCode === code);
+                        if (findSeat !== undefined
+                            && findSeat.offers !== undefined) {
+                            if (findSeat.containedInPlace !== undefined
+                                && findSeat.containedInPlace.branchCode !== undefined) {
+                                section = findSeat.containedInPlace.branchCode;
                             }
-                            if (s.branchCode !== code || s.offers === undefined) {
-                                return;
-                            }
-                            if (s.offers[0].availability === factory.chevre.itemAvailability.InStock) {
+                            if (findSeat.offers[0].availability === factory.chevre.itemAvailability.InStock) {
                                 status = SeatStatus.Default;
                             }
                             acceptedOffer = {
                                 ticketedSeat: <IReservationSeat>{
-                                    typeOf: s.typeOf,
-                                    seatingType: s.seatingType,
-                                    seatNumber: s.branchCode,
+                                    typeOf: findSeat.typeOf,
+                                    seatingType: findSeat.seatingType,
+                                    seatNumber: findSeat.branchCode,
                                     seatRow: row,
                                     seatSection: section,
-                                    offers: s.offers
+                                    offers: findSeat.offers
                                 }
                             };
-                        });
+                        }
+                        if (findSeat === undefined) {
+                            className.push('space');
+                        }
                         if (this.authorizeSeatReservation !== undefined
                             && this.authorizeSeatReservation.result !== undefined
                             && this.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
@@ -455,7 +457,6 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                             && this.screenData.hc.indexOf(code) !== -1) {
                             className.push('seat-hc');
                         }
-
                         const seat = {
                             className: className.join(' '),
                             w: this.screenData.seatSize.w,
