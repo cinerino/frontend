@@ -25,7 +25,10 @@
             --><span *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
             --><span *ngIf="priceComponent?.referenceQuantity?.value && priceComponent.price > 0">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
         </p>
-        <button *ngIf="qrcode" class="btn btn-primary mt-2 mb-3" (click)="openQrcode.emit({id: acceptedOffer.itemOffered.id})">{{ 'common.qrcode' | translate }}</button>
+        <div *ngIf="qrcode && acceptedOffer.itemOffered.reservedTicket.ticketToken" class="qrcode mt-2 mb-4 mx-md-0 mx-auto">
+            <app-qrcode-image [code]="acceptedOffer.itemOffered.reservedTicket.ticketToken"></app-qrcode-image>
+        </div>
+        <!-- <button *ngIf="qrcode" class="btn btn-primary mt-2 mb-3" (click)="openQrcode.emit({id: acceptedOffer.itemOffered.id})">{{ 'common.qrcode' | translate }}</button> -->
     </div>
 </div>
 

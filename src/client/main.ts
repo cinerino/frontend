@@ -82,10 +82,9 @@ async function setProjectConfig(storageUrl: string) {
     // スタイル設定
     const style = document.createElement('link');
     style.rel = 'stylesheet';
-    style.href = `${storageUrl}/css/style.css?=date${now}`;
-    style.onerror = function () {
-        this.href = `/default/css/style.css?=date${now}`;
-    };
+    style.href = (await isFile(`${storageUrl}/css/style.css?=date${now}`))
+        ? `${storageUrl}/css/style.css?=date${now}` : `/default/css/style.css?=date${now}`;
+
     document.head.appendChild(style);
     // ファビコン設定
     const favicon = document.createElement('link');

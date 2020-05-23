@@ -22,7 +22,8 @@
             "seat": {
                 "title": "座席選択",
                 "read": "座席を選択してください。",
-                "next": "利用規約に同意して次へ",
+                "next": "次へ",
+                "consent": "利用規約に同意して次へ",
                 "terms": "利用規約",
                 "prev": "戻る",
                 "openSeating": "座席数", 
@@ -71,6 +72,9 @@
     "process": {
         "masterAction": {
             "GetTheaters": "劇場情報を取得しています"
+        },
+        "purchaseAction": {
+            "GetScreen": "スクリーン情報を取得しています"
         }
     },
     "common": {

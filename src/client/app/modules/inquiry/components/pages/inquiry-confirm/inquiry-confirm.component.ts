@@ -39,25 +39,35 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     /**
      * 初期化
      */
-    public ngOnInit() {
+    public async ngOnInit() {
         this.eventOrders = [];
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
         this.order = this.store.pipe(select(reducers.getOrder));
         this.user = this.store.pipe(select(reducers.getUser));
-        this.order.subscribe((value) => {
-            if (value.order === undefined) {
-                this.router.navigate(['/error']);
-                return;
+        try {
+            let order = (await this.orderService.getData()).order;
+            if (order === undefined) {
+                throw new Error('order undefined');
             }
-            const order = value.order;
             this.eventOrders = order2EventOrders({ order });
-        }).unsubscribe();
-        if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
-            const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
-            this.timer = setTimeout(() => {
-                this.router.navigate(['/inquiry/input']);
-            }, time);
+            if (this.environment.INQUIRY_QRCODE) {
+                await this.orderService.authorize(order);
+                order = (await this.orderService.getData()).order;
+                if (order === undefined) {
+                    throw new Error('order undefined');
+                }
+                this.eventOrders = order2EventOrders({ order });
+            }
+            if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
+                const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
+                this.timer = setTimeout(() => {
+                    this.router.navigate(['/inquiry/input']);
+                }, time);
+            }
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
         }
     }
 
@@ -76,13 +86,13 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
      */
     public async openQRCodeViewer(params: { id: string }) {
         try {
-            let orderData = await this.orderService.getData();
-            if (orderData.order === undefined) {
+            let order = (await this.orderService.getData()).order;
+            if (order === undefined) {
                 throw new Error('order undefined');
             }
-            await this.orderService.authorize(orderData.order);
-            orderData = await this.orderService.getData();
-            const authorizeOrder = orderData.order;
+            await this.orderService.authorize(order);
+            order = (await this.orderService.getData()).order;
+            const authorizeOrder = order;
             if (authorizeOrder === undefined) {
                 throw new Error('authorizeOrder undefined');
             }

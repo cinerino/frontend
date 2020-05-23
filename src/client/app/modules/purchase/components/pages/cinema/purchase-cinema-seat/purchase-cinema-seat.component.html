@@ -5,10 +5,8 @@
         <div class="col-lg-9">
             <app-screen *ngIf="(purchase | async)?.theater 
                 && screeningEventSeats.length > 0 
-                && (purchase | async)?.screen" class="mb-4"
-                [theaterCode]="(purchase | async)?.theater.branchCode"
-                [screenCode]="(purchase | async)?.screen.branchCode"
-                [screeningEventSeats]="screeningEventSeats"
+                && (purchase | async)?.screen" class="mb-4" [theaterCode]="(purchase | async)?.theater.branchCode"
+                [screenCode]="(purchase | async)?.screen.branchCode" [screeningEventSeats]="screeningEventSeats"
                 [openSeatingAllowed]="(purchase | async)?.screen.openSeatingAllowed"
                 [reservations]="(purchase | async)?.reservations"
                 [authorizeSeatReservation]="(purchase | async)?.authorizeSeatReservation" (select)="selectSeat($event)">
@@ -16,7 +14,8 @@
             <div *ngIf="(purchase | async)?.screen?.openSeatingAllowed" class="mb-4">
                 <div class="d-flex align-items-center">
                     <p class="mr-2">{{ 'purchase.cinema.seat.openSeating' | translate }}</p>
-                    <select class="form-control d-inline-block w-auto" (change)="selectOpenSeating($event)" [ngModel]="(purchase | async)?.reservations.length">
+                    <select class="form-control d-inline-block w-auto" (change)="selectOpenSeating($event)"
+                        [ngModel]="(purchase | async)?.reservations.length">
                         <option value="0">0</option>
                         <option *ngFor="let value of remainingAttendeeCapacityValue({
                             screeningEventSeats: screeningEventSeats,
@@ -40,8 +39,10 @@
     </div>
 
     <div class="buttons mx-auto text-center">
-        <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
-            (click)="onSubmit()">{{ 'purchase.cinema.seat.next' | translate }}</button>
+        <button *ngIf="!environment.PURCHASE_TERMS" type="submit" class="btn btn-primary btn-block py-3 mb-3"
+            [disabled]="isLoading | async" (click)="onSubmit()">{{ 'purchase.cinema.seat.next' | translate }}</button>
+        <button *ngIf="environment.PURCHASE_TERMS" type="submit" class="btn btn-primary btn-block py-3 mb-3"
+            [disabled]="isLoading | async" (click)="onSubmit()">{{ 'purchase.cinema.seat.consent' | translate }}</button>
         <button *ngIf="!external.eventId" type="button" class="btn btn-link"
             routerLink="/purchase/cinema/schedule">{{ 'purchase.cinema.seat.prev' | translate }}</button>
         <a *ngIf="external.eventId" class="btn btn-link"

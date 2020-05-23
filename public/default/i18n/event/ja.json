@@ -9,8 +9,8 @@
             },
             "schedule": {
                 "title": "スケジュール確認",
-                "read": "スケジュールを確認してください。",
-                "notfound": "スケジュールがありません。",
+                "read": "ご希望の日付を選択して下さい。",
+                "notfound": "スケジュールがありません。他の日付を選択してください。",
                 "selectedDate": "{{value}}の空き状況",
                 "status": {
                     "success": "購入",
@@ -22,7 +22,8 @@
                 },
                 "terms": "利用規約",
                 "infiniteStock": "在庫管理なし",
-                "next": "利用規約に同意して進む",
+                "next": "次へ",
+                "consent": "利用規約に同意して次へ",
                 "disabled": "販売期間外です",
                 "prev": "戻る"
             },
@@ -88,11 +89,6 @@
                     "cancel": "キャンセルしてよろしいですか。"
                 }
             }
-        }
-    },
-    "process": {
-        "masterAction": {
-            "GetTheaters": "施設情報を取得しています"
         }
     },
     "common": {
