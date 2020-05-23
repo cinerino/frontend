@@ -516,5 +516,6 @@
         "remove": "削除",
         "balance": "残高",
         "required": "必須"
-    }
+    },
+    "supportBrowser": "現在ご利用のブラウザは、推奨ブラウザではありません。<br>快適にご利用いただくには下記ブラウザをご利用ください。<br>Google Chrome最新版<br>Safari最新版<br>Microsoft Edge最新版"
 }
