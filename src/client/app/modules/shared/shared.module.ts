@@ -29,6 +29,7 @@ import { MvtkCheckModalComponent } from './components/parts/mvtk/check-modal/che
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
 import { PurchaseEventTicketModalComponent } from './components/parts/purchase/event/ticket-modal/ticket-modal.component';
 import { PurchaseSeatTicketModalComponent } from './components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
+import { QRCodeImageComponent } from './components/parts/qrcode/image/image.component';
 import { QRCodeReaderModalComponent } from './components/parts/qrcode/reader-modal/reader-modal.component';
 import { QRCodeViewerModalComponent } from './components/parts/qrcode/viewer-modal/viewer-modal.component';
 import { ChangeLanguagePipe } from './pipes/change-language.pipe';
@@ -43,7 +44,8 @@ const components = [
   ContentsComponent,
   BaseComponent,
   ItemListComponent,
-  CheckboxComponent
+  CheckboxComponent,
+  QRCodeImageComponent
 ];
 
 const entryComponents = [

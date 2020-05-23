@@ -271,8 +271,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function InquiryConfirmComponent_div_6_div_11_Template(rf, ctx) {
       if (rf & 1) {
-        var _r14 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 17);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 18);
@@ -339,17 +337,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](25, "hr", 18);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "app-item-list", 26);
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("openQrcode", function InquiryConfirmComponent_div_6_div_11_Template_app_item_list_openQrcode_26_listener($event) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r14);
-
-          var ctx_r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
-
-          return ctx_r13.openQRCodeViewer($event);
-        });
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](26, "app-item-list", 26);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
       }
@@ -566,16 +554,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function InquiryConfirmComponent_div_9_button_1_Template(rf, ctx) {
       if (rf & 1) {
-        var _r18 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+        var _r16 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 32);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function InquiryConfirmComponent_div_9_button_1_Template_button_click_0_listener() {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r18);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r16);
 
-          var ctx_r17 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
+          var ctx_r15 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
 
-          return ctx_r17.print();
+          return ctx_r15.print();
         });
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](1, "async");
@@ -590,12 +578,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var ctx_r15 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
+        var ctx_r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
 
         var tmp_0_0 = null;
-        var currVal_0 = ((tmp_0_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](1, 3, ctx_r15.order)) == null ? null : tmp_0_0.order.orderStatus) !== ctx_r15.orderStatus.OrderDelivered;
+        var currVal_0 = ((tmp_0_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](1, 3, ctx_r13.order)) == null ? null : tmp_0_0.order.orderStatus) !== ctx_r13.orderStatus.OrderDelivered;
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", currVal_0)("disabled", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 5, ctx_r15.isLoading));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", currVal_0)("disabled", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 5, ctx_r13.isLoading));
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
@@ -605,16 +593,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function InquiryConfirmComponent_div_9_button_2_Template(rf, ctx) {
       if (rf & 1) {
-        var _r20 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+        var _r18 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 33);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function InquiryConfirmComponent_div_9_button_2_Template_button_click_0_listener() {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r20);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r18);
 
-          var ctx_r19 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
+          var ctx_r17 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
 
-          return ctx_r19.cancelConfirm();
+          return ctx_r17.cancelConfirm();
         });
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](1, "async");
@@ -627,10 +615,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }
 
       if (rf & 2) {
-        var ctx_r16 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
+        var ctx_r14 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
 
         var tmp_0_0 = null;
-        var currVal_0 = ((tmp_0_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](1, 2, ctx_r16.order)) == null ? null : tmp_0_0.order.orderStatus) !== ctx_r16.orderStatus.OrderDelivered;
+        var currVal_0 = ((tmp_0_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](1, 2, ctx_r14.order)) == null ? null : tmp_0_0.order.orderStatus) !== ctx_r14.orderStatus.OrderDelivered;
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", currVal_0);
 
@@ -687,32 +675,89 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(InquiryConfirmComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this = this;
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            var _this = this;
 
-          this.eventOrders = [];
-          this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
-          this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
-          this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getOrder"]));
-          this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getUser"]));
-          this.order.subscribe(function (value) {
-            if (value.order === undefined) {
-              _this.router.navigate(['/error']);
+            var order, time;
+            return regeneratorRuntime.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    this.eventOrders = [];
+                    this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
+                    this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
+                    this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getOrder"]));
+                    this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getUser"]));
+                    _context.prev = 5;
+                    _context.next = 8;
+                    return this.orderService.getData();
 
-              return;
-            }
+                  case 8:
+                    order = _context.sent.order;
 
-            var order = value.order;
-            _this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({
-              order: order
-            });
-          }).unsubscribe();
+                    if (!(order === undefined)) {
+                      _context.next = 11;
+                      break;
+                    }
 
-          if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
-            var time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
-            this.timer = setTimeout(function () {
-              _this.router.navigate(['/inquiry/input']);
-            }, time);
-          }
+                    throw new Error('order undefined');
+
+                  case 11:
+                    this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({
+                      order: order
+                    });
+
+                    if (!this.environment.INQUIRY_QRCODE) {
+                      _context.next = 21;
+                      break;
+                    }
+
+                    _context.next = 15;
+                    return this.orderService.authorize(order);
+
+                  case 15:
+                    _context.next = 17;
+                    return this.orderService.getData();
+
+                  case 17:
+                    order = _context.sent.order;
+
+                    if (!(order === undefined)) {
+                      _context.next = 20;
+                      break;
+                    }
+
+                    throw new Error('order undefined');
+
+                  case 20:
+                    this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({
+                      order: order
+                    });
+
+                  case 21:
+                    if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
+                      time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
+                      this.timer = setTimeout(function () {
+                        _this.router.navigate(['/inquiry/input']);
+                      }, time);
+                    }
+
+                    _context.next = 28;
+                    break;
+
+                  case 24:
+                    _context.prev = 24;
+                    _context.t0 = _context["catch"](5);
+                    console.error(_context.t0);
+                    this.router.navigate(['/error']);
+
+                  case 28:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee, this, [[5, 24]]);
+          }));
         }
         /**
          * 破棄
@@ -734,40 +779,40 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openQRCodeViewer",
         value: function openQRCodeViewer(params) {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-            var orderData, authorizeOrder, findResult;
-            return regeneratorRuntime.wrap(function _callee$(_context) {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+            var order, authorizeOrder, findResult;
+            return regeneratorRuntime.wrap(function _callee2$(_context2) {
               while (1) {
-                switch (_context.prev = _context.next) {
+                switch (_context2.prev = _context2.next) {
                   case 0:
-                    _context.prev = 0;
-                    _context.next = 3;
+                    _context2.prev = 0;
+                    _context2.next = 3;
                     return this.orderService.getData();
 
                   case 3:
-                    orderData = _context.sent;
+                    order = _context2.sent.order;
 
-                    if (!(orderData.order === undefined)) {
-                      _context.next = 6;
+                    if (!(order === undefined)) {
+                      _context2.next = 6;
                       break;
                     }
 
                     throw new Error('order undefined');
 
                   case 6:
-                    _context.next = 8;
-                    return this.orderService.authorize(orderData.order);
+                    _context2.next = 8;
+                    return this.orderService.authorize(order);
 
                   case 8:
-                    _context.next = 10;
+                    _context2.next = 10;
                     return this.orderService.getData();
 
                   case 10:
-                    orderData = _context.sent;
-                    authorizeOrder = orderData.order;
+                    order = _context2.sent.order;
+                    authorizeOrder = order;
 
                     if (!(authorizeOrder === undefined)) {
-                      _context.next = 14;
+                      _context2.next = 14;
                       break;
                     }
 
@@ -779,7 +824,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
 
                     if (!(findResult === undefined)) {
-                      _context.next = 17;
+                      _context2.next = 17;
                       break;
                     }
 
@@ -787,7 +832,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 17:
                     if (!(findResult.itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.reservationType.EventReservation)) {
-                      _context.next = 19;
+                      _context2.next = 19;
                       break;
                     }
 
@@ -798,13 +843,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('inquiry.confirm.qrcode.title'),
                       code: findResult.itemOffered.reservedTicket.ticketToken
                     });
-                    _context.next = 26;
+                    _context2.next = 26;
                     break;
 
                   case 22:
-                    _context.prev = 22;
-                    _context.t0 = _context["catch"](0);
-                    console.error(_context.t0);
+                    _context2.prev = 22;
+                    _context2.t0 = _context2["catch"](0);
+                    console.error(_context2.t0);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('inquiry.confirm.alert.authorize')
@@ -812,10 +857,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 26:
                   case "end":
-                    return _context.stop();
+                    return _context2.stop();
                 }
               }
-            }, _callee, this, [[0, 22]]);
+            }, _callee2, this, [[0, 22]]);
           }));
         }
         /**
@@ -831,26 +876,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('inquiry.confirm.confirm.cancel'),
             cb: function cb() {
-              return __awaiter(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              return __awaiter(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
                 var userData, orderData, orders, language;
-                return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                return regeneratorRuntime.wrap(function _callee3$(_context3) {
                   while (1) {
-                    switch (_context2.prev = _context2.next) {
+                    switch (_context3.prev = _context3.next) {
                       case 0:
-                        _context2.prev = 0;
-                        _context2.next = 3;
+                        _context3.prev = 0;
+                        _context3.next = 3;
                         return this.userService.getData();
 
                       case 3:
-                        userData = _context2.sent;
-                        _context2.next = 6;
+                        userData = _context3.sent;
+                        _context3.next = 6;
                         return this.orderService.getData();
 
                       case 6:
-                        orderData = _context2.sent;
+                        orderData = _context3.sent;
 
                         if (!(orderData.order === undefined)) {
-                          _context2.next = 9;
+                          _context3.next = 9;
                           break;
                         }
 
@@ -859,28 +904,28 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       case 9:
                         orders = [orderData.order];
                         language = userData.language;
-                        _context2.next = 13;
+                        _context3.next = 13;
                         return this.orderService.cancel({
                           orders: orders,
                           language: language
                         });
 
                       case 13:
-                        _context2.next = 15;
+                        _context3.next = 15;
                         return this.orderService.getData();
 
                       case 15:
-                        orderData = _context2.sent;
+                        orderData = _context3.sent;
 
                         if (!(orderData.order === undefined)) {
-                          _context2.next = 18;
+                          _context3.next = 18;
                           break;
                         }
 
                         throw new Error('order undefined');
 
                       case 18:
-                        _context2.next = 20;
+                        _context3.next = 20;
                         return this.orderService.inquiry({
                           confirmationNumber: orderData.order.confirmationNumber,
                           customer: {
@@ -889,23 +934,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                         });
 
                       case 20:
-                        _context2.next = 25;
+                        _context3.next = 25;
                         break;
 
                       case 22:
-                        _context2.prev = 22;
-                        _context2.t0 = _context2["catch"](0);
+                        _context3.prev = 22;
+                        _context3.t0 = _context3["catch"](0);
                         this.utilService.openAlert({
                           title: this.translate.instant('common.error'),
-                          body: "\n                        <p class=\"mb-4\">".concat(this.translate.instant('inquiry.confirm.alert.cancel'), "</p>\n                        <div class=\"p-3 bg-light-gray select-text error\">\n                            <code>").concat(_context2.t0, "</code>\n                        </div>")
+                          body: "\n                        <p class=\"mb-4\">".concat(this.translate.instant('inquiry.confirm.alert.cancel'), "</p>\n                        <div class=\"p-3 bg-light-gray select-text error\">\n                            <code>").concat(_context3.t0, "</code>\n                        </div>")
                         });
 
                       case 25:
                       case "end":
-                        return _context2.stop();
+                        return _context3.stop();
                     }
                   }
-                }, _callee2, this, [[0, 22]]);
+                }, _callee3, this, [[0, 22]]);
               }));
             }
           });
@@ -917,11 +962,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "print",
         value: function print() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
             var today, limit, findResult, orderData, user, orders, pos, printer;
-            return regeneratorRuntime.wrap(function _callee3$(_context3) {
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
-                switch (_context3.prev = _context3.next) {
+                switch (_context4.prev = _context4.next) {
                   case 0:
                     today = moment__WEBPACK_IMPORTED_MODULE_5__().format('YYYYMMDD');
                     limit = moment__WEBPACK_IMPORTED_MODULE_5__(today).add(this.environment.INQUIRY_PRINT_EXPIRED_VALUE, this.environment.INQUIRY_PRINT_EXPIRED_UNIT).format('YYYYMMDD');
@@ -930,7 +975,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     });
 
                     if (!(findResult !== undefined)) {
-                      _context3.next = 6;
+                      _context4.next = 6;
                       break;
                     }
 
@@ -938,38 +983,38 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('inquiry.confirm.alert.printExpired')
                     });
-                    return _context3.abrupt("return");
+                    return _context4.abrupt("return");
 
                   case 6:
                     if (this.timer !== undefined) {
                       clearTimeout(this.timer);
                     }
 
-                    _context3.prev = 7;
-                    _context3.next = 10;
+                    _context4.prev = 7;
+                    _context4.next = 10;
                     return this.orderService.getData();
 
                   case 10:
-                    orderData = _context3.sent;
-                    _context3.next = 13;
+                    orderData = _context4.sent;
+                    _context4.next = 13;
                     return this.userService.getData();
 
                   case 13:
-                    user = _context3.sent;
+                    user = _context4.sent;
 
                     if (!(orderData.order === undefined || user.pos === undefined || user.printer === undefined)) {
-                      _context3.next = 17;
+                      _context4.next = 17;
                       break;
                     }
 
                     this.router.navigate(['/error']);
-                    return _context3.abrupt("return");
+                    return _context4.abrupt("return");
 
                   case 17:
                     orders = [orderData.order];
                     pos = user.pos;
                     printer = user.printer;
-                    _context3.next = 22;
+                    _context4.next = 22;
                     return this.orderService.print({
                       orders: orders,
                       pos: pos,
@@ -978,21 +1023,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 22:
                     this.router.navigate(['/inquiry/print']);
-                    _context3.next = 29;
+                    _context4.next = 29;
                     break;
 
                   case 25:
-                    _context3.prev = 25;
-                    _context3.t0 = _context3["catch"](7);
-                    console.error(_context3.t0);
+                    _context4.prev = 25;
+                    _context4.t0 = _context4["catch"](7);
+                    console.error(_context4.t0);
                     this.router.navigate(['/error']);
 
                   case 29:
                   case "end":
-                    return _context3.stop();
+                    return _context4.stop();
                 }
               }
-            }, _callee3, this, [[7, 25]]);
+            }, _callee4, this, [[7, 25]]);
           }));
         }
       }]);
@@ -1009,7 +1054,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       selectors: [["app-inquiry-confirm"]],
       decls: 14,
       vars: 15,
-      consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "button", "routerLink", "/inquiry/input", 1, "btn", "btn-link"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "mb-4", "px-3", "py-2", "bg-white"], [1, "row", "align-items-center"], [1, "col-4"], [1, "col-8", "text-large", "text-info", "font-weight-bold"], ["class", "mb-4 bg-white p-3", 4, "ngFor", "ngForOf"], [1, "mb-4", "px-3", "bg-white"], [1, "py-3", "border-bottom", "border-gray", "customer-name"], [1, "mb-2", "mb-md-0", "col-md-4"], [1, "col-md-8"], [1, "py-3", "border-bottom", "border-gray", "email"], [1, "py-3", "telephone"], [1, "mb-4", "bg-white", "p-3"], [1, "mb-3"], [1, "mb-1"], [1, "font-weight-bold", "text-large"], ["class", "text-small", 4, "ngIf"], [1, "text-small", "mb-1"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [3, "acceptedOffers", "qrcode", "openQrcode"], [1, "text-small"], [1, "mr-2"], [1, "mr-1"], ["type", "button", "class", "btn btn-primary btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-danger btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-danger", "btn-block", "py-3", "mb-3", 3, "disabled", "click"]],
+      consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "button", "routerLink", "/inquiry/input", 1, "btn", "btn-link"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "mb-4", "px-3", "py-2", "bg-white"], [1, "row", "align-items-center"], [1, "col-4"], [1, "col-8", "text-large", "text-info", "font-weight-bold"], ["class", "mb-4 bg-white p-3", 4, "ngFor", "ngForOf"], [1, "mb-4", "px-3", "bg-white"], [1, "py-3", "border-bottom", "border-gray", "customer-name"], [1, "mb-2", "mb-md-0", "col-md-4"], [1, "col-md-8"], [1, "py-3", "border-bottom", "border-gray", "email"], [1, "py-3", "telephone"], [1, "mb-4", "bg-white", "p-3"], [1, "mb-3"], [1, "mb-1"], [1, "font-weight-bold", "text-large"], ["class", "text-small", 4, "ngIf"], [1, "text-small", "mb-1"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [3, "acceptedOffers", "qrcode"], [1, "text-small"], [1, "mr-2"], [1, "mr-1"], ["type", "button", "class", "btn btn-primary btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-danger btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-danger", "btn-block", "py-3", "mb-3", 3, "disabled", "click"]],
       template: function InquiryConfirmComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -1632,13 +1677,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "onSubmit",
         value: function onSubmit() {
-          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+          return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
             var _this3 = this;
 
             var confirmationNumber, telephone;
-            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            return regeneratorRuntime.wrap(function _callee5$(_context5) {
               while (1) {
-                switch (_context4.prev = _context4.next) {
+                switch (_context5.prev = _context5.next) {
                   case 0:
                     Object.keys(this.inquiryForm.controls).forEach(function (key) {
                       _this3.inquiryForm.controls[key].markAsTouched();
@@ -1647,17 +1692,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     this.inquiryForm.controls.telephone.setValue(document.getElementById('telephone').value);
 
                     if (!this.inquiryForm.invalid) {
-                      _context4.next = 5;
+                      _context5.next = 5;
                       break;
                     }
 
-                    return _context4.abrupt("return");
+                    return _context5.abrupt("return");
 
                   case 5:
                     confirmationNumber = this.inquiryForm.controls.confirmationNumber.value;
                     telephone = this.inquiryForm.controls.telephone.value;
-                    _context4.prev = 7;
-                    _context4.next = 10;
+                    _context5.prev = 7;
+                    _context5.next = 10;
                     return this.orderService.inquiry({
                       confirmationNumber: confirmationNumber,
                       customer: {
@@ -1667,13 +1712,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 10:
                     this.router.navigate(['/inquiry/confirm']);
-                    _context4.next = 17;
+                    _context5.next = 17;
                     break;
 
                   case 13:
-                    _context4.prev = 13;
-                    _context4.t0 = _context4["catch"](7);
-                    console.error(_context4.t0);
+                    _context5.prev = 13;
+                    _context5.t0 = _context5["catch"](7);
+                    console.error(_context5.t0);
                     this.utilService.openAlert({
                       title: this.translate.instant('common.error'),
                       body: this.translate.instant('inquiry.input.validation')
@@ -1681,10 +1726,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 17:
                   case "end":
-                    return _context4.stop();
+                    return _context5.stop();
                 }
               }
-            }, _callee4, this, [[7, 13]]);
+            }, _callee5, this, [[7, 13]]);
           }));
         }
         /**

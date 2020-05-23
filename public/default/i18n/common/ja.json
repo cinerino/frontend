@@ -340,7 +340,8 @@
         },
         "masterAction": {
             "GetSellers": "販売者情報を取得しています",
-            "GetSchedule": "スケジュールを取得しています"
+            "GetSchedule": "スケジュールを取得しています",
+            "GetTheaters": "施設情報を取得しています"
         },
         "orderAction": {
             "Search": "注文情報を取得しています",
@@ -354,8 +355,7 @@
             "StartTransaction": "取引を開始しています",
             "CancelTransaction": "取引を中止しています",
             "GetScreeningEvent": "イベント情報を取得しています",
-            "GetScreen": "スクリーン情報を取得しています",
-            "GetScreenData": "座席情報を取得しています",
+            "GetScreen": "ルーム情報を取得しています",
             "GetTicketList": "券種情報を取得しています",
             "GetScreeningEventSeats": "空席情報を取得しています",
             "GetSeller": "販売者情報を取得しています",
@@ -370,7 +370,7 @@
             "CheckMovieTicket": "ムビチケ情報を確認しています",
             "Reserve": "取引を確定しています",
             "EndTransaction": "取引を確定しています",
-            "ConvertExternalToPurchase": "外部データから情報をしています"
+            "ConvertExternalToPurchase": "外部データから情報を変換しています"
         },
         "userAction": {
             "GetProfile": "プロフィールを取得しています",
