@@ -9,7 +9,7 @@
             },
             "schedule": {
                 "title": "スケジュール確認",
-                "read": "スケジュールを確認してください。",
+                "read": "ご希望の日付を選択して下さい。",
                 "notfound": "スケジュールがありません。他の日付を選択してください。",
                 "selectedDate": "{{value}}の空き状況",
                 "status": {
@@ -89,11 +89,6 @@
                     "cancel": "キャンセルしてよろしいですか。"
                 }
             }
-        }
-    },
-    "process": {
-        "masterAction": {
-            "GetTheaters": "施設情報を取得しています"
         }
     },
     "common": {
