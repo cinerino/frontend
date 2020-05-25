@@ -81,6 +81,9 @@
     "process": {
         "masterAction": {
             "GetTheaters": "劇場情報を取得しています"
+        },
+        "purchaseAction": {
+            "GetScreen": "スクリーン情報を取得しています"
         }
     },
     "common": {

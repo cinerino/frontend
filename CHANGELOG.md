@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.35 - 2020-05-25
+### Added
+ - 非推奨ブラウザ警告追加
+### Changed
+ - チケット照会時QRをデフォルト表示へ変更
+
 ## 3.0.34 - 2020-05-22
 ### Added
  - 座席なし判定追加

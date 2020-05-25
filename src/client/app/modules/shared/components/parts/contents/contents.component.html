@@ -1,3 +1,6 @@
 <div id="contents" class="scroll" [class.touch]="touch">
+    <div *ngIf="!isSupportBrowser()" class="alert alert-warning mb-0 support-browser">
+        <p class="contents-width mx-auto" [innerHTML]="'supportBrowser' | translate"></p>
+    </div>
     <ng-content></ng-content>
 </div>

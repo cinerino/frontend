@@ -13,9 +13,10 @@
 <% for (let i = 0; i < authorizeSeatReservations.length; i++) { %>
 <% const event = authorizeSeatReservations[i].event; %>
 <% const reservations = authorizeSeatReservations[i].reservations; %>
-| [<%= (i + 1) %>件目]
-| <%= moment(event.startDate).tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %> - <%= moment(event.endDate).tz('Asia/Tokyo').locale('ja').format('HH:mm') %>
+<% if (reservations.length > 0) { %>| [<%= (i + 1) %>件目] <% } %>
 | <%= event.name.ja %>
+| <%= moment(event.startDate).tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %> - <%= moment(event.endDate).tz('Asia/Tokyo').locale('ja').format('HH:mm') %>
+| <%= event.superEvent.location.name.ja %> / <%= event.location.name.ja %>
 <% for (let reservation of reservations) { %>
 <% if (reservation.reservedTicket.ticketedSeat) { %>| <%= reservation.reservedTicket.ticketedSeat.seatNumber %> <% } %>
 <% for (let priceComponent of reservation.price.priceComponent) { %>
@@ -44,6 +45,3 @@
 | ※なお、このメールアドレスは送信専用となっておりますので、ご返信頂けません。
 | ご不明な点がございましたら、下記番号までお問合わせください。 
 | 
-| お問い合わせはこちら
-| <%= seller.name.ja %>
-| TEL：<%= formatTelephone(seller.telephone, 'NATIONAL') %>

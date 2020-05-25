@@ -31,4 +31,11 @@ export class ContentsComponent implements OnInit {
         }
     }
 
+    public isSupportBrowser() {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        return (userAgent.indexOf('edge') !== -1
+            || userAgent.indexOf('chrome') !== -1
+            || userAgent.indexOf('safari') !== -1);
+    }
+
 }
