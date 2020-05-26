@@ -330,7 +330,8 @@ class InquiryConfirmComponent {
                     throw new Error('order undefined');
                 }
                 this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({ order });
-                if (this.environment.INQUIRY_QRCODE) {
+                const findResult = this.eventOrders.find(o => Object(_functions__WEBPACK_IMPORTED_MODULE_7__["isShowQRCode"])(o.event));
+                if (this.environment.INQUIRY_QRCODE && findResult !== undefined) {
                     yield this.orderService.authorize(order);
                     order = (yield this.orderService.getData()).order;
                     if (order === undefined) {

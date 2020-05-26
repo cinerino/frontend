@@ -253,3 +253,10 @@ export async function createTestPrintCanvas(args: { printData: ITicketPrintData 
 
     return canvas;
 }
+
+/**
+ * QRコード表示判定
+ */
+export function isShowQRCode(event: factory.chevre.event.screeningEvent.IEvent) {
+    return moment(event.startDate).add(-24, 'hours').toDate() < moment().toDate();
+}

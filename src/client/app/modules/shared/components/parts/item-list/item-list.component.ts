@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { getEnvironment } from '../../../../../../environments/environment';
+import { isShowQRCode } from '../../../../../functions';
 import { IReservation } from '../../../../../models';
 
 @Component({
@@ -15,6 +16,7 @@ export class ItemListComponent implements OnInit {
     @Input() public qrcode = false;
     @Output() public openQrcode = new EventEmitter<{ id: string }>();
     public environment = getEnvironment();
+    public isShowQRCode = isShowQRCode;
 
 
     constructor() { }

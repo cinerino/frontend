@@ -339,7 +339,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     !*** ./app/functions/index.ts ***!
     \********************************/
 
-  /*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, string2blob, getParameter, getProject, getExternalData, isFile, deepCopy, createPrintCanvas, createTestPrintCanvas */
+  /*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, string2blob, getParameter, getProject, getExternalData, isFile, deepCopy, createPrintCanvas, createTestPrintCanvas, isShowQRCode */
 
   /***/
   function appFunctionsIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -544,6 +544,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function () {
       return _order_function__WEBPACK_IMPORTED_MODULE_2__["createTestPrintCanvas"];
     });
+    /* harmony reexport (safe) */
+
+
+    __webpack_require__.d(__webpack_exports__, "isShowQRCode", function () {
+      return _order_function__WEBPACK_IMPORTED_MODULE_2__["isShowQRCode"];
+    });
     /***/
 
   },
@@ -554,7 +560,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     !*** ./app/functions/order.function.ts ***!
     \*****************************************/
 
-  /*! exports provided: createPrintCanvas, createTestPrintCanvas */
+  /*! exports provided: createPrintCanvas, createTestPrintCanvas, isShowQRCode */
 
   /***/
   function appFunctionsOrderFunctionTs(module, __webpack_exports__, __webpack_require__) {
@@ -572,6 +578,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function () {
       return createTestPrintCanvas;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "isShowQRCode", function () {
+      return isShowQRCode;
     });
     /* harmony import */
 
@@ -1038,6 +1050,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         }, _callee3);
       }));
+    }
+    /**
+     * QRコード表示判定
+     */
+
+
+    function isShowQRCode(event) {
+      return moment__WEBPACK_IMPORTED_MODULE_1__(event.startDate).add(-24, 'hours').toDate() < moment__WEBPACK_IMPORTED_MODULE_1__().toDate();
     }
     /***/
 
