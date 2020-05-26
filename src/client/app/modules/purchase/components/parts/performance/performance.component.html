@@ -1,7 +1,9 @@
 <div class="row mx-0 border boder-gray rounded p-3 py-md-3 text-md-center d-md-block align-items-center pointer h-100"
     [ngClass]="{ 
                 'bg-white': performance.isSales() && !performance.isSeatStatus('danger'), 
-                'bg-dark-gray text-light-gray not-event': !performance.isSales() || performance.isSeatStatus('danger') || performance.isInfinitetock()
+                'bg-dark-gray text-light-gray not-event': !performance.isSales() 
+                || performance.isSeatStatus('danger') 
+                || (performance.isInfinitetock() && environment.VIEW_TYPE === viewType.Cinema)
                 }" (click)="select.emit(performance.screeningEvent)">
     <div class="col-md-12 col-8 px-0">
         <div class="mb-1 text-small screen-name">

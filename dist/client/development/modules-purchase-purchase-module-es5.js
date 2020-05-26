@@ -13375,25 +13375,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ../../../../../../environments/environment */
+    "./environments/environment.ts");
+    /* harmony import */
+
+
+    var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! ../../../../../models */
     "./app/models/index.ts");
     /* harmony import */
 
 
-    var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! @angular/common */
     "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
     /* harmony import */
 
 
-    var _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! ../../../../shared/pipes/change-language.pipe */
     "./app/modules/shared/pipes/change-language.pipe.ts");
     /* harmony import */
 
 
-    var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! @ngx-translate/core */
     "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
 
@@ -13634,6 +13640,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         this.select = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.moment = moment__WEBPACK_IMPORTED_MODULE_1__;
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
+        this.viewType = _models__WEBPACK_IMPORTED_MODULE_3__["ViewType"];
       }
 
       _createClass(PurchasePerformanceComponent, [{
@@ -13730,7 +13738,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
 
         if (rf & 2) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](14, _c0, ctx.performance.isSales() && !ctx.performance.isSeatStatus("danger"), !ctx.performance.isSales() || ctx.performance.isSeatStatus("danger") || ctx.performance.isInfinitetock()));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](14, _c0, ctx.performance.isSales() && !ctx.performance.isSeatStatus("danger"), !ctx.performance.isSales() || ctx.performance.isSeatStatus("danger") || ctx.performance.isInfinitetock() && ctx.environment.VIEW_TYPE === ctx.viewType.Cinema));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
@@ -13769,8 +13777,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.performance.isInfinitetock());
         }
       },
-      directives: [_angular_common__WEBPACK_IMPORTED_MODULE_3__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"]],
-      pipes: [_shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_4__["ChangeLanguagePipe"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslatePipe"]],
+      directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"]],
+      pipes: [_shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_5__["ChangeLanguagePipe"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__["TranslatePipe"]],
       styles: [".status[_ngcontent-%COMP%] {\n  line-height: 30px;\n}\n.status[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 30px;\n  height: 30px;\n}\n@media (max-width: 767.98px) {\n  .text-overflow-ellipsis[_ngcontent-%COMP%] {\n    overflow: auto;\n    width: auto;\n    white-space: normal;\n  }\n}"]
     });
     /*@__PURE__*/
