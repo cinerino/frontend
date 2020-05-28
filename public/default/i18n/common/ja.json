@@ -441,6 +441,17 @@
         }
     },
     "common": {
+        "performance": {
+            "status": {
+                "success": "購入",
+                "warning": "購入",
+                "danger": "満席",
+                "endSale": "販売終了",
+                "outsideSalesPeriod": "販売期間外",
+                "window": "窓口"
+            },
+            "infiniteStock": "在庫管理なし"
+        },
         "date": {
             "year": "年",
             "month": "月",

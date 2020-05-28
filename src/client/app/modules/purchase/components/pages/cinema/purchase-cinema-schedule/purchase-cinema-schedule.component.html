@@ -52,9 +52,9 @@
     </p>
     <p *ngIf="screeningWorkEvents.length === 0" class="mb-3"
         [innerHTML]="'purchase.cinema.schedule.notfound' | translate"></p>
-    <app-purchase-cinema-performances *ngFor="let screeningWorkEvent of screeningWorkEvents"
+    <app-purchase-performances *ngFor="let screeningWorkEvent of screeningWorkEvents"
         [screeningWorkEvent]="screeningWorkEvent" (select)="selectSchedule($event)" class="mb-3">
-    </app-purchase-cinema-performances>
+    </app-purchase-performances>
 </div>
 
 <div class="buttons mx-auto text-center">
