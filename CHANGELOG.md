@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.36 - 2020-05-28
+### Changed
+ - スケジュールUI変更
+
 ## 3.0.35 - 2020-05-25
 ### Added
  - 非推奨ブラウザ警告追加
