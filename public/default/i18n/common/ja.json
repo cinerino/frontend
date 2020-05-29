@@ -496,6 +496,7 @@
         "orderStatus": "注文ステータス",
         "additionalTicketText": "予約メモ",
         "qrcode": "QRコード",
+        "qrcodeDescription": "QRコードは24時間前から表示されます",
         "credit": {
             "cardNumber": "カード番号",
             "cardExpiration": "カード有効期限",

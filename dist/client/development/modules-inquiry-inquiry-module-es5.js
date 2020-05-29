@@ -678,7 +678,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
             var _this = this;
 
-            var order, time;
+            var order, findResult, time;
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -706,35 +706,38 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({
                       order: order
                     });
+                    findResult = this.eventOrders.find(function (o) {
+                      return Object(_functions__WEBPACK_IMPORTED_MODULE_7__["isShowQRCode"])(o.event);
+                    });
 
-                    if (!this.environment.INQUIRY_QRCODE) {
-                      _context.next = 21;
+                    if (!(this.environment.INQUIRY_QRCODE && findResult !== undefined)) {
+                      _context.next = 22;
                       break;
                     }
 
-                    _context.next = 15;
+                    _context.next = 16;
                     return this.orderService.authorize(order);
 
-                  case 15:
-                    _context.next = 17;
+                  case 16:
+                    _context.next = 18;
                     return this.orderService.getData();
 
-                  case 17:
+                  case 18:
                     order = _context.sent.order;
 
                     if (!(order === undefined)) {
-                      _context.next = 20;
+                      _context.next = 21;
                       break;
                     }
 
                     throw new Error('order undefined');
 
-                  case 20:
+                  case 21:
                     this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({
                       order: order
                     });
 
-                  case 21:
+                  case 22:
                     if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
                       time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
                       this.timer = setTimeout(function () {
@@ -742,21 +745,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       }, time);
                     }
 
-                    _context.next = 28;
+                    _context.next = 29;
                     break;
 
-                  case 24:
-                    _context.prev = 24;
+                  case 25:
+                    _context.prev = 25;
                     _context.t0 = _context["catch"](5);
                     console.error(_context.t0);
                     this.router.navigate(['/error']);
 
-                  case 28:
+                  case 29:
                   case "end":
                     return _context.stop();
                 }
               }
-            }, _callee, this, [[5, 24]]);
+            }, _callee, this, [[5, 25]]);
           }));
         }
         /**

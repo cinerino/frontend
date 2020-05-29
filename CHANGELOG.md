@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.37 - 2020-05-29
+### Changed
+ - QRコード表示制御変更
+
+
 ## 3.0.36 - 2020-05-28
 ### Changed
  - スケジュールUI変更
