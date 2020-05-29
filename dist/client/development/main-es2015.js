@@ -313,7 +313,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, string2blob, getParameter, getProject, getExternalData, isFile, deepCopy, createPrintCanvas, createTestPrintCanvas */
+/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, string2blob, getParameter, getProject, getExternalData, isFile, deepCopy, createPrintCanvas, createTestPrintCanvas, isShowQRCode */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -381,6 +381,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createTestPrintCanvas"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isShowQRCode", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["isShowQRCode"]; });
+
 
 
 
@@ -392,13 +394,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./app/functions/order.function.ts ***!
   \*****************************************/
-/*! exports provided: createPrintCanvas, createTestPrintCanvas */
+/*! exports provided: createPrintCanvas, createTestPrintCanvas, isShowQRCode */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return createPrintCanvas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function() { return createTestPrintCanvas; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isShowQRCode", function() { return isShowQRCode; });
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
@@ -620,6 +623,12 @@ function createTestPrintCanvas(args) {
         const canvas = yield drawCanvas({ printData, data });
         return canvas;
     });
+}
+/**
+ * QRコード表示判定
+ */
+function isShowQRCode(event) {
+    return moment__WEBPACK_IMPORTED_MODULE_1__(event.startDate).add(-24, 'hours').toDate() < moment__WEBPACK_IMPORTED_MODULE_1__().toDate();
 }
 
 

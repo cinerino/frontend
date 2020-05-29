@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { IEventOrder, order2EventOrders } from '../../../../../functions';
+import { IEventOrder, isShowQRCode, order2EventOrders } from '../../../../../functions';
 import { OrderService, QRCodeService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -51,7 +51,8 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
                 throw new Error('order undefined');
             }
             this.eventOrders = order2EventOrders({ order });
-            if (this.environment.INQUIRY_QRCODE) {
+            const findResult = this.eventOrders.find(o => isShowQRCode(o.event));
+            if (this.environment.INQUIRY_QRCODE && findResult !== undefined) {
                 await this.orderService.authorize(order);
                 order = (await this.orderService.getData()).order;
                 if (order === undefined) {
