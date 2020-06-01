@@ -4,8 +4,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Functions } from '..';
 import { getEnvironment } from '../../environments/environment';
-import { getExternalData } from '../functions';
 import { UserService } from '../services';
 
 declare const ga: Function;
@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
         if (location.hash !== '') {
             return;
         }
-        const language = getExternalData().language;
+        const language = Functions.Util.getExternalData().language;
         if (language !== undefined) {
             this.userService.updateLanguage(language);
         }

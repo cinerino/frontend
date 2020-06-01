@@ -7,7 +7,7 @@ import 'hammerjs';
 import * as momentTimezone from 'moment-timezone';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { jaLocale } from 'ngx-bootstrap/locale';
-import { getParameter, getProject, isFile } from './app/functions';
+import * as Functions from './app/functions';
 import { getEnvironment } from './environments/environment';
 
 async function main() {
@@ -19,7 +19,7 @@ async function main() {
     defineLocale('ja', jaLocale);
 
     // パラメータ設定
-    const params = getParameter();
+    const params = Functions.Util.getParameter();
     if (location.hash === '') {
         sessionStorage.setItem('EXTERNAL', JSON.stringify({ ...params, project: undefined }));
     }
@@ -29,16 +29,16 @@ async function main() {
         sessionStorage.removeItem('PROJECT');
     }
     const projectId = (params.projectId === undefined)
-        ? (getProject().projectId === '') ? undefined : getProject().projectId
+        ? (Functions.Util.getProject().projectId === '') ? undefined : Functions.Util.getProject().projectId
         : params.projectId;
     const projectName = (params.projectName === undefined)
-        ? (getProject().projectName === '') ? undefined : getProject().projectName
+        ? (Functions.Util.getProject().projectName === '') ? undefined : Functions.Util.getProject().projectName
         : params.projectName;
     await setProject({ projectId, projectName });
-    if (getProject().storageUrl === undefined) {
+    if (Functions.Util.getProject().storageUrl === undefined) {
         return;
     }
-    await setProjectConfig(getProject().storageUrl);
+    await setProjectConfig(Functions.Util.getProject().storageUrl);
 }
 
 /**
@@ -82,7 +82,7 @@ async function setProjectConfig(storageUrl: string) {
     // スタイル設定
     const style = document.createElement('link');
     style.rel = 'stylesheet';
-    style.href = (await isFile(`${storageUrl}/css/style.css?=date${now}`))
+    style.href = (await Functions.Util.isFile(`${storageUrl}/css/style.css?=date${now}`))
         ? `${storageUrl}/css/style.css?=date${now}` : `/default/css/style.css?=date${now}`;
 
     document.head.appendChild(style);
@@ -90,7 +90,7 @@ async function setProjectConfig(storageUrl: string) {
     const favicon = document.createElement('link');
     favicon.rel = 'icon';
     favicon.type = 'image/x-icon"';
-    favicon.href = (await isFile(`${storageUrl}/favicon.ico`)) ? `${storageUrl}/favicon.ico` : '/default/favicon.ico';
+    favicon.href = (await Functions.Util.isFile(`${storageUrl}/favicon.ico`)) ? `${storageUrl}/favicon.ico` : '/default/favicon.ico';
     document.head.appendChild(favicon);
     // タイトル設定
     document.title = environment.APP_TITLE;

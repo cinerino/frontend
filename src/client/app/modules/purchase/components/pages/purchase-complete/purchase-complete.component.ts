@@ -4,8 +4,8 @@ import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { IEventOrder, order2EventOrders } from '../../../../../functions';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -16,7 +16,7 @@ import * as reducers from '../../../../../store/reducers';
 export class PurchaseCompleteComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public moment: typeof moment = moment;
-    public eventOrders: IEventOrder[];
+    public eventOrders: Functions.Purchase.IEventOrder[];
     public environment = getEnvironment();
     public paymentMethodType = factory.paymentMethodType;
 
@@ -37,7 +37,7 @@ export class PurchaseCompleteComponent implements OnInit {
                 return;
             }
             const order = purchase.order;
-            this.eventOrders = order2EventOrders({ order });
+            this.eventOrders = Functions.Purchase.order2EventOrders({ order });
         }).unsubscribe();
     }
 

@@ -313,75 +313,20 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*!********************************!*\
   !*** ./app/functions/index.ts ***!
   \********************************/
-/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, string2blob, getParameter, getProject, getExternalData, isFile, deepCopy, createPrintCanvas, createTestPrintCanvas, isShowQRCode */
+/*! exports provided: Purchase, Util, Order, Translate */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "screeningEvents2WorkEvents", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["screeningEvents2WorkEvents"]; });
+/* harmony import */ var _order_function__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./order.function */ "./app/functions/order.function.ts");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "Order", function() { return _order_function__WEBPACK_IMPORTED_MODULE_0__; });
+/* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "Purchase", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_1__; });
+/* harmony import */ var _translate_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./translate.function */ "./app/functions/translate.function.ts");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "Translate", function() { return _translate_function__WEBPACK_IMPORTED_MODULE_2__; });
+/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "Util", function() { return _util_function__WEBPACK_IMPORTED_MODULE_3__; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createGmoTokenObject", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["createGmoTokenObject"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "sameMovieTicketFilter", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["sameMovieTicketFilter"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isAvailabilityMovieTicket", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["isAvailabilityMovieTicket"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createMovieTicketsFromAuthorizeSeatReservation", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["createMovieTicketsFromAuthorizeSeatReservation"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createPaymentMethodFromType", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["createPaymentMethodFromType"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTicketPrice", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getTicketPrice"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getItemPrice", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getItemPrice"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "movieTicketAuthErroCodeToMessage", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["movieTicketAuthErroCodeToMessage"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getAmount", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getAmount"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "order2EventOrders", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["order2EventOrders"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "authorizeSeatReservation2Event", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["authorizeSeatReservation2Event"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getRemainingSeatLength", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getRemainingSeatLength"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isEligibleSeatingType", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["isEligibleSeatingType"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getEmptySeat", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getEmptySeat"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "selectAvailableSeat", function() { return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["selectAvailableSeat"]; });
-
-/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "formatTelephone", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["formatTelephone"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "toFull", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["toFull"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "toHalf", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["toHalf"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "retry", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["retry"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "sleep", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["sleep"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "iOSDatepickerTapBugFix", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["iOSDatepickerTapBugFix"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "string2blob", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["string2blob"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getParameter", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getParameter"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getProject", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getProject"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getExternalData", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["getExternalData"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isFile", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["isFile"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "deepCopy", function() { return _util_function__WEBPACK_IMPORTED_MODULE_1__["deepCopy"]; });
-
-/* harmony import */ var _order_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./order.function */ "./app/functions/order.function.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createPrintCanvas"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["createTestPrintCanvas"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isShowQRCode", function() { return _order_function__WEBPACK_IMPORTED_MODULE_2__["isShowQRCode"]; });
 
 
 
@@ -663,7 +608,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models */ "./app/models/index.ts");
+/* harmony import */ var _models_purchase_performance__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../models/purchase/performance */ "./app/models/purchase/performance.ts");
 
 
 
@@ -677,14 +622,15 @@ function screeningEvents2WorkEvents(params) {
         const registered = result.find((data) => {
             return (data.info.superEvent.id === screeningEvent.superEvent.id);
         });
+        const performance = new _models_purchase_performance__WEBPACK_IMPORTED_MODULE_2__["Performance"](screeningEvent);
         if (registered === undefined) {
             result.push({
                 info: screeningEvent,
-                data: [new _models__WEBPACK_IMPORTED_MODULE_2__["Performance"](screeningEvent)]
+                data: [performance]
             });
         }
         else {
-            registered.data.push(new _models__WEBPACK_IMPORTED_MODULE_2__["Performance"](screeningEvent));
+            registered.data.push(performance);
         }
     });
     return result;
@@ -1166,6 +1112,77 @@ function selectAvailableSeat(params) {
 
 /***/ }),
 
+/***/ "./app/functions/translate.function.ts":
+/*!*********************************************!*\
+  !*** ./app/functions/translate.function.ts ***!
+  \*********************************************/
+/*! exports provided: CustomTranslateHttpLoader, getTranslateModuleConfig */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomTranslateHttpLoader", function() { return CustomTranslateHttpLoader; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTranslateModuleConfig", function() { return getTranslateModuleConfig; });
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+/* harmony import */ var deepmerge__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! deepmerge */ "../../node_modules/deepmerge/dist/cjs.js");
+/* harmony import */ var deepmerge__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(deepmerge__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
+
+
+
+
+
+
+
+
+/**
+     * 多言語カスタムローダー
+     */
+class CustomTranslateHttpLoader {
+    constructor(http) {
+        this.http = http;
+    }
+    getTranslation(lang) {
+        const suffix = `.json?date=${moment__WEBPACK_IMPORTED_MODULE_3__().toISOString()}`;
+        const resources = [
+            `/default/i18n/common/${lang}${suffix}`,
+            `/default/i18n/${Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().VIEW_TYPE}/${lang}${suffix}`,
+            `${Object(_util_function__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl}/i18n/${lang}${suffix}`,
+        ];
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["forkJoin"])(resources.map((url) => {
+            return this.http.get(url).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])((error) => {
+                console.error(error);
+                return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["of"])({});
+            }));
+        })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(response => {
+            return response.reduce((a, b) => {
+                return deepmerge__WEBPACK_IMPORTED_MODULE_2__(a, b);
+            });
+        }));
+    }
+}
+/**
+ * 多言語設定取得
+ */
+function getTranslateModuleConfig() {
+    return {
+        loader: {
+            provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__["TranslateLoader"],
+            useClass: CustomTranslateHttpLoader,
+            deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]]
+        }
+    };
+}
+
+
+/***/ }),
+
 /***/ "./app/functions/util.function.ts":
 /*!****************************************!*\
   !*** ./app/functions/util.function.ts ***!
@@ -1199,8 +1216,8 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 };
 
 /**
- * 電話番号変換
- */
+     * 電話番号変換
+     */
 function formatTelephone(telephone, format) {
     if (telephone === undefined) {
         return '';
@@ -1388,203 +1405,6 @@ function deepCopy(obj) {
 
 /***/ }),
 
-/***/ "./app/models/common/language.ts":
-/*!***************************************!*\
-  !*** ./app/models/common/language.ts ***!
-  \***************************************/
-/*! exports provided: Language */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Language", function() { return Language; });
-/**
- * 言語
- */
-var Language;
-(function (Language) {
-    Language["en"] = "English";
-    Language["en-US"] = "English (American English)";
-    Language["en-GB"] = "English (British English\u3001UK English)";
-    Language["en-CA"] = "English (Canadian English)";
-    Language["en-AU"] = "English (Australian English)";
-    Language["fr"] = "French";
-    Language["de"] = "German";
-    Language["it"] = "Italian";
-    Language["ja"] = "\u65E5\u672C\u8A9E";
-    Language["ko"] = "Korean";
-    Language["pt"] = "Portuguese";
-    Language["ru"] = "Russian";
-})(Language || (Language = {}));
-
-
-/***/ }),
-
-/***/ "./app/models/common/printer.ts":
-/*!**************************************!*\
-  !*** ./app/models/common/printer.ts ***!
-  \**************************************/
-/*! exports provided: connectionType, printers */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "connectionType", function() { return connectionType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "printers", function() { return printers; });
-/**
- * 接続の種類
- */
-var connectionType;
-(function (connectionType) {
-    /**
-     * なし
-     */
-    connectionType["None"] = "None";
-    /**
-     * 画像
-     */
-    connectionType["Image"] = "Image";
-    /**
-     * スター精密 LAN接続
-     */
-    connectionType["StarLAN"] = "StarLAN";
-    /**
-     * スター精密 Bluetooth接続
-     */
-    connectionType["StarBluetooth"] = "StarBluetooth";
-})(connectionType || (connectionType = {}));
-/**
- * プリンター一覧
- */
-const printers = [
-    {
-        connectionType: connectionType.Image,
-        name: 'setting.printType.image'
-    },
-    {
-        connectionType: connectionType.StarLAN,
-        name: 'setting.printType.starLAN'
-    },
-    {
-        connectionType: connectionType.StarBluetooth,
-        name: 'setting.printType.starBluetooth'
-    }
-];
-
-
-/***/ }),
-
-/***/ "./app/models/common/viewType.ts":
-/*!***************************************!*\
-  !*** ./app/models/common/viewType.ts ***!
-  \***************************************/
-/*! exports provided: ViewType */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewType", function() { return ViewType; });
-var ViewType;
-(function (ViewType) {
-    /**
-     * 映画用
-     */
-    ViewType["Cinema"] = "cinema";
-    /**
-     * イベント用
-     */
-    ViewType["Event"] = "event";
-})(ViewType || (ViewType = {}));
-
-
-/***/ }),
-
-/***/ "./app/models/index.ts":
-/*!*****************************!*\
-  !*** ./app/models/index.ts ***!
-  \*****************************/
-/*! exports provided: SeatStatus, Performance, OrderActions, PrintQrcodeType, Language, ViewType, connectionType, printers */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _purchase_screen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./purchase/screen */ "./app/models/purchase/screen.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SeatStatus", function() { return _purchase_screen__WEBPACK_IMPORTED_MODULE_0__["SeatStatus"]; });
-
-/* harmony import */ var _purchase_performance__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchase/performance */ "./app/models/purchase/performance.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Performance", function() { return _purchase_performance__WEBPACK_IMPORTED_MODULE_1__["Performance"]; });
-
-/* harmony import */ var _order_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./order/action */ "./app/models/order/action.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrderActions", function() { return _order_action__WEBPACK_IMPORTED_MODULE_2__["OrderActions"]; });
-
-/* harmony import */ var _order_print__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./order/print */ "./app/models/order/print.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function() { return _order_print__WEBPACK_IMPORTED_MODULE_3__["PrintQrcodeType"]; });
-
-/* harmony import */ var _common_language__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./common/language */ "./app/models/common/language.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Language", function() { return _common_language__WEBPACK_IMPORTED_MODULE_4__["Language"]; });
-
-/* harmony import */ var _common_viewType__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./common/viewType */ "./app/models/common/viewType.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ViewType", function() { return _common_viewType__WEBPACK_IMPORTED_MODULE_5__["ViewType"]; });
-
-/* harmony import */ var _common_printer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./common/printer */ "./app/models/common/printer.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "connectionType", function() { return _common_printer__WEBPACK_IMPORTED_MODULE_6__["connectionType"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "printers", function() { return _common_printer__WEBPACK_IMPORTED_MODULE_6__["printers"]; });
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-
-/***/ "./app/models/order/action.ts":
-/*!************************************!*\
-  !*** ./app/models/order/action.ts ***!
-  \************************************/
-/*! exports provided: OrderActions */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderActions", function() { return OrderActions; });
-var OrderActions;
-(function (OrderActions) {
-    /**
-     * キャンセル
-     */
-    OrderActions["Cancel"] = "Cancel";
-})(OrderActions || (OrderActions = {}));
-
-
-/***/ }),
-
-/***/ "./app/models/order/print.ts":
-/*!***********************************!*\
-  !*** ./app/models/order/print.ts ***!
-  \***********************************/
-/*! exports provided: PrintQrcodeType */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function() { return PrintQrcodeType; });
-/**
- * QRコード文字列
- */
-var PrintQrcodeType;
-(function (PrintQrcodeType) {
-    PrintQrcodeType["Token"] = "token";
-    PrintQrcodeType["Custom"] = "Custom";
-})(PrintQrcodeType || (PrintQrcodeType = {}));
-
-
-/***/ }),
-
 /***/ "./app/models/purchase/performance.ts":
 /*!********************************************!*\
   !*** ./app/models/purchase/performance.ts ***!
@@ -1728,26 +1548,6 @@ class Performance {
 
 /***/ }),
 
-/***/ "./app/models/purchase/screen.ts":
-/*!***************************************!*\
-  !*** ./app/models/purchase/screen.ts ***!
-  \***************************************/
-/*! exports provided: SeatStatus */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SeatStatus", function() { return SeatStatus; });
-var SeatStatus;
-(function (SeatStatus) {
-    SeatStatus["Disabled"] = "disabled";
-    SeatStatus["Default"] = "default";
-    SeatStatus["Active"] = "active";
-})(SeatStatus || (SeatStatus = {}));
-
-
-/***/ }),
-
 /***/ "./environments/environment.ts":
 /*!*************************************!*\
   !*** ./environments/environment.ts ***!
@@ -1769,7 +1569,9 @@ const defaultEnvironment = {
     VIEW_TYPE: 'event',
     GTM_ID: '',
     ANALYTICS_ID: '',
-    STORAGE_NAME: (Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId === '') ? 'FRONTEND-STATE' : `${Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId.toUpperCase()}-FRONTEND-STATE`,
+    STORAGE_NAME: (Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId === '')
+        ? 'FRONTEND-STATE'
+        : `${Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId.toUpperCase()}-FRONTEND-STATE`,
     STORAGE_TYPE: 'sessionStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
@@ -1877,7 +1679,7 @@ function main() {
         // 言語設定
         Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__["jaLocale"]);
         // パラメータ設定
-        const params = Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getParameter"])();
+        const params = _app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].getParameter();
         if (location.hash === '') {
             sessionStorage.setItem('EXTERNAL', JSON.stringify(Object.assign(Object.assign({}, params), { project: undefined })));
         }
@@ -1886,16 +1688,16 @@ function main() {
             sessionStorage.removeItem('PROJECT');
         }
         const projectId = (params.projectId === undefined)
-            ? (Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectId === '') ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectId
+            ? (_app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].getProject().projectId === '') ? undefined : _app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].getProject().projectId
             : params.projectId;
         const projectName = (params.projectName === undefined)
-            ? (Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectName === '') ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectName
+            ? (_app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].getProject().projectName === '') ? undefined : _app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].getProject().projectName
             : params.projectName;
         yield setProject({ projectId, projectName });
-        if (Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().storageUrl === undefined) {
+        if (_app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].getProject().storageUrl === undefined) {
             return;
         }
-        yield setProjectConfig(Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().storageUrl);
+        yield setProjectConfig(_app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].getProject().storageUrl);
     });
 }
 /**
@@ -1937,14 +1739,14 @@ function setProjectConfig(storageUrl) {
         // スタイル設定
         const style = document.createElement('link');
         style.rel = 'stylesheet';
-        style.href = (yield Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["isFile"])(`${storageUrl}/css/style.css?=date${now}`))
+        style.href = (yield _app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].isFile(`${storageUrl}/css/style.css?=date${now}`))
             ? `${storageUrl}/css/style.css?=date${now}` : `/default/css/style.css?=date${now}`;
         document.head.appendChild(style);
         // ファビコン設定
         const favicon = document.createElement('link');
         favicon.rel = 'icon';
         favicon.type = 'image/x-icon"';
-        favicon.href = (yield Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["isFile"])(`${storageUrl}/favicon.ico`)) ? `${storageUrl}/favicon.ico` : '/default/favicon.ico';
+        favicon.href = (yield _app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].isFile(`${storageUrl}/favicon.ico`)) ? `${storageUrl}/favicon.ico` : '/default/favicon.ico';
         document.head.appendChild(favicon);
         // タイトル設定
         document.title = environment.APP_TITLE;

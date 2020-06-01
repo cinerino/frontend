@@ -339,7 +339,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     !*** ./app/functions/index.ts ***!
     \********************************/
 
-  /*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, formatTelephone, toFull, toHalf, retry, sleep, iOSDatepickerTapBugFix, string2blob, getParameter, getProject, getExternalData, isFile, deepCopy, createPrintCanvas, createTestPrintCanvas, isShowQRCode */
+  /*! exports provided: Purchase, Util, Order, Translate */
 
   /***/
   function appFunctionsIndexTs(module, __webpack_exports__, __webpack_require__) {
@@ -349,206 +349,50 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     /* harmony import */
 
 
-    var _purchase_function__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! ./purchase.function */
-    "./app/functions/purchase.function.ts");
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "screeningEvents2WorkEvents", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["screeningEvents2WorkEvents"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "createGmoTokenObject", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["createGmoTokenObject"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "sameMovieTicketFilter", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["sameMovieTicketFilter"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "isAvailabilityMovieTicket", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["isAvailabilityMovieTicket"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "createMovieTicketsFromAuthorizeSeatReservation", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["createMovieTicketsFromAuthorizeSeatReservation"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "createPaymentMethodFromType", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["createPaymentMethodFromType"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "getTicketPrice", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getTicketPrice"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "getItemPrice", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getItemPrice"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "movieTicketAuthErroCodeToMessage", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["movieTicketAuthErroCodeToMessage"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "getAmount", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getAmount"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "order2EventOrders", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["order2EventOrders"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "authorizeSeatReservation2Event", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["authorizeSeatReservation2Event"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "getRemainingSeatLength", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getRemainingSeatLength"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "isEligibleSeatingType", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["isEligibleSeatingType"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "getEmptySeat", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["getEmptySeat"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "selectAvailableSeat", function () {
-      return _purchase_function__WEBPACK_IMPORTED_MODULE_0__["selectAvailableSeat"];
-    });
-    /* harmony import */
-
-
-    var _util_function__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! ./util.function */
-    "./app/functions/util.function.ts");
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "formatTelephone", function () {
-      return _util_function__WEBPACK_IMPORTED_MODULE_1__["formatTelephone"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "toFull", function () {
-      return _util_function__WEBPACK_IMPORTED_MODULE_1__["toFull"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "toHalf", function () {
-      return _util_function__WEBPACK_IMPORTED_MODULE_1__["toHalf"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "retry", function () {
-      return _util_function__WEBPACK_IMPORTED_MODULE_1__["retry"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "sleep", function () {
-      return _util_function__WEBPACK_IMPORTED_MODULE_1__["sleep"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "iOSDatepickerTapBugFix", function () {
-      return _util_function__WEBPACK_IMPORTED_MODULE_1__["iOSDatepickerTapBugFix"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "string2blob", function () {
-      return _util_function__WEBPACK_IMPORTED_MODULE_1__["string2blob"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "getParameter", function () {
-      return _util_function__WEBPACK_IMPORTED_MODULE_1__["getParameter"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "getProject", function () {
-      return _util_function__WEBPACK_IMPORTED_MODULE_1__["getProject"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "getExternalData", function () {
-      return _util_function__WEBPACK_IMPORTED_MODULE_1__["getExternalData"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "isFile", function () {
-      return _util_function__WEBPACK_IMPORTED_MODULE_1__["isFile"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "deepCopy", function () {
-      return _util_function__WEBPACK_IMPORTED_MODULE_1__["deepCopy"];
-    });
-    /* harmony import */
-
-
-    var _order_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    var _order_function__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
     /*! ./order.function */
     "./app/functions/order.function.ts");
-    /* harmony reexport (safe) */
+    /* harmony reexport (module object) */
 
 
-    __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function () {
-      return _order_function__WEBPACK_IMPORTED_MODULE_2__["createPrintCanvas"];
+    __webpack_require__.d(__webpack_exports__, "Order", function () {
+      return _order_function__WEBPACK_IMPORTED_MODULE_0__;
     });
-    /* harmony reexport (safe) */
+    /* harmony import */
 
 
-    __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function () {
-      return _order_function__WEBPACK_IMPORTED_MODULE_2__["createTestPrintCanvas"];
+    var _purchase_function__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! ./purchase.function */
+    "./app/functions/purchase.function.ts");
+    /* harmony reexport (module object) */
+
+
+    __webpack_require__.d(__webpack_exports__, "Purchase", function () {
+      return _purchase_function__WEBPACK_IMPORTED_MODULE_1__;
     });
-    /* harmony reexport (safe) */
+    /* harmony import */
 
 
-    __webpack_require__.d(__webpack_exports__, "isShowQRCode", function () {
-      return _order_function__WEBPACK_IMPORTED_MODULE_2__["isShowQRCode"];
+    var _translate_function__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ./translate.function */
+    "./app/functions/translate.function.ts");
+    /* harmony reexport (module object) */
+
+
+    __webpack_require__.d(__webpack_exports__, "Translate", function () {
+      return _translate_function__WEBPACK_IMPORTED_MODULE_2__;
+    });
+    /* harmony import */
+
+
+    var _util_function__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./util.function */
+    "./app/functions/util.function.ts");
+    /* harmony reexport (module object) */
+
+
+    __webpack_require__.d(__webpack_exports__, "Util", function () {
+      return _util_function__WEBPACK_IMPORTED_MODULE_3__;
     });
     /***/
 
@@ -1195,9 +1039,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     /* harmony import */
 
 
-    var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ../models */
-    "./app/models/index.ts");
+    var _models_purchase_performance__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ./../models/purchase/performance */
+    "./app/models/purchase/performance.ts");
     /**
      * 作品別イベントへ変換
      */
@@ -1210,14 +1054,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         var registered = result.find(function (data) {
           return data.info.superEvent.id === screeningEvent.superEvent.id;
         });
+        var performance = new _models_purchase_performance__WEBPACK_IMPORTED_MODULE_2__["Performance"](screeningEvent);
 
         if (registered === undefined) {
           result.push({
             info: screeningEvent,
-            data: [new _models__WEBPACK_IMPORTED_MODULE_2__["Performance"](screeningEvent)]
+            data: [performance]
           });
         } else {
-          registered.data.push(new _models__WEBPACK_IMPORTED_MODULE_2__["Performance"](screeningEvent));
+          registered.data.push(performance);
         }
       });
       return result;
@@ -1848,6 +1693,139 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
 
   /***/
+  "./app/functions/translate.function.ts":
+  /*!*********************************************!*\
+    !*** ./app/functions/translate.function.ts ***!
+    \*********************************************/
+
+  /*! exports provided: CustomTranslateHttpLoader, getTranslateModuleConfig */
+
+  /***/
+  function appFunctionsTranslateFunctionTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "CustomTranslateHttpLoader", function () {
+      return CustomTranslateHttpLoader;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "getTranslateModuleConfig", function () {
+      return getTranslateModuleConfig;
+    });
+    /* harmony import */
+
+
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @angular/common/http */
+    "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+    /* harmony import */
+
+
+    var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @ngx-translate/core */
+    "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+    /* harmony import */
+
+
+    var deepmerge__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! deepmerge */
+    "../../node_modules/deepmerge/dist/cjs.js");
+    /* harmony import */
+
+
+    var deepmerge__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(deepmerge__WEBPACK_IMPORTED_MODULE_2__);
+    /* harmony import */
+
+
+    var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! moment */
+    "../../node_modules/moment/moment.js");
+    /* harmony import */
+
+
+    var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+    /* harmony import */
+
+
+    var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! rxjs */
+    "../../node_modules/rxjs/_esm2015/index.js");
+    /* harmony import */
+
+
+    var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! rxjs/operators */
+    "../../node_modules/rxjs/_esm2015/operators/index.js");
+    /* harmony import */
+
+
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../../environments/environment */
+    "./environments/environment.ts");
+    /* harmony import */
+
+
+    var _util_function__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! ./util.function */
+    "./app/functions/util.function.ts");
+    /**
+         * 多言語カスタムローダー
+         */
+
+
+    var CustomTranslateHttpLoader = /*#__PURE__*/function () {
+      function CustomTranslateHttpLoader(http) {
+        _classCallCheck(this, CustomTranslateHttpLoader);
+
+        this.http = http;
+      }
+
+      _createClass(CustomTranslateHttpLoader, [{
+        key: "getTranslation",
+        value: function getTranslation(lang) {
+          var _this = this;
+
+          var suffix = ".json?date=".concat(moment__WEBPACK_IMPORTED_MODULE_3__().toISOString());
+          var resources = ["/default/i18n/common/".concat(lang).concat(suffix), "/default/i18n/".concat(Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])().VIEW_TYPE, "/").concat(lang).concat(suffix), "".concat(Object(_util_function__WEBPACK_IMPORTED_MODULE_7__["getProject"])().storageUrl, "/i18n/").concat(lang).concat(suffix)];
+          return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["forkJoin"])(resources.map(function (url) {
+            return _this.http.get(url).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(function (error) {
+              console.error(error);
+              return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["of"])({});
+            }));
+          })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (response) {
+            return response.reduce(function (a, b) {
+              return deepmerge__WEBPACK_IMPORTED_MODULE_2__(a, b);
+            });
+          }));
+        }
+      }]);
+
+      return CustomTranslateHttpLoader;
+    }();
+    /**
+     * 多言語設定取得
+     */
+
+
+    function getTranslateModuleConfig() {
+      return {
+        loader: {
+          provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__["TranslateLoader"],
+          useClass: CustomTranslateHttpLoader,
+          deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"]]
+        }
+      };
+    }
+    /***/
+
+  },
+
+  /***/
   "./app/functions/util.function.ts":
   /*!****************************************!*\
     !*** ./app/functions/util.function.ts ***!
@@ -1971,8 +1949,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     };
     /**
-     * 電話番号変換
-     */
+         * 電話番号変換
+         */
 
 
     function formatTelephone(telephone, format) {
@@ -2012,7 +1990,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     function retry(args) {
       return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-        var _this = this;
+        var _this2 = this;
 
         var count;
         return regeneratorRuntime.wrap(function _callee6$(_context6) {
@@ -2021,8 +1999,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               case 0:
                 count = 0;
                 return _context6.abrupt("return", new Promise(function (resolve, reject) {
-                  return __awaiter(_this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-                    var _this2 = this;
+                  return __awaiter(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+                    var _this3 = this;
 
                     var timerProcess, result;
                     return regeneratorRuntime.wrap(function _callee5$(_context5) {
@@ -2031,7 +2009,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                           case 0:
                             timerProcess = function timerProcess() {
                               setTimeout(function () {
-                                return __awaiter(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+                                return __awaiter(_this3, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
                                   var result;
                                   return regeneratorRuntime.wrap(function _callee4$(_context4) {
                                     while (1) {
@@ -2293,331 +2271,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
 
   /***/
-  "./app/models/common/language.ts":
-  /*!***************************************!*\
-    !*** ./app/models/common/language.ts ***!
-    \***************************************/
-
-  /*! exports provided: Language */
-
-  /***/
-  function appModelsCommonLanguageTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "Language", function () {
-      return Language;
-    });
-    /**
-     * 言語
-     */
-
-
-    var Language;
-
-    (function (Language) {
-      Language["en"] = "English";
-      Language["en-US"] = "English (American English)";
-      Language["en-GB"] = "English (British English\u3001UK English)";
-      Language["en-CA"] = "English (Canadian English)";
-      Language["en-AU"] = "English (Australian English)";
-      Language["fr"] = "French";
-      Language["de"] = "German";
-      Language["it"] = "Italian";
-      Language["ja"] = "\u65E5\u672C\u8A9E";
-      Language["ko"] = "Korean";
-      Language["pt"] = "Portuguese";
-      Language["ru"] = "Russian";
-    })(Language || (Language = {}));
-    /***/
-
-  },
-
-  /***/
-  "./app/models/common/printer.ts":
-  /*!**************************************!*\
-    !*** ./app/models/common/printer.ts ***!
-    \**************************************/
-
-  /*! exports provided: connectionType, printers */
-
-  /***/
-  function appModelsCommonPrinterTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "connectionType", function () {
-      return connectionType;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "printers", function () {
-      return printers;
-    });
-    /**
-     * 接続の種類
-     */
-
-
-    var connectionType;
-
-    (function (connectionType) {
-      /**
-       * なし
-       */
-      connectionType["None"] = "None";
-      /**
-       * 画像
-       */
-
-      connectionType["Image"] = "Image";
-      /**
-       * スター精密 LAN接続
-       */
-
-      connectionType["StarLAN"] = "StarLAN";
-      /**
-       * スター精密 Bluetooth接続
-       */
-
-      connectionType["StarBluetooth"] = "StarBluetooth";
-    })(connectionType || (connectionType = {}));
-    /**
-     * プリンター一覧
-     */
-
-
-    var printers = [{
-      connectionType: connectionType.Image,
-      name: 'setting.printType.image'
-    }, {
-      connectionType: connectionType.StarLAN,
-      name: 'setting.printType.starLAN'
-    }, {
-      connectionType: connectionType.StarBluetooth,
-      name: 'setting.printType.starBluetooth'
-    }];
-    /***/
-  },
-
-  /***/
-  "./app/models/common/viewType.ts":
-  /*!***************************************!*\
-    !*** ./app/models/common/viewType.ts ***!
-    \***************************************/
-
-  /*! exports provided: ViewType */
-
-  /***/
-  function appModelsCommonViewTypeTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "ViewType", function () {
-      return ViewType;
-    });
-
-    var ViewType;
-
-    (function (ViewType) {
-      /**
-       * 映画用
-       */
-      ViewType["Cinema"] = "cinema";
-      /**
-       * イベント用
-       */
-
-      ViewType["Event"] = "event";
-    })(ViewType || (ViewType = {}));
-    /***/
-
-  },
-
-  /***/
-  "./app/models/index.ts":
-  /*!*****************************!*\
-    !*** ./app/models/index.ts ***!
-    \*****************************/
-
-  /*! exports provided: SeatStatus, Performance, OrderActions, PrintQrcodeType, Language, ViewType, connectionType, printers */
-
-  /***/
-  function appModelsIndexTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony import */
-
-
-    var _purchase_screen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! ./purchase/screen */
-    "./app/models/purchase/screen.ts");
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "SeatStatus", function () {
-      return _purchase_screen__WEBPACK_IMPORTED_MODULE_0__["SeatStatus"];
-    });
-    /* harmony import */
-
-
-    var _purchase_performance__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! ./purchase/performance */
-    "./app/models/purchase/performance.ts");
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "Performance", function () {
-      return _purchase_performance__WEBPACK_IMPORTED_MODULE_1__["Performance"];
-    });
-    /* harmony import */
-
-
-    var _order_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ./order/action */
-    "./app/models/order/action.ts");
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "OrderActions", function () {
-      return _order_action__WEBPACK_IMPORTED_MODULE_2__["OrderActions"];
-    });
-    /* harmony import */
-
-
-    var _order_print__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! ./order/print */
-    "./app/models/order/print.ts");
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function () {
-      return _order_print__WEBPACK_IMPORTED_MODULE_3__["PrintQrcodeType"];
-    });
-    /* harmony import */
-
-
-    var _common_language__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! ./common/language */
-    "./app/models/common/language.ts");
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "Language", function () {
-      return _common_language__WEBPACK_IMPORTED_MODULE_4__["Language"];
-    });
-    /* harmony import */
-
-
-    var _common_viewType__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-    /*! ./common/viewType */
-    "./app/models/common/viewType.ts");
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "ViewType", function () {
-      return _common_viewType__WEBPACK_IMPORTED_MODULE_5__["ViewType"];
-    });
-    /* harmony import */
-
-
-    var _common_printer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-    /*! ./common/printer */
-    "./app/models/common/printer.ts");
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "connectionType", function () {
-      return _common_printer__WEBPACK_IMPORTED_MODULE_6__["connectionType"];
-    });
-    /* harmony reexport (safe) */
-
-
-    __webpack_require__.d(__webpack_exports__, "printers", function () {
-      return _common_printer__WEBPACK_IMPORTED_MODULE_6__["printers"];
-    });
-    /***/
-
-  },
-
-  /***/
-  "./app/models/order/action.ts":
-  /*!************************************!*\
-    !*** ./app/models/order/action.ts ***!
-    \************************************/
-
-  /*! exports provided: OrderActions */
-
-  /***/
-  function appModelsOrderActionTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "OrderActions", function () {
-      return OrderActions;
-    });
-
-    var OrderActions;
-
-    (function (OrderActions) {
-      /**
-       * キャンセル
-       */
-      OrderActions["Cancel"] = "Cancel";
-    })(OrderActions || (OrderActions = {}));
-    /***/
-
-  },
-
-  /***/
-  "./app/models/order/print.ts":
-  /*!***********************************!*\
-    !*** ./app/models/order/print.ts ***!
-    \***********************************/
-
-  /*! exports provided: PrintQrcodeType */
-
-  /***/
-  function appModelsOrderPrintTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "PrintQrcodeType", function () {
-      return PrintQrcodeType;
-    });
-    /**
-     * QRコード文字列
-     */
-
-
-    var PrintQrcodeType;
-
-    (function (PrintQrcodeType) {
-      PrintQrcodeType["Token"] = "token";
-      PrintQrcodeType["Custom"] = "Custom";
-    })(PrintQrcodeType || (PrintQrcodeType = {}));
-    /***/
-
-  },
-
-  /***/
   "./app/models/purchase/performance.ts":
   /*!********************************************!*\
     !*** ./app/models/purchase/performance.ts ***!
@@ -2800,37 +2453,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       return Performance;
     }();
-    /***/
-
-  },
-
-  /***/
-  "./app/models/purchase/screen.ts":
-  /*!***************************************!*\
-    !*** ./app/models/purchase/screen.ts ***!
-    \***************************************/
-
-  /*! exports provided: SeatStatus */
-
-  /***/
-  function appModelsPurchaseScreenTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "SeatStatus", function () {
-      return SeatStatus;
-    });
-
-    var SeatStatus;
-
-    (function (SeatStatus) {
-      SeatStatus["Disabled"] = "disabled";
-      SeatStatus["Default"] = "default";
-      SeatStatus["Active"] = "active";
-    })(SeatStatus || (SeatStatus = {}));
     /***/
 
   },
@@ -3071,7 +2693,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
                 Object(ngx_bootstrap_chronos__WEBPACK_IMPORTED_MODULE_4__["defineLocale"])('ja', ngx_bootstrap_locale__WEBPACK_IMPORTED_MODULE_5__["jaLocale"]); // パラメータ設定
 
-                params = Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getParameter"])();
+                params = _app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].getParameter();
 
                 if (location.hash === '') {
                   sessionStorage.setItem('EXTERNAL', JSON.stringify(Object.assign(Object.assign({}, params), {
@@ -3084,8 +2706,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                   sessionStorage.removeItem('PROJECT');
                 }
 
-                projectId = params.projectId === undefined ? Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectId === '' ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectId : params.projectId;
-                projectName = params.projectName === undefined ? Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectName === '' ? undefined : Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().projectName : params.projectName;
+                projectId = params.projectId === undefined ? _app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].getProject().projectId === '' ? undefined : _app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].getProject().projectId : params.projectId;
+                projectName = params.projectName === undefined ? _app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].getProject().projectName === '' ? undefined : _app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].getProject().projectName : params.projectName;
                 _context9.next = 10;
                 return setProject({
                   projectId: projectId,
@@ -3093,7 +2715,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 });
 
               case 10:
-                if (!(Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().storageUrl === undefined)) {
+                if (!(_app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].getProject().storageUrl === undefined)) {
                   _context9.next = 12;
                   break;
                 }
@@ -3102,7 +2724,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
               case 12:
                 _context9.next = 14;
-                return setProjectConfig(Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["getProject"])().storageUrl);
+                return setProjectConfig(_app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].getProject().storageUrl);
 
               case 14:
               case "end":
@@ -3209,7 +2831,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 style = document.createElement('link');
                 style.rel = 'stylesheet';
                 _context11.next = 15;
-                return Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["isFile"])("".concat(storageUrl, "/css/style.css?=date").concat(now));
+                return _app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].isFile("".concat(storageUrl, "/css/style.css?=date").concat(now));
 
               case 15:
                 if (!_context11.sent) {
@@ -3232,7 +2854,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 favicon.rel = 'icon';
                 favicon.type = 'image/x-icon"';
                 _context11.next = 27;
-                return Object(_app_functions__WEBPACK_IMPORTED_MODULE_6__["isFile"])("".concat(storageUrl, "/favicon.ico"));
+                return _app_functions__WEBPACK_IMPORTED_MODULE_6__["Util"].isFile("".concat(storageUrl, "/favicon.ico"));
 
               case 27:
                 if (!_context11.sent) {

@@ -15,8 +15,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/__ivy_ngcc__/fesm2015/store.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../models */ "./app/models/index.ts");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../.. */ "./app/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../environments/environment */ "./environments/environment.ts");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../services */ "./app/services/index.ts");
 /* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../store/reducers */ "./app/store/reducers/index.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
@@ -255,10 +255,10 @@ class SettingComponent {
         this.translate = translate;
         this.orderService = orderService;
         this.router = router;
-        this.viewType = _models__WEBPACK_IMPORTED_MODULE_6__["ViewType"];
-        this.printers = _models__WEBPACK_IMPORTED_MODULE_6__["printers"];
-        this.connectionType = _models__WEBPACK_IMPORTED_MODULE_6__["connectionType"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
+        this.viewType = ___WEBPACK_IMPORTED_MODULE_5__["Models"].Common.ViewType;
+        this.printers = ___WEBPACK_IMPORTED_MODULE_5__["Models"].Common.Printer.printers;
+        this.connectionType = ___WEBPACK_IMPORTED_MODULE_5__["Models"].Common.Printer.ConnectionType;
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -385,7 +385,7 @@ class SettingComponent {
      * プリンター変更
      */
     changePrinterType() {
-        if (this.baseForm.controls.printerType.value === _models__WEBPACK_IMPORTED_MODULE_6__["connectionType"].StarBluetooth) {
+        if (this.baseForm.controls.printerType.value === ___WEBPACK_IMPORTED_MODULE_5__["Models"].Common.Printer.ConnectionType.StarBluetooth) {
             this.baseForm.controls.printerIpAddress.setValue(this.translate.instant('setting.starBluetoothAddress'));
         }
     }

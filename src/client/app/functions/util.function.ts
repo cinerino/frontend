@@ -3,8 +3,8 @@ import { BsDatepickerContainerComponent, BsDatepickerDirective } from 'ngx-boots
 import { CellHoverEvent } from 'ngx-bootstrap/datepicker/models';
 
 /**
- * 電話番号変換
- */
+     * 電話番号変換
+     */
 export function formatTelephone(telephone: string, format?: libphonenumber.NumberFormat) {
     if (telephone === undefined) {
         return '';
@@ -164,8 +164,8 @@ export function getParameter(): {
     }
     if (result.performanceId !== undefined
         && result.eventId === undefined) {
-            result.eventId = result.performanceId;
-            result.performanceId = undefined;
+        result.eventId = result.performanceId;
+        result.performanceId = undefined;
     }
     return result;
 }

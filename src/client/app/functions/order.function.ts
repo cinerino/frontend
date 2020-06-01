@@ -1,7 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
-import { ITicketPrintData } from '../models';
+import * as Models from './../models';
 import { getItemPrice } from './purchase.function';
 import { getProject } from './util.function';
 
@@ -9,7 +9,7 @@ import { getProject } from './util.function';
  * キャンバスへ描画
  */
 async function drawCanvas(args: {
-    printData: ITicketPrintData,
+    printData: Models.Order.Print.ITicketPrintData,
     data: {
         sellerNameJa: string;
         sellerNameEn: string;
@@ -165,7 +165,7 @@ async function drawCanvas(args: {
  * 印刷イメージ作成
  */
 export async function createPrintCanvas(args: {
-    printData: ITicketPrintData;
+    printData: Models.Order.Print.ITicketPrintData;
     acceptedOffer: factory.order.IAcceptedOffer<factory.order.IItemOffered>;
     order: factory.order.IOrder;
     pos?: factory.chevre.place.movieTheater.IPOS;
@@ -223,7 +223,7 @@ export async function createPrintCanvas(args: {
 /**
  * テスト印刷用イメージ作成
  */
-export async function createTestPrintCanvas(args: { printData: ITicketPrintData }) {
+export async function createTestPrintCanvas(args: { printData: Models.Order.Print.ITicketPrintData }) {
     const printData = args.printData;
     const data = {
         sellerNameJa: 'テスト劇場',
@@ -260,3 +260,4 @@ export async function createTestPrintCanvas(args: { printData: ITicketPrintData 
 export function isShowQRCode(event: factory.chevre.event.screeningEvent.IEvent) {
     return moment(event.startDate).add(-24, 'hours').toDate() < moment().toDate();
 }
+

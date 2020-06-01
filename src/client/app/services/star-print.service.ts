@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
-import { sleep } from '../functions';
-import { connectionType, IPrinter, printers } from '../models';
+import { Functions, Models } from '..';
 
 @Injectable({
     providedIn: 'root'
@@ -57,7 +56,7 @@ export class StarPrintService {
         }
         for (const printerRequest of divideRequests) {
             // safari対応のため0.3秒待つ
-            await sleep(300);
+            await Functions.Util.sleep(300);
             await this.print({ printerRequest });
         }
     }
@@ -66,7 +65,7 @@ export class StarPrintService {
      * 初期化
      */
     public initialize(args: {
-        printer: IPrinter;
+        printer: Models.Common.Printer.IPrinter;
         pos?: factory.chevre.place.movieTheater.IPOS;
         timeout?: number;
     }) {
@@ -82,14 +81,14 @@ export class StarPrintService {
                 throw new Error('プリンターのIPアドレスが正しく指定されていません');
             }
             const port = /https/.test(window.location.protocol) ? 443 : 80;
-            const findResult = printers.find(p => p.connectionType === printer.connectionType);
+            const findResult = Models.Common.Printer.printers.find(p => p.connectionType === printer.connectionType);
             if (findResult === undefined
-                || (findResult.connectionType !== connectionType.StarBluetooth
-                    && findResult.connectionType !== connectionType.StarLAN)
+                || (findResult.connectionType !== Models.Common.Printer.ConnectionType.StarBluetooth
+                    && findResult.connectionType !== Models.Common.Printer.ConnectionType.StarLAN)
             ) {
                 throw new Error('選択しているプリンターに対応していません');
             }
-            const url = (findResult.connectionType === connectionType.StarLAN)
+            const url = (findResult.connectionType === Models.Common.Printer.ConnectionType.StarLAN)
                 ? `https://${printer.ipAddress}:${port}/StarWebPRNT/SendMessage`
                 : `https://${printer.ipAddress}/StarWebPRNT/SendMessage`;
             const papertype = 'normal';

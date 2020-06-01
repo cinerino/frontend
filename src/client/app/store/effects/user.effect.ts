@@ -3,7 +3,7 @@ import { factory } from '@cinerino/api-javascript-client';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
-import { createGmoTokenObject, formatTelephone, sleep } from '../../functions';
+import { Functions } from '../..';
 import { CinerinoService } from '../../services';
 import { userAction } from '../actions';
 
@@ -124,7 +124,7 @@ export class UserEffects {
             try {
                 await this.cinerino.getServices();
                 if (payload.profile.telephone !== undefined) {
-                    payload.profile.telephone = formatTelephone(payload.profile.telephone, 'E.164');
+                    payload.profile.telephone = Functions.Util.formatTelephone(payload.profile.telephone, 'E.164');
                 }
                 await this.cinerino.person.updateProfile(payload.profile);
                 const id = 'me';
@@ -164,7 +164,10 @@ export class UserEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const gmoTokenObject = await createGmoTokenObject({ creditCard: payload.creditCard, seller: payload.seller });
+                const gmoTokenObject = await Functions.Purchase.createGmoTokenObject({
+                    creditCard: payload.creditCard,
+                    seller: payload.seller
+                });
                 const creditCard = await this.cinerino.ownershipInfo.addCreditCard({ creditCard: gmoTokenObject });
                 return userAction.addCreditCardSuccess({ creditCard });
             } catch (error) {
@@ -252,7 +255,7 @@ export class UserEffects {
                 await this.cinerino.transaction.placeOrder.confirm({
                     id: transaction.id
                 });
-                await sleep();
+                await Functions.Util.sleep();
                 return userAction.chargeAccountSuccess();
             } catch (error) {
                 return userAction.chargeAccountFail({ error: error });
@@ -312,7 +315,7 @@ export class UserEffects {
                 await this.cinerino.transaction.moneyTransfer.confirm({
                     id: transaction.id
                 });
-                await sleep();
+                await Functions.Util.sleep();
                 return userAction.transferAccountSuccess();
             } catch (error) {
                 return userAction.transferAccountFail({ error: error });

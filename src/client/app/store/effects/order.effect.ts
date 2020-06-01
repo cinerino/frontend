@@ -4,18 +4,8 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
+import { Functions, Models } from '../..';
 import { getEnvironment } from '../../../environments/environment';
-import {
-    createPrintCanvas,
-    createTestPrintCanvas,
-    formatTelephone,
-    getItemPrice,
-    getProject,
-    isFile,
-    retry,
-    sleep
-} from '../../functions';
-import { connectionType, ITicketPrintData, PrintQrcodeType } from '../../models';
 import { CinerinoService, StarPrintService, UtilService } from '../../services';
 import { orderAction } from '../actions';
 /**
@@ -78,8 +68,12 @@ export class OrderEffects {
                     };
                     if (environment.ORDER_CANCEL_MAIL_CUSTOM) {
                         // 返品メールをカスタマイズ
-                        const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/mail/return/${payload.language}.ejs`);
-                        const template = (<any>window).ejs.render(view, { moment, formatTelephone, getItemPrice });
+                        const view = await this.utilService.getText(`${Functions.Util.getProject().storageUrl}/ejs/mail/return/${payload.language}.ejs`);
+                        const template = (<any>window).ejs.render(view, {
+                            moment,
+                            formatTelephone: Functions.Util.formatTelephone,
+                            getItemPrice: Functions.Purchase.getItemPrice
+                        });
                         email.template = template;
                     }
                     const refundCreditCardEmail: factory.creativeWork.message.email.ICustomization = {
@@ -102,11 +96,15 @@ export class OrderEffects {
                     if (environment.ORDER_CANCEL_MAIL_CUSTOM) {
                         // 返金メールをカスタマイズ
                         const path = `/ejs/mail/refundCreditCard/${payload.language}.ejs`;
-                        const url = (await isFile(`${getProject().storageUrl}${path}`))
-                            ? `${getProject().storageUrl}${path}`
+                        const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+                            ? `${Functions.Util.getProject().storageUrl}${path}`
                             : `/default${path}`;
                         const view = await this.utilService.getText(url);
-                        const template = await (<any>window).ejs.render(view, { moment, formatTelephone, getItemPrice }, { async: true });
+                        const template = await (<any>window).ejs.render(view, {
+                            moment,
+                            formatTelephone: Functions.Util.formatTelephone,
+                            getItemPrice: Functions.Purchase.getItemPrice
+                        }, { async: true });
                         refundCreditCardEmail.template = template;
                     }
                     await this.cinerino.transaction.returnOrder.confirm({
@@ -152,7 +150,7 @@ export class OrderEffects {
                                 if (i > limit) {
                                     return reject({ error: 'timeout' });
                                 }
-                                await sleep(5000);
+                                await Functions.Util.sleep(5000);
                             } catch (error) {
                                 return reject(error);
                             }
@@ -184,7 +182,7 @@ export class OrderEffects {
                 const confirmationNumber = Number(payload.confirmationNumber);
                 const customer = {
                     telephone: (payload.customer.telephone === undefined)
-                        ? '' : formatTelephone(payload.customer.telephone)
+                        ? '' : Functions.Util.formatTelephone(payload.customer.telephone)
                 };
                 const orderDateFrom = {
                     value: environment.INQUIRY_ORDER_DATE_FROM_VALUE,
@@ -221,7 +219,7 @@ export class OrderEffects {
                 await this.cinerino.getServices();
                 const authorizeOrders: factory.order.IOrder[] = [];
                 for (const order of orders) {
-                    const result = await retry<factory.order.IOrder>({
+                    const result = await Functions.Util.retry<factory.order.IOrder>({
                         process: (async () => {
                             const orderNumber = order.orderNumber;
                             const customer = {
@@ -238,11 +236,11 @@ export class OrderEffects {
 
                     authorizeOrders.push(result);
                 }
-                const printData = await this.utilService.getJson<ITicketPrintData>(`${getProject().storageUrl}/json/print/ticket.json`);
+                const printData = await this.utilService.getJson<Models.Order.Print.ITicketPrintData>(`${Functions.Util.getProject().storageUrl}/json/print/ticket.json`);
                 const testFlg = orders.length === 0;
                 const canvasList: HTMLCanvasElement[] = [];
                 if (testFlg) {
-                    const canvas = await createTestPrintCanvas({ printData });
+                    const canvas = await Functions.Order.createTestPrintCanvas({ printData });
                     canvasList.push(canvas);
                 } else {
                     for (const authorizeOrder of authorizeOrders) {
@@ -270,7 +268,7 @@ export class OrderEffects {
                                 }
                             }
                             if (qrcode !== undefined
-                                && environment.PRINT_QRCODE_TYPE === PrintQrcodeType.Custom) {
+                                && environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Custom) {
                                 // QRコードカスタム文字列
                                 qrcode = environment.PRINT_QRCODE_CUSTOM;
                                 qrcode = qrcode
@@ -297,22 +295,22 @@ export class OrderEffects {
                                         moment(itemOffered.reservationFor.startDate).format('YYMMDD')
                                     );
                             }
-                            const canvas = await createPrintCanvas({ printData, order, acceptedOffer, pos, qrcode, index });
+                            const canvas = await Functions.Order.createPrintCanvas({ printData, order, acceptedOffer, pos, qrcode, index });
                             canvasList.push(canvas);
                             index++;
                         }
                     }
                 }
                 switch (printer.connectionType) {
-                    case connectionType.StarBluetooth:
+                    case Models.Common.Printer.ConnectionType.StarBluetooth:
                         this.starPrint.initialize({ printer, pos });
                         await this.starPrint.printProcess({ canvasList, testFlg });
                         break;
-                    case connectionType.StarLAN:
+                    case Models.Common.Printer.ConnectionType.StarLAN:
                         this.starPrint.initialize({ printer, pos });
                         await this.starPrint.printProcess({ canvasList, testFlg });
                         break;
-                    case connectionType.Image:
+                    case Models.Common.Printer.ConnectionType.Image:
                         const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray ">
                         <img class="w-100" src="${canvas.toDataURL()}" alt="">
                         </div>`);

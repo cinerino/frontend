@@ -6,8 +6,8 @@ import { BAD_REQUEST, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
 import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { Observable } from 'rxjs';
+import { Functions } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { getExternalData, iOSDatepickerTapBugFix, IScreeningEventWork, screeningEvents2WorkEvents } from '../../../../../../functions';
 import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
@@ -22,13 +22,13 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public error: Observable<string | null>;
     public isLoading: Observable<boolean>;
     public screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
-    public screeningWorkEvents: IScreeningEventWork[];
+    public screeningWorkEvents: Functions.Purchase.IScreeningEventWork[];
     public moment: typeof moment = moment;
     public scheduleDate: Date;
     public environment = getEnvironment();
     public bsValue: Date;
     public isSales: boolean;
-    public external = getExternalData();
+    public external = Functions.Util.getExternalData();
     private updateTimer: any;
     public theaters: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom[];
     @ViewChild('datepicker', { static: true }) private datepicker: BsDatepickerDirective;
@@ -67,7 +67,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 if (openDate > nowDate) {
                     this.scheduleDate = openDate;
                 }
-                const external = getExternalData();
+                const external = Functions.Util.getExternalData();
                 if (external.scheduleDate !== undefined) {
                     this.scheduleDate = moment(external.scheduleDate).toDate();
                 }
@@ -116,7 +116,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         const purchase = await this.purchaseService.getData();
         let theater = (purchase.theater === undefined) ? this.theaters[0] : purchase.theater;
         const findResult = this.theaters.find((t) => {
-            const external = getExternalData();
+            const external = Functions.Util.getExternalData();
             return (external.theaterBranchCode !== undefined && t.branchCode === external.theaterBranchCode);
         });
         if (findResult !== undefined) {
@@ -162,7 +162,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             }
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
             this.purchaseService.selectScheduleDate(scheduleDate);
-            const external = getExternalData();
+            const external = Functions.Util.getExternalData();
             this.screeningEvents = await this.masterService.getSchedule({
                 superEvent: {
                     ids: (external.superEventId === undefined)
@@ -174,7 +174,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            this.screeningWorkEvents = screeningEvents2WorkEvents({ screeningEvents: this.screeningEvents });
+            this.screeningWorkEvents = Functions.Purchase.screeningEvents2WorkEvents({ screeningEvents: this.screeningEvents });
             this.update();
         } catch (error) {
             console.error(error);
@@ -246,7 +246,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      * iOS bugfix（2回タップしないと選択できない）
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
-        iOSDatepickerTapBugFix(container, [this.datepicker]);
+        Functions.Util.iOSDatepickerTapBugFix(container, [this.datepicker]);
     }
 
 }

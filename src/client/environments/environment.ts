@@ -248,7 +248,9 @@ const defaultEnvironment: IEnvironment = {
     VIEW_TYPE: 'event',
     GTM_ID: '',
     ANALYTICS_ID: '',
-    STORAGE_NAME: (getProject().projectId === '') ? 'FRONTEND-STATE' : `${getProject().projectId.toUpperCase()}-FRONTEND-STATE`,
+    STORAGE_NAME: (getProject().projectId === '')
+        ? 'FRONTEND-STATE'
+        : `${getProject().projectId.toUpperCase()}-FRONTEND-STATE`,
     STORAGE_TYPE: 'sessionStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],

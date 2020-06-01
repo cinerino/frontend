@@ -12,10 +12,8 @@ import {
 } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getProject, isFile } from '../../../../../functions';
-import { IReservation, IReservationSeat, ViewType } from '../../../../../models';
-import { ILabel, IObject, IRow, IScreen, ISeat, SeatStatus } from '../../../../../models/purchase/screen';
 import { UtilService } from '../../../../../services';
 
 @Component({
@@ -29,19 +27,22 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
     @Input() public theaterCode: string;
     @Input() public screenCode: string;
     @Input() public screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
-    @Input() public reservations: IReservation[];
+    @Input() public reservations: Models.Purchase.Reservation.IReservation[];
     @Input() public authorizeSeatReservation?:
         factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
-    @Output() public select = new EventEmitter<{ seat: IReservationSeat; status: SeatStatus; }>();
-    public seats: IRow[];
-    public lineLabels: ILabel[];
-    public columnLabels: ILabel[];
+    @Output() public select = new EventEmitter<{
+        seat: Models.Purchase.Reservation.IReservationSeat;
+        status: Models.Purchase.Screen.SeatStatus;
+    }>();
+    public seats: Models.Purchase.Screen.IRow[];
+    public lineLabels: Models.Purchase.Screen.ILabel[];
+    public columnLabels: Models.Purchase.Screen.ILabel[];
     public screenType: string;
     public zoomState: boolean;
     public scale: number;
     public height: number;
     public origin: string;
-    public screenData: IScreen;
+    public screenData: Models.Purchase.Screen.IScreen;
     public environment = getEnvironment();
     public onWindowScroll: (event: Event) => void;
     @ViewChild('screen', { static: true }) public screen: ElementRef<HTMLDivElement>;
@@ -138,15 +139,15 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
     public async getScreenData() {
         const now = moment().toISOString();
         const settingPath = 'json/theater/setting.json';
-        const setting = (await isFile(`${getProject().storageUrl}/${settingPath}`))
-            ? await this.utilService.getJson<IScreen>(`${getProject().storageUrl}/${settingPath}`)
-            : await this.utilService.getJson<IScreen>(`/default/${settingPath}`);
+        const setting = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}/${settingPath}`))
+            ? await this.utilService.getJson<Models.Purchase.Screen.IScreen>(`${Functions.Util.getProject().storageUrl}/${settingPath}`)
+            : await this.utilService.getJson<Models.Purchase.Screen.IScreen>(`/default/${settingPath}`);
         const screenPath = `json/theater/${this.theaterCode}/${this.screenCode}.json?date=${now}`;
-        const screen = (await isFile(`${getProject().storageUrl}/${screenPath}`))
-            ? await this.utilService.getJson<IScreen>(`${getProject().storageUrl}/${screenPath}`)
+        const screen = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}/${screenPath}`))
+            ? await this.utilService.getJson<Models.Purchase.Screen.IScreen>(`${Functions.Util.getProject().storageUrl}/${screenPath}`)
             : this.generateScreenMap(setting);
         const objects = screen.objects.map((o) => {
-            return { ...o, image: o.image.replace('/storage', getProject().storageUrl) };
+            return { ...o, image: o.image.replace('/storage', Functions.Util.getProject().storageUrl) };
         });
         screen.objects = objects;
         return { ...setting, ...screen };
@@ -155,12 +156,12 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
     /**
      * 座席自動生成
      */
-    public generateScreenMap(setting: IScreen) {
+    public generateScreenMap(setting: Models.Purchase.Screen.IScreen) {
         if (this.screeningEventSeats.length === 0) {
             return {
                 type: 0,
                 size: { w: 0, h: 0 },
-                objects: <IObject[]>[],
+                objects: <Models.Purchase.Screen.IObject[]>[],
                 seatStart: { x: 0, y: 0 },
                 map: []
             };
@@ -197,7 +198,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
             map.push(lineMap);
         }
         const space = 90;
-        const screenSpace = (this.environment.VIEW_TYPE === ViewType.Cinema)
+        const screenSpace = (this.environment.VIEW_TYPE === Models.Common.ViewType.Cinema)
             ? space * 2 + 50 : space + 30;
         const minWidth = 1346;
         const size = {
@@ -211,13 +212,13 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                 w: (size.w < minWidth) ? minWidth : size.w,
                 h: size.h
             },
-            objects: <IObject[]>[],
+            objects: <Models.Purchase.Screen.IObject[]>[],
             seatStart: {
                 x: (size.w < minWidth) ? (minWidth - size.w) / 2 + space : space,
                 y: screenSpace
             },
             map,
-            style: (this.environment.VIEW_TYPE === ViewType.Cinema)
+            style: (this.environment.VIEW_TYPE === Models.Common.ViewType.Cinema)
                 ? '<style>.screen-object { display: block !important }</style>'
                 : undefined
         };
@@ -230,8 +231,8 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
         const reservations = this.reservations;
         this.seats.forEach((row) => {
             row.data.forEach((seat) => {
-                if (seat.status === SeatStatus.Active) {
-                    seat.status = SeatStatus.Default;
+                if (seat.status === Models.Purchase.Screen.SeatStatus.Active) {
+                    seat.status = Models.Purchase.Screen.SeatStatus.Default;
                 }
                 const findReservationSeatResult = reservations.find((reservation) => {
                     return (reservation.seat !== undefined
@@ -239,7 +240,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                         && reservation.seat.seatSection === seat.section);
                 });
                 if (findReservationSeatResult !== undefined) {
-                    seat.status = SeatStatus.Active;
+                    seat.status = Models.Purchase.Screen.SeatStatus.Active;
                 }
             });
         });
@@ -333,7 +334,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
         // 列ラベル
         this.columnLabels = [];
         // 座席リスト
-        const seats: IRow[] = [];
+        const seats: Models.Purchase.Screen.IRow[] = [];
 
         const pos = { x: 0, y: 0 };
         let labelCount = 0;
@@ -410,7 +411,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                         const className = [`seat-${code}`];
                         let section = '';
                         const row = '';
-                        let status = SeatStatus.Disabled;
+                        let status = Models.Purchase.Screen.SeatStatus.Disabled;
                         let acceptedOffer;
                         // 席の状態変更
                         const findSeat =
@@ -422,10 +423,10 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                                 section = findSeat.containedInPlace.branchCode;
                             }
                             if (findSeat.offers[0].availability === factory.chevre.itemAvailability.InStock) {
-                                status = SeatStatus.Default;
+                                status = Models.Purchase.Screen.SeatStatus.Default;
                             }
                             acceptedOffer = {
-                                ticketedSeat: <IReservationSeat>{
+                                ticketedSeat: <Models.Purchase.Reservation.IReservationSeat>{
                                     typeOf: findSeat.typeOf,
                                     seatingType: findSeat.seatingType,
                                     seatNumber: findSeat.branchCode,
@@ -450,7 +451,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                                     && ticketedSeat.seatRow === row);
                             });
                             if (findResult !== undefined) {
-                                status = SeatStatus.Default;
+                                status = Models.Purchase.Screen.SeatStatus.Default;
                             }
                         }
                         if (this.screenData.hc !== undefined
@@ -499,12 +500,12 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
         // console.log(this.seats);
     }
 
-    public selectSeat(seat: ISeat) {
+    public selectSeat(seat: Models.Purchase.Screen.ISeat) {
         if (this.isZoomAllowed() && !this.zoomState) {
             return;
         }
         if (seat.ticketedSeat === undefined
-            || seat.status === SeatStatus.Disabled) {
+            || seat.status === Models.Purchase.Screen.SeatStatus.Disabled) {
             return;
         }
         if (this.screenData.hc !== undefined

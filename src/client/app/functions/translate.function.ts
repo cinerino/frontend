@@ -8,8 +8,8 @@ import { getEnvironment } from '../../environments/environment';
 import { getProject } from './util.function';
 
 /**
- * 多言語カスタムローダー
- */
+     * 多言語カスタムローダー
+     */
 export class CustomTranslateHttpLoader implements TranslateLoader {
     constructor(private http: HttpClient) { }
 

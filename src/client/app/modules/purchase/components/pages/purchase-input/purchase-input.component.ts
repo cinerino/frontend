@@ -8,9 +8,8 @@ import * as libphonenumber from 'libphonenumber-js';
 import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getAmount } from '../../../../../functions';
-import { ViewType } from '../../../../../models';
 import { PurchaseService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import {
@@ -36,7 +35,7 @@ export class PurchaseInputComponent implements OnInit {
     };
     public amount: number;
     public environment = getEnvironment();
-    public viewType: typeof ViewType = ViewType;
+    public viewType = Models.Common.ViewType;
     public usedCreditCard?: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
 
     constructor(
@@ -65,7 +64,7 @@ export class PurchaseInputComponent implements OnInit {
                 this.router.navigate(['/error']);
                 return;
             }
-            this.amount = getAmount(purchase.authorizeSeatReservations);
+            this.amount = Functions.Purchase.getAmount(purchase.authorizeSeatReservations);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);

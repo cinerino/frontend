@@ -11,7 +11,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app/app.component';
-import { getTranslateModuleConfig } from './functions/translate.function';
+import * as Functions from './functions';
 import { IndexComponent } from './index/index.component';
 import { CoreModule } from './modules/core/core.module';
 import { SharedModule } from './modules/shared/shared.module';
@@ -35,7 +35,7 @@ import { CoreStoreModule } from './store/core/store';
         ModalModule.forRoot(),
         BsDatepickerModule.forRoot(),
         PaginationModule.forRoot(),
-        TranslateModule.forRoot(getTranslateModuleConfig()),
+        TranslateModule.forRoot(Functions.Translate.getTranslateModuleConfig()),
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -4,20 +4,8 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
+import { Functions, Models } from '../..';
 import { getEnvironment } from '../../../environments/environment';
-import {
-    authorizeSeatReservation2Event,
-    createGmoTokenObject,
-    createMovieTicketsFromAuthorizeSeatReservation,
-    formatTelephone,
-    getItemPrice,
-    getProject,
-    getTicketPrice,
-    isFile,
-    selectAvailableSeat,
-    sleep
-} from '../../functions';
-import { Performance } from '../../models';
 import { CinerinoService, LinyService, UtilService } from '../../services';
 import { purchaseAction } from '../actions';
 declare const ga: Function;
@@ -90,7 +78,7 @@ export class PurchaseEffects {
                     screeningEvents = screeningEvents.concat(searchResult.data);
                     page++;
                     roop = searchResult.data.length === limit;
-                    await sleep(500);
+                    await Functions.Util.sleep(500);
                 }
                 const sheduleDates: string[] = [];
 
@@ -226,8 +214,8 @@ export class PurchaseEffects {
                     || screeningEvent.offers.validThrough < nowDate) {
                     throw new Error('Outside sales period');
                 }
-                const availableSeats = selectAvailableSeat({ reservations, screeningEventSeats });
-                if (new Performance(screeningEvent).isTicketedSeat()
+                const availableSeats = Functions.Purchase.selectAvailableSeat({ reservations, screeningEventSeats });
+                if (new Models.Purchase.Performance(screeningEvent).isTicketedSeat()
                     && availableSeats.length !== reservations.length) {
                     throw new Error('Out of stock').message;
                 }
@@ -255,10 +243,10 @@ export class PurchaseEffects {
                                             additionalTicketText: additionalTicketText,
                                             reservedTicket: {
                                                 typeOf: 'Ticket',
-                                                ticketedSeat: (new Performance(screeningEvent).isTicketedSeat())
+                                                ticketedSeat: (new Models.Purchase.Performance(screeningEvent).isTicketedSeat())
                                                     ? availableSeats[index] : undefined,
                                             },
-                                            subReservation: (new Performance(screeningEvent).isTicketedSeat())
+                                            subReservation: (new Models.Purchase.Performance(screeningEvent).isTicketedSeat())
                                                 ? availableSeats[index].subReservations.map(s => {
                                                     return {
                                                         reservedTicket: { typeOf: 'Ticket', ticketedSeat: s }
@@ -346,7 +334,9 @@ export class PurchaseEffects {
                     id: transaction.id,
                     agent: {
                         ...profile,
-                        telephone: (profile.telephone === undefined) ? undefined : formatTelephone(profile.telephone)
+                        telephone: (profile.telephone === undefined)
+                            ? undefined
+                            : Functions.Util.formatTelephone(profile.telephone)
                     }
                 });
 
@@ -402,7 +392,7 @@ export class PurchaseEffects {
             const creditCard = payload.creditCard;
             const seller = payload.seller;
             try {
-                const gmoTokenObject = await createGmoTokenObject({ creditCard, seller, });
+                const gmoTokenObject = await Functions.Purchase.createGmoTokenObject({ creditCard, seller, });
 
                 return purchaseAction.createGmoTokenObjectSuccess({ gmoTokenObject });
             } catch (error) {
@@ -432,7 +422,7 @@ export class PurchaseEffects {
                 const authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[] = [];
                 const seller = payload.seller;
                 for (const authorizeSeatReservation of authorizeSeatReservations) {
-                    const movieTickets = createMovieTicketsFromAuthorizeSeatReservation({
+                    const movieTickets = Functions.Purchase.createMovieTicketsFromAuthorizeSeatReservation({
                         authorizeSeatReservation, pendingMovieTickets, seller
                     });
                     const movieTicketIdentifiers: {
@@ -560,18 +550,18 @@ export class PurchaseEffects {
                 if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM && params.email !== undefined) {
                     // 完了メールをカスタマイズ
                     const path = `/ejs/mail/complete/${payload.language}.ejs`;
-                    const url = (await isFile(`${getProject().storageUrl}${path}`))
-                        ? `${getProject().storageUrl}${path}`
+                    const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+                        ? `${Functions.Util.getProject().storageUrl}${path}`
                         : `/default${path}`;
                     const view = await this.utilService.getText(url);
                     params.email.template = (<any>window).ejs.render(view, {
-                        authorizeSeatReservations: authorizeSeatReservation2Event({ authorizeSeatReservations }),
+                        authorizeSeatReservations: Functions.Purchase.authorizeSeatReservation2Event({ authorizeSeatReservations }),
                         seller,
                         moment,
-                        formatTelephone,
-                        getItemPrice,
-                        getTicketPrice,
-                        projectId: getProject().projectId
+                        formatTelephone: Functions.Util.formatTelephone,
+                        getItemPrice: Functions.Purchase.getItemPrice,
+                        getTicketPrice: Functions.Purchase.getTicketPrice,
+                        projectId: Functions.Util.getProject().projectId
                     });
                 }
                 const result = await this.cinerinoService.transaction.placeOrder.confirm(params);
@@ -595,14 +585,14 @@ export class PurchaseEffects {
                 if (linyId !== undefined) {
                     // liny連携
                     try {
-                        const view = await this.utilService.getText(`${getProject().storageUrl}/ejs/liny/complete/${payload.language}.ejs`);
+                        const view = await this.utilService.getText(`${Functions.Util.getProject().storageUrl}/ejs/liny/complete/${payload.language}.ejs`);
                         const template = (<any>window).ejs.render(view, {
-                            authorizeSeatReservations: authorizeSeatReservation2Event({ authorizeSeatReservations }),
+                            authorizeSeatReservations: Functions.Purchase.authorizeSeatReservation2Event({ authorizeSeatReservations }),
                             seller,
                             order,
                             moment,
-                            formatTelephone,
-                            getItemPrice
+                            formatTelephone: Functions.Util.formatTelephone,
+                            getItemPrice: Functions.Purchase.getItemPrice
                         });
                         await this.linyService.sendMessage({ uid: linyId, message: template });
                     } catch (error) {

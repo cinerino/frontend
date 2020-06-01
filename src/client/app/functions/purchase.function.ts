@@ -1,10 +1,12 @@
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { IMovieTicket, IReservation, IReservationSeat, Performance } from '../models';
+import { Reservation } from '../models/purchase';
+import { IMovieTicket } from './../models/purchase/movieTicket';
+import { Performance } from './../models/purchase/performance';
 
 /**
- * 作品別イベント
- */
+     * 作品別イベント
+     */
 export interface IScreeningEventWork {
     info: factory.chevre.event.screeningEvent.IEvent;
     data: Performance[];
@@ -22,13 +24,14 @@ export function screeningEvents2WorkEvents(params: {
         const registered = result.find((data) => {
             return (data.info.superEvent.id === screeningEvent.superEvent.id);
         });
+        const performance = new Performance(screeningEvent);
         if (registered === undefined) {
             result.push({
                 info: screeningEvent,
-                data: [new Performance(screeningEvent)]
+                data: [performance]
             });
         } else {
-            registered.data.push(new Performance(screeningEvent));
+            registered.data.push(performance);
         }
     });
 
@@ -256,7 +259,7 @@ export function getTicketPrice(
  */
 export function getItemPrice(params: {
     priceComponents?: factory.chevre.event.screeningEvent.ITicketPriceComponent[];
-    seat?: IReservationSeat;
+    seat?: Reservation.IReservationSeat;
 }) {
     let price = 0;
     // 券種価格
@@ -455,7 +458,7 @@ export function getRemainingSeatLength(params: {
  * 適用座席タイプ判定
  */
 export function isEligibleSeatingType(params: {
-    seat: IReservationSeat;
+    seat: Reservation.IReservationSeat;
     eligibleSeatingType: factory.chevre.categoryCode.ICategoryCode[]
 }) {
     const seat = params.seat;
@@ -473,7 +476,7 @@ export function isEligibleSeatingType(params: {
  * 空席取得
  */
 export function getEmptySeat(params: {
-    reservations: IReservation[];
+    reservations: Reservation.IReservation[];
     screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
 }) {
     const reservations = params.reservations;
@@ -514,7 +517,7 @@ export interface IAvailableSeat extends factory.chevre.reservation.ISeat<factory
  * 予約可能席取得
  */
 export function selectAvailableSeat(params: {
-    reservations: IReservation[];
+    reservations: Reservation.IReservation[];
     screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
 }) {
     const reservations = params.reservations;
@@ -614,3 +617,4 @@ export function selectAvailableSeat(params: {
 
     return availableSeats;
 }
+

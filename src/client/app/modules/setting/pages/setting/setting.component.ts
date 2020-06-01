@@ -5,8 +5,8 @@ import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { Models } from '../../../..';
 import { getEnvironment } from '../../../../../environments/environment';
-import { connectionType, printers, ViewType } from '../../../../models';
 import { MasterService, OrderService, UserService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
@@ -25,10 +25,10 @@ export class SettingComponent implements OnInit {
         month: string[];
     };
     public amount: number;
-    public viewType: typeof ViewType = ViewType;
+    public viewType = Models.Common.ViewType;
     public posList: { id: string; name: string; typeOf: string; }[];
-    public printers: typeof printers = printers;
-    public connectionType: typeof connectionType = connectionType;
+    public printers = Models.Common.Printer.printers;
+    public connectionType = Models.Common.Printer.ConnectionType;
     public theaters: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom[];
     public environment = getEnvironment();
 
@@ -162,7 +162,7 @@ export class SettingComponent implements OnInit {
      * プリンター変更
      */
     public changePrinterType() {
-        if (this.baseForm.controls.printerType.value === connectionType.StarBluetooth) {
+        if (this.baseForm.controls.printerType.value === Models.Common.Printer.ConnectionType.StarBluetooth) {
             this.baseForm.controls.printerIpAddress.setValue(this.translate.instant('setting.starBluetoothAddress'));
         }
     }

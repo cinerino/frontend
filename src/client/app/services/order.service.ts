@@ -4,7 +4,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { IPrinter } from '../models';
+import { Models } from '..';
 import { orderAction } from '../store/actions';
 import * as reducers from '../store/reducers';
 
@@ -89,7 +89,7 @@ export class OrderService {
      */
     public async print(prams: {
         orders: factory.order.IOrder[];
-        printer: IPrinter;
+        printer: Models.Common.Printer.IPrinter;
         pos?: factory.chevre.place.movieTheater.IPOS;
         timeout?: number;
     }) {

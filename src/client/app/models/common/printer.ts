@@ -1,7 +1,7 @@
 /**
- * 接続の種類
- */
-export enum connectionType {
+     * 接続の種類
+     */
+export enum ConnectionType {
     /**
      * なし
      */
@@ -25,20 +25,20 @@ export enum connectionType {
  */
 export const printers = [
     {
-        connectionType: connectionType.Image,
+        connectionType: ConnectionType.Image,
         name: 'setting.printType.image'
     },
     {
-        connectionType: connectionType.StarLAN,
+        connectionType: ConnectionType.StarLAN,
         name: 'setting.printType.starLAN'
     },
     {
-        connectionType: connectionType.StarBluetooth,
+        connectionType: ConnectionType.StarBluetooth,
         name: 'setting.printType.starBluetooth'
     }
 ];
 
 export interface IPrinter {
-    connectionType: connectionType;
+    connectionType: ConnectionType;
     ipAddress: string;
 }

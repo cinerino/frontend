@@ -6,14 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
+import { Functions, Models } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import {
-    getExternalData,
-    getRemainingSeatLength,
-    IScreeningEventWork,
-    screeningEvents2WorkEvents
-} from '../../../../../../functions';
-import { IReservation, Performance } from '../../../../../../models';
 import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 import {
@@ -30,7 +24,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public user: Observable<reducers.IUserState>;
     public error: Observable<string | null>;
     public isLoading: Observable<boolean>;
-    public screeningWorkEvents: IScreeningEventWork[];
+    public screeningWorkEvents: Functions.Purchase.IScreeningEventWork[];
     public moment: typeof moment = moment;
     public environment = getEnvironment();
     private updateTimer: any;
@@ -97,7 +91,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         const theater = purchase.theater;
         const scheduleDate = purchase.scheduleDate;
         const transaction = purchase.transaction;
-        const external = getExternalData();
+        const external = Functions.Util.getExternalData();
         if (theater === undefined
             || scheduleDate === undefined
             || transaction === undefined) {
@@ -113,7 +107,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             startFrom: moment(scheduleDate).toDate(),
             startThrough: moment(scheduleDate).add(1, 'day').toDate()
         });
-        this.screeningWorkEvents = screeningEvents2WorkEvents({ screeningEvents });
+        this.screeningWorkEvents = Functions.Purchase.screeningEvents2WorkEvents({ screeningEvents });
         this.update();
     }
 
@@ -162,7 +156,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         if (screeningEvent === undefined || screen === undefined) {
             return;
         }
-        const performance = new Performance(screeningEvent);
+        const performance = new Models.Purchase.Performance(screeningEvent);
         if (!performance.isInfinitetock()
             && !screen.openSeatingAllowed
             && performance.isTicketedSeat()) {
@@ -178,7 +172,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 screeningEventSeats,
                 screeningEvent,
                 cb: (params: {
-                    reservations: IReservation[];
+                    reservations: Models.Purchase.Reservation.IReservation[];
                     additionalTicketText?: string;
                 }) => {
                     this.selectTicket(params);
@@ -191,7 +185,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      * 券種選択
      */
     private async selectTicket(params: {
-        reservations: IReservation[];
+        reservations: Models.Purchase.Reservation.IReservation[];
         additionalTicketText?: string;
     }) {
         const reservations = params.reservations;
@@ -215,8 +209,8 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             }
             this.screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
             if (purchase.screeningEvent !== undefined
-                && new Performance(purchase.screeningEvent).isTicketedSeat()) {
-                const remainingSeatLength = getRemainingSeatLength({
+                && new Models.Purchase.Performance(purchase.screeningEvent).isTicketedSeat()) {
+                const remainingSeatLength = Functions.Purchase.getRemainingSeatLength({
                     screeningEventSeats: this.screeningEventSeats,
                     screeningEvent: purchase.screeningEvent
                 });

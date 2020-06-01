@@ -4,9 +4,8 @@ import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getEmptySeat, getExternalData, getRemainingSeatLength } from '../../../../../functions';
-import { IReservationSeat, Performance, SeatStatus } from '../../../../../models';
 import { PurchaseService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -19,7 +18,7 @@ export class PurchaseSeatComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     public environment = getEnvironment();
-    public external = getExternalData();
+    public external = Functions.Util.getExternalData();
     public screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
     public translateName: string;
 
@@ -66,11 +65,11 @@ export class PurchaseSeatComponent implements OnInit {
      * 座席選択
      */
     public async selectSeat(data: {
-        seat: IReservationSeat,
-        status: SeatStatus
+        seat: Models.Purchase.Reservation.IReservationSeat,
+        status: Models.Purchase.Screen.SeatStatus
     }) {
         const purchase = await this.purchaseService.getData();
-        if (data.status === SeatStatus.Default) {
+        if (data.status === Models.Purchase.Screen.SeatStatus.Default) {
             if (purchase.screeningEvent !== undefined
                 && purchase.screeningEvent.offers !== undefined
                 && purchase.screeningEvent.offers.eligibleQuantity.maxValue !== undefined
@@ -133,7 +132,7 @@ export class PurchaseSeatComponent implements OnInit {
      * 全席選択解除
      */
     public async resetSeats() {
-        const seats: IReservationSeat[] = [];
+        const seats: Models.Purchase.Reservation.IReservationSeat[] = [];
         const purchase = await this.purchaseService.getData();
         purchase.reservations.forEach((reservation) => {
             if (reservation.seat === undefined) {
@@ -161,9 +160,9 @@ export class PurchaseSeatComponent implements OnInit {
             && limit > screeningEvent.offers.eligibleQuantity.maxValue) {
             limit = screeningEvent.offers.eligibleQuantity.maxValue;
         }
-        if (new Performance(screeningEvent).isTicketedSeat()) {
+        if (new Models.Purchase.Performance(screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算
-            const screeningEventLimit = getRemainingSeatLength({
+            const screeningEventLimit = Functions.Purchase.getRemainingSeatLength({
                 screeningEventSeats, screeningEvent
             });
             if (limit > screeningEventLimit) {
@@ -187,9 +186,9 @@ export class PurchaseSeatComponent implements OnInit {
         const value = Number((<HTMLSelectElement>event.target).value);
         const reservations = purchaseData.reservations;
         const screeningEventSeats = this.screeningEventSeats;
-        const seats = getEmptySeat({ reservations, screeningEventSeats });
+        const seats = Functions.Purchase.getEmptySeat({ reservations, screeningEventSeats });
         await this.resetSeats();
-        const selectSeats: IReservationSeat[] = [];
+        const selectSeats: Models.Purchase.Reservation.IReservationSeat[] = [];
         for (let i = 0; i < value; i++) {
             selectSeats.push(seats[i]);
         }

@@ -20,3 +20,4 @@ export interface IReservationTicket {
     movieTicket?: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket;
     addOn?: factory.chevre.offer.IOffer[];
 }
+

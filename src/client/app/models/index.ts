@@ -1,9 +1,9 @@
-export * from './purchase/screen';
-export * from './purchase/reservation';
-export * from './purchase/movieTicket';
-export * from './purchase/performance';
-export * from './order/action';
-export * from './order/print';
-export * from './common/language';
-export * from './common/viewType';
-export * from './common/printer';
+import * as Common from './common';
+import * as Order from './order';
+import * as Purchase from './purchase';
+
+export {
+    Purchase,
+    Order,
+    Common
+};

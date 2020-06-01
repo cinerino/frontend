@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
-import { IScreeningEventWork } from '../../../../../functions';
+import { Functions } from '../../../../..';
 
 @Component({
     selector: 'app-purchase-performances',
@@ -10,7 +10,7 @@ import { IScreeningEventWork } from '../../../../../functions';
 })
 export class PurchasePerformancesComponent implements OnInit {
 
-    @Input() public screeningWorkEvent: IScreeningEventWork;
+    @Input() public screeningWorkEvent: Functions.Purchase.IScreeningEventWork;
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();
     public moment = moment;
 

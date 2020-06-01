@@ -1642,9 +1642,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-    /*! ../../../../../functions */
-    "./app/functions/index.ts");
+    var ___WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../../../../.. */
+    "./app/index.ts");
     /* harmony import */
 
 
@@ -2181,7 +2181,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             _this7.profileForm.controls.email.setValue(user.profile.email);
 
             if (user.profile.telephone !== undefined) {
-              _this7.profileForm.controls.telephone.setValue(Object(_functions__WEBPACK_IMPORTED_MODULE_5__["formatTelephone"])(user.profile.telephone, 'National').replace(/\-/g, ''));
+              _this7.profileForm.controls.telephone.setValue(___WEBPACK_IMPORTED_MODULE_5__["Functions"].Util.formatTelephone(user.profile.telephone, 'National').replace(/\-/g, ''));
             }
           }).unsubscribe();
         }
