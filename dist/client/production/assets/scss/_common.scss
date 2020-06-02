@@ -203,3 +203,11 @@ button {
 .border-light-gray {
     border-color: $light-gray !important;
 }
+
+.intl-tel-input {
+    display: block !important;
+}
+
+.text-security-disc {
+    -webkit-text-security: disc;
+}

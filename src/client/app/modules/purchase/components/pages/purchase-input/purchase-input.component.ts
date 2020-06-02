@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { factory } from '@cinerino/api-javascript-client';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import * as libphonenumber from 'libphonenumber-js';
 import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { CountryISO, SearchCountryField, TooltipLabel, } from 'ngx-intl-tel-input';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
@@ -37,6 +37,9 @@ export class PurchaseInputComponent implements OnInit {
     public environment = getEnvironment();
     public viewType = Models.Common.ViewType;
     public usedCreditCard?: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
+    public SearchCountryField = SearchCountryField;
+    public TooltipLabel = TooltipLabel;
+    public CountryISO = CountryISO;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -114,26 +117,26 @@ export class PurchaseInputComponent implements OnInit {
                 validators.push(Validators.email);
             }
             if (p.key === 'telephone') {
-                validators.push((control: AbstractControl) => {
-                    const field = control.root.get('telephone');
-                    if (field !== null) {
-                        if (field.value === '') {
-                            return null;
-                        }
-                        const parsedNumber = (new RegExp(/^\+/).test(field.value))
-                            ? libphonenumber.parse(field.value)
-                            : libphonenumber.parse(field.value, 'JP');
-                        if (parsedNumber.phone === undefined) {
-                            return { telephone: true };
-                        }
-                        const isValid = libphonenumber.isValidNumber(parsedNumber);
-                        if (!isValid) {
-                            return { telephone: true };
-                        }
-                    }
+                // validators.push((control: AbstractControl) => {
+                //     const field = control.root.get('telephone');
+                //     if (field !== null) {
+                //         if (field.value === '') {
+                //             return null;
+                //         }
+                //         const parsedNumber = (new RegExp(/^\+/).test(field.value))
+                //             ? libphonenumber.parse(field.value)
+                //             : libphonenumber.parse(field.value, 'JP');
+                //         if (parsedNumber.phone === undefined) {
+                //             return { telephone: true };
+                //         }
+                //         const isValid = libphonenumber.isValidNumber(parsedNumber);
+                //         if (!isValid) {
+                //             return { telephone: true };
+                //         }
+                //     }
 
-                    return null;
-                });
+                //     return null;
+                // });
             }
             this.profileForm.addControl(p.key, new FormControl(p.value, validators));
         });
@@ -192,7 +195,8 @@ export class PurchaseInputComponent implements OnInit {
         this.profileForm.controls.familyName.setValue((<HTMLInputElement>document.getElementById('familyName')).value);
         this.profileForm.controls.givenName.setValue((<HTMLInputElement>document.getElementById('givenName')).value);
         this.profileForm.controls.email.setValue((<HTMLInputElement>document.getElementById('email')).value);
-        this.profileForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
+        // this.profileForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
+        console.log(this.profileForm);
         if (this.profileForm.invalid) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
@@ -251,7 +255,8 @@ export class PurchaseInputComponent implements OnInit {
             const contact = {
                 givenName: this.profileForm.controls.givenName.value,
                 familyName: this.profileForm.controls.familyName.value,
-                telephone: this.profileForm.controls.telephone.value,
+                // telephone: this.profileForm.controls.telephone.value,
+                telephone: this.profileForm.controls.telephone.value.e164Number,
                 email: this.profileForm.controls.email.value,
             };
             await this.purchaseService.registerContact(contact);

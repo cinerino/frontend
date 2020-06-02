@@ -4071,10 +4071,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/__ivy_ngcc__/fesm2015/store.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
-/* harmony import */ var libphonenumber_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-bootstrap/modal */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/modal/fesm2015/ngx-bootstrap-modal.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-bootstrap/modal */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/modal/fesm2015/ngx-bootstrap-modal.js");
+/* harmony import */ var ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-intl-tel-input */ "../../node_modules/ngx-intl-tel-input/__ivy_ngcc__/fesm2015/ngx-intl-tel-input.js");
 /* harmony import */ var ___WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../.. */ "./app/index.ts");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
@@ -4092,6 +4092,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 
 
@@ -4401,7 +4402,7 @@ function PurchaseInputComponent_div_12_span_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, "common.required"));
 } }
-function PurchaseInputComponent_div_12_div_8_p_1_Template(rf, ctx) { if (rf & 1) {
+function PurchaseInputComponent_div_12_div_7_p_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 21);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "translate");
@@ -4410,7 +4411,7 @@ function PurchaseInputComponent_div_12_div_8_p_1_Template(rf, ctx) { if (rf & 1)
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, "form.validation.required"), " ");
 } }
-function PurchaseInputComponent_div_12_div_8_p_2_Template(rf, ctx) { if (rf & 1) {
+function PurchaseInputComponent_div_12_div_7_p_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 21);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "translate");
@@ -4420,7 +4421,7 @@ function PurchaseInputComponent_div_12_div_8_p_2_Template(rf, ctx) { if (rf & 1)
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](2, 1, "form.validation.minlength", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](4, _c0, ctx_r32.profileForm.controls.telephone.errors == null ? null : ctx_r32.profileForm.controls.telephone.errors.minlength.requiredLength)), " ");
 } }
-function PurchaseInputComponent_div_12_div_8_p_3_Template(rf, ctx) { if (rf & 1) {
+function PurchaseInputComponent_div_12_div_7_p_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 21);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "translate");
@@ -4430,21 +4431,21 @@ function PurchaseInputComponent_div_12_div_8_p_3_Template(rf, ctx) { if (rf & 1)
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](2, 1, "form.validation.maxlength", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](4, _c0, ctx_r33.profileForm.controls.telephone.errors == null ? null : ctx_r33.profileForm.controls.telephone.errors.maxlength.requiredLength)), " ");
 } }
-function PurchaseInputComponent_div_12_div_8_p_4_Template(rf, ctx) { if (rf & 1) {
+function PurchaseInputComponent_div_12_div_7_p_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 21);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "translate");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, "form.validation.telephone"), "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, "form.validation.telephone"), " ");
 } }
-function PurchaseInputComponent_div_12_div_8_Template(rf, ctx) { if (rf & 1) {
+function PurchaseInputComponent_div_12_div_7_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 19);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseInputComponent_div_12_div_8_p_1_Template, 3, 3, "p", 20);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchaseInputComponent_div_12_div_8_p_2_Template, 3, 6, "p", 20);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, PurchaseInputComponent_div_12_div_8_p_3_Template, 3, 6, "p", 20);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, PurchaseInputComponent_div_12_div_8_p_4_Template, 3, 3, "p", 20);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseInputComponent_div_12_div_7_p_1_Template, 3, 3, "p", 20);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchaseInputComponent_div_12_div_7_p_2_Template, 3, 6, "p", 20);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, PurchaseInputComponent_div_12_div_7_p_3_Template, 3, 6, "p", 20);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, PurchaseInputComponent_div_12_div_7_p_4_Template, 3, 3, "p", 20);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r30 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
@@ -4455,8 +4456,10 @@ function PurchaseInputComponent_div_12_div_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r30.profileForm.controls.telephone.errors == null ? null : ctx_r30.profileForm.controls.telephone.errors.maxlength);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r30.profileForm.controls.telephone.errors == null ? null : ctx_r30.profileForm.controls.telephone.errors.telephone);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r30.profileForm.controls.telephone.errors == null ? null : ctx_r30.profileForm.controls.telephone.errors.validatePhoneNumber);
 } }
+const _c1 = function (a0) { return [a0]; };
+const _c2 = function (a0, a1) { return [a0, a1]; };
 function PurchaseInputComponent_div_12_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "p", 13);
@@ -4465,25 +4468,24 @@ function PurchaseInputComponent_div_12_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, PurchaseInputComponent_div_12_span_4_Template, 3, 3, "span", 14);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "div", 15);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](6, "input", 26);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](7, "translate");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](8, PurchaseInputComponent_div_12_div_8_Template, 5, 4, "div", 17);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](9, "p", 24);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](10, "translate");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](6, "ngx-intl-tel-input", 26);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, PurchaseInputComponent_div_12_div_7_Template, 5, 4, "div", 17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](8, "p", 24);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](9, "translate");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 5, "common.telephone"));
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 15, "common.telephone"));
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r3.isRequired("telephone"));
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("placeholder", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](7, 7, "form.placeholder.telephone"));
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("preferredCountries", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](19, _c1, ctx_r3.CountryISO.Japan))("enableAutoCountrySelect", false)("enablePlaceholder", true)("searchCountryFlag", true)("searchCountryField", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](21, _c2, ctx_r3.SearchCountryField.Iso2, ctx_r3.SearchCountryField.Name))("selectFirstCountry", false)("selectedCountryISO", ctx_r3.CountryISO.Japan)("maxLength", 15)("tooltipField", ctx_r3.TooltipLabel.Name)("phoneValidation", true)("separateDialCode", true);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r3.profileForm.controls.telephone.invalid && ctx_r3.profileForm.controls.telephone.touched);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("innerHTML", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](10, 9, "form.description.telephone"), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeHtml"]);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("innerHTML", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](9, 17, "form.description.telephone"), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeHtml"]);
 } }
 function PurchaseInputComponent_div_13_span_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "span", 18);
@@ -5147,6 +5149,9 @@ class PurchaseInputComponent {
         this.translate = translate;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["getEnvironment"])();
         this.viewType = ___WEBPACK_IMPORTED_MODULE_8__["Models"].Common.ViewType;
+        this.SearchCountryField = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_7__["SearchCountryField"];
+        this.TooltipLabel = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_7__["TooltipLabel"];
+        this.CountryISO = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_7__["CountryISO"];
     }
     /**
      * 初期化
@@ -5215,25 +5220,25 @@ class PurchaseInputComponent {
                     validators.push(_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].email);
                 }
                 if (p.key === 'telephone') {
-                    validators.push((control) => {
-                        const field = control.root.get('telephone');
-                        if (field !== null) {
-                            if (field.value === '') {
-                                return null;
-                            }
-                            const parsedNumber = (new RegExp(/^\+/).test(field.value))
-                                ? libphonenumber_js__WEBPACK_IMPORTED_MODULE_5__["parse"](field.value)
-                                : libphonenumber_js__WEBPACK_IMPORTED_MODULE_5__["parse"](field.value, 'JP');
-                            if (parsedNumber.phone === undefined) {
-                                return { telephone: true };
-                            }
-                            const isValid = libphonenumber_js__WEBPACK_IMPORTED_MODULE_5__["isValidNumber"](parsedNumber);
-                            if (!isValid) {
-                                return { telephone: true };
-                            }
-                        }
-                        return null;
-                    });
+                    // validators.push((control: AbstractControl) => {
+                    //     const field = control.root.get('telephone');
+                    //     if (field !== null) {
+                    //         if (field.value === '') {
+                    //             return null;
+                    //         }
+                    //         const parsedNumber = (new RegExp(/^\+/).test(field.value))
+                    //             ? libphonenumber.parse(field.value)
+                    //             : libphonenumber.parse(field.value, 'JP');
+                    //         if (parsedNumber.phone === undefined) {
+                    //             return { telephone: true };
+                    //         }
+                    //         const isValid = libphonenumber.isValidNumber(parsedNumber);
+                    //         if (!isValid) {
+                    //             return { telephone: true };
+                    //         }
+                    //     }
+                    //     return null;
+                    // });
                 }
                 this.profileForm.addControl(p.key, new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](p.value, validators));
             });
@@ -5270,7 +5275,7 @@ class PurchaseInputComponent {
             this.cardExpiration.month.push(`0${String(i + 1)}`.slice(-2));
         }
         for (let i = 0; i < 10; i++) {
-            this.cardExpiration.year.push(moment__WEBPACK_IMPORTED_MODULE_6__().add(i, 'year').format('YYYY'));
+            this.cardExpiration.year.push(moment__WEBPACK_IMPORTED_MODULE_5__().add(i, 'year').format('YYYY'));
         }
         this.creditCardForm = this.formBuilder.group({
             cardNumber: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern(/^[0-9]+$/)]],
@@ -5292,7 +5297,8 @@ class PurchaseInputComponent {
             this.profileForm.controls.familyName.setValue(document.getElementById('familyName').value);
             this.profileForm.controls.givenName.setValue(document.getElementById('givenName').value);
             this.profileForm.controls.email.setValue(document.getElementById('email').value);
-            this.profileForm.controls.telephone.setValue(document.getElementById('telephone').value);
+            // this.profileForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
+            console.log(this.profileForm);
             if (this.profileForm.invalid) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
@@ -5352,7 +5358,8 @@ class PurchaseInputComponent {
                 const contact = {
                     givenName: this.profileForm.controls.givenName.value,
                     familyName: this.profileForm.controls.familyName.value,
-                    telephone: this.profileForm.controls.telephone.value,
+                    // telephone: this.profileForm.controls.telephone.value,
+                    telephone: this.profileForm.controls.telephone.value.e164Number,
                     email: this.profileForm.controls.email.value,
                 };
                 yield this.purchaseService.registerContact(contact);
@@ -5416,8 +5423,8 @@ class PurchaseInputComponent {
         return this.environment.PROFILE.find(p => p.key === key && p.required) !== undefined;
     }
 }
-PurchaseInputComponent.ɵfac = function PurchaseInputComponent_Factory(t) { return new (t || PurchaseInputComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"])); };
-PurchaseInputComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchaseInputComponent, selectors: [["app-purchase-input"]], decls: 24, vars: 23, consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "mb-4"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "p-3", "bg-white"], [3, "formGroup"], ["class", "form-group row", 4, "ngIf"], ["class", "form-group", 4, "ngIf"], ["class", "mb-4", 4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], [4, "ngIf"], [1, "form-group", "row"], [1, "col-md-4", "py-2", "text-md-right"], ["class", "badge badge-danger ml-2", 4, "ngIf"], [1, "col-md-8"], ["type", "text", "formControlName", "familyName", "id", "familyName", 1, "form-control", 3, "placeholder"], ["class", "mt-2", 4, "ngIf"], [1, "badge", "badge-danger", "ml-2"], [1, "mt-2"], ["class", "text-danger", 4, "ngIf"], [1, "text-danger"], ["type", "text", "formControlName", "givenName", "id", "givenName", 1, "form-control", 3, "placeholder"], ["type", "email", "formControlName", "email", "id", "email", 1, "form-control", 3, "placeholder"], [1, "mt-2", "mb-1", "text-small", 3, "innerHTML"], ["type", "button", 1, "btn", "btn-primary", "btn-sm", 3, "click"], ["type", "tel", "formControlName", "telephone", "id", "telephone", 1, "form-control", 3, "placeholder"], [1, "form-group"], [1, "row", "align-items-center"], ["type", "tel", "formControlName", "age", "placeholder", "", 1, "form-control"], ["type", "tel", "formControlName", "address", "placeholder", "", 1, "form-control"], ["formControlName", "gender", 1, "form-control"], ["value", ""], ["value", "man"], ["value", "woman"], [1, "col-md-4", "py-2", "py-md-3", "text-md-right"], [1, "text-x-large", "text-info"], [3, "formGroup", 4, "ngIf"], ["class", "", 4, "ngIf"], ["class", "buttons mx-auto mt-3", 4, "ngIf"], ["type", "text", "id", "cardNumber", "formControlName", "cardNumber", "maxlength", "16", 1, "form-control", 3, "placeholder"], [1, "credit-image"], ["src", "/assets/images/credit_card.png", "alt", "", 1, "w-100"], [1, "form-inline"], ["id", "cardExpirationMonth", "formControlName", "cardExpirationMonth", 1, "form-control", "d-inline-block", "w-auto"], [3, "value", 4, "ngFor", "ngForOf"], [1, "mx-2"], ["id", "cardExpirationYear", "formControlName", "cardExpirationYear", 1, "form-control", "d-inline-block", "w-auto"], ["type", "text", "id", "securityCode", "maxlength", "4", "formControlName", "securityCode", 1, "form-control", 3, "placeholder"], [1, "btn", "btn-link", "btn-sm", 3, "click"], ["type", "text", "id", "holderName", "formControlName", "holderName", 1, "form-control", 3, "placeholder"], [3, "value"], [1, ""], [1, "col-md-8", "py-2"], [1, "buttons", "mx-auto", "mt-3"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "click"], ["type", "button", "routerLink", "/purchase/cinema/ticket", 1, "btn", "btn-link"], ["type", "button", "routerLink", "/purchase/event/ticket", 1, "btn", "btn-link"]], template: function PurchaseInputComponent_Template(rf, ctx) { if (rf & 1) {
+PurchaseInputComponent.ɵfac = function PurchaseInputComponent_Factory(t) { return new (t || PurchaseInputComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"])); };
+PurchaseInputComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchaseInputComponent, selectors: [["app-purchase-input"]], decls: 24, vars: 23, consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "mb-4"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "p-3", "bg-white"], [3, "formGroup"], ["class", "form-group row", 4, "ngIf"], ["class", "form-group", 4, "ngIf"], ["class", "mb-4", 4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], [4, "ngIf"], [1, "form-group", "row"], [1, "col-md-4", "py-2", "text-md-right"], ["class", "badge badge-danger ml-2", 4, "ngIf"], [1, "col-md-8"], ["type", "text", "formControlName", "familyName", "id", "familyName", 1, "form-control", 3, "placeholder"], ["class", "mt-2", 4, "ngIf"], [1, "badge", "badge-danger", "ml-2"], [1, "mt-2"], ["class", "text-danger", 4, "ngIf"], [1, "text-danger"], ["type", "text", "formControlName", "givenName", "id", "givenName", 1, "form-control", 3, "placeholder"], ["type", "email", "formControlName", "email", "id", "email", 1, "form-control", 3, "placeholder"], [1, "mt-2", "mb-1", "text-small", 3, "innerHTML"], ["type", "button", 1, "btn", "btn-primary", "btn-sm", 3, "click"], ["name", "telephone", "formControlName", "telephone", 3, "preferredCountries", "enableAutoCountrySelect", "enablePlaceholder", "searchCountryFlag", "searchCountryField", "selectFirstCountry", "selectedCountryISO", "maxLength", "tooltipField", "phoneValidation", "separateDialCode"], [1, "form-group"], [1, "row", "align-items-center"], ["type", "tel", "formControlName", "age", "placeholder", "", 1, "form-control"], ["type", "tel", "formControlName", "address", "placeholder", "", 1, "form-control"], ["formControlName", "gender", 1, "form-control"], ["value", ""], ["value", "man"], ["value", "woman"], [1, "col-md-4", "py-2", "py-md-3", "text-md-right"], [1, "text-x-large", "text-info"], [3, "formGroup", 4, "ngIf"], ["class", "", 4, "ngIf"], ["class", "buttons mx-auto mt-3", 4, "ngIf"], ["type", "text", "id", "cardNumber", "formControlName", "cardNumber", "maxlength", "16", 1, "form-control", 3, "placeholder"], [1, "credit-image"], ["src", "/assets/images/credit_card.png", "alt", "", 1, "w-100"], [1, "form-inline"], ["id", "cardExpirationMonth", "formControlName", "cardExpirationMonth", 1, "form-control", "d-inline-block", "w-auto"], [3, "value", 4, "ngFor", "ngForOf"], [1, "mx-2"], ["id", "cardExpirationYear", "formControlName", "cardExpirationYear", 1, "form-control", "d-inline-block", "w-auto"], ["type", "text", "id", "securityCode", "maxlength", "4", "formControlName", "securityCode", 1, "form-control", 3, "placeholder"], [1, "btn", "btn-link", "btn-sm", 3, "click"], ["type", "text", "id", "holderName", "formControlName", "holderName", 1, "form-control", 3, "placeholder"], [3, "value"], [1, ""], [1, "col-md-8", "py-2"], [1, "buttons", "mx-auto", "mt-3"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "click"], ["type", "button", "routerLink", "/purchase/cinema/ticket", 1, "btn", "btn-link"], ["type", "button", "routerLink", "/purchase/event/ticket", 1, "btn", "btn-link"]], template: function PurchaseInputComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h2", 2);
@@ -5431,7 +5438,7 @@ PurchaseInputComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](9, PurchaseInputComponent_div_9_Template, 9, 8, "div", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](10, PurchaseInputComponent_div_10_Template, 9, 8, "div", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](11, PurchaseInputComponent_div_11_Template, 14, 14, "div", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](12, PurchaseInputComponent_div_12_Template, 11, 11, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](12, PurchaseInputComponent_div_12_Template, 10, 24, "div", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](13, PurchaseInputComponent_div_13_Template, 9, 5, "div", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](14, PurchaseInputComponent_div_14_Template, 9, 5, "div", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](15, PurchaseInputComponent_div_15_Template, 18, 14, "div", 7);
@@ -5481,7 +5488,7 @@ PurchaseInputComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.environment.VIEW_TYPE === ctx.viewType.Cinema);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.environment.VIEW_TYPE === ctx.viewType.Event);
-    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_x"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["MaxLengthValidator"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["NgForOf"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLink"]], pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["AsyncPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["CurrencyPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["SlicePipe"]], styles: ["input[_ngcontent-%COMP%], select[formcontrolname=gender][_ngcontent-%COMP%] {\n  width: 75%;\n}\n@media (max-width: 767.98px) {\n  input[_ngcontent-%COMP%], select[formcontrolname=gender][_ngcontent-%COMP%] {\n    width: 100%;\n  }\n}\n.form-group[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0 !important;\n}\n.credit-image[_ngcontent-%COMP%] {\n  max-width: 170px;\n}"] });
+    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_7__["NgxIntlTelInputComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_x"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["MaxLengthValidator"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["NgForOf"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLink"]], pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["AsyncPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["CurrencyPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_15__["SlicePipe"]], styles: ["input[_ngcontent-%COMP%], select[formcontrolname=gender][_ngcontent-%COMP%], ngx-intl-tel-input[_ngcontent-%COMP%] {\n  display: block;\n  width: 75%;\n}\n@media (max-width: 767.98px) {\n  input[_ngcontent-%COMP%], select[formcontrolname=gender][_ngcontent-%COMP%], ngx-intl-tel-input[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n}\n.form-group[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0 !important;\n}\n.credit-image[_ngcontent-%COMP%] {\n  max-width: 170px;\n}"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PurchaseInputComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -5489,7 +5496,7 @@ PurchaseInputComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
                 templateUrl: './purchase-input.component.html',
                 styleUrls: ['./purchase-input.component.scss']
             }]
-    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }, { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_7__["BsModalService"] }, { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] }, { type: _services__WEBPACK_IMPORTED_MODULE_10__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_10__["UserService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_10__["PurchaseService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"] }]; }, null); })();
+    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }, { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"] }, { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] }, { type: _services__WEBPACK_IMPORTED_MODULE_10__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_10__["UserService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_10__["PurchaseService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"] }]; }, null); })();
 
 
 /***/ }),

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
+import { CountryISO, SearchCountryField, TooltipLabel } from 'ngx-intl-tel-input';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { OrderService, UtilService } from '../../../../../services';
@@ -18,6 +19,9 @@ export class InquiryInputComponent implements OnInit {
     public inquiryForm: FormGroup;
     public environment = getEnvironment();
     public isLoading: Observable<boolean>;
+    public SearchCountryField = SearchCountryField;
+    public TooltipLabel = TooltipLabel;
+    public CountryISO = CountryISO;
     constructor(
         private store: Store<reducers.IState>,
         private formBuilder: FormBuilder,
@@ -46,31 +50,34 @@ export class InquiryInputComponent implements OnInit {
                 Validators.required,
                 Validators.pattern(/^[0-9]+$/)
             ]],
-            telephone: ['', [
-                Validators.required,
-                Validators.maxLength(TEL_MAX_LENGTH),
-                Validators.minLength(TEL_MIN_LENGTH),
-                (control: AbstractControl): ValidationErrors | null => {
-                    const field = control.root.get('telephone');
-                    if (field !== null) {
-                        if (field.value === '') {
-                            return null;
+            telephone: ['', (this.environment.INQUIRY_INPUT_KEYPAD)
+                ? [
+                    Validators.required,
+                    Validators.maxLength(TEL_MAX_LENGTH),
+                    Validators.minLength(TEL_MIN_LENGTH),
+                    (control: AbstractControl): ValidationErrors | null => {
+                        const field = control.root.get('telephone');
+                        if (field !== null) {
+                            if (field.value === '') {
+                                return null;
+                            }
+                            const parsedNumber = (new RegExp(/^\+/).test(field.value))
+                                ? libphonenumber.parse(field.value)
+                                : libphonenumber.parse(field.value, 'JP');
+                            if (parsedNumber.phone === undefined) {
+                                return { telephone: true };
+                            }
+                            const isValid = libphonenumber.isValidNumber(parsedNumber);
+                            if (!isValid) {
+                                return { telephone: true };
+                            }
                         }
-                        const parsedNumber = (new RegExp(/^\+/).test(field.value))
-                            ? libphonenumber.parse(field.value)
-                            : libphonenumber.parse(field.value, 'JP');
-                        if (parsedNumber.phone === undefined) {
-                            return { telephone: true };
-                        }
-                        const isValid = libphonenumber.isValidNumber(parsedNumber);
-                        if (!isValid) {
-                            return { telephone: true };
-                        }
-                    }
 
-                    return null;
-                }
-            ]]
+                        return null;
+                    }
+                ]
+                : [Validators.required]
+            ]
         });
     }
 
@@ -82,12 +89,16 @@ export class InquiryInputComponent implements OnInit {
             this.inquiryForm.controls[key].markAsTouched();
         });
         this.inquiryForm.controls.confirmationNumber.setValue((<HTMLInputElement>document.getElementById('confirmationNumber')).value);
-        this.inquiryForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
+        if (this.environment.INQUIRY_INPUT_KEYPAD) {
+            this.inquiryForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
+        }
         if (this.inquiryForm.invalid) {
             return;
         }
         const confirmationNumber = this.inquiryForm.controls.confirmationNumber.value;
-        const telephone = this.inquiryForm.controls.telephone.value;
+        const telephone = (this.environment.INQUIRY_INPUT_KEYPAD)
+            ? this.inquiryForm.controls.telephone.value
+            : this.inquiryForm.controls.telephone.value.e164Number;
         try {
             await this.orderService.inquiry({
                 confirmationNumber,
