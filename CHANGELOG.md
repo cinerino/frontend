@@ -12,10 +12,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.38 - 2020-06-03
+### Changed
+ - モデル、関数エクスポート先変更
+
 ## 3.0.37 - 2020-05-29
 ### Changed
  - QRコード表示制御変更
-
 
 ## 3.0.36 - 2020-05-28
 ### Changed
