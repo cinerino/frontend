@@ -57,15 +57,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-    /*! ../../../../../environments/environment */
-    "./environments/environment.ts");
+    var ___WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ../../../.. */
+    "./app/index.ts");
     /* harmony import */
 
 
-    var _models__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-    /*! ../../../../models */
-    "./app/models/index.ts");
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../../../../../environments/environment */
+    "./environments/environment.ts");
     /* harmony import */
 
 
@@ -549,10 +549,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.translate = translate;
         this.orderService = orderService;
         this.router = router;
-        this.viewType = _models__WEBPACK_IMPORTED_MODULE_6__["ViewType"];
-        this.printers = _models__WEBPACK_IMPORTED_MODULE_6__["printers"];
-        this.connectionType = _models__WEBPACK_IMPORTED_MODULE_6__["connectionType"];
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
+        this.viewType = ___WEBPACK_IMPORTED_MODULE_5__["Models"].Common.ViewType;
+        this.printers = ___WEBPACK_IMPORTED_MODULE_5__["Models"].Common.Printer.printers;
+        this.connectionType = ___WEBPACK_IMPORTED_MODULE_5__["Models"].Common.Printer.ConnectionType;
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
       }
 
       _createClass(SettingComponent, [{
@@ -797,7 +797,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "changePrinterType",
         value: function changePrinterType() {
-          if (this.baseForm.controls.printerType.value === _models__WEBPACK_IMPORTED_MODULE_6__["connectionType"].StarBluetooth) {
+          if (this.baseForm.controls.printerType.value === ___WEBPACK_IMPORTED_MODULE_5__["Models"].Common.Printer.ConnectionType.StarBluetooth) {
             this.baseForm.controls.printerIpAddress.setValue(this.translate.instant('setting.starBluetoothAddress'));
           }
         }

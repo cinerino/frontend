@@ -1,12 +1,7 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
-import {
-    deepCopy,
-    isAvailabilityMovieTicket,
-    sameMovieTicketFilter
-} from '../../functions';
-import { IMovieTicket, IReservation, IReservationTicket } from '../../models';
+import { Functions, Models } from '../..';
 import { purchaseAction } from '../actions';
 
 export interface IPurchaseState {
@@ -41,7 +36,7 @@ export interface IPurchaseState {
     /**
      * 予約
      */
-    reservations: IReservation[];
+    reservations: Models.Purchase.Reservation.IReservation[];
     /**
      * 券種
      */
@@ -97,7 +92,7 @@ export interface IPurchaseState {
     /**
      * 使用中ムビチケ
      */
-    pendingMovieTickets: IMovieTicket[];
+    pendingMovieTickets: Models.Purchase.MovieTicket.IMovieTicket[];
 }
 
 export const purchaseInitialState: IPurchaseState = {
@@ -270,7 +265,7 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
         on(purchaseAction.selectSeats, (state, payload) => {
-            const reservations = deepCopy<IReservation[]>(state.purchaseData.reservations);
+            const reservations = Functions.Util.deepCopy<Models.Purchase.Reservation.IReservation[]>(state.purchaseData.reservations);
             payload.seats.forEach((seat) => {
                 reservations.push({ seat });
             });
@@ -283,7 +278,7 @@ export function reducer(initialState: IState, action: Action) {
             };
         }),
         on(purchaseAction.cancelSeats, (state, payload) => {
-            const reservations: IReservation[] = [];
+            const reservations: Models.Purchase.Reservation.IReservation[] = [];
             const seats = payload.seats;
             state.purchaseData.reservations.forEach((reservation) => {
                 const findResult = seats.find((seat) => {
@@ -330,7 +325,7 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
         on(purchaseAction.selectTickets, (state, payload) => {
-            const reservations: IReservation[] = [];
+            const reservations: Models.Purchase.Reservation.IReservation[] = [];
             const selectedReservations = payload.reservations;
             state.purchaseData.reservations.forEach((reservation) => {
                 const findResult =
@@ -358,14 +353,15 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(purchaseAction.temporaryReservationSuccess, (state, payload) => {
             const authorizeSeatReservation =
-                deepCopy<factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>>
+                Functions.Util.deepCopy<factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>>
                     (payload.addAuthorizeSeatReservation);
             const removeAuthorizeSeatReservation = payload.removeAuthorizeSeatReservation;
-            const reservations = deepCopy<IReservation[]>(state.purchaseData.reservations);
+            const reservations = Functions.Util.deepCopy<Models.Purchase.Reservation.IReservation[]>(state.purchaseData.reservations);
             const authorizeSeatReservations =
-                deepCopy<factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]>
+                Functions.Util.deepCopy<factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]>
                     (state.purchaseData.authorizeSeatReservations);
-            const pendingMovieTickets = deepCopy<IMovieTicket[]>(state.purchaseData.pendingMovieTickets);
+            const pendingMovieTickets =
+                Functions.Util.deepCopy<Models.Purchase.MovieTicket.IMovieTicket[]>(state.purchaseData.pendingMovieTickets);
             if (removeAuthorizeSeatReservation !== undefined) {
                 // 削除
                 const findAuthorizeSeatReservation =
@@ -400,7 +396,9 @@ export function reducer(initialState: IState, action: Action) {
                             throw new Error('pendingReservation is undefined');
                         }
                         const movieTicket =
-                            (<factory.paymentMethod.paymentCard.movieTicket.IMovieTicket>(<IReservationTicket>r.ticket).movieTicket);
+                            (<factory.paymentMethod.paymentCard.movieTicket.IMovieTicket>(
+                                <Models.Purchase.Reservation.IReservationTicket>r.ticket
+                            ).movieTicket);
                         movieTicket.serviceOutput = {
                             reservationFor: {
                                 typeOf: factory.chevre.eventType.ScreeningEvent,
@@ -433,12 +431,15 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(purchaseAction.cancelTemporaryReservationsSuccess, (state, payload) => {
             const authorizeSeatReservations =
-                deepCopy<factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]>
+                Functions.Util.deepCopy<factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]>
                     (state.purchaseData.authorizeSeatReservations);
-            const pendingMovieTickets = deepCopy<IMovieTicket[]>(state.purchaseData.pendingMovieTickets);
+            const pendingMovieTickets =
+                Functions.Util.deepCopy<Models.Purchase.MovieTicket.IMovieTicket[]>(state.purchaseData.pendingMovieTickets);
             payload.authorizeSeatReservations.forEach((authorizeSeatReservation) => {
                 const findAuthorizeSeatReservation =
-                    deepCopy<factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]>
+                    Functions.Util.deepCopy<factory.action.authorize.offer.seatReservation.IAction<
+                        factory.service.webAPI.Identifier.Chevre
+                    >[]>
                         (authorizeSeatReservations).findIndex(
                             target => target.id === authorizeSeatReservation.id
                         );
@@ -498,7 +499,8 @@ export function reducer(initialState: IState, action: Action) {
             const authorizeCreditCardPayment = payload.authorizeCreditCardPayment;
             const orderCount = state.purchaseData.orderCount + 1;
             const authorizeCreditCardPayments =
-                deepCopy<factory.action.authorize.paymentMethod.creditCard.IAction[]>(state.purchaseData.authorizeCreditCardPayments);
+                Functions.Util.deepCopy<factory.action.authorize.paymentMethod.creditCard.IAction[]>
+                    (state.purchaseData.authorizeCreditCardPayments);
             authorizeCreditCardPayments.push(authorizeCreditCardPayment);
             return {
                 ...state,
@@ -562,12 +564,13 @@ export function reducer(initialState: IState, action: Action) {
         on(purchaseAction.checkMovieTicketSuccess, (state, payload) => {
             const checkMovieTicketAction = payload.checkMovieTicketAction;
             const checkMovieTicketActions =
-                deepCopy<factory.action.check.paymentMethod.movieTicket.IAction[]>(state.purchaseData.checkMovieTicketActions);
-            const sameMovieTicketFilterResults = sameMovieTicketFilter({
+                Functions.Util.deepCopy<factory.action.check.paymentMethod.movieTicket.IAction[]>
+                    (state.purchaseData.checkMovieTicketActions);
+            const sameMovieTicketFilterResults = Functions.Purchase.sameMovieTicketFilter({
                 checkMovieTicketAction, checkMovieTicketActions
             });
             if (sameMovieTicketFilterResults.length === 0
-                && isAvailabilityMovieTicket(checkMovieTicketAction)) {
+                && Functions.Purchase.isAvailabilityMovieTicket(checkMovieTicketAction)) {
                 checkMovieTicketActions.push(checkMovieTicketAction);
             }
 

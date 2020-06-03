@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { IPrinter } from '../models';
+import { Models } from '..';
 import { userAction } from '../store/actions';
 import * as reducers from '../store/reducers';
 import { UtilService } from './util.service';
@@ -233,7 +233,7 @@ export class UserService {
     public updateBaseSetting(params: {
         pos?: factory.chevre.place.movieTheater.IPOS;
         theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
-        printer?: IPrinter;
+        printer?: Models.Common.Printer.IPrinter;
     }) {
         this.store.dispatch(userAction.updateBaseSetting({
             pos: params.pos,

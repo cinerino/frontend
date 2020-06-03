@@ -58,3 +58,4 @@ export interface ITicketPrintData {
         y: number;
     }[];
 }
+

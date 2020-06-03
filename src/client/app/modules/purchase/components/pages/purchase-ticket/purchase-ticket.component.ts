@@ -5,8 +5,8 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
+import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { IReservation, IReservationTicket } from '../../../../../models/purchase/reservation';
 import { PurchaseService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { MvtkCheckModalComponent } from '../../../../shared/components/parts/mvtk/check-modal/check-modal.component';
@@ -112,7 +112,7 @@ export class PurchaseTicketComponent implements OnInit {
      * 券種一覧表示
      * @param reservation
      */
-    public async openTicketList(reservation: IReservation) {
+    public async openTicketList(reservation: Models.Purchase.Reservation.IReservation) {
         const purchase = await this.purchaseService.getData();
         this.modal.show(PurchaseSeatTicketModalComponent, {
             initialState: {
@@ -121,7 +121,7 @@ export class PurchaseTicketComponent implements OnInit {
                 reservations: purchase.reservations,
                 reservation: reservation,
                 pendingMovieTickets: purchase.pendingMovieTickets,
-                cb: (ticket: IReservationTicket) => {
+                cb: (ticket: Models.Purchase.Reservation.IReservationTicket) => {
                     this.purchaseService.selectTickets([{ ...reservation, ticket }]);
                 }
             },

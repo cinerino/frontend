@@ -3,7 +3,7 @@
  */
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import { getProject } from '../functions';
+import { Functions } from '..';
 import { CinerinoService } from '../services';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class ProjectGuardService implements CanActivate {
         try {
             await this.cinerino.getServices();
             const projects = (await this.cinerino.project.search({})).data;
-            if (projects.find(p => p.id === getProject().projectId) === undefined) {
+            if (projects.find(p => p.id === Functions.Util.getProject().projectId) === undefined) {
                 throw new Error('project not found');
             }
 

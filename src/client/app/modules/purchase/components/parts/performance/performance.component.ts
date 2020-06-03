@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { Performance, ViewType } from '../../../../../models';
+import * as Models from '../../../../../models';
 
 @Component({
     selector: 'app-purchase-performance',
@@ -11,11 +11,11 @@ import { Performance, ViewType } from '../../../../../models';
 })
 export class PurchasePerformanceComponent implements OnInit {
 
-    @Input() public performance: Performance;
+    @Input() public performance: Models.Purchase.Performance;
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();
     public moment = moment;
     public environment = getEnvironment();
-    public viewType = ViewType;
+    public viewType = Models.Common.ViewType;
 
     constructor() { }
 

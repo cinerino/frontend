@@ -715,7 +715,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/__ivy_ngcc__/fesm2015/store.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
 /* harmony import */ var libphonenumber_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! libphonenumber-js */ "../../node_modules/libphonenumber-js/index.es6.js");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../.. */ "./app/index.ts");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
 /* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
@@ -1016,7 +1016,7 @@ class MypageProfileComponent {
             this.profileForm.controls.givenName.setValue(user.profile.givenName);
             this.profileForm.controls.email.setValue(user.profile.email);
             if (user.profile.telephone !== undefined) {
-                this.profileForm.controls.telephone.setValue(Object(_functions__WEBPACK_IMPORTED_MODULE_5__["formatTelephone"])(user.profile.telephone, 'National').replace(/\-/g, ''));
+                this.profileForm.controls.telephone.setValue(___WEBPACK_IMPORTED_MODULE_5__["Functions"].Util.formatTelephone(user.profile.telephone, 'National').replace(/\-/g, ''));
             }
         }).unsubscribe();
     }

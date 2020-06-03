@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getProject } from '../../../../../functions';
-import { Language } from '../../../../../models';
 import { UserService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -36,8 +35,8 @@ export class HeaderComponent implements OnInit {
         }).unsubscribe();
         this.isMenuOpen = false;
         this.imageUrl = {
-            pc: `${getProject().storageUrl}/images/logo.svg`,
-            sp: `${getProject().storageUrl}/images/logo-sp.svg`
+            pc: `${Functions.Util.getProject().storageUrl}/images/logo.svg`,
+            sp: `${Functions.Util.getProject().storageUrl}/images/logo-sp.svg`
         };
     }
 
@@ -46,7 +45,7 @@ export class HeaderComponent implements OnInit {
     }
 
     public getLanguageName(key: string) {
-        return (<any>Language)[key];
+        return (<any>Models.Common.Language)[key];
     }
 
     public menuOpen() {

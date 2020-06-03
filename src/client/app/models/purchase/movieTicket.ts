@@ -7,3 +7,4 @@ export interface IMovieTicket {
     id: string;
     movieTickets: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[];
 }
+

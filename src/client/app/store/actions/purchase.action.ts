@@ -1,7 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { createAction, props } from '@ngrx/store';
-import { IGmoTokenObject } from '../../functions';
-import { IMovieTicket, IReservation, IReservationSeat } from '../../models';
+import { Functions, Models } from '../..';
 
 const LABEL = '[Purchase]';
 
@@ -150,12 +149,12 @@ export const getScreenFail = createAction(
 
 export const selectSeats = createAction(
     `${LABEL} selectSeats`,
-    props<{ seats: IReservationSeat[] }>()
+    props<{ seats: Models.Purchase.Reservation.IReservationSeat[] }>()
 );
 
 export const cancelSeats = createAction(
     `${LABEL} cancelSeats`,
-    props<{ seats: IReservationSeat[] }>()
+    props<{ seats: Models.Purchase.Reservation.IReservationSeat[] }>()
 );
 
 export const getTicketList = createAction(
@@ -181,7 +180,7 @@ export const getTicketListFail = createAction(
 
 export const selectTickets = createAction(
     `${LABEL} selectTickets`,
-    props<{ reservations: IReservation[] }>()
+    props<{ reservations: Models.Purchase.Reservation.IReservation[] }>()
 );
 
 export const temporaryReservation = createAction(
@@ -190,7 +189,7 @@ export const temporaryReservation = createAction(
         transaction: factory.transaction.placeOrder.ITransaction;
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
         authorizeSeatReservation?: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
-        reservations: IReservation[];
+        reservations: Models.Purchase.Reservation.IReservation[];
         screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
         additionalTicketText?: string;
     }>()
@@ -293,7 +292,7 @@ export const authorizeMovieTicket = createAction(
         transaction: factory.transaction.placeOrder.ITransaction;
         authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
-        pendingMovieTickets: IMovieTicket[];
+        pendingMovieTickets: Models.Purchase.MovieTicket.IMovieTicket[];
         seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
     }>()
 );
@@ -372,7 +371,7 @@ export const createGmoTokenObject = createAction(
 
 export const createGmoTokenObjectSuccess = createAction(
     `${LABEL} createGmoTokenObjectSuccess`,
-    props<{ gmoTokenObject: IGmoTokenObject; }>()
+    props<{ gmoTokenObject: Functions.Purchase.IGmoTokenObject; }>()
 );
 
 export const createGmoTokenObjectFail = createAction(

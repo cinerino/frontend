@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
+import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { getProject, isFile } from '../../../../../functions';
 import { UtilService } from '../../../../../services';
 
 @Component({
@@ -25,8 +25,8 @@ export class PurchaseWarningComponent implements OnInit, OnChanges {
     public async ngOnChanges() {
         try {
             const path = `/text/purchase/warning/${this.language}.txt`;
-            const url = (await isFile(`${getProject().storageUrl}${path}`))
-                ? `${getProject().storageUrl}${path}`
+            const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+                ? `${Functions.Util.getProject().storageUrl}${path}`
                 : `/default${path}`;
             const result = await this.utilService.getText(url);
             this.warning = result.replace(/\n/g, '<br>');

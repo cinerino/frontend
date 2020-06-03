@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { movieTicketAuthErroCodeToMessage } from '../../../../../../functions';
+import { Functions } from '../../../../../..';
 import { PurchaseService, QRCodeService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 import { ChangeLanguagePipe } from '../../../../../shared/pipes/change-language.pipe';
@@ -95,7 +95,7 @@ export class MvtkCheckModalComponent implements OnInit {
             const knyknrNoMkujyuCd = checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].knyknrNoMkujyuCd;
             if (knyknrNoMkujyuCd !== undefined) {
                 const message = new ChangeLanguagePipe(this.translate)
-                    .transform(movieTicketAuthErroCodeToMessage(knyknrNoMkujyuCd));
+                    .transform(Functions.Purchase.movieTicketAuthErroCodeToMessage(knyknrNoMkujyuCd));
                 this.isSuccess = false;
                 this.errorMessage = `${this.translate.instant('modal.mvtk.check.alert.validation')}<br>
                 [${knyknrNoMkujyuCd}] ${message}`;

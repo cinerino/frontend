@@ -71,15 +71,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-    /*! ../../../../../../environments/environment */
-    "./environments/environment.ts");
+    var ___WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../../../../.. */
+    "./app/index.ts");
     /* harmony import */
 
 
-    var _functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-    /*! ../../../../../functions */
-    "./app/functions/index.ts");
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! ../../../../../../environments/environment */
+    "./environments/environment.ts");
     /* harmony import */
 
 
@@ -665,7 +665,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.qrcodeService = qrcodeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
       }
       /**
        * 初期化
@@ -703,11 +703,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     throw new Error('order undefined');
 
                   case 11:
-                    this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({
+                    this.eventOrders = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.order2EventOrders({
                       order: order
                     });
                     findResult = this.eventOrders.find(function (o) {
-                      return Object(_functions__WEBPACK_IMPORTED_MODULE_7__["isShowQRCode"])(o.event);
+                      return ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Order.isShowQRCode(o.event);
                     });
 
                     if (!(this.environment.INQUIRY_QRCODE && findResult !== undefined)) {
@@ -733,7 +733,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     throw new Error('order undefined');
 
                   case 21:
-                    this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({
+                    this.eventOrders = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.order2EventOrders({
                       order: order
                     });
 

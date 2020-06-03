@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/api-javascript-client';
 import { createAction, props } from '@ngrx/store';
-import { IPrinter } from '../../models';
+import { Models } from '../..';
 const LABEL = '[Order]';
 
 export const remove = createAction(
@@ -52,7 +52,7 @@ export const print = createAction(
     `${LABEL} print`,
     props<{
         orders: factory.order.IOrder[];
-        printer: IPrinter;
+        printer: Models.Common.Printer.IPrinter;
         pos?: factory.chevre.place.movieTheater.IPOS;
         timeout?: number;
     }>()

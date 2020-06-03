@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { isShowQRCode } from '../../../../../functions';
-import { IReservation } from '../../../../../models';
 
 @Component({
     selector: 'app-item-list',
@@ -10,13 +9,13 @@ import { IReservation } from '../../../../../models';
     styleUrls: ['./item-list.component.scss']
 })
 export class ItemListComponent implements OnInit {
-    @Input() public reservations?: IReservation[];
+    @Input() public reservations?: Models.Purchase.Reservation.IReservation[];
     @Input() public authorizeSeatReservations?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[];
     @Input() public acceptedOffers?: factory.order.IAcceptedOffer<factory.order.IItemOffered>[];
     @Input() public qrcode = false;
     @Output() public openQrcode = new EventEmitter<{ id: string }>();
     public environment = getEnvironment();
-    public isShowQRCode = isShowQRCode;
+    public isShowQRCode = Functions.Order.isShowQRCode;
 
 
     constructor() { }
@@ -27,7 +26,7 @@ export class ItemListComponent implements OnInit {
     /**
      * 一時予約から価格取得
      */
-    public getReservationPriceComponents(reservation: IReservation) {
+    public getReservationPriceComponents(reservation: Models.Purchase.Reservation.IReservation) {
         const priceComponents:
             factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType>[] = [];
         if (reservation.seat !== undefined && reservation.seat.offers !== undefined) {

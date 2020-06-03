@@ -2,9 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Functions, Models } from '../../../../../../..';
 import { getEnvironment } from '../../../../../../../../environments/environment';
-import { getRemainingSeatLength } from '../../../../../../../functions';
-import { IReservation, Performance } from '../../../../../../../models';
 
 type IMovieTicketTypeChargeSpecification =
     factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification>;
@@ -20,7 +19,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
     @Input() public screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
     @Input() public screeningEvent: factory.event.screeningEvent.IEvent;
     @Input() public cb: (params: {
-        reservations: IReservation[];
+        reservations: Models.Purchase.Reservation.IReservation[];
         additionalTicketText?: string;
     }) => void;
     public tickets: factory.chevre.event.screeningEvent.ITicketOffer[];
@@ -30,8 +29,8 @@ export class PurchaseEventTicketModalComponent implements OnInit {
         addOn: { id: string; }[];
     }[];
     public moment: typeof moment = moment;
-    public getRemainingSeatLength = getRemainingSeatLength;
-    public performance: Performance;
+    public getRemainingSeatLength = Functions.Purchase.getRemainingSeatLength;
+    public performance: Models.Purchase.Performance;
     public additionalTicketText: string;
     public environment = getEnvironment();
 
@@ -43,7 +42,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
      * 初期化
      */
     public ngOnInit() {
-        this.performance = new Performance(this.screeningEvent);
+        this.performance = new Models.Purchase.Performance(this.screeningEvent);
         this.tickets = [];
         this.tickets = this.screeningEventTicketOffers.filter((ticketOffer) => {
             const movieTicketTypeChargeSpecification =
@@ -84,9 +83,9 @@ export class PurchaseEventTicketModalComponent implements OnInit {
             && limit > screeningEvent.remainingAttendeeCapacity) {
             limit = screeningEvent.remainingAttendeeCapacity;
         }
-        if (new Performance(screeningEvent).isTicketedSeat()) {
+        if (new Models.Purchase.Performance(screeningEvent).isTicketedSeat()) {
             // イベント全体の残席数計算
-            const screeningEventLimit = getRemainingSeatLength({
+            const screeningEventLimit = Functions.Purchase.getRemainingSeatLength({
                 screeningEvent,
                 screeningEventSeats
             });
@@ -125,7 +124,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
      * 予約チケット作成
      */
     public createReservations() {
-        const reservations: IReservation[] = [];
+        const reservations: Models.Purchase.Reservation.IReservation[] = [];
         this.selectedTickets.forEach((t) => {
             const count = t.count;
             for (let i = 0; i < count; i++) {

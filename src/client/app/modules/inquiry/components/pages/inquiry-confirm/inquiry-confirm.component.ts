@@ -5,8 +5,8 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { IEventOrder, isShowQRCode, order2EventOrders } from '../../../../../functions';
 import { OrderService, QRCodeService, UserService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
@@ -20,7 +20,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     public order: Observable<reducers.IOrderState>;
     public user: Observable<reducers.IUserState>;
     public moment: typeof moment = moment;
-    public eventOrders: IEventOrder[];
+    public eventOrders: Functions.Purchase.IEventOrder[];
     public error: Observable<string | null>;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public environment = getEnvironment();
@@ -50,15 +50,15 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
             if (order === undefined) {
                 throw new Error('order undefined');
             }
-            this.eventOrders = order2EventOrders({ order });
-            const findResult = this.eventOrders.find(o => isShowQRCode(o.event));
+            this.eventOrders = Functions.Purchase.order2EventOrders({ order });
+            const findResult = this.eventOrders.find(o => Functions.Order.isShowQRCode(o.event));
             if (this.environment.INQUIRY_QRCODE && findResult !== undefined) {
                 await this.orderService.authorize(order);
                 order = (await this.orderService.getData()).order;
                 if (order === undefined) {
                     throw new Error('order undefined');
                 }
-                this.eventOrders = order2EventOrders({ order });
+                this.eventOrders = Functions.Purchase.order2EventOrders({ order });
             }
             if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
                 const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);

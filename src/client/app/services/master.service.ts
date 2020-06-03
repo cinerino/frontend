@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { sleep } from '../functions';
+import { Functions } from '..';
 import { masterAction } from '../store/actions';
 import * as reducers from '../store/reducers';
 import { CinerinoService } from './cinerino.service';
@@ -116,7 +116,7 @@ export class MasterService {
                 screeningEvents = screeningEvents.concat(searchResult.data);
                 page++;
                 roop = searchResult.data.length === limit;
-                await sleep(500);
+                await Functions.Util.sleep(500);
             }
             // 公開日順（降順）へソート
             screeningEvents = screeningEvents.sort((a, b) => {

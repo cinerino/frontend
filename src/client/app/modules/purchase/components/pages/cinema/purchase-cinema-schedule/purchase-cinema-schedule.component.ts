@@ -7,8 +7,8 @@ import { BAD_REQUEST, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
 import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable } from 'rxjs';
+import { Functions } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { getExternalData, IScreeningEventWork, screeningEvents2WorkEvents } from '../../../../../../functions';
 import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
@@ -27,10 +27,10 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public swiperConfig: SwiperConfigInterface;
     public scheduleDates: string[];
     public isPreSchedule: boolean;
-    public screeningWorkEvents: IScreeningEventWork[];
+    public screeningWorkEvents: Functions.Purchase.IScreeningEventWork[];
     public moment: typeof moment = moment;
     public environment = getEnvironment();
-    public external = getExternalData();
+    public external = Functions.Util.getExternalData();
     private updateTimer: any;
     public theaters: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom[];
 
@@ -75,7 +75,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 throw new Error('theater notfound');
             }
             const purchase = await this.purchaseService.getData();
-            const external = getExternalData();
+            const external = Functions.Util.getExternalData();
             let theater = (purchase.theater === undefined) ? this.theaters[0] : purchase.theater;
             const findResult = this.theaters.find((t) => {
                 return (external.theaterBranchCode !== undefined && t.branchCode === external.theaterBranchCode);
@@ -168,7 +168,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public async selectDate(scheduleDate?: string) {
         const purchase = await this.purchaseService.getData();
         const theater = purchase.theater;
-        const external = getExternalData();
+        const external = Functions.Util.getExternalData();
         if (theater === undefined || this.scheduleDates.length === 0) {
             this.router.navigate(['/error']);
             return;
@@ -195,7 +195,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            this.screeningWorkEvents = screeningEvents2WorkEvents({ screeningEvents });
+            this.screeningWorkEvents = Functions.Purchase.screeningEvents2WorkEvents({ screeningEvents });
             this.update();
         } catch (error) {
             console.error(error);

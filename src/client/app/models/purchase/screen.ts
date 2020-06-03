@@ -1,4 +1,4 @@
-import { IReservationSeat } from '..';
+import * as Reservation from './reservation';
 
 export interface ISize {
     w: number;
@@ -70,5 +70,6 @@ export interface ISeat {
     code: string;
     section: string;
     status: SeatStatus;
-    ticketedSeat?: IReservationSeat;
+    ticketedSeat?: Reservation.IReservationSeat;
 }
+

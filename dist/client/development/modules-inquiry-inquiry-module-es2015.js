@@ -18,8 +18,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../functions */ "./app/functions/index.ts");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../.. */ "./app/index.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../../environments/environment */ "./environments/environment.ts");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../services */ "./app/services/index.ts");
 /* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../store/reducers */ "./app/store/reducers/index.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
@@ -312,7 +312,7 @@ class InquiryConfirmComponent {
         this.qrcodeService = qrcodeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
         this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
     }
     /**
      * 初期化
@@ -329,15 +329,15 @@ class InquiryConfirmComponent {
                 if (order === undefined) {
                     throw new Error('order undefined');
                 }
-                this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({ order });
-                const findResult = this.eventOrders.find(o => Object(_functions__WEBPACK_IMPORTED_MODULE_7__["isShowQRCode"])(o.event));
+                this.eventOrders = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.order2EventOrders({ order });
+                const findResult = this.eventOrders.find(o => ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Order.isShowQRCode(o.event));
                 if (this.environment.INQUIRY_QRCODE && findResult !== undefined) {
                     yield this.orderService.authorize(order);
                     order = (yield this.orderService.getData()).order;
                     if (order === undefined) {
                         throw new Error('order undefined');
                     }
-                    this.eventOrders = Object(_functions__WEBPACK_IMPORTED_MODULE_7__["order2EventOrders"])({ order });
+                    this.eventOrders = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.order2EventOrders({ order });
                 }
                 if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
                     const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);

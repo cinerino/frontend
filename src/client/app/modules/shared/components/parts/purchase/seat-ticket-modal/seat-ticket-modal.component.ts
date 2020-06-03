@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { factory } from '@cinerino/api-javascript-client';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { isEligibleSeatingType } from '../../../../../../functions';
-import { IMovieTicket, IReservation, IReservationTicket } from '../../../../../../models';
+import { Functions, Models } from '../../../../../..';
 
 type IMovieTicketTypeChargeSpecification =
     factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification>;
@@ -16,12 +15,12 @@ export class PurchaseSeatTicketModalComponent implements OnInit {
 
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     @Input() public checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
-    @Input() public reservations: IReservation[];
-    @Input() public reservation?: IReservation;
-    @Input() public pendingMovieTickets: IMovieTicket[];
-    @Input() public cb: (ticket: IReservationTicket) => void;
-    public tickets: IReservationTicket[];
-    public selectedTicket?: IReservationTicket;
+    @Input() public reservations: Models.Purchase.Reservation.IReservation[];
+    @Input() public reservation?: Models.Purchase.Reservation.IReservation;
+    @Input() public pendingMovieTickets: Models.Purchase.MovieTicket.IMovieTicket[];
+    @Input() public cb: (ticket: Models.Purchase.Reservation.IReservationTicket) => void;
+    public tickets: Models.Purchase.Reservation.IReservationTicket[];
+    public selectedTicket?: Models.Purchase.Reservation.IReservationTicket;
     public addOnList: string[];
 
     constructor(
@@ -31,7 +30,7 @@ export class PurchaseSeatTicketModalComponent implements OnInit {
     public ngOnInit() {
         this.tickets = [];
         this.addOnList = [];
-        const movieTickets: IReservationTicket[] = [];
+        const movieTickets: Models.Purchase.Reservation.IReservationTicket[] = [];
         this.screeningEventTicketOffers.forEach((ticketOffer) => {
             const movieTicketTypeChargeSpecification =
                 <IMovieTicketTypeChargeSpecification>ticketOffer.priceSpecification.priceComponent
@@ -42,7 +41,10 @@ export class PurchaseSeatTicketModalComponent implements OnInit {
                 // 券種の適用座席タイプ条件あり（ムビチケ以外）
                 if (this.reservation !== undefined
                     && this.reservation.seat !== undefined
-                    && isEligibleSeatingType({ seat: this.reservation.seat, eligibleSeatingType: ticketOffer.eligibleSeatingType })) {
+                    && Functions.Purchase.isEligibleSeatingType({
+                        seat: this.reservation.seat,
+                        eligibleSeatingType: ticketOffer.eligibleSeatingType
+                    })) {
                     this.tickets.push({ ticketOffer });
                 }
                 return;
@@ -111,7 +113,7 @@ export class PurchaseSeatTicketModalComponent implements OnInit {
         this.tickets = movieTickets.concat(this.tickets);
     }
 
-    public close(ticket: IReservationTicket) {
+    public close(ticket: Models.Purchase.Reservation.IReservationTicket) {
         this.modal.hide();
         this.cb(ticket);
     }
@@ -119,7 +121,7 @@ export class PurchaseSeatTicketModalComponent implements OnInit {
     /**
      * 券種選択
      */
-    public selsctTicket(ticket: IReservationTicket) {
+    public selsctTicket(ticket: Models.Purchase.Reservation.IReservationTicket) {
         if (ticket.ticketOffer.addOn === undefined
             || ticket.ticketOffer.addOn.length === 0) {
             this.close(ticket);
