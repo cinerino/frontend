@@ -78,7 +78,7 @@
                         *ngIf="isRequired('telephone')"
                         class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                     <div class="col-md-8">
-                        <ngx-intl-tel-input
+                        <ngx-intl-tel-input #intlTelInput
                             [preferredCountries]="[CountryISO.Japan]"
                             [enableAutoCountrySelect]="false"
                             [enablePlaceholder]="true"
@@ -89,7 +89,7 @@
                             [maxLength]="15"
                             [tooltipField]="TooltipLabel.Name"
                             [phoneValidation]="true"
-                            [separateDialCode]="true"
+                            [separateDialCode]="false"
                             name="telephone"
                             formControlName="telephone"></ngx-intl-tel-input>
                         <!-- <input type="tel" class="form-control" formControlName="telephone" id="telephone"

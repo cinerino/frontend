@@ -34,6 +34,7 @@
                             [placeholder]="'form.placeholder.telephone' | translate" readonly>
                     </app-numeric-keypad>
                     <ngx-intl-tel-input *ngIf="!environment.INQUIRY_INPUT_KEYPAD"
+                        #intlTelInput
                         [cssClass]="'form-control text-security-disc'"
                         [preferredCountries]="[CountryISO.Japan]"
                         [enableAutoCountrySelect]="false"
@@ -45,7 +46,7 @@
                         [maxLength]="15"
                         [tooltipField]="TooltipLabel.Name"
                         [phoneValidation]="true"
-                        [separateDialCode]="true"
+                        [separateDialCode]="false"
                         name="telephone"
                         formControlName="telephone"
                         type="password"></ngx-intl-tel-input>

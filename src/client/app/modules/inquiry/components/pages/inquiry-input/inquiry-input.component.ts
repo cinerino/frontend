@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
-import { CountryISO, SearchCountryField, TooltipLabel } from 'ngx-intl-tel-input';
+import { CountryISO, NgxIntlTelInputComponent, SearchCountryField, TooltipLabel } from 'ngx-intl-tel-input';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { OrderService, UtilService } from '../../../../../services';
@@ -22,6 +22,8 @@ export class InquiryInputComponent implements OnInit {
     public SearchCountryField = SearchCountryField;
     public TooltipLabel = TooltipLabel;
     public CountryISO = CountryISO;
+    @ViewChild('intlTelInput') private intlTelInput: NgxIntlTelInputComponent;
+
     constructor(
         private store: Store<reducers.IState>,
         private formBuilder: FormBuilder,
@@ -37,6 +39,16 @@ export class InquiryInputComponent implements OnInit {
     public ngOnInit() {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.createInquiryForm();
+        setTimeout(() => {
+            if (this.intlTelInput === undefined) {
+                return;
+            }
+            const findResult = this.intlTelInput.allCountries.find(c => c.iso2 === CountryISO.Japan);
+            if (findResult === undefined) {
+                return;
+            }
+            findResult.placeHolder = this.translate.instant('form.placeholder.telephone');
+        }, 0);
     }
 
     /**
