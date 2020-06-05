@@ -2,7 +2,9 @@
 @import "node_modules/bootstrap/scss/variables";
 @import "node_modules/bootstrap/scss/mixins";
 input,
-select[formcontrolname=gender] {
+select[formcontrolname=gender],
+ngx-intl-tel-input {
+    display: block;
     width: 75%;
     @include media-breakpoint-down(sm) {
         width: 100%;
