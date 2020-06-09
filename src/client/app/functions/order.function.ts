@@ -1,9 +1,35 @@
 import { factory } from '@cinerino/api-javascript-client';
+import html2canvas from 'html2canvas';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
 import * as Models from './../models';
 import { getItemPrice } from './purchase.function';
 import { getProject } from './util.function';
+
+/**
+ * 印刷イメージ作成
+ */
+export async function createPrintCanvas4Html(params: {
+    view: string;
+    order: factory.order.IOrder;
+    pos?: factory.chevre.place.movieTheater.IPOS;
+    qrcode?: string;
+    index: number;
+}) {
+    // QR描画
+    if (params.qrcode !== undefined) {
+        params.qrcode = await qrcode.toDataURL(params.qrcode);
+    }
+    const template = await (<any>window).ejs.render(params.view, { moment, ...params, }, { async: true });
+    const div = document.createElement('div');
+    div.className = 'position-absolute';
+    div.style.top = '-9999px';
+    div.innerHTML = template;
+    document.body.appendChild(div);
+    const canvas = await html2canvas(div, { width: 560, scale: 1 });
+    div.remove();
+    return canvas;
+}
 
 /**
  * キャンバスへ描画
@@ -251,6 +277,28 @@ export async function createTestPrintCanvas(args: { printData: Models.Order.Prin
     };
     const canvas = await drawCanvas({ printData, data });
 
+    return canvas;
+}
+
+/**
+ * テスト印刷用イメージ作成
+ */
+export async function createTestPrintCanvas4Html() {
+    const view = `<div style="width: 560px;">
+    <div class="py-5 text-center" style="font-size: 30px;">
+    <p class="mb-3"><img width="400" height="64" src="/default/images/print/logo.png"></p>
+    <p class="mb-3">Test print</p>
+    <p><%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD HH:mm:ss') %></p>
+    </div>
+    </div>`;
+    const template = await (<any>window).ejs.render(view, { moment }, { async: true });
+    const div = document.createElement('div');
+    div.className = 'position-absolute';
+    div.style.top = '-9999px';
+    div.innerHTML = template;
+    document.body.appendChild(div);
+    const canvas = await html2canvas(div, { width: 560, scale: 1 });
+    div.remove();
     return canvas;
 }
 

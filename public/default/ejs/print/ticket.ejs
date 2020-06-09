@@ -1,0 +1,57 @@
+<style>
+    .print {
+        font-size: 40px;
+    }
+
+    .print .text-small {
+        font-size: 22px;
+    }
+</style>
+<div class="print" style="width: 560px;">
+    <div class="text-center mb-3"><img width="200" height="32" src="/default/images/print/logo.png"></div>
+    <p class="text-center font-weight-bold mb-3">
+        <%= moment(order.acceptedOffers[index].itemOffered.reservationFor.startDate).tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %>
+    </p>
+    <p class="text-center font-weight-bold mb-4"><%= order.acceptedOffers[index].itemOffered.reservationFor.name.ja %></p>
+    <div class="text-center font-weight-bold mb-3" style="
+    width: 560px; 
+    height: 212px; 
+    background-image: url(/default/images/print/box.png); 
+    background-size: cover">
+        <p style="padding: 1.2rem 0;"><%= order.acceptedOffers[index].itemOffered.reservationFor.location.name.ja %></p>
+        <p style="padding: 1.2rem 0;">
+            <% if (order.acceptedOffers[index].itemOffered.reservedTicket.ticketedSeat) { %>
+                <%= order.acceptedOffers[index].itemOffered.reservedTicket.ticketedSeat.seatNumber %>
+            <% } else { %>
+                -
+            <% } %>
+            </p>
+    </div>
+    <div class="mb-3">
+    <% for (let priceComponent of order.acceptedOffers[index].priceSpecification.priceComponent) { %>
+    <div class="d-flex align-items-center">
+    <p><%= priceComponent.name.ja %></p>
+    <% if (priceComponent.price > 0) { %>
+    <p class="ml-auto text-small">￥<%= priceComponent.price %><% if (priceComponent.referenceQuantity && priceComponent.referenceQuantity.value) { %>[<%= priceComponent.referenceQuantity.value %>枚あたり]<% } %></p>
+    <% } %>
+    </div>
+    <% } %>
+    </div>
+    
+    <div class="d-flex align-items-center justify-content-between pb-3">
+        <div class="text-small">
+            <div class="mb-3">■ 上記日時１回限り有効<br>■ 変更、払戻不可</div>
+            <div>確認番号 <%= order.confirmationNumber %></div>
+            <div>注文番号 <%= order.orderNumber %></div>
+            <% if (pos) { %>
+            <div>端末 <%= pos.name %></div>
+            <% } %>
+            <div>(<%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %> 発券)</div>
+        </div>
+        <% if (qrcode) { %>
+        <div>
+            <img src="<%= qrcode %>">
+        </div>
+        <% } %>
+    </div>
+</div>
