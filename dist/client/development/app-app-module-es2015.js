@@ -82788,10 +82788,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
 /* harmony import */ var ___WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! .. */ "./app/index.ts");
-/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
-/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _store_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../store/actions */ "./app/store/actions/index.ts");
+/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../store/reducers */ "./app/store/reducers/index.ts");
+/* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -82818,14 +82819,15 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 
 
+
 class MasterService {
     constructor(store, actions, cinerinoService, utilService) {
         this.store = store;
         this.actions = actions;
         this.cinerinoService = cinerinoService;
         this.utilService = utilService;
-        this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getMaster"]));
-        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
+        this.master = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getMaster"]));
+        this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getError"]));
     }
     /**
      * マスタデータ取得
@@ -82843,7 +82845,7 @@ class MasterService {
      * データ削除
      */
     delete() {
-        this.store.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_8__["masterAction"].remove());
+        this.store.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_9__["masterAction"].remove());
     }
     /**
      * 販売者一覧取得
@@ -82915,26 +82917,53 @@ class MasterService {
                     roop = searchResult.data.length === limit;
                     yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.sleep(500);
                 }
-                // 公開日順（降順）へソート
-                screeningEvents = screeningEvents.sort((a, b) => {
-                    if (a.workPerformed === undefined
-                        || a.workPerformed.datePublished === undefined) {
-                        return 1;
+                const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
+                if (environment.PURCHASE_SCHEDULE_SORT) {
+                    const superEventIds = [];
+                    screeningEvents.forEach(s => {
+                        if (superEventIds.find(id => id === s.superEvent.id) !== undefined) {
+                            return;
+                        }
+                        superEventIds.push(s.superEvent.id);
+                    });
+                    page = 1;
+                    roop = true;
+                    let screeningEventSeries = [];
+                    yield this.cinerinoService.getServices();
+                    while (roop) {
+                        const searchResult = yield this.cinerinoService.event.search({
+                            page,
+                            limit,
+                            typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventType.ScreeningEventSeries,
+                            superEvent: { ids: superEventIds }
+                        });
+                        screeningEventSeries = screeningEventSeries.concat(searchResult.data);
+                        page++;
+                        roop = searchResult.data.length === limit;
+                        yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.sleep(500);
                     }
-                    if (b.workPerformed === undefined
-                        || b.workPerformed.datePublished === undefined) {
-                        return -1;
-                    }
-                    const unixA = moment__WEBPACK_IMPORTED_MODULE_4__(a.workPerformed.datePublished).unix();
-                    const unixB = moment__WEBPACK_IMPORTED_MODULE_4__(b.workPerformed.datePublished).unix();
-                    if (unixA > unixB) {
-                        return -1;
-                    }
-                    if (unixA < unixB) {
-                        return 1;
-                    }
-                    return 0;
-                });
+                    screeningEvents = screeningEvents.sort((a, b) => {
+                        var _a, _b, _c, _d, _e, _f;
+                        const KEY_NAME = 'sortNumber';
+                        const sortNumberA = (_c = (_b = (_a = screeningEventSeries
+                            .find(s => s.id === a.superEvent.id)) === null || _a === void 0 ? void 0 : _a.additionalProperty) === null || _b === void 0 ? void 0 : _b.find(p => p.name === KEY_NAME)) === null || _c === void 0 ? void 0 : _c.value;
+                        const sortNumberB = (_f = (_e = (_d = screeningEventSeries
+                            .find(s => s.id === b.superEvent.id)) === null || _d === void 0 ? void 0 : _d.additionalProperty) === null || _e === void 0 ? void 0 : _e.find(p => p.name === KEY_NAME)) === null || _f === void 0 ? void 0 : _f.value;
+                        if (sortNumberA === undefined) {
+                            return 1;
+                        }
+                        if (sortNumberB === undefined) {
+                            return -1;
+                        }
+                        if (Number(sortNumberA) > Number(sortNumberB)) {
+                            return -1;
+                        }
+                        if (Number(sortNumberA) < Number(sortNumberB)) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+                }
                 this.utilService.loadEnd();
                 return screeningEvents;
             }
@@ -82951,22 +82980,22 @@ class MasterService {
     getProjects() {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
-                this.store.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_8__["masterAction"].getProjects());
-                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["masterAction"].getProjectsSuccess.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
-                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_8__["masterAction"].getProjectsFail.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
+                this.store.dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_9__["masterAction"].getProjects());
+                const success = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["masterAction"].getProjectsSuccess.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { resolve(); }));
+                const fail = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_store_actions__WEBPACK_IMPORTED_MODULE_9__["masterAction"].getProjectsFail.type), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); }));
                 Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["race"])(success, fail).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).subscribe();
             });
         });
     }
 }
-MasterService.ɵfac = function MasterService_Factory(t) { return new (t || MasterService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cinerino_service__WEBPACK_IMPORTED_MODULE_10__["CinerinoService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_util_service__WEBPACK_IMPORTED_MODULE_11__["UtilService"])); };
+MasterService.ɵfac = function MasterService_Factory(t) { return new (t || MasterService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_cinerino_service__WEBPACK_IMPORTED_MODULE_11__["CinerinoService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_util_service__WEBPACK_IMPORTED_MODULE_12__["UtilService"])); };
 MasterService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: MasterService, factory: MasterService.ɵfac, providedIn: 'root' });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MasterService, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
         args: [{
                 providedIn: 'root'
             }]
-    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }, { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"] }, { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_10__["CinerinoService"] }, { type: _util_service__WEBPACK_IMPORTED_MODULE_11__["UtilService"] }]; }, null); })();
+    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }, { type: _ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["Actions"] }, { type: _cinerino_service__WEBPACK_IMPORTED_MODULE_11__["CinerinoService"] }, { type: _util_service__WEBPACK_IMPORTED_MODULE_12__["UtilService"] }]; }, null); })();
 
 
 /***/ }),
