@@ -339,22 +339,26 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./app/functions/order.function.ts ***!
   \*****************************************/
-/*! exports provided: createPrintCanvas, createTestPrintCanvas, isShowQRCode */
+/*! exports provided: createPrintCanvas4Html, createPrintCanvas, createTestPrintCanvas, createTestPrintCanvas4Html, isShowQRCode */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas4Html", function() { return createPrintCanvas4Html; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPrintCanvas", function() { return createPrintCanvas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function() { return createTestPrintCanvas; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas4Html", function() { return createTestPrintCanvas4Html; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isShowQRCode", function() { return isShowQRCode; });
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
 /* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qrcode */ "../../node_modules/qrcode/lib/browser.js");
-/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
-/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! html2canvas */ "../../node_modules/html2canvas/dist/html2canvas.js");
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qrcode */ "../../node_modules/qrcode/lib/browser.js");
+/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _purchase_function__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./purchase.function */ "./app/functions/purchase.function.ts");
+/* harmony import */ var _util_function__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util.function */ "./app/functions/util.function.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -369,6 +373,27 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 
 
+
+/**
+ * 印刷イメージ作成
+ */
+function createPrintCanvas4Html(params) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // QR描画
+        if (params.qrcode !== undefined) {
+            params.qrcode = yield qrcode__WEBPACK_IMPORTED_MODULE_3__["toDataURL"](params.qrcode);
+        }
+        const template = yield window.ejs.render(params.view, Object.assign({ moment: moment__WEBPACK_IMPORTED_MODULE_2__ }, params), { async: true });
+        const div = document.createElement('div');
+        div.className = 'position-absolute';
+        div.style.top = '-9999px';
+        div.innerHTML = template;
+        document.body.appendChild(div);
+        const canvas = yield html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, { width: 560, scale: 1 });
+        div.remove();
+        return canvas;
+    });
+}
 /**
  * キャンバスへ描画
  */
@@ -415,7 +440,7 @@ function drawCanvas(args) {
         for (const image of printData.image) {
             const imageInstance = new Image();
             imageInstance.crossOrigin = 'anonymous';
-            imageInstance.src = image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_4__["getProject"])().storageUrl);
+            imageInstance.src = image.src.replace('/storage', Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["getProject"])().storageUrl);
             yield drawImage({
                 image: imageInstance,
                 x: image.x,
@@ -436,11 +461,11 @@ function drawCanvas(args) {
                         value = `￥${data.price.toLocaleString()}`;
                         break;
                     case 'date':
-                        value = `(${moment__WEBPACK_IMPORTED_MODULE_1__().format('YYYY/MM/DD HH:mm')} 発券)`;
+                        value = `(${moment__WEBPACK_IMPORTED_MODULE_2__().format('YYYY/MM/DD HH:mm')} 発券)`;
                         break;
                     case 'startDate':
                     case 'endDate':
-                        value = `${moment__WEBPACK_IMPORTED_MODULE_1__(data[text.name]).format(text.value)}`;
+                        value = `${moment__WEBPACK_IMPORTED_MODULE_2__(data[text.name]).format(text.value)}`;
                         break;
                     case 'eventNameJa':
                     case 'eventNameEn':
@@ -476,7 +501,7 @@ function drawCanvas(args) {
         if (data.qrcode !== undefined) {
             for (const qrCode of printData.qrCode) {
                 const qrcodeCanvas = document.createElement('canvas');
-                yield qrcode__WEBPACK_IMPORTED_MODULE_2__["toCanvas"](qrcodeCanvas, data.qrcode);
+                yield qrcode__WEBPACK_IMPORTED_MODULE_3__["toCanvas"](qrcodeCanvas, data.qrcode);
                 context.drawImage(qrcodeCanvas, qrCode.x, qrCode.y, qrCode.width, qrCode.height);
             }
         }
@@ -510,8 +535,8 @@ function createPrintCanvas(args) {
                 ? (itemOffered.reservationFor.location.name === undefined || itemOffered.reservationFor.location.name.en === undefined)
                     ? '' : itemOffered.reservationFor.location.name.en
                 : `${itemOffered.reservationFor.location.address.en} ${(itemOffered.reservationFor.location.name === undefined) ? '' : itemOffered.reservationFor.location.name.en}`,
-            startDate: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.startDate).toISOString(),
-            endDate: moment__WEBPACK_IMPORTED_MODULE_1__(itemOffered.reservationFor.endDate).toISOString(),
+            startDate: moment__WEBPACK_IMPORTED_MODULE_2__(itemOffered.reservationFor.startDate).toISOString(),
+            endDate: moment__WEBPACK_IMPORTED_MODULE_2__(itemOffered.reservationFor.endDate).toISOString(),
             seatNumber: (itemOffered.reservedTicket.ticketedSeat === undefined)
                 ? undefined : itemOffered.reservedTicket.ticketedSeat.seatNumber,
             ticketNameJa: (itemOffered.reservedTicket.ticketType.name === undefined)
@@ -522,7 +547,7 @@ function createPrintCanvas(args) {
                 ? '' : (typeof itemOffered.reservedTicket.ticketType.name === 'string')
                 ? itemOffered.reservedTicket.ticketType.name : (itemOffered.reservedTicket.ticketType.name.en === undefined)
                 ? '' : itemOffered.reservedTicket.ticketType.name.en,
-            price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_3__["getItemPrice"])({ priceComponents: acceptedOffer.priceSpecification.priceComponent }),
+            price: Object(_purchase_function__WEBPACK_IMPORTED_MODULE_4__["getItemPrice"])({ priceComponents: acceptedOffer.priceSpecification.priceComponent }),
             posName: (args.pos === undefined) ? '' : args.pos.name,
             confirmationNumber: String(args.order.confirmationNumber),
             orderNumber: args.order.orderNumber,
@@ -552,8 +577,8 @@ function createTestPrintCanvas(args) {
                 : 'test1 test2 test3 test4 test5 test6 test7 event',
             screenNameJa: 'テストスクリーン',
             screenNameEn: 'test screen',
-            startDate: moment__WEBPACK_IMPORTED_MODULE_1__().toISOString(),
-            endDate: moment__WEBPACK_IMPORTED_MODULE_1__().toISOString(),
+            startDate: moment__WEBPACK_IMPORTED_MODULE_2__().toISOString(),
+            endDate: moment__WEBPACK_IMPORTED_MODULE_2__().toISOString(),
             seatNumber: 'TEST-1',
             ticketNameJa: 'テストチケット123456',
             ticketNameEn: 'test ticket 123456',
@@ -570,10 +595,33 @@ function createTestPrintCanvas(args) {
     });
 }
 /**
+ * テスト印刷用イメージ作成
+ */
+function createTestPrintCanvas4Html() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const view = `<div style="width: 560px;">
+    <div class="py-5 text-center" style="font-size: 30px;">
+    <p class="mb-3"><img width="400" height="64" src="/default/images/print/logo.png"></p>
+    <p class="mb-3">Test print</p>
+    <p><%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD HH:mm:ss') %></p>
+    </div>
+    </div>`;
+        const template = yield window.ejs.render(view, { moment: moment__WEBPACK_IMPORTED_MODULE_2__ }, { async: true });
+        const div = document.createElement('div');
+        div.className = 'position-absolute';
+        div.style.top = '-9999px';
+        div.innerHTML = template;
+        document.body.appendChild(div);
+        const canvas = yield html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, { width: 560, scale: 1 });
+        div.remove();
+        return canvas;
+    });
+}
+/**
  * QRコード表示判定
  */
 function isShowQRCode(event) {
-    return moment__WEBPACK_IMPORTED_MODULE_1__(event.startDate).add(-24, 'hours').toDate() < moment__WEBPACK_IMPORTED_MODULE_1__().toDate();
+    return moment__WEBPACK_IMPORTED_MODULE_2__(event.startDate).add(-24, 'hours').toDate() < moment__WEBPACK_IMPORTED_MODULE_2__().toDate();
 }
 
 
@@ -1622,7 +1670,8 @@ const defaultEnvironment = {
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: 'token',
     PRINT_LOADING: true,
-    SETTING_DEVELOP_OPTION: false
+    SETTING_DEVELOP_OPTION: false,
+    PRINT_DATA: 'JSON'
 };
 function getEnvironment() {
     const environment = Object.assign(Object.assign(Object.assign({}, defaultEnvironment), window.environment), { production: (document.querySelector('body.production') !== null) });

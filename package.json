@@ -1,6 +1,6 @@
 {
   "name": "smart-theater-frontend",
-  "version": "3.0.39",
+  "version": "3.0.40",
   "license": "MIT",
   "author": {
     "name": "Motionpicture co.,ltd."
@@ -67,6 +67,7 @@
     "google-libphonenumber": "^3.2.10",
     "hammerjs": "^2.0.8",
     "helmet": "^3.21.2",
+    "html2canvas": "^1.0.0-rc.5",
     "http-status": "^1.4.2",
     "intl-tel-input": "^14.1.0",
     "jsqr": "^1.2.0",

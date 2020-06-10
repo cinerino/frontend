@@ -234,6 +234,10 @@ interface IEnvironment {
      */
     PRINT_LOADING: boolean;
     /**
+     * 印刷データ
+     */
+    PRINT_DATA: 'JSON' | 'HTML';
+    /**
      * 設定開発用オプション
      */
     SETTING_DEVELOP_OPTION: boolean;
@@ -301,7 +305,8 @@ const defaultEnvironment: IEnvironment = {
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: 'token',
     PRINT_LOADING: true,
-    SETTING_DEVELOP_OPTION: false
+    SETTING_DEVELOP_OPTION: false,
+    PRINT_DATA: 'JSON'
 };
 
 export function getEnvironment(): IEnvironment {
