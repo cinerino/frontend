@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.41 - 2020-06-11
+### Changed
+ - スケジュール表示順を施設コンテンツの追加特性「sortNumber」で管理するへ変更
+
 ## 3.0.40 - 2020-06-10
 ### Changed
  - チケット印刷をHTMLから生成可能へ変更
