@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { Functions } from '..';
+import { getEnvironment } from '../../environments/environment';
 import { masterAction } from '../store/actions';
 import * as reducers from '../store/reducers';
 import { CinerinoService } from './cinerino.service';
@@ -118,22 +119,56 @@ export class MasterService {
                 roop = searchResult.data.length === limit;
                 await Functions.Util.sleep(500);
             }
-            // 公開日順（降順）へソート
-            screeningEvents = screeningEvents.sort((a, b) => {
-                if (a.workPerformed === undefined
-                    || a.workPerformed.datePublished === undefined) {
-                    return 1;
+            const environment = getEnvironment();
+            if (environment.PURCHASE_SCHEDULE_SORT) {
+                const workPerformedIdentifiers: string[] = [];
+                screeningEvents.forEach(s => {
+                    if (s.workPerformed?.identifier === undefined
+                        || workPerformedIdentifiers.find(id => id === s.workPerformed?.identifier) !== undefined) {
+                        return;
+                    }
+                    workPerformedIdentifiers.push(s.workPerformed.identifier);
+                });
+                page = 1;
+                roop = true;
+                let screeningEventSeries: factory.chevre.event.screeningEventSeries.IEvent[] = [];
+                await this.cinerinoService.getServices();
+                while (roop) {
+                    const searchResult = await this.cinerinoService.event.search({
+                        page,
+                        limit,
+                        typeOf: factory.chevre.eventType.ScreeningEventSeries,
+                        location: {
+                            branchCodes: params.superEvent.locationBranchCodes
+                        },
+                        workPerformed: {
+                            identifiers: workPerformedIdentifiers
+                        }
+                    });
+                    screeningEventSeries = screeningEventSeries.concat(searchResult.data);
+                    page++;
+                    roop = searchResult.data.length === limit;
+                    await Functions.Util.sleep(500);
                 }
-                if (b.workPerformed === undefined
-                    || b.workPerformed.datePublished === undefined) {
-                    return -1;
-                }
-                const unixA = moment(a.workPerformed.datePublished).unix();
-                const unixB = moment(b.workPerformed.datePublished).unix();
-                if (unixA > unixB) { return -1; }
-                if (unixA < unixB) { return 1; }
-                return 0;
-            });
+                screeningEvents = screeningEvents.sort((a, b) => {
+                    const KEY_NAME = 'sortNumber';
+                    const sortNumberA = screeningEventSeries
+                        .find(s => s.id === a.superEvent.id)?.additionalProperty
+                        ?.find(p => p.name === KEY_NAME)?.value;
+                    const sortNumberB = screeningEventSeries
+                        .find(s => s.id === b.superEvent.id)?.additionalProperty
+                        ?.find(p => p.name === KEY_NAME)?.value;
+                    if (sortNumberA === undefined) {
+                        return 1;
+                    }
+                    if (sortNumberB === undefined) {
+                        return -1;
+                    }
+                    if (Number(sortNumberA) > Number(sortNumberB)) { return -1; }
+                    if (Number(sortNumberA) < Number(sortNumberB)) { return 1; }
+                    return 0;
+                });
+            }
             this.utilService.loadEnd();
             return screeningEvents;
         } catch (error) {
