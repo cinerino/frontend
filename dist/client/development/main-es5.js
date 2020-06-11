@@ -550,9 +550,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
               case 4:
                 _context.next = 6;
-                return window.ejs.render(params.view, Object.assign({
+                return window.ejs.render(params.view, Object.assign(Object.assign({
                   moment: moment__WEBPACK_IMPORTED_MODULE_2__
                 }, params), {
+                  storageUrl: Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["getProject"])().storageUrl
+                }), {
                   async: true
                 });
 
@@ -565,7 +567,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 document.body.appendChild(div);
                 _context.next = 14;
                 return html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, {
-                  width: 560,
+                  width: div.clientWidth,
                   scale: 1
                 });
 
@@ -1003,7 +1005,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 document.body.appendChild(div);
                 _context5.next = 11;
                 return html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, {
-                  width: 560,
+                  width: div.clientWidth,
                   scale: 1
                 });
 

@@ -1,6 +1,7 @@
 <style>
     .print {
         font-size: 40px;
+        color: #000 !important;
     }
 
     .print .text-small {
@@ -8,31 +9,39 @@
     }
 </style>
 <div class="print" style="width: 560px;">
-    <div class="text-center mb-3"><img width="200" height="32" src="/default/images/print/logo.png"></div>
+    <div class="mb-3 d-flex justify-content-center align-items-center">
+        <img width="62" height="51" src="/default/images/print/logo_sp.png">
+        <p class="text-break font-weight-bold">
+            <%= order.acceptedOffers[index].itemOffered.reservationFor.superEvent.location.name.ja %>
+        </p>
+    </div>
     <p class="text-center font-weight-bold mb-3">
-        <%= moment(order.acceptedOffers[index].itemOffered.reservationFor.startDate).tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %>
+        <%= moment(order.acceptedOffers[index].itemOffered.reservationFor.startDate).tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %>～
     </p>
     <p class="text-center font-weight-bold mb-4"><%= order.acceptedOffers[index].itemOffered.reservationFor.name.ja %></p>
-    <div class="text-center font-weight-bold mb-3" style="
-    width: 560px; 
-    height: 212px; 
-    background-image: url(/default/images/print/box.png); 
-    background-size: cover">
-        <p style="padding: 1.2rem 0;"><%= order.acceptedOffers[index].itemOffered.reservationFor.location.name.ja %></p>
-        <p style="padding: 1.2rem 0;">
-            <% if (order.acceptedOffers[index].itemOffered.reservedTicket.ticketedSeat) { %>
-                <%= order.acceptedOffers[index].itemOffered.reservedTicket.ticketedSeat.seatNumber %>
-            <% } else { %>
-                -
+    <div class="text-center font-weight-bold mb-3 border border-black"
+    style="border-width: 3px !important;
+    border-radius: 0.5rem !important;">
+        <p class="py-4">
+            <% if (order.acceptedOffers[index].itemOffered.reservationFor.location.address
+            && order.acceptedOffers[index].itemOffered.reservationFor.location.address.ja) { %>
+                <%= order.acceptedOffers[index].itemOffered.reservationFor.location.address.ja %>
             <% } %>
-            </p>
+            <%= order.acceptedOffers[index].itemOffered.reservationFor.location.name.ja %>
+        </p>
+        <% if (order.acceptedOffers[index].itemOffered.reservedTicket.ticketedSeat) { %>
+        <div style="height: 3px; background-image: url(/default/images/print/circle.png); background-size: contain;"></div>
+        <p class="py-4">
+            <%= order.acceptedOffers[index].itemOffered.reservedTicket.ticketedSeat.seatNumber %>
+        </p>
+        <% } %>
     </div>
     <div class="mb-3">
     <% for (let priceComponent of order.acceptedOffers[index].priceSpecification.priceComponent) { %>
     <div class="d-flex align-items-center">
-    <p><%= priceComponent.name.ja %></p>
+    <p style="width: 60%;"><%= priceComponent.name.ja %></p>
     <% if (priceComponent.price > 0) { %>
-    <p class="ml-auto text-small">￥<%= priceComponent.price %><% if (priceComponent.referenceQuantity && priceComponent.referenceQuantity.value) { %>[<%= priceComponent.referenceQuantity.value %>枚あたり]<% } %></p>
+    <p style="width: 40%; font-size: 30px;" class="ml-auto text-right">￥<%= priceComponent.price %><% if (priceComponent.referenceQuantity && priceComponent.referenceQuantity.value) { %>[<%= priceComponent.referenceQuantity.value %>枚]<% } %></p>
     <% } %>
     </div>
     <% } %>
@@ -40,17 +49,17 @@
     
     <div class="d-flex align-items-center justify-content-between pb-3">
         <div class="text-small">
-            <div class="mb-3">■ 上記日時１回限り有効<br>■ 変更、払戻不可</div>
-            <div>確認番号 <%= order.confirmationNumber %></div>
-            <div>注文番号 <%= order.orderNumber %></div>
+            <p class="mb-3">■ 上記日時１回限り有効<br>■ 変更、払戻不可</p>
+            <p>確認番号 <%= order.confirmationNumber %></p>
+            <p>注文番号 <%= order.orderNumber %></p>
             <% if (pos) { %>
-            <div>端末 <%= pos.name %></div>
+            <p>端末 <%= pos.name %></p>
             <% } %>
-            <div>(<%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %> 発券)</div>
+            <p>(<%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %> 発券)</p>
         </div>
         <% if (qrcode) { %>
         <div>
-            <img src="<%= qrcode %>">
+            <img width="180" height="180" src="<%= qrcode %>">
         </div>
         <% } %>
     </div>

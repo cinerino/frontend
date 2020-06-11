@@ -383,13 +383,13 @@ function createPrintCanvas4Html(params) {
         if (params.qrcode !== undefined) {
             params.qrcode = yield qrcode__WEBPACK_IMPORTED_MODULE_3__["toDataURL"](params.qrcode);
         }
-        const template = yield window.ejs.render(params.view, Object.assign({ moment: moment__WEBPACK_IMPORTED_MODULE_2__ }, params), { async: true });
+        const template = yield window.ejs.render(params.view, Object.assign(Object.assign({ moment: moment__WEBPACK_IMPORTED_MODULE_2__ }, params), { storageUrl: Object(_util_function__WEBPACK_IMPORTED_MODULE_5__["getProject"])().storageUrl }), { async: true });
         const div = document.createElement('div');
         div.className = 'position-absolute';
         div.style.top = '-9999px';
         div.innerHTML = template;
         document.body.appendChild(div);
-        const canvas = yield html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, { width: 560, scale: 1 });
+        const canvas = yield html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, { width: div.clientWidth, scale: 1 });
         div.remove();
         return canvas;
     });
@@ -612,7 +612,7 @@ function createTestPrintCanvas4Html() {
         div.style.top = '-9999px';
         div.innerHTML = template;
         document.body.appendChild(div);
-        const canvas = yield html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, { width: 560, scale: 1 });
+        const canvas = yield html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(div, { width: div.clientWidth, scale: 1 });
         div.remove();
         return canvas;
     });

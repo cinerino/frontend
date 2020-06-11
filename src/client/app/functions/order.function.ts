@@ -20,13 +20,17 @@ export async function createPrintCanvas4Html(params: {
     if (params.qrcode !== undefined) {
         params.qrcode = await qrcode.toDataURL(params.qrcode);
     }
-    const template = await (<any>window).ejs.render(params.view, { moment, ...params, }, { async: true });
+    const template = await (<any>window).ejs.render(params.view, {
+        moment,
+        ...params,
+        storageUrl: getProject().storageUrl
+    }, { async: true });
     const div = document.createElement('div');
     div.className = 'position-absolute';
     div.style.top = '-9999px';
     div.innerHTML = template;
     document.body.appendChild(div);
-    const canvas = await html2canvas(div, { width: 560, scale: 1 });
+    const canvas = await html2canvas(div, { width: div.clientWidth, scale: 1 });
     div.remove();
     return canvas;
 }
@@ -297,7 +301,7 @@ export async function createTestPrintCanvas4Html() {
     div.style.top = '-9999px';
     div.innerHTML = template;
     document.body.appendChild(div);
-    const canvas = await html2canvas(div, { width: 560, scale: 1 });
+    const canvas = await html2canvas(div, { width: div.clientWidth, scale: 1 });
     div.remove();
     return canvas;
 }
