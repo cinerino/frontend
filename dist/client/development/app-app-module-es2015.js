@@ -82919,12 +82919,14 @@ class MasterService {
                 }
                 const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
                 if (environment.PURCHASE_SCHEDULE_SORT) {
-                    const superEventIds = [];
+                    const workPerformedIdentifiers = [];
                     screeningEvents.forEach(s => {
-                        if (superEventIds.find(id => id === s.superEvent.id) !== undefined) {
+                        var _a;
+                        if (((_a = s.workPerformed) === null || _a === void 0 ? void 0 : _a.identifier) === undefined
+                            || workPerformedIdentifiers.find(id => { var _a; return id === ((_a = s.workPerformed) === null || _a === void 0 ? void 0 : _a.identifier); }) !== undefined) {
                             return;
                         }
-                        superEventIds.push(s.superEvent.id);
+                        workPerformedIdentifiers.push(s.workPerformed.identifier);
                     });
                     page = 1;
                     roop = true;
@@ -82935,7 +82937,12 @@ class MasterService {
                             page,
                             limit,
                             typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventType.ScreeningEventSeries,
-                            superEvent: { ids: superEventIds }
+                            location: {
+                                branchCodes: params.superEvent.locationBranchCodes
+                            },
+                            workPerformed: {
+                                identifiers: workPerformedIdentifiers
+                            }
                         });
                         screeningEventSeries = screeningEventSeries.concat(searchResult.data);
                         page++;

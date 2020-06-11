@@ -121,12 +121,13 @@ export class MasterService {
             }
             const environment = getEnvironment();
             if (environment.PURCHASE_SCHEDULE_SORT) {
-                const superEventIds: string[] = [];
+                const workPerformedIdentifiers: string[] = [];
                 screeningEvents.forEach(s => {
-                    if (superEventIds.find(id => id === s.superEvent.id) !== undefined) {
+                    if (s.workPerformed?.identifier === undefined
+                        || workPerformedIdentifiers.find(id => id === s.workPerformed?.identifier) !== undefined) {
                         return;
                     }
-                    superEventIds.push(s.superEvent.id);
+                    workPerformedIdentifiers.push(s.workPerformed.identifier);
                 });
                 page = 1;
                 roop = true;
@@ -137,7 +138,12 @@ export class MasterService {
                         page,
                         limit,
                         typeOf: factory.chevre.eventType.ScreeningEventSeries,
-                        superEvent: { ids: superEventIds }
+                        location: {
+                            branchCodes: params.superEvent.locationBranchCodes
+                        },
+                        workPerformed: {
+                            identifiers: workPerformedIdentifiers
+                        }
                     });
                     screeningEventSeries = screeningEventSeries.concat(searchResult.data);
                     page++;
