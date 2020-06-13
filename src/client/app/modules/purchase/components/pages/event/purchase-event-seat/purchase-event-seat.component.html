@@ -5,7 +5,8 @@
         <div class="col-lg-9">
             <app-screen *ngIf="(purchase | async)?.theater 
                 && screeningEventSeats.length > 0 
-                && (purchase | async)?.screen" class="mb-4"
+                && (purchase | async)?.screen" 
+                class="bg-white mb-3"
                 [theaterCode]="(purchase | async)?.theater.branchCode"
                 [screenCode]="(purchase | async)?.screen.branchCode"
                 [screeningEventSeats]="screeningEventSeats"
@@ -13,6 +14,7 @@
                 [reservations]="(purchase | async)?.reservations"
                 [authorizeSeatReservation]="(purchase | async)?.authorizeSeatReservation" (select)="selectSeat($event)">
             </app-screen>
+            <app-seat-info class="mb-4"></app-seat-info>
             <div *ngIf="(purchase | async)?.screen?.openSeatingAllowed" class="mb-4">
                 <div class="d-flex align-items-center">
                     <p class="mr-2">{{ 'purchase.event.seat.openSeating' | translate }}</p>
