@@ -469,7 +469,7 @@
         "doorTime": "開場日時",
         "seat": "座席",
         "ticket": "券種",
-        "referenceQuantityValue": "[{{value}}枚あたり]",
+        "referenceQuantityValue": "[{{value}}枚]",
         "customer": "購入者",
         "customerName": "お名前",
         "familyName": "姓（全角カタカナ）",
