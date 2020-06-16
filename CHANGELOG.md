@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.43 - 2020-06-16
+### Added
+ -  座席説明追加
+### Changed
+ -  座席表示を画像からcssへ変更
+
 ## 3.0.42 - 2020-06-15
 ### Changed
  - 現行プロジェクトのチケット作成方法をHTMLへ変更
