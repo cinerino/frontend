@@ -1,4 +1,4 @@
-<div class="bg-white position-relative">
+<div class="position-relative">
     <div *ngIf="openSeatingAllowed" class="open-seating-allowed"></div>
     <div #screen class="screen" [class.zoom]="zoomState" (window:resize)="resize()">
         <div #zoomBtn [class.active]="zoomState" class="zoom-btn text-center" (click)="scaleDown()">

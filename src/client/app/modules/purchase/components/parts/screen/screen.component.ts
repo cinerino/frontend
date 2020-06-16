@@ -456,7 +456,7 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                         }
                         if (this.screenData.hc !== undefined
                             && this.screenData.hc.indexOf(code) !== -1) {
-                            className.push('seat-hc');
+                            className.push('hc');
                         }
                         const seat = {
                             className: className.join(' '),
