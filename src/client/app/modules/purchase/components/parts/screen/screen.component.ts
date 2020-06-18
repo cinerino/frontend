@@ -458,6 +458,10 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
                             && this.screenData.hc.indexOf(code) !== -1) {
                             className.push('hc');
                         }
+                        if (this.screenData.spare !== undefined
+                            && this.screenData.spare.indexOf(code) !== -1) {
+                            className.push('spare');
+                        }
                         const seat = {
                             className: className.join(' '),
                             w: this.screenData.seatSize.w,
@@ -510,6 +514,10 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
         }
         if (this.screenData.hc !== undefined
             && this.screenData.hc.indexOf(seat.code) !== -1) {
+            return;
+        }
+        if (this.screenData.spare !== undefined
+            && this.screenData.spare.indexOf(seat.code) !== -1) {
             return;
         }
         this.select.emit({
