@@ -21,7 +21,7 @@
             <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputCode('0')">0</div>
             <div class="bg-white py-2 py-md-3 shadow-sm" (tap)="inputCode('00')">00</div>
             <div *ngIf="inputType === 'number'" class="bg-dark-gray text-white py-2 py-md-3 shadow-sm" (tap)="inputCode('000')">000</div>
-            <div *ngIf="inputType === 'telephone'" class="bg-dark-gray text-white py-2 py-md-3 shadow-sm" (tap)="inputCode('+')">+</div>
+            <div *ngIf="inputType === 'telephone' || inputType === 'string'" class="bg-dark-gray text-white py-2 py-md-3 shadow-sm" (tap)="inputCode('+')">+</div>
         </div>
         <div class="etc d-grid">
             <div class="bg-gray text-white py-2 py-md-3 shadow-sm" (tap)="clear()">C</div>
