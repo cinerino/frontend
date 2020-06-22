@@ -80842,7 +80842,7 @@ function NumericKeypadComponent_div_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](25);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r1.inputType === "number");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r1.inputType === "telephone");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r1.inputType === "telephone" || ctx_r1.inputType === "string");
 } }
 const _c3 = ["*"];
 class NumericKeypadComponent {
@@ -80880,6 +80880,9 @@ class NumericKeypadComponent {
     }
     inputCode(code) {
         this.inputValue = (this.inputValue + code).slice(0, this.maxlength);
+        if (this.inputType === 'number') {
+            this.inputValue = String(parseInt(this.inputValue, 10));
+        }
         this.change.emit(this.inputValue);
     }
     clear() {
