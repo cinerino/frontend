@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.44 - 2020-06-22
+### Added
+ -  予備席表示追加
+
 ## 3.0.43 - 2020-06-16
 ### Added
  -  座席説明追加
