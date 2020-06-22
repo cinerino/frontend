@@ -8,7 +8,7 @@
 
                 <div class="form-group">
                     <label class="mb-2" for="">{{ 'common.confirmationNumber' | translate }}</label>
-                    <app-numeric-keypad *ngIf="environment.INQUIRY_INPUT_KEYPAD" inputType="number"
+                    <app-numeric-keypad *ngIf="environment.INQUIRY_INPUT_KEYPAD" inputType="string"
                         [inputValue]="inquiryForm.controls.confirmationNumber.value"
                         (change)="changeConfirmationNumber($event)">
                         <input type="text" class="form-control" formControlName="confirmationNumber"

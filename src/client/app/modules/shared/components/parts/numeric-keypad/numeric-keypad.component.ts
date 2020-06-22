@@ -11,7 +11,7 @@ export class NumericKeypadComponent implements OnInit {
     @Input() public inputValue: string;
     @Input() public viewPosition?: 'Top';
     @Input() public maxlength?: number;
-    @Input() public inputType: 'number' | 'telephone';
+    @Input() public inputType: 'number' | 'telephone' | 'string';
     @Output() public change = new EventEmitter<string>();
     @Output() public hidden = new EventEmitter<string>();
     @ViewChild('trigger', { static: true }) private trigger: { nativeElement: HTMLElement };
@@ -52,6 +52,9 @@ export class NumericKeypadComponent implements OnInit {
 
     public inputCode(code: string) {
         this.inputValue = (this.inputValue + code).slice(0, this.maxlength);
+        if (this.inputType === 'number') {
+            this.inputValue = String(parseInt(this.inputValue, 10));
+        }
         this.change.emit(this.inputValue);
     }
 
@@ -59,7 +62,6 @@ export class NumericKeypadComponent implements OnInit {
         if (this.inputValue.length === 0) {
             return;
         }
-
         this.change.emit(this.inputValue.slice(0, -1));
     }
 
