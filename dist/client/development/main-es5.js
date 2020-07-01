@@ -2654,7 +2654,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       FOOTER_COMPANY_URL: '',
       FOOTER_LAW_URL: '',
       FOOTER_PRIVACY_POLICY_URL: '',
-      PURCHASE_CART: true,
       PURCHASE_ITEM_MAX_LENGTH: '50',
       PURCHASE_TRANSACTION_TIME: '15',
       PURCHASE_TRANSACTION_TIME_DISPLAY: true,
