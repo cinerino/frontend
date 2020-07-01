@@ -1,298 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["modules-purchase-purchase-module"],{
 
-/***/ "./app/modules/purchase/components/pages/cinema/purchase-cinema-cart/purchase-cinema-cart.component.ts":
-/*!*************************************************************************************************************!*\
-  !*** ./app/modules/purchase/components/pages/cinema/purchase-cinema-cart/purchase-cinema-cart.component.ts ***!
-  \*************************************************************************************************************/
-/*! exports provided: PurchaseCinemaCartComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PurchaseCinemaCartComponent", function() { return PurchaseCinemaCartComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "../../node_modules/@ngrx/store/__ivy_ngcc__/fesm2015/store.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../../environments/environment */ "./environments/environment.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../services */ "./app/services/index.ts");
-/* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../../store/reducers */ "./app/store/reducers/index.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _shared_components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../shared/components/parts/item-list/item-list.component */ "./app/modules/shared/components/parts/item-list/item-list.component.ts");
-/* harmony import */ var _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../shared/pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
-/* harmony import */ var _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../../shared/pipes/format-date.pipe */ "./app/modules/shared/pipes/format-date.pipe.ts");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function PurchaseCinemaCartComponent_div_7_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "p");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](3, "translate");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 1, "purchase.cinema.cart.notfound"));
-} }
-function PurchaseCinemaCartComponent_div_9_p_6_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 18);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "changeLanguage");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    const authorizeSeatReservation_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, authorizeSeatReservation_r4.object.event.superEvent.headline), "");
-} }
-function PurchaseCinemaCartComponent_div_9_p_8_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 18);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "changeLanguage");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    const authorizeSeatReservation_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, authorizeSeatReservation_r4.object.event.superEvent.description));
-} }
-function PurchaseCinemaCartComponent_div_9_span_20_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "span", 19);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "changeLanguage");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    const authorizeSeatReservation_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, authorizeSeatReservation_r4.object.event.location.address));
-} }
-function PurchaseCinemaCartComponent_div_9_span_24_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "span");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, " \u00A0/\u00A0");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "span", 20);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](4, "translate");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](6, "translate");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    const authorizeSeatReservation_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
-    const ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](4, 3, "common.duration"));
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", ctx_r8.moment.duration(authorizeSeatReservation_r4.object.event.workPerformed == null ? null : authorizeSeatReservation_r4.object.event.workPerformed.duration).asMinutes(), "", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](6, 5, "common.date.minute"), " ");
-} }
-function PurchaseCinemaCartComponent_div_9_Template(rf, ctx) { if (rf & 1) {
-    const _r14 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 9);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "p", 10);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](5, "changeLanguage");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, PurchaseCinemaCartComponent_div_9_p_6_Template, 3, 3, "p", 11);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](7, "changeLanguage");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](8, PurchaseCinemaCartComponent_div_9_p_8_Template, 3, 3, "p", 11);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](9, "changeLanguage");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "p", 9);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](11);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](12, "formatDate");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](13, "formatDate");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "p", 12);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "span", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](16);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](17, "changeLanguage");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "span", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](19, " \u00A0/\u00A0");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](20, PurchaseCinemaCartComponent_div_9_span_20_Template, 3, 3, "span", 15);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](21, "changeLanguage");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](22);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](23, "changeLanguage");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](24, PurchaseCinemaCartComponent_div_9_span_24_Template, 7, 7, "span", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](25, "button", 16);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseCinemaCartComponent_div_9_Template_button_click_25_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r14); const authorizeSeatReservation_r4 = ctx.$implicit; const ctx_r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r13.removeItem(authorizeSeatReservation_r4); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](26);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](27, "translate");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](28, "hr", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](29, "app-item-list", 17);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    const authorizeSeatReservation_r4 = ctx.$implicit;
-    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](5, 11, authorizeSeatReservation_r4.object.event.name));
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", authorizeSeatReservation_r4.object.event.superEvent.headline && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](7, 13, authorizeSeatReservation_r4.object.event.superEvent.headline));
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", authorizeSeatReservation_r4.object.event.superEvent.description && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](9, 15, authorizeSeatReservation_r4.object.event.superEvent.description));
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](12, 17, authorizeSeatReservation_r4.object.event.startDate, "MM/DD(ddd) HH:mm"), "-", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](13, 20, authorizeSeatReservation_r4.object.event.endDate, "HH:mm"), " ");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](17, 23, authorizeSeatReservation_r4.object.event.superEvent.location.name), " ");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](21, 25, authorizeSeatReservation_r4.object.event.location.address));
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](23, 27, authorizeSeatReservation_r4.object.event.location.name), " ");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", (authorizeSeatReservation_r4.object.event.workPerformed == null ? null : authorizeSeatReservation_r4.object.event.workPerformed.duration) && ctx_r1.moment.duration(authorizeSeatReservation_r4.object.event.workPerformed == null ? null : authorizeSeatReservation_r4.object.event.workPerformed.duration).asMinutes() > 0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](27, 29, "common.remove"));
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("authorizeSeatReservations", authorizeSeatReservation_r4 == null ? null : authorizeSeatReservation_r4.result == null ? null : authorizeSeatReservation_r4.result.responseBody.object.reservations);
-} }
-function PurchaseCinemaCartComponent_div_11_button_5_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 24);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "translate");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, "purchase.cinema.cart.add"));
-} }
-function PurchaseCinemaCartComponent_div_11_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 21);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 22);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "async");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](4, "translate");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](5, PurchaseCinemaCartComponent_div_11_button_5_Template, 3, 3, "button", 23);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 3, ctx_r2.isLoading));
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](4, 5, "purchase.cinema.cart.next"));
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r2.environment.PURCHASE_CART);
-} }
-function PurchaseCinemaCartComponent_div_13_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 21);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 25);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](3, "translate");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 1, "purchase.cinema.cart.prev"));
-} }
-class PurchaseCinemaCartComponent {
-    constructor(purchaseService, store, router, utilService, translate) {
-        this.purchaseService = purchaseService;
-        this.store = store;
-        this.router = router;
-        this.utilService = utilService;
-        this.translate = translate;
-        this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
-        this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
-    }
-    /**
-     * 初期化
-     */
-    ngOnInit() {
-        this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getPurchase"]));
-        this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
-        this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getLoading"]));
-        this.purchaseService.unsettledDelete();
-    }
-    /**
-     * 仮予約削除確認
-     * @param authorizeSeatReservation
-     */
-    removeItem(authorizeSeatReservation) {
-        this.utilService.openConfirm({
-            title: this.translate.instant('common.confirm'),
-            body: this.translate.instant('purchase.cinema.cart.confirm.cancel'),
-            cb: () => {
-                const authorizeSeatReservations = [authorizeSeatReservation];
-                this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations).catch(() => {
-                    this.router.navigate(['/error']);
-                });
-            }
-        });
-    }
-}
-PurchaseCinemaCartComponent.ɵfac = function PurchaseCinemaCartComponent_Factory(t) { return new (t || PurchaseCinemaCartComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"])); };
-PurchaseCinemaCartComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchaseCinemaCartComponent, selectors: [["app-purchase-cinema-cart"]], decls: 15, vars: 18, consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "mb-4"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [4, "ngIf"], ["class", "mb-4 bg-white p-3", 4, "ngFor", "ngForOf"], ["class", "buttons mx-auto text-center", 4, "ngIf"], [1, "mb-4", "bg-white", "p-3"], [1, "mb-3"], [1, "mb-1"], [1, "font-weight-bold", "text-large"], ["class", "text-small", 4, "ngIf"], [1, "text-small", "mb-1"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], ["type", "button", 1, "btn", "btn-link", "btn-sm", "ml-auto", "p-0", 3, "click"], [3, "authorizeSeatReservations"], [1, "text-small"], [1, "mr-2"], [1, "mr-1"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", "routerLink", "/purchase/input", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled"], ["type", "button", "class", "btn btn-outline-primary btn-block py-3", "routerLink", "/purchase/cinema/schedule", 4, "ngIf"], ["type", "button", "routerLink", "/purchase/cinema/schedule", 1, "btn", "btn-outline-primary", "btn-block", "py-3"], ["type", "button", "routerLink", "/purchase/cinema/schedule", 1, "btn", "btn-link"]], template: function PurchaseCinemaCartComponent_Template(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h2", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](4, "translate");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](5, "p", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](6, "translate");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, PurchaseCinemaCartComponent_div_7_Template, 4, 3, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](8, "async");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](9, PurchaseCinemaCartComponent_div_9_Template, 30, 31, "div", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](10, "async");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](11, PurchaseCinemaCartComponent_div_11_Template, 6, 7, "div", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](12, "async");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](13, PurchaseCinemaCartComponent_div_13_Template, 4, 3, "div", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](14, "async");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    } if (rf & 2) {
-        var tmp_2_0 = null;
-        const currVal_2 = ((tmp_2_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](8, 10, ctx.purchase)) == null ? null : tmp_2_0.authorizeSeatReservations.length) === 0;
-        var tmp_3_0 = null;
-        const currVal_3 = (tmp_3_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](10, 12, ctx.purchase)) == null ? null : tmp_3_0.authorizeSeatReservations;
-        var tmp_4_0 = null;
-        const currVal_4 = ((tmp_4_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](12, 14, ctx.purchase)) == null ? null : tmp_4_0.authorizeSeatReservations.length) > 0;
-        var tmp_5_0 = null;
-        const currVal_5 = ((tmp_5_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](14, 16, ctx.purchase)) == null ? null : tmp_5_0.authorizeSeatReservations.length) === 0;
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](4, 6, "purchase.cinema.cart.title"));
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("innerHTML", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](6, 8, "purchase.cinema.cart.read"), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeHtml"]);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", currVal_2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", currVal_3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", currVal_4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", currVal_5);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_8__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgForOf"], _shared_components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_9__["ItemListComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLink"]], pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["AsyncPipe"], _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_10__["ChangeLanguagePipe"], _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_11__["FormatDatePipe"]], styles: [".close[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n}"] });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PurchaseCinemaCartComponent, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
-        args: [{
-                selector: 'app-purchase-cinema-cart',
-                templateUrl: './purchase-cinema-cart.component.html',
-                styleUrls: ['./purchase-cinema-cart.component.scss']
-            }]
-    }], function () { return [{ type: _services__WEBPACK_IMPORTED_MODULE_6__["PurchaseService"] }, { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }]; }, null); })();
-
-
-/***/ }),
-
 /***/ "./app/modules/purchase/components/pages/cinema/purchase-cinema-overlap/purchase-cinema-overlap.ts":
 /*!*********************************************************************************************************!*\
   !*** ./app/modules/purchase/components/pages/cinema/purchase-cinema-overlap/purchase-cinema-overlap.ts ***!
@@ -2789,7 +2496,7 @@ class PurchaseEventTicketComponent {
         return __awaiter(this, void 0, void 0, function* () {
             const purchase = yield this.purchaseService.getData();
             if (purchase.authorizeSeatReservations.length > 0
-                && !this.environment.PURCHASE_CART) {
+                && Number(this.environment.PURCHASE_ITEM_MAX_LENGTH) === 1) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant('purchase.event.ticket.alert.cart')
@@ -7894,22 +7601,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 /* harmony import */ var _canActivates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../canActivates */ "./app/canActivates/index.ts");
 /* harmony import */ var _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/components/pages/base/base.component */ "./app/modules/shared/components/pages/base/base.component.ts");
-/* harmony import */ var _components_pages_cinema_purchase_cinema_cart_purchase_cinema_cart_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-cart/purchase-cinema-cart.component */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-cart/purchase-cinema-cart.component.ts");
-/* harmony import */ var _components_pages_cinema_purchase_cinema_overlap_purchase_cinema_overlap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-overlap/purchase-cinema-overlap */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-overlap/purchase-cinema-overlap.ts");
-/* harmony import */ var _components_pages_cinema_purchase_cinema_schedule_purchase_cinema_schedule_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component.ts");
-/* harmony import */ var _components_pages_cinema_purchase_cinema_seat_purchase_cinema_seat_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-seat/purchase-cinema-seat.component */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-seat/purchase-cinema-seat.component.ts");
-/* harmony import */ var _components_pages_cinema_purchase_cinema_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component.ts");
-/* harmony import */ var _components_pages_event_purchase_event_schedule_purchase_event_schedule_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/pages/event/purchase-event-schedule/purchase-event-schedule.component */ "./app/modules/purchase/components/pages/event/purchase-event-schedule/purchase-event-schedule.component.ts");
-/* harmony import */ var _components_pages_event_purchase_event_seat_ticket_purchase_event_seat_ticket_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/pages/event/purchase-event-seat-ticket/purchase-event-seat-ticket.component */ "./app/modules/purchase/components/pages/event/purchase-event-seat-ticket/purchase-event-seat-ticket.component.ts");
-/* harmony import */ var _components_pages_event_purchase_event_seat_purchase_event_seat_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/pages/event/purchase-event-seat/purchase-event-seat.component */ "./app/modules/purchase/components/pages/event/purchase-event-seat/purchase-event-seat.component.ts");
-/* harmony import */ var _components_pages_event_purchase_event_ticket_purchase_event_ticket_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/pages/event/purchase-event-ticket/purchase-event-ticket.component */ "./app/modules/purchase/components/pages/event/purchase-event-ticket/purchase-event-ticket.component.ts");
-/* harmony import */ var _components_pages_purchase_base_purchase_base_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/pages/purchase-base/purchase-base.component */ "./app/modules/purchase/components/pages/purchase-base/purchase-base.component.ts");
-/* harmony import */ var _components_pages_purchase_complete_purchase_complete_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/pages/purchase-complete/purchase-complete.component */ "./app/modules/purchase/components/pages/purchase-complete/purchase-complete.component.ts");
-/* harmony import */ var _components_pages_purchase_confirm_purchase_confirm_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/pages/purchase-confirm/purchase-confirm.component */ "./app/modules/purchase/components/pages/purchase-confirm/purchase-confirm.component.ts");
-/* harmony import */ var _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/pages/purchase-input/purchase-input.component */ "./app/modules/purchase/components/pages/purchase-input/purchase-input.component.ts");
-/* harmony import */ var _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/pages/purchase-root/purchase-root.component */ "./app/modules/purchase/components/pages/purchase-root/purchase-root.component.ts");
-/* harmony import */ var _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/pages/purchase-transaction/purchase-transaction.component */ "./app/modules/purchase/components/pages/purchase-transaction/purchase-transaction.component.ts");
-
+/* harmony import */ var _components_pages_cinema_purchase_cinema_overlap_purchase_cinema_overlap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-overlap/purchase-cinema-overlap */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-overlap/purchase-cinema-overlap.ts");
+/* harmony import */ var _components_pages_cinema_purchase_cinema_schedule_purchase_cinema_schedule_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component.ts");
+/* harmony import */ var _components_pages_cinema_purchase_cinema_seat_purchase_cinema_seat_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-seat/purchase-cinema-seat.component */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-seat/purchase-cinema-seat.component.ts");
+/* harmony import */ var _components_pages_cinema_purchase_cinema_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component.ts");
+/* harmony import */ var _components_pages_event_purchase_event_schedule_purchase_event_schedule_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/pages/event/purchase-event-schedule/purchase-event-schedule.component */ "./app/modules/purchase/components/pages/event/purchase-event-schedule/purchase-event-schedule.component.ts");
+/* harmony import */ var _components_pages_event_purchase_event_seat_ticket_purchase_event_seat_ticket_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/pages/event/purchase-event-seat-ticket/purchase-event-seat-ticket.component */ "./app/modules/purchase/components/pages/event/purchase-event-seat-ticket/purchase-event-seat-ticket.component.ts");
+/* harmony import */ var _components_pages_event_purchase_event_seat_purchase_event_seat_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/pages/event/purchase-event-seat/purchase-event-seat.component */ "./app/modules/purchase/components/pages/event/purchase-event-seat/purchase-event-seat.component.ts");
+/* harmony import */ var _components_pages_event_purchase_event_ticket_purchase_event_ticket_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/pages/event/purchase-event-ticket/purchase-event-ticket.component */ "./app/modules/purchase/components/pages/event/purchase-event-ticket/purchase-event-ticket.component.ts");
+/* harmony import */ var _components_pages_purchase_base_purchase_base_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/pages/purchase-base/purchase-base.component */ "./app/modules/purchase/components/pages/purchase-base/purchase-base.component.ts");
+/* harmony import */ var _components_pages_purchase_complete_purchase_complete_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/pages/purchase-complete/purchase-complete.component */ "./app/modules/purchase/components/pages/purchase-complete/purchase-complete.component.ts");
+/* harmony import */ var _components_pages_purchase_confirm_purchase_confirm_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/pages/purchase-confirm/purchase-confirm.component */ "./app/modules/purchase/components/pages/purchase-confirm/purchase-confirm.component.ts");
+/* harmony import */ var _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/pages/purchase-input/purchase-input.component */ "./app/modules/purchase/components/pages/purchase-input/purchase-input.component.ts");
+/* harmony import */ var _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/pages/purchase-root/purchase-root.component */ "./app/modules/purchase/components/pages/purchase-root/purchase-root.component.ts");
+/* harmony import */ var _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/pages/purchase-transaction/purchase-transaction.component */ "./app/modules/purchase/components/pages/purchase-transaction/purchase-transaction.component.ts");
 
 
 
@@ -7933,57 +7638,56 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     {
         path: '',
-        component: _components_pages_purchase_base_purchase_base_component__WEBPACK_IMPORTED_MODULE_13__["PurchaseBaseComponent"],
+        component: _components_pages_purchase_base_purchase_base_component__WEBPACK_IMPORTED_MODULE_12__["PurchaseBaseComponent"],
         children: [
             {
                 path: 'cinema',
                 canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["ViewTypeGuardService"]],
                 children: [
-                    { path: 'overlap', component: _components_pages_cinema_purchase_cinema_overlap_purchase_cinema_overlap__WEBPACK_IMPORTED_MODULE_5__["PurchaseCinemaOverlapComponent"] },
-                    { path: 'seat', component: _components_pages_cinema_purchase_cinema_seat_purchase_cinema_seat_component__WEBPACK_IMPORTED_MODULE_7__["PurchaseCinemaSeatComponent"] },
-                    { path: 'ticket', component: _components_pages_cinema_purchase_cinema_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_8__["PurchaseCinemaTicketComponent"] },
-                    { path: 'cart', component: _components_pages_cinema_purchase_cinema_cart_purchase_cinema_cart_component__WEBPACK_IMPORTED_MODULE_4__["PurchaseCinemaCartComponent"] }
+                    { path: 'overlap', component: _components_pages_cinema_purchase_cinema_overlap_purchase_cinema_overlap__WEBPACK_IMPORTED_MODULE_4__["PurchaseCinemaOverlapComponent"] },
+                    { path: 'seat', component: _components_pages_cinema_purchase_cinema_seat_purchase_cinema_seat_component__WEBPACK_IMPORTED_MODULE_6__["PurchaseCinemaSeatComponent"] },
+                    { path: 'ticket', component: _components_pages_cinema_purchase_cinema_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_7__["PurchaseCinemaTicketComponent"] },
                 ]
             },
             {
                 path: 'event',
                 canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["ViewTypeGuardService"]],
                 children: [
-                    { path: 'ticket', component: _components_pages_event_purchase_event_ticket_purchase_event_ticket_component__WEBPACK_IMPORTED_MODULE_12__["PurchaseEventTicketComponent"] },
+                    { path: 'ticket', component: _components_pages_event_purchase_event_ticket_purchase_event_ticket_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseEventTicketComponent"] },
                     {
                         path: 'seat',
                         canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["ViewTypeGuardService"]],
                         children: [
-                            { path: '', component: _components_pages_event_purchase_event_seat_purchase_event_seat_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseEventSeatComponent"] },
-                            { path: 'ticket', component: _components_pages_event_purchase_event_seat_ticket_purchase_event_seat_ticket_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseEventSeatTicketComponent"] }
+                            { path: '', component: _components_pages_event_purchase_event_seat_purchase_event_seat_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseEventSeatComponent"] },
+                            { path: 'ticket', component: _components_pages_event_purchase_event_seat_ticket_purchase_event_seat_ticket_component__WEBPACK_IMPORTED_MODULE_9__["PurchaseEventSeatTicketComponent"] }
                         ]
                     },
                 ]
             },
-            { path: 'input', canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["PurchaseTransactionGuardService"]], component: _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_16__["PurchaseInputComponent"] },
-            { path: 'confirm', canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["PurchaseTransactionGuardService"]], component: _components_pages_purchase_confirm_purchase_confirm_component__WEBPACK_IMPORTED_MODULE_15__["PurchaseConfirmComponent"] },
-            { path: 'complete', component: _components_pages_purchase_complete_purchase_complete_component__WEBPACK_IMPORTED_MODULE_14__["PurchaseCompleteComponent"] }
+            { path: 'input', canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["PurchaseTransactionGuardService"]], component: _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_15__["PurchaseInputComponent"] },
+            { path: 'confirm', canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["PurchaseTransactionGuardService"]], component: _components_pages_purchase_confirm_purchase_confirm_component__WEBPACK_IMPORTED_MODULE_14__["PurchaseConfirmComponent"] },
+            { path: 'complete', component: _components_pages_purchase_complete_purchase_complete_component__WEBPACK_IMPORTED_MODULE_13__["PurchaseCompleteComponent"] }
         ]
     },
     {
         path: '',
         component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__["BaseComponent"],
         children: [
-            { path: 'root', component: _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_17__["PurchaseRootComponent"] },
-            { path: 'transaction/:eventId/:passportToken', component: _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_18__["PurchaseTransactionComponent"] },
-            { path: 'transaction/:eventId', component: _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_18__["PurchaseTransactionComponent"] },
+            { path: 'root', component: _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_16__["PurchaseRootComponent"] },
+            { path: 'transaction/:eventId/:passportToken', component: _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_17__["PurchaseTransactionComponent"] },
+            { path: 'transaction/:eventId', component: _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_17__["PurchaseTransactionComponent"] },
             {
                 path: 'cinema',
                 canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["ViewTypeGuardService"]],
                 children: [
-                    { path: 'schedule', component: _components_pages_cinema_purchase_cinema_schedule_purchase_cinema_schedule_component__WEBPACK_IMPORTED_MODULE_6__["PurchaseCinemaScheduleComponent"] }
+                    { path: 'schedule', component: _components_pages_cinema_purchase_cinema_schedule_purchase_cinema_schedule_component__WEBPACK_IMPORTED_MODULE_5__["PurchaseCinemaScheduleComponent"] }
                 ]
             },
             {
                 path: 'event',
                 canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["ViewTypeGuardService"]],
                 children: [
-                    { path: 'schedule', component: _components_pages_event_purchase_event_schedule_purchase_event_schedule_component__WEBPACK_IMPORTED_MODULE_9__["PurchaseEventScheduleComponent"] }
+                    { path: 'schedule', component: _components_pages_event_purchase_event_schedule_purchase_event_schedule_component__WEBPACK_IMPORTED_MODULE_8__["PurchaseEventScheduleComponent"] }
                 ]
             }
         ]
@@ -8019,34 +7723,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/shared.module */ "./app/modules/shared/shared.module.ts");
-/* harmony import */ var _components_pages_cinema_purchase_cinema_cart_purchase_cinema_cart_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-cart/purchase-cinema-cart.component */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-cart/purchase-cinema-cart.component.ts");
-/* harmony import */ var _components_pages_cinema_purchase_cinema_overlap_purchase_cinema_overlap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-overlap/purchase-cinema-overlap */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-overlap/purchase-cinema-overlap.ts");
-/* harmony import */ var _components_pages_cinema_purchase_cinema_schedule_purchase_cinema_schedule_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component.ts");
-/* harmony import */ var _components_pages_cinema_purchase_cinema_seat_purchase_cinema_seat_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-seat/purchase-cinema-seat.component */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-seat/purchase-cinema-seat.component.ts");
-/* harmony import */ var _components_pages_cinema_purchase_cinema_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component.ts");
-/* harmony import */ var _components_pages_event_purchase_event_schedule_purchase_event_schedule_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/pages/event/purchase-event-schedule/purchase-event-schedule.component */ "./app/modules/purchase/components/pages/event/purchase-event-schedule/purchase-event-schedule.component.ts");
-/* harmony import */ var _components_pages_event_purchase_event_seat_ticket_purchase_event_seat_ticket_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/pages/event/purchase-event-seat-ticket/purchase-event-seat-ticket.component */ "./app/modules/purchase/components/pages/event/purchase-event-seat-ticket/purchase-event-seat-ticket.component.ts");
-/* harmony import */ var _components_pages_event_purchase_event_seat_purchase_event_seat_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/pages/event/purchase-event-seat/purchase-event-seat.component */ "./app/modules/purchase/components/pages/event/purchase-event-seat/purchase-event-seat.component.ts");
-/* harmony import */ var _components_pages_event_purchase_event_ticket_purchase_event_ticket_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/pages/event/purchase-event-ticket/purchase-event-ticket.component */ "./app/modules/purchase/components/pages/event/purchase-event-ticket/purchase-event-ticket.component.ts");
-/* harmony import */ var _components_pages_purchase_base_purchase_base_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/pages/purchase-base/purchase-base.component */ "./app/modules/purchase/components/pages/purchase-base/purchase-base.component.ts");
-/* harmony import */ var _components_pages_purchase_complete_purchase_complete_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/pages/purchase-complete/purchase-complete.component */ "./app/modules/purchase/components/pages/purchase-complete/purchase-complete.component.ts");
-/* harmony import */ var _components_pages_purchase_confirm_purchase_confirm_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/pages/purchase-confirm/purchase-confirm.component */ "./app/modules/purchase/components/pages/purchase-confirm/purchase-confirm.component.ts");
-/* harmony import */ var _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/pages/purchase-input/purchase-input.component */ "./app/modules/purchase/components/pages/purchase-input/purchase-input.component.ts");
-/* harmony import */ var _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/pages/purchase-root/purchase-root.component */ "./app/modules/purchase/components/pages/purchase-root/purchase-root.component.ts");
-/* harmony import */ var _components_pages_purchase_seat_purchase_seat_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/pages/purchase-seat/purchase-seat.component */ "./app/modules/purchase/components/pages/purchase-seat/purchase-seat.component.ts");
-/* harmony import */ var _components_pages_purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/pages/purchase-ticket/purchase-ticket.component */ "./app/modules/purchase/components/pages/purchase-ticket/purchase-ticket.component.ts");
-/* harmony import */ var _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/pages/purchase-transaction/purchase-transaction.component */ "./app/modules/purchase/components/pages/purchase-transaction/purchase-transaction.component.ts");
-/* harmony import */ var _components_parts_event_performances_confirm_performances_confirm_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/event/performances-confirm/performances-confirm.component */ "./app/modules/purchase/components/parts/event/performances-confirm/performances-confirm.component.ts");
-/* harmony import */ var _components_parts_performance_performance_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/performance/performance.component */ "./app/modules/purchase/components/parts/performance/performance.component.ts");
-/* harmony import */ var _components_parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/performances/performances.component */ "./app/modules/purchase/components/parts/performances/performances.component.ts");
-/* harmony import */ var _components_parts_purchase_info_purchase_info_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/purchase-info/purchase-info.component */ "./app/modules/purchase/components/parts/purchase-info/purchase-info.component.ts");
-/* harmony import */ var _components_parts_purchase_terms_purchase_terms_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/purchase-terms/purchase-terms.component */ "./app/modules/purchase/components/parts/purchase-terms/purchase-terms.component.ts");
-/* harmony import */ var _components_parts_purchase_warning_purchase_warning_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/parts/purchase-warning/purchase-warning.component */ "./app/modules/purchase/components/parts/purchase-warning/purchase-warning.component.ts");
-/* harmony import */ var _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/parts/screen/screen.component */ "./app/modules/purchase/components/parts/screen/screen.component.ts");
-/* harmony import */ var _components_parts_seat_info_seat_info_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/parts/seat-info/seat-info.component */ "./app/modules/purchase/components/parts/seat-info/seat-info.component.ts");
-/* harmony import */ var _components_parts_transaction_remaining_time_transaction_remaining_time_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/parts/transaction-remaining-time/transaction-remaining-time.component */ "./app/modules/purchase/components/parts/transaction-remaining-time/transaction-remaining-time.component.ts");
-/* harmony import */ var _purchase_routing_module__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./purchase-routing.module */ "./app/modules/purchase/purchase-routing.module.ts");
-
+/* harmony import */ var _components_pages_cinema_purchase_cinema_overlap_purchase_cinema_overlap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-overlap/purchase-cinema-overlap */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-overlap/purchase-cinema-overlap.ts");
+/* harmony import */ var _components_pages_cinema_purchase_cinema_schedule_purchase_cinema_schedule_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component.ts");
+/* harmony import */ var _components_pages_cinema_purchase_cinema_seat_purchase_cinema_seat_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-seat/purchase-cinema-seat.component */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-seat/purchase-cinema-seat.component.ts");
+/* harmony import */ var _components_pages_cinema_purchase_cinema_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component */ "./app/modules/purchase/components/pages/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component.ts");
+/* harmony import */ var _components_pages_event_purchase_event_schedule_purchase_event_schedule_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/event/purchase-event-schedule/purchase-event-schedule.component */ "./app/modules/purchase/components/pages/event/purchase-event-schedule/purchase-event-schedule.component.ts");
+/* harmony import */ var _components_pages_event_purchase_event_seat_ticket_purchase_event_seat_ticket_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/pages/event/purchase-event-seat-ticket/purchase-event-seat-ticket.component */ "./app/modules/purchase/components/pages/event/purchase-event-seat-ticket/purchase-event-seat-ticket.component.ts");
+/* harmony import */ var _components_pages_event_purchase_event_seat_purchase_event_seat_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/pages/event/purchase-event-seat/purchase-event-seat.component */ "./app/modules/purchase/components/pages/event/purchase-event-seat/purchase-event-seat.component.ts");
+/* harmony import */ var _components_pages_event_purchase_event_ticket_purchase_event_ticket_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/pages/event/purchase-event-ticket/purchase-event-ticket.component */ "./app/modules/purchase/components/pages/event/purchase-event-ticket/purchase-event-ticket.component.ts");
+/* harmony import */ var _components_pages_purchase_base_purchase_base_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/pages/purchase-base/purchase-base.component */ "./app/modules/purchase/components/pages/purchase-base/purchase-base.component.ts");
+/* harmony import */ var _components_pages_purchase_complete_purchase_complete_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/pages/purchase-complete/purchase-complete.component */ "./app/modules/purchase/components/pages/purchase-complete/purchase-complete.component.ts");
+/* harmony import */ var _components_pages_purchase_confirm_purchase_confirm_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/pages/purchase-confirm/purchase-confirm.component */ "./app/modules/purchase/components/pages/purchase-confirm/purchase-confirm.component.ts");
+/* harmony import */ var _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/pages/purchase-input/purchase-input.component */ "./app/modules/purchase/components/pages/purchase-input/purchase-input.component.ts");
+/* harmony import */ var _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/pages/purchase-root/purchase-root.component */ "./app/modules/purchase/components/pages/purchase-root/purchase-root.component.ts");
+/* harmony import */ var _components_pages_purchase_seat_purchase_seat_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/pages/purchase-seat/purchase-seat.component */ "./app/modules/purchase/components/pages/purchase-seat/purchase-seat.component.ts");
+/* harmony import */ var _components_pages_purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/pages/purchase-ticket/purchase-ticket.component */ "./app/modules/purchase/components/pages/purchase-ticket/purchase-ticket.component.ts");
+/* harmony import */ var _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/pages/purchase-transaction/purchase-transaction.component */ "./app/modules/purchase/components/pages/purchase-transaction/purchase-transaction.component.ts");
+/* harmony import */ var _components_parts_event_performances_confirm_performances_confirm_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/parts/event/performances-confirm/performances-confirm.component */ "./app/modules/purchase/components/parts/event/performances-confirm/performances-confirm.component.ts");
+/* harmony import */ var _components_parts_performance_performance_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/parts/performance/performance.component */ "./app/modules/purchase/components/parts/performance/performance.component.ts");
+/* harmony import */ var _components_parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/parts/performances/performances.component */ "./app/modules/purchase/components/parts/performances/performances.component.ts");
+/* harmony import */ var _components_parts_purchase_info_purchase_info_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/parts/purchase-info/purchase-info.component */ "./app/modules/purchase/components/parts/purchase-info/purchase-info.component.ts");
+/* harmony import */ var _components_parts_purchase_terms_purchase_terms_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/parts/purchase-terms/purchase-terms.component */ "./app/modules/purchase/components/parts/purchase-terms/purchase-terms.component.ts");
+/* harmony import */ var _components_parts_purchase_warning_purchase_warning_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/parts/purchase-warning/purchase-warning.component */ "./app/modules/purchase/components/parts/purchase-warning/purchase-warning.component.ts");
+/* harmony import */ var _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/parts/screen/screen.component */ "./app/modules/purchase/components/parts/screen/screen.component.ts");
+/* harmony import */ var _components_parts_seat_info_seat_info_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/parts/seat-info/seat-info.component */ "./app/modules/purchase/components/parts/seat-info/seat-info.component.ts");
+/* harmony import */ var _components_parts_transaction_remaining_time_transaction_remaining_time_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/parts/transaction-remaining-time/transaction-remaining-time.component */ "./app/modules/purchase/components/parts/transaction-remaining-time/transaction-remaining-time.component.ts");
+/* harmony import */ var _purchase_routing_module__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./purchase-routing.module */ "./app/modules/purchase/purchase-routing.module.ts");
 
 
 
@@ -8082,72 +7784,70 @@ class PurchaseModule {
 PurchaseModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({ type: PurchaseModule });
 PurchaseModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({ factory: function PurchaseModule_Factory(t) { return new (t || PurchaseModule)(); }, imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
-            _purchase_routing_module__WEBPACK_IMPORTED_MODULE_29__["PurchaseRoutingModule"],
+            _purchase_routing_module__WEBPACK_IMPORTED_MODULE_28__["PurchaseRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__["SharedModule"],
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](PurchaseModule, { declarations: [_components_pages_purchase_base_purchase_base_component__WEBPACK_IMPORTED_MODULE_12__["PurchaseBaseComponent"],
-        _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_15__["PurchaseInputComponent"],
-        _components_pages_purchase_confirm_purchase_confirm_component__WEBPACK_IMPORTED_MODULE_14__["PurchaseConfirmComponent"],
-        _components_pages_purchase_complete_purchase_complete_component__WEBPACK_IMPORTED_MODULE_13__["PurchaseCompleteComponent"],
-        _components_parts_purchase_info_purchase_info_component__WEBPACK_IMPORTED_MODULE_23__["PurchaseInfoComponent"],
-        _components_pages_cinema_purchase_cinema_cart_purchase_cinema_cart_component__WEBPACK_IMPORTED_MODULE_3__["PurchaseCinemaCartComponent"],
-        _components_pages_cinema_purchase_cinema_schedule_purchase_cinema_schedule_component__WEBPACK_IMPORTED_MODULE_5__["PurchaseCinemaScheduleComponent"],
-        _components_pages_cinema_purchase_cinema_seat_purchase_cinema_seat_component__WEBPACK_IMPORTED_MODULE_6__["PurchaseCinemaSeatComponent"],
-        _components_pages_cinema_purchase_cinema_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_7__["PurchaseCinemaTicketComponent"],
-        _components_pages_cinema_purchase_cinema_overlap_purchase_cinema_overlap__WEBPACK_IMPORTED_MODULE_4__["PurchaseCinemaOverlapComponent"],
-        _components_pages_event_purchase_event_ticket_purchase_event_ticket_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseEventTicketComponent"],
-        _components_parts_event_performances_confirm_performances_confirm_component__WEBPACK_IMPORTED_MODULE_20__["PurchaseEventPerformancesConfirmComponent"],
-        _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_16__["PurchaseRootComponent"],
-        _components_parts_performance_performance_component__WEBPACK_IMPORTED_MODULE_21__["PurchasePerformanceComponent"],
-        _components_parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_22__["PurchasePerformancesComponent"],
-        _components_pages_event_purchase_event_schedule_purchase_event_schedule_component__WEBPACK_IMPORTED_MODULE_8__["PurchaseEventScheduleComponent"],
-        _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_19__["PurchaseTransactionComponent"],
-        _components_parts_purchase_terms_purchase_terms_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseTermsComponent"],
-        _components_parts_purchase_warning_purchase_warning_component__WEBPACK_IMPORTED_MODULE_25__["PurchaseWarningComponent"],
-        _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_26__["ScreenComponent"],
-        _components_parts_transaction_remaining_time_transaction_remaining_time_component__WEBPACK_IMPORTED_MODULE_28__["TransactionRemainingTimeComponent"],
-        _components_pages_event_purchase_event_seat_purchase_event_seat_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseEventSeatComponent"],
-        _components_pages_event_purchase_event_seat_ticket_purchase_event_seat_ticket_component__WEBPACK_IMPORTED_MODULE_9__["PurchaseEventSeatTicketComponent"],
-        _components_pages_purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_18__["PurchaseTicketComponent"],
-        _components_pages_purchase_seat_purchase_seat_component__WEBPACK_IMPORTED_MODULE_17__["PurchaseSeatComponent"],
-        _components_parts_seat_info_seat_info_component__WEBPACK_IMPORTED_MODULE_27__["SeatInfoComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
-        _purchase_routing_module__WEBPACK_IMPORTED_MODULE_29__["PurchaseRoutingModule"],
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](PurchaseModule, { declarations: [_components_pages_purchase_base_purchase_base_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseBaseComponent"],
+        _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_14__["PurchaseInputComponent"],
+        _components_pages_purchase_confirm_purchase_confirm_component__WEBPACK_IMPORTED_MODULE_13__["PurchaseConfirmComponent"],
+        _components_pages_purchase_complete_purchase_complete_component__WEBPACK_IMPORTED_MODULE_12__["PurchaseCompleteComponent"],
+        _components_parts_purchase_info_purchase_info_component__WEBPACK_IMPORTED_MODULE_22__["PurchaseInfoComponent"],
+        _components_pages_cinema_purchase_cinema_schedule_purchase_cinema_schedule_component__WEBPACK_IMPORTED_MODULE_4__["PurchaseCinemaScheduleComponent"],
+        _components_pages_cinema_purchase_cinema_seat_purchase_cinema_seat_component__WEBPACK_IMPORTED_MODULE_5__["PurchaseCinemaSeatComponent"],
+        _components_pages_cinema_purchase_cinema_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_6__["PurchaseCinemaTicketComponent"],
+        _components_pages_cinema_purchase_cinema_overlap_purchase_cinema_overlap__WEBPACK_IMPORTED_MODULE_3__["PurchaseCinemaOverlapComponent"],
+        _components_pages_event_purchase_event_ticket_purchase_event_ticket_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseEventTicketComponent"],
+        _components_parts_event_performances_confirm_performances_confirm_component__WEBPACK_IMPORTED_MODULE_19__["PurchaseEventPerformancesConfirmComponent"],
+        _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_15__["PurchaseRootComponent"],
+        _components_parts_performance_performance_component__WEBPACK_IMPORTED_MODULE_20__["PurchasePerformanceComponent"],
+        _components_parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_21__["PurchasePerformancesComponent"],
+        _components_pages_event_purchase_event_schedule_purchase_event_schedule_component__WEBPACK_IMPORTED_MODULE_7__["PurchaseEventScheduleComponent"],
+        _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_18__["PurchaseTransactionComponent"],
+        _components_parts_purchase_terms_purchase_terms_component__WEBPACK_IMPORTED_MODULE_23__["PurchaseTermsComponent"],
+        _components_parts_purchase_warning_purchase_warning_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseWarningComponent"],
+        _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_25__["ScreenComponent"],
+        _components_parts_transaction_remaining_time_transaction_remaining_time_component__WEBPACK_IMPORTED_MODULE_27__["TransactionRemainingTimeComponent"],
+        _components_pages_event_purchase_event_seat_purchase_event_seat_component__WEBPACK_IMPORTED_MODULE_9__["PurchaseEventSeatComponent"],
+        _components_pages_event_purchase_event_seat_ticket_purchase_event_seat_ticket_component__WEBPACK_IMPORTED_MODULE_8__["PurchaseEventSeatTicketComponent"],
+        _components_pages_purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_17__["PurchaseTicketComponent"],
+        _components_pages_purchase_seat_purchase_seat_component__WEBPACK_IMPORTED_MODULE_16__["PurchaseSeatComponent"],
+        _components_parts_seat_info_seat_info_component__WEBPACK_IMPORTED_MODULE_26__["SeatInfoComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
+        _purchase_routing_module__WEBPACK_IMPORTED_MODULE_28__["PurchaseRoutingModule"],
         _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__["SharedModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](PurchaseModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
         args: [{
                 declarations: [
-                    _components_pages_purchase_base_purchase_base_component__WEBPACK_IMPORTED_MODULE_12__["PurchaseBaseComponent"],
-                    _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_15__["PurchaseInputComponent"],
-                    _components_pages_purchase_confirm_purchase_confirm_component__WEBPACK_IMPORTED_MODULE_14__["PurchaseConfirmComponent"],
-                    _components_pages_purchase_complete_purchase_complete_component__WEBPACK_IMPORTED_MODULE_13__["PurchaseCompleteComponent"],
-                    _components_parts_purchase_info_purchase_info_component__WEBPACK_IMPORTED_MODULE_23__["PurchaseInfoComponent"],
-                    _components_pages_cinema_purchase_cinema_cart_purchase_cinema_cart_component__WEBPACK_IMPORTED_MODULE_3__["PurchaseCinemaCartComponent"],
-                    _components_pages_cinema_purchase_cinema_schedule_purchase_cinema_schedule_component__WEBPACK_IMPORTED_MODULE_5__["PurchaseCinemaScheduleComponent"],
-                    _components_pages_cinema_purchase_cinema_seat_purchase_cinema_seat_component__WEBPACK_IMPORTED_MODULE_6__["PurchaseCinemaSeatComponent"],
-                    _components_pages_cinema_purchase_cinema_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_7__["PurchaseCinemaTicketComponent"],
-                    _components_pages_cinema_purchase_cinema_overlap_purchase_cinema_overlap__WEBPACK_IMPORTED_MODULE_4__["PurchaseCinemaOverlapComponent"],
-                    _components_pages_event_purchase_event_ticket_purchase_event_ticket_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseEventTicketComponent"],
-                    _components_parts_event_performances_confirm_performances_confirm_component__WEBPACK_IMPORTED_MODULE_20__["PurchaseEventPerformancesConfirmComponent"],
-                    _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_16__["PurchaseRootComponent"],
-                    _components_parts_performance_performance_component__WEBPACK_IMPORTED_MODULE_21__["PurchasePerformanceComponent"],
-                    _components_parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_22__["PurchasePerformancesComponent"],
-                    _components_pages_event_purchase_event_schedule_purchase_event_schedule_component__WEBPACK_IMPORTED_MODULE_8__["PurchaseEventScheduleComponent"],
-                    _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_19__["PurchaseTransactionComponent"],
-                    _components_parts_purchase_terms_purchase_terms_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseTermsComponent"],
-                    _components_parts_purchase_warning_purchase_warning_component__WEBPACK_IMPORTED_MODULE_25__["PurchaseWarningComponent"],
-                    _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_26__["ScreenComponent"],
-                    _components_parts_transaction_remaining_time_transaction_remaining_time_component__WEBPACK_IMPORTED_MODULE_28__["TransactionRemainingTimeComponent"],
-                    _components_pages_event_purchase_event_seat_purchase_event_seat_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseEventSeatComponent"],
-                    _components_pages_event_purchase_event_seat_ticket_purchase_event_seat_ticket_component__WEBPACK_IMPORTED_MODULE_9__["PurchaseEventSeatTicketComponent"],
-                    _components_pages_purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_18__["PurchaseTicketComponent"],
-                    _components_pages_purchase_seat_purchase_seat_component__WEBPACK_IMPORTED_MODULE_17__["PurchaseSeatComponent"],
-                    _components_parts_seat_info_seat_info_component__WEBPACK_IMPORTED_MODULE_27__["SeatInfoComponent"]
+                    _components_pages_purchase_base_purchase_base_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseBaseComponent"],
+                    _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_14__["PurchaseInputComponent"],
+                    _components_pages_purchase_confirm_purchase_confirm_component__WEBPACK_IMPORTED_MODULE_13__["PurchaseConfirmComponent"],
+                    _components_pages_purchase_complete_purchase_complete_component__WEBPACK_IMPORTED_MODULE_12__["PurchaseCompleteComponent"],
+                    _components_parts_purchase_info_purchase_info_component__WEBPACK_IMPORTED_MODULE_22__["PurchaseInfoComponent"],
+                    _components_pages_cinema_purchase_cinema_schedule_purchase_cinema_schedule_component__WEBPACK_IMPORTED_MODULE_4__["PurchaseCinemaScheduleComponent"],
+                    _components_pages_cinema_purchase_cinema_seat_purchase_cinema_seat_component__WEBPACK_IMPORTED_MODULE_5__["PurchaseCinemaSeatComponent"],
+                    _components_pages_cinema_purchase_cinema_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_6__["PurchaseCinemaTicketComponent"],
+                    _components_pages_cinema_purchase_cinema_overlap_purchase_cinema_overlap__WEBPACK_IMPORTED_MODULE_3__["PurchaseCinemaOverlapComponent"],
+                    _components_pages_event_purchase_event_ticket_purchase_event_ticket_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseEventTicketComponent"],
+                    _components_parts_event_performances_confirm_performances_confirm_component__WEBPACK_IMPORTED_MODULE_19__["PurchaseEventPerformancesConfirmComponent"],
+                    _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_15__["PurchaseRootComponent"],
+                    _components_parts_performance_performance_component__WEBPACK_IMPORTED_MODULE_20__["PurchasePerformanceComponent"],
+                    _components_parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_21__["PurchasePerformancesComponent"],
+                    _components_pages_event_purchase_event_schedule_purchase_event_schedule_component__WEBPACK_IMPORTED_MODULE_7__["PurchaseEventScheduleComponent"],
+                    _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_18__["PurchaseTransactionComponent"],
+                    _components_parts_purchase_terms_purchase_terms_component__WEBPACK_IMPORTED_MODULE_23__["PurchaseTermsComponent"],
+                    _components_parts_purchase_warning_purchase_warning_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseWarningComponent"],
+                    _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_25__["ScreenComponent"],
+                    _components_parts_transaction_remaining_time_transaction_remaining_time_component__WEBPACK_IMPORTED_MODULE_27__["TransactionRemainingTimeComponent"],
+                    _components_pages_event_purchase_event_seat_purchase_event_seat_component__WEBPACK_IMPORTED_MODULE_9__["PurchaseEventSeatComponent"],
+                    _components_pages_event_purchase_event_seat_ticket_purchase_event_seat_ticket_component__WEBPACK_IMPORTED_MODULE_8__["PurchaseEventSeatTicketComponent"],
+                    _components_pages_purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_17__["PurchaseTicketComponent"],
+                    _components_pages_purchase_seat_purchase_seat_component__WEBPACK_IMPORTED_MODULE_16__["PurchaseSeatComponent"],
+                    _components_parts_seat_info_seat_info_component__WEBPACK_IMPORTED_MODULE_26__["SeatInfoComponent"]
                 ],
                 entryComponents: [],
                 imports: [
                     _angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"],
-                    _purchase_routing_module__WEBPACK_IMPORTED_MODULE_29__["PurchaseRoutingModule"],
+                    _purchase_routing_module__WEBPACK_IMPORTED_MODULE_28__["PurchaseRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__["SharedModule"],
                 ],
                 exports: []

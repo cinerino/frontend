@@ -86566,7 +86566,7 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { masterData: { projects }, loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["masterAction"].getProjectsFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }))(initialState, action);
 }
 
@@ -86609,7 +86609,7 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].cancelFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].inquiry, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'orderAction.Inquiry' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].inquirySuccess, (state, payload) => {
@@ -86617,14 +86617,14 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { orderData: Object.assign(Object.assign({}, state.orderData), { order }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].inquiryFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].print, (state) => {
         return Object.assign(Object.assign({}, state), { loading: environment.PRINT_LOADING, process: 'orderAction.Print' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].printSuccess, (state) => {
         return Object.assign(Object.assign({}, state), { loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].printFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].orderAuthorize, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'orderAction.OrderAuthorize' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].orderAuthorizeSuccess, (state, payload) => {
@@ -86632,7 +86632,7 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { orderData: Object.assign(Object.assign({}, state.orderData), { order }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_2__["orderAction"].orderAuthorizeFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }))(initialState, action);
 }
 
@@ -86697,7 +86697,7 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { seller }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].getSellerFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].selectTheater, (state, payload) => {
         const theater = payload.theater;
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { theater }), loading: false, process: '', error: null });
@@ -86711,7 +86711,7 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { preScheduleDates }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].getPreScheduleDatesFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { error: JSON.stringify(error), loading: false, process: '' });
+        return Object.assign(Object.assign({}, state), { error: (error.message) ? error.message : JSON.stringify(error), loading: false, process: '' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].getScreeningEvent, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'purchaseAction.GetScreeningEvent' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].getScreeningEventSuccess, (state, payload) => {
@@ -86719,21 +86719,21 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { screeningEvent }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].getScreeningEventFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { error: JSON.stringify(error), loading: false, process: '' });
+        return Object.assign(Object.assign({}, state), { error: (error.message) ? error.message : JSON.stringify(error), loading: false, process: '' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].startTransaction, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'purchaseAction.StartTransaction' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].startTransactionSuccess, (state, payload) => {
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { transaction: payload.transaction, preScheduleDates: [], authorizeSeatReservations: [], authorizeCreditCardPayments: [], authorizeMovieTicketPayments: [], checkMovieTicketActions: [], pendingMovieTickets: [], profile: undefined }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].getScreeningEventFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { error: JSON.stringify(error), loading: false, process: '' });
+        return Object.assign(Object.assign({}, state), { error: (error.message) ? error.message : JSON.stringify(error), loading: false, process: '' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTransaction, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'purchaseAction.CancelTransaction' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTransactionSuccess, (state) => {
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { transaction: undefined, preScheduleDates: [], authorizeSeatReservations: [], authorizeCreditCardPayments: [], authorizeMovieTicketPayments: [], checkMovieTicketActions: [], pendingMovieTickets: [], profile: undefined }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTransactionFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { transaction: undefined, preScheduleDates: [], authorizeSeatReservations: [], authorizeCreditCardPayments: [], authorizeMovieTicketPayments: [], checkMovieTicketActions: [], pendingMovieTickets: [], profile: undefined }), loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { transaction: undefined, preScheduleDates: [], authorizeSeatReservations: [], authorizeCreditCardPayments: [], authorizeMovieTicketPayments: [], checkMovieTicketActions: [], pendingMovieTickets: [], profile: undefined }), loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].getScreen, (state) => {
         const screen = undefined;
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { screen }), loading: true, process: 'purchaseAction.GetScreen' });
@@ -86742,7 +86742,7 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { screen }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].getScreenFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].selectSeats, (state, payload) => {
         const reservations = ___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.deepCopy(state.purchaseData.reservations);
         payload.seats.forEach((seat) => {
@@ -86779,7 +86779,7 @@ function reducer(initialState, action) {
                 isUsedMovieTicket }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].getTicketListFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].selectTickets, (state, payload) => {
         const reservations = [];
         const selectedReservations = payload.reservations;
@@ -86856,7 +86856,7 @@ function reducer(initialState, action) {
                 pendingMovieTickets }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].temporaryReservationFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTemporaryReservations, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'purchaseAction.CancelTemporaryReservations' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTemporaryReservationsSuccess, (state, payload) => {
@@ -86876,7 +86876,7 @@ function reducer(initialState, action) {
                 pendingMovieTickets }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].cancelTemporaryReservationsFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].registerCreditCard, (state, payload) => {
         const creditCard = payload.creditCard;
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { creditCard }), loading: false, process: '', error: null });
@@ -86887,7 +86887,7 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { profile }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].registerContactFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].authorizeCreditCard, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'purchaseAction.AuthorizeCreditCard' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].authorizeCreditCardSuccess, (state, payload) => {
@@ -86900,7 +86900,7 @@ function reducer(initialState, action) {
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].authorizeCreditCardFail, (state, payload) => {
         const error = payload.error;
         const orderCount = state.purchaseData.orderCount + 1;
-        return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { orderCount }), loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { orderCount }), loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].createGmoTokenObject, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'purchaseAction.CreateGmoTokenObject' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].createGmoTokenObjectSuccess, (state, payload) => {
@@ -86910,7 +86910,7 @@ function reducer(initialState, action) {
                 creditCard }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].createGmoTokenObjectFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].authorizeMovieTicket, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'purchaseAction.AuthorizeMovieTicket' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].authorizeMovieTicketSuccess, (state, payload) => {
@@ -86918,7 +86918,7 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { authorizeMovieTicketPayments }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].authorizeMovieTicketFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].checkMovieTicket, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'purchaseAction.CheckMovieTicket' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].checkMovieTicketSuccess, (state, payload) => {
@@ -86935,7 +86935,7 @@ function reducer(initialState, action) {
                 checkMovieTicketActions }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].checkMovieTicketFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].endTransaction, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'purchaseAction.EndTransaction' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].endTransactionSuccess, (state, payload) => {
@@ -86955,7 +86955,7 @@ function reducer(initialState, action) {
             }, loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].endTransactionFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].convertExternalToPurchase, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'purchaseAction.ConvertExternalToPurchase' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].convertExternalToPurchaseSuccess, (state, payload) => {
@@ -86967,7 +86967,7 @@ function reducer(initialState, action) {
                 theater }), loading: false, process: '', error: null });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["on"])(_actions__WEBPACK_IMPORTED_MODULE_3__["purchaseAction"].convertExternalToPurchaseFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }))(initialState, action);
 }
 
@@ -87115,7 +87115,7 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { userData: Object.assign(Object.assign({}, state.userData), { profile }) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].getProfileFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].getAccount, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'userAction.GetAccount' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].getAccountSuccess, (state, payload) => {
@@ -87123,21 +87123,21 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { userData: Object.assign(Object.assign({}, state.userData), { accounts }) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].getAccountFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].openAccount, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'userAction.OpenAccount' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].openAccountSuccess, (state) => {
         return Object.assign(Object.assign({}, state), { userData: Object.assign({}, state.userData) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].openAccountFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].closeAccount, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'userAction.CloseAccount' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].closeAccountSuccess, (state) => {
         return Object.assign(Object.assign({}, state), { userData: Object.assign({}, state.userData) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].closeAccountFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].updateProfile, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'userAction.UpdateProfile' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].updateProfileSuccess, (state, payload) => {
@@ -87145,7 +87145,7 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { userData: Object.assign(Object.assign({}, state.userData), { profile }) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].updateProfileFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].getCreditCards, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'userAction.GetCreditCards' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].getCreditCardsSuccess, (state, payload) => {
@@ -87153,35 +87153,35 @@ function reducer(initialState, action) {
         return Object.assign(Object.assign({}, state), { userData: Object.assign(Object.assign({}, state.userData), { creditCards }) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].getCreditCardsFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].addCreditCard, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'userAction.AddCreditCard' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].addCreditCardSuccess, (state) => {
         return Object.assign(Object.assign({}, state), { userData: Object.assign({}, state.userData) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].addCreditCardFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].removeCreditCard, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'userAction.RemoveCreditCard' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].removeCreditCardSuccess, (state) => {
         return Object.assign(Object.assign({}, state), { userData: Object.assign({}, state.userData) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].removeCreditCardFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].chargeAccount, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'userAction.ChargeAccount' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].chargeAccountSuccess, (state) => {
         return Object.assign(Object.assign({}, state), { userData: Object.assign({}, state.userData) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].chargeAccountFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].transferAccount, (state) => {
         return Object.assign(Object.assign({}, state), { loading: true, process: 'userAction.TransferAccount' });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].transferAccountSuccess, (state) => {
         return Object.assign(Object.assign({}, state), { userData: Object.assign({}, state.userData) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].transferAccountFail, (state, payload) => {
         const error = payload.error;
-        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: JSON.stringify(error) });
+        return Object.assign(Object.assign({}, state), { loading: false, process: '', error: (error.message) ? error.message : JSON.stringify(error) });
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_actions__WEBPACK_IMPORTED_MODULE_1__["userAction"].updateBaseSetting, (state, payload) => {
         return Object.assign(Object.assign({}, state), { userData: Object.assign(Object.assign({}, state.userData), { pos: payload.pos, theater: payload.theater, printer: payload.printer }) });
     }))(initialState, action);

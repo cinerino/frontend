@@ -95,10 +95,6 @@ interface IEnvironment {
      */
     FOOTER_PRIVACY_POLICY_URL: string;
     /**
-     * カート機能有無
-     */
-    PURCHASE_CART: boolean;
-    /**
      * 購入アイテム上限数
      */
     PURCHASE_ITEM_MAX_LENGTH: string;
@@ -275,7 +271,6 @@ const defaultEnvironment: IEnvironment = {
     FOOTER_COMPANY_URL: '',
     FOOTER_LAW_URL: '',
     FOOTER_PRIVACY_POLICY_URL: '',
-    PURCHASE_CART: true,
     PURCHASE_ITEM_MAX_LENGTH: '50',
     PURCHASE_TRANSACTION_TIME: '15',
     PURCHASE_TRANSACTION_TIME_DISPLAY: true,

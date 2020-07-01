@@ -118,7 +118,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
     public async selectSchedule(screeningEvent: factory.event.screeningEvent.IEvent) {
         const purchase = await this.purchaseService.getData();
         if (purchase.authorizeSeatReservations.length > 0
-            && !this.environment.PURCHASE_CART) {
+            && Number(this.environment.PURCHASE_ITEM_MAX_LENGTH) === 1) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant('purchase.event.ticket.alert.cart')
