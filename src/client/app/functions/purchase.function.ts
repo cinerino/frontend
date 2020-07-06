@@ -618,3 +618,18 @@ export function selectAvailableSeat(params: {
     return availableSeats;
 }
 
+/**
+ * ムビチケオファー取得
+ */
+export function getMovieTicketTypeOffers(params: {
+    screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[]
+}) {
+    const screeningEventTicketOffers = params.screeningEventTicketOffers;
+    const result = screeningEventTicketOffers.filter((offer) => {
+        const movieTicketTypeChargeSpecifications = offer.priceSpecification.priceComponent.filter((priceComponent) => {
+            return (priceComponent.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
+        });
+        return (movieTicketTypeChargeSpecifications.length > 0);
+    });
+    return result;
+}

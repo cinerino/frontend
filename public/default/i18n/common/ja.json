@@ -269,6 +269,7 @@
                 },
                 "next": "認証",
                 "prev": "",
+                "value": "[{{value}}枚]",
                 "alert": {
                     "validation": "ムビチケ情報をご確認ください。",
                     "used": "すでに使用済みのムビチケです。",
@@ -285,7 +286,10 @@
             },
             "seatTicket": {
                 "addOn": "オプション選択",
-                "notfound": "販売可能券種がありません。"
+                "notfound": "販売可能券種がありません。",
+                "movieTicket": {
+                    "code": "ムビチケ購入番号"
+                }
             }
         },
         "securityCode": {
