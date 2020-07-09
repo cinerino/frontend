@@ -3,8 +3,7 @@
         <div [class.d-none]="isShowVideo">
             <div class="mb-4">
                 <p *ngIf="errorMessage !== '' && !isSuccess" class="mb-3 p-2 alert alert-danger" [innerHTML]="errorMessage"></p>
-                <p *ngIf="isSuccess" class="mb-3 p-2 alert alert-success">{{ 'modal.mvtk.check.success' | translate }}
-                </p>
+                <p *ngIf="isSuccess" class="mb-3 p-2 alert alert-success" [innerHTML]="successMessage"></p>
                 <div class="form-group">
                     <label class="mb-2" for="">{{ 'modal.mvtk.check.code' | translate }}</label>
                     <div class="input-group">
@@ -47,7 +46,7 @@
                 </div>
             </div>
             <div class="buttons mx-auto text-center">
-                <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+                <button type="button" class="btn btn-primary btn-block py-3 mb-3" [disabled]="(isLoading | async) || this.mvtkForm.invalid"
                     (click)="checkMovieTicket()">{{ 'modal.mvtk.check.next' | translate }}</button>
                 <button type="button" class="btn btn-link btn-sm"
                     (click)="modal.hide()">{{ 'common.close' | translate }}</button>

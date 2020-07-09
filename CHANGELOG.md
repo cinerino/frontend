@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.46 - 2020-07-09
+### Added
+ - ムビチケ購入番号表示追加
+
 ## 3.0.45 - 2020-07-01
 ### Changed
  - PURCHASE_CARTでの制御を削除

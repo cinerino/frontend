@@ -41,6 +41,14 @@
                                     --><span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>
                                 </p>
                             </div>
+                            <div>
+                                <!-- <p *ngIf="reservation.ticket.ticketOffer.description" class="text-small text-left">
+                                    {{ reservation.ticket.ticketOffer.description | changeLanguage }}
+                                </p> -->
+                                <p *ngIf="reservation.ticket.movieTicket" class="text-small text-left">
+                                    {{ 'modal.purchase.seatTicket.movieTicket.code' | translate }} {{ reservation.ticket.movieTicket.identifier }}
+                                </p>
+                            </div>
                         </button>
                     </div>
                 </div>

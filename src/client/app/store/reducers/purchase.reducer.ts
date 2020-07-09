@@ -303,12 +303,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(purchaseAction.getTicketListSuccess, (state, payload) => {
             const screeningEventTicketOffers = payload.screeningEventTicketOffers;
-            const movieTicketTypeOffers = screeningEventTicketOffers.filter((offer) => {
-                const movieTicketTypeChargeSpecifications = offer.priceSpecification.priceComponent.filter((priceComponent) => {
-                    return (priceComponent.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
-                });
-                return (movieTicketTypeChargeSpecifications.length > 0);
-            });
+            const movieTicketTypeOffers = Functions.Purchase.getMovieTicketTypeOffers({screeningEventTicketOffers});
             const isUsedMovieTicket = (movieTicketTypeOffers.length > 0);
             return {
                 ...state,

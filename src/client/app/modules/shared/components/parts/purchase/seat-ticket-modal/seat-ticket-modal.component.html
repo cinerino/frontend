@@ -11,8 +11,12 @@
                         *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
                 </p>
             </div>
-            <p *ngIf="ticket.ticketOffer.description" class="text-x-small text-left">
-                {{ ticket.ticketOffer.description | changeLanguage }}</p>
+            <p *ngIf="ticket.ticketOffer.description" class="text-small text-left">
+                {{ ticket.ticketOffer.description | changeLanguage }}
+            </p>
+            <p *ngIf="ticket.movieTicket" class="text-small text-left">
+                {{ 'modal.purchase.seatTicket.movieTicket.code' | translate }} {{ ticket.movieTicket.identifier }}
+            </p>
         </button>
     </div>
     <p *ngIf="tickets.length === 0">{{ 'modal.purchase.seatTicket.notfound' | translate }}</p>
