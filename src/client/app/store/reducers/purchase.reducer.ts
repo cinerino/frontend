@@ -1,4 +1,4 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
 import { Functions, Models } from '../..';
@@ -8,7 +8,7 @@ export interface IPurchaseState {
     /**
      * 販売者
      */
-    seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    seller?: factory.chevre.seller.ISeller;
     /**
      * 劇場
      */
@@ -65,10 +65,10 @@ export interface IPurchaseState {
      * クレジットカード
      */
     creditCard?:
-    factory.paymentMethod.paymentCard.creditCard.ICheckedCard |
-    factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember |
-    factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw |
-    factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
+    factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard |
+    factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember |
+    factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw |
+    factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
     /**
      * オーダーカウント
      */
@@ -391,7 +391,7 @@ export function reducer(initialState: IState, action: Action) {
                             throw new Error('pendingReservation is undefined');
                         }
                         const movieTicket =
-                            (<factory.paymentMethod.paymentCard.movieTicket.IMovieTicket>(
+                            (<factory.chevre.paymentMethod.paymentCard.movieTicket.IMovieTicket>(
                                 <Models.Purchase.Reservation.IReservationTicket>r.ticket
                             ).movieTicket);
                         movieTicket.serviceOutput = {

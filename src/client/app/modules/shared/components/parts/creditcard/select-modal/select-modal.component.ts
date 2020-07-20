@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -8,8 +8,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
     styleUrls: ['./select-modal.component.scss']
 })
 export class CreditCardSelectModalComponent implements OnInit {
-    @Input() public creditCards: factory.paymentMethod.paymentCard.creditCard.ICheckedCard[];
-    @Input() public cb: (creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) => void;
+    @Input() public creditCards: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard[];
+    @Input() public cb: (creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard) => void;
 
     constructor(
         public modal: BsModalRef
@@ -17,7 +17,7 @@ export class CreditCardSelectModalComponent implements OnInit {
 
     public ngOnInit() { }
 
-    public close(creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
+    public close(creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard) {
         this.modal.hide();
         this.cb(creditCard);
     }

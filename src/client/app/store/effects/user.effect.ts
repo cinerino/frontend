@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as moment from 'moment';
 import { map, mergeMap } from 'rxjs/operators';
@@ -48,19 +48,12 @@ export class UserEffects {
         mergeMap(async () => {
             try {
                 await this.cinerino.getServices();
-                const searchCoinAccountsResult = await this.cinerino.ownershipInfo.search<factory.ownershipInfo.AccountGoodType>({
+                const searchResult = await this.cinerino.ownershipInfo.search<factory.ownershipInfo.AccountGoodType>({
                     typeOfGood: {
                         typeOf: factory.ownershipInfo.AccountGoodType.Account,
-                        accountType: factory.accountType.Coin
                     }
                 });
-                const searchPointAccountsResult = await this.cinerino.ownershipInfo.search<factory.ownershipInfo.AccountGoodType>({
-                    typeOfGood: {
-                        typeOf: factory.ownershipInfo.AccountGoodType.Account,
-                        accountType: factory.accountType.Point
-                    }
-                });
-                const searchAccounts = [...searchCoinAccountsResult.data, ...searchPointAccountsResult.data];
+                const searchAccounts = searchResult.data;
                 const accounts = searchAccounts
                     .filter((a) => a.typeOfGood.status === factory.pecorino.accountStatusType.Opened);
                 return userAction.getAccountSuccess({ accounts });
@@ -80,11 +73,11 @@ export class UserEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const account = await this.cinerino.ownershipInfo.openAccount({
+                await this.cinerino.ownershipInfo.openAccount({
                     name: payload.name,
                     accountType: payload.accountType
                 });
-                return userAction.openAccountSuccess({ account });
+                return userAction.openAccountSuccess();
             } catch (error) {
                 return userAction.openAccountFail({ error: error });
             }
@@ -206,13 +199,17 @@ export class UserEffects {
         mergeMap(async (payload) => {
             // console.log(payload);
             try {
+                const seller = payload.seller;
+                if (seller.id === undefined) {
+                    throw new Error('seller.id undefined');
+                }
                 const userAgent = (navigator && navigator.userAgent !== undefined) ? navigator.userAgent : '';
                 await this.cinerino.getServices();
                 const transaction = await this.cinerino.transaction.placeOrder.start({
                     agent: {
                         identifier: [{ name: 'userAgent', value: userAgent }],
                     },
-                    seller: { typeOf: payload.seller.typeOf, id: payload.seller.id },
+                    seller: { typeOf: seller.typeOf, id: seller.id },
                     expires: moment().add(1, 'minutes').toDate()
                 });
                 await this.cinerino.transaction.placeOrder.setProfile({
@@ -229,14 +226,13 @@ export class UserEffects {
                         itemOffered: {
                             typeOf: 'MonetaryAmount',
                             value: payload.amount,
-                            currency: factory.accountType.Coin
+                            currency: 'Coin'
                         },
                         priceCurrency: factory.priceCurrency.JPY,
-                        seller: { typeOf: payload.seller.typeOf, name: payload.seller.name.ja },
+                        seller,
                         toLocation: {
                             typeOf: factory.pecorino.account.TypeOf.Account,
-                            accountType: factory.accountType.Coin,
-                            accountNumber: payload.account.typeOfGood.accountNumber
+                            identifier: payload.account.identifier
                         }
                     },
                     purpose: { typeOf: transaction.typeOf, id: transaction.id }
@@ -272,10 +268,15 @@ export class UserEffects {
         map(action => action),
         mergeMap(async (payload) => {
             try {
+                const seller = payload.seller;
+                if (seller.id === undefined
+                    || this.cinerino.auth.options.clientId === undefined) {
+                    throw new Error('seller.id or auth.options.clientId undefined');
+                }
                 await this.cinerino.getServices();
                 const transaction =
-                    await this.cinerino.transaction.moneyTransfer.start<factory.accountType.Coin, factory.pecorino.account.TypeOf.Account>({
-                        project: { typeOf: factory.organizationType.Project, id: payload.seller.project.id },
+                    await this.cinerino.transaction.moneyTransfer.start({
+                        project: { typeOf: factory.organizationType.Project, id: seller.project.id },
                         expires: moment().add(1, 'minutes').toDate(),
                         agent: {
                             typeOf: factory.personType.Person,
@@ -286,20 +287,18 @@ export class UserEffects {
                             id: '',
                             url: ''
                         },
-                        seller: { typeOf: payload.seller.typeOf, id: payload.seller.id },
+                        seller: { typeOf: payload.seller.typeOf, id: seller.id },
                         object: {
                             amount: payload.amount,
                             authorizeActions: [],
                             description: payload.description,
                             fromLocation: {
                                 typeOf: factory.pecorino.account.TypeOf.Account,
-                                accountType: payload.account.typeOfGood.accountType,
-                                accountNumber: payload.account.typeOfGood.accountNumber
+                                identifier: payload.account.identifier
                             },
                             toLocation: {
                                 typeOf: factory.pecorino.account.TypeOf.Account,
-                                accountType: payload.account.typeOfGood.accountType,
-                                accountNumber: payload.accountNumber
+                                identifier: payload.account.identifier
                             }
                         }
                     });

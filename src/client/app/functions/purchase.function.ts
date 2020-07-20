@@ -1,4 +1,4 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import * as moment from 'moment';
 import { Reservation } from '../models/purchase';
 import { IMovieTicket } from './../models/purchase/movieTicket';
@@ -58,7 +58,7 @@ export function createGmoTokenObject(params: {
         holderName: string;
         securityCode: string;
     },
-    seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    seller: factory.chevre.seller.ISeller;
 }) {
     return new Promise<IGmoTokenObject>((resolve, reject) => {
         if (params.seller.paymentAccepted === undefined) {
@@ -132,9 +132,9 @@ export function isAvailabilityMovieTicket(checkMovieTicketAction: factory.action
 export function createMovieTicketsFromAuthorizeSeatReservation(args: {
     authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
     pendingMovieTickets: IMovieTicket[];
-    seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+    seller: factory.chevre.seller.ISeller;
 }) {
-    const results: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
+    const results: factory.chevre.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
     const authorizeSeatReservation = args.authorizeSeatReservation;
     const pendingMovieTickets = args.pendingMovieTickets;
     const seller = args.seller;
@@ -344,10 +344,12 @@ export function order2EventOrders(params: {
     const results: IEventOrder[] = [];
     const order = params.order;
     order.acceptedOffers.forEach((acceptedOffer) => {
-        const itemOffered = acceptedOffer.itemOffered;
-        if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+        if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
             return;
         }
+        const itemOffered = <factory.chevre.reservation.IReservation<
+            factory.chevre.reservationType.EventReservation
+        >>acceptedOffer.itemOffered;
         const registered = results.find((result) => {
             return (result.event.id === itemOffered.reservationFor.id);
         });

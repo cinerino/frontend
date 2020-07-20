@@ -1,4 +1,4 @@
-import * as cinerino from '@cinerino/api-nodejs-client';
+import * as cinerino from '@cinerino/sdk';
 import express = require('express');
 
 /**

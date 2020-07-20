@@ -6417,13 +6417,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -7000,7 +7000,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.router = router;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
-        this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
+        this.paymentMethodType = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
       }
       /**
        * 初期化
@@ -11811,13 +11811,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -11967,7 +11967,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       }
 
                       var priceComponent = reservation.ticket.ticketOffer.priceSpecification.priceComponent;
-                      var UnitPriceSpecification = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.priceSpecificationType.UnitPriceSpecification;
+                      var UnitPriceSpecification = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.priceSpecificationType.UnitPriceSpecification;
                       var unitPriceSpecifications = priceComponent.filter(function (p) {
                         return p.typeOf === UnitPriceSpecification;
                       });
@@ -14041,13 +14041,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -14247,13 +14247,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -14453,13 +14453,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -15345,7 +15345,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       section = findSeat.containedInPlace.branchCode;
                     }
 
-                    if (findSeat.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.itemAvailability.InStock) {
+                    if (findSeat.offers[0].availability === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.itemAvailability.InStock) {
                       status = ___WEBPACK_IMPORTED_MODULE_3__["Models"].Purchase.Screen.SeatStatus.Default;
                     }
 
@@ -15809,13 +15809,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Functions, Models } from '../../../../../..';
 
@@ -56,16 +56,16 @@ export class PurchaseSeatTicketModalComponent implements OnInit {
             }
 
             // 対象ムビチケ券
-            const targetMovieTickets: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
+            const targetMovieTickets: factory.chevre.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
             this.checkMovieTicketActions.forEach((checkMovieTicketAction) => {
                 if (checkMovieTicketAction.result === undefined) {
                     return;
                 }
                 const availabilityMovieTickets = checkMovieTicketAction.result.movieTickets.filter((movieTicket) => {
-                    return (movieTicket.validThrough === undefined);
+                    return ((<any>movieTicket).validThrough === undefined);
                 });
                 availabilityMovieTickets.forEach((movieTicket) => {
-                    if (movieTicket.serviceType === movieTicketTypeChargeSpecification.appliesToMovieTicketType) {
+                    if (movieTicket.serviceType === movieTicketTypeChargeSpecification.appliesToMovieTicket?.serviceType) {
                         targetMovieTickets.push(movieTicket);
                     }
                 });
@@ -77,12 +77,12 @@ export class PurchaseSeatTicketModalComponent implements OnInit {
                     || reservation.ticket.movieTicket === undefined) {
                     return false;
                 }
-                return (movieTicketTypeChargeSpecification.appliesToMovieTicketType
+                return (movieTicketTypeChargeSpecification.appliesToMovieTicket?.serviceType
                     === reservation.ticket.movieTicket.serviceType);
             });
 
             // 予約待ちのムビチケ券
-            const pendingMovieTickets: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
+            const pendingMovieTickets: factory.chevre.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
             this.pendingMovieTickets.forEach((pendingMovieTicket) => {
                 pendingMovieTicket.movieTickets.forEach((movieTicket) => {
                     pendingMovieTickets.push(movieTicket);

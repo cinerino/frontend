@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const cinerino = require("@cinerino/api-nodejs-client");
+const cinerino = require("@cinerino/sdk");
 /**
  * 認証モデル
  * @class Auth2Model

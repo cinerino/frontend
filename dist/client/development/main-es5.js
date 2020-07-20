@@ -444,13 +444,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -874,16 +874,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             switch (_context3.prev = _context3.next) {
               case 0:
                 acceptedOffer = args.acceptedOffer;
-                itemOffered = acceptedOffer.itemOffered;
 
-                if (!(itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation)) {
-                  _context3.next = 4;
+                if (!(acceptedOffer.itemOffered.typeOf !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation)) {
+                  _context3.next = 3;
                   break;
                 }
 
                 throw new Error('reservationType is not EventReservation');
 
-              case 4:
+              case 3:
+                itemOffered = acceptedOffer.itemOffered;
                 data = {
                   sellerNameJa: itemOffered.reservationFor.superEvent.location.name === undefined || itemOffered.reservationFor.superEvent.location.name.ja === undefined ? '' : itemOffered.reservationFor.superEvent.location.name.ja,
                   sellerNameEn: itemOffered.reservationFor.superEvent.location.name === undefined || itemOffered.reservationFor.superEvent.location.name.en === undefined ? '' : itemOffered.reservationFor.superEvent.location.name.en,
@@ -1152,13 +1152,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__);
     /* harmony import */
 
 
@@ -1212,10 +1212,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
 
         var findPaymentAcceptedResult = params.seller.paymentAccepted.find(function (paymentAccepted) {
-          return paymentAccepted.paymentMethodType === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard;
+          return paymentAccepted.paymentMethodType === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard;
         });
 
-        if (findPaymentAcceptedResult === undefined || findPaymentAcceptedResult.paymentMethodType !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard) {
+        if (findPaymentAcceptedResult === undefined || findPaymentAcceptedResult.paymentMethodType !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard) {
           throw new Error('paymentMethodType CreditCard not found');
         }
 
@@ -1289,7 +1289,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
 
         var findMovieTicketTypeChargeSpecification = pendingReservation.price.priceComponent.find(function (p) {
-          return p.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification;
+          return p.typeOf === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification;
         });
 
         if (findMovieTicketTypeChargeSpecification === undefined) {
@@ -1315,7 +1315,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
 
         results.push({
-          typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.MovieTicket,
+          typeOf: _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.MovieTicket,
           identifier: findReservation.identifier,
           accessCode: findReservation.accessCode,
           serviceType: findReservation.serviceType,
@@ -1332,7 +1332,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     function createPaymentMethodFromType(args) {
       switch (args.paymentMethodType) {
-        case _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.Cash:
+        case _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.Cash:
           {
             return {
               typeOf: args.paymentMethodType,
@@ -1340,7 +1340,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             };
           }
 
-        case _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard:
+        case _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard:
           {
             return {
               typeOf: args.paymentMethodType,
@@ -1348,7 +1348,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             };
           }
 
-        case _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.EMoney:
+        case _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.EMoney:
           {
             return {
               typeOf: args.paymentMethodType,
@@ -1386,7 +1386,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
 
       var priceComponent = ticket.priceSpecification.priceComponent;
-      var priceSpecificationType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
+      var priceSpecificationType = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
       var unitPriceSpecifications = priceComponent.filter(function (s) {
         return s.typeOf === priceSpecificationType.UnitPriceSpecification;
       });
@@ -1421,7 +1421,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return price;
       }
 
-      var priceSpecificationType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
+      var priceSpecificationType = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
       priceComponents.forEach(function (p) {
         if (p.typeOf === priceSpecificationType.UnitPriceSpecification) {
           var value = p.referenceQuantity.value ? p.referenceQuantity.value : 1;
@@ -1534,12 +1534,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var results = [];
       var order = params.order;
       order.acceptedOffers.forEach(function (acceptedOffer) {
-        var itemOffered = acceptedOffer.itemOffered;
-
-        if (itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
+        if (acceptedOffer.itemOffered.typeOf !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
           return;
         }
 
+        var itemOffered = acceptedOffer.itemOffered;
         var registered = results.find(function (result) {
           return result.event.id === itemOffered.reservationFor.id;
         });
@@ -1624,14 +1623,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var filterResult = screeningEventSeats.filter(function (s) {
         if (limitSeatNumber !== undefined) {
           // 作品追加特性（limitSeatNumber）で座席数制御
-          return s.offers !== undefined && s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock && Number(s.branchCode) <= Number(limitSeatNumber.value);
+          return s.offers !== undefined && s.offers[0].availability === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock && Number(s.branchCode) <= Number(limitSeatNumber.value);
         }
 
-        return s.offers !== undefined && s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock;
+        return s.offers !== undefined && s.offers[0].availability === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock;
       });
       result += filterResult.length;
       var reservationCount = screeningEventSeats.filter(function (s) {
-        return s.offers !== undefined && s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.OutOfStock;
+        return s.offers !== undefined && s.offers[0].availability === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.OutOfStock;
       }).length;
 
       if (screeningEvent.maximumAttendeeCapacity !== undefined && result > screeningEvent.maximumAttendeeCapacity - reservationCount) {
@@ -1674,7 +1673,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           return r.seat !== undefined && r.seat.seatNumber === s.branchCode && r.seat.seatSection === section;
         });
 
-        if ((s.offers === undefined || s.offers[0].availability !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock) && selectedSeat === undefined) {
+        if ((s.offers === undefined || s.offers[0].availability !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock) && selectedSeat === undefined) {
           // 在庫なし
           return;
         }
@@ -1830,7 +1829,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var screeningEventTicketOffers = params.screeningEventTicketOffers;
       var result = screeningEventTicketOffers.filter(function (offer) {
         var movieTicketTypeChargeSpecifications = offer.priceSpecification.priceComponent.filter(function (priceComponent) {
-          return priceComponent.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification;
+          return priceComponent.typeOf === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification;
         });
         return movieTicketTypeChargeSpecifications.length > 0;
       });
@@ -3099,6 +3098,21 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     module.exports = __webpack_require__(
     /*! C:\Users\hataguchi\Desktop\workspace\Cinerino\frontend\src\client\main.ts */
     "./main.ts");
+    /***/
+  },
+
+  /***/
+  1:
+  /*!************************!*\
+    !*** crypto (ignored) ***!
+    \************************/
+
+  /*! no static exports found */
+
+  /***/
+  function _(module, exports) {
+    /* (ignored) */
+
     /***/
   }
 }, [[0, "runtime", "vendor"]]]);

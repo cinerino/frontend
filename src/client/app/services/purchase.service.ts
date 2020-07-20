@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
@@ -156,7 +156,8 @@ export class PurchaseService {
             ]
         };
         return new Promise<void>((resolve, reject) => {
-            if (purchase.seller === undefined) {
+            if (purchase.seller === undefined
+                || purchase.seller.id === undefined) {
                 reject();
                 return;
             }
@@ -395,10 +396,10 @@ export class PurchaseService {
      * クレジットカード登録
      */
     public registerCreditCard(
-        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
-            | factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
-            | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
-            | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized
+        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
+            | factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
+            | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
+            | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized
     ) {
         this.store.dispatch(purchaseAction.registerCreditCard({ creditCard }));
     }
@@ -522,7 +523,6 @@ export class PurchaseService {
                 screeningEvent,
                 movieTickets: [{
                     typeOf: factory.paymentMethodType.MovieTicket,
-                    project: seller.project,
                     identifier: movieTicket.code, // 購入管理番号
                     accessCode: movieTicket.password // PINコード
                 }]

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -18,7 +18,7 @@ export class MypageCreditComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public master: Observable<reducers.IMasterState>;
     public isLoading: Observable<boolean>;
-    public sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
+    public sellers: factory.chevre.seller.ISeller[];
 
     constructor(
         private store: Store<reducers.IState>,
@@ -50,7 +50,7 @@ export class MypageCreditComponent implements OnInit {
      * クレジットカード情報削除確認
      * @param creditCard
      */
-    public confirmRemoveCreditCard(creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
+    public confirmRemoveCreditCard(creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard) {
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('mypage.credit.confirm.remove'),
@@ -83,7 +83,7 @@ export class MypageCreditComponent implements OnInit {
                         holderName: string;
                         securityCode: string;
                     },
-                    seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
+                    seller?: factory.chevre.seller.ISeller
                 }) => {
                     try {
                         const creditCard = params.creditCard;

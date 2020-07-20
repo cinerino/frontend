@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
@@ -301,12 +301,17 @@ export class PurchaseEffects {
         map(action => action),
         mergeMap(async (payload) => {
             try {
+                const seller = payload.seller;
+                if (seller.id === undefined
+                    || this.cinerinoService.auth.options.clientId === undefined) {
+                    throw new Error('seller.id or auth.options.clientId undefined');
+                }
                 await this.cinerinoService.getServices();
                 const screeningEventTicketOffers = await this.cinerinoService.event.searchTicketOffers({
                     event: { id: payload.screeningEvent.id },
                     seller: {
-                        typeOf: payload.seller.typeOf,
-                        id: payload.seller.id
+                        typeOf: seller.typeOf,
+                        id: seller.id
                     },
                     store: { id: this.cinerinoService.auth.options.clientId }
                 });
@@ -427,7 +432,7 @@ export class PurchaseEffects {
                     });
                     const movieTicketIdentifiers: {
                         identifier: string;
-                        movieTickets: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[]
+                        movieTickets: factory.chevre.paymentMethod.paymentCard.movieTicket.IMovieTicket[]
                     }[] = [];
                     movieTickets.forEach((movieTicket) => {
                         const findResult = movieTicketIdentifiers.find((movieTicketIdentifier) => {
@@ -470,13 +475,18 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerinoService.getServices();
+                const transaction = payload.transaction;
                 const screeningEvent = payload.screeningEvent;
                 const movieTickets = payload.movieTickets;
+                if (transaction.seller.id === undefined) {
+                    throw new Error('transaction.seller.id undefined');
+                }
                 const checkMovieTicketAction = await this.cinerinoService.payment.checkMovieTicket({
                     typeOf: factory.paymentMethodType.MovieTicket,
                     movieTickets: movieTickets.map((movieTicket) => {
                         return {
                             ...movieTicket,
+                            project: screeningEvent.project,
                             serviceType: '', // 情報空でよし
                             serviceOutput: {
                                 reservationFor: {
@@ -496,8 +506,8 @@ export class PurchaseEffects {
                         };
                     }),
                     seller: {
-                        typeOf: payload.transaction.seller.typeOf,
-                        id: payload.transaction.seller.id
+                        typeOf: transaction.seller.typeOf,
+                        id: transaction.seller.id
                     }
                 });
 
@@ -569,12 +579,18 @@ export class PurchaseEffects {
                 if (environment.ANALYTICS_ID !== '') {
                     // アナリティクス連携
                     try {
+                        if (order.acceptedOffers[0].itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+                            throw new Error('reservationType is not EventReservation');
+                        }
+                        const itemOffered = <factory.chevre.reservation.IReservation<
+                            factory.chevre.reservationType.EventReservation
+                        >>order.acceptedOffers[0].itemOffered;
                         const sendData = {
                             hitType: 'event',
                             eventCategory: 'purchase',
                             eventAction: 'complete',
-                            eventLabel: (order.acceptedOffers[0].itemOffered.typeOf === factory.chevre.reservationType.EventReservation)
-                                ? `conversion-${order.acceptedOffers[0].itemOffered.reservationFor.superEvent.location.branchCode}` : 'conversion'
+                            eventLabel: (itemOffered.typeOf === factory.chevre.reservationType.EventReservation)
+                                ? `conversion-${itemOffered.reservationFor.superEvent.location.branchCode}` : 'conversion'
                         };
                         ga('send', sendData);
                     } catch (error) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -115,7 +115,7 @@ export class UserService {
     /**
      * 口座閉鎖
      */
-    public async cloaseAccount(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
+    public async cloaseAccount(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>) {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(userAction.closeAccount({ account }));
             const success = this.actions.pipe(
@@ -186,7 +186,7 @@ export class UserService {
      * クレジットカード追加
      */
     public async addCreditCard(params: {
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
         creditCard: {
             cardno: string;
             expire: string;
@@ -212,7 +212,7 @@ export class UserService {
     /**
      * クレジットカード削除
      */
-    public async removeCreditCard(creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
+    public async removeCreditCard(creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard) {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(userAction.removeCreditCard({ creditCard }));
             const success = this.actions.pipe(
@@ -246,11 +246,11 @@ export class UserService {
      * 口座入金
      */
     public async chargeAccount(params: {
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
         profile: factory.person.IProfile;
         amount: number;
-        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
-        creditCard: factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember;
+        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>;
+        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember;
     }) {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(userAction.chargeAccount(params));
@@ -270,9 +270,9 @@ export class UserService {
      * 口座転送
      */
     public async transferAccount(params: {
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
         profile: factory.person.IProfile;
-        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
+        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>;
         amount: number;
         description: string;
         accountNumber: string

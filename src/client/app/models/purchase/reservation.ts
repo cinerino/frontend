@@ -1,4 +1,4 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 
 export interface IReservation {
     seat?: IReservationSeat;
@@ -17,7 +17,7 @@ export interface IReservationSeat extends factory.chevre.reservation.ISeat<facto
  */
 export interface IReservationTicket {
     ticketOffer: factory.chevre.event.screeningEvent.ITicketOffer;
-    movieTicket?: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket;
+    movieTicket?: factory.chevre.paymentMethod.paymentCard.movieTicket.IMovieTicket;
     addOn?: factory.chevre.offer.IOffer[];
 }
 
