@@ -8,6 +8,7 @@ interface IProfile {
     pattern?: RegExp;
     maxLength?: number;
     minLength?: number;
+    name?: { ja: string; en: string; };
 }
 
 /**

@@ -127,34 +127,12 @@ export class PurchaseInputComponent implements OnInit {
             if (p.key === 'email') {
                 validators.push(Validators.email);
             }
-            if (p.key === 'telephone') {
-                // validators.push((control: AbstractControl) => {
-                //     const field = control.root.get('telephone');
-                //     if (field !== null) {
-                //         if (field.value === '') {
-                //             return null;
-                //         }
-                //         const parsedNumber = (new RegExp(/^\+/).test(field.value))
-                //             ? libphonenumber.parse(field.value)
-                //             : libphonenumber.parse(field.value, 'JP');
-                //         if (parsedNumber.phone === undefined) {
-                //             return { telephone: true };
-                //         }
-                //         const isValid = libphonenumber.isValidNumber(parsedNumber);
-                //         if (!isValid) {
-                //             return { telephone: true };
-                //         }
-                //     }
-
-                //     return null;
-                // });
-            }
             this.profileForm.addControl(p.key, new FormControl(p.value, validators));
         });
         const purchase = await this.purchaseService.getData();
         const user = await this.userService.getData();
         const profileData = (user.isMember && purchase.profile === undefined)
-        ? user.profile : purchase.profile;
+            ? user.profile : purchase.profile;
         if (profileData === undefined) {
             return;
         }
@@ -202,12 +180,11 @@ export class PurchaseInputComponent implements OnInit {
         // 購入者情報Form
         Object.keys(this.profileForm.controls).forEach((key) => {
             this.profileForm.controls[key].markAsTouched();
+            if (key === 'telephone') {
+                return;
+            }
+            this.profileForm.controls[key].setValue((<HTMLInputElement>document.getElementById(key)).value);
         });
-        this.profileForm.controls.familyName.setValue((<HTMLInputElement>document.getElementById('familyName')).value);
-        this.profileForm.controls.givenName.setValue((<HTMLInputElement>document.getElementById('givenName')).value);
-        this.profileForm.controls.email.setValue((<HTMLInputElement>document.getElementById('email')).value);
-        // this.profileForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
-        console.log(this.profileForm);
         if (this.profileForm.invalid) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
@@ -263,12 +240,30 @@ export class PurchaseInputComponent implements OnInit {
             this.purchaseService.registerCreditCard(creditCard);
         }
         try {
+            const additionalProperty: { name: string; value: string; }[] = [];
+            Object.keys(this.profileForm.controls).forEach(key => {
+                if (!/additionalProperty/.test(key)) {
+                    return;
+                }
+                additionalProperty.push({ name: key.replace('additionalProperty.', ''), value: this.profileForm.controls[key].value });
+            });
+
             const contact = {
-                givenName: this.profileForm.controls.givenName.value,
-                familyName: this.profileForm.controls.familyName.value,
-                // telephone: this.profileForm.controls.telephone.value,
-                telephone: this.profileForm.controls.telephone.value.e164Number,
-                email: this.profileForm.controls.email.value,
+                givenName: (this.profileForm.controls.givenName === undefined)
+                    ? undefined : this.profileForm.controls.givenName.value,
+                familyName: (this.profileForm.controls.familyName === undefined)
+                    ? undefined : this.profileForm.controls.familyName.value,
+                telephone: (this.profileForm.controls.telephone === undefined)
+                    ? undefined : this.profileForm.controls.telephone.value.e164Number,
+                email: (this.profileForm.controls.email === undefined)
+                    ? undefined : this.profileForm.controls.email.value,
+                address: (this.profileForm.controls.address === undefined)
+                    ? undefined : this.profileForm.controls.address.value,
+                age: (this.profileForm.controls.age === undefined)
+                    ? undefined : this.profileForm.controls.age.value,
+                gender: (this.profileForm.controls.gender === undefined)
+                    ? undefined : this.profileForm.controls.gender.value,
+                additionalProperty: (additionalProperty.length === 0) ? undefined : additionalProperty,
             };
             await this.purchaseService.registerContact(contact);
             this.router.navigate(['/purchase/confirm']);
@@ -333,6 +328,10 @@ export class PurchaseInputComponent implements OnInit {
      */
     public isRequired(key: String) {
         return this.environment.PROFILE.find(p => p.key === key && p.required) !== undefined;
+    }
+
+    public getProfileAdditionalProperty() {
+        return this.environment.PROFILE.filter(p => /additionalProperty/.test(p.key));
     }
 
 }

@@ -90,6 +90,7 @@
                             [tooltipField]="TooltipLabel.Name"
                             [phoneValidation]="true"
                             [separateDialCode]="false"
+                            inputId="telephone"
                             name="telephone"
                             formControlName="telephone"></ngx-intl-tel-input>
                         <!-- <input type="tel" class="form-control" formControlName="telephone" id="telephone"
@@ -120,7 +121,7 @@
                             *ngIf="isRequired('age')"
                             class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                         <div class="col-md-8">
-                            <input type="tel" class="form-control" formControlName="age" placeholder="">
+                            <input type="tel" class="form-control" formControlName="age" id="age" placeholder="">
                             <div *ngIf="profileForm.controls.age.invalid && profileForm.controls.age.touched"
                                 class="mt-2">
                                 <p *ngIf="profileForm.controls.age.errors?.required" class="text-danger">
@@ -144,7 +145,7 @@
                             *ngIf="isRequired('address')"
                             class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                         <div class="col-md-8">
-                            <input type="tel" class="form-control" formControlName="address" placeholder="">
+                            <input type="tel" class="form-control" formControlName="address" id="address" placeholder="">
                             <div *ngIf="profileForm.controls.address.invalid && profileForm.controls.address.touched"
                                 class="mt-2">
                                 <p *ngIf="profileForm.controls.address.errors?.required" class="text-danger">
@@ -168,7 +169,7 @@
                             *ngIf="isRequired('gender')"
                             class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
                         <div class="col-md-8">
-                            <select class="form-control" formControlName="gender">
+                            <select class="form-control" formControlName="gender" id="gender">
                                 <option value="">{{ 'common.gender.unselected' | translate }}</option>
                                 <option value="man">{{ 'common.gender.man' | translate }}</option>
                                 <option value="woman">{{ 'common.gender.woman' | translate }}</option>
@@ -184,6 +185,30 @@
                                     {{ 'form.validation.minlength' | translate: { value: profileForm.controls.age.errors?.maxlength.requiredLength } }}
                                 </p>
                                 <p *ngIf="profileForm.controls.gender.errors?.pattern" class="text-danger">
+                                    {{ 'form.validation.pattern' | translate }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngFor="let additionalProperty of getProfileAdditionalProperty()" class="form-group">
+                    <div class="row align-items-center">
+                        <p class="col-md-4 py-2 text-md-right">{{ additionalProperty.name | changeLanguage }}<span
+                            *ngIf="isRequired(additionalProperty.key)"
+                            class="badge badge-danger ml-2">{{ 'common.required' | translate }}</span></p>
+                        <div class="col-md-8">
+                            <input type="tel" class="form-control" [formControlName]="additionalProperty.key" [id]="additionalProperty.key" placeholder="">
+                            <div *ngIf="profileForm.controls[additionalProperty.key].invalid && profileForm.controls[additionalProperty.key].touched"
+                                class="mt-2">
+                                <p *ngIf="profileForm.controls[additionalProperty.key].errors?.required" class="text-danger">
+                                    {{ 'form.validation.required' | translate }}</p>
+                                <p *ngIf="profileForm.controls[additionalProperty.key].errors?.minlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls[additionalProperty.key].errors?.minlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="profileForm.controls[additionalProperty.key].errors?.maxlength" class="text-danger">
+                                    {{ 'form.validation.minlength' | translate: { value: profileForm.controls[additionalProperty.key].errors?.maxlength.requiredLength } }}
+                                </p>
+                                <p *ngIf="profileForm.controls[additionalProperty.key].errors?.pattern" class="text-danger">
                                     {{ 'form.validation.pattern' | translate }}
                                 </p>
                             </div>
