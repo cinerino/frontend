@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.47 - 2020-07-21
+### Changed
+ - @cinerino/sdkへ変更
+### Fixed
+ - 在庫無限の表示修正
+
 ## 3.0.46 - 2020-07-09
 ### Added
  - ムビチケ購入番号表示追加

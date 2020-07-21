@@ -1,4 +1,4 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import html2canvas from 'html2canvas';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
@@ -203,10 +203,12 @@ export async function createPrintCanvas(args: {
     index: number;
 }) {
     const acceptedOffer = args.acceptedOffer;
-    const itemOffered = acceptedOffer.itemOffered;
-    if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+    if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
         throw new Error('reservationType is not EventReservation');
     }
+    const itemOffered = <factory.chevre.reservation.IReservation<
+        factory.chevre.reservationType.EventReservation
+    >>acceptedOffer.itemOffered;
     const data = {
         sellerNameJa: (itemOffered.reservationFor.superEvent.location.name === undefined
             || itemOffered.reservationFor.superEvent.location.name.ja === undefined)

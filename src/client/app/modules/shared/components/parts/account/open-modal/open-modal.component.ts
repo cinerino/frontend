@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -9,7 +9,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
     styleUrls: ['./open-modal.component.scss']
 })
 export class AccountOpenModalComponent implements OnInit {
-    @Input() public sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
+    @Input() public sellers: factory.chevre.seller.ISeller[];
     @Input() public cb: (value: {
         name: string;
         accountType: factory.accountType;
@@ -37,7 +37,7 @@ export class AccountOpenModalComponent implements OnInit {
     private createOpenForm() {
         this.openAccountForm = this.formBuilder.group({
             name: ['', [Validators.required]],
-            accountType: [this.accountType.Coin, [Validators.required]]
+            accountType: ['Coin', [Validators.required]]
         });
     }
 

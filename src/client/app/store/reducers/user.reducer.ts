@@ -1,4 +1,4 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
 import { Models } from '../..';
@@ -20,11 +20,11 @@ export interface IUserState {
     /**
      * コイン口座
      */
-    accounts: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>[];
+    accounts: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>[];
     /**
      * クレジットカード
      */
-    creditCards: factory.paymentMethod.paymentCard.creditCard.ICheckedCard[];
+    creditCards: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard[];
     /**
      * 言語
      */

@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { UtilService } from '../../../../../services';

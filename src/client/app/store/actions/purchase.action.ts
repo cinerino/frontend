@@ -1,4 +1,4 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { createAction, props } from '@ngrx/store';
 import { Functions, Models } from '../..';
 
@@ -25,7 +25,7 @@ export const getSeller = createAction(
 export const getSellerSuccess = createAction(
     `${LABEL} getSellerSuccess`,
     props<{
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
+        seller: factory.chevre.seller.ISeller
     }>()
 );
 
@@ -161,7 +161,7 @@ export const getTicketList = createAction(
     `${LABEL} getTicketList`,
     props<{
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
     }>()
 );
 
@@ -230,10 +230,10 @@ export const cancelTemporaryReservationsFail = createAction(
 export const registerCreditCard = createAction(
     `${LABEL} registerCreditCard`,
     props<{
-        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
-        | factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
-        | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
-        | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
+        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
+        | factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
+        | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
+        | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
     }>()
 );
 
@@ -267,10 +267,10 @@ export const authorizeCreditCard = createAction(
         orderCount: number;
         amount: number;
         method: string;
-        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
-        | factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
-        | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
-        | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
+        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
+        | factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
+        | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
+        | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
     }>()
 );
 
@@ -293,7 +293,7 @@ export const authorizeMovieTicket = createAction(
         authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
         pendingMovieTickets: Models.Purchase.MovieTicket.IMovieTicket[];
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
+        seller: factory.chevre.seller.ISeller
     }>()
 );
 
@@ -317,7 +317,6 @@ export const checkMovieTicket = createAction(
             typeOf: factory.paymentMethodType.MovieTicket;
             identifier: string;
             accessCode: string;
-            project: factory.project.IProject;
         }[];
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     }>()
@@ -339,7 +338,7 @@ export const endTransaction = createAction(
     `${LABEL} endTransaction`,
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
         language: string;
         linyId?: string;
@@ -365,7 +364,7 @@ export const createGmoTokenObject = createAction(
             holderName: string;
             securityCode: string;
         },
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
     }>()
 );
 
@@ -388,7 +387,7 @@ export const convertExternalToPurchaseSuccess = createAction(
     `${LABEL} convertExternalToPurchaseSuccess`,
     props<{
         screeningEvent: factory.chevre.event.screeningEvent.IEvent;
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
         theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
     }>()
 );

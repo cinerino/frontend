@@ -349,8 +349,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas", function() { return createTestPrintCanvas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTestPrintCanvas4Html", function() { return createTestPrintCanvas4Html; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isShowQRCode", function() { return isShowQRCode; });
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/sdk */ "../../node_modules/@cinerino/sdk/lib/browser.js");
+/* harmony import */ var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! html2canvas */ "../../node_modules/html2canvas/dist/html2canvas.js");
 /* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
@@ -514,10 +514,10 @@ function drawCanvas(args) {
 function createPrintCanvas(args) {
     return __awaiter(this, void 0, void 0, function* () {
         const acceptedOffer = args.acceptedOffer;
-        const itemOffered = acceptedOffer.itemOffered;
-        if (itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
+        if (acceptedOffer.itemOffered.typeOf !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
             throw new Error('reservationType is not EventReservation');
         }
+        const itemOffered = acceptedOffer.itemOffered;
         const data = {
             sellerNameJa: (itemOffered.reservationFor.superEvent.location.name === undefined
                 || itemOffered.reservationFor.superEvent.location.name.ja === undefined)
@@ -653,8 +653,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEmptySeat", function() { return getEmptySeat; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectAvailableSeat", function() { return selectAvailableSeat; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMovieTicketTypeOffers", function() { return getMovieTicketTypeOffers; });
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/api-javascript-client */ "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
-/* harmony import */ var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @cinerino/sdk */ "../../node_modules/@cinerino/sdk/lib/browser.js");
+/* harmony import */ var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _models_purchase_performance__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../models/purchase/performance */ "./app/models/purchase/performance.ts");
@@ -693,10 +693,10 @@ function createGmoTokenObject(params) {
             throw new Error('seller.paymentAccepted is undefined');
         }
         const findPaymentAcceptedResult = params.seller.paymentAccepted.find((paymentAccepted) => {
-            return (paymentAccepted.paymentMethodType === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard);
+            return (paymentAccepted.paymentMethodType === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard);
         });
         if (findPaymentAcceptedResult === undefined
-            || findPaymentAcceptedResult.paymentMethodType !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard) {
+            || findPaymentAcceptedResult.paymentMethodType !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard) {
             throw new Error('paymentMethodType CreditCard not found');
         }
         window.someCallbackFunction = function someCallbackFunction(response) {
@@ -762,7 +762,7 @@ function createMovieTicketsFromAuthorizeSeatReservation(args) {
             || typeof pendingReservation.price === 'number') {
             return;
         }
-        const findMovieTicketTypeChargeSpecification = pendingReservation.price.priceComponent.find(p => p.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
+        const findMovieTicketTypeChargeSpecification = pendingReservation.price.priceComponent.find(p => p.typeOf === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
         if (findMovieTicketTypeChargeSpecification === undefined) {
             return;
         }
@@ -783,7 +783,7 @@ function createMovieTicketsFromAuthorizeSeatReservation(args) {
             return;
         }
         results.push({
-            typeOf: _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.MovieTicket,
+            typeOf: _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.MovieTicket,
             identifier: findReservation.identifier,
             accessCode: findReservation.accessCode,
             serviceType: findReservation.serviceType,
@@ -798,13 +798,13 @@ function createMovieTicketsFromAuthorizeSeatReservation(args) {
  */
 function createPaymentMethodFromType(args) {
     switch (args.paymentMethodType) {
-        case _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.Cash: {
+        case _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.Cash: {
             return { typeOf: args.paymentMethodType, name: '現金' };
         }
-        case _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard: {
+        case _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard: {
             return { typeOf: args.paymentMethodType, name: 'クレジットカード' };
         }
-        case _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.EMoney: {
+        case _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.EMoney: {
             return { typeOf: args.paymentMethodType, name: '電子マネー' };
         }
         default: {
@@ -832,7 +832,7 @@ function getTicketPrice(ticket) {
         return result;
     }
     const priceComponent = ticket.priceSpecification.priceComponent;
-    const priceSpecificationType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
+    const priceSpecificationType = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
     const unitPriceSpecifications = priceComponent.filter((s) => s.typeOf === priceSpecificationType.UnitPriceSpecification);
     const movieTicketTypeCharges = priceComponent.filter((s) => s.typeOf === priceSpecificationType.MovieTicketTypeChargeSpecification);
     result.unitPriceSpecification += unitPriceSpecifications[0].price;
@@ -859,7 +859,7 @@ function getItemPrice(params) {
     if (priceComponents === undefined) {
         return price;
     }
-    const priceSpecificationType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
+    const priceSpecificationType = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType;
     priceComponents.forEach((p) => {
         if (p.typeOf === priceSpecificationType.UnitPriceSpecification) {
             const value = (p.referenceQuantity.value) ? p.referenceQuantity.value : 1;
@@ -918,10 +918,10 @@ function order2EventOrders(params) {
     const results = [];
     const order = params.order;
     order.acceptedOffers.forEach((acceptedOffer) => {
-        const itemOffered = acceptedOffer.itemOffered;
-        if (itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
+        if (acceptedOffer.itemOffered.typeOf !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.reservationType.EventReservation) {
             return;
         }
+        const itemOffered = acceptedOffer.itemOffered;
         const registered = results.find((result) => {
             return (result.event.id === itemOffered.reservationFor.id);
         });
@@ -999,16 +999,16 @@ function getRemainingSeatLength(params) {
         if (limitSeatNumber !== undefined) {
             // 作品追加特性（limitSeatNumber）で座席数制御
             return (s.offers !== undefined
-                && s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock
+                && s.offers[0].availability === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock
                 && Number(s.branchCode) <= Number(limitSeatNumber.value));
         }
         return (s.offers !== undefined
-            && s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock);
+            && s.offers[0].availability === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock);
     });
     result += filterResult.length;
     const reservationCount = screeningEventSeats.filter((s) => {
         return (s.offers !== undefined
-            && s.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.OutOfStock);
+            && s.offers[0].availability === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.OutOfStock);
     }).length;
     if (screeningEvent.maximumAttendeeCapacity !== undefined
         && result > screeningEvent.maximumAttendeeCapacity - reservationCount) {
@@ -1045,7 +1045,7 @@ function getEmptySeat(params) {
                 && r.seat.seatNumber === s.branchCode
                 && r.seat.seatSection === section);
         });
-        if ((s.offers === undefined || s.offers[0].availability !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock)
+        if ((s.offers === undefined || s.offers[0].availability !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.itemAvailability.InStock)
             && selectedSeat === undefined) {
             // 在庫なし
             return;
@@ -1164,7 +1164,7 @@ function getMovieTicketTypeOffers(params) {
     const screeningEventTicketOffers = params.screeningEventTicketOffers;
     const result = screeningEventTicketOffers.filter((offer) => {
         const movieTicketTypeChargeSpecifications = offer.priceSpecification.priceComponent.filter((priceComponent) => {
-            return (priceComponent.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
+            return (priceComponent.typeOf === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
         });
         return (movieTicketTypeChargeSpecifications.length > 0);
     });
@@ -1849,6 +1849,17 @@ main().then(() => __awaiter(void 0, void 0, void 0, function* () {
 
 module.exports = __webpack_require__(/*! C:\Users\hataguchi\Desktop\workspace\Cinerino\frontend\src\client\main.ts */"./main.ts");
 
+
+/***/ }),
+
+/***/ 1:
+/*!************************!*\
+  !*** crypto (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
 
 /***/ })
 

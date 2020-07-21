@@ -1,4 +1,4 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { createAction, props } from '@ngrx/store';
 import { Models } from '../..';
 
@@ -39,7 +39,7 @@ export const getAccount = createAction(
 export const getAccountSuccess = createAction(
     `${LABEL} getAccountSuccess`,
     props<{
-        accounts: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>[];
+        accounts: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>[];
     }>()
 );
 
@@ -58,9 +58,7 @@ export const openAccount = createAction(
 
 export const openAccountSuccess = createAction(
     `${LABEL} openAccountSuccess`,
-    props<{
-        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
-    }>()
+    // props<{}>()
 );
 
 export const openAccountFail = createAction(
@@ -71,7 +69,7 @@ export const openAccountFail = createAction(
 export const closeAccount = createAction(
     `${LABEL} closeAccount`,
     props<{
-        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
+        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>;
     }>()
 );
 
@@ -118,7 +116,7 @@ export const getCreditCards = createAction(
 
 export const getCreditCardsSuccess = createAction(
     `${LABEL} getCreditCardsSuccess`,
-    props<{ creditCards: factory.paymentMethod.paymentCard.creditCard.ICheckedCard[] }>()
+    props<{ creditCards: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard[] }>()
 );
 
 export const getCreditCardsFail = createAction(
@@ -135,13 +133,13 @@ export const addCreditCard = createAction(
             holderName: string;
             securityCode: string;
         },
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
     }>()
 );
 
 export const addCreditCardSuccess = createAction(
     `${LABEL} addCreditCardSuccess`,
-    props<{ creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard }>()
+    props<{ creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard }>()
 );
 
 export const addCreditCardFail = createAction(
@@ -152,14 +150,14 @@ export const addCreditCardFail = createAction(
 export const removeCreditCard = createAction(
     `${LABEL} removeCreditCard`,
     props<{
-        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
+        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
     }>()
 );
 
 export const removeCreditCardSuccess = createAction(
     `${LABEL} removeCreditCardSuccess`,
     props<{
-        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
+        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
     }>()
 );
 
@@ -171,11 +169,11 @@ export const removeCreditCardFail = createAction(
 export const chargeAccount = createAction(
     `${LABEL} chargeAccount`,
     props<{
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
         profile: factory.person.IProfile;
         amount: number;
-        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
-        creditCard: factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember;
+        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>;
+        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember;
     }>()
 );
 
@@ -191,9 +189,9 @@ export const chargeAccountFail = createAction(
 export const transferAccount = createAction(
     `${LABEL} transferAccount`,
     props<{
-        seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller: factory.chevre.seller.ISeller;
         profile: factory.person.IProfile;
-        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>;
+        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>;
         amount: number;
         description: string;
         accountNumber: string;

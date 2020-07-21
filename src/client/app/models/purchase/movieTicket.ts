@@ -1,10 +1,10 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 
 /**
  * IMovieTicket
  */
 export interface IMovieTicket {
     id: string;
-    movieTickets: factory.paymentMethod.paymentCard.movieTicket.IMovieTicket[];
+    movieTickets: factory.chevre.paymentMethod.paymentCard.movieTicket.IMovieTicket[];
 }
 

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
@@ -99,7 +99,9 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
             }
             const findResult = authorizeOrder.acceptedOffers.find((a) => {
                 return (a.itemOffered.typeOf === factory.chevre.reservationType.EventReservation
-                    && a.itemOffered.id === params.id);
+                    && (<factory.chevre.reservation.IReservation<
+                        factory.chevre.reservationType.EventReservation
+                    >>a.itemOffered).id === params.id);
             });
             if (findResult === undefined) {
                 throw new Error('itemOffered notfound');
@@ -107,9 +109,12 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
             if (findResult.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
                 throw new Error('itemOffered typeOf missmatch');
             }
+            const itemOffered = <factory.chevre.reservation.IReservation<
+                factory.chevre.reservationType.EventReservation
+            >>findResult.itemOffered;
             this.qrcodeService.openQRCodeViewer({
                 title: this.translate.instant('inquiry.confirm.qrcode.title'),
-                code: <string>(findResult.itemOffered.reservedTicket.ticketToken)
+                code: <string>(itemOffered.reservedTicket.ticketToken)
             });
         } catch (error) {
             console.error(error);

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as cinerino from '@cinerino/api-javascript-client';
+import * as cinerino from '@cinerino/sdk';
 import * as moment from 'moment';
 import { Functions } from '..';
 import { getEnvironment } from '../../environments/environment';
@@ -10,7 +10,7 @@ import { UtilService } from './util.service';
     providedIn: 'root'
 })
 export class CinerinoService {
-    public auth: cinerino.IImplicitGrantClient;
+    public auth: cinerino.auth.ClientCredentials | cinerino.auth.OAuth2;
     public account: cinerino.service.Account;
     public creativeWork: cinerino.service.CreativeWork;
     public event: cinerino.service.Event;

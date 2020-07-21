@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
@@ -131,18 +131,10 @@ export class OrderEffects {
                         for (let i = 0; i < limit; i++) {
                             try {
                                 let searchResultData;
-                                if (orders.length === 1) {
-                                    const searchResult = await this.cinerino.order.findByConfirmationNumber({
-                                        confirmationNumber: Number(orders[0].confirmationNumber),
-                                        customer: { telephone: orders[0].customer.telephone }
-                                    });
-                                    searchResultData = [searchResult];
-                                } else {
-                                    const searchResult = await this.cinerino.order.search({
-                                        orderNumbers: orders.map(o => o.orderNumber)
-                                    });
-                                    searchResultData = searchResult.data;
-                                }
+                                const searchResult = await this.cinerino.order.search({
+                                    orderNumbers: orders.map(o => o.orderNumber)
+                                });
+                                searchResultData = searchResult.data;
                                 const filterResult = searchResultData.filter(o => o.orderStatus !== factory.orderStatus.OrderReturned);
                                 if (filterResult.length === 0) {
                                     return resolve();
@@ -196,7 +188,9 @@ export class OrderEffects {
                 };
                 const order = await this.cinerino.order.findByConfirmationNumber(params);
 
-                return orderAction.inquirySuccess({ order });
+                return orderAction.inquirySuccess({
+                    order: (Array.isArray(order)) ? order[0] : order
+                });
             } catch (error) {
                 return orderAction.inquiryFail({ error: error });
             }
@@ -261,10 +255,12 @@ export class OrderEffects {
                     for (const authorizeOrder of authorizeOrders) {
                         let index = 0;
                         for (const acceptedOffer of authorizeOrder.acceptedOffers) {
-                            const itemOffered = acceptedOffer.itemOffered;
-                            if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+                            if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
                                 continue;
                             }
+                            const itemOffered = <factory.chevre.reservation.IReservation<
+                                factory.chevre.reservationType.EventReservation
+                            >>acceptedOffer.itemOffered;
                             const order = authorizeOrder;
                             let qrcode = itemOffered.reservedTicket.ticketToken;
                             const additionalProperty = (itemOffered.reservationFor.workPerformed !== undefined

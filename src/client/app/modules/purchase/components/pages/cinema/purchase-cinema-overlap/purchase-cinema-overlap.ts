@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { factory } from '@cinerino/api-javascript-client/lib/abstract';
+import { factory } from '@cinerino/sdk/lib/abstract';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../../..';

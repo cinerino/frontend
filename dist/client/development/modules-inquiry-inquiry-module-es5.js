@@ -39,13 +39,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -664,7 +664,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.translate = translate;
         this.qrcodeService = qrcodeService;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
-        this.orderStatus = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
+        this.orderStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
       }
       /**
@@ -783,7 +783,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "openQRCodeViewer",
         value: function openQRCodeViewer(params) {
           return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-            var order, authorizeOrder, findResult;
+            var order, authorizeOrder, findResult, itemOffered;
             return regeneratorRuntime.wrap(function _callee2$(_context2) {
               while (1) {
                 switch (_context2.prev = _context2.next) {
@@ -823,7 +823,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
                   case 14:
                     findResult = authorizeOrder.acceptedOffers.find(function (a) {
-                      return a.itemOffered.typeOf === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.reservationType.EventReservation && a.itemOffered.id === params.id;
+                      return a.itemOffered.typeOf === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.reservationType.EventReservation && a.itemOffered.id === params.id;
                     });
 
                     if (!(findResult === undefined)) {
@@ -834,7 +834,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     throw new Error('itemOffered notfound');
 
                   case 17:
-                    if (!(findResult.itemOffered.typeOf !== _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.reservationType.EventReservation)) {
+                    if (!(findResult.itemOffered.typeOf !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.reservationType.EventReservation)) {
                       _context2.next = 19;
                       break;
                     }
@@ -842,15 +842,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     throw new Error('itemOffered typeOf missmatch');
 
                   case 19:
+                    itemOffered = findResult.itemOffered;
                     this.qrcodeService.openQRCodeViewer({
                       title: this.translate.instant('inquiry.confirm.qrcode.title'),
-                      code: findResult.itemOffered.reservedTicket.ticketToken
+                      code: itemOffered.reservedTicket.ticketToken
                     });
-                    _context2.next = 26;
+                    _context2.next = 27;
                     break;
 
-                  case 22:
-                    _context2.prev = 22;
+                  case 23:
+                    _context2.prev = 23;
                     _context2.t0 = _context2["catch"](0);
                     console.error(_context2.t0);
                     this.utilService.openAlert({
@@ -858,12 +859,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       body: this.translate.instant('inquiry.confirm.alert.authorize')
                     });
 
-                  case 26:
+                  case 27:
                   case "end":
                     return _context2.stop();
                 }
               }
-            }, _callee2, this, [[0, 22]]);
+            }, _callee2, this, [[0, 23]]);
           }));
         }
         /**
