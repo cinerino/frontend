@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -18,7 +18,7 @@ import { AccountTransferModalComponent } from '../../../../shared/components/par
 export class MypageAccountComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
-    public sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
+    public sellers: factory.chevre.seller.ISeller[];
 
     constructor(
         private store: Store<reducers.IState>,
@@ -48,7 +48,7 @@ export class MypageAccountComponent implements OnInit {
     /**
      * 入金モーダル
      */
-    public async openChageAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
+    public async openChageAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>) {
         const userData = await this.userService.getData();
         const creditCards = userData.creditCards;
         this.modal.show(AccountChargeModalComponent, {
@@ -57,8 +57,8 @@ export class MypageAccountComponent implements OnInit {
                 creditCards,
                 cb: async (params: {
                     amount: number;
-                    creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
-                    seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+                    creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard;
+                    seller: factory.chevre.seller.ISeller;
                 }) => {
                     try {
                         const creditCard = {
@@ -91,13 +91,13 @@ export class MypageAccountComponent implements OnInit {
     /**
      * 転送モーダル
      */
-    public async openTransferAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
+    public async openTransferAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>) {
         const userData = await this.userService.getData();
         this.modal.show(AccountTransferModalComponent, {
             initialState: {
                 sellers: this.sellers,
                 cb: async (params: {
-                    seller: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+                    seller: factory.chevre.seller.ISeller;
                     amount: number;
                     description: string;
                     accountNumber: string
@@ -159,7 +159,7 @@ export class MypageAccountComponent implements OnInit {
     /**
      * 口座閉鎖確認
      */
-    public confirmCloseAccount(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
+    public confirmCloseAccount(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>) {
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('mypage.account.confirm.closeAccount'),
@@ -182,7 +182,7 @@ export class MypageAccountComponent implements OnInit {
         });
     }
 
-    public openQRCodeViewer(event: Event, account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<any>>) {
+    public openQRCodeViewer(event: Event, account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>) {
         event.preventDefault();
         this.qrcodeService.openQRCodeViewer({
             title: this.translate.instant('mypage.account.accountNumber'),

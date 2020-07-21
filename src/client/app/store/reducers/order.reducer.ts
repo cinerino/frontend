@@ -1,4 +1,4 @@
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { Action, createReducer, on } from '@ngrx/store';
 import { IState } from '.';
 import { getEnvironment } from '../../../environments/environment';

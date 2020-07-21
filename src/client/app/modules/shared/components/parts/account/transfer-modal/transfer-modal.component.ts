@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { QRCodeService } from '../../../../../../services';
 
@@ -10,9 +10,9 @@ import { QRCodeService } from '../../../../../../services';
     styleUrls: ['./transfer-modal.component.scss']
 })
 export class AccountTransferModalComponent implements OnInit {
-    @Input() public sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
+    @Input() public sellers: factory.chevre.seller.ISeller[];
     @Input() public cb: (value: {
-        seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller?: factory.chevre.seller.ISeller;
         amount: number;
         description: string;
         accountNumber: string

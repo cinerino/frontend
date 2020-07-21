@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -9,12 +9,12 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
     styleUrls: ['./charge-modal.component.scss']
 })
 export class AccountChargeModalComponent implements OnInit {
-    @Input() public sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
-    @Input() public creditCards: factory.paymentMethod.paymentCard.creditCard.ICheckedCard[];
+    @Input() public sellers: factory.chevre.seller.ISeller[];
+    @Input() public creditCards: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard[];
     @Input() public cb: (value: {
-        seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
+        seller?: factory.chevre.seller.ISeller;
         amount: number;
-        creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard
+        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
     }) => void;
     public chargeAccountForm: FormGroup;
 
@@ -37,7 +37,7 @@ export class AccountChargeModalComponent implements OnInit {
         });
     }
 
-    public selectCreditCard(cregitCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) {
+    public selectCreditCard(cregitCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard) {
         this.chargeAccountForm.controls.cregitCard.setValue(cregitCard);
     }
 

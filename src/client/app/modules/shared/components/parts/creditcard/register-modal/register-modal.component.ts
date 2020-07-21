@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import * as moment from 'moment';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -17,9 +17,9 @@ export class CreditcardRegisterModalComponent implements OnInit {
             holderName: string;
             securityCode: string;
         },
-        seller?: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>
+        seller?: factory.chevre.seller.ISeller
     }) => void;
-    @Input() public sellers: factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>[];
+    @Input() public sellers: factory.chevre.seller.ISeller[];
     public creditCardForm: FormGroup;
     public cardExpiration: {
         year: string[];

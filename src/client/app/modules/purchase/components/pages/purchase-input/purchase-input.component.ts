@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { factory } from '@cinerino/api-javascript-client';
+import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
@@ -36,7 +36,7 @@ export class PurchaseInputComponent implements OnInit {
     public amount: number;
     public environment = getEnvironment();
     public viewType = Models.Common.ViewType;
-    public usedCreditCard?: factory.paymentMethod.paymentCard.creditCard.ICheckedCard;
+    public usedCreditCard?: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard;
     public SearchCountryField = SearchCountryField;
     public TooltipLabel = TooltipLabel;
     public CountryISO = CountryISO;
@@ -295,7 +295,7 @@ export class PurchaseInputComponent implements OnInit {
             this.modal.show(CreditCardSelectModalComponent, {
                 initialState: {
                     creditCards: user.creditCards,
-                    cb: (creditCard: factory.paymentMethod.paymentCard.creditCard.ICheckedCard) => {
+                    cb: (creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard) => {
                         this.usedCreditCard = creditCard;
                     }
                 },

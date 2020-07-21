@@ -29,8 +29,6 @@
     "version": "git add -A",
     "postversion": "git push origin --tags",
     "clean": "rimraf src/**/*.spec.ts",
-    "update": "npm install @cinerino/api-javascript-client@next @cinerino/api-nodejs-client@next",
-    "uninstall": "npm uninstall @cinerino/api-javascript-client @cinerino/api-nodejs-client",
     "analyze": "webpack-bundle-analyzer dist/client/production/stats-es2015.json",
     "build-all": "npm install && npm run build-server && npm run build-client"
   },
@@ -44,8 +42,7 @@
     "@angular/platform-browser": "^9.1.4",
     "@angular/platform-browser-dynamic": "^9.1.4",
     "@angular/router": "^9.1.4",
-    "@cinerino/api-javascript-client": "^2.0.0-alpha.75",
-    "@cinerino/api-nodejs-client": "^2.0.0-alpha.75",
+    "@cinerino/sdk": "^1.3.0",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@ngrx/effects": "^9.1.0",
     "@ngrx/store": "^9.1.0",

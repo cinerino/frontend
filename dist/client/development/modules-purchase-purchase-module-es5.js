@@ -6417,13 +6417,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -7000,7 +7000,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.router = router;
         this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
-        this.paymentMethodType = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
+        this.paymentMethodType = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
       }
       /**
        * 初期化
@@ -11811,13 +11811,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
@@ -11967,7 +11967,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       }
 
                       var priceComponent = reservation.ticket.ticketOffer.priceSpecification.priceComponent;
-                      var UnitPriceSpecification = _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.priceSpecificationType.UnitPriceSpecification;
+                      var UnitPriceSpecification = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].chevre.priceSpecificationType.UnitPriceSpecification;
                       var unitPriceSpecifications = priceComponent.filter(function (p) {
                         return p.typeOf === UnitPriceSpecification;
                       });
@@ -12905,7 +12905,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function PurchasePerformanceComponent_p_3_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 10);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 9);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -12925,9 +12925,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function PurchasePerformanceComponent_div_17_div_1_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 14);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 13);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
 
@@ -12935,7 +12935,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "img", 15);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "img", 14);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
       }
@@ -12949,9 +12949,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function PurchasePerformanceComponent_div_17_div_2_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 16);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 15);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
 
@@ -12959,7 +12959,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "img", 17);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "img", 16);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
       }
@@ -12973,9 +12973,33 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function PurchasePerformanceComponent_div_17_div_3_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 17);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](3, "translate");
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "img", 18);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+      }
+
+      if (rf & 2) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 1, "common.performance.status.danger"), "");
+      }
+    }
+
+    function PurchasePerformanceComponent_div_17_div_4_Template(rf, ctx) {
+      if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 17);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
 
@@ -12991,45 +13015,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 1, "common.performance.status.danger"), "");
-      }
-    }
-
-    function PurchasePerformanceComponent_div_17_div_4_Template(rf, ctx) {
-      if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 13);
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 18);
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](3, "translate");
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](4, "img", 20);
-
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-      }
-
-      if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 1, "common.performance.status.success"), "");
       }
     }
 
     function PurchasePerformanceComponent_div_17_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 10);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchasePerformanceComponent_div_17_div_1_Template, 5, 3, "div", 12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchasePerformanceComponent_div_17_div_1_Template, 5, 3, "div", 11);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchasePerformanceComponent_div_17_div_2_Template, 5, 3, "div", 12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchasePerformanceComponent_div_17_div_2_Template, 5, 3, "div", 11);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, PurchasePerformanceComponent_div_17_div_3_Template, 5, 3, "div", 12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, PurchasePerformanceComponent_div_17_div_3_Template, 5, 3, "div", 11);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, PurchasePerformanceComponent_div_17_div_4_Template, 5, 3, "div", 12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, PurchasePerformanceComponent_div_17_div_4_Template, 5, 3, "div", 11);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
       }
@@ -13057,7 +13057,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function PurchasePerformanceComponent_div_18_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 10);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -13075,7 +13075,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function PurchasePerformanceComponent_div_19_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 10);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -13093,7 +13093,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function PurchasePerformanceComponent_div_20_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 10);
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -13111,19 +13111,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     function PurchasePerformanceComponent_div_21_Template(rf, ctx) {
       if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 10);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 12);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "translate");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 13);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](4, "translate");
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](5, "img", 14);
+
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
       }
 
       if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, "common.performance.infiniteStock"), "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](4, 1, "common.performance.status.success"), "");
       }
     }
 
@@ -13167,7 +13177,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       },
       decls: 22,
       vars: 17,
-      consts: [[1, "row", "mx-0", "border", "boder-gray", "rounded", "p-3", "py-md-3", "text-md-center", "d-md-block", "align-items-center", "pointer", "h-100", 3, "ngClass", "click"], [1, "col-md-12", "col-8", "px-0"], [1, "mb-1", "text-small", "screen-name"], ["class", "text-overflow-ellipsis mr-2 mr-md-0 d-inline-block d-md-block", 4, "ngIf"], [1, "text-overflow-ellipsis", "d-inline-block", "d-md-block"], [1, "text-large"], [1, "border-0", "bg-light-gray", "my-2"], [1, "col-md-12", "col-4", "px-0", "text-center"], ["class", "status", 4, "ngIf"], ["class", "mt-2 text-small", 4, "ngIf"], [1, "text-overflow-ellipsis", "mr-2", "mr-md-0", "d-inline-block", "d-md-block"], [1, "status"], ["class", "d-flex justify-content-center align-items-center", 4, "ngIf"], [1, "d-flex", "justify-content-center", "align-items-center"], [1, "text-success", "mr-2"], ["src", "/assets/images/icon/status_success.svg", "alt", ""], [1, "text-warning", "mr-2"], ["src", "/assets/images/icon/status_warning.svg", "alt", ""], [1, "mr-2"], ["src", "/assets/images/icon/status_danger.svg", "alt", ""], ["src", "/assets/images/icon/status_undefined.svg", "alt", ""], [1, "mt-2", "text-small"]],
+      consts: [[1, "row", "mx-0", "border", "boder-gray", "rounded", "p-3", "py-md-3", "text-md-center", "d-md-block", "align-items-center", "pointer", "h-100", 3, "ngClass", "click"], [1, "col-md-12", "col-8", "px-0"], [1, "mb-1", "text-small", "screen-name"], ["class", "text-overflow-ellipsis mr-2 mr-md-0 d-inline-block d-md-block", 4, "ngIf"], [1, "text-overflow-ellipsis", "d-inline-block", "d-md-block"], [1, "text-large"], [1, "border-0", "bg-light-gray", "my-2"], [1, "col-md-12", "col-4", "px-0", "text-center"], ["class", "status", 4, "ngIf"], [1, "text-overflow-ellipsis", "mr-2", "mr-md-0", "d-inline-block", "d-md-block"], [1, "status"], ["class", "d-flex justify-content-center align-items-center", 4, "ngIf"], [1, "d-flex", "justify-content-center", "align-items-center"], [1, "text-success", "mr-2"], ["src", "/assets/images/icon/status_success.svg", "alt", ""], [1, "text-warning", "mr-2"], ["src", "/assets/images/icon/status_warning.svg", "alt", ""], [1, "mr-2"], ["src", "/assets/images/icon/status_danger.svg", "alt", ""], ["src", "/assets/images/icon/status_undefined.svg", "alt", ""]],
       template: function PurchasePerformanceComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -13230,7 +13240,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](20, PurchasePerformanceComponent_div_20_Template, 3, 3, "div", 8);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](21, PurchasePerformanceComponent_div_21_Template, 3, 3, "div", 9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](21, PurchasePerformanceComponent_div_21_Template, 6, 3, "div", 8);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -13246,7 +13256,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](7, 12, ctx.performance.screeningEvent.location.name));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](7, 12, ctx.performance.screeningEvent.location.name), "");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
 
@@ -14041,13 +14051,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -14247,13 +14257,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -14453,13 +14463,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */
 
 
@@ -15345,7 +15355,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                       section = findSeat.containedInPlace.branchCode;
                     }
 
-                    if (findSeat.offers[0].availability === _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.itemAvailability.InStock) {
+                    if (findSeat.offers[0].availability === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.itemAvailability.InStock) {
                       status = ___WEBPACK_IMPORTED_MODULE_3__["Models"].Purchase.Screen.SeatStatus.Default;
                     }
 
@@ -15809,13 +15819,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! @cinerino/api-javascript-client */
-    "../../node_modules/@cinerino/api-javascript-client/lib/index.js");
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @cinerino/sdk */
+    "../../node_modules/@cinerino/sdk/lib/browser.js");
     /* harmony import */
 
 
-    var _cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_api_javascript_client__WEBPACK_IMPORTED_MODULE_2__);
+    var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__);
     /* harmony import */
 
 
