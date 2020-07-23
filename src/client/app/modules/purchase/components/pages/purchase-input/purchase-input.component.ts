@@ -148,6 +148,18 @@ export class PurchaseInputComponent implements OnInit {
             }
             this.profileForm.controls[key].setValue(value);
         });
+        const additionalProperty = profileData.additionalProperty;
+        if (additionalProperty === undefined) {
+            return;
+        }
+        additionalProperty.forEach(a => {
+            const key = `additionalProperty.${a.name}`;
+            const value = a.value;
+            if (value === undefined || this.profileForm.controls[key] === undefined) {
+                return;
+            }
+            this.profileForm.controls[key].setValue(value);
+        });
     }
 
     /**
@@ -330,8 +342,18 @@ export class PurchaseInputComponent implements OnInit {
         return this.environment.PROFILE.find(p => p.key === key && p.required) !== undefined;
     }
 
-    public getProfileAdditionalProperty() {
-        return this.environment.PROFILE.filter(p => /additionalProperty/.test(p.key));
+    /**
+     * 購入者情報フォームのコントロールkeyを配列で返却
+     */
+    public getProfileFormKeys() {
+        return Object.keys(this.profileForm.controls);
+    }
+
+    /**
+     * 追加特性項目取得
+     */
+    public getAdditionalProperty(key: string) {
+        return this.environment.PROFILE.find(p => /additionalProperty/.test(p.key) && p.key === key);
     }
 
 }
