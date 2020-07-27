@@ -41,24 +41,16 @@
             </app-item-list>
         </div>
 
-        <div class="mb-4 px-3 bg-white">
-            <div class="py-3 border-bottom border-gray">
+        <div *ngIf="profile" class="mb-4 px-3 bg-white">
+            <div *ngFor="let profile of getProfile()" class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.customerName' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async)?.profile.familyName }} {{ (purchase |
-                        async)?.profile.givenName }}</p>
-                </div>
-            </div>
-            <div class="py-3 border-bottom border-gray">
-                <div class="row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.email' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async)?.profile.email }}</p>
-                </div>
-            </div>
-            <div class="py-3 border-bottom border-gray" [class.border-0]="amount === 0">
-                <div class="row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.telephone' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async)?.profile.telephone | libphonenumberFormat }}</p>
+                    <p *ngIf="!profile.label" class="mb-2 mb-md-0 col-md-4">{{ profile.name | translate }}</p>
+                    <p *ngIf="profile.label" class="mb-2 mb-md-0 col-md-4">{{ profile.label | changeLanguage }}</p>
+                    <p *ngIf="profile.key !== 'telephone' && profile.key !== 'gender'" class="col-md-8 white-space-pre-wrap">
+                        {{ profile.value }}
+                    </p>
+                    <p *ngIf="profile.key === 'telephone'" class="col-md-8">{{ profile.value | libphonenumberFormat }}</p>
+                    <p *ngIf="profile.key === 'gender'" class="col-md-8">{{ 'form.select.option.' + profile.value | translate }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray" *ngIf="amount > 0">
@@ -67,8 +59,8 @@
                     <p class="col-md-8">{{ 'common.paymentMethodType.creditCard' | translate }}</p>
                 </div>
             </div>
-            <div class="overflow-hidden" *ngIf="amount > 0">
-                <div class="py-3 row align-items-center">
+            <div class="py-3 border-bottom border-gray" *ngIf="amount > 0">
+                <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.amount' | translate }}</p>
                     <p class="col-md-8 font-weight-bold text-large text-info">{{ amount | currency : 'JPY' }}</p>
                 </div>

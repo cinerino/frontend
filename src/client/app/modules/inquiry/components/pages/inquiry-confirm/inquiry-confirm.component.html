@@ -53,13 +53,13 @@
             </div>
             <div class="py-3 border-bottom border-gray email">
                 <div class="row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.email' | translate }}</p>
+                    <p class="mb-2 mb-md-0 col-md-4">{{ 'form.label.email' | translate }}</p>
                     <p class="col-md-8">{{ (order | async)?.order.customer.email }}</p>
                 </div>
             </div>
             <div class="py-3 telephone">
                 <div class="row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.telephone' | translate }}</p>
+                    <p class="mb-2 mb-md-0 col-md-4">{{ 'form.label.telephone' | translate }}</p>
                     <p class="col-md-8">{{ (order | async)?.order.customer.telephone | libphonenumberFormat }}</p>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
@@ -21,6 +22,7 @@ export class PurchaseConfirmComponent implements OnInit {
     public amount: number;
     public environment = getEnvironment();
     public user: Observable<reducers.IUserState>;
+    public profile: factory.person.IProfile;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -39,13 +41,14 @@ export class PurchaseConfirmComponent implements OnInit {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.user = this.store.pipe(select(reducers.getUser));
         this.amount = 0;
-        this.purchase.subscribe((purchase) => {
-            if (purchase.transaction === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            this.amount = Functions.Purchase.getAmount(purchase.authorizeSeatReservations);
-        }).unsubscribe();
+        const purchase = await this.purchaseService.getData();
+        if (purchase.transaction === undefined
+            || purchase.profile === undefined) {
+            this.router.navigate(['/error']);
+            return;
+        }
+        this.profile = purchase.profile;
+        this.amount = Functions.Purchase.getAmount(purchase.authorizeSeatReservations);
     }
 
     /**
@@ -81,6 +84,54 @@ export class PurchaseConfirmComponent implements OnInit {
         } catch (error) {
             this.router.navigate(['/error']);
         }
+    }
+
+    /**
+     * 購入者情報取得
+     */
+    public getProfile() {
+        const profile = this.profile;
+        const result: { key: string; name: string; value?: string; label?: { ja: string; en: string; } }[] = [];
+        if (profile === undefined) {
+            return result;
+        }
+        this.environment.PROFILE.forEach(p => {
+            const key = p.key;
+            if (result.find(r => r.name === 'common.customerName') === undefined
+                && (key === 'familyName' || key === 'givenName')) {
+                result.push({
+                    key: 'customerName',
+                    name: 'common.customerName',
+                    value: (profile.familyName === undefined && profile.givenName === undefined)
+                        ? '' : `${profile.familyName} ${profile.givenName}`
+                });
+                return;
+            }
+            if (key === 'email'
+                || key === 'telephone'
+                || key === 'address'
+                || key === 'age'
+                || key === 'gender') {
+                result.push({
+                    key,
+                    name: `form.label.${key}`,
+                    value: profile[key],
+                    label: p.label
+                });
+                return;
+            }
+            if (!/additionalProperty/.test(key)) {
+                return;
+            }
+            result.push({
+                key,
+                name: key,
+                value: profile.additionalProperty?.find(a => a.name === key.replace('additionalProperty.', ''))?.value,
+                label: p.label
+            });
+
+        });
+        return result.filter(r => r.value !== undefined && r.value !== '');
     }
 
 }
