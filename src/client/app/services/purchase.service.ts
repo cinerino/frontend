@@ -414,12 +414,7 @@ export class PurchaseService {
     /**
      * 連絡先登録
      */
-    public async registerContact(profile: {
-        givenName: string;
-        familyName: string;
-        telephone: string;
-        email: string;
-    }) {
+    public async registerContact(profile: factory.person.IProfile) {
         const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             const transaction = purchase.transaction;

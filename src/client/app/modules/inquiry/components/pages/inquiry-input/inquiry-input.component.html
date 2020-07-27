@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="form-group mb-0">
-                    <label class="mb-2" for="">{{ 'common.telephone' | translate }}</label>
+                    <label class="mb-2" for="">{{ 'form.label.telephone' | translate }}</label>
                     <app-numeric-keypad *ngIf="environment.INQUIRY_INPUT_KEYPAD" inputType="telephone"
                         [inputValue]="inquiryForm.controls.telephone.value" (change)="changeTelephone($event)">
                         <input type="password" class="form-control" formControlName="telephone" id="telephone"

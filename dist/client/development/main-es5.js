@@ -2644,10 +2644,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       BASE_URL: '/purchase/root',
       LANGUAGE: ['ja'],
       PROFILE: [{
-        key: 'email',
+        key: 'familyName',
         value: '',
         required: true,
-        maxLength: 50
+        pattern: /^[ァ-ヶー]+$/,
+        maxLength: 12
       }, {
         key: 'givenName',
         value: '',
@@ -2655,11 +2656,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         pattern: /^[ァ-ヶー]+$/,
         maxLength: 12
       }, {
-        key: 'familyName',
+        key: 'email',
         value: '',
         required: true,
-        pattern: /^[ァ-ヶー]+$/,
-        maxLength: 12
+        maxLength: 50
       }, {
         key: 'telephone',
         value: '',

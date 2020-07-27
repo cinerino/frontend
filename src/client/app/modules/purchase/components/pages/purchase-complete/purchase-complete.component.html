@@ -51,13 +51,13 @@
             </div>
             <div class="py-3 border-bottom border-gray">
                 <div class="row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.email' | translate }}</p>
+                    <p class="mb-2 mb-md-0 col-md-4">{{ 'form.label.email' | translate }}</p>
                     <p class="col-md-8">{{ (purchase | async)?.order.customer.email }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray" [class.border-0]="(purchase | async)?.order.price === 0">
                 <div class="row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.telephone' | translate }}</p>
+                    <p class="mb-2 mb-md-0 col-md-4">{{ 'form.label.telephone' | translate }}</p>
                     <p class="col-md-8">{{ (purchase | async)?.order.customer.telephone | libphonenumberFormat }}</p>
                 </div>
             </div>
