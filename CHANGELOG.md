@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.48 - 2020-07-27
+### Changed
+ - StarWebPRNTSDK1.7.0更新
+ - 購入者情報へ追加特性を追加できるよう変更
+ 
 ## 3.0.47 - 2020-07-21
 ### Changed
  - @cinerino/sdkへ変更
