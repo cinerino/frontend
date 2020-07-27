@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-md-8">
                         <input
-                            *ngIf="key !== 'email' && key !== 'telephone' && key !== 'gender' && getAdditionalProperty(key)?.inputType !== 'textarea'"
+                            *ngIf="key !== 'email' && key !== 'telephone' && key !== 'gender' && !getAdditionalProperty(key)"
                             type="text" class="form-control" [formControlName]="key" [id]="key"
                             [placeholder]="'form.placeholder.' + key | translate">
                         <input *ngIf="key === 'email'" type="email" class="form-control" [formControlName]="key"
@@ -34,7 +34,11 @@
                             <option value="man">{{ 'form.option.man' | translate }}</option>
                             <option value="woman">{{ 'form.option.woman' | translate }}</option>
                         </select>
-                        <textarea *ngIf="getAdditionalProperty(key)?.inputType === 'textarea'" class="form-control"
+                        <input
+                            *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType !== 'textarea'"
+                            type="text" class="form-control" [formControlName]="key" [id]="key"
+                            placeholder="">
+                        <textarea *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType === 'textarea'" class="form-control"
                             [formControlName]="key" [id]="key" placeholder=""></textarea>
                         <div *ngIf="profileForm.controls[key].invalid && profileForm.controls[key].touched"
                             class="mt-2">
