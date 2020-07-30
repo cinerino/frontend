@@ -230,26 +230,16 @@ export class OrderEffects {
 
                     authorizeOrders.push(result);
                 }
-                let printData;
-                if (environment.PRINT_DATA === 'JSON') {
-                    const path = '/json/print/ticket.json';
-                    const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
-                        ? `${Functions.Util.getProject().storageUrl}${path}`
-                        : `/default${path}`;
-                    printData = await this.utilService.getJson<Models.Order.Print.ITicketPrintData>(url);
-                } else {
-                    const path = `/ejs/print/ticket.ejs`;
-                    const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
-                        ? `${Functions.Util.getProject().storageUrl}${path}`
-                        : `/default${path}`;
-                    printData = await this.utilService.getText(url);
-                }
                 const testFlg = orders.length === 0;
+                const path = `/ejs/print/ticket.ejs`;
+                const url = (testFlg) ? '/default//ejs/print/test.ejs'
+                    : (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+                        ? `${Functions.Util.getProject().storageUrl}${path}`
+                        : `/default${path}`;
+                const printData = await this.utilService.getText(url);
                 const canvasList: HTMLCanvasElement[] = [];
                 if (testFlg) {
-                    const canvas = (environment.PRINT_DATA === 'JSON')
-                        ? await Functions.Order.createTestPrintCanvas({ printData: <Models.Order.Print.ITicketPrintData>printData })
-                        : await Functions.Order.createTestPrintCanvas4Html();
+                    const canvas = await Functions.Order.createTestPrintCanvas4Html({ view: <string>printData });
                     canvasList.push(canvas);
                 } else {
                     for (const authorizeOrder of authorizeOrders) {
@@ -306,12 +296,9 @@ export class OrderEffects {
                                         moment(itemOffered.reservationFor.startDate).format('YYMMDD')
                                     );
                             }
-                            const canvas = (environment.PRINT_DATA === 'JSON')
-                                ? await Functions.Order.createPrintCanvas({
-                                    printData: <Models.Order.Print.ITicketPrintData>printData,
-                                    order, acceptedOffer, pos, qrcode, index
-                                })
-                                : await Functions.Order.createPrintCanvas4Html({ view: <string>printData, order, pos, qrcode, index });
+                            const canvas = await Functions.Order.createPrintCanvas4Html({
+                                view: <string>printData, order, pos, qrcode, index
+                            });
                             canvasList.push(canvas);
                             index++;
                         }
