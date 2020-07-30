@@ -15,21 +15,15 @@ export class Performance {
     /**
      * 販売判定
      */
-    public isSales(status?: 'window' | 'start' | 'end') {
+    public isSales(status?: 'start' | 'end') {
         const screeningEvent = this.screeningEvent;
-        const environment = getEnvironment();
         const offers = screeningEvent.offers;
         if (offers === undefined) {
             return false;
         }
         let result = false;
         const now = moment().unix();
-        const window = Number(environment.PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES);
         switch (status) {
-            case 'window':
-                result = moment(offers.validThrough).unix() > now
-                    && moment(screeningEvent.startDate).add(window).unix() < now;
-                break;
             case 'start':
                 result = !(moment(offers.validFrom).unix() < now);
                 break;
@@ -38,8 +32,7 @@ export class Performance {
                 break;
             default:
                 result = (moment(offers.validFrom).unix() < now
-                    && moment(offers.validThrough).unix() > now
-                    && moment(screeningEvent.startDate).add(window).unix() > now);
+                    && moment(offers.validThrough).unix() > now);
                 break;
         }
         return result;
