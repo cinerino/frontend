@@ -36,10 +36,10 @@
                         </select>
                         <input
                             *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType !== 'textarea'"
-                            type="text" class="form-control" [formControlName]="key" [id]="key"
-                            placeholder="">
-                        <textarea *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType === 'textarea'" class="form-control"
-                            [formControlName]="key" [id]="key" placeholder=""></textarea>
+                            type="text" class="form-control" [formControlName]="key" [id]="key" placeholder="">
+                        <textarea
+                            *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType === 'textarea'"
+                            class="form-control" [formControlName]="key" [id]="key" placeholder=""></textarea>
                         <div *ngIf="profileForm.controls[key].invalid && profileForm.controls[key].touched"
                             class="mt-2">
                             <p *ngIf="profileForm.controls[key].errors?.required" class="text-danger">
@@ -88,73 +88,78 @@
                     <p class="text-x-large text-info">{{ amount | currency : 'JPY'}}</p>
                 </div>
             </div>
-            <form *ngIf="usedCreditCard === undefined" [formGroup]="creditCardForm">
-                <div class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardNumber' | translate }}<span
-                            class="badge badge-danger ml-2">{{ 'form.required' | translate }}</span></p>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" id="cardNumber" formControlName="cardNumber"
-                            [placeholder]="'form.placeholder.cardNumber' | translate" maxlength="16">
-                        <div *ngIf="creditCardForm.controls.cardNumber.invalid && creditCardForm.controls.cardNumber.touched"
-                            class="mt-2">
-                            <p *ngIf="creditCardForm.controls.cardNumber.errors?.required" class="text-danger">
-                                {{ 'form.validation.required' | translate }}</p>
-                            <p *ngIf="creditCardForm.controls.cardNumber.errors?.pattern" class="text-danger">
-                                {{ 'form.validation.number' | translate }}
-                            </p>
-                        </div>
-                        <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.cardNumber' | translate"></p>
-                        <div class="credit-image"><img class="w-100" src="/assets/images/credit_card.png" alt=""></div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardExpiration' | translate }}<span
-                            class="badge badge-danger ml-2">{{ 'form.required' | translate }}</span></p>
-                    <div class="col-md-8">
-                        <div class="form-inline">
-                            <select class="form-control d-inline-block w-auto" id="cardExpirationMonth"
-                                formControlName="cardExpirationMonth">
-                                <option *ngFor="let month of cardExpiration.month" [value]="month">{{ month }}</option>
-                            </select>
-                            <span class="mx-2">{{ 'common.date.month' | translate }}</span>
-                            <select class="form-control d-inline-block w-auto" id="cardExpirationYear"
-                                formControlName="cardExpirationYear">
-                                <option *ngFor="let year of cardExpiration.year" [value]="year">{{ year }}</option>
-                            </select>
-                            <span class="mx-2">{{ 'common.date.year' | translate }}</span>
+            <div class="mb-3">
+                <form *ngIf="usedCreditCard === undefined" [formGroup]="creditCardForm">
+                    <div class="form-group row">
+                        <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardNumber' | translate }}<span
+                                class="badge badge-danger ml-2">{{ 'form.required' | translate }}</span></p>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="cardNumber" formControlName="cardNumber"
+                                [placeholder]="'form.placeholder.cardNumber' | translate" maxlength="16">
+                            <div *ngIf="creditCardForm.controls.cardNumber.invalid && creditCardForm.controls.cardNumber.touched"
+                                class="mt-2">
+                                <p *ngIf="creditCardForm.controls.cardNumber.errors?.required" class="text-danger">
+                                    {{ 'form.validation.required' | translate }}</p>
+                                <p *ngIf="creditCardForm.controls.cardNumber.errors?.pattern" class="text-danger">
+                                    {{ 'form.validation.number' | translate }}
+                                </p>
+                            </div>
+                            <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.cardNumber' | translate"></p>
+                            <div class="credit-image"><img class="w-100" src="/assets/images/credit_card.png" alt="">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.securityCode' | translate }}<span
-                            class="badge badge-danger ml-2">{{ 'form.required' | translate }}</span></p>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" id="securityCode" maxlength="4"
-                            [placeholder]="'form.placeholder.securityCode' | translate" formControlName="securityCode">
-                        <div *ngIf="creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched"
-                            class="mt-2">
-                            <p *ngIf="creditCardForm.controls.securityCode.errors?.required" class="text-danger">
-                                {{ 'form.validation.required' | translate }}</p>
-                        </div>
-                        <div class="btn btn-link btn-sm" (click)="openSecurityCode()">
-                            {{ 'purchase.input.securityCode' | translate }}</div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.holderName' | translate }}<span
-                            class="badge badge-danger ml-2">{{ 'form.required' | translate }}</span></p>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" id="holderName"
-                            [placeholder]="'form.placeholder.holderName' | translate" formControlName="holderName">
-                        <div *ngIf="creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched"
-                            class="mt-2">
-                            <p *ngIf="creditCardForm.controls.holderName.errors?.required" class="text-danger">
-                                {{ 'form.validation.required' | translate }}</p>
+                    <div class="form-group row">
+                        <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardExpiration' | translate }}<span
+                                class="badge badge-danger ml-2">{{ 'form.required' | translate }}</span></p>
+                        <div class="col-md-8">
+                            <div class="form-inline">
+                                <select class="form-control d-inline-block w-auto" id="cardExpirationMonth"
+                                    formControlName="cardExpirationMonth">
+                                    <option *ngFor="let month of cardExpiration.month" [value]="month">{{ month }}
+                                    </option>
+                                </select>
+                                <span class="mx-2">{{ 'common.date.month' | translate }}</span>
+                                <select class="form-control d-inline-block w-auto" id="cardExpirationYear"
+                                    formControlName="cardExpirationYear">
+                                    <option *ngFor="let year of cardExpiration.year" [value]="year">{{ year }}</option>
+                                </select>
+                                <span class="mx-2">{{ 'common.date.year' | translate }}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
-            <div *ngIf="usedCreditCard !== undefined" class="">
+                    <div class="form-group row">
+                        <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.securityCode' | translate }}<span
+                                class="badge badge-danger ml-2">{{ 'form.required' | translate }}</span></p>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="securityCode" maxlength="4"
+                                [placeholder]="'form.placeholder.securityCode' | translate"
+                                formControlName="securityCode">
+                            <div *ngIf="creditCardForm.controls.securityCode.invalid && creditCardForm.controls.securityCode.touched"
+                                class="mt-2">
+                                <p *ngIf="creditCardForm.controls.securityCode.errors?.required" class="text-danger">
+                                    {{ 'form.validation.required' | translate }}</p>
+                            </div>
+                            <div class="btn btn-link btn-sm" (click)="openSecurityCode()">
+                                {{ 'purchase.input.securityCode' | translate }}</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.holderName' | translate }}<span
+                                class="badge badge-danger ml-2">{{ 'form.required' | translate }}</span></p>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="holderName"
+                                [placeholder]="'form.placeholder.holderName' | translate" formControlName="holderName">
+                            <div *ngIf="creditCardForm.controls.holderName.invalid && creditCardForm.controls.holderName.touched"
+                                class="mt-2">
+                                <p *ngIf="creditCardForm.controls.holderName.errors?.required" class="text-danger">
+                                    {{ 'form.validation.required' | translate }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="usedCreditCard !== undefined" class="mb-3">
                 <div class="form-group row">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardNumber' | translate }}</p>
                     <p class="col-md-8 py-2">{{ usedCreditCard.cardNo }}</p>
@@ -169,15 +174,20 @@
                     </p>
                 </div>
             </div>
-            <div *ngIf="(user | async)?.creditCards.length > 0" class="buttons mx-auto mt-3">
+            <div *ngIf="(user | async)?.creditCards.length > 0" class="buttons mx-auto">
                 <button type="button" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async"
                     (click)="openRegisteredCreditCard()">{{ 'purchase.input.registeredCreditCard' | translate }}</button>
             </div>
-            <div *ngIf="usedCreditCard !== undefined" class="buttons mx-auto mt-3">
+            <div *ngIf="usedCreditCard !== undefined" class="buttons mx-auto">
                 <button type="button" class="btn btn-primary btn-block py-3"
                     (click)="changeInputCreditCard()">{{ 'purchase.input.inputCreditCard' | translate }}</button>
             </div>
         </div>
+    </div>
+
+    <div class="mb-4 p-3 bg-white">
+        <h3 class="mb-2 font-weight-bold">{{ 'purchase.input.payment.note.label' | translate }}</h3>
+        <p class="text-small" [innerHTML]="'purchase.input.payment.note.read' | translate"></p>
     </div>
 
 

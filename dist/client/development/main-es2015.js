@@ -1494,19 +1494,13 @@ class Performance {
      */
     isSales(status) {
         const screeningEvent = this.screeningEvent;
-        const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_1__["getEnvironment"])();
         const offers = screeningEvent.offers;
         if (offers === undefined) {
             return false;
         }
         let result = false;
         const now = moment__WEBPACK_IMPORTED_MODULE_0__().unix();
-        const window = Number(environment.PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES);
         switch (status) {
-            case 'window':
-                result = moment__WEBPACK_IMPORTED_MODULE_0__(offers.validThrough).unix() > now
-                    && moment__WEBPACK_IMPORTED_MODULE_0__(screeningEvent.startDate).add(window).unix() < now;
-                break;
             case 'start':
                 result = !(moment__WEBPACK_IMPORTED_MODULE_0__(offers.validFrom).unix() < now);
                 break;
@@ -1515,8 +1509,7 @@ class Performance {
                 break;
             default:
                 result = (moment__WEBPACK_IMPORTED_MODULE_0__(offers.validFrom).unix() < now
-                    && moment__WEBPACK_IMPORTED_MODULE_0__(offers.validThrough).unix() > now
-                    && moment__WEBPACK_IMPORTED_MODULE_0__(screeningEvent.startDate).add(window).unix() > now);
+                    && moment__WEBPACK_IMPORTED_MODULE_0__(offers.validThrough).unix() > now);
                 break;
         }
         return result;
@@ -1661,7 +1654,6 @@ const defaultEnvironment = {
     PURCHASE_SCHEDULE_SALES_DATE_UNIT: 'hour',
     PURCHASE_SCHEDULE_SALES_STOP_TIME: '',
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
-    PURCHASE_SCHEDULE_STATUS_WINDOW_TIME_MINUTES: '-20',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
     PURCHASE_SCHEDULE_SORT: true,

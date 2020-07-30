@@ -49,7 +49,7 @@
                         'width.px': seat.w,
                         'height.px': seat.h
                     }" (click)="selectSeat(seat)">
-                        <span>{{ seat.code }}</span>
+                        <span>{{ seat.code.replace('-', '') }}</span>
                     </div>
                 </div>
 

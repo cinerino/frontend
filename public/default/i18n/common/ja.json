@@ -2,10 +2,14 @@
     "purchase": {
         "input": {
             "title": "購入者情報入力",
-            "read": "購入者情報を入力してください。",
+            "read": "",
             "payment": {
                 "title": "決済情報入力",
-                "read": "決済情報を入力してください。"
+                "read": "",
+                "note": {
+                    "label": "決済についてのご注意事項",
+                    "read": "購入完了画面まで進まずにお取引を中断された場合でもご利用のカードによっては下記の事象が起こることがございますので、悪しからずご了承ください。<br>一部のクレジットカード会社からはカード利用速報のメールが配信される。<br> ⇒カード利用速報メールが配信されましても購入完了していなければ引き落とされることはありませんので、カード会社の月々の確定利用明細などをご確認ください。<br>プリペイド形式（デビットカード、LINEPayカード等）で一時的に残高が減る。<br> ⇒購入完了していない場合は後ほど残高が戻ります。残高が戻るまでの期間は各カード会社様によって異なります。"
+                }
             },
             "copyDomain": "ドメインをコピー",
             "securityCode": "セキュリティーコードについて",
@@ -242,17 +246,17 @@
             "telephone": "形式が正しくありません"
         },
         "placeholder": {
-            "familyName": "モーション",
-            "givenName": "ピクチャー",
-            "email": "example@motionpicture.jp",
-            "telephone": "0362778824",
+            "familyName": "ヤマダ",
+            "givenName": "タロウ",
+            "email": "example@smart-theater.com",
+            "telephone": "0312345678",
             "age": "",
             "address": "",
             "gender": "",
             "cardNumber": "0123456789012345",
             "cardExpiration": "",
             "securityCode": "1234",
-            "holderName": "MOTION PICTURE",
+            "holderName": "TARO YAMADA",
             "confirmationNumber": ""
         },
         "description": {
