@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.0.49 - 2020-07-30
+### Changed
+ - 窓口設定を廃止
+ - 座席番号表示「-」なしへ変更
+
 ## 3.0.48 - 2020-07-27
 ### Changed
  - StarWebPRNTSDK1.7.0更新
