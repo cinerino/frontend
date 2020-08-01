@@ -29,7 +29,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵAnimationGroupPlayer", function() { return AnimationGroupPlayer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵPRE_STYLE", function() { return ɵPRE_STYLE; });
 /**
- * @license Angular v9.1.4
+ * @license Angular v9.1.12
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -1722,7 +1722,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ "../../node_modules/@angular/animations/__ivy_ngcc__/fesm2015/animations.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /**
- * @license Angular v9.1.4
+ * @license Angular v9.1.12
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -9850,7 +9850,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
 /**
- * @license Angular v9.1.4
+ * @license Angular v9.1.12
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -17468,7 +17468,7 @@ if (false) {}
  * async validator directive with a custom error key.
  *
  * ```typescript
- * import { of as observableOf } from 'rxjs';
+ * import { of } from 'rxjs';
  *
  * \@Directive({
  *   selector: '[customAsyncValidator]',
@@ -17477,7 +17477,7 @@ if (false) {}
  * })
  * class CustomAsyncValidatorDirective implements AsyncValidator {
  *   validate(control: AbstractControl): Observable<ValidationErrors|null> {
- *     return observableOf({'custom': true});
+ *     return of({'custom': true});
  *   }
  * }
  * ```
@@ -18288,7 +18288,7 @@ FormBuilder.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjec
  * \@publicApi
  * @type {?}
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('9.1.4');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Version"]('9.1.12');
 
 /**
  * @fileoverview added by tsickle
@@ -18428,7 +18428,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_animations_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations/browser */ "../../node_modules/@angular/animations/__ivy_ngcc__/fesm2015/browser.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /**
- * @license Angular v9.1.4
+ * @license Angular v9.1.12
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -19354,7 +19354,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
 /**
- * @license Angular v9.1.4
+ * @license Angular v9.1.12
  * (c) 2010-2020 Google LLC. https://angular.io/
  * License: MIT
  */
@@ -19386,8 +19386,8 @@ __webpack_require__.r(__webpack_exports__);
  * class MyService {
  *   constructor(public router: Router, logger: Logger) {
  *     router.events.pipe(
- *       filter(e => e instanceof RouterEvent)
- *     ).subscribe(e => {
+ *        filter((e: Event): e is RouterEvent => e instanceof RouterEvent)
+ *     ).subscribe((e: RouterEvent) => {
  *       logger.log(e.id, e.url);
  *     });
  *   }
@@ -26410,7 +26410,12 @@ class RouterLink {
         }
     }
     /**
-     * @param {?} commands
+     * @see {\@link Router#createUrlTree Router#createUrlTree}
+     * @param {?} commands An array of commands to pass to {\@link Router#createUrlTree
+     *     Router#createUrlTree}.
+     *   - **array**: commands to pass to {\@link Router#createUrlTree Router#createUrlTree}.
+     *   - **string**: shorthand for array of commands with just the string, i.e. `['/route']`
+     *   - **null|undefined**: shorthand for an empty array of commands, i.e. `[]`
      * @return {?}
      */
     set routerLink(commands) {
@@ -26422,7 +26427,7 @@ class RouterLink {
         }
     }
     /**
-     * @deprecated 4.0.0 use `queryParamsHandling` instead.
+     * @deprecated As of Angular v4.0 use `queryParamsHandling` instead.
      * @param {?} value
      * @return {?}
      */
@@ -26545,7 +26550,12 @@ class RouterLinkWithHref {
         }));
     }
     /**
-     * @param {?} commands
+     * @see {\@link Router#createUrlTree Router#createUrlTree}
+     * @param {?} commands An array of commands to pass to {\@link Router#createUrlTree
+     *     Router#createUrlTree}.
+     *   - **array**: commands to pass to {\@link Router#createUrlTree Router#createUrlTree}.
+     *   - **string**: shorthand for array of commands with just the string, i.e. `['/route']`
+     *   - **null|undefined**: shorthand for an empty array of commands, i.e. `[]`
      * @return {?}
      */
     set routerLink(commands) {
@@ -26557,6 +26567,7 @@ class RouterLinkWithHref {
         }
     }
     /**
+     * @deprecated As of Angular v4.0 use `queryParamsHandling` instead.
      * @param {?} value
      * @return {?}
      */
@@ -28070,7 +28081,7 @@ function provideRouterInitializer() {
  * \@publicApi
  * @type {?}
  */
-const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('9.1.4');
+const VERSION = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["Version"]('9.1.12');
 
 /**
  * @fileoverview added by tsickle
@@ -28145,7 +28156,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /**
- * @license NgRx 9.1.0
+ * @license NgRx 9.2.0
  * (c) 2015-2018 Brandon Roberts, Mike Ryan, Rob Wormald, Victor Savkin
  * License: MIT
  */
@@ -29173,7 +29184,7 @@ configOrProject, errorFn) {
 /*!**********************************************************************************************************************!*\
   !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/@ngrx/store/__ivy_ngcc__/fesm2015/store.js ***!
   \**********************************************************************************************************************/
-/*! exports provided: ActionsSubject, FEATURE_REDUCERS, INIT, INITIAL_REDUCERS, INITIAL_STATE, META_REDUCERS, REDUCER_FACTORY, ReducerManager, ReducerManagerDispatcher, ReducerObservable, STORE_FEATURES, ScannedActionsSubject, State, StateObservable, Store, StoreFeatureModule, StoreModule, StoreRootModule, UPDATE, USER_PROVIDED_META_REDUCERS, USER_RUNTIME_CHECKS, combineReducers, compose, createAction, createFeatureSelector, createReducer, createReducerFactory, createSelector, createSelectorFactory, defaultMemoize, defaultStateFn, on, props, reduceState, resultMemoize, select, union, ɵngrx_modules_store_store_b, ɵngrx_modules_store_store_ba, ɵngrx_modules_store_store_bb, ɵngrx_modules_store_store_bc, ɵngrx_modules_store_store_bd, ɵngrx_modules_store_store_be, ɵngrx_modules_store_store_c, ɵngrx_modules_store_store_d, ɵngrx_modules_store_store_e, ɵngrx_modules_store_store_f, ɵngrx_modules_store_store_g, ɵngrx_modules_store_store_h, ɵngrx_modules_store_store_i, ɵngrx_modules_store_store_j, ɵngrx_modules_store_store_k, ɵngrx_modules_store_store_l, ɵngrx_modules_store_store_m, ɵngrx_modules_store_store_n, ɵngrx_modules_store_store_o, ɵngrx_modules_store_store_p, ɵngrx_modules_store_store_q, ɵngrx_modules_store_store_r, ɵngrx_modules_store_store_s, ɵngrx_modules_store_store_t, ɵngrx_modules_store_store_u, ɵngrx_modules_store_store_v, ɵngrx_modules_store_store_w, ɵngrx_modules_store_store_x, ɵngrx_modules_store_store_y, ɵngrx_modules_store_store_z */
+/*! exports provided: ActionsSubject, FEATURE_REDUCERS, INIT, INITIAL_REDUCERS, INITIAL_STATE, META_REDUCERS, REDUCER_FACTORY, ReducerManager, ReducerManagerDispatcher, ReducerObservable, STORE_FEATURES, ScannedActionsSubject, State, StateObservable, Store, StoreFeatureModule, StoreModule, StoreRootModule, UPDATE, USER_PROVIDED_META_REDUCERS, USER_RUNTIME_CHECKS, combineReducers, compose, createAction, createFeatureSelector, createReducer, createReducerFactory, createSelector, createSelectorFactory, defaultMemoize, defaultStateFn, isNgrxMockEnvironment, on, props, reduceState, resultMemoize, select, setNgrxMockEnvironment, union, ɵngrx_modules_store_store_b, ɵngrx_modules_store_store_ba, ɵngrx_modules_store_store_bb, ɵngrx_modules_store_store_bc, ɵngrx_modules_store_store_bd, ɵngrx_modules_store_store_be, ɵngrx_modules_store_store_bf, ɵngrx_modules_store_store_bg, ɵngrx_modules_store_store_bh, ɵngrx_modules_store_store_c, ɵngrx_modules_store_store_d, ɵngrx_modules_store_store_e, ɵngrx_modules_store_store_f, ɵngrx_modules_store_store_g, ɵngrx_modules_store_store_h, ɵngrx_modules_store_store_i, ɵngrx_modules_store_store_j, ɵngrx_modules_store_store_k, ɵngrx_modules_store_store_l, ɵngrx_modules_store_store_m, ɵngrx_modules_store_store_n, ɵngrx_modules_store_store_o, ɵngrx_modules_store_store_p, ɵngrx_modules_store_store_q, ɵngrx_modules_store_store_r, ɵngrx_modules_store_store_s, ɵngrx_modules_store_store_t, ɵngrx_modules_store_store_u, ɵngrx_modules_store_store_v, ɵngrx_modules_store_store_w, ɵngrx_modules_store_store_x, ɵngrx_modules_store_store_y, ɵngrx_modules_store_store_z */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29209,18 +29220,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSelectorFactory", function() { return createSelectorFactory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultMemoize", function() { return defaultMemoize; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultStateFn", function() { return defaultStateFn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNgrxMockEnvironment", function() { return isNgrxMockEnvironment; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "on", function() { return on; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "props", function() { return props; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reduceState", function() { return reduceState; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resultMemoize", function() { return resultMemoize; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "select", function() { return select; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setNgrxMockEnvironment", function() { return setNgrxMockEnvironment; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "union", function() { return union; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_b", function() { return STORE_PROVIDERS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_ba", function() { return createSerializationCheckMetaReducer; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_bb", function() { return createImmutabilityCheckMetaReducer; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_bc", function() { return createInNgZoneCheckMetaReducer; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_bd", function() { return provideRuntimeChecks; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_be", function() { return _runtimeChecksFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_ba", function() { return createActiveRuntimeChecks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_bb", function() { return createSerializationCheckMetaReducer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_bc", function() { return createImmutabilityCheckMetaReducer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_bd", function() { return createInNgZoneCheckMetaReducer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_be", function() { return provideRuntimeChecks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_bf", function() { return checkForActionTypeUniqueness; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_bg", function() { return _runtimeChecksFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_bh", function() { return _actionTypeUniquenessCheck; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_c", function() { return ACTIONS_SUBJECT_PROVIDERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_d", function() { return REDUCER_MANAGER_PROVIDERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_e", function() { return SCANNED_ACTIONS_SUBJECT_PROVIDERS; });
@@ -29238,24 +29254,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_q", function() { return _RESOLVED_META_REDUCERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_r", function() { return _USER_RUNTIME_CHECKS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_s", function() { return _ACTIVE_RUNTIME_CHECKS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_t", function() { return _createStoreReducers; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_u", function() { return _createFeatureStore; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_v", function() { return _createFeatureReducers; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_w", function() { return _initialStateFactory; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_x", function() { return _concatMetaReducers; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_y", function() { return _provideForRootGuard; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_z", function() { return createActiveRuntimeChecks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_t", function() { return _ACTION_TYPE_UNIQUENESS_CHECK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_u", function() { return _createStoreReducers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_v", function() { return _createFeatureStore; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_w", function() { return _createFeatureReducers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_x", function() { return _initialStateFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_y", function() { return _concatMetaReducers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵngrx_modules_store_store_z", function() { return _provideForRootGuard; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
 /**
- * @license NgRx 9.1.0
+ * @license NgRx 9.2.0
  * (c) 2015-2018 Brandon Roberts, Mike Ryan, Rob Wormald, Victor Savkin
  * License: MIT
  */
 
 
 
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: modules/store/src/globals.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+
+let REGISTERED_ACTION_TYPES = {};
+/**
+ * @return {?}
+ */
+function resetRegisteredActionTypes() {
+    REGISTERED_ACTION_TYPES = {};
+}
 
 /**
  * @fileoverview added by tsickle
@@ -29336,8 +29367,8 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @return {?}
  */
-
 function createAction(type, config) {
+    REGISTERED_ACTION_TYPES[type] = (REGISTERED_ACTION_TYPES[type] || 0) + 1;
     if (typeof config === 'function') {
         return defineType(type, (/**
          * @param {...?} args
@@ -29509,6 +29540,8 @@ const _USER_RUNTIME_CHECKS = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inj
  * @type {?}
  */
 const _ACTIVE_RUNTIME_CHECKS = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('@ngrx/store Internal Runtime Checks');
+/** @type {?} */
+const _ACTION_TYPE_UNIQUENESS_CHECK = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('@ngrx/store Check if Action types are unique');
 
 /**
  * @fileoverview added by tsickle
@@ -30073,6 +30106,27 @@ function select(pathOrMapFn, propsOrPath, ...paths) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: modules/store/src/flags.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+let _ngrxMockEnvironment = false;
+/**
+ * @param {?} value
+ * @return {?}
+ */
+function setNgrxMockEnvironment(value) {
+    _ngrxMockEnvironment = value;
+}
+/**
+ * @return {?}
+ */
+function isNgrxMockEnvironment() {
+    return _ngrxMockEnvironment;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: modules/store/src/selector.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -30294,7 +30348,7 @@ function createFeatureSelector(featureName) {
     (state) => {
         /** @type {?} */
         const featureState = state[featureName];
-        if (Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["isDevMode"])() && !(featureName in state)) {
+        if (!isNgrxMockEnvironment() && Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["isDevMode"])() && !(featureName in state)) {
             console.warn(`@ngrx/store: The feature name \"${featureName}\" does ` +
                 'not exist in the state, therefore createFeatureSelector ' +
                 'cannot access it.  Be sure it is imported in a loaded module ' +
@@ -30395,6 +30449,13 @@ function isFunction(target) {
 }
 /**
  * @param {?} target
+ * @return {?}
+ */
+function isComponent(target) {
+    return isFunction(target) && target.hasOwnProperty('ɵcmp');
+}
+/**
+ * @param {?} target
  * @param {?} propertyName
  * @return {?}
  */
@@ -30439,6 +30500,10 @@ function freeze(target) {
      * @return {?}
      */
     prop => {
+        // Ignore Ivy properties, ref: https://github.com/ngrx/platform/issues/2109#issuecomment-582689060
+        if (prop.startsWith('ɵ')) {
+            return;
+        }
         if (hasOwnProperty(target, prop) &&
             (targetIsFunction
                 ? prop !== 'caller' && prop !== 'callee' && prop !== 'arguments'
@@ -30512,6 +30577,10 @@ function getUnserializable(target, path = []) {
         }
         /** @type {?} */
         const value = ((/** @type {?} */ (target)))[key];
+        // Ignore Ivy components
+        if (isComponent(value)) {
+            return result;
+        }
         if (isUndefined(value) ||
             isNull(value) ||
             isNumber(value) ||
@@ -30588,7 +30657,7 @@ function inNgZoneAssertMetaReducer(reducer, checks) {
  */
 function createActiveRuntimeChecks(runtimeChecks) {
     if (Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["isDevMode"])()) {
-        return Object.assign({ strictStateSerializability: false, strictActionSerializability: false, strictStateImmutability: true, strictActionImmutability: true, strictActionWithinNgZone: false }, runtimeChecks);
+        return Object.assign({ strictStateSerializability: false, strictActionSerializability: false, strictStateImmutability: true, strictActionImmutability: true, strictActionWithinNgZone: false, strictActionTypeUniqueness: false }, runtimeChecks);
     }
     return {
         strictStateSerializability: false,
@@ -30596,6 +30665,7 @@ function createActiveRuntimeChecks(runtimeChecks) {
         strictStateImmutability: false,
         strictActionImmutability: false,
         strictActionWithinNgZone: false,
+        strictActionTypeUniqueness: false,
     };
 }
 /**
@@ -30607,13 +30677,13 @@ function createSerializationCheckMetaReducer({ strictActionSerializability, stri
      * @param {?} reducer
      * @return {?}
      */
-    reducer => strictActionSerializability || strictStateSerializability
+    (reducer) => strictActionSerializability || strictStateSerializability
         ? serializationCheckMetaReducer(reducer, {
             action: (/**
              * @param {?} action
              * @return {?}
              */
-            action => strictActionSerializability && !ignoreNgrxAction(action)),
+            (action) => strictActionSerializability && !ignoreNgrxAction(action)),
             state: (/**
              * @return {?}
              */
@@ -30630,13 +30700,13 @@ function createImmutabilityCheckMetaReducer({ strictActionImmutability, strictSt
      * @param {?} reducer
      * @return {?}
      */
-    reducer => strictActionImmutability || strictStateImmutability
+    (reducer) => strictActionImmutability || strictStateImmutability
         ? immutabilityCheckMetaReducer(reducer, {
             action: (/**
              * @param {?} action
              * @return {?}
              */
-            action => strictActionImmutability && !ignoreNgrxAction(action)),
+            (action) => strictActionImmutability && !ignoreNgrxAction(action)),
             state: (/**
              * @return {?}
              */
@@ -30660,13 +30730,13 @@ function createInNgZoneCheckMetaReducer({ strictActionWithinNgZone, }) {
      * @param {?} reducer
      * @return {?}
      */
-    reducer => strictActionWithinNgZone
+    (reducer) => strictActionWithinNgZone
         ? inNgZoneAssertMetaReducer(reducer, {
             action: (/**
              * @param {?} action
              * @return {?}
              */
-            action => strictActionWithinNgZone && !ignoreNgrxAction(action)),
+            (action) => strictActionWithinNgZone && !ignoreNgrxAction(action)),
         })
         : reducer);
 }
@@ -30711,11 +30781,54 @@ function provideRuntimeChecks(runtimeChecks) {
     ];
 }
 /**
+ * @return {?}
+ */
+function checkForActionTypeUniqueness() {
+    return [
+        {
+            provide: _ACTION_TYPE_UNIQUENESS_CHECK,
+            multi: true,
+            deps: [_ACTIVE_RUNTIME_CHECKS],
+            useFactory: _actionTypeUniquenessCheck,
+        },
+    ];
+}
+/**
  * @param {?} runtimeChecks
  * @return {?}
  */
 function _runtimeChecksFactory(runtimeChecks) {
     return runtimeChecks;
+}
+/**
+ * @param {?} config
+ * @return {?}
+ */
+function _actionTypeUniquenessCheck(config) {
+    if (!config.strictActionTypeUniqueness) {
+        return;
+    }
+    /** @type {?} */
+    const duplicates = Object.entries(REGISTERED_ACTION_TYPES)
+        .filter((/**
+     * @param {?} __0
+     * @return {?}
+     */
+    ([, registrations]) => registrations > 1))
+        .map((/**
+     * @param {?} __0
+     * @return {?}
+     */
+    ([type]) => type));
+    if (duplicates.length) {
+        throw new Error(`Action types are registered more than once, ${duplicates
+            .map((/**
+         * @param {?} type
+         * @return {?}
+         */
+        (type) => `"${type}"`))
+            .join(', ')}. ${RUNTIME_CHECK_URL}#strictactiontypeuniqueness`);
+    }
 }
 
 /**
@@ -30730,19 +30843,21 @@ class StoreRootModule {
      * @param {?} scannedActions$
      * @param {?} store
      * @param {?} guard
+     * @param {?} actionCheck
      */
-    constructor(actions$, reducer$, scannedActions$, store, guard) {
+    constructor(actions$, reducer$, scannedActions$, store, guard, actionCheck) {
     }
 }
 StoreRootModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: StoreRootModule });
-StoreRootModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function StoreRootModule_Factory(t) { return new (t || StoreRootModule)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ActionsSubject), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ReducerObservable), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ScannedActionsSubject), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](Store), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ROOT_STORE_GUARD, 8)); } });
+StoreRootModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function StoreRootModule_Factory(t) { return new (t || StoreRootModule)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ActionsSubject), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ReducerObservable), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ScannedActionsSubject), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](Store), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ROOT_STORE_GUARD, 8), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ACTION_TYPE_UNIQUENESS_CHECK, 8)); } });
 /** @nocollapse */
 StoreRootModule.ctorParameters = () => [
     { type: ActionsSubject },
     { type: ReducerObservable },
     { type: ScannedActionsSubject },
     { type: Store },
-    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [_ROOT_STORE_GUARD,] }] }
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [_ROOT_STORE_GUARD,] }] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [_ACTION_TYPE_UNIQUENESS_CHECK,] }] }
 ];
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](StoreRootModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
@@ -30752,6 +30867,11 @@ StoreRootModule.ctorParameters = () => [
             }, {
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"],
                 args: [_ROOT_STORE_GUARD]
+            }] }, { type: undefined, decorators: [{
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"]
+            }, {
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"],
+                args: [_ACTION_TYPE_UNIQUENESS_CHECK]
             }] }]; }, null); })();
 class StoreFeatureModule {
     /**
@@ -30759,8 +30879,9 @@ class StoreFeatureModule {
      * @param {?} featureReducers
      * @param {?} reducerManager
      * @param {?} root
+     * @param {?} actionCheck
      */
-    constructor(features, featureReducers, reducerManager, root) {
+    constructor(features, featureReducers, reducerManager, root, actionCheck) {
         this.features = features;
         this.featureReducers = featureReducers;
         this.reducerManager = reducerManager;
@@ -30787,13 +30908,14 @@ class StoreFeatureModule {
     }
 }
 StoreFeatureModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: StoreFeatureModule });
-StoreFeatureModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function StoreFeatureModule_Factory(t) { return new (t || StoreFeatureModule)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_STORE_FEATURES), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](FEATURE_REDUCERS), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ReducerManager), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](StoreRootModule)); } });
+StoreFeatureModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function StoreFeatureModule_Factory(t) { return new (t || StoreFeatureModule)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_STORE_FEATURES), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](FEATURE_REDUCERS), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ReducerManager), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](StoreRootModule), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_ACTION_TYPE_UNIQUENESS_CHECK, 8)); } });
 /** @nocollapse */
 StoreFeatureModule.ctorParameters = () => [
     { type: Array, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [_STORE_FEATURES,] }] },
     { type: Array, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [FEATURE_REDUCERS,] }] },
     { type: ReducerManager },
-    { type: StoreRootModule }
+    { type: StoreRootModule },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [_ACTION_TYPE_UNIQUENESS_CHECK,] }] }
 ];
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](StoreFeatureModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
@@ -30804,7 +30926,12 @@ StoreFeatureModule.ctorParameters = () => [
             }] }, { type: Array, decorators: [{
                 type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"],
                 args: [FEATURE_REDUCERS]
-            }] }, { type: ReducerManager }, { type: StoreRootModule }]; }, null); })();
+            }] }, { type: ReducerManager }, { type: StoreRootModule }, { type: undefined, decorators: [{
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"]
+            }, {
+                type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"],
+                args: [_ACTION_TYPE_UNIQUENESS_CHECK]
+            }] }]; }, null); })();
 if (false) {}
 /**
  * @record
@@ -30875,6 +31002,7 @@ class StoreModule {
                 STATE_PROVIDERS,
                 STORE_PROVIDERS,
                 provideRuntimeChecks(config.runtimeChecks),
+                checkForActionTypeUniqueness(),
             ],
         };
     }
@@ -30930,6 +31058,7 @@ class StoreModule {
                     ],
                     useFactory: _createFeatureReducers,
                 },
+                checkForActionTypeUniqueness(),
             ],
         };
     }
@@ -31068,9 +31197,8 @@ function on(...args) {
  * \@usageNotes
  *
  * - Must be used with `ActionCreator`'s (returned by `createAction`).  Cannot be used with class-based action creators.
- * - An action can be associated with multiple state change functions. In this case the functions will be executed in the specified order.
- * - The returned `ActionReducer` should additionally be returned from an exported `reducer` function.
- * This is because [function calls are not supported](https://angular.io/guide/aot-compiler#function-calls-are-not-supported) by the AOT compiler.
+ * - The returned `ActionReducer` should additionally be returned from an exported `reducer` function, if you are using View Engine.
+ * In case you are using Ivy the extra function `reducer` is not required.
  *
  * **Declaring a reducer creator with an exported reducer function**
  *
@@ -64175,26 +64303,29 @@ function warnOnce(msg) {
 /*!******************************************************************************************************************************************!*\
   !*** C:/Users/hataguchi/Desktop/workspace/Cinerino/frontend/node_modules/ngx-intl-tel-input/__ivy_ngcc__/fesm2015/ngx-intl-tel-input.js ***!
   \******************************************************************************************************************************************/
-/*! exports provided: CountryISO, NgxIntlTelInputComponent, NgxIntlTelInputModule, NgxIntlTelInputService, SearchCountryField, TooltipLabel, ɵa, ɵb */
+/*! exports provided: CountryISO, NativeElementInjectorDirective, NgxIntlTelInputComponent, NgxIntlTelInputModule, NgxIntlTelInputService, SearchCountryField, TooltipLabel, ɵ0, ɵa, ɵb */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CountryISO", function() { return CountryISO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NativeElementInjectorDirective", function() { return NativeElementInjectorDirective; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgxIntlTelInputComponent", function() { return NgxIntlTelInputComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgxIntlTelInputModule", function() { return NgxIntlTelInputModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgxIntlTelInputService", function() { return NgxIntlTelInputService; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchCountryField", function() { return SearchCountryField; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TooltipLabel", function() { return TooltipLabel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵ0", function() { return ɵ0; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵa", function() { return CountryCode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵb", function() { return phoneNumberValidator; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var google_libphonenumber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! google-libphonenumber */ "../../node_modules/google-libphonenumber/dist/libphonenumber.js");
-/* harmony import */ var google_libphonenumber__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(google_libphonenumber__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
-/* harmony import */ var ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap/dropdown */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/dropdown/fesm2015/ngx-bootstrap-dropdown.js");
-/* harmony import */ var ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap/tooltip */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/tooltip/fesm2015/ngx-bootstrap-tooltip.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var google_libphonenumber__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! google-libphonenumber */ "../../node_modules/google-libphonenumber/dist/libphonenumber.js");
+/* harmony import */ var google_libphonenumber__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(google_libphonenumber__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap/dropdown */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/dropdown/fesm2015/ngx-bootstrap-dropdown.js");
+/* harmony import */ var ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-bootstrap/tooltip */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/tooltip/fesm2015/ngx-bootstrap-tooltip.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 
 
 
@@ -64202,10 +64333,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
+
 
 
 
@@ -64214,369 +64342,354 @@ __webpack_require__.r(__webpack_exports__);
 
 const _c0 = ["countryList"];
 function NgxIntlTelInputComponent_div_4_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 9);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 9);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("+", ctx_r0.selectedCountry.dialCode, "");
+    const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("+", ctx_r0.selectedCountry.dialCode, "");
 } }
 function NgxIntlTelInputComponent_div_6_div_1_Template(rf, ctx) { if (rf & 1) {
-    const _r9 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 16);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "input", 17);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function NgxIntlTelInputComponent_div_6_div_1_Template_input_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r9); const ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); return ctx_r8.countrySearchText = $event; })("keyup", function NgxIntlTelInputComponent_div_6_div_1_Template_input_keyup_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r9); const ctx_r10 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); return ctx_r10.searchCountry(); })("click", function NgxIntlTelInputComponent_div_6_div_1_Template_input_click_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r9); return $event.stopPropagation(); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    const _r9 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 16);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "input", 17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("ngModelChange", function NgxIntlTelInputComponent_div_6_div_1_Template_input_ngModelChange_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r9); const ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r8.countrySearchText = $event; })("keyup", function NgxIntlTelInputComponent_div_6_div_1_Template_input_keyup_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r9); const ctx_r10 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r10.searchCountry(); })("click", function NgxIntlTelInputComponent_div_6_div_1_Template_input_click_1_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r9); return $event.stopPropagation(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx_r3.countrySearchText)("placeholder", ctx_r3.searchCountryPlaceholder);
+    const ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngModel", ctx_r3.countrySearchText)("placeholder", ctx_r3.searchCountryPlaceholder);
 } }
 function NgxIntlTelInputComponent_div_6_li_4_Template(rf, ctx) { if (rf & 1) {
-    const _r14 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 18);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function NgxIntlTelInputComponent_div_6_li_4_Template_li_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r14); const country_r12 = ctx.$implicit; const ctx_r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); const _r2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](8); return ctx_r13.onCountrySelect(country_r12, _r2); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 19);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](2, "div", 20);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "span", 21);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "span", 22);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    const _r14 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "li", 18);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function NgxIntlTelInputComponent_div_6_li_4_Template_li_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r14); const country_r12 = ctx.$implicit; const ctx_r13 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); const _r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵreference"](8); return ctx_r13.onCountrySelect(country_r12, _r2); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 19);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](2, "div", 20);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "span", 21);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "span", 22);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const country_r12 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", country_r12.iso2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", country_r12.flagClass);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](country_r12.name);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("+", country_r12.dialCode, "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("id", country_r12.iso2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngClass", country_r12.flagClass);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](country_r12.name);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("+", country_r12.dialCode, "");
 } }
 function NgxIntlTelInputComponent_div_6_li_5_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "li", 23);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "li", 23);
 } }
 function NgxIntlTelInputComponent_div_6_li_6_Template(rf, ctx) { if (rf & 1) {
-    const _r17 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 18);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function NgxIntlTelInputComponent_div_6_li_6_Template_li_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r17); const country_r15 = ctx.$implicit; const ctx_r16 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); const _r2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](8); return ctx_r16.onCountrySelect(country_r15, _r2); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 19);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](2, "div", 20);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "span", 21);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "span", 22);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    const _r17 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "li", 18);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function NgxIntlTelInputComponent_div_6_li_6_Template_li_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r17); const country_r15 = ctx.$implicit; const ctx_r16 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); const _r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵreference"](8); return ctx_r16.onCountrySelect(country_r15, _r2); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 19);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](2, "div", 20);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "span", 21);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "span", 22);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const country_r15 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", country_r15.iso2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", country_r15.flagClass);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](country_r15.name);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("+", country_r15.dialCode, "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("id", country_r15.iso2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngClass", country_r15.flagClass);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](country_r15.name);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("+", country_r15.dialCode, "");
 } }
 function NgxIntlTelInputComponent_div_6_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 10);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, NgxIntlTelInputComponent_div_6_div_1_Template, 2, 2, "div", 11);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "ul", 12, 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, NgxIntlTelInputComponent_div_6_li_4_Template, 7, 4, "li", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](5, NgxIntlTelInputComponent_div_6_li_5_Template, 1, 0, "li", 15);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, NgxIntlTelInputComponent_div_6_li_6_Template, 7, 4, "li", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 10);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, NgxIntlTelInputComponent_div_6_div_1_Template, 2, 2, "div", 11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "ul", 12, 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](4, NgxIntlTelInputComponent_div_6_li_4_Template, 7, 4, "li", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](5, NgxIntlTelInputComponent_div_6_li_5_Template, 1, 0, "li", 15);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](6, NgxIntlTelInputComponent_div_6_li_6_Template, 7, 4, "li", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r1.searchCountryFlag && ctx_r1.searchCountryField);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r1.preferredCountriesInDropDown);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r1.preferredCountriesInDropDown == null ? null : ctx_r1.preferredCountriesInDropDown.length);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r1.allCountries);
+    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r1.searchCountryFlag && ctx_r1.searchCountryField);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r1.preferredCountriesInDropDown);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r1.preferredCountriesInDropDown == null ? null : ctx_r1.preferredCountriesInDropDown.length);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r1.allCountries);
 } }
 const _c1 = function (a0) { return { "disabled": a0 }; };
-class NgxIntlTelInputService {
+let NgxIntlTelInputService = class NgxIntlTelInputService {
     constructor() { }
-}
-NgxIntlTelInputService.ɵfac = function NgxIntlTelInputService_Factory(t) { return new (t || NgxIntlTelInputService)(); };
-NgxIntlTelInputService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: NgxIntlTelInputService, factory: NgxIntlTelInputService.ɵfac, providedIn: 'root' });
-/** @nocollapse */
-NgxIntlTelInputService.ctorParameters = () => [];
-/** @nocollapse */ NgxIntlTelInputService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function NgxIntlTelInputService_Factory() { return new NgxIntlTelInputService(); }, token: NgxIntlTelInputService, providedIn: "root" });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NgxIntlTelInputService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
-        args: [{
-                providedIn: 'root'
-            }]
-    }], function () { return []; }, null); })();
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @enum {string} */
-const CountryISO = {
-    Afghanistan: 'af',
-    Albania: 'al',
-    Algeria: 'dz',
-    AmericanSamoa: 'as',
-    Andorra: 'ad',
-    Angola: 'ao',
-    Anguilla: 'ai',
-    AntiguaAndBarbuda: 'ag',
-    Argentina: 'ar',
-    Armenia: 'am',
-    Aruba: 'aw',
-    Australia: 'au',
-    Austria: 'at',
-    Azerbaijan: 'az',
-    Bahamas: 'bs',
-    Bahrain: 'bh',
-    Bangladesh: 'bd',
-    Barbados: 'bb',
-    Belarus: 'by',
-    Belgium: 'be',
-    Belize: 'bz',
-    Benin: 'bj',
-    Bermuda: 'bm',
-    Bhutan: 'bt',
-    Bolivia: 'bo',
-    BosniaAndHerzegovina: 'ba',
-    Botswana: 'bw',
-    Brazil: 'br',
-    BritishIndianOceanTerritory: 'io',
-    BritishVirginIslands: 'vg',
-    Brunei: 'bn',
-    Bulgaria: 'bg',
-    BurkinaFaso: 'bf',
-    Burundi: 'bi',
-    Cambodia: 'kh',
-    Cameroon: 'cm',
-    Canada: 'ca',
-    CapeVerde: 'cv',
-    CaribbeanNetherlands: 'bq',
-    CaymanIslands: 'ky',
-    CentralAfricanRepublic: 'cf',
-    Chad: 'td',
-    Chile: 'cl',
-    China: 'cn',
-    ChristmasIsland: 'cx',
-    Cocos: 'cc',
-    Colombia: 'co',
-    Comoros: 'km',
-    CongoDRCJamhuriYaKidemokrasiaYaKongo: 'cd',
-    CongoRepublicCongoBrazzaville: 'cg',
-    CookIslands: 'ck',
-    CostaRica: 'cr',
-    CôteDIvoire: 'ci',
-    Croatia: 'hr',
-    Cuba: 'cu',
-    Curaçao: 'cw',
-    Cyprus: 'cy',
-    CzechRepublic: 'cz',
-    Denmark: 'dk',
-    Djibouti: 'dj',
-    Dominica: 'dm',
-    DominicanRepublic: 'do',
-    Ecuador: 'ec',
-    Egypt: 'eg',
-    ElSalvador: 'sv',
-    EquatorialGuinea: 'gq',
-    Eritrea: 'er',
-    Estonia: 'ee',
-    Ethiopia: 'et',
-    FalklandIslands: 'fk',
-    FaroeIslands: 'fo',
-    Fiji: 'fj',
-    Finland: 'fi',
-    France: 'fr',
-    FrenchGuiana: 'gf',
-    FrenchPolynesia: 'pf',
-    Gabon: 'ga',
-    Gambia: 'gm',
-    Georgia: 'ge',
-    Germany: 'de',
-    Ghana: 'gh',
-    Gibraltar: 'gi',
-    Greece: 'gr',
-    Greenland: 'gl',
-    Grenada: 'gd',
-    Guadeloupe: 'gp',
-    Guam: 'gu',
-    Guatemala: 'gt',
-    Guernsey: 'gg',
-    Guinea: 'gn',
-    GuineaBissau: 'gw',
-    Guyana: 'gy',
-    Haiti: 'ht',
-    Honduras: 'hn',
-    HongKong: 'hk',
-    Hungary: 'hu',
-    Iceland: 'is',
-    India: 'in',
-    Indonesia: 'id',
-    Iran: 'ir',
-    Iraq: 'iq',
-    Ireland: 'ie',
-    IsleOfMan: 'im',
-    Israel: 'il',
-    Italy: 'it',
-    Jamaica: 'jm',
-    Japan: 'jp',
-    Jersey: 'je',
-    Jordan: 'jo',
-    Kazakhstan: 'kz',
-    Kenya: 'ke',
-    Kiribati: 'ki',
-    Kosovo: 'xk',
-    Kuwait: 'kw',
-    Kyrgyzstan: 'kg',
-    Laos: 'la',
-    Latvia: 'lv',
-    Lebanon: 'lb',
-    Lesotho: 'ls',
-    Liberia: 'lr',
-    Libya: 'ly',
-    Liechtenstein: 'li',
-    Lithuania: 'lt',
-    Luxembourg: 'lu',
-    Macau: 'mo',
-    Macedonia: 'mk',
-    Madagascar: 'mg',
-    Malawi: 'mw',
-    Malaysia: 'my',
-    Maldives: 'mv',
-    Mali: 'ml',
-    Malta: 'mt',
-    MarshallIslands: 'mh',
-    Martinique: 'mq',
-    Mauritania: 'mr',
-    Mauritius: 'mu',
-    Mayotte: 'yt',
-    Mexico: 'mx',
-    Micronesia: 'fm',
-    Moldova: 'md',
-    Monaco: 'mc',
-    Mongolia: 'mn',
-    Montenegro: 'me',
-    Montserrat: 'ms',
-    Morocco: 'ma',
-    Mozambique: 'mz',
-    Myanmar: 'mm',
-    Namibia: 'na',
-    Nauru: 'nr',
-    Nepal: 'np',
-    Netherlands: 'nl',
-    NewCaledonia: 'nc',
-    NewZealand: 'nz',
-    Nicaragua: 'ni',
-    Niger: 'ne',
-    Nigeria: 'ng',
-    Niue: 'nu',
-    NorfolkIsland: 'nf',
-    NorthKorea: 'kp',
-    NorthernMarianaIslands: 'mp',
-    Norway: 'no',
-    Oman: 'om',
-    Pakistan: 'pk',
-    Palau: 'pw',
-    Palestine: 'ps',
-    Panama: 'pa',
-    PapuaNewGuinea: 'pg',
-    Paraguay: 'py',
-    Peru: 'pe',
-    Philippines: 'ph',
-    Poland: 'pl',
-    Portugal: 'pt',
-    PuertoRico: 'pr',
-    Qatar: 'qa',
-    Réunion: 're',
-    Romania: 'ro',
-    Russia: 'ru',
-    Rwanda: 'rw',
-    SaintBarthélemy: 'bl',
-    SaintHelena: 'sh',
-    SaintKittsAndNevis: 'kn',
-    SaintLucia: 'lc',
-    SaintMartin: 'mf',
-    SaintPierreAndMiquelon: 'pm',
-    SaintVincentAndTheGrenadines: 'vc',
-    Samoa: 'ws',
-    SanMarino: 'sm',
-    SãoToméAndPríncipe: 'st',
-    SaudiArabia: 'sa',
-    Senegal: 'sn',
-    Serbia: 'rs',
-    Seychelles: 'sc',
-    SierraLeone: 'sl',
-    Singapore: 'sg',
-    SintMaarten: 'sx',
-    Slovakia: 'sk',
-    Slovenia: 'si',
-    SolomonIslands: 'sb',
-    Somalia: 'so',
-    SouthAfrica: 'za',
-    SouthKorea: 'kr',
-    SouthSudan: 'ss',
-    Spain: 'es',
-    SriLanka: 'lk',
-    Sudan: 'sd',
-    Suriname: 'sr',
-    SvalbardAndJanMayen: 'sj',
-    Swaziland: 'sz',
-    Sweden: 'se',
-    Switzerland: 'ch',
-    Syria: 'sy',
-    Taiwan: 'tw',
-    Tajikistan: 'tj',
-    Tanzania: 'tz',
-    Thailand: 'th',
-    TimorLeste: 'tl',
-    Togo: 'tg',
-    Tokelau: 'tk',
-    Tonga: 'to',
-    TrinidadAndTobago: 'tt',
-    Tunisia: 'tn',
-    Turkey: 'tr',
-    Turkmenistan: 'tm',
-    TurksAndCaicosIslands: 'tc',
-    Tuvalu: 'tv',
-    USVirginIslands: 'vi',
-    Uganda: 'ug',
-    Ukraine: 'ua',
-    UnitedArabEmirates: 'ae',
-    UnitedKingdom: 'gb',
-    UnitedStates: 'us',
-    Uruguay: 'uy',
-    Uzbekistan: 'uz',
-    Vanuatu: 'vu',
-    VaticanCity: 'va',
-    Venezuela: 've',
-    Vietnam: 'vn',
-    WallisAndFutuna: 'wf',
-    WesternSahara: 'eh',
-    Yemen: 'ye',
-    Zambia: 'zm',
-    Zimbabwe: 'zw',
-    ÅlandIslands: 'ax',
 };
+NgxIntlTelInputService.ɵfac = function NgxIntlTelInputService_Factory(t) { return new (t || NgxIntlTelInputService)(); };
+NgxIntlTelInputService.ɵprov = Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"])({ factory: function NgxIntlTelInputService_Factory() { return new NgxIntlTelInputService(); }, token: NgxIntlTelInputService, providedIn: "root" });
+NgxIntlTelInputService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([ Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [])
+], NgxIntlTelInputService);
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class CountryCode {
+var CountryISO;
+(function (CountryISO) {
+    CountryISO["Afghanistan"] = "af";
+    CountryISO["Albania"] = "al";
+    CountryISO["Algeria"] = "dz";
+    CountryISO["AmericanSamoa"] = "as";
+    CountryISO["Andorra"] = "ad";
+    CountryISO["Angola"] = "ao";
+    CountryISO["Anguilla"] = "ai";
+    CountryISO["AntiguaAndBarbuda"] = "ag";
+    CountryISO["Argentina"] = "ar";
+    CountryISO["Armenia"] = "am";
+    CountryISO["Aruba"] = "aw";
+    CountryISO["Australia"] = "au";
+    CountryISO["Austria"] = "at";
+    CountryISO["Azerbaijan"] = "az";
+    CountryISO["Bahamas"] = "bs";
+    CountryISO["Bahrain"] = "bh";
+    CountryISO["Bangladesh"] = "bd";
+    CountryISO["Barbados"] = "bb";
+    CountryISO["Belarus"] = "by";
+    CountryISO["Belgium"] = "be";
+    CountryISO["Belize"] = "bz";
+    CountryISO["Benin"] = "bj";
+    CountryISO["Bermuda"] = "bm";
+    CountryISO["Bhutan"] = "bt";
+    CountryISO["Bolivia"] = "bo";
+    CountryISO["BosniaAndHerzegovina"] = "ba";
+    CountryISO["Botswana"] = "bw";
+    CountryISO["Brazil"] = "br";
+    CountryISO["BritishIndianOceanTerritory"] = "io";
+    CountryISO["BritishVirginIslands"] = "vg";
+    CountryISO["Brunei"] = "bn";
+    CountryISO["Bulgaria"] = "bg";
+    CountryISO["BurkinaFaso"] = "bf";
+    CountryISO["Burundi"] = "bi";
+    CountryISO["Cambodia"] = "kh";
+    CountryISO["Cameroon"] = "cm";
+    CountryISO["Canada"] = "ca";
+    CountryISO["CapeVerde"] = "cv";
+    CountryISO["CaribbeanNetherlands"] = "bq";
+    CountryISO["CaymanIslands"] = "ky";
+    CountryISO["CentralAfricanRepublic"] = "cf";
+    CountryISO["Chad"] = "td";
+    CountryISO["Chile"] = "cl";
+    CountryISO["China"] = "cn";
+    CountryISO["ChristmasIsland"] = "cx";
+    CountryISO["Cocos"] = "cc";
+    CountryISO["Colombia"] = "co";
+    CountryISO["Comoros"] = "km";
+    CountryISO["CongoDRCJamhuriYaKidemokrasiaYaKongo"] = "cd";
+    CountryISO["CongoRepublicCongoBrazzaville"] = "cg";
+    CountryISO["CookIslands"] = "ck";
+    CountryISO["CostaRica"] = "cr";
+    CountryISO["C\u00F4teDIvoire"] = "ci";
+    CountryISO["Croatia"] = "hr";
+    CountryISO["Cuba"] = "cu";
+    CountryISO["Cura\u00E7ao"] = "cw";
+    CountryISO["Cyprus"] = "cy";
+    CountryISO["CzechRepublic"] = "cz";
+    CountryISO["Denmark"] = "dk";
+    CountryISO["Djibouti"] = "dj";
+    CountryISO["Dominica"] = "dm";
+    CountryISO["DominicanRepublic"] = "do";
+    CountryISO["Ecuador"] = "ec";
+    CountryISO["Egypt"] = "eg";
+    CountryISO["ElSalvador"] = "sv";
+    CountryISO["EquatorialGuinea"] = "gq";
+    CountryISO["Eritrea"] = "er";
+    CountryISO["Estonia"] = "ee";
+    CountryISO["Ethiopia"] = "et";
+    CountryISO["FalklandIslands"] = "fk";
+    CountryISO["FaroeIslands"] = "fo";
+    CountryISO["Fiji"] = "fj";
+    CountryISO["Finland"] = "fi";
+    CountryISO["France"] = "fr";
+    CountryISO["FrenchGuiana"] = "gf";
+    CountryISO["FrenchPolynesia"] = "pf";
+    CountryISO["Gabon"] = "ga";
+    CountryISO["Gambia"] = "gm";
+    CountryISO["Georgia"] = "ge";
+    CountryISO["Germany"] = "de";
+    CountryISO["Ghana"] = "gh";
+    CountryISO["Gibraltar"] = "gi";
+    CountryISO["Greece"] = "gr";
+    CountryISO["Greenland"] = "gl";
+    CountryISO["Grenada"] = "gd";
+    CountryISO["Guadeloupe"] = "gp";
+    CountryISO["Guam"] = "gu";
+    CountryISO["Guatemala"] = "gt";
+    CountryISO["Guernsey"] = "gg";
+    CountryISO["Guinea"] = "gn";
+    CountryISO["GuineaBissau"] = "gw";
+    CountryISO["Guyana"] = "gy";
+    CountryISO["Haiti"] = "ht";
+    CountryISO["Honduras"] = "hn";
+    CountryISO["HongKong"] = "hk";
+    CountryISO["Hungary"] = "hu";
+    CountryISO["Iceland"] = "is";
+    CountryISO["India"] = "in";
+    CountryISO["Indonesia"] = "id";
+    CountryISO["Iran"] = "ir";
+    CountryISO["Iraq"] = "iq";
+    CountryISO["Ireland"] = "ie";
+    CountryISO["IsleOfMan"] = "im";
+    CountryISO["Israel"] = "il";
+    CountryISO["Italy"] = "it";
+    CountryISO["Jamaica"] = "jm";
+    CountryISO["Japan"] = "jp";
+    CountryISO["Jersey"] = "je";
+    CountryISO["Jordan"] = "jo";
+    CountryISO["Kazakhstan"] = "kz";
+    CountryISO["Kenya"] = "ke";
+    CountryISO["Kiribati"] = "ki";
+    CountryISO["Kosovo"] = "xk";
+    CountryISO["Kuwait"] = "kw";
+    CountryISO["Kyrgyzstan"] = "kg";
+    CountryISO["Laos"] = "la";
+    CountryISO["Latvia"] = "lv";
+    CountryISO["Lebanon"] = "lb";
+    CountryISO["Lesotho"] = "ls";
+    CountryISO["Liberia"] = "lr";
+    CountryISO["Libya"] = "ly";
+    CountryISO["Liechtenstein"] = "li";
+    CountryISO["Lithuania"] = "lt";
+    CountryISO["Luxembourg"] = "lu";
+    CountryISO["Macau"] = "mo";
+    CountryISO["Macedonia"] = "mk";
+    CountryISO["Madagascar"] = "mg";
+    CountryISO["Malawi"] = "mw";
+    CountryISO["Malaysia"] = "my";
+    CountryISO["Maldives"] = "mv";
+    CountryISO["Mali"] = "ml";
+    CountryISO["Malta"] = "mt";
+    CountryISO["MarshallIslands"] = "mh";
+    CountryISO["Martinique"] = "mq";
+    CountryISO["Mauritania"] = "mr";
+    CountryISO["Mauritius"] = "mu";
+    CountryISO["Mayotte"] = "yt";
+    CountryISO["Mexico"] = "mx";
+    CountryISO["Micronesia"] = "fm";
+    CountryISO["Moldova"] = "md";
+    CountryISO["Monaco"] = "mc";
+    CountryISO["Mongolia"] = "mn";
+    CountryISO["Montenegro"] = "me";
+    CountryISO["Montserrat"] = "ms";
+    CountryISO["Morocco"] = "ma";
+    CountryISO["Mozambique"] = "mz";
+    CountryISO["Myanmar"] = "mm";
+    CountryISO["Namibia"] = "na";
+    CountryISO["Nauru"] = "nr";
+    CountryISO["Nepal"] = "np";
+    CountryISO["Netherlands"] = "nl";
+    CountryISO["NewCaledonia"] = "nc";
+    CountryISO["NewZealand"] = "nz";
+    CountryISO["Nicaragua"] = "ni";
+    CountryISO["Niger"] = "ne";
+    CountryISO["Nigeria"] = "ng";
+    CountryISO["Niue"] = "nu";
+    CountryISO["NorfolkIsland"] = "nf";
+    CountryISO["NorthKorea"] = "kp";
+    CountryISO["NorthernMarianaIslands"] = "mp";
+    CountryISO["Norway"] = "no";
+    CountryISO["Oman"] = "om";
+    CountryISO["Pakistan"] = "pk";
+    CountryISO["Palau"] = "pw";
+    CountryISO["Palestine"] = "ps";
+    CountryISO["Panama"] = "pa";
+    CountryISO["PapuaNewGuinea"] = "pg";
+    CountryISO["Paraguay"] = "py";
+    CountryISO["Peru"] = "pe";
+    CountryISO["Philippines"] = "ph";
+    CountryISO["Poland"] = "pl";
+    CountryISO["Portugal"] = "pt";
+    CountryISO["PuertoRico"] = "pr";
+    CountryISO["Qatar"] = "qa";
+    CountryISO["R\u00E9union"] = "re";
+    CountryISO["Romania"] = "ro";
+    CountryISO["Russia"] = "ru";
+    CountryISO["Rwanda"] = "rw";
+    CountryISO["SaintBarth\u00E9lemy"] = "bl";
+    CountryISO["SaintHelena"] = "sh";
+    CountryISO["SaintKittsAndNevis"] = "kn";
+    CountryISO["SaintLucia"] = "lc";
+    CountryISO["SaintMartin"] = "mf";
+    CountryISO["SaintPierreAndMiquelon"] = "pm";
+    CountryISO["SaintVincentAndTheGrenadines"] = "vc";
+    CountryISO["Samoa"] = "ws";
+    CountryISO["SanMarino"] = "sm";
+    CountryISO["S\u00E3oTom\u00E9AndPr\u00EDncipe"] = "st";
+    CountryISO["SaudiArabia"] = "sa";
+    CountryISO["Senegal"] = "sn";
+    CountryISO["Serbia"] = "rs";
+    CountryISO["Seychelles"] = "sc";
+    CountryISO["SierraLeone"] = "sl";
+    CountryISO["Singapore"] = "sg";
+    CountryISO["SintMaarten"] = "sx";
+    CountryISO["Slovakia"] = "sk";
+    CountryISO["Slovenia"] = "si";
+    CountryISO["SolomonIslands"] = "sb";
+    CountryISO["Somalia"] = "so";
+    CountryISO["SouthAfrica"] = "za";
+    CountryISO["SouthKorea"] = "kr";
+    CountryISO["SouthSudan"] = "ss";
+    CountryISO["Spain"] = "es";
+    CountryISO["SriLanka"] = "lk";
+    CountryISO["Sudan"] = "sd";
+    CountryISO["Suriname"] = "sr";
+    CountryISO["SvalbardAndJanMayen"] = "sj";
+    CountryISO["Swaziland"] = "sz";
+    CountryISO["Sweden"] = "se";
+    CountryISO["Switzerland"] = "ch";
+    CountryISO["Syria"] = "sy";
+    CountryISO["Taiwan"] = "tw";
+    CountryISO["Tajikistan"] = "tj";
+    CountryISO["Tanzania"] = "tz";
+    CountryISO["Thailand"] = "th";
+    CountryISO["TimorLeste"] = "tl";
+    CountryISO["Togo"] = "tg";
+    CountryISO["Tokelau"] = "tk";
+    CountryISO["Tonga"] = "to";
+    CountryISO["TrinidadAndTobago"] = "tt";
+    CountryISO["Tunisia"] = "tn";
+    CountryISO["Turkey"] = "tr";
+    CountryISO["Turkmenistan"] = "tm";
+    CountryISO["TurksAndCaicosIslands"] = "tc";
+    CountryISO["Tuvalu"] = "tv";
+    CountryISO["USVirginIslands"] = "vi";
+    CountryISO["Uganda"] = "ug";
+    CountryISO["Ukraine"] = "ua";
+    CountryISO["UnitedArabEmirates"] = "ae";
+    CountryISO["UnitedKingdom"] = "gb";
+    CountryISO["UnitedStates"] = "us";
+    CountryISO["Uruguay"] = "uy";
+    CountryISO["Uzbekistan"] = "uz";
+    CountryISO["Vanuatu"] = "vu";
+    CountryISO["VaticanCity"] = "va";
+    CountryISO["Venezuela"] = "ve";
+    CountryISO["Vietnam"] = "vn";
+    CountryISO["WallisAndFutuna"] = "wf";
+    CountryISO["WesternSahara"] = "eh";
+    CountryISO["Yemen"] = "ye";
+    CountryISO["Zambia"] = "zm";
+    CountryISO["Zimbabwe"] = "zw";
+    CountryISO["\u00C5landIslands"] = "ax";
+})(CountryISO || (CountryISO = {}));
+
+let CountryCode = class CountryCode {
     constructor() {
         this.allCountries = [
             [
@@ -65899,69 +66012,59 @@ class CountryCode {
             ]
         ];
     }
-}
+};
 CountryCode.ɵfac = function CountryCode_Factory(t) { return new (t || CountryCode)(); };
-CountryCode.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: CountryCode, factory: CountryCode.ɵfac });
+CountryCode.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ token: CountryCode, factory: CountryCode.ɵfac });
 
+var SearchCountryField;
+(function (SearchCountryField) {
+    SearchCountryField["DialCode"] = "dialCode";
+    SearchCountryField["Iso2"] = "iso2";
+    SearchCountryField["Name"] = "name";
+    SearchCountryField["All"] = "all";
+})(SearchCountryField || (SearchCountryField = {}));
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @enum {string} */
-const SearchCountryField = {
-    DialCode: 'dialCode',
-    Iso2: 'iso2',
-    Name: 'name',
-    All: 'all',
-};
+var TooltipLabel;
+(function (TooltipLabel) {
+    TooltipLabel["Name"] = "name";
+    TooltipLabel["Iso2"] = "iso2";
+})(TooltipLabel || (TooltipLabel = {}));
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @enum {string} */
-const TooltipLabel = {
-    Name: 'name',
-    Iso2: 'iso2',
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-const phoneNumberValidator = (/**
- * @param {?} control
- * @return {?}
- */
-(control) => {
-    /** @type {?} */
-    const id = control.value && control.value.id ? control.value.id : 'phone';
-    /** @type {?} */
-    const el = document.getElementById(id)
-        ? (/** @type {?} */ (document.getElementById(id)))
+/*
+We use "control: any" instead of "control: FormControl" to silence:
+"Property 'nativeElement' does not exist on type 'FormControl'".
+This happens because I've expanded control with nativeElement via
+'NativeElementInjectorDirective' to get an access to the element.
+More about this approach and reasons for this:
+https://github.com/angular/angular/issues/18025
+https://stackoverflow.com/a/54075119/1617590
+*/
+const phoneNumberValidator = (control) => {
+    if (!control.value) {
+        return;
+    }
+    // Find <input> inside injected nativeElement and get its "id".
+    const el = control.nativeElement;
+    const inputBox = el
+        ? el.querySelector('input[type="tel"]')
         : undefined;
-    if (el) {
-        /** @type {?} */
-        const isCheckValidation = el.getAttribute('validation');
+    if (inputBox) {
+        const id = inputBox.id;
+        const isCheckValidation = inputBox.getAttribute('validation');
         if (isCheckValidation === 'true') {
-            /** @type {?} */
             const isRequired = control.errors && control.errors.required === true;
-            /** @type {?} */
             const error = { validatePhoneNumber: { valid: false } };
-            el.setCustomValidity('Invalid field.');
-            /** @type {?} */
+            inputBox.setCustomValidity('Invalid field.');
             let number;
             try {
-                number = google_libphonenumber__WEBPACK_IMPORTED_MODULE_1__["PhoneNumberUtil"].getInstance().parse(control.value.number, control.value.countryCode);
+                number = google_libphonenumber__WEBPACK_IMPORTED_MODULE_2__["PhoneNumberUtil"].getInstance().parse(control.value.number, control.value.countryCode);
             }
             catch (e) {
                 if (isRequired === true) {
                     return error;
                 }
                 else {
-                    el.setCustomValidity('');
+                    inputBox.setCustomValidity('');
                 }
             }
             if (control.value) {
@@ -65969,32 +66072,26 @@ const phoneNumberValidator = (/**
                     return error;
                 }
                 else {
-                    if (!google_libphonenumber__WEBPACK_IMPORTED_MODULE_1__["PhoneNumberUtil"].getInstance().isValidNumberForRegion(number, control.value.countryCode)) {
+                    if (!google_libphonenumber__WEBPACK_IMPORTED_MODULE_2__["PhoneNumberUtil"].getInstance().isValidNumberForRegion(number, control.value.countryCode)) {
                         return error;
                     }
                     else {
-                        el.setCustomValidity('');
+                        inputBox.setCustomValidity('');
                     }
                 }
             }
         }
         else if (isCheckValidation === 'false') {
-            el.setCustomValidity('');
+            inputBox.setCustomValidity('');
             control.clearValidators();
         }
     }
     return;
-});
+};
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
+var NgxIntlTelInputComponent_1;
 const ɵ0 = phoneNumberValidator;
-class NgxIntlTelInputComponent {
-    /**
-     * @param {?} countryCodeData
-     */
+let NgxIntlTelInputComponent = NgxIntlTelInputComponent_1 = class NgxIntlTelInputComponent {
     constructor(countryCodeData) {
         this.countryCodeData = countryCodeData;
         this.value = '';
@@ -66009,8 +66106,9 @@ class NgxIntlTelInputComponent {
         this.maxLength = '';
         this.selectFirstCountry = true;
         this.phoneValidation = true;
-        this.id = 'phone';
-        this.countryChange = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.inputId = 'phone';
+        this.separateDialCode = false;
+        this.countryChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.selectedCountry = {
             areaCodes: undefined,
             dialCode: '',
@@ -66020,41 +66118,25 @@ class NgxIntlTelInputComponent {
             placeHolder: '',
             priority: 0,
         };
-        // display the country dial code next to the selected flag
-        this.separateDialCode = false;
         this.phoneNumber = '';
         this.allCountries = [];
         this.preferredCountriesInDropDown = [];
         // Has to be 'any' to prevent a need to install @types/google-libphonenumber by the package user...
-        this.phoneUtil = google_libphonenumber__WEBPACK_IMPORTED_MODULE_1__["PhoneNumberUtil"].getInstance();
+        this.phoneUtil = google_libphonenumber__WEBPACK_IMPORTED_MODULE_2__["PhoneNumberUtil"].getInstance();
         this.disabled = false;
         this.errors = ['Phone number is required.'];
         this.countrySearchText = '';
-        this.onTouched = (/**
-         * @return {?}
-         */
-        () => { });
-        this.propagateChange = (/**
-         * @param {?} _
-         * @return {?}
-         */
-        (_) => { });
+        this.onTouched = () => { };
+        this.propagateChange = (_) => { };
     }
-    /**
-     * @return {?}
-     */
     ngOnInit() {
         this.init();
     }
-    /**
-     * @param {?} changes
-     * @return {?}
-     */
     ngOnChanges(changes) {
+        const selectedISO = changes['selectedCountryISO'];
         if (this.allCountries &&
-            changes['selectedCountryISO'] &&
-            changes['selectedCountryISO'].currentValue !==
-                changes['selectedCountryISO'].previousValue) {
+            selectedISO &&
+            selectedISO.currentValue !== selectedISO.previousValue) {
             this.getSelectedCountry();
         }
         if (changes.preferredCountries) {
@@ -66063,23 +66145,16 @@ class NgxIntlTelInputComponent {
         this.checkSeparateDialCodeStyle();
     }
     /*
-            This is a wrapper method to avoid calling this.ngOnInit() in writeValue().
-            Ref: http://codelyzer.com/rules/no-life-cycle-call/
-        */
-    /**
-     * @return {?}
-     */
+        This is a wrapper method to avoid calling this.ngOnInit() in writeValue().
+        Ref: http://codelyzer.com/rules/no-life-cycle-call/
+    */
     init() {
         this.fetchCountryData();
         if (this.preferredCountries.length) {
             this.getPreferredCountries();
         }
         if (this.onlyCountries.length) {
-            this.allCountries = this.allCountries.filter((/**
-             * @param {?} c
-             * @return {?}
-             */
-            (c) => this.onlyCountries.includes(c.iso2)));
+            this.allCountries = this.allCountries.filter((c) => this.onlyCountries.includes(c.iso2));
         }
         if (this.selectFirstCountry) {
             if (this.preferredCountriesInDropDown.length) {
@@ -66092,64 +66167,40 @@ class NgxIntlTelInputComponent {
         this.getSelectedCountry();
         this.checkSeparateDialCodeStyle();
     }
-    /**
-     * @return {?}
-     */
     getPreferredCountries() {
         if (this.preferredCountries.length) {
             this.preferredCountriesInDropDown = [];
-            this.preferredCountries.forEach((/**
-             * @param {?} iso2
-             * @return {?}
-             */
-            (iso2) => {
-                /** @type {?} */
-                const preferredCountry = this.allCountries.filter((/**
-                 * @param {?} c
-                 * @return {?}
-                 */
-                (c) => {
+            this.preferredCountries.forEach((iso2) => {
+                const preferredCountry = this.allCountries.filter((c) => {
                     return c.iso2 === iso2;
-                }));
+                });
                 this.preferredCountriesInDropDown.push(preferredCountry[0]);
-            }));
+            });
         }
     }
-    /**
-     * @return {?}
-     */
     getSelectedCountry() {
         if (this.selectedCountryISO) {
-            this.selectedCountry = this.allCountries.find((/**
-             * @param {?} c
-             * @return {?}
-             */
-            (c) => {
+            this.selectedCountry = this.allCountries.find((c) => {
                 return c.iso2.toLowerCase() === this.selectedCountryISO.toLowerCase();
-            }));
+            });
             if (this.selectedCountry) {
                 if (this.phoneNumber) {
                     this.onPhoneNumberChange();
                 }
                 else {
-                    // Must use null here instead of undefined to avoid https://stackoverflow.com/a/54358133/1617590
+                    // Reason: avoid https://stackoverflow.com/a/54358133/1617590
                     // tslint:disable-next-line: no-null-keyword
                     this.propagateChange(null);
                 }
             }
         }
     }
-    /**
-     * @param {?} country
-     * @return {?}
-     */
     setSelectedCountry(country) {
         this.selectedCountry = country;
         this.countryChange.emit(country);
     }
     /**
      * Search country based on country name, iso2, dialCode or all of them.
-     * @return {?}
      */
     searchCountry() {
         if (!this.countrySearchText) {
@@ -66162,14 +66213,8 @@ class NgxIntlTelInputComponent {
             });
             return;
         }
-        /** @type {?} */
         const countrySearchTextLower = this.countrySearchText.toLowerCase();
-        /** @type {?} */
-        const country = this.allCountries.filter((/**
-         * @param {?} c
-         * @return {?}
-         */
-        (c) => {
+        const country = this.allCountries.filter((c) => {
             if (this.searchCountryField.indexOf(SearchCountryField.All) > -1) {
                 // Search in all fields
                 if (c.iso2.toLowerCase().startsWith(countrySearchTextLower)) {
@@ -66200,9 +66245,8 @@ class NgxIntlTelInputComponent {
                     }
                 }
             }
-        }));
+        });
         if (country.length > 0) {
-            /** @type {?} */
             const el = this.countryList.nativeElement.querySelector('#' + country[0].iso2);
             if (el) {
                 el.scrollIntoView({
@@ -66214,19 +66258,21 @@ class NgxIntlTelInputComponent {
         }
         this.checkSeparateDialCodeStyle();
     }
-    /**
-     * @return {?}
-     */
     onPhoneNumberChange() {
+        let countryCode;
+        // Handle the case where the user sets the value programatically based on a persisted ChangeData obj.
+        if (this.phoneNumber && typeof this.phoneNumber === 'object') {
+            const numberObj = this.phoneNumber;
+            this.phoneNumber = numberObj.number;
+            countryCode = numberObj.countryCode;
+        }
         this.value = this.phoneNumber;
-        /** @type {?} */
+        countryCode = countryCode || this.selectedCountry.iso2.toUpperCase();
         let number;
         try {
-            number = this.phoneUtil.parse(this.phoneNumber, this.selectedCountry.iso2.toUpperCase());
+            number = this.phoneUtil.parse(this.phoneNumber, countryCode);
         }
         catch (e) { }
-        /** @type {?} */
-        let countryCode = this.selectedCountry.iso2;
         // auto select country based on the extension (and areaCode if needed) (e.g select Canada if number starts with +1 416)
         if (this.enableAutoCountrySelect) {
             countryCode =
@@ -66234,12 +66280,7 @@ class NgxIntlTelInputComponent {
                     ? this.getCountryIsoCode(number.getCountryCode(), number)
                     : this.selectedCountry.iso2;
             if (countryCode && countryCode !== this.selectedCountry.iso2) {
-                /** @type {?} */
-                const newCountry = this.allCountries.find((/**
-                 * @param {?} c
-                 * @return {?}
-                 */
-                (c) => c.iso2 === countryCode));
+                const newCountry = this.allCountries.find((c) => c.iso2 === countryCode);
                 if (newCountry) {
                     this.selectedCountry = newCountry;
                 }
@@ -66248,14 +66289,13 @@ class NgxIntlTelInputComponent {
         countryCode = countryCode ? countryCode : this.selectedCountry.iso2;
         this.checkSeparateDialCodeStyle();
         if (!this.value) {
-            // Must use null here instead of undefined to avoid https://stackoverflow.com/a/54358133/1617590
+            // Reason: avoid https://stackoverflow.com/a/54358133/1617590
             // tslint:disable-next-line: no-null-keyword
             this.propagateChange(null);
         }
         else {
-            /** @type {?} */
             const intlNo = number
-                ? this.phoneUtil.format(number, google_libphonenumber__WEBPACK_IMPORTED_MODULE_1__["PhoneNumberFormat"].INTERNATIONAL)
+                ? this.phoneUtil.format(number, google_libphonenumber__WEBPACK_IMPORTED_MODULE_2__["PhoneNumberFormat"].INTERNATIONAL)
                 : '';
             // parse phoneNumber if separate dial code is needed
             if (this.separateDialCode && intlNo) {
@@ -66265,36 +66305,28 @@ class NgxIntlTelInputComponent {
                 number: this.value,
                 internationalNumber: intlNo,
                 nationalNumber: number
-                    ? this.phoneUtil.format(number, google_libphonenumber__WEBPACK_IMPORTED_MODULE_1__["PhoneNumberFormat"].NATIONAL)
+                    ? this.phoneUtil.format(number, google_libphonenumber__WEBPACK_IMPORTED_MODULE_2__["PhoneNumberFormat"].NATIONAL)
                     : '',
                 e164Number: number
-                    ? this.phoneUtil.format(number, google_libphonenumber__WEBPACK_IMPORTED_MODULE_1__["PhoneNumberFormat"].E164)
+                    ? this.phoneUtil.format(number, google_libphonenumber__WEBPACK_IMPORTED_MODULE_2__["PhoneNumberFormat"].E164)
                     : '',
                 countryCode: countryCode.toUpperCase(),
                 dialCode: '+' + this.selectedCountry.dialCode,
-                id: this.id,
             });
         }
     }
-    /**
-     * @param {?} country
-     * @param {?} el
-     * @return {?}
-     */
     onCountrySelect(country, el) {
         this.setSelectedCountry(country);
         this.checkSeparateDialCodeStyle();
         if (this.phoneNumber && this.phoneNumber.length > 0) {
             this.value = this.phoneNumber;
-            /** @type {?} */
             let number;
             try {
                 number = this.phoneUtil.parse(this.phoneNumber, this.selectedCountry.iso2.toUpperCase());
             }
             catch (e) { }
-            /** @type {?} */
             const intlNo = number
-                ? this.phoneUtil.format(number, google_libphonenumber__WEBPACK_IMPORTED_MODULE_1__["PhoneNumberFormat"].INTERNATIONAL)
+                ? this.phoneUtil.format(number, google_libphonenumber__WEBPACK_IMPORTED_MODULE_2__["PhoneNumberFormat"].INTERNATIONAL)
                 : '';
             // parse phoneNumber if separate dial code is needed
             if (this.separateDialCode && intlNo) {
@@ -66304,34 +66336,25 @@ class NgxIntlTelInputComponent {
                 number: this.value,
                 internationalNumber: intlNo,
                 nationalNumber: number
-                    ? this.phoneUtil.format(number, google_libphonenumber__WEBPACK_IMPORTED_MODULE_1__["PhoneNumberFormat"].NATIONAL)
+                    ? this.phoneUtil.format(number, google_libphonenumber__WEBPACK_IMPORTED_MODULE_2__["PhoneNumberFormat"].NATIONAL)
                     : '',
                 e164Number: number
-                    ? this.phoneUtil.format(number, google_libphonenumber__WEBPACK_IMPORTED_MODULE_1__["PhoneNumberFormat"].E164)
+                    ? this.phoneUtil.format(number, google_libphonenumber__WEBPACK_IMPORTED_MODULE_2__["PhoneNumberFormat"].E164)
                     : '',
                 countryCode: this.selectedCountry.iso2.toUpperCase(),
                 dialCode: '+' + this.selectedCountry.dialCode,
-                id: this.id,
             });
         }
         else {
-            // Must use null here instead of undefined to avoid https://stackoverflow.com/a/54358133/1617590
+            // Reason: avoid https://stackoverflow.com/a/54358133/1617590
             // tslint:disable-next-line: no-null-keyword
             this.propagateChange(null);
         }
         el.focus();
     }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
     onInputKeyPress(event) {
-        /** @type {?} */
         const allowedChars = /[0-9\+\-\ ]/;
-        /** @type {?} */
-        const allowedCtrlChars = /[axcv]/;
-        // Allows copy-pasting
-        /** @type {?} */
+        const allowedCtrlChars = /[axcv]/; // Allows copy-pasting
         const allowedOtherKeys = [
             'ArrowLeft',
             'ArrowUp',
@@ -66349,25 +66372,16 @@ class NgxIntlTelInputComponent {
             event.preventDefault();
         }
     }
-    /**
-     * @protected
-     * @return {?}
-     */
     fetchCountryData() {
         /* Clearing the list to avoid duplicates (https://github.com/webcat12345/ngx-intl-tel-input/issues/248) */
         this.allCountries = [];
-        this.countryCodeData.allCountries.forEach((/**
-         * @param {?} c
-         * @return {?}
-         */
-        (c) => {
-            /** @type {?} */
+        this.countryCodeData.allCountries.forEach((c) => {
             const country = {
                 name: c[0].toString(),
                 iso2: c[1].toString(),
                 dialCode: c[2].toString(),
                 priority: +c[3] || 0,
-                areaCodes: ((/** @type {?} */ (c[4]))) || undefined,
+                areaCodes: c[4] || undefined,
                 flagClass: c[1].toString().toLocaleLowerCase(),
                 placeHolder: '',
             };
@@ -66375,124 +66389,60 @@ class NgxIntlTelInputComponent {
                 country.placeHolder = this.getPhoneNumberPlaceHolder(country.iso2.toUpperCase());
             }
             this.allCountries.push(country);
-        }));
+        });
     }
-    /**
-     * @protected
-     * @param {?} countryCode
-     * @return {?}
-     */
     getPhoneNumberPlaceHolder(countryCode) {
         try {
-            return this.phoneUtil.format(this.phoneUtil.getExampleNumber(countryCode), google_libphonenumber__WEBPACK_IMPORTED_MODULE_1__["PhoneNumberFormat"].INTERNATIONAL);
+            return this.phoneUtil.format(this.phoneUtil.getExampleNumber(countryCode), google_libphonenumber__WEBPACK_IMPORTED_MODULE_2__["PhoneNumberFormat"].INTERNATIONAL);
         }
         catch (e) {
             return e;
         }
     }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
     registerOnChange(fn) {
         this.propagateChange = fn;
     }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
     registerOnTouched(fn) {
         this.onTouched = fn;
     }
-    /**
-     * @param {?} isDisabled
-     * @return {?}
-     */
     setDisabledState(isDisabled) {
         this.disabled = isDisabled;
     }
-    /**
-     * @param {?} obj
-     * @return {?}
-     */
     writeValue(obj) {
         if (obj === undefined) {
             this.init();
         }
         this.phoneNumber = obj;
-        setTimeout((/**
-         * @return {?}
-         */
-        () => {
+        setTimeout(() => {
             this.onPhoneNumberChange();
-        }), 1);
+        }, 1);
     }
-    /**
-     * @private
-     * @param {?} countryCode
-     * @param {?} number
-     * @return {?}
-     */
     getCountryIsoCode(countryCode, number) {
         // Will use this to match area code from the first numbers
-        /** @type {?} */
         const rawNumber = number['values_']['2'].toString();
         // List of all countries with countryCode (can be more than one. e.x. US, CA, DO, PR all have +1 countryCode)
-        /** @type {?} */
-        const countries = this.allCountries.filter((/**
-         * @param {?} c
-         * @return {?}
-         */
-        (c) => c.dialCode === countryCode.toString()));
+        const countries = this.allCountries.filter((c) => c.dialCode === countryCode.toString());
         // Main country is the country, which has no areaCodes specified in country-code.ts file.
-        /** @type {?} */
-        const mainCountry = countries.find((/**
-         * @param {?} c
-         * @return {?}
-         */
-        (c) => c.areaCodes === undefined));
+        const mainCountry = countries.find((c) => c.areaCodes === undefined);
         // Secondary countries are all countries, which have areaCodes specified in country-code.ts file.
-        /** @type {?} */
-        const secondaryCountries = countries.filter((/**
-         * @param {?} c
-         * @return {?}
-         */
-        (c) => c.areaCodes !== undefined));
-        /** @type {?} */
+        const secondaryCountries = countries.filter((c) => c.areaCodes !== undefined);
         let matchedCountry = mainCountry ? mainCountry.iso2 : undefined;
         /*
-            Interate over each secondary country and check if nationalNumber starts with any of areaCodes available.
+            Iterate over each secondary country and check if nationalNumber starts with any of areaCodes available.
             If no matches found, fallback to the main country.
         */
-        secondaryCountries.forEach((/**
-         * @param {?} country
-         * @return {?}
-         */
-        (country) => {
-            country.areaCodes.forEach((/**
-             * @param {?} areaCode
-             * @return {?}
-             */
-            (areaCode) => {
+        secondaryCountries.forEach((country) => {
+            country.areaCodes.forEach((areaCode) => {
                 if (rawNumber.startsWith(areaCode)) {
                     matchedCountry = country.iso2;
                 }
-            }));
-        }));
+            });
+        });
         return matchedCountry;
     }
-    /**
-     * @param {?} placeholder
-     * @return {?}
-     */
     separateDialCodePlaceHolder(placeholder) {
         return this.removeDialCode(placeholder);
     }
-    /**
-     * @private
-     * @param {?} phoneNumber
-     * @return {?}
-     */
     removeDialCode(phoneNumber) {
         if (this.separateDialCode && phoneNumber) {
             phoneNumber = phoneNumber.substr(phoneNumber.indexOf(' ') + 1);
@@ -66500,13 +66450,8 @@ class NgxIntlTelInputComponent {
         return phoneNumber;
     }
     // adjust input alignment
-    /**
-     * @private
-     * @return {?}
-     */
     checkSeparateDialCodeStyle() {
         if (this.separateDialCode && this.selectedCountry) {
-            /** @type {?} */
             const cntryCd = this.selectedCountry.dialCode;
             this.separateDialCodeClass =
                 'separate-dial-code iti-sdc-' + (cntryCd.length + 1);
@@ -66515,95 +66460,201 @@ class NgxIntlTelInputComponent {
             this.separateDialCodeClass = '';
         }
     }
-}
-NgxIntlTelInputComponent.ɵfac = function NgxIntlTelInputComponent_Factory(t) { return new (t || NgxIntlTelInputComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](CountryCode)); };
-NgxIntlTelInputComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: NgxIntlTelInputComponent, selectors: [["ngx-intl-tel-input"]], viewQuery: function NgxIntlTelInputComponent_Query(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c0, true);
+};
+NgxIntlTelInputComponent.ɵfac = function NgxIntlTelInputComponent_Factory(t) { return new (t || NgxIntlTelInputComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](CountryCode)); };
+NgxIntlTelInputComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: NgxIntlTelInputComponent, selectors: [["ngx-intl-tel-input"]], viewQuery: function NgxIntlTelInputComponent_Query(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵviewQuery"](_c0, true);
     } if (rf & 2) {
         var _t;
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.countryList = _t.first);
-    } }, inputs: { value: "value", preferredCountries: "preferredCountries", enablePlaceholder: "enablePlaceholder", cssClass: "cssClass", onlyCountries: "onlyCountries", enableAutoCountrySelect: "enableAutoCountrySelect", searchCountryFlag: "searchCountryFlag", searchCountryField: "searchCountryField", searchCountryPlaceholder: "searchCountryPlaceholder", maxLength: "maxLength", selectFirstCountry: "selectFirstCountry", phoneValidation: "phoneValidation", id: "id", separateDialCode: "separateDialCode", tooltipField: "tooltipField", selectedCountryISO: "selectedCountryISO" }, outputs: { countryChange: "countryChange" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵProvidersFeature"]([
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx.countryList = _t.first);
+    } }, inputs: { value: "value", preferredCountries: "preferredCountries", enablePlaceholder: "enablePlaceholder", cssClass: "cssClass", onlyCountries: "onlyCountries", enableAutoCountrySelect: "enableAutoCountrySelect", searchCountryFlag: "searchCountryFlag", searchCountryField: "searchCountryField", searchCountryPlaceholder: "searchCountryPlaceholder", maxLength: "maxLength", selectFirstCountry: "selectFirstCountry", phoneValidation: "phoneValidation", inputId: "inputId", separateDialCode: "separateDialCode", tooltipField: "tooltipField", selectedCountryISO: "selectedCountryISO" }, outputs: { countryChange: "countryChange" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵProvidersFeature"]([
             CountryCode,
             {
-                provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALUE_ACCESSOR"],
+                provide: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NG_VALUE_ACCESSOR"],
                 // tslint:disable-next-line:no-forward-ref
-                useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(( /**
-                 * @return {?}
-                 */() => NgxIntlTelInputComponent)),
+                useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(() => NgxIntlTelInputComponent_1),
                 multi: true
             },
             {
-                provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALIDATORS"],
+                provide: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NG_VALIDATORS"],
                 useValue: ɵ0,
                 multi: true
             },
-        ]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵNgOnChangesFeature"]], decls: 9, vars: 15, consts: [[1, "intl-tel-input", "allow-dropdown", 3, "ngClass"], ["dropdown", "", 1, "flag-container", 3, "ngClass", "isDisabled"], ["dropdownToggle", "", 1, "selected-flag", "dropdown-toggle"], [1, "iti-flag", 3, "ngClass", "tooltip"], ["class", "selected-dial-code", 4, "ngIf"], [1, "iti-arrow"], ["class", "dropdown-menu country-dropdown", 4, "dropdownMenu"], ["type", "tel", "autocomplete", "off", 3, "id", "ngClass", "ngModel", "disabled", "placeholder", "blur", "keypress", "ngModelChange"], ["focusable", ""], [1, "selected-dial-code"], [1, "dropdown-menu", "country-dropdown"], ["class", "search-container", 4, "ngIf"], [1, "country-list"], ["countryList", ""], ["class", "country", 3, "id", "click", 4, "ngFor", "ngForOf"], ["class", "divider", 4, "ngIf"], [1, "search-container"], ["id", "country-search-box", "autofocus", "", 3, "ngModel", "placeholder", "ngModelChange", "keyup", "click"], [1, "country", 3, "id", "click"], [1, "flag-box"], [1, "iti-flag", 3, "ngClass"], [1, "country-name"], [1, "dial-code"], [1, "divider"]], template: function NgxIntlTelInputComponent_Template(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "div", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, NgxIntlTelInputComponent_div_4_Template, 2, 1, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](5, "div", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, NgxIntlTelInputComponent_div_6_Template, 7, 4, "div", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "input", 7, 8);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("blur", function NgxIntlTelInputComponent_Template_input_blur_7_listener() { return ctx.onTouched(); })("keypress", function NgxIntlTelInputComponent_Template_input_keypress_7_listener($event) { return ctx.onInputKeyPress($event); })("ngModelChange", function NgxIntlTelInputComponent_Template_input_ngModelChange_7_listener($event) { return ctx.phoneNumber = $event; })("ngModelChange", function NgxIntlTelInputComponent_Template_input_ngModelChange_7_listener() { return ctx.onPhoneNumberChange(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        ]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵNgOnChangesFeature"]], decls: 9, vars: 15, consts: [[1, "intl-tel-input", "allow-dropdown", 3, "ngClass"], ["dropdown", "", 1, "flag-container", 3, "ngClass", "isDisabled"], ["dropdownToggle", "", 1, "selected-flag", "dropdown-toggle"], [1, "iti-flag", 3, "ngClass", "tooltip"], ["class", "selected-dial-code", 4, "ngIf"], [1, "iti-arrow"], ["class", "dropdown-menu country-dropdown", 4, "dropdownMenu"], ["type", "tel", "autocomplete", "off", 3, "id", "ngClass", "ngModel", "disabled", "placeholder", "blur", "keypress", "ngModelChange"], ["focusable", ""], [1, "selected-dial-code"], [1, "dropdown-menu", "country-dropdown"], ["class", "search-container", 4, "ngIf"], [1, "country-list"], ["countryList", ""], ["class", "country", 3, "id", "click", 4, "ngFor", "ngForOf"], ["class", "divider", 4, "ngIf"], [1, "search-container"], ["id", "country-search-box", "autofocus", "", 3, "ngModel", "placeholder", "ngModelChange", "keyup", "click"], [1, "country", 3, "id", "click"], [1, "flag-box"], [1, "iti-flag", 3, "ngClass"], [1, "country-name"], [1, "dial-code"], [1, "divider"]], template: function NgxIntlTelInputComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "div", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](3, "div", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](4, NgxIntlTelInputComponent_div_4_Template, 2, 1, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](5, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](6, NgxIntlTelInputComponent_div_6_Template, 7, 4, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "input", 7, 8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("blur", function NgxIntlTelInputComponent_Template_input_blur_7_listener() { return ctx.onTouched(); })("keypress", function NgxIntlTelInputComponent_Template_input_keypress_7_listener($event) { return ctx.onInputKeyPress($event); })("ngModelChange", function NgxIntlTelInputComponent_Template_input_ngModelChange_7_listener($event) { return ctx.phoneNumber = $event; })("ngModelChange", function NgxIntlTelInputComponent_Template_input_ngModelChange_7_listener() { return ctx.onPhoneNumberChange(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", ctx.separateDialCodeClass);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction1"](13, _c1, ctx.disabled))("isDisabled", ctx.disabled);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", ctx.selectedCountry == null ? null : ctx.selectedCountry.flagClass)("tooltip", ctx.selectedCountry ? ctx.selectedCountry[ctx.tooltipField] : "");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.separateDialCode);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("id", ctx.id)("ngClass", ctx.cssClass)("ngModel", ctx.phoneNumber)("disabled", ctx.disabled)("placeholder", ctx.separateDialCodePlaceHolder((ctx.selectedCountry == null ? null : ctx.selectedCountry.placeHolder) || ""));
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("maxLength", ctx.maxLength)("validation", ctx.phoneValidation);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_5__["NgClass"], ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_3__["BsDropdownDirective"], ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_3__["BsDropdownToggleDirective"], ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_4__["TooltipDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"], ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_3__["BsDropdownMenuDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgModel"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgForOf"]], styles: ["li.country[_ngcontent-%COMP%]:hover{background-color:rgba(0,0,0,.05)}.selected-flag.dropdown-toggle[_ngcontent-%COMP%]:after{content:none}.flag-container.disabled[_ngcontent-%COMP%]{cursor:default!important}.intl-tel-input.allow-dropdown[_ngcontent-%COMP%]   .flag-container.disabled[_ngcontent-%COMP%]:hover   .selected-flag[_ngcontent-%COMP%]{background:0 0}.country-dropdown[_ngcontent-%COMP%]{border:1px solid #ccc;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;padding:1px;border-collapse:collapse}.search-container[_ngcontent-%COMP%]{position:relative}.search-container[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]{width:100%;border:none;border-bottom:1px solid #ccc;padding-left:10px}.search-icon[_ngcontent-%COMP%]{position:absolute;z-index:2;width:25px;margin:1px 10px}.country-list[_ngcontent-%COMP%]{position:relative;border:none}.intl-tel-input[_ngcontent-%COMP%]   input#country-search-box[_ngcontent-%COMP%]{padding-left:6px}.intl-tel-input.separate-dial-code[_ngcontent-%COMP%]   .selected-flag[_ngcontent-%COMP%], .intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-2[_ngcontent-%COMP%]   .selected-flag[_ngcontent-%COMP%], .intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-3[_ngcontent-%COMP%]   .selected-flag[_ngcontent-%COMP%], .intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-4[_ngcontent-%COMP%]   .selected-flag[_ngcontent-%COMP%]{width:93px}.intl-tel-input.separate-dial-code[_ngcontent-%COMP%]   input[_ngcontent-%COMP%], .intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-2[_ngcontent-%COMP%]   input[_ngcontent-%COMP%], .intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-3[_ngcontent-%COMP%]   input[_ngcontent-%COMP%], .intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-4[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]{padding-left:98px}"] });
-/** @nocollapse */
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngClass", ctx.separateDialCodeClass);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction1"](13, _c1, ctx.disabled))("isDisabled", ctx.disabled);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngClass", ctx.selectedCountry == null ? null : ctx.selectedCountry.flagClass)("tooltip", ctx.selectedCountry ? ctx.selectedCountry[ctx.tooltipField] : "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx.separateDialCode);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("id", ctx.inputId)("ngClass", ctx.cssClass)("ngModel", ctx.phoneNumber)("disabled", ctx.disabled)("placeholder", ctx.separateDialCodePlaceHolder((ctx.selectedCountry == null ? null : ctx.selectedCountry.placeHolder) || ""));
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("maxLength", ctx.maxLength)("validation", ctx.phoneValidation);
+    } }, directives: function () { return [_angular_common__WEBPACK_IMPORTED_MODULE_6__["NgClass"], ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_4__["BsDropdownDirective"], ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_4__["BsDropdownToggleDirective"], ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_5__["TooltipDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_4__["BsDropdownMenuDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgModel"], NativeElementInjectorDirective, _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"]]; }, styles: ["li.country[_ngcontent-%COMP%]:hover{background-color:rgba(0,0,0,.05)}.selected-flag.dropdown-toggle[_ngcontent-%COMP%]:after{content:none}.flag-container.disabled[_ngcontent-%COMP%]{cursor:default!important}.intl-tel-input.allow-dropdown[_ngcontent-%COMP%]   .flag-container.disabled[_ngcontent-%COMP%]:hover   .selected-flag[_ngcontent-%COMP%]{background:0 0}.country-dropdown[_ngcontent-%COMP%]{border:1px solid #ccc;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;padding:1px;border-collapse:collapse}.search-container[_ngcontent-%COMP%]{position:relative}.search-container[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]{width:100%;border:none;border-bottom:1px solid #ccc;padding-left:10px}.search-icon[_ngcontent-%COMP%]{position:absolute;z-index:2;width:25px;margin:1px 10px}.country-list[_ngcontent-%COMP%]{position:relative;border:none}.intl-tel-input[_ngcontent-%COMP%]   input#country-search-box[_ngcontent-%COMP%]{padding-left:6px}.intl-tel-input.separate-dial-code[_ngcontent-%COMP%]   .selected-flag[_ngcontent-%COMP%], .intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-2[_ngcontent-%COMP%]   .selected-flag[_ngcontent-%COMP%], .intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-3[_ngcontent-%COMP%]   .selected-flag[_ngcontent-%COMP%], .intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-4[_ngcontent-%COMP%]   .selected-flag[_ngcontent-%COMP%]{width:93px}.intl-tel-input.separate-dial-code[_ngcontent-%COMP%]   input[_ngcontent-%COMP%], .intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-2[_ngcontent-%COMP%]   input[_ngcontent-%COMP%], .intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-3[_ngcontent-%COMP%]   input[_ngcontent-%COMP%], .intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-4[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]{padding-left:98px}"] });
 NgxIntlTelInputComponent.ctorParameters = () => [
     { type: CountryCode }
 ];
-NgxIntlTelInputComponent.propDecorators = {
-    value: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    preferredCountries: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    enablePlaceholder: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    cssClass: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    onlyCountries: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    enableAutoCountrySelect: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    searchCountryFlag: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    searchCountryField: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    searchCountryPlaceholder: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    maxLength: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    tooltipField: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    selectFirstCountry: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    selectedCountryISO: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    phoneValidation: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    id: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    countryChange: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
-    separateDialCode: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
-    countryList: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"], args: ['countryList', { static: false },] }]
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+], NgxIntlTelInputComponent.prototype, "value", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Array)
+], NgxIntlTelInputComponent.prototype, "preferredCountries", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+], NgxIntlTelInputComponent.prototype, "enablePlaceholder", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+], NgxIntlTelInputComponent.prototype, "cssClass", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Array)
+], NgxIntlTelInputComponent.prototype, "onlyCountries", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+], NgxIntlTelInputComponent.prototype, "enableAutoCountrySelect", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+], NgxIntlTelInputComponent.prototype, "searchCountryFlag", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Array)
+], NgxIntlTelInputComponent.prototype, "searchCountryField", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+], NgxIntlTelInputComponent.prototype, "searchCountryPlaceholder", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+], NgxIntlTelInputComponent.prototype, "maxLength", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", String)
+], NgxIntlTelInputComponent.prototype, "tooltipField", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+], NgxIntlTelInputComponent.prototype, "selectFirstCountry", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", String)
+], NgxIntlTelInputComponent.prototype, "selectedCountryISO", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+], NgxIntlTelInputComponent.prototype, "phoneValidation", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+], NgxIntlTelInputComponent.prototype, "inputId", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+], NgxIntlTelInputComponent.prototype, "separateDialCode", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+], NgxIntlTelInputComponent.prototype, "countryChange", void 0);
+Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('countryList'),
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+], NgxIntlTelInputComponent.prototype, "countryList", void 0);
+NgxIntlTelInputComponent = NgxIntlTelInputComponent_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([ Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [CountryCode])
+], NgxIntlTelInputComponent);
+
+/*
+"Property 'nativeElement' does not exist on type 'FormControl'".
+'NativeElementInjectorDirective' injects nativeElement to each control,
+so we can access it from inside validator for example.
+More about this approach and reasons for this:
+https://github.com/angular/angular/issues/18025
+https://stackoverflow.com/a/54075119/1617590
+*/
+let NativeElementInjectorDirective = class NativeElementInjectorDirective {
+    constructor(controlDir, host) {
+        this.controlDir = controlDir;
+        this.host = host;
+    }
+    ngOnInit() {
+        if (this.controlDir.control) {
+            this.controlDir.control['nativeElement'] = this.host.nativeElement;
+        }
+    }
 };
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NgxIntlTelInputComponent, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
+NativeElementInjectorDirective.ɵfac = function NativeElementInjectorDirective_Factory(t) { return new (t || NativeElementInjectorDirective)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControl"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])); };
+NativeElementInjectorDirective.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineDirective"]({ type: NativeElementInjectorDirective, selectors: [["", "ngModel", ""], ["", "formControl", ""], ["", "formControlName", ""]] });
+NativeElementInjectorDirective.ctorParameters = () => [
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControl"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }
+];
+NativeElementInjectorDirective = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([ Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControl"],
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
+], NativeElementInjectorDirective);
+
+var NgxIntlTelInputModule_1;
+let NgxIntlTelInputModule = NgxIntlTelInputModule_1 = class NgxIntlTelInputModule {
+    static forRoot() {
+        return {
+            ngModule: NgxIntlTelInputModule_1,
+            providers: [NgxIntlTelInputService],
+        };
+    }
+};
+NgxIntlTelInputModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({ type: NgxIntlTelInputModule });
+NgxIntlTelInputModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({ factory: function NgxIntlTelInputModule_Factory(t) { return new (t || NgxIntlTelInputModule)(); }, imports: [[
+            _angular_common__WEBPACK_IMPORTED_MODULE_6__["CommonModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
+            ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_4__["BsDropdownModule"].forRoot(),
+            ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_5__["TooltipModule"].forRoot(),
+        ]] });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](NgxIntlTelInputService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"],
         args: [{
+                providedIn: 'root'
+            }]
+    }], function () { return []; }, null); })();
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](CountryCode, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"]
+    }], function () { return []; }, null); })();
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](NgxIntlTelInputComponent, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"],
+        args: [{
+                // tslint:disable-next-line: component-selector
                 selector: 'ngx-intl-tel-input',
-                template: "<div class=\"intl-tel-input allow-dropdown\" [ngClass]=\"separateDialCodeClass\">\n  <div class=\"flag-container\" dropdown [ngClass]=\"{'disabled': disabled}\" [isDisabled]=\"disabled\">\n    <div class=\"selected-flag dropdown-toggle\" dropdownToggle>\n      <div class=\"iti-flag\" [ngClass]=\"selectedCountry?.flagClass\"\n        [tooltip]=\"selectedCountry ? selectedCountry[tooltipField] : ''\"></div>\n      <div *ngIf=\"separateDialCode\" class=\"selected-dial-code\">+{{selectedCountry.dialCode}}</div>\n      <div class=\"iti-arrow\"></div>\n    </div>\n    <div *dropdownMenu class=\"dropdown-menu country-dropdown\">\n      <div class=\"search-container\" *ngIf=\"searchCountryFlag && searchCountryField\">\n        <input id=\"country-search-box\" [(ngModel)]=\"countrySearchText\" (keyup)=\"searchCountry()\"\n          (click)=\"$event.stopPropagation()\" [placeholder]=\"searchCountryPlaceholder\" autofocus>\n      </div>\n      <ul class=\"country-list\" #countryList>\n        <li class=\"country\" *ngFor=\"let country of preferredCountriesInDropDown\"\n          (click)=\"onCountrySelect(country, focusable)\" [id]=\"country.iso2\">\n          <div class=\"flag-box\">\n            <div class=\"iti-flag\" [ngClass]=\"country.flagClass\"></div>\n          </div>\n          <span class=\"country-name\">{{country.name}}</span>\n          <span class=\"dial-code\">+{{country.dialCode}}</span>\n        </li>\n        <li class=\"divider\" *ngIf=\"preferredCountriesInDropDown?.length\"></li>\n        <li class=\"country\" *ngFor=\"let country of allCountries\" (click)=\"onCountrySelect(country, focusable)\"\n          [id]=\"country.iso2\">\n          <div class=\"flag-box\">\n            <div class=\"iti-flag\" [ngClass]=\"country.flagClass\"></div>\n          </div>\n          <span class=\"country-name\">{{country.name}}</span>\n          <span class=\"dial-code\">+{{country.dialCode}}</span>\n        </li>\n      </ul>\n    </div>\n  </div>\n  <input type=\"tel\" [id]=\"id\" autocomplete=\"off\" [ngClass]=\"cssClass\" (blur)=\"onTouched()\"\n    (keypress)=\"onInputKeyPress($event)\" [(ngModel)]=\"phoneNumber\" (ngModelChange)=\"onPhoneNumberChange()\"\n    [disabled]=\"disabled\" [placeholder]=\"separateDialCodePlaceHolder(selectedCountry?.placeHolder || '')\"\n    [attr.maxLength]=\"maxLength\" [attr.validation]=\"phoneValidation\" #focusable>\n</div>\n",
+                template: "<div class=\"intl-tel-input allow-dropdown\"\n\t[ngClass]=\"separateDialCodeClass\">\n\t<div class=\"flag-container\"\n\t\tdropdown\n\t\t[ngClass]=\"{'disabled': disabled}\"\n\t\t[isDisabled]=\"disabled\">\n\t\t<div class=\"selected-flag dropdown-toggle\"\n\t\t\tdropdownToggle>\n\t\t\t<div class=\"iti-flag\"\n\t\t\t\t[ngClass]=\"selectedCountry?.flagClass\"\n\t\t\t\t[tooltip]=\"selectedCountry ? selectedCountry[tooltipField] : ''\"></div>\n\t\t\t<div *ngIf=\"separateDialCode\"\n\t\t\t\tclass=\"selected-dial-code\">+{{selectedCountry.dialCode}}</div>\n\t\t\t<div class=\"iti-arrow\"></div>\n\t\t</div>\n\t\t<div *dropdownMenu\n\t\t\tclass=\"dropdown-menu country-dropdown\">\n\t\t\t<div class=\"search-container\"\n\t\t\t\t*ngIf=\"searchCountryFlag && searchCountryField\">\n\t\t\t\t<input id=\"country-search-box\"\n\t\t\t\t\t[(ngModel)]=\"countrySearchText\"\n\t\t\t\t\t(keyup)=\"searchCountry()\"\n\t\t\t\t\t(click)=\"$event.stopPropagation()\"\n\t\t\t\t\t[placeholder]=\"searchCountryPlaceholder\"\n\t\t\t\t\tautofocus>\n\t\t\t</div>\n\t\t\t<ul class=\"country-list\"\n\t\t\t\t#countryList>\n\t\t\t\t<li class=\"country\"\n\t\t\t\t\t*ngFor=\"let country of preferredCountriesInDropDown\"\n\t\t\t\t\t(click)=\"onCountrySelect(country, focusable)\"\n\t\t\t\t\t[id]=\"country.iso2\">\n\t\t\t\t\t<div class=\"flag-box\">\n\t\t\t\t\t\t<div class=\"iti-flag\"\n\t\t\t\t\t\t\t[ngClass]=\"country.flagClass\"></div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<span class=\"country-name\">{{country.name}}</span>\n\t\t\t\t\t<span class=\"dial-code\">+{{country.dialCode}}</span>\n\t\t\t\t</li>\n\t\t\t\t<li class=\"divider\"\n\t\t\t\t\t*ngIf=\"preferredCountriesInDropDown?.length\"></li>\n\t\t\t\t<li class=\"country\"\n\t\t\t\t\t*ngFor=\"let country of allCountries\"\n\t\t\t\t\t(click)=\"onCountrySelect(country, focusable)\"\n\t\t\t\t\t[id]=\"country.iso2\">\n\t\t\t\t\t<div class=\"flag-box\">\n\t\t\t\t\t\t<div class=\"iti-flag\"\n\t\t\t\t\t\t\t[ngClass]=\"country.flagClass\"></div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<span class=\"country-name\">{{country.name}}</span>\n\t\t\t\t\t<span class=\"dial-code\">+{{country.dialCode}}</span>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t<input type=\"tel\"\n\t\t[id]=\"inputId\"\n\t\tautocomplete=\"off\"\n\t\t[ngClass]=\"cssClass\"\n\t\t(blur)=\"onTouched()\"\n\t\t(keypress)=\"onInputKeyPress($event)\"\n\t\t[(ngModel)]=\"phoneNumber\"\n\t\t(ngModelChange)=\"onPhoneNumberChange()\"\n\t\t[disabled]=\"disabled\"\n\t\t[placeholder]=\"separateDialCodePlaceHolder(selectedCountry?.placeHolder || '')\"\n\t\t[attr.maxLength]=\"maxLength\"\n\t\t[attr.validation]=\"phoneValidation\"\n\t\t#focusable>\n</div>",
                 providers: [
                     CountryCode,
                     {
-                        provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALUE_ACCESSOR"],
+                        provide: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NG_VALUE_ACCESSOR"],
                         // tslint:disable-next-line:no-forward-ref
-                        useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])(( /**
-                         * @return {?}
-                         */() => NgxIntlTelInputComponent)),
+                        useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(() => NgxIntlTelInputComponent_1),
                         multi: true
                     },
                     {
-                        provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALIDATORS"],
+                        provide: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NG_VALIDATORS"],
                         useValue: ɵ0,
                         multi: true
                     },
@@ -66611,84 +66662,77 @@ NgxIntlTelInputComponent.propDecorators = {
                 styles: ["li.country:hover{background-color:rgba(0,0,0,.05)}.selected-flag.dropdown-toggle:after{content:none}.flag-container.disabled{cursor:default!important}.intl-tel-input.allow-dropdown .flag-container.disabled:hover .selected-flag{background:0 0}.country-dropdown{border:1px solid #ccc;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;padding:1px;border-collapse:collapse}.search-container{position:relative}.search-container input{width:100%;border:none;border-bottom:1px solid #ccc;padding-left:10px}.search-icon{position:absolute;z-index:2;width:25px;margin:1px 10px}.country-list{position:relative;border:none}.intl-tel-input input#country-search-box{padding-left:6px}.intl-tel-input.separate-dial-code .selected-flag,.intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-2 .selected-flag,.intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-3 .selected-flag,.intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-4 .selected-flag{width:93px}.intl-tel-input.separate-dial-code input,.intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-2 input,.intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-3 input,.intl-tel-input.separate-dial-code.allow-dropdown.iti-sdc-4 input{padding-left:98px}"]
             }]
     }], function () { return [{ type: CountryCode }]; }, { value: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
         }], preferredCountries: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
         }], enablePlaceholder: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
         }], cssClass: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
         }], onlyCountries: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
         }], enableAutoCountrySelect: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
         }], searchCountryFlag: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
         }], searchCountryField: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
         }], searchCountryPlaceholder: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
         }], maxLength: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
         }], selectFirstCountry: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
         }], phoneValidation: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }], id: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
-        }], countryChange: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        }], inputId: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
         }], separateDialCode: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        }], countryChange: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"]
         }], tooltipField: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
         }], selectedCountryISO: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
         }], countryList: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
-            args: ['countryList', { static: false }]
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"],
+            args: ['countryList']
         }] }); })();
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class NgxIntlTelInputModule {
-    /**
-     * @return {?}
-     */
-    static forRoot() {
-        return {
-            ngModule: NgxIntlTelInputModule,
-            providers: [NgxIntlTelInputService],
-        };
-    }
-}
-NgxIntlTelInputModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: NgxIntlTelInputModule });
-NgxIntlTelInputModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function NgxIntlTelInputModule_Factory(t) { return new (t || NgxIntlTelInputModule)(); }, imports: [[
-            _angular_common__WEBPACK_IMPORTED_MODULE_5__["CommonModule"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
-            ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_3__["BsDropdownModule"].forRoot(),
-            ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_4__["TooltipModule"].forRoot(),
-        ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](NgxIntlTelInputModule, { declarations: function () { return [NgxIntlTelInputComponent]; }, imports: function () { return [_angular_common__WEBPACK_IMPORTED_MODULE_5__["CommonModule"],
-        _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
-        _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_3__["BsDropdownModule"], ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_4__["TooltipModule"]]; }, exports: function () { return [NgxIntlTelInputComponent]; } }); })();
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NgxIntlTelInputModule, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](NativeElementInjectorDirective, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"],
         args: [{
-                declarations: [NgxIntlTelInputComponent],
+                // tslint:disable-next-line: directive-selector
+                selector: '[ngModel], [formControl], [formControlName]'
+            }]
+    }], function () { return [{ type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControl"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }]; }, null); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](NgxIntlTelInputModule, { declarations: function () { return [NgxIntlTelInputComponent,
+        NativeElementInjectorDirective]; }, imports: function () { return [_angular_common__WEBPACK_IMPORTED_MODULE_6__["CommonModule"],
+        _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+        _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"], ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_4__["BsDropdownModule"], ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_5__["TooltipModule"]]; }, exports: function () { return [NgxIntlTelInputComponent,
+        NativeElementInjectorDirective]; } }); })();
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](NgxIntlTelInputModule, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
+        args: [{
+                declarations: [NgxIntlTelInputComponent, NativeElementInjectorDirective],
                 imports: [
-                    _angular_common__WEBPACK_IMPORTED_MODULE_5__["CommonModule"],
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
-                    ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_3__["BsDropdownModule"].forRoot(),
-                    ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_4__["TooltipModule"].forRoot(),
+                    _angular_common__WEBPACK_IMPORTED_MODULE_6__["CommonModule"],
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
+                    ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_4__["BsDropdownModule"].forRoot(),
+                    ngx_bootstrap_tooltip__WEBPACK_IMPORTED_MODULE_5__["TooltipModule"].forRoot(),
                 ],
-                exports: [NgxIntlTelInputComponent]
+                exports: [NgxIntlTelInputComponent, NativeElementInjectorDirective]
             }]
     }], null, null); })();
+
+/*
+ * Public API Surface of ngx-intl-tel-input
+ */
+
+/**
+ * Generated bundle index. Do not edit.
+ */
 
 
 
@@ -77860,8 +77904,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
 /* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap/modal */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/modal/fesm2015/ngx-bootstrap-modal.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
-/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-intl-tel-input */ "../../node_modules/ngx-intl-tel-input/__ivy_ngcc__/fesm2015/ngx-intl-tel-input.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+
 
 
 
@@ -78071,7 +78117,7 @@ AccountChargeModalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](12, 10, "modal.account.charge.next"));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](15, 12, "common.close"));
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_x"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgForOf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["MaxLengthValidator"]], pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"], _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_5__["ChangeLanguagePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["SlicePipe"]], styles: [".creditCard[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0 !important;\n}"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_4__["NativeElementInjectorDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_x"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgForOf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["MaxLengthValidator"]], pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslatePipe"], _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_6__["ChangeLanguagePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["SlicePipe"]], styles: [".creditCard[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0 !important;\n}"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AccountChargeModalComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -78106,7 +78152,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap/modal */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/modal/fesm2015/ngx-bootstrap-modal.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+/* harmony import */ var ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-intl-tel-input */ "../../node_modules/ngx-intl-tel-input/__ivy_ngcc__/fesm2015/ngx-intl-tel-input.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+
 
 
 
@@ -78244,7 +78292,7 @@ AccountOpenModalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](12, 10, "modal.account.open.next"));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](15, 12, "common.close"));
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["MaxLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_x"]], pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslatePipe"]], styles: [""] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_5__["NativeElementInjectorDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["MaxLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_x"]], pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__["TranslatePipe"]], styles: [""] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AccountOpenModalComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -78276,8 +78324,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-bootstrap/modal */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/modal/fesm2015/ngx-bootstrap-modal.js");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../services */ "./app/services/index.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
-/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-intl-tel-input */ "../../node_modules/ngx-intl-tel-input/__ivy_ngcc__/fesm2015/ngx-intl-tel-input.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+
 
 
 
@@ -78511,7 +78561,7 @@ AccountTransferModalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](12, 10, "modal.account.transfer.next"));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](15, 12, "common.close"));
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_x"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgForOf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["MaxLengthValidator"]], pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslatePipe"], _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_6__["ChangeLanguagePipe"]], styles: [".creditCard[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0 !important;\n}"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_5__["NativeElementInjectorDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_x"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgForOf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["MaxLengthValidator"]], pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__["TranslatePipe"], _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_7__["ChangeLanguagePipe"]], styles: [".creditCard[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0 !important;\n}"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AccountTransferModalComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -78790,8 +78840,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap/modal */ "../../node_modules/ngx-bootstrap/__ivy_ngcc__/modal/fesm2015/ngx-bootstrap-modal.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
-/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-intl-tel-input */ "../../node_modules/ngx-intl-tel-input/__ivy_ngcc__/fesm2015/ngx-intl-tel-input.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+
 
 
 
@@ -79096,7 +79148,7 @@ CreditcardRegisterModalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](12, 10, "modal.creditCard.register.next"));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](15, 12, "common.close"));
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_x"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgForOf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["MaxLengthValidator"]], pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__["TranslatePipe"], _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_6__["ChangeLanguagePipe"]], styles: [""] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_5__["NativeElementInjectorDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_x"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgForOf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["MaxLengthValidator"]], pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__["TranslatePipe"], _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_7__["ChangeLanguagePipe"]], styles: [""] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](CreditcardRegisterModalComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -79749,6 +79801,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var _header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../header-menu/header-menu.component */ "./app/modules/shared/components/parts/header-menu/header-menu.component.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ngx-intl-tel-input */ "../../node_modules/ngx-intl-tel-input/__ivy_ngcc__/fesm2015/ngx-intl-tel-input.js");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -79758,6 +79811,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 
 
@@ -79883,7 +79937,7 @@ HeaderComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCo
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.environment.HEADER_MENU);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("isOpen", ctx.isMenuOpen);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_7__["NgIf"], _header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_8__["HeaderMenuComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgModel"], _angular_common__WEBPACK_IMPORTED_MODULE_7__["NgForOf"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["ɵangular_packages_forms_forms_x"]], styles: ["[_nghost-%COMP%] {\n  display: block;\n}\n\n.header[_ngcontent-%COMP%] {\n  height: 60px;\n}\n\n.logo[_ngcontent-%COMP%] {\n  height: 50%;\n}\n\n.menu-button[_ngcontent-%COMP%] {\n  width: 26px;\n  height: 20px;\n  position: relative;\n}\n\n.menu-button[_ngcontent-%COMP%]   div[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 0;\n  margin-top: -0.5px;\n  width: 100%;\n  height: 1px;\n}\n\n.menu-button[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]:first-child {\n  top: 0;\n  margin-top: 0;\n}\n\n.menu-button[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]:last-child {\n  top: auto;\n  bottom: 0;\n  margin-top: 0;\n}\n\n.menu-button.active[_ngcontent-%COMP%]   div[_ngcontent-%COMP%] {\n  opacity: 0;\n}\n\n.menu-button.active[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]:first-child {\n  opacity: 1;\n  top: 50%;\n  margin-top: -1px;\n  -ms-transform: rotate(45deg);\n      transform: rotate(45deg);\n}\n\n.menu-button.active[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]:last-child {\n  opacity: 1;\n  top: 50%;\n  bottom: initial;\n  margin-top: -1px;\n  -ms-transform: rotate(-45deg);\n      transform: rotate(-45deg);\n}"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_7__["NgIf"], _header_menu_header_menu_component__WEBPACK_IMPORTED_MODULE_8__["HeaderMenuComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgModel"], ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_10__["NativeElementInjectorDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_7__["NgForOf"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["ɵangular_packages_forms_forms_x"]], styles: ["[_nghost-%COMP%] {\n  display: block;\n}\n\n.header[_ngcontent-%COMP%] {\n  height: 60px;\n}\n\n.logo[_ngcontent-%COMP%] {\n  height: 50%;\n}\n\n.menu-button[_ngcontent-%COMP%] {\n  width: 26px;\n  height: 20px;\n  position: relative;\n}\n\n.menu-button[_ngcontent-%COMP%]   div[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  left: 0;\n  margin-top: -0.5px;\n  width: 100%;\n  height: 1px;\n}\n\n.menu-button[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]:first-child {\n  top: 0;\n  margin-top: 0;\n}\n\n.menu-button[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]:last-child {\n  top: auto;\n  bottom: 0;\n  margin-top: 0;\n}\n\n.menu-button.active[_ngcontent-%COMP%]   div[_ngcontent-%COMP%] {\n  opacity: 0;\n}\n\n.menu-button.active[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]:first-child {\n  opacity: 1;\n  top: 50%;\n  margin-top: -1px;\n  -ms-transform: rotate(45deg);\n      transform: rotate(45deg);\n}\n\n.menu-button.active[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]:last-child {\n  opacity: 1;\n  top: 50%;\n  bottom: initial;\n  margin-top: -1px;\n  -ms-transform: rotate(-45deg);\n      transform: rotate(-45deg);\n}"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](HeaderComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -80449,6 +80503,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_reducers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../../store/reducers */ "./app/store/reducers/index.ts");
 /* harmony import */ var _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../shared/pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+/* harmony import */ var ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ngx-intl-tel-input */ "../../node_modules/ngx-intl-tel-input/__ivy_ngcc__/fesm2015/ngx-intl-tel-input.js");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -80458,6 +80513,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 
 
@@ -80761,7 +80817,7 @@ MvtkCheckModalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](26, 18, "modal.mvtk.check.next"));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](29, 20, "common.close"));
-    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["MaxLengthValidator"]], pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["AsyncPipe"]], styles: [".scroll-vertical[_ngcontent-%COMP%] {\n  max-height: 75vh;\n}"] });
+    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_11__["NativeElementInjectorDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["MaxLengthValidator"]], pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["AsyncPipe"]], styles: [".scroll-vertical[_ngcontent-%COMP%] {\n  max-height: 75vh;\n}"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MvtkCheckModalComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -80999,9 +81055,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../../../environments/environment */ "./environments/environment.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
-/* harmony import */ var _form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../form/checkbox/checkbox.component */ "./app/modules/shared/components/parts/form/checkbox/checkbox.component.ts");
-/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+/* harmony import */ var ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ngx-intl-tel-input */ "../../node_modules/ngx-intl-tel-input/__ivy_ngcc__/fesm2015/ngx-intl-tel-input.js");
+/* harmony import */ var _form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../form/checkbox/checkbox.component */ "./app/modules/shared/components/parts/form/checkbox/checkbox.component.ts");
+/* harmony import */ var _pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../pipes/change-language.pipe */ "./app/modules/shared/pipes/change-language.pipe.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+
 
 
 
@@ -81459,7 +81517,7 @@ PurchaseEventTicketModalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](35, 31, "purchase.event.ticket.next"));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](38, 33, "common.close"));
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgModel"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ɵangular_packages_forms_forms_x"], _form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_8__["CheckboxComponent"]], pipes: [_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_9__["ChangeLanguagePipe"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_10__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["CurrencyPipe"]], styles: [".close[_ngcontent-%COMP%] {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical[_ngcontent-%COMP%] {\n  max-height: 75vh;\n}\n\n.ticket[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0 !important;\n}"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgModel"], ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_8__["NativeElementInjectorDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ɵangular_packages_forms_forms_x"], _form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_9__["CheckboxComponent"]], pipes: [_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_10__["ChangeLanguagePipe"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_11__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["CurrencyPipe"]], styles: [".close[_ngcontent-%COMP%] {\n  position: absolute;\n  top: -30px;\n  right: 0;\n}\n\n.scroll-vertical[_ngcontent-%COMP%] {\n  max-height: 75vh;\n}\n\n.ticket[_ngcontent-%COMP%]:last-child {\n  margin-bottom: 0 !important;\n}"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PurchaseEventTicketModalComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
