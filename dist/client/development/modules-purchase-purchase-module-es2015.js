@@ -5120,6 +5120,14 @@ class PurchaseSeatComponent {
                     this.router.navigate(['/error']);
                     return;
                 }
+                const reservations = purchase.reservations;
+                yield this.resetSeats();
+                reservations.forEach(r => {
+                    if (r.seat === undefined) {
+                        return;
+                    }
+                    this.selectSeat({ seat: r.seat, status: ___WEBPACK_IMPORTED_MODULE_4__["Models"].Purchase.Screen.SeatStatus.Default });
+                });
                 yield this.purchaseService.getScreen({
                     branchCode: { $eq: screeningEvent.location.branchCode },
                     containedInPlace: {

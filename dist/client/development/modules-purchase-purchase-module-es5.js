@@ -10826,7 +10826,9 @@
           key: "ngOnInit",
           value: function ngOnInit() {
             return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
-              var purchase, screeningEvent;
+              var _this14 = this;
+
+              var purchase, screeningEvent, reservations;
               return regeneratorRuntime.wrap(function _callee30$(_context30) {
                 while (1) {
                   switch (_context30.prev = _context30.next) {
@@ -10853,7 +10855,22 @@
                       return _context30.abrupt("return");
 
                     case 13:
-                      _context30.next = 15;
+                      reservations = purchase.reservations;
+                      _context30.next = 16;
+                      return this.resetSeats();
+
+                    case 16:
+                      reservations.forEach(function (r) {
+                        if (r.seat === undefined) {
+                          return;
+                        }
+
+                        _this14.selectSeat({
+                          seat: r.seat,
+                          status: ___WEBPACK_IMPORTED_MODULE_4__["Models"].Purchase.Screen.SeatStatus.Default
+                        });
+                      });
+                      _context30.next = 19;
                       return this.purchaseService.getScreen({
                         branchCode: {
                           $eq: screeningEvent.location.branchCode
@@ -10865,31 +10882,31 @@
                         }
                       });
 
-                    case 15:
-                      _context30.next = 17;
+                    case 19:
+                      _context30.next = 21;
                       return this.purchaseService.getScreeningEventSeats();
 
-                    case 17:
+                    case 21:
                       this.screeningEventSeats = _context30.sent;
-                      _context30.next = 20;
+                      _context30.next = 24;
                       return this.purchaseService.getTicketList();
 
-                    case 20:
-                      _context30.next = 26;
+                    case 24:
+                      _context30.next = 30;
                       break;
 
-                    case 22:
-                      _context30.prev = 22;
+                    case 26:
+                      _context30.prev = 26;
                       _context30.t0 = _context30["catch"](5);
                       console.error(_context30.t0);
                       this.router.navigate(['/error']);
 
-                    case 26:
+                    case 30:
                     case "end":
                       return _context30.stop();
                   }
                 }
-              }, _callee30, this, [[5, 22]]);
+              }, _callee30, this, [[5, 26]]);
             }));
           }
           /**
@@ -11445,7 +11462,7 @@
           key: "openTicketList",
           value: function openTicketList(reservation) {
             return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
-              var _this14 = this;
+              var _this15 = this;
 
               var purchase;
               return regeneratorRuntime.wrap(function _callee36$(_context36) {
@@ -11465,7 +11482,7 @@
                           reservation: reservation,
                           pendingMovieTickets: purchase.pendingMovieTickets,
                           cb: function cb(ticket) {
-                            _this14.purchaseService.selectTickets([Object.assign(Object.assign({}, reservation), {
+                            _this15.purchaseService.selectTickets([Object.assign(Object.assign({}, reservation), {
                               ticket: ticket
                             })]);
                           }
@@ -14204,16 +14221,16 @@
         }, {
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var _this15 = this;
+            var _this16 = this;
 
             var time = 300;
             var timer = setInterval(function () {
-              if (_this15.screenData !== undefined) {
+              if (_this16.screenData !== undefined) {
                 clearInterval(timer);
                 var screenElement = document.querySelector('.screen-style');
 
-                if (screenElement !== null && _this15.screenData.style !== undefined) {
-                  screenElement.innerHTML = _this15.screenData.style;
+                if (screenElement !== null && _this16.screenData.style !== undefined) {
+                  screenElement.innerHTML = _this16.screenData.style;
                 }
               }
             }, time);
@@ -14265,19 +14282,19 @@
         }, {
           key: "setScrollEvent",
           value: function setScrollEvent() {
-            var _this16 = this;
+            var _this17 = this;
 
             this.onWindowScroll = function (event) {
               var target = event.target;
 
-              var rect = _this16.screen.nativeElement.getBoundingClientRect();
+              var rect = _this17.screen.nativeElement.getBoundingClientRect();
 
               var offsetTop = rect.top - target.getBoundingClientRect().top;
-              var screenHeight = _this16.screen.nativeElement.clientHeight;
-              var btnHeight = _this16.zoomBtn.nativeElement.clientHeight;
+              var screenHeight = _this17.screen.nativeElement.clientHeight;
+              var btnHeight = _this17.zoomBtn.nativeElement.clientHeight;
               var space = 10;
               var top = offsetTop > 0 || screenHeight + offsetTop - btnHeight - space < 0 ? space : (offsetTop - space) * -1;
-              _this16.zoomBtn.nativeElement.style.top = "".concat(top, "px");
+              _this17.zoomBtn.nativeElement.style.top = "".concat(top, "px");
             }.bind(this);
 
             var element = document.getElementById('contents');
@@ -14615,7 +14632,7 @@
         }, {
           key: "createScreen",
           value: function createScreen() {
-            var _this17 = this;
+            var _this18 = this;
 
             // y軸ラベル
             var labels = this.createLineLabel(); // 行ラベル
@@ -14638,15 +14655,15 @@
 
 
               if (y === 0) {
-                pos.y += _this17.screenData.seatStart.y;
-              } else if (_this17.screenData.map[y].length === 0) {
-                pos.y += _this17.screenData.aisle.middle.h - _this17.screenData.seatMargin.h;
+                pos.y += _this18.screenData.seatStart.y;
+              } else if (_this18.screenData.map[y].length === 0) {
+                pos.y += _this18.screenData.aisle.middle.h - _this18.screenData.seatMargin.h;
               } else {
                 labelCount++;
-                pos.y += _this17.screenData.seatSize.h + _this17.screenData.seatMargin.h;
+                pos.y += _this18.screenData.seatSize.h + _this18.screenData.seatMargin.h;
               }
 
-              if (_this17.screenData.map[y].length > 0) {
+              if (_this18.screenData.map[y].length > 0) {
                 seats.push({
                   className: "seat-".concat(labels[labelCount]),
                   code: labels[labelCount],
@@ -14657,49 +14674,49 @@
 
                 var _loop4 = function _loop4(x) {
                   if (x === 0) {
-                    pos.x = _this17.screenData.seatStart.x;
+                    pos.x = _this18.screenData.seatStart.x;
                   } // 座席ラベルHTML生成
 
 
-                  if (x === 0 && _this17.screenData.lineLabel) {
-                    _this17.lineLabels.push({
+                  if (x === 0 && _this18.screenData.lineLabel) {
+                    _this18.lineLabels.push({
                       id: labelCount,
-                      w: _this17.screenData.seatSize.w,
-                      h: _this17.screenData.seatSize.h,
+                      w: _this18.screenData.seatSize.w,
+                      h: _this18.screenData.seatSize.h,
                       y: pos.y,
-                      x: pos.x - _this17.screenData.seatLabelPos,
+                      x: pos.x - _this18.screenData.seatLabelPos,
                       label: labels[labelCount]
                     });
                   }
 
-                  if (_this17.screenData.map[y][x] === 8) {
-                    pos.x += _this17.screenData.aisle.middle.w;
-                  } else if (_this17.screenData.map[y][x] === 9) {
-                    pos.x += _this17.screenData.aisle.middle.w;
-                  } else if (_this17.screenData.map[y][x] === 10) {
-                    pos.x += _this17.screenData.seatSize.w / 2 + _this17.screenData.seatMargin.w;
-                  } else if (_this17.screenData.map[y][x] === 11) {
-                    pos.x += _this17.screenData.seatSize.w / 2 + _this17.screenData.seatMargin.w;
+                  if (_this18.screenData.map[y][x] === 8) {
+                    pos.x += _this18.screenData.aisle.middle.w;
+                  } else if (_this18.screenData.map[y][x] === 9) {
+                    pos.x += _this18.screenData.aisle.middle.w;
+                  } else if (_this18.screenData.map[y][x] === 10) {
+                    pos.x += _this18.screenData.seatSize.w / 2 + _this18.screenData.seatMargin.w;
+                  } else if (_this18.screenData.map[y][x] === 11) {
+                    pos.x += _this18.screenData.seatSize.w / 2 + _this18.screenData.seatMargin.w;
                   } // 座席番号HTML生成
 
 
-                  if (y === 0 && _this17.screenData.columnLabel) {
-                    var label = _this17.screenData.seatNumberAlign === 'left' ? String(x + 1) : String(_this17.screenData.map[0].length - x);
+                  if (y === 0 && _this18.screenData.columnLabel) {
+                    var label = _this18.screenData.seatNumberAlign === 'left' ? String(x + 1) : String(_this18.screenData.map[0].length - x);
 
-                    _this17.columnLabels.push({
+                    _this18.columnLabels.push({
                       id: x,
-                      w: _this17.screenData.seatSize.w,
-                      h: _this17.screenData.seatSize.h,
-                      y: pos.y - _this17.screenData.seatNumberPos,
+                      w: _this18.screenData.seatSize.w,
+                      h: _this18.screenData.seatSize.h,
+                      y: pos.y - _this18.screenData.seatNumberPos,
                       x: pos.x,
                       label: label
                     });
                   }
 
-                  if (_this17.screenData.map[y][x] === 1 || _this17.screenData.map[y][x] === 4 || _this17.screenData.map[y][x] === 5 || _this17.screenData.map[y][x] === 8 || _this17.screenData.map[y][x] === 10) {
+                  if (_this18.screenData.map[y][x] === 1 || _this18.screenData.map[y][x] === 4 || _this18.screenData.map[y][x] === 5 || _this18.screenData.map[y][x] === 8 || _this18.screenData.map[y][x] === 10) {
                     // 座席HTML生成
                     var code = function () {
-                      return _this17.screenData.seatNumberAlign === 'left' ? "".concat(labels[labelCount], "-").concat(String(x + 1)) : "".concat(labels[labelCount], "-").concat(String(_this17.screenData.map[y].length - x));
+                      return _this18.screenData.seatNumberAlign === 'left' ? "".concat(labels[labelCount], "-").concat(String(x + 1)) : "".concat(labels[labelCount], "-").concat(String(_this18.screenData.map[y].length - x));
                     }();
 
                     var className = ["seat-".concat(code)];
@@ -14708,7 +14725,7 @@
                     var status = ___WEBPACK_IMPORTED_MODULE_3__["Models"].Purchase.Screen.SeatStatus.Disabled;
                     var acceptedOffer; // 席の状態変更
 
-                    var findSeat = _this17.screeningEventSeats.find(function (s) {
+                    var findSeat = _this18.screeningEventSeats.find(function (s) {
                       return s.branchCode === code;
                     });
 
@@ -14737,9 +14754,9 @@
                       className.push('space');
                     }
 
-                    if (_this17.authorizeSeatReservation !== undefined && _this17.authorizeSeatReservation.result !== undefined && _this17.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
+                    if (_this18.authorizeSeatReservation !== undefined && _this18.authorizeSeatReservation.result !== undefined && _this18.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
                       // chevre
-                      var findResult = _this17.authorizeSeatReservation.result.responseBody.object.reservations.find(function (r) {
+                      var findResult = _this18.authorizeSeatReservation.result.responseBody.object.reservations.find(function (r) {
                         var ticketedSeat = r.reservedTicket.ticketedSeat;
                         return ticketedSeat !== undefined && ticketedSeat.seatNumber === code && ticketedSeat.seatSection === section && ticketedSeat.seatRow === row;
                       });
@@ -14749,18 +14766,18 @@
                       }
                     }
 
-                    if (_this17.screenData.hc !== undefined && _this17.screenData.hc.indexOf(code) !== -1) {
+                    if (_this18.screenData.hc !== undefined && _this18.screenData.hc.indexOf(code) !== -1) {
                       className.push('hc');
                     }
 
-                    if (_this17.screenData.spare !== undefined && _this17.screenData.spare.indexOf(code) !== -1) {
+                    if (_this18.screenData.spare !== undefined && _this18.screenData.spare.indexOf(code) !== -1) {
                       className.push('spare');
                     }
 
                     var seat = {
                       className: className.join(' '),
-                      w: _this17.screenData.seatSize.w,
-                      h: _this17.screenData.seatSize.h,
+                      w: _this18.screenData.seatSize.w,
+                      h: _this18.screenData.seatSize.h,
                       y: 0,
                       x: pos.x,
                       code: code,
@@ -14772,24 +14789,24 @@
                   } // ポジション設定
 
 
-                  if (_this17.screenData.map[y][x] === 2) {
-                    pos.x += _this17.screenData.aisle.middle.w + _this17.screenData.seatMargin.w;
-                  } else if (_this17.screenData.map[y][x] === 3) {
-                    pos.x += _this17.screenData.aisle.small.w + _this17.screenData.seatMargin.w;
-                  } else if (_this17.screenData.map[y][x] === 4) {
-                    pos.x += _this17.screenData.aisle.middle.w + _this17.screenData.seatSize.w + _this17.screenData.seatMargin.w;
-                  } else if (_this17.screenData.map[y][x] === 5) {
-                    pos.x += _this17.screenData.aisle.small.w + _this17.screenData.seatSize.w + _this17.screenData.seatMargin.w;
-                  } else if (_this17.screenData.map[y][x] === 6) {
-                    pos.x += _this17.screenData.aisle.middle.w + _this17.screenData.seatSize.w + _this17.screenData.seatMargin.w;
-                  } else if (_this17.screenData.map[y][x] === 7) {
-                    pos.x += _this17.screenData.aisle.small.w + _this17.screenData.seatSize.w + _this17.screenData.seatMargin.w;
+                  if (_this18.screenData.map[y][x] === 2) {
+                    pos.x += _this18.screenData.aisle.middle.w + _this18.screenData.seatMargin.w;
+                  } else if (_this18.screenData.map[y][x] === 3) {
+                    pos.x += _this18.screenData.aisle.small.w + _this18.screenData.seatMargin.w;
+                  } else if (_this18.screenData.map[y][x] === 4) {
+                    pos.x += _this18.screenData.aisle.middle.w + _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
+                  } else if (_this18.screenData.map[y][x] === 5) {
+                    pos.x += _this18.screenData.aisle.small.w + _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
+                  } else if (_this18.screenData.map[y][x] === 6) {
+                    pos.x += _this18.screenData.aisle.middle.w + _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
+                  } else if (_this18.screenData.map[y][x] === 7) {
+                    pos.x += _this18.screenData.aisle.small.w + _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
                   } else {
-                    pos.x += _this17.screenData.seatSize.w + _this17.screenData.seatMargin.w;
+                    pos.x += _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
                   }
                 };
 
-                for (var x = 0; x < _this17.screenData.map[y].length; x++) {
+                for (var x = 0; x < _this18.screenData.map[y].length; x++) {
                   _loop4(x);
                 }
               }
@@ -15270,12 +15287,12 @@
         }, {
           key: "update",
           value: function update() {
-            var _this18 = this;
+            var _this19 = this;
 
             this.updateProcess();
             var time = 1000;
             this.timer = setTimeout(function () {
-              _this18.update();
+              _this19.update();
             }, time);
           }
         }, {
