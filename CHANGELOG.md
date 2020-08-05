@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.1.0 - 2020-08-05
+### Changed
+ - angular10へ更新
+
 ## 3.0.50 - 2020-07-31
 ### Added
  - テスト印刷へ印刷幅を確認追加

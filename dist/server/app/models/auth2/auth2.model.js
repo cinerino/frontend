@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Auth2Model = void 0;
 const cinerino = require("@cinerino/sdk");
 /**
  * 認証モデル

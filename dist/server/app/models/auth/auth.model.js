@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AuthModel = void 0;
 const cinerino = require("@cinerino/sdk");
 const uuid = require("uuid");
 /**
