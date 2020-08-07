@@ -47,6 +47,14 @@ export class PurchaseSeatComponent implements OnInit {
                 this.router.navigate(['/error']);
                 return;
             }
+            const reservations = purchase.reservations;
+            await this.resetSeats();
+            reservations.forEach(r => {
+                if (r.seat === undefined) {
+                    return;
+                }
+                this.selectSeat({ seat: r.seat, status: Models.Purchase.Screen.SeatStatus.Default });
+            });
             await this.purchaseService.getScreen({
                 branchCode: { $eq: screeningEvent.location.branchCode },
                 containedInPlace: {
