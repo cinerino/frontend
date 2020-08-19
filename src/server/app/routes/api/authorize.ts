@@ -75,8 +75,8 @@ router.post('/implicit', async (_req, res) => {
     log('implicit');
     try {
         res.json({
-            domain: (<string>process.env.DOMAIN_IMPLICIT),
-            clientId: (<string>process.env.CLIENT_ID_IMPLICIT),
+            domain: (<string>process.env.IMPLICIT_CLIENT_ID),
+            clientId: (<string>process.env.IMPLICIT_DOMAIN),
             endpoint: <string>process.env.API_ENDPOINT,
             waiterServerUrl: <string>process.env.WAITER_SERVER_URL
         });

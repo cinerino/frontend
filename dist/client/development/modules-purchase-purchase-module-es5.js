@@ -598,9 +598,9 @@
         if (rf & 1) {
           var _r12 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 23);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 24);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 24);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 25);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseCinemaScheduleComponent_ul_1_li_1_Template_button_click_1_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r12);
@@ -647,9 +647,9 @@
 
       function PurchaseCinemaScheduleComponent_ul_1_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ul", 21);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ul", 22);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCinemaScheduleComponent_ul_1_li_1_Template, 6, 11, "li", 22);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCinemaScheduleComponent_ul_1_li_1_Template, 6, 11, "li", 23);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
@@ -667,7 +667,7 @@
         if (rf & 1) {
           var _r16 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 28);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 29);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseCinemaScheduleComponent_div_8_button_1_Template_button_click_0_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r16);
@@ -701,7 +701,7 @@
         if (rf & 1) {
           var _r18 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 29);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 30);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseCinemaScheduleComponent_div_8_button_2_Template_button_click_0_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r18);
@@ -733,11 +733,11 @@
 
       function PurchaseCinemaScheduleComponent_div_8_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 25);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 26);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCinemaScheduleComponent_div_8_button_1_Template, 4, 6, "button", 26);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCinemaScheduleComponent_div_8_button_1_Template, 4, 6, "button", 27);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchaseCinemaScheduleComponent_div_8_button_2_Template, 4, 6, "button", 27);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchaseCinemaScheduleComponent_div_8_button_2_Template, 4, 6, "button", 28);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
@@ -759,9 +759,9 @@
         if (rf & 1) {
           var _r21 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 30);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 31);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 31);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 32);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseCinemaScheduleComponent_div_16_Template_div_click_1_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r21);
@@ -814,7 +814,7 @@
 
       function PurchaseCinemaScheduleComponent_p_20_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 32);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 33);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -838,7 +838,7 @@
 
       function PurchaseCinemaScheduleComponent_p_22_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "p", 33);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "p", 34);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](1, "translate");
         }
@@ -852,7 +852,7 @@
         if (rf & 1) {
           var _r24 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "app-purchase-performances", 34);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "app-purchase-performances", 35);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("select", function PurchaseCinemaScheduleComponent_app_purchase_performances_23_Template_app_purchase_performances_select_0_listener($event) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r24);
@@ -872,9 +872,9 @@
         }
       }
 
-      function PurchaseCinemaScheduleComponent_a_25_Template(rf, ctx) {
+      function PurchaseCinemaScheduleComponent_a_26_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 35);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 36);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -1389,9 +1389,9 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.directiveRef = _t.first);
           }
         },
-        decls: 26,
+        decls: 27,
         vars: 21,
-        consts: [["class", "contents-width mx-auto px-3 pt-5", 4, "ngIf"], ["class", "contents-width mx-auto theaters d-flex flex-wrap p-2", 4, "ngIf"], [1, "contents-width", "mx-auto", "px-3", "pt-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "buttons mx-auto mb-3", 4, "ngIf"], [1, "bg-light-gray"], [1, "contents-width", "mx-auto", "py-4", "px-3"], [1, "position-relative", "schedule-slider"], [1, "swiper-container", "date", 3, "swiper", "resize"], ["swiper", ""], [1, "swiper-wrapper"], ["class", "swiper-slide pointer", 4, "ngFor", "ngForOf"], [1, "swiper-button-next"], [1, "swiper-button-prev"], [1, "contents-width", "mx-auto", "p-3"], ["class", "text-primary text-large mb-3", 4, "ngIf"], ["class", "mb-3", 3, "innerHTML", 4, "ngIf"], ["class", "mb-3", 3, "screeningWorkEvent", "select", 4, "ngFor", "ngForOf"], [1, "buttons", "mx-auto", "text-center"], ["class", "btn btn-outline-primary btn-block py-3 portal-link", 3, "href", 4, "ngIf"], [1, "contents-width", "mx-auto", "theaters", "d-flex", "flex-wrap", "p-2"], ["class", "px-2 my-2", 4, "ngFor", "ngForOf"], [1, "px-2", "my-2"], ["type", "button", 1, "btn", "btn-block", "py-3", "m-0", 3, "click"], [1, "buttons", "mx-auto", "mb-3"], ["type", "button", "class", "btn btn-primary btn-block py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-outline-primary btn-block py-3 py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", "py-3", 3, "disabled", "click"], [1, "swiper-slide", "pointer"], [1, "text-center", "text-white", "py-4", 3, "click"], [1, "text-primary", "text-large", "mb-3"], [1, "mb-3", 3, "innerHTML"], [1, "mb-3", 3, "screeningWorkEvent", "select"], [1, "btn", "btn-outline-primary", "btn-block", "py-3", "portal-link", 3, "href"]],
+        consts: [["class", "contents-width mx-auto px-3 pt-5", 4, "ngIf"], ["class", "contents-width mx-auto theaters d-flex flex-wrap p-2", 4, "ngIf"], [1, "contents-width", "mx-auto", "px-3", "pt-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "buttons mx-auto mb-3", 4, "ngIf"], [1, "bg-light-gray"], [1, "contents-width", "mx-auto", "py-4", "px-3"], [1, "position-relative", "schedule-slider"], [1, "swiper-container", "date", 3, "swiper", "resize"], ["swiper", ""], [1, "swiper-wrapper"], ["class", "swiper-slide pointer", 4, "ngFor", "ngForOf"], [1, "swiper-button-next"], [1, "swiper-button-prev"], [1, "contents-width", "mx-auto", "p-3"], ["class", "text-primary text-large mb-3", 4, "ngIf"], ["class", "mb-3", 3, "innerHTML", 4, "ngIf"], ["class", "mb-3", 3, "screeningWorkEvent", "select", 4, "ngFor", "ngForOf"], [1, "contents-width", "mx-auto", "px-3", "pb-5"], [1, "buttons", "mx-auto", "text-center"], ["class", "btn btn-outline-primary btn-block py-3 portal-link", 3, "href", 4, "ngIf"], [1, "contents-width", "mx-auto", "theaters", "d-flex", "flex-wrap", "p-2"], ["class", "px-2 my-2", 4, "ngFor", "ngForOf"], [1, "px-2", "my-2"], ["type", "button", 1, "btn", "btn-block", "py-3", "m-0", 3, "click"], [1, "buttons", "mx-auto", "mb-3"], ["type", "button", "class", "btn btn-primary btn-block py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-outline-primary btn-block py-3 py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", "py-3", 3, "disabled", "click"], [1, "swiper-slide", "pointer"], [1, "text-center", "text-white", "py-4", 3, "click"], [1, "text-primary", "text-large", "mb-3"], [1, "mb-3", 3, "innerHTML"], [1, "mb-3", 3, "screeningWorkEvent", "select"], [1, "btn", "btn-outline-primary", "btn-block", "py-3", "portal-link", 3, "href"]],
         template: function PurchaseCinemaScheduleComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, PurchaseCinemaScheduleComponent_div_0_Template, 6, 6, "div", 0);
@@ -1462,7 +1462,11 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "div", 19);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](25, PurchaseCinemaScheduleComponent_a_25_Template, 3, 4, "a", 20);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](25, "div", 20);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](26, PurchaseCinemaScheduleComponent_a_26_Template, 3, 4, "a", 21);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
           }
@@ -1515,7 +1519,7 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.screeningWorkEvents);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.environment.PORTAL_SITE_URL);
           }

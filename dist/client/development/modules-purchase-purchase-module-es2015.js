@@ -238,8 +238,8 @@ function PurchaseCinemaScheduleComponent_div_0_Template(rf, ctx) { if (rf & 1) {
 } }
 function PurchaseCinemaScheduleComponent_ul_1_li_1_Template(rf, ctx) { if (rf & 1) {
     const _r12 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 23);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 24);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 24);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 25);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseCinemaScheduleComponent_ul_1_li_1_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r12); const theater_r10 = ctx.$implicit; const ctx_r11 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); return ctx_r11.selectTheater(theater_r10); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "async");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](3, "async");
@@ -260,8 +260,8 @@ function PurchaseCinemaScheduleComponent_ul_1_li_1_Template(rf, ctx) { if (rf & 
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](5, 9, theater_r10.name));
 } }
 function PurchaseCinemaScheduleComponent_ul_1_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ul", 21);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCinemaScheduleComponent_ul_1_li_1_Template, 6, 11, "li", 22);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ul", 22);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCinemaScheduleComponent_ul_1_li_1_Template, 6, 11, "li", 23);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -270,7 +270,7 @@ function PurchaseCinemaScheduleComponent_ul_1_Template(rf, ctx) { if (rf & 1) {
 } }
 function PurchaseCinemaScheduleComponent_div_8_button_1_Template(rf, ctx) { if (rf & 1) {
     const _r16 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 28);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 29);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseCinemaScheduleComponent_div_8_button_1_Template_button_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r16); const ctx_r15 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); return ctx_r15.changeScheduleType(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](1, "async");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
@@ -284,7 +284,7 @@ function PurchaseCinemaScheduleComponent_div_8_button_1_Template(rf, ctx) { if (
 } }
 function PurchaseCinemaScheduleComponent_div_8_button_2_Template(rf, ctx) { if (rf & 1) {
     const _r18 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 29);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 30);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseCinemaScheduleComponent_div_8_button_2_Template_button_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r18); const ctx_r17 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); return ctx_r17.changeScheduleType(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](1, "async");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
@@ -297,9 +297,9 @@ function PurchaseCinemaScheduleComponent_div_8_button_2_Template(rf, ctx) { if (
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 4, "purchase.cinema.schedule.salesSchedule"));
 } }
 function PurchaseCinemaScheduleComponent_div_8_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 25);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCinemaScheduleComponent_div_8_button_1_Template, 4, 6, "button", 26);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchaseCinemaScheduleComponent_div_8_button_2_Template, 4, 6, "button", 27);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 26);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCinemaScheduleComponent_div_8_button_1_Template, 4, 6, "button", 27);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchaseCinemaScheduleComponent_div_8_button_2_Template, 4, 6, "button", 28);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -310,8 +310,8 @@ function PurchaseCinemaScheduleComponent_div_8_Template(rf, ctx) { if (rf & 1) {
 } }
 function PurchaseCinemaScheduleComponent_div_16_Template(rf, ctx) { if (rf & 1) {
     const _r21 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 30);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 31);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 31);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 32);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseCinemaScheduleComponent_div_16_Template_div_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r21); const scheduleDate_r19 = ctx.$implicit; const ctx_r20 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r20.selectDate(scheduleDate_r19); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "async");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](3, "async");
@@ -335,7 +335,7 @@ function PurchaseCinemaScheduleComponent_div_16_Template(rf, ctx) { if (rf & 1) 
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r4.moment(scheduleDate_r19).format("MM/DD(ddd)"));
 } }
 function PurchaseCinemaScheduleComponent_p_20_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 32);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 33);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "formatDate");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](3, "async");
@@ -347,22 +347,22 @@ function PurchaseCinemaScheduleComponent_p_20_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](2, 1, (tmp_0_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 4, ctx_r5.purchase)) == null ? null : tmp_0_0.scheduleDate, "YYYY/MM/DD (ddd)"), " ");
 } }
 function PurchaseCinemaScheduleComponent_p_22_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "p", 33);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "p", 34);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](1, "translate");
 } if (rf & 2) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("innerHTML", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](1, 1, "purchase.cinema.schedule.notfound"), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeHtml"]);
 } }
 function PurchaseCinemaScheduleComponent_app_purchase_performances_23_Template(rf, ctx) { if (rf & 1) {
     const _r24 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "app-purchase-performances", 34);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "app-purchase-performances", 35);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("select", function PurchaseCinemaScheduleComponent_app_purchase_performances_23_Template_app_purchase_performances_select_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r24); const ctx_r23 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r23.selectSchedule($event); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const screeningWorkEvent_r22 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("screeningWorkEvent", screeningWorkEvent_r22);
 } }
-function PurchaseCinemaScheduleComponent_a_25_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 35);
+function PurchaseCinemaScheduleComponent_a_26_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 36);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "translate");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -619,7 +619,7 @@ PurchaseCinemaScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0
         var _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.componentRef = _t.first);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.directiveRef = _t.first);
-    } }, decls: 26, vars: 21, consts: [["class", "contents-width mx-auto px-3 pt-5", 4, "ngIf"], ["class", "contents-width mx-auto theaters d-flex flex-wrap p-2", 4, "ngIf"], [1, "contents-width", "mx-auto", "px-3", "pt-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "buttons mx-auto mb-3", 4, "ngIf"], [1, "bg-light-gray"], [1, "contents-width", "mx-auto", "py-4", "px-3"], [1, "position-relative", "schedule-slider"], [1, "swiper-container", "date", 3, "swiper", "resize"], ["swiper", ""], [1, "swiper-wrapper"], ["class", "swiper-slide pointer", 4, "ngFor", "ngForOf"], [1, "swiper-button-next"], [1, "swiper-button-prev"], [1, "contents-width", "mx-auto", "p-3"], ["class", "text-primary text-large mb-3", 4, "ngIf"], ["class", "mb-3", 3, "innerHTML", 4, "ngIf"], ["class", "mb-3", 3, "screeningWorkEvent", "select", 4, "ngFor", "ngForOf"], [1, "buttons", "mx-auto", "text-center"], ["class", "btn btn-outline-primary btn-block py-3 portal-link", 3, "href", 4, "ngIf"], [1, "contents-width", "mx-auto", "theaters", "d-flex", "flex-wrap", "p-2"], ["class", "px-2 my-2", 4, "ngFor", "ngForOf"], [1, "px-2", "my-2"], ["type", "button", 1, "btn", "btn-block", "py-3", "m-0", 3, "click"], [1, "buttons", "mx-auto", "mb-3"], ["type", "button", "class", "btn btn-primary btn-block py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-outline-primary btn-block py-3 py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", "py-3", 3, "disabled", "click"], [1, "swiper-slide", "pointer"], [1, "text-center", "text-white", "py-4", 3, "click"], [1, "text-primary", "text-large", "mb-3"], [1, "mb-3", 3, "innerHTML"], [1, "mb-3", 3, "screeningWorkEvent", "select"], [1, "btn", "btn-outline-primary", "btn-block", "py-3", "portal-link", 3, "href"]], template: function PurchaseCinemaScheduleComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 27, vars: 21, consts: [["class", "contents-width mx-auto px-3 pt-5", 4, "ngIf"], ["class", "contents-width mx-auto theaters d-flex flex-wrap p-2", 4, "ngIf"], [1, "contents-width", "mx-auto", "px-3", "pt-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "buttons mx-auto mb-3", 4, "ngIf"], [1, "bg-light-gray"], [1, "contents-width", "mx-auto", "py-4", "px-3"], [1, "position-relative", "schedule-slider"], [1, "swiper-container", "date", 3, "swiper", "resize"], ["swiper", ""], [1, "swiper-wrapper"], ["class", "swiper-slide pointer", 4, "ngFor", "ngForOf"], [1, "swiper-button-next"], [1, "swiper-button-prev"], [1, "contents-width", "mx-auto", "p-3"], ["class", "text-primary text-large mb-3", 4, "ngIf"], ["class", "mb-3", 3, "innerHTML", 4, "ngIf"], ["class", "mb-3", 3, "screeningWorkEvent", "select", 4, "ngFor", "ngForOf"], [1, "contents-width", "mx-auto", "px-3", "pb-5"], [1, "buttons", "mx-auto", "text-center"], ["class", "btn btn-outline-primary btn-block py-3 portal-link", 3, "href", 4, "ngIf"], [1, "contents-width", "mx-auto", "theaters", "d-flex", "flex-wrap", "p-2"], ["class", "px-2 my-2", 4, "ngFor", "ngForOf"], [1, "px-2", "my-2"], ["type", "button", 1, "btn", "btn-block", "py-3", "m-0", 3, "click"], [1, "buttons", "mx-auto", "mb-3"], ["type", "button", "class", "btn btn-primary btn-block py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-outline-primary btn-block py-3 py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", "py-3", 3, "disabled", "click"], [1, "swiper-slide", "pointer"], [1, "text-center", "text-white", "py-4", 3, "click"], [1, "text-primary", "text-large", "mb-3"], [1, "mb-3", 3, "innerHTML"], [1, "mb-3", 3, "screeningWorkEvent", "select"], [1, "btn", "btn-outline-primary", "btn-block", "py-3", "portal-link", 3, "href"]], template: function PurchaseCinemaScheduleComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, PurchaseCinemaScheduleComponent_div_0_Template, 6, 6, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCinemaScheduleComponent_ul_1_Template, 2, 1, "ul", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 2);
@@ -653,7 +653,9 @@ PurchaseCinemaScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](23, PurchaseCinemaScheduleComponent_app_purchase_performances_23_Template, 1, 1, "app-purchase-performances", 18);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "div", 19);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](25, PurchaseCinemaScheduleComponent_a_25_Template, 3, 4, "a", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](25, "div", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](26, PurchaseCinemaScheduleComponent_a_26_Template, 3, 4, "a", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     } if (rf & 2) {
         var tmp_4_0 = null;
@@ -681,7 +683,7 @@ PurchaseCinemaScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.screeningWorkEvents.length === 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.screeningWorkEvents);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.environment.PORTAL_SITE_URL);
     } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_11__["NgIf"], ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_6__["SwiperDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgForOf"], _parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_12__["PurchasePerformancesComponent"]], pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["AsyncPipe"], _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_13__["ChangeLanguagePipe"], _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_14__["FormatDatePipe"]], styles: [".theaters[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  width: 50%;\n}\n@media (max-width: 767.98px) {\n  .theaters[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-slide[_ngcontent-%COMP%]::after {\n  content: \"\";\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 4px;\n  background-color: #000;\n  opacity: 0.3;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%], .schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%] {\n  top: 0;\n  bottom: 0;\n  margin-top: 0;\n  height: 100%;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: 60%;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%]::after, .schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%]::after {\n  display: none;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%] {\n  right: 0px;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%] {\n  left: 0px;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%], .schedule-slider[_ngcontent-%COMP%]   .swiper-container-rtl[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%] {\n  background-image: url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E\");\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%], .schedule-slider[_ngcontent-%COMP%]   .swiper-container-rtl[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%] {\n  background-image: url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E\");\n}"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PurchaseCinemaScheduleComponent, [{

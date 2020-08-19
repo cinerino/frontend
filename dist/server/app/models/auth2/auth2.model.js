@@ -28,9 +28,9 @@ class Auth2Model {
      */
     create(req) {
         const auth = new cinerino.auth.OAuth2({
-            domain: process.env.DOMAIN_AUTHORIZATION_CODE,
-            clientId: process.env.OAUTH2_AUTHORIZATION_CODE,
-            clientSecret: process.env.CLIENT_SECRET_AUTHORIZATION_CODE,
+            domain: process.env.AUTHORIZATION_CODE_DOMAIN,
+            clientId: process.env.AUTHORIZATION_CODE_CLIENT_ID,
+            clientSecret: process.env.AUTHORIZATION_CODE_CLIENT_SECRET,
             redirectUri: `${req.protocol}://${req.hostname}/signIn`,
             logoutUri: `${req.protocol}://${req.hostname}/signOut`,
             state: this.state,

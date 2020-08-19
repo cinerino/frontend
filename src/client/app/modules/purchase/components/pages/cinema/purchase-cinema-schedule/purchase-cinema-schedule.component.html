@@ -57,7 +57,10 @@
     </app-purchase-performances>
 </div>
 
-<div class="buttons mx-auto text-center">
-    <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-outline-primary btn-block py-3 portal-link"
-        [href]="environment.PORTAL_SITE_URL">{{ 'purchase.cinema.schedule.prev' | translate }}</a>
+<div class="contents-width mx-auto px-3 pb-5">
+    <div class="buttons mx-auto text-center">
+        <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-outline-primary btn-block py-3 portal-link"
+            [href]="environment.PORTAL_SITE_URL">{{ 'purchase.cinema.schedule.prev' | translate }}</a>
+    </div>
 </div>
+
