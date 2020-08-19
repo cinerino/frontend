@@ -79,4 +79,21 @@ router.get('/signOut', (req, res) => {
     log('url:', url);
     res.json({ url });
 });
+/**
+ * 認証情報取得(implicitフロー)
+ */
+router.post('/implicit', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    log('implicit');
+    try {
+        res.json({
+            domain: process.env.DOMAIN_IMPLICIT,
+            clientId: process.env.CLIENT_ID_IMPLICIT,
+            endpoint: process.env.API_ENDPOINT,
+            waiterServerUrl: process.env.WAITER_SERVER_URL
+        });
+    }
+    catch (error) {
+        base_1.errorProsess(res, error);
+    }
+}));
 exports.authorizeRouter = router;

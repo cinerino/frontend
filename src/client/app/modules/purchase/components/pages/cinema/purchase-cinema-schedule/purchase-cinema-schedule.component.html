@@ -19,7 +19,7 @@
         <button *ngIf="!isPreSchedule" type="button" class="btn btn-primary btn-block py-3"
             [disabled]="isLoading | async"
             (click)="changeScheduleType()">{{ 'purchase.cinema.schedule.preSalesSchedule' | translate }}</button>
-        <button *ngIf="isPreSchedule" type="button" class="btn btn-outline-primary btn-block py-3"
+        <button *ngIf="isPreSchedule" type="button" class="btn btn-outline-primary btn-block py-3 py-3"
             [disabled]="isLoading | async"
             (click)="changeScheduleType()">{{ 'purchase.cinema.schedule.salesSchedule' | translate }}</button>
     </div>
@@ -58,6 +58,6 @@
 </div>
 
 <div class="buttons mx-auto text-center">
-    <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-link portal-link"
+    <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-outline-primary btn-block py-3 portal-link"
         [href]="environment.PORTAL_SITE_URL">{{ 'purchase.cinema.schedule.prev' | translate }}</a>
 </div>

@@ -39,7 +39,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         private purchaseService: PurchaseService,
         private masterService: MasterService,
         private localeService: BsLocaleService,
-        private utilService: UtilService
+        private utilService: UtilService,
     ) { }
 
     /**

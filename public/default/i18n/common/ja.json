@@ -1,5 +1,11 @@
 {
     "purchase": {
+        "member": {
+            "title": "",
+            "read": "",
+            "next": "次へ",
+            "prev": "戻る"
+        },
         "input": {
             "title": "購入者情報入力",
             "read": "",
