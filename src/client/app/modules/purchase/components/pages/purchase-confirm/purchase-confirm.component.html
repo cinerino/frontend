@@ -81,7 +81,7 @@
             [disabled]="isLoading | async" (click)="onSubmit()">{{ 'purchase.confirm.next' | translate }}</button>
         <button *ngIf="environment.PURCHASE_WARNING" type="submit" class="btn btn-primary btn-block py-3 mb-3"
             [disabled]="isLoading | async" (click)="onSubmit()">{{ 'purchase.confirm.consent' | translate }}</button>
-        <button type="button" class="btn btn-link"
+        <button type="button" class="btn btn-outline-primary btn-block py-3"
             routerLink="/purchase/input">{{ 'purchase.confirm.prev' | translate }}</button>
     </div>
 </div>

@@ -37,7 +37,11 @@ exports.default = (app) => {
     app.use('/api/liny', liny_1.linyRouter);
     app.use('/api', util_1.utilRouter);
     app.get('/signIn', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        log('signInRedirect');
+        log('signInRedirect', req.query);
+        if (req.query.code === undefined) {
+            res.redirect('/default/html/signIn.html');
+            return;
+        }
         try {
             if (req.session === undefined) {
                 throw new Error('session is undefined');

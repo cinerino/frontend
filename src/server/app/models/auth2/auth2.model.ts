@@ -76,9 +76,9 @@ export class Auth2Model {
      */
     public create(req: express.Request): cinerino.auth.OAuth2 {
         const auth = new cinerino.auth.OAuth2({
-            domain: (<string>process.env.OAUTH2_SERVER_DOMAIN),
-            clientId: (<string>process.env.CLIENT_ID_OAUTH2),
-            clientSecret: (<string>process.env.CLIENT_SECRET_OAUTH2),
+            domain: (<string>process.env.AUTHORIZATION_CODE_DOMAIN),
+            clientId: (<string>process.env.AUTHORIZATION_CODE_CLIENT_ID),
+            clientSecret: (<string>process.env.AUTHORIZATION_CODE_CLIENT_SECRET),
             redirectUri: `${req.protocol}://${req.hostname}/signIn`,
             logoutUri: `${req.protocol}://${req.hostname}/signOut`,
             state: this.state,

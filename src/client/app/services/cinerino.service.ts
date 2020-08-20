@@ -168,4 +168,31 @@ export class CinerinoService {
 
         return result;
     }
+
+    public async signIn2implicit() {
+        const url = '/api/authorize/implicit';
+        const result = await this.http.post<{
+            clientId: string;
+            domain: string;
+            endpoint: string;
+            waiterServerUrl: string;
+        }>(url, {}).toPromise();
+        const scopes: string[] = [];
+        const options = {
+            domain: result.domain,
+            clientId: result.clientId,
+            responseType: 'token',
+            redirectUri: `${location.origin}/signIn`,
+            logoutUri: `${location.origin}/signOut`,
+            scope: scopes.join(' '),
+            state: '',
+            nonce: '',
+            tokenIssuer: ''
+        };
+        const auth = cinerino.createAuthInstance(options);
+        const credentials = await auth.signIn();
+        this.auth.setCredentials(credentials);
+        this.endpoint = result.endpoint;
+        this.waiterServerUrl = result.waiterServerUrl;
+    }
 }
