@@ -1,10 +1,24 @@
 {
     "purchase": {
         "member": {
-            "title": "",
-            "read": "",
-            "next": "次へ",
-            "prev": "戻る"
+            "select": {
+                "title": "会員 / 非会員を選択",
+                "read": "",
+                "member": {
+                    "label": "会員として購入を始める"
+                },
+                "nonMember": {
+                    "label": "非会員として購入を始める"
+                },
+                "next": "次へ",
+                "prev": "戻る"
+            },
+            "process": {
+                "title": "会員 / 非会員を選択",
+                "read": "",
+                "next": "次へ",
+                "prev": "戻る"
+            }
         },
         "input": {
             "title": "購入者情報入力",

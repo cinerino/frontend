@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { PurchaseService, UserService, UtilService } from '../../../../../services';
+import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -27,8 +27,7 @@ export class PurchaseConfirmComponent implements OnInit {
     constructor(
         private store: Store<reducers.IState>,
         private utilService: UtilService,
-        private userService: UserService,
-        private purchaseService: PurchaseService,
+        private actionService: ActionService,
         private router: Router,
         private translate: TranslateService
     ) { }
@@ -41,7 +40,7 @@ export class PurchaseConfirmComponent implements OnInit {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.user = this.store.pipe(select(reducers.getUser));
         this.amount = 0;
-        const purchase = await this.purchaseService.getData();
+        const purchase = await this.actionService.purchase.getData();
         if (purchase.transaction === undefined
             || purchase.profile === undefined) {
             this.router.navigate(['/error']);
@@ -55,12 +54,12 @@ export class PurchaseConfirmComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
-        const purchaseData = await this.purchaseService.getData();
-        const userData = await this.userService.getData();
+        const purchaseData = await this.actionService.purchase.getData();
+        const userData = await this.actionService.user.getData();
         const language = userData.language;
         try {
             if (purchaseData.pendingMovieTickets.length > 0) {
-                await this.purchaseService.authorizeMovieTicket();
+                await this.actionService.purchase.authorizeMovieTicket();
             }
         } catch (error) {
             this.router.navigate(['/error']);
@@ -68,7 +67,7 @@ export class PurchaseConfirmComponent implements OnInit {
         }
         try {
             if (this.amount > 0) {
-                await this.purchaseService.authorizeCreditCard(this.amount);
+                await this.actionService.purchase.authorizeCreditCard(this.amount);
             }
         } catch (error) {
             this.utilService.openAlert({
@@ -79,7 +78,7 @@ export class PurchaseConfirmComponent implements OnInit {
             return;
         }
         try {
-            await this.purchaseService.endTransaction({ language });
+            await this.actionService.purchase.endTransaction({ language });
             this.router.navigate(['/purchase/complete']);
         } catch (error) {
             this.router.navigate(['/error']);

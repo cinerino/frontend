@@ -86,8 +86,8 @@ router.post('/implicit', (_req, res) => __awaiter(void 0, void 0, void 0, functi
     log('implicit');
     try {
         res.json({
-            domain: process.env.IMPLICIT_CLIENT_ID,
-            clientId: process.env.IMPLICIT_DOMAIN,
+            domain: process.env.IMPLICIT_DOMAIN,
+            clientId: process.env.IMPLICIT_CLIENT_ID,
             endpoint: process.env.API_ENDPOINT,
             waiterServerUrl: process.env.WAITER_SERVER_URL
         });

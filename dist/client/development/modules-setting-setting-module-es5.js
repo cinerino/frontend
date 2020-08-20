@@ -545,16 +545,15 @@
       }
 
       var SettingComponent = /*#__PURE__*/function () {
-        function SettingComponent(store, utilService, masterService, userService, formBuilder, translate, orderService, router) {
+        function SettingComponent(store, utilService, masterService, actionService, formBuilder, translate, router) {
           _classCallCheck(this, SettingComponent);
 
           this.store = store;
           this.utilService = utilService;
           this.masterService = masterService;
-          this.userService = userService;
+          this.actionService = actionService;
           this.formBuilder = formBuilder;
           this.translate = translate;
-          this.orderService = orderService;
           this.router = router;
           this.viewType = ___WEBPACK_IMPORTED_MODULE_5__["Models"].Common.ViewType;
           this.printers = ___WEBPACK_IMPORTED_MODULE_5__["Models"].Common.Printer.printers;
@@ -617,7 +616,7 @@
                         printerIpAddress: ['']
                       });
                       _context2.next = 3;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 3:
                       user = _context2.sent;
@@ -728,7 +727,7 @@
                       throw new Error('pos not found').message;
 
                     case 13:
-                      this.userService.updateBaseSetting({
+                      this.actionService.user.updateBaseSetting({
                         pos: pos,
                         theater: theater,
                         printer: {
@@ -771,7 +770,7 @@
                         ipAddress: this.baseForm.controls.printerIpAddress.value
                       };
                       _context4.next = 4;
-                      return this.orderService.print({
+                      return this.actionService.order.print({
                         orders: [],
                         printer: printer
                       });
@@ -814,7 +813,7 @@
       }();
 
       SettingComponent.ɵfac = function SettingComponent_Factory(t) {
-        return new (t || SettingComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["OrderService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]));
+        return new (t || SettingComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]));
       };
 
       SettingComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -880,13 +879,11 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_7__["MasterService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_7__["UserService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]
           }, {
             type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_7__["OrderService"]
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]
           }];

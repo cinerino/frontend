@@ -8,7 +8,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
+import { ActionService, MasterService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 import {
     PurchaseEventTicketModalComponent
@@ -36,7 +36,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         private utilService: UtilService,
         private masterService: MasterService,
         private translate: TranslateService,
-        private purchaseService: PurchaseService,
+        private actionService: ActionService,
         private modal: BsModalService
     ) { }
 
@@ -49,7 +49,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         this.error = this.store.pipe(select(reducers.getError));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.screeningWorkEvents = [];
-        this.purchaseService.unsettledDelete();
+        this.actionService.purchase.unsettledDelete();
         try {
             await this.getSchedule();
         } catch (error) {
@@ -87,7 +87,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      * スケジュール取得
      */
     public async getSchedule() {
-        const purchase = await this.purchaseService.getData();
+        const purchase = await this.actionService.purchase.getData();
         const theater = purchase.theater;
         const scheduleDate = purchase.scheduleDate;
         const transaction = purchase.transaction;
@@ -116,7 +116,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      * @param screeningEvent
      */
     public async selectSchedule(screeningEvent: factory.event.screeningEvent.IEvent) {
-        const purchase = await this.purchaseService.getData();
+        const purchase = await this.actionService.purchase.getData();
         if (purchase.authorizeSeatReservations.length > 0
             && Number(this.environment.PURCHASE_ITEM_MAX_LENGTH) === 1) {
             this.utilService.openAlert({
@@ -126,10 +126,10 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             return;
         }
         try {
-            await this.purchaseService.getScreeningEvent(screeningEvent);
-            this.screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
-            await this.purchaseService.getTicketList();
-            await this.purchaseService.getScreen({
+            await this.actionService.purchase.getScreeningEvent(screeningEvent);
+            this.screeningEventSeats = await this.actionService.purchase.getScreeningEventSeats();
+            await this.actionService.purchase.getTicketList();
+            await this.actionService.purchase.getScreen({
                 branchCode: { $eq: screeningEvent.location.branchCode },
                 containedInPlace: {
                     branchCode: { $eq: screeningEvent.superEvent.location.branchCode }
@@ -148,7 +148,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      * 券種一覧表示
      */
     private async openTicketList() {
-        const purchase = await this.purchaseService.getData();
+        const purchase = await this.actionService.purchase.getData();
         const screeningEvent = purchase.screeningEvent;
         const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
         const screeningEventSeats = this.screeningEventSeats;
@@ -191,7 +191,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         const reservations = params.reservations;
         const additionalTicketText = params.additionalTicketText;
         try {
-            const purchase = await this.purchaseService.getData();
+            const purchase = await this.actionService.purchase.getData();
             const limit = (purchase.screeningEvent === undefined
                 || purchase.screeningEvent.offers === undefined
                 || purchase.screeningEvent.offers.eligibleQuantity.maxValue === undefined)
@@ -207,7 +207,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 });
                 return;
             }
-            this.screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
+            this.screeningEventSeats = await this.actionService.purchase.getScreeningEventSeats();
             if (purchase.screeningEvent !== undefined
                 && new Models.Purchase.Performance(purchase.screeningEvent).isTicketedSeat()) {
                 const remainingSeatLength = Functions.Purchase.getRemainingSeatLength({
@@ -230,7 +230,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             });
         }
         try {
-            await this.purchaseService.temporaryReservation({
+            await this.actionService.purchase.temporaryReservation({
                 reservations,
                 additionalTicketText,
                 screeningEventSeats: this.screeningEventSeats
@@ -239,7 +239,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 title: this.translate.instant('common.complete'),
                 body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
             });
-            this.purchaseService.unsettledDelete();
+            this.actionService.purchase.unsettledDelete();
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
@@ -253,7 +253,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
      * 券種確定
      */
     public async onSubmit() {
-        const purchase = await this.purchaseService.getData();
+        const purchase = await this.actionService.purchase.getData();
         const authorizeSeatReservations = purchase.authorizeSeatReservations;
         // チケット未選択判定
         if (authorizeSeatReservations.length === 0) {
@@ -335,7 +335,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             body: this.translate.instant('purchase.event.cart.confirm.cancel'),
             cb: async () => {
                 const authorizeSeatReservations = [authorizeSeatReservation];
-                await this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations);
+                await this.actionService.purchase.cancelTemporaryReservations(authorizeSeatReservations);
             }
         });
     }

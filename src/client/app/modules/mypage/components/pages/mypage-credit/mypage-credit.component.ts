@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { MasterService, UserService, UtilService } from '../../../../../services';
+import { ActionService, MasterService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { CreditcardRegisterModalComponent } from '../../../../shared/components/parts/creditcard/register-modal/register-modal.component';
 
@@ -24,7 +24,7 @@ export class MypageCreditComponent implements OnInit {
         private store: Store<reducers.IState>,
         private utilService: UtilService,
         private masterService: MasterService,
-        private userService: UserService,
+        private actionService: ActionService,
         private translate: TranslateService,
         private router: Router,
         private modal: BsModalService,
@@ -39,7 +39,7 @@ export class MypageCreditComponent implements OnInit {
         this.sellers = [];
         try {
             this.sellers = await this.masterService.getSellers();
-            await this.userService.getCreditCards();
+            await this.actionService.user.getCreditCards();
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -56,8 +56,8 @@ export class MypageCreditComponent implements OnInit {
             body: this.translate.instant('mypage.credit.confirm.remove'),
             cb: async () => {
                 try {
-                    await this.userService.removeCreditCard(creditCard);
-                    await this.userService.getCreditCards();
+                    await this.actionService.user.removeCreditCard(creditCard);
+                    await this.actionService.user.getCreditCards();
                 } catch (error) {
                     console.error(error);
                     this.utilService.openAlert({
@@ -91,8 +91,8 @@ export class MypageCreditComponent implements OnInit {
                         if (seller === undefined) {
                             throw new Error('seller undefined');
                         }
-                        await this.userService.addCreditCard({ creditCard, seller });
-                        await this.userService.getCreditCards();
+                        await this.actionService.user.addCreditCard({ creditCard, seller });
+                        await this.actionService.user.getCreditCards();
                     } catch (error) {
                         console.error(error);
                         this.utilService.openAlert({

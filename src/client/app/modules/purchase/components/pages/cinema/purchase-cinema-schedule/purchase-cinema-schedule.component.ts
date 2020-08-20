@@ -9,7 +9,7 @@ import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swi
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
+import { ActionService, MasterService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
 @Component({
@@ -38,7 +38,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         private store: Store<reducers.IState>,
         private router: Router,
         private utilService: UtilService,
-        private purchaseService: PurchaseService,
+        private actionService: ActionService,
         private masterService: MasterService,
         private translate: TranslateService
     ) { }
@@ -74,7 +74,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             if (this.theaters.length === 0) {
                 throw new Error('theater notfound');
             }
-            const purchase = await this.purchaseService.getData();
+            const purchase = await this.actionService.purchase.getData();
             const external = Functions.Util.getExternalData();
             let theater = (purchase.theater === undefined) ? this.theaters[0] : purchase.theater;
             const findResult = this.theaters.find((t) => {
@@ -101,7 +101,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
      * スケジュールの種類を変更
      */
     public async changeScheduleType() {
-        const purchase = await this.purchaseService.getData();
+        const purchase = await this.actionService.purchase.getData();
         if (this.isPreSchedule) {
             this.scheduleDates = [];
             for (let i = 0; i < Number(this.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
@@ -125,7 +125,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         }
         const time = 600000; // 10 * 60 * 1000
         this.updateTimer = setTimeout(async () => {
-            const purchase = await this.purchaseService.getData();
+            const purchase = await this.actionService.purchase.getData();
             if (purchase.theater === undefined) {
                 this.router.navigate(['/error']);
                 return;
@@ -146,14 +146,14 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
      */
     public async selectTheater(theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom) {
         try {
-            this.purchaseService.selectTheater(theater);
+            this.actionService.purchase.selectTheater(theater);
             this.scheduleDates = [];
             for (let i = 0; i < Number(this.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
                 this.scheduleDates.push(moment().add(i, 'day').format('YYYYMMDD'));
             }
             this.isPreSchedule = false;
             this.directiveRef.update();
-            await this.purchaseService.getPreScheduleDates();
+            await this.actionService.purchase.getPreScheduleDates();
             this.isPreSchedule = false;
             this.selectDate();
         } catch (error) {
@@ -166,7 +166,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
      * 日付選択
      */
     public async selectDate(scheduleDate?: string) {
-        const purchase = await this.purchaseService.getData();
+        const purchase = await this.actionService.purchase.getData();
         const theater = purchase.theater;
         const external = Functions.Util.getExternalData();
         if (theater === undefined || this.scheduleDates.length === 0) {
@@ -183,7 +183,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 scheduleDate = external.scheduleDate;
             }
         }
-        this.purchaseService.selectScheduleDate(scheduleDate);
+        this.actionService.purchase.selectScheduleDate(scheduleDate);
         try {
             const screeningEvents = await this.masterService.getSchedule({
                 superEvent: {
@@ -221,29 +221,29 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             });
             return;
         }
-        this.purchaseService.unsettledDelete();
+        this.actionService.purchase.unsettledDelete();
         try {
-            await this.purchaseService.getScreeningEvent(screeningEvent);
+            await this.actionService.purchase.getScreeningEvent(screeningEvent);
             if (screeningEvent.offers.seller === undefined
                 || screeningEvent.offers.seller.id === undefined) {
                 throw new Error('screeningEvent.offers.seller or screeningEvent.offers.seller.id undefined');
             }
-            await this.purchaseService.getSeller(screeningEvent.offers.seller.id);
+            await this.actionService.purchase.getSeller(screeningEvent.offers.seller.id);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
             return;
         }
-        const purchase = await this.purchaseService.getData();
+        const purchase = await this.actionService.purchase.getData();
         if (purchase.seller === undefined) {
             this.router.navigate(['/error']);
             return;
         }
         try {
             if (purchase.transaction !== undefined) {
-                await this.purchaseService.cancelTransaction();
+                await this.actionService.purchase.cancelTransaction();
             }
-            await this.purchaseService.startTransaction();
+            await this.actionService.purchase.startTransaction();
             this.router.navigate(['/purchase/cinema/seat']);
         } catch (error) {
             if (error === null) {

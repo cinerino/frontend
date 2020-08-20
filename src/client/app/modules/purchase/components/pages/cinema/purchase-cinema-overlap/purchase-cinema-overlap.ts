@@ -4,7 +4,7 @@ import { factory } from '@cinerino/sdk/lib/abstract';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../../..';
-import { CinerinoService, PurchaseService } from '../../../../../../services';
+import { ActionService, CinerinoService, } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
 @Component({
@@ -23,7 +23,7 @@ export class PurchaseCinemaOverlapComponent implements OnInit {
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
-        private purchaseService: PurchaseService,
+        private actionService: ActionService,
         private cinerino: CinerinoService
     ) { }
 
@@ -52,8 +52,8 @@ export class PurchaseCinemaOverlapComponent implements OnInit {
     }
 
     public async onSubmit() {
-        this.purchaseService.delete();
-        await this.purchaseService.cancelTransaction();
+        this.actionService.purchase.delete();
+        await this.actionService.purchase.cancelTransaction();
         const external = Functions.Util.getExternalData();
         if (external.eventId !== undefined) {
             this.router.navigate([`/purchase/transaction/${external.eventId}`]);

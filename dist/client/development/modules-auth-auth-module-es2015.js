@@ -198,11 +198,9 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 
 class AuthSigninComponent {
-    constructor(router, purchaseService, userService, orderService, store) {
+    constructor(router, actionService, store) {
         this.router = router;
-        this.purchaseService = purchaseService;
-        this.userService = userService;
-        this.orderService = orderService;
+        this.actionService = actionService;
         this.store = store;
         this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
     }
@@ -212,15 +210,17 @@ class AuthSigninComponent {
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
             this.process = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getProcess"]));
-            this.purchaseService.delete();
-            this.userService.delete();
-            this.userService.initialize({ isMember: true });
-            this.orderService.delete();
+            this.actionService.purchase.delete();
+            this.actionService.user.delete();
+            this.actionService.user.initialize({ isMember: true });
+            this.actionService.order.delete();
             try {
-                yield this.userService.getProfile();
-                yield this.userService.getCreditCards();
-                yield this.userService.getAccount();
-                this.router.navigate([this.environment.BASE_URL]);
+                yield this.actionService.user.getProfile();
+                yield this.actionService.user.getCreditCards();
+                const redirectUrl = (sessionStorage.getItem('REDIRECT_URL') === null)
+                    ? this.environment.BASE_URL : sessionStorage.getItem('REDIRECT_URL');
+                sessionStorage.removeItem('REDIRECT_URL');
+                this.router.navigate([redirectUrl]);
             }
             catch (error) {
                 this.router.navigate(['/error']);
@@ -228,7 +228,7 @@ class AuthSigninComponent {
         });
     }
 }
-AuthSigninComponent.ɵfac = function AuthSigninComponent_Factory(t) { return new (t || AuthSigninComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["OrderService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"])); };
+AuthSigninComponent.ɵfac = function AuthSigninComponent_Factory(t) { return new (t || AuthSigninComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"])); };
 AuthSigninComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AuthSigninComponent, selectors: [["app-auth-signin"]], decls: 2, vars: 4, consts: [[3, "isLoading", "process"]], template: function AuthSigninComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "app-loading", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](1, "async");
@@ -242,7 +242,7 @@ AuthSigninComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefi
                 templateUrl: './auth-signin.component.html',
                 styleUrls: ['./auth-signin.component.scss']
             }]
-    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: _services__WEBPACK_IMPORTED_MODULE_4__["PurchaseService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_4__["UserService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_4__["OrderService"] }, { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }]; }, null); })();
+    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: _services__WEBPACK_IMPORTED_MODULE_4__["ActionService"] }, { type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }]; }, null); })();
 
 
 /***/ }),
@@ -269,23 +269,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class AuthSignoutComponent {
-    constructor(router, purchaseService, userService, orderService) {
+    constructor(router, actionService) {
         this.router = router;
-        this.purchaseService = purchaseService;
-        this.userService = userService;
-        this.orderService = orderService;
+        this.actionService = actionService;
     }
     /**
      * 初期化
      */
     ngOnInit() {
-        this.orderService.delete();
-        this.purchaseService.delete();
-        this.userService.delete();
-        this.router.navigate(['/']);
+        this.actionService.order.delete();
+        this.actionService.purchase.delete();
+        this.actionService.user.delete();
+        const logoutUrl = (sessionStorage.getItem('LOGOUT_URL') === null)
+            ? '/' : sessionStorage.getItem('LOGOUT_URL');
+        sessionStorage.removeItem('LOGOUT_URL');
+        this.router.navigate([logoutUrl]);
     }
 }
-AuthSignoutComponent.ɵfac = function AuthSignoutComponent_Factory(t) { return new (t || AuthSignoutComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_2__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_2__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_2__["OrderService"])); };
+AuthSignoutComponent.ɵfac = function AuthSignoutComponent_Factory(t) { return new (t || AuthSignoutComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_2__["ActionService"])); };
 AuthSignoutComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AuthSignoutComponent, selectors: [["app-auth-signout"]], decls: 1, vars: 1, consts: [["process", "process.authAction.Logout", 3, "isLoading"]], template: function AuthSignoutComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "app-loading", 0);
     } if (rf & 2) {
@@ -298,7 +299,7 @@ AuthSignoutComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
                 templateUrl: './auth-signout.component.html',
                 styleUrls: ['./auth-signout.component.scss']
             }]
-    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: _services__WEBPACK_IMPORTED_MODULE_2__["PurchaseService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_2__["UserService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_2__["OrderService"] }]; }, null); })();
+    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: _services__WEBPACK_IMPORTED_MODULE_2__["ActionService"] }]; }, null); })();
 
 
 /***/ })

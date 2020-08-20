@@ -10,9 +10,9 @@ import { PurchaseSeatComponent } from '../../purchase-seat/purchase-seat.compone
 export class PurchaseEventSeatComponent extends PurchaseSeatComponent {
     public async prev() {
         try {
-            const authorizeSeatReservation = (await this.purchaseService.getData()).authorizeSeatReservation;
+            const authorizeSeatReservation = (await this.actionService.purchase.getData()).authorizeSeatReservation;
             if (authorizeSeatReservation !== undefined) {
-                await this.purchaseService.cancelTemporaryReservations([authorizeSeatReservation]);
+                await this.actionService.purchase.cancelTemporaryReservations([authorizeSeatReservation]);
             }
             this.router.navigate(['/purchase/event/ticket']);
         } catch (error) {

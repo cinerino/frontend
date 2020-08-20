@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { UserService } from '../../../../../services';
+import { ActionService } from '../../../../../services';
 
 @Component({
     selector: 'app-contents',
@@ -13,11 +13,11 @@ export class ContentsComponent implements OnInit {
     constructor(
         private router: Router,
         private elementRef: ElementRef,
-        private userService: UserService
+        private actionService: ActionService
     ) { }
 
     public async ngOnInit() {
-        await this.userService.checkVersion();
+        await this.actionService.user.checkVersion();
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
                 const element: HTMLElement = this.elementRef.nativeElement.querySelector('.scroll');

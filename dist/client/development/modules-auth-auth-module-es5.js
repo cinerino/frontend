@@ -449,13 +449,11 @@
       };
 
       var AuthSigninComponent = /*#__PURE__*/function () {
-        function AuthSigninComponent(router, purchaseService, userService, orderService, store) {
+        function AuthSigninComponent(router, actionService, store) {
           _classCallCheck(this, AuthSigninComponent);
 
           this.router = router;
-          this.purchaseService = purchaseService;
-          this.userService = userService;
-          this.orderService = orderService;
+          this.actionService = actionService;
           this.store = store;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
         }
@@ -468,31 +466,30 @@
           key: "ngOnInit",
           value: function ngOnInit() {
             return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var redirectUrl;
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
                   switch (_context2.prev = _context2.next) {
                     case 0:
                       this.process = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getProcess"]));
-                      this.purchaseService["delete"]();
-                      this.userService["delete"]();
-                      this.userService.initialize({
+                      this.actionService.purchase["delete"]();
+                      this.actionService.user["delete"]();
+                      this.actionService.user.initialize({
                         isMember: true
                       });
-                      this.orderService["delete"]();
+                      this.actionService.order["delete"]();
                       _context2.prev = 5;
                       _context2.next = 8;
-                      return this.userService.getProfile();
+                      return this.actionService.user.getProfile();
 
                     case 8:
                       _context2.next = 10;
-                      return this.userService.getCreditCards();
+                      return this.actionService.user.getCreditCards();
 
                     case 10:
-                      _context2.next = 12;
-                      return this.userService.getAccount();
-
-                    case 12:
-                      this.router.navigate([this.environment.BASE_URL]);
+                      redirectUrl = sessionStorage.getItem('REDIRECT_URL') === null ? this.environment.BASE_URL : sessionStorage.getItem('REDIRECT_URL');
+                      sessionStorage.removeItem('REDIRECT_URL');
+                      this.router.navigate([redirectUrl]);
                       _context2.next = 18;
                       break;
 
@@ -515,7 +512,7 @@
       }();
 
       AuthSigninComponent.ɵfac = function AuthSigninComponent_Factory(t) {
-        return new (t || AuthSigninComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["OrderService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]));
+        return new (t || AuthSigninComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]));
       };
 
       AuthSigninComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -553,11 +550,7 @@
           return [{
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_4__["PurchaseService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_4__["UserService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_4__["OrderService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_4__["ActionService"]
           }, {
             type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]
           }];
@@ -612,13 +605,11 @@
       "./app/modules/shared/components/parts/loading/loading.component.ts");
 
       var AuthSignoutComponent = /*#__PURE__*/function () {
-        function AuthSignoutComponent(router, purchaseService, userService, orderService) {
+        function AuthSignoutComponent(router, actionService) {
           _classCallCheck(this, AuthSignoutComponent);
 
           this.router = router;
-          this.purchaseService = purchaseService;
-          this.userService = userService;
-          this.orderService = orderService;
+          this.actionService = actionService;
         }
         /**
          * 初期化
@@ -628,10 +619,12 @@
         _createClass(AuthSignoutComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            this.orderService["delete"]();
-            this.purchaseService["delete"]();
-            this.userService["delete"]();
-            this.router.navigate(['/']);
+            this.actionService.order["delete"]();
+            this.actionService.purchase["delete"]();
+            this.actionService.user["delete"]();
+            var logoutUrl = sessionStorage.getItem('LOGOUT_URL') === null ? '/' : sessionStorage.getItem('LOGOUT_URL');
+            sessionStorage.removeItem('LOGOUT_URL');
+            this.router.navigate([logoutUrl]);
           }
         }]);
 
@@ -639,7 +632,7 @@
       }();
 
       AuthSignoutComponent.ɵfac = function AuthSignoutComponent_Factory(t) {
-        return new (t || AuthSignoutComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_2__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_2__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_2__["OrderService"]));
+        return new (t || AuthSignoutComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_2__["ActionService"]));
       };
 
       AuthSignoutComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -674,11 +667,7 @@
           return [{
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_2__["PurchaseService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_2__["UserService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_2__["OrderService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_2__["ActionService"]
           }];
         }, null);
       })();
