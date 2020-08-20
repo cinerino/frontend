@@ -29,9 +29,9 @@ class AuthModel {
      */
     create() {
         return new cinerino.auth.ClientCredentials({
-            domain: process.env.AUTHORIZE_SERVER_DOMAIN,
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET,
+            domain: process.env.CLIENT_CREDENTIALS_DOMAIN,
+            clientId: process.env.CLIENT_CREDENTIALS_CLIENT_ID,
+            clientSecret: process.env.CLIENT_CREDENTIALS_CLIENT_SECRET,
             state: this.state,
             scopes: this.scopes
         });

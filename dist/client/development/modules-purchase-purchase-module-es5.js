@@ -598,9 +598,9 @@
         if (rf & 1) {
           var _r12 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 23);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 24);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 24);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 25);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseCinemaScheduleComponent_ul_1_li_1_Template_button_click_1_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r12);
@@ -647,9 +647,9 @@
 
       function PurchaseCinemaScheduleComponent_ul_1_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ul", 21);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "ul", 22);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCinemaScheduleComponent_ul_1_li_1_Template, 6, 11, "li", 22);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCinemaScheduleComponent_ul_1_li_1_Template, 6, 11, "li", 23);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
@@ -667,7 +667,7 @@
         if (rf & 1) {
           var _r16 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 28);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 29);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseCinemaScheduleComponent_div_8_button_1_Template_button_click_0_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r16);
@@ -701,7 +701,7 @@
         if (rf & 1) {
           var _r18 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 29);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 30);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseCinemaScheduleComponent_div_8_button_2_Template_button_click_0_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r18);
@@ -733,11 +733,11 @@
 
       function PurchaseCinemaScheduleComponent_div_8_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 25);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 26);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCinemaScheduleComponent_div_8_button_1_Template, 4, 6, "button", 26);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCinemaScheduleComponent_div_8_button_1_Template, 4, 6, "button", 27);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchaseCinemaScheduleComponent_div_8_button_2_Template, 4, 6, "button", 27);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchaseCinemaScheduleComponent_div_8_button_2_Template, 4, 6, "button", 28);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
@@ -759,9 +759,9 @@
         if (rf & 1) {
           var _r21 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 30);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 31);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 31);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 32);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseCinemaScheduleComponent_div_16_Template_div_click_1_listener() {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r21);
@@ -814,7 +814,7 @@
 
       function PurchaseCinemaScheduleComponent_p_20_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 32);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 33);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -838,7 +838,7 @@
 
       function PurchaseCinemaScheduleComponent_p_22_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "p", 33);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "p", 34);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](1, "translate");
         }
@@ -852,7 +852,7 @@
         if (rf & 1) {
           var _r24 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "app-purchase-performances", 34);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "app-purchase-performances", 35);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("select", function PurchaseCinemaScheduleComponent_app_purchase_performances_23_Template_app_purchase_performances_select_0_listener($event) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r24);
@@ -872,9 +872,9 @@
         }
       }
 
-      function PurchaseCinemaScheduleComponent_a_25_Template(rf, ctx) {
+      function PurchaseCinemaScheduleComponent_a_26_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 35);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 36);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -1389,9 +1389,9 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.directiveRef = _t.first);
           }
         },
-        decls: 26,
+        decls: 27,
         vars: 21,
-        consts: [["class", "contents-width mx-auto px-3 pt-5", 4, "ngIf"], ["class", "contents-width mx-auto theaters d-flex flex-wrap p-2", 4, "ngIf"], [1, "contents-width", "mx-auto", "px-3", "pt-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "buttons mx-auto mb-3", 4, "ngIf"], [1, "bg-light-gray"], [1, "contents-width", "mx-auto", "py-4", "px-3"], [1, "position-relative", "schedule-slider"], [1, "swiper-container", "date", 3, "swiper", "resize"], ["swiper", ""], [1, "swiper-wrapper"], ["class", "swiper-slide pointer", 4, "ngFor", "ngForOf"], [1, "swiper-button-next"], [1, "swiper-button-prev"], [1, "contents-width", "mx-auto", "p-3"], ["class", "text-primary text-large mb-3", 4, "ngIf"], ["class", "mb-3", 3, "innerHTML", 4, "ngIf"], ["class", "mb-3", 3, "screeningWorkEvent", "select", 4, "ngFor", "ngForOf"], [1, "buttons", "mx-auto", "text-center"], ["class", "btn btn-link portal-link", 3, "href", 4, "ngIf"], [1, "contents-width", "mx-auto", "theaters", "d-flex", "flex-wrap", "p-2"], ["class", "px-2 my-2", 4, "ngFor", "ngForOf"], [1, "px-2", "my-2"], ["type", "button", 1, "btn", "btn-block", "py-3", "m-0", 3, "click"], [1, "buttons", "mx-auto", "mb-3"], ["type", "button", "class", "btn btn-primary btn-block py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-outline-primary btn-block py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", 3, "disabled", "click"], [1, "swiper-slide", "pointer"], [1, "text-center", "text-white", "py-4", 3, "click"], [1, "text-primary", "text-large", "mb-3"], [1, "mb-3", 3, "innerHTML"], [1, "mb-3", 3, "screeningWorkEvent", "select"], [1, "btn", "btn-link", "portal-link", 3, "href"]],
+        consts: [["class", "contents-width mx-auto px-3 pt-5", 4, "ngIf"], ["class", "contents-width mx-auto theaters d-flex flex-wrap p-2", 4, "ngIf"], [1, "contents-width", "mx-auto", "px-3", "pt-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "buttons mx-auto mb-3", 4, "ngIf"], [1, "bg-light-gray"], [1, "contents-width", "mx-auto", "py-4", "px-3"], [1, "position-relative", "schedule-slider"], [1, "swiper-container", "date", 3, "swiper", "resize"], ["swiper", ""], [1, "swiper-wrapper"], ["class", "swiper-slide pointer", 4, "ngFor", "ngForOf"], [1, "swiper-button-next"], [1, "swiper-button-prev"], [1, "contents-width", "mx-auto", "p-3"], ["class", "text-primary text-large mb-3", 4, "ngIf"], ["class", "mb-3", 3, "innerHTML", 4, "ngIf"], ["class", "mb-3", 3, "screeningWorkEvent", "select", 4, "ngFor", "ngForOf"], [1, "contents-width", "mx-auto", "px-3", "pb-5"], [1, "buttons", "mx-auto", "text-center"], ["class", "btn btn-outline-primary btn-block py-3 portal-link", 3, "href", 4, "ngIf"], [1, "contents-width", "mx-auto", "theaters", "d-flex", "flex-wrap", "p-2"], ["class", "px-2 my-2", 4, "ngFor", "ngForOf"], [1, "px-2", "my-2"], ["type", "button", 1, "btn", "btn-block", "py-3", "m-0", 3, "click"], [1, "buttons", "mx-auto", "mb-3"], ["type", "button", "class", "btn btn-primary btn-block py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-outline-primary btn-block py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", 3, "disabled", "click"], [1, "swiper-slide", "pointer"], [1, "text-center", "text-white", "py-4", 3, "click"], [1, "text-primary", "text-large", "mb-3"], [1, "mb-3", 3, "innerHTML"], [1, "mb-3", 3, "screeningWorkEvent", "select"], [1, "btn", "btn-outline-primary", "btn-block", "py-3", "portal-link", 3, "href"]],
         template: function PurchaseCinemaScheduleComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, PurchaseCinemaScheduleComponent_div_0_Template, 6, 6, "div", 0);
@@ -1462,7 +1462,11 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "div", 19);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](25, PurchaseCinemaScheduleComponent_a_25_Template, 3, 4, "a", 20);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](25, "div", 20);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](26, PurchaseCinemaScheduleComponent_a_26_Template, 3, 4, "a", 21);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
           }
@@ -1515,7 +1519,7 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.screeningWorkEvents);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.environment.PORTAL_SITE_URL);
           }
@@ -1971,7 +1975,7 @@
         features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]],
         decls: 23,
         vars: 22,
-        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "row"], [1, "col-lg-9"], ["class", "bg-white mb-3", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select", 4, "ngIf"], [1, "mb-4"], ["class", "mb-4", 4, "ngIf"], [1, "col-lg-3"], [1, "mb-4", 3, "purchase"], [4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", "class", "btn btn-primary btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-link", "routerLink", "/purchase/cinema/schedule", 4, "ngIf"], ["class", "btn btn-link", 3, "href", 4, "ngIf"], [1, "bg-white", "mb-3", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select"], [1, "d-flex", "align-items-center"], [1, "mr-2"], [1, "form-control", "d-inline-block", "w-auto", 3, "ngModel", "change"], ["value", "0"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"], [3, "language", "screeningEvent"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "routerLink", "/purchase/cinema/schedule", 1, "btn", "btn-link"], [1, "btn", "btn-link", 3, "href"]],
+        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "row"], [1, "col-lg-9"], ["class", "bg-white mb-3", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select", 4, "ngIf"], [1, "mb-4"], ["class", "mb-4", 4, "ngIf"], [1, "col-lg-3"], [1, "mb-4", 3, "purchase"], [4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", "class", "btn btn-primary btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-outline-primary btn-block py-3", "routerLink", "/purchase/cinema/schedule", 4, "ngIf"], ["class", "btn btn-outline-primary btn-block py-3", 3, "href", 4, "ngIf"], [1, "bg-white", "mb-3", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select"], [1, "d-flex", "align-items-center"], [1, "mr-2"], [1, "form-control", "d-inline-block", "w-auto", 3, "ngModel", "change"], ["value", "0"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"], [3, "language", "screeningEvent"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "routerLink", "/purchase/cinema/schedule", 1, "btn", "btn-outline-primary", "btn-block", "py-3"], [1, "btn", "btn-outline-primary", "btn-block", "py-3", 3, "href"]],
         template: function PurchaseCinemaSeatComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -2563,7 +2567,7 @@
         features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]],
         decls: 27,
         vars: 28,
-        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "mb-4", 4, "ngIf"], [1, "mb-4"], [1, "d-flex", "flex-wrap"], [4, "ngFor", "ngForOf"], [1, "mb-4", "additional-ticket-text", "d-none"], [1, "py-1", "px-2", 3, "ngModel", "ngModelChange"], [1, "mb-4", 3, "purchase"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "routerLink", "/purchase/cinema/seat", 1, "btn", "btn-link"], [1, "bg-white", "p-3", "d-md-flex", "align-items-center", "movieticket"], [1, "mb-2", "mb-md-0"], ["type", "button", 1, "btn", "btn-block", "bg-white", "border", "border-gray", "py-3", 3, "click"], ["src", "/assets/images/mvtk.svg", "height", "24", "alt", ""], [1, "bg-white", "p-3", "m-2"], [1, "mb-2", "font-weight-bold", "text-large"], [1, "mr-2"], ["type", "button", "class", "btn btn-primary btn-block py-3", 3, "click", 4, "ngIf"], ["type", "button", "class", "btn btn-block border border-primary text-primary bg-white py-3", 3, "click", 4, "ngIf"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "click"], ["type", "button", 1, "btn", "btn-block", "border", "border-primary", "text-primary", "bg-white", "py-3", 3, "click"], ["class", "d-flex justify-content-between align-items-center", 4, "ngFor", "ngForOf"], ["class", "text-small text-left", 4, "ngIf"], [1, "d-flex", "justify-content-between", "align-items-center"], [1, "w-50", "text-left"], ["class", "w-50 text-right", 4, "ngIf"], [1, "w-50", "text-right"], [4, "ngIf"], [1, "text-small", "text-left"]],
+        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "mb-4", 4, "ngIf"], [1, "mb-4"], [1, "d-flex", "flex-wrap"], [4, "ngFor", "ngForOf"], [1, "mb-4", "additional-ticket-text", "d-none"], [1, "py-1", "px-2", 3, "ngModel", "ngModelChange"], [1, "mb-4", 3, "purchase"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "routerLink", "/purchase/cinema/seat", 1, "btn", "btn-outline-primary", "btn-block", "py-3"], [1, "bg-white", "p-3", "d-md-flex", "align-items-center", "movieticket"], [1, "mb-2", "mb-md-0"], ["type", "button", 1, "btn", "btn-block", "bg-white", "border", "border-gray", "py-3", 3, "click"], ["src", "/assets/images/mvtk.svg", "height", "24", "alt", ""], [1, "bg-white", "p-3", "m-2"], [1, "mb-2", "font-weight-bold", "text-large"], [1, "mr-2"], ["type", "button", "class", "btn btn-primary btn-block py-3", 3, "click", 4, "ngIf"], ["type", "button", "class", "btn btn-block border border-primary text-primary bg-white py-3", 3, "click", 4, "ngIf"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "click"], ["type", "button", 1, "btn", "btn-block", "border", "border-primary", "text-primary", "bg-white", "py-3", 3, "click"], ["class", "d-flex justify-content-between align-items-center", 4, "ngFor", "ngForOf"], ["class", "text-small text-left", 4, "ngIf"], [1, "d-flex", "justify-content-between", "align-items-center"], [1, "w-50", "text-left"], ["class", "w-50 text-right", 4, "ngIf"], [1, "w-50", "text-right"], [4, "ngIf"], [1, "text-small", "text-left"]],
         template: function PurchaseCinemaTicketComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -3692,7 +3696,7 @@
         },
         decls: 27,
         vars: 22,
-        consts: [["class", "contents-width mx-auto px-3 pt-5", 4, "ngIf"], ["class", "contents-width mx-auto theaters d-flex flex-wrap p-2", 4, "ngIf"], [1, "contents-width", "mx-auto", "px-3", "pt-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "contents-width", "mx-auto", "p-3"], [1, "mb-3", "position-relative"], [1, "input-group"], ["type", "text", "placeholder", "Datepicker", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "bsValueChange", "click", "onShown"], ["datepicker", "bsDatepicker"], [1, "input-group-append", "pointer", 3, "click"], [1, "input-group-text"], [1, "fas", "fa-caret-down"], [1, "mb-4"], ["class", "text-primary text-large mb-3", 4, "ngIf"], ["class", "mb-3", 3, "innerHTML", 4, "ngIf"], ["class", "mb-3", 3, "screeningWorkEvent", "readonly", 4, "ngFor", "ngForOf"], [4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", "class", "btn btn-primary btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-primary btn-block py-3 mb-3", "disabled", "", 3, "click", 4, "ngIf"], ["class", "btn btn-link portal-link", 3, "href", 4, "ngIf"], [1, "contents-width", "mx-auto", "theaters", "d-flex", "flex-wrap", "p-2"], ["class", "px-2 my-2", 4, "ngFor", "ngForOf"], [1, "px-2", "my-2"], ["type", "button", 1, "btn", "btn-block", "py-3", "m-0", 3, "click"], [1, "text-primary", "text-large", "mb-3"], [1, "mb-3", 3, "innerHTML"], [1, "mb-3", 3, "screeningWorkEvent", "readonly"], [3, "language", "screeningEvent"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "disabled", "", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "click"], [1, "btn", "btn-link", "portal-link", 3, "href"]],
+        consts: [["class", "contents-width mx-auto px-3 pt-5", 4, "ngIf"], ["class", "contents-width mx-auto theaters d-flex flex-wrap p-2", 4, "ngIf"], [1, "contents-width", "mx-auto", "px-3", "pt-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "contents-width", "mx-auto", "p-3"], [1, "mb-3", "position-relative"], [1, "input-group"], ["type", "text", "placeholder", "Datepicker", "bsDatepicker", "", "readonly", "", 1, "form-control", 3, "ngModel", "bsConfig", "ngModelChange", "bsValueChange", "click", "onShown"], ["datepicker", "bsDatepicker"], [1, "input-group-append", "pointer", 3, "click"], [1, "input-group-text"], [1, "fas", "fa-caret-down"], [1, "mb-4"], ["class", "text-primary text-large mb-3", 4, "ngIf"], ["class", "mb-3", 3, "innerHTML", 4, "ngIf"], ["class", "mb-3", 3, "screeningWorkEvent", "readonly", 4, "ngFor", "ngForOf"], [4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", "class", "btn btn-primary btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-primary btn-block py-3 mb-3", "disabled", "", 3, "click", 4, "ngIf"], ["class", "btn btn-outline-primary btn-block py-3 portal-link", 3, "href", 4, "ngIf"], [1, "contents-width", "mx-auto", "theaters", "d-flex", "flex-wrap", "p-2"], ["class", "px-2 my-2", 4, "ngFor", "ngForOf"], [1, "px-2", "my-2"], ["type", "button", 1, "btn", "btn-block", "py-3", "m-0", 3, "click"], [1, "text-primary", "text-large", "mb-3"], [1, "mb-3", 3, "innerHTML"], [1, "mb-3", 3, "screeningWorkEvent", "readonly"], [3, "language", "screeningEvent"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "disabled", "", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "click"], [1, "btn", "btn-outline-primary", "btn-block", "py-3", "portal-link", 3, "href"]],
         template: function PurchaseEventScheduleComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, PurchaseEventScheduleComponent_div_0_Template, 6, 6, "div", 0);
@@ -4338,7 +4342,7 @@
         features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]],
         decls: 27,
         vars: 28,
-        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "mb-4", 4, "ngIf"], [1, "mb-4"], [1, "d-flex", "flex-wrap"], [4, "ngFor", "ngForOf"], [1, "mb-4", "additional-ticket-text", "d-none"], [1, "py-1", "px-2", 3, "ngModel", "ngModelChange"], [1, "mb-4", 3, "purchase"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "routerLink", "/purchase/event/seat", 1, "btn", "btn-link"], [1, "bg-white", "p-3", "d-md-flex", "align-items-center", "movieticket"], [1, "mb-2", "mb-md-0"], ["type", "button", 1, "btn", "btn-block", "bg-white", "border", "border-gray", "py-3", 3, "click"], ["src", "/assets/images/mvtk.svg", "height", "24", "alt", ""], [1, "bg-white", "p-3", "m-2"], [1, "mb-2", "font-weight-bold", "text-large"], [1, "mr-2"], ["type", "button", "class", "btn btn-primary btn-block py-3", 3, "click", 4, "ngIf"], ["type", "button", "class", "btn btn-block border border-primary text-primary bg-white py-3", 3, "click", 4, "ngIf"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "click"], ["type", "button", 1, "btn", "btn-block", "border", "border-primary", "text-primary", "bg-white", "py-3", 3, "click"], ["class", "d-flex justify-content-between align-items-center", 4, "ngFor", "ngForOf"], ["class", "text-small text-left", 4, "ngIf"], [1, "d-flex", "justify-content-between", "align-items-center"], [1, "w-50", "text-left"], ["class", "w-50 text-right", 4, "ngIf"], [1, "w-50", "text-right"], [4, "ngIf"], [1, "text-small", "text-left"]],
+        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "mb-4", 4, "ngIf"], [1, "mb-4"], [1, "d-flex", "flex-wrap"], [4, "ngFor", "ngForOf"], [1, "mb-4", "additional-ticket-text", "d-none"], [1, "py-1", "px-2", 3, "ngModel", "ngModelChange"], [1, "mb-4", 3, "purchase"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "routerLink", "/purchase/event/seat", 1, "btn", "btn-outline-primary", "btn-block", "py-3"], [1, "bg-white", "p-3", "d-md-flex", "align-items-center", "movieticket"], [1, "mb-2", "mb-md-0"], ["type", "button", 1, "btn", "btn-block", "bg-white", "border", "border-gray", "py-3", 3, "click"], ["src", "/assets/images/mvtk.svg", "height", "24", "alt", ""], [1, "bg-white", "p-3", "m-2"], [1, "mb-2", "font-weight-bold", "text-large"], [1, "mr-2"], ["type", "button", "class", "btn btn-primary btn-block py-3", 3, "click", 4, "ngIf"], ["type", "button", "class", "btn btn-block border border-primary text-primary bg-white py-3", 3, "click", 4, "ngIf"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "click"], ["type", "button", 1, "btn", "btn-block", "border", "border-primary", "text-primary", "bg-white", "py-3", 3, "click"], ["class", "d-flex justify-content-between align-items-center", 4, "ngFor", "ngForOf"], ["class", "text-small text-left", 4, "ngIf"], [1, "d-flex", "justify-content-between", "align-items-center"], [1, "w-50", "text-left"], ["class", "w-50 text-right", 4, "ngIf"], [1, "w-50", "text-right"], [4, "ngIf"], [1, "text-small", "text-left"]],
         template: function PurchaseEventSeatTicketComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -4810,7 +4814,7 @@
         features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵInheritDefinitionFeature"]],
         decls: 25,
         vars: 26,
-        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "row"], [1, "col-lg-9"], ["class", "bg-white mb-3", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select", 4, "ngIf"], [1, "mb-4"], ["class", "mb-4", 4, "ngIf"], [1, "col-lg-3"], [1, "mb-4", 3, "purchase"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-link", 3, "click"], [1, "bg-white", "mb-3", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select"], [1, "d-flex", "align-items-center"], [1, "mr-2"], [1, "form-control", "d-inline-block", "w-auto", 3, "ngModel", "change"], ["value", "0"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"]],
+        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "row"], [1, "col-lg-9"], ["class", "bg-white mb-3", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select", 4, "ngIf"], [1, "mb-4"], ["class", "mb-4", 4, "ngIf"], [1, "col-lg-3"], [1, "mb-4", 3, "purchase"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", 3, "click"], [1, "bg-white", "mb-3", 3, "theaterCode", "screenCode", "screeningEventSeats", "openSeatingAllowed", "reservations", "authorizeSeatReservation", "select"], [1, "d-flex", "align-items-center"], [1, "mr-2"], [1, "form-control", "d-inline-block", "w-auto", 3, "ngModel", "change"], ["value", "0"], [3, "value", 4, "ngFor", "ngForOf"], [3, "value"]],
         template: function PurchaseEventSeatComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -6034,7 +6038,7 @@
         selectors: [["app-purchase-event-ticket"]],
         decls: 27,
         vars: 29,
-        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "d-flex align-items-center bg-white py-2 px-3 mb-3", 4, "ngIf"], [1, "mb-4"], ["class", "mb-3", 4, "ngIf"], ["class", "mb-3", 3, "screeningWorkEvent", "select", 4, "ngFor", "ngForOf"], [4, "ngIf"], ["class", "mb-4 bg-white p-3 position-relative", 4, "ngFor", "ngForOf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "routerLink", "/purchase/event/schedule", 1, "btn", "btn-link"], [1, "d-flex", "align-items-center", "bg-white", "py-2", "px-3", "mb-3"], ["type", "button", "routerLink", "/purchase/event/schedule", 1, "btn", "btn-link", "btn-sm", "ml-auto"], [1, "mb-3"], [1, "mb-3", 3, "screeningWorkEvent", "select"], [1, "text-md-center"], [1, "mb-4", "bg-white", "p-3", "position-relative"], ["type", "button", "aria-label", "Close", 1, "close", 3, "click"], ["aria-hidden", "true"], [1, "mb-1"], [1, "font-weight-bold", "text-large", "pr-3"], ["class", "text-small", 4, "ngIf"], [1, "text-small", "mb-1"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [3, "authorizeSeatReservations"], [1, "text-small"], [1, "mr-2"], [1, "mr-1"]],
+        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "d-flex align-items-center bg-white py-2 px-3 mb-3", 4, "ngIf"], [1, "mb-4"], ["class", "mb-3", 4, "ngIf"], ["class", "mb-3", 3, "screeningWorkEvent", "select", 4, "ngFor", "ngForOf"], [4, "ngIf"], ["class", "mb-4 bg-white p-3 position-relative", 4, "ngFor", "ngForOf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "routerLink", "/purchase/event/schedule", 1, "btn", "btn-outline-primary", "btn-block", "py-3"], [1, "d-flex", "align-items-center", "bg-white", "py-2", "px-3", "mb-3"], ["type", "button", "routerLink", "/purchase/event/schedule", 1, "btn", "btn-link", "btn-sm", "ml-auto"], [1, "mb-3"], [1, "mb-3", 3, "screeningWorkEvent", "select"], [1, "text-md-center"], [1, "mb-4", "bg-white", "p-3", "position-relative"], ["type", "button", "aria-label", "Close", 1, "close", 3, "click"], ["aria-hidden", "true"], [1, "mb-1"], [1, "font-weight-bold", "text-large", "pr-3"], ["class", "text-small", 4, "ngIf"], [1, "text-small", "mb-1"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [3, "authorizeSeatReservations"], [1, "text-small"], [1, "mr-2"], [1, "mr-1"]],
         template: function PurchaseEventTicketComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -6486,45 +6490,83 @@
       /* harmony import */
 
 
-      var _store_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! ../../../../../services */
+      "./app/services/index.ts");
+      /* harmony import */
+
+
+      var _store_reducers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! ../../../../../store/reducers */
       "./app/store/reducers/index.ts");
       /* harmony import */
 
 
-      var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @angular/common */
       "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
       /* harmony import */
 
 
-      var _shared_components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _shared_components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! ../../../../shared/components/parts/item-list/item-list.component */
       "./app/modules/shared/components/parts/item-list/item-list.component.ts");
       /* harmony import */
 
 
-      var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! @ngx-translate/core */
       "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
       /* harmony import */
 
 
-      var _shared_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var _shared_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! ../../../../shared/pipes/libphonenumber-format.pipe */
       "./app/modules/shared/pipes/libphonenumber-format.pipe.ts");
       /* harmony import */
 
 
-      var _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! ../../../../shared/pipes/change-language.pipe */
       "./app/modules/shared/pipes/change-language.pipe.ts");
       /* harmony import */
 
 
-      var _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      var _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
       /*! ../../../../shared/pipes/format-date.pipe */
       "./app/modules/shared/pipes/format-date.pipe.ts");
+
+      var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+        function adopt(value) {
+          return value instanceof P ? value : new P(function (resolve) {
+            resolve(value);
+          });
+        }
+
+        return new (P || (P = Promise))(function (resolve, reject) {
+          function fulfilled(value) {
+            try {
+              step(generator.next(value));
+            } catch (e) {
+              reject(e);
+            }
+          }
+
+          function rejected(value) {
+            try {
+              step(generator["throw"](value));
+            } catch (e) {
+              reject(e);
+            }
+          }
+
+          function step(result) {
+            result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+          }
+
+          step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+      };
 
       function PurchaseCompleteComponent_div_15_p_6_Template(rf, ctx) {
         if (rf & 1) {
@@ -7024,11 +7066,12 @@
       }
 
       var PurchaseCompleteComponent = /*#__PURE__*/function () {
-        function PurchaseCompleteComponent(store, router) {
+        function PurchaseCompleteComponent(store, router, purchaseService) {
           _classCallCheck(this, PurchaseCompleteComponent);
 
           this.store = store;
           this.router = router;
+          this.purchaseService = purchaseService;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
           this.paymentMethodType = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
@@ -7041,22 +7084,41 @@
         _createClass(PurchaseCompleteComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this9 = this;
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
+              var purchase, order;
+              return regeneratorRuntime.wrap(function _callee24$(_context24) {
+                while (1) {
+                  switch (_context24.prev = _context24.next) {
+                    case 0:
+                      this.eventOrders = [];
+                      this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getPurchase"]));
+                      _context24.next = 4;
+                      return this.purchaseService.getData();
 
-            this.eventOrders = [];
-            this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getPurchase"]));
-            this.purchase.subscribe(function (purchase) {
-              if (purchase.order === undefined) {
-                _this9.router.navigate(['/error']);
+                    case 4:
+                      purchase = _context24.sent;
 
-                return;
-              }
+                      if (!(purchase.order === undefined)) {
+                        _context24.next = 8;
+                        break;
+                      }
 
-              var order = purchase.order;
-              _this9.eventOrders = ___WEBPACK_IMPORTED_MODULE_5__["Functions"].Purchase.order2EventOrders({
-                order: order
-              });
-            }).unsubscribe();
+                      this.router.navigate(['/error']);
+                      return _context24.abrupt("return");
+
+                    case 8:
+                      order = purchase.order;
+                      this.eventOrders = ___WEBPACK_IMPORTED_MODULE_5__["Functions"].Purchase.order2EventOrders({
+                        order: order
+                      });
+
+                    case 10:
+                    case "end":
+                      return _context24.stop();
+                  }
+                }
+              }, _callee24, this);
+            }));
           }
         }]);
 
@@ -7064,7 +7126,7 @@
       }();
 
       PurchaseCompleteComponent.ɵfac = function PurchaseCompleteComponent_Factory(t) {
-        return new (t || PurchaseCompleteComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]));
+        return new (t || PurchaseCompleteComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["PurchaseService"]));
       };
 
       PurchaseCompleteComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -7072,7 +7134,7 @@
         selectors: [["app-purchase-complete"]],
         decls: 51,
         vars: 48,
-        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "mb-4"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "mb-4", "px-3", "py-2", "bg-white"], [1, "row", "align-items-center"], [1, "col-4"], [1, "col-8", "text-large", "text-info", "font-weight-bold"], ["class", "mb-4 bg-white p-3", 4, "ngFor", "ngForOf"], [1, "mb-4", "px-3", "bg-white"], [1, "py-3", "border-bottom", "border-gray"], [1, "mb-2", "mb-md-0", "col-md-4"], [1, "col-md-8"], ["class", "py-3 border-bottom border-gray", 4, "ngIf"], ["class", "py-3", 4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["class", "btn btn-link portal-link", 3, "href", 4, "ngIf"], ["type", "button", "class", "btn btn-link", "routerLink", "/", 4, "ngIf"], [1, "mb-4", "bg-white", "p-3"], [1, "mb-3"], [1, "mb-1"], [1, "font-weight-bold", "text-large"], ["class", "text-small", 4, "ngIf"], [1, "text-small", "mb-1"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [4, "ngIf"], [3, "acceptedOffers"], [1, "text-small"], [1, "mr-2"], [1, "mr-1"], [1, "col-md-8", "font-weight-bold", "text-large", "text-info"], [1, "py-3"], [4, "ngFor", "ngForOf"], [1, "btn", "btn-link", "portal-link", 3, "href"], ["type", "button", "routerLink", "/", 1, "btn", "btn-link"]],
+        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "mb-4"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "mb-4", "px-3", "py-2", "bg-white"], [1, "row", "align-items-center"], [1, "col-4"], [1, "col-8", "text-large", "text-info", "font-weight-bold"], ["class", "mb-4 bg-white p-3", 4, "ngFor", "ngForOf"], [1, "mb-4", "px-3", "bg-white"], [1, "py-3", "border-bottom", "border-gray"], [1, "mb-2", "mb-md-0", "col-md-4"], [1, "col-md-8"], ["class", "py-3 border-bottom border-gray", 4, "ngIf"], ["class", "py-3", 4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["class", "btn btn-outline-primary btn-block py-3 portal-link", 3, "href", 4, "ngIf"], ["type", "button", "class", "btn btn-outline-primary btn-block py-3", "routerLink", "/", 4, "ngIf"], [1, "mb-4", "bg-white", "p-3"], [1, "mb-3"], [1, "mb-1"], [1, "font-weight-bold", "text-large"], ["class", "text-small", 4, "ngIf"], [1, "text-small", "mb-1"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [4, "ngIf"], [3, "acceptedOffers"], [1, "text-small"], [1, "mr-2"], [1, "mr-1"], [1, "col-md-8", "font-weight-bold", "text-large", "text-info"], [1, "py-3"], [4, "ngFor", "ngForOf"], [1, "btn", "btn-outline-primary", "btn-block", "py-3", "portal-link", 3, "href"], ["type", "button", "routerLink", "/", 1, "btn", "btn-outline-primary", "btn-block", "py-3"]],
         template: function PurchaseCompleteComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -7297,8 +7359,8 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !ctx.environment.PORTAL_SITE_URL);
           }
         },
-        directives: [_angular_common__WEBPACK_IMPORTED_MODULE_8__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgIf"], _shared_components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_9__["ItemListComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLink"]],
-        pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_10__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["AsyncPipe"], _shared_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_11__["LibphonenumberFormatPipe"], _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_12__["ChangeLanguagePipe"], _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_13__["FormatDatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["CurrencyPipe"]],
+        directives: [_angular_common__WEBPACK_IMPORTED_MODULE_9__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["NgIf"], _shared_components_parts_item_list_item_list_component__WEBPACK_IMPORTED_MODULE_10__["ItemListComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLink"]],
+        pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_11__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["AsyncPipe"], _shared_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_12__["LibphonenumberFormatPipe"], _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_13__["ChangeLanguagePipe"], _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_14__["FormatDatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["CurrencyPipe"]],
         styles: [""]
       });
       /*@__PURE__*/
@@ -7316,6 +7378,8 @@
             type: _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
+          }, {
+            type: _services__WEBPACK_IMPORTED_MODULE_7__["PurchaseService"]
           }];
         }, null);
       })();
@@ -8065,29 +8129,29 @@
         _createClass(PurchaseConfirmComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
               var purchase;
-              return regeneratorRuntime.wrap(function _callee24$(_context24) {
+              return regeneratorRuntime.wrap(function _callee25$(_context25) {
                 while (1) {
-                  switch (_context24.prev = _context24.next) {
+                  switch (_context25.prev = _context25.next) {
                     case 0:
                       this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getPurchase"]));
                       this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
                       this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
                       this.amount = 0;
-                      _context24.next = 6;
+                      _context25.next = 6;
                       return this.purchaseService.getData();
 
                     case 6:
-                      purchase = _context24.sent;
+                      purchase = _context25.sent;
 
                       if (!(purchase.transaction === undefined || purchase.profile === undefined)) {
-                        _context24.next = 10;
+                        _context25.next = 10;
                         break;
                       }
 
                       this.router.navigate(['/error']);
-                      return _context24.abrupt("return");
+                      return _context25.abrupt("return");
 
                     case 10:
                       this.profile = purchase.profile;
@@ -8095,10 +8159,10 @@
 
                     case 12:
                     case "end":
-                      return _context24.stop();
+                      return _context25.stop();
                   }
                 }
-              }, _callee24, this);
+              }, _callee25, this);
             }));
           }
           /**
@@ -8108,91 +8172,91 @@
         }, {
           key: "onSubmit",
           value: function onSubmit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
               var purchaseData, userData, language;
-              return regeneratorRuntime.wrap(function _callee25$(_context25) {
+              return regeneratorRuntime.wrap(function _callee26$(_context26) {
                 while (1) {
-                  switch (_context25.prev = _context25.next) {
+                  switch (_context26.prev = _context26.next) {
                     case 0:
-                      _context25.next = 2;
+                      _context26.next = 2;
                       return this.purchaseService.getData();
 
                     case 2:
-                      purchaseData = _context25.sent;
-                      _context25.next = 5;
+                      purchaseData = _context26.sent;
+                      _context26.next = 5;
                       return this.userService.getData();
 
                     case 5:
-                      userData = _context25.sent;
+                      userData = _context26.sent;
                       language = userData.language;
-                      _context25.prev = 7;
+                      _context26.prev = 7;
 
                       if (!(purchaseData.pendingMovieTickets.length > 0)) {
-                        _context25.next = 11;
+                        _context26.next = 11;
                         break;
                       }
 
-                      _context25.next = 11;
+                      _context26.next = 11;
                       return this.purchaseService.authorizeMovieTicket();
 
                     case 11:
-                      _context25.next = 17;
+                      _context26.next = 17;
                       break;
 
                     case 13:
-                      _context25.prev = 13;
-                      _context25.t0 = _context25["catch"](7);
+                      _context26.prev = 13;
+                      _context26.t0 = _context26["catch"](7);
                       this.router.navigate(['/error']);
-                      return _context25.abrupt("return");
+                      return _context26.abrupt("return");
 
                     case 17:
-                      _context25.prev = 17;
+                      _context26.prev = 17;
 
                       if (!(this.amount > 0)) {
-                        _context25.next = 21;
+                        _context26.next = 21;
                         break;
                       }
 
-                      _context25.next = 21;
+                      _context26.next = 21;
                       return this.purchaseService.authorizeCreditCard(this.amount);
 
                     case 21:
-                      _context25.next = 28;
+                      _context26.next = 28;
                       break;
 
                     case 23:
-                      _context25.prev = 23;
-                      _context25.t1 = _context25["catch"](17);
+                      _context26.prev = 23;
+                      _context26.t1 = _context26["catch"](17);
                       this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant('purchase.confirm.alert.authorizeCreditCard')
                       });
                       this.router.navigate(['/purchase/input']);
-                      return _context25.abrupt("return");
+                      return _context26.abrupt("return");
 
                     case 28:
-                      _context25.prev = 28;
-                      _context25.next = 31;
+                      _context26.prev = 28;
+                      _context26.next = 31;
                       return this.purchaseService.endTransaction({
                         language: language
                       });
 
                     case 31:
                       this.router.navigate(['/purchase/complete']);
-                      _context25.next = 37;
+                      _context26.next = 37;
                       break;
 
                     case 34:
-                      _context25.prev = 34;
-                      _context25.t2 = _context25["catch"](28);
+                      _context26.prev = 34;
+                      _context26.t2 = _context26["catch"](28);
                       this.router.navigate(['/error']);
 
                     case 37:
                     case "end":
-                      return _context25.stop();
+                      return _context26.stop();
                   }
                 }
-              }, _callee25, this, [[7, 13], [17, 23], [28, 34]]);
+              }, _callee26, this, [[7, 13], [17, 23], [28, 34]]);
             }));
           }
           /**
@@ -8266,7 +8330,7 @@
         selectors: [["app-purchase-confirm"]],
         decls: 17,
         vars: 16,
-        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "mb-4"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "mb-4 bg-white p-3", 4, "ngFor", "ngForOf"], ["class", "mb-4 px-3 bg-white", 4, "ngIf"], [4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", "class", "btn btn-primary btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "routerLink", "/purchase/input", 1, "btn", "btn-link"], [1, "mb-4", "bg-white", "p-3"], [1, "mb-3"], [1, "mb-1"], [1, "font-weight-bold", "text-large"], ["class", "text-small", 4, "ngIf"], [1, "text-small", "mb-1"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [3, "authorizeSeatReservations"], [1, "text-small"], [1, "mr-2"], [1, "mr-1"], [1, "mb-4", "px-3", "bg-white"], ["class", "py-3 border-bottom border-gray", 4, "ngFor", "ngForOf"], ["class", "py-3 border-bottom border-gray", 4, "ngIf"], [1, "py-3", "border-bottom", "border-gray"], [1, "row", "align-items-center"], ["class", "mb-2 mb-md-0 col-md-4", 4, "ngIf"], ["class", "col-md-8 white-space-pre-wrap", 4, "ngIf"], ["class", "col-md-8", 4, "ngIf"], [1, "mb-2", "mb-md-0", "col-md-4"], [1, "col-md-8", "white-space-pre-wrap"], [1, "col-md-8"], [1, "col-md-8", "font-weight-bold", "text-large", "text-info"], [3, "language", "screeningEvent"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"]],
+        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "mb-4"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "mb-4 bg-white p-3", 4, "ngFor", "ngForOf"], ["class", "mb-4 px-3 bg-white", 4, "ngIf"], [4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", "class", "btn btn-primary btn-block py-3 mb-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "routerLink", "/purchase/input", 1, "btn", "btn-outline-primary", "btn-block", "py-3"], [1, "mb-4", "bg-white", "p-3"], [1, "mb-3"], [1, "mb-1"], [1, "font-weight-bold", "text-large"], ["class", "text-small", 4, "ngIf"], [1, "text-small", "mb-1"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [3, "authorizeSeatReservations"], [1, "text-small"], [1, "mr-2"], [1, "mr-1"], [1, "mb-4", "px-3", "bg-white"], ["class", "py-3 border-bottom border-gray", 4, "ngFor", "ngForOf"], ["class", "py-3 border-bottom border-gray", 4, "ngIf"], [1, "py-3", "border-bottom", "border-gray"], [1, "row", "align-items-center"], ["class", "mb-2 mb-md-0 col-md-4", 4, "ngIf"], ["class", "col-md-8 white-space-pre-wrap", 4, "ngIf"], ["class", "col-md-8", 4, "ngIf"], [1, "mb-2", "mb-md-0", "col-md-4"], [1, "col-md-8", "white-space-pre-wrap"], [1, "col-md-8"], [1, "col-md-8", "font-weight-bold", "text-large", "text-info"], [3, "language", "screeningEvent"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"]],
         template: function PurchaseConfirmComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -9868,55 +9932,55 @@
         _createClass(PurchaseInputComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee26() {
-              var _this10 = this;
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
+              var _this9 = this;
 
               var purchase;
-              return regeneratorRuntime.wrap(function _callee26$(_context26) {
+              return regeneratorRuntime.wrap(function _callee27$(_context27) {
                 while (1) {
-                  switch (_context26.prev = _context26.next) {
+                  switch (_context27.prev = _context27.next) {
                     case 0:
-                      _context26.prev = 0;
+                      _context27.prev = 0;
                       this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getPurchase"]));
                       this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getUser"]));
                       this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_11__["getLoading"]));
-                      _context26.next = 6;
+                      _context27.next = 6;
                       return this.createProfileForm();
 
                     case 6:
                       this.createCreditCardForm();
-                      _context26.next = 9;
+                      _context27.next = 9;
                       return this.purchaseService.getData();
 
                     case 9:
-                      purchase = _context26.sent;
+                      purchase = _context27.sent;
 
                       if (!(purchase.transaction === undefined)) {
-                        _context26.next = 13;
+                        _context27.next = 13;
                         break;
                       }
 
                       this.router.navigate(['/error']);
-                      return _context26.abrupt("return");
+                      return _context27.abrupt("return");
 
                     case 13:
                       this.amount = ___WEBPACK_IMPORTED_MODULE_8__["Functions"].Purchase.getAmount(purchase.authorizeSeatReservations);
-                      _context26.next = 20;
+                      _context27.next = 20;
                       break;
 
                     case 16:
-                      _context26.prev = 16;
-                      _context26.t0 = _context26["catch"](0);
-                      console.error(_context26.t0);
+                      _context27.prev = 16;
+                      _context27.t0 = _context27["catch"](0);
+                      console.error(_context27.t0);
                       this.router.navigate(['/error']);
 
                     case 20:
                       setTimeout(function () {
-                        if (_this10.intlTelInput === undefined) {
+                        if (_this9.intlTelInput === undefined) {
                           return;
                         }
 
-                        var findResult = _this10.intlTelInput.allCountries.find(function (c) {
+                        var findResult = _this9.intlTelInput.allCountries.find(function (c) {
                           return c.iso2 === ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_7__["CountryISO"].Japan;
                         });
 
@@ -9924,15 +9988,15 @@
                           return;
                         }
 
-                        findResult.placeHolder = _this10.translate.instant('form.placeholder.telephone');
+                        findResult.placeHolder = _this9.translate.instant('form.placeholder.telephone');
                       }, 0);
 
                     case 21:
                     case "end":
-                      return _context26.stop();
+                      return _context27.stop();
                   }
                 }
-              }, _callee26, this, [[0, 16]]);
+              }, _callee27, this, [[0, 16]]);
             }));
           }
           /**
@@ -9942,13 +10006,13 @@
         }, {
           key: "createProfileForm",
           value: function createProfileForm() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
-              var _this11 = this;
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
+              var _this10 = this;
 
               var profile, purchase, user, profileData, additionalProperty;
-              return regeneratorRuntime.wrap(function _callee27$(_context27) {
+              return regeneratorRuntime.wrap(function _callee28$(_context28) {
                 while (1) {
-                  switch (_context27.prev = _context27.next) {
+                  switch (_context28.prev = _context28.next) {
                     case 0:
                       profile = this.environment.PROFILE;
                       this.profileForm = this.formBuilder.group({});
@@ -10002,70 +10066,70 @@
                           validators.push(_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].email);
                         }
 
-                        _this11.profileForm.addControl(p.key, new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](p.value, validators));
+                        _this10.profileForm.addControl(p.key, new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](p.value, validators));
                       });
-                      _context27.next = 5;
+                      _context28.next = 5;
                       return this.purchaseService.getData();
 
                     case 5:
-                      purchase = _context27.sent;
-                      _context27.next = 8;
+                      purchase = _context28.sent;
+                      _context28.next = 8;
                       return this.userService.getData();
 
                     case 8:
-                      user = _context27.sent;
+                      user = _context28.sent;
                       profileData = user.isMember && purchase.profile === undefined ? user.profile : purchase.profile;
 
                       if (!(profileData === undefined)) {
-                        _context27.next = 12;
+                        _context28.next = 12;
                         break;
                       }
 
-                      return _context27.abrupt("return");
+                      return _context28.abrupt("return");
 
                     case 12:
                       Object.keys(profileData).forEach(function (key) {
                         var value = profileData[key];
 
-                        if (value === undefined || _this11.profileForm.controls[key] === undefined) {
+                        if (value === undefined || _this10.profileForm.controls[key] === undefined) {
                           return;
                         }
 
                         if (key === 'telephone') {
-                          _this11.profileForm.controls.telephone.setValue(new _shared_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_14__["LibphonenumberFormatPipe"]().transform(value));
+                          _this10.profileForm.controls.telephone.setValue(new _shared_pipes_libphonenumber_format_pipe__WEBPACK_IMPORTED_MODULE_14__["LibphonenumberFormatPipe"]().transform(value));
 
                           return;
                         }
 
-                        _this11.profileForm.controls[key].setValue(value);
+                        _this10.profileForm.controls[key].setValue(value);
                       });
                       additionalProperty = profileData.additionalProperty;
 
                       if (!(additionalProperty === undefined)) {
-                        _context27.next = 16;
+                        _context28.next = 16;
                         break;
                       }
 
-                      return _context27.abrupt("return");
+                      return _context28.abrupt("return");
 
                     case 16:
                       additionalProperty.forEach(function (a) {
                         var key = "additionalProperty.".concat(a.name);
                         var value = a.value;
 
-                        if (value === undefined || _this11.profileForm.controls[key] === undefined) {
+                        if (value === undefined || _this10.profileForm.controls[key] === undefined) {
                           return;
                         }
 
-                        _this11.profileForm.controls[key].setValue(value);
+                        _this10.profileForm.controls[key].setValue(value);
                       });
 
                     case 17:
                     case "end":
-                      return _context27.stop();
+                      return _context28.stop();
                   }
                 }
-              }, _callee27, this);
+              }, _callee28, this);
             }));
           }
           /**
@@ -10103,28 +10167,28 @@
         }, {
           key: "onSubmit",
           value: function onSubmit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee28() {
-              var _this12 = this;
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
+              var _this11 = this;
 
               var cardExpiration, creditCard, _creditCard, additionalProperty, contact;
 
-              return regeneratorRuntime.wrap(function _callee28$(_context28) {
+              return regeneratorRuntime.wrap(function _callee29$(_context29) {
                 while (1) {
-                  switch (_context28.prev = _context28.next) {
+                  switch (_context29.prev = _context29.next) {
                     case 0:
                       // 購入者情報Form
                       Object.keys(this.profileForm.controls).forEach(function (key) {
-                        _this12.profileForm.controls[key].markAsTouched();
+                        _this11.profileForm.controls[key].markAsTouched();
 
                         if (key === 'telephone') {
                           return;
                         }
 
-                        _this12.profileForm.controls[key].setValue(document.getElementById(key).value);
+                        _this11.profileForm.controls[key].setValue(document.getElementById(key).value);
                       });
 
                       if (!this.profileForm.invalid) {
-                        _context28.next = 4;
+                        _context29.next = 4;
                         break;
                       }
 
@@ -10132,23 +10196,23 @@
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant('purchase.input.alert.customer')
                       });
-                      return _context28.abrupt("return");
+                      return _context29.abrupt("return");
 
                     case 4:
                       if (!(this.usedCreditCard === undefined && this.amount > 0)) {
-                        _context28.next = 12;
+                        _context29.next = 12;
                         break;
                       }
 
                       Object.keys(this.creditCardForm.controls).forEach(function (key) {
-                        _this12.creditCardForm.controls[key].markAsTouched();
+                        _this11.creditCardForm.controls[key].markAsTouched();
                       });
                       this.creditCardForm.controls.cardNumber.setValue(document.getElementById('cardNumber').value);
                       this.creditCardForm.controls.securityCode.setValue(document.getElementById('securityCode').value);
                       this.creditCardForm.controls.holderName.setValue(document.getElementById('holderName').value);
 
                       if (!this.creditCardForm.invalid) {
-                        _context28.next = 12;
+                        _context29.next = 12;
                         break;
                       }
 
@@ -10156,17 +10220,17 @@
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant('purchase.input.alert.payment')
                       });
-                      return _context28.abrupt("return");
+                      return _context29.abrupt("return");
 
                     case 12:
                       this.purchaseService.removeCreditCard();
 
                       if (!(this.amount > 0 && this.usedCreditCard === undefined)) {
-                        _context28.next = 25;
+                        _context29.next = 25;
                         break;
                       }
 
-                      _context28.prev = 14;
+                      _context29.prev = 14;
                       cardExpiration = {
                         year: this.creditCardForm.controls.cardExpirationYear.value,
                         month: this.creditCardForm.controls.cardExpirationMonth.value
@@ -10177,21 +10241,21 @@
                         holderName: this.creditCardForm.controls.holderName.value,
                         securityCode: this.creditCardForm.controls.securityCode.value
                       };
-                      _context28.next = 19;
+                      _context29.next = 19;
                       return this.purchaseService.createGmoTokenObject(creditCard);
 
                     case 19:
-                      _context28.next = 25;
+                      _context29.next = 25;
                       break;
 
                     case 21:
-                      _context28.prev = 21;
-                      _context28.t0 = _context28["catch"](14);
+                      _context29.prev = 21;
+                      _context29.t0 = _context29["catch"](14);
                       this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant('purchase.input.alert.gmoToken')
                       });
-                      return _context28.abrupt("return");
+                      return _context29.abrupt("return");
 
                     case 25:
                       if (this.amount > 0 && this.usedCreditCard !== undefined) {
@@ -10203,7 +10267,7 @@
                         this.purchaseService.registerCreditCard(_creditCard);
                       }
 
-                      _context28.prev = 26;
+                      _context29.prev = 26;
                       additionalProperty = [];
                       Object.keys(this.profileForm.controls).forEach(function (key) {
                         if (!/additionalProperty/.test(key)) {
@@ -10212,7 +10276,7 @@
 
                         additionalProperty.push({
                           name: key.replace('additionalProperty.', ''),
-                          value: _this12.profileForm.controls[key].value
+                          value: _this11.profileForm.controls[key].value
                         });
                       });
                       contact = {
@@ -10225,25 +10289,25 @@
                         gender: this.profileForm.controls.gender === undefined ? undefined : this.profileForm.controls.gender.value,
                         additionalProperty: additionalProperty.length === 0 ? undefined : additionalProperty
                       };
-                      _context28.next = 32;
+                      _context29.next = 32;
                       return this.purchaseService.registerContact(contact);
 
                     case 32:
                       this.router.navigate(['/purchase/confirm']);
-                      _context28.next = 38;
+                      _context29.next = 38;
                       break;
 
                     case 35:
-                      _context28.prev = 35;
-                      _context28.t1 = _context28["catch"](26);
+                      _context29.prev = 35;
+                      _context29.t1 = _context29["catch"](26);
                       this.router.navigate(['/error']);
 
                     case 38:
                     case "end":
-                      return _context28.stop();
+                      return _context29.stop();
                   }
                 }
-              }, _callee28, this, [[14, 21], [26, 35]]);
+              }, _callee29, this, [[14, 21], [26, 35]]);
             }));
           }
           /**
@@ -10264,14 +10328,14 @@
         }, {
           key: "openRegisteredCreditCard",
           value: function openRegisteredCreditCard() {
-            var _this13 = this;
+            var _this12 = this;
 
             this.user.subscribe(function (user) {
-              _this13.modal.show(_shared_components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_13__["CreditCardSelectModalComponent"], {
+              _this12.modal.show(_shared_components_parts_creditcard_select_modal_select_modal_component__WEBPACK_IMPORTED_MODULE_13__["CreditCardSelectModalComponent"], {
                 initialState: {
                   creditCards: user.creditCards,
                   cb: function cb(creditCard) {
-                    _this13.usedCreditCard = creditCard;
+                    _this12.usedCreditCard = creditCard;
                   }
                 },
                 "class": 'modal-dialog-centered'
@@ -10362,7 +10426,7 @@
         },
         decls: 24,
         vars: 23,
-        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "mb-4"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "p-3", "bg-white"], [3, "formGroup"], ["class", "form-group row", 4, "ngFor", "ngForOf"], ["class", "mb-4", 4, "ngIf"], [1, "mb-4", "p-3", "bg-white"], [1, "mb-2", "font-weight-bold"], [1, "text-small", 3, "innerHTML"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], [4, "ngIf"], [1, "form-group", "row"], [1, "col-md-4", "py-2", "text-md-right"], [1, "d-inline-flex", "align-items-center"], ["class", "badge badge-danger ml-2", 4, "ngIf"], [1, "col-md-8"], ["type", "text", "class", "form-control", 3, "formControlName", "id", "placeholder", 4, "ngIf"], ["type", "email", "class", "form-control", 3, "formControlName", "id", "placeholder", 4, "ngIf"], ["inputId", "telephone", "name", "telephone", "formControlName", "telephone", 3, "preferredCountries", "enableAutoCountrySelect", "enablePlaceholder", "searchCountryFlag", "searchCountryField", "selectFirstCountry", "selectedCountryISO", "maxLength", "tooltipField", "phoneValidation", "separateDialCode", 4, "ngIf"], ["class", "form-control", 3, "formControlName", "id", 4, "ngIf"], ["type", "text", "class", "form-control", "placeholder", "", 3, "formControlName", "id", 4, "ngIf"], ["class", "form-control", "placeholder", "", 3, "formControlName", "id", 4, "ngIf"], ["class", "mt-2", 4, "ngIf"], [1, "badge", "badge-danger", "ml-2"], ["type", "text", 1, "form-control", 3, "formControlName", "id", "placeholder"], ["type", "email", 1, "form-control", 3, "formControlName", "id", "placeholder"], ["inputId", "telephone", "name", "telephone", "formControlName", "telephone", 3, "preferredCountries", "enableAutoCountrySelect", "enablePlaceholder", "searchCountryFlag", "searchCountryField", "selectFirstCountry", "selectedCountryISO", "maxLength", "tooltipField", "phoneValidation", "separateDialCode"], ["intlTelInput", ""], [1, "form-control", 3, "formControlName", "id"], ["value", ""], ["value", "man"], ["value", "woman"], ["type", "text", "placeholder", "", 1, "form-control", 3, "formControlName", "id"], ["placeholder", "", 1, "form-control", 3, "formControlName", "id"], [1, "mt-2"], ["class", "text-danger", 4, "ngIf"], [1, "text-danger"], [1, "mt-2", "mb-1", "text-small", 3, "innerHTML"], ["type", "button", 1, "btn", "btn-primary", "btn-sm", 3, "click"], [1, "col-md-4", "py-2", "py-md-3", "text-md-right"], [1, "text-x-large", "text-info"], [1, "mb-3"], [3, "formGroup", 4, "ngIf"], ["class", "mb-3", 4, "ngIf"], ["class", "buttons mx-auto", 4, "ngIf"], ["type", "text", "id", "cardNumber", "formControlName", "cardNumber", "maxlength", "16", 1, "form-control", 3, "placeholder"], [1, "credit-image"], ["src", "/assets/images/credit_card.png", "alt", "", 1, "w-100"], [1, "form-inline"], ["id", "cardExpirationMonth", "formControlName", "cardExpirationMonth", 1, "form-control", "d-inline-block", "w-auto"], [3, "value", 4, "ngFor", "ngForOf"], [1, "mx-2"], ["id", "cardExpirationYear", "formControlName", "cardExpirationYear", 1, "form-control", "d-inline-block", "w-auto"], ["type", "text", "id", "securityCode", "maxlength", "4", "formControlName", "securityCode", 1, "form-control", 3, "placeholder"], [1, "btn", "btn-link", "btn-sm", 3, "click"], ["type", "text", "id", "holderName", "formControlName", "holderName", 1, "form-control", 3, "placeholder"], [3, "value"], [1, "col-md-8", "py-2"], [1, "buttons", "mx-auto"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "click"], ["type", "button", "routerLink", "/purchase/cinema/ticket", 1, "btn", "btn-link"], ["type", "button", "routerLink", "/purchase/event/ticket", 1, "btn", "btn-link"]],
+        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "mb-4"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "p-3", "bg-white"], [3, "formGroup"], ["class", "form-group row", 4, "ngFor", "ngForOf"], ["class", "mb-4", 4, "ngIf"], [1, "mb-4", "p-3", "bg-white"], [1, "mb-2", "font-weight-bold"], [1, "text-small", 3, "innerHTML"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], [4, "ngIf"], [1, "form-group", "row"], [1, "col-md-4", "py-2", "text-md-right"], [1, "d-inline-flex", "align-items-center"], ["class", "badge badge-danger ml-2", 4, "ngIf"], [1, "col-md-8"], ["type", "text", "class", "form-control", 3, "formControlName", "id", "placeholder", 4, "ngIf"], ["type", "email", "class", "form-control", 3, "formControlName", "id", "placeholder", 4, "ngIf"], ["inputId", "telephone", "name", "telephone", "formControlName", "telephone", 3, "preferredCountries", "enableAutoCountrySelect", "enablePlaceholder", "searchCountryFlag", "searchCountryField", "selectFirstCountry", "selectedCountryISO", "maxLength", "tooltipField", "phoneValidation", "separateDialCode", 4, "ngIf"], ["class", "form-control", 3, "formControlName", "id", 4, "ngIf"], ["type", "text", "class", "form-control", "placeholder", "", 3, "formControlName", "id", 4, "ngIf"], ["class", "form-control", "placeholder", "", 3, "formControlName", "id", 4, "ngIf"], ["class", "mt-2", 4, "ngIf"], [1, "badge", "badge-danger", "ml-2"], ["type", "text", 1, "form-control", 3, "formControlName", "id", "placeholder"], ["type", "email", 1, "form-control", 3, "formControlName", "id", "placeholder"], ["inputId", "telephone", "name", "telephone", "formControlName", "telephone", 3, "preferredCountries", "enableAutoCountrySelect", "enablePlaceholder", "searchCountryFlag", "searchCountryField", "selectFirstCountry", "selectedCountryISO", "maxLength", "tooltipField", "phoneValidation", "separateDialCode"], ["intlTelInput", ""], [1, "form-control", 3, "formControlName", "id"], ["value", ""], ["value", "man"], ["value", "woman"], ["type", "text", "placeholder", "", 1, "form-control", 3, "formControlName", "id"], ["placeholder", "", 1, "form-control", 3, "formControlName", "id"], [1, "mt-2"], ["class", "text-danger", 4, "ngIf"], [1, "text-danger"], [1, "mt-2", "mb-1", "text-small", 3, "innerHTML"], ["type", "button", 1, "btn", "btn-primary", "btn-sm", 3, "click"], [1, "col-md-4", "py-2", "py-md-3", "text-md-right"], [1, "text-x-large", "text-info"], [1, "mb-3"], [3, "formGroup", 4, "ngIf"], ["class", "mb-3", 4, "ngIf"], ["class", "buttons mx-auto", 4, "ngIf"], ["type", "text", "id", "cardNumber", "formControlName", "cardNumber", "maxlength", "16", 1, "form-control", 3, "placeholder"], [1, "credit-image"], ["src", "/assets/images/credit_card.png", "alt", "", 1, "w-100"], [1, "form-inline"], ["id", "cardExpirationMonth", "formControlName", "cardExpirationMonth", 1, "form-control", "d-inline-block", "w-auto"], [3, "value", 4, "ngFor", "ngForOf"], [1, "mx-2"], ["id", "cardExpirationYear", "formControlName", "cardExpirationYear", 1, "form-control", "d-inline-block", "w-auto"], ["type", "text", "id", "securityCode", "maxlength", "4", "formControlName", "securityCode", 1, "form-control", 3, "placeholder"], [1, "btn", "btn-link", "btn-sm", 3, "click"], ["type", "text", "id", "holderName", "formControlName", "holderName", 1, "form-control", 3, "placeholder"], [3, "value"], [1, "col-md-8", "py-2"], [1, "buttons", "mx-auto"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "click"], ["type", "button", "routerLink", "/purchase/cinema/ticket", 1, "btn", "btn-outline-primary", "btn-block", "py-3"], ["type", "button", "routerLink", "/purchase/event/ticket", 1, "btn", "btn-outline-primary", "btn-block", "py-3"]],
         template: function PurchaseInputComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -10636,32 +10700,32 @@
         _createClass(PurchaseRootComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee29() {
-              return regeneratorRuntime.wrap(function _callee29$(_context29) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
+              return regeneratorRuntime.wrap(function _callee30$(_context30) {
                 while (1) {
-                  switch (_context29.prev = _context29.next) {
+                  switch (_context30.prev = _context30.next) {
                     case 0:
                       this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
                       this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getPurchase"]));
                       this.purchaseService["delete"]();
 
                       if (!(this.environment.VIEW_TYPE === ___WEBPACK_IMPORTED_MODULE_3__["Models"].Common.ViewType.Cinema)) {
-                        _context29.next = 6;
+                        _context30.next = 6;
                         break;
                       }
 
                       this.router.navigate(['/purchase/cinema/schedule']);
-                      return _context29.abrupt("return");
+                      return _context30.abrupt("return");
 
                     case 6:
                       this.router.navigate(['/purchase/event/schedule']);
 
                     case 7:
                     case "end":
-                      return _context29.stop();
+                      return _context30.stop();
                   }
                 }
-              }, _callee29, this);
+              }, _callee30, this);
             }));
           }
         }]);
@@ -10825,38 +10889,38 @@
         _createClass(PurchaseSeatComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
-              var _this14 = this;
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
+              var _this13 = this;
 
               var purchase, screeningEvent, reservations;
-              return regeneratorRuntime.wrap(function _callee30$(_context30) {
+              return regeneratorRuntime.wrap(function _callee31$(_context31) {
                 while (1) {
-                  switch (_context30.prev = _context30.next) {
+                  switch (_context31.prev = _context31.next) {
                     case 0:
                       this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getPurchase"]));
                       this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
                       this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getLoading"]));
                       this.translateName = this.environment.VIEW_TYPE === 'cinema' ? 'purchase.cinema.seat' : 'purchase.event.seat';
                       this.screeningEventSeats = [];
-                      _context30.prev = 5;
-                      _context30.next = 8;
+                      _context31.prev = 5;
+                      _context31.next = 8;
                       return this.purchaseService.getData();
 
                     case 8:
-                      purchase = _context30.sent;
+                      purchase = _context31.sent;
                       screeningEvent = purchase.screeningEvent;
 
                       if (!(screeningEvent === undefined)) {
-                        _context30.next = 13;
+                        _context31.next = 13;
                         break;
                       }
 
                       this.router.navigate(['/error']);
-                      return _context30.abrupt("return");
+                      return _context31.abrupt("return");
 
                     case 13:
                       reservations = purchase.reservations;
-                      _context30.next = 16;
+                      _context31.next = 16;
                       return this.resetSeats();
 
                     case 16:
@@ -10865,12 +10929,12 @@
                           return;
                         }
 
-                        _this14.selectSeat({
+                        _this13.selectSeat({
                           seat: r.seat,
                           status: ___WEBPACK_IMPORTED_MODULE_4__["Models"].Purchase.Screen.SeatStatus.Default
                         });
                       });
-                      _context30.next = 19;
+                      _context31.next = 19;
                       return this.purchaseService.getScreen({
                         branchCode: {
                           $eq: screeningEvent.location.branchCode
@@ -10883,30 +10947,30 @@
                       });
 
                     case 19:
-                      _context30.next = 21;
+                      _context31.next = 21;
                       return this.purchaseService.getScreeningEventSeats();
 
                     case 21:
-                      this.screeningEventSeats = _context30.sent;
-                      _context30.next = 24;
+                      this.screeningEventSeats = _context31.sent;
+                      _context31.next = 24;
                       return this.purchaseService.getTicketList();
 
                     case 24:
-                      _context30.next = 30;
+                      _context31.next = 30;
                       break;
 
                     case 26:
-                      _context30.prev = 26;
-                      _context30.t0 = _context30["catch"](5);
-                      console.error(_context30.t0);
+                      _context31.prev = 26;
+                      _context31.t0 = _context31["catch"](5);
+                      console.error(_context31.t0);
                       this.router.navigate(['/error']);
 
                     case 30:
                     case "end":
-                      return _context30.stop();
+                      return _context31.stop();
                   }
                 }
-              }, _callee30, this, [[5, 26]]);
+              }, _callee31, this, [[5, 26]]);
             }));
           }
           /**
@@ -10916,25 +10980,25 @@
         }, {
           key: "selectSeat",
           value: function selectSeat(data) {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
               var purchase;
-              return regeneratorRuntime.wrap(function _callee31$(_context31) {
+              return regeneratorRuntime.wrap(function _callee32$(_context32) {
                 while (1) {
-                  switch (_context31.prev = _context31.next) {
+                  switch (_context32.prev = _context32.next) {
                     case 0:
-                      _context31.next = 2;
+                      _context32.next = 2;
                       return this.purchaseService.getData();
 
                     case 2:
-                      purchase = _context31.sent;
+                      purchase = _context32.sent;
 
                       if (!(data.status === ___WEBPACK_IMPORTED_MODULE_4__["Models"].Purchase.Screen.SeatStatus.Default)) {
-                        _context31.next = 10;
+                        _context32.next = 10;
                         break;
                       }
 
                       if (!(purchase.screeningEvent !== undefined && purchase.screeningEvent.offers !== undefined && purchase.screeningEvent.offers.eligibleQuantity.maxValue !== undefined && purchase.reservations.length >= purchase.screeningEvent.offers.eligibleQuantity.maxValue)) {
-                        _context31.next = 7;
+                        _context32.next = 7;
                         break;
                       }
 
@@ -10944,11 +11008,11 @@
                           value: purchase.screeningEvent.offers.eligibleQuantity.maxValue
                         })
                       });
-                      return _context31.abrupt("return");
+                      return _context32.abrupt("return");
 
                     case 7:
                       this.purchaseService.selectSeats([data.seat]);
-                      _context31.next = 11;
+                      _context32.next = 11;
                       break;
 
                     case 10:
@@ -10956,10 +11020,10 @@
 
                     case 11:
                     case "end":
-                      return _context31.stop();
+                      return _context32.stop();
                   }
                 }
-              }, _callee31, this);
+              }, _callee32, this);
             }));
           }
           /**
@@ -10969,23 +11033,23 @@
         }, {
           key: "onSubmit",
           value: function onSubmit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
               var purchase, reservations, screeningEventTicketOffers, navigate;
-              return regeneratorRuntime.wrap(function _callee32$(_context32) {
+              return regeneratorRuntime.wrap(function _callee33$(_context33) {
                 while (1) {
-                  switch (_context32.prev = _context32.next) {
+                  switch (_context33.prev = _context33.next) {
                     case 0:
-                      _context32.prev = 0;
-                      _context32.next = 3;
+                      _context33.prev = 0;
+                      _context33.next = 3;
                       return this.purchaseService.getData();
 
                     case 3:
-                      purchase = _context32.sent;
+                      purchase = _context33.sent;
                       reservations = purchase.reservations;
                       screeningEventTicketOffers = purchase.screeningEventTicketOffers;
 
                       if (!(reservations.length === 0)) {
-                        _context32.next = 9;
+                        _context33.next = 9;
                         break;
                       }
 
@@ -10993,11 +11057,11 @@
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant("".concat(this.translateName, ".alert.unselected"))
                       });
-                      return _context32.abrupt("return");
+                      return _context33.abrupt("return");
 
                     case 9:
                       if (!(screeningEventTicketOffers.length === 0)) {
-                        _context32.next = 12;
+                        _context33.next = 12;
                         break;
                       }
 
@@ -11005,10 +11069,10 @@
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant("".concat(this.translateName, ".alert.ticketNotfound"))
                       });
-                      return _context32.abrupt("return");
+                      return _context33.abrupt("return");
 
                     case 12:
-                      _context32.next = 14;
+                      _context33.next = 14;
                       return this.purchaseService.temporaryReservation({
                         reservations: reservations,
                         screeningEventSeats: this.screeningEventSeats
@@ -11017,13 +11081,13 @@
                     case 14:
                       navigate = this.environment.VIEW_TYPE === 'cinema' ? '/purchase/cinema/ticket' : '/purchase/event/seat/ticket';
                       this.router.navigate([navigate]);
-                      _context32.next = 22;
+                      _context33.next = 22;
                       break;
 
                     case 18:
-                      _context32.prev = 18;
-                      _context32.t0 = _context32["catch"](0);
-                      console.error(_context32.t0);
+                      _context33.prev = 18;
+                      _context33.t0 = _context33["catch"](0);
+                      console.error(_context33.t0);
                       this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant("".concat(this.translateName, ".alert.temporaryReservation"))
@@ -11031,10 +11095,10 @@
 
                     case 22:
                     case "end":
-                      return _context32.stop();
+                      return _context33.stop();
                   }
                 }
-              }, _callee32, this, [[0, 18]]);
+              }, _callee33, this, [[0, 18]]);
             }));
           }
           /**
@@ -11044,18 +11108,18 @@
         }, {
           key: "resetSeats",
           value: function resetSeats() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
               var seats, purchase;
-              return regeneratorRuntime.wrap(function _callee33$(_context33) {
+              return regeneratorRuntime.wrap(function _callee34$(_context34) {
                 while (1) {
-                  switch (_context33.prev = _context33.next) {
+                  switch (_context34.prev = _context34.next) {
                     case 0:
                       seats = [];
-                      _context33.next = 3;
+                      _context34.next = 3;
                       return this.purchaseService.getData();
 
                     case 3:
-                      purchase = _context33.sent;
+                      purchase = _context34.sent;
                       purchase.reservations.forEach(function (reservation) {
                         if (reservation.seat === undefined) {
                           return;
@@ -11067,10 +11131,10 @@
 
                     case 6:
                     case "end":
-                      return _context33.stop();
+                      return _context34.stop();
                   }
                 }
-              }, _callee33, this);
+              }, _callee34, this);
             }));
           }
           /**
@@ -11114,25 +11178,25 @@
         }, {
           key: "selectOpenSeating",
           value: function selectOpenSeating(event) {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
               var purchaseData, value, reservations, screeningEventSeats, seats, selectSeats, i;
-              return regeneratorRuntime.wrap(function _callee34$(_context34) {
+              return regeneratorRuntime.wrap(function _callee35$(_context35) {
                 while (1) {
-                  switch (_context34.prev = _context34.next) {
+                  switch (_context35.prev = _context35.next) {
                     case 0:
                       if (!(event.target === null)) {
-                        _context34.next = 2;
+                        _context35.next = 2;
                         break;
                       }
 
-                      return _context34.abrupt("return");
+                      return _context35.abrupt("return");
 
                     case 2:
-                      _context34.next = 4;
+                      _context35.next = 4;
                       return this.purchaseService.getData();
 
                     case 4:
-                      purchaseData = _context34.sent;
+                      purchaseData = _context35.sent;
                       value = Number(event.target.value);
                       reservations = purchaseData.reservations;
                       screeningEventSeats = this.screeningEventSeats;
@@ -11140,7 +11204,7 @@
                         reservations: reservations,
                         screeningEventSeats: screeningEventSeats
                       });
-                      _context34.next = 11;
+                      _context35.next = 11;
                       return this.resetSeats();
 
                     case 11:
@@ -11154,10 +11218,10 @@
 
                     case 14:
                     case "end":
-                      return _context34.stop();
+                      return _context35.stop();
                   }
                 }
-              }, _callee34, this);
+              }, _callee35, this);
             }));
           }
         }]);
@@ -11359,25 +11423,25 @@
         }, {
           key: "onSubmit",
           value: function onSubmit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
               var purchase, reservations, unselectedReservations, validResult, additionalTicketText, screeningEventSeats, navigate;
-              return regeneratorRuntime.wrap(function _callee35$(_context35) {
+              return regeneratorRuntime.wrap(function _callee36$(_context36) {
                 while (1) {
-                  switch (_context35.prev = _context35.next) {
+                  switch (_context36.prev = _context36.next) {
                     case 0:
-                      _context35.prev = 0;
-                      _context35.next = 3;
+                      _context36.prev = 0;
+                      _context36.next = 3;
                       return this.purchaseService.getData();
 
                     case 3:
-                      purchase = _context35.sent;
+                      purchase = _context36.sent;
                       reservations = purchase.reservations;
                       unselectedReservations = reservations.filter(function (reservation) {
                         return reservation.ticket === undefined;
                       });
 
                       if (!(unselectedReservations.length > 0)) {
-                        _context35.next = 9;
+                        _context36.next = 9;
                         break;
                       }
 
@@ -11385,7 +11449,7 @@
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant("".concat(this.translateName, ".alert.unselected"))
                       });
-                      return _context35.abrupt("return");
+                      return _context36.abrupt("return");
 
                     case 9:
                       validResult = reservations.filter(function (reservation) {
@@ -11409,7 +11473,7 @@
                       });
 
                       if (!(validResult.length > 0)) {
-                        _context35.next = 13;
+                        _context36.next = 13;
                         break;
                       }
 
@@ -11417,16 +11481,16 @@
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant("".concat(this.translateName, ".alert.ticketCondition"))
                       });
-                      return _context35.abrupt("return");
+                      return _context36.abrupt("return");
 
                     case 13:
                       additionalTicketText = this.additionalTicketText;
-                      _context35.next = 16;
+                      _context36.next = 16;
                       return this.purchaseService.getScreeningEventSeats();
 
                     case 16:
-                      screeningEventSeats = _context35.sent;
-                      _context35.next = 19;
+                      screeningEventSeats = _context36.sent;
+                      _context36.next = 19;
                       return this.purchaseService.temporaryReservation({
                         reservations: reservations,
                         additionalTicketText: additionalTicketText,
@@ -11436,21 +11500,21 @@
                     case 19:
                       navigate = this.environment.VIEW_TYPE === 'cinema' ? '/purchase/input' : '/purchase/event/ticket';
                       this.router.navigate([navigate]);
-                      _context35.next = 27;
+                      _context36.next = 27;
                       break;
 
                     case 23:
-                      _context35.prev = 23;
-                      _context35.t0 = _context35["catch"](0);
-                      console.error(_context35.t0);
+                      _context36.prev = 23;
+                      _context36.t0 = _context36["catch"](0);
+                      console.error(_context36.t0);
                       this.router.navigate(['/error']);
 
                     case 27:
                     case "end":
-                      return _context35.stop();
+                      return _context36.stop();
                   }
                 }
-              }, _callee35, this, [[0, 23]]);
+              }, _callee36, this, [[0, 23]]);
             }));
           }
           /**
@@ -11461,19 +11525,19 @@
         }, {
           key: "openTicketList",
           value: function openTicketList(reservation) {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
-              var _this15 = this;
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
+              var _this14 = this;
 
               var purchase;
-              return regeneratorRuntime.wrap(function _callee36$(_context36) {
+              return regeneratorRuntime.wrap(function _callee37$(_context37) {
                 while (1) {
-                  switch (_context36.prev = _context36.next) {
+                  switch (_context37.prev = _context37.next) {
                     case 0:
-                      _context36.next = 2;
+                      _context37.next = 2;
                       return this.purchaseService.getData();
 
                     case 2:
-                      purchase = _context36.sent;
+                      purchase = _context37.sent;
                       this.modal.show(_shared_components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseSeatTicketModalComponent"], {
                         initialState: {
                           screeningEventTicketOffers: purchase.screeningEventTicketOffers,
@@ -11482,7 +11546,7 @@
                           reservation: reservation,
                           pendingMovieTickets: purchase.pendingMovieTickets,
                           cb: function cb(ticket) {
-                            _this15.purchaseService.selectTickets([Object.assign(Object.assign({}, reservation), {
+                            _this14.purchaseService.selectTickets([Object.assign(Object.assign({}, reservation), {
                               ticket: ticket
                             })]);
                           }
@@ -11492,10 +11556,10 @@
 
                     case 4:
                     case "end":
-                      return _context36.stop();
+                      return _context37.stop();
                   }
                 }
-              }, _callee36, this);
+              }, _callee37, this);
             }));
           }
         }, {
@@ -11664,11 +11728,11 @@
         _createClass(PurchaseTransactionComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
               var snapshot, eventId, passportToken, tmpPurchase, external;
-              return regeneratorRuntime.wrap(function _callee37$(_context37) {
+              return regeneratorRuntime.wrap(function _callee38$(_context38) {
                 while (1) {
-                  switch (_context37.prev = _context37.next) {
+                  switch (_context38.prev = _context38.next) {
                     case 0:
                       this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
                       this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getPurchase"]));
@@ -11680,57 +11744,57 @@
                         eventId: eventId,
                         passportToken: passportToken
                       }));
-                      _context37.next = 9;
+                      _context38.next = 9;
                       return this.purchaseService.getData();
 
                     case 9:
-                      tmpPurchase = _context37.sent;
+                      tmpPurchase = _context38.sent;
                       external = ___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.getExternalData();
 
                       if (!(this.environment.VIEW_TYPE === ___WEBPACK_IMPORTED_MODULE_3__["Models"].Common.ViewType.Cinema && external !== undefined && external.eventId !== undefined && tmpPurchase.authorizeSeatReservation !== undefined)) {
-                        _context37.next = 14;
+                        _context38.next = 14;
                         break;
                       }
 
                       this.router.navigate(['/purchase/cinema/overlap']);
-                      return _context37.abrupt("return");
+                      return _context38.abrupt("return");
 
                     case 14:
                       this.purchaseService["delete"]();
 
                       if (!(this.environment.VIEW_TYPE !== ___WEBPACK_IMPORTED_MODULE_3__["Models"].Common.ViewType.Cinema)) {
-                        _context37.next = 18;
+                        _context38.next = 18;
                         break;
                       }
 
                       this.router.navigate(['/error']);
-                      return _context37.abrupt("return");
+                      return _context38.abrupt("return");
 
                     case 18:
-                      _context37.prev = 18;
-                      _context37.next = 21;
+                      _context38.prev = 18;
+                      _context38.next = 21;
                       return this.purchaseService.convertExternalToPurchase(eventId);
 
                     case 21:
-                      _context37.next = 23;
+                      _context38.next = 23;
                       return this.purchaseService.startTransaction();
 
                     case 23:
                       this.router.navigate(['/purchase/cinema/seat']);
-                      _context37.next = 29;
+                      _context38.next = 29;
                       break;
 
                     case 26:
-                      _context37.prev = 26;
-                      _context37.t0 = _context37["catch"](18);
+                      _context38.prev = 26;
+                      _context38.t0 = _context38["catch"](18);
                       this.router.navigate(['/error']);
 
                     case 29:
                     case "end":
-                      return _context37.stop();
+                      return _context38.stop();
                   }
                 }
-              }, _callee37, this, [[18, 26]]);
+              }, _callee38, this, [[18, 26]]);
             }));
           }
         }, {
@@ -13502,52 +13566,52 @@
         }, {
           key: "ngOnChanges",
           value: function ngOnChanges() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
               var path, url, result;
-              return regeneratorRuntime.wrap(function _callee38$(_context38) {
+              return regeneratorRuntime.wrap(function _callee39$(_context39) {
                 while (1) {
-                  switch (_context38.prev = _context38.next) {
+                  switch (_context39.prev = _context39.next) {
                     case 0:
-                      _context38.prev = 0;
+                      _context39.prev = 0;
                       path = "/text/purchase/terms/".concat(this.language, ".txt");
-                      _context38.next = 4;
+                      _context39.next = 4;
                       return ___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.isFile("".concat(___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl).concat(path));
 
                     case 4:
-                      if (!_context38.sent) {
-                        _context38.next = 8;
+                      if (!_context39.sent) {
+                        _context39.next = 8;
                         break;
                       }
 
-                      _context38.t0 = "".concat(___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl).concat(path);
-                      _context38.next = 9;
+                      _context39.t0 = "".concat(___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl).concat(path);
+                      _context39.next = 9;
                       break;
 
                     case 8:
-                      _context38.t0 = "/default".concat(path);
+                      _context39.t0 = "/default".concat(path);
 
                     case 9:
-                      url = _context38.t0;
-                      _context38.next = 12;
+                      url = _context39.t0;
+                      _context39.next = 12;
                       return this.utilService.getText(url);
 
                     case 12:
-                      result = _context38.sent;
+                      result = _context39.sent;
                       this.terms = result.replace(/\n/g, '<br>');
-                      _context38.next = 19;
+                      _context39.next = 19;
                       break;
 
                     case 16:
-                      _context38.prev = 16;
-                      _context38.t1 = _context38["catch"](0);
-                      console.error(_context38.t1);
+                      _context39.prev = 16;
+                      _context39.t1 = _context39["catch"](0);
+                      console.error(_context39.t1);
 
                     case 19:
                     case "end":
-                      return _context38.stop();
+                      return _context39.stop();
                   }
                 }
-              }, _callee38, this, [[0, 16]]);
+              }, _callee39, this, [[0, 16]]);
             }));
           }
         }]);
@@ -13708,52 +13772,52 @@
         }, {
           key: "ngOnChanges",
           value: function ngOnChanges() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
               var path, url, result;
-              return regeneratorRuntime.wrap(function _callee39$(_context39) {
+              return regeneratorRuntime.wrap(function _callee40$(_context40) {
                 while (1) {
-                  switch (_context39.prev = _context39.next) {
+                  switch (_context40.prev = _context40.next) {
                     case 0:
-                      _context39.prev = 0;
+                      _context40.prev = 0;
                       path = "/text/purchase/warning/".concat(this.language, ".txt");
-                      _context39.next = 4;
+                      _context40.next = 4;
                       return ___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.isFile("".concat(___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl).concat(path));
 
                     case 4:
-                      if (!_context39.sent) {
-                        _context39.next = 8;
+                      if (!_context40.sent) {
+                        _context40.next = 8;
                         break;
                       }
 
-                      _context39.t0 = "".concat(___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl).concat(path);
-                      _context39.next = 9;
+                      _context40.t0 = "".concat(___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl).concat(path);
+                      _context40.next = 9;
                       break;
 
                     case 8:
-                      _context39.t0 = "/default".concat(path);
+                      _context40.t0 = "/default".concat(path);
 
                     case 9:
-                      url = _context39.t0;
-                      _context39.next = 12;
+                      url = _context40.t0;
+                      _context40.next = 12;
                       return this.utilService.getText(url);
 
                     case 12:
-                      result = _context39.sent;
+                      result = _context40.sent;
                       this.warning = result.replace(/\n/g, '<br>');
-                      _context39.next = 19;
+                      _context40.next = 19;
                       break;
 
                     case 16:
-                      _context39.prev = 16;
-                      _context39.t1 = _context39["catch"](0);
-                      console.error(_context39.t1);
+                      _context40.prev = 16;
+                      _context40.t1 = _context40["catch"](0);
+                      console.error(_context40.t1);
 
                     case 19:
                     case "end":
-                      return _context39.stop();
+                      return _context40.stop();
                   }
                 }
-              }, _callee39, this, [[0, 16]]);
+              }, _callee40, this, [[0, 16]]);
             }));
           }
         }]);
@@ -14180,38 +14244,38 @@
         _createClass(ScreenComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
-              return regeneratorRuntime.wrap(function _callee40$(_context40) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee41() {
+              return regeneratorRuntime.wrap(function _callee41$(_context41) {
                 while (1) {
-                  switch (_context40.prev = _context40.next) {
+                  switch (_context41.prev = _context41.next) {
                     case 0:
-                      _context40.prev = 0;
+                      _context41.prev = 0;
                       this.zoomState = false;
                       this.scale = 1;
                       this.height = 0;
                       this.origin = '0 0';
-                      _context40.next = 7;
+                      _context41.next = 7;
                       return this.getScreenData();
 
                     case 7:
-                      this.screenData = _context40.sent;
+                      this.screenData = _context41.sent;
                       this.createScreen();
                       this.scaleDown();
                       this.setScrollEvent();
-                      _context40.next = 16;
+                      _context41.next = 16;
                       break;
 
                     case 13:
-                      _context40.prev = 13;
-                      _context40.t0 = _context40["catch"](0);
-                      console.error(_context40.t0);
+                      _context41.prev = 13;
+                      _context41.t0 = _context41["catch"](0);
+                      console.error(_context41.t0);
 
                     case 16:
                     case "end":
-                      return _context40.stop();
+                      return _context41.stop();
                   }
                 }
-              }, _callee40, this, [[0, 13]]);
+              }, _callee41, this, [[0, 13]]);
             }));
           }
           /**
@@ -14221,16 +14285,16 @@
         }, {
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var _this16 = this;
+            var _this15 = this;
 
             var time = 300;
             var timer = setInterval(function () {
-              if (_this16.screenData !== undefined) {
+              if (_this15.screenData !== undefined) {
                 clearInterval(timer);
                 var screenElement = document.querySelector('.screen-style');
 
-                if (screenElement !== null && _this16.screenData.style !== undefined) {
-                  screenElement.innerHTML = _this16.screenData.style;
+                if (screenElement !== null && _this15.screenData.style !== undefined) {
+                  screenElement.innerHTML = _this15.screenData.style;
                 }
               }
             }, time);
@@ -14242,27 +14306,27 @@
         }, {
           key: "ngAfterContentChecked",
           value: function ngAfterContentChecked() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee41() {
-              return regeneratorRuntime.wrap(function _callee41$(_context41) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee42() {
+              return regeneratorRuntime.wrap(function _callee42$(_context42) {
                 while (1) {
-                  switch (_context41.prev = _context41.next) {
+                  switch (_context42.prev = _context42.next) {
                     case 0:
                       if (!(this.screenData === undefined)) {
-                        _context41.next = 2;
+                        _context42.next = 2;
                         break;
                       }
 
-                      return _context41.abrupt("return");
+                      return _context42.abrupt("return");
 
                     case 2:
                       this.changeStatus();
 
                     case 3:
                     case "end":
-                      return _context41.stop();
+                      return _context42.stop();
                   }
                 }
-              }, _callee41, this);
+              }, _callee42, this);
             }));
           }
           /**
@@ -14282,19 +14346,19 @@
         }, {
           key: "setScrollEvent",
           value: function setScrollEvent() {
-            var _this17 = this;
+            var _this16 = this;
 
             this.onWindowScroll = function (event) {
               var target = event.target;
 
-              var rect = _this17.screen.nativeElement.getBoundingClientRect();
+              var rect = _this16.screen.nativeElement.getBoundingClientRect();
 
               var offsetTop = rect.top - target.getBoundingClientRect().top;
-              var screenHeight = _this17.screen.nativeElement.clientHeight;
-              var btnHeight = _this17.zoomBtn.nativeElement.clientHeight;
+              var screenHeight = _this16.screen.nativeElement.clientHeight;
+              var btnHeight = _this16.zoomBtn.nativeElement.clientHeight;
               var space = 10;
               var top = offsetTop > 0 || screenHeight + offsetTop - btnHeight - space < 0 ? space : (offsetTop - space) * -1;
-              _this17.zoomBtn.nativeElement.style.top = "".concat(top, "px");
+              _this16.zoomBtn.nativeElement.style.top = "".concat(top, "px");
             }.bind(this);
 
             var element = document.getElementById('contents');
@@ -14318,77 +14382,77 @@
         }, {
           key: "getScreenData",
           value: function getScreenData() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee42() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee43() {
               var now, settingPath, setting, screenPath, screen, objects;
-              return regeneratorRuntime.wrap(function _callee42$(_context42) {
+              return regeneratorRuntime.wrap(function _callee43$(_context43) {
                 while (1) {
-                  switch (_context42.prev = _context42.next) {
+                  switch (_context43.prev = _context43.next) {
                     case 0:
                       now = moment__WEBPACK_IMPORTED_MODULE_2__().toISOString();
                       settingPath = 'json/theater/setting.json';
-                      _context42.next = 4;
+                      _context43.next = 4;
                       return ___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.isFile("".concat(___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.getProject().storageUrl, "/").concat(settingPath));
 
                     case 4:
-                      if (!_context42.sent) {
-                        _context42.next = 10;
+                      if (!_context43.sent) {
+                        _context43.next = 10;
                         break;
                       }
 
-                      _context42.next = 7;
+                      _context43.next = 7;
                       return this.utilService.getJson("".concat(___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.getProject().storageUrl, "/").concat(settingPath));
 
                     case 7:
-                      _context42.t0 = _context42.sent;
-                      _context42.next = 13;
+                      _context43.t0 = _context43.sent;
+                      _context43.next = 13;
                       break;
 
                     case 10:
-                      _context42.next = 12;
+                      _context43.next = 12;
                       return this.utilService.getJson("/default/".concat(settingPath));
 
                     case 12:
-                      _context42.t0 = _context42.sent;
+                      _context43.t0 = _context43.sent;
 
                     case 13:
-                      setting = _context42.t0;
+                      setting = _context43.t0;
                       screenPath = "json/theater/".concat(this.theaterCode, "/").concat(this.screenCode, ".json?date=").concat(now);
-                      _context42.next = 17;
+                      _context43.next = 17;
                       return ___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.isFile("".concat(___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.getProject().storageUrl, "/").concat(screenPath));
 
                     case 17:
-                      if (!_context42.sent) {
-                        _context42.next = 23;
+                      if (!_context43.sent) {
+                        _context43.next = 23;
                         break;
                       }
 
-                      _context42.next = 20;
+                      _context43.next = 20;
                       return this.utilService.getJson("".concat(___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.getProject().storageUrl, "/").concat(screenPath));
 
                     case 20:
-                      _context42.t1 = _context42.sent;
-                      _context42.next = 24;
+                      _context43.t1 = _context43.sent;
+                      _context43.next = 24;
                       break;
 
                     case 23:
-                      _context42.t1 = this.generateScreenMap(setting);
+                      _context43.t1 = this.generateScreenMap(setting);
 
                     case 24:
-                      screen = _context42.t1;
+                      screen = _context43.t1;
                       objects = screen.objects.map(function (o) {
                         return Object.assign(Object.assign({}, o), {
                           image: o.image.replace('/storage', ___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.getProject().storageUrl)
                         });
                       });
                       screen.objects = objects;
-                      return _context42.abrupt("return", Object.assign(Object.assign({}, setting), screen));
+                      return _context43.abrupt("return", Object.assign(Object.assign({}, setting), screen));
 
                     case 28:
                     case "end":
-                      return _context42.stop();
+                      return _context43.stop();
                   }
                 }
-              }, _callee42, this);
+              }, _callee43, this);
             }));
           }
           /**
@@ -14632,7 +14696,7 @@
         }, {
           key: "createScreen",
           value: function createScreen() {
-            var _this18 = this;
+            var _this17 = this;
 
             // y軸ラベル
             var labels = this.createLineLabel(); // 行ラベル
@@ -14655,15 +14719,15 @@
 
 
               if (y === 0) {
-                pos.y += _this18.screenData.seatStart.y;
-              } else if (_this18.screenData.map[y].length === 0) {
-                pos.y += _this18.screenData.aisle.middle.h - _this18.screenData.seatMargin.h;
+                pos.y += _this17.screenData.seatStart.y;
+              } else if (_this17.screenData.map[y].length === 0) {
+                pos.y += _this17.screenData.aisle.middle.h - _this17.screenData.seatMargin.h;
               } else {
                 labelCount++;
-                pos.y += _this18.screenData.seatSize.h + _this18.screenData.seatMargin.h;
+                pos.y += _this17.screenData.seatSize.h + _this17.screenData.seatMargin.h;
               }
 
-              if (_this18.screenData.map[y].length > 0) {
+              if (_this17.screenData.map[y].length > 0) {
                 seats.push({
                   className: "seat-".concat(labels[labelCount]),
                   code: labels[labelCount],
@@ -14674,49 +14738,49 @@
 
                 var _loop4 = function _loop4(x) {
                   if (x === 0) {
-                    pos.x = _this18.screenData.seatStart.x;
+                    pos.x = _this17.screenData.seatStart.x;
                   } // 座席ラベルHTML生成
 
 
-                  if (x === 0 && _this18.screenData.lineLabel) {
-                    _this18.lineLabels.push({
+                  if (x === 0 && _this17.screenData.lineLabel) {
+                    _this17.lineLabels.push({
                       id: labelCount,
-                      w: _this18.screenData.seatSize.w,
-                      h: _this18.screenData.seatSize.h,
+                      w: _this17.screenData.seatSize.w,
+                      h: _this17.screenData.seatSize.h,
                       y: pos.y,
-                      x: pos.x - _this18.screenData.seatLabelPos,
+                      x: pos.x - _this17.screenData.seatLabelPos,
                       label: labels[labelCount]
                     });
                   }
 
-                  if (_this18.screenData.map[y][x] === 8) {
-                    pos.x += _this18.screenData.aisle.middle.w;
-                  } else if (_this18.screenData.map[y][x] === 9) {
-                    pos.x += _this18.screenData.aisle.middle.w;
-                  } else if (_this18.screenData.map[y][x] === 10) {
-                    pos.x += _this18.screenData.seatSize.w / 2 + _this18.screenData.seatMargin.w;
-                  } else if (_this18.screenData.map[y][x] === 11) {
-                    pos.x += _this18.screenData.seatSize.w / 2 + _this18.screenData.seatMargin.w;
+                  if (_this17.screenData.map[y][x] === 8) {
+                    pos.x += _this17.screenData.aisle.middle.w;
+                  } else if (_this17.screenData.map[y][x] === 9) {
+                    pos.x += _this17.screenData.aisle.middle.w;
+                  } else if (_this17.screenData.map[y][x] === 10) {
+                    pos.x += _this17.screenData.seatSize.w / 2 + _this17.screenData.seatMargin.w;
+                  } else if (_this17.screenData.map[y][x] === 11) {
+                    pos.x += _this17.screenData.seatSize.w / 2 + _this17.screenData.seatMargin.w;
                   } // 座席番号HTML生成
 
 
-                  if (y === 0 && _this18.screenData.columnLabel) {
-                    var label = _this18.screenData.seatNumberAlign === 'left' ? String(x + 1) : String(_this18.screenData.map[0].length - x);
+                  if (y === 0 && _this17.screenData.columnLabel) {
+                    var label = _this17.screenData.seatNumberAlign === 'left' ? String(x + 1) : String(_this17.screenData.map[0].length - x);
 
-                    _this18.columnLabels.push({
+                    _this17.columnLabels.push({
                       id: x,
-                      w: _this18.screenData.seatSize.w,
-                      h: _this18.screenData.seatSize.h,
-                      y: pos.y - _this18.screenData.seatNumberPos,
+                      w: _this17.screenData.seatSize.w,
+                      h: _this17.screenData.seatSize.h,
+                      y: pos.y - _this17.screenData.seatNumberPos,
                       x: pos.x,
                       label: label
                     });
                   }
 
-                  if (_this18.screenData.map[y][x] === 1 || _this18.screenData.map[y][x] === 4 || _this18.screenData.map[y][x] === 5 || _this18.screenData.map[y][x] === 8 || _this18.screenData.map[y][x] === 10) {
+                  if (_this17.screenData.map[y][x] === 1 || _this17.screenData.map[y][x] === 4 || _this17.screenData.map[y][x] === 5 || _this17.screenData.map[y][x] === 8 || _this17.screenData.map[y][x] === 10) {
                     // 座席HTML生成
                     var code = function () {
-                      return _this18.screenData.seatNumberAlign === 'left' ? "".concat(labels[labelCount], "-").concat(String(x + 1)) : "".concat(labels[labelCount], "-").concat(String(_this18.screenData.map[y].length - x));
+                      return _this17.screenData.seatNumberAlign === 'left' ? "".concat(labels[labelCount], "-").concat(String(x + 1)) : "".concat(labels[labelCount], "-").concat(String(_this17.screenData.map[y].length - x));
                     }();
 
                     var className = ["seat-".concat(code)];
@@ -14725,7 +14789,7 @@
                     var status = ___WEBPACK_IMPORTED_MODULE_3__["Models"].Purchase.Screen.SeatStatus.Disabled;
                     var acceptedOffer; // 席の状態変更
 
-                    var findSeat = _this18.screeningEventSeats.find(function (s) {
+                    var findSeat = _this17.screeningEventSeats.find(function (s) {
                       return s.branchCode === code;
                     });
 
@@ -14754,9 +14818,9 @@
                       className.push('space');
                     }
 
-                    if (_this18.authorizeSeatReservation !== undefined && _this18.authorizeSeatReservation.result !== undefined && _this18.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
+                    if (_this17.authorizeSeatReservation !== undefined && _this17.authorizeSeatReservation.result !== undefined && _this17.authorizeSeatReservation.result.responseBody.object.reservations !== undefined) {
                       // chevre
-                      var findResult = _this18.authorizeSeatReservation.result.responseBody.object.reservations.find(function (r) {
+                      var findResult = _this17.authorizeSeatReservation.result.responseBody.object.reservations.find(function (r) {
                         var ticketedSeat = r.reservedTicket.ticketedSeat;
                         return ticketedSeat !== undefined && ticketedSeat.seatNumber === code && ticketedSeat.seatSection === section && ticketedSeat.seatRow === row;
                       });
@@ -14766,18 +14830,18 @@
                       }
                     }
 
-                    if (_this18.screenData.hc !== undefined && _this18.screenData.hc.indexOf(code) !== -1) {
+                    if (_this17.screenData.hc !== undefined && _this17.screenData.hc.indexOf(code) !== -1) {
                       className.push('hc');
                     }
 
-                    if (_this18.screenData.spare !== undefined && _this18.screenData.spare.indexOf(code) !== -1) {
+                    if (_this17.screenData.spare !== undefined && _this17.screenData.spare.indexOf(code) !== -1) {
                       className.push('spare');
                     }
 
                     var seat = {
                       className: className.join(' '),
-                      w: _this18.screenData.seatSize.w,
-                      h: _this18.screenData.seatSize.h,
+                      w: _this17.screenData.seatSize.w,
+                      h: _this17.screenData.seatSize.h,
                       y: 0,
                       x: pos.x,
                       code: code,
@@ -14789,24 +14853,24 @@
                   } // ポジション設定
 
 
-                  if (_this18.screenData.map[y][x] === 2) {
-                    pos.x += _this18.screenData.aisle.middle.w + _this18.screenData.seatMargin.w;
-                  } else if (_this18.screenData.map[y][x] === 3) {
-                    pos.x += _this18.screenData.aisle.small.w + _this18.screenData.seatMargin.w;
-                  } else if (_this18.screenData.map[y][x] === 4) {
-                    pos.x += _this18.screenData.aisle.middle.w + _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
-                  } else if (_this18.screenData.map[y][x] === 5) {
-                    pos.x += _this18.screenData.aisle.small.w + _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
-                  } else if (_this18.screenData.map[y][x] === 6) {
-                    pos.x += _this18.screenData.aisle.middle.w + _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
-                  } else if (_this18.screenData.map[y][x] === 7) {
-                    pos.x += _this18.screenData.aisle.small.w + _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
+                  if (_this17.screenData.map[y][x] === 2) {
+                    pos.x += _this17.screenData.aisle.middle.w + _this17.screenData.seatMargin.w;
+                  } else if (_this17.screenData.map[y][x] === 3) {
+                    pos.x += _this17.screenData.aisle.small.w + _this17.screenData.seatMargin.w;
+                  } else if (_this17.screenData.map[y][x] === 4) {
+                    pos.x += _this17.screenData.aisle.middle.w + _this17.screenData.seatSize.w + _this17.screenData.seatMargin.w;
+                  } else if (_this17.screenData.map[y][x] === 5) {
+                    pos.x += _this17.screenData.aisle.small.w + _this17.screenData.seatSize.w + _this17.screenData.seatMargin.w;
+                  } else if (_this17.screenData.map[y][x] === 6) {
+                    pos.x += _this17.screenData.aisle.middle.w + _this17.screenData.seatSize.w + _this17.screenData.seatMargin.w;
+                  } else if (_this17.screenData.map[y][x] === 7) {
+                    pos.x += _this17.screenData.aisle.small.w + _this17.screenData.seatSize.w + _this17.screenData.seatMargin.w;
                   } else {
-                    pos.x += _this18.screenData.seatSize.w + _this18.screenData.seatMargin.w;
+                    pos.x += _this17.screenData.seatSize.w + _this17.screenData.seatMargin.w;
                   }
                 };
 
-                for (var x = 0; x < _this18.screenData.map[y].length; x++) {
+                for (var x = 0; x < _this17.screenData.map[y].length; x++) {
                   _loop4(x);
                 }
               }
@@ -15287,12 +15351,12 @@
         }, {
           key: "update",
           value: function update() {
-            var _this19 = this;
+            var _this18 = this;
 
             this.updateProcess();
             var time = 1000;
             this.timer = setTimeout(function () {
-              _this19.update();
+              _this18.update();
             }, time);
           }
         }, {

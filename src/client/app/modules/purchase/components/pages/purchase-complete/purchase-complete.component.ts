@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
+import { PurchaseService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -22,23 +23,23 @@ export class PurchaseCompleteComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private router: Router
+        private router: Router,
+        private purchaseService: PurchaseService,
     ) { }
 
     /**
      * 初期化
      */
-    public ngOnInit() {
+    public async ngOnInit() {
         this.eventOrders = [];
         this.purchase = this.store.pipe(select(reducers.getPurchase));
-        this.purchase.subscribe((purchase) => {
-            if (purchase.order === undefined) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            const order = purchase.order;
-            this.eventOrders = Functions.Purchase.order2EventOrders({ order });
-        }).unsubscribe();
+        const purchase = await this.purchaseService.getData();
+        if (purchase.order === undefined) {
+            this.router.navigate(['/error']);
+            return;
+        }
+        const order = purchase.order;
+        this.eventOrders = Functions.Purchase.order2EventOrders({ order });
     }
 
 }

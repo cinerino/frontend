@@ -235,6 +235,10 @@ interface IEnvironment {
      * 設定開発用オプション
      */
     SETTING_DEVELOP_OPTION: boolean;
+    /**
+     * 会員
+     */
+    MEMBER: boolean;
 }
 
 const defaultEnvironment: IEnvironment = {
@@ -299,6 +303,7 @@ const defaultEnvironment: IEnvironment = {
     PRINT_QRCODE_CUSTOM: 'token',
     PRINT_LOADING: true,
     SETTING_DEVELOP_OPTION: false,
+    MEMBER: false
 };
 
 export function getEnvironment(): IEnvironment {

@@ -30,7 +30,11 @@ export default (app: express.Application) => {
     app.use('/api', utilRouter);
 
     app.get('/signIn', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        log('signInRedirect');
+        log('signInRedirect', req.query);
+        if (req.query.code === undefined) {
+            res.redirect('/default/html/signIn.html');
+            return;
+        }
         try {
             if (req.session === undefined) {
                 throw new Error('session is undefined');
