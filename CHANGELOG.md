@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.1.2 - 2020-08-20
+### Changed
+ - 環境変数名変更
+ - 戻るボタンUI変更
+
 ## 3.1.1 - 2020-08-07
 ### Changed
  - 座席選択で券種を解除するよう変更
