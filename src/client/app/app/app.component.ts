@@ -6,7 +6,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Functions } from '..';
 import { getEnvironment } from '../../environments/environment';
-import { UserService } from '../services';
+import { ActionService } from '../services';
 
 declare const ga: Function;
 
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     constructor(
         private router: Router,
         private translate: TranslateService,
-        private userService: UserService,
+        private actionService: ActionService,
     ) { }
 
     /**
@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
         }
         const language = Functions.Util.getExternalData().language;
         if (language !== undefined) {
-            this.userService.updateLanguage(language);
+            this.actionService.user.updateLanguage(language);
         }
     }
 

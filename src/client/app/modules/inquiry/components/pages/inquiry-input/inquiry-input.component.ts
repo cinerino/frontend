@@ -7,7 +7,7 @@ import * as libphonenumber from 'libphonenumber-js';
 import { CountryISO, NgxIntlTelInputComponent, SearchCountryField, TooltipLabel } from 'ngx-intl-tel-input';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { OrderService, UtilService } from '../../../../../services';
+import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -28,7 +28,7 @@ export class InquiryInputComponent implements OnInit {
         private store: Store<reducers.IState>,
         private formBuilder: FormBuilder,
         private utilService: UtilService,
-        private orderService: OrderService,
+        private actionService: ActionService,
         private router: Router,
         private translate: TranslateService
     ) { }
@@ -112,7 +112,7 @@ export class InquiryInputComponent implements OnInit {
             ? this.inquiryForm.controls.telephone.value
             : this.inquiryForm.controls.telephone.value.e164Number;
         try {
-            await this.orderService.inquiry({
+            await this.actionService.order.inquiry({
                 confirmationNumber,
                 customer: { telephone }
             });

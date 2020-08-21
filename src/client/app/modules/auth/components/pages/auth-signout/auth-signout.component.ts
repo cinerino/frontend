@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrderService, PurchaseService, UserService } from '../../../../../services';
+import { ActionService } from '../../../../../services';
 
 @Component({
     selector: 'app-auth-signout',
@@ -11,19 +11,20 @@ export class AuthSignoutComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private purchaseService: PurchaseService,
-        private userService: UserService,
-        private orderService: OrderService
+        private actionService: ActionService
     ) { }
 
     /**
      * 初期化
      */
     public ngOnInit() {
-        this.orderService.delete();
-        this.purchaseService.delete();
-        this.userService.delete();
-        this.router.navigate(['/']);
+        this.actionService.order.delete();
+        this.actionService.purchase.delete();
+        this.actionService.user.delete();
+        const logoutUrl = (sessionStorage.getItem('LOGOUT_URL') === null)
+            ? '/' : sessionStorage.getItem('LOGOUT_URL');
+        sessionStorage.removeItem('LOGOUT_URL');
+        this.router.navigate([logoutUrl]);
     }
 
 }

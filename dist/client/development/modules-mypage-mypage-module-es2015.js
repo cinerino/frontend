@@ -119,12 +119,12 @@ function MypageAccountComponent_li_7_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](27, 20, "mypage.account.transfer"));
 } }
 class MypageAccountComponent {
-    constructor(store, modal, translate, utilService, userService, masterService, qrcodeService) {
+    constructor(store, modal, translate, utilService, actionService, masterService, qrcodeService) {
         this.store = store;
         this.modal = modal;
         this.translate = translate;
         this.utilService = utilService;
-        this.userService = userService;
+        this.actionService = actionService;
         this.masterService = masterService;
         this.qrcodeService = qrcodeService;
     }
@@ -138,7 +138,7 @@ class MypageAccountComponent {
             this.sellers = [];
             try {
                 this.sellers = yield this.masterService.getSellers();
-                yield this.userService.getAccount();
+                yield this.actionService.user.getAccount();
             }
             catch (error) {
                 console.error(error);
@@ -150,7 +150,7 @@ class MypageAccountComponent {
      */
     openChageAccountModal(account) {
         return __awaiter(this, void 0, void 0, function* () {
-            const userData = yield this.userService.getData();
+            const userData = yield this.actionService.user.getData();
             const creditCards = userData.creditCards;
             this.modal.show(_shared_components_parts_account_charge_modal_charge_modal_component__WEBPACK_IMPORTED_MODULE_6__["AccountChargeModalComponent"], {
                 initialState: {
@@ -166,8 +166,8 @@ class MypageAccountComponent {
                             if (profile === undefined) {
                                 throw new Error('profile undefined');
                             }
-                            yield this.userService.chargeAccount(Object.assign(Object.assign({}, params), { account, profile, creditCard }));
-                            yield this.userService.getAccount();
+                            yield this.actionService.user.chargeAccount(Object.assign(Object.assign({}, params), { account, profile, creditCard }));
+                            yield this.actionService.user.getAccount();
                             this.utilService.openAlert({
                                 title: this.translate.instant('common.complete'),
                                 body: this.translate.instant('mypage.account.alert.chargeSuccess')
@@ -191,7 +191,7 @@ class MypageAccountComponent {
      */
     openTransferAccountModal(account) {
         return __awaiter(this, void 0, void 0, function* () {
-            const userData = yield this.userService.getData();
+            const userData = yield this.actionService.user.getData();
             this.modal.show(_shared_components_parts_account_transfer_modal_transfer_modal_component__WEBPACK_IMPORTED_MODULE_8__["AccountTransferModalComponent"], {
                 initialState: {
                     sellers: this.sellers,
@@ -201,8 +201,8 @@ class MypageAccountComponent {
                             if (profile === undefined) {
                                 throw new Error('profile undefined');
                             }
-                            yield this.userService.transferAccount(Object.assign(Object.assign({}, params), { account, profile }));
-                            yield this.userService.getAccount();
+                            yield this.actionService.user.transferAccount(Object.assign(Object.assign({}, params), { account, profile }));
+                            yield this.actionService.user.getAccount();
                             this.utilService.openAlert({
                                 title: this.translate.instant('common.complete'),
                                 body: this.translate.instant('mypage.account.alert.transferSuccess')
@@ -230,8 +230,8 @@ class MypageAccountComponent {
                 cb: (params) => __awaiter(this, void 0, void 0, function* () {
                     // console.log({ amount, account });
                     try {
-                        yield this.userService.openAccount(params);
-                        yield this.userService.getAccount();
+                        yield this.actionService.user.openAccount(params);
+                        yield this.actionService.user.getAccount();
                         this.utilService.openAlert({
                             title: this.translate.instant('common.complete'),
                             body: this.translate.instant('mypage.account.alert.openAccountSuccess')
@@ -257,8 +257,8 @@ class MypageAccountComponent {
             body: this.translate.instant('mypage.account.confirm.closeAccount'),
             cb: () => __awaiter(this, void 0, void 0, function* () {
                 try {
-                    yield this.userService.cloaseAccount(account);
-                    yield this.userService.getAccount();
+                    yield this.actionService.user.cloaseAccount(account);
+                    yield this.actionService.user.getAccount();
                     this.utilService.openAlert({
                         title: this.translate.instant('common.complete'),
                         body: this.translate.instant('mypage.account.alert.closeAccountSuccess')
@@ -283,7 +283,7 @@ class MypageAccountComponent {
         });
     }
 }
-MypageAccountComponent.ɵfac = function MypageAccountComponent_Factory(t) { return new (t || MypageAccountComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["QRCodeService"])); };
+MypageAccountComponent.ɵfac = function MypageAccountComponent_Factory(t) { return new (t || MypageAccountComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["QRCodeService"])); };
 MypageAccountComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: MypageAccountComponent, selectors: [["app-mypage-account"]], decls: 17, vars: 18, consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "d-md-flex", "flex-wrap", "mb-4"], ["class", "my-md-2 mb-3", 4, "ngFor", "ngForOf"], [1, "buttons", "mx-auto", "text-center"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "routerLink", "/mypage", 1, "btn", "btn-outline-primary", "btn-block", "py-3"], [1, "my-md-2", "mb-3"], [1, "card", "mx-md-2", "h-100"], [1, "card-body", "position-relative"], [1, "card-title", "font-weight-bold"], [1, "card-text", "mb-3"], ["href", "#", 3, "click"], ["type", "button", 1, "btn", "btn-primary", "mr-2", 3, "click"], ["type", "button", "aria-label", "Close", 1, "close", 3, "click"], ["aria-hidden", "true"]], template: function MypageAccountComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h2", 1);
@@ -332,7 +332,7 @@ MypageAccountComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
                 templateUrl: './mypage-account.component.html',
                 styleUrls: ['./mypage-account.component.scss']
             }]
-    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"] }, { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_4__["UserService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_4__["MasterService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_4__["QRCodeService"] }]; }, null); })();
+    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"] }, { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_4__["ActionService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_4__["MasterService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_4__["QRCodeService"] }]; }, null); })();
 
 
 /***/ }),
@@ -431,11 +431,11 @@ function MypageCreditComponent_p_9_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 1, "mypage.credit.notFound"));
 } }
 class MypageCreditComponent {
-    constructor(store, utilService, masterService, userService, translate, router, modal) {
+    constructor(store, utilService, masterService, actionService, translate, router, modal) {
         this.store = store;
         this.utilService = utilService;
         this.masterService = masterService;
-        this.userService = userService;
+        this.actionService = actionService;
         this.translate = translate;
         this.router = router;
         this.modal = modal;
@@ -450,7 +450,7 @@ class MypageCreditComponent {
             this.sellers = [];
             try {
                 this.sellers = yield this.masterService.getSellers();
-                yield this.userService.getCreditCards();
+                yield this.actionService.user.getCreditCards();
             }
             catch (error) {
                 console.error(error);
@@ -468,8 +468,8 @@ class MypageCreditComponent {
             body: this.translate.instant('mypage.credit.confirm.remove'),
             cb: () => __awaiter(this, void 0, void 0, function* () {
                 try {
-                    yield this.userService.removeCreditCard(creditCard);
-                    yield this.userService.getCreditCards();
+                    yield this.actionService.user.removeCreditCard(creditCard);
+                    yield this.actionService.user.getCreditCards();
                 }
                 catch (error) {
                     console.error(error);
@@ -496,8 +496,8 @@ class MypageCreditComponent {
                             if (seller === undefined) {
                                 throw new Error('seller undefined');
                             }
-                            yield this.userService.addCreditCard({ creditCard, seller });
-                            yield this.userService.getCreditCards();
+                            yield this.actionService.user.addCreditCard({ creditCard, seller });
+                            yield this.actionService.user.getCreditCards();
                         }
                         catch (error) {
                             console.error(error);
@@ -513,7 +513,7 @@ class MypageCreditComponent {
         });
     }
 }
-MypageCreditComponent.ɵfac = function MypageCreditComponent_Factory(t) { return new (t || MypageCreditComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_4__["BsModalService"])); };
+MypageCreditComponent.ɵfac = function MypageCreditComponent_Factory(t) { return new (t || MypageCreditComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_4__["BsModalService"])); };
 MypageCreditComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: MypageCreditComponent, selectors: [["app-mypage-credit"]], decls: 19, vars: 21, consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "d-md-flex", "flex-wrap", "creditCards", "mb-4"], ["class", "my-md-2 mb-3", 4, "ngFor", "ngForOf"], ["class", "mb-4", 4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "routerLink", "/mypage", 1, "btn", "btn-outline-primary", "btn-block", "py-3"], [1, "my-md-2", "mb-3"], [1, "card", "mx-md-2", "h-100"], [1, "card-body", "position-relative"], [1, "card-title", "font-weight-bold"], [1, "card-text", "mb-3"], [1, "card-text"], ["type", "button", "aria-label", "Close", 1, "close", 3, "click"], ["aria-hidden", "true"], [1, "mb-4"]], template: function MypageCreditComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h2", 1);
@@ -568,7 +568,7 @@ MypageCreditComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵde
                 templateUrl: './mypage-credit.component.html',
                 styleUrls: ['./mypage-credit.component.scss']
             }]
-    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_5__["MasterService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_5__["UserService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_4__["BsModalService"] }]; }, null); })();
+    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: _services__WEBPACK_IMPORTED_MODULE_5__["UtilService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_5__["MasterService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_5__["ActionService"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }, { type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_4__["BsModalService"] }]; }, null); })();
 
 
 /***/ }),
@@ -945,12 +945,12 @@ function MypageProfileComponent_div_39_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r3.profileForm.controls.telephone.errors == null ? null : ctx_r3.profileForm.controls.telephone.errors.telephone);
 } }
 class MypageProfileComponent {
-    constructor(store, utilService, formBuilder, translate, userService) {
+    constructor(store, utilService, formBuilder, translate, actionService) {
         this.store = store;
         this.utilService = utilService;
         this.formBuilder = formBuilder;
         this.translate = translate;
-        this.userService = userService;
+        this.actionService = actionService;
     }
     /**
      * 初期化
@@ -1048,7 +1048,7 @@ class MypageProfileComponent {
                     telephone: this.profileForm.controls.telephone.value,
                     email: this.profileForm.controls.email.value,
                 };
-                yield this.userService.updateProfile(profile);
+                yield this.actionService.user.updateProfile(profile);
             }
             catch (error) {
                 console.error(error);
@@ -1056,7 +1056,7 @@ class MypageProfileComponent {
         });
     }
 }
-MypageProfileComponent.ɵfac = function MypageProfileComponent_Factory(t) { return new (t || MypageProfileComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["UserService"])); };
+MypageProfileComponent.ɵfac = function MypageProfileComponent_Factory(t) { return new (t || MypageProfileComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["ActionService"])); };
 MypageProfileComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: MypageProfileComponent, selectors: [["app-mypage-profile"]], decls: 48, vars: 32, consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [3, "formGroup"], [1, "mb-4", "p-3", "bg-white"], [1, "form-group"], [1, "row", "align-items-center"], [1, "col-md-4", "py-2", "text-md-right"], [1, "col-md-8"], ["type", "text", "formControlName", "familyName", "id", "familyName", "placeholder", "\u30E2\u30FC\u30B7\u30E7\u30F3", 1, "form-control"], ["class", "mt-2", 4, "ngIf"], ["type", "text", "formControlName", "givenName", "id", "givenName", "placeholder", "\u30D4\u30AF\u30C1\u30E3\u30FC", 1, "form-control"], ["type", "email", "formControlName", "email", "id", "email", "placeholder", "motionpicture@example.jp", 1, "form-control"], [1, "form-group", "mb-0"], ["type", "tel", "formControlName", "telephone", "id", "telephone", "placeholder", "0362778824", 1, "form-control"], [1, "buttons", "mx-auto", "text-center"], ["type", "submit", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "disabled", "click"], ["type", "button", "routerLink", "/mypage", 1, "btn", "btn-outline-primary", "btn-block", "py-3"], [1, "mt-2"], ["class", "text-danger", 4, "ngIf"], [1, "text-danger"]], template: function MypageProfileComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h2", 1);
@@ -1167,7 +1167,7 @@ MypageProfileComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
                 templateUrl: './mypage-profile.component.html',
                 styleUrls: ['./mypage-profile.component.scss']
             }]
-    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"] }, { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_6__["UserService"] }]; }, null); })();
+    }], function () { return [{ type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }, { type: _services__WEBPACK_IMPORTED_MODULE_6__["UtilService"] }, { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] }, { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"] }, { type: _services__WEBPACK_IMPORTED_MODULE_6__["ActionService"] }]; }, null); })();
 
 
 /***/ }),

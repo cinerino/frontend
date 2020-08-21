@@ -13,6 +13,8 @@ import { PurchaseBaseComponent } from './components/pages/purchase-base/purchase
 import { PurchaseCompleteComponent } from './components/pages/purchase-complete/purchase-complete.component';
 import { PurchaseConfirmComponent } from './components/pages/purchase-confirm/purchase-confirm.component';
 import { PurchaseInputComponent } from './components/pages/purchase-input/purchase-input.component';
+import { PurchaseMemberProcessComponent } from './components/pages/purchase-member-process/purchase-member-process.component';
+import { PurchaseMemberSelectComponent } from './components/pages/purchase-member-select/purchase-member-select.component';
 import { PurchaseRootComponent } from './components/pages/purchase-root/purchase-root.component';
 import { PurchaseSeatComponent } from './components/pages/purchase-seat/purchase-seat.component';
 import { PurchaseTicketComponent } from './components/pages/purchase-ticket/purchase-ticket.component';
@@ -56,7 +58,9 @@ import { PurchaseRoutingModule } from './purchase-routing.module';
     PurchaseEventSeatTicketComponent,
     PurchaseTicketComponent,
     PurchaseSeatComponent,
-    SeatInfoComponent
+    SeatInfoComponent,
+    PurchaseMemberSelectComponent,
+    PurchaseMemberProcessComponent
   ],
   entryComponents: [],
   imports: [

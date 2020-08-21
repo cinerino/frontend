@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../../..';
-import { PurchaseService, QRCodeService, UserService } from '../../../../../../services';
+import { ActionService, QRCodeService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 import { ChangeLanguagePipe } from '../../../../../shared/pipes/change-language.pipe';
 
@@ -34,10 +34,9 @@ export class MvtkCheckModalComponent implements OnInit {
         public modal: BsModalRef,
         private store: Store<reducers.IState>,
         private formBuilder: FormBuilder,
-        private purchaseService: PurchaseService,
         private translate: TranslateService,
         private qrcodeService: QRCodeService,
-        private userService: UserService,
+        private actionService: ActionService,
     ) { }
 
     public ngOnInit() {
@@ -80,11 +79,11 @@ export class MvtkCheckModalComponent implements OnInit {
         this.errorMessage = '';
         this.successMessage = '';
         try {
-            await this.purchaseService.checkMovieTicket({
+            await this.actionService.purchase.checkMovieTicket({
                 code: this.mvtkForm.controls.code.value,
                 password: this.mvtkForm.controls.password.value
             });
-            const purchase = await this.purchaseService.getData();
+            const purchase = await this.actionService.purchase.getData();
             const checkMovieTicketAction = purchase.checkMovieTicketAction;
             if (checkMovieTicketAction === undefined
                 || checkMovieTicketAction.result === undefined
@@ -112,7 +111,7 @@ export class MvtkCheckModalComponent implements OnInit {
             }
 
             this.createMvtkForm();
-            const user = await this.userService.getData();
+            const user = await this.actionService.user.getData();
             const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
             const movieTicketTypeOffers = Functions.Purchase.getMovieTicketTypeOffers({ screeningEventTicketOffers });
             this.successMessage = this.translate.instant('modal.mvtk.check.success');

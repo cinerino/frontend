@@ -33,6 +33,7 @@ export class CinerinoService {
     public environment = getEnvironment();
     private endpoint: string;
     private waiterServerUrl: string;
+    // private authorizationType: 'AUTHORIZATION_CODE' | 'IMPLICIT' | 'CLIENT_CREDENTIALS';
 
     constructor(
         private http: HttpClient,
@@ -137,7 +138,12 @@ export class CinerinoService {
     /**
      * サインイン
      */
-    public async signIn() {
+    public async signIn(params?: {
+        redirectUrl?: string;
+    }) {
+        if (params?.redirectUrl !== undefined) {
+            sessionStorage.setItem('REDIRECT_URL', params.redirectUrl);
+        }
         const url = '/api/authorize/signIn';
         const result = await this.http.get<any>(url, {}).toPromise();
         // console.log(result.url);
@@ -147,7 +153,12 @@ export class CinerinoService {
     /**
      * サインアウト
      */
-    public async signOut() {
+    public async signOut(params?: {
+        logoutUrl?: string;
+    }) {
+        if (params?.logoutUrl !== undefined) {
+            sessionStorage.setItem('LOGOUT_URL', params.logoutUrl);
+        }
         const url = '/api/authorize/signOut';
         const result = await this.http.get<any>(url, {}).toPromise();
         // console.log(result.url);
@@ -187,10 +198,13 @@ export class CinerinoService {
             scope: scopes.join(' '),
             state: '',
             nonce: '',
-            tokenIssuer: ''
+            tokenIssuer: 'https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_X5MjdiQ2U'
         };
         const auth = cinerino.createAuthInstance(options);
-        const credentials = await auth.signIn();
+        let credentials = await auth.isSignedIn();
+        if (credentials === null) {
+            credentials = await auth.signIn();
+        }
         this.auth.setCredentials(credentials);
         this.endpoint = result.endpoint;
         this.waiterServerUrl = result.waiterServerUrl;

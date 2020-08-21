@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { Models } from '../../../..';
 import { getEnvironment } from '../../../../../environments/environment';
-import { MasterService, OrderService, UserService, UtilService } from '../../../../services';
+import { ActionService, MasterService, UtilService } from '../../../../services';
 import * as reducers from '../../../../store/reducers';
 
 @Component({
@@ -36,10 +36,9 @@ export class SettingComponent implements OnInit {
         private store: Store<reducers.IState>,
         private utilService: UtilService,
         private masterService: MasterService,
-        private userService: UserService,
+        private actionService: ActionService,
         private formBuilder: FormBuilder,
         private translate: TranslateService,
-        private orderService: OrderService,
         private router: Router
     ) { }
 
@@ -64,7 +63,7 @@ export class SettingComponent implements OnInit {
             printerType: ['', [Validators.required]],
             printerIpAddress: [''],
         });
-        const user = await this.userService.getData();
+        const user = await this.actionService.user.getData();
         if (user.theater !== undefined) {
             this.baseForm.controls.theaterBranchCode.setValue(user.theater.branchCode);
             this.changePosList();
@@ -121,7 +120,7 @@ export class SettingComponent implements OnInit {
             if (pos === undefined) {
                 throw new Error('pos not found').message;
             }
-            this.userService.updateBaseSetting({
+            this.actionService.user.updateBaseSetting({
                 pos,
                 theater,
                 printer: {
@@ -144,7 +143,7 @@ export class SettingComponent implements OnInit {
                 connectionType: this.baseForm.controls.printerType.value,
                 ipAddress: this.baseForm.controls.printerIpAddress.value
             };
-            await this.orderService.print({ orders: [], printer });
+            await this.actionService.order.print({ orders: [], printer });
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

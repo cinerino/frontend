@@ -3,7 +3,7 @@
  */
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { PurchaseService } from '../services';
+import { ActionService } from '../services';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +12,7 @@ export class PurchaseTransactionGuardService implements CanActivate {
 
     constructor(
         private router: Router,
-        private purchaseService: PurchaseService
+        private actionService: ActionService
     ) { }
 
     /**
@@ -22,7 +22,7 @@ export class PurchaseTransactionGuardService implements CanActivate {
      */
     public async canActivate(): Promise<boolean> {
         try {
-            const transaction = (await this.purchaseService.getData()).transaction;
+            const transaction = (await this.actionService.purchase.getData()).transaction;
             if (transaction === undefined) {
                 throw new Error('transaction not found').message;
             }

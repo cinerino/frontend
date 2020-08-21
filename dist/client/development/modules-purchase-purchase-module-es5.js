@@ -195,12 +195,12 @@
       }
 
       var PurchaseCinemaOverlapComponent = /*#__PURE__*/function () {
-        function PurchaseCinemaOverlapComponent(store, router, purchaseService, cinerino) {
+        function PurchaseCinemaOverlapComponent(store, router, actionService, cinerino) {
           _classCallCheck(this, PurchaseCinemaOverlapComponent);
 
           this.store = store;
           this.router = router;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.cinerino = cinerino;
         }
         /**
@@ -271,9 +271,9 @@
                 while (1) {
                   switch (_context2.prev = _context2.next) {
                     case 0:
-                      this.purchaseService["delete"]();
+                      this.actionService.purchase["delete"]();
                       _context2.next = 3;
-                      return this.purchaseService.cancelTransaction();
+                      return this.actionService.purchase.cancelTransaction();
 
                     case 3:
                       external = ___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.getExternalData();
@@ -300,7 +300,7 @@
       }();
 
       PurchaseCinemaOverlapComponent.ɵfac = function PurchaseCinemaOverlapComponent_Factory(t) {
-        return new (t || PurchaseCinemaOverlapComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["CinerinoService"]));
+        return new (t || PurchaseCinemaOverlapComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["CinerinoService"]));
       };
 
       PurchaseCinemaOverlapComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -404,7 +404,7 @@
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_4__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_4__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_4__["CinerinoService"]
           }];
@@ -895,13 +895,13 @@
       }
 
       var PurchaseCinemaScheduleComponent = /*#__PURE__*/function () {
-        function PurchaseCinemaScheduleComponent(store, router, utilService, purchaseService, masterService, translate) {
+        function PurchaseCinemaScheduleComponent(store, router, utilService, actionService, masterService, translate) {
           _classCallCheck(this, PurchaseCinemaScheduleComponent);
 
           this.store = store;
           this.router = router;
           this.utilService = utilService;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.masterService = masterService;
           this.translate = translate;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
@@ -966,7 +966,7 @@
 
                     case 15:
                       _context3.next = 17;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 17:
                       purchase = _context3.sent;
@@ -1021,7 +1021,7 @@
                   switch (_context4.prev = _context4.next) {
                     case 0:
                       _context4.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchase = _context4.sent;
@@ -1071,7 +1071,7 @@
                     switch (_context5.prev = _context5.next) {
                       case 0:
                         _context5.next = 2;
-                        return this.purchaseService.getData();
+                        return this.actionService.purchase.getData();
 
                       case 2:
                         purchase = _context5.sent;
@@ -1119,7 +1119,7 @@
                   switch (_context6.prev = _context6.next) {
                     case 0:
                       _context6.prev = 0;
-                      this.purchaseService.selectTheater(theater);
+                      this.actionService.purchase.selectTheater(theater);
                       this.scheduleDates = [];
 
                       for (i = 0; i < Number(this.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
@@ -1129,7 +1129,7 @@
                       this.isPreSchedule = false;
                       this.directiveRef.update();
                       _context6.next = 8;
-                      return this.purchaseService.getPreScheduleDates();
+                      return this.actionService.purchase.getPreScheduleDates();
 
                     case 8:
                       this.isPreSchedule = false;
@@ -1165,7 +1165,7 @@
                   switch (_context7.prev = _context7.next) {
                     case 0:
                       _context7.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchase = _context7.sent;
@@ -1189,7 +1189,7 @@
                         }
                       }
 
-                      this.purchaseService.selectScheduleDate(scheduleDate);
+                      this.actionService.purchase.selectScheduleDate(scheduleDate);
                       _context7.prev = 10;
                       _context7.next = 13;
                       return this.masterService.getSchedule({
@@ -1258,10 +1258,10 @@
                       return _context8.abrupt("return");
 
                     case 5:
-                      this.purchaseService.unsettledDelete();
+                      this.actionService.purchase.unsettledDelete();
                       _context8.prev = 6;
                       _context8.next = 9;
-                      return this.purchaseService.getScreeningEvent(screeningEvent);
+                      return this.actionService.purchase.getScreeningEvent(screeningEvent);
 
                     case 9:
                       if (!(screeningEvent.offers.seller === undefined || screeningEvent.offers.seller.id === undefined)) {
@@ -1273,7 +1273,7 @@
 
                     case 11:
                       _context8.next = 13;
-                      return this.purchaseService.getSeller(screeningEvent.offers.seller.id);
+                      return this.actionService.purchase.getSeller(screeningEvent.offers.seller.id);
 
                     case 13:
                       _context8.next = 20;
@@ -1288,7 +1288,7 @@
 
                     case 20:
                       _context8.next = 22;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 22:
                       purchase = _context8.sent;
@@ -1310,11 +1310,11 @@
                       }
 
                       _context8.next = 30;
-                      return this.purchaseService.cancelTransaction();
+                      return this.actionService.purchase.cancelTransaction();
 
                     case 30:
                       _context8.next = 32;
-                      return this.purchaseService.startTransaction();
+                      return this.actionService.purchase.startTransaction();
 
                     case 32:
                       this.router.navigate(['/purchase/cinema/seat']);
@@ -1369,7 +1369,7 @@
       }();
 
       PurchaseCinemaScheduleComponent.ɵfac = function PurchaseCinemaScheduleComponent_Factory(t) {
-        return new (t || PurchaseCinemaScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]));
+        return new (t || PurchaseCinemaScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]));
       };
 
       PurchaseCinemaScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -1546,7 +1546,7 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_9__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_9__["MasterService"]
           }, {
@@ -3219,12 +3219,12 @@
       };
 
       var PurchaseEventScheduleComponent = /*#__PURE__*/function () {
-        function PurchaseEventScheduleComponent(store, router, purchaseService, masterService, localeService, utilService) {
+        function PurchaseEventScheduleComponent(store, router, actionService, masterService, localeService, utilService) {
           _classCallCheck(this, PurchaseEventScheduleComponent);
 
           this.store = store;
           this.router = router;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.masterService = masterService;
           this.localeService = localeService;
           this.utilService = utilService;
@@ -3255,7 +3255,7 @@
                       this.isSales = true;
                       _context9.prev = 7;
                       _context9.next = 10;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 10:
                       _context9.t0 = _context9.sent.transaction;
@@ -3267,7 +3267,7 @@
                       }
 
                       _context9.next = 15;
-                      return this.purchaseService.cancelTransaction();
+                      return this.actionService.purchase.cancelTransaction();
 
                     case 15:
                       if (this.scheduleDate === undefined) {
@@ -3356,7 +3356,7 @@
                     switch (_context10.prev = _context10.next) {
                       case 0:
                         _context10.next = 2;
-                        return this.purchaseService.getData();
+                        return this.actionService.purchase.getData();
 
                       case 2:
                         purchase = _context10.sent;
@@ -3395,7 +3395,7 @@
                   switch (_context11.prev = _context11.next) {
                     case 0:
                       _context11.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchase = _context11.sent;
@@ -3434,7 +3434,7 @@
                 while (1) {
                   switch (_context12.prev = _context12.next) {
                     case 0:
-                      this.purchaseService.selectTheater(theater);
+                      this.actionService.purchase.selectTheater(theater);
                       setTimeout(function () {
                         _this3.selectDate();
                       }, 0);
@@ -3481,7 +3481,7 @@
 
                       _context13.prev = 9;
                       _context13.next = 12;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 12:
                       purchase = _context13.sent;
@@ -3496,7 +3496,7 @@
 
                     case 16:
                       scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYY-MM-DD');
-                      this.purchaseService.selectScheduleDate(scheduleDate);
+                      this.actionService.purchase.selectScheduleDate(scheduleDate);
                       external = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.getExternalData();
                       _context13.next = 21;
                       return this.masterService.getSchedule({
@@ -3559,7 +3559,7 @@
 
                     case 4:
                       _context14.next = 6;
-                      return this.purchaseService.getSeller(screeningEvent.offers.seller.id);
+                      return this.actionService.purchase.getSeller(screeningEvent.offers.seller.id);
 
                     case 6:
                       _context14.next = 12;
@@ -3574,7 +3574,7 @@
                     case 12:
                       _context14.prev = 12;
                       _context14.next = 15;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 15:
                       purchase = _context14.sent;
@@ -3586,11 +3586,11 @@
                       }
 
                       _context14.next = 20;
-                      return this.purchaseService.cancelTransaction();
+                      return this.actionService.purchase.cancelTransaction();
 
                     case 20:
                       _context14.next = 22;
-                      return this.purchaseService.startTransaction();
+                      return this.actionService.purchase.startTransaction();
 
                     case 22:
                       this.router.navigate(['/purchase/event/ticket']);
@@ -3677,7 +3677,7 @@
       }();
 
       PurchaseEventScheduleComponent.ɵfac = function PurchaseEventScheduleComponent_Factory(t) {
-        return new (t || PurchaseEventScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]));
+        return new (t || PurchaseEventScheduleComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_datepicker__WEBPACK_IMPORTED_MODULE_5__["BsLocaleService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]));
       };
 
       PurchaseEventScheduleComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -3861,7 +3861,7 @@
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_8__["MasterService"]
           }, {
@@ -4768,7 +4768,7 @@
                     case 0:
                       _context15.prev = 0;
                       _context15.next = 3;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 3:
                       authorizeSeatReservation = _context15.sent.authorizeSeatReservation;
@@ -4779,7 +4779,7 @@
                       }
 
                       _context15.next = 7;
-                      return this.purchaseService.cancelTemporaryReservations([authorizeSeatReservation]);
+                      return this.actionService.purchase.cancelTemporaryReservations([authorizeSeatReservation]);
 
                     case 7:
                       this.router.navigate(['/purchase/event/ticket']);
@@ -5445,7 +5445,7 @@
       }
 
       var PurchaseEventTicketComponent = /*#__PURE__*/function () {
-        function PurchaseEventTicketComponent(store, router, utilService, masterService, translate, purchaseService, modal) {
+        function PurchaseEventTicketComponent(store, router, utilService, masterService, translate, actionService, modal) {
           _classCallCheck(this, PurchaseEventTicketComponent);
 
           this.store = store;
@@ -5453,7 +5453,7 @@
           this.utilService = utilService;
           this.masterService = masterService;
           this.translate = translate;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.modal = modal;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
@@ -5476,7 +5476,7 @@
                       this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
                       this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
                       this.screeningWorkEvents = [];
-                      this.purchaseService.unsettledDelete();
+                      this.actionService.purchase.unsettledDelete();
                       _context16.prev = 6;
                       _context16.next = 9;
                       return this.getSchedule();
@@ -5566,7 +5566,7 @@
                   switch (_context18.prev = _context18.next) {
                     case 0:
                       _context18.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchase = _context18.sent;
@@ -5624,7 +5624,7 @@
                   switch (_context19.prev = _context19.next) {
                     case 0:
                       _context19.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchase = _context19.sent;
@@ -5643,20 +5643,20 @@
                     case 6:
                       _context19.prev = 6;
                       _context19.next = 9;
-                      return this.purchaseService.getScreeningEvent(screeningEvent);
+                      return this.actionService.purchase.getScreeningEvent(screeningEvent);
 
                     case 9:
                       _context19.next = 11;
-                      return this.purchaseService.getScreeningEventSeats();
+                      return this.actionService.purchase.getScreeningEventSeats();
 
                     case 11:
                       this.screeningEventSeats = _context19.sent;
                       _context19.next = 14;
-                      return this.purchaseService.getTicketList();
+                      return this.actionService.purchase.getTicketList();
 
                     case 14:
                       _context19.next = 16;
-                      return this.purchaseService.getScreen({
+                      return this.actionService.purchase.getScreen({
                         branchCode: {
                           $eq: screeningEvent.location.branchCode
                         },
@@ -5704,7 +5704,7 @@
                   switch (_context20.prev = _context20.next) {
                     case 0:
                       _context20.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchase = _context20.sent;
@@ -5771,7 +5771,7 @@
                       additionalTicketText = params.additionalTicketText;
                       _context21.prev = 2;
                       _context21.next = 5;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 5:
                       purchase = _context21.sent;
@@ -5792,7 +5792,7 @@
 
                     case 10:
                       _context21.next = 12;
-                      return this.purchaseService.getScreeningEventSeats();
+                      return this.actionService.purchase.getScreeningEventSeats();
 
                     case 12:
                       this.screeningEventSeats = _context21.sent;
@@ -5834,7 +5834,7 @@
                     case 24:
                       _context21.prev = 24;
                       _context21.next = 27;
-                      return this.purchaseService.temporaryReservation({
+                      return this.actionService.purchase.temporaryReservation({
                         reservations: reservations,
                         additionalTicketText: additionalTicketText,
                         screeningEventSeats: this.screeningEventSeats
@@ -5845,7 +5845,7 @@
                         title: this.translate.instant('common.complete'),
                         body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
                       });
-                      this.purchaseService.unsettledDelete();
+                      this.actionService.purchase.unsettledDelete();
                       _context21.next = 35;
                       break;
 
@@ -5882,7 +5882,7 @@
                   switch (_context22.prev = _context22.next) {
                     case 0:
                       _context22.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchase = _context22.sent;
@@ -6012,7 +6012,7 @@
                         case 0:
                           authorizeSeatReservations = [authorizeSeatReservation];
                           _context23.next = 3;
-                          return this.purchaseService.cancelTemporaryReservations(authorizeSeatReservations);
+                          return this.actionService.purchase.cancelTemporaryReservations(authorizeSeatReservations);
 
                         case 3:
                         case "end":
@@ -6030,7 +6030,7 @@
       }();
 
       PurchaseEventTicketComponent.ɵfac = function PurchaseEventTicketComponent_Factory(t) {
-        return new (t || PurchaseEventTicketComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"]));
+        return new (t || PurchaseEventTicketComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"]));
       };
 
       PurchaseEventTicketComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -6195,7 +6195,7 @@
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
           }, {
             type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"]
           }];
@@ -7066,12 +7066,12 @@
       }
 
       var PurchaseCompleteComponent = /*#__PURE__*/function () {
-        function PurchaseCompleteComponent(store, router, purchaseService) {
+        function PurchaseCompleteComponent(store, router, actionService) {
           _classCallCheck(this, PurchaseCompleteComponent);
 
           this.store = store;
           this.router = router;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
           this.paymentMethodType = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].paymentMethodType;
@@ -7093,7 +7093,7 @@
                       this.eventOrders = [];
                       this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getPurchase"]));
                       _context24.next = 4;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 4:
                       purchase = _context24.sent;
@@ -7126,7 +7126,7 @@
       }();
 
       PurchaseCompleteComponent.ɵfac = function PurchaseCompleteComponent_Factory(t) {
-        return new (t || PurchaseCompleteComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["PurchaseService"]));
+        return new (t || PurchaseCompleteComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]));
       };
 
       PurchaseCompleteComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -7379,7 +7379,7 @@
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_7__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]
           }];
         }, null);
       })();
@@ -8109,13 +8109,12 @@
       }
 
       var PurchaseConfirmComponent = /*#__PURE__*/function () {
-        function PurchaseConfirmComponent(store, utilService, userService, purchaseService, router, translate) {
+        function PurchaseConfirmComponent(store, utilService, actionService, router, translate) {
           _classCallCheck(this, PurchaseConfirmComponent);
 
           this.store = store;
           this.utilService = utilService;
-          this.userService = userService;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.router = router;
           this.translate = translate;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
@@ -8140,7 +8139,7 @@
                       this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
                       this.amount = 0;
                       _context25.next = 6;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 6:
                       purchase = _context25.sent;
@@ -8179,12 +8178,12 @@
                   switch (_context26.prev = _context26.next) {
                     case 0:
                       _context26.next = 2;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 2:
                       purchaseData = _context26.sent;
                       _context26.next = 5;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 5:
                       userData = _context26.sent;
@@ -8197,7 +8196,7 @@
                       }
 
                       _context26.next = 11;
-                      return this.purchaseService.authorizeMovieTicket();
+                      return this.actionService.purchase.authorizeMovieTicket();
 
                     case 11:
                       _context26.next = 17;
@@ -8218,7 +8217,7 @@
                       }
 
                       _context26.next = 21;
-                      return this.purchaseService.authorizeCreditCard(this.amount);
+                      return this.actionService.purchase.authorizeCreditCard(this.amount);
 
                     case 21:
                       _context26.next = 28;
@@ -8237,7 +8236,7 @@
                     case 28:
                       _context26.prev = 28;
                       _context26.next = 31;
-                      return this.purchaseService.endTransaction({
+                      return this.actionService.purchase.endTransaction({
                         language: language
                       });
 
@@ -8322,7 +8321,7 @@
       }();
 
       PurchaseConfirmComponent.ɵfac = function PurchaseConfirmComponent_Factory(t) {
-        return new (t || PurchaseConfirmComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]));
+        return new (t || PurchaseConfirmComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]));
       };
 
       PurchaseConfirmComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -8435,9 +8434,7 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_7__["UserService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_7__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
@@ -9907,7 +9904,7 @@
       }
 
       var PurchaseInputComponent = /*#__PURE__*/function () {
-        function PurchaseInputComponent(store, router, modal, formBuilder, utilService, userService, purchaseService, translate) {
+        function PurchaseInputComponent(store, router, modal, formBuilder, utilService, actionService, translate) {
           _classCallCheck(this, PurchaseInputComponent);
 
           this.store = store;
@@ -9915,8 +9912,7 @@
           this.modal = modal;
           this.formBuilder = formBuilder;
           this.utilService = utilService;
-          this.userService = userService;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.translate = translate;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_9__["getEnvironment"])();
           this.viewType = ___WEBPACK_IMPORTED_MODULE_8__["Models"].Common.ViewType;
@@ -9950,7 +9946,7 @@
                     case 6:
                       this.createCreditCardForm();
                       _context27.next = 9;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 9:
                       purchase = _context27.sent;
@@ -10069,12 +10065,12 @@
                         _this10.profileForm.addControl(p.key, new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"](p.value, validators));
                       });
                       _context28.next = 5;
-                      return this.purchaseService.getData();
+                      return this.actionService.purchase.getData();
 
                     case 5:
                       purchase = _context28.sent;
                       _context28.next = 8;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 8:
                       user = _context28.sent;
@@ -10223,7 +10219,7 @@
                       return _context29.abrupt("return");
 
                     case 12:
-                      this.purchaseService.removeCreditCard();
+                      this.actionService.purchase.removeCreditCard();
 
                       if (!(this.amount > 0 && this.usedCreditCard === undefined)) {
                         _context29.next = 25;
@@ -10242,7 +10238,7 @@
                         securityCode: this.creditCardForm.controls.securityCode.value
                       };
                       _context29.next = 19;
-                      return this.purchaseService.createGmoTokenObject(creditCard);
+                      return this.actionService.purchase.createGmoTokenObject(creditCard);
 
                     case 19:
                       _context29.next = 25;
@@ -10264,7 +10260,7 @@
                           memberId: 'me',
                           cardSeq: Number(this.usedCreditCard.cardSeq)
                         };
-                        this.purchaseService.registerCreditCard(_creditCard);
+                        this.actionService.purchase.registerCreditCard(_creditCard);
                       }
 
                       _context29.prev = 26;
@@ -10290,7 +10286,7 @@
                         additionalProperty: additionalProperty.length === 0 ? undefined : additionalProperty
                       };
                       _context29.next = 32;
-                      return this.purchaseService.registerContact(contact);
+                      return this.actionService.purchase.registerContact(contact);
 
                     case 32:
                       this.router.navigate(['/purchase/confirm']);
@@ -10407,7 +10403,7 @@
       }();
 
       PurchaseInputComponent.ɵfac = function PurchaseInputComponent_Factory(t) {
-        return new (t || PurchaseInputComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
+        return new (t || PurchaseInputComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_6__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_10__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
       };
 
       PurchaseInputComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -10572,9 +10568,7 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_10__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_10__["UserService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_10__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_10__["ActionService"]
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]
           }];
@@ -10584,6 +10578,527 @@
             args: ['intlTelInput']
           }]
         });
+      })();
+      /***/
+
+    },
+
+    /***/
+    "./app/modules/purchase/components/pages/purchase-member-process/purchase-member-process.component.ts":
+    /*!************************************************************************************************************!*\
+      !*** ./app/modules/purchase/components/pages/purchase-member-process/purchase-member-process.component.ts ***!
+      \************************************************************************************************************/
+
+    /*! exports provided: PurchaseMemberProcessComponent */
+
+    /***/
+    function appModulesPurchaseComponentsPagesPurchaseMemberProcessPurchaseMemberProcessComponentTs(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "PurchaseMemberProcessComponent", function () {
+        return PurchaseMemberProcessComponent;
+      });
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! @angular/core */
+      "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+      /* harmony import */
+
+
+      var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! moment */
+      "../../node_modules/moment/moment.js");
+      /* harmony import */
+
+
+      var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+      /* harmony import */
+
+
+      var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ../../../../.. */
+      "./app/index.ts");
+      /* harmony import */
+
+
+      var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! ../../../../../../environments/environment */
+      "./environments/environment.ts");
+
+      var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+        function adopt(value) {
+          return value instanceof P ? value : new P(function (resolve) {
+            resolve(value);
+          });
+        }
+
+        return new (P || (P = Promise))(function (resolve, reject) {
+          function fulfilled(value) {
+            try {
+              step(generator.next(value));
+            } catch (e) {
+              reject(e);
+            }
+          }
+
+          function rejected(value) {
+            try {
+              step(generator["throw"](value));
+            } catch (e) {
+              reject(e);
+            }
+          }
+
+          function step(result) {
+            result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+          }
+
+          step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+      };
+
+      var PurchaseMemberProcessComponent = /*#__PURE__*/function () {
+        function PurchaseMemberProcessComponent() {
+          _classCallCheck(this, PurchaseMemberProcessComponent);
+
+          this.moment = moment__WEBPACK_IMPORTED_MODULE_1__;
+          this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["getEnvironment"])();
+          this.viewType = ___WEBPACK_IMPORTED_MODULE_2__["Models"].Common.ViewType;
+        }
+        /**
+         * 初期化
+         */
+
+
+        _createClass(PurchaseMemberProcessComponent, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
+              return regeneratorRuntime.wrap(function _callee30$(_context30) {
+                while (1) {
+                  switch (_context30.prev = _context30.next) {
+                    case 0:
+                    case "end":
+                      return _context30.stop();
+                  }
+                }
+              }, _callee30);
+            }));
+          }
+        }]);
+
+        return PurchaseMemberProcessComponent;
+      }();
+
+      PurchaseMemberProcessComponent.ɵfac = function PurchaseMemberProcessComponent_Factory(t) {
+        return new (t || PurchaseMemberProcessComponent)();
+      };
+
+      PurchaseMemberProcessComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
+        type: PurchaseMemberProcessComponent,
+        selectors: [["app-purchase-member-process"]],
+        decls: 0,
+        vars: 0,
+        template: function PurchaseMemberProcessComponent_Template(rf, ctx) {},
+        styles: [""]
+      });
+      /*@__PURE__*/
+
+      (function () {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PurchaseMemberProcessComponent, [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
+          args: [{
+            selector: 'app-purchase-member-process',
+            templateUrl: './purchase-member-process.component.html',
+            styleUrls: ['./purchase-member-process.component.scss']
+          }]
+        }], function () {
+          return [];
+        }, null);
+      })();
+      /***/
+
+    },
+
+    /***/
+    "./app/modules/purchase/components/pages/purchase-member-select/purchase-member-select.component.ts":
+    /*!**********************************************************************************************************!*\
+      !*** ./app/modules/purchase/components/pages/purchase-member-select/purchase-member-select.component.ts ***!
+      \**********************************************************************************************************/
+
+    /*! exports provided: PurchaseMemberSelectComponent */
+
+    /***/
+    function appModulesPurchaseComponentsPagesPurchaseMemberSelectPurchaseMemberSelectComponentTs(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "PurchaseMemberSelectComponent", function () {
+        return PurchaseMemberSelectComponent;
+      });
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! @angular/core */
+      "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/router */
+      "../../node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+      /* harmony import */
+
+
+      var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @ngrx/store */
+      "../../node_modules/@ngrx/store/__ivy_ngcc__/fesm2015/store.js");
+      /* harmony import */
+
+
+      var http_status__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! http-status */
+      "../../node_modules/http-status/lib/index.js");
+      /* harmony import */
+
+
+      var http_status__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(http_status__WEBPACK_IMPORTED_MODULE_3__);
+      /* harmony import */
+
+
+      var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! moment */
+      "../../node_modules/moment/moment.js");
+      /* harmony import */
+
+
+      var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+      /* harmony import */
+
+
+      var ___WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! ../../../../.. */
+      "./app/index.ts");
+      /* harmony import */
+
+
+      var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ../../../../../../environments/environment */
+      "./environments/environment.ts");
+      /* harmony import */
+
+
+      var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! ../../../../../services */
+      "./app/services/index.ts");
+      /* harmony import */
+
+
+      var _store_reducers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! ../../../../../store/reducers */
+      "./app/store/reducers/index.ts");
+      /* harmony import */
+
+
+      var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! @ngx-translate/core */
+      "../../node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+
+      var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+        function adopt(value) {
+          return value instanceof P ? value : new P(function (resolve) {
+            resolve(value);
+          });
+        }
+
+        return new (P || (P = Promise))(function (resolve, reject) {
+          function fulfilled(value) {
+            try {
+              step(generator.next(value));
+            } catch (e) {
+              reject(e);
+            }
+          }
+
+          function rejected(value) {
+            try {
+              step(generator["throw"](value));
+            } catch (e) {
+              reject(e);
+            }
+          }
+
+          function step(result) {
+            result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+          }
+
+          step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+      };
+
+      var PurchaseMemberSelectComponent = /*#__PURE__*/function () {
+        function PurchaseMemberSelectComponent(store, router, actionService, cinerinoService) {
+          _classCallCheck(this, PurchaseMemberSelectComponent);
+
+          this.store = store;
+          this.router = router;
+          this.actionService = actionService;
+          this.cinerinoService = cinerinoService;
+          this.moment = moment__WEBPACK_IMPORTED_MODULE_4__;
+          this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+          this.viewType = ___WEBPACK_IMPORTED_MODULE_5__["Models"].Common.ViewType;
+        }
+        /**
+         * 初期化
+         */
+
+
+        _createClass(PurchaseMemberSelectComponent, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
+              return regeneratorRuntime.wrap(function _callee31$(_context31) {
+                while (1) {
+                  switch (_context31.prev = _context31.next) {
+                    case 0:
+                      this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
+
+                    case 1:
+                    case "end":
+                      return _context31.stop();
+                  }
+                }
+              }, _callee31, this);
+            }));
+          }
+        }, {
+          key: "nextMember",
+          value: function nextMember() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
+              return regeneratorRuntime.wrap(function _callee32$(_context32) {
+                while (1) {
+                  switch (_context32.prev = _context32.next) {
+                    case 0:
+                      _context32.next = 2;
+                      return this.cinerinoService.signIn({
+                        redirectUrl: '/purchase/member/process'
+                      });
+
+                    case 2:
+                    case "end":
+                      return _context32.stop();
+                  }
+                }
+              }, _callee32, this);
+            }));
+          }
+        }, {
+          key: "nextNonMember",
+          value: function nextNonMember() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
+              var purchase, transaction, errorObject;
+              return regeneratorRuntime.wrap(function _callee33$(_context33) {
+                while (1) {
+                  switch (_context33.prev = _context33.next) {
+                    case 0:
+                      _context33.prev = 0;
+                      _context33.next = 3;
+                      return this.actionService.purchase.getData();
+
+                    case 3:
+                      purchase = _context33.sent;
+                      transaction = purchase.transaction;
+
+                      if (!(transaction !== undefined)) {
+                        _context33.next = 8;
+                        break;
+                      }
+
+                      _context33.next = 8;
+                      return this.actionService.purchase.cancelTransaction();
+
+                    case 8:
+                      _context33.next = 10;
+                      return this.actionService.purchase.startTransaction();
+
+                    case 10:
+                      this.router.navigate(['/purchase/event/ticket']);
+                      _context33.next = 25;
+                      break;
+
+                    case 13:
+                      _context33.prev = 13;
+                      _context33.t0 = _context33["catch"](0);
+
+                      if (!(_context33.t0 === null)) {
+                        _context33.next = 17;
+                        break;
+                      }
+
+                      throw new Error('error is null');
+
+                    case 17:
+                      errorObject = JSON.parse(_context33.t0);
+
+                      if (!(errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_3__["TOO_MANY_REQUESTS"])) {
+                        _context33.next = 21;
+                        break;
+                      }
+
+                      this.router.navigate(['/congestion']);
+                      return _context33.abrupt("return");
+
+                    case 21:
+                      if (!(errorObject.status === http_status__WEBPACK_IMPORTED_MODULE_3__["BAD_REQUEST"])) {
+                        _context33.next = 24;
+                        break;
+                      }
+
+                      this.router.navigate(['/maintenance']);
+                      return _context33.abrupt("return");
+
+                    case 24:
+                      this.router.navigate(['/error']);
+
+                    case 25:
+                    case "end":
+                      return _context33.stop();
+                  }
+                }
+              }, _callee33, this, [[0, 13]]);
+            }));
+          }
+        }]);
+
+        return PurchaseMemberSelectComponent;
+      }();
+
+      PurchaseMemberSelectComponent.ɵfac = function PurchaseMemberSelectComponent_Factory(t) {
+        return new (t || PurchaseMemberSelectComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["CinerinoService"]));
+      };
+
+      PurchaseMemberSelectComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
+        type: PurchaseMemberSelectComponent,
+        selectors: [["app-purchase-member-select"]],
+        decls: 17,
+        vars: 15,
+        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "mb-4"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "buttons", "mx-auto", "text-center"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "click"], ["type", "button", "routerLink", "/purchase/root", 1, "btn", "btn-outline-primary", "btn-block", "py-3"]],
+        template: function PurchaseMemberSelectComponent_Template(rf, ctx) {
+          if (rf & 1) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h2", 2);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](4, "translate");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](5, "p", 3);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](6, "translate");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div", 4);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "button", 5);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseMemberSelectComponent_Template_button_click_8_listener() {
+              return ctx.nextMember();
+            });
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](9);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](10, "translate");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "button", 5);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function PurchaseMemberSelectComponent_Template_button_click_11_listener() {
+              return ctx.nextNonMember();
+            });
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](12);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](13, "translate");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "button", 6);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](15);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](16, "translate");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+          }
+
+          if (rf & 2) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](4, 5, "purchase.member.select.title"));
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("innerHTML", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](6, 7, "purchase.member.select.read"), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeHtml"]);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](10, 9, "purchase.member.select.member.label"));
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](13, 11, "purchase.member.select.nonMember.label"));
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](16, 13, "purchase.member.select.prev"));
+          }
+        },
+        directives: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLink"]],
+        pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__["TranslatePipe"]],
+        styles: [""]
+      });
+      /*@__PURE__*/
+
+      (function () {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PurchaseMemberSelectComponent, [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
+          args: [{
+            selector: 'app-purchase-member-select',
+            templateUrl: './purchase-member-select.component.html',
+            styleUrls: ['./purchase-member-select.component.scss']
+          }]
+        }], function () {
+          return [{
+            type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]
+          }, {
+            type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
+          }, {
+            type: _services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]
+          }, {
+            type: _services__WEBPACK_IMPORTED_MODULE_7__["CinerinoService"]
+          }];
+        }, null);
       })();
       /***/
 
@@ -10684,11 +11199,11 @@
       };
 
       var PurchaseRootComponent = /*#__PURE__*/function () {
-        function PurchaseRootComponent(store, purchaseService, router) {
+        function PurchaseRootComponent(store, actionService, router) {
           _classCallCheck(this, PurchaseRootComponent);
 
           this.store = store;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.router = router;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
         }
@@ -10700,32 +11215,32 @@
         _createClass(PurchaseRootComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee30() {
-              return regeneratorRuntime.wrap(function _callee30$(_context30) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
+              return regeneratorRuntime.wrap(function _callee34$(_context34) {
                 while (1) {
-                  switch (_context30.prev = _context30.next) {
+                  switch (_context34.prev = _context34.next) {
                     case 0:
                       this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
                       this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getPurchase"]));
-                      this.purchaseService["delete"]();
+                      this.actionService.purchase["delete"]();
 
                       if (!(this.environment.VIEW_TYPE === ___WEBPACK_IMPORTED_MODULE_3__["Models"].Common.ViewType.Cinema)) {
-                        _context30.next = 6;
+                        _context34.next = 6;
                         break;
                       }
 
                       this.router.navigate(['/purchase/cinema/schedule']);
-                      return _context30.abrupt("return");
+                      return _context34.abrupt("return");
 
                     case 6:
                       this.router.navigate(['/purchase/event/schedule']);
 
                     case 7:
                     case "end":
-                      return _context30.stop();
+                      return _context34.stop();
                   }
                 }
-              }, _callee30, this);
+              }, _callee34, this);
             }));
           }
         }]);
@@ -10734,7 +11249,7 @@
       }();
 
       PurchaseRootComponent.ɵfac = function PurchaseRootComponent_Factory(t) {
-        return new (t || PurchaseRootComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]));
+        return new (t || PurchaseRootComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]));
       };
 
       PurchaseRootComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -10759,7 +11274,7 @@
           return [{
             type: _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_5__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_5__["ActionService"]
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }];
@@ -10870,14 +11385,14 @@
       };
 
       var PurchaseSeatComponent = /*#__PURE__*/function () {
-        function PurchaseSeatComponent(store, utilService, translate, router, purchaseService) {
+        function PurchaseSeatComponent(store, utilService, translate, router, actionService) {
           _classCallCheck(this, PurchaseSeatComponent);
 
           this.store = store;
           this.utilService = utilService;
           this.translate = translate;
           this.router = router;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_5__["getEnvironment"])();
           this.external = ___WEBPACK_IMPORTED_MODULE_4__["Functions"].Util.getExternalData();
         }
@@ -10889,38 +11404,38 @@
         _createClass(PurchaseSeatComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee31() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
               var _this13 = this;
 
               var purchase, screeningEvent, reservations;
-              return regeneratorRuntime.wrap(function _callee31$(_context31) {
+              return regeneratorRuntime.wrap(function _callee35$(_context35) {
                 while (1) {
-                  switch (_context31.prev = _context31.next) {
+                  switch (_context35.prev = _context35.next) {
                     case 0:
                       this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getPurchase"]));
                       this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getUser"]));
                       this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_7__["getLoading"]));
                       this.translateName = this.environment.VIEW_TYPE === 'cinema' ? 'purchase.cinema.seat' : 'purchase.event.seat';
                       this.screeningEventSeats = [];
-                      _context31.prev = 5;
-                      _context31.next = 8;
-                      return this.purchaseService.getData();
+                      _context35.prev = 5;
+                      _context35.next = 8;
+                      return this.actionService.purchase.getData();
 
                     case 8:
-                      purchase = _context31.sent;
+                      purchase = _context35.sent;
                       screeningEvent = purchase.screeningEvent;
 
                       if (!(screeningEvent === undefined)) {
-                        _context31.next = 13;
+                        _context35.next = 13;
                         break;
                       }
 
                       this.router.navigate(['/error']);
-                      return _context31.abrupt("return");
+                      return _context35.abrupt("return");
 
                     case 13:
                       reservations = purchase.reservations;
-                      _context31.next = 16;
+                      _context35.next = 16;
                       return this.resetSeats();
 
                     case 16:
@@ -10934,8 +11449,8 @@
                           status: ___WEBPACK_IMPORTED_MODULE_4__["Models"].Purchase.Screen.SeatStatus.Default
                         });
                       });
-                      _context31.next = 19;
-                      return this.purchaseService.getScreen({
+                      _context35.next = 19;
+                      return this.actionService.purchase.getScreen({
                         branchCode: {
                           $eq: screeningEvent.location.branchCode
                         },
@@ -10947,30 +11462,30 @@
                       });
 
                     case 19:
-                      _context31.next = 21;
-                      return this.purchaseService.getScreeningEventSeats();
+                      _context35.next = 21;
+                      return this.actionService.purchase.getScreeningEventSeats();
 
                     case 21:
-                      this.screeningEventSeats = _context31.sent;
-                      _context31.next = 24;
-                      return this.purchaseService.getTicketList();
+                      this.screeningEventSeats = _context35.sent;
+                      _context35.next = 24;
+                      return this.actionService.purchase.getTicketList();
 
                     case 24:
-                      _context31.next = 30;
+                      _context35.next = 30;
                       break;
 
                     case 26:
-                      _context31.prev = 26;
-                      _context31.t0 = _context31["catch"](5);
-                      console.error(_context31.t0);
+                      _context35.prev = 26;
+                      _context35.t0 = _context35["catch"](5);
+                      console.error(_context35.t0);
                       this.router.navigate(['/error']);
 
                     case 30:
                     case "end":
-                      return _context31.stop();
+                      return _context35.stop();
                   }
                 }
-              }, _callee31, this, [[5, 26]]);
+              }, _callee35, this, [[5, 26]]);
             }));
           }
           /**
@@ -10980,25 +11495,25 @@
         }, {
           key: "selectSeat",
           value: function selectSeat(data) {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee32() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
               var purchase;
-              return regeneratorRuntime.wrap(function _callee32$(_context32) {
+              return regeneratorRuntime.wrap(function _callee36$(_context36) {
                 while (1) {
-                  switch (_context32.prev = _context32.next) {
+                  switch (_context36.prev = _context36.next) {
                     case 0:
-                      _context32.next = 2;
-                      return this.purchaseService.getData();
+                      _context36.next = 2;
+                      return this.actionService.purchase.getData();
 
                     case 2:
-                      purchase = _context32.sent;
+                      purchase = _context36.sent;
 
                       if (!(data.status === ___WEBPACK_IMPORTED_MODULE_4__["Models"].Purchase.Screen.SeatStatus.Default)) {
-                        _context32.next = 10;
+                        _context36.next = 10;
                         break;
                       }
 
                       if (!(purchase.screeningEvent !== undefined && purchase.screeningEvent.offers !== undefined && purchase.screeningEvent.offers.eligibleQuantity.maxValue !== undefined && purchase.reservations.length >= purchase.screeningEvent.offers.eligibleQuantity.maxValue)) {
-                        _context32.next = 7;
+                        _context36.next = 7;
                         break;
                       }
 
@@ -11008,22 +11523,22 @@
                           value: purchase.screeningEvent.offers.eligibleQuantity.maxValue
                         })
                       });
-                      return _context32.abrupt("return");
+                      return _context36.abrupt("return");
 
                     case 7:
-                      this.purchaseService.selectSeats([data.seat]);
-                      _context32.next = 11;
+                      this.actionService.purchase.selectSeats([data.seat]);
+                      _context36.next = 11;
                       break;
 
                     case 10:
-                      this.purchaseService.cancelSeats([data.seat]);
+                      this.actionService.purchase.cancelSeats([data.seat]);
 
                     case 11:
                     case "end":
-                      return _context32.stop();
+                      return _context36.stop();
                   }
                 }
-              }, _callee32, this);
+              }, _callee36, this);
             }));
           }
           /**
@@ -11033,23 +11548,23 @@
         }, {
           key: "onSubmit",
           value: function onSubmit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee33() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
               var purchase, reservations, screeningEventTicketOffers, navigate;
-              return regeneratorRuntime.wrap(function _callee33$(_context33) {
+              return regeneratorRuntime.wrap(function _callee37$(_context37) {
                 while (1) {
-                  switch (_context33.prev = _context33.next) {
+                  switch (_context37.prev = _context37.next) {
                     case 0:
-                      _context33.prev = 0;
-                      _context33.next = 3;
-                      return this.purchaseService.getData();
+                      _context37.prev = 0;
+                      _context37.next = 3;
+                      return this.actionService.purchase.getData();
 
                     case 3:
-                      purchase = _context33.sent;
+                      purchase = _context37.sent;
                       reservations = purchase.reservations;
                       screeningEventTicketOffers = purchase.screeningEventTicketOffers;
 
                       if (!(reservations.length === 0)) {
-                        _context33.next = 9;
+                        _context37.next = 9;
                         break;
                       }
 
@@ -11057,11 +11572,11 @@
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant("".concat(this.translateName, ".alert.unselected"))
                       });
-                      return _context33.abrupt("return");
+                      return _context37.abrupt("return");
 
                     case 9:
                       if (!(screeningEventTicketOffers.length === 0)) {
-                        _context33.next = 12;
+                        _context37.next = 12;
                         break;
                       }
 
@@ -11069,11 +11584,11 @@
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant("".concat(this.translateName, ".alert.ticketNotfound"))
                       });
-                      return _context33.abrupt("return");
+                      return _context37.abrupt("return");
 
                     case 12:
-                      _context33.next = 14;
-                      return this.purchaseService.temporaryReservation({
+                      _context37.next = 14;
+                      return this.actionService.purchase.temporaryReservation({
                         reservations: reservations,
                         screeningEventSeats: this.screeningEventSeats
                       });
@@ -11081,13 +11596,13 @@
                     case 14:
                       navigate = this.environment.VIEW_TYPE === 'cinema' ? '/purchase/cinema/ticket' : '/purchase/event/seat/ticket';
                       this.router.navigate([navigate]);
-                      _context33.next = 22;
+                      _context37.next = 22;
                       break;
 
                     case 18:
-                      _context33.prev = 18;
-                      _context33.t0 = _context33["catch"](0);
-                      console.error(_context33.t0);
+                      _context37.prev = 18;
+                      _context37.t0 = _context37["catch"](0);
+                      console.error(_context37.t0);
                       this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant("".concat(this.translateName, ".alert.temporaryReservation"))
@@ -11095,10 +11610,10 @@
 
                     case 22:
                     case "end":
-                      return _context33.stop();
+                      return _context37.stop();
                   }
                 }
-              }, _callee33, this, [[0, 18]]);
+              }, _callee37, this, [[0, 18]]);
             }));
           }
           /**
@@ -11108,18 +11623,18 @@
         }, {
           key: "resetSeats",
           value: function resetSeats() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee34() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
               var seats, purchase;
-              return regeneratorRuntime.wrap(function _callee34$(_context34) {
+              return regeneratorRuntime.wrap(function _callee38$(_context38) {
                 while (1) {
-                  switch (_context34.prev = _context34.next) {
+                  switch (_context38.prev = _context38.next) {
                     case 0:
                       seats = [];
-                      _context34.next = 3;
-                      return this.purchaseService.getData();
+                      _context38.next = 3;
+                      return this.actionService.purchase.getData();
 
                     case 3:
-                      purchase = _context34.sent;
+                      purchase = _context38.sent;
                       purchase.reservations.forEach(function (reservation) {
                         if (reservation.seat === undefined) {
                           return;
@@ -11127,14 +11642,14 @@
 
                         seats.push(reservation.seat);
                       });
-                      this.purchaseService.cancelSeats(seats);
+                      this.actionService.purchase.cancelSeats(seats);
 
                     case 6:
                     case "end":
-                      return _context34.stop();
+                      return _context38.stop();
                   }
                 }
-              }, _callee34, this);
+              }, _callee38, this);
             }));
           }
           /**
@@ -11178,25 +11693,25 @@
         }, {
           key: "selectOpenSeating",
           value: function selectOpenSeating(event) {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee35() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
               var purchaseData, value, reservations, screeningEventSeats, seats, selectSeats, i;
-              return regeneratorRuntime.wrap(function _callee35$(_context35) {
+              return regeneratorRuntime.wrap(function _callee39$(_context39) {
                 while (1) {
-                  switch (_context35.prev = _context35.next) {
+                  switch (_context39.prev = _context39.next) {
                     case 0:
                       if (!(event.target === null)) {
-                        _context35.next = 2;
+                        _context39.next = 2;
                         break;
                       }
 
-                      return _context35.abrupt("return");
+                      return _context39.abrupt("return");
 
                     case 2:
-                      _context35.next = 4;
-                      return this.purchaseService.getData();
+                      _context39.next = 4;
+                      return this.actionService.purchase.getData();
 
                     case 4:
-                      purchaseData = _context35.sent;
+                      purchaseData = _context39.sent;
                       value = Number(event.target.value);
                       reservations = purchaseData.reservations;
                       screeningEventSeats = this.screeningEventSeats;
@@ -11204,7 +11719,7 @@
                         reservations: reservations,
                         screeningEventSeats: screeningEventSeats
                       });
-                      _context35.next = 11;
+                      _context39.next = 11;
                       return this.resetSeats();
 
                     case 11:
@@ -11214,14 +11729,14 @@
                         selectSeats.push(seats[i]);
                       }
 
-                      this.purchaseService.selectSeats(selectSeats);
+                      this.actionService.purchase.selectSeats(selectSeats);
 
                     case 14:
                     case "end":
-                      return _context35.stop();
+                      return _context39.stop();
                   }
                 }
-              }, _callee35, this);
+              }, _callee39, this);
             }));
           }
         }]);
@@ -11230,7 +11745,7 @@
       }();
 
       PurchaseSeatComponent.ɵfac = function PurchaseSeatComponent_Factory(t) {
-        return new (t || PurchaseSeatComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["PurchaseService"]));
+        return new (t || PurchaseSeatComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["ActionService"]));
       };
 
       PurchaseSeatComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -11260,7 +11775,7 @@
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_6__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_6__["ActionService"]
           }];
         }, null);
       })();
@@ -11391,14 +11906,14 @@
       };
 
       var PurchaseTicketComponent = /*#__PURE__*/function () {
-        function PurchaseTicketComponent(store, router, modal, utilService, purchaseService, translate) {
+        function PurchaseTicketComponent(store, router, modal, utilService, actionService, translate) {
           _classCallCheck(this, PurchaseTicketComponent);
 
           this.store = store;
           this.router = router;
           this.modal = modal;
           this.utilService = utilService;
-          this.purchaseService = purchaseService;
+          this.actionService = actionService;
           this.translate = translate;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
         }
@@ -11423,25 +11938,25 @@
         }, {
           key: "onSubmit",
           value: function onSubmit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee36() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
               var purchase, reservations, unselectedReservations, validResult, additionalTicketText, screeningEventSeats, navigate;
-              return regeneratorRuntime.wrap(function _callee36$(_context36) {
+              return regeneratorRuntime.wrap(function _callee40$(_context40) {
                 while (1) {
-                  switch (_context36.prev = _context36.next) {
+                  switch (_context40.prev = _context40.next) {
                     case 0:
-                      _context36.prev = 0;
-                      _context36.next = 3;
-                      return this.purchaseService.getData();
+                      _context40.prev = 0;
+                      _context40.next = 3;
+                      return this.actionService.purchase.getData();
 
                     case 3:
-                      purchase = _context36.sent;
+                      purchase = _context40.sent;
                       reservations = purchase.reservations;
                       unselectedReservations = reservations.filter(function (reservation) {
                         return reservation.ticket === undefined;
                       });
 
                       if (!(unselectedReservations.length > 0)) {
-                        _context36.next = 9;
+                        _context40.next = 9;
                         break;
                       }
 
@@ -11449,7 +11964,7 @@
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant("".concat(this.translateName, ".alert.unselected"))
                       });
-                      return _context36.abrupt("return");
+                      return _context40.abrupt("return");
 
                     case 9:
                       validResult = reservations.filter(function (reservation) {
@@ -11473,7 +11988,7 @@
                       });
 
                       if (!(validResult.length > 0)) {
-                        _context36.next = 13;
+                        _context40.next = 13;
                         break;
                       }
 
@@ -11481,17 +11996,17 @@
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant("".concat(this.translateName, ".alert.ticketCondition"))
                       });
-                      return _context36.abrupt("return");
+                      return _context40.abrupt("return");
 
                     case 13:
                       additionalTicketText = this.additionalTicketText;
-                      _context36.next = 16;
-                      return this.purchaseService.getScreeningEventSeats();
+                      _context40.next = 16;
+                      return this.actionService.purchase.getScreeningEventSeats();
 
                     case 16:
-                      screeningEventSeats = _context36.sent;
-                      _context36.next = 19;
-                      return this.purchaseService.temporaryReservation({
+                      screeningEventSeats = _context40.sent;
+                      _context40.next = 19;
+                      return this.actionService.purchase.temporaryReservation({
                         reservations: reservations,
                         additionalTicketText: additionalTicketText,
                         screeningEventSeats: screeningEventSeats
@@ -11500,21 +12015,21 @@
                     case 19:
                       navigate = this.environment.VIEW_TYPE === 'cinema' ? '/purchase/input' : '/purchase/event/ticket';
                       this.router.navigate([navigate]);
-                      _context36.next = 27;
+                      _context40.next = 27;
                       break;
 
                     case 23:
-                      _context36.prev = 23;
-                      _context36.t0 = _context36["catch"](0);
-                      console.error(_context36.t0);
+                      _context40.prev = 23;
+                      _context40.t0 = _context40["catch"](0);
+                      console.error(_context40.t0);
                       this.router.navigate(['/error']);
 
                     case 27:
                     case "end":
-                      return _context36.stop();
+                      return _context40.stop();
                   }
                 }
-              }, _callee36, this, [[0, 23]]);
+              }, _callee40, this, [[0, 23]]);
             }));
           }
           /**
@@ -11525,19 +12040,19 @@
         }, {
           key: "openTicketList",
           value: function openTicketList(reservation) {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee37() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee41() {
               var _this14 = this;
 
               var purchase;
-              return regeneratorRuntime.wrap(function _callee37$(_context37) {
+              return regeneratorRuntime.wrap(function _callee41$(_context41) {
                 while (1) {
-                  switch (_context37.prev = _context37.next) {
+                  switch (_context41.prev = _context41.next) {
                     case 0:
-                      _context37.next = 2;
-                      return this.purchaseService.getData();
+                      _context41.next = 2;
+                      return this.actionService.purchase.getData();
 
                     case 2:
-                      purchase = _context37.sent;
+                      purchase = _context41.sent;
                       this.modal.show(_shared_components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseSeatTicketModalComponent"], {
                         initialState: {
                           screeningEventTicketOffers: purchase.screeningEventTicketOffers,
@@ -11546,7 +12061,7 @@
                           reservation: reservation,
                           pendingMovieTickets: purchase.pendingMovieTickets,
                           cb: function cb(ticket) {
-                            _this14.purchaseService.selectTickets([Object.assign(Object.assign({}, reservation), {
+                            _this14.actionService.purchase.selectTickets([Object.assign(Object.assign({}, reservation), {
                               ticket: ticket
                             })]);
                           }
@@ -11556,10 +12071,10 @@
 
                     case 4:
                     case "end":
-                      return _context37.stop();
+                      return _context41.stop();
                   }
                 }
-              }, _callee37, this);
+              }, _callee41, this);
             }));
           }
         }, {
@@ -11575,7 +12090,7 @@
       }();
 
       PurchaseTicketComponent.ɵfac = function PurchaseTicketComponent_Factory(t) {
-        return new (t || PurchaseTicketComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
+        return new (t || PurchaseTicketComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_5__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
       };
 
       PurchaseTicketComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -11605,7 +12120,7 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_7__["PurchaseService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]
           }];
@@ -11710,14 +12225,13 @@
       };
 
       var PurchaseTransactionComponent = /*#__PURE__*/function () {
-        function PurchaseTransactionComponent(store, router, activatedRoute, purchaseService, userService) {
+        function PurchaseTransactionComponent(store, router, activatedRoute, actionService) {
           _classCallCheck(this, PurchaseTransactionComponent);
 
           this.store = store;
           this.router = router;
           this.activatedRoute = activatedRoute;
-          this.purchaseService = purchaseService;
-          this.userService = userService;
+          this.actionService = actionService;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_4__["getEnvironment"])();
         }
         /**
@@ -11728,11 +12242,11 @@
         _createClass(PurchaseTransactionComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee38() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee42() {
               var snapshot, eventId, passportToken, tmpPurchase, external;
-              return regeneratorRuntime.wrap(function _callee38$(_context38) {
+              return regeneratorRuntime.wrap(function _callee42$(_context42) {
                 while (1) {
-                  switch (_context38.prev = _context38.next) {
+                  switch (_context42.prev = _context42.next) {
                     case 0:
                       this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getUser"]));
                       this.purchase = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_6__["getPurchase"]));
@@ -11744,57 +12258,57 @@
                         eventId: eventId,
                         passportToken: passportToken
                       }));
-                      _context38.next = 9;
-                      return this.purchaseService.getData();
+                      _context42.next = 9;
+                      return this.actionService.purchase.getData();
 
                     case 9:
-                      tmpPurchase = _context38.sent;
+                      tmpPurchase = _context42.sent;
                       external = ___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.getExternalData();
 
                       if (!(this.environment.VIEW_TYPE === ___WEBPACK_IMPORTED_MODULE_3__["Models"].Common.ViewType.Cinema && external !== undefined && external.eventId !== undefined && tmpPurchase.authorizeSeatReservation !== undefined)) {
-                        _context38.next = 14;
+                        _context42.next = 14;
                         break;
                       }
 
                       this.router.navigate(['/purchase/cinema/overlap']);
-                      return _context38.abrupt("return");
+                      return _context42.abrupt("return");
 
                     case 14:
-                      this.purchaseService["delete"]();
+                      this.actionService.purchase["delete"]();
 
                       if (!(this.environment.VIEW_TYPE !== ___WEBPACK_IMPORTED_MODULE_3__["Models"].Common.ViewType.Cinema)) {
-                        _context38.next = 18;
+                        _context42.next = 18;
                         break;
                       }
 
                       this.router.navigate(['/error']);
-                      return _context38.abrupt("return");
+                      return _context42.abrupt("return");
 
                     case 18:
-                      _context38.prev = 18;
-                      _context38.next = 21;
-                      return this.purchaseService.convertExternalToPurchase(eventId);
+                      _context42.prev = 18;
+                      _context42.next = 21;
+                      return this.actionService.purchase.convertExternalToPurchase(eventId);
 
                     case 21:
-                      _context38.next = 23;
-                      return this.purchaseService.startTransaction();
+                      _context42.next = 23;
+                      return this.actionService.purchase.startTransaction();
 
                     case 23:
                       this.router.navigate(['/purchase/cinema/seat']);
-                      _context38.next = 29;
+                      _context42.next = 29;
                       break;
 
                     case 26:
-                      _context38.prev = 26;
-                      _context38.t0 = _context38["catch"](18);
+                      _context42.prev = 26;
+                      _context42.t0 = _context42["catch"](18);
                       this.router.navigate(['/error']);
 
                     case 29:
                     case "end":
-                      return _context38.stop();
+                      return _context42.stop();
                   }
                 }
-              }, _callee38, this, [[18, 26]]);
+              }, _callee42, this, [[18, 26]]);
             }));
           }
         }, {
@@ -11804,7 +12318,7 @@
             var language = snapshot.params.language;
 
             if (language !== undefined) {
-              this.userService.updateLanguage(language);
+              this.actionService.user.updateLanguage(language);
             }
           }
         }]);
@@ -11813,7 +12327,7 @@
       }();
 
       PurchaseTransactionComponent.ɵfac = function PurchaseTransactionComponent_Factory(t) {
-        return new (t || PurchaseTransactionComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["PurchaseService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["UserService"]));
+        return new (t || PurchaseTransactionComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["ActionService"]));
       };
 
       PurchaseTransactionComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -11842,9 +12356,7 @@
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_5__["PurchaseService"]
-          }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_5__["UserService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_5__["ActionService"]
           }];
         }, null);
       })();
@@ -13566,52 +14078,52 @@
         }, {
           key: "ngOnChanges",
           value: function ngOnChanges() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee39() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee43() {
               var path, url, result;
-              return regeneratorRuntime.wrap(function _callee39$(_context39) {
+              return regeneratorRuntime.wrap(function _callee43$(_context43) {
                 while (1) {
-                  switch (_context39.prev = _context39.next) {
+                  switch (_context43.prev = _context43.next) {
                     case 0:
-                      _context39.prev = 0;
+                      _context43.prev = 0;
                       path = "/text/purchase/terms/".concat(this.language, ".txt");
-                      _context39.next = 4;
+                      _context43.next = 4;
                       return ___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.isFile("".concat(___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl).concat(path));
 
                     case 4:
-                      if (!_context39.sent) {
-                        _context39.next = 8;
+                      if (!_context43.sent) {
+                        _context43.next = 8;
                         break;
                       }
 
-                      _context39.t0 = "".concat(___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl).concat(path);
-                      _context39.next = 9;
+                      _context43.t0 = "".concat(___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl).concat(path);
+                      _context43.next = 9;
                       break;
 
                     case 8:
-                      _context39.t0 = "/default".concat(path);
+                      _context43.t0 = "/default".concat(path);
 
                     case 9:
-                      url = _context39.t0;
-                      _context39.next = 12;
+                      url = _context43.t0;
+                      _context43.next = 12;
                       return this.utilService.getText(url);
 
                     case 12:
-                      result = _context39.sent;
+                      result = _context43.sent;
                       this.terms = result.replace(/\n/g, '<br>');
-                      _context39.next = 19;
+                      _context43.next = 19;
                       break;
 
                     case 16:
-                      _context39.prev = 16;
-                      _context39.t1 = _context39["catch"](0);
-                      console.error(_context39.t1);
+                      _context43.prev = 16;
+                      _context43.t1 = _context43["catch"](0);
+                      console.error(_context43.t1);
 
                     case 19:
                     case "end":
-                      return _context39.stop();
+                      return _context43.stop();
                   }
                 }
-              }, _callee39, this, [[0, 16]]);
+              }, _callee43, this, [[0, 16]]);
             }));
           }
         }]);
@@ -13772,52 +14284,52 @@
         }, {
           key: "ngOnChanges",
           value: function ngOnChanges() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee40() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee44() {
               var path, url, result;
-              return regeneratorRuntime.wrap(function _callee40$(_context40) {
+              return regeneratorRuntime.wrap(function _callee44$(_context44) {
                 while (1) {
-                  switch (_context40.prev = _context40.next) {
+                  switch (_context44.prev = _context44.next) {
                     case 0:
-                      _context40.prev = 0;
+                      _context44.prev = 0;
                       path = "/text/purchase/warning/".concat(this.language, ".txt");
-                      _context40.next = 4;
+                      _context44.next = 4;
                       return ___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.isFile("".concat(___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl).concat(path));
 
                     case 4:
-                      if (!_context40.sent) {
-                        _context40.next = 8;
+                      if (!_context44.sent) {
+                        _context44.next = 8;
                         break;
                       }
 
-                      _context40.t0 = "".concat(___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl).concat(path);
-                      _context40.next = 9;
+                      _context44.t0 = "".concat(___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl).concat(path);
+                      _context44.next = 9;
                       break;
 
                     case 8:
-                      _context40.t0 = "/default".concat(path);
+                      _context44.t0 = "/default".concat(path);
 
                     case 9:
-                      url = _context40.t0;
-                      _context40.next = 12;
+                      url = _context44.t0;
+                      _context44.next = 12;
                       return this.utilService.getText(url);
 
                     case 12:
-                      result = _context40.sent;
+                      result = _context44.sent;
                       this.warning = result.replace(/\n/g, '<br>');
-                      _context40.next = 19;
+                      _context44.next = 19;
                       break;
 
                     case 16:
-                      _context40.prev = 16;
-                      _context40.t1 = _context40["catch"](0);
-                      console.error(_context40.t1);
+                      _context44.prev = 16;
+                      _context44.t1 = _context44["catch"](0);
+                      console.error(_context44.t1);
 
                     case 19:
                     case "end":
-                      return _context40.stop();
+                      return _context44.stop();
                   }
                 }
-              }, _callee40, this, [[0, 16]]);
+              }, _callee44, this, [[0, 16]]);
             }));
           }
         }]);
@@ -14244,38 +14756,38 @@
         _createClass(ScreenComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee41() {
-              return regeneratorRuntime.wrap(function _callee41$(_context41) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee45() {
+              return regeneratorRuntime.wrap(function _callee45$(_context45) {
                 while (1) {
-                  switch (_context41.prev = _context41.next) {
+                  switch (_context45.prev = _context45.next) {
                     case 0:
-                      _context41.prev = 0;
+                      _context45.prev = 0;
                       this.zoomState = false;
                       this.scale = 1;
                       this.height = 0;
                       this.origin = '0 0';
-                      _context41.next = 7;
+                      _context45.next = 7;
                       return this.getScreenData();
 
                     case 7:
-                      this.screenData = _context41.sent;
+                      this.screenData = _context45.sent;
                       this.createScreen();
                       this.scaleDown();
                       this.setScrollEvent();
-                      _context41.next = 16;
+                      _context45.next = 16;
                       break;
 
                     case 13:
-                      _context41.prev = 13;
-                      _context41.t0 = _context41["catch"](0);
-                      console.error(_context41.t0);
+                      _context45.prev = 13;
+                      _context45.t0 = _context45["catch"](0);
+                      console.error(_context45.t0);
 
                     case 16:
                     case "end":
-                      return _context41.stop();
+                      return _context45.stop();
                   }
                 }
-              }, _callee41, this, [[0, 13]]);
+              }, _callee45, this, [[0, 13]]);
             }));
           }
           /**
@@ -14306,27 +14818,27 @@
         }, {
           key: "ngAfterContentChecked",
           value: function ngAfterContentChecked() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee42() {
-              return regeneratorRuntime.wrap(function _callee42$(_context42) {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee46() {
+              return regeneratorRuntime.wrap(function _callee46$(_context46) {
                 while (1) {
-                  switch (_context42.prev = _context42.next) {
+                  switch (_context46.prev = _context46.next) {
                     case 0:
                       if (!(this.screenData === undefined)) {
-                        _context42.next = 2;
+                        _context46.next = 2;
                         break;
                       }
 
-                      return _context42.abrupt("return");
+                      return _context46.abrupt("return");
 
                     case 2:
                       this.changeStatus();
 
                     case 3:
                     case "end":
-                      return _context42.stop();
+                      return _context46.stop();
                   }
                 }
-              }, _callee42, this);
+              }, _callee46, this);
             }));
           }
           /**
@@ -14382,77 +14894,77 @@
         }, {
           key: "getScreenData",
           value: function getScreenData() {
-            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee43() {
+            return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee47() {
               var now, settingPath, setting, screenPath, screen, objects;
-              return regeneratorRuntime.wrap(function _callee43$(_context43) {
+              return regeneratorRuntime.wrap(function _callee47$(_context47) {
                 while (1) {
-                  switch (_context43.prev = _context43.next) {
+                  switch (_context47.prev = _context47.next) {
                     case 0:
                       now = moment__WEBPACK_IMPORTED_MODULE_2__().toISOString();
                       settingPath = 'json/theater/setting.json';
-                      _context43.next = 4;
+                      _context47.next = 4;
                       return ___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.isFile("".concat(___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.getProject().storageUrl, "/").concat(settingPath));
 
                     case 4:
-                      if (!_context43.sent) {
-                        _context43.next = 10;
+                      if (!_context47.sent) {
+                        _context47.next = 10;
                         break;
                       }
 
-                      _context43.next = 7;
+                      _context47.next = 7;
                       return this.utilService.getJson("".concat(___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.getProject().storageUrl, "/").concat(settingPath));
 
                     case 7:
-                      _context43.t0 = _context43.sent;
-                      _context43.next = 13;
+                      _context47.t0 = _context47.sent;
+                      _context47.next = 13;
                       break;
 
                     case 10:
-                      _context43.next = 12;
+                      _context47.next = 12;
                       return this.utilService.getJson("/default/".concat(settingPath));
 
                     case 12:
-                      _context43.t0 = _context43.sent;
+                      _context47.t0 = _context47.sent;
 
                     case 13:
-                      setting = _context43.t0;
+                      setting = _context47.t0;
                       screenPath = "json/theater/".concat(this.theaterCode, "/").concat(this.screenCode, ".json?date=").concat(now);
-                      _context43.next = 17;
+                      _context47.next = 17;
                       return ___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.isFile("".concat(___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.getProject().storageUrl, "/").concat(screenPath));
 
                     case 17:
-                      if (!_context43.sent) {
-                        _context43.next = 23;
+                      if (!_context47.sent) {
+                        _context47.next = 23;
                         break;
                       }
 
-                      _context43.next = 20;
+                      _context47.next = 20;
                       return this.utilService.getJson("".concat(___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.getProject().storageUrl, "/").concat(screenPath));
 
                     case 20:
-                      _context43.t1 = _context43.sent;
-                      _context43.next = 24;
+                      _context47.t1 = _context47.sent;
+                      _context47.next = 24;
                       break;
 
                     case 23:
-                      _context43.t1 = this.generateScreenMap(setting);
+                      _context47.t1 = this.generateScreenMap(setting);
 
                     case 24:
-                      screen = _context43.t1;
+                      screen = _context47.t1;
                       objects = screen.objects.map(function (o) {
                         return Object.assign(Object.assign({}, o), {
                           image: o.image.replace('/storage', ___WEBPACK_IMPORTED_MODULE_3__["Functions"].Util.getProject().storageUrl)
                         });
                       });
                       screen.objects = objects;
-                      return _context43.abrupt("return", Object.assign(Object.assign({}, setting), screen));
+                      return _context47.abrupt("return", Object.assign(Object.assign({}, setting), screen));
 
                     case 28:
                     case "end":
-                      return _context43.stop();
+                      return _context47.stop();
                   }
                 }
-              }, _callee43, this);
+              }, _callee47, this);
             }));
           }
           /**
@@ -15549,13 +16061,25 @@
       /* harmony import */
 
 
-      var _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
+      var _components_pages_purchase_member_process_purchase_member_process_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
+      /*! ./components/pages/purchase-member-process/purchase-member-process.component */
+      "./app/modules/purchase/components/pages/purchase-member-process/purchase-member-process.component.ts");
+      /* harmony import */
+
+
+      var _components_pages_purchase_member_select_purchase_member_select_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
+      /*! ./components/pages/purchase-member-select/purchase-member-select.component */
+      "./app/modules/purchase/components/pages/purchase-member-select/purchase-member-select.component.ts");
+      /* harmony import */
+
+
+      var _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
       /*! ./components/pages/purchase-root/purchase-root.component */
       "./app/modules/purchase/components/pages/purchase-root/purchase-root.component.ts");
       /* harmony import */
 
 
-      var _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
+      var _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
       /*! ./components/pages/purchase-transaction/purchase-transaction.component */
       "./app/modules/purchase/components/pages/purchase-transaction/purchase-transaction.component.ts");
 
@@ -15593,6 +16117,12 @@
             }]
           }]
         }, {
+          path: 'member/select',
+          component: _components_pages_purchase_member_select_purchase_member_select_component__WEBPACK_IMPORTED_MODULE_17__["PurchaseMemberSelectComponent"]
+        }, {
+          path: 'member/process',
+          component: _components_pages_purchase_member_process_purchase_member_process_component__WEBPACK_IMPORTED_MODULE_16__["PurchaseMemberProcessComponent"]
+        }, {
           path: 'input',
           canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["PurchaseTransactionGuardService"]],
           component: _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_15__["PurchaseInputComponent"]
@@ -15609,13 +16139,13 @@
         component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_3__["BaseComponent"],
         children: [{
           path: 'root',
-          component: _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_16__["PurchaseRootComponent"]
+          component: _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_18__["PurchaseRootComponent"]
         }, {
           path: 'transaction/:eventId/:passportToken',
-          component: _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_17__["PurchaseTransactionComponent"]
+          component: _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_19__["PurchaseTransactionComponent"]
         }, {
           path: 'transaction/:eventId',
-          component: _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_17__["PurchaseTransactionComponent"]
+          component: _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_19__["PurchaseTransactionComponent"]
         }, {
           path: 'cinema',
           canActivate: [_canActivates__WEBPACK_IMPORTED_MODULE_2__["ViewTypeGuardService"]],
@@ -15781,85 +16311,97 @@
       /* harmony import */
 
 
-      var _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+      var _components_pages_purchase_member_process_purchase_member_process_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+      /*! ./components/pages/purchase-member-process/purchase-member-process.component */
+      "./app/modules/purchase/components/pages/purchase-member-process/purchase-member-process.component.ts");
+      /* harmony import */
+
+
+      var _components_pages_purchase_member_select_purchase_member_select_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
+      /*! ./components/pages/purchase-member-select/purchase-member-select.component */
+      "./app/modules/purchase/components/pages/purchase-member-select/purchase-member-select.component.ts");
+      /* harmony import */
+
+
+      var _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
       /*! ./components/pages/purchase-root/purchase-root.component */
       "./app/modules/purchase/components/pages/purchase-root/purchase-root.component.ts");
       /* harmony import */
 
 
-      var _components_pages_purchase_seat_purchase_seat_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
+      var _components_pages_purchase_seat_purchase_seat_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
       /*! ./components/pages/purchase-seat/purchase-seat.component */
       "./app/modules/purchase/components/pages/purchase-seat/purchase-seat.component.ts");
       /* harmony import */
 
 
-      var _components_pages_purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
+      var _components_pages_purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
       /*! ./components/pages/purchase-ticket/purchase-ticket.component */
       "./app/modules/purchase/components/pages/purchase-ticket/purchase-ticket.component.ts");
       /* harmony import */
 
 
-      var _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
+      var _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
       /*! ./components/pages/purchase-transaction/purchase-transaction.component */
       "./app/modules/purchase/components/pages/purchase-transaction/purchase-transaction.component.ts");
       /* harmony import */
 
 
-      var _components_parts_event_performances_confirm_performances_confirm_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
+      var _components_parts_event_performances_confirm_performances_confirm_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(
       /*! ./components/parts/event/performances-confirm/performances-confirm.component */
       "./app/modules/purchase/components/parts/event/performances-confirm/performances-confirm.component.ts");
       /* harmony import */
 
 
-      var _components_parts_performance_performance_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
+      var _components_parts_performance_performance_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(
       /*! ./components/parts/performance/performance.component */
       "./app/modules/purchase/components/parts/performance/performance.component.ts");
       /* harmony import */
 
 
-      var _components_parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(
+      var _components_parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(
       /*! ./components/parts/performances/performances.component */
       "./app/modules/purchase/components/parts/performances/performances.component.ts");
       /* harmony import */
 
 
-      var _components_parts_purchase_info_purchase_info_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(
+      var _components_parts_purchase_info_purchase_info_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(
       /*! ./components/parts/purchase-info/purchase-info.component */
       "./app/modules/purchase/components/parts/purchase-info/purchase-info.component.ts");
       /* harmony import */
 
 
-      var _components_parts_purchase_terms_purchase_terms_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(
+      var _components_parts_purchase_terms_purchase_terms_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(
       /*! ./components/parts/purchase-terms/purchase-terms.component */
       "./app/modules/purchase/components/parts/purchase-terms/purchase-terms.component.ts");
       /* harmony import */
 
 
-      var _components_parts_purchase_warning_purchase_warning_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(
+      var _components_parts_purchase_warning_purchase_warning_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(
       /*! ./components/parts/purchase-warning/purchase-warning.component */
       "./app/modules/purchase/components/parts/purchase-warning/purchase-warning.component.ts");
       /* harmony import */
 
 
-      var _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(
+      var _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
       /*! ./components/parts/screen/screen.component */
       "./app/modules/purchase/components/parts/screen/screen.component.ts");
       /* harmony import */
 
 
-      var _components_parts_seat_info_seat_info_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(
+      var _components_parts_seat_info_seat_info_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(
       /*! ./components/parts/seat-info/seat-info.component */
       "./app/modules/purchase/components/parts/seat-info/seat-info.component.ts");
       /* harmony import */
 
 
-      var _components_parts_transaction_remaining_time_transaction_remaining_time_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
+      var _components_parts_transaction_remaining_time_transaction_remaining_time_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(
       /*! ./components/parts/transaction-remaining-time/transaction-remaining-time.component */
       "./app/modules/purchase/components/parts/transaction-remaining-time/transaction-remaining-time.component.ts");
       /* harmony import */
 
 
-      var _purchase_routing_module__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(
+      var _purchase_routing_module__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(
       /*! ./purchase-routing.module */
       "./app/modules/purchase/purchase-routing.module.ts");
 
@@ -15874,13 +16416,13 @@
         factory: function PurchaseModule_Factory(t) {
           return new (t || PurchaseModule)();
         },
-        imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _purchase_routing_module__WEBPACK_IMPORTED_MODULE_28__["PurchaseRoutingModule"], _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__["SharedModule"]]]
+        imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _purchase_routing_module__WEBPACK_IMPORTED_MODULE_30__["PurchaseRoutingModule"], _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__["SharedModule"]]]
       });
 
       (function () {
         (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](PurchaseModule, {
-          declarations: [_components_pages_purchase_base_purchase_base_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseBaseComponent"], _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_14__["PurchaseInputComponent"], _components_pages_purchase_confirm_purchase_confirm_component__WEBPACK_IMPORTED_MODULE_13__["PurchaseConfirmComponent"], _components_pages_purchase_complete_purchase_complete_component__WEBPACK_IMPORTED_MODULE_12__["PurchaseCompleteComponent"], _components_parts_purchase_info_purchase_info_component__WEBPACK_IMPORTED_MODULE_22__["PurchaseInfoComponent"], _components_pages_cinema_purchase_cinema_schedule_purchase_cinema_schedule_component__WEBPACK_IMPORTED_MODULE_4__["PurchaseCinemaScheduleComponent"], _components_pages_cinema_purchase_cinema_seat_purchase_cinema_seat_component__WEBPACK_IMPORTED_MODULE_5__["PurchaseCinemaSeatComponent"], _components_pages_cinema_purchase_cinema_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_6__["PurchaseCinemaTicketComponent"], _components_pages_cinema_purchase_cinema_overlap_purchase_cinema_overlap__WEBPACK_IMPORTED_MODULE_3__["PurchaseCinemaOverlapComponent"], _components_pages_event_purchase_event_ticket_purchase_event_ticket_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseEventTicketComponent"], _components_parts_event_performances_confirm_performances_confirm_component__WEBPACK_IMPORTED_MODULE_19__["PurchaseEventPerformancesConfirmComponent"], _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_15__["PurchaseRootComponent"], _components_parts_performance_performance_component__WEBPACK_IMPORTED_MODULE_20__["PurchasePerformanceComponent"], _components_parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_21__["PurchasePerformancesComponent"], _components_pages_event_purchase_event_schedule_purchase_event_schedule_component__WEBPACK_IMPORTED_MODULE_7__["PurchaseEventScheduleComponent"], _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_18__["PurchaseTransactionComponent"], _components_parts_purchase_terms_purchase_terms_component__WEBPACK_IMPORTED_MODULE_23__["PurchaseTermsComponent"], _components_parts_purchase_warning_purchase_warning_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseWarningComponent"], _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_25__["ScreenComponent"], _components_parts_transaction_remaining_time_transaction_remaining_time_component__WEBPACK_IMPORTED_MODULE_27__["TransactionRemainingTimeComponent"], _components_pages_event_purchase_event_seat_purchase_event_seat_component__WEBPACK_IMPORTED_MODULE_9__["PurchaseEventSeatComponent"], _components_pages_event_purchase_event_seat_ticket_purchase_event_seat_ticket_component__WEBPACK_IMPORTED_MODULE_8__["PurchaseEventSeatTicketComponent"], _components_pages_purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_17__["PurchaseTicketComponent"], _components_pages_purchase_seat_purchase_seat_component__WEBPACK_IMPORTED_MODULE_16__["PurchaseSeatComponent"], _components_parts_seat_info_seat_info_component__WEBPACK_IMPORTED_MODULE_26__["SeatInfoComponent"]],
-          imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _purchase_routing_module__WEBPACK_IMPORTED_MODULE_28__["PurchaseRoutingModule"], _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__["SharedModule"]]
+          declarations: [_components_pages_purchase_base_purchase_base_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseBaseComponent"], _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_14__["PurchaseInputComponent"], _components_pages_purchase_confirm_purchase_confirm_component__WEBPACK_IMPORTED_MODULE_13__["PurchaseConfirmComponent"], _components_pages_purchase_complete_purchase_complete_component__WEBPACK_IMPORTED_MODULE_12__["PurchaseCompleteComponent"], _components_parts_purchase_info_purchase_info_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseInfoComponent"], _components_pages_cinema_purchase_cinema_schedule_purchase_cinema_schedule_component__WEBPACK_IMPORTED_MODULE_4__["PurchaseCinemaScheduleComponent"], _components_pages_cinema_purchase_cinema_seat_purchase_cinema_seat_component__WEBPACK_IMPORTED_MODULE_5__["PurchaseCinemaSeatComponent"], _components_pages_cinema_purchase_cinema_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_6__["PurchaseCinemaTicketComponent"], _components_pages_cinema_purchase_cinema_overlap_purchase_cinema_overlap__WEBPACK_IMPORTED_MODULE_3__["PurchaseCinemaOverlapComponent"], _components_pages_event_purchase_event_ticket_purchase_event_ticket_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseEventTicketComponent"], _components_parts_event_performances_confirm_performances_confirm_component__WEBPACK_IMPORTED_MODULE_21__["PurchaseEventPerformancesConfirmComponent"], _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_17__["PurchaseRootComponent"], _components_parts_performance_performance_component__WEBPACK_IMPORTED_MODULE_22__["PurchasePerformanceComponent"], _components_parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_23__["PurchasePerformancesComponent"], _components_pages_event_purchase_event_schedule_purchase_event_schedule_component__WEBPACK_IMPORTED_MODULE_7__["PurchaseEventScheduleComponent"], _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_20__["PurchaseTransactionComponent"], _components_parts_purchase_terms_purchase_terms_component__WEBPACK_IMPORTED_MODULE_25__["PurchaseTermsComponent"], _components_parts_purchase_warning_purchase_warning_component__WEBPACK_IMPORTED_MODULE_26__["PurchaseWarningComponent"], _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_27__["ScreenComponent"], _components_parts_transaction_remaining_time_transaction_remaining_time_component__WEBPACK_IMPORTED_MODULE_29__["TransactionRemainingTimeComponent"], _components_pages_event_purchase_event_seat_purchase_event_seat_component__WEBPACK_IMPORTED_MODULE_9__["PurchaseEventSeatComponent"], _components_pages_event_purchase_event_seat_ticket_purchase_event_seat_ticket_component__WEBPACK_IMPORTED_MODULE_8__["PurchaseEventSeatTicketComponent"], _components_pages_purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_19__["PurchaseTicketComponent"], _components_pages_purchase_seat_purchase_seat_component__WEBPACK_IMPORTED_MODULE_18__["PurchaseSeatComponent"], _components_parts_seat_info_seat_info_component__WEBPACK_IMPORTED_MODULE_28__["SeatInfoComponent"], _components_pages_purchase_member_select_purchase_member_select_component__WEBPACK_IMPORTED_MODULE_16__["PurchaseMemberSelectComponent"], _components_pages_purchase_member_process_purchase_member_process_component__WEBPACK_IMPORTED_MODULE_15__["PurchaseMemberProcessComponent"]],
+          imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _purchase_routing_module__WEBPACK_IMPORTED_MODULE_30__["PurchaseRoutingModule"], _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__["SharedModule"]]
         });
       })();
       /*@__PURE__*/
@@ -15890,9 +16432,9 @@
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](PurchaseModule, [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
           args: [{
-            declarations: [_components_pages_purchase_base_purchase_base_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseBaseComponent"], _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_14__["PurchaseInputComponent"], _components_pages_purchase_confirm_purchase_confirm_component__WEBPACK_IMPORTED_MODULE_13__["PurchaseConfirmComponent"], _components_pages_purchase_complete_purchase_complete_component__WEBPACK_IMPORTED_MODULE_12__["PurchaseCompleteComponent"], _components_parts_purchase_info_purchase_info_component__WEBPACK_IMPORTED_MODULE_22__["PurchaseInfoComponent"], _components_pages_cinema_purchase_cinema_schedule_purchase_cinema_schedule_component__WEBPACK_IMPORTED_MODULE_4__["PurchaseCinemaScheduleComponent"], _components_pages_cinema_purchase_cinema_seat_purchase_cinema_seat_component__WEBPACK_IMPORTED_MODULE_5__["PurchaseCinemaSeatComponent"], _components_pages_cinema_purchase_cinema_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_6__["PurchaseCinemaTicketComponent"], _components_pages_cinema_purchase_cinema_overlap_purchase_cinema_overlap__WEBPACK_IMPORTED_MODULE_3__["PurchaseCinemaOverlapComponent"], _components_pages_event_purchase_event_ticket_purchase_event_ticket_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseEventTicketComponent"], _components_parts_event_performances_confirm_performances_confirm_component__WEBPACK_IMPORTED_MODULE_19__["PurchaseEventPerformancesConfirmComponent"], _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_15__["PurchaseRootComponent"], _components_parts_performance_performance_component__WEBPACK_IMPORTED_MODULE_20__["PurchasePerformanceComponent"], _components_parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_21__["PurchasePerformancesComponent"], _components_pages_event_purchase_event_schedule_purchase_event_schedule_component__WEBPACK_IMPORTED_MODULE_7__["PurchaseEventScheduleComponent"], _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_18__["PurchaseTransactionComponent"], _components_parts_purchase_terms_purchase_terms_component__WEBPACK_IMPORTED_MODULE_23__["PurchaseTermsComponent"], _components_parts_purchase_warning_purchase_warning_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseWarningComponent"], _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_25__["ScreenComponent"], _components_parts_transaction_remaining_time_transaction_remaining_time_component__WEBPACK_IMPORTED_MODULE_27__["TransactionRemainingTimeComponent"], _components_pages_event_purchase_event_seat_purchase_event_seat_component__WEBPACK_IMPORTED_MODULE_9__["PurchaseEventSeatComponent"], _components_pages_event_purchase_event_seat_ticket_purchase_event_seat_ticket_component__WEBPACK_IMPORTED_MODULE_8__["PurchaseEventSeatTicketComponent"], _components_pages_purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_17__["PurchaseTicketComponent"], _components_pages_purchase_seat_purchase_seat_component__WEBPACK_IMPORTED_MODULE_16__["PurchaseSeatComponent"], _components_parts_seat_info_seat_info_component__WEBPACK_IMPORTED_MODULE_26__["SeatInfoComponent"]],
+            declarations: [_components_pages_purchase_base_purchase_base_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseBaseComponent"], _components_pages_purchase_input_purchase_input_component__WEBPACK_IMPORTED_MODULE_14__["PurchaseInputComponent"], _components_pages_purchase_confirm_purchase_confirm_component__WEBPACK_IMPORTED_MODULE_13__["PurchaseConfirmComponent"], _components_pages_purchase_complete_purchase_complete_component__WEBPACK_IMPORTED_MODULE_12__["PurchaseCompleteComponent"], _components_parts_purchase_info_purchase_info_component__WEBPACK_IMPORTED_MODULE_24__["PurchaseInfoComponent"], _components_pages_cinema_purchase_cinema_schedule_purchase_cinema_schedule_component__WEBPACK_IMPORTED_MODULE_4__["PurchaseCinemaScheduleComponent"], _components_pages_cinema_purchase_cinema_seat_purchase_cinema_seat_component__WEBPACK_IMPORTED_MODULE_5__["PurchaseCinemaSeatComponent"], _components_pages_cinema_purchase_cinema_ticket_purchase_cinema_ticket_component__WEBPACK_IMPORTED_MODULE_6__["PurchaseCinemaTicketComponent"], _components_pages_cinema_purchase_cinema_overlap_purchase_cinema_overlap__WEBPACK_IMPORTED_MODULE_3__["PurchaseCinemaOverlapComponent"], _components_pages_event_purchase_event_ticket_purchase_event_ticket_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseEventTicketComponent"], _components_parts_event_performances_confirm_performances_confirm_component__WEBPACK_IMPORTED_MODULE_21__["PurchaseEventPerformancesConfirmComponent"], _components_pages_purchase_root_purchase_root_component__WEBPACK_IMPORTED_MODULE_17__["PurchaseRootComponent"], _components_parts_performance_performance_component__WEBPACK_IMPORTED_MODULE_22__["PurchasePerformanceComponent"], _components_parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_23__["PurchasePerformancesComponent"], _components_pages_event_purchase_event_schedule_purchase_event_schedule_component__WEBPACK_IMPORTED_MODULE_7__["PurchaseEventScheduleComponent"], _components_pages_purchase_transaction_purchase_transaction_component__WEBPACK_IMPORTED_MODULE_20__["PurchaseTransactionComponent"], _components_parts_purchase_terms_purchase_terms_component__WEBPACK_IMPORTED_MODULE_25__["PurchaseTermsComponent"], _components_parts_purchase_warning_purchase_warning_component__WEBPACK_IMPORTED_MODULE_26__["PurchaseWarningComponent"], _components_parts_screen_screen_component__WEBPACK_IMPORTED_MODULE_27__["ScreenComponent"], _components_parts_transaction_remaining_time_transaction_remaining_time_component__WEBPACK_IMPORTED_MODULE_29__["TransactionRemainingTimeComponent"], _components_pages_event_purchase_event_seat_purchase_event_seat_component__WEBPACK_IMPORTED_MODULE_9__["PurchaseEventSeatComponent"], _components_pages_event_purchase_event_seat_ticket_purchase_event_seat_ticket_component__WEBPACK_IMPORTED_MODULE_8__["PurchaseEventSeatTicketComponent"], _components_pages_purchase_ticket_purchase_ticket_component__WEBPACK_IMPORTED_MODULE_19__["PurchaseTicketComponent"], _components_pages_purchase_seat_purchase_seat_component__WEBPACK_IMPORTED_MODULE_18__["PurchaseSeatComponent"], _components_parts_seat_info_seat_info_component__WEBPACK_IMPORTED_MODULE_28__["SeatInfoComponent"], _components_pages_purchase_member_select_purchase_member_select_component__WEBPACK_IMPORTED_MODULE_16__["PurchaseMemberSelectComponent"], _components_pages_purchase_member_process_purchase_member_process_component__WEBPACK_IMPORTED_MODULE_15__["PurchaseMemberProcessComponent"]],
             entryComponents: [],
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _purchase_routing_module__WEBPACK_IMPORTED_MODULE_28__["PurchaseRoutingModule"], _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__["SharedModule"]],
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _purchase_routing_module__WEBPACK_IMPORTED_MODULE_30__["PurchaseRoutingModule"], _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__["SharedModule"]],
             exports: []
           }]
         }], null, null);

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { OrderService, PurchaseService, UserService } from '../../../../../services';
+import { ActionService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -17,9 +17,7 @@ export class AuthSigninComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private purchaseService: PurchaseService,
-        private userService: UserService,
-        private orderService: OrderService,
+        private actionService: ActionService,
         private store: Store<reducers.IState>
     ) { }
 
@@ -28,16 +26,18 @@ export class AuthSigninComponent implements OnInit {
      */
     public async ngOnInit() {
         this.process = this.store.pipe(select(reducers.getProcess));
-        this.purchaseService.delete();
-        this.userService.delete();
-        this.userService.initialize({ isMember: true });
-        this.orderService.delete();
+        this.actionService.purchase.delete();
+        this.actionService.user.delete();
+        this.actionService.user.initialize({ isMember: true });
+        this.actionService.order.delete();
 
         try {
-            await this.userService.getProfile();
-            await this.userService.getCreditCards();
-            await this.userService.getAccount();
-            this.router.navigate([this.environment.BASE_URL]);
+            await this.actionService.user.getProfile();
+            await this.actionService.user.getCreditCards();
+            const redirectUrl = (sessionStorage.getItem('REDIRECT_URL') === null)
+            ? this.environment.BASE_URL : sessionStorage.getItem('REDIRECT_URL');
+            sessionStorage.removeItem('REDIRECT_URL');
+            this.router.navigate([redirectUrl]);
         } catch (error) {
             this.router.navigate(['/error']);
         }

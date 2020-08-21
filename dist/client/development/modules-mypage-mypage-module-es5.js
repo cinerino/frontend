@@ -301,14 +301,14 @@
       }
 
       var MypageAccountComponent = /*#__PURE__*/function () {
-        function MypageAccountComponent(store, modal, translate, utilService, userService, masterService, qrcodeService) {
+        function MypageAccountComponent(store, modal, translate, utilService, actionService, masterService, qrcodeService) {
           _classCallCheck(this, MypageAccountComponent);
 
           this.store = store;
           this.modal = modal;
           this.translate = translate;
           this.utilService = utilService;
-          this.userService = userService;
+          this.actionService = actionService;
           this.masterService = masterService;
           this.qrcodeService = qrcodeService;
         }
@@ -335,7 +335,7 @@
                     case 6:
                       this.sellers = _context.sent;
                       _context.next = 9;
-                      return this.userService.getAccount();
+                      return this.actionService.user.getAccount();
 
                     case 9:
                       _context.next = 14;
@@ -370,7 +370,7 @@
                   switch (_context3.prev = _context3.next) {
                     case 0:
                       _context3.next = 2;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 2:
                       userData = _context3.sent;
@@ -402,7 +402,7 @@
 
                                     case 5:
                                       _context2.next = 7;
-                                      return this.userService.chargeAccount(Object.assign(Object.assign({}, params), {
+                                      return this.actionService.user.chargeAccount(Object.assign(Object.assign({}, params), {
                                         account: account,
                                         profile: profile,
                                         creditCard: creditCard
@@ -410,7 +410,7 @@
 
                                     case 7:
                                       _context2.next = 9;
-                                      return this.userService.getAccount();
+                                      return this.actionService.user.getAccount();
 
                                     case 9:
                                       this.utilService.openAlert({
@@ -465,7 +465,7 @@
                   switch (_context5.prev = _context5.next) {
                     case 0:
                       _context5.next = 2;
-                      return this.userService.getData();
+                      return this.actionService.user.getData();
 
                     case 2:
                       userData = _context5.sent;
@@ -491,14 +491,14 @@
 
                                     case 4:
                                       _context4.next = 6;
-                                      return this.userService.transferAccount(Object.assign(Object.assign({}, params), {
+                                      return this.actionService.user.transferAccount(Object.assign(Object.assign({}, params), {
                                         account: account,
                                         profile: profile
                                       }));
 
                                     case 6:
                                       _context4.next = 8;
-                                      return this.userService.getAccount();
+                                      return this.actionService.user.getAccount();
 
                                     case 8:
                                       this.utilService.openAlert({
@@ -556,11 +556,11 @@
                           case 0:
                             _context6.prev = 0;
                             _context6.next = 3;
-                            return this.userService.openAccount(params);
+                            return this.actionService.user.openAccount(params);
 
                           case 3:
                             _context6.next = 5;
-                            return this.userService.getAccount();
+                            return this.actionService.user.getAccount();
 
                           case 5:
                             this.utilService.openAlert({
@@ -610,11 +610,11 @@
                         case 0:
                           _context7.prev = 0;
                           _context7.next = 3;
-                          return this.userService.cloaseAccount(account);
+                          return this.actionService.user.cloaseAccount(account);
 
                         case 3:
                           _context7.next = 5;
-                          return this.userService.getAccount();
+                          return this.actionService.user.getAccount();
 
                         case 5:
                           this.utilService.openAlert({
@@ -659,7 +659,7 @@
       }();
 
       MypageAccountComponent.ɵfac = function MypageAccountComponent_Factory(t) {
-        return new (t || MypageAccountComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["QRCodeService"]));
+        return new (t || MypageAccountComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_3__["BsModalService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["QRCodeService"]));
       };
 
       MypageAccountComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -774,7 +774,7 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_4__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_4__["UserService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_4__["ActionService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_4__["MasterService"]
           }, {
@@ -1001,13 +1001,13 @@
       }
 
       var MypageCreditComponent = /*#__PURE__*/function () {
-        function MypageCreditComponent(store, utilService, masterService, userService, translate, router, modal) {
+        function MypageCreditComponent(store, utilService, masterService, actionService, translate, router, modal) {
           _classCallCheck(this, MypageCreditComponent);
 
           this.store = store;
           this.utilService = utilService;
           this.masterService = masterService;
-          this.userService = userService;
+          this.actionService = actionService;
           this.translate = translate;
           this.router = router;
           this.modal = modal;
@@ -1035,7 +1035,7 @@
                     case 6:
                       this.sellers = _context8.sent;
                       _context8.next = 9;
-                      return this.userService.getCreditCards();
+                      return this.actionService.user.getCreditCards();
 
                     case 9:
                       _context8.next = 15;
@@ -1076,11 +1076,11 @@
                         case 0:
                           _context9.prev = 0;
                           _context9.next = 3;
-                          return this.userService.removeCreditCard(creditCard);
+                          return this.actionService.user.removeCreditCard(creditCard);
 
                         case 3:
                           _context9.next = 5;
-                          return this.userService.getCreditCards();
+                          return this.actionService.user.getCreditCards();
 
                         case 5:
                           _context9.next = 11;
@@ -1142,14 +1142,14 @@
 
                                     case 5:
                                       _context10.next = 7;
-                                      return this.userService.addCreditCard({
+                                      return this.actionService.user.addCreditCard({
                                         creditCard: creditCard,
                                         seller: seller
                                       });
 
                                     case 7:
                                       _context10.next = 9;
-                                      return this.userService.getCreditCards();
+                                      return this.actionService.user.getCreditCards();
 
                                     case 9:
                                       _context10.next = 15;
@@ -1190,7 +1190,7 @@
       }();
 
       MypageCreditComponent.ɵfac = function MypageCreditComponent_Factory(t) {
-        return new (t || MypageCreditComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["UserService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_4__["BsModalService"]));
+        return new (t || MypageCreditComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["MasterService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_5__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_4__["BsModalService"]));
       };
 
       MypageCreditComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -1313,7 +1313,7 @@
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_5__["MasterService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_5__["UserService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_5__["ActionService"]
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]
           }, {
@@ -2110,14 +2110,14 @@
       }
 
       var MypageProfileComponent = /*#__PURE__*/function () {
-        function MypageProfileComponent(store, utilService, formBuilder, translate, userService) {
+        function MypageProfileComponent(store, utilService, formBuilder, translate, actionService) {
           _classCallCheck(this, MypageProfileComponent);
 
           this.store = store;
           this.utilService = utilService;
           this.formBuilder = formBuilder;
           this.translate = translate;
-          this.userService = userService;
+          this.actionService = actionService;
         }
         /**
          * 初期化
@@ -2235,7 +2235,7 @@
                         email: this.profileForm.controls.email.value
                       };
                       _context12.next = 12;
-                      return this.userService.updateProfile(profile);
+                      return this.actionService.user.updateProfile(profile);
 
                     case 12:
                       _context12.next = 17;
@@ -2260,7 +2260,7 @@
       }();
 
       MypageProfileComponent.ɵfac = function MypageProfileComponent_Factory(t) {
-        return new (t || MypageProfileComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["UserService"]));
+        return new (t || MypageProfileComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_6__["ActionService"]));
       };
 
       MypageProfileComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -2500,7 +2500,7 @@
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_6__["UserService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_6__["ActionService"]
           }];
         }, null);
       })();
