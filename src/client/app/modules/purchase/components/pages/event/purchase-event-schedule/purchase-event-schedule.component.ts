@@ -200,10 +200,6 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             console.error(error);
             this.router.navigate(['/error']);
         }
-        // if (this.environment.MEMBER) {
-        //     this.router.navigate(['/purchase/member/select']);
-        //     return;
-        // }
         try {
             const purchase = await this.actionService.purchase.getData();
             const transaction = purchase.transaction;

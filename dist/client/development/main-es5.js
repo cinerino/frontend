@@ -2275,9 +2275,7 @@
         INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
         PRINT_QRCODE_TYPE: 'token',
         PRINT_QRCODE_CUSTOM: 'token',
-        PRINT_LOADING: true,
-        SETTING_DEVELOP_OPTION: false,
-        MEMBER: false
+        PRINT_LOADING: true
       };
 
       function getEnvironment() {

@@ -71840,6 +71840,9 @@ function LoadingComponent_div_2_Template(rf, ctx) { if (rf & 1) {
 class LoadingComponent {
     constructor() { }
     ngOnInit() {
+        if (this.process === 'process.') {
+            this.process = 'process.load';
+        }
     }
 }
 LoadingComponent.ɵfac = function LoadingComponent_Factory(t) { return new (t || LoadingComponent)(); };
@@ -74990,7 +74993,6 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 
 class CinerinoService {
-    // private authorizationType: 'AUTHORIZATION_CODE' | 'IMPLICIT' | 'CLIENT_CREDENTIALS';
     constructor(http, utilservice) {
         this.http = http;
         this.utilservice = utilservice;
@@ -75174,7 +75176,7 @@ CinerinoService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineI
 /*!*******************************!*\
   !*** ./app/services/index.ts ***!
   \*******************************/
-/*! exports provided: CinerinoService, PurchaseService, UserService, MasterService, OrderService, StarPrintService, UtilService, LinyService, QRCodeService, ActionService */
+/*! exports provided: CinerinoService, MasterService, StarPrintService, UtilService, LinyService, QRCodeService, ActionService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -75182,35 +75184,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cinerino.service */ "./app/services/cinerino.service.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CinerinoService", function() { return _cinerino_service__WEBPACK_IMPORTED_MODULE_0__["CinerinoService"]; });
 
-/* harmony import */ var _purchase_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchase.service */ "./app/services/purchase.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PurchaseService", function() { return _purchase_service__WEBPACK_IMPORTED_MODULE_1__["PurchaseService"]; });
+/* harmony import */ var _master_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./master.service */ "./app/services/master.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MasterService", function() { return _master_service__WEBPACK_IMPORTED_MODULE_1__["MasterService"]; });
 
-/* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user.service */ "./app/services/user.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return _user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"]; });
+/* harmony import */ var _star_print_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./star-print.service */ "./app/services/star-print.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StarPrintService", function() { return _star_print_service__WEBPACK_IMPORTED_MODULE_2__["StarPrintService"]; });
 
-/* harmony import */ var _master_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./master.service */ "./app/services/master.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MasterService", function() { return _master_service__WEBPACK_IMPORTED_MODULE_3__["MasterService"]; });
+/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UtilService", function() { return _util_service__WEBPACK_IMPORTED_MODULE_3__["UtilService"]; });
 
-/* harmony import */ var _order_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./order.service */ "./app/services/order.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrderService", function() { return _order_service__WEBPACK_IMPORTED_MODULE_4__["OrderService"]; });
+/* harmony import */ var _liny_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./liny.service */ "./app/services/liny.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LinyService", function() { return _liny_service__WEBPACK_IMPORTED_MODULE_4__["LinyService"]; });
 
-/* harmony import */ var _star_print_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./star-print.service */ "./app/services/star-print.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StarPrintService", function() { return _star_print_service__WEBPACK_IMPORTED_MODULE_5__["StarPrintService"]; });
+/* harmony import */ var _qrcode_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./qrcode.service */ "./app/services/qrcode.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QRCodeService", function() { return _qrcode_service__WEBPACK_IMPORTED_MODULE_5__["QRCodeService"]; });
 
-/* harmony import */ var _util_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util.service */ "./app/services/util.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UtilService", function() { return _util_service__WEBPACK_IMPORTED_MODULE_6__["UtilService"]; });
-
-/* harmony import */ var _liny_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./liny.service */ "./app/services/liny.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LinyService", function() { return _liny_service__WEBPACK_IMPORTED_MODULE_7__["LinyService"]; });
-
-/* harmony import */ var _qrcode_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./qrcode.service */ "./app/services/qrcode.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QRCodeService", function() { return _qrcode_service__WEBPACK_IMPORTED_MODULE_8__["QRCodeService"]; });
-
-/* harmony import */ var _action_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./action.service */ "./app/services/action.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ActionService", function() { return _action_service__WEBPACK_IMPORTED_MODULE_9__["ActionService"]; });
-
-
-
+/* harmony import */ var _action_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./action.service */ "./app/services/action.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ActionService", function() { return _action_service__WEBPACK_IMPORTED_MODULE_6__["ActionService"]; });
 
 
 
@@ -75515,62 +75505,6 @@ MasterService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInj
 
 /***/ }),
 
-/***/ "./app/services/order.service.ts":
-/*!***************************************!*\
-  !*** ./app/services/order.service.ts ***!
-  \***************************************/
-/*! exports provided: OrderService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderService", function() { return OrderService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-
-
-class OrderService {
-    constructor() { }
-}
-OrderService.ɵfac = function OrderService_Factory(t) { return new (t || OrderService)(); };
-OrderService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: OrderService, factory: OrderService.ɵfac, providedIn: 'root' });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](OrderService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
-        args: [{
-                providedIn: 'root'
-            }]
-    }], function () { return []; }, null); })();
-
-
-/***/ }),
-
-/***/ "./app/services/purchase.service.ts":
-/*!******************************************!*\
-  !*** ./app/services/purchase.service.ts ***!
-  \******************************************/
-/*! exports provided: PurchaseService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PurchaseService", function() { return PurchaseService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-
-
-class PurchaseService {
-    constructor() { }
-}
-PurchaseService.ɵfac = function PurchaseService_Factory(t) { return new (t || PurchaseService)(); };
-PurchaseService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: PurchaseService, factory: PurchaseService.ɵfac, providedIn: 'root' });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PurchaseService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
-        args: [{
-                providedIn: 'root'
-            }]
-    }], function () { return []; }, null); })();
-
-
-/***/ }),
-
 /***/ "./app/services/qrcode.service.ts":
 /*!****************************************!*\
   !*** ./app/services/qrcode.service.ts ***!
@@ -75865,34 +75799,6 @@ class StarPrintService {
 StarPrintService.ɵfac = function StarPrintService_Factory(t) { return new (t || StarPrintService)(); };
 StarPrintService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: StarPrintService, factory: StarPrintService.ɵfac, providedIn: 'root' });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](StarPrintService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
-        args: [{
-                providedIn: 'root'
-            }]
-    }], function () { return []; }, null); })();
-
-
-/***/ }),
-
-/***/ "./app/services/user.service.ts":
-/*!**************************************!*\
-  !*** ./app/services/user.service.ts ***!
-  \**************************************/
-/*! exports provided: UserService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return UserService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-
-
-class UserService {
-    constructor() { }
-}
-UserService.ɵfac = function UserService_Factory(t) { return new (t || UserService)(); };
-UserService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: UserService, factory: UserService.ɵfac, providedIn: 'root' });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](UserService, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
         args: [{
                 providedIn: 'root'
@@ -77889,12 +77795,8 @@ class UserEffects {
         this.UpdateProfile = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].updateProfile), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(action => action), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.cinerino.getServices();
-                if (payload.profile.telephone !== undefined) {
-                    payload.profile.telephone = ___WEBPACK_IMPORTED_MODULE_5__["Functions"].Util.formatTelephone(payload.profile.telephone, 'E.164');
-                }
                 yield this.cinerino.person.updateProfile(payload.profile);
-                const id = 'me';
-                const profile = yield this.cinerino.person.getProfile({ id });
+                const profile = yield this.cinerino.person.getProfile({});
                 return _actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].updateProfileSuccess({ profile });
             }
             catch (error) {

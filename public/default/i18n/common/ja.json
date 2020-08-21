@@ -1,25 +1,5 @@
 {
     "purchase": {
-        "member": {
-            "select": {
-                "title": "会員 / 非会員を選択",
-                "read": "",
-                "member": {
-                    "label": "会員として購入を始める"
-                },
-                "nonMember": {
-                    "label": "非会員として購入を始める"
-                },
-                "next": "次へ",
-                "prev": "戻る"
-            },
-            "process": {
-                "title": "会員 / 非会員を選択",
-                "read": "",
-                "next": "次へ",
-                "prev": "戻る"
-            }
-        },
         "input": {
             "title": "購入者情報入力",
             "read": "",
@@ -194,7 +174,11 @@
             "title": "会員情報",
             "read": "会員情報の設定ができます。",
             "next": "会員情報を変更",
-            "prev": "戻る"
+            "prev": "戻る",
+            "alert": {
+                "complete": "会員情報を変更しました。",
+                "customer": "購入者情報に誤りがあります。"
+            }
         },
         "credit": {
             "title": "クレジットカード情報",
