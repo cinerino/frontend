@@ -8,7 +8,7 @@ import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService 
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { MasterService, PurchaseService, UtilService } from '../../../../../../services';
+import { ActionService, MasterService, UtilService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
 @Component({
@@ -36,7 +36,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
-        private purchaseService: PurchaseService,
+        private actionService: ActionService,
         private masterService: MasterService,
         private localeService: BsLocaleService,
         private utilService: UtilService,
@@ -54,8 +54,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.screeningWorkEvents = [];
         this.isSales = true;
         try {
-            if ((await this.purchaseService.getData()).transaction !== undefined) {
-                await this.purchaseService.cancelTransaction();
+            if ((await this.actionService.purchase.getData()).transaction !== undefined) {
+                await this.actionService.purchase.cancelTransaction();
             }
             if (this.scheduleDate === undefined) {
                 const defaultDate = moment(moment().format('YYYYMMDD'))
@@ -100,7 +100,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         }
         const time = 600000; // 10 * 60 * 1000
         this.updateTimer = setTimeout(async () => {
-            const purchase = await this.purchaseService.getData();
+            const purchase = await this.actionService.purchase.getData();
             if (purchase.theater === undefined) {
                 this.router.navigate(['/error']);
                 return;
@@ -113,7 +113,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      * デフォルトの劇場取得
      */
     private async getDefaultTheater() {
-        const purchase = await this.purchaseService.getData();
+        const purchase = await this.actionService.purchase.getData();
         let theater = (purchase.theater === undefined) ? this.theaters[0] : purchase.theater;
         const findResult = this.theaters.find((t) => {
             const external = Functions.Util.getExternalData();
@@ -129,7 +129,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      * 劇場選択
      */
     public async selectTheater(theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom) {
-        this.purchaseService.selectTheater(theater);
+        this.actionService.purchase.selectTheater(theater);
         setTimeout(() => { this.selectDate(); }, 0);
     }
 
@@ -155,13 +155,13 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             this.isSales = (moment(now).format('HHmmss') < salesStopTime);
         }
         try {
-            const purchase = await this.purchaseService.getData();
+            const purchase = await this.actionService.purchase.getData();
             const theater = purchase.theater;
             if (theater === undefined) {
                 return;
             }
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
-            this.purchaseService.selectScheduleDate(scheduleDate);
+            this.actionService.purchase.selectScheduleDate(scheduleDate);
             const external = Functions.Util.getExternalData();
             this.screeningEvents = await this.masterService.getSchedule({
                 superEvent: {
@@ -195,18 +195,22 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 || screeningEvent.offers.seller.id === undefined) {
                 throw new Error('screeningEvent.offers.seller === undefined');
             }
-            await this.purchaseService.getSeller(screeningEvent.offers.seller.id);
+            await this.actionService.purchase.getSeller(screeningEvent.offers.seller.id);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
         }
+        // if (this.environment.MEMBER) {
+        //     this.router.navigate(['/purchase/member/select']);
+        //     return;
+        // }
         try {
-            const purchase = await this.purchaseService.getData();
+            const purchase = await this.actionService.purchase.getData();
             const transaction = purchase.transaction;
             if (transaction !== undefined) {
-                await this.purchaseService.cancelTransaction();
+                await this.actionService.purchase.cancelTransaction();
             }
-            await this.purchaseService.startTransaction();
+            await this.actionService.purchase.startTransaction();
             this.router.navigate(['/purchase/event/ticket']);
         } catch (error) {
             if (error === null) {

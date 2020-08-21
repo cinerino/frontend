@@ -91,7 +91,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(userAction.getProfileSuccess, (state, payload) => {
             const profile = payload.profile;
-            return { ...state, userData: { ...state.userData, profile } };
+            return { ...state, loading: false, userData: { ...state.userData, profile } };
         }),
         on(userAction.getProfileFail, (state, payload) => {
             const error = payload.error;
@@ -102,7 +102,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(userAction.getAccountSuccess, (state, payload) => {
             const accounts = payload.accounts;
-            return { ...state, userData: { ...state.userData, accounts } };
+            return { ...state, loading: false, userData: { ...state.userData, accounts } };
         }),
         on(userAction.getAccountFail, (state, payload) => {
             const error = payload.error;
@@ -112,7 +112,7 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: true, process: 'userAction.OpenAccount' };
         }),
         on(userAction.openAccountSuccess, (state) => {
-            return { ...state, userData: { ...state.userData } };
+            return { ...state, loading: false, userData: { ...state.userData } };
         }),
         on(userAction.openAccountFail, (state, payload) => {
             const error = payload.error;
@@ -122,7 +122,7 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: true, process: 'userAction.CloseAccount' };
         }),
         on(userAction.closeAccountSuccess, (state) => {
-            return { ...state, userData: { ...state.userData } };
+            return { ...state, loading: false, userData: { ...state.userData } };
         }),
         on(userAction.closeAccountFail, (state, payload) => {
             const error = payload.error;
@@ -133,7 +133,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(userAction.updateProfileSuccess, (state, payload) => {
             const profile = payload.profile;
-            return { ...state, userData: { ...state.userData, profile } };
+            return { ...state, loading: false, userData: { ...state.userData, profile } };
         }),
         on(userAction.updateProfileFail, (state, payload) => {
             const error = payload.error;
@@ -144,7 +144,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(userAction.getCreditCardsSuccess, (state, payload) => {
             const creditCards = payload.creditCards;
-            return { ...state, userData: { ...state.userData, creditCards } };
+            return { ...state, loading: false, userData: { ...state.userData, creditCards } };
         }),
         on(userAction.getCreditCardsFail, (state, payload) => {
             const error = payload.error;
@@ -154,7 +154,7 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: true, process: 'userAction.AddCreditCard' };
         }),
         on(userAction.addCreditCardSuccess, (state) => {
-            return { ...state, userData: { ...state.userData } };
+            return { ...state, loading: false, userData: { ...state.userData } };
         }),
         on(userAction.addCreditCardFail, (state, payload) => {
             const error = payload.error;
@@ -164,7 +164,7 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: true, process: 'userAction.RemoveCreditCard' };
         }),
         on(userAction.removeCreditCardSuccess, (state) => {
-            return { ...state, userData: { ...state.userData } };
+            return { ...state, loading: false, userData: { ...state.userData } };
         }),
         on(userAction.removeCreditCardFail, (state, payload) => {
             const error = payload.error;
@@ -174,7 +174,7 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: true, process: 'userAction.ChargeAccount' };
         }),
         on(userAction.chargeAccountSuccess, (state) => {
-            return { ...state, userData: { ...state.userData } };
+            return { ...state, loading: false, userData: { ...state.userData } };
         }),
         on(userAction.chargeAccountFail, (state, payload) => {
             const error = payload.error;
@@ -184,7 +184,7 @@ export function reducer(initialState: IState, action: Action) {
             return { ...state, loading: true, process: 'userAction.TransferAccount' };
         }),
         on(userAction.transferAccountSuccess, (state) => {
-            return { ...state, userData: { ...state.userData } };
+            return { ...state, loading: false, userData: { ...state.userData } };
         }),
         on(userAction.transferAccountFail, (state, payload) => {
             const error = payload.error;

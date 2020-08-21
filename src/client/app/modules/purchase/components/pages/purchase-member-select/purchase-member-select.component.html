@@ -1,0 +1,16 @@
+<div class="contents-width mx-auto px-3 py-5">
+    <div class="mb-4">
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.member.select.title' | translate }}</h2>
+        <p class="mb-4 text-md-center" [innerHTML]="'purchase.member.select.read' | translate"></p>
+    </div>
+
+    <div class="buttons mx-auto text-center">
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3"
+            (click)="nextMember()">{{ 'purchase.member.select.member.label' | translate }}</button>
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3"
+            (click)="nextNonMember()">{{ 'purchase.member.select.nonMember.label' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3"
+            routerLink="/purchase/root">{{ 'purchase.member.select.prev' | translate }}</button>
+    </div>
+
+</div>

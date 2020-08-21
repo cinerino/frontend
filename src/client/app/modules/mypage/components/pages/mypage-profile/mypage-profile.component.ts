@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../..';
-import { UserService, UtilService } from '../../../../../services';
+import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -23,7 +23,7 @@ export class MypageProfileComponent implements OnInit {
         private utilService: UtilService,
         private formBuilder: FormBuilder,
         private translate: TranslateService,
-        private userService: UserService
+        private actionService: ActionService
     ) { }
 
     /**
@@ -124,7 +124,7 @@ export class MypageProfileComponent implements OnInit {
                 telephone: this.profileForm.controls.telephone.value,
                 email: this.profileForm.controls.email.value,
             };
-            await this.userService.updateProfile(profile);
+            await this.actionService.user.updateProfile(profile);
         } catch (error) {
             console.error(error);
         }

@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { OrderService, QRCodeService, UserService, UtilService } from '../../../../../services';
+import { ActionService, QRCodeService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -30,8 +30,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
         private store: Store<reducers.IState>,
         private router: Router,
         private utilService: UtilService,
-        private orderService: OrderService,
-        private userService: UserService,
+        private actionService: ActionService,
         private translate: TranslateService,
         private qrcodeService: QRCodeService
     ) { }
@@ -46,15 +45,15 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
         this.order = this.store.pipe(select(reducers.getOrder));
         this.user = this.store.pipe(select(reducers.getUser));
         try {
-            let order = (await this.orderService.getData()).order;
+            let order = (await this.actionService.order.getData()).order;
             if (order === undefined) {
                 throw new Error('order undefined');
             }
             this.eventOrders = Functions.Purchase.order2EventOrders({ order });
             const findResult = this.eventOrders.find(o => Functions.Order.isShowQRCode(o.event));
             if (this.environment.INQUIRY_QRCODE && findResult !== undefined) {
-                await this.orderService.authorize(order);
-                order = (await this.orderService.getData()).order;
+                await this.actionService.order.authorize(order);
+                order = (await this.actionService.order.getData()).order;
                 if (order === undefined) {
                     throw new Error('order undefined');
                 }
@@ -87,12 +86,12 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
      */
     public async openQRCodeViewer(params: { id: string }) {
         try {
-            let order = (await this.orderService.getData()).order;
+            let order = (await this.actionService.order.getData()).order;
             if (order === undefined) {
                 throw new Error('order undefined');
             }
-            await this.orderService.authorize(order);
-            order = (await this.orderService.getData()).order;
+            await this.actionService.order.authorize(order);
+            order = (await this.actionService.order.getData()).order;
             const authorizeOrder = order;
             if (authorizeOrder === undefined) {
                 throw new Error('authorizeOrder undefined');
@@ -134,19 +133,19 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
             body: this.translate.instant('inquiry.confirm.confirm.cancel'),
             cb: async () => {
                 try {
-                    const userData = await this.userService.getData();
-                    let orderData = await this.orderService.getData();
+                    const userData = await this.actionService.user.getData();
+                    let orderData = await this.actionService.order.getData();
                     if (orderData.order === undefined) {
                         throw new Error('order undefined');
                     }
                     const orders = [orderData.order];
                     const language = userData.language;
-                    await this.orderService.cancel({ orders, language });
-                    orderData = await this.orderService.getData();
+                    await this.actionService.order.cancel({ orders, language });
+                    orderData = await this.actionService.order.getData();
                     if (orderData.order === undefined) {
                         throw new Error('order undefined');
                     }
-                    await this.orderService.inquiry({
+                    await this.actionService.order.inquiry({
                         confirmationNumber: orderData.order.confirmationNumber,
                         customer: { telephone: orderData.order.customer.telephone }
                     });
@@ -184,8 +183,8 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
             clearTimeout(this.timer);
         }
         try {
-            const orderData = await this.orderService.getData();
-            const user = await this.userService.getData();
+            const orderData = await this.actionService.order.getData();
+            const user = await this.actionService.user.getData();
             if (orderData.order === undefined
                 || user.pos === undefined
                 || user.printer === undefined) {
@@ -195,7 +194,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
             const orders = [orderData.order];
             const pos = user.pos;
             const printer = user.printer;
-            await this.orderService.print({ orders, pos, printer });
+            await this.actionService.order.print({ orders, pos, printer });
             this.router.navigate(['/inquiry/print']);
         } catch (error) {
             console.error(error);

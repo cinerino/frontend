@@ -10,7 +10,7 @@ import { CountryISO, NgxIntlTelInputComponent, SearchCountryField, TooltipLabel,
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { PurchaseService, UserService, UtilService } from '../../../../../services';
+import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import {
     CreditcardSecurityCodeModalComponent
@@ -48,8 +48,7 @@ export class PurchaseInputComponent implements OnInit {
         private modal: BsModalService,
         private formBuilder: FormBuilder,
         private utilService: UtilService,
-        private userService: UserService,
-        private purchaseService: PurchaseService,
+        private actionService: ActionService,
         private translate: TranslateService
     ) { }
 
@@ -63,7 +62,7 @@ export class PurchaseInputComponent implements OnInit {
             this.isLoading = this.store.pipe(select(reducers.getLoading));
             await this.createProfileForm();
             this.createCreditCardForm();
-            const purchase = await this.purchaseService.getData();
+            const purchase = await this.actionService.purchase.getData();
             if (purchase.transaction === undefined) {
                 this.router.navigate(['/error']);
                 return;
@@ -129,8 +128,8 @@ export class PurchaseInputComponent implements OnInit {
             }
             this.profileForm.addControl(p.key, new FormControl(p.value, validators));
         });
-        const purchase = await this.purchaseService.getData();
-        const user = await this.userService.getData();
+        const purchase = await this.actionService.purchase.getData();
+        const user = await this.actionService.user.getData();
         const profileData = (user.isMember && purchase.profile === undefined)
             ? user.profile : purchase.profile;
         if (profileData === undefined) {
@@ -220,7 +219,7 @@ export class PurchaseInputComponent implements OnInit {
                 return;
             }
         }
-        this.purchaseService.removeCreditCard();
+        this.actionService.purchase.removeCreditCard();
         if (this.amount > 0 && this.usedCreditCard === undefined) {
             // クレジットカード入力
             try {
@@ -234,7 +233,7 @@ export class PurchaseInputComponent implements OnInit {
                     holderName: this.creditCardForm.controls.holderName.value,
                     securityCode: this.creditCardForm.controls.securityCode.value
                 };
-                await this.purchaseService.createGmoTokenObject(creditCard);
+                await this.actionService.purchase.createGmoTokenObject(creditCard);
             } catch (error) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
@@ -249,7 +248,7 @@ export class PurchaseInputComponent implements OnInit {
                 memberId: 'me',
                 cardSeq: Number(this.usedCreditCard.cardSeq)
             };
-            this.purchaseService.registerCreditCard(creditCard);
+            this.actionService.purchase.registerCreditCard(creditCard);
         }
         try {
             const additionalProperty: { name: string; value: string; }[] = [];
@@ -277,7 +276,7 @@ export class PurchaseInputComponent implements OnInit {
                     ? undefined : this.profileForm.controls.gender.value,
                 additionalProperty: (additionalProperty.length === 0) ? undefined : additionalProperty,
             };
-            await this.purchaseService.registerContact(contact);
+            await this.actionService.purchase.registerContact(contact);
             this.router.navigate(['/purchase/confirm']);
         } catch (error) {
             this.router.navigate(['/error']);

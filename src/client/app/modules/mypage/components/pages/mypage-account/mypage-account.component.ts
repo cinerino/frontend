@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { MasterService, QRCodeService, UserService, UtilService } from '../../../../../services';
+import { ActionService, MasterService, QRCodeService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { AccountChargeModalComponent } from '../../../../shared/components/parts/account/charge-modal/charge-modal.component';
 import { AccountOpenModalComponent } from '../../../../shared/components/parts/account/open-modal/open-modal.component';
@@ -25,7 +25,7 @@ export class MypageAccountComponent implements OnInit {
         private modal: BsModalService,
         private translate: TranslateService,
         private utilService: UtilService,
-        private userService: UserService,
+        private actionService: ActionService,
         private masterService: MasterService,
         private qrcodeService: QRCodeService
     ) { }
@@ -39,7 +39,7 @@ export class MypageAccountComponent implements OnInit {
         this.sellers = [];
         try {
             this.sellers = await this.masterService.getSellers();
-            await this.userService.getAccount();
+            await this.actionService.user.getAccount();
         } catch (error) {
             console.error(error);
         }
@@ -49,7 +49,7 @@ export class MypageAccountComponent implements OnInit {
      * 入金モーダル
      */
     public async openChageAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>) {
-        const userData = await this.userService.getData();
+        const userData = await this.actionService.user.getData();
         const creditCards = userData.creditCards;
         this.modal.show(AccountChargeModalComponent, {
             initialState: {
@@ -69,8 +69,8 @@ export class MypageAccountComponent implements OnInit {
                         if (profile === undefined) {
                             throw new Error('profile undefined');
                         }
-                        await this.userService.chargeAccount({ ...params, account, profile, creditCard });
-                        await this.userService.getAccount();
+                        await this.actionService.user.chargeAccount({ ...params, account, profile, creditCard });
+                        await this.actionService.user.getAccount();
                         this.utilService.openAlert({
                             title: this.translate.instant('common.complete'),
                             body: this.translate.instant('mypage.account.alert.chargeSuccess')
@@ -92,7 +92,7 @@ export class MypageAccountComponent implements OnInit {
      * 転送モーダル
      */
     public async openTransferAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>) {
-        const userData = await this.userService.getData();
+        const userData = await this.actionService.user.getData();
         this.modal.show(AccountTransferModalComponent, {
             initialState: {
                 sellers: this.sellers,
@@ -107,8 +107,8 @@ export class MypageAccountComponent implements OnInit {
                         if (profile === undefined) {
                             throw new Error('profile undefined');
                         }
-                        await this.userService.transferAccount({ ...params, account, profile });
-                        await this.userService.getAccount();
+                        await this.actionService.user.transferAccount({ ...params, account, profile });
+                        await this.actionService.user.getAccount();
                         this.utilService.openAlert({
                             title: this.translate.instant('common.complete'),
                             body: this.translate.instant('mypage.account.alert.transferSuccess')
@@ -138,8 +138,8 @@ export class MypageAccountComponent implements OnInit {
                 }) => {
                     // console.log({ amount, account });
                     try {
-                        await this.userService.openAccount(params);
-                        await this.userService.getAccount();
+                        await this.actionService.user.openAccount(params);
+                        await this.actionService.user.getAccount();
                         this.utilService.openAlert({
                             title: this.translate.instant('common.complete'),
                             body: this.translate.instant('mypage.account.alert.openAccountSuccess')
@@ -165,8 +165,8 @@ export class MypageAccountComponent implements OnInit {
             body: this.translate.instant('mypage.account.confirm.closeAccount'),
             cb: async () => {
                 try {
-                    await this.userService.cloaseAccount(account);
-                    await this.userService.getAccount();
+                    await this.actionService.user.cloaseAccount(account);
+                    await this.actionService.user.getAccount();
                     this.utilService.openAlert({
                         title: this.translate.instant('common.complete'),
                         body: this.translate.instant('mypage.account.alert.closeAccountSuccess')

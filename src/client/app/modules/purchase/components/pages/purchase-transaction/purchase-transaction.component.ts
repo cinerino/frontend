@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { PurchaseService, UserService } from '../../../../../services';
+import { ActionService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -22,8 +22,7 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
         private store: Store<reducers.IState>,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private purchaseService: PurchaseService,
-        private userService: UserService
+        private actionService: ActionService,
     ) { }
 
     /**
@@ -37,7 +36,7 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
         const eventId = snapshot.params.eventId;
         const passportToken = snapshot.params.passportToken;
         sessionStorage.setItem('EXTERNAL', JSON.stringify({ eventId, passportToken }));
-        const tmpPurchase = await this.purchaseService.getData();
+        const tmpPurchase = await this.actionService.purchase.getData();
         const external = Functions.Util.getExternalData();
         if (this.environment.VIEW_TYPE === Models.Common.ViewType.Cinema
             && external !== undefined
@@ -46,14 +45,14 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
             this.router.navigate(['/purchase/cinema/overlap']);
             return;
         }
-        this.purchaseService.delete();
+        this.actionService.purchase.delete();
         if (this.environment.VIEW_TYPE !== Models.Common.ViewType.Cinema) {
             this.router.navigate(['/error']);
             return;
         }
         try {
-            await this.purchaseService.convertExternalToPurchase(eventId);
-            await this.purchaseService.startTransaction();
+            await this.actionService.purchase.convertExternalToPurchase(eventId);
+            await this.actionService.purchase.startTransaction();
             this.router.navigate(['/purchase/cinema/seat']);
         } catch (error) {
             this.router.navigate(['/error']);
@@ -64,7 +63,7 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
         const snapshot = this.activatedRoute.snapshot;
         const language = snapshot.params.language;
         if (language !== undefined) {
-            this.userService.updateLanguage(language);
+            this.actionService.user.updateLanguage(language);
         }
     }
 

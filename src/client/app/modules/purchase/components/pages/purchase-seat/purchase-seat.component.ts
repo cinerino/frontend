@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { PurchaseService, UtilService } from '../../../../../services';
+import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -27,7 +27,7 @@ export class PurchaseSeatComponent implements OnInit {
         private utilService: UtilService,
         private translate: TranslateService,
         protected router: Router,
-        protected purchaseService: PurchaseService
+        protected actionService: ActionService
     ) { }
 
     /**
@@ -41,7 +41,7 @@ export class PurchaseSeatComponent implements OnInit {
             ? 'purchase.cinema.seat' : 'purchase.event.seat';
         this.screeningEventSeats = [];
         try {
-            const purchase = await this.purchaseService.getData();
+            const purchase = await this.actionService.purchase.getData();
             const screeningEvent = purchase.screeningEvent;
             if (screeningEvent === undefined) {
                 this.router.navigate(['/error']);
@@ -55,14 +55,14 @@ export class PurchaseSeatComponent implements OnInit {
                 }
                 this.selectSeat({ seat: r.seat, status: Models.Purchase.Screen.SeatStatus.Default });
             });
-            await this.purchaseService.getScreen({
+            await this.actionService.purchase.getScreen({
                 branchCode: { $eq: screeningEvent.location.branchCode },
                 containedInPlace: {
                     branchCode: { $eq: screeningEvent.superEvent.location.branchCode }
                 }
             });
-            this.screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
-            await this.purchaseService.getTicketList();
+            this.screeningEventSeats = await this.actionService.purchase.getScreeningEventSeats();
+            await this.actionService.purchase.getTicketList();
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -76,7 +76,7 @@ export class PurchaseSeatComponent implements OnInit {
         seat: Models.Purchase.Reservation.IReservationSeat,
         status: Models.Purchase.Screen.SeatStatus
     }) {
-        const purchase = await this.purchaseService.getData();
+        const purchase = await this.actionService.purchase.getData();
         if (data.status === Models.Purchase.Screen.SeatStatus.Default) {
             if (purchase.screeningEvent !== undefined
                 && purchase.screeningEvent.offers !== undefined
@@ -91,9 +91,9 @@ export class PurchaseSeatComponent implements OnInit {
                 });
                 return;
             }
-            this.purchaseService.selectSeats([data.seat]);
+            this.actionService.purchase.selectSeats([data.seat]);
         } else {
-            this.purchaseService.cancelSeats([data.seat]);
+            this.actionService.purchase.cancelSeats([data.seat]);
         }
     }
 
@@ -102,7 +102,7 @@ export class PurchaseSeatComponent implements OnInit {
      */
     public async onSubmit() {
         try {
-            const purchase = await this.purchaseService.getData();
+            const purchase = await this.actionService.purchase.getData();
             const reservations = purchase.reservations;
             const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
             if (reservations.length === 0) {
@@ -119,7 +119,7 @@ export class PurchaseSeatComponent implements OnInit {
                 });
                 return;
             }
-            await this.purchaseService.temporaryReservation({
+            await this.actionService.purchase.temporaryReservation({
                 reservations,
                 screeningEventSeats: this.screeningEventSeats
             });
@@ -141,14 +141,14 @@ export class PurchaseSeatComponent implements OnInit {
      */
     public async resetSeats() {
         const seats: Models.Purchase.Reservation.IReservationSeat[] = [];
-        const purchase = await this.purchaseService.getData();
+        const purchase = await this.actionService.purchase.getData();
         purchase.reservations.forEach((reservation) => {
             if (reservation.seat === undefined) {
                 return;
             }
             seats.push(reservation.seat);
         });
-        this.purchaseService.cancelSeats(seats);
+        this.actionService.purchase.cancelSeats(seats);
     }
 
     /**
@@ -190,7 +190,7 @@ export class PurchaseSeatComponent implements OnInit {
         if (event.target === null) {
             return;
         }
-        const purchaseData = await this.purchaseService.getData();
+        const purchaseData = await this.actionService.purchase.getData();
         const value = Number((<HTMLSelectElement>event.target).value);
         const reservations = purchaseData.reservations;
         const screeningEventSeats = this.screeningEventSeats;
@@ -200,6 +200,6 @@ export class PurchaseSeatComponent implements OnInit {
         for (let i = 0; i < value; i++) {
             selectSeats.push(seats[i]);
         }
-        this.purchaseService.selectSeats(selectSeats);
+        this.actionService.purchase.selectSeats(selectSeats);
     }
 }

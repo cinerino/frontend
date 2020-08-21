@@ -7,7 +7,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { PurchaseService, UtilService } from '../../../../../services';
+import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { MvtkCheckModalComponent } from '../../../../shared/components/parts/mvtk/check-modal/check-modal.component';
 import { PurchaseSeatTicketModalComponent } from '../../../../shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
@@ -29,7 +29,7 @@ export class PurchaseTicketComponent implements OnInit {
         private router: Router,
         private modal: BsModalService,
         private utilService: UtilService,
-        private purchaseService: PurchaseService,
+        private actionService: ActionService,
         private translate: TranslateService
     ) { }
 
@@ -50,7 +50,7 @@ export class PurchaseTicketComponent implements OnInit {
      */
     public async onSubmit() {
         try {
-            const purchase = await this.purchaseService.getData();
+            const purchase = await this.actionService.purchase.getData();
             const reservations = purchase.reservations;
             const unselectedReservations = reservations.filter((reservation) => {
                 return (reservation.ticket === undefined);
@@ -92,8 +92,8 @@ export class PurchaseTicketComponent implements OnInit {
                 return;
             }
             const additionalTicketText = this.additionalTicketText;
-            const screeningEventSeats = await this.purchaseService.getScreeningEventSeats();
-            await this.purchaseService.temporaryReservation({
+            const screeningEventSeats = await this.actionService.purchase.getScreeningEventSeats();
+            await this.actionService.purchase.temporaryReservation({
                 reservations,
                 additionalTicketText,
                 screeningEventSeats
@@ -113,7 +113,7 @@ export class PurchaseTicketComponent implements OnInit {
      * @param reservation
      */
     public async openTicketList(reservation: Models.Purchase.Reservation.IReservation) {
-        const purchase = await this.purchaseService.getData();
+        const purchase = await this.actionService.purchase.getData();
         this.modal.show(PurchaseSeatTicketModalComponent, {
             initialState: {
                 screeningEventTicketOffers: purchase.screeningEventTicketOffers,
@@ -122,7 +122,7 @@ export class PurchaseTicketComponent implements OnInit {
                 reservation: reservation,
                 pendingMovieTickets: purchase.pendingMovieTickets,
                 cb: (ticket: Models.Purchase.Reservation.IReservationTicket) => {
-                    this.purchaseService.selectTickets([{ ...reservation, ticket }]);
+                    this.actionService.purchase.selectTickets([{ ...reservation, ticket }]);
                 }
             },
             class: 'modal-dialog-centered'

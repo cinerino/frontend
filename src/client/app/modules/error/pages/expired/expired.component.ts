@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { getEnvironment } from '../../../../../environments/environment';
-import { PurchaseService, UserService } from '../../../../services';
+import { ActionService } from '../../../../services';
 
 @Component({
     selector: 'app-expired',
@@ -10,16 +10,15 @@ import { PurchaseService, UserService } from '../../../../services';
 export class ExpiredComponent implements OnInit {
     public environment = getEnvironment();
     constructor(
-        private purchaseService: PurchaseService,
-        private userService: UserService
+        private actionService: ActionService,
     ) { }
 
     /**
      * 初期化
      */
     public ngOnInit() {
-        this.purchaseService.delete();
-        this.userService.delete();
+        this.actionService.purchase.delete();
+        this.actionService.user.delete();
     }
 
 }
