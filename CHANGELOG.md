@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.1.3 - 2020-08-21
+### Added
+ - Actionサービスを追加
+
 ## 3.1.2 - 2020-08-20
 ### Changed
  - 環境変数名変更
