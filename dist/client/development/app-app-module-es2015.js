@@ -73194,9 +73194,12 @@ class PurchaseSeatTicketModalComponent {
             });
             // 予約待ちのムビチケ券
             const pendingMovieTickets = [];
-            this.pendingMovieTickets.forEach((pendingMovieTicket) => {
-                pendingMovieTicket.movieTickets.forEach((movieTicket) => {
-                    pendingMovieTickets.push(movieTicket);
+            this.pendingMovieTickets.forEach(p => {
+                if (p.id === this.authorizeSeatReservation.id) {
+                    return;
+                }
+                p.movieTickets.forEach(m => {
+                    pendingMovieTickets.push(m);
                 });
             });
             targetMovieTickets.forEach((movieTicket) => {
@@ -73219,7 +73222,7 @@ class PurchaseSeatTicketModalComponent {
                 movieTickets.push({ ticketOffer, movieTicket });
             });
         });
-        this.tickets = movieTickets.concat(this.tickets);
+        this.tickets = [...movieTickets, ...this.tickets];
     }
     close(ticket) {
         this.modal.hide();
@@ -73272,7 +73275,7 @@ class PurchaseSeatTicketModalComponent {
     }
 }
 PurchaseSeatTicketModalComponent.ɵfac = function PurchaseSeatTicketModalComponent_Factory(t) { return new (t || PurchaseSeatTicketModalComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"])); };
-PurchaseSeatTicketModalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchaseSeatTicketModalComponent, selectors: [["app-purchase-seat-ticket-modal"]], inputs: { screeningEventTicketOffers: "screeningEventTicketOffers", checkMovieTicketActions: "checkMovieTicketActions", reservations: "reservations", reservation: "reservation", pendingMovieTickets: "pendingMovieTickets", cb: "cb" }, decls: 2, vars: 2, consts: [["class", "p-3 scroll-vertical", 4, "ngIf"], [1, "p-3", "scroll-vertical"], ["class", "ticket mb-2", 4, "ngFor", "ngForOf"], [4, "ngIf"], [1, "ticket", "mb-2"], ["type", "button", 1, "btn", "btn-block", "btn-outline-primary", "py-3", 3, "click"], ["class", "d-flex justify-content-between align-items-center", 4, "ngFor", "ngForOf"], ["class", "text-small text-left", 4, "ngIf"], [1, "d-flex", "justify-content-between", "align-items-center"], [1, "w-50", "text-left"], ["class", "w-50 text-right", 4, "ngIf"], [1, "w-50", "text-right"], ["class", "text-small", 4, "ngIf"], [1, "text-small"], [1, "text-small", "text-left"], [1, "mb-3", "text-large", "text-center"], [1, "mb-4"], ["class", "mb-3", 4, "ngFor", "ngForOf"], [1, "buttons", "mx-auto", "text-center"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "click"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", "btn-sm", 3, "click"], [1, "mb-3"], [1, "pointer", 3, "change"], [1, "d-flex", "w-100"], [1, "w-50"]], template: function PurchaseSeatTicketModalComponent_Template(rf, ctx) { if (rf & 1) {
+PurchaseSeatTicketModalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchaseSeatTicketModalComponent, selectors: [["app-purchase-seat-ticket-modal"]], inputs: { authorizeSeatReservation: "authorizeSeatReservation", screeningEventTicketOffers: "screeningEventTicketOffers", checkMovieTicketActions: "checkMovieTicketActions", reservations: "reservations", reservation: "reservation", pendingMovieTickets: "pendingMovieTickets", cb: "cb" }, decls: 2, vars: 2, consts: [["class", "p-3 scroll-vertical", 4, "ngIf"], [1, "p-3", "scroll-vertical"], ["class", "ticket mb-2", 4, "ngFor", "ngForOf"], [4, "ngIf"], [1, "ticket", "mb-2"], ["type", "button", 1, "btn", "btn-block", "btn-outline-primary", "py-3", 3, "click"], ["class", "d-flex justify-content-between align-items-center", 4, "ngFor", "ngForOf"], ["class", "text-small text-left", 4, "ngIf"], [1, "d-flex", "justify-content-between", "align-items-center"], [1, "w-50", "text-left"], ["class", "w-50 text-right", 4, "ngIf"], [1, "w-50", "text-right"], ["class", "text-small", 4, "ngIf"], [1, "text-small"], [1, "text-small", "text-left"], [1, "mb-3", "text-large", "text-center"], [1, "mb-4"], ["class", "mb-3", 4, "ngFor", "ngForOf"], [1, "buttons", "mx-auto", "text-center"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", "mb-3", 3, "click"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", "btn-sm", 3, "click"], [1, "mb-3"], [1, "pointer", 3, "change"], [1, "d-flex", "w-100"], [1, "w-50"]], template: function PurchaseSeatTicketModalComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, PurchaseSeatTicketModalComponent_div_0_Template, 3, 2, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseSeatTicketModalComponent_div_1_Template, 13, 10, "div", 0);
     } if (rf & 2) {
@@ -73287,7 +73290,9 @@ PurchaseSeatTicketModalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_
                 templateUrl: './seat-ticket-modal.component.html',
                 styleUrls: ['./seat-ticket-modal.component.scss']
             }]
-    }], function () { return [{ type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] }]; }, { screeningEventTicketOffers: [{
+    }], function () { return [{ type: ngx_bootstrap_modal__WEBPACK_IMPORTED_MODULE_2__["BsModalRef"] }]; }, { authorizeSeatReservation: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
+        }], screeningEventTicketOffers: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
         }], checkMovieTicketActions: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]

@@ -11565,6 +11565,7 @@
                       purchase = _context37.sent;
                       this.modal.show(_shared_components_parts_purchase_seat_ticket_modal_seat_ticket_modal_component__WEBPACK_IMPORTED_MODULE_10__["PurchaseSeatTicketModalComponent"], {
                         initialState: {
+                          authorizeSeatReservation: purchase.authorizeSeatReservation,
                           screeningEventTicketOffers: purchase.screeningEventTicketOffers,
                           checkMovieTicketActions: purchase.checkMovieTicketActions,
                           reservations: purchase.reservations,
