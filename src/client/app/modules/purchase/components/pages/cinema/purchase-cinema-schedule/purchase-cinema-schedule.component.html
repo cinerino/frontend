@@ -26,23 +26,23 @@
 </div>
 <div [class.d-none]="scheduleDates.length === 0" class="bg-light-gray">
     <div class="contents-width mx-auto py-4 px-3">
-        <div class="position-relative schedule-slider">
+        <div class="position-relative schedule-slider px-md-4">
             <div class="swiper-container date" #swiper [swiper]="swiperConfig" (resize)="resize()">
                 <div class="swiper-wrapper">
                     <div *ngFor="let scheduleDate of scheduleDates" class="swiper-slide pointer">
-                        <div class="text-center text-white py-4"
-                            [class.bg-secondary]="scheduleDate !== (purchase | async)?.scheduleDate"
-                            [class.bg-primary]="scheduleDate === (purchase | async)?.scheduleDate"
-                            (click)="selectDate(scheduleDate)">
+                        <div class="text-center text-white py-4" [ngClass]="{
+                            'bg-primary': scheduleDate === (purchase | async)?.scheduleDate,
+                            'bg-white text-primary': scheduleDate !== (purchase | async)?.scheduleDate
+                        }" (click)="selectDate(scheduleDate)">
                             <div>
-                                <p>{{ moment(scheduleDate).format('MM/DD(ddd)') }}</p>
+                                <p class="font-weight-bold"><span class="text-small">{{ moment(scheduleDate).format('MM/') }}</span>{{ moment(scheduleDate).format('DD(ddd)') }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next bg-dark-gray d-none d-md-block"></div>
+            <div class="swiper-button-prev bg-dark-gray d-none d-md-block"></div>
         </div>
     </div>
 </div>
@@ -63,4 +63,3 @@
             [href]="environment.PORTAL_SITE_URL">{{ 'purchase.cinema.schedule.prev' | translate }}</a>
     </div>
 </div>
-

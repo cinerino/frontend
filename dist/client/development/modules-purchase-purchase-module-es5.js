@@ -755,6 +755,13 @@
         }
       }
 
+      var _c0 = function _c0(a0, a1) {
+        return {
+          "bg-primary": a0,
+          "bg-white text-primary": a1
+        };
+      };
+
       function PurchaseCinemaScheduleComponent_div_16_Template(rf, ctx) {
         if (rf & 1) {
           var _r21 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
@@ -779,9 +786,15 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "p");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "p", 33);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "span", 34);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](7);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -798,23 +811,26 @@
           var ctx_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
           var tmp_0_0 = null;
-          var currVal_0 = scheduleDate_r19 !== ((tmp_0_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 5, ctx_r4.purchase)) == null ? null : tmp_0_0.scheduleDate);
-          var tmp_1_0 = null;
-          var currVal_1 = scheduleDate_r19 === ((tmp_1_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 7, ctx_r4.purchase)) == null ? null : tmp_1_0.scheduleDate);
+
+          var currVal_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](7, _c0, scheduleDate_r19 === ((tmp_0_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](2, 3, ctx_r4.purchase)) == null ? null : tmp_0_0.scheduleDate), scheduleDate_r19 !== ((tmp_0_0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](3, 5, ctx_r4.purchase)) == null ? null : tmp_0_0.scheduleDate));
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassProp"]("bg-secondary", currVal_0)("bg-primary", currVal_1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", currVal_0);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r4.moment(scheduleDate_r19).format("MM/DD(ddd)"));
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r4.moment(scheduleDate_r19).format("MM/"));
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r4.moment(scheduleDate_r19).format("DD(ddd)"));
         }
       }
 
       function PurchaseCinemaScheduleComponent_p_20_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 33);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 35);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -838,7 +854,7 @@
 
       function PurchaseCinemaScheduleComponent_p_22_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "p", 34);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "p", 36);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](1, "translate");
         }
@@ -852,7 +868,7 @@
         if (rf & 1) {
           var _r24 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "app-purchase-performances", 35);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "app-purchase-performances", 37);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("select", function PurchaseCinemaScheduleComponent_app_purchase_performances_23_Template_app_purchase_performances_select_0_listener($event) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r24);
@@ -874,7 +890,7 @@
 
       function PurchaseCinemaScheduleComponent_a_26_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 36);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 38);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -923,12 +939,12 @@
                   switch (_context3.prev = _context3.next) {
                     case 0:
                       this.swiperConfig = {
-                        spaceBetween: 1,
+                        spaceBetween: 2,
                         slidesPerView: 7,
                         freeMode: true,
                         breakpoints: {
                           320: {
-                            slidesPerView: 2
+                            slidesPerView: 3
                           },
                           767: {
                             slidesPerView: 4
@@ -1391,7 +1407,7 @@
         },
         decls: 27,
         vars: 21,
-        consts: [["class", "contents-width mx-auto px-3 pt-5", 4, "ngIf"], ["class", "contents-width mx-auto theaters d-flex flex-wrap p-2", 4, "ngIf"], [1, "contents-width", "mx-auto", "px-3", "pt-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "buttons mx-auto mb-3", 4, "ngIf"], [1, "bg-light-gray"], [1, "contents-width", "mx-auto", "py-4", "px-3"], [1, "position-relative", "schedule-slider"], [1, "swiper-container", "date", 3, "swiper", "resize"], ["swiper", ""], [1, "swiper-wrapper"], ["class", "swiper-slide pointer", 4, "ngFor", "ngForOf"], [1, "swiper-button-next"], [1, "swiper-button-prev"], [1, "contents-width", "mx-auto", "p-3"], ["class", "text-primary text-large mb-3", 4, "ngIf"], ["class", "mb-3", 3, "innerHTML", 4, "ngIf"], ["class", "mb-3", 3, "screeningWorkEvent", "select", 4, "ngFor", "ngForOf"], [1, "contents-width", "mx-auto", "px-3", "pb-5"], [1, "buttons", "mx-auto", "text-center"], ["class", "btn btn-outline-primary btn-block py-3 portal-link", 3, "href", 4, "ngIf"], [1, "contents-width", "mx-auto", "theaters", "d-flex", "flex-wrap", "p-2"], ["class", "px-2 my-2", 4, "ngFor", "ngForOf"], [1, "px-2", "my-2"], ["type", "button", 1, "btn", "btn-block", "py-3", "m-0", 3, "click"], [1, "buttons", "mx-auto", "mb-3"], ["type", "button", "class", "btn btn-primary btn-block py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-outline-primary btn-block py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", 3, "disabled", "click"], [1, "swiper-slide", "pointer"], [1, "text-center", "text-white", "py-4", 3, "click"], [1, "text-primary", "text-large", "mb-3"], [1, "mb-3", 3, "innerHTML"], [1, "mb-3", 3, "screeningWorkEvent", "select"], [1, "btn", "btn-outline-primary", "btn-block", "py-3", "portal-link", 3, "href"]],
+        consts: [["class", "contents-width mx-auto px-3 pt-5", 4, "ngIf"], ["class", "contents-width mx-auto theaters d-flex flex-wrap p-2", 4, "ngIf"], [1, "contents-width", "mx-auto", "px-3", "pt-5"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], ["class", "buttons mx-auto mb-3", 4, "ngIf"], [1, "bg-light-gray"], [1, "contents-width", "mx-auto", "py-4", "px-3"], [1, "position-relative", "schedule-slider", "px-md-4"], [1, "swiper-container", "date", 3, "swiper", "resize"], ["swiper", ""], [1, "swiper-wrapper"], ["class", "swiper-slide pointer", 4, "ngFor", "ngForOf"], [1, "swiper-button-next", "bg-dark-gray", "d-none", "d-md-block"], [1, "swiper-button-prev", "bg-dark-gray", "d-none", "d-md-block"], [1, "contents-width", "mx-auto", "p-3"], ["class", "text-primary text-large mb-3", 4, "ngIf"], ["class", "mb-3", 3, "innerHTML", 4, "ngIf"], ["class", "mb-3", 3, "screeningWorkEvent", "select", 4, "ngFor", "ngForOf"], [1, "contents-width", "mx-auto", "px-3", "pb-5"], [1, "buttons", "mx-auto", "text-center"], ["class", "btn btn-outline-primary btn-block py-3 portal-link", 3, "href", 4, "ngIf"], [1, "contents-width", "mx-auto", "theaters", "d-flex", "flex-wrap", "p-2"], ["class", "px-2 my-2", 4, "ngFor", "ngForOf"], [1, "px-2", "my-2"], ["type", "button", 1, "btn", "btn-block", "py-3", "m-0", 3, "click"], [1, "buttons", "mx-auto", "mb-3"], ["type", "button", "class", "btn btn-primary btn-block py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", "class", "btn btn-outline-primary btn-block py-3", 3, "disabled", "click", 4, "ngIf"], ["type", "button", 1, "btn", "btn-primary", "btn-block", "py-3", 3, "disabled", "click"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-block", "py-3", 3, "disabled", "click"], [1, "swiper-slide", "pointer"], [1, "text-center", "text-white", "py-4", 3, "ngClass", "click"], [1, "font-weight-bold"], [1, "text-small"], [1, "text-primary", "text-large", "mb-3"], [1, "mb-3", 3, "innerHTML"], [1, "mb-3", 3, "screeningWorkEvent", "select"], [1, "btn", "btn-outline-primary", "btn-block", "py-3", "portal-link", 3, "href"]],
         template: function PurchaseCinemaScheduleComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, PurchaseCinemaScheduleComponent_div_0_Template, 6, 6, "div", 0);
@@ -1432,7 +1448,7 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "div", 11);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](16, PurchaseCinemaScheduleComponent_div_16_Template, 7, 9, "div", 12);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](16, PurchaseCinemaScheduleComponent_div_16_Template, 9, 10, "div", 12);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -1524,9 +1540,9 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.environment.PORTAL_SITE_URL);
           }
         },
-        directives: [_angular_common__WEBPACK_IMPORTED_MODULE_11__["NgIf"], ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_6__["SwiperDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgForOf"], _parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_12__["PurchasePerformancesComponent"]],
+        directives: [_angular_common__WEBPACK_IMPORTED_MODULE_11__["NgIf"], ngx_swiper_wrapper__WEBPACK_IMPORTED_MODULE_6__["SwiperDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgForOf"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgClass"], _parts_performances_performances_component__WEBPACK_IMPORTED_MODULE_12__["PurchasePerformancesComponent"]],
         pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["AsyncPipe"], _shared_pipes_change_language_pipe__WEBPACK_IMPORTED_MODULE_13__["ChangeLanguagePipe"], _shared_pipes_format_date_pipe__WEBPACK_IMPORTED_MODULE_14__["FormatDatePipe"]],
-        styles: [".theaters[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  width: 50%;\n}\n@media (max-width: 767.98px) {\n  .theaters[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-slide[_ngcontent-%COMP%]::after {\n  content: \"\";\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  height: 4px;\n  background-color: #000;\n  opacity: 0.3;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%], .schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%] {\n  top: 0;\n  bottom: 0;\n  margin-top: 0;\n  height: 100%;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: 60%;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%]::after, .schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%]::after {\n  display: none;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%] {\n  right: 0px;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%] {\n  left: 0px;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%], .schedule-slider[_ngcontent-%COMP%]   .swiper-container-rtl[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%] {\n  background-image: url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E\");\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%], .schedule-slider[_ngcontent-%COMP%]   .swiper-container-rtl[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%] {\n  background-image: url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E\");\n}"]
+        styles: [".theaters[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  width: 50%;\n}\n@media (max-width: 767.98px) {\n  .theaters[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%], .schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%] {\n  top: 0;\n  bottom: 0;\n  margin-top: 0;\n  height: 100%;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: 40%;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%]::after, .schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%]::after {\n  display: none;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%] {\n  right: 0px;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%] {\n  left: 0px;\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%], .schedule-slider[_ngcontent-%COMP%]   .swiper-container-rtl[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%] {\n  background-image: url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E\");\n}\n.schedule-slider[_ngcontent-%COMP%]   .swiper-button-next[_ngcontent-%COMP%], .schedule-slider[_ngcontent-%COMP%]   .swiper-container-rtl[_ngcontent-%COMP%]   .swiper-button-prev[_ngcontent-%COMP%] {\n  background-image: url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E\");\n}"]
       });
       /*@__PURE__*/
 
