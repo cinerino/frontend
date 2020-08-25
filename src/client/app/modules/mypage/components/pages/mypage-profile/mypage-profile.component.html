@@ -1,11 +1,11 @@
 <div class="contents-width mx-auto px-3 py-5">
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'mypage.profile.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'mypage.profile.read' | translate"></p>
-    <form [formGroup]="profileForm">
+    <form *ngIf="profileForm" [formGroup]="profileForm">
         <div class="mb-4 p-3 bg-white">
             <div class="form-group">
                 <div class="row align-items-center">
-                    <p class="col-md-4 py-2 text-md-right"> {{ 'common.familyName' | translate }}</p>
+                    <p class="col-md-4 py-2 text-md-right"> {{ 'form.label.familyName' | translate }}</p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" formControlName="familyName" id="familyName"
                             placeholder="モーション">
@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <div class="row align-items-center">
-                    <p class="col-md-4 py-2 text-md-right"> {{ 'common.givenName' | translate }}</p>
+                    <p class="col-md-4 py-2 text-md-right"> {{ 'form.label.givenName' | translate }}</p>
                     <div class="col-md-8">
                         <input type="text" class="form-control" formControlName="givenName" id="givenName"
                             placeholder="ピクチャー">
@@ -70,8 +70,12 @@
                 <div class="row align-items-center">
                     <p class="col-md-4 py-2 text-md-right"> {{ 'form.label.telephone' | translate }}</p>
                     <div class="col-md-8">
-                        <input type="tel" class="form-control" formControlName="telephone" id="telephone"
-                            placeholder="0362778824">
+                        <ngx-intl-tel-input #intlTelInput [preferredCountries]="[CountryISO.Japan]"
+                            [enableAutoCountrySelect]="false" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                            [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Japan" [maxLength]="15"
+                            [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [separateDialCode]="false"
+                            inputId="telephone" name="telephone" formControlName="telephone"></ngx-intl-tel-input>
                         <div *ngIf="profileForm.controls.telephone.invalid && profileForm.controls.telephone.touched"
                             class="mt-2">
                             <p *ngIf="profileForm.controls.telephone.errors?.required" class="text-danger">
@@ -85,8 +89,9 @@
                             </p>
                             <p *ngIf="profileForm.controls.telephone.errors?.pattern" class="text-danger">
                                 {{ 'form.validation.number' | translate }}</p>
-                            <p *ngIf="profileForm.controls.telephone.errors?.telephone" class="text-danger">
-                                {{ 'form.validation.telephone' | translate }}</p>
+                            <p *ngIf="profileForm.controls.telephone.errors?.validatePhoneNumber" class="text-danger">
+                                {{ 'form.validation.telephone' | translate }}
+                            </p>
                         </div>
                     </div>
                 </div>

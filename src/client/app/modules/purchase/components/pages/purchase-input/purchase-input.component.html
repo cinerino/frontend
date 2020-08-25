@@ -4,7 +4,7 @@
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.input.read' | translate"></p>
 
         <div class="p-3 bg-white">
-            <form [formGroup]="profileForm">
+            <form *ngIf="profileForm" [formGroup]="profileForm">
                 <div *ngFor="let key of getProfileFormKeys()" class="form-group row">
                     <div class="col-md-4 py-2 text-md-right ">
                         <div class="d-inline-flex align-items-center">
@@ -89,7 +89,7 @@
                 </div>
             </div>
             <div class="mb-3">
-                <form *ngIf="usedCreditCard === undefined" [formGroup]="creditCardForm">
+                <form *ngIf="!usedCreditCard && creditCardForm" [formGroup]="creditCardForm">
                     <div class="form-group row">
                         <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardNumber' | translate }}<span
                                 class="badge badge-danger ml-2">{{ 'form.required' | translate }}</span></p>
@@ -159,7 +159,7 @@
                     </div>
                 </form>
             </div>
-            <div *ngIf="usedCreditCard !== undefined" class="mb-3">
+            <div *ngIf="usedCreditCard" class="mb-3">
                 <div class="form-group row">
                     <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardNumber' | translate }}</p>
                     <p class="col-md-8 py-2">{{ usedCreditCard.cardNo }}</p>
@@ -174,12 +174,12 @@
                     </p>
                 </div>
             </div>
-            <div *ngIf="(user | async)?.creditCards.length > 0" class="buttons mx-auto">
-                <button type="button" class="btn btn-primary btn-block py-3" [disabled]="isLoading | async"
+            <div *ngIf="(user | async)?.creditCards.length > 0 && !usedCreditCard" class="buttons mx-auto">
+                <button type="button" class="btn btn-outline-primary btn-block py-3" [disabled]="isLoading | async"
                     (click)="openRegisteredCreditCard()">{{ 'purchase.input.registeredCreditCard' | translate }}</button>
             </div>
-            <div *ngIf="usedCreditCard !== undefined" class="buttons mx-auto">
-                <button type="button" class="btn btn-primary btn-block py-3"
+            <div *ngIf="usedCreditCard" class="buttons mx-auto">
+                <button type="button" class="btn btn-outline-primary btn-block py-3"
                     (click)="changeInputCreditCard()">{{ 'purchase.input.inputCreditCard' | translate }}</button>
             </div>
         </div>

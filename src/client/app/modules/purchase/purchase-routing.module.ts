@@ -14,8 +14,6 @@ import { PurchaseBaseComponent } from './components/pages/purchase-base/purchase
 import { PurchaseCompleteComponent } from './components/pages/purchase-complete/purchase-complete.component';
 import { PurchaseConfirmComponent } from './components/pages/purchase-confirm/purchase-confirm.component';
 import { PurchaseInputComponent } from './components/pages/purchase-input/purchase-input.component';
-import { PurchaseMemberProcessComponent } from './components/pages/purchase-member-process/purchase-member-process.component';
-import { PurchaseMemberSelectComponent } from './components/pages/purchase-member-select/purchase-member-select.component';
 import { PurchaseRootComponent } from './components/pages/purchase-root/purchase-root.component';
 import { PurchaseTransactionComponent } from './components/pages/purchase-transaction/purchase-transaction.component';
 
@@ -49,8 +47,6 @@ const routes: Routes = [
           },
         ]
       },
-      { path: 'member/select', component: PurchaseMemberSelectComponent },
-      { path: 'member/process', component: PurchaseMemberProcessComponent },
       { path: 'input', canActivate: [PurchaseTransactionGuardService], component: PurchaseInputComponent },
       { path: 'confirm', canActivate: [PurchaseTransactionGuardService], component: PurchaseConfirmComponent },
       { path: 'complete', component: PurchaseCompleteComponent }
