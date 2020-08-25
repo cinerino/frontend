@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.1.4 - 2020-08-25
+### Changed
+ - ロゴをリンクへ変更
+### Fixed
+ - ムビチケ不具合修正
+
 ## 3.1.3 - 2020-08-21
 ### Added
  - Actionサービスを追加
