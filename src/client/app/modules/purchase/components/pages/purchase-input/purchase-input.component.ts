@@ -60,6 +60,12 @@ export class PurchaseInputComponent implements OnInit {
             this.purchase = this.store.pipe(select(reducers.getPurchase));
             this.user = this.store.pipe(select(reducers.getUser));
             this.isLoading = this.store.pipe(select(reducers.getLoading));
+            const user = await this.actionService.user.getData();
+            if (user.isMember) {
+                // 会員
+                await this.actionService.user.getProfile();
+                await this.actionService.user.getCreditCards();
+            }
             await this.createProfileForm();
             this.createCreditCardForm();
             const purchase = await this.actionService.purchase.getData();

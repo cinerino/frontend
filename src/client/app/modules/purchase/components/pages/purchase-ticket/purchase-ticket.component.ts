@@ -116,6 +116,7 @@ export class PurchaseTicketComponent implements OnInit {
         const purchase = await this.actionService.purchase.getData();
         this.modal.show(PurchaseSeatTicketModalComponent, {
             initialState: {
+                authorizeSeatReservation: purchase.authorizeSeatReservation,
                 screeningEventTicketOffers: purchase.screeningEventTicketOffers,
                 checkMovieTicketActions: purchase.checkMovieTicketActions,
                 reservations: purchase.reservations,

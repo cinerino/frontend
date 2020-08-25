@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import * as libphonenumber from 'libphonenumber-js';
+import { CountryISO, NgxIntlTelInputComponent, SearchCountryField, TooltipLabel } from 'ngx-intl-tel-input';
 import { Observable } from 'rxjs';
-import { Functions } from '../../../../..';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
+import { LibphonenumberFormatPipe } from '../../../../shared/pipes/libphonenumber-format.pipe';
 
 @Component({
     selector: 'app-mypage-profile',
@@ -17,6 +17,10 @@ export class MypageProfileComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
     public profileForm: FormGroup;
+    public SearchCountryField = SearchCountryField;
+    public TooltipLabel = TooltipLabel;
+    public CountryISO = CountryISO;
+    @ViewChild('intlTelInput') private intlTelInput: NgxIntlTelInputComponent;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -29,16 +33,27 @@ export class MypageProfileComponent implements OnInit {
     /**
      * 初期化
      */
-    public ngOnInit() {
+    public async ngOnInit() {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.user = this.store.pipe(select(reducers.getUser));
-        this.createProfileForm();
+        await this.actionService.user.getProfile();
+        await this.createProfileForm();
+        setTimeout(() => {
+            if (this.intlTelInput === undefined) {
+                return;
+            }
+            const findResult = this.intlTelInput.allCountries.find(c => c.iso2 === CountryISO.Japan);
+            if (findResult === undefined) {
+                return;
+            }
+            findResult.placeHolder = this.translate.instant('form.placeholder.telephone');
+        }, 0);
     }
 
     /**
      * プロフィールフォーム作成
      */
-    private createProfileForm() {
+    private async createProfileForm() {
         const NAME_MAX_LENGTH = 12;
         const MAIL_MAX_LENGTH = 50;
         const TEL_MAX_LENGTH = 11;
@@ -63,40 +78,24 @@ export class MypageProfileComponent implements OnInit {
                 Validators.required,
                 Validators.maxLength(TEL_MAX_LENGTH),
                 Validators.minLength(TEL_MIN_LENGTH),
-                Validators.pattern(/^[0-9]+$/),
-                (control: AbstractControl): ValidationErrors | null => {
-                    const field = control.root.get('telephone');
-                    if (field !== null) {
-                        if (field.value === '') {
-                            return null;
-                        }
-                        const parsedNumber = (new RegExp(/^\+/).test(field.value))
-                            ? libphonenumber.parse(field.value)
-                            : libphonenumber.parse(field.value, 'JP');
-                        if (parsedNumber.phone === undefined) {
-                            return { telephone: true };
-                        }
-                        const isValid = libphonenumber.isValidNumber(parsedNumber);
-                        if (!isValid) {
-                            return { telephone: true };
-                        }
-                    }
-
-                    return null;
-                }
             ]]
         });
-        this.user.subscribe((user) => {
-            if (user.profile === undefined) {
+        const user = await this.actionService.user.getData();
+        if (user.profile === undefined) {
+            return;
+        }
+        Object.keys(user.profile).forEach(key => {
+            const value = (<any>user.profile)[key];
+            if (value === undefined || this.profileForm.controls[key] === undefined) {
                 return;
             }
-            this.profileForm.controls.familyName.setValue(user.profile.familyName);
-            this.profileForm.controls.givenName.setValue(user.profile.givenName);
-            this.profileForm.controls.email.setValue(user.profile.email);
-            if (user.profile.telephone !== undefined) {
-                this.profileForm.controls.telephone.setValue(Functions.Util.formatTelephone(user.profile.telephone, 'National').replace(/\-/g, ''));
+            if (key === 'telephone') {
+                this.profileForm.controls.telephone
+                    .setValue(new LibphonenumberFormatPipe().transform(value));
+                return;
             }
-        }).unsubscribe();
+            this.profileForm.controls[key].setValue(value);
+        });
     }
 
     /**
@@ -105,15 +104,15 @@ export class MypageProfileComponent implements OnInit {
     public async updateProfile() {
         Object.keys(this.profileForm.controls).forEach((key) => {
             this.profileForm.controls[key].markAsTouched();
+            if (key === 'telephone') {
+                return;
+            }
+            this.profileForm.controls[key].setValue((<HTMLInputElement>document.getElementById(key)).value);
         });
-        this.profileForm.controls.familyName.setValue((<HTMLInputElement>document.getElementById('familyName')).value);
-        this.profileForm.controls.givenName.setValue((<HTMLInputElement>document.getElementById('givenName')).value);
-        this.profileForm.controls.email.setValue((<HTMLInputElement>document.getElementById('email')).value);
-        this.profileForm.controls.telephone.setValue((<HTMLInputElement>document.getElementById('telephone')).value);
         if (this.profileForm.invalid) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('setting.alert.customer')
+                body: this.translate.instant('mypage.profile.alert.customer')
             });
             return;
         }
@@ -121,10 +120,14 @@ export class MypageProfileComponent implements OnInit {
             const profile = {
                 givenName: this.profileForm.controls.givenName.value,
                 familyName: this.profileForm.controls.familyName.value,
-                telephone: this.profileForm.controls.telephone.value,
+                telephone: this.profileForm.controls.telephone.value.e164Number,
                 email: this.profileForm.controls.email.value,
             };
             await this.actionService.user.updateProfile(profile);
+            this.utilService.openAlert({
+                title: this.translate.instant('common.complete'),
+                body: this.translate.instant('mypage.profile.alert.complete')
+            });
         } catch (error) {
             console.error(error);
         }

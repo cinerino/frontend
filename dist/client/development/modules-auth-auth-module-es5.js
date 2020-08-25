@@ -472,38 +472,27 @@
                   switch (_context2.prev = _context2.next) {
                     case 0:
                       this.process = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getProcess"]));
-                      this.actionService.purchase["delete"]();
                       this.actionService.user["delete"]();
                       this.actionService.user.initialize({
                         isMember: true
                       });
-                      this.actionService.order["delete"]();
-                      _context2.prev = 5;
-                      _context2.next = 8;
-                      return this.actionService.user.getProfile();
 
-                    case 8:
-                      _context2.next = 10;
-                      return this.actionService.user.getCreditCards();
+                      try {
+                        // await this.actionService.user.getProfile();
+                        // await this.actionService.user.getCreditCards();
+                        redirectUrl = sessionStorage.getItem('REDIRECT_URL') === null ? this.environment.BASE_URL : sessionStorage.getItem('REDIRECT_URL');
+                        sessionStorage.removeItem('REDIRECT_URL');
+                        this.router.navigate([redirectUrl]);
+                      } catch (error) {
+                        this.router.navigate(['/error']);
+                      }
 
-                    case 10:
-                      redirectUrl = sessionStorage.getItem('REDIRECT_URL') === null ? this.environment.BASE_URL : sessionStorage.getItem('REDIRECT_URL');
-                      sessionStorage.removeItem('REDIRECT_URL');
-                      this.router.navigate([redirectUrl]);
-                      _context2.next = 18;
-                      break;
-
-                    case 15:
-                      _context2.prev = 15;
-                      _context2.t0 = _context2["catch"](5);
-                      this.router.navigate(['/error']);
-
-                    case 18:
+                    case 4:
                     case "end":
                       return _context2.stop();
                   }
                 }
-              }, _callee2, this, [[5, 15]]);
+              }, _callee2, this);
             }));
           }
         }]);

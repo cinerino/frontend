@@ -33,7 +33,6 @@ export class CinerinoService {
     public environment = getEnvironment();
     private endpoint: string;
     private waiterServerUrl: string;
-    // private authorizationType: 'AUTHORIZATION_CODE' | 'IMPLICIT' | 'CLIENT_CREDENTIALS';
 
     constructor(
         private http: HttpClient,

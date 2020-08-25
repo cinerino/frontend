@@ -12,7 +12,8 @@ type IMovieTicketTypeChargeSpecification =
     styleUrls: ['./seat-ticket-modal.component.scss']
 })
 export class PurchaseSeatTicketModalComponent implements OnInit {
-
+    @Input() public authorizeSeatReservation:
+        factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
     @Input() public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     @Input() public checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
     @Input() public reservations: Models.Purchase.Reservation.IReservation[];
@@ -83,9 +84,12 @@ export class PurchaseSeatTicketModalComponent implements OnInit {
 
             // 予約待ちのムビチケ券
             const pendingMovieTickets: factory.chevre.paymentMethod.paymentCard.movieTicket.IMovieTicket[] = [];
-            this.pendingMovieTickets.forEach((pendingMovieTicket) => {
-                pendingMovieTicket.movieTickets.forEach((movieTicket) => {
-                    pendingMovieTickets.push(movieTicket);
+            this.pendingMovieTickets.forEach(p => {
+                if (p.id === this.authorizeSeatReservation.id) {
+                    return;
+                }
+                p.movieTickets.forEach(m => {
+                    pendingMovieTickets.push(m);
                 });
             });
 
@@ -110,7 +114,7 @@ export class PurchaseSeatTicketModalComponent implements OnInit {
             });
         });
 
-        this.tickets = movieTickets.concat(this.tickets);
+        this.tickets = [...movieTickets, ...this.tickets];
     }
 
     public close(ticket: Models.Purchase.Reservation.IReservationTicket) {

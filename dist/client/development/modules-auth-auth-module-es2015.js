@@ -210,13 +210,11 @@ class AuthSigninComponent {
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
             this.process = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_5__["getProcess"]));
-            this.actionService.purchase.delete();
             this.actionService.user.delete();
             this.actionService.user.initialize({ isMember: true });
-            this.actionService.order.delete();
             try {
-                yield this.actionService.user.getProfile();
-                yield this.actionService.user.getCreditCards();
+                // await this.actionService.user.getProfile();
+                // await this.actionService.user.getCreditCards();
                 const redirectUrl = (sessionStorage.getItem('REDIRECT_URL') === null)
                     ? this.environment.BASE_URL : sessionStorage.getItem('REDIRECT_URL');
                 sessionStorage.removeItem('REDIRECT_URL');
