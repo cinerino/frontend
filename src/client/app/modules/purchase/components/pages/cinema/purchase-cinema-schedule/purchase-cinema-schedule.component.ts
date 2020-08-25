@@ -48,11 +48,11 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
      */
     public async ngOnInit() {
         this.swiperConfig = {
-            spaceBetween: 1,
+            spaceBetween: 2,
             slidesPerView: 7,
             freeMode: true,
             breakpoints: {
-                320: { slidesPerView: 2 },
+                320: { slidesPerView: 3 },
                 767: { slidesPerView: 4 },
                 1024: { slidesPerView: 7 }
             },

@@ -1,6 +1,6 @@
 .btn-primary {
-    background-color: navy !important;
-    border-color: navy !important;
+    background-color: steelblue !important;
+    border-color: steelblue !important;
     color: #FFF !important;
 }
 
@@ -16,17 +16,17 @@
 }
 
 .btn-outline-primary {
-    border-color: navy !important;
-    color: navy !important;
+    border-color: steelblue !important;
+    color: steelblue !important;
 }
 
 .btn-outline-primary:hover {
-    background-color: navy !important;
+    background-color: steelblue !important;
     color: #FFF !important;
 }
 
 .wrapper .bg-primary {
-    background-color: navy !important;
+    background-color: steelblue !important;
 }
 
 .wrapper .bg-secondary {
@@ -34,15 +34,15 @@
 }
 
 .wrapper .text-primary {
-    color: navy !important;
+    color: steelblue !important;
 }
 
 .wrapper .border-primary {
-    border-color: navy !important;
+    border-color: steelblue !important;
 }
 
 header {
-    background-color: navy;
+    background-color: #FFF;
 }
 
 header::after {
@@ -53,9 +53,9 @@ header::after {
     right: 0;
     width: 100%;
     height: 4px;
-    background-color: #FFF;
+    background-color: steelblue;
 }
 
 .menu-button div {
-    background-color: #FFF;
+    background-color: steelblue;
 }
