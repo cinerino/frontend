@@ -20,7 +20,7 @@
 <% if (reservation.reservedTicket.ticketedSeat) { %>| <%= reservation.reservedTicket.ticketedSeat.seatNumber %> <% } %>
 <% for (let priceComponent of reservation.price.priceComponent) { %>
 <% if (priceComponent.price > 0) { %>
-| <%= priceComponent.name.ja %> / ￥<%= priceComponent.price %> <% if (priceComponent.referenceQuantity && priceComponent.referenceQuantity.value) { %>[<%= priceComponent.referenceQuantity.value %>枚あたり] <% } %>
+| <%= priceComponent.name.ja %> / ￥<%= priceComponent.price %> <% if (priceComponent.referenceQuantity && priceComponent.referenceQuantity.value) { %>[<%= priceComponent.referenceQuantity.value %>枚] <% } %>
 <% } %>
 <% } %>
 <% } %>

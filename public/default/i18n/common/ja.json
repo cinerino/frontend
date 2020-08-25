@@ -25,7 +25,7 @@
         },
         "confirm": {
             "title": "購入情報確認",
-            "read": "購入情報をご確認ください。",
+            "read": "購入情報と注意事項をご確認いただき、購入確定ボタンを押してください。<br>購入後の変更、キャンセルは出来ません。",
             "next": "購入確定",
             "consent": "注意事項に同意して購入確定",
             "prev": "戻る",
@@ -36,7 +36,7 @@
         },
         "complete": {
             "title": "購入完了",
-            "read": "ご購入ありがとうございます。",
+            "read": "ご購入いただきありがとうございます。<br><span class=\"text-danger\">下に表示されている「確認番号」はチケット照会に必要になりますので、必ずお控えください。</span><br>ご鑑賞当日シアター入場時にはチケット情報照会ページから照会していただき、チケットをご提示頂きます。",
             "next": "",
             "prev": "戻る"
         },
@@ -53,7 +53,7 @@
     "inquiry": {
         "input": {
             "title": "チケット情報照会",
-            "read": "予約番号と電話番号を入力してください。",
+            "read": "確認番号と電話番号を入力してください。",
             "next": "照会",
             "prev": "戻る",
             "validation": "入力情報に誤りがあります。"
@@ -174,11 +174,7 @@
             "title": "会員情報",
             "read": "会員情報の設定ができます。",
             "next": "会員情報を変更",
-            "prev": "戻る",
-            "alert": {
-                "complete": "会員情報を変更しました。",
-                "customer": "購入者情報に誤りがあります。"
-            }
+            "prev": "戻る"
         },
         "credit": {
             "title": "クレジットカード情報",
@@ -252,7 +248,7 @@
         "placeholder": {
             "familyName": "ヤマダ",
             "givenName": "タロウ",
-            "email": "example@smart-theater.com",
+            "email": "example@ml.smart-theater.com",
             "telephone": "0312345678",
             "age": "",
             "address": "",
@@ -264,7 +260,7 @@
             "confirmationNumber": ""
         },
         "description": {
-            "email": "【ドメイン指定受信をご利用の場合について】 <br>※ 携帯電話のドメイン指定受信をされている場合、「@smart-theater.com」を追加設定してください。 <br>※ au(@ezweb.ne.jp)をご利用の場合、上記に加え「なりすまし規制回避リスト」にも「@smart-theater.com」の追加設定をしてください。",
+            "email": "【ドメイン指定受信をご利用の場合について】 <br>※ 携帯電話のドメイン指定受信をされている場合、「@ml.smart-theater.com」を追加設定してください。 <br>※ au(@ezweb.ne.jp)をご利用の場合、上記に加え「なりすまし規制回避リスト」にも「@ml.smart-theater.com」の追加設定をしてください。",
             "telephone": "※チケット発券の際に必要になります。",
             "cardNumber": "VISA、Master、JCB、AMEX、DINERS をご利用いただけます。"
         },
@@ -426,7 +422,7 @@
         "company": "会社概要",
         "law": "特定商取引法に基づく表記",
         "privacyPolicy": "プライバシーポリシー",
-        "copyright": "Copyright (c) Motionpicture co.,ltd. All rights reserved."
+        "copyright": ""
     },
     "email": {
         "domain": "@smart-theater.com",
@@ -434,7 +430,7 @@
             "complete": {
                 "sender": {
                     "name": "",
-                    "email": "noreply@smart-theater.com"
+                    "email": "ticket@ml.smart-theater.com"
                 },
                 "toRecipient": {
                     "name": "",

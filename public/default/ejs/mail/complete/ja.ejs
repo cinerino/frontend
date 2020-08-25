@@ -13,7 +13,7 @@
 <% for (let i = 0; i < authorizeSeatReservations.length; i++) { %>
 <% const event = authorizeSeatReservations[i].event; %>
 <% const reservations = authorizeSeatReservations[i].reservations; %>
-<% if (reservations.length > 0) { %>| [<%= (i + 1) %>件目] <% } %>
+<% if (authorizeSeatReservations.length > 1) { %>| [<%= (i + 1) %>件目]<% } %>
 | <%= event.name.ja %>
 | <%= moment(event.startDate).tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %> - <%= moment(event.endDate).tz('Asia/Tokyo').locale('ja').format('HH:mm') %>
 | <%= event.superEvent.location.name.ja %> / <%= event.location.name.ja %>
@@ -21,7 +21,7 @@
 <% if (reservation.reservedTicket.ticketedSeat) { %>| <%= reservation.reservedTicket.ticketedSeat.seatNumber %> <% } %>
 <% for (let priceComponent of reservation.price.priceComponent) { %>
 <% if (priceComponent.price > 0) { %>
-| <%= priceComponent.name.ja %> / ￥<%= priceComponent.price %> <% if (priceComponent.referenceQuantity && priceComponent.referenceQuantity.value) { %>[<%= priceComponent.referenceQuantity.value %>枚あたり] <% } %>
+| <%= priceComponent.name.ja %> / ￥<%= priceComponent.price %> <% if (priceComponent.referenceQuantity && priceComponent.referenceQuantity.value) { %>[<%= priceComponent.referenceQuantity.value %>枚] <% } %>
 <% } %>
 <% } %>
 <% } %>
