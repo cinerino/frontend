@@ -28,6 +28,7 @@ import { ItemListComponent } from './components/parts/item-list/item-list.compon
 import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MvtkCheckModalComponent } from './components/parts/mvtk/check-modal/check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
+import { OrderDetailComponent } from './components/parts/order/detail/detail.component';
 import { PurchaseEventTicketModalComponent } from './components/parts/purchase/event/ticket-modal/ticket-modal.component';
 import { PurchaseSeatTicketModalComponent } from './components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
 import { QRCodeImageComponent } from './components/parts/qrcode/image/image.component';
@@ -46,7 +47,8 @@ const components = [
   BaseComponent,
   ItemListComponent,
   CheckboxComponent,
-  QRCodeImageComponent
+  QRCodeImageComponent,
+  OrderDetailComponent
 ];
 
 const entryComponents = [

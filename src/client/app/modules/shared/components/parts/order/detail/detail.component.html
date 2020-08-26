@@ -1,0 +1,65 @@
+<div class="mb-4 px-3 py-2 bg-white">
+    <div class="row align-items-center">
+        <p class="col-4">
+            {{ 'common.confirmationNumber' | translate }}</p>
+        <p class="col-8 text-large text-info font-weight-bold">
+            {{ order.confirmationNumber }}
+        </p>
+    </div>
+</div>
+<div *ngFor="let eventOrder of eventOrders" class="mb-4 bg-white p-3">
+    <div class="mb-3">
+        <div class="mb-1">
+            <p class="font-weight-bold text-large">{{ eventOrder.event.name | changeLanguage }}</p>
+            <p class="text-small"
+                *ngIf="eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)">
+                {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>
+            <p class="text-small"
+                *ngIf="eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)">{{
+                eventOrder.event.superEvent.description | changeLanguage }}</p>
+        </div>
+        <p class="mb-1">
+            {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}
+        </p>
+        <p class="text-small mb-1">
+            <span class="theater-name">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
+            <span class="screen-name">&nbsp;/&nbsp;<span *ngIf="eventOrder.event.location.address | changeLanguage" class="mr-2">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>
+            <span
+                *ngIf="eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0">
+                &nbsp;/&nbsp;<span
+                    class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+            </span>
+        </p>
+    </div>
+    <hr class="mb-3">
+    <app-item-list [acceptedOffers]="eventOrder.data" [qrcode]="environment.INQUIRY_QRCODE"></app-item-list>
+</div>
+
+
+<div class="mb-4 px-3 bg-white">
+    <div class="py-3 border-bottom border-gray customer-name">
+        <div class="row align-items-center">
+            <p class="mb-2 mb-md-0 col-md-4">{{ 'common.customerName' | translate }}</p>
+            <p class="col-md-8">{{ order.customer.familyName }}
+                {{ order.customer.givenName }}</p>
+        </div>
+    </div>
+    <div class="py-3 border-bottom border-gray email">
+        <div class="row align-items-center">
+            <p class="mb-2 mb-md-0 col-md-4">{{ 'form.label.email' | translate }}</p>
+            <p class="col-md-8">{{ order.customer.email }}</p>
+        </div>
+    </div>
+    <div *ngIf="order.customer.telephone" class="py-3 telephone">
+        <div class="row align-items-center">
+            <p class="mb-2 mb-md-0 col-md-4">{{ 'form.label.telephone' | translate }}</p>
+            <p class="col-md-8">{{ order.customer.telephone | libphonenumberFormat }}</p>
+        </div>
+    </div>
+    <!-- <div class="py-3" *ngIf="order.price > 0">
+        <div class="row align-items-center">
+            <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
+            <p class="col-md-8">クレジットカード</p>
+        </div>
+    </div> -->
+</div>
