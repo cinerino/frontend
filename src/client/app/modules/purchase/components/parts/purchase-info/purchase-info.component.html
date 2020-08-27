@@ -1,6 +1,6 @@
 <div>
     <app-item-event [screeningEvent]="purchase.screeningEvent"></app-item-event>
-    <div class="bg-white p-3">
+    <div *ngIf="purchase.reservations.length > 0" class="bg-white p-3">
         <app-item-list [reservations]="purchase.reservations"></app-item-list>
     </div>
 </div>
