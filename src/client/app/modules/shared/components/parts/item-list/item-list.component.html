@@ -1,6 +1,6 @@
 <div class="mb-2" *ngIf="environment.DISPLAY_TICKETED_SEAT">
     <div *ngFor="let reservation of reservations">
-        <p>{{ reservation.seat.seatNumber }}</p>
+        <p class="font-weight-bold">{{ reservation.seat.seatNumber }}</p>
         <p *ngFor="let priceComponent of getReservationPriceComponents(reservation)">
             <span>{{ priceComponent.name | changeLanguage }}</span><!--
             --><span *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
@@ -9,7 +9,7 @@
     </div>
     
     <div *ngFor="let reservation of authorizeSeatReservations">
-        <p *ngIf="reservation.reservedTicket.ticketedSeat">{{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>
+        <p class="font-weight-bold" *ngIf="reservation.reservedTicket.ticketedSeat">{{ reservation.reservedTicket.ticketedSeat.seatNumber }}</p>
         <p *ngFor="let priceComponent of reservation.price.priceComponent">
             <span>{{ priceComponent.name | changeLanguage }}</span><!--
             --><span *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
@@ -17,21 +17,27 @@
         </p>
     </div>
     
-    <div *ngFor="let acceptedOffer of acceptedOffers">
-        <p *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>
-        <p *ngFor="let priceComponent of acceptedOffer.priceSpecification.priceComponent">
-            <span *ngIf="priceComponent.name">{{ priceComponent.name | changeLanguage }}</span><!--
-            --><span *ngIf="!priceComponent.name">{{ acceptedOffer.name | changeLanguage }}</span><!--
-            --><span *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
-            --><span *ngIf="priceComponent?.referenceQuantity?.value && priceComponent.price > 0">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
-        </p>
-        <div *ngIf="qrcode && acceptedOffer.itemOffered.reservedTicket.ticketToken && isShowQRCode(acceptedOffer.itemOffered.reservationFor)" class="qrcode mt-2 mb-4 mx-md-0 mx-auto">
-            <app-qrcode-image [code]="acceptedOffer.itemOffered.reservedTicket.ticketToken"></app-qrcode-image>
+    <div *ngIf="acceptedOffers" class="container bg-white">
+        <div class="row">
+            <div *ngFor="let acceptedOffer of acceptedOffers" class="col-12 col-md-6 p-3">
+                <div class="h-100">
+                    <p *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat" class="font-weight-bold">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>
+                    <p *ngFor="let priceComponent of acceptedOffer.priceSpecification.priceComponent">
+                        <span *ngIf="priceComponent.name">{{ priceComponent.name | changeLanguage }}</span><!--
+                        --><span *ngIf="!priceComponent.name">{{ acceptedOffer.name | changeLanguage }}</span><!--
+                        --><span *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
+                        --><span *ngIf="priceComponent?.referenceQuantity?.value && priceComponent.price > 0">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+                    </p>
+                    <div *ngIf="qrcode && acceptedOffer.itemOffered.reservedTicket.ticketToken && isShowQRCode(acceptedOffer.itemOffered.reservationFor)" class="qrcode mt-2 mx-md-0 mx-auto">
+                        <app-qrcode-image [code]="acceptedOffer.itemOffered.reservedTicket.ticketToken"></app-qrcode-image>
+                    </div>
+                    <p *ngIf="qrcode && !isShowQRCode(acceptedOffer.itemOffered.reservationFor)" class="d-inline-block text-danger font-weight-bold">
+                        {{ 'common.qrcodeDescription' | translate }}
+                    </p>
+                    <!-- <button *ngIf="qrcode" class="btn btn-primary mt-2 mb-3" (click)="openQrcode.emit({id: acceptedOffer.itemOffered.id})">{{ 'common.qrcode' | translate }}</button> -->
+                </div>
+            </div>
         </div>
-        <p *ngIf="qrcode && !isShowQRCode(acceptedOffer.itemOffered.reservationFor)" class="d-inline-block text-danger font-weight-bold">
-            {{ 'common.qrcodeDescription' | translate }}
-        </p>
-        <!-- <button *ngIf="qrcode" class="btn btn-primary mt-2 mb-3" (click)="openQrcode.emit({id: acceptedOffer.itemOffered.id})">{{ 'common.qrcode' | translate }}</button> -->
     </div>
 </div>
 
