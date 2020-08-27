@@ -19,7 +19,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     public isLoading: Observable<boolean>;
     public order: Observable<reducers.IOrderState>;
     public user: Observable<reducers.IUserState>;
-    public moment: typeof moment = moment;
+    public moment = moment;
     public eventOrders: Functions.Purchase.IEventOrder[];
     public error: Observable<string | null>;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;

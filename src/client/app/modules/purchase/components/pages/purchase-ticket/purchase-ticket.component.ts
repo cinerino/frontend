@@ -132,7 +132,7 @@ export class PurchaseTicketComponent implements OnInit {
 
     public openMovieTicket() {
         this.modal.show(MvtkCheckModalComponent, {
-            class: 'modal-dialog-centered modal-lg'
+            class: 'modal-dialog-centered'
         });
     }
 
