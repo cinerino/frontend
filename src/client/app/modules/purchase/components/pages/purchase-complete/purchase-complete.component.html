@@ -16,7 +16,9 @@
 
         <div *ngFor="let eventOrder of eventOrders" class="mb-4">
             <app-item-event [screeningEvent]="eventOrder.event"></app-item-event>
-            <app-item-list [acceptedOffers]="eventOrder.data"></app-item-list>
+            <div class="bg-white p-3">
+                <app-item-list [acceptedOffers]="eventOrder.data"></app-item-list>
+            </div>
         </div>
 
 

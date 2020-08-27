@@ -51,7 +51,6 @@ const components = [
   QRCodeImageComponent,
   OrderDetailComponent,
   ItemEventComponent,
-  OrderDetailComponent
 ];
 
 const entryComponents = [

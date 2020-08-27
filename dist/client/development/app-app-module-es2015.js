@@ -71995,7 +71995,7 @@ class ItemListComponent {
     }
 }
 ItemListComponent.ɵfac = function ItemListComponent_Factory(t) { return new (t || ItemListComponent)(); };
-ItemListComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ItemListComponent, selectors: [["app-item-list"]], inputs: { reservations: "reservations", authorizeSeatReservations: "authorizeSeatReservations", acceptedOffers: "acceptedOffers", qrcode: "qrcode" }, outputs: { openQrcode: "openQrcode" }, decls: 2, vars: 2, consts: [["class", "mb-2", 4, "ngIf"], [1, "mb-2"], [4, "ngFor", "ngForOf"], ["class", "container bg-white", 4, "ngIf"], [1, "font-weight-bold"], [4, "ngIf"], ["class", "font-weight-bold", 4, "ngIf"], [1, "container", "bg-white"], [1, "row"], ["class", "col-12 col-md-6 p-3", 4, "ngFor", "ngForOf"], [1, "col-12", "col-md-6", "p-3"], [1, "h-100"], ["class", "qrcode mt-2 mx-md-0 mx-auto", 4, "ngIf"], ["class", "d-inline-block text-danger font-weight-bold", 4, "ngIf"], [1, "qrcode", "mt-2", "mx-md-0", "mx-auto"], [3, "code"], [1, "d-inline-block", "text-danger", "font-weight-bold"]], template: function ItemListComponent_Template(rf, ctx) { if (rf & 1) {
+ItemListComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ItemListComponent, selectors: [["app-item-list"]], inputs: { reservations: "reservations", authorizeSeatReservations: "authorizeSeatReservations", acceptedOffers: "acceptedOffers", qrcode: "qrcode" }, outputs: { openQrcode: "openQrcode" }, decls: 2, vars: 2, consts: [["class", "mb-2", 4, "ngIf"], [1, "mb-2"], [4, "ngFor", "ngForOf"], ["class", "container px-0 bg-white", 4, "ngIf"], [1, "font-weight-bold"], [4, "ngIf"], ["class", "font-weight-bold", 4, "ngIf"], [1, "container", "px-0", "bg-white"], [1, "row"], ["class", "col-12 col-md-6 p-3", 4, "ngFor", "ngForOf"], [1, "col-12", "col-md-6", "p-3"], [1, "h-100"], ["class", "qrcode mt-2 mx-md-0 mx-auto", 4, "ngIf"], ["class", "d-inline-block text-danger font-weight-bold", 4, "ngIf"], [1, "qrcode", "mt-2", "mx-md-0", "mx-auto"], [3, "code"], [1, "d-inline-block", "text-danger", "font-weight-bold"]], template: function ItemListComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, ItemListComponent_div_0_Template, 4, 3, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, ItemListComponent_div_1_Template, 2, 1, "div", 0);
     } if (rf & 2) {
@@ -72689,18 +72689,20 @@ __webpack_require__.r(__webpack_exports__);
 function OrderDetailComponent_div_7_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 11);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "app-item-event", 12);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](2, "app-item-list", 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "app-item-list", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const eventOrder_r2 = ctx.$implicit;
     const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("screeningEvent", eventOrder_r2.event);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("acceptedOffers", eventOrder_r2.data)("qrcode", ctx_r0.environment.INQUIRY_QRCODE);
 } }
 function OrderDetailComponent_div_23_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 15);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "p", 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3);
@@ -72733,7 +72735,7 @@ class OrderDetailComponent {
     }
 }
 OrderDetailComponent.ɵfac = function OrderDetailComponent_Factory(t) { return new (t || OrderDetailComponent)(); };
-OrderDetailComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: OrderDetailComponent, selectors: [["app-order-detail"]], inputs: { order: "order" }, decls: 24, vars: 15, consts: [[1, "mb-4", "px-3", "py-2", "bg-white"], [1, "row", "align-items-center"], [1, "col-4"], [1, "col-8", "text-large", "text-info", "font-weight-bold"], ["class", "mb-4", 4, "ngFor", "ngForOf"], [1, "mb-4", "px-3", "bg-white"], [1, "py-3", "border-bottom", "border-gray", "customer-name"], [1, "mb-2", "mb-md-0", "col-md-4"], [1, "col-md-8"], [1, "py-3", "border-bottom", "border-gray", "email"], ["class", "py-3 telephone", 4, "ngIf"], [1, "mb-4"], [3, "screeningEvent"], [3, "acceptedOffers", "qrcode"], [1, "py-3", "telephone"]], template: function OrderDetailComponent_Template(rf, ctx) { if (rf & 1) {
+OrderDetailComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: OrderDetailComponent, selectors: [["app-order-detail"]], inputs: { order: "order" }, decls: 24, vars: 15, consts: [[1, "mb-4", "px-3", "py-2", "bg-white"], [1, "row", "align-items-center"], [1, "col-4"], [1, "col-8", "text-large", "text-info", "font-weight-bold"], ["class", "mb-4", 4, "ngFor", "ngForOf"], [1, "mb-4", "px-3", "bg-white"], [1, "py-3", "border-bottom", "border-gray", "customer-name"], [1, "mb-2", "mb-md-0", "col-md-4"], [1, "col-md-8"], [1, "py-3", "border-bottom", "border-gray", "email"], ["class", "py-3 telephone", 4, "ngIf"], [1, "mb-4"], [3, "screeningEvent"], [1, "bg-white", "p-3"], [3, "acceptedOffers", "qrcode"], [1, "py-3", "telephone"]], template: function OrderDetailComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "p", 2);
@@ -72745,7 +72747,7 @@ OrderDetailComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, OrderDetailComponent_div_7_Template, 3, 3, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, OrderDetailComponent_div_7_Template, 4, 3, "div", 4);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "div", 5);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "div", 1);
@@ -74219,7 +74221,6 @@ const components = [
     _components_parts_qrcode_image_image_component__WEBPACK_IMPORTED_MODULE_32__["QRCodeImageComponent"],
     _components_parts_order_detail_detail_component__WEBPACK_IMPORTED_MODULE_29__["OrderDetailComponent"],
     _components_parts_item_event_item_event_component__WEBPACK_IMPORTED_MODULE_24__["ItemEventComponent"],
-    _components_parts_order_detail_detail_component__WEBPACK_IMPORTED_MODULE_29__["OrderDetailComponent"]
 ];
 const entryComponents = [
     _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_14__["AlertModalComponent"],
@@ -74269,8 +74270,7 @@ SharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjec
         _components_parts_form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_21__["CheckboxComponent"],
         _components_parts_qrcode_image_image_component__WEBPACK_IMPORTED_MODULE_32__["QRCodeImageComponent"],
         _components_parts_order_detail_detail_component__WEBPACK_IMPORTED_MODULE_29__["OrderDetailComponent"],
-        _components_parts_item_event_item_event_component__WEBPACK_IMPORTED_MODULE_24__["ItemEventComponent"],
-        _components_parts_order_detail_detail_component__WEBPACK_IMPORTED_MODULE_29__["OrderDetailComponent"], _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_14__["AlertModalComponent"],
+        _components_parts_item_event_item_event_component__WEBPACK_IMPORTED_MODULE_24__["ItemEventComponent"], _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_14__["AlertModalComponent"],
         _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_15__["ConfirmModalComponent"],
         _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_33__["QRCodeReaderModalComponent"],
         _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_34__["QRCodeViewerModalComponent"],
@@ -74304,8 +74304,7 @@ SharedModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjec
         _components_parts_form_checkbox_checkbox_component__WEBPACK_IMPORTED_MODULE_21__["CheckboxComponent"],
         _components_parts_qrcode_image_image_component__WEBPACK_IMPORTED_MODULE_32__["QRCodeImageComponent"],
         _components_parts_order_detail_detail_component__WEBPACK_IMPORTED_MODULE_29__["OrderDetailComponent"],
-        _components_parts_item_event_item_event_component__WEBPACK_IMPORTED_MODULE_24__["ItemEventComponent"],
-        _components_parts_order_detail_detail_component__WEBPACK_IMPORTED_MODULE_29__["OrderDetailComponent"], _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_14__["AlertModalComponent"],
+        _components_parts_item_event_item_event_component__WEBPACK_IMPORTED_MODULE_24__["ItemEventComponent"], _components_parts_alert_modal_alert_modal_component__WEBPACK_IMPORTED_MODULE_14__["AlertModalComponent"],
         _components_parts_confirm_modal_confirm_modal_component__WEBPACK_IMPORTED_MODULE_15__["ConfirmModalComponent"],
         _components_parts_qrcode_reader_modal_reader_modal_component__WEBPACK_IMPORTED_MODULE_33__["QRCodeReaderModalComponent"],
         _components_parts_qrcode_viewer_modal_viewer_modal_component__WEBPACK_IMPORTED_MODULE_34__["QRCodeViewerModalComponent"],

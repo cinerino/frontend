@@ -6400,7 +6400,11 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "app-item-event", 18);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](2, "app-item-list", 19);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 19);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "app-item-list", 20);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
@@ -6412,7 +6416,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("screeningEvent", eventOrder_r5.event);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("acceptedOffers", eventOrder_r5.data);
         }
@@ -6432,7 +6436,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "p", 20);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "p", 21);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6);
 
@@ -6574,17 +6578,17 @@
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCompleteComponent_div_46_p_6_span_1_Template, 3, 3, "span", 23);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, PurchaseCompleteComponent_div_46_p_6_span_1_Template, 3, 3, "span", 24);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchaseCompleteComponent_div_46_p_6_span_2_Template, 3, 3, "span", 23);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, PurchaseCompleteComponent_div_46_p_6_span_2_Template, 3, 3, "span", 24);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, PurchaseCompleteComponent_div_46_p_6_span_3_Template, 3, 3, "span", 23);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, PurchaseCompleteComponent_div_46_p_6_span_3_Template, 3, 3, "span", 24);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, PurchaseCompleteComponent_div_46_p_6_span_4_Template, 3, 3, "span", 23);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, PurchaseCompleteComponent_div_46_p_6_span_4_Template, 3, 3, "span", 24);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](5, PurchaseCompleteComponent_div_46_p_6_span_5_Template, 3, 3, "span", 23);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](5, PurchaseCompleteComponent_div_46_p_6_span_5_Template, 3, 3, "span", 24);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, PurchaseCompleteComponent_div_46_p_6_span_6_Template, 3, 3, "span", 23);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, PurchaseCompleteComponent_div_46_p_6_span_6_Template, 3, 3, "span", 24);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
@@ -6622,7 +6626,7 @@
 
       function PurchaseCompleteComponent_div_46_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 21);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 22);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 5);
 
@@ -6636,7 +6640,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "div", 12);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, PurchaseCompleteComponent_div_46_p_6_Template, 7, 6, "p", 22);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, PurchaseCompleteComponent_div_46_p_6_Template, 7, 6, "p", 23);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](7, "async");
 
@@ -6665,7 +6669,7 @@
 
       function PurchaseCompleteComponent_a_49_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 24);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "a", 25);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -6687,7 +6691,7 @@
 
       function PurchaseCompleteComponent_button_50_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 25);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 26);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -6772,7 +6776,7 @@
         selectors: [["app-purchase-complete"]],
         decls: 51,
         vars: 48,
-        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "mb-4"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "mb-4", "px-3", "py-2", "bg-white"], [1, "row", "align-items-center"], [1, "col-4"], [1, "col-8", "text-large", "text-info", "font-weight-bold"], ["class", "mb-4", 4, "ngFor", "ngForOf"], [1, "mb-4", "px-3", "bg-white"], [1, "py-3", "border-bottom", "border-gray"], [1, "mb-2", "mb-md-0", "col-md-4"], [1, "col-md-8"], ["class", "py-3 border-bottom border-gray", 4, "ngIf"], ["class", "py-3", 4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["class", "btn btn-outline-primary btn-block py-3 portal-link", 3, "href", 4, "ngIf"], ["type", "button", "class", "btn btn-outline-primary btn-block py-3", "routerLink", "/", 4, "ngIf"], [3, "screeningEvent"], [3, "acceptedOffers"], [1, "col-md-8", "font-weight-bold", "text-large", "text-info"], [1, "py-3"], [4, "ngFor", "ngForOf"], [4, "ngIf"], [1, "btn", "btn-outline-primary", "btn-block", "py-3", "portal-link", 3, "href"], ["type", "button", "routerLink", "/", 1, "btn", "btn-outline-primary", "btn-block", "py-3"]],
+        consts: [[1, "contents-width", "mx-auto", "px-3", "py-5"], [1, "mb-4"], [1, "text-large", "mb-4", "text-center", "font-weight-bold"], [1, "mb-4", "text-md-center", 3, "innerHTML"], [1, "mb-4", "px-3", "py-2", "bg-white"], [1, "row", "align-items-center"], [1, "col-4"], [1, "col-8", "text-large", "text-info", "font-weight-bold"], ["class", "mb-4", 4, "ngFor", "ngForOf"], [1, "mb-4", "px-3", "bg-white"], [1, "py-3", "border-bottom", "border-gray"], [1, "mb-2", "mb-md-0", "col-md-4"], [1, "col-md-8"], ["class", "py-3 border-bottom border-gray", 4, "ngIf"], ["class", "py-3", 4, "ngIf"], [1, "buttons", "mx-auto", "text-center"], ["class", "btn btn-outline-primary btn-block py-3 portal-link", 3, "href", 4, "ngIf"], ["type", "button", "class", "btn btn-outline-primary btn-block py-3", "routerLink", "/", 4, "ngIf"], [3, "screeningEvent"], [1, "bg-white", "p-3"], [3, "acceptedOffers"], [1, "col-md-8", "font-weight-bold", "text-large", "text-info"], [1, "py-3"], [4, "ngFor", "ngForOf"], [4, "ngIf"], [1, "btn", "btn-outline-primary", "btn-block", "py-3", "portal-link", 3, "href"], ["type", "button", "routerLink", "/", 1, "btn", "btn-outline-primary", "btn-block", "py-3"]],
         template: function PurchaseCompleteComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -6815,7 +6819,7 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](15, PurchaseCompleteComponent_div_15_Template, 3, 2, "div", 8);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](15, PurchaseCompleteComponent_div_15_Template, 4, 2, "div", 8);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "div", 9);
 
