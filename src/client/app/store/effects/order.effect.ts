@@ -41,18 +41,18 @@ export class OrderEffects {
                         object: {
                             order: {
                                 orderNumber: order.orderNumber,
-                                customer: {
-                                    telephone: order.customer.telephone,
-                                }
+                                customer: { telephone: order.customer.telephone, }
                             }
                         },
                         agent
                     });
+                    const eventOrders = Functions.Purchase.order2EventOrders({ order });
                     const creditCards = order.paymentMethods.filter(p => p.typeOf === factory.paymentMethodType.CreditCard);
                     const email: factory.creativeWork.message.email.ICustomization = {
                         sender: {
                             name: (this.translate.instant('email.order.return.sender.name') === '')
-                                ? undefined : this.translate.instant('email.order.return.sender.name'),
+                                ? eventOrders[0].event.superEvent.location.name?.ja
+                                : this.translate.instant('email.order.return.sender.name'),
                             email: (this.translate.instant('email.order.return.sender.email') === '')
                                 ? undefined : this.translate.instant('email.order.return.sender.email')
                         },
@@ -79,7 +79,8 @@ export class OrderEffects {
                     const refundCreditCardEmail: factory.creativeWork.message.email.ICustomization = {
                         sender: {
                             name: (this.translate.instant('email.order.refundCreditCard.sender.name') === '')
-                                ? undefined : this.translate.instant('email.order.refundCreditCard.sender.name'),
+                                ? eventOrders[0].event.superEvent.location.name?.ja
+                                : this.translate.instant('email.order.refundCreditCard.sender.name'),
                             email: (this.translate.instant('email.order.refundCreditCard.sender.email') === '')
                                 ? undefined : this.translate.instant('email.order.refundCreditCard.sender.email')
                         },
@@ -103,7 +104,8 @@ export class OrderEffects {
                         const template = await (<any>window).ejs.render(view, {
                             moment,
                             formatTelephone: Functions.Util.formatTelephone,
-                            getItemPrice: Functions.Purchase.getItemPrice
+                            getItemPrice: Functions.Purchase.getItemPrice,
+                            eventOrders
                         }, { async: true });
                         refundCreditCardEmail.template = template;
                     }

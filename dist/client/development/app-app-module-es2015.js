@@ -77180,6 +77180,7 @@ class OrderEffects {
          * Cancel
          */
         this.cancel = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].cancel), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(action => action), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
             const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
             const orders = payload.orders;
             const agent = payload.agent;
@@ -77191,18 +77192,17 @@ class OrderEffects {
                         object: {
                             order: {
                                 orderNumber: order.orderNumber,
-                                customer: {
-                                    telephone: order.customer.telephone,
-                                }
+                                customer: { telephone: order.customer.telephone, }
                             }
                         },
                         agent
                     });
+                    const eventOrders = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.order2EventOrders({ order });
                     const creditCards = order.paymentMethods.filter(p => p.typeOf === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].paymentMethodType.CreditCard);
                     const email = {
                         sender: {
                             name: (this.translate.instant('email.order.return.sender.name') === '')
-                                ? undefined : this.translate.instant('email.order.return.sender.name'),
+                                ? (_a = eventOrders[0].event.superEvent.location.name) === null || _a === void 0 ? void 0 : _a.ja : this.translate.instant('email.order.return.sender.name'),
                             email: (this.translate.instant('email.order.return.sender.email') === '')
                                 ? undefined : this.translate.instant('email.order.return.sender.email')
                         },
@@ -77229,7 +77229,7 @@ class OrderEffects {
                     const refundCreditCardEmail = {
                         sender: {
                             name: (this.translate.instant('email.order.refundCreditCard.sender.name') === '')
-                                ? undefined : this.translate.instant('email.order.refundCreditCard.sender.name'),
+                                ? (_b = eventOrders[0].event.superEvent.location.name) === null || _b === void 0 ? void 0 : _b.ja : this.translate.instant('email.order.refundCreditCard.sender.name'),
                             email: (this.translate.instant('email.order.refundCreditCard.sender.email') === '')
                                 ? undefined : this.translate.instant('email.order.refundCreditCard.sender.email')
                         },
@@ -77253,7 +77253,8 @@ class OrderEffects {
                         const template = yield window.ejs.render(view, {
                             moment: moment__WEBPACK_IMPORTED_MODULE_4__,
                             formatTelephone: ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.formatTelephone,
-                            getItemPrice: ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.getItemPrice
+                            getItemPrice: ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.getItemPrice,
+                            eventOrders
                         }, { async: true });
                         refundCreditCardEmail.template = template;
                     }
@@ -77971,9 +77972,12 @@ class PurchaseEffects {
          * EndTransaction
          */
         this.endTransaction = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_9__["purchaseAction"].endTransaction), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(action => action), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
+            var _a;
             const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
             const transaction = payload.transaction;
-            const authorizeSeatReservations = payload.authorizeSeatReservations;
+            const authorizeSeatReservations = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.authorizeSeatReservation2Event({
+                authorizeSeatReservations: payload.authorizeSeatReservations
+            });
             const seller = payload.seller;
             const linyId = payload.linyId;
             try {
@@ -77984,7 +77988,7 @@ class PurchaseEffects {
                     email: {
                         sender: {
                             name: (this.translate.instant('email.purchase.complete.sender.name') === '')
-                                ? undefined : this.translate.instant('email.purchase.complete.sender.name'),
+                                ? (_a = authorizeSeatReservations[0].event.superEvent.location.name) === null || _a === void 0 ? void 0 : _a.ja : this.translate.instant('email.purchase.complete.sender.name'),
                             email: (this.translate.instant('email.purchase.complete.sender.email') === '')
                                 ? undefined : this.translate.instant('email.purchase.complete.sender.email')
                         },
@@ -78007,7 +78011,7 @@ class PurchaseEffects {
                         : `/default${path}`;
                     const view = yield this.utilService.getText(url);
                     params.email.template = window.ejs.render(view, {
-                        authorizeSeatReservations: ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.authorizeSeatReservation2Event({ authorizeSeatReservations }),
+                        authorizeSeatReservations,
                         seller,
                         moment: moment__WEBPACK_IMPORTED_MODULE_4__,
                         formatTelephone: ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.formatTelephone,
@@ -78043,7 +78047,7 @@ class PurchaseEffects {
                     try {
                         const view = yield this.utilService.getText(`${___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.getProject().storageUrl}/ejs/liny/complete/${payload.language}.ejs`);
                         const template = window.ejs.render(view, {
-                            authorizeSeatReservations: ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.authorizeSeatReservation2Event({ authorizeSeatReservations }),
+                            authorizeSeatReservations,
                             seller,
                             order,
                             moment: moment__WEBPACK_IMPORTED_MODULE_4__,
