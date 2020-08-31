@@ -10,8 +10,10 @@ const debug = createDebug('basicAuth');
  * @module basicAuthMiddleware
  */
 exports.default = (req, res, next) => {
-    // ベーシック認証のための環境変数設定なければスルー
-    if (process.env.BASIC_AUTH_NAME === undefined || process.env.BASIC_AUTH_PASS === undefined) {
+    if (process.env.BASIC_AUTH_NAME === undefined
+        || process.env.BASIC_AUTH_PASS === undefined
+        || (/\.(css|js|svg|jpg|png|gif|ico|json|html|txt)/).test(req.path)) {
+        // 環境変数設定なしもしくは静的ファイル
         next();
         return;
     }
