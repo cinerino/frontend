@@ -12,6 +12,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.1.6 - 2020-08-31
+### Added
+ - 注文履歴、予約履歴追加
+### Changed
+ - メール調整
+ - チケット照会UI調整
+
 ## 3.1.5 - 2020-08-25
 ### Changed
  - デフォルト色変更
