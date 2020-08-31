@@ -4,41 +4,13 @@
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.confirm.read' | translate"></p>
 
         <div *ngFor="let authorizeSeatReservation of (purchase | async)?.authorizeSeatReservations"
-            class="mb-4 bg-white p-3">
-            <div class="mb-3">
-                <div class="mb-1">
-                    <p class="font-weight-bold text-large">
-                        {{ authorizeSeatReservation.object.event.name | changeLanguage }}</p>
-                    <p class="text-small"
-                        *ngIf="authorizeSeatReservation.object.event.superEvent.headline && (authorizeSeatReservation.object.event.superEvent.headline | changeLanguage)">
-                        {{ authorizeSeatReservation.object.event.superEvent.headline | changeLanguage }}</p>
-                    <p class="text-small"
-                        *ngIf="authorizeSeatReservation.object.event.superEvent.description && (authorizeSeatReservation.object.event.superEvent.description | changeLanguage)">{{
-                        authorizeSeatReservation.object.event.superEvent.description | changeLanguage }}</p>
-                </div>
-                <p class="mb-1">
-                    {{ authorizeSeatReservation.object.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ authorizeSeatReservation.object.event.endDate | formatDate: 'HH:mm' }}
-                </p>
-                <p class="text-small mb-1">
-                    <span class="theater-name">
-                        {{ authorizeSeatReservation.object.event.superEvent.location.name | changeLanguage }}
-                    </span>
-                    <span class="screen-name">
-                        &nbsp;/&nbsp;<span
-                            *ngIf="authorizeSeatReservation.object.event.location.address | changeLanguage"
-                            class="mr-2">{{ authorizeSeatReservation.object.event.location.address | changeLanguage }}</span>{{ authorizeSeatReservation.object.event.location.name | changeLanguage }}
-                    </span>
-                    <span
-                        *ngIf="authorizeSeatReservation.object.event.workPerformed?.duration && moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() > 0">
-                        &nbsp;/&nbsp;<span
-                            class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(authorizeSeatReservation.object.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
-                    </span>
-                </p>
+            class="mb-4">
+            <app-item-event [screeningEvent]="authorizeSeatReservation.object.event"></app-item-event>
+            <div class="bg-white p-3">
+                <app-item-list
+                    [authorizeSeatReservations]="authorizeSeatReservation?.result?.responseBody.object.reservations">
+                </app-item-list>
             </div>
-            <hr class="mb-3">
-            <app-item-list
-                [authorizeSeatReservations]="authorizeSeatReservation?.result?.responseBody.object.reservations">
-            </app-item-list>
         </div>
 
         <div *ngIf="profile" class="mb-4 px-3 bg-white">

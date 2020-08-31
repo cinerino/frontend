@@ -528,7 +528,9 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             const environment = getEnvironment();
             const transaction = payload.transaction;
-            const authorizeSeatReservations = payload.authorizeSeatReservations;
+            const authorizeSeatReservations = Functions.Purchase.authorizeSeatReservation2Event({
+                authorizeSeatReservations: payload.authorizeSeatReservations
+            });
             const seller = payload.seller;
             const linyId = payload.linyId;
             try {
@@ -542,7 +544,8 @@ export class PurchaseEffects {
                     email: {
                         sender: {
                             name: (this.translate.instant('email.purchase.complete.sender.name') === '')
-                                ? undefined : this.translate.instant('email.purchase.complete.sender.name'),
+                                ? authorizeSeatReservations[0].event.superEvent.location.name?.ja
+                                : this.translate.instant('email.purchase.complete.sender.name'),
                             email: (this.translate.instant('email.purchase.complete.sender.email') === '')
                                 ? undefined : this.translate.instant('email.purchase.complete.sender.email')
                         },
@@ -565,7 +568,7 @@ export class PurchaseEffects {
                         : `/default${path}`;
                     const view = await this.utilService.getText(url);
                     params.email.template = (<any>window).ejs.render(view, {
-                        authorizeSeatReservations: Functions.Purchase.authorizeSeatReservation2Event({ authorizeSeatReservations }),
+                        authorizeSeatReservations,
                         seller,
                         moment,
                         formatTelephone: Functions.Util.formatTelephone,
@@ -603,7 +606,7 @@ export class PurchaseEffects {
                     try {
                         const view = await this.utilService.getText(`${Functions.Util.getProject().storageUrl}/ejs/liny/complete/${payload.language}.ejs`);
                         const template = (<any>window).ejs.render(view, {
-                            authorizeSeatReservations: Functions.Purchase.authorizeSeatReservation2Event({ authorizeSeatReservations }),
+                            authorizeSeatReservations,
                             seller,
                             order,
                             moment,

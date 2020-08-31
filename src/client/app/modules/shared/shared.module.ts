@@ -24,6 +24,7 @@ import { FooterComponent } from './components/parts/footer/footer.component';
 import { CheckboxComponent } from './components/parts/form/checkbox/checkbox.component';
 import { HeaderMenuComponent } from './components/parts/header-menu/header-menu.component';
 import { HeaderComponent } from './components/parts/header/header.component';
+import { ItemEventComponent } from './components/parts/item-event/item-event.component';
 import { ItemListComponent } from './components/parts/item-list/item-list.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MvtkCheckModalComponent } from './components/parts/mvtk/check-modal/check-modal.component';
@@ -48,7 +49,8 @@ const components = [
   ItemListComponent,
   CheckboxComponent,
   QRCodeImageComponent,
-  OrderDetailComponent
+  OrderDetailComponent,
+  ItemEventComponent,
 ];
 
 const entryComponents = [

@@ -72,37 +72,31 @@
       /* harmony import */
 
 
-      var ___WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-      /*! ../../../../.. */
-      "./app/index.ts");
-      /* harmony import */
-
-
-      var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! ../../../../../../environments/environment */
       "./environments/environment.ts");
       /* harmony import */
 
 
-      var _services__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! ../../../../../services */
       "./app/services/index.ts");
       /* harmony import */
 
 
-      var _store_reducers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _store_reducers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! ../../../../../store/reducers */
       "./app/store/reducers/index.ts");
       /* harmony import */
 
 
-      var _angular_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @angular/common */
       "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
       /* harmony import */
 
 
-      var _shared_components_parts_order_detail_detail_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var _shared_components_parts_order_detail_detail_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! ../../../../shared/components/parts/order/detail/detail.component */
       "./app/modules/shared/components/parts/order/detail/detail.component.ts");
 
@@ -299,7 +293,7 @@
           this.qrcodeService = qrcodeService;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
           this.orderStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
-          this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
+          this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
         }
         /**
          * 初期化
@@ -312,88 +306,35 @@
             return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
               var _this = this;
 
-              var order, findResult, time;
+              var time;
               return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
                       this.eventOrders = [];
-                      this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
-                      this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
-                      this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getOrder"]));
-                      this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getUser"]));
-                      _context.prev = 5;
-                      _context.next = 8;
-                      return this.actionService.order.getData();
+                      this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
+                      this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getError"]));
+                      this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getOrder"]));
+                      this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
 
-                    case 8:
-                      order = _context.sent.order;
-
-                      if (!(order === undefined)) {
-                        _context.next = 11;
-                        break;
+                      try {
+                        if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
+                          time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
+                          this.timer = setTimeout(function () {
+                            _this.router.navigate(['/inquiry/input']);
+                          }, time);
+                        }
+                      } catch (error) {
+                        console.error(error);
+                        this.router.navigate(['/error']);
                       }
 
-                      throw new Error('order undefined');
-
-                    case 11:
-                      this.eventOrders = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.order2EventOrders({
-                        order: order
-                      });
-                      findResult = this.eventOrders.find(function (o) {
-                        return ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Order.isShowQRCode(o.event);
-                      });
-
-                      if (!(this.environment.INQUIRY_QRCODE && findResult !== undefined)) {
-                        _context.next = 22;
-                        break;
-                      }
-
-                      _context.next = 16;
-                      return this.actionService.order.authorize(order);
-
-                    case 16:
-                      _context.next = 18;
-                      return this.actionService.order.getData();
-
-                    case 18:
-                      order = _context.sent.order;
-
-                      if (!(order === undefined)) {
-                        _context.next = 21;
-                        break;
-                      }
-
-                      throw new Error('order undefined');
-
-                    case 21:
-                      this.eventOrders = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.order2EventOrders({
-                        order: order
-                      });
-
-                    case 22:
-                      if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
-                        time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
-                        this.timer = setTimeout(function () {
-                          _this.router.navigate(['/inquiry/input']);
-                        }, time);
-                      }
-
-                      _context.next = 29;
-                      break;
-
-                    case 25:
-                      _context.prev = 25;
-                      _context.t0 = _context["catch"](5);
-                      console.error(_context.t0);
-                      this.router.navigate(['/error']);
-
-                    case 29:
+                    case 6:
                     case "end":
                       return _context.stop();
                   }
                 }
-              }, _callee, this, [[5, 25]]);
+              }, _callee, this);
             }));
           }
           /**
@@ -684,7 +625,7 @@
       }();
 
       InquiryConfirmComponent.ɵfac = function InquiryConfirmComponent_Factory(t) {
-        return new (t || InquiryConfirmComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["QRCodeService"]));
+        return new (t || InquiryConfirmComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["QRCodeService"]));
       };
 
       InquiryConfirmComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -761,8 +702,8 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](13, 13, "inquiry.confirm.prev"));
           }
         },
-        directives: [_angular_common__WEBPACK_IMPORTED_MODULE_10__["NgIf"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLink"], _shared_components_parts_order_detail_detail_component__WEBPACK_IMPORTED_MODULE_11__["OrderDetailComponent"]],
-        pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["AsyncPipe"]],
+        directives: [_angular_common__WEBPACK_IMPORTED_MODULE_9__["NgIf"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLink"], _shared_components_parts_order_detail_detail_component__WEBPACK_IMPORTED_MODULE_10__["OrderDetailComponent"]],
+        pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["AsyncPipe"]],
         styles: [""]
       });
       /*@__PURE__*/
@@ -781,13 +722,13 @@
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["QRCodeService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_7__["QRCodeService"]
           }];
         }, null);
       })();
@@ -859,31 +800,37 @@
       /* harmony import */
 
 
-      var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var ___WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! ../../../../.. */
+      "./app/index.ts");
+      /* harmony import */
+
+
+      var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! ../../../../../../environments/environment */
       "./environments/environment.ts");
       /* harmony import */
 
 
-      var _services__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var _services__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! ../../../../../services */
       "./app/services/index.ts");
       /* harmony import */
 
 
-      var _store_reducers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _store_reducers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! ../../../../../store/reducers */
       "./app/store/reducers/index.ts");
       /* harmony import */
 
 
-      var _angular_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! @angular/common */
       "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
       /* harmony import */
 
 
-      var _shared_components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var _shared_components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! ../../../../shared/components/parts/numeric-keypad/numeric-keypad.component */
       "./app/modules/shared/components/parts/numeric-keypad/numeric-keypad.component.ts");
 
@@ -1293,7 +1240,7 @@
           this.actionService = actionService;
           this.router = router;
           this.translate = translate;
-          this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
+          this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
           this.SearchCountryField = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_6__["SearchCountryField"];
           this.TooltipLabel = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_6__["TooltipLabel"];
           this.CountryISO = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_6__["CountryISO"];
@@ -1308,7 +1255,7 @@
           value: function ngOnInit() {
             var _this3 = this;
 
-            this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
+            this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_10__["getLoading"]));
             this.createInquiryForm();
             setTimeout(function () {
               if (_this3.intlTelInput === undefined) {
@@ -1376,7 +1323,7 @@
             return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
               var _this4 = this;
 
-              var confirmationNumber, telephone;
+              var confirmationNumber, telephone, order, eventOrders, findResult;
               return regeneratorRuntime.wrap(function _callee5$(_context5) {
                 while (1) {
                   switch (_context5.prev = _context5.next) {
@@ -1410,12 +1357,61 @@
                       });
 
                     case 10:
+                      _context5.next = 12;
+                      return this.actionService.order.getData();
+
+                    case 12:
+                      order = _context5.sent.order;
+
+                      if (!(order === undefined)) {
+                        _context5.next = 15;
+                        break;
+                      }
+
+                      throw new Error('order undefined');
+
+                    case 15:
+                      eventOrders = ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Purchase.order2EventOrders({
+                        order: order
+                      });
+                      findResult = eventOrders.find(function (o) {
+                        return ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Order.isShowQRCode(o.event);
+                      });
+
+                      if (!(this.environment.INQUIRY_QRCODE && findResult !== undefined)) {
+                        _context5.next = 26;
+                        break;
+                      }
+
+                      _context5.next = 20;
+                      return this.actionService.order.authorize(order);
+
+                    case 20:
+                      _context5.next = 22;
+                      return this.actionService.order.getData();
+
+                    case 22:
+                      order = _context5.sent.order;
+
+                      if (!(order === undefined)) {
+                        _context5.next = 25;
+                        break;
+                      }
+
+                      throw new Error('order undefined');
+
+                    case 25:
+                      eventOrders = ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Purchase.order2EventOrders({
+                        order: order
+                      });
+
+                    case 26:
                       this.router.navigate(['/inquiry/confirm']);
-                      _context5.next = 17;
+                      _context5.next = 33;
                       break;
 
-                    case 13:
-                      _context5.prev = 13;
+                    case 29:
+                      _context5.prev = 29;
                       _context5.t0 = _context5["catch"](7);
                       console.error(_context5.t0);
                       this.utilService.openAlert({
@@ -1423,12 +1419,12 @@
                         body: this.translate.instant('inquiry.input.validation')
                       });
 
-                    case 17:
+                    case 33:
                     case "end":
                       return _context5.stop();
                   }
                 }
-              }, _callee5, this, [[7, 13]]);
+              }, _callee5, this, [[7, 29]]);
             }));
           }
           /**
@@ -1455,7 +1451,7 @@
       }();
 
       InquiryInputComponent.ɵfac = function InquiryInputComponent_Factory(t) {
-        return new (t || InquiryInputComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
+        return new (t || InquiryInputComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
       };
 
       InquiryInputComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -1626,8 +1622,8 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !ctx.environment.PORTAL_SITE_URL);
           }
         },
-        directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["NgIf"], _shared_components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_11__["NumericKeypadComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_6__["NativeElementInjectorDirective"], ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_6__["NgxIntlTelInputComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLink"]],
-        pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["AsyncPipe"]],
+        directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgIf"], _shared_components_parts_numeric_keypad_numeric_keypad_component__WEBPACK_IMPORTED_MODULE_12__["NumericKeypadComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_6__["NativeElementInjectorDirective"], ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_6__["NgxIntlTelInputComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLink"]],
+        pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["AsyncPipe"]],
         styles: [".inquiry-form[_ngcontent-%COMP%] {\n  max-width: 500px;\n}"]
       });
       /*@__PURE__*/
@@ -1646,9 +1642,9 @@
           }, {
             type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]
           }, {

@@ -7,32 +7,11 @@
         </p>
     </div>
 </div>
-<div *ngFor="let eventOrder of eventOrders" class="mb-4 bg-white p-3">
-    <div class="mb-3">
-        <div class="mb-1">
-            <p class="font-weight-bold text-large">{{ eventOrder.event.name | changeLanguage }}</p>
-            <p class="text-small"
-                *ngIf="eventOrder.event.superEvent.headline && (eventOrder.event.superEvent.headline | changeLanguage)">
-                {{ eventOrder.event.superEvent.headline | changeLanguage }}</p>
-            <p class="text-small"
-                *ngIf="eventOrder.event.superEvent.description && (eventOrder.event.superEvent.description | changeLanguage)">{{
-                eventOrder.event.superEvent.description | changeLanguage }}</p>
-        </div>
-        <p class="mb-1">
-            {{ eventOrder.event.startDate | formatDate: 'MM/DD(ddd) HH:mm' }}-{{ eventOrder.event.endDate | formatDate: 'HH:mm' }}
-        </p>
-        <p class="text-small mb-1">
-            <span class="theater-name">{{ eventOrder.event.superEvent.location.name | changeLanguage }}</span>
-            <span class="screen-name">&nbsp;/&nbsp;<span *ngIf="eventOrder.event.location.address | changeLanguage" class="mr-2">{{ eventOrder.event.location.address | changeLanguage }}</span>{{ eventOrder.event.location.name | changeLanguage }}</span>
-            <span
-                *ngIf="eventOrder.event.workPerformed?.duration && moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() > 0">
-                &nbsp;/&nbsp;<span
-                    class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(eventOrder.event.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
-            </span>
-        </p>
+<div *ngFor="let eventOrder of eventOrders" class="mb-4">
+    <app-item-event [screeningEvent]="eventOrder.event"></app-item-event>
+    <div class="bg-white p-3">
+        <app-item-list [acceptedOffers]="eventOrder.data" [qrcode]="environment.INQUIRY_QRCODE"></app-item-list>
     </div>
-    <hr class="mb-3">
-    <app-item-list [acceptedOffers]="eventOrder.data" [qrcode]="environment.INQUIRY_QRCODE"></app-item-list>
 </div>
 
 

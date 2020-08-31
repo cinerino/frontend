@@ -45,20 +45,6 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
         this.order = this.store.pipe(select(reducers.getOrder));
         this.user = this.store.pipe(select(reducers.getUser));
         try {
-            let order = (await this.actionService.order.getData()).order;
-            if (order === undefined) {
-                throw new Error('order undefined');
-            }
-            this.eventOrders = Functions.Purchase.order2EventOrders({ order });
-            const findResult = this.eventOrders.find(o => Functions.Order.isShowQRCode(o.event));
-            if (this.environment.INQUIRY_QRCODE && findResult !== undefined) {
-                await this.actionService.order.authorize(order);
-                order = (await this.actionService.order.getData()).order;
-                if (order === undefined) {
-                    throw new Error('order undefined');
-                }
-                this.eventOrders = Functions.Purchase.order2EventOrders({ order });
-            }
             if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
                 const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
                 this.timer = setTimeout(() => {
