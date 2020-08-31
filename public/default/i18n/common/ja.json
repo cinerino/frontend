@@ -152,23 +152,11 @@
             "read": "マイページ各種設定ができます。",
             "next": "",
             "prev": "戻る",
-            "list": {
-                "profile": {
-                    "title": "会員情報",
-                    "read": "会員情報を編集できます。",
-                    "next": "移動"
-                },
-                "credit": {
-                    "title": "クレジットカード",
-                    "read": "クレジットカード情報の管理ができます。",
-                    "next": "移動"
-                },
-                "account": {
-                    "title": "口座",
-                    "read": "口座の管理ができます。",
-                    "next": "移動"
-                }
-            }
+            "profile": "会員情報",
+            "credit": "クレジットカード",
+            "reservation": "予約履歴",
+            "order": "注文履歴",
+            "account": "口座"
         },
         "profile": {
             "title": "会員情報",
@@ -191,6 +179,26 @@
             "confirm": {
                 "remove": "クレジットカードを削除してよろしいですか？"
             }
+        },
+        "order": {
+            "title": "注文履歴",
+            "read": "注文履歴の確認ができます。",
+            "next": "詳細",
+            "prev": "戻る",
+            "notfound":"注文履歴がありません。"
+        },
+        "orderDetail": {
+            "title": "注文履歴詳細",
+            "read": "注文履歴詳細の確認ができます。",
+            "next": "",
+            "prev": "戻る"
+        },
+        "reservation": {
+            "title": "予約履歴",
+            "read": "予約履歴の確認ができます。",
+            "next": "",
+            "prev": "戻る",
+            "notfound":"予約履歴がありません。"
         },
         "account": {
             "title": "口座情報",
@@ -415,7 +423,9 @@
             "OpenAccount": "口座を開設しています",
             "CloseAccount": "口座を閉鎖しています",
             "ChargeAccount": "口座に入金しています",
-            "TransferAccount": "口座から転送しています"
+            "TransferAccount": "口座から転送しています",
+            "GetReservations": "予約情報を取得しています",
+            "GetOrders": "注文情報を取得しています"
         }
     },
     "footer": {
@@ -494,6 +504,7 @@
         },
         "confirmationNumber": "確認番号",
         "orderNumber": "注文番号",
+        "reservationNumber": "予約番号",
         "seller": "販売者",
         "screen": "スクリーン",
         "event": "作品",
@@ -509,9 +520,10 @@
         "admission": "入場",
         "reservation": "予約",
         "amount": "決済金額",
+        "price": "金額",
         "dubbing": "吹替版",
         "subtitles": "字幕版",
-        "orderDate": "購入日時",
+        "orderDate": "注文日時",
         "orderStatus": "注文ステータス",
         "additionalTicketText": "予約メモ",
         "qrcode": "QRコード",

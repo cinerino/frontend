@@ -2,39 +2,36 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'mypage.index.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'mypage.index.read' | translate"></p>
 
-    <ul class="d-md-flex">
-        <li class="my-md-2 mb-3">
-            <div class="card mx-md-2 h-100">
-                <div class="card-body">
-                    <h5 class="card-title font-weight-bold">{{ 'mypage.index.list.profile.title' | translate }}
-                    </h5>
-                    <p class="card-text mb-3">{{ 'mypage.index.list.profile.read' | translate }}</p>
-                    <button type="button" routerLink="/mypage/profile"
-                        class="btn btn-primary">{{ 'mypage.index.list.profile.next' | translate }}</button>
-                </div>
+    <div class="container px-0">
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <button type="button" routerLink="/mypage/profile"
+                    class="btn btn-primary btn-block py-3 mb-3">
+                    <span class="d-block mb-2">{{ 'mypage.index.profile' | translate }}</span>
+                    <span class="d-block text-x-large"><i class="fas fa-user-circle"></i></span>
+                </button>
             </div>
-        </li>
-        <li class="my-md-2 mb-3">
-            <div class="card mx-md-2 h-100">
-                <div class="card-body">
-                    <h5 class="card-title font-weight-bold">{{ 'mypage.index.list.credit.title' | translate }}
-                    </h5>
-                    <p class="card-text mb-3">{{ 'mypage.index.list.credit.read' | translate }}</p>
-                    <button type="button" routerLink="/mypage/credit"
-                        class="btn btn-primary">{{ 'mypage.index.list.credit.next' | translate }}</button>
-                </div>
+            <div class="col-md-4 col-12">
+                <button type="button" routerLink="/mypage/credit"
+                    class="btn btn-primary btn-block py-3 mb-3">
+                    <span class="d-block mb-2">{{ 'mypage.index.credit' | translate }}</span>
+                    <span class="d-block text-x-large"><i class="far fa-credit-card"></i></span>
+                </button>
             </div>
-        </li>
-        <!-- <li class="my-md-2 mb-3">
-            <div class="card mx-md-2 h-100">
-                <div class="card-body">
-                    <h5 class="card-title font-weight-bold">{{ 'mypage.index.list.account.title' | translate }}
-                    </h5>
-                    <p class="card-text mb-3">{{ 'mypage.index.list.account.read' | translate }}</p>
-                    <button type="button" routerLink="/mypage/account"
-                        class="btn btn-primary">{{ 'mypage.index.list.account.next' | translate }}</button>
-                </div>
+            <div class="col-md-4 col-12">
+                <button type="button" routerLink="/mypage/order"
+                    class="btn btn-primary btn-block py-3 mb-3">
+                    <span class="d-block mb-2">{{ 'mypage.index.order' | translate }}</span>
+                    <span class="d-block text-x-large"><i class="fas fa-list"></i></span>
+                </button>
             </div>
-        </li> -->
-    </ul>
+            <div class="col-md-4 col-12">
+                <button type="button" routerLink="/mypage/reservation"
+                    class="btn btn-primary btn-block py-3 mb-3">
+                    <span class="d-block mb-2">{{ 'mypage.index.reservation' | translate }}</span>
+                    <span class="d-block text-x-large"><i class="fas fa-list"></i></span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,44 @@
+<div class="mb-4 px-3 py-2 bg-white">
+    <div class="row align-items-center">
+        <p class="col-4">
+            {{ 'common.confirmationNumber' | translate }}</p>
+        <p class="col-8 text-large text-info font-weight-bold">
+            {{ order.confirmationNumber }}
+        </p>
+    </div>
+</div>
+<div *ngFor="let eventOrder of eventOrders" class="mb-4">
+    <app-item-event [screeningEvent]="eventOrder.event"></app-item-event>
+    <div class="bg-white p-3">
+        <app-item-list [acceptedOffers]="eventOrder.data" [qrcode]="environment.INQUIRY_QRCODE"></app-item-list>
+    </div>
+</div>
+
+
+<div class="mb-4 px-3 bg-white">
+    <div class="py-3 border-bottom border-gray customer-name">
+        <div class="row align-items-center">
+            <p class="mb-2 mb-md-0 col-md-4">{{ 'common.customerName' | translate }}</p>
+            <p class="col-md-8">{{ order.customer.familyName }}
+                {{ order.customer.givenName }}</p>
+        </div>
+    </div>
+    <div class="py-3 border-bottom border-gray email">
+        <div class="row align-items-center">
+            <p class="mb-2 mb-md-0 col-md-4">{{ 'form.label.email' | translate }}</p>
+            <p class="col-md-8">{{ order.customer.email }}</p>
+        </div>
+    </div>
+    <div *ngIf="order.customer.telephone" class="py-3 telephone">
+        <div class="row align-items-center">
+            <p class="mb-2 mb-md-0 col-md-4">{{ 'form.label.telephone' | translate }}</p>
+            <p class="col-md-8">{{ order.customer.telephone | libphonenumberFormat }}</p>
+        </div>
+    </div>
+    <!-- <div class="py-3" *ngIf="order.price > 0">
+        <div class="row align-items-center">
+            <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
+            <p class="col-md-8">クレジットカード</p>
+        </div>
+    </div> -->
+</div>

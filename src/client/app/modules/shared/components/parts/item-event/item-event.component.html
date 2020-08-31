@@ -1,0 +1,32 @@
+<div class="p-3 bg-gray">
+    <div class="mb-2">
+        <p class="font-weight-bold text-large">{{ screeningEvent.name | changeLanguage }}</p>
+        <p class="text-small"
+            *ngIf="screeningEvent.superEvent.headline && (screeningEvent.superEvent.headline | changeLanguage)">
+            {{ screeningEvent.superEvent.headline | changeLanguage }}</p>
+        <p class="text-small"
+            *ngIf="screeningEvent.superEvent.description && (screeningEvent.superEvent.description | changeLanguage)">{{
+            screeningEvent.superEvent.description | changeLanguage }}</p>
+    </div>
+    <div class="d-flex align-items-center mb-2">
+        <div *ngIf="screeningEvent.workPerformed?.contentRating"
+            class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{
+                screeningEvent.workPerformed?.contentRating }}</div>
+        <div *ngIf="screeningEvent.superEvent.dubLanguage"
+            class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.dubbing' | translate }}</div>
+        <div *ngIf="screeningEvent.superEvent.subtitleLanguage"
+            class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.subtitles' | translate }}</div>
+        <div *ngIf="screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0"
+            class="text-small ml-auto">
+            <span
+                class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+        </div>
+    </div>
+    <p class="mb-1">
+        {{ moment(screeningEvent.startDate).format('MM/DD(ddd) HH:mm') }}-{{ moment(screeningEvent.endDate).format('MM/DD(ddd) HH:mm') }}
+    </p>
+    <p class="text-small">
+        <span class="theater-name">{{ screeningEvent.superEvent.location.name | changeLanguage }}</span>
+        <span class="screen-name">&nbsp;/&nbsp;<span *ngIf="screeningEvent.location.address | changeLanguage" class="mr-2">{{ screeningEvent.location.address | changeLanguage }}</span>{{ screeningEvent.location.name | changeLanguage }}</span>
+    </p>
+</div>
