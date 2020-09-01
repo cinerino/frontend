@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.1.7 - 2020-09-01
+### Fixed
+ - safariでのベーシック認証不具合修正
+
 ## 3.1.6 - 2020-08-31
 ### Added
  - 注文履歴、予約履歴追加
