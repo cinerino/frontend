@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.1.8 - 2020-09-02
+### Added
+ - スクリーンごとにHTMLを差し込み追加
+
 ## 3.1.7 - 2020-09-01
 ### Fixed
  - safariでのベーシック認証不具合修正
