@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.1.9 - 2020-09-03
+### Changed
+ - 利用規約・注意事項をテキストからHTMLへ変更
+
 ## 3.1.8 - 2020-09-02
 ### Added
  - スクリーンごとにHTMLを差し込み追加
