@@ -24,12 +24,14 @@ export class PurchaseWarningComponent implements OnInit, OnChanges {
 
     public async ngOnChanges() {
         try {
-            const path = `/text/purchase/warning/${this.language}.txt`;
+            const path = `/ejs/purchase/warning/${this.language}.ejs`;
             const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
                 ? `${Functions.Util.getProject().storageUrl}${path}`
                 : `/default${path}`;
-            const result = await this.utilService.getText(url);
-            this.warning = result.replace(/\n/g, '<br>');
+            const view = await this.utilService.getText(url);
+            this.warning = (<any>window).ejs.render(view, {
+                screeningEvent: this.screeningEvent
+            });
         } catch (error) {
             console.error(error);
         }

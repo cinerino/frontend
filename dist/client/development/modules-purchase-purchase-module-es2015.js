@@ -6016,12 +6016,14 @@ class PurchaseTermsComponent {
     ngOnChanges() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const path = `/text/purchase/terms/${this.language}.txt`;
+                const path = `/ejs/purchase/terms/${this.language}.ejs`;
                 const url = (yield ___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.isFile(`${___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl}${path}`))
                     ? `${___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl}${path}`
                     : `/default${path}`;
-                const result = yield this.utilService.getText(url);
-                this.terms = result.replace(/\n/g, '<br>');
+                const view = yield this.utilService.getText(url);
+                this.terms = window.ejs.render(view, {
+                    screeningEvent: this.screeningEvent
+                });
             }
             catch (error) {
                 console.error(error);
@@ -6031,7 +6033,7 @@ class PurchaseTermsComponent {
 }
 PurchaseTermsComponent.ɵfac = function PurchaseTermsComponent_Factory(t) { return new (t || PurchaseTermsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["UtilService"])); };
 PurchaseTermsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchaseTermsComponent, selectors: [["app-purchase-terms"]], inputs: { language: "language", screeningEvent: "screeningEvent" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵNgOnChangesFeature"]], decls: 1, vars: 1, consts: [[1, "border", "bg-white", "p-3", "text-small", "scroll-vertical", "border", 3, "innerHTML"]], template: function PurchaseTermsComponent_Template(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "p", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "div", 0);
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("innerHTML", ctx.terms, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeHtml"]);
     } }, styles: [".scroll-vertical[_ngcontent-%COMP%] {\n  max-height: 150px;\n}"] });
@@ -6093,12 +6095,14 @@ class PurchaseWarningComponent {
     ngOnChanges() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const path = `/text/purchase/warning/${this.language}.txt`;
+                const path = `/ejs/purchase/warning/${this.language}.ejs`;
                 const url = (yield ___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.isFile(`${___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl}${path}`))
                     ? `${___WEBPACK_IMPORTED_MODULE_2__["Functions"].Util.getProject().storageUrl}${path}`
                     : `/default${path}`;
-                const result = yield this.utilService.getText(url);
-                this.warning = result.replace(/\n/g, '<br>');
+                const view = yield this.utilService.getText(url);
+                this.warning = window.ejs.render(view, {
+                    screeningEvent: this.screeningEvent
+                });
             }
             catch (error) {
                 console.error(error);
@@ -6108,7 +6112,7 @@ class PurchaseWarningComponent {
 }
 PurchaseWarningComponent.ɵfac = function PurchaseWarningComponent_Factory(t) { return new (t || PurchaseWarningComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_4__["UtilService"])); };
 PurchaseWarningComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: PurchaseWarningComponent, selectors: [["app-purchase-warning"]], inputs: { language: "language", screeningEvent: "screeningEvent" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵNgOnChangesFeature"]], decls: 1, vars: 1, consts: [[1, "border", "bg-white", "p-3", "text-small", "scroll-vertical", "border", 3, "innerHTML"]], template: function PurchaseWarningComponent_Template(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "p", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "div", 0);
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("innerHTML", ctx.warning, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeHtml"]);
     } }, styles: [".scroll-vertical[_ngcontent-%COMP%] {\n  max-height: 150px;\n}"] });
