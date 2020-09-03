@@ -24,12 +24,14 @@ export class PurchaseTermsComponent implements OnInit, OnChanges {
 
     public async ngOnChanges() {
         try {
-            const path = `/text/purchase/terms/${this.language}.txt`;
+            const path = `/ejs/purchase/terms/${this.language}.ejs`;
             const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
                 ? `${Functions.Util.getProject().storageUrl}${path}`
                 : `/default${path}`;
-            const result = await this.utilService.getText(url);
-            this.terms = result.replace(/\n/g, '<br>');
+            const view = await this.utilService.getText(url);
+            this.terms = (<any>window).ejs.render(view, {
+                screeningEvent: this.screeningEvent
+            });
         } catch (error) {
             console.error(error);
         }
