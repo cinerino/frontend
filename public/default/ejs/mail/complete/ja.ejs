@@ -10,13 +10,18 @@
 | #{order.confirmationNumber}
 | ※チケット発券の際に必要になります。
 | 
+| [予約]
 <% for (let i = 0; i < authorizeSeatReservations.length; i++) { %>
 <% const event = authorizeSeatReservations[i].event; %>
 <% const reservations = authorizeSeatReservations[i].reservations; %>
 <% if (authorizeSeatReservations.length > 1) { %>| [<%= (i + 1) %>件目]<% } %>
+| 
 | <%= event.name.ja %>
+| 
 | <%= moment(event.startDate).tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %> - <%= moment(event.endDate).tz('Asia/Tokyo').locale('ja').format('HH:mm') %>
+| 
 | <%= event.superEvent.location.name.ja %> / <%= event.location.name.ja %>
+| 
 <% for (let reservation of reservations) { %>
 <% if (reservation.reservedTicket.ticketedSeat) { %>| <%= reservation.reservedTicket.ticketedSeat.seatNumber %> <% } %>
 <% for (let priceComponent of reservation.price.priceComponent) { %>
