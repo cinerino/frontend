@@ -6,12 +6,16 @@
                 || (performance.isInfinitetock() && environment.VIEW_TYPE === viewType.Cinema)
                 }" (click)="select.emit(performance.screeningEvent)">
     <div class="col-md-12 col-8 px-0">
-        <div class="mb-1 text-small screen-name">
+        <div *ngIf="environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries'" class="mb-1 text-small screen-name">
             <p *ngIf="performance.screeningEvent.location.address | changeLanguage"
                 class="text-overflow-ellipsis mr-2 mr-md-0 d-inline-block d-md-block">
                 {{ performance.screeningEvent.location.address | changeLanguage }}</p>
             <p class="text-overflow-ellipsis d-inline-block d-md-block">
                 {{ performance.screeningEvent.location.name | changeLanguage }}</p>
+        </div>
+        <div *ngIf="environment.PURCHASE_SCHEDULE_SORT === 'screen'" class="mb-1 text-small screen-name">
+            <p class="text-overflow-ellipsis d-inline-block d-md-block">
+                {{ performance.screeningEvent.name | changeLanguage }}</p>
         </div>
         <div>
             <strong class="text-large">{{ moment(performance.screeningEvent.startDate).format('HH:mm') }}</strong>
@@ -44,7 +48,7 @@
             </div>
         </div>
 
-        
+
         <div class="status" *ngIf="performance.isSales('end')">
             {{ 'common.performance.status.endSale' | translate }}</div>
         <div class="status" *ngIf="performance.isSales('start')">

@@ -75791,7 +75791,7 @@ class MasterService {
                 const limit = 100;
                 let page = 1;
                 let roop = true;
-                let screeningEvents = [];
+                let result = [];
                 yield this.cinerinoService.getServices();
                 const now = moment__WEBPACK_IMPORTED_MODULE_4__((yield this.utilService.getServerTime()).date).toDate();
                 while (roop) {
@@ -75808,73 +75808,146 @@ class MasterService {
                             availableThrough: now
                         }
                     });
-                    screeningEvents = screeningEvents.concat(searchResult.data);
+                    result = [...result, ...searchResult.data];
                     page++;
                     roop = searchResult.data.length === limit;
                     yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.sleep(500);
                 }
                 const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
-                if (environment.PURCHASE_SCHEDULE_SORT) {
-                    const workPerformedIdentifiers = [];
-                    screeningEvents.forEach(s => {
-                        var _a;
-                        if (((_a = s.workPerformed) === null || _a === void 0 ? void 0 : _a.identifier) === undefined
-                            || workPerformedIdentifiers.find(id => { var _a; return id === ((_a = s.workPerformed) === null || _a === void 0 ? void 0 : _a.identifier); }) !== undefined) {
-                            return;
-                        }
-                        workPerformedIdentifiers.push(s.workPerformed.identifier);
+                if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
+                    result = yield this.sortScreeningEventSeries({
+                        screeningEvents: result,
+                        superEvent: params.superEvent
                     });
-                    page = 1;
-                    roop = true;
-                    let screeningEventSeries = [];
-                    yield this.cinerinoService.getServices();
-                    while (roop) {
-                        const searchResult = yield this.cinerinoService.event.search({
-                            page,
-                            limit,
-                            typeOf: _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventType.ScreeningEventSeries,
-                            location: {
-                                branchCodes: params.superEvent.locationBranchCodes
-                            },
-                            workPerformed: {
-                                identifiers: workPerformedIdentifiers
-                            }
-                        });
-                        screeningEventSeries = screeningEventSeries.concat(searchResult.data);
-                        page++;
-                        roop = searchResult.data.length === limit;
-                        yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.sleep(500);
-                    }
-                    screeningEvents = screeningEvents.sort((a, b) => {
-                        var _a, _b, _c, _d, _e, _f;
-                        const KEY_NAME = 'sortNumber';
-                        const sortNumberA = (_c = (_b = (_a = screeningEventSeries
-                            .find(s => s.id === a.superEvent.id)) === null || _a === void 0 ? void 0 : _a.additionalProperty) === null || _b === void 0 ? void 0 : _b.find(p => p.name === KEY_NAME)) === null || _c === void 0 ? void 0 : _c.value;
-                        const sortNumberB = (_f = (_e = (_d = screeningEventSeries
-                            .find(s => s.id === b.superEvent.id)) === null || _d === void 0 ? void 0 : _d.additionalProperty) === null || _e === void 0 ? void 0 : _e.find(p => p.name === KEY_NAME)) === null || _f === void 0 ? void 0 : _f.value;
-                        if (sortNumberA === undefined) {
-                            return 1;
-                        }
-                        if (sortNumberB === undefined) {
-                            return -1;
-                        }
-                        if (Number(sortNumberA) > Number(sortNumberB)) {
-                            return -1;
-                        }
-                        if (Number(sortNumberA) < Number(sortNumberB)) {
-                            return 1;
-                        }
-                        return 0;
+                }
+                else if (environment.PURCHASE_SCHEDULE_SORT === 'screen') {
+                    result = yield this.sortScreen({
+                        screeningEvents: result
                     });
                 }
                 this.utilService.loadEnd();
-                return screeningEvents;
+                return result;
             }
             catch (error) {
                 this.utilService.setError(error);
                 this.utilService.loadEnd();
                 throw error;
             }
+        });
+    }
+    /**
+     * 施設コンテンツsortNumberでのソート
+     */
+    sortScreeningEventSeries(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const workPerformedIdentifiers = [];
+            const screeningEvents = params.screeningEvents;
+            screeningEvents.forEach(s => {
+                var _a;
+                if (((_a = s.workPerformed) === null || _a === void 0 ? void 0 : _a.identifier) === undefined
+                    || workPerformedIdentifiers.find(id => { var _a; return id === ((_a = s.workPerformed) === null || _a === void 0 ? void 0 : _a.identifier); }) !== undefined) {
+                    return;
+                }
+                workPerformedIdentifiers.push(s.workPerformed.identifier);
+            });
+            const limit = 100;
+            let page = 1;
+            let roop = true;
+            let result = [];
+            yield this.cinerinoService.getServices();
+            while (roop) {
+                const searchResult = yield this.cinerinoService.event.search({
+                    page,
+                    limit,
+                    typeOf: _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.eventType.ScreeningEventSeries,
+                    location: {
+                        branchCodes: params.superEvent.locationBranchCodes
+                    },
+                    workPerformed: {
+                        identifiers: workPerformedIdentifiers
+                    }
+                });
+                result = [...result, ...searchResult.data];
+                page++;
+                roop = searchResult.data.length === limit;
+                yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.sleep(500);
+            }
+            const sortResult = screeningEvents.sort((a, b) => {
+                var _a, _b, _c, _d, _e, _f;
+                const KEY_NAME = 'sortNumber';
+                const sortNumberA = (_c = (_b = (_a = result
+                    .find(s => s.id === a.superEvent.id)) === null || _a === void 0 ? void 0 : _a.additionalProperty) === null || _b === void 0 ? void 0 : _b.find(p => p.name === KEY_NAME)) === null || _c === void 0 ? void 0 : _c.value;
+                const sortNumberB = (_f = (_e = (_d = result
+                    .find(s => s.id === b.superEvent.id)) === null || _d === void 0 ? void 0 : _d.additionalProperty) === null || _e === void 0 ? void 0 : _e.find(p => p.name === KEY_NAME)) === null || _f === void 0 ? void 0 : _f.value;
+                if (sortNumberA === undefined) {
+                    return 1;
+                }
+                if (sortNumberB === undefined) {
+                    return -1;
+                }
+                if (Number(sortNumberA) > Number(sortNumberB)) {
+                    return -1;
+                }
+                if (Number(sortNumberA) < Number(sortNumberB)) {
+                    return 1;
+                }
+                return 0;
+            });
+            return sortResult;
+        });
+    }
+    /**
+     * スクリーンsortNumberでのソート
+     */
+    sortScreen(params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const workPerformedIdentifiers = [];
+            const screeningEvents = params.screeningEvents;
+            screeningEvents.forEach(s => {
+                var _a;
+                if (((_a = s.workPerformed) === null || _a === void 0 ? void 0 : _a.identifier) === undefined
+                    || workPerformedIdentifiers.find(id => { var _a; return id === ((_a = s.workPerformed) === null || _a === void 0 ? void 0 : _a.identifier); }) !== undefined) {
+                    return;
+                }
+                workPerformedIdentifiers.push(s.workPerformed.identifier);
+            });
+            const limit = 100;
+            let page = 1;
+            let roop = true;
+            let result = [];
+            yield this.cinerinoService.getServices();
+            while (roop) {
+                const searchResult = yield this.cinerinoService.place.searchScreeningRooms({
+                    page,
+                    limit
+                });
+                result = [...result, ...searchResult.data];
+                page++;
+                roop = searchResult.data.length === limit;
+                yield ___WEBPACK_IMPORTED_MODULE_7__["Functions"].Util.sleep(500);
+            }
+            const sortResult = screeningEvents.sort((a, b) => {
+                var _a, _b, _c, _d, _e, _f;
+                const KEY_NAME = 'sortNumber';
+                const sortNumberA = (_c = (_b = (_a = result
+                    .find(s => s.id === a.superEvent.id)) === null || _a === void 0 ? void 0 : _a.additionalProperty) === null || _b === void 0 ? void 0 : _b.find(p => p.name === KEY_NAME)) === null || _c === void 0 ? void 0 : _c.value;
+                const sortNumberB = (_f = (_e = (_d = result
+                    .find(s => s.id === b.superEvent.id)) === null || _d === void 0 ? void 0 : _d.additionalProperty) === null || _e === void 0 ? void 0 : _e.find(p => p.name === KEY_NAME)) === null || _f === void 0 ? void 0 : _f.value;
+                if (sortNumberA === undefined) {
+                    return 1;
+                }
+                if (sortNumberB === undefined) {
+                    return -1;
+                }
+                if (Number(sortNumberA) > Number(sortNumberB)) {
+                    return -1;
+                }
+                if (Number(sortNumberA) < Number(sortNumberB)) {
+                    return 1;
+                }
+                return 0;
+            });
+            return sortResult;
         });
     }
     /**

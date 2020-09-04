@@ -1,31 +1,34 @@
-<div class="">
-    <div class="p-3 bg-gray">
+<div>
+    <div *ngIf="environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries'" class="p-3 bg-gray">
         <div class="mb-2">
-            <p class="font-weight-bold text-large">{{ screeningWorkEvent.info.name | changeLanguage }}</p>
+            <p class="font-weight-bold text-large">{{ screeningEventsGroup.info.name | changeLanguage }}</p>
             <p class="text-small"
-                *ngIf="screeningWorkEvent.info.superEvent.headline && (screeningWorkEvent.info.superEvent.headline | changeLanguage)">
-                {{ screeningWorkEvent.info.superEvent.headline | changeLanguage }}</p>
+                *ngIf="screeningEventsGroup.info.superEvent.headline && (screeningEventsGroup.info.superEvent.headline | changeLanguage)">
+                {{ screeningEventsGroup.info.superEvent.headline | changeLanguage }}</p>
             <p class="text-small"
-                *ngIf="screeningWorkEvent.info.superEvent.description && (screeningWorkEvent.info.superEvent.description | changeLanguage)">{{
-                screeningWorkEvent.info.superEvent.description | changeLanguage }}</p>
+                *ngIf="screeningEventsGroup.info.superEvent.description && (screeningEventsGroup.info.superEvent.description | changeLanguage)">{{
+                screeningEventsGroup.info.superEvent.description | changeLanguage }}</p>
         </div>
         <div class="d-flex align-items-center">
-            <div *ngIf="screeningWorkEvent.info.workPerformed?.contentRating"
+            <div *ngIf="screeningEventsGroup.info.workPerformed?.contentRating"
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{
-                    screeningWorkEvent.info.workPerformed?.contentRating }}</div>
-            <div *ngIf="screeningWorkEvent.info.superEvent.dubLanguage"
+                    screeningEventsGroup.info.workPerformed?.contentRating }}</div>
+            <div *ngIf="screeningEventsGroup.info.superEvent.dubLanguage"
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.dubbing' | translate }}</div>
-            <div *ngIf="screeningWorkEvent.info.superEvent.subtitleLanguage"
+            <div *ngIf="screeningEventsGroup.info.superEvent.subtitleLanguage"
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{ 'common.subtitles' | translate }}</div>
-            <div *ngIf="screeningWorkEvent.info.workPerformed?.duration && moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() > 0"
+            <div *ngIf="screeningEventsGroup.info.workPerformed?.duration && moment.duration(screeningEventsGroup.info.workPerformed?.duration).asMinutes() > 0"
                 class="text-small ml-auto">
                 <span
-                    class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningWorkEvent.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                    class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEventsGroup.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
             </div>
         </div>
     </div>
+    <div *ngIf="environment.PURCHASE_SCHEDULE_SORT === 'screen'" class="p-3 bg-gray">
+        <p class="font-weight-bold text-large">{{ screeningEventsGroup.info.location.name | changeLanguage }}</p>
+    </div>
     <ul class="py-2 d-flex flex-wrap">
-        <li *ngFor="let performance of screeningWorkEvent.data" class="px-md-2 my-2">
+        <li *ngFor="let performance of screeningEventsGroup.data" class="px-md-2 my-2">
             <app-purchase-performance [performance]="performance" (select)="select.emit($event)" class="mb-3">
             </app-purchase-performance>
         </li>
