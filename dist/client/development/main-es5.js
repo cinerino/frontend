@@ -615,7 +615,7 @@
       !*** ./app/functions/purchase.function.ts ***!
       \********************************************/
 
-    /*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, getMovieTicketTypeOffers */
+    /*! exports provided: screeningEvents2ScreeningEventSeries, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, getMovieTicketTypeOffers */
 
     /***/
     function appFunctionsPurchaseFunctionTs(module, __webpack_exports__, __webpack_require__) {
@@ -625,8 +625,8 @@
       /* harmony export (binding) */
 
 
-      __webpack_require__.d(__webpack_exports__, "screeningEvents2WorkEvents", function () {
-        return screeningEvents2WorkEvents;
+      __webpack_require__.d(__webpack_exports__, "screeningEvents2ScreeningEventSeries", function () {
+        return screeningEvents2ScreeningEventSeries;
       });
       /* harmony export (binding) */
 
@@ -747,22 +747,33 @@
       /* harmony import */
 
 
-      var _models_purchase_performance__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ../../environments/environment */
+      "./environments/environment.ts");
+      /* harmony import */
+
+
+      var _models_purchase_performance__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! ./../models/purchase/performance */
       "./app/models/purchase/performance.ts");
       /**
-       * 作品別イベントへ変換
+       * 施設コンテンツごとのグループへ変換
        */
 
 
-      function screeningEvents2WorkEvents(params) {
+      function screeningEvents2ScreeningEventSeries(params) {
+        var environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
         var result = [];
         var screeningEvents = params.screeningEvents;
         screeningEvents.forEach(function (screeningEvent) {
           var registered = result.find(function (data) {
-            return data.info.superEvent.id === screeningEvent.superEvent.id;
+            if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
+              return data.info.superEvent.id === screeningEvent.superEvent.id;
+            } else {
+              return data.info.location.branchCode === screeningEvent.location.branchCode;
+            }
           });
-          var performance = new _models_purchase_performance__WEBPACK_IMPORTED_MODULE_2__["Performance"](screeningEvent);
+          var performance = new _models_purchase_performance__WEBPACK_IMPORTED_MODULE_3__["Performance"](screeningEvent);
 
           if (registered === undefined) {
             result.push({
@@ -2256,7 +2267,7 @@
         PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
         PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
         PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
-        PURCHASE_SCHEDULE_SORT: true,
+        PURCHASE_SCHEDULE_SORT: 'screeningEventSeries',
         PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE: '0',
         PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT: 'seat',
         PURCHASE_COMPLETE_MAIL_CUSTOM: true,

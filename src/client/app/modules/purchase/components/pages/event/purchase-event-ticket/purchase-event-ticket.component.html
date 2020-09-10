@@ -9,11 +9,11 @@
     </div>
 
     <div class="mb-4">
-        <p *ngIf="screeningWorkEvents.length === 0" class="mb-3">
+        <p *ngIf="screeningEventsGroup.length === 0" class="mb-3">
             {{ 'purchase.event.ticket.notfound' | translate }}
         </p>
-        <app-purchase-performances *ngFor="let screeningWorkEvent of screeningWorkEvents"
-            [screeningWorkEvent]="screeningWorkEvent" (select)="selectSchedule($event)" class="mb-3">
+        <app-purchase-performances *ngFor="let group of screeningEventsGroup"
+            [screeningEventsGroup]="group" (select)="selectSchedule($event)" class="mb-3">
         </app-purchase-performances>
     </div>
 

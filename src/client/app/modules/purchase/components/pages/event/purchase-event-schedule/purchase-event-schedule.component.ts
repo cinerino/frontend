@@ -22,7 +22,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public error: Observable<string | null>;
     public isLoading: Observable<boolean>;
     public screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
-    public screeningWorkEvents: Functions.Purchase.IScreeningEventWork[];
+    public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
     public moment: typeof moment = moment;
     public scheduleDate: Date;
     public environment = getEnvironment();
@@ -51,7 +51,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.user = this.store.pipe(select(reducers.getUser));
         this.error = this.store.pipe(select(reducers.getError));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
-        this.screeningWorkEvents = [];
+        this.screeningEventsGroup = [];
         this.isSales = true;
         try {
             if ((await this.actionService.purchase.getData()).transaction !== undefined) {
@@ -174,7 +174,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            this.screeningWorkEvents = Functions.Purchase.screeningEvents2WorkEvents({ screeningEvents: this.screeningEvents });
+            this.screeningEventsGroup =
+                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents: this.screeningEvents });
             this.update();
         } catch (error) {
             console.error(error);

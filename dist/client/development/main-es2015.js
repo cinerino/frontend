@@ -418,12 +418,12 @@ function isShowQRCode(event) {
 /*!********************************************!*\
   !*** ./app/functions/purchase.function.ts ***!
   \********************************************/
-/*! exports provided: screeningEvents2WorkEvents, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, getMovieTicketTypeOffers */
+/*! exports provided: screeningEvents2ScreeningEventSeries, createGmoTokenObject, sameMovieTicketFilter, isAvailabilityMovieTicket, createMovieTicketsFromAuthorizeSeatReservation, createPaymentMethodFromType, getTicketPrice, getItemPrice, movieTicketAuthErroCodeToMessage, getAmount, order2EventOrders, authorizeSeatReservation2Event, getRemainingSeatLength, isEligibleSeatingType, getEmptySeat, selectAvailableSeat, getMovieTicketTypeOffers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "screeningEvents2WorkEvents", function() { return screeningEvents2WorkEvents; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "screeningEvents2ScreeningEventSeries", function() { return screeningEvents2ScreeningEventSeries; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createGmoTokenObject", function() { return createGmoTokenObject; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sameMovieTicketFilter", function() { return sameMovieTicketFilter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isAvailabilityMovieTicket", function() { return isAvailabilityMovieTicket; });
@@ -444,21 +444,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "../../node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _models_purchase_performance__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../models/purchase/performance */ "./app/models/purchase/performance.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./environments/environment.ts");
+/* harmony import */ var _models_purchase_performance__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../models/purchase/performance */ "./app/models/purchase/performance.ts");
+
 
 
 
 /**
- * 作品別イベントへ変換
+ * 施設コンテンツごとのグループへ変換
  */
-function screeningEvents2WorkEvents(params) {
+function screeningEvents2ScreeningEventSeries(params) {
+    const environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["getEnvironment"])();
     const result = [];
     const screeningEvents = params.screeningEvents;
     screeningEvents.forEach((screeningEvent) => {
         const registered = result.find((data) => {
-            return (data.info.superEvent.id === screeningEvent.superEvent.id);
+            if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
+                return (data.info.superEvent.id === screeningEvent.superEvent.id);
+            }
+            else {
+                return (data.info.location.branchCode === screeningEvent.location.branchCode);
+            }
         });
-        const performance = new _models_purchase_performance__WEBPACK_IMPORTED_MODULE_2__["Performance"](screeningEvent);
+        const performance = new _models_purchase_performance__WEBPACK_IMPORTED_MODULE_3__["Performance"](screeningEvent);
         if (registered === undefined) {
             result.push({
                 info: screeningEvent,
@@ -1443,7 +1451,7 @@ const defaultEnvironment = {
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
-    PURCHASE_SCHEDULE_SORT: true,
+    PURCHASE_SCHEDULE_SORT: 'screeningEventSeries',
     PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE: '0',
     PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT: 'seat',
     PURCHASE_COMPLETE_MAIL_CUSTOM: true,

@@ -97,7 +97,7 @@ export class MasterService {
             const limit = 100;
             let page = 1;
             let roop = true;
-            let screeningEvents: factory.chevre.event.screeningEvent.IEvent[] = [];
+            let result: factory.chevre.event.screeningEvent.IEvent[] = [];
             await this.cinerinoService.getServices();
             const now = moment((await this.utilService.getServerTime()).date).toDate();
             while (roop) {
@@ -114,68 +114,143 @@ export class MasterService {
                         availableThrough: now
                     }
                 });
-                screeningEvents = screeningEvents.concat(searchResult.data);
+                result = [...result, ...searchResult.data];
                 page++;
                 roop = searchResult.data.length === limit;
                 await Functions.Util.sleep(500);
             }
             const environment = getEnvironment();
-            if (environment.PURCHASE_SCHEDULE_SORT) {
-                const workPerformedIdentifiers: string[] = [];
-                screeningEvents.forEach(s => {
-                    if (s.workPerformed?.identifier === undefined
-                        || workPerformedIdentifiers.find(id => id === s.workPerformed?.identifier) !== undefined) {
-                        return;
-                    }
-                    workPerformedIdentifiers.push(s.workPerformed.identifier);
+            if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
+                result = await this.sortScreeningEventSeries({
+                    screeningEvents: result,
+                    superEvent: params.superEvent
                 });
-                page = 1;
-                roop = true;
-                let screeningEventSeries: factory.chevre.event.screeningEventSeries.IEvent[] = [];
-                await this.cinerinoService.getServices();
-                while (roop) {
-                    const searchResult = await this.cinerinoService.event.search({
-                        page,
-                        limit,
-                        typeOf: factory.chevre.eventType.ScreeningEventSeries,
-                        location: {
-                            branchCodes: params.superEvent.locationBranchCodes
-                        },
-                        workPerformed: {
-                            identifiers: workPerformedIdentifiers
-                        }
-                    });
-                    screeningEventSeries = screeningEventSeries.concat(searchResult.data);
-                    page++;
-                    roop = searchResult.data.length === limit;
-                    await Functions.Util.sleep(500);
-                }
-                screeningEvents = screeningEvents.sort((a, b) => {
-                    const KEY_NAME = 'sortNumber';
-                    const sortNumberA = screeningEventSeries
-                        .find(s => s.id === a.superEvent.id)?.additionalProperty
-                        ?.find(p => p.name === KEY_NAME)?.value;
-                    const sortNumberB = screeningEventSeries
-                        .find(s => s.id === b.superEvent.id)?.additionalProperty
-                        ?.find(p => p.name === KEY_NAME)?.value;
-                    if (sortNumberA === undefined) {
-                        return 1;
-                    }
-                    if (sortNumberB === undefined) {
-                        return -1;
-                    }
-                    if (Number(sortNumberA) > Number(sortNumberB)) { return -1; }
-                    if (Number(sortNumberA) < Number(sortNumberB)) { return 1; }
-                    return 0;
+            } else if (environment.PURCHASE_SCHEDULE_SORT === 'screen') {
+                result = await this.sortScreen({
+                    screeningEvents: result
                 });
             }
             this.utilService.loadEnd();
-            return screeningEvents;
+            return result;
         } catch (error) {
             this.utilService.setError(error);
             this.utilService.loadEnd();
             throw error;
         }
+    }
+
+    /**
+     * 施設コンテンツsortNumberでのソート
+     */
+    public async sortScreeningEventSeries(params: {
+        screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
+        superEvent: {
+            ids?: string[];
+            locationBranchCodes?: string[];
+            workPerformedIdentifiers?: string[];
+        };
+    }) {
+        const workPerformedIdentifiers: string[] = [];
+        const screeningEvents = params.screeningEvents;
+        screeningEvents.forEach(s => {
+            if (s.workPerformed?.identifier === undefined
+                || workPerformedIdentifiers.find(id => id === s.workPerformed?.identifier) !== undefined) {
+                return;
+            }
+            workPerformedIdentifiers.push(s.workPerformed.identifier);
+        });
+        const limit = 100;
+        let page = 1;
+        let roop = true;
+        let result: factory.chevre.event.screeningEventSeries.IEvent[] = [];
+        await this.cinerinoService.getServices();
+        while (roop) {
+            const searchResult = await this.cinerinoService.event.search({
+                page,
+                limit,
+                typeOf: factory.chevre.eventType.ScreeningEventSeries,
+                location: {
+                    branchCodes: params.superEvent.locationBranchCodes
+                },
+                workPerformed: {
+                    identifiers: workPerformedIdentifiers
+                }
+            });
+            result = [...result, ...searchResult.data];
+            page++;
+            roop = searchResult.data.length === limit;
+            await Functions.Util.sleep(500);
+        }
+        const sortResult = screeningEvents.sort((a, b) => {
+            const KEY_NAME = 'sortNumber';
+            const sortNumberA = result
+                .find(s => s.id === a.superEvent.id)?.additionalProperty
+                ?.find(p => p.name === KEY_NAME)?.value;
+            const sortNumberB = result
+                .find(s => s.id === b.superEvent.id)?.additionalProperty
+                ?.find(p => p.name === KEY_NAME)?.value;
+            if (sortNumberA === undefined) {
+                return 1;
+            }
+            if (sortNumberB === undefined) {
+                return -1;
+            }
+            if (Number(sortNumberA) > Number(sortNumberB)) { return -1; }
+            if (Number(sortNumberA) < Number(sortNumberB)) { return 1; }
+            return 0;
+        });
+        return sortResult;
+    }
+
+    /**
+     * スクリーンsortNumberでのソート
+     */
+    public async sortScreen(params: {
+        screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
+    }) {
+        const workPerformedIdentifiers: string[] = [];
+        const screeningEvents = params.screeningEvents;
+        screeningEvents.forEach(s => {
+            if (s.workPerformed?.identifier === undefined
+                || workPerformedIdentifiers.find(id => id === s.workPerformed?.identifier) !== undefined) {
+                return;
+            }
+            workPerformedIdentifiers.push(s.workPerformed.identifier);
+        });
+        const limit = 100;
+        let page = 1;
+        let roop = true;
+        let result: factory.chevre.place.screeningRoom.IPlace[] = [];
+        await this.cinerinoService.getServices();
+        while (roop) {
+            const searchResult = await this.cinerinoService.place.searchScreeningRooms({
+                page,
+                limit
+            });
+            result = [...result, ...searchResult.data];
+            page++;
+            roop = searchResult.data.length === limit;
+            await Functions.Util.sleep(500);
+        }
+        const sortResult = screeningEvents.sort((a, b) => {
+            const KEY_NAME = 'sortNumber';
+            const sortNumberA = result
+                .find(s => s.id === a.superEvent.id)?.additionalProperty
+                ?.find(p => p.name === KEY_NAME)?.value;
+            const sortNumberB = result
+                .find(s => s.id === b.superEvent.id)?.additionalProperty
+                ?.find(p => p.name === KEY_NAME)?.value;
+            if (sortNumberA === undefined) {
+                return 1;
+            }
+            if (sortNumberB === undefined) {
+                return -1;
+            }
+            if (Number(sortNumberA) > Number(sortNumberB)) { return -1; }
+            if (Number(sortNumberA) < Number(sortNumberB)) { return 1; }
+            return 0;
+        });
+        return sortResult;
     }
 
     /**

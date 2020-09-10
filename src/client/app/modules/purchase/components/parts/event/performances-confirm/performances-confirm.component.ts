@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { factory } from '@cinerino/sdk';
 import * as moment from 'moment';
 import { Functions } from '../../../../../..';
+import { getEnvironment } from '../../../../../../../environments/environment';
 
 @Component({
     selector: 'app-purchase-event-performances-confirm',
@@ -10,10 +11,11 @@ import { Functions } from '../../../../../..';
 })
 export class PurchaseEventPerformancesConfirmComponent implements OnInit {
 
-    @Input() public screeningWorkEvent: Functions.Purchase.IScreeningEventWork;
+    @Input() public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup;
     @Input() public readonly: boolean;
     @Output() public select = new EventEmitter<factory.chevre.event.screeningEvent.IEvent>();
     public moment = moment;
+    public environment = getEnvironment();
 
     constructor() { }
 

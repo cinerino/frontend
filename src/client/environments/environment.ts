@@ -154,7 +154,7 @@ interface IEnvironment {
     /**
      * スケジュールソート
      */
-    PURCHASE_SCHEDULE_SORT: boolean;
+    PURCHASE_SCHEDULE_SORT: 'screeningEventSeries' | 'screen';
     /**
      * 残席数表示閾値
      */
@@ -274,7 +274,7 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE: '0',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_VALUE: '30',
     PURCHASE_SCHEDULE_STATUS_THRESHOLD_UNIT: '%',
-    PURCHASE_SCHEDULE_SORT: true,
+    PURCHASE_SCHEDULE_SORT: 'screeningEventSeries',
     PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_VALUE: '0',
     PURCHASE_VIEW_REMAINING_SEAT_THRESHOLD_UNIT: 'seat',
     PURCHASE_COMPLETE_MAIL_CUSTOM: true,
