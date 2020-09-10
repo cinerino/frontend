@@ -33,10 +33,10 @@
         <p *ngIf="(purchase | async)?.scheduleDate" class="text-primary text-large mb-3">
             {{ 'purchase.event.schedule.selectedDate' | translate: {value: (purchase | async)?.scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}
         </p>
-        <p *ngIf="screeningWorkEvents.length === 0" class="mb-3"
+        <p *ngIf="screeningEventsGroup.length === 0" class="mb-3"
             [innerHTML]="'purchase.event.schedule.notfound' | translate"></p>
-        <app-purchase-event-performances-confirm *ngFor="let screeningWorkEvent of screeningWorkEvents"
-            [screeningWorkEvent]="screeningWorkEvent" [readonly]="true" class="mb-3">
+        <app-purchase-event-performances-confirm *ngFor="let group of screeningEventsGroup"
+            [screeningEventsGroup]="group" [readonly]="true" class="mb-3">
         </app-purchase-event-performances-confirm>
     </div>
 
@@ -51,10 +51,10 @@
 
     <div class="buttons mx-auto text-center">
         <button *ngIf="isSales && !environment.PURCHASE_TERMS" type="submit" class="btn btn-primary btn-block py-3 mb-3"
-            [disabled]="screeningWorkEvents.length === 0 || (isLoading | async)"
+            [disabled]="screeningEventsGroup.length === 0 || (isLoading | async)"
             (click)="onSubmit()">{{ 'purchase.event.schedule.next' | translate }}</button>
         <button *ngIf="isSales && environment.PURCHASE_TERMS" type="submit" class="btn btn-primary btn-block py-3 mb-3"
-            [disabled]="screeningWorkEvents.length === 0 || (isLoading | async)"
+            [disabled]="screeningEventsGroup.length === 0 || (isLoading | async)"
             (click)="onSubmit()">{{ 'purchase.event.schedule.consent' | translate }}</button>
         <button *ngIf="!isSales" type="button" class="btn btn-primary btn-block py-3 mb-3" disabled
             (click)="onSubmit()">{{ 'purchase.event.schedule.disabled' | translate }}</button>

@@ -27,7 +27,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public swiperConfig: SwiperConfigInterface;
     public scheduleDates: string[];
     public isPreSchedule: boolean;
-    public screeningWorkEvents: Functions.Purchase.IScreeningEventWork[];
+    public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
     public moment: typeof moment = moment;
     public environment = getEnvironment();
     public external = Functions.Util.getExternalData();
@@ -67,7 +67,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.error = this.store.pipe(select(reducers.getError));
         this.isPreSchedule = false;
         this.scheduleDates = [];
-        this.screeningWorkEvents = [];
+        this.screeningEventsGroup = [];
         this.theaters = [];
         try {
             this.theaters = await this.masterService.getTheaters();
@@ -195,7 +195,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').toDate()
             });
-            this.screeningWorkEvents = Functions.Purchase.screeningEvents2WorkEvents({ screeningEvents });
+            this.screeningEventsGroup = Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
             this.update();
         } catch (error) {
             console.error(error);

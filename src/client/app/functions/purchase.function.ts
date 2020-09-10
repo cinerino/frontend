@@ -1,28 +1,34 @@
 import { factory } from '@cinerino/sdk';
 import * as moment from 'moment';
+import { getEnvironment } from '../../environments/environment';
 import { Reservation } from '../models/purchase';
 import { IMovieTicket } from './../models/purchase/movieTicket';
 import { Performance } from './../models/purchase/performance';
 
 /**
-     * 作品別イベント
-     */
-export interface IScreeningEventWork {
+ * イベントグループ
+ */
+export interface IScreeningEventsGroup {
     info: factory.chevre.event.screeningEvent.IEvent;
     data: Performance[];
 }
 
 /**
- * 作品別イベントへ変換
+ * 施設コンテンツごとのグループへ変換
  */
-export function screeningEvents2WorkEvents(params: {
+export function screeningEvents2ScreeningEventSeries(params: {
     screeningEvents: factory.chevre.event.screeningEvent.IEvent[]
 }) {
-    const result: IScreeningEventWork[] = [];
+    const environment = getEnvironment();
+    const result: IScreeningEventsGroup[] = [];
     const screeningEvents = params.screeningEvents;
     screeningEvents.forEach((screeningEvent) => {
         const registered = result.find((data) => {
-            return (data.info.superEvent.id === screeningEvent.superEvent.id);
+            if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
+                return (data.info.superEvent.id === screeningEvent.superEvent.id);
+            } else {
+                return (data.info.location.branchCode === screeningEvent.location.branchCode);
+            }
         });
         const performance = new Performance(screeningEvent);
         if (registered === undefined) {
