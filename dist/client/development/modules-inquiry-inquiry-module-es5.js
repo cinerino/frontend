@@ -1231,13 +1231,14 @@
       }
 
       var InquiryInputComponent = /*#__PURE__*/function () {
-        function InquiryInputComponent(store, formBuilder, utilService, actionService, router, translate) {
+        function InquiryInputComponent(store, formBuilder, utilService, actionService, activatedRoute, router, translate) {
           _classCallCheck(this, InquiryInputComponent);
 
           this.store = store;
           this.formBuilder = formBuilder;
           this.utilService = utilService;
           this.actionService = actionService;
+          this.activatedRoute = activatedRoute;
           this.router = router;
           this.translate = translate;
           this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_8__["getEnvironment"])();
@@ -1312,6 +1313,11 @@
                 return null;
               }] : [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
             });
+            var confirmationNumber = this.activatedRoute.snapshot.params.confirmationNumber;
+
+            if (confirmationNumber !== undefined) {
+              this.inquiryForm.controls.confirmationNumber.setValue(confirmationNumber);
+            }
           }
           /**
            * 照会
@@ -1451,7 +1457,7 @@
       }();
 
       InquiryInputComponent.ɵfac = function InquiryInputComponent_Factory(t) {
-        return new (t || InquiryInputComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
+        return new (t || InquiryInputComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]));
       };
 
       InquiryInputComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -1645,6 +1651,8 @@
             type: _services__WEBPACK_IMPORTED_MODULE_9__["UtilService"]
           }, {
             type: _services__WEBPACK_IMPORTED_MODULE_9__["ActionService"]
+          }, {
+            type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]
           }, {
@@ -1893,6 +1901,9 @@
         component: _shared_components_pages_base_base_component__WEBPACK_IMPORTED_MODULE_2__["BaseComponent"],
         children: [{
           path: 'input',
+          component: _components_pages_inquiry_input_inquiry_input_component__WEBPACK_IMPORTED_MODULE_4__["InquiryInputComponent"]
+        }, {
+          path: 'input/:confirmationNumber',
           component: _components_pages_inquiry_input_inquiry_input_component__WEBPACK_IMPORTED_MODULE_4__["InquiryInputComponent"]
         }, {
           path: 'confirm',
