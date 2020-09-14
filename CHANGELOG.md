@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.2.2 - 2020-09-14
+### Added
+ - 照会ページに確認番号パラメーター追加
+### Fixed
+ - ムビチケ承認順序を修正
+
 ## 3.2.1 - 2020-09-10
 ### Added
  - スクリーンごとにソート追加
