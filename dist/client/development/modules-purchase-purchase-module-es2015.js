@@ -3492,15 +3492,6 @@ class PurchaseConfirmComponent {
             const userData = yield this.actionService.user.getData();
             const language = userData.language;
             try {
-                if (purchaseData.pendingMovieTickets.length > 0) {
-                    yield this.actionService.purchase.authorizeMovieTicket();
-                }
-            }
-            catch (error) {
-                this.router.navigate(['/error']);
-                return;
-            }
-            try {
                 if (this.amount > 0) {
                     yield this.actionService.purchase.authorizeCreditCard(this.amount);
                 }
@@ -3511,6 +3502,15 @@ class PurchaseConfirmComponent {
                     body: this.translate.instant('purchase.confirm.alert.authorizeCreditCard')
                 });
                 this.router.navigate(['/purchase/input']);
+                return;
+            }
+            try {
+                if (purchaseData.pendingMovieTickets.length > 0) {
+                    yield this.actionService.purchase.authorizeMovieTicket();
+                }
+            }
+            catch (error) {
+                this.router.navigate(['/error']);
                 return;
             }
             try {

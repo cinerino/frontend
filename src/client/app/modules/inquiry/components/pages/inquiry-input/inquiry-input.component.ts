@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
@@ -30,6 +30,7 @@ export class InquiryInputComponent implements OnInit {
         private formBuilder: FormBuilder,
         private utilService: UtilService,
         private actionService: ActionService,
+        private activatedRoute: ActivatedRoute,
         private router: Router,
         private translate: TranslateService
     ) { }
@@ -92,6 +93,10 @@ export class InquiryInputComponent implements OnInit {
                 : [Validators.required]
             ]
         });
+        const confirmationNumber = this.activatedRoute.snapshot.params.confirmationNumber;
+        if  (confirmationNumber !== undefined) {
+            this.inquiryForm.controls.confirmationNumber.setValue(confirmationNumber);
+        }
     }
 
     /**

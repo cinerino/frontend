@@ -64,12 +64,19 @@ export default (app: express.Application) => {
         res.redirect('/#/auth/signout');
     });
 
-    app.get(['/projects/:projectId/:projectName/inquiry', '/projects/:projectId/inquiry'], (req, res, next) => {
+    app.get([
+        '/projects/:projectId/:projectName/inquiry',
+        '/projects/:projectId/inquiry'
+    ], (req, res, next) => {
         if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
             next();
             return;
         }
-        res.redirect(`/?${getQueryParameter(req)}#/inquiry/input`);
+        if (req.query.confirmationNumber === undefined) {
+            res.redirect(`/?${getQueryParameter(req)}#/inquiry/input`);
+            return;
+        }
+        res.redirect(`/?${getQueryParameter(req)}#/inquiry/input/${req.query.confirmationNumber}`);
     });
 
     app.get([

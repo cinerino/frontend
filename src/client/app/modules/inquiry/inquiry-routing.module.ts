@@ -12,6 +12,7 @@ const routes: Routes = [
     component: BaseComponent,
     children: [
         { path: 'input', component: InquiryInputComponent },
+        { path: 'input/:confirmationNumber', component: InquiryInputComponent },
         { path: 'confirm', component: InquiryConfirmComponent },
         { path: 'print', component: InquiryPrintComponent }
     ]

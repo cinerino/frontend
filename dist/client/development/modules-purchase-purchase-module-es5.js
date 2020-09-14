@@ -7648,47 +7648,47 @@
                       language = userData.language;
                       _context26.prev = 7;
 
-                      if (!(purchaseData.pendingMovieTickets.length > 0)) {
+                      if (!(this.amount > 0)) {
                         _context26.next = 11;
                         break;
                       }
 
                       _context26.next = 11;
-                      return this.actionService.purchase.authorizeMovieTicket();
+                      return this.actionService.purchase.authorizeCreditCard(this.amount);
 
                     case 11:
-                      _context26.next = 17;
+                      _context26.next = 18;
                       break;
 
                     case 13:
                       _context26.prev = 13;
                       _context26.t0 = _context26["catch"](7);
-                      this.router.navigate(['/error']);
-                      return _context26.abrupt("return");
-
-                    case 17:
-                      _context26.prev = 17;
-
-                      if (!(this.amount > 0)) {
-                        _context26.next = 21;
-                        break;
-                      }
-
-                      _context26.next = 21;
-                      return this.actionService.purchase.authorizeCreditCard(this.amount);
-
-                    case 21:
-                      _context26.next = 28;
-                      break;
-
-                    case 23:
-                      _context26.prev = 23;
-                      _context26.t1 = _context26["catch"](17);
                       this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
                         body: this.translate.instant('purchase.confirm.alert.authorizeCreditCard')
                       });
                       this.router.navigate(['/purchase/input']);
+                      return _context26.abrupt("return");
+
+                    case 18:
+                      _context26.prev = 18;
+
+                      if (!(purchaseData.pendingMovieTickets.length > 0)) {
+                        _context26.next = 22;
+                        break;
+                      }
+
+                      _context26.next = 22;
+                      return this.actionService.purchase.authorizeMovieTicket();
+
+                    case 22:
+                      _context26.next = 28;
+                      break;
+
+                    case 24:
+                      _context26.prev = 24;
+                      _context26.t1 = _context26["catch"](18);
+                      this.router.navigate(['/error']);
                       return _context26.abrupt("return");
 
                     case 28:
@@ -7713,7 +7713,7 @@
                       return _context26.stop();
                   }
                 }
-              }, _callee26, this, [[7, 13], [17, 23], [28, 34]]);
+              }, _callee26, this, [[7, 13], [18, 24], [28, 34]]);
             }));
           }
           /**
