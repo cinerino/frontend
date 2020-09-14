@@ -1818,12 +1818,12 @@
       }
       /**
        * ミリ秒待つ
-       * デフォルト値3000ms
+       * デフォルト値500ms
        */
 
 
       function sleep() {
-        var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 3000;
+        var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 500;
         return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
           return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
@@ -2290,7 +2290,9 @@
       };
 
       function getEnvironment() {
-        var environment = Object.assign(Object.assign(Object.assign({}, defaultEnvironment), window.environment), {
+        var environment = Object.assign(Object.assign(Object.assign(Object.assign({}, defaultEnvironment), {
+          STORAGE_NAME: Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId === '' ? 'FRONTEND-STATE' : "".concat(Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId.toUpperCase(), "-FRONTEND-STATE")
+        }), window.environment), {
           production: document.querySelector('body.production') !== null
         });
         return environment;
