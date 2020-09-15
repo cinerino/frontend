@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.2.3 - 2020-09-15
+### Fixed
+ - API連続呼び出し待ち時間調整
+ - 設定読み込み不具合修正
+
 ## 3.2.2 - 2020-09-14
 ### Added
  - 照会ページに確認番号パラメーター追加
