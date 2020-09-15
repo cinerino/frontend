@@ -247,7 +247,7 @@ export class UserEffects {
                 await this.cinerino.transaction.placeOrder.confirm({
                     id: transaction.id
                 });
-                await Functions.Util.sleep();
+                await Functions.Util.sleep(3000);
                 return userAction.chargeAccountSuccess();
             } catch (error) {
                 return userAction.chargeAccountFail({ error: error });
@@ -310,7 +310,7 @@ export class UserEffects {
                 await this.cinerino.transaction.moneyTransfer.confirm({
                     id: transaction.id
                 });
-                await Functions.Util.sleep();
+                await Functions.Util.sleep(3000);
                 return userAction.transferAccountSuccess();
             } catch (error) {
                 return userAction.transferAccountFail({ error: error });

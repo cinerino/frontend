@@ -34,7 +34,9 @@ export class UserService {
             result = [...result, ...searchResult.data];
             page++;
             roop = searchResult.data.length === limit;
-            await Functions.Util.sleep(500);
+            if (roop) {
+                await Functions.Util.sleep();
+            }
         }
         this.utilService.loadEnd();
         return result;
@@ -58,7 +60,9 @@ export class UserService {
             result = [...result, ...searchResult.data];
             page++;
             roop = searchResult.data.length === limit;
-            await Functions.Util.sleep(500);
+            if (roop) {
+                await Functions.Util.sleep();
+            }
         }
         this.utilService.loadEnd();
         return result;

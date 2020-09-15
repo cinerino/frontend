@@ -1137,9 +1137,9 @@ function retry(args) {
 }
 /**
  * ミリ秒待つ
- * デフォルト値3000ms
+ * デフォルト値500ms
  */
-function sleep(time = 3000) {
+function sleep(time = 500) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve) => {
             setTimeout(() => {
@@ -1473,7 +1473,9 @@ const defaultEnvironment = {
     PRINT_LOADING: true,
 };
 function getEnvironment() {
-    const environment = Object.assign(Object.assign(Object.assign({}, defaultEnvironment), window.environment), { production: (document.querySelector('body.production') !== null) });
+    const environment = Object.assign(Object.assign(Object.assign(Object.assign({}, defaultEnvironment), { STORAGE_NAME: (Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId === '')
+            ? 'FRONTEND-STATE'
+            : `${Object(_app_functions_util_function__WEBPACK_IMPORTED_MODULE_0__["getProject"])().projectId.toUpperCase()}-FRONTEND-STATE` }), window.environment), { production: (document.querySelector('body.production') !== null) });
     return environment;
 }
 

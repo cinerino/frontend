@@ -72,9 +72,9 @@ export async function retry<T>(args: {
 
 /**
  * ミリ秒待つ
- * デフォルト値3000ms
+ * デフォルト値500ms
  */
-export async function sleep(time: number = 3000) {
+export async function sleep(time: number = 500) {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve();

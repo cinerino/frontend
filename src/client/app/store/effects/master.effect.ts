@@ -38,8 +38,10 @@ export class MasterEffects {
                     });
                     projects = projects.concat(searchResult.data);
                     page++;
-                    roop = searchResult.data.length > 0;
-                    await Functions.Util.sleep(500);
+                    roop = searchResult.data.length === limit;
+                    if (roop) {
+                        await Functions.Util.sleep();
+                    }
                 }
 
                 return masterAction.getProjectsSuccess({ projects });

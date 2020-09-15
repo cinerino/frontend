@@ -117,7 +117,9 @@ export class MasterService {
                 result = [...result, ...searchResult.data];
                 page++;
                 roop = searchResult.data.length === limit;
-                await Functions.Util.sleep(500);
+                if (roop) {
+                    await Functions.Util.sleep();
+                }
             }
             const environment = getEnvironment();
             if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
@@ -179,7 +181,9 @@ export class MasterService {
             result = [...result, ...searchResult.data];
             page++;
             roop = searchResult.data.length === limit;
-            await Functions.Util.sleep(500);
+            if (roop) {
+                await Functions.Util.sleep();
+            }
         }
         const sortResult = screeningEvents.sort((a, b) => {
             const KEY_NAME = 'sortNumber';
@@ -230,7 +234,9 @@ export class MasterService {
             result = [...result, ...searchResult.data];
             page++;
             roop = searchResult.data.length === limit;
-            await Functions.Util.sleep(500);
+            if (roop) {
+                await Functions.Util.sleep();
+            }
         }
         const sortResult = screeningEvents.sort((a, b) => {
             const KEY_NAME = 'sortNumber';

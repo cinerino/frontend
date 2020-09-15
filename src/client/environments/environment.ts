@@ -299,6 +299,9 @@ const defaultEnvironment: IEnvironment = {
 export function getEnvironment(): IEnvironment {
     const environment = {
         ...defaultEnvironment,
+        STORAGE_NAME: (getProject().projectId === '')
+            ? 'FRONTEND-STATE'
+            : `${getProject().projectId.toUpperCase()}-FRONTEND-STATE`,
         ...(<any>window).environment,
         production: (document.querySelector('body.production') !== null)
     };
