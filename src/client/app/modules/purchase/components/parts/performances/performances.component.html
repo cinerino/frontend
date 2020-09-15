@@ -9,7 +9,7 @@
                 *ngIf="screeningEventsGroup.info.superEvent.description && (screeningEventsGroup.info.superEvent.description | changeLanguage)">{{
                 screeningEventsGroup.info.superEvent.description | changeLanguage }}</p>
         </div>
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center flex-wrap">
             <div *ngIf="screeningEventsGroup.info.workPerformed?.contentRating"
                 class="text-small bg-dark-gray text-white py-1 px-3 mr-2">{{
                     screeningEventsGroup.info.workPerformed?.contentRating }}</div>
