@@ -75976,7 +75976,7 @@ class MasterService {
         });
     }
     /**
-     * 施設コンテンツsortNumberでのソート
+     * 作品情報をマージ
      */
     mergeWorkPerformed(params) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -265,7 +265,7 @@ export class MasterService {
     }
 
     /**
-     * 施設コンテンツsortNumberでのソート
+     * 作品情報をマージ
      */
     public async mergeWorkPerformed(params: {
         screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
