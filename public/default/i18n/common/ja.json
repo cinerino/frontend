@@ -435,7 +435,7 @@
         "copyright": ""
     },
     "email": {
-        "domain": "@smart-theater.com",
+        "domain": "@ml.smart-theater.com",
         "purchase": {
             "complete": {
                 "sender": {
@@ -453,7 +453,7 @@
             "return": {
                 "sender": {
                     "name": "",
-                    "email": "noreply@smart-theater.com"
+                    "email": "ticket@ml.smart-theater.com"
                 },
                 "toRecipient": {
                     "name": "",
@@ -464,7 +464,7 @@
             "refundCreditCard": {
                 "sender": {
                     "name": "",
-                    "email": "noreply@smart-theater.com"
+                    "email": "ticket@ml.smart-theater.com"
                 },
                 "toRecipient": {
                     "name": "",
