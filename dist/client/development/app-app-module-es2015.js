@@ -71489,7 +71489,7 @@ class ItemEventComponent {
     }
 }
 ItemEventComponent.ɵfac = function ItemEventComponent_Factory(t) { return new (t || ItemEventComponent)(); };
-ItemEventComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ItemEventComponent, selectors: [["app-item-event"]], inputs: { screeningEvent: "screeningEvent" }, decls: 27, vars: 25, consts: [[1, "p-3", "bg-gray"], [1, "mb-2"], [1, "font-weight-bold", "text-large"], ["class", "text-small", 4, "ngIf"], [1, "d-flex", "align-items-center", "flex-wrap"], ["class", "text-small bg-dark-gray text-white py-1 px-3 mr-2 mb-2", 4, "ngIf"], ["class", "text-small bg-dark-gray text-white py-1 px-3 mr-2 mb-2", 4, "ngFor", "ngForOf"], ["class", "text-small ml-auto mb-2", 4, "ngIf"], [1, "mb-1"], [1, "text-small"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [1, "text-small", "bg-dark-gray", "text-white", "py-1", "px-3", "mr-2", "mb-2"], [1, "text-small", "ml-auto", "mb-2"], [1, "mr-1"], [1, "mr-2"]], template: function ItemEventComponent_Template(rf, ctx) { if (rf & 1) {
+ItemEventComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ItemEventComponent, selectors: [["app-item-event"]], inputs: { screeningEvent: "screeningEvent" }, decls: 27, vars: 25, consts: [[1, "p-3", "bg-gray"], [1, "mb-2"], [1, "font-weight-bold", "text-large"], ["class", "text-small", 4, "ngIf"], [1, "d-flex", "align-items-center", "flex-wrap"], ["class", "text-small bg-dark-gray text-white py-1 px-2 mr-2 mb-2", 4, "ngIf"], ["class", "text-small bg-dark-gray text-white py-1 px-2 mr-2 mb-2", 4, "ngFor", "ngForOf"], ["class", "text-small ml-auto mb-2", 4, "ngIf"], [1, "mb-1"], [1, "text-small"], [1, "theater-name"], [1, "screen-name"], ["class", "mr-2", 4, "ngIf"], [1, "text-small", "bg-dark-gray", "text-white", "py-1", "px-2", "mr-2", "mb-2"], [1, "text-small", "ml-auto", "mb-2"], [1, "mr-1"], [1, "mr-2"]], template: function ItemEventComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "p", 2);
@@ -75842,8 +75842,12 @@ class MasterService {
                         screeningEvents: result
                     });
                 }
+                const mergeResult = this.mergeWorkPerformed({
+                    screeningEvents: result,
+                    scheduleDate: params.startFrom
+                });
                 this.utilService.loadEnd();
-                return result;
+                return mergeResult;
             }
             catch (error) {
                 this.utilService.setError(error);
@@ -75989,7 +75993,6 @@ class MasterService {
                     limit,
                     offers: {
                         availableFrom: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).toDate(),
-                        availableThrough: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).add(1, 'day').toDate()
                     },
                 });
                 result = [...result, ...searchResult.data];

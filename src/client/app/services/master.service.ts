@@ -133,8 +133,12 @@ export class MasterService {
                     screeningEvents: result
                 });
             }
+            const mergeResult = this.mergeWorkPerformed({
+                screeningEvents: result,
+                scheduleDate: params.startFrom
+            });
             this.utilService.loadEnd();
-            return result;
+            return mergeResult;
         } catch (error) {
             this.utilService.setError(error);
             this.utilService.loadEnd();
@@ -280,7 +284,7 @@ export class MasterService {
                 limit,
                 offers: {
                     availableFrom: moment(scheduleDate).toDate(),
-                    availableThrough: moment(scheduleDate).add(1, 'day').toDate()
+                    // availableThrough: moment(scheduleDate).add(1, 'day').toDate()
                 },
                 // datePublishedFrom: moment(scheduleDate).toDate(),
                 // datePublishedThrough: moment(scheduleDate).add(1, 'day').toDate()
