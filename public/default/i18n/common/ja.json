@@ -250,6 +250,7 @@
             "fullKana": "全角カタカナで入力してください",
             "lowercaseLetters": "半角英小文字で入力してください",
             "number": "数字で入力してください",
+            "halfSizeAlphanumeric": "半角英数字で入力してください",
             "email": "形式が正しくありません",
             "telephone": "形式が正しくありません"
         },
@@ -288,11 +289,11 @@
         }
     },
     "modal": {
-        "mvtk": {
+        "movieTicket": {
             "check": {
-                "success": "ムビチケ券を追加しました。",
-                "code": "ムビチケ購入番号",
-                "password": "ムビチケ暗証番号",
+                "success": "チケットを追加しました。",
+                "code": "購入番号",
+                "password": "暗証番号",
                 "camera": {
                     "start": "カメラで読み取り",
                     "stop": "カメラを停止"
@@ -301,8 +302,8 @@
                 "prev": "",
                 "value": "[{{value}}枚]",
                 "alert": {
-                    "validation": "ムビチケ情報をご確認ください。",
-                    "used": "すでに使用済みのムビチケです。",
+                    "validation": "入力情報をご確認ください。",
+                    "used": "すでに使用済みです。",
                     "error": "エラーが発生しました"
                 }
             }

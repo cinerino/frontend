@@ -957,9 +957,9 @@ function selectAvailableSeat(params) {
  */
 function getMovieTicketTypeOffers(params) {
     const screeningEventTicketOffers = params.screeningEventTicketOffers;
-    const result = screeningEventTicketOffers.filter((offer) => {
-        const movieTicketTypeChargeSpecifications = offer.priceSpecification.priceComponent.filter((priceComponent) => {
-            return (priceComponent.typeOf === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
+    const result = screeningEventTicketOffers.filter(o => {
+        const movieTicketTypeChargeSpecifications = o.priceSpecification.priceComponent.filter(p => {
+            return (p.typeOf === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
         });
         return (movieTicketTypeChargeSpecifications.length > 0);
     });

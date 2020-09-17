@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
@@ -19,9 +19,10 @@ type IMovieTicketTypeChargeSpecification =
     styleUrls: ['./check-modal.component.scss']
 })
 export class MovieTicketCheckModalComponent implements OnInit {
+    @Input() public paymentMethodType: factory.paymentMethodType.MovieTicket | factory.paymentMethodType.MGTicket;
     public purchase: Observable<reducers.IPurchaseState>;
     public isLoading: Observable<boolean>;
-    public mvtkForm: FormGroup;
+    public inputForm: FormGroup;
     public errorMessage: string;
     public isSuccess: boolean;
     public successMessage: string;
@@ -50,13 +51,19 @@ export class MovieTicketCheckModalComponent implements OnInit {
     public createMvtkForm() {
         const CODE_LENGTH = 10;
         // const PASSWORD_LENGTH = 4;
-        this.mvtkForm = this.formBuilder.group({
-            code: ['', [
+        const codeValidators = (this.paymentMethodType === factory.paymentMethodType.MovieTicket)
+            ? [
                 Validators.required,
                 Validators.maxLength(CODE_LENGTH),
                 Validators.minLength(CODE_LENGTH),
                 Validators.pattern(/^[0-9]+$/)
-            ]],
+            ]
+            : [
+                Validators.required,
+                Validators.pattern(/^[0-9a-zA-Z]+$/)
+            ];
+        this.inputForm = this.formBuilder.group({
+            code: ['', codeValidators],
             password: ['', [
                 Validators.required
             ]]
@@ -67,21 +74,21 @@ export class MovieTicketCheckModalComponent implements OnInit {
      * checkMovieTicket
      */
     public async checkMovieTicket() {
-        Object.keys(this.mvtkForm.controls).forEach((key) => {
-            this.mvtkForm.controls[key].markAsTouched();
+        Object.keys(this.inputForm.controls).forEach((key) => {
+            this.inputForm.controls[key].markAsTouched();
         });
-        this.mvtkForm.controls.code.setValue((<HTMLInputElement>document.getElementById('code')).value);
-        this.mvtkForm.controls.password.setValue((<HTMLInputElement>document.getElementById('password')).value);
+        this.inputForm.controls.code.setValue((<HTMLInputElement>document.getElementById('code')).value);
+        this.inputForm.controls.password.setValue((<HTMLInputElement>document.getElementById('password')).value);
 
-        if (this.mvtkForm.invalid) {
+        if (this.inputForm.invalid) {
             return;
         }
         this.errorMessage = '';
         this.successMessage = '';
         try {
             await this.actionService.purchase.checkMovieTicket({
-                code: this.mvtkForm.controls.code.value,
-                password: this.mvtkForm.controls.password.value
+                code: this.inputForm.controls.code.value,
+                password: this.inputForm.controls.password.value
             });
             const purchase = await this.actionService.purchase.getData();
             const checkMovieTicketAction = purchase.checkMovieTicketAction;
@@ -89,14 +96,14 @@ export class MovieTicketCheckModalComponent implements OnInit {
                 || checkMovieTicketAction.result === undefined
                 || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut === null) {
                 this.isSuccess = false;
-                this.errorMessage = this.translate.instant('modal.mvtk.check.alert.validation');
+                this.errorMessage = this.translate.instant('modal.movieTicket.check.alert.validation');
                 return;
             }
             const knyknrNoInfoOut = checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut;
 
             if (knyknrNoInfoOut[0].ykknmiNum === '0') {
                 this.isSuccess = false;
-                this.errorMessage = this.translate.instant('modal.mvtk.check.alert.used');
+                this.errorMessage = this.translate.instant('modal.movieTicket.check.alert.used');
                 return;
             }
 
@@ -105,7 +112,7 @@ export class MovieTicketCheckModalComponent implements OnInit {
                 const message = new ChangeLanguagePipe(this.translate)
                     .transform(Functions.Purchase.movieTicketAuthErroCodeToMessage(knyknrNoMkujyuCd));
                 this.isSuccess = false;
-                this.errorMessage = `${this.translate.instant('modal.mvtk.check.alert.validation')}<br>
+                this.errorMessage = `${this.translate.instant('modal.movieTicket.check.alert.validation')}<br>
                 [${knyknrNoMkujyuCd}] ${message}`;
                 return;
             }
@@ -114,7 +121,7 @@ export class MovieTicketCheckModalComponent implements OnInit {
             const user = await this.actionService.user.getData();
             const screeningEventTicketOffers = purchase.screeningEventTicketOffers;
             const movieTicketTypeOffers = Functions.Purchase.getMovieTicketTypeOffers({ screeningEventTicketOffers });
-            this.successMessage = this.translate.instant('modal.mvtk.check.success');
+            this.successMessage = this.translate.instant('modal.movieTicket.check.success');
             knyknrNoInfoOut.forEach((k) => {
                 if (k.ykknInfo === null) {
                     return;
@@ -135,7 +142,7 @@ export class MovieTicketCheckModalComponent implements OnInit {
                                 : ((user.language === 'ja' || user.language === 'en' || user.language === 'kr')
                                     && movieTicketPriceComponent.name[user.language] !== undefined)
                                     ? movieTicketPriceComponent.name[user.language] : '';
-                        const value = this.translate.instant('modal.mvtk.check.value', { value: y.ykknKnshbtsmiNum });
+                        const value = this.translate.instant('modal.movieTicket.check.value', { value: y.ykknKnshbtsmiNum });
                         this.successMessage += `<br>${name} ${value}`;
                     });
                 });
@@ -144,7 +151,7 @@ export class MovieTicketCheckModalComponent implements OnInit {
         } catch (error) {
             console.error(error);
             this.isSuccess = false;
-            this.errorMessage = this.translate.instant('modal.mvtk.check.alert.error');
+            this.errorMessage = this.translate.instant('modal.movieTicket.check.alert.error');
         }
     }
 
@@ -153,8 +160,8 @@ export class MovieTicketCheckModalComponent implements OnInit {
             cb: (data: string) => {
                 const code = data.slice(0, 10);
                 const password = data.slice(10, data.length);
-                this.mvtkForm.controls.code.setValue(code);
-                this.mvtkForm.controls.password.setValue(password);
+                this.inputForm.controls.code.setValue(code);
+                this.inputForm.controls.password.setValue(password);
             }
         });
     }

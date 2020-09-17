@@ -5,11 +5,11 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { Models } from '../../../../..';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import { MovieTicketCheckModalComponent } from '../../../../shared/components/parts/movieTicket/check-modal/check-modal.component';
+import { MovieTicketCheckModalComponent } from '../../../../shared/components/parts/movieticket/check-modal/check-modal.component';
 import { PurchaseSeatTicketModalComponent } from '../../../../shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
 
 @Component({
@@ -23,6 +23,8 @@ export class PurchaseTicketComponent implements OnInit {
     public additionalTicketText: string;
     public environment = getEnvironment();
     public translateName: string;
+    public isMovieTicket: boolean;
+    public isMGTicket: boolean;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -36,13 +38,21 @@ export class PurchaseTicketComponent implements OnInit {
     /**
      * 初期化
      */
-    public ngOnInit() {
+    public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.translateName = (this.environment.VIEW_TYPE === 'cinema')
             ? 'purchase.cinema.ticket' : 'purchase.event.seatTicket';
         this.additionalTicketText = '';
+        const { screeningEventTicketOffers } = await this.actionService.purchase.getData();
+        const movieTicketTypeOffers = Functions.Purchase.getMovieTicketTypeOffers({ screeningEventTicketOffers });
+        this.isMGTicket = (movieTicketTypeOffers.find(m => {
+            const findResult = m.priceSpecification.priceComponent.find(
+                p => (p.typeOf === factory.chevre.priceSpecificationType.UnitPriceSpecification)
+            );
+            return findResult !== undefined;
+        }) !== undefined);
     }
 
     /**
@@ -132,6 +142,18 @@ export class PurchaseTicketComponent implements OnInit {
 
     public openMovieTicket() {
         this.modal.show(MovieTicketCheckModalComponent, {
+            initialState: {
+                paymentMethodType: factory.paymentMethodType.MovieTicket
+            },
+            class: 'modal-dialog-centered'
+        });
+    }
+
+    public openMGTicket() {
+        this.modal.show(MovieTicketCheckModalComponent, {
+            initialState: {
+                paymentMethodType: factory.paymentMethodType.MGTicket
+            },
             class: 'modal-dialog-centered'
         });
     }

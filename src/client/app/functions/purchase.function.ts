@@ -633,9 +633,9 @@ export function getMovieTicketTypeOffers(params: {
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[]
 }) {
     const screeningEventTicketOffers = params.screeningEventTicketOffers;
-    const result = screeningEventTicketOffers.filter((offer) => {
-        const movieTicketTypeChargeSpecifications = offer.priceSpecification.priceComponent.filter((priceComponent) => {
-            return (priceComponent.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
+    const result = screeningEventTicketOffers.filter(o => {
+        const movieTicketTypeChargeSpecifications = o.priceSpecification.priceComponent.filter(p => {
+            return (p.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
         });
         return (movieTicketTypeChargeSpecifications.length > 0);
     });
