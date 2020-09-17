@@ -12,6 +12,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.2.4 - 2020-09-17
+### Added
+ - スケジュールへレイティング追加
+ - スケジュールへ劇場名追加
+ - イベント情報へ上映方式追加
+### Changed
+ - デフォルトのメール送信元変更
+### Fixed
+ - スケジュール取得APIを調整
+
 ## 3.2.3 - 2020-09-15
 ### Fixed
  - API連続呼び出し待ち時間調整
