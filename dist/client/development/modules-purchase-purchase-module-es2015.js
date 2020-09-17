@@ -1589,7 +1589,6 @@ class PurchaseEventScheduleComponent {
             }
             if (date !== undefined && date !== null) {
                 this.scheduleDate = date;
-                return;
             }
             const now = (yield this.utilService.getServerTime()).date;
             const selectDate = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYYMMDD')).toDate();

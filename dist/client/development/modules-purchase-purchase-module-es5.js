@@ -3543,19 +3543,14 @@
                       return _context13.abrupt("return");
 
                     case 4:
-                      if (!(date !== undefined && date !== null)) {
-                        _context13.next = 7;
-                        break;
+                      if (date !== undefined && date !== null) {
+                        this.scheduleDate = date;
                       }
 
-                      this.scheduleDate = date;
-                      return _context13.abrupt("return");
-
-                    case 7:
-                      _context13.next = 9;
+                      _context13.next = 7;
                       return this.utilService.getServerTime();
 
-                    case 9:
+                    case 7:
                       now = _context13.sent.date;
                       selectDate = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYYMMDD')).toDate();
                       salesStopDate = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__().format('YYYYMMDD')).add(this.environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE, this.environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT).toDate();
@@ -3567,26 +3562,26 @@
                         this.isSales = moment__WEBPACK_IMPORTED_MODULE_4__(now).format('HHmmss') < salesStopTime;
                       }
 
-                      _context13.prev = 15;
-                      _context13.next = 18;
+                      _context13.prev = 13;
+                      _context13.next = 16;
                       return this.actionService.purchase.getData();
 
-                    case 18:
+                    case 16:
                       purchase = _context13.sent;
                       theater = purchase.theater;
 
                       if (!(theater === undefined)) {
-                        _context13.next = 22;
+                        _context13.next = 20;
                         break;
                       }
 
                       return _context13.abrupt("return");
 
-                    case 22:
+                    case 20:
                       scheduleDate = moment__WEBPACK_IMPORTED_MODULE_4__(this.scheduleDate).format('YYYY-MM-DD');
                       this.actionService.purchase.selectScheduleDate(scheduleDate);
                       external = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Util.getExternalData();
-                      _context13.next = 27;
+                      _context13.next = 25;
                       return this.masterService.getSchedule({
                         superEvent: {
                           ids: external.superEventId === undefined ? [] : [external.superEventId],
@@ -3597,27 +3592,27 @@
                         startThrough: moment__WEBPACK_IMPORTED_MODULE_4__(scheduleDate).add(1, 'day').toDate()
                       });
 
-                    case 27:
+                    case 25:
                       this.screeningEvents = _context13.sent;
                       this.screeningEventsGroup = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.screeningEvents2ScreeningEventSeries({
                         screeningEvents: this.screeningEvents
                       });
                       this.update();
-                      _context13.next = 36;
+                      _context13.next = 34;
                       break;
 
-                    case 32:
-                      _context13.prev = 32;
-                      _context13.t0 = _context13["catch"](15);
+                    case 30:
+                      _context13.prev = 30;
+                      _context13.t0 = _context13["catch"](13);
                       console.error(_context13.t0);
                       this.router.navigate(['/error']);
 
-                    case 36:
+                    case 34:
                     case "end":
                       return _context13.stop();
                   }
                 }
-              }, _callee13, this, [[15, 32]]);
+              }, _callee13, this, [[13, 30]]);
             }));
           }
           /**

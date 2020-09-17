@@ -142,7 +142,6 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         }
         if (date !== undefined && date !== null) {
             this.scheduleDate = date;
-            return;
         }
         const now = (await this.utilService.getServerTime()).date;
         const selectDate = moment(moment(this.scheduleDate).format('YYYYMMDD')).toDate();
