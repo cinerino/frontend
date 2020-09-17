@@ -99,7 +99,8 @@ export class MasterService {
             let roop = true;
             let result: factory.chevre.event.screeningEvent.IEvent[] = [];
             await this.cinerinoService.getServices();
-            const now = moment((await this.utilService.getServerTime()).date).toDate();
+            const today = moment(moment((await this.utilService.getServerTime()).date).format('YYYYMMDD'), 'YYYYMMDD').toDate();
+            // const now = moment((await this.utilService.getServerTime()).date).toDate();
             while (roop) {
                 const searchResult = await this.cinerinoService.event.search({
                     page,
@@ -110,8 +111,8 @@ export class MasterService {
                     startFrom: params.startFrom,
                     startThrough: params.startThrough,
                     offers: {
-                        availableFrom: now,
-                        availableThrough: now
+                        availableFrom: today,
+                        availableThrough: moment(today).add(1, 'day').toDate()
                     }
                 });
                 result = [...result, ...searchResult.data];
@@ -132,8 +133,12 @@ export class MasterService {
                     screeningEvents: result
                 });
             }
+            const mergeResult = this.mergeWorkPerformed({
+                screeningEvents: result,
+                scheduleDate: params.startFrom
+            });
             this.utilService.loadEnd();
-            return result;
+            return mergeResult;
         } catch (error) {
             this.utilService.setError(error);
             this.utilService.loadEnd();
@@ -257,6 +262,49 @@ export class MasterService {
             return 0;
         });
         return sortResult;
+    }
+
+    /**
+     * 作品情報をマージ
+     */
+    public async mergeWorkPerformed(params: {
+        screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
+        scheduleDate: Date;
+    }) {
+        const screeningEvents = params.screeningEvents;
+        const scheduleDate = params.scheduleDate;
+        const limit = 100;
+        let page = 1;
+        let roop = true;
+        let result: factory.chevre.creativeWork.movie.ICreativeWork[] = [];
+        await this.cinerinoService.getServices();
+        while (roop) {
+            const searchResult = await this.cinerinoService.creativeWork.searchMovies({
+                page,
+                limit,
+                offers: {
+                    availableFrom: moment(scheduleDate).toDate(),
+                    // availableThrough: moment(scheduleDate).add(1, 'day').toDate()
+                },
+                // datePublishedFrom: moment(scheduleDate).toDate(),
+                // datePublishedThrough: moment(scheduleDate).add(1, 'day').toDate()
+            });
+            result = [...result, ...searchResult.data];
+            page++;
+            roop = searchResult.data.length === limit;
+            if (roop) {
+                await Functions.Util.sleep();
+            }
+        }
+        screeningEvents.forEach(s => {
+            const findResult = result.find(r => r.identifier === s.workPerformed?.identifier);
+            if (s.workPerformed === undefined
+                || findResult === undefined) {
+                return;
+            }
+            s.workPerformed.contentRating = findResult.contentRating;
+        });
+        return screeningEvents;
     }
 
     /**
