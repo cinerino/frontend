@@ -9,7 +9,7 @@ import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import { MvtkCheckModalComponent } from '../../../../shared/components/parts/mvtk/check-modal/check-modal.component';
+import { MovieTicketCheckModalComponent } from '../../../../shared/components/parts/movieTicket/check-modal/check-modal.component';
 import { PurchaseSeatTicketModalComponent } from '../../../../shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
 
 @Component({
@@ -131,7 +131,7 @@ export class PurchaseTicketComponent implements OnInit {
     }
 
     public openMovieTicket() {
-        this.modal.show(MvtkCheckModalComponent, {
+        this.modal.show(MovieTicketCheckModalComponent, {
             class: 'modal-dialog-centered'
         });
     }
