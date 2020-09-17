@@ -174,13 +174,18 @@ export class PurchaseEffects {
                 await this.cinerinoService.getServices();
                 const screeningEvent =
                     await this.cinerinoService.event.findById<factory.chevre.eventType.ScreeningEvent>({ id: payload.screeningEvent.id });
-                const searchMovie = (await this.cinerinoService.creativeWork.searchMovies({
+                const workPerformed = (await this.cinerinoService.creativeWork.searchMovies({
                     identifier: (screeningEvent.workPerformed === undefined)
                         ? undefined : screeningEvent.workPerformed.identifier
                 })).data[0];
-                if (screeningEvent.workPerformed !== undefined) {
-                    screeningEvent.workPerformed.additionalProperty = searchMovie.additionalProperty;
+                if (workPerformed !== undefined
+                    && screeningEvent.workPerformed !== undefined) {
+                    screeningEvent.workPerformed.additionalProperty = workPerformed.additionalProperty;
                 }
+                // if (workPerformed !== undefined
+                //     && screeningEvent.workPerformed !== undefined) {
+                //     screeningEvent.workPerformed.contentRating = workPerformed.contentRating;
+                // }
                 return purchaseAction.getScreeningEventSuccess({ screeningEvent });
             } catch (error) {
                 return purchaseAction.getScreeningEventFail({ error: error });

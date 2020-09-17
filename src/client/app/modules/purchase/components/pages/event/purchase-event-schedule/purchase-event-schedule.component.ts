@@ -130,13 +130,16 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     public async selectTheater(theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom) {
         this.actionService.purchase.selectTheater(theater);
-        setTimeout(() => { this.selectDate(); }, 0);
+        await this.selectDate();
     }
 
     /**
      * 日付選択
      */
     public async selectDate(date?: Date | null) {
+        if (await this.getLoading()) {
+            return;
+        }
         if (date !== undefined && date !== null) {
             this.scheduleDate = date;
         }
@@ -248,6 +251,14 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
         Functions.Util.iOSDatepickerTapBugFix(container, [this.datepicker]);
+    }
+
+    public async getLoading() {
+        return new Promise<boolean>((resolve) => {
+            this.isLoading.subscribe((loading) => {
+                resolve(loading);
+            }).unsubscribe();
+        });
     }
 
 }
