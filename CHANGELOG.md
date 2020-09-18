@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.2.5 - 2020-09-18
+### Added
+ - 上映方式へhtmlのclass追加
+
 ## 3.2.4 - 2020-09-17
 ### Added
  - スケジュールへレイティング追加

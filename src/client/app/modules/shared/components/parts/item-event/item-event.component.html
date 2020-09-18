@@ -10,13 +10,13 @@
     </div>
     <div class="d-flex align-items-center flex-wrap">
         <div *ngIf="screeningEvent.workPerformed?.contentRating"
-            class="text-small bg-dark-gray text-white py-1 px-2 mr-2 mb-2">{{ screeningEvent.workPerformed?.contentRating }}</div>
+            class="content-rating text-small bg-dark-gray text-white py-1 px-2 mr-2 mb-2">{{ screeningEvent.workPerformed?.contentRating }}</div>
         <div *ngIf="screeningEvent.superEvent.dubLanguage"
-            class="text-small bg-dark-gray text-white py-1 px-2 mr-2 mb-2">{{ 'common.dubbing' | translate }}</div>
+            class="dub-language text-small bg-dark-gray text-white py-1 px-2 mr-2 mb-2">{{ 'common.dubbing' | translate }}</div>
         <div *ngIf="screeningEvent.superEvent.subtitleLanguage"
-            class="text-small bg-dark-gray text-white py-1 px-2 mr-2 mb-2">{{ 'common.subtitles' | translate }}</div>
+            class="subtitle-language text-small bg-dark-gray text-white py-1 px-2 mr-2 mb-2">{{ 'common.subtitles' | translate }}</div>
         <div *ngFor="let videoFormat of screeningEvent.superEvent.videoFormat"
-            class="text-small bg-dark-gray text-white py-1 px-2 mr-2 mb-2">{{ videoFormat.name }}</div>
+            class="video-format text-small bg-dark-gray text-white py-1 px-2 mr-2 mb-2">{{ videoFormat.name }}</div>
         <div *ngIf="screeningEvent.workPerformed?.duration && moment.duration(screeningEvent.workPerformed?.duration).asMinutes() > 0"
             class="text-small ml-auto mb-2">
             <span
