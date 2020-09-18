@@ -39,7 +39,7 @@ export const getAccount = createAction(
 export const getAccountSuccess = createAction(
     `${LABEL} getAccountSuccess`,
     props<{
-        accounts: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>[];
+        accounts: factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGoodWithDetail>[];
     }>()
 );
 

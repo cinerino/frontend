@@ -378,10 +378,11 @@ export class PurchaseEffects {
                 const authorizeCreditCardPaymentResult =
                     await this.cinerinoService.payment.authorizeCreditCard({
                         object: {
-                            typeOf: factory.paymentMethodType.CreditCard,
+                            typeOf: factory.action.authorize.paymentMethod.any.ResultType.Payment,
                             amount,
                             method: <any>'1',
-                            creditCard
+                            creditCard,
+                            paymentMethod: factory.chevre.paymentMethodType.CreditCard
                         },
                         purpose: transaction
                     });
@@ -431,7 +432,7 @@ export class PurchaseEffects {
                 const transaction = payload.transaction;
                 const pendingMovieTickets = payload.pendingMovieTickets;
                 const authorizeSeatReservations = payload.authorizeSeatReservations;
-                const authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[] = [];
+                const authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[] = [];
                 const seller = payload.seller;
                 for (const authorizeSeatReservation of authorizeSeatReservations) {
                     const movieTickets = Functions.Purchase.createMovieTicketsFromAuthorizeSeatReservation({
@@ -454,14 +455,16 @@ export class PurchaseEffects {
                         findResult.movieTickets.push(movieTicket);
                     });
                     for (const movieTicketIdentifier of movieTicketIdentifiers) {
-                        const authorizeMovieTicketPaymentResult = await this.cinerinoService.payment.authorizeMovieTicket({
-                            object: {
-                                typeOf: factory.paymentMethodType.MovieTicket,
-                                amount: 0,
-                                movieTickets: movieTicketIdentifier.movieTickets
-                            },
-                            purpose: transaction
-                        });
+                        const authorizeMovieTicketPaymentResult =
+                            await this.cinerinoService.payment.authorizeMovieTicket({
+                                object: {
+                                    typeOf: factory.action.authorize.paymentMethod.any.ResultType.Payment,
+                                    amount: 0,
+                                    movieTickets: movieTicketIdentifier.movieTickets,
+                                    paymentMethod: movieTicketIdentifier.movieTickets[0].typeOf
+                                },
+                                purpose: transaction
+                            });
                         authorizeMovieTicketPayments.push(authorizeMovieTicketPaymentResult);
                     }
                 }

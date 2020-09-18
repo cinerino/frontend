@@ -20,7 +20,7 @@ export interface IUserState {
     /**
      * コイン口座
      */
-    accounts: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>[];
+    accounts: factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGoodWithDetail>[];
     /**
      * クレジットカード
      */

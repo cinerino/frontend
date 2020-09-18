@@ -74,8 +74,9 @@ export function createGmoTokenObject(params: {
             return (paymentAccepted.paymentMethodType === factory.paymentMethodType.CreditCard);
         });
         if (findPaymentAcceptedResult === undefined
-            || findPaymentAcceptedResult.paymentMethodType !== factory.paymentMethodType.CreditCard) {
-            throw new Error('paymentMethodType CreditCard not found');
+            || findPaymentAcceptedResult.paymentMethodType !== factory.paymentMethodType.CreditCard
+            || findPaymentAcceptedResult.gmoInfo === undefined) {
+            throw new Error('paymentMethodType CreditCard or gmoInfo undefined');
         }
         (<any>window).someCallbackFunction = function someCallbackFunction(response: {
             resultCode: string;
@@ -88,7 +89,7 @@ export function createGmoTokenObject(params: {
             }
         };
         const Multipayment = (<any>window).Multipayment;
-        Multipayment.init((<factory.seller.ICreditCardPaymentAccepted>findPaymentAcceptedResult).gmoInfo.shopId);
+        Multipayment.init(findPaymentAcceptedResult.gmoInfo?.shopId);
         Multipayment.getToken(params.creditCard, (<any>window).someCallbackFunction);
     });
 }

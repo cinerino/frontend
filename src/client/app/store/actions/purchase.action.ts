@@ -86,7 +86,7 @@ export const startTransaction = createAction(
     props<{
         expires: Date;
         agent?: { identifier?: factory.person.IIdentifier; };
-        seller: { typeOf: factory.organizationType; id: string; };
+        seller: { typeOf: factory.chevre.organizationType; id: string; };
         object: {
             passport?: { token: factory.waiter.passport.IEncodedPassport; };
         };
@@ -263,7 +263,7 @@ export const authorizeCreditCard = createAction(
     `${LABEL} authorizeCreditCard`,
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
-        authorizeCreditCardPayment?: factory.action.authorize.paymentMethod.creditCard.IAction;
+        authorizeCreditCardPayment?: factory.action.authorize.paymentMethod.any.IAction;
         orderCount: number;
         amount: number;
         method: string;
@@ -277,7 +277,7 @@ export const authorizeCreditCard = createAction(
 export const authorizeCreditCardSuccess = createAction(
     `${LABEL} authorizeCreditCardSuccess`,
     props<{
-        authorizeCreditCardPayment: factory.action.authorize.paymentMethod.creditCard.IAction
+        authorizeCreditCardPayment: factory.action.authorize.paymentMethod.any.IAction
     }>()
 );
 
@@ -290,7 +290,7 @@ export const authorizeMovieTicket = createAction(
     `${LABEL} authorizeMovieTicket`,
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
-        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
+        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[];
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
         pendingMovieTickets: Models.Purchase.MovieTicket.IMovieTicket[];
         seller: factory.chevre.seller.ISeller
@@ -300,7 +300,7 @@ export const authorizeMovieTicket = createAction(
 export const authorizeMovieTicketSuccess = createAction(
     `${LABEL} authorizeMovieTicketSuccess`,
     props<{
-        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[]
+        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[]
     }>()
 );
 

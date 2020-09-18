@@ -9,7 +9,7 @@ import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import { MovieTicketCheckModalComponent } from '../../../../shared/components/parts/movieticket/check-modal/check-modal.component';
+import { MovieTicketCheckModalComponent } from '../../../../shared/components/parts/movie-ticket/check-modal/check-modal.component';
 import { PurchaseSeatTicketModalComponent } from '../../../../shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
 
 @Component({
@@ -47,9 +47,17 @@ export class PurchaseTicketComponent implements OnInit {
         this.additionalTicketText = '';
         const { screeningEventTicketOffers } = await this.actionService.purchase.getData();
         const movieTicketTypeOffers = Functions.Purchase.getMovieTicketTypeOffers({ screeningEventTicketOffers });
+        this.isMovieTicket = (movieTicketTypeOffers.find(m => {
+            const findResult = m.priceSpecification.priceComponent.find(
+                p => (p.typeOf === factory.chevre.priceSpecificationType.UnitPriceSpecification
+                    && p.appliesToMovieTicket?.serviceOutput?.typeOf === factory.chevre.paymentMethodType.MovieTicket)
+            );
+            return findResult !== undefined;
+        }) !== undefined);
         this.isMGTicket = (movieTicketTypeOffers.find(m => {
             const findResult = m.priceSpecification.priceComponent.find(
-                p => (p.typeOf === factory.chevre.priceSpecificationType.UnitPriceSpecification)
+                p => (p.typeOf === factory.chevre.priceSpecificationType.UnitPriceSpecification
+                    && p.appliesToMovieTicket?.serviceOutput?.typeOf === factory.chevre.paymentMethodType.MGTicket)
             );
             return findResult !== undefined;
         }) !== undefined);

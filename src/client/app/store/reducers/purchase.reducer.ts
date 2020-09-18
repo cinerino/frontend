@@ -56,11 +56,11 @@ export interface IPurchaseState {
     /**
      * クレジットカード決済
      */
-    authorizeCreditCardPayments: factory.action.authorize.paymentMethod.creditCard.IAction[];
+    authorizeCreditCardPayments: factory.action.authorize.paymentMethod.any.IAction[];
     /**
      * ムビチケ決済
      */
-    authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
+    authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[];
     /**
      * クレジットカード
      */
@@ -483,7 +483,7 @@ export function reducer(initialState: IState, action: Action) {
             const authorizeCreditCardPayment = payload.authorizeCreditCardPayment;
             const orderCount = state.purchaseData.orderCount + 1;
             const authorizeCreditCardPayments =
-                Functions.Util.deepCopy<factory.action.authorize.paymentMethod.creditCard.IAction[]>
+                Functions.Util.deepCopy<factory.action.authorize.paymentMethod.any.IAction[]>
                     (state.purchaseData.authorizeCreditCardPayments);
             authorizeCreditCardPayments.push(authorizeCreditCardPayment);
             return {

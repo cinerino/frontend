@@ -5,8 +5,8 @@
     <div class="container px-0">
         <div class="row">
             <div class="col-lg-8">
-                <div *ngIf="(purchase | async)?.isUsedMovieTicket" class="mb-4 container bg-white">
-                    <div *ngIf="(purchase | async)?.isUsedMovieTicket" class="py-3 row align-items-center movieticket">
+                <div *ngIf="isMovieTicket || isMovieTicket" class="mb-4 container bg-white">
+                    <div *ngIf="isMovieTicket" class="py-3 row align-items-center movieticket">
                         <p class="col-12 col-md-6 mb-2 mb-md-0">{{ 'purchase.cinema.ticket.movieTicket' | translate }}</p>
                         <div class="col-12 col-md-6">
                             <button type="button" (click)="openMovieTicket()"
@@ -15,7 +15,7 @@
                             </button>
                         </div>
                     </div>
-                    <div *ngIf="(purchase | async)?.isUsedMovieTicket" class="py-3 row align-items-center mgticket">
+                    <div *ngIf="isMGTicket" class="py-3 row align-items-center mgticket">
                         <p class="col-12 col-md-6 mb-2 mb-md-0">{{ 'purchase.cinema.ticket.mgTicket' | translate }}</p>
                         <div class="col-12 col-md-6">
                             <button type="button" (click)="openMGTicket()"
@@ -82,14 +82,10 @@
                 <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
             </div>
         </div>
-
-
-        <div class="buttons mx-auto text-center">
-            <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
-                (click)="onSubmit()">{{ 'purchase.cinema.ticket.next' | translate }}</button>
-            <button type="button" class="btn btn-outline-primary btn-block py-3"
-                routerLink="/purchase/cinema/seat">{{ 'purchase.cinema.ticket.prev' | translate }}</button>
-        </div>
-
-
+    </div>
+    <div class="buttons mx-auto text-center">
+        <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+            (click)="onSubmit()">{{ 'purchase.cinema.ticket.next' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3"
+            routerLink="/purchase/cinema/seat">{{ 'purchase.cinema.ticket.prev' | translate }}</button>
     </div>

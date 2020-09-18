@@ -1,0 +1,21 @@
+<div *ngIf="isMovieTicket || isMovieTicket" class="mb-4 container bg-white">
+    <div *ngIf="isMovieTicket" class="py-3 row align-items-center movieticket">
+        <p class="col-12 col-md-6 mb-2 mb-md-0">{{ 'purchase.cinema.ticket.movieTicket' | translate }}</p>
+        <div class="col-12 col-md-6">
+            <button type="button" (click)="openMovieTicket()"
+                class="btn btn-block bg-white border border-gray py-3">
+                <img src="/assets/images/mvtk.svg" height="24" alt="">
+            </button>
+        </div>
+    </div>
+    <div *ngIf="isMGTicket" class="py-3 row align-items-center mgticket">
+        <p class="col-12 col-md-6 mb-2 mb-md-0">{{ 'purchase.cinema.ticket.mgTicket' | translate }}</p>
+        <div class="col-12 col-md-6">
+            <button type="button" (click)="openMGTicket()"
+                class="btn btn-block bg-white border border-gray py-3">
+                <div class="font-weight-bold text-large">MG TICKET</div>
+                <!-- <img src="/assets/images/mvtk.svg" height="24" alt=""> -->
+            </button>
+        </div>
+    </div>
+</div>
