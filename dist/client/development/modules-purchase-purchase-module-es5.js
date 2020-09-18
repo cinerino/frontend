@@ -12540,7 +12540,7 @@
 
       function PurchasePerformancesComponent_div_1_p_5_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 11);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 13);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -12560,7 +12560,7 @@
 
       function PurchasePerformancesComponent_div_1_p_7_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 11);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 13);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -12580,7 +12580,7 @@
 
       function PurchasePerformancesComponent_div_1_div_10_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 14);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -12598,7 +12598,7 @@
 
       function PurchasePerformancesComponent_div_1_div_11_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 15);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -12616,7 +12616,7 @@
 
       function PurchasePerformancesComponent_div_1_div_12_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 16);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -12634,7 +12634,7 @@
 
       function PurchasePerformancesComponent_div_1_div_13_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 12);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 17);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
 
@@ -12652,9 +12652,9 @@
 
       function PurchasePerformancesComponent_div_1_div_14_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 13);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 18);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "span", 14);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "span", 19);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
 
@@ -12710,13 +12710,13 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](10, PurchasePerformancesComponent_div_1_div_10_Template, 2, 1, "div", 8);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](11, PurchasePerformancesComponent_div_1_div_11_Template, 3, 3, "div", 8);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](11, PurchasePerformancesComponent_div_1_div_11_Template, 3, 3, "div", 9);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](12, PurchasePerformancesComponent_div_1_div_12_Template, 3, 3, "div", 8);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](12, PurchasePerformancesComponent_div_1_div_12_Template, 3, 3, "div", 10);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](13, PurchasePerformancesComponent_div_1_div_13_Template, 2, 1, "div", 9);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](13, PurchasePerformancesComponent_div_1_div_13_Template, 2, 1, "div", 11);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](14, PurchasePerformancesComponent_div_1_div_14_Template, 6, 7, "div", 10);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](14, PurchasePerformancesComponent_div_1_div_14_Template, 6, 7, "div", 12);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
@@ -12788,9 +12788,9 @@
         if (rf & 1) {
           var _r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 15);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 20);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "app-purchase-performance", 16);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "app-purchase-performance", 21);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("select", function PurchasePerformancesComponent_li_4_Template_app_purchase_performance_select_1_listener($event) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r13);
@@ -12846,7 +12846,7 @@
         },
         decls: 5,
         vars: 3,
-        consts: [["class", "p-3 bg-gray", 4, "ngIf"], [1, "py-2", "d-flex", "flex-wrap"], ["class", "px-md-2 my-2", 4, "ngFor", "ngForOf"], [1, "p-3", "bg-gray"], [1, "mb-2"], [1, "font-weight-bold", "text-large"], ["class", "text-small", 4, "ngIf"], [1, "d-flex", "align-items-center", "flex-wrap"], ["class", "text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngIf"], ["class", "text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngFor", "ngForOf"], ["class", "text-small ml-auto", 4, "ngIf"], [1, "text-small"], [1, "text-small", "bg-dark-gray", "text-white", "py-1", "px-2", "mr-2"], [1, "text-small", "ml-auto"], [1, "mr-1"], [1, "px-md-2", "my-2"], [1, "mb-3", 3, "performance", "select"]],
+        consts: [["class", "p-3 bg-gray", 4, "ngIf"], [1, "py-2", "d-flex", "flex-wrap"], ["class", "px-md-2 my-2", 4, "ngFor", "ngForOf"], [1, "p-3", "bg-gray"], [1, "mb-2"], [1, "font-weight-bold", "text-large"], ["class", "text-small", 4, "ngIf"], [1, "d-flex", "align-items-center", "flex-wrap"], ["class", "content-rating text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngIf"], ["class", "dub-language text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngIf"], ["class", "subtitle-language text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngIf"], ["class", "video-format text-small bg-dark-gray text-white py-1 px-2 mr-2", 4, "ngFor", "ngForOf"], ["class", "text-small ml-auto", 4, "ngIf"], [1, "text-small"], [1, "content-rating", "text-small", "bg-dark-gray", "text-white", "py-1", "px-2", "mr-2"], [1, "dub-language", "text-small", "bg-dark-gray", "text-white", "py-1", "px-2", "mr-2"], [1, "subtitle-language", "text-small", "bg-dark-gray", "text-white", "py-1", "px-2", "mr-2"], [1, "video-format", "text-small", "bg-dark-gray", "text-white", "py-1", "px-2", "mr-2"], [1, "text-small", "ml-auto"], [1, "mr-1"], [1, "px-md-2", "my-2"], [1, "mb-3", 3, "performance", "select"]],
         template: function PurchasePerformancesComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
