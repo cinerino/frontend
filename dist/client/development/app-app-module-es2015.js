@@ -75020,14 +75020,10 @@ class ActionPurchaseService {
         return __awaiter(this, void 0, void 0, function* () {
             const movieTicket = params.movieTicket;
             const paymentMethodType = params.paymentMethodType;
-            const purchase = yield this.getData();
+            const { transaction, screeningEvent } = yield this.getData();
             return new Promise((resolve, reject) => {
-                const transaction = purchase.transaction;
-                const screeningEvent = purchase.screeningEvent;
-                const seller = purchase.seller;
                 if (transaction === undefined
-                    || screeningEvent === undefined
-                    || seller === undefined) {
+                    || screeningEvent === undefined) {
                     reject();
                     return;
                 }

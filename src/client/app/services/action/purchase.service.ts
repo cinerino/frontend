@@ -509,14 +509,10 @@ export class ActionPurchaseService {
     }) {
         const movieTicket = params.movieTicket;
         const paymentMethodType = params.paymentMethodType;
-        const purchase = await this.getData();
+        const { transaction, screeningEvent } = await this.getData();
         return new Promise<void>((resolve, reject) => {
-            const transaction = purchase.transaction;
-            const screeningEvent = purchase.screeningEvent;
-            const seller = purchase.seller;
             if (transaction === undefined
-                || screeningEvent === undefined
-                || seller === undefined) {
+                || screeningEvent === undefined) {
                 reject();
                 return;
             }
