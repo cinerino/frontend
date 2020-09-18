@@ -79069,7 +79069,6 @@ function reducer(initialState, action) {
             });
         }
         return Object.assign(Object.assign({}, state), { purchaseData: Object.assign(Object.assign({}, state.purchaseData), { authorizeSeatReservation,
-                removeAuthorizeSeatReservation,
                 reservations,
                 authorizeSeatReservations,
                 pendingMovieTickets }), loading: false, process: '', error: null });

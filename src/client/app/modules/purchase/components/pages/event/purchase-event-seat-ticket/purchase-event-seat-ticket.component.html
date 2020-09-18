@@ -14,14 +14,11 @@
                     <ul class="bg-white">
                         <li *ngFor="let reservation of (purchase | async)?.reservations">
                             <div class="p-3">
-                                <p class="mb-2 font-weight-bold text-large">
-                                    <span
-                                        class="mr-2">{{ 'common.seat' | translate }}</span>{{ reservation.seat.seatNumber }}
-                                </p>
+                                <p class="mb-2 font-weight-bold text-large">{{ reservation.seat.seatNumber }}</p>
                                 <div>
                                     <button *ngIf="reservation.ticket === undefined" type="button"
                                         (click)="openTicketList(reservation)"
-                                        class="btn btn-primary btn-block py-3">{{ 'purchase.event.ticket.unselected' | translate }}</button>
+                                        class="btn btn-primary btn-block py-3">{{ 'purchase.event.seatTicket.unselected' | translate }}</button>
                                     <button *ngIf="reservation.ticket !== undefined" type="button"
                                         (click)="openTicketList(reservation)"
                                         class="btn btn-block border border-primary text-primary bg-white py-3">

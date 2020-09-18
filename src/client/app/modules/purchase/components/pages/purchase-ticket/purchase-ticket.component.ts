@@ -23,8 +23,6 @@ export class PurchaseTicketComponent implements OnInit {
     public additionalTicketText: string;
     public environment = getEnvironment();
     public translateName: string;
-    public isMovieTicket: boolean;
-    public isMGTicket: boolean;
 
     constructor(
         private store: Store<reducers.IState>,
