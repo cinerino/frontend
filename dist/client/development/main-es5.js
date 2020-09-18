@@ -897,7 +897,6 @@
             var seatSection = movieTicket.serviceOutput.reservedTicket.ticketedSeat.seatSection;
             return pendingReservation.reservedTicket.ticketedSeat !== undefined && seatNumber === pendingReservation.reservedTicket.ticketedSeat.seatNumber && seatSection === pendingReservation.reservedTicket.ticketedSeat.seatSection;
           });
-          console.log('findReservation-----------', findReservation);
 
           if (findReservation === undefined) {
             return;

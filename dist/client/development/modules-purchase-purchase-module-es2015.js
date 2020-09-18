@@ -7033,7 +7033,6 @@ class ScreenComponent {
             ? 'screen-4dx' : '';
         this.seats = seats;
         this.screenType = screenType;
-        // console.log(this.seats);
     }
     selectSeat(seat) {
         if (this.isZoomAllowed() && !this.zoomState) {

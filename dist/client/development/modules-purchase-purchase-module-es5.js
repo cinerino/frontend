@@ -14860,7 +14860,7 @@
 
             var screenType = this.screenData.type === 1 ? 'screen-imax' : this.screenData.type === 2 ? 'screen-4dx' : '';
             this.seats = seats;
-            this.screenType = screenType; // console.log(this.seats);
+            this.screenType = screenType;
           }
         }, {
           key: "selectSeat",

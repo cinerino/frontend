@@ -16,7 +16,6 @@ export class ItemEventComponent implements OnInit {
     constructor() { }
 
     public ngOnInit() {
-        console.log(this.screeningEvent);
     }
 
 }

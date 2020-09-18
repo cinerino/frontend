@@ -190,7 +190,6 @@ export class UserEffects {
         ofType(userAction.chargeAccount),
         map(action => action),
         mergeMap(async (payload) => {
-            // console.log(payload);
             try {
                 const seller = payload.seller;
                 if (seller.id === undefined) {

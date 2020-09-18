@@ -67783,8 +67783,8 @@ class AppComponent {
                     ga('set', 'page', event.urlAfterRedirects);
                     ga('send', 'pageview');
                 }
-                catch (err) {
-                    console.log(err);
+                catch (error) {
+                    console.warn(error);
                 }
             }
         });
@@ -67858,7 +67858,6 @@ class AuthGuardService {
                 return true;
             }
             catch (error) {
-                console.log('canActivate', error);
                 this.router.navigate(['/']);
                 return false;
             }
@@ -67960,7 +67959,6 @@ class ProjectGuardService {
                 return true;
             }
             catch (error) {
-                console.log('canActivate', error);
                 location.href = '/404.html';
                 return false;
             }
@@ -68030,7 +68028,6 @@ class PurchaseTransactionGuardService {
                 return true;
             }
             catch (error) {
-                console.log('canActivate', error);
                 this.router.navigate(['/error']);
                 return false;
             }
@@ -71485,7 +71482,6 @@ class ItemEventComponent {
         this.moment = moment__WEBPACK_IMPORTED_MODULE_2__;
     }
     ngOnInit() {
-        console.log(this.screeningEvent);
     }
 }
 ItemEventComponent.ɵfac = function ItemEventComponent_Factory(t) { return new (t || ItemEventComponent)(); };
@@ -73631,7 +73627,8 @@ class PurchaseSeatTicketModalComponent {
                     return;
                 }
                 const pendingMovieTicketsIndex = pendingMovieTickets.findIndex((pendingMovieTicket) => {
-                    return (pendingMovieTicket.identifier === movieTicket.identifier);
+                    return (pendingMovieTicket.identifier === movieTicket.identifier
+                        && pendingMovieTicket.typeOf === movieTicket.typeOf);
                 });
                 if (pendingMovieTicketsIndex > -1) {
                     pendingMovieTickets.splice(pendingMovieTicketsIndex, 1);
@@ -75534,7 +75531,6 @@ class CinerinoService {
             }
             const url = '/api/authorize/signIn';
             const result = yield this.http.get(url, {}).toPromise();
-            // console.log(result.url);
             location.href = result.url;
         });
     }
@@ -75548,7 +75544,6 @@ class CinerinoService {
             }
             const url = '/api/authorize/signOut';
             const result = yield this.http.get(url, {}).toPromise();
-            // console.log(result.url);
             location.href = result.url;
         });
     }
@@ -78532,7 +78527,6 @@ class UserEffects {
          * chargeAccount
          */
         this.chargeAccount = this.actions.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_2__["ofType"])(_actions__WEBPACK_IMPORTED_MODULE_7__["userAction"].chargeAccount), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(action => action), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])((payload) => __awaiter(this, void 0, void 0, function* () {
-            // console.log(payload);
             try {
                 const seller = payload.seller;
                 if (seller.id === undefined) {

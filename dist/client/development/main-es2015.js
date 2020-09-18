@@ -576,7 +576,6 @@ function createMovieTicketsFromAuthorizeSeatReservation(args) {
                 && seatNumber === pendingReservation.reservedTicket.ticketedSeat.seatNumber
                 && seatSection === pendingReservation.reservedTicket.ticketedSeat.seatSection);
         });
-        console.log('findReservation-----------', findReservation);
         if (findReservation === undefined) {
             return;
         }

@@ -75,8 +75,8 @@ export class AppComponent implements OnInit {
                     ga('create', this.environment.ANALYTICS_ID, 'auto');
                     ga('set', 'page', event.urlAfterRedirects);
                     ga('send', 'pageview');
-                } catch (err) {
-                    console.log(err);
+                } catch (error) {
+                    console.warn(error);
                 }
             }
         });
