@@ -177,12 +177,13 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
                 && seatNumber === pendingReservation.reservedTicket.ticketedSeat.seatNumber
                 && seatSection === pendingReservation.reservedTicket.ticketedSeat.seatSection);
         });
+        console.log('findReservation-----------', findReservation);
         if (findReservation === undefined) {
             return;
         }
 
         results.push({
-            typeOf: factory.paymentMethodType.MovieTicket,
+            typeOf: findReservation.typeOf,
             identifier: findReservation.identifier,
             accessCode: findReservation.accessCode,
             serviceType: findReservation.serviceType,

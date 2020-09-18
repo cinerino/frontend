@@ -314,7 +314,7 @@ export const checkMovieTicket = createAction(
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
         movieTickets: {
-            typeOf: factory.paymentMethodType.MovieTicket;
+            typeOf: factory.paymentMethodType;
             identifier: string;
             accessCode: string;
         }[];

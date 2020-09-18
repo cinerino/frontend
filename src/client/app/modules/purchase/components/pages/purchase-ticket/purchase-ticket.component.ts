@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { Functions, Models } from '../../../../..';
+import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -45,22 +45,6 @@ export class PurchaseTicketComponent implements OnInit {
         this.translateName = (this.environment.VIEW_TYPE === 'cinema')
             ? 'purchase.cinema.ticket' : 'purchase.event.seatTicket';
         this.additionalTicketText = '';
-        const { screeningEventTicketOffers } = await this.actionService.purchase.getData();
-        const movieTicketTypeOffers = Functions.Purchase.getMovieTicketTypeOffers({ screeningEventTicketOffers });
-        this.isMovieTicket = (movieTicketTypeOffers.find(m => {
-            const findResult = m.priceSpecification.priceComponent.find(
-                p => (p.typeOf === factory.chevre.priceSpecificationType.UnitPriceSpecification
-                    && p.appliesToMovieTicket?.serviceOutput?.typeOf === factory.chevre.paymentMethodType.MovieTicket)
-            );
-            return findResult !== undefined;
-        }) !== undefined);
-        this.isMGTicket = (movieTicketTypeOffers.find(m => {
-            const findResult = m.priceSpecification.priceComponent.find(
-                p => (p.typeOf === factory.chevre.priceSpecificationType.UnitPriceSpecification
-                    && p.appliesToMovieTicket?.serviceOutput?.typeOf === factory.chevre.paymentMethodType.MGTicket)
-            );
-            return findResult !== undefined;
-        }) !== undefined);
     }
 
     /**
@@ -148,19 +132,10 @@ export class PurchaseTicketComponent implements OnInit {
         });
     }
 
-    public openMovieTicket() {
+    public openMovieTicket(paymentMethodType: factory.paymentMethodType) {
         this.modal.show(MovieTicketCheckModalComponent, {
             initialState: {
-                paymentMethodType: factory.paymentMethodType.MovieTicket
-            },
-            class: 'modal-dialog-centered'
-        });
-    }
-
-    public openMGTicket() {
-        this.modal.show(MovieTicketCheckModalComponent, {
-            initialState: {
-                paymentMethodType: factory.paymentMethodType.MGTicket
+                paymentMethodType
             },
             class: 'modal-dialog-centered'
         });

@@ -319,7 +319,7 @@
                 "addOn": "オプション選択",
                 "notfound": "販売可能券種がありません。",
                 "movieTicket": {
-                    "code": "ムビチケ購入番号"
+                    "code": "購入番号"
                 }
             }
         },
@@ -535,14 +535,39 @@
             "securityCode": "セキュリティーコード",
             "holderName": "カード名義人"
         },
-        "paymentMethodType": {
-            "cash": "現金",
-            "account": "アカウント",
-            "creditCard": "クレジットカード",
-            "eMoney": "電子マネー",
-            "movieTicket": "ムビチケ",
-            "others": "その他",
-            "regiGrow": "RegiGrow"
+        "paymentMethodTypes": {
+            "cash": {
+                "label": "現金",
+                "use": ""
+            },
+            "account": {
+                "label": "アカウント",
+                "use": ""
+            },
+            "creditCard": {
+                "label": "クレジットカード",
+                "use": ""
+            },
+            "eMoney": {
+                "label": "電子マネー",
+                "use": ""
+            },
+            "movieTicket": {
+                "label": "ムビチケ",
+                "use": "ムビチケ券をお持ちの方"
+            },
+            "mgTicket": {
+                "label": "MGチケット",
+                "use": "MGチケットをお持ちの方"
+            },
+            "others": {
+                "label": "その他",
+                "use": ""
+            },
+            "regiGrow": {
+                "label": "RegiGrow",
+                "use": ""
+            }
         },
         "timeLimit": "取引期限",
         "all": "すべて",

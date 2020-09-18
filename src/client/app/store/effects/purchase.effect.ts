@@ -492,7 +492,7 @@ export class PurchaseEffects {
                     throw new Error('transaction.seller.id undefined');
                 }
                 const checkMovieTicketAction = await this.cinerinoService.payment.checkMovieTicket({
-                    typeOf: factory.paymentMethodType.MovieTicket,
+                    typeOf: movieTickets[0].typeOf,
                     movieTickets: movieTickets.map((movieTicket) => {
                         return {
                             ...movieTicket,

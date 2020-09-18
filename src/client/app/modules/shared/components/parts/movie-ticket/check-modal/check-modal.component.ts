@@ -87,8 +87,11 @@ export class MovieTicketCheckModalComponent implements OnInit {
         this.successMessage = '';
         try {
             await this.actionService.purchase.checkMovieTicket({
-                code: this.inputForm.controls.code.value,
-                password: this.inputForm.controls.password.value
+                movieTicket: {
+                    code: this.inputForm.controls.code.value,
+                    password: this.inputForm.controls.password.value
+                },
+                paymentMethodType: this.paymentMethodType
             });
             const purchase = await this.actionService.purchase.getData();
             const checkMovieTicketAction = purchase.checkMovieTicketAction;
@@ -97,6 +100,7 @@ export class MovieTicketCheckModalComponent implements OnInit {
                 || checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut === null) {
                 this.isSuccess = false;
                 this.errorMessage = this.translate.instant('modal.movieTicket.check.alert.validation');
+                console.error('validation');
                 return;
             }
             const knyknrNoInfoOut = checkMovieTicketAction.result.purchaseNumberAuthResult.knyknrNoInfoOut;
@@ -104,16 +108,19 @@ export class MovieTicketCheckModalComponent implements OnInit {
             if (knyknrNoInfoOut[0].ykknmiNum === '0') {
                 this.isSuccess = false;
                 this.errorMessage = this.translate.instant('modal.movieTicket.check.alert.used');
+                console.error('used');
                 return;
             }
 
             const knyknrNoMkujyuCd = knyknrNoInfoOut[0].knyknrNoMkujyuCd;
-            if (knyknrNoMkujyuCd !== undefined) {
+            if (knyknrNoMkujyuCd !== undefined
+                && knyknrNoMkujyuCd !== '') {
                 const message = new ChangeLanguagePipe(this.translate)
                     .transform(Functions.Purchase.movieTicketAuthErroCodeToMessage(knyknrNoMkujyuCd));
                 this.isSuccess = false;
                 this.errorMessage = `${this.translate.instant('modal.movieTicket.check.alert.validation')}<br>
                 [${knyknrNoMkujyuCd}] ${message}`;
+                console.error('knyknrNoMkujyuCd');
                 return;
             }
 

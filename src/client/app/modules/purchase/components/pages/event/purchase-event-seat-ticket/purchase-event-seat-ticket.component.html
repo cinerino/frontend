@@ -6,27 +6,9 @@
     <div class="container px-0">
         <div class="row">
             <div class="col-lg-8">
-                <div *ngIf="(purchase | async)?.isUsedMovieTicket" class="mb-4 container bg-white">
-                    <div *ngIf="(purchase | async)?.isUsedMovieTicket" class="py-3 row align-items-center movieticket">
-                        <p class="col-12 col-md-6 mb-2 mb-md-0">{{ 'purchase.event.ticket.movieTicket' | translate }}</p>
-                        <div class="col-12 col-md-6">
-                            <button type="button" (click)="openMovieTicket()"
-                                class="btn btn-block bg-white border border-gray py-3">
-                                <img src="/assets/images/mvtk.svg" height="24" alt="">
-                            </button>
-                        </div>
-                    </div>
-                    <div *ngIf="(purchase | async)?.isUsedMovieTicket" class="py-3 row align-items-center mgticket">
-                        <p class="col-12 col-md-6 mb-2 mb-md-0">{{ 'purchase.event.ticket.mgTicket' | translate }}</p>
-                        <div class="col-12 col-md-6">
-                            <button type="button" (click)="openMGTicket()"
-                                class="btn btn-block bg-white border border-gray py-3">
-                                <div class="font-weight-bold text-large">MG TICKET</div>
-                                <!-- <img src="/assets/images/mvtk.svg" height="24" alt=""> -->
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <app-movie-tickets *ngIf="(purchase | async)?.screeningEventTicketOffers"
+                    [screeningEventTicketOffers]="(purchase | async)?.screeningEventTicketOffers"
+                    (select)="openMovieTicket($event)"></app-movie-tickets>
 
                 <div class="mb-4">
                     <ul class="bg-white">
