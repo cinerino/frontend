@@ -48,15 +48,12 @@ export class UserEffects {
         mergeMap(async () => {
             try {
                 await this.cinerino.getServices();
-                const searchResult = await this.cinerino.ownershipInfo.search<factory.ownershipInfo.AccountGoodType>({
+                const searchResult = await this.cinerino.ownershipInfo.search({
                     typeOfGood: {
-                        typeOf: factory.ownershipInfo.AccountGoodType.Account,
+                        typeOf: 'Account',
                     }
                 });
-                const searchAccounts = searchResult.data;
-                const accounts = searchAccounts
-                    .filter((a) => a.typeOfGood.status === factory.pecorino.accountStatusType.Opened);
-                return userAction.getAccountSuccess({ accounts });
+                return userAction.getAccountSuccess({ accounts: searchResult.data });
             } catch (error) {
                 return userAction.getAccountFail({ error: error });
             }
@@ -193,7 +190,6 @@ export class UserEffects {
         ofType(userAction.chargeAccount),
         map(action => action),
         mergeMap(async (payload) => {
-            // console.log(payload);
             try {
                 const seller = payload.seller;
                 if (seller.id === undefined) {
@@ -217,7 +213,10 @@ export class UserEffects {
                 });
                 await this.cinerino.offer.authorizeMonetaryAmount({
                     object: {
-                        project: { typeOf: factory.organizationType.Project, id: payload.seller.project.id },
+                        project: {
+                            typeOf: factory.chevre.organizationType.Project,
+                            id: payload.seller.project.id
+                        },
                         typeOf: factory.chevre.offerType.Offer,
                         itemOffered: {
                             typeOf: 'MonetaryAmount',
@@ -236,10 +235,11 @@ export class UserEffects {
 
                 await this.cinerino.payment.authorizeCreditCard({
                     object: {
-                        typeOf: factory.paymentMethodType.CreditCard,
+                        typeOf: factory.action.authorize.paymentMethod.any.ResultType.Payment,
                         amount: payload.amount,
                         method: <any>'1',
-                        creditCard: payload.creditCard
+                        creditCard: payload.creditCard,
+                        paymentMethod: factory.chevre.paymentMethodType.CreditCard
                     },
                     purpose: { typeOf: transaction.typeOf, id: transaction.id }
                 });
@@ -272,7 +272,10 @@ export class UserEffects {
                 await this.cinerino.getServices();
                 const transaction =
                     await this.cinerino.transaction.moneyTransfer.start({
-                        project: { typeOf: factory.organizationType.Project, id: seller.project.id },
+                        project: {
+                            typeOf: factory.chevre.organizationType.Project,
+                            id: seller.project.id
+                        },
                         expires: moment().add(1, 'minutes').toDate(),
                         agent: {
                             typeOf: factory.personType.Person,

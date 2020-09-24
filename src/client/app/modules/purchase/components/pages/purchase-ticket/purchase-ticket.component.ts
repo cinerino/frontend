@@ -9,7 +9,7 @@ import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import { MvtkCheckModalComponent } from '../../../../shared/components/parts/mvtk/check-modal/check-modal.component';
+import { MovieTicketCheckModalComponent } from '../../../../shared/components/parts/movie-ticket/check-modal/check-modal.component';
 import { PurchaseSeatTicketModalComponent } from '../../../../shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
 
 @Component({
@@ -36,7 +36,7 @@ export class PurchaseTicketComponent implements OnInit {
     /**
      * 初期化
      */
-    public ngOnInit() {
+    public async ngOnInit() {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
@@ -130,8 +130,11 @@ export class PurchaseTicketComponent implements OnInit {
         });
     }
 
-    public openMovieTicket() {
-        this.modal.show(MvtkCheckModalComponent, {
+    public openMovieTicket(paymentMethodType: factory.paymentMethodType) {
+        this.modal.show(MovieTicketCheckModalComponent, {
+            initialState: {
+                paymentMethodType
+            },
             class: 'modal-dialog-centered'
         });
     }

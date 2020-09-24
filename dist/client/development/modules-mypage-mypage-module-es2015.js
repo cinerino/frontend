@@ -228,7 +228,6 @@ class MypageAccountComponent {
         this.modal.show(_shared_components_parts_account_open_modal_open_modal_component__WEBPACK_IMPORTED_MODULE_7__["AccountOpenModalComponent"], {
             initialState: {
                 cb: (params) => __awaiter(this, void 0, void 0, function* () {
-                    // console.log({ amount, account });
                     try {
                         yield this.actionService.user.openAccount(params);
                         yield this.actionService.user.getAccount();

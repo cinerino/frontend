@@ -27,7 +27,7 @@ import { HeaderComponent } from './components/parts/header/header.component';
 import { ItemEventComponent } from './components/parts/item-event/item-event.component';
 import { ItemListComponent } from './components/parts/item-list/item-list.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
-import { MvtkCheckModalComponent } from './components/parts/mvtk/check-modal/check-modal.component';
+import { MovieTicketCheckModalComponent } from './components/parts/movie-ticket/check-modal/check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
 import { OrderDetailComponent } from './components/parts/order/detail/detail.component';
 import { PurchaseEventTicketModalComponent } from './components/parts/purchase/event/ticket-modal/ticket-modal.component';
@@ -66,7 +66,7 @@ const entryComponents = [
   AccountOpenModalComponent,
   PurchaseSeatTicketModalComponent,
   PurchaseEventTicketModalComponent,
-  MvtkCheckModalComponent,
+  MovieTicketCheckModalComponent,
   NumericKeypadComponent,
 ];
 

@@ -19,9 +19,7 @@ export class UserService {
         const limit = 100;
         let page = 1;
         let roop = true;
-        let result: factory.ownershipInfo.IOwnershipInfo<
-            factory.ownershipInfo.IGoodWithDetail<factory.chevre.reservationType.EventReservation>
-        >[] = [];
+        let result: factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGoodWithDetail>[] = [];
         await this.cinerinoService.getServices();
         while (roop) {
             const searchResult = await this.cinerinoService.ownershipInfo.search({

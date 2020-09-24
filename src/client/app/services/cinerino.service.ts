@@ -145,7 +145,6 @@ export class CinerinoService {
         }
         const url = '/api/authorize/signIn';
         const result = await this.http.get<any>(url, {}).toPromise();
-        // console.log(result.url);
         location.href = result.url;
     }
 
@@ -160,7 +159,6 @@ export class CinerinoService {
         }
         const url = '/api/authorize/signOut';
         const result = await this.http.get<any>(url, {}).toPromise();
-        // console.log(result.url);
         location.href = result.url;
     }
 

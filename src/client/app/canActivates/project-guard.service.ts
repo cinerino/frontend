@@ -30,7 +30,6 @@ export class ProjectGuardService implements CanActivate {
 
             return true;
         } catch (error) {
-            console.log('canActivate', error);
             location.href = '/404.html';
             return false;
         }

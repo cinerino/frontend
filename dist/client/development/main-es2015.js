@@ -484,6 +484,7 @@ function screeningEvents2ScreeningEventSeries(params) {
  */
 function createGmoTokenObject(params) {
     return new Promise((resolve, reject) => {
+        var _a;
         if (params.seller.paymentAccepted === undefined) {
             throw new Error('seller.paymentAccepted is undefined');
         }
@@ -491,8 +492,9 @@ function createGmoTokenObject(params) {
             return (paymentAccepted.paymentMethodType === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard);
         });
         if (findPaymentAcceptedResult === undefined
-            || findPaymentAcceptedResult.paymentMethodType !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard) {
-            throw new Error('paymentMethodType CreditCard not found');
+            || findPaymentAcceptedResult.paymentMethodType !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard
+            || findPaymentAcceptedResult.gmoInfo === undefined) {
+            throw new Error('paymentMethodType CreditCard or gmoInfo undefined');
         }
         window.someCallbackFunction = function someCallbackFunction(response) {
             if (response.resultCode === '000') {
@@ -503,7 +505,7 @@ function createGmoTokenObject(params) {
             }
         };
         const Multipayment = window.Multipayment;
-        Multipayment.init(findPaymentAcceptedResult.gmoInfo.shopId);
+        Multipayment.init((_a = findPaymentAcceptedResult.gmoInfo) === null || _a === void 0 ? void 0 : _a.shopId);
         Multipayment.getToken(params.creditCard, window.someCallbackFunction);
     });
 }
@@ -578,7 +580,7 @@ function createMovieTicketsFromAuthorizeSeatReservation(args) {
             return;
         }
         results.push({
-            typeOf: _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.MovieTicket,
+            typeOf: findReservation.typeOf,
             identifier: findReservation.identifier,
             accessCode: findReservation.accessCode,
             serviceType: findReservation.serviceType,
@@ -957,9 +959,9 @@ function selectAvailableSeat(params) {
  */
 function getMovieTicketTypeOffers(params) {
     const screeningEventTicketOffers = params.screeningEventTicketOffers;
-    const result = screeningEventTicketOffers.filter((offer) => {
-        const movieTicketTypeChargeSpecifications = offer.priceSpecification.priceComponent.filter((priceComponent) => {
-            return (priceComponent.typeOf === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
+    const result = screeningEventTicketOffers.filter(o => {
+        const movieTicketTypeChargeSpecifications = o.priceSpecification.priceComponent.filter(p => {
+            return (p.typeOf === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
         });
         return (movieTicketTypeChargeSpecifications.length > 0);
     });

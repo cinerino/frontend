@@ -74,8 +74,9 @@ export function createGmoTokenObject(params: {
             return (paymentAccepted.paymentMethodType === factory.paymentMethodType.CreditCard);
         });
         if (findPaymentAcceptedResult === undefined
-            || findPaymentAcceptedResult.paymentMethodType !== factory.paymentMethodType.CreditCard) {
-            throw new Error('paymentMethodType CreditCard not found');
+            || findPaymentAcceptedResult.paymentMethodType !== factory.paymentMethodType.CreditCard
+            || findPaymentAcceptedResult.gmoInfo === undefined) {
+            throw new Error('paymentMethodType CreditCard or gmoInfo undefined');
         }
         (<any>window).someCallbackFunction = function someCallbackFunction(response: {
             resultCode: string;
@@ -88,7 +89,7 @@ export function createGmoTokenObject(params: {
             }
         };
         const Multipayment = (<any>window).Multipayment;
-        Multipayment.init((<factory.seller.ICreditCardPaymentAccepted>findPaymentAcceptedResult).gmoInfo.shopId);
+        Multipayment.init(findPaymentAcceptedResult.gmoInfo?.shopId);
         Multipayment.getToken(params.creditCard, (<any>window).someCallbackFunction);
     });
 }
@@ -181,7 +182,7 @@ export function createMovieTicketsFromAuthorizeSeatReservation(args: {
         }
 
         results.push({
-            typeOf: factory.paymentMethodType.MovieTicket,
+            typeOf: findReservation.typeOf,
             identifier: findReservation.identifier,
             accessCode: findReservation.accessCode,
             serviceType: findReservation.serviceType,
@@ -633,9 +634,9 @@ export function getMovieTicketTypeOffers(params: {
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[]
 }) {
     const screeningEventTicketOffers = params.screeningEventTicketOffers;
-    const result = screeningEventTicketOffers.filter((offer) => {
-        const movieTicketTypeChargeSpecifications = offer.priceSpecification.priceComponent.filter((priceComponent) => {
-            return (priceComponent.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
+    const result = screeningEventTicketOffers.filter(o => {
+        const movieTicketTypeChargeSpecifications = o.priceSpecification.priceComponent.filter(p => {
+            return (p.typeOf === factory.chevre.priceSpecificationType.MovieTicketTypeChargeSpecification);
         });
         return (movieTicketTypeChargeSpecifications.length > 0);
     });

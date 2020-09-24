@@ -793,6 +793,8 @@
 
       function createGmoTokenObject(params) {
         return new Promise(function (resolve, reject) {
+          var _a;
+
           if (params.seller.paymentAccepted === undefined) {
             throw new Error('seller.paymentAccepted is undefined');
           }
@@ -801,8 +803,8 @@
             return paymentAccepted.paymentMethodType === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard;
           });
 
-          if (findPaymentAcceptedResult === undefined || findPaymentAcceptedResult.paymentMethodType !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard) {
-            throw new Error('paymentMethodType CreditCard not found');
+          if (findPaymentAcceptedResult === undefined || findPaymentAcceptedResult.paymentMethodType !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.CreditCard || findPaymentAcceptedResult.gmoInfo === undefined) {
+            throw new Error('paymentMethodType CreditCard or gmoInfo undefined');
           }
 
           window.someCallbackFunction = function someCallbackFunction(response) {
@@ -814,7 +816,7 @@
           };
 
           var Multipayment = window.Multipayment;
-          Multipayment.init(findPaymentAcceptedResult.gmoInfo.shopId);
+          Multipayment.init((_a = findPaymentAcceptedResult.gmoInfo) === null || _a === void 0 ? void 0 : _a.shopId);
           Multipayment.getToken(params.creditCard, window.someCallbackFunction);
         });
       }
@@ -901,7 +903,7 @@
           }
 
           results.push({
-            typeOf: _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].paymentMethodType.MovieTicket,
+            typeOf: findReservation.typeOf,
             identifier: findReservation.identifier,
             accessCode: findReservation.accessCode,
             serviceType: findReservation.serviceType,
@@ -1413,9 +1415,9 @@
 
       function getMovieTicketTypeOffers(params) {
         var screeningEventTicketOffers = params.screeningEventTicketOffers;
-        var result = screeningEventTicketOffers.filter(function (offer) {
-          var movieTicketTypeChargeSpecifications = offer.priceSpecification.priceComponent.filter(function (priceComponent) {
-            return priceComponent.typeOf === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification;
+        var result = screeningEventTicketOffers.filter(function (o) {
+          var movieTicketTypeChargeSpecifications = o.priceSpecification.priceComponent.filter(function (p) {
+            return p.typeOf === _cinerino_sdk__WEBPACK_IMPORTED_MODULE_0__["factory"].chevre.priceSpecificationType.MovieTicketTypeChargeSpecification;
           });
           return movieTicketTypeChargeSpecifications.length > 0;
         });

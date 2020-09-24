@@ -136,7 +136,6 @@ export class MypageAccountComponent implements OnInit {
                     name: string;
                     accountType: factory.accountType
                 }) => {
-                    // console.log({ amount, account });
                     try {
                         await this.actionService.user.openAccount(params);
                         await this.actionService.user.getAccount();
