@@ -14,9 +14,7 @@ import * as reducers from '../../../../../store/reducers';
 export class MypageReservationComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
-    public reservations: factory.ownershipInfo.IOwnershipInfo<
-        factory.ownershipInfo.IGoodWithDetail<factory.chevre.reservationType.EventReservation>
-    >[];
+    public reservations: factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGoodWithDetail>[];
     public moment = moment;
 
     constructor(

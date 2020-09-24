@@ -501,7 +501,6 @@ export class ScreenComponent implements OnInit, AfterViewInit, AfterContentCheck
 
         this.seats = seats;
         this.screenType = screenType;
-        // console.log(this.seats);
     }
 
     public selectSeat(seat: Models.Purchase.Screen.ISeat) {

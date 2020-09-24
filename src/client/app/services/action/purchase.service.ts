@@ -500,18 +500,19 @@ export class ActionPurchaseService {
     /**
      * ムビチケ認証
      */
-    public async checkMovieTicket(movieTicket: {
-        code: string;
-        password: string;
+    public async checkMovieTicket(params: {
+        movieTicket: {
+            code: string;
+            password: string;
+        },
+        paymentMethodType: factory.paymentMethodType
     }) {
-        const purchase = await this.getData();
+        const movieTicket = params.movieTicket;
+        const paymentMethodType = params.paymentMethodType;
+        const { transaction, screeningEvent } = await this.getData();
         return new Promise<void>((resolve, reject) => {
-            const transaction = purchase.transaction;
-            const screeningEvent = purchase.screeningEvent;
-            const seller = purchase.seller;
             if (transaction === undefined
-                || screeningEvent === undefined
-                || seller === undefined) {
+                || screeningEvent === undefined) {
                 reject();
                 return;
             }
@@ -519,7 +520,7 @@ export class ActionPurchaseService {
                 transaction,
                 screeningEvent,
                 movieTickets: [{
-                    typeOf: factory.paymentMethodType.MovieTicket,
+                    typeOf: paymentMethodType,
                     identifier: movieTicket.code, // 購入管理番号
                     accessCode: movieTicket.password // PINコード
                 }]

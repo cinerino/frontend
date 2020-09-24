@@ -29,7 +29,6 @@ export class PurchaseTransactionGuardService implements CanActivate {
 
             return true;
         } catch (error) {
-            console.log('canActivate', error);
             this.router.navigate(['/error']);
 
             return false;

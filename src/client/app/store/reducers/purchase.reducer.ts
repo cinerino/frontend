@@ -56,11 +56,11 @@ export interface IPurchaseState {
     /**
      * クレジットカード決済
      */
-    authorizeCreditCardPayments: factory.action.authorize.paymentMethod.creditCard.IAction[];
+    authorizeCreditCardPayments: factory.action.authorize.paymentMethod.any.IAction[];
     /**
      * ムビチケ決済
      */
-    authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.movieTicket.IAction[];
+    authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[];
     /**
      * クレジットカード
      */
@@ -86,10 +86,6 @@ export interface IPurchaseState {
      */
     checkMovieTicketAction?: factory.action.check.paymentMethod.movieTicket.IAction;
     /**
-     * ムビチケ使用判定
-     */
-    isUsedMovieTicket: boolean;
-    /**
      * 使用中ムビチケ
      */
     pendingMovieTickets: Models.Purchase.MovieTicket.IMovieTicket[];
@@ -104,7 +100,6 @@ export const purchaseInitialState: IPurchaseState = {
     checkMovieTicketActions: [],
     authorizeCreditCardPayments: [],
     authorizeMovieTicketPayments: [],
-    isUsedMovieTicket: false,
     pendingMovieTickets: []
 };
 
@@ -120,7 +115,6 @@ export function reducer(initialState: IState, action: Action) {
                     screeningEventTicketOffers: [],
                     authorizeSeatReservation: undefined,
                     checkMovieTicketAction: undefined,
-                    isUsedMovieTicket: false,
                     pendingMovieTickets: [],
                     orderCount: 0,
                     authorizeCreditCardPayments: [],
@@ -141,7 +135,6 @@ export function reducer(initialState: IState, action: Action) {
                     screeningEventTicketOffers: [],
                     authorizeSeatReservation: undefined,
                     checkMovieTicketAction: undefined,
-                    isUsedMovieTicket: false,
                 }
             };
         }),
@@ -303,15 +296,11 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(purchaseAction.getTicketListSuccess, (state, payload) => {
             const screeningEventTicketOffers = payload.screeningEventTicketOffers;
-            const movieTicketTypeOffers = Functions.Purchase.getMovieTicketTypeOffers({screeningEventTicketOffers});
-            const isUsedMovieTicket = (movieTicketTypeOffers.length > 0);
             return {
                 ...state,
                 purchaseData: {
                     ...state.purchaseData,
                     screeningEventTicketOffers,
-                    movieTicketTypeOffers,
-                    isUsedMovieTicket
                 }, loading: false, process: '', error: null
             };
         }),
@@ -410,7 +399,6 @@ export function reducer(initialState: IState, action: Action) {
                 purchaseData: {
                     ...state.purchaseData,
                     authorizeSeatReservation,
-                    removeAuthorizeSeatReservation,
                     reservations,
                     authorizeSeatReservations,
                     pendingMovieTickets
@@ -494,7 +482,7 @@ export function reducer(initialState: IState, action: Action) {
             const authorizeCreditCardPayment = payload.authorizeCreditCardPayment;
             const orderCount = state.purchaseData.orderCount + 1;
             const authorizeCreditCardPayments =
-                Functions.Util.deepCopy<factory.action.authorize.paymentMethod.creditCard.IAction[]>
+                Functions.Util.deepCopy<factory.action.authorize.paymentMethod.any.IAction[]>
                     (state.purchaseData.authorizeCreditCardPayments);
             authorizeCreditCardPayments.push(authorizeCreditCardPayment);
             return {
@@ -598,7 +586,6 @@ export function reducer(initialState: IState, action: Action) {
                     checkMovieTicketActions: [],
                     authorizeCreditCardPayments: [],
                     authorizeMovieTicketPayments: [],
-                    isUsedMovieTicket: false,
                     pendingMovieTickets: [],
                     order
                 }, loading: false, process: '', error: null

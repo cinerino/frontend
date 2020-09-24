@@ -53,12 +53,12 @@
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
                     <div class="col-md-8">
                         <p *ngFor="let paymentMethod of (purchase | async)?.order.paymentMethods">
-                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.Cash">{{ 'common.paymentMethodType.cash' | translate }}</span>
-                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.Account">{{ 'common.paymentMethodType.account' | translate }}</span>
-                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.CreditCard">{{ 'common.paymentMethodType.creditCard' | translate }}</span>
-                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.EMoney">{{ 'common.paymentMethodType.eMoney' | translate }}</span>
-                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.MovieTicket">{{ 'common.paymentMethodType.movieTicket' | translate }}</span>
-                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.Others">{{ 'common.paymentMethodType.others' | translate }}</span>
+                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.Cash">{{ 'common.paymentMethodTypes.cash.label' | translate }}</span>
+                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.Account">{{ 'common.paymentMethodTypes.account.label' | translate }}</span>
+                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.CreditCard">{{ 'common.paymentMethodTypes.creditCard.label' | translate }}</span>
+                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.EMoney">{{ 'common.paymentMethodTypes.eMoney.label' | translate }}</span>
+                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.MovieTicket">{{ 'common.paymentMethodTypes.movieTicket.label' | translate }}</span>
+                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.Others">{{ 'common.paymentMethodTypes.others.label' | translate }}</span>
                         </p>
                     </div>
                 </div>

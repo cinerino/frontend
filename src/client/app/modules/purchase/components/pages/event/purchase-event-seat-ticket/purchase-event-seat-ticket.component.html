@@ -3,65 +3,66 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.seatTicket.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.seatTicket.read' | translate"></p>
 
-    <div *ngIf="(purchase | async)?.isUsedMovieTicket" class="mb-4">
-        <div class="bg-white p-3 d-md-flex align-items-center movieticket">
-            <p class="mb-2 mb-md-0">{{ 'purchase.event.seatTicket.mvtk' | translate }}</p>
-            <div>
-                <button type="button" (click)="openMovieTicket()"
-                    class="btn btn-block bg-white border border-gray py-3">
-                    <img src="/assets/images/mvtk.svg" height="24" alt="">
-                </button>
+    <div class="container px-0">
+        <div class="row">
+            <div class="col-lg-8">
+                <app-movie-tickets *ngIf="(purchase | async)?.screeningEventTicketOffers"
+                    [screeningEventTicketOffers]="(purchase | async)?.screeningEventTicketOffers"
+                    (select)="openMovieTicket($event)"></app-movie-tickets>
+
+                <div class="mb-4">
+                    <ul class="bg-white">
+                        <li *ngFor="let reservation of (purchase | async)?.reservations">
+                            <div class="p-3">
+                                <p class="mb-2 font-weight-bold text-large">{{ reservation.seat.seatNumber }}</p>
+                                <div>
+                                    <button *ngIf="reservation.ticket === undefined" type="button"
+                                        (click)="openTicketList(reservation)"
+                                        class="btn btn-primary btn-block py-3">{{ 'purchase.event.seatTicket.unselected' | translate }}</button>
+                                    <button *ngIf="reservation.ticket !== undefined" type="button"
+                                        (click)="openTicketList(reservation)"
+                                        class="btn btn-block border border-primary text-primary bg-white py-3">
+                                        <div class="d-flex justify-content-between align-items-center"
+                                            *ngFor="let priceComponent of reservation.ticket?.ticketOffer.priceSpecification.priceComponent">
+                                            <p class="w-50 text-left">{{ priceComponent.name | changeLanguage }}</p>
+                                            <p *ngIf="priceComponent.price > 0" class="w-50 text-right">
+                                                <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
+                                                --><span *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+                                            </p>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center"
+                                            *ngFor="let addOn of reservation.ticket?.addOn;">
+                                            <p class="w-50 text-left">
+                                                {{ addOn.priceSpecification.name | changeLanguage }}
+                                            </p>
+                                            <p *ngIf="addOn.priceSpecification.price > 0" class="w-50 text-right">
+                                                <span>{{ addOn.priceSpecification.price | currency : addOn.priceSpecification.priceCurrency }}</span><!--
+                                                --><span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p *ngIf="reservation.ticket.movieTicket" class="text-small text-left">
+                                                {{ 'modal.purchase.seatTicket.movieTicket.code' | translate }}
+                                                {{ reservation.ticket.movieTicket.identifier }}
+                                            </p>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mb-4 additional-ticket-text d-none">
+                    <p>{{ 'common.additionalTicketText' | translate }}</p>
+                    <textarea [(ngModel)]="additionalTicketText" class="py-1 px-2"></textarea>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
             </div>
         </div>
     </div>
-
-    <div class="mb-4">
-        <ul class="d-flex flex-wrap">
-            <li *ngFor="let reservation of (purchase | async)?.reservations">
-                <div class="bg-white p-3 m-2">
-                    <p class="mb-2 font-weight-bold text-large">
-                        <span class="mr-2">{{ 'common.seat' | translate }}</span>{{ reservation.seat.seatNumber }}
-                    </p>
-                    <div>
-                        <button *ngIf="reservation.ticket === undefined" type="button" (click)="openTicketList(reservation)"
-                            class="btn btn-primary btn-block py-3">{{ 'purchase.event.seatTicket.unselected' | translate }}</button>
-                        <button *ngIf="reservation.ticket !== undefined" type="button" (click)="openTicketList(reservation)"
-                            class="btn btn-block border border-primary text-primary bg-white py-3">
-                            <div class="d-flex justify-content-between align-items-center" *ngFor="let priceComponent of reservation.ticket?.ticketOffer.priceSpecification.priceComponent">
-                                <p class="w-50 text-left">{{ priceComponent.name | changeLanguage }}</p>
-                                <p *ngIf="priceComponent.price > 0" class="w-50 text-right">
-                                    <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
-                                    --><span *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
-                                </p>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center" *ngFor="let addOn of reservation.ticket?.addOn;">
-                                <p class="w-50 text-left">{{ addOn.priceSpecification.name | changeLanguage }}</p>
-                                <p *ngIf="addOn.priceSpecification.price > 0" class="w-50 text-right">
-                                    <span>{{ addOn.priceSpecification.price | currency : addOn.priceSpecification.priceCurrency }}</span><!--
-                                    --><span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>
-                                </p>
-                            </div>
-                            <div>
-                                <!-- <p *ngIf="reservation.ticket.ticketOffer.description" class="text-small text-left">
-                                    {{ reservation.ticket.ticketOffer.description | changeLanguage }}
-                                </p> -->
-                                <p *ngIf="reservation.ticket.movieTicket" class="text-small text-left">
-                                    {{ 'modal.purchase.seatTicket.movieTicket.code' | translate }} {{ reservation.ticket.movieTicket.identifier }}
-                                </p>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-
-    <div class="mb-4 additional-ticket-text d-none">
-        <p>{{ 'common.additionalTicketText' | translate }}</p>
-        <textarea [(ngModel)]="additionalTicketText" class="py-1 px-2"></textarea>
-    </div>
-
-    <app-purchase-info class="mb-4" [purchase]="purchase | async"></app-purchase-info>
 
     <div class="buttons mx-auto text-center">
         <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
