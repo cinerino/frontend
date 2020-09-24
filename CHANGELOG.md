@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.3.0 - 2020-09-24
+### Added
+ - MGチケット決済追加
+### Changed
+ - 上映方式を非表示へ変更
+
 ## 3.2.5 - 2020-09-18
 ### Added
  - 上映方式へhtmlのclass追加
