@@ -72,31 +72,37 @@
       /* harmony import */
 
 
-      var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var ___WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ../../../../.. */
+      "./app/index.ts");
+      /* harmony import */
+
+
+      var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! ../../../../../../environments/environment */
       "./environments/environment.ts");
       /* harmony import */
 
 
-      var _services__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _services__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! ../../../../../services */
       "./app/services/index.ts");
       /* harmony import */
 
 
-      var _store_reducers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var _store_reducers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! ../../../../../store/reducers */
       "./app/store/reducers/index.ts");
       /* harmony import */
 
 
-      var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _angular_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! @angular/common */
       "../../node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
       /* harmony import */
 
 
-      var _shared_components_parts_order_detail_detail_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _shared_components_parts_order_detail_detail_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! ../../../../shared/components/parts/order/detail/detail.component */
       "./app/modules/shared/components/parts/order/detail/detail.component.ts");
 
@@ -293,7 +299,7 @@
           this.qrcodeService = qrcodeService;
           this.moment = moment__WEBPACK_IMPORTED_MODULE_5__;
           this.orderStatus = _cinerino_sdk__WEBPACK_IMPORTED_MODULE_2__["factory"].orderStatus;
-          this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_6__["getEnvironment"])();
+          this.environment = Object(_environments_environment__WEBPACK_IMPORTED_MODULE_7__["getEnvironment"])();
         }
         /**
          * 初期化
@@ -311,11 +317,10 @@
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
-                      this.eventOrders = [];
-                      this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getLoading"]));
-                      this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getError"]));
-                      this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getOrder"]));
-                      this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_8__["getUser"]));
+                      this.isLoading = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getLoading"]));
+                      this.error = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getError"]));
+                      this.order = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getOrder"]));
+                      this.user = this.store.pipe(Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["select"])(_store_reducers__WEBPACK_IMPORTED_MODULE_9__["getUser"]));
 
                       try {
                         if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
@@ -329,7 +334,7 @@
                         this.router.navigate(['/error']);
                       }
 
-                    case 6:
+                    case 5:
                     case "end":
                       return _context.stop();
                   }
@@ -542,19 +547,46 @@
           key: "print",
           value: function print() {
             return __awaiter(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-              var today, limit, findResult, orderData, user, orders, pos, printer;
+              var _yield$this$actionSer, order, _yield$this$actionSer2, pos, printer, today, limit, eventOrders, findResult, orders;
+
               return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
                   switch (_context4.prev = _context4.next) {
                     case 0:
+                      _context4.prev = 0;
+                      _context4.next = 3;
+                      return this.actionService.order.getData();
+
+                    case 3:
+                      _yield$this$actionSer = _context4.sent;
+                      order = _yield$this$actionSer.order;
+                      _context4.next = 7;
+                      return this.actionService.user.getData();
+
+                    case 7:
+                      _yield$this$actionSer2 = _context4.sent;
+                      pos = _yield$this$actionSer2.pos;
+                      printer = _yield$this$actionSer2.printer;
+
+                      if (!(order === undefined || pos === undefined || printer === undefined)) {
+                        _context4.next = 12;
+                        break;
+                      }
+
+                      throw new Error('order or pos or printer undefined');
+
+                    case 12:
                       today = moment__WEBPACK_IMPORTED_MODULE_5__().format('YYYYMMDD');
                       limit = moment__WEBPACK_IMPORTED_MODULE_5__(today).add(this.environment.INQUIRY_PRINT_EXPIRED_VALUE, this.environment.INQUIRY_PRINT_EXPIRED_UNIT).format('YYYYMMDD');
-                      findResult = this.eventOrders.find(function (o) {
+                      eventOrders = ___WEBPACK_IMPORTED_MODULE_6__["Functions"].Purchase.order2EventOrders({
+                        order: order
+                      });
+                      findResult = eventOrders.find(function (o) {
                         return moment__WEBPACK_IMPORTED_MODULE_5__(o.event.startDate).format('YYYYMMDD') < limit;
                       });
 
                       if (!(findResult !== undefined)) {
-                        _context4.next = 6;
+                        _context4.next = 19;
                         break;
                       }
 
@@ -564,59 +596,36 @@
                       });
                       return _context4.abrupt("return");
 
-                    case 6:
+                    case 19:
                       if (this.timer !== undefined) {
                         clearTimeout(this.timer);
                       }
 
-                      _context4.prev = 7;
-                      _context4.next = 10;
-                      return this.actionService.order.getData();
-
-                    case 10:
-                      orderData = _context4.sent;
-                      _context4.next = 13;
-                      return this.actionService.user.getData();
-
-                    case 13:
-                      user = _context4.sent;
-
-                      if (!(orderData.order === undefined || user.pos === undefined || user.printer === undefined)) {
-                        _context4.next = 17;
-                        break;
-                      }
-
-                      this.router.navigate(['/error']);
-                      return _context4.abrupt("return");
-
-                    case 17:
-                      orders = [orderData.order];
-                      pos = user.pos;
-                      printer = user.printer;
-                      _context4.next = 22;
+                      orders = [order];
+                      _context4.next = 23;
                       return this.actionService.order.print({
                         orders: orders,
                         pos: pos,
                         printer: printer
                       });
 
-                    case 22:
+                    case 23:
                       this.router.navigate(['/inquiry/print']);
-                      _context4.next = 29;
+                      _context4.next = 30;
                       break;
 
-                    case 25:
-                      _context4.prev = 25;
-                      _context4.t0 = _context4["catch"](7);
+                    case 26:
+                      _context4.prev = 26;
+                      _context4.t0 = _context4["catch"](0);
                       console.error(_context4.t0);
                       this.router.navigate(['/error']);
 
-                    case 29:
+                    case 30:
                     case "end":
                       return _context4.stop();
                   }
                 }
-              }, _callee4, this, [[7, 25]]);
+              }, _callee4, this, [[0, 26]]);
             }));
           }
         }]);
@@ -625,7 +634,7 @@
       }();
 
       InquiryConfirmComponent.ɵfac = function InquiryConfirmComponent_Factory(t) {
-        return new (t || InquiryConfirmComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_7__["QRCodeService"]));
+        return new (t || InquiryConfirmComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services__WEBPACK_IMPORTED_MODULE_8__["QRCodeService"]));
       };
 
       InquiryConfirmComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -702,8 +711,8 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](13, 13, "inquiry.confirm.prev"));
           }
         },
-        directives: [_angular_common__WEBPACK_IMPORTED_MODULE_9__["NgIf"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLink"], _shared_components_parts_order_detail_detail_component__WEBPACK_IMPORTED_MODULE_10__["OrderDetailComponent"]],
-        pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["AsyncPipe"]],
+        directives: [_angular_common__WEBPACK_IMPORTED_MODULE_10__["NgIf"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLink"], _shared_components_parts_order_detail_detail_component__WEBPACK_IMPORTED_MODULE_11__["OrderDetailComponent"]],
+        pipes: [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslatePipe"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["AsyncPipe"]],
         styles: [""]
       });
       /*@__PURE__*/
@@ -722,13 +731,13 @@
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_7__["UtilService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["UtilService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_7__["ActionService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["ActionService"]
           }, {
             type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateService"]
           }, {
-            type: _services__WEBPACK_IMPORTED_MODULE_7__["QRCodeService"]
+            type: _services__WEBPACK_IMPORTED_MODULE_8__["QRCodeService"]
           }];
         }, null);
       })();

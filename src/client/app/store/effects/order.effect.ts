@@ -190,19 +190,19 @@ export class OrderEffects {
                 };
                 const findResult = await this.cinerino.order.findByConfirmationNumber(params);
                 const order = (Array.isArray(findResult)) ? findResult[0] : findResult;
-                const itemOffered = <factory.chevre.reservation.IReservation<
-                    factory.chevre.reservationType.EventReservation
-                >>order.acceptedOffers[0].itemOffered;
-                if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
-                    throw new Error('reservationType not EventReservation');
-                }
-                const startDate =
-                    moment(moment(itemOffered.reservationFor.startDate).format('YYYYMMDD'), 'YYYYMMDD').toDate();
-                if (!(moment(today).add(-1, 'day').unix() < moment(startDate).unix()
-                    && moment(startDate).unix() < moment(today).add(1, 'day').unix())) {
-                    // 上映開始日が本日以外
-                    throw new Error('outside the period');
-                }
+                // const itemOffered = <factory.chevre.reservation.IReservation<
+                //     factory.chevre.reservationType.EventReservation
+                // >>order.acceptedOffers[0].itemOffered;
+                // if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+                //     throw new Error('reservationType not EventReservation');
+                // }
+                // const startDate =
+                //     moment(moment(itemOffered.reservationFor.startDate).format('YYYYMMDD'), 'YYYYMMDD').toDate();
+                // if (!(moment(today).add(-1, 'day').unix() < moment(startDate).unix()
+                //     && moment(startDate).unix() < moment(today).add(1, 'day').unix())) {
+                //     // 上映開始日が本日以外
+                //     throw new Error('outside the period');
+                // }
                 return orderAction.inquirySuccess({ order });
             } catch (error) {
                 return orderAction.inquiryFail({ error: error });

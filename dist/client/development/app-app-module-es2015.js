@@ -77492,16 +77492,19 @@ class OrderEffects {
                 };
                 const findResult = yield this.cinerino.order.findByConfirmationNumber(params);
                 const order = (Array.isArray(findResult)) ? findResult[0] : findResult;
-                const itemOffered = order.acceptedOffers[0].itemOffered;
-                if (itemOffered.typeOf !== _cinerino_sdk__WEBPACK_IMPORTED_MODULE_1__["factory"].chevre.reservationType.EventReservation) {
-                    throw new Error('reservationType not EventReservation');
-                }
-                const startDate = moment__WEBPACK_IMPORTED_MODULE_4__(moment__WEBPACK_IMPORTED_MODULE_4__(itemOffered.reservationFor.startDate).format('YYYYMMDD'), 'YYYYMMDD').toDate();
-                if (!(moment__WEBPACK_IMPORTED_MODULE_4__(today).add(-1, 'day').unix() < moment__WEBPACK_IMPORTED_MODULE_4__(startDate).unix()
-                    && moment__WEBPACK_IMPORTED_MODULE_4__(startDate).unix() < moment__WEBPACK_IMPORTED_MODULE_4__(today).add(1, 'day').unix())) {
-                    // 上映開始日が本日以外
-                    throw new Error('outside the period');
-                }
+                // const itemOffered = <factory.chevre.reservation.IReservation<
+                //     factory.chevre.reservationType.EventReservation
+                // >>order.acceptedOffers[0].itemOffered;
+                // if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+                //     throw new Error('reservationType not EventReservation');
+                // }
+                // const startDate =
+                //     moment(moment(itemOffered.reservationFor.startDate).format('YYYYMMDD'), 'YYYYMMDD').toDate();
+                // if (!(moment(today).add(-1, 'day').unix() < moment(startDate).unix()
+                //     && moment(startDate).unix() < moment(today).add(1, 'day').unix())) {
+                //     // 上映開始日が本日以外
+                //     throw new Error('outside the period');
+                // }
                 return _actions__WEBPACK_IMPORTED_MODULE_9__["orderAction"].inquirySuccess({ order });
             }
             catch (error) {
