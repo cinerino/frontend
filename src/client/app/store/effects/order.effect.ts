@@ -172,7 +172,7 @@ export class OrderEffects {
                 const environment = getEnvironment();
                 await this.cinerino.getServices();
                 const now = (await this.utilService.getServerTime()).date;
-                const today = moment(moment(now).format('YYYYMMDD')).toISOString();
+                const today = moment(moment(now).format('YYYYMMDD'), 'YYYYMMDD').toISOString();
                 const confirmationNumber = Number(payload.confirmationNumber);
                 const customer = {
                     telephone: (payload.customer.telephone === undefined)
@@ -188,11 +188,22 @@ export class OrderEffects {
                     orderDateFrom: moment(today).add(orderDateFrom.value, orderDateFrom.unit).toDate(),
                     orderDateThrough: moment(now).toDate()
                 };
-                const order = await this.cinerino.order.findByConfirmationNumber(params);
-
-                return orderAction.inquirySuccess({
-                    order: (Array.isArray(order)) ? order[0] : order
-                });
+                const findResult = await this.cinerino.order.findByConfirmationNumber(params);
+                const order = (Array.isArray(findResult)) ? findResult[0] : findResult;
+                const itemOffered = <factory.chevre.reservation.IReservation<
+                    factory.chevre.reservationType.EventReservation
+                >>order.acceptedOffers[0].itemOffered;
+                if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
+                    throw new Error('reservationType not EventReservation');
+                }
+                const startDate =
+                    moment(moment(itemOffered.reservationFor.startDate).format('YYYYMMDD'), 'YYYYMMDD').toDate();
+                if (!(moment(today).add(-1, 'day').unix() < moment(startDate).unix()
+                    && moment(startDate).unix() < moment(today).add(1, 'day').unix())) {
+                    // 上映開始日が本日以外
+                    throw new Error('outside the period');
+                }
+                return orderAction.inquirySuccess({ order });
             } catch (error) {
                 return orderAction.inquiryFail({ error: error });
             }
