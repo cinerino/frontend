@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.3.1 - 2020-09-30
+### Changed
+ - 過去の上映日を発券不可に変更
+ - チケット選択UI変更
+
 ## 3.3.0 - 2020-09-24
 ### Added
  - MGチケット決済追加
