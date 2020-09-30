@@ -20,7 +20,6 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     public order: Observable<reducers.IOrderState>;
     public user: Observable<reducers.IUserState>;
     public moment = moment;
-    public eventOrders: Functions.Purchase.IEventOrder[];
     public error: Observable<string | null>;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public environment = getEnvironment();
@@ -39,7 +38,6 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
      * 初期化
      */
     public async ngOnInit() {
-        this.eventOrders = [];
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
         this.order = this.store.pipe(select(reducers.getOrder));
@@ -153,33 +151,31 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
      * 印刷
      */
     public async print() {
-        const today = moment().format('YYYYMMDD');
-        const limit = moment(today)
-            .add(this.environment.INQUIRY_PRINT_EXPIRED_VALUE, this.environment.INQUIRY_PRINT_EXPIRED_UNIT)
-            .format('YYYYMMDD');
-        const findResult = this.eventOrders.find(o => moment(o.event.startDate).format('YYYYMMDD') < limit);
-        if (findResult !== undefined) {
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('inquiry.confirm.alert.printExpired')
-            });
-            return;
-        }
-        if (this.timer !== undefined) {
-            clearTimeout(this.timer);
-        }
         try {
-            const orderData = await this.actionService.order.getData();
-            const user = await this.actionService.user.getData();
-            if (orderData.order === undefined
-                || user.pos === undefined
-                || user.printer === undefined) {
-                this.router.navigate(['/error']);
+            const { order } = await this.actionService.order.getData();
+            const { pos, printer } = await this.actionService.user.getData();
+            if (order === undefined
+                || pos === undefined
+                || printer === undefined) {
+                throw new Error('order or pos or printer undefined');
+            }
+            const today = moment().format('YYYYMMDD');
+            const limit = moment(today)
+                .add(this.environment.INQUIRY_PRINT_EXPIRED_VALUE, this.environment.INQUIRY_PRINT_EXPIRED_UNIT)
+                .format('YYYYMMDD');
+            const eventOrders = Functions.Purchase.order2EventOrders({ order });
+            const findResult = eventOrders.find(o => moment(o.event.startDate).format('YYYYMMDD') < limit);
+            if (findResult !== undefined) {
+                this.utilService.openAlert({
+                    title: this.translate.instant('common.error'),
+                    body: this.translate.instant('inquiry.confirm.alert.printExpired')
+                });
                 return;
             }
-            const orders = [orderData.order];
-            const pos = user.pos;
-            const printer = user.printer;
+            if (this.timer !== undefined) {
+                clearTimeout(this.timer);
+            }
+            const orders = [order];
             await this.actionService.order.print({ orders, pos, printer });
             this.router.navigate(['/inquiry/print']);
         } catch (error) {
