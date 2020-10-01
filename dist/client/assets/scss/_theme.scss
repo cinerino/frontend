@@ -1,0 +1,26 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss";
+
+$font-family: -apple-system, "Lucida Grande", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "游ゴシック", "メイリオ", Meiryo, Helvetica, Arial, sans-serif;
+
+$theme-colors: (
+    primary: $primary, 
+    secondary: $secondary, 
+    success: #0081CC, 
+    info: $info, 
+    warning: #F29600, 
+    danger: #E50012, 
+    light: $gray-100, 
+    dark: $gray-800
+);
+
+$dark-gray: #666;
+$gray: #ced4da;
+$light-gray: #EEE;
+
+$body-bg: $light-gray;
+$body-color: #333;
+$body-font-size: 16px;
+

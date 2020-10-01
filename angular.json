@@ -50,19 +50,7 @@
                   "maximumWarning": "15kb"
                 }
               ],
-              "outputPath": "./dist/client/development",
               "watch": true
-            },
-            "development": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "15kb"
-                }
-              ],
-              "outputPath": "./dist/client/development",
-              "sourceMap": false,
-              "aot": true
             },
             "production": {
               "budgets": [
@@ -71,7 +59,6 @@
                   "maximumWarning": "15kb"
                 }
               ],
-              "outputPath": "./dist/client/production",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -81,7 +68,6 @@
               "extractLicenses": true,
               "vendorChunk": true,
               "buildOptimizer": false,
-              "index": "src/client/index.production.html",
               "statsJson": true
             }
           }

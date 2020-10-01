@@ -15,6 +15,7 @@
 | `CLIENT_CREDENTIALS_CLIENT_ID`      | true     |                               | client id                               |
 | `CLIENT_CREDENTIALS_CLIENT_SECRET`  | true     |                               | client secret                           |
 | `CLIENT_CREDENTIALS_DOMAIN`         | true     |                               | authorize server domain                 |
+| `GMO_TOKEN_URL`                     | true     |                               | gmo token url                           |
 | `AUTHORIZATION_CODE_CLIENT_ID`      | false    |                               | client id oauth2                        |
 | `AUTHORIZATION_CODE_CLIENT_SECRET`  | false    |                               | client secret oauth2                    |
 | `AUTHORIZATION_CODE_DOMAIN`         | false    |                               | oauth2 server domain                    |
