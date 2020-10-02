@@ -39,7 +39,6 @@
                     "temporaryReservation": "仮予約に成功しました。"
                 },
                 "alert": {
-                    "unselected": "チケットが未選択です。",
                     "ticketCondition": "割引券の適用条件を再度ご確認ください。",
                     "temporaryReservation": "仮予約に失敗しました。",
                     "getScreeningEventSeats": "空席がありません。",
@@ -59,9 +58,8 @@
                 "prev": "戻る",
                 "openSeating": "座席数", 
                 "alert": {
-                    "unselected": "座席が未選択です。",
                     "limit": "同時購入可能数は{{value}}件までです。",
-                    "temporaryReservation": "仮予約に失敗しました。",
+                    "temporaryReservation": "仮予約に失敗しました。<br>※すでに他のお客様が同じ座席を選択した場合もこのエラーが表示されます。",
                     "ticketNotfound": "販売可能券種がありません。"
                 }
             },
@@ -74,7 +72,6 @@
                 "prev": "戻る",
                 "addOn": "オプション選択",
                 "alert": {
-                    "unselected": "チケットが未選択です。",
                     "ticketCondition": "割引券の適用条件を再度ご確認ください。"
                 }
             },
