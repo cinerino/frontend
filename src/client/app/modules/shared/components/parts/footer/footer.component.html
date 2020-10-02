@@ -1,8 +1,8 @@
 <div class="p-3 text-x-small text-center">
     <p class="d-flex justify-content-center flex-wrap mb-2">
-        <a *ngIf="environment.FOOTER_COMPANY_URL" class="mx-1" [href]="environment.FOOTER_COMPANY_URL" target="_blank">{{ 'footer.company' | translate }}</a>
-        <a *ngIf="environment.FOOTER_LAW_URL" class="mx-1" [href]="environment.FOOTER_LAW_URL" target="_blank">{{ 'footer.law' | translate }}</a>
-        <a *ngIf="environment.FOOTER_PRIVACY_POLICY_URL" class="mx-1" [href]="environment.FOOTER_PRIVACY_POLICY_URL" target="_blank">{{ 'footer.privacyPolicy' | translate }}</a>
+        <a *ngIf="environment.FOOTER_COMPANY_URL" class="mx-1" [href]="environment.FOOTER_COMPANY_URL" target="_blank" rel="noopener">{{ 'footer.company' | translate }}</a>
+        <a *ngIf="environment.FOOTER_LAW_URL" class="mx-1" [href]="environment.FOOTER_LAW_URL" target="_blank" rel="noopener">{{ 'footer.law' | translate }}</a>
+        <a *ngIf="environment.FOOTER_PRIVACY_POLICY_URL" class="mx-1" [href]="environment.FOOTER_PRIVACY_POLICY_URL" target="_blank" rel="noopener">{{ 'footer.privacyPolicy' | translate }}</a>
     </p>
     <p [innerHTML]="'footer.copyright' | translate"></p>
 </div>

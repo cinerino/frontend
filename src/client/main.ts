@@ -56,12 +56,22 @@ async function setProject(params: { projectId?: string; projectName?: string; })
     if (!fetchResult.ok) {
         throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
     }
-    const json: {
+    const result: {
         projectId: string;
-        projectName: string;
+        projectName?: string;
         storageUrl: string;
+        gmoTokenUrl: string;
+        env: string;
     } = await fetchResult.json();
-    sessionStorage.setItem('PROJECT', JSON.stringify(json));
+    sessionStorage.setItem('PROJECT', JSON.stringify({
+        projectId: result.projectId,
+        projectName: result.projectName,
+        storageUrl: result.storageUrl
+    }));
+    const script = document.createElement('script');
+    script.src = result.gmoTokenUrl;
+    document.body.appendChild(script);
+    document.body.classList.add(result.env);
 }
 
 /**
