@@ -62,8 +62,7 @@ export class PurchaseTicketComponent implements OnInit {
      */
     public async onSubmit() {
         try {
-            const purchase = await this.actionService.purchase.getData();
-            const reservations = purchase.reservations;
+            const { reservations } = await this.actionService.purchase.getData();
             const validResult = reservations.filter((reservation) => {
                 if (reservation.ticket === undefined) {
                     return false;
