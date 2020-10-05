@@ -23,6 +23,7 @@ export class PurchaseTicketComponent implements OnInit {
     public additionalTicketText: string;
     public environment = getEnvironment();
     public translateName: string;
+    public isSelectedTicket: boolean;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -43,6 +44,17 @@ export class PurchaseTicketComponent implements OnInit {
         this.translateName = (this.environment.VIEW_TYPE === 'cinema')
             ? 'purchase.cinema.ticket' : 'purchase.event.seatTicket';
         this.additionalTicketText = '';
+        this.isSelectedTicket = (await this.getUnselectedTicketReservations()).length === 0;
+    }
+
+    /**
+     * 券種未選択の予約取得
+     */
+    public async getUnselectedTicketReservations() {
+        const { reservations } = await this.actionService.purchase.getData();
+        return reservations.filter((reservation) => {
+            return (reservation.ticket === undefined);
+        });
     }
 
     /**
@@ -50,18 +62,7 @@ export class PurchaseTicketComponent implements OnInit {
      */
     public async onSubmit() {
         try {
-            const purchase = await this.actionService.purchase.getData();
-            const reservations = purchase.reservations;
-            const unselectedReservations = reservations.filter((reservation) => {
-                return (reservation.ticket === undefined);
-            });
-            if (unselectedReservations.length > 0) {
-                this.utilService.openAlert({
-                    title: this.translate.instant('common.error'),
-                    body: this.translate.instant(`${this.translateName}.alert.unselected`)
-                });
-                return;
-            }
+            const { reservations } = await this.actionService.purchase.getData();
             const validResult = reservations.filter((reservation) => {
                 if (reservation.ticket === undefined) {
                     return false;
@@ -122,8 +123,9 @@ export class PurchaseTicketComponent implements OnInit {
                 reservations: purchase.reservations,
                 reservation: reservation,
                 pendingMovieTickets: purchase.pendingMovieTickets,
-                cb: (ticket: Models.Purchase.Reservation.IReservationTicket) => {
+                cb: async (ticket: Models.Purchase.Reservation.IReservationTicket) => {
                     this.actionService.purchase.selectTickets([{ ...reservation, ticket }]);
+                    this.isSelectedTicket = (await this.getUnselectedTicketReservations()).length === 0;
                 }
             },
             class: 'modal-dialog-centered'
