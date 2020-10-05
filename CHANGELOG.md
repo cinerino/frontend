@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.1 - 2020-10-05
+### Changed
+ - 決定ボタンdisabledを統一
+
 ## 3.4.0 - 2020-10-02
 ### Changed
  - production.htmlを廃止
