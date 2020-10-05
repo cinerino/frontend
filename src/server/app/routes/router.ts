@@ -12,10 +12,6 @@ import { utilRouter } from './api/util';
 const log = debug('application: router');
 
 export default (app: express.Application) => {
-    app.use((_req, res, next) => {
-        res.locals.NODE_ENV = process.env.NODE_ENV;
-        next();
-    });
     app.use((req, res, next) => {
         if ((/\.(css|js|svg|jpg|png|gif|ico|json|html|txt)/).test(req.path)) {
             res.status(404);
@@ -117,8 +113,7 @@ export default (app: express.Application) => {
             }
             req.session.external = req.query;
         }
-        const dir = (process.env.NODE_ENV === 'production') ? 'production' : 'development';
-        res.sendFile(path.resolve(`${__dirname}/../../../client/${dir}/index.html`));
+        res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`));
     });
 
     app.all('*', (req, res, _next) => {

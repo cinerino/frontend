@@ -17,7 +17,9 @@ router.post('/project', async (req, res) => {
         res.json({
             projectId: process.env.PROJECT_ID,
             projectName: process.env.PROJECT_NAME,
-            storageUrl: process.env.PROJECT_STORAGE_URL
+            storageUrl: process.env.PROJECT_STORAGE_URL,
+            gmoTokenUrl: process.env.GMO_TOKEN_URL,
+            env: process.env.NODE_ENV
         });
         return;
     }
@@ -29,7 +31,9 @@ router.post('/project', async (req, res) => {
             ? ''
             : (params.projectName === undefined)
                 ? `${process.env.STORAGE_URL}/${params.projectId}`
-                : `${process.env.STORAGE_URL}/${params.projectId}-${params.projectName}`
+                : `${process.env.STORAGE_URL}/${params.projectId}-${params.projectName}`,
+        gmoTokenUrl: process.env.GMO_TOKEN_URL,
+        env: process.env.NODE_ENV
     });
 });
 

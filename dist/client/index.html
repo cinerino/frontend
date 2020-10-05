@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <base href="/">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="robots" content="noindex" />
+    <meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="styles.49909ed4047c6446ab58.css"></head>
+
+<body>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #eee;
+        }
+
+        .init-cover,
+        .init-loading {
+            z-index: 2000;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .init-cover {
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: init-fadein 0.2s both;
+        }
+
+        .init-loading {
+            opacity: 1;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .init-loader,
+        .init-loader:after {
+            border-radius: 50%;
+            width: 90px;
+            height: 90px;
+        }
+
+        .init-loader {
+            position: relative;
+            text-indent: -9999em;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-left-color: #FFF;
+            transform: translateZ(0);
+            animation: init-load8 1.1s infinite linear;
+        }
+
+        @keyframes init-fadein {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes init-load8 {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <app-root>
+        <div class="init-cover"></div>
+        <div class="init-loading">
+            <div class="init-loader">Loading...</div>
+        </div>
+    </app-root>
+<script src="runtime-es2015.231125e0c25c8a5a22d8.js" type="module"></script><script src="runtime-es5.231125e0c25c8a5a22d8.js" nomodule defer></script><script src="polyfills-es5.6366fbc846b76a70340d.js" nomodule defer></script><script src="polyfills-es2015.b8467e9533ffd70ecac2.js" type="module"></script><script src="scripts.64dd36af2fbf663aa6ea.js" defer></script><script src="vendor-es2015.74af36eb452cc0c95d15.js" type="module"></script><script src="vendor-es5.74af36eb452cc0c95d15.js" nomodule defer></script><script src="main-es2015.f858b48be24b62483eb5.js" type="module"></script><script src="main-es5.f858b48be24b62483eb5.js" nomodule defer></script></body>
+
+</html>

@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.0 - 2020-10-02
+### Changed
+ - production.htmlを廃止
+
 ## 3.3.1 - 2020-09-30
 ### Changed
  - 過去の上映日を発券不可に変更
