@@ -52,10 +52,29 @@ export class PurchaseEffects {
         map(action => action),
         mergeMap(async (payload) => {
             try {
-                const environment = getEnvironment();
+                const theater = payload.theater;
+                if (theater.offers === undefined
+                    || theater.offers.availabilityStartsGraceTime === undefined
+                    || theater.offers.availabilityStartsGraceTime.value === undefined
+                    || theater.offers.availabilityStartsGraceTime.unitCode === undefined
+                    || theater.offers.availabilityStartsGraceTime.unitCode === undefined) {
+                    return purchaseAction.getPreScheduleDatesSuccess({ sheduleDates: [] });
+                }
+                const { value, unitCode } = theater.offers.availabilityStartsGraceTime;
+                const availabilityStartsGraceTime: {
+                    value: number;
+                    unit: 'day' | 'year' | 'second'
+                } = {
+                    value: value * -1 + 1,
+                    unit: (unitCode === factory.chevre.unitCode.Day) ? 'day'
+                        : (unitCode === factory.chevre.unitCode.Ann) ? 'year'
+                            : (unitCode === factory.chevre.unitCode.Sec) ? 'second'
+                                : 'second'
+                };
+                const superEvent = payload.superEvent;
                 await this.cinerinoService.getServices();
                 const now = moment((await this.utilService.getServerTime()).date).toDate();
-                const today = moment(moment().format('YYYY-MM-DD')).toDate();
+                const today = moment(moment().format('YYYYMMDD')).toDate();
                 const limit = 100;
                 let page = 1;
                 let roop = true;
@@ -66,8 +85,10 @@ export class PurchaseEffects {
                         limit,
                         typeOf: factory.chevre.eventType.ScreeningEvent,
                         eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
-                        superEvent: payload.superEvent,
-                        startFrom: moment(today).add(environment.PURCHASE_PRE_SCHEDULE_DATE, 'days').toDate(),
+                        superEvent: superEvent,
+                        startFrom: moment(today, 'YYYYMMDD')
+                            .add(availabilityStartsGraceTime.value, availabilityStartsGraceTime.unit)
+                            .toDate(),
                         offers: {
                             validFrom: now,
                             validThrough: now,

@@ -42,6 +42,7 @@ export const selectTheater = createAction(
 export const getPreScheduleDates = createAction(
     `${LABEL} getPreScheduleDates`,
     props<{
+        theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
         superEvent: {
             ids?: string[];
             locationBranchCodes?: string[];
