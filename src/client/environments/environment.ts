@@ -113,10 +113,6 @@ interface IEnvironment {
      */
     PURCHASE_TRANSACTION_IDENTIFIER: { name: string, value: string }[];
     /**
-     * 先行販売期間指定
-     */
-    PURCHASE_PRE_SCHEDULE_DATE: string;
-    /**
      * スケジュール表示期間
      */
     PURCHASE_SCHEDULE_DISPLAY_LENGTH: string;
@@ -265,7 +261,6 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_TRANSACTION_TIME: '15',
     PURCHASE_TRANSACTION_TIME_DISPLAY: true,
     PURCHASE_TRANSACTION_IDENTIFIER: [],
-    PURCHASE_PRE_SCHEDULE_DATE: '3',
     PURCHASE_SCHEDULE_DISPLAY_LENGTH: '10',
     PURCHASE_SCHEDULE_OPEN_DATE: '2019-05-01',
     PURCHASE_SCHEDULE_SALES_DATE_VALUE: '0',

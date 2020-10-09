@@ -102,6 +102,7 @@ export class ActionPurchaseService {
             const external = Functions.Util.getExternalData();
             const theater = purchase.theater;
             this.store.dispatch(purchaseAction.getPreScheduleDates({
+                theater,
                 superEvent: {
                     ids: (external.superEventId === undefined) ? [] : [external.superEventId],
                     locationBranchCodes: (theater.branchCode === undefined) ? [] : [theater.branchCode],
