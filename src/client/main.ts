@@ -56,20 +56,27 @@ async function setProject(params: { projectId?: string; projectName?: string; })
         throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
     }
     const result: {
+        projectId?: string;
+        projectName?: string;
         storageUrl: string;
         gmoTokenUrl: string;
         env: string;
     } = await fetchResult.json();
+    const projectId = (result.projectId !== undefined)
+        ? result.projectId
+        : (params.projectId !== undefined) ? params.projectId : '';
+    const projectName = (result.projectName !== undefined)
+        ? result.projectName
+        : (params.projectName !== undefined) ? params.projectName : '';
+    const storageUrl = (result.projectId === undefined && result.projectName === undefined)
+        ? (projectName !== '')
+            ? `${result.storageUrl}/${projectId}/${projectName}`
+            : `${result.storageUrl}/${projectId}`
+        : result.storageUrl;
     sessionStorage.setItem('PROJECT', JSON.stringify({
-        projectId: (params === undefined)
-            ? '' : params.projectId,
-        projectName: (params === undefined || params.projectName === undefined)
-            ? '' : params.projectName,
-        storageUrl: (params === undefined)
-            ? ''
-            : (params.projectName === undefined)
-                ? `${result.storageUrl}/${params.projectId}`
-                : `${result.storageUrl}/${params.projectId}-${params.projectName}`
+        projectId,
+        projectName,
+        storageUrl
     }));
     const script = document.createElement('script');
     script.src = result.gmoTokenUrl;
