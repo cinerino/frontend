@@ -276,7 +276,6 @@ export class OrderEffects {
                                 // 入場
                                 qrcode = JSON.stringify({
                                     orderNumber: authorizeOrder.orderNumber,
-                                    reservationNumber: itemOffered.reservationNumber,
                                     id: itemOffered.id
                                 });
                             } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Custom) {

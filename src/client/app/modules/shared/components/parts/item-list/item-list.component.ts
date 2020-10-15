@@ -45,7 +45,6 @@ export class ItemListComponent implements OnInit {
             // 入場
             qrcode = JSON.stringify({
                 orderNumber: order.orderNumber,
-                reservationNumber: itemOffered.reservationNumber,
                 id: itemOffered.id
             });
         } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Custom) {
