@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.3 - 2020-10-15
+### Added
+ - 入場方式追加
+### Changed
+ - プロジェクト設定取得APIへ不要なパラメータを削除
+
 ## 3.4.2 - 2020-10-09
 ### Changed
  - 販売開始条件を劇場から取得へ変更

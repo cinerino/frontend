@@ -51,22 +51,32 @@ async function setProject(params: { projectId?: string; projectName?: string; })
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
         },
-        body: JSON.stringify(params)
     });
     if (!fetchResult.ok) {
         throw new Error(JSON.stringify({ status: fetchResult.status, statusText: fetchResult.statusText }));
     }
     const result: {
-        projectId: string;
+        projectId?: string;
         projectName?: string;
         storageUrl: string;
         gmoTokenUrl: string;
         env: string;
     } = await fetchResult.json();
+    const projectId = (result.projectId !== undefined)
+        ? result.projectId
+        : (params.projectId !== undefined) ? params.projectId : '';
+    const projectName = (result.projectName !== undefined)
+        ? result.projectName
+        : (params.projectName !== undefined) ? params.projectName : '';
+    const storageUrl = (result.projectId === undefined && result.projectName === undefined)
+        ? (projectName !== '')
+            ? `${result.storageUrl}/${projectId}/${projectName}`
+            : `${result.storageUrl}/${projectId}`
+        : result.storageUrl;
     sessionStorage.setItem('PROJECT', JSON.stringify({
-        projectId: result.projectId,
-        projectName: result.projectName,
-        storageUrl: result.storageUrl
+        projectId,
+        projectName,
+        storageUrl
     }));
     const script = document.createElement('script');
     script.src = result.gmoTokenUrl;
