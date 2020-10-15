@@ -23,15 +23,8 @@ router.post('/project', async (req, res) => {
         });
         return;
     }
-    const params = <{ projectId: string; projectName?: string; } | undefined>(req.body);
     res.json({
-        projectId: (params === undefined) ? '' : params.projectId,
-        projectName: (params === undefined || params.projectName === undefined) ? '' : params.projectName,
-        storageUrl: (params === undefined)
-            ? ''
-            : (params.projectName === undefined)
-                ? `${process.env.STORAGE_URL}/${params.projectId}`
-                : `${process.env.STORAGE_URL}/${params.projectId}-${params.projectName}`,
+        storageUrl: process.env.STORAGE_URL,
         gmoTokenUrl: process.env.GMO_TOKEN_URL,
         env: process.env.NODE_ENV
     });
