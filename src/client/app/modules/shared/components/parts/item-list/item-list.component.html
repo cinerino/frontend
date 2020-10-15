@@ -19,7 +19,7 @@
     
     <div *ngIf="acceptedOffers" class="container px-0 bg-white">
         <div class="row">
-            <div *ngFor="let acceptedOffer of acceptedOffers" class="col-12 col-md-6 p-3">
+            <div *ngFor="let acceptedOffer of acceptedOffers; let index = index;" class="col-12 col-md-6 p-3">
                 <div class="h-100">
                     <p *ngIf="acceptedOffer.itemOffered.reservedTicket.ticketedSeat" class="font-weight-bold">{{ acceptedOffer.itemOffered.reservedTicket.ticketedSeat.seatNumber }}</p>
                     <p *ngFor="let priceComponent of acceptedOffer.priceSpecification.priceComponent">
@@ -28,8 +28,8 @@
                         --><span *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span><!--
                         --><span *ngIf="priceComponent?.referenceQuantity?.value && priceComponent.price > 0">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
                     </p>
-                    <div *ngIf="qrcode && acceptedOffer.itemOffered.reservedTicket.ticketToken && isShowQRCode(acceptedOffer.itemOffered.reservationFor)" class="qrcode mt-2 mx-md-0 mx-auto">
-                        <app-qrcode-image [code]="acceptedOffer.itemOffered.reservedTicket.ticketToken"></app-qrcode-image>
+                    <div *ngIf="qrcode && isShowQRCode(acceptedOffer.itemOffered.reservationFor) && order && createQRCode(acceptedOffer, order, index)" class="qrcode mt-2 mx-md-0 mx-auto">
+                        <app-qrcode-image [code]="createQRCode(acceptedOffer, order, index)"></app-qrcode-image>
                     </div>
                     <p *ngIf="qrcode && !isShowQRCode(acceptedOffer.itemOffered.reservationFor)" class="d-inline-block text-danger font-weight-bold">
                         {{ 'common.qrcodeDescription' | translate }}
