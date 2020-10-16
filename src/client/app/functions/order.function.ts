@@ -2,8 +2,8 @@ import { factory } from '@cinerino/sdk';
 import html2canvas from 'html2canvas';
 import * as moment from 'moment';
 import * as qrcode from 'qrcode';
-import { Models } from '..';
 import { getEnvironment } from '../../environments/environment';
+import { Order } from '../models';
 import { getProject } from './util.function';
 
 /**
@@ -115,19 +115,19 @@ export function createQRCode(
         factory.chevre.reservationType.EventReservation
     >>acceptedOffer.itemOffered;
     const environment = getEnvironment();
-    if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.None) {
+    if (environment.PRINT_QRCODE_TYPE === Order.Print.PrintQrcodeType.None) {
         // なし
         result = undefined;
-    } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Token) {
+    } else if (environment.PRINT_QRCODE_TYPE === Order.Print.PrintQrcodeType.Token) {
         // トークン
         result = itemOffered.reservedTicket.ticketToken;
-    } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Admission) {
+    } else if (environment.PRINT_QRCODE_TYPE === Order.Print.PrintQrcodeType.Admission) {
         // 入場
         result = JSON.stringify({
             orderNumber: order.orderNumber,
             id: itemOffered.id
         });
-    } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Custom) {
+    } else if (environment.PRINT_QRCODE_TYPE === Order.Print.PrintQrcodeType.Custom) {
         // カスタム文字列
         result = createCustomQRCode({
             qrcode: environment.PRINT_QRCODE_CUSTOM,
