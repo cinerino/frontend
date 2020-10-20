@@ -219,7 +219,6 @@ export class OrderEffects {
         map(action => action),
         mergeMap(async (payload) => {
             try {
-                const environment = getEnvironment();
                 const orders = payload.orders;
                 const printer = payload.printer;
                 const pos = payload.pos;
@@ -255,71 +254,14 @@ export class OrderEffects {
                     const canvas = await Functions.Order.createTestPrintCanvas4Html({ view: <string>printData });
                     canvasList.push(canvas);
                 } else {
-                    for (const authorizeOrder of authorizeOrders) {
+                    for (const order of authorizeOrders) {
                         let index = 0;
-                        for (const acceptedOffer of authorizeOrder.acceptedOffers) {
-                            if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
-                                continue;
-                            }
-                            const itemOffered = <factory.chevre.reservation.IReservation<
-                                factory.chevre.reservationType.EventReservation
-                            >>acceptedOffer.itemOffered;
-                            const order = authorizeOrder;
-                            let qrcode;
-                            if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.None) {
-                                // なし
-                                qrcode = undefined;
-                            } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Token) {
-                                // トークン
-                                qrcode = itemOffered.reservedTicket.ticketToken;
-                            } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Admission) {
-                                // 入場
-                                qrcode = JSON.stringify({
-                                    orderNumber: authorizeOrder.orderNumber,
-                                    id: itemOffered.id
-                                });
-                            } else if (environment.PRINT_QRCODE_TYPE === Models.Order.Print.PrintQrcodeType.Custom) {
-                                // カスタム文字列
-                                qrcode = environment.PRINT_QRCODE_CUSTOM;
-                                qrcode = qrcode
-                                    .replace(/\{\{ orderDate \| YYMMDD \}\}/g, moment(order.orderDate).format('YYMMDD'));
-                                qrcode = qrcode
-                                    .replace(/\{\{ confirmationNumber \}\}/g, order.confirmationNumber);
-                                qrcode = qrcode
-                                    .replace(/\{\{ confirmationNumber \| [0-9] \}\}/g, (match) => {
-                                        const digit = Number(match.replace(/\{\{ confirmationNumber \| ([0-9]) \}\}/, '$1'));
-                                        return `000000000${order.confirmationNumber}`.slice(-1 * digit);
-                                    });
-                                qrcode = qrcode
-                                    .replace(/\{\{ index \}\}/g, String(index));
-                                qrcode = qrcode
-                                    .replace(/\{\{ index \| [0-9] \}\}/g, (match) => {
-                                        const digit = Number(match.replace(/\{\{ index \| ([0-9]) \}\}/, '$1'));
-                                        return `000000000${String(index)}`.slice(-1 * digit);
-                                    });
-                                qrcode = qrcode
-                                    .replace(/\{\{ orderNumber \}\}/g, order.orderNumber);
-                                qrcode = qrcode
-                                    .replace(
-                                        /\{\{ startDate \| YYMMDD \}\}/g,
-                                        moment(itemOffered.reservationFor.startDate).format('YYMMDD')
-                                    );
-                            }
-                            const additionalProperty = (itemOffered.reservationFor.workPerformed !== undefined
-                                && itemOffered.reservationFor.workPerformed.additionalProperty !== undefined
-                                && itemOffered.reservationFor.workPerformed.additionalProperty.length > 0)
-                                ? itemOffered.reservationFor.workPerformed.additionalProperty :
-                                (itemOffered.additionalProperty !== undefined
-                                    && itemOffered.additionalProperty.length > 0) ?
-                                    itemOffered.additionalProperty
-                                    : undefined;
-                            if (additionalProperty !== undefined) {
-                                // 追加特性のqrcodeがfalseの場合QR非表示
-                                const isDisplayQrcode = additionalProperty.find(a => a.name === 'qrcode');
-                                if (isDisplayQrcode !== undefined && isDisplayQrcode.value === 'false') {
-                                    qrcode = undefined;
-                                }
-                            }
+                        for (const acceptedOffer of order.acceptedOffers) {
+                            const qrcode = Functions.Order.createQRCode(
+                                acceptedOffer,
+                                order,
+                                index
+                            );
                             const canvas = await Functions.Order.createPrintCanvas4Html({
                                 view: <string>printData, order, pos, qrcode, index
                             });
