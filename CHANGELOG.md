@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.4 - 2020-10-20
+### Changed
+ - QR生成変更
+
 ## 3.4.3 - 2020-10-15
 ### Added
  - 入場方式追加
