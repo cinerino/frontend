@@ -89,18 +89,18 @@ jobs:
           command: |
             git remote add prerelease-oyatsu-frontend ${DEPLOY_TARGET_REPOSITORY_PRERELEASE_OYATSU_FRONTEND}
             git push prerelease-oyatsu-frontend $CIRCLE_BRANCH:master -f -v
-  prerelease-oyatsu-print:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: deploy to azure webapps prerelease-oyatsu-print
-          command: |
-            git remote add prerelease-oyatsu-print ${DEPLOY_TARGET_REPOSITORY_PRERELEASE_OYATSU_PRINT}
-            git push prerelease-oyatsu-print $CIRCLE_BRANCH:master -f -v
+  # prerelease-oyatsu-print:
+  #   docker:
+  #     - image: circleci/node:latest
+  #   steps:
+  #     - checkout
+  #     - restore_cache:
+  #         key: dependency-cache-{{ checksum "package.json" }}
+  #     - run:
+  #         name: deploy to azure webapps prerelease-oyatsu-print
+  #         command: |
+  #           git remote add prerelease-oyatsu-print ${DEPLOY_TARGET_REPOSITORY_PRERELEASE_OYATSU_PRINT}
+  #           git push prerelease-oyatsu-print $CIRCLE_BRANCH:master -f -v
   deploy:
     docker:
       - image: circleci/node:latest
@@ -125,18 +125,18 @@ jobs:
           command: |
             git remote add production-staging-oyatsu-frontend ${DEPLOY_TARGET_REPOSITORY_PRODUCTION_OYATSU_FRONTEND}
             git push production-staging-oyatsu-frontend $CIRCLE_BRANCH:master -f -v
-  deploy-oyatsu-print:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: deploy to azure webapps production-oyatsu-print
-          command: |
-            git remote add production-staging-oyatsu-print ${DEPLOY_TARGET_REPOSITORY_PRODUCTION_OYATSU_PRINT}
-            git push production-staging-oyatsu-print $CIRCLE_BRANCH:master -f -v
+  # deploy-oyatsu-print:
+  #   docker:
+  #     - image: circleci/node:latest
+  #   steps:
+  #     - checkout
+  #     - restore_cache:
+  #         key: dependency-cache-{{ checksum "package.json" }}
+  #     - run:
+  #         name: deploy to azure webapps production-oyatsu-print
+  #         command: |
+  #           git remote add production-staging-oyatsu-print ${DEPLOY_TARGET_REPOSITORY_PRODUCTION_OYATSU_PRINT}
+  #           git push production-staging-oyatsu-print $CIRCLE_BRANCH:master -f -v
 # Used for orchestrating all jobs.
 workflows:
   version: 2
@@ -165,12 +165,12 @@ workflows:
           filters:
             branches:
               only: /feature\/.+-alpha.+/
-      - prerelease-oyatsu-print:
-          requires:
-            - test
-          filters:
-            branches:
-              only: /feature\/.+-alpha.+/
+      # - prerelease-oyatsu-print:
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #         only: /feature\/.+-alpha.+/
       - deploy:
           requires:
             - test
@@ -183,9 +183,9 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy-oyatsu-print:
-          requires:
-            - test
-          filters:
-            branches:
-              only: master
+      # - deploy-oyatsu-print:
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #         only: master

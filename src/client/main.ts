@@ -70,7 +70,7 @@ async function setProject(params: { projectId?: string; projectName?: string; })
         : (params.projectName !== undefined) ? params.projectName : '';
     const storageUrl = (result.projectId === undefined && result.projectName === undefined)
         ? (projectName !== '')
-            ? `${result.storageUrl}/${projectId}/${projectName}`
+            ? `${result.storageUrl}/${projectId}-${projectName}`
             : `${result.storageUrl}/${projectId}`
         : result.storageUrl;
     sessionStorage.setItem('PROJECT', JSON.stringify({

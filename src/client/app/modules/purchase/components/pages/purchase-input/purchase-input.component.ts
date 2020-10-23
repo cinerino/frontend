@@ -64,7 +64,7 @@ export class PurchaseInputComponent implements OnInit {
             if (user.isMember) {
                 // 会員
                 await this.actionService.user.getProfile();
-                await this.actionService.user.getCreditCards();
+                // await this.actionService.user.getCreditCards();
             }
             await this.createProfileForm();
             this.createCreditCardForm();
