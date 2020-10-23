@@ -19,8 +19,6 @@
 | `AUTHORIZATION_CODE_CLIENT_ID`      | false    |                               | client id oauth2                        |
 | `AUTHORIZATION_CODE_CLIENT_SECRET`  | false    |                               | client secret oauth2                    |
 | `AUTHORIZATION_CODE_DOMAIN`         | false    |                               | oauth2 server domain                    |
-| `IMPLICIT_CLIENT_ID`                | false    |                               | client id                               |
-| `IMPLICIT_DOMAIN`                   | false    |                               | authorize server domain                 |
 | `WAITER_SERVER_URL`                 | false    |                               | waiter server url                       |
 | `LINY_API_ENDPOINT`                 | false    |                               | liny api endpoint                       |
 | `LINY_API_SECRET`                   | false    |                               | liny api secret                         |
