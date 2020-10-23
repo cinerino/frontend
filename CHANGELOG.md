@@ -12,6 +12,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.5 - 2020-10-23
+### Changed
+ - クレジットカード保持を削除
+ - CIデプロイ先変更
+### Fixed
+ - projectNameストレージ先修正
+
 ## 3.4.4 - 2020-10-20
 ### Changed
  - QR生成変更
