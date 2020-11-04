@@ -76,8 +76,6 @@ export default (app: express.Application) => {
     });
 
     app.get([
-        '/projects/:projectId/:projectName/purchase/transaction/:eventId/:passportToken',
-        '/projects/:projectId/:projectName/purchase/transaction/:eventId',
         '/projects/:projectId/purchase/transaction/:eventId/:passportToken',
         '/projects/:projectId/purchase/transaction/:eventId'
     ], (req, res, next) => {
@@ -130,7 +128,8 @@ export default (app: express.Application) => {
  */
 function getQueryParameter(req: express.Request) {
     let result = `projectId=${req.params.projectId}`;
-    if (req.params.projectName !== undefined) {
+    if (req.params.projectName !== undefined
+        && req.params.projectName === 'print') {
         result += `&projectName=${req.params.projectName}`;
     }
     const query = req.url.split('?')[1];

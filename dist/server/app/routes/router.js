@@ -78,8 +78,6 @@ exports.default = (app) => {
         res.redirect(`/?${getQueryParameter(req)}#/inquiry/input/${req.query.confirmationNumber}`);
     });
     app.get([
-        '/projects/:projectId/:projectName/purchase/transaction/:eventId/:passportToken',
-        '/projects/:projectId/:projectName/purchase/transaction/:eventId',
         '/projects/:projectId/purchase/transaction/:eventId/:passportToken',
         '/projects/:projectId/purchase/transaction/:eventId'
     ], (req, res, next) => {
@@ -128,7 +126,8 @@ exports.default = (app) => {
  */
 function getQueryParameter(req) {
     let result = `projectId=${req.params.projectId}`;
-    if (req.params.projectName !== undefined) {
+    if (req.params.projectName !== undefined
+        && req.params.projectName === 'print') {
         result += `&projectName=${req.params.projectName}`;
     }
     const query = req.url.split('?')[1];
