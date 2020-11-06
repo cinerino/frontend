@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## 3.4.5 - 2020-10-23
 ### Changed
+ - projectNameルーティングを制御変更
+
+## 3.4.5 - 2020-10-23
+### Changed
  - クレジットカード保持を削除
  - CIデプロイ先変更
 ### Fixed
