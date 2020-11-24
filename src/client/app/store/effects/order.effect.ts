@@ -173,7 +173,7 @@ export class OrderEffects {
                 await this.cinerino.getServices();
                 const now = (await this.utilService.getServerTime()).date;
                 const today = moment(moment(now).format('YYYYMMDD'), 'YYYYMMDD').toISOString();
-                const confirmationNumber = Number(payload.confirmationNumber);
+                const confirmationNumber = payload.confirmationNumber;
                 const customer = {
                     telephone: (payload.customer.telephone === undefined)
                         ? '' : Functions.Util.formatTelephone(payload.customer.telephone)
@@ -190,19 +190,6 @@ export class OrderEffects {
                 };
                 const findResult = await this.cinerino.order.findByConfirmationNumber(params);
                 const order = (Array.isArray(findResult)) ? findResult[0] : findResult;
-                // const itemOffered = <factory.chevre.reservation.IReservation<
-                //     factory.chevre.reservationType.EventReservation
-                // >>order.acceptedOffers[0].itemOffered;
-                // if (itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
-                //     throw new Error('reservationType not EventReservation');
-                // }
-                // const startDate =
-                //     moment(moment(itemOffered.reservationFor.startDate).format('YYYYMMDD'), 'YYYYMMDD').toDate();
-                // if (!(moment(today).add(-1, 'day').unix() < moment(startDate).unix()
-                //     && moment(startDate).unix() < moment(today).add(1, 'day').unix())) {
-                //     // 上映開始日が本日以外
-                //     throw new Error('outside the period');
-                // }
                 return orderAction.inquirySuccess({ order });
             } catch (error) {
                 return orderAction.inquiryFail({ error: error });
@@ -219,28 +206,34 @@ export class OrderEffects {
         map(action => action),
         mergeMap(async (payload) => {
             try {
+                const environment = getEnvironment();
                 const orders = payload.orders;
                 const printer = payload.printer;
                 const pos = payload.pos;
                 await this.cinerino.getServices();
-                const authorizeOrders: factory.order.IOrder[] = [];
+                const authorizeOrders: { order: factory.order.IOrder, code: string; }[] = [];
                 for (const order of orders) {
-                    const result = await Functions.Util.retry<factory.order.IOrder>({
+                    const result = await Functions.Util.retry<string>({
                         process: (async () => {
                             const orderNumber = order.orderNumber;
                             const customer = {
                                 // email: args.order.customer.email,
                                 telephone: order.customer.telephone
                             };
-                            const authorizeOrder = await this.cinerino.order.authorizeOwnershipInfos({ orderNumber, customer });
+                            const { code } = await this.cinerino.order.authorize({
+                                object: { orderNumber, customer },
+                                result: {
+                                    expiresInSeconds: Number(environment.ORDER_AUTHORIZE_CODE_EXPIRES)
+                                }
+                            });
 
-                            return authorizeOrder;
+                            return code;
                         }),
                         interval: 5000,
                         limit: 5
                     });
 
-                    authorizeOrders.push(result);
+                    authorizeOrders.push({ order, code: result });
                 }
                 const testFlg = orders.length === 0;
                 const path = `/ejs/print/ticket.ejs`;
@@ -254,16 +247,21 @@ export class OrderEffects {
                     const canvas = await Functions.Order.createTestPrintCanvas4Html({ view: <string>printData });
                     canvasList.push(canvas);
                 } else {
-                    for (const order of authorizeOrders) {
+                    for (const authorizeOrder of authorizeOrders) {
                         let index = 0;
-                        for (const acceptedOffer of order.acceptedOffers) {
-                            const qrcode = Functions.Order.createQRCode(
+                        for (const acceptedOffer of authorizeOrder.order.acceptedOffers) {
+                            const qrcode = Functions.Order.createQRCode({
                                 acceptedOffer,
-                                order,
-                                index
-                            );
+                                order: authorizeOrder.order,
+                                index,
+                                code: authorizeOrder.code
+                            });
                             const canvas = await Functions.Order.createPrintCanvas4Html({
-                                view: <string>printData, order, pos, qrcode, index
+                                view: <string>printData,
+                                order: authorizeOrder.order,
+                                pos,
+                                qrcode,
+                                index
                             });
                             canvasList.push(canvas);
                             index++;
@@ -299,23 +297,5 @@ export class OrderEffects {
         })
     );
 
-    /**
-     * orderAuthorize
-     */
-    @Effect()
-    public orderAuthorize = this.actions.pipe(
-        ofType(orderAction.orderAuthorize),
-        map(action => action),
-        mergeMap(async (payload) => {
-            try {
-                const params = Object.assign({ personId: 'me' }, payload);
-                await this.cinerino.getServices();
-                const order = await this.cinerino.order.authorizeOwnershipInfos(params);
-                return orderAction.orderAuthorizeSuccess({ order });
-            } catch (error) {
-                return orderAction.orderAuthorizeFail({ error: error });
-            }
-        })
-    );
 
 }
