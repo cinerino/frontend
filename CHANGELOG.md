@@ -12,7 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
-## 3.4.5 - 2020-10-23
+## 3.4.7 - 2020-11-25
+### Changed
+ - 発券:新しいコードへ変更
+
+## 3.4.6 - 2020-10-23
 ### Changed
  - projectNameルーティングを制御変更
 
