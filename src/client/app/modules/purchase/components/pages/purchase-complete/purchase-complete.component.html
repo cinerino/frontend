@@ -54,7 +54,6 @@
                     <div class="col-md-8">
                         <p *ngFor="let paymentMethod of (purchase | async)?.order.paymentMethods">
                             <span *ngIf="paymentMethod.typeOf === paymentMethodType.Cash">{{ 'common.paymentMethodTypes.cash.label' | translate }}</span>
-                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.Account">{{ 'common.paymentMethodTypes.account.label' | translate }}</span>
                             <span *ngIf="paymentMethod.typeOf === paymentMethodType.CreditCard">{{ 'common.paymentMethodTypes.creditCard.label' | translate }}</span>
                             <span *ngIf="paymentMethod.typeOf === paymentMethodType.EMoney">{{ 'common.paymentMethodTypes.eMoney.label' | translate }}</span>
                             <span *ngIf="paymentMethod.typeOf === paymentMethodType.MovieTicket">{{ 'common.paymentMethodTypes.movieTicket.label' | translate }}</span>

@@ -94,7 +94,6 @@ export class UserEffects {
                 await this.cinerino.getServices();
                 await this.cinerino.ownershipInfo.closeAccount({
                     accountNumber: account.typeOfGood.accountNumber,
-                    accountType: account.typeOfGood.accountType
                 });
                 return userAction.closeAccountSuccess();
             } catch (error) {
@@ -226,7 +225,7 @@ export class UserEffects {
                         priceCurrency: factory.priceCurrency.JPY,
                         seller,
                         toLocation: {
-                            typeOf: factory.pecorino.account.TypeOf.Account,
+                            typeOf: 'Account',
                             identifier: payload.account.identifier
                         }
                     },
@@ -292,11 +291,11 @@ export class UserEffects {
                             authorizeActions: [],
                             description: payload.description,
                             fromLocation: {
-                                typeOf: factory.pecorino.account.TypeOf.Account,
+                                typeOf: 'Account',
                                 identifier: payload.account.identifier
                             },
                             toLocation: {
-                                typeOf: factory.pecorino.account.TypeOf.Account,
+                                typeOf: 'Account',
                                 identifier: payload.account.identifier
                             }
                         }

@@ -12,6 +12,7 @@ import { getEnvironment } from '../../../../../../../environments/environment';
 export class OrderDetailComponent implements OnInit {
 
     @Input() public order: factory.order.IOrder;
+    @Input() public code?: string;
     public moment = moment;
     public eventOrders: Functions.Purchase.IEventOrder[];
     public environment = getEnvironment();

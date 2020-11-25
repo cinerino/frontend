@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, QRCodeService, UtilService } from '../../../../../services';
+import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -23,6 +23,7 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     public error: Observable<string | null>;
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public environment = getEnvironment();
+    public code: string;
     private timer: any;
 
     constructor(
@@ -31,7 +32,6 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
         private utilService: UtilService,
         private actionService: ActionService,
         private translate: TranslateService,
-        private qrcodeService: QRCodeService
     ) { }
 
     /**
@@ -43,6 +43,11 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
         this.order = this.store.pipe(select(reducers.getOrder));
         this.user = this.store.pipe(select(reducers.getUser));
         try {
+            const order = (await this.actionService.order.getData()).order;
+            if (order === undefined) {
+                throw new Error('order undefined');
+            }
+            this.code = await this.actionService.order.authorizeOrder({ order });
             if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
                 const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
                 this.timer = setTimeout(() => {
@@ -63,49 +68,6 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
             return;
         }
         clearTimeout(this.timer);
-    }
-
-    /**
-     * QRコード表示
-     */
-    public async openQRCodeViewer(params: { id: string }) {
-        try {
-            let order = (await this.actionService.order.getData()).order;
-            if (order === undefined) {
-                throw new Error('order undefined');
-            }
-            await this.actionService.order.authorize(order);
-            order = (await this.actionService.order.getData()).order;
-            const authorizeOrder = order;
-            if (authorizeOrder === undefined) {
-                throw new Error('authorizeOrder undefined');
-            }
-            const findResult = authorizeOrder.acceptedOffers.find((a) => {
-                return (a.itemOffered.typeOf === factory.chevre.reservationType.EventReservation
-                    && (<factory.chevre.reservation.IReservation<
-                        factory.chevre.reservationType.EventReservation
-                    >>a.itemOffered).id === params.id);
-            });
-            if (findResult === undefined) {
-                throw new Error('itemOffered notfound');
-            }
-            if (findResult.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
-                throw new Error('itemOffered typeOf missmatch');
-            }
-            const itemOffered = <factory.chevre.reservation.IReservation<
-                factory.chevre.reservationType.EventReservation
-            >>findResult.itemOffered;
-            this.qrcodeService.openQRCodeViewer({
-                title: this.translate.instant('inquiry.confirm.qrcode.title'),
-                code: <string>(itemOffered.reservedTicket.ticketToken)
-            });
-        } catch (error) {
-            console.error(error);
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant('inquiry.confirm.alert.authorize')
-            });
-        }
     }
 
     /**

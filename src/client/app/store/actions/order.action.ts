@@ -67,23 +67,3 @@ export const printFail = createAction(
     props<{ error: Error }>()
 );
 
-export const orderAuthorize = createAction(
-    `${LABEL} orderAuthorize`,
-    props<{
-        orderNumber: string;
-        customer: {
-            email?: string;
-            telephone?: string;
-        };
-    }>()
-);
-
-export const orderAuthorizeSuccess = createAction(
-    `${LABEL} orderAuthorizeSuccess`,
-    props<{ order: factory.order.IOrder }>()
-);
-
-export const orderAuthorizeFail = createAction(
-    `${LABEL} orderAuthorizeFail`,
-    props<{ error: Error }>()
-);

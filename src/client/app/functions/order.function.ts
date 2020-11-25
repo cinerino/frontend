@@ -102,11 +102,13 @@ export function createCustomQRCode(params: {
 /**
  * QR作成
  */
-export function createQRCode(
-    acceptedOffer: factory.order.IAcceptedOffer<factory.order.IItemOffered>,
-    order: factory.order.IOrder,
-    index: number
-) {
+export function createQRCode(params: {
+    acceptedOffer: factory.order.IAcceptedOffer<factory.order.IItemOffered>;
+    order: factory.order.IOrder;
+    index: number;
+    code?: string;
+}) {
+    const { acceptedOffer, order, index, code } = params;
     if (acceptedOffer.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
         return undefined;
     }
@@ -120,7 +122,7 @@ export function createQRCode(
         result = undefined;
     } else if (environment.PRINT_QRCODE_TYPE === Order.Print.PrintQrcodeType.Token) {
         // トークン
-        result = itemOffered.reservedTicket.ticketToken;
+        result = `${itemOffered.id}@${code}`;
     } else if (environment.PRINT_QRCODE_TYPE === Order.Print.PrintQrcodeType.Admission) {
         // 入場
         result = JSON.stringify({
