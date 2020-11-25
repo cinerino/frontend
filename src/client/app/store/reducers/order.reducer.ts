@@ -59,16 +59,5 @@ export function reducer(initialState: IState, action: Action) {
             const error = payload.error;
             return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
         }),
-        on(orderAction.orderAuthorize, (state) => {
-            return { ...state, loading: true, process: 'orderAction.OrderAuthorize' };
-        }),
-        on(orderAction.orderAuthorizeSuccess, (state, payload) => {
-            const order = payload.order;
-            return { ...state, orderData: { ...state.orderData, order }, loading: false, process: '', error: null };
-        }),
-        on(orderAction.orderAuthorizeFail, (state, payload) => {
-            const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
-        })
     )(initialState, action);
 }

@@ -7,7 +7,6 @@ import { MypageIndexComponent } from './components/pages/mypage-index/mypage-ind
 import { MypageOrderDetailComponent } from './components/pages/mypage-order-detail/mypage-order-detail.component';
 import { MypageOrderComponent } from './components/pages/mypage-order/mypage-order.component';
 import { MypageProfileComponent } from './components/pages/mypage-profile/mypage-profile.component';
-import { MypageReservationComponent } from './components/pages/mypage-reservation/mypage-reservation.component';
 import { MypageRoutingModule } from './mypage-routing.module';
 
 @NgModule({
@@ -18,7 +17,6 @@ import { MypageRoutingModule } from './mypage-routing.module';
     MypageAccountComponent,
     MypageOrderComponent,
     MypageOrderDetailComponent,
-    MypageReservationComponent,
   ],
   entryComponents: [],
   imports: [

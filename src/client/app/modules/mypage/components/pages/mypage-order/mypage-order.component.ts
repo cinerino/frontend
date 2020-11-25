@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../..';
-import { UserService } from '../../../../../services';
+import { ActionService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -21,7 +21,7 @@ export class MypageOrderComponent implements OnInit {
 
     constructor(
         private store: Store<reducers.IState>,
-        private userService: UserService
+        private actionServie: ActionService
     ) { }
 
     /**
@@ -31,10 +31,11 @@ export class MypageOrderComponent implements OnInit {
         this.orders = [];
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
-        this.orders = await this.userService.getOrders({
+        const searchResult = await this.actionServie.order.search({
             orderDateFrom: moment().add(-6, 'month').toDate(),
             orderDateThrough: moment().toDate()
         });
+        this.orders = searchResult.data;
 
     }
 

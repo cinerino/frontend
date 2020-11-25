@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 import * as libphonenumber from 'libphonenumber-js';
 import { CountryISO, NgxIntlTelInputComponent, SearchCountryField, TooltipLabel } from 'ngx-intl-tel-input';
 import { Observable } from 'rxjs';
-import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -94,7 +93,7 @@ export class InquiryInputComponent implements OnInit {
             ]
         });
         const confirmationNumber = this.activatedRoute.snapshot.params.confirmationNumber;
-        if  (confirmationNumber !== undefined) {
+        if (confirmationNumber !== undefined) {
             this.inquiryForm.controls.confirmationNumber.setValue(confirmationNumber);
         }
     }
@@ -122,20 +121,7 @@ export class InquiryInputComponent implements OnInit {
                 confirmationNumber,
                 customer: { telephone }
             });
-            let order = (await this.actionService.order.getData()).order;
-            if (order === undefined) {
-                throw new Error('order undefined');
-            }
-            let eventOrders = Functions.Purchase.order2EventOrders({ order });
-            const findResult = eventOrders.find(o => Functions.Order.isShowQRCode(o.event));
-            if (this.environment.INQUIRY_QRCODE && findResult !== undefined) {
-                await this.actionService.order.authorize(order);
-                order = (await this.actionService.order.getData()).order;
-                if (order === undefined) {
-                    throw new Error('order undefined');
-                }
-                eventOrders = Functions.Purchase.order2EventOrders({ order });
-            }
+
             this.router.navigate(['/inquiry/confirm']);
         } catch (error) {
             console.error(error);

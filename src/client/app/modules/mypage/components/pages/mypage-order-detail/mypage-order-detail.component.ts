@@ -4,7 +4,7 @@ import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { UserService } from '../../../../../services';
+import { ActionService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -15,12 +15,12 @@ import * as reducers from '../../../../../store/reducers';
 export class MypageOrderDetailComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
-    public orders: factory.order.IOrder[];
+    public authorizeOrders: { order: factory.order.IOrder; code?: string; }[];
     public moment = moment;
 
     constructor(
         private store: Store<reducers.IState>,
-        private userService: UserService,
+        private actionService: ActionService,
         private activatedRoute: ActivatedRoute
     ) { }
 
@@ -28,20 +28,17 @@ export class MypageOrderDetailComponent implements OnInit {
      * 初期化
      */
     public async ngOnInit() {
-        this.orders = [];
+        this.authorizeOrders = [];
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
-        const orders = await this.userService.getOrders({
+        const searchResult = await this.actionService.order.search({
             orderNumbers: [this.activatedRoute.snapshot.params.orderNumber],
             orderDateFrom: moment().add(-6, 'month').toDate(),
             orderDateThrough: moment().toDate()
         });
-        for (const order of orders) {
-            const orderAuthorize = await this.userService.orderAuthorize({
-                orderNumber: order.orderNumber,
-                customer: { telephone: order.customer.telephone }
-            });
-            this.orders.push(orderAuthorize);
+        for (const order of searchResult.data) {
+            const code = await this.actionService.order.authorizeOrder({ order });
+            this.authorizeOrders.push({ order, code });
         }
     }
 

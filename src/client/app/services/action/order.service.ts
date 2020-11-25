@@ -4,9 +4,12 @@ import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { Models } from '../..';
+import { Functions, Models } from '../..';
+import { getEnvironment } from '../../../environments/environment';
 import { orderAction } from '../../store/actions';
 import * as reducers from '../../store/reducers';
+import { CinerinoService } from '../cinerino.service';
+import { UtilService } from '../util.service';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +19,10 @@ export class ActionOrderService {
     public error: Observable<string | null>;
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions    ) {
+        private cinerinoService: CinerinoService,
+        private utilService: UtilService,
+        private actions: Actions
+    ) {
         this.order = this.store.pipe(select(reducers.getOrder));
         this.error = this.store.pipe(select(reducers.getError));
     }
@@ -58,6 +64,23 @@ export class ActionOrderService {
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
+    }
+
+    /**
+     * 注文検索
+     */
+    public async search(params: factory.order.ISearchConditions) {
+        try {
+            this.utilService.loadStart({ process: 'orderAction.Search' });
+            await this.cinerinoService.getServices();
+            const searchResult = await this.cinerinoService.order.search(params);
+            this.utilService.loadEnd();
+            return searchResult;
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
     }
 
     /**
@@ -111,27 +134,29 @@ export class ActionOrderService {
     }
 
     /**
-     * 注文承認
+     * 注文コード発行
      */
-    public async authorize(order: factory.order.IOrder) {
-        return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(orderAction.orderAuthorize({
-                orderNumber: order.orderNumber,
-                customer: {
-                    telephone: order.customer.telephone
-                }
-            }));
-            const success = this.actions.pipe(
-                ofType(orderAction.orderAuthorizeSuccess.type),
-                tap(() => { resolve(); })
-            );
-
-            const fail = this.actions.pipe(
-                ofType(orderAction.orderAuthorizeFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
+    public async authorizeOrder(params: {
+        order: factory.order.IOrder;
+    }) {
+        const environment = getEnvironment();
+        const order = params.order;
+        const result = await Functions.Util.retry<string>({
+            process: (async () => {
+                const orderNumber = order.orderNumber;
+                const customer = { telephone: order.customer.telephone };
+                const { code } = await this.cinerinoService.order.authorize({
+                    object: { orderNumber, customer },
+                    result: {
+                        expiresInSeconds: Number(environment.ORDER_AUTHORIZE_CODE_EXPIRES)
+                    }
+                });
+                return code;
+            }),
+            interval: 2000,
+            limit: 10
         });
+        return result;
     }
 
 }
