@@ -165,8 +165,10 @@ export class MovieTicketCheckModalComponent implements OnInit {
     public openQRReader() {
         this.qrcodeService.openQRCodeReader({
             cb: (data: string) => {
-                const code = data.slice(0, 10);
-                const password = data.slice(10, data.length);
+                const separation = (this.paymentMethodType === factory.paymentMethodType.MovieTicket)
+                    ? 10 : 9;
+                const code = data.slice(0, separation);
+                const password = data.slice(separation, data.length);
                 this.inputForm.controls.code.setValue(code);
                 this.inputForm.controls.password.setValue(password);
             }
