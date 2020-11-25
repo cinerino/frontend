@@ -176,7 +176,8 @@ interface IEnvironment {
      */
     ORDER_CANCEL_MAIL_CUSTOM: boolean;
     /**
-     * 注文承認コード期限（s）
+     * 注文承認コード期限(s)
+     * デフォルト259200s
      */
     ORDER_AUTHORIZE_CODE_EXPIRES: string;
     /**
@@ -280,7 +281,7 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_TERMS: false,
     PURCHASE_WARNING: false,
     ORDER_CANCEL_MAIL_CUSTOM: true,
-    ORDER_AUTHORIZE_CODE_EXPIRES: '600',
+    ORDER_AUTHORIZE_CODE_EXPIRES: '259200',
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: true,
     INQUIRY_PRINT: false,
