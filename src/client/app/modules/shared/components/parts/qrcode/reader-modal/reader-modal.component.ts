@@ -28,7 +28,7 @@ export class QRCodeReaderModalComponent implements OnInit, OnDestroy {
             video: {
                 width: { min: 640, ideal: 1280, max: 1920 },
                 height: { min: 360, ideal: 720, max: 1080 },
-                frameRate: { ideal: 5, max: 20 },
+                // frameRate: { ideal: 5, max: 20 },
                 facingMode: { exact: 'environment' }
             }
         };
@@ -47,7 +47,7 @@ export class QRCodeReaderModalComponent implements OnInit, OnDestroy {
             const stream = await navigator.mediaDevices.getUserMedia(constraints);
             this.stream = stream;
             this.video.srcObject = this.stream;
-            const scanLoopTime = 500;
+            const scanLoopTime = 2000;
             this.running = true;
             this.scanLoop = setInterval(() => {
                 if (this.scan()) {
