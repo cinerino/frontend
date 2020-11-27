@@ -59,3 +59,7 @@ header::after {
 .menu-button div {
     background-color: steelblue;
 }
+
+.production .error {
+    display: none !important;
+}
