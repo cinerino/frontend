@@ -112,7 +112,7 @@ export class MasterService {
                     startThrough: params.startThrough,
                     offers: {
                         availableFrom: today,
-                        availableThrough: moment(today).add(1, 'day').toDate()
+                        availableThrough: moment(today).add(1, 'day').add(-1, 'millisecond').toDate()
                     }
                 });
                 result = [...result, ...searchResult.data];
@@ -133,7 +133,7 @@ export class MasterService {
                     screeningEvents: result
                 });
             }
-            const mergeResult = this.mergeWorkPerformed({
+            const mergeResult = await this.mergeWorkPerformed({
                 screeningEvents: result,
                 scheduleDate: params.startFrom
             });
