@@ -99,8 +99,8 @@ export class MasterService {
             let roop = true;
             let result: factory.chevre.event.screeningEvent.IEvent[] = [];
             await this.cinerinoService.getServices();
-            const today = moment(moment((await this.utilService.getServerTime()).date).format('YYYYMMDD'), 'YYYYMMDD').toDate();
-            // const now = moment((await this.utilService.getServerTime()).date).toDate();
+            const now = moment((await this.utilService.getServerTime()).date).toDate();
+            const today = moment(moment(now).format('YYYYMMDD'), 'YYYYMMDD').toDate();
             while (roop) {
                 const searchResult = await this.cinerinoService.event.search({
                     page,
@@ -122,6 +122,10 @@ export class MasterService {
                     await Functions.Util.sleep();
                 }
             }
+            result = result.filter(r => {
+                return (r.offers !== undefined
+                    && moment(r.offers.availabilityStarts).toDate() < now);
+            });
             const environment = getEnvironment();
             if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
                 result = await this.sortScreeningEventSeries({
