@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.10 - 2020-12-04
+### Fixed
+ - オンライン表示開始日時不具合修正
+
 ## 3.4.9 - 2020-11-27
 ### Changed
  - 本番環境エラー非表示へ変更
