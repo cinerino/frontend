@@ -105,7 +105,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                     ? [] : [external.workPerformedId],
             },
             startFrom: moment(scheduleDate).toDate(),
-            startThrough: moment(scheduleDate).add(1, 'day').toDate()
+            startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate()
         });
         this.screeningEventsGroup = Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
         this.update();
