@@ -99,8 +99,8 @@ export class MasterService {
             let roop = true;
             let result: factory.chevre.event.screeningEvent.IEvent[] = [];
             await this.cinerinoService.getServices();
-            const today = moment(moment((await this.utilService.getServerTime()).date).format('YYYYMMDD'), 'YYYYMMDD').toDate();
-            // const now = moment((await this.utilService.getServerTime()).date).toDate();
+            const now = moment((await this.utilService.getServerTime()).date).toDate();
+            const today = moment(moment(now).format('YYYYMMDD'), 'YYYYMMDD').toDate();
             while (roop) {
                 const searchResult = await this.cinerinoService.event.search({
                     page,
@@ -112,7 +112,7 @@ export class MasterService {
                     startThrough: params.startThrough,
                     offers: {
                         availableFrom: today,
-                        availableThrough: moment(today).add(1, 'day').toDate()
+                        availableThrough: moment(today).add(1, 'day').add(-1, 'millisecond').toDate()
                     }
                 });
                 result = [...result, ...searchResult.data];
@@ -122,6 +122,10 @@ export class MasterService {
                     await Functions.Util.sleep();
                 }
             }
+            result = result.filter(r => {
+                return (r.offers !== undefined
+                    && moment(r.offers.availabilityStarts).toDate() < now);
+            });
             const environment = getEnvironment();
             if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
                 result = await this.sortScreeningEventSeries({
@@ -133,7 +137,7 @@ export class MasterService {
                     screeningEvents: result
                 });
             }
-            const mergeResult = this.mergeWorkPerformed({
+            const mergeResult = await this.mergeWorkPerformed({
                 screeningEvents: result,
                 scheduleDate: params.startFrom
             });
