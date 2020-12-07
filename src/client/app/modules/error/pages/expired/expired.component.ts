@@ -16,7 +16,12 @@ export class ExpiredComponent implements OnInit {
     /**
      * 初期化
      */
-    public ngOnInit() {
+    public async ngOnInit() {
+        try {
+            await this.actionService.purchase.cancelTransaction();
+        } catch (error) {
+            console.error(error);
+        }
         this.actionService.purchase.delete();
         this.actionService.user.delete();
     }

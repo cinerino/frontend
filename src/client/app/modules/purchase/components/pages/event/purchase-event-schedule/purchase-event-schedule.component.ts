@@ -54,7 +54,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.screeningEventsGroup = [];
         this.isSales = true;
         try {
-            if ((await this.actionService.purchase.getData()).transaction !== undefined) {
+            const { transaction } = await this.actionService.purchase.getData();
+            if (transaction !== undefined) {
                 await this.actionService.purchase.cancelTransaction();
             }
             if (this.scheduleDate === undefined) {
