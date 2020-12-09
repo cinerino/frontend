@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.11 - 2020-12-09
+### Added
+ - 注文取引の明示的な中止
+
 ## 3.4.10 - 2020-12-04
 ### Fixed
  - オンライン表示開始日時不具合修正
