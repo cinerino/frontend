@@ -11,11 +11,11 @@ import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
-    selector: 'app-inquiry-input',
-    templateUrl: './inquiry-input.component.html',
-    styleUrls: ['./inquiry-input.component.scss']
+    selector: 'app-order-point-transfer-input',
+    templateUrl: './order-point-transfer-input.component.html',
+    styleUrls: ['./order-point-transfer-input.component.scss']
 })
-export class InquiryInputComponent implements OnInit {
+export class OrderPointTransferInputComponent implements OnInit {
     public inputForm: FormGroup;
     public environment = getEnvironment();
     public isLoading: Observable<boolean>;
@@ -53,7 +53,7 @@ export class InquiryInputComponent implements OnInit {
     }
 
     /**
-     * 照会フォーム作成
+     * フォーム作成
      */
     private createInputForm() {
         const TEL_MAX_LENGTH = 15;
@@ -122,7 +122,7 @@ export class InquiryInputComponent implements OnInit {
                 customer: { telephone }
             });
 
-            this.router.navigate(['/inquiry/confirm']);
+            this.router.navigate(['/order/point/transfer/confirm']);
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

@@ -13,6 +13,8 @@ export class OrderDetailComponent implements OnInit {
 
     @Input() public order: factory.order.IOrder;
     @Input() public code?: string;
+    @Input() public customer?: boolean;
+    @Input() public confirmationNumber?: boolean;
     public moment = moment;
     public eventOrders: Functions.Purchase.IEventOrder[];
     public environment = getEnvironment();
@@ -24,6 +26,8 @@ export class OrderDetailComponent implements OnInit {
      * 初期化
      */
     public ngOnInit() {
+        this.customer = (this.customer === undefined) ? true : this.customer;
+        this.confirmationNumber = (this.confirmationNumber === undefined) ? true : this.confirmationNumber;
         this.eventOrders = [];
         this.eventOrders = Functions.Purchase.order2EventOrders({ order: this.order });
     }

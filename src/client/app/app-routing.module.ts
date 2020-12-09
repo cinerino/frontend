@@ -32,6 +32,13 @@ const appRoutes: Routes = [
             .catch(() => location.reload())
     },
     {
+        path: 'order',
+        canActivate: [ProjectGuardService],
+        loadChildren: () => import('./modules/order/order.module')
+            .then(m => m.OrderModule)
+            .catch(() => location.reload())
+    },
+    {
         path: 'mypage',
         canActivate: [ProjectGuardService, AuthGuardService],
         loadChildren: () => import('./modules/mypage/mypage.module')

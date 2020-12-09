@@ -76,6 +76,16 @@ export default (app: express.Application) => {
     });
 
     app.get([
+        '/projects/:projectId/order/point/transfer',
+    ], (req, res, next) => {
+        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
+            next();
+            return;
+        }
+        res.redirect(`/?${getQueryParameter(req)}#/order/point/transfer/input`);
+    });
+
+    app.get([
         '/projects/:projectId/purchase/transaction/:eventId/:passportToken',
         '/projects/:projectId/purchase/transaction/:eventId'
     ], (req, res, next) => {
