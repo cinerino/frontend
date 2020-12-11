@@ -30,6 +30,7 @@ export const cancelFail = createAction(
 export const inquiry = createAction(
     `${LABEL} inquiry`,
     props<{
+        theaterCode?: string;
         confirmationNumber: string;
         customer: {
             email?: string;

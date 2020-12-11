@@ -77,9 +77,15 @@ export default (app: express.Application) => {
 
     app.get([
         '/projects/:projectId/order/point/transfer',
+        '/projects/:projectId/order/point/:theaterCode/transfer',
     ], (req, res, next) => {
         if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
             next();
+            return;
+        }
+        const theaterCode = req.params.theaterCode;
+        if (theaterCode) {
+            res.redirect(`/?${getQueryParameter(req)}#/order/point/transfer/${theaterCode}/input`);
             return;
         }
         res.redirect(`/?${getQueryParameter(req)}#/order/point/transfer/input`);

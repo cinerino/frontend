@@ -16,11 +16,14 @@ const routes: Routes = [
         children: [
           { path: 'input', component: OrderPointTransferInputComponent },
           { path: 'confirm', component: OrderPointTransferConfirmComponent },
-          { path: 'complete', component: OrderPointTransferCompleteComponent }
-      ]
+          { path: 'complete', component: OrderPointTransferCompleteComponent },
+          { path: ':theaterCode/input', component: OrderPointTransferInputComponent },
+          { path: ':theaterCode/confirm', component: OrderPointTransferConfirmComponent },
+          { path: ':theaterCode/complete', component: OrderPointTransferCompleteComponent }
+        ]
       }
     ]
-}
+  }
 ];
 
 @NgModule({

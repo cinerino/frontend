@@ -24,6 +24,7 @@ export class OrderPointTransferConfirmComponent implements OnInit {
     public orderStatus: typeof factory.orderStatus = factory.orderStatus;
     public environment = getEnvironment();
     public inputForm: FormGroup;
+    public theaterCode?: string;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -42,6 +43,7 @@ export class OrderPointTransferConfirmComponent implements OnInit {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.error = this.store.pipe(select(reducers.getError));
         this.order = this.store.pipe(select(reducers.getOrder));
+        this.theaterCode = this.activatedRoute.snapshot.params.theaterCode;
         this.createInputForm();
         try {
             const order = (await this.actionService.order.getData()).order;
@@ -68,10 +70,6 @@ export class OrderPointTransferConfirmComponent implements OnInit {
                 // Validators.minLength(TEL_MIN_LENGTH),
             ]],
         });
-        const accountNumber = this.activatedRoute.snapshot.params.accountNumber;
-        if (accountNumber !== undefined) {
-            this.inputForm.controls.accountNumber.setValue(accountNumber);
-        }
     }
 
     /**
@@ -83,6 +81,10 @@ export class OrderPointTransferConfirmComponent implements OnInit {
             body: this.translate.instant('order.point.transfer.confirm.confirm.transfer'),
             cb: async () => {
                 try {
+                    if (this.theaterCode !== undefined) {
+                        this.router.navigate([`/order/point/transfer/${this.theaterCode}/complete`]);
+                        return;
+                    }
                     this.router.navigate(['/order/point/transfer/complete']);
                 } catch (error) {
                     this.utilService.openAlert({

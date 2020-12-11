@@ -51,7 +51,9 @@
                     class="btn btn-primary btn-block py-3 mb-3"
                     (click)="transfer()">{{ 'order.point.transfer.confirm.next' | translate }}</button>
             </div>
-            <button type="button" class="btn btn-outline-primary btn-block py-3"
+            <button *ngIf="theaterCode" type="button" class="btn btn-outline-primary btn-block py-3"
+                [routerLink]="'/order/point/transfer/' + theaterCode + '/input'">{{ 'order.point.transfer.confirm.prev' | translate }}</button>
+            <button *ngIf="!theaterCode" type="button" class="btn btn-outline-primary btn-block py-3"
                 routerLink="/order/point/transfer/input">{{ 'order.point.transfer.confirm.prev' | translate }}</button>
         </div>
     </form>

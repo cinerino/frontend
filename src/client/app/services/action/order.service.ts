@@ -87,6 +87,7 @@ export class ActionOrderService {
      * 注文照会
      */
     public async inquiry(params: {
+        theaterCode?: string;
         confirmationNumber: string;
         customer: {
             email?: string;

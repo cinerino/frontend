@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
@@ -13,10 +14,12 @@ import * as reducers from '../../../../../store/reducers';
 export class OrderPointTransferCompleteComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public environment = getEnvironment();
+    public theaterCode?: string;
 
     constructor(
         private store: Store<reducers.IState>,
         private actionService: ActionService,
+        private activatedRoute: ActivatedRoute,
     ) { }
 
     /**
@@ -24,6 +27,7 @@ export class OrderPointTransferCompleteComponent implements OnInit {
      */
     public async ngOnInit() {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
+        this.theaterCode = this.activatedRoute.snapshot.params.theaterCode;
         this.actionService.order.delete();
     }
 }

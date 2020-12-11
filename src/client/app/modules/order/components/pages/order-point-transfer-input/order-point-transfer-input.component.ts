@@ -17,6 +17,7 @@ import * as reducers from '../../../../../store/reducers';
 })
 export class OrderPointTransferInputComponent implements OnInit {
     public inputForm: FormGroup;
+    public theaterCode?: string;
     public environment = getEnvironment();
     public isLoading: Observable<boolean>;
     public SearchCountryField = SearchCountryField;
@@ -39,6 +40,7 @@ export class OrderPointTransferInputComponent implements OnInit {
      */
     public ngOnInit() {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
+        this.theaterCode = this.activatedRoute.snapshot.params.theaterCode;
         this.createInputForm();
         setTimeout(() => {
             if (this.intlTelInput === undefined) {
@@ -92,10 +94,6 @@ export class OrderPointTransferInputComponent implements OnInit {
                 : [Validators.required]
             ]
         });
-        const confirmationNumber = this.activatedRoute.snapshot.params.confirmationNumber;
-        if (confirmationNumber !== undefined) {
-            this.inputForm.controls.confirmationNumber.setValue(confirmationNumber);
-        }
     }
 
     /**
@@ -118,10 +116,14 @@ export class OrderPointTransferInputComponent implements OnInit {
             : this.inputForm.controls.telephone.value.e164Number;
         try {
             await this.actionService.order.inquiry({
+                theaterCode: this.theaterCode,
                 confirmationNumber,
                 customer: { telephone }
             });
-
+            if (this.theaterCode !== undefined) {
+                this.router.navigate([`/order/point/transfer/${this.theaterCode}/confirm`]);
+                return;
+            }
             this.router.navigate(['/order/point/transfer/confirm']);
         } catch (error) {
             console.error(error);
