@@ -1,5 +1,5 @@
 <div class="contents-width mx-auto px-3 py-5">
-    <div *ngIf="!((purchase | async)?.screen.openSeatingAllowed)">
+    <div *ngIf="!((purchase | async)?.screen?.openSeatingAllowed)">
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.seat.title' | translate }}</h2>
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.seat.read' | translate"></p>
         <div class="container px-0">
@@ -9,7 +9,7 @@
                 && screeningEventSeats.length > 0 
                 && (purchase | async)?.screen" class="mb-3" [theaterCode]="(purchase | async)?.theater.branchCode"
                         [screenCode]="(purchase | async)?.screen.branchCode" [screeningEventSeats]="screeningEventSeats"
-                        [openSeatingAllowed]="(purchase | async)?.screen.openSeatingAllowed"
+                        [openSeatingAllowed]="(purchase | async)?.screen?.openSeatingAllowed"
                         [reservations]="(purchase | async)?.reservations"
                         [authorizeSeatReservation]="(purchase | async)?.authorizeSeatReservation"
                         (select)="selectSeat($event)">
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div *ngIf="(purchase | async)?.screen.openSeatingAllowed">
+    <div *ngIf="(purchase | async)?.screen?.openSeatingAllowed">
         <h2 class="text-large mb-4 text-center font-weight-bold">
             {{ 'purchase.cinema.seat.openSeating.title' | translate }}</h2>
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.seat.openSeating.read' | translate"></p>
