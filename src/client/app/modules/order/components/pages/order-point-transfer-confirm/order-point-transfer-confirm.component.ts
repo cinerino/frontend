@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService, UtilService } from '../../../../../services';
+import { ActionService, QRCodeService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -34,6 +34,7 @@ export class OrderPointTransferConfirmComponent implements OnInit {
         private translate: TranslateService,
         private activatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
+        private qrcodeService: QRCodeService,
     ) { }
 
     /**
@@ -49,6 +50,11 @@ export class OrderPointTransferConfirmComponent implements OnInit {
             const order = (await this.actionService.order.getData()).order;
             if (order === undefined) {
                 throw new Error('order undefined');
+            }
+            const findResult =
+                order.acceptedOffers.find(a => a.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation);
+            if (findResult !== undefined) {
+                throw new Error('not EventReservation');
             }
         } catch (error) {
             console.error(error);
@@ -96,6 +102,15 @@ export class OrderPointTransferConfirmComponent implements OnInit {
                         </div>`
                     });
                 }
+            }
+        });
+    }
+
+    public openQRReader() {
+        this.qrcodeService.openQRCodeReader({
+            cb: (data: string) => {
+                const code = data;
+                this.inputForm.controls.accountNumber.setValue(code);
             }
         });
     }

@@ -9,6 +9,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class QRCodeReaderModalComponent implements OnInit, OnDestroy {
     @Input() public cb: Function;
+    @Input() public error: Function;
     public stream?: MediaStream;
     public video: HTMLVideoElement;
     public scanLoop: any;
@@ -26,8 +27,8 @@ export class QRCodeReaderModalComponent implements OnInit, OnDestroy {
         const constraints: MediaStreamConstraints = {
             audio: false,
             video: {
-                width: { min: 640, ideal: 1280, max: 1920 },
-                height: { min: 360, ideal: 720, max: 1080 },
+                // width: { min: 640, ideal: 1280, max: 1920 },
+                // height: { min: 360, ideal: 720, max: 1080 },
                 // frameRate: { ideal: 5, max: 20 },
                 facingMode: { exact: 'environment' }
             }
@@ -58,6 +59,7 @@ export class QRCodeReaderModalComponent implements OnInit, OnDestroy {
         } catch (error) {
             console.error(error);
             this.modal.hide();
+            this.error();
         }
     }
 

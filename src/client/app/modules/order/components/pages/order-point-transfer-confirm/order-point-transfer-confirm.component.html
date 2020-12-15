@@ -15,21 +15,30 @@
                     <div class="container px-0">
                         <div class="row align-items-center">
                             <div class="col-md-4 col-12">
-                                <label class="mb-2 mb-md-0"
-                                    for="">{{ 'order.point.transfer.confirm.accountNumber' | translate }}</label>
+                                <label class="mb-2 mb-md-0" for="">{{ 'order.point.transfer.confirm.accountNumber' |
+                                    translate }}</label>
                             </div>
                             <div class="col-md-8 col-12">
-                                <input type="text" class="form-control" formControlName="accountNumber"
-                                    id="accountNumber">
+                                <!-- <input type="text" class="form-control" formControlName="accountNumber"
+                                    id="accountNumber"> -->
+                                <div class="input-group">
+                                    <input type="text" class="form-control" formControlName="accountNumber"
+                                        id="accountNumber">
+                                    <div class="input-group-append" (click)="openQRReader()">
+                                        <span class="input-group-text"><i class="fas fa-camera"></i></span>
+                                    </div>
+                                </div>
                                 <div *ngIf="inputForm.controls.accountNumber.invalid && inputForm.controls.accountNumber.touched"
                                     class="mt-2">
                                     <p *ngIf="inputForm.controls.accountNumber.errors?.required" class="text-danger">
                                         {{ 'form.validation.required' | translate }}</p>
                                     <p *ngIf="inputForm.controls.accountNumber.errors?.minlength" class="text-danger">
-                                        {{ 'form.validation.minlength' | translate: { value: inputForm.controls.accountNumber.errors?.minlength.requiredLength } }}
+                                        {{ 'form.validation.minlength' | translate: { value:
+                                        inputForm.controls.accountNumber.errors?.minlength.requiredLength } }}
                                     </p>
                                     <p *ngIf="inputForm.controls.accountNumber.errors?.maxlength" class="text-danger">
-                                        {{ 'form.validation.maxlength' | translate: { value: inputForm.controls.accountNumber.errors?.maxlength.requiredLength } }}
+                                        {{ 'form.validation.maxlength' | translate: { value:
+                                        inputForm.controls.accountNumber.errors?.maxlength.requiredLength } }}
                                     </p>
                                     <p *ngIf="inputForm.controls.accountNumber.errors?.pattern" class="text-danger">
                                         {{ 'form.validation.number' | translate }}</p>
@@ -46,13 +55,13 @@
 
         <div class="buttons mx-auto text-center">
             <div *ngIf="(order | async)?.order.orderStatus !== orderStatus.OrderReturned">
-                <button
-                    [disabled]="(isLoading | async) || inputForm.invalid" type="button"
-                    class="btn btn-primary btn-block py-3 mb-3"
-                    (click)="transfer()">{{ 'order.point.transfer.confirm.next' | translate }}</button>
+                <button [disabled]="(isLoading | async) || inputForm.invalid" type="button"
+                    class="btn btn-primary btn-block py-3 mb-3" (click)="transfer()">{{
+                    'order.point.transfer.confirm.next' | translate }}</button>
             </div>
             <button *ngIf="theaterCode" type="button" class="btn btn-outline-primary btn-block py-3"
-                [routerLink]="'/order/point/transfer/' + theaterCode + '/input'">{{ 'order.point.transfer.confirm.prev' | translate }}</button>
+                [routerLink]="'/order/point/transfer/' + theaterCode + '/input'">{{ 'order.point.transfer.confirm.prev'
+                | translate }}</button>
             <button *ngIf="!theaterCode" type="button" class="btn btn-outline-primary btn-block py-3"
                 routerLink="/order/point/transfer/input">{{ 'order.point.transfer.confirm.prev' | translate }}</button>
         </div>
