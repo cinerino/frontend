@@ -18,7 +18,6 @@
         <div *ngIf="screeningEvent.superEvent.subtitleLanguage"
             class="subtitle-language text-small bg-dark-gray text-white py-1 px-2 mr-2 mb-2">
             {{ 'common.subtitles' | translate }}</div>
-            {{ screeningEvent.superEvent.videoFormat }}
         <ng-container *ngIf="!(screeningEvent.superEvent.coaInfo)">
             <div *ngFor="let videoFormat of screeningEvent.superEvent.videoFormat"
                 class="video-format text-small bg-dark-gray text-white py-1 px-2 mr-2 mb-2">{{ videoFormat.name }}</div>
