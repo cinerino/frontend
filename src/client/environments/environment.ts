@@ -33,6 +33,10 @@ interface IEnvironment {
      */
     PROJECT_ID: string;
     /**
+     * ルーティング許可
+     */
+    ARROW_ROUTEING: string[];
+    /**
      * 入り口URL（非推奨）
      */
     ENTRANCE_SERVER_URL: string;
@@ -239,6 +243,7 @@ const defaultEnvironment: IEnvironment = {
     APP_TITLE: 'SMART THEATER',
     APP_PREFIX: '',
     PROJECT_ID: '',
+    ARROW_ROUTEING: ['purchase', 'inquiry'],
     ENTRANCE_SERVER_URL: '',
     VIEW_TYPE: 'event',
     GTM_ID: '',

@@ -87,6 +87,38 @@
             "prev": ""
         }
     },
+    "order": {
+        "point": {
+            "transfer": {
+                "input": {
+                    "title": "ポイント振替",
+                    "read": "確認番号と電話番号を入力してください。",
+                    "next": "照会",
+                    "prev": "戻る",
+                    "validation": "入力情報に誤りがあります。"
+                },
+                "confirm": {
+                    "title": "ポイント振替確認",
+                    "read": "注文情報をご確認のうえ振替先口座番号を入力してください。",
+                    "accountNumber": "口座番号",
+                    "next": "ポイント振替",
+                    "prev": "戻る",
+                    "alert": {
+                        "transfer": "ポイント振替に失敗しました。"
+                    },
+                    "confirm": {
+                        "transfer": "ポイント振替してよろしいですか。<br>※取り消しは行えません。"
+                    }
+                },
+                "complete": {
+                    "title": "ポイント振替完了",
+                    "read": "ポイント振替が完了しました。",
+                    "next": "",
+                    "prev": "戻る"
+                }
+            }
+        }
+    },
     "error": {
         "title": "エラー",
         "read": "エラーが発生しました。",
@@ -480,7 +512,8 @@
     },
     "qrcode": {
         "reader": {
-            "title": "QRコードをスキャンしてください。"
+            "title": "QRコードをスキャンしてください。",
+            "notSupport": "カメラ読み取りに失敗しました。"
         },
         "viewer": {
             "title": ""

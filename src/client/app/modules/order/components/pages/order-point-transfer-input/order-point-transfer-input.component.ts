@@ -11,12 +11,13 @@ import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
-    selector: 'app-inquiry-input',
-    templateUrl: './inquiry-input.component.html',
-    styleUrls: ['./inquiry-input.component.scss']
+    selector: 'app-order-point-transfer-input',
+    templateUrl: './order-point-transfer-input.component.html',
+    styleUrls: ['./order-point-transfer-input.component.scss']
 })
-export class InquiryInputComponent implements OnInit {
+export class OrderPointTransferInputComponent implements OnInit {
     public inputForm: FormGroup;
+    public theaterCode?: string;
     public environment = getEnvironment();
     public isLoading: Observable<boolean>;
     public SearchCountryField = SearchCountryField;
@@ -39,6 +40,7 @@ export class InquiryInputComponent implements OnInit {
      */
     public ngOnInit() {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
+        this.theaterCode = this.activatedRoute.snapshot.params.theaterCode;
         this.createInputForm();
         setTimeout(() => {
             if (this.intlTelInput === undefined) {
@@ -53,7 +55,7 @@ export class InquiryInputComponent implements OnInit {
     }
 
     /**
-     * 照会フォーム作成
+     * フォーム作成
      */
     private createInputForm() {
         const TEL_MAX_LENGTH = 15;
@@ -92,10 +94,6 @@ export class InquiryInputComponent implements OnInit {
                 : [Validators.required]
             ]
         });
-        const confirmationNumber = this.activatedRoute.snapshot.params.confirmationNumber;
-        if (confirmationNumber !== undefined) {
-            this.inputForm.controls.confirmationNumber.setValue(confirmationNumber);
-        }
     }
 
     /**
@@ -118,11 +116,15 @@ export class InquiryInputComponent implements OnInit {
             : this.inputForm.controls.telephone.value.e164Number;
         try {
             await this.actionService.order.inquiry({
+                theaterCode: this.theaterCode,
                 confirmationNumber,
                 customer: { telephone }
             });
-
-            this.router.navigate(['/inquiry/confirm']);
+            if (this.theaterCode !== undefined) {
+                this.router.navigate([`/order/point/transfer/${this.theaterCode}/confirm`]);
+                return;
+            }
+            this.router.navigate(['/order/point/transfer/confirm']);
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

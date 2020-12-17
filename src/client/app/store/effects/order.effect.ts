@@ -171,26 +171,40 @@ export class OrderEffects {
             try {
                 const environment = getEnvironment();
                 await this.cinerino.getServices();
-                const now = (await this.utilService.getServerTime()).date;
-                const today = moment(moment(now).format('YYYYMMDD'), 'YYYYMMDD').toISOString();
-                const confirmationNumber = payload.confirmationNumber;
-                const customer = {
-                    telephone: (payload.customer.telephone === undefined)
-                        ? '' : Functions.Util.formatTelephone(payload.customer.telephone)
-                };
-                const orderDateFrom = {
-                    value: environment.INQUIRY_ORDER_DATE_FROM_VALUE,
-                    unit: environment.INQUIRY_ORDER_DATE_FROM_UNIT
-                };
-                const params = {
-                    confirmationNumber,
-                    customer,
-                    orderDateFrom: moment(today).add(orderDateFrom.value, orderDateFrom.unit).toDate(),
-                    orderDateThrough: moment(now).toDate()
-                };
-                const findResult = await this.cinerino.order.findByConfirmationNumber(params);
-                const order = (Array.isArray(findResult)) ? findResult[0] : findResult;
-                return orderAction.inquirySuccess({ order });
+                if (payload.customer.telephone !== undefined
+                    && payload.theaterCode !== undefined) {
+                    // SSKTS
+                    const params = {
+                        theaterCode: payload.theaterCode,
+                        confirmationNumber: payload.confirmationNumber,
+                        telephone: payload.customer.telephone,
+                    };
+                    console.log('SSKTS', params);
+                    const findResult = await this.cinerino.order.findByOrderInquiryKey4sskts(params);
+                    const order = (Array.isArray(findResult)) ? findResult[0] : findResult;
+                    return orderAction.inquirySuccess({ order });
+                } else {
+                    const now = (await this.utilService.getServerTime()).date;
+                    const today = moment(moment(now).format('YYYYMMDD'), 'YYYYMMDD').toISOString();
+                    const confirmationNumber = payload.confirmationNumber;
+                    const customer = {
+                        telephone: (payload.customer.telephone === undefined)
+                            ? '' : Functions.Util.formatTelephone(payload.customer.telephone)
+                    };
+                    const orderDateFrom = {
+                        value: environment.INQUIRY_ORDER_DATE_FROM_VALUE,
+                        unit: environment.INQUIRY_ORDER_DATE_FROM_UNIT
+                    };
+                    const params = {
+                        confirmationNumber,
+                        customer,
+                        orderDateFrom: moment(today).add(orderDateFrom.value, orderDateFrom.unit).toDate(),
+                        orderDateThrough: moment(now).toDate()
+                    };
+                    const findResult = await this.cinerino.order.findByConfirmationNumber(params);
+                    const order = (Array.isArray(findResult)) ? findResult[0] : findResult;
+                    return orderAction.inquirySuccess({ order });
+                }
             } catch (error) {
                 return orderAction.inquiryFail({ error: error });
             }
