@@ -12,7 +12,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
-## 3.4.11 - 2020-12-14
+## 3.4.13 - 2020-12-17
+### Changed
+ - 購入メール文言調整
+ - Ci設定変更
+### Fixed
+ - 自由席不具合修正
+
+## 3.4.12 - 2020-12-14
 ### Changed
  - 自由席UI変更
 
