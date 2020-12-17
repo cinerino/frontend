@@ -1,4 +1,4 @@
-<div class="mb-4 px-3 py-2 bg-white">
+<div *ngIf="confirmationNumber" class="mb-4 px-3 py-2 bg-white">
     <div class="row align-items-center">
         <p class="col-4">
             {{ 'common.confirmationNumber' | translate }}</p>
@@ -10,13 +10,13 @@
 <div *ngFor="let eventOrder of eventOrders" class="mb-4">
     <app-item-event [screeningEvent]="eventOrder.event"></app-item-event>
     <div class="bg-white p-3">
-        <app-item-list [acceptedOffers]="eventOrder.data" [qrcode]="environment.INQUIRY_QRCODE" [order]="order"
+        <app-item-list [acceptedOffers]="eventOrder.data" [qrcode]="environment.INQUIRY_QRCODE && code" [order]="order"
             [code]="code"></app-item-list>
     </div>
 </div>
 
 
-<div class="mb-4 px-3 bg-white">
+<div *ngIf="customer" class="mb-4 px-3 bg-white">
     <div class="py-3 border-bottom border-gray customer-name">
         <div class="row align-items-center">
             <p class="mb-2 mb-md-0 col-md-4">{{ 'common.customerName' | translate }}</p>

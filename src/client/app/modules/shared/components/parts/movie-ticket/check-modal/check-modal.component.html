@@ -11,7 +11,7 @@
                         <input type="text" class="form-control" formControlName="code" id="code" autocomplete="off"
                             placeholder="012345789" maxlength="10">
                         <div class="input-group-append" (click)="openQRReader()">
-                            <span class="input-group-text"><i class="fas fa-qrcode"></i></span>
+                            <span class="input-group-text"><i class="fas fa-camera"></i></span>
                         </div>
                     </div>
                     <div *ngIf="inputForm.controls.code.invalid && inputForm.controls.code.touched" class="mt-2">

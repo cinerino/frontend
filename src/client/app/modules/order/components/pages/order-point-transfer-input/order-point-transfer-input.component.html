@@ -1,10 +1,10 @@
 <div class="contents-width mx-auto px-3 py-5">
     <form [formGroup]="inputForm">
         <div class="mb-4">
-            <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'inquiry.input.title' | translate }}</h2>
-            <p class="mb-4 text-md-center" [innerHTML]="'inquiry.input.read' | translate"></p>
+            <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'order.point.transfer.input.title' | translate }}</h2>
+            <p class="mb-4 text-md-center" [innerHTML]="'order.point.transfer.input.read' | translate"></p>
 
-            <div class="inquiry-form mx-auto p-3 bg-white">
+            <div class="order-form mx-auto p-3 bg-white">
 
                 <div class="form-group">
                     <label class="mb-2" for="">{{ 'common.confirmationNumber' | translate }}</label>
@@ -78,11 +78,11 @@
 
         <div class="buttons mx-auto text-center">
             <button type="submit" [disabled]="isLoading | async" class="btn btn-primary btn-block py-3 mb-3"
-                (click)="onSubmit()">{{ 'inquiry.input.next' | translate }}</button>
+                (click)="onSubmit()">{{ 'order.point.transfer.input.next' | translate }}</button>
             <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-outline-primary btn-block py-3 portal-link"
-                [href]="environment.PORTAL_SITE_URL">{{ 'inquiry.input.prev' | translate }}</a>
+                [href]="environment.PORTAL_SITE_URL">{{ 'order.point.transfer.input.prev' | translate }}</a>
             <button *ngIf="!environment.PORTAL_SITE_URL" type="button" class="btn btn-outline-primary btn-block py-3"
-                routerLink="/">{{ 'inquiry.input.prev' | translate }}</button>
+                routerLink="/">{{ 'order.point.transfer.input.prev' | translate }}</button>
         </div>
     </form>
 </div>

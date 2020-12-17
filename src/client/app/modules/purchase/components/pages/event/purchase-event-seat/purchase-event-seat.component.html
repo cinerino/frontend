@@ -17,8 +17,7 @@
                 <div *ngIf="(purchase | async)?.screen?.openSeatingAllowed" class="mb-4">
                     <div class="d-flex align-items-center">
                         <p class="mr-2">{{ 'purchase.event.seat.openSeating' | translate }}</p>
-                        <select class="form-control d-inline-block w-auto" (change)="selectOpenSeating($event)"
-                            [ngModel]="(purchase | async)?.reservations.length">
+                        <select class="form-control d-inline-block w-auto" [(ngModel)]="reservationCount">
                             <option value="0">0</option>
                             <option *ngFor="let value of remainingAttendeeCapacityValue({
                             screeningEventSeats: screeningEventSeats,
@@ -35,10 +34,14 @@
         </div>
     </div>
     <div class="buttons mx-auto text-center">
-        <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="(isLoading | async) || (purchase | async)?.reservations.length === 0"
+        <button *ngIf="!((purchase | async)?.screen?.openSeatingAllowed)" type="submit" class="btn btn-primary btn-block py-3 mb-3"
+            [disabled]="(isLoading | async) || (purchase | async)?.reservations.length === 0"
             (click)="onSubmit()">{{ 'purchase.event.seat.next' | translate }}</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
-            (click)="prev()">{{ 'purchase.event.seat.prev' | translate }}</button>
+        <button *ngIf="(purchase | async)?.screen?.openSeatingAllowed" type="submit" class="btn btn-primary btn-block py-3 mb-3"
+            [disabled]="(isLoading | async) || Number(reservationCount) === 0"
+            (click)="onSubmit()">{{ 'purchase.event.seat.next' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" (click)="prev()">{{
+            'purchase.event.seat.prev' | translate }}</button>
     </div>
 
 </div>
