@@ -221,6 +221,37 @@ button {
     max-width: 100%;
 }
 
-.video-format {
-    display: none !important;
+.production .error {
+    display: none;
 }
+
+// custom
+.btn-primary:hover {
+    opacity: 0.75;
+}
+
+.btn-primary:disabled {
+    opacity: 1 ;
+    background-color: #666;
+    border-color: #666;
+}
+
+.btn-primary,
+.btn-outline-primary:hover {
+    color: #FFF !important;
+}
+
+.page-item.active .page-link {
+    background-color: $primary;
+    border-color: $primary;
+    color: #FFF;
+}
+
+.page-item .page-link {
+    color: $primary;
+}
+
+.video-format {
+    display: none;
+}
+

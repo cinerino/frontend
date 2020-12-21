@@ -99,36 +99,89 @@ async function setProjectConfig(storageUrl: string) {
         (<any>window).eval(await fetchResult.text());
     }
     const environment = getEnvironment();
-    // スタイル設定
+    console.log(environment);
+    // タイトル設定
+    document.title = environment.APP_TITLE;
+    // 色設定
+    await applyColor({ primaryColor: environment.PRIMARY_COLOR });
+    // CSS設定
+    await applyCSS({ storageUrl });
+    // ファビコン設定
+    await applyFavicon({ storageUrl });
+    // GTM設定
+    applyGTM({ id: environment.GTM_ID });
+    // モード設定
+    if (environment.production) {
+        enableProdMode();
+    }
+}
+
+/**
+ * 色設定
+ */
+function applyColor(params: { primaryColor: string; }) {
+    const { primaryColor } = params;
+    const style = document.createElement('style');
+    style.id = 'applyColor';
+    style.innerHTML = `
+.btn-primary,
+.btn-outline-primary:hover,
+header::after,
+.wrapper .bg-primary { background-color: ${primaryColor} !important; }
+
+.btn-primary,
+.btn-outline-primary,
+.wrapper .border-primary { border-color: ${primaryColor} !important; }
+
+.btn-outline-primary,
+.wrapper .text-primary { color: ${primaryColor} !important; }
+    `;
+    document.head.appendChild(style);
+}
+
+/**
+ * CSS設定
+ */
+async function applyCSS(params: { storageUrl: string; }) {
+    const { storageUrl } = params;
+    const now = momentTimezone().toISOString();
     const style = document.createElement('link');
     style.rel = 'stylesheet';
     style.href = (await Functions.Util.isFile(`${storageUrl}/css/style.css?=date${now}`))
         ? `${storageUrl}/css/style.css?=date${now}` : `/default/css/style.css?=date${now}`;
-
     document.head.appendChild(style);
-    // ファビコン設定
+    console.log(style);
+}
+
+/**
+ * ファビコン設定
+ */
+async function applyFavicon(params: { storageUrl: string; }) {
+    const { storageUrl } = params;
     const favicon = document.createElement('link');
     favicon.rel = 'icon';
     favicon.type = 'image/x-icon"';
     favicon.href = (await Functions.Util.isFile(`${storageUrl}/favicon.ico`)) ? `${storageUrl}/favicon.ico` : '/default/favicon.ico';
     document.head.appendChild(favicon);
-    // タイトル設定
-    document.title = environment.APP_TITLE;
-    // GTM設定
-    if (environment.GTM_ID) {
-        (function (w, d, s, l, i) {
-            (<any>w)[l] = (<any>w)[l] || [];
-            (<any>w)[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-            const f = d.getElementsByTagName(s)[0];
-            const j = d.createElement(s), dl = l !== 'dataLayer' ? '&l=' + l : '';
-            (<any>j).async = true;
-            (<any>j).src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            (<any>f).parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', environment.GTM_ID);
+}
+
+/**
+ * GTM設定
+ */
+function applyGTM(params: { id?: string; }) {
+    const { id } = params;
+    if (id === undefined || id === '') {
+        return;
     }
-    if (environment.production) {
-        enableProdMode();
-    }
+    (function (w, d, s, l, i) {
+        (<any>w)[l] = (<any>w)[l] || [];
+        (<any>w)[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        const f = d.getElementsByTagName(s)[0];
+        const j = d.createElement(s), dl = l !== 'dataLayer' ? '&l=' + l : '';
+        (<any>j).async = true;
+        (<any>j).src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        (<any>f).parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', id);
 }
 
 

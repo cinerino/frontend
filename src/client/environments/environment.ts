@@ -25,21 +25,13 @@ interface IEnvironment {
      */
     APP_TITLE: string;
     /**
-     * アプリケーションプレフィックス
-     */
-    APP_PREFIX: string;
-    /**
-     * プロジェクトID
-     */
-    PROJECT_ID: string;
-    /**
      * ルーティング許可
      */
     ARROW_ROUTEING: string[];
     /**
-     * 入り口URL（非推奨）
+     * プライマリーカラー
      */
-    ENTRANCE_SERVER_URL: string;
+    PRIMARY_COLOR: string;
     /**
      * 表示タイプ
      */
@@ -241,10 +233,8 @@ interface IEnvironment {
 const defaultEnvironment: IEnvironment = {
     production: false,
     APP_TITLE: 'SMART THEATER',
-    APP_PREFIX: '',
-    PROJECT_ID: '',
     ARROW_ROUTEING: ['purchase', 'inquiry'],
-    ENTRANCE_SERVER_URL: '',
+    PRIMARY_COLOR: 'red',
     VIEW_TYPE: 'event',
     GTM_ID: '',
     ANALYTICS_ID: '',
