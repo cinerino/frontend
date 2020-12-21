@@ -234,7 +234,7 @@ const defaultEnvironment: IEnvironment = {
     production: false,
     APP_TITLE: 'SMART THEATER',
     ARROW_ROUTEING: ['purchase', 'inquiry'],
-    PRIMARY_COLOR: 'red',
+    PRIMARY_COLOR: 'steelblue',
     VIEW_TYPE: 'event',
     GTM_ID: '',
     ANALYTICS_ID: '',

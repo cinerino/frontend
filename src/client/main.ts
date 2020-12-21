@@ -99,7 +99,6 @@ async function setProjectConfig(storageUrl: string) {
         (<any>window).eval(await fetchResult.text());
     }
     const environment = getEnvironment();
-    console.log(environment);
     // タイトル設定
     document.title = environment.APP_TITLE;
     // 色設定
