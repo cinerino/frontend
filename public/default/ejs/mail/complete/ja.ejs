@@ -18,7 +18,7 @@
 | 
 | <%= event.name.ja %>
 | 
-| <%= moment(event.startDate).tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %> - <%= moment(event.endDate).tz('Asia/Tokyo').locale('ja').format('HH:mm') %>
+| <%= moment(event.startDate).tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %> - <%= moment(event.endDate).tz('Asia/Tokyo').locale('ja').format('HH:mm') %> <% if (event.doorTime) { %>（開場時間 <%= moment(event.doorTime).tz('Asia/Tokyo').locale('ja').format('HH:mm') %>）<% } %>
 | 
 | <%= event.superEvent.location.name.ja %> / <%= event.location.name.ja %>
 | 
@@ -48,3 +48,4 @@
 | ※なお、このメールアドレスは送信専用となっておりますので、ご返信頂けません。
 | ご不明な点がございましたら、下記番号までお問合わせください。 
 | 
+| TEL：<%= formatTelephone(theater.telephone, 'NATIONAL') %>
