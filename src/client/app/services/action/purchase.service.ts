@@ -547,13 +547,16 @@ export class ActionPurchaseService {
         const purchase = await this.getData();
         const language = params.language;
         return new Promise<void>((resolve, reject) => {
-            if (purchase.transaction === undefined || purchase.seller === undefined) {
+            if (purchase.transaction === undefined
+                || purchase.seller === undefined
+                || purchase.theater === undefined) {
                 reject();
                 return;
             }
             const transaction = purchase.transaction;
             const authorizeSeatReservations = purchase.authorizeSeatReservations;
             const seller = purchase.seller;
+            const theater = purchase.theater;
             const external = Functions.Util.getExternalData();
             const linyId = (external.linyId === undefined)
                 ? undefined : external.linyId;
@@ -561,6 +564,7 @@ export class ActionPurchaseService {
                 transaction,
                 authorizeSeatReservations,
                 seller,
+                theater,
                 language,
                 linyId
             }));
@@ -610,7 +614,7 @@ export class ActionPurchaseService {
      * 外部連携情報を購入情報へ変換
      */
     public async convertExternalToPurchase(eventId: string) {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             this.store.dispatch(purchaseAction.convertExternalToPurchase({ eventId }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.convertExternalToPurchaseSuccess.type),
