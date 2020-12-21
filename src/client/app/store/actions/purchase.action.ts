@@ -340,6 +340,7 @@ export const endTransaction = createAction(
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
         seller: factory.chevre.seller.ISeller;
+        theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
         language: string;
         linyId?: string;

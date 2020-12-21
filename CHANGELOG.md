@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.14 - 2020-12-21
+### Added
+ - 購入完了メールへ劇場情報、開場時間追加
+### Changed
+ - 入場コード期限を7日へ変更
+
 ## 3.4.13 - 2020-12-17
 ### Changed
  - 購入メール文言調整

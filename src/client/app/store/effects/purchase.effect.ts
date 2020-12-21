@@ -563,6 +563,7 @@ export class PurchaseEffects {
                 authorizeSeatReservations: payload.authorizeSeatReservations
             });
             const seller = payload.seller;
+            const theater = payload.theater;
             const linyId = payload.linyId;
             try {
                 await this.cinerinoService.getServices();
@@ -601,6 +602,7 @@ export class PurchaseEffects {
                     params.email.template = (<any>window).ejs.render(view, {
                         authorizeSeatReservations,
                         seller,
+                        theater,
                         moment,
                         formatTelephone: Functions.Util.formatTelephone,
                         getItemPrice: Functions.Purchase.getItemPrice,
