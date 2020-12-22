@@ -232,8 +232,8 @@ button {
 
 .btn-primary:disabled {
     opacity: 1 ;
-    background-color: #666;
-    border-color: #666;
+    background-color: #666 !important;
+    border-color: #666 !important;
 }
 
 .btn-primary,
