@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.4.15 - 2020-12-23
+### Changed
+ - アプリ設定にカラーを持つように変更
+ - 自由席文言を変更
+
 ## 3.4.14 - 2020-12-21
 ### Added
  - 購入完了メールへ劇場情報、開場時間追加
