@@ -177,6 +177,10 @@ interface IEnvironment {
      */
     ORDER_AUTHORIZE_CODE_EXPIRES: string;
     /**
+     * 振替文言
+     */
+    ORDER_MONEY_TRANSFER_DESCRIPTION: string;
+    /**
      * 照会キャンセル
      */
     INQUIRY_CANCEL: boolean;
@@ -277,6 +281,7 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_WARNING: false,
     ORDER_CANCEL_MAIL_CUSTOM: true,
     ORDER_AUTHORIZE_CODE_EXPIRES: '604800',
+    ORDER_MONEY_TRANSFER_DESCRIPTION: '受け取り',
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: true,
     INQUIRY_PRINT: false,

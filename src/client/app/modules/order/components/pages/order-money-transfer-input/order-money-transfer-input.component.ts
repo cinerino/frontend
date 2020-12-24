@@ -11,11 +11,11 @@ import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
-    selector: 'app-order-point-transfer-input',
-    templateUrl: './order-point-transfer-input.component.html',
-    styleUrls: ['./order-point-transfer-input.component.scss']
+    selector: 'app-order-money-transfer-input',
+    templateUrl: './order-money-transfer-input.component.html',
+    styleUrls: ['./order-money-transfer-input.component.scss']
 })
-export class OrderPointTransferInputComponent implements OnInit {
+export class OrderMoneyTransferInputComponent implements OnInit {
     public inputForm: FormGroup;
     public theaterCode?: string;
     public environment = getEnvironment();
@@ -121,10 +121,10 @@ export class OrderPointTransferInputComponent implements OnInit {
                 customer: { telephone }
             });
             if (this.theaterCode !== undefined) {
-                this.router.navigate([`/order/point/transfer/${this.theaterCode}/confirm`]);
+                this.router.navigate([`/order/money/transfer/${this.theaterCode}/confirm`]);
                 return;
             }
-            this.router.navigate(['/order/point/transfer/confirm']);
+            this.router.navigate(['/order/money/transfer/confirm']);
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({

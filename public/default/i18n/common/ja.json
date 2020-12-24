@@ -88,7 +88,7 @@
         }
     },
     "order": {
-        "point": {
+        "money": {
             "transfer": {
                 "input": {
                     "title": "ポイント振替",
