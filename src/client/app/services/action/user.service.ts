@@ -49,7 +49,7 @@ export class ActionUserService {
      * 初期化
      */
     public initialize(params: {
-        isMember: boolean;
+        login: boolean;
     }) {
         this.store.dispatch(userAction.initialize(params));
     }
@@ -148,7 +148,7 @@ export class ActionUserService {
      * プロフィール更新
      */
     public async updateProfile(profile: factory.person.IProfile) {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             this.store.dispatch(userAction.updateProfile({ profile }));
 
             const success = this.actions.pipe(

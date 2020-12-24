@@ -6,9 +6,9 @@ import { userAction } from '../actions';
 
 export interface IUserState {
     /**
-     * 会員フラグ
+     * ログイン
      */
-    isMember: boolean;
+    login: boolean;
     /**
      * ユーザーネーム
      */
@@ -48,7 +48,7 @@ export interface IUserState {
 }
 
 export const userInitialState: IUserState = {
-    isMember: false,
+    login: false,
     language: 'ja',
     creditCards: [],
     accounts: []
@@ -61,7 +61,7 @@ export function reducer(initialState: IState, action: Action) {
             return {
                 ...state,
                 userData: {
-                    isMember: false,
+                    login: false,
                     profile: undefined,
                     accounts: [],
                     creditCards: [],
@@ -70,11 +70,11 @@ export function reducer(initialState: IState, action: Action) {
             };
         }),
         on(userAction.initialize, (state, payload) => {
-            const isMember = payload.isMember;
+            const login = payload.login;
             return {
                 ...state, userData: {
                     ...state.userData,
-                    isMember
+                    login
                 }, loading: false, process: ''
             };
         }),

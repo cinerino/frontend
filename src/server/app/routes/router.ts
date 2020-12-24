@@ -61,6 +61,24 @@ export default (app: express.Application) => {
     });
 
     app.get([
+        '/projects/:projectId',
+        '/projects/:projectId/*'
+    ], (req, res, next) => {
+        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
+            next();
+            return;
+        }
+        if (req.query.login === 'true'
+            && req.query.redirectUrl === undefined) {
+            const redirectUrl =
+                Buffer.from(req.url.replace('login=', 'login2=')).toString('base64');
+            res.redirect(`${req.url}&redirectUrl=${redirectUrl}`);
+            return;
+        }
+        next();
+    });
+
+    app.get([
         '/projects/:projectId/:projectName/inquiry',
         '/projects/:projectId/inquiry'
     ], (req, res, next) => {
@@ -108,7 +126,10 @@ export default (app: express.Application) => {
         res.redirect(`/?${getQueryParameter(req)}#/purchase/transaction/${eventId}/${passportToken}`);
     });
 
-    app.get(['/projects/:projectId/:projectName', '/projects/:projectId'], (req, res, next) => {
+    app.get([
+        '/projects/:projectId/:projectName',
+        '/projects/:projectId'
+    ], (req, res, next) => {
         if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
             next();
             return;

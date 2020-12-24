@@ -197,6 +197,10 @@ export function reducer(initialState: IState, action: Action) {
                 }, loading: false, process: '', error: null
             };
         }),
+        on(purchaseAction.startTransactionFail, (state, payload) => {
+            const error = payload.error;
+            return { ...state, error: (error.message) ? error.message :  JSON.stringify(error), loading: false, process: '' };
+        }),
         on(purchaseAction.getScreeningEventFail, (state, payload) => {
             const error = payload.error;
             return { ...state, error: (error.message) ? error.message :  JSON.stringify(error), loading: false, process: '' };

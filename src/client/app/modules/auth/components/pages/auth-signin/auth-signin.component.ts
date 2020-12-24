@@ -27,15 +27,18 @@ export class AuthSigninComponent implements OnInit {
     public async ngOnInit() {
         this.process = this.store.pipe(select(reducers.getProcess));
         this.actionService.user.delete();
-        this.actionService.user.initialize({ isMember: true });
+        this.actionService.user.initialize({ login: true });
 
         try {
             // await this.actionService.user.getProfile();
             // await this.actionService.user.getCreditCards();
             const redirectUrl = (sessionStorage.getItem('REDIRECT_URL') === null)
-            ? this.environment.BASE_URL : sessionStorage.getItem('REDIRECT_URL');
+                ? this.environment.BASE_URL : sessionStorage.getItem('REDIRECT_URL');
             sessionStorage.removeItem('REDIRECT_URL');
-            this.router.navigate([redirectUrl]);
+            if (redirectUrl === null) {
+                throw new Error('redirectUrl === null');
+            }
+            location.href = redirectUrl;
         } catch (error) {
             this.router.navigate(['/error']);
         }
