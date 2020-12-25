@@ -120,10 +120,10 @@ export default (app: express.Application) => {
         const eventId = req.params.eventId;
         const passportToken = req.params.passportToken;
         if (passportToken === undefined) {
-            res.redirect(`/?${getQueryParameter(req)}#/purchase/transaction/${eventId}`);
+            res.redirect(`/?${getQueryParameter(req)}&eventId=${eventId}#/purchase/transaction`);
             return;
         }
-        res.redirect(`/?${getQueryParameter(req)}#/purchase/transaction/${eventId}/${passportToken}`);
+        res.redirect(`/?${getQueryParameter(req)}&eventId=${eventId}&passportToken=${passportToken}#/purchase/transaction`);
     });
 
     app.get([

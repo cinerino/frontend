@@ -32,10 +32,6 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.error = this.store.pipe(select(reducers.getError));
-        const snapshot = this.activatedRoute.snapshot;
-        const eventId = snapshot.params.eventId;
-        const passportToken = snapshot.params.passportToken;
-        sessionStorage.setItem('EXTERNAL', JSON.stringify({ eventId, passportToken }));
         const tmpPurchase = await this.actionService.purchase.getData();
         const external = Functions.Util.getExternalData();
         if (this.environment.VIEW_TYPE === Models.Common.ViewType.Cinema
@@ -46,12 +42,13 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
             return;
         }
         this.actionService.purchase.delete();
-        if (this.environment.VIEW_TYPE !== Models.Common.ViewType.Cinema) {
+        if (this.environment.VIEW_TYPE !== Models.Common.ViewType.Cinema
+            || external.eventId === undefined) {
             this.router.navigate(['/error']);
             return;
         }
         try {
-            await this.actionService.purchase.convertExternalToPurchase(eventId);
+            await this.actionService.purchase.convertExternalToPurchase(external.eventId);
             await this.actionService.purchase.startTransaction();
             this.router.navigate(['/purchase/cinema/seat']);
         } catch (error) {
