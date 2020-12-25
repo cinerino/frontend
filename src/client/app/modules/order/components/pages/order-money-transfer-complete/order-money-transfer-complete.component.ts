@@ -7,11 +7,11 @@ import { ActionService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
-    selector: 'app-order-point-transfer-complete',
-    templateUrl: './order-point-transfer-complete.component.html',
-    styleUrls: ['./order-point-transfer-complete.component.scss']
+    selector: 'app-order-money-transfer-complete',
+    templateUrl: './order-money-transfer-complete.component.html',
+    styleUrls: ['./order-money-transfer-complete.component.scss']
 })
-export class OrderPointTransferCompleteComponent implements OnInit {
+export class OrderMoneyTransferCompleteComponent implements OnInit {
     public isLoading: Observable<boolean>;
     public environment = getEnvironment();
     public theaterCode?: string;

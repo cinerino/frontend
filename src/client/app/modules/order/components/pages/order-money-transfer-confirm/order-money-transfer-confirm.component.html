@@ -1,12 +1,12 @@
 <div class="contents-width mx-auto px-3 py-5">
     <form [formGroup]="inputForm">
-        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'order.point.transfer.confirm.title' | translate }}
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'order.money.transfer.confirm.title' | translate }}
         </h2>
         <div *ngIf="(order | async)?.order.orderStatus === orderStatus.OrderReturned">
-            <p class="mb-4 text-md-center" [innerHTML]="'order.point.transfer.confirm.canceled' | translate"></p>
+            <p class="mb-4 text-md-center" [innerHTML]="'order.money.transfer.confirm.canceled' | translate"></p>
         </div>
         <div class="order-form mx-auto" *ngIf="(order | async)?.order.orderStatus !== orderStatus.OrderReturned">
-            <p class="mb-4 text-md-center" [innerHTML]="'order.point.transfer.confirm.read' | translate"></p>
+            <p class="mb-4 text-md-center" [innerHTML]="'order.money.transfer.confirm.read' | translate"></p>
             <app-order-detail [order]="(order | async)?.order" [customer]="false">
             </app-order-detail>
 
@@ -15,7 +15,7 @@
                     <div class="container px-0">
                         <div class="row align-items-center">
                             <div class="col-md-4 col-12">
-                                <label class="mb-2 mb-md-0" for="">{{ 'order.point.transfer.confirm.accountNumber' |
+                                <label class="mb-2 mb-md-0" for="">{{ 'order.money.transfer.confirm.accountNumber' |
                                     translate }}</label>
                             </div>
                             <div class="col-md-8 col-12">
@@ -57,13 +57,13 @@
             <div *ngIf="(order | async)?.order.orderStatus !== orderStatus.OrderReturned">
                 <button [disabled]="(isLoading | async) || inputForm.invalid" type="button"
                     class="btn btn-primary btn-block py-3 mb-3" (click)="transfer()">{{
-                    'order.point.transfer.confirm.next' | translate }}</button>
+                    'order.money.transfer.confirm.next' | translate }}</button>
             </div>
             <button *ngIf="theaterCode" type="button" class="btn btn-outline-primary btn-block py-3"
-                [routerLink]="'/order/point/transfer/' + theaterCode + '/input'">{{ 'order.point.transfer.confirm.prev'
+                [routerLink]="'/order/money/transfer/' + theaterCode + '/input'">{{ 'order.money.transfer.confirm.prev'
                 | translate }}</button>
             <button *ngIf="!theaterCode" type="button" class="btn btn-outline-primary btn-block py-3"
-                routerLink="/order/point/transfer/input">{{ 'order.point.transfer.confirm.prev' | translate }}</button>
+                routerLink="/order/money/transfer/input">{{ 'order.money.transfer.confirm.prev' | translate }}</button>
         </div>
     </form>
 </div>

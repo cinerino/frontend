@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/sdk';
 import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import * as moment from 'moment';
 import { Observable, race } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { Functions, Models } from '../..';
@@ -52,7 +53,7 @@ export class ActionOrderService {
         orders: factory.order.IOrder[];
         language: string;
     }) {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             this.store.dispatch(orderAction.cancel(params));
             const success = this.actions.pipe(
                 ofType(orderAction.cancelSuccess.type),
@@ -94,7 +95,7 @@ export class ActionOrderService {
             telephone?: string;
         }
     }) {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             this.store.dispatch(orderAction.inquiry(params));
             const success = this.actions.pipe(
                 ofType(orderAction.inquirySuccess.type),
@@ -158,6 +159,91 @@ export class ActionOrderService {
             limit: 10
         });
         return result;
+    }
+
+    /**
+     * 注文コード発行
+     */
+    public async moneyTransfer(params: {
+        order: factory.order.IOrder;
+        toLocation: {
+            typeOf: string;
+            identifier: string;
+        };
+        amount: {
+            typeOf: 'MonetaryAmount'
+            value: number;
+            currency: string;
+        };
+    }) {
+        const environment = getEnvironment();
+        const { order, toLocation, amount } = params;
+        const seller = order.seller;
+        const fromLocation = {
+            typeOf: factory.order.OrderType.Order,
+            orderNumber: order.orderNumber,
+            confirmationNumber: order.confirmationNumber
+        };
+        const agent = {
+            id: order.customer.id,
+            typeOf: factory.personType.Person,
+            name: `${order.customer.familyName} ${order.customer.givenName}`
+        };
+        const recipient = {
+            id: '',
+            typeOf: factory.personType.Person,
+            name: toLocation.identifier
+        };
+        let transaction;
+        try {
+            this.utilService.loadStart({ process: 'load' });
+            if (seller.id === undefined) {
+                throw new Error('seller.id === undefined');
+            }
+            await this.cinerinoService.getServices();
+            const passport = await this.cinerinoService.getPassport(seller.id);
+            transaction = await this.cinerinoService.transaction.moneyTransfer.start({
+                project: order.project,
+                agent,
+                recipient,
+                seller: { id: seller.id },
+                object: {
+                    ...passport,
+                    amount,
+                    fromLocation,
+                    toLocation,
+                    description: environment.ORDER_MONEY_TRANSFER_DESCRIPTION
+                },
+                expires: moment()
+                    .add(1, 'minutes')
+                    .toDate(),
+            });
+        } catch (error) {
+            this.utilService.loadEnd();
+            throw error;
+        }
+        try {
+            // await this.cinerinoService.transaction.moneyTransfer.setProfile({
+            //     id: transaction.id,
+            //     agent: {
+            //         name: `${order.customer.familyName} ${order.customer.givenName}`,
+            //         familyName: order.customer.familyName,
+            //         givenName: order.customer.givenName,
+            //         telephone: order.customer.telephone
+            //     }
+            // });
+
+            await this.cinerinoService.transaction.moneyTransfer.confirm({
+                id: transaction.id
+            });
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.cinerinoService.transaction.moneyTransfer.cancel({
+                id: transaction.id
+            });
+            this.utilService.loadEnd();
+            throw error;
+        }
     }
 
 }
