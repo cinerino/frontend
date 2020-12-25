@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.0 - 2020-12-25
+### Added
+ - ポイント振替API連携
+### Changed
+ - QR期限を21日へ変更
+
 ## 3.4.15 - 2020-12-23
 ### Changed
  - アプリ設定にカラーを持つように変更
