@@ -42,7 +42,7 @@
     "@angular/platform-browser": "^10.0.7",
     "@angular/platform-browser-dynamic": "^10.0.7",
     "@angular/router": "^10.0.7",
-    "@cinerino/sdk": "^1.17.0",
+    "@cinerino/sdk": "^1.19.0",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@ngrx/effects": "^9.2.0",
     "@ngrx/store": "^9.2.0",

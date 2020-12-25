@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { OrderPointTransferCompleteComponent } from './components/pages/order-point-transfer-complete/order-point-transfer-complete.component';
-import { OrderPointTransferConfirmComponent } from './components/pages/order-point-transfer-confirm/order-point-transfer-confirm.component';
-import { OrderPointTransferInputComponent } from './components/pages/order-point-transfer-input/order-point-transfer-input.component';
+import { OrderMoneyTransferCompleteComponent } from './components/pages/order-money-transfer-complete/order-money-transfer-complete.component';
+import { OrderMoneyTransferConfirmComponent } from './components/pages/order-money-transfer-confirm/order-money-transfer-confirm.component';
+import { OrderMoneyTransferInputComponent } from './components/pages/order-money-transfer-input/order-money-transfer-input.component';
 import { OrderRoutingModule } from './order-routing.module';
 
 
 @NgModule({
   declarations: [
-    OrderPointTransferCompleteComponent,
-    OrderPointTransferConfirmComponent,
-    OrderPointTransferInputComponent
+    OrderMoneyTransferCompleteComponent,
+    OrderMoneyTransferConfirmComponent,
+    OrderMoneyTransferInputComponent
   ],
   imports: [
     CommonModule,
