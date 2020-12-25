@@ -94,8 +94,8 @@ export default (app: express.Application) => {
     });
 
     app.get([
-        '/projects/:projectId/order/point/transfer',
-        '/projects/:projectId/order/point/:theaterCode/transfer',
+        '/projects/:projectId/order/money/transfer',
+        '/projects/:projectId/order/money/:theaterCode/transfer',
     ], (req, res, next) => {
         if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
             next();
@@ -103,10 +103,10 @@ export default (app: express.Application) => {
         }
         const theaterCode = req.params.theaterCode;
         if (theaterCode) {
-            res.redirect(`/?${getQueryParameter(req)}#/order/point/transfer/${theaterCode}/input`);
+            res.redirect(`/?${getQueryParameter(req)}#/order/money/transfer/${theaterCode}/input`);
             return;
         }
-        res.redirect(`/?${getQueryParameter(req)}#/order/point/transfer/input`);
+        res.redirect(`/?${getQueryParameter(req)}#/order/money/transfer/input`);
     });
 
     app.get([
