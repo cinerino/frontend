@@ -173,7 +173,7 @@ interface IEnvironment {
     ORDER_CANCEL_MAIL_CUSTOM: boolean;
     /**
      * 注文承認コード期限(s)
-     * デフォルト943887600s 21days
+     * デフォルト1814400s 21days
      */
     ORDER_AUTHORIZE_CODE_EXPIRES: string;
     /**
@@ -280,7 +280,7 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_TERMS: false,
     PURCHASE_WARNING: false,
     ORDER_CANCEL_MAIL_CUSTOM: true,
-    ORDER_AUTHORIZE_CODE_EXPIRES: '943887600',
+    ORDER_AUTHORIZE_CODE_EXPIRES: '1814400',
     ORDER_MONEY_TRANSFER_DESCRIPTION: '受け取り',
     INQUIRY_CANCEL: false,
     INQUIRY_QRCODE: true,
