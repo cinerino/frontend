@@ -22,10 +22,6 @@ export interface IPurchaseState {
      */
     scheduleDate?: string;
     /**
-     * 先行販売スケジュール
-     */
-    preScheduleDates: string[];
-    /**
      * 取引
      */
     transaction?: factory.transaction.placeOrder.ITransaction;
@@ -92,7 +88,6 @@ export interface IPurchaseState {
 }
 
 export const purchaseInitialState: IPurchaseState = {
-    preScheduleDates: [],
     reservations: [],
     screeningEventTicketOffers: [],
     orderCount: 0,
@@ -121,7 +116,6 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeMovieTicketPayments: [],
                     checkMovieTicketActions: [],
                     authorizeSeatReservations: [],
-                    preScheduleDates: [],
                 }
             };
         }),
@@ -157,17 +151,6 @@ export function reducer(initialState: IState, action: Action) {
             const scheduleDate = payload.scheduleDate;
             return { ...state, purchaseData: { ...state.purchaseData, scheduleDate }, loading: true, process: '', error: null };
         }),
-        on(purchaseAction.getPreScheduleDates, (state) => {
-            return { ...state, loading: true, process: 'purchaseAction.GetPreScheduleDates' };
-        }),
-        on(purchaseAction.getPreScheduleDatesSuccess, (state, payload) => {
-            const preScheduleDates = payload.sheduleDates;
-            return { ...state, purchaseData: { ...state.purchaseData, preScheduleDates }, loading: false, process: '', error: null };
-        }),
-        on(purchaseAction.getPreScheduleDatesFail, (state, payload) => {
-            const error = payload.error;
-            return { ...state, error: (error.message) ? error.message :  JSON.stringify(error), loading: false, process: '' };
-        }),
         on(purchaseAction.getScreeningEvent, (state) => {
             return { ...state, loading: true, process: 'purchaseAction.GetScreeningEvent' };
         }),
@@ -187,7 +170,6 @@ export function reducer(initialState: IState, action: Action) {
                 ...state, purchaseData: {
                     ...state.purchaseData,
                     transaction: payload.transaction,
-                    preScheduleDates: [],
                     authorizeSeatReservations: [],
                     authorizeCreditCardPayments: [],
                     authorizeMovieTicketPayments: [],
@@ -209,7 +191,6 @@ export function reducer(initialState: IState, action: Action) {
                 ...state, purchaseData: {
                     ...state.purchaseData,
                     transaction: undefined,
-                    preScheduleDates: [],
                     authorizeSeatReservations: [],
                     authorizeCreditCardPayments: [],
                     authorizeMovieTicketPayments: [],
@@ -225,7 +206,6 @@ export function reducer(initialState: IState, action: Action) {
                 ...state, purchaseData: {
                     ...state.purchaseData,
                     transaction: undefined,
-                    preScheduleDates: [],
                     authorizeSeatReservations: [],
                     authorizeCreditCardPayments: [],
                     authorizeMovieTicketPayments: [],
@@ -578,7 +558,6 @@ export function reducer(initialState: IState, action: Action) {
             return {
                 ...state,
                 purchaseData: {
-                    preScheduleDates: [],
                     reservations: [],
                     screeningEventTicketOffers: [],
                     orderCount: 0,

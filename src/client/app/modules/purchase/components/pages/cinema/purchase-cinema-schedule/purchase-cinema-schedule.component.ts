@@ -1,11 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BAD_REQUEST, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
-import { SwiperComponent, SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
@@ -18,14 +17,13 @@ import * as reducers from '../../../../../../store/reducers';
     styleUrls: ['./purchase-cinema-schedule.component.scss']
 })
 export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
-    @ViewChild(SwiperComponent) public componentRef: SwiperComponent;
-    @ViewChild(SwiperDirective) public directiveRef: SwiperDirective;
     public isLoading: Observable<boolean>;
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public error: Observable<string | null>;
-    public swiperConfig: SwiperConfigInterface;
+    public firstScheduleDate: string;
     public scheduleDates: string[];
+    public preScheduleDates: string[];
     public isPreSchedule: boolean;
     public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
     public moment: typeof moment = moment;
@@ -33,6 +31,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public external = Functions.Util.getExternalData();
     private updateTimer: any;
     public theaters: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom[];
+    public swiperInstance: any;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -47,7 +46,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
      * 初期化
      */
     public async ngOnInit() {
-        this.swiperConfig = {
+        const swiperConfig: any = {
             spaceBetween: 2,
             slidesPerView: 7,
             freeMode: true,
@@ -61,12 +60,14 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 prevEl: '.schedule-slider .swiper-button-prev',
             },
         };
+        this.swiperInstance = new (<any>window).Swiper('.swiper-container', swiperConfig);
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.error = this.store.pipe(select(reducers.getError));
         this.isPreSchedule = false;
         this.scheduleDates = [];
+        this.preScheduleDates = [];
         this.screeningEventsGroup = [];
         this.theaters = [];
         try {
@@ -100,19 +101,18 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     /**
      * スケジュールの種類を変更
      */
-    public async changeScheduleType() {
-        const purchase = await this.actionService.purchase.getData();
+    public changeScheduleType() {
         if (this.isPreSchedule) {
             this.scheduleDates = [];
             for (let i = 0; i < Number(this.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
                 this.scheduleDates.push(moment().add(i, 'day').format('YYYYMMDD'));
             }
         } else {
-            this.scheduleDates = purchase.preScheduleDates;
+            this.scheduleDates = this.preScheduleDates;
         }
         this.selectDate();
         this.isPreSchedule = !this.isPreSchedule;
-        this.directiveRef.update();
+        this.swiperInstance.update();
 
     }
 
@@ -138,7 +138,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
      * リサイズ
      */
     public resize() {
-        this.directiveRef.update();
+        this.swiperInstance.update();
     }
 
     /**
@@ -151,10 +151,10 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             for (let i = 0; i < Number(this.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH); i++) {
                 this.scheduleDates.push(moment().add(i, 'day').format('YYYYMMDD'));
             }
+            this.preScheduleDates = [];
             this.isPreSchedule = false;
-            this.directiveRef.update();
-            await this.actionService.purchase.getPreScheduleDates();
-            this.isPreSchedule = false;
+            this.firstScheduleDate = await this.getFirstScheduleDate();
+            this.preScheduleDates = await this.actionService.purchase.getPreScheduleDates();
             this.selectDate();
         } catch (error) {
             console.error(error);
@@ -166,19 +166,18 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
      * 日付選択
      */
     public async selectDate(scheduleDate?: string) {
-        const purchase = await this.actionService.purchase.getData();
-        const theater = purchase.theater;
+        const { theater } = await this.actionService.purchase.getData();
         const external = Functions.Util.getExternalData();
         if (theater === undefined || this.scheduleDates.length === 0) {
             this.router.navigate(['/error']);
             return;
         }
-        if (scheduleDate === undefined || scheduleDate === '') {
+        let first = false;
+        if (scheduleDate === undefined) {
+            first = true;
             scheduleDate = (this.isPreSchedule)
                 ? this.scheduleDates[0]
-                : moment()
-                    .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                    .format('YYYYMMDD');
+                : this.firstScheduleDate;
             if (external.scheduleDate !== undefined) {
                 scheduleDate = external.scheduleDate;
             }
@@ -197,6 +196,11 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             });
             this.screeningEventsGroup = Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
             this.update();
+            if (first) {
+                const activeIndex = this.scheduleDates.findIndex(s => s === this.firstScheduleDate);
+                this.swiperInstance.update();
+                this.swiperInstance.slideTo(activeIndex);
+            }
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -262,6 +266,34 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 console.error(error2);
                 this.router.navigate(['/error']);
             }
+        }
+    }
+
+    /**
+     * 初回上映日取得
+     */
+    public async getFirstScheduleDate() {
+        try {
+            const { theater } = await this.actionService.purchase.getData();
+            if (theater === undefined || this.scheduleDates.length === 0) {
+                throw new Error('theater === undefined || this.scheduleDates.length === 0');
+            }
+            const screeningEvents = await this.masterService.getSchedule({
+                superEvent: {
+                    locationBranchCodes: [theater.branchCode],
+                },
+                startFrom: moment().toDate(),
+                startThrough: moment()
+                    .add(Number(this.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH) + 1, 'day')
+                    .add(-1, 'millisecond')
+                    .toDate(),
+                pageing: false
+            });
+            return (screeningEvents.length > 0)
+                ? moment(screeningEvents[0].startDate).format('YYYYMMDD')
+                : moment().format('YYYYMMDD');
+        } catch (error) {
+            throw error;
         }
     }
 

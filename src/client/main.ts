@@ -147,7 +147,6 @@ async function applyCSS(params: { storageUrl: string; }) {
     style.href = (await Functions.Util.isFile(`${storageUrl}/css/style.css?=date${now}`))
         ? `${storageUrl}/css/style.css?=date${now}` : `/default/css/style.css?=date${now}`;
     document.head.appendChild(style);
-    console.log(style);
 }
 
 /**

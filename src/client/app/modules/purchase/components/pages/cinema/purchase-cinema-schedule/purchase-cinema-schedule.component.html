@@ -15,7 +15,7 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.schedule.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.schedule.read' | translate"></p>
     <p class="text-primary mb-3 font-weight-bold" *ngIf="(purchase | async)?.theater">{{ (purchase | async)?.theater.name | changeLanguage }}</p>
-    <div *ngIf="(purchase | async)?.preScheduleDates.length > 0" class="buttons mx-auto mb-3">
+    <div *ngIf="preScheduleDates.length > 0" class="buttons mx-auto mb-3">
         <button *ngIf="!isPreSchedule" type="button" class="btn btn-primary btn-block py-3"
             [disabled]="isLoading | async"
             (click)="changeScheduleType()">{{ 'purchase.cinema.schedule.preSalesSchedule' | translate }}</button>
@@ -27,7 +27,7 @@
 <div [class.d-none]="scheduleDates.length === 0" class="bg-light-gray">
     <div class="contents-width mx-auto px-3">
         <div class="position-relative schedule-slider px-md-4">
-            <div class="swiper-container date" #swiper [swiper]="swiperConfig" (resize)="resize()">
+            <div class="swiper-container date" (resize)="resize()">
                 <div class="swiper-wrapper">
                     <div *ngFor="let scheduleDate of scheduleDates" class="swiper-slide pointer">
                         <div class="text-center text-white py-4" [ngClass]="{
