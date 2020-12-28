@@ -53,10 +53,9 @@ export class PurchaseEffects {
         mergeMap(async (payload) => {
             try {
                 const params = payload;
-                const selleId = params.seller.id;
                 await this.cinerinoService.getServices();
                 const passport = (params.object.passport === undefined)
-                    ? await this.cinerinoService.getPassport(selleId)
+                    ? await this.cinerinoService.getPassport({ scope: `Transaction:PlaceOrder:${params.seller.id}` })
                     : params.object.passport;
                 const transaction = await this.cinerinoService.transaction.placeOrder.start({
                     ...params,
