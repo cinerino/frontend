@@ -10,7 +10,7 @@ export const remove = createAction(
 
 export const initialize = createAction(
     `${LABEL} initialize`,
-    props<{ isMember: boolean }>()
+    props<{ login: boolean }>()
 );
 
 export const updateLanguage = createAction(

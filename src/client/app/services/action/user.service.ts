@@ -49,7 +49,7 @@ export class ActionUserService {
      * 初期化
      */
     public initialize(params: {
-        isMember: boolean;
+        login: boolean;
     }) {
         this.store.dispatch(userAction.initialize(params));
     }

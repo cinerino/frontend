@@ -20,9 +20,7 @@ async function main() {
 
     // パラメータ設定
     const params = Functions.Util.getParameter();
-    if (location.hash === '') {
-        sessionStorage.setItem('EXTERNAL', JSON.stringify({ ...params, project: undefined }));
-    }
+    sessionStorage.setItem('EXTERNAL', JSON.stringify({ ...params, project: undefined }));
 
     // プロジェクト設定
     if (params.projectId !== undefined) {

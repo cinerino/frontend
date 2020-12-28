@@ -246,19 +246,22 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             await this.actionService.purchase.startTransaction();
             this.router.navigate(['/purchase/cinema/seat']);
         } catch (error) {
-            if (error === null) {
-                throw new Error('error is null');
+            console.error(error);
+            try {
+                const errorObject = JSON.parse(error);
+                if (errorObject.status === TOO_MANY_REQUESTS) {
+                    this.router.navigate(['/congestion']);
+                    return;
+                }
+                if (errorObject.status === BAD_REQUEST) {
+                    this.router.navigate(['/maintenance']);
+                    return;
+                }
+                this.router.navigate(['/error']);
+            } catch (error2) {
+                console.error(error2);
+                this.router.navigate(['/error']);
             }
-            const errorObject = JSON.parse(error);
-            if (errorObject.status === TOO_MANY_REQUESTS) {
-                this.router.navigate(['/congestion']);
-                return;
-            }
-            if (errorObject.status === BAD_REQUEST) {
-                this.router.navigate(['/maintenance']);
-                return;
-            }
-            this.router.navigate(['/error']);
         }
     }
 

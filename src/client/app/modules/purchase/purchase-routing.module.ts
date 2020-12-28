@@ -57,8 +57,7 @@ const routes: Routes = [
     component: BaseComponent,
     children: [
       { path: 'root', component: PurchaseRootComponent },
-      { path: 'transaction/:eventId/:passportToken', component: PurchaseTransactionComponent },
-      { path: 'transaction/:eventId', component: PurchaseTransactionComponent },
+      { path: 'transaction', component: PurchaseTransactionComponent },
       {
         path: 'cinema',
         canActivate: [ViewTypeGuardService],

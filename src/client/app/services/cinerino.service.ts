@@ -92,7 +92,7 @@ export class CinerinoService {
         const state = JSON.parse(data);
         const url = '/api/authorize/getCredentials';
         const body = { member: '0' };
-        if (state.App && state.App.userData.isMember) {
+        if (state.App && state.App.userData.login) {
             body.member = '1';
         }
         if (this.auth !== undefined
