@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.1 - 2020-12-28
+### Added
+ - ログインパラメータ追加
+
 ## 3.5.0 - 2020-12-25
 ### Added
  - ポイント振替API連携
