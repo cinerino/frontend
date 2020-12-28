@@ -278,13 +278,14 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             if (theater === undefined || this.scheduleDates.length === 0) {
                 throw new Error('theater === undefined || this.scheduleDates.length === 0');
             }
+            const today = moment(moment().format('YYYYMMDD'), 'YYYYMMDD').toDate();
             const screeningEvents = await this.masterService.getSchedule({
                 superEvent: {
                     locationBranchCodes: [theater.branchCode],
                 },
-                startFrom: moment().toDate(),
-                startThrough: moment()
-                    .add(Number(this.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH) + 1, 'day')
+                startFrom: moment(today).toDate(),
+                startThrough: moment(today)
+                    .add(Number(this.environment.PURCHASE_SCHEDULE_DISPLAY_LENGTH), 'day')
                     .add(-1, 'millisecond')
                     .toDate(),
                 pageing: false
