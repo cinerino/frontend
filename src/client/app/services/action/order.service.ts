@@ -208,7 +208,7 @@ export class ActionOrderService {
                 recipient,
                 seller: { id: seller.id },
                 object: {
-                    ...passport,
+                    ...{ passport },
                     amount,
                     fromLocation,
                     toLocation,
