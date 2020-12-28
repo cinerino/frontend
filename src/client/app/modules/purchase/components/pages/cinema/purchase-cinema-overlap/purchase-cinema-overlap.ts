@@ -56,7 +56,7 @@ export class PurchaseCinemaOverlapComponent implements OnInit {
         await this.actionService.purchase.cancelTransaction();
         const external = Functions.Util.getExternalData();
         if (external.eventId !== undefined) {
-            this.router.navigate([`/purchase/transaction/${external.eventId}`]);
+            this.router.navigate([`/purchase/transaction`]);
             return;
         }
     }

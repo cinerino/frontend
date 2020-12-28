@@ -75,7 +75,7 @@ export async function retry<T>(args: {
  * デフォルト値500ms
  */
 export async function sleep(time: number = 500) {
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
         setTimeout(() => {
             resolve();
         }, time);
@@ -151,6 +151,7 @@ export function getParameter(): {
     language?: string;
     projectId?: string;
     projectName?: string;
+    redirectUrl?: string;
 } {
     const result: any = {};
     const params = location.search.replace('?', '').split('&');
@@ -201,6 +202,7 @@ export function getExternalData(): {
     scheduleDate?: string;
     linyId?: string;
     language?: string;
+    redirectUrl?: string;
 } {
     const external = sessionStorage.getItem('EXTERNAL');
     if (external === null || external === '') {

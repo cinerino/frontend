@@ -4,7 +4,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { getEnvironment } from '../environments/environment';
-import { AuthGuardService, ProjectGuardService, RouteingGuardService } from './canActivates';
+import { AuthGuardService, LoginGuardService, ProjectGuardService, RouteingGuardService } from './canActivates';
 import { IndexComponent } from './index/index.component';
 import { ErrorModule } from './modules/error/error.module';
 
@@ -13,7 +13,7 @@ const appRoutes: Routes = [
     { path: '', component: IndexComponent },
     {
         path: 'purchase',
-        canActivate: [ProjectGuardService, RouteingGuardService],
+        canActivate: [ProjectGuardService, RouteingGuardService, LoginGuardService],
         loadChildren: () => import('./modules/purchase/purchase.module')
             .then(m => m.PurchaseModule)
             .catch(() => location.reload())

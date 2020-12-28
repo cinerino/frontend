@@ -61,8 +61,8 @@ export class PurchaseInputComponent implements OnInit {
             this.user = this.store.pipe(select(reducers.getUser));
             this.isLoading = this.store.pipe(select(reducers.getLoading));
             const user = await this.actionService.user.getData();
-            if (user.isMember) {
-                // 会員
+            if (user.login) {
+                // ログイン
                 await this.actionService.user.getProfile();
                 // await this.actionService.user.getCreditCards();
             }
@@ -136,7 +136,7 @@ export class PurchaseInputComponent implements OnInit {
         });
         const purchase = await this.actionService.purchase.getData();
         const user = await this.actionService.user.getData();
-        const profileData = (user.isMember && purchase.profile === undefined)
+        const profileData = (user.login && purchase.profile === undefined)
             ? user.profile : purchase.profile;
         if (profileData === undefined) {
             return;
