@@ -12,7 +12,6 @@ export class ItemListComponent implements OnInit {
     @Input() public reservations?: Models.Purchase.Reservation.IReservation[];
     @Input() public authorizeSeatReservations?: factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>[];
     @Input() public acceptedOffers?: factory.order.IAcceptedOffer<factory.order.IItemOffered>[];
-    @Input() public qrcode = false;
     @Input() public order?: factory.order.IOrder;
     @Input() public code?: string;
     @Output() public openQrcode = new EventEmitter<{ id: string }>();

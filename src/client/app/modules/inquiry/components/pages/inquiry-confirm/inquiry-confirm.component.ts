@@ -47,7 +47,10 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
             if (order === undefined) {
                 throw new Error('order undefined');
             }
-            this.code = await this.actionService.order.authorizeOrder({ order });
+            if (this.environment.INQUIRY_QRCODE) {
+                // 照会ページへQRコード表示ならコード発行
+                this.code = await this.actionService.order.authorizeOrder({ order });
+            }
             if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
                 const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
                 this.timer = setTimeout(() => {

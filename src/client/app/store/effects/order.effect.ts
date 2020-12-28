@@ -284,11 +284,11 @@ export class OrderEffects {
                 switch (printer.connectionType) {
                     case Models.Common.Printer.ConnectionType.StarBluetooth:
                         this.starPrint.initialize({ printer, pos });
-                        await this.starPrint.printProcess({ canvasList, testFlg });
+                        await this.starPrint.printProcess({ canvasList });
                         break;
                     case Models.Common.Printer.ConnectionType.StarLAN:
                         this.starPrint.initialize({ printer, pos });
-                        await this.starPrint.printProcess({ canvasList, testFlg });
+                        await this.starPrint.printProcess({ canvasList });
                         break;
                     case Models.Common.Printer.ConnectionType.Image:
                         const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray ">

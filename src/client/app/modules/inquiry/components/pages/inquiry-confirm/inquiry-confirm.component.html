@@ -5,7 +5,8 @@
     </div>
     <div *ngIf="(order | async)?.order.orderStatus !== orderStatus.OrderReturned">
         <p class="mb-4 text-md-center" [innerHTML]="'inquiry.confirm.read' | translate"></p>
-        <app-order-detail *ngIf="code" [order]="(order | async)?.order" [code]="code"></app-order-detail>
+        <app-order-detail *ngIf="environment.INQUIRY_QRCODE && code" [order]="(order | async)?.order" [code]="code"></app-order-detail>
+        <app-order-detail *ngIf="!environment.INQUIRY_QRCODE" [order]="(order | async)?.order"></app-order-detail>
     </div>
 
 
