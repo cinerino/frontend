@@ -201,14 +201,14 @@ export class ActionOrderService {
                 throw new Error('seller.id === undefined');
             }
             await this.cinerinoService.getServices();
-            const passport = await this.cinerinoService.getPassport(seller.id);
+            const passport = await this.cinerinoService.getPassport({ scope: `Transaction:MoneyTransfer:${seller.id}` });
             transaction = await this.cinerinoService.transaction.moneyTransfer.start({
                 project: order.project,
                 agent,
                 recipient,
                 seller: { id: seller.id },
                 object: {
-                    ...passport,
+                    ...{ passport },
                     amount,
                     fromLocation,
                     toLocation,

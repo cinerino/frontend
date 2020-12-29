@@ -91,8 +91,11 @@ export class MasterService {
         };
         startFrom: Date;
         startThrough: Date;
+        pageing?: boolean;
     }) {
         try {
+            const { superEvent, startFrom, startThrough } = params;
+            const pageing = (params.pageing === undefined) ? true : params.pageing;
             this.utilService.loadStart({ process: 'masterAction.GetSchedule' });
             const limit = 100;
             let page = 1;
@@ -107,9 +110,9 @@ export class MasterService {
                     limit,
                     typeOf: factory.chevre.eventType.ScreeningEvent,
                     eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
-                    superEvent: params.superEvent,
-                    startFrom: params.startFrom,
-                    startThrough: params.startThrough,
+                    superEvent,
+                    startFrom,
+                    startThrough,
                     offers: {
                         availableFrom: today,
                         availableThrough: moment(today).add(1, 'day').add(-1, 'millisecond').toDate()
@@ -117,7 +120,7 @@ export class MasterService {
                 });
                 result = [...result, ...searchResult.data];
                 page++;
-                roop = searchResult.data.length === limit;
+                roop = searchResult.data.length === limit && pageing;
                 if (roop) {
                     await Functions.Util.sleep();
                 }
