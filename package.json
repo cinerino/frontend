@@ -72,12 +72,11 @@
     "moment-timezone": "^0.5.27",
     "ngx-bootstrap": "^5.6.1",
     "ngx-intl-tel-input": "^2.4.3",
-    "ngx-swiper-wrapper": "^9.0.1",
     "qrcode": "^1.4.4",
     "redis": "^3.0.2",
     "request": "^2.88.0",
     "rxjs": "^6.5.4",
-    "swiper": "^5.3.8",
+    "swiper": "^5.4.5",
     "tslib": "^2.0.0",
     "uuid": "^3.4.0",
     "zone.js": "~0.10.2"

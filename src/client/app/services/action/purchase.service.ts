@@ -93,35 +93,82 @@ export class ActionPurchaseService {
      * 先行販売日取得
      */
     public async getPreScheduleDates() {
-        return new Promise<void>(async (resolve, reject) => {
-            const purchase = await this.getData();
-            if (purchase.theater === undefined) {
-                reject();
-                return;
-            }
+        try {
+            this.utilService.loadStart({ process: 'purchaseAction.GetPreScheduleDates' });
             const external = Functions.Util.getExternalData();
-            const theater = purchase.theater;
-            this.store.dispatch(purchaseAction.getPreScheduleDates({
-                theater,
-                superEvent: {
-                    ids: (external.superEventId === undefined) ? [] : [external.superEventId],
-                    locationBranchCodes: (theater.branchCode === undefined) ? [] : [theater.branchCode],
-                    workPerformedIdentifiers: (external.workPerformedId === undefined)
-                        ? [] : [external.workPerformedId]
+            const { theater } = await this.getData();
+            if (theater === undefined
+                || theater.offers === undefined
+                || theater.offers.availabilityStartsGraceTime === undefined
+                || theater.offers.availabilityStartsGraceTime.value === undefined
+                || theater.offers.availabilityStartsGraceTime.unitCode === undefined
+                || theater.offers.availabilityStartsGraceTime.unitCode === undefined) {
+                this.utilService.loadEnd();
+                return [];
+            }
+            const { value, unitCode } = theater.offers.availabilityStartsGraceTime;
+            const availabilityStartsGraceTime: {
+                value: number;
+                unit: 'day' | 'year' | 'second'
+            } = {
+                value: value * -1 + 1,
+                unit: (unitCode === factory.chevre.unitCode.Day) ? 'day'
+                    : (unitCode === factory.chevre.unitCode.Ann) ? 'year'
+                        : (unitCode === factory.chevre.unitCode.Sec) ? 'second'
+                            : 'second'
+            };
+            const superEvent = {
+                ids: (external.superEventId === undefined) ? [] : [external.superEventId],
+                locationBranchCodes: (theater.branchCode === undefined) ? [] : [theater.branchCode],
+                workPerformedIdentifiers: (external.workPerformedId === undefined)
+                    ? [] : [external.workPerformedId]
+            };
+            await this.cinerinoService.getServices();
+            const now = moment((await this.utilService.getServerTime()).date).toDate();
+            const today = moment(moment().format('YYYYMMDD')).toDate();
+            const limit = 100;
+            let page = 1;
+            let roop = true;
+            let screeningEvents: factory.chevre.event.screeningEvent.IEvent[] = [];
+            while (roop) {
+                const searchResult = await this.cinerinoService.event.search({
+                    page,
+                    limit,
+                    typeOf: factory.chevre.eventType.ScreeningEvent,
+                    eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
+                    superEvent: superEvent,
+                    startFrom: moment(today, 'YYYYMMDD')
+                        .add(availabilityStartsGraceTime.value, availabilityStartsGraceTime.unit)
+                        .toDate(),
+                    offers: {
+                        validFrom: now,
+                        validThrough: now,
+                        availableFrom: now,
+                        availableThrough: now
+                    }
+                });
+                screeningEvents = screeningEvents.concat(searchResult.data);
+                page++;
+                roop = searchResult.data.length === limit;
+                if (roop) {
+                    await Functions.Util.sleep();
                 }
-            }));
-            const success = this.actions.pipe(
-                ofType(purchaseAction.getPreScheduleDatesSuccess.type),
-                tap(() => { resolve(); })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.getPreScheduleDatesFail.type),
-                tap(() => {
-                    reject();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
+            }
+            const sheduleDates: string[] = [];
+            screeningEvents.forEach((screeningEvent) => {
+                const date = moment(screeningEvent.startDate).format('YYYYMMDD');
+                const findResult = sheduleDates.find(s => s === date);
+                if (findResult === undefined) {
+                    sheduleDates.push(date);
+                }
+            });
+            this.utilService.loadEnd();
+            return sheduleDates;
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
     }
 
     /**

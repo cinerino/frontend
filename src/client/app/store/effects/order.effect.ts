@@ -179,7 +179,6 @@ export class OrderEffects {
                         confirmationNumber: payload.confirmationNumber,
                         telephone: payload.customer.telephone,
                     };
-                    console.log('SSKTS', params);
                     const findResult = await this.cinerino.order.findByOrderInquiryKey4sskts(params);
                     const order = (Array.isArray(findResult)) ? findResult[0] : findResult;
                     return orderAction.inquirySuccess({ order });

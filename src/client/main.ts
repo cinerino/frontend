@@ -20,7 +20,10 @@ async function main() {
 
     // パラメータ設定
     const params = Functions.Util.getParameter();
-    sessionStorage.setItem('EXTERNAL', JSON.stringify({ ...params, project: undefined }));
+    if (location.hash === ''
+        || location.hash === '#/purchase/transaction') {
+        sessionStorage.setItem('EXTERNAL', JSON.stringify({ ...params, project: undefined }));
+    }
 
     // プロジェクト設定
     if (params.projectId !== undefined) {
@@ -147,7 +150,6 @@ async function applyCSS(params: { storageUrl: string; }) {
     style.href = (await Functions.Util.isFile(`${storageUrl}/css/style.css?=date${now}`))
         ? `${storageUrl}/css/style.css?=date${now}` : `/default/css/style.css?=date${now}`;
     document.head.appendChild(style);
-    console.log(style);
 }
 
 /**
