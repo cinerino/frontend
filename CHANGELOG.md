@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.2 - 2020-12-29
+### Changed
+ - パスポート取得をスコープ指定へ変更
+ - デフォルト選択日を表示期間内の最初のスケジュール日に変更
+
 ## 3.5.1 - 2020-12-28
 ### Added
  - ログインパラメータ追加
