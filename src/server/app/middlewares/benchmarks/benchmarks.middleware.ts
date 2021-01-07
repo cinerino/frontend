@@ -7,7 +7,7 @@ import * as express from 'express';
 const log = debug('benchmark');
 
 export default (req: express.Request, _: express.Response, next: express.NextFunction) => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.APP_ENV === 'development') {
         const startMemory = process.memoryUsage();
         const startTime = process.hrtime();
 

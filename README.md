@@ -6,7 +6,7 @@
 
 | Name                                | Required | Value                         | Purpose                                 |
 |-------------------------------------|----------|-------------------------------|-----------------------------------------|
-| `NODE_ENV`                          | true     | development, test, production | environment name                        |
+| `APP_ENV`                           | true     | development, test, production | environment name                        |
 | `REDIS_HOST`                        | true     |                               | redis host                              |
 | `REDIS_PORT`                        | true     |                               | redis port                              |
 | `REDIS_KEY`                         | true     |                               | redis key                               |

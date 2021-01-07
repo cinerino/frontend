@@ -33,7 +33,7 @@ jobs:
             - ./node_modules
       - run:
           name: compile typescript
-          command: npm run build-server
+          command: npm run build
   test:
     docker:
       - image: circleci/node:latest
