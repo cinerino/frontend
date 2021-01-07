@@ -132,7 +132,7 @@ export class PurchaseTicketComponent implements OnInit {
         });
     }
 
-    public openMovieTicket(paymentMethodType: factory.paymentMethodType) {
+    public openMovieTicket(paymentMethodType: factory.chevre.paymentMethodType) {
         this.modal.show(MovieTicketCheckModalComponent, {
             initialState: {
                 paymentMethodType
