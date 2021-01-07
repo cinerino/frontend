@@ -19,7 +19,7 @@ type IMovieTicketTypeChargeSpecification =
     styleUrls: ['./check-modal.component.scss']
 })
 export class MovieTicketCheckModalComponent implements OnInit {
-    @Input() public paymentMethodType: factory.paymentMethodType.MovieTicket | factory.paymentMethodType.MGTicket;
+    @Input() public paymentMethodType: factory.chevre.paymentMethodType;
     public purchase: Observable<reducers.IPurchaseState>;
     public isLoading: Observable<boolean>;
     public inputForm: FormGroup;
