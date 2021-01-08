@@ -6,14 +6,16 @@
                 *ngIf="screeningEventsGroup.info.superEvent.headline && (screeningEventsGroup.info.superEvent.headline | changeLanguage)">
                 {{ screeningEventsGroup.info.superEvent.headline | changeLanguage }}</p>
             <p class="text-small"
-                *ngIf="screeningEventsGroup.info.superEvent.description && (screeningEventsGroup.info.superEvent.description | changeLanguage)">{{
+                *ngIf="screeningEventsGroup.info.superEvent.description && (screeningEventsGroup.info.superEvent.description | changeLanguage)">
+                {{
                 screeningEventsGroup.info.superEvent.description | changeLanguage }}</p>
         </div>
         <div class="d-flex align-items-center">
             <div *ngIf="screeningEventsGroup.info.workPerformed?.duration && moment.duration(screeningEventsGroup.info.workPerformed?.duration).asMinutes() > 0"
                 class="text-small ml-auto">
-                <span
-                    class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEventsGroup.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                <span class="mr-1">{{ 'common.duration' | translate }}</span>{{
+                moment.duration(screeningEventsGroup.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute'
+                | translate }}
             </div>
         </div>
     </div>
@@ -31,7 +33,8 @@
             </div>
             <div class="d-flex align-items-center">
                 <div class="mr-2 font-weight-bold">
-                    {{ moment(performance.screeningEvent.startDate).format('HH:mm') }}-{{ moment(performance.screeningEvent.endDate).format('HH:mm') }}
+                    {{ moment(performance.screeningEvent.startDate).format('HH:mm') }}-{{
+                    moment(performance.screeningEvent.endDate).format('HH:mm') }}
                 </div>
                 <div class="status" *ngIf="performance.isSales() && !performance.isInfinitetock()">
                     <div *ngIf="performance.isSeatStatus('success')">
@@ -56,9 +59,9 @@
                 </div>
 
 
-                <div class="status text-x-small" *ngIf="performance.isSales('end')">
+                <div class="status text-x-small" *ngIf="performance.isSales({ status: 'end' })">
                     {{ 'purchase.event.schedule.status.endSale' | translate }}</div>
-                <div class="status text-x-small" *ngIf="performance.isSales('start')">
+                <div class="status text-x-small" *ngIf="performance.isSales({ status: 'start' })">
                     {{ 'purchase.event.schedule.status.outsideSalesPeriod' | translate }}</div>
             </div>
         </div>
