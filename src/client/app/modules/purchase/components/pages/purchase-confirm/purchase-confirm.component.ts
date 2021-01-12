@@ -54,9 +54,8 @@ export class PurchaseConfirmComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
-        const purchaseData = await this.actionService.purchase.getData();
-        const userData = await this.actionService.user.getData();
-        const language = userData.language;
+        const { pendingMovieTickets } = await this.actionService.purchase.getData();
+        const { language } = await this.actionService.user.getData();
         try {
             if (this.amount > 0) {
                 await this.actionService.purchase.authorizeCreditCard(this.amount);
@@ -70,7 +69,7 @@ export class PurchaseConfirmComponent implements OnInit {
             return;
         }
         try {
-            if (purchaseData.pendingMovieTickets.length > 0) {
+            if (pendingMovieTickets.length > 0) {
                 await this.actionService.purchase.authorizeMovieTicket();
             }
         } catch (error) {
@@ -81,6 +80,7 @@ export class PurchaseConfirmComponent implements OnInit {
             await this.actionService.purchase.endTransaction({ language });
             this.router.navigate(['/purchase/complete']);
         } catch (error) {
+            console.error(error);
             this.router.navigate(['/error']);
         }
     }

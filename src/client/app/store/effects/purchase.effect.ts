@@ -576,9 +576,6 @@ export class PurchaseEffects {
 
                 return purchaseAction.endTransactionSuccess({ order });
             } catch (error) {
-                await this.cinerinoService.transaction.placeOrder.cancel({
-                    id: transaction.id
-                });
                 return purchaseAction.endTransactionFail({ error: error });
             }
         })
