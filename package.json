@@ -25,12 +25,12 @@
     "check": "npm run lint",
     "lint": "npm run lint-client && npm run lint-server",
     "test": "npm run check",
-    "preversion": "npm run build",
+    "preversion": "npm run build2",
     "version": "git add -A",
     "postversion": "git push origin --tags",
     "clean": "rimraf src/**/*.spec.ts",
     "analyze": "webpack-bundle-analyzer dist/client/stats.json",
-    "build": "npm run build-server && npm run build-client"
+    "build2": "npm run build-server && npm run build-client"
   },
   "private": true,
   "dependencies": {
