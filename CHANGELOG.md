@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.5 - 2020-01-13
+### Changed
+ - 照会時QR非表示ならコードを発行しないように変更
+
 ## 3.5.4 - 2020-01-12
 ### Added
  - healthcheck用API追加
