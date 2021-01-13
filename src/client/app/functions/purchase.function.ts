@@ -9,7 +9,7 @@ import { Performance } from './../models/purchase/performance';
  * イベントグループ
  */
 export interface IScreeningEventsGroup {
-    info: factory.chevre.event.screeningEvent.IEvent;
+    screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     data: Performance[];
 }
 
@@ -25,15 +25,15 @@ export function screeningEvents2ScreeningEventSeries(params: {
     screeningEvents.forEach((screeningEvent) => {
         const registered = result.find((data) => {
             if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
-                return (data.info.superEvent.id === screeningEvent.superEvent.id);
+                return (data.screeningEvent.superEvent.id === screeningEvent.superEvent.id);
             } else {
-                return (data.info.location.branchCode === screeningEvent.location.branchCode);
+                return (data.screeningEvent.location.branchCode === screeningEvent.location.branchCode);
             }
         });
         const performance = new Performance(screeningEvent);
         if (registered === undefined) {
             result.push({
-                info: screeningEvent,
+                screeningEvent,
                 data: [performance]
             });
         } else {

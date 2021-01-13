@@ -414,9 +414,13 @@
             "Logout": "ログアウトしています"
         },
         "masterAction": {
-            "GetSellers": "販売者情報を取得しています",
-            "GetSchedule": "スケジュールを取得しています",
-            "GetTheaters": "施設情報を取得しています"
+            "SearchSellers": "販売者情報を取得しています",
+            "SearchMovieTheaters": "施設情報を取得しています",
+            "SearchScreeningEvent": "イベント情報を取得しています",
+            "SearchMovies": "コンテンツ情報を取得しています",
+            "SearchScreeningEventSeries": "施設コンテンツ情報を取得しています",
+            "SearchScreeningRooms": "ルーム情報を取得しています",
+            "SearchCategoryCode": "区分情報を取得しています"
         },
         "orderAction": {
             "Search": "注文情報を取得しています",
