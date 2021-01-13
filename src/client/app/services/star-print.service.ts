@@ -28,18 +28,12 @@ export class StarPrintService {
     /**
      * 印刷処理
      */
-    public async printProcess(args: {
+    public async printProcess(params: {
         canvasList: HTMLCanvasElement[];
-        testFlg?: boolean;
     }) {
         let printerRequests: string[] = [];
-        const canvasList = args.canvasList;
-        const testFlg = (args.testFlg === undefined) ? false : args.testFlg;
-        if (testFlg) {
-            printerRequests = await this.createTestPrinterRequest(canvasList[0]);
-        } else {
-            printerRequests = await this.createPrinterRequestList(canvasList);
-        }
+        const { canvasList } = params;
+        printerRequests = await this.createPrinterRequestList(canvasList);
         // n分割配列へ変換
         const divide = 4;
         const divideRequests: string[] = [];
@@ -57,7 +51,13 @@ export class StarPrintService {
         for (const printerRequest of divideRequests) {
             // safari対応のため0.3秒待つ
             await Functions.Util.sleep(300);
-            await this.print({ printerRequest });
+            await Functions.Util.retry<void>({
+                process: async () => {
+                    await this.print({ printerRequest });
+                },
+                interval: 2000,
+                limit: 2,
+            });
         }
     }
 
@@ -78,7 +78,7 @@ export class StarPrintService {
 
         try {
             if (printer.ipAddress === '') {
-                throw new Error('プリンターのIPアドレスが正しく指定されていません');
+                throw new Error('プリンターのIPアドレスが正しく指定されていません').message;
             }
             const port = /https/.test(window.location.protocol) ? 443 : 80;
             const findResult = Models.Common.Printer.printers.find(p => p.connectionType === printer.connectionType);
@@ -86,7 +86,7 @@ export class StarPrintService {
                 || (findResult.connectionType !== Models.Common.Printer.ConnectionType.StarBluetooth
                     && findResult.connectionType !== Models.Common.Printer.ConnectionType.StarLAN)
             ) {
-                throw new Error('選択しているプリンターに対応していません');
+                throw new Error('選択しているプリンターに対応していません').message;
             }
             const url = (findResult.connectionType === Models.Common.Printer.ConnectionType.StarLAN)
                 ? `https://${printer.ipAddress}:${port}/StarWebPRNT/SendMessage`
@@ -172,24 +172,6 @@ export class StarPrintService {
         request += this.builder.createCutPaperElement({ feed: true, type: 'partial' });
 
         return request;
-    }
-
-    /**
-     * プリンターテスト用リクエスト作成
-     */
-    private async createTestPrinterRequest(canvas: HTMLCanvasElement) {
-        let request = '';
-        request = this.builder.createBitImageElement({
-            context: canvas.getContext('2d'),
-            x: 0,
-            y: 0,
-            width: canvas.width,
-            height: canvas.height
-        });
-        // 紙を切断
-        request += this.builder.createCutPaperElement({ feed: true, type: 'partial' });
-
-        return [request];
     }
 
     /**
