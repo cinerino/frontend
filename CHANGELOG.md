@@ -12,6 +12,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.5 - 2020-01-13
+### Changed
+ - 照会時QR非表示ならコードを発行しないように変更
+
+## 3.5.4 - 2020-01-12
+### Added
+ - healthcheck用API追加
+### Changed
+ - NODE_ENVを廃止
+ - buildコマンド変更
+### Fixed
+ - 取引確定エラーハンドリング修正
+
 ## 3.5.3 - 2020-01-07
 ### Changed
  - パッケージ更新

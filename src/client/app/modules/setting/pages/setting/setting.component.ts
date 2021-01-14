@@ -48,7 +48,7 @@ export class SettingComponent implements OnInit {
         this.error = this.store.pipe(select(reducers.getError));
         this.theaters = [];
         try {
-            this.theaters = await this.masterService.getTheaters();
+            this.theaters = await this.masterService.searchMovieTheaters();
             await this.createBaseForm();
         } catch (error) {
             console.error(error);

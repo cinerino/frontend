@@ -13,6 +13,7 @@ export class CinerinoService {
     public auth: cinerino.auth.ClientCredentials | cinerino.auth.OAuth2;
     public account: cinerino.service.Account;
     public creativeWork: cinerino.service.CreativeWork;
+    public categoryCode: cinerino.service.CategoryCode;
     public event: cinerino.service.Event;
     public offer: cinerino.service.Offer;
     public order: cinerino.service.Order;
@@ -47,6 +48,7 @@ export class CinerinoService {
             const option = await this.createOption();
             this.account = new cinerino.service.Account(option);
             this.creativeWork = new cinerino.service.CreativeWork(option);
+            this.categoryCode = new cinerino.service.CategoryCode(option);
             this.event = new cinerino.service.Event(option);
             this.offer = new cinerino.service.Offer(option);
             this.order = new cinerino.service.Order(option);
@@ -197,7 +199,7 @@ export class CinerinoService {
             scope: scopes.join(' '),
             state: '',
             nonce: '',
-            tokenIssuer: 'https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_X5MjdiQ2U'
+            tokenIssuer: ''
         };
         const auth = cinerino.createAuthInstance(options);
         let credentials = await auth.isSignedIn();

@@ -71,7 +71,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.screeningEventsGroup = [];
         this.theaters = [];
         try {
-            this.theaters = await this.masterService.getTheaters();
+            this.theaters = await this.masterService.searchMovieTheaters();
             if (this.theaters.length === 0) {
                 throw new Error('theater notfound');
             }
@@ -184,7 +184,23 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         }
         this.actionService.purchase.selectScheduleDate(scheduleDate);
         try {
-            const screeningEvents = await this.masterService.getSchedule({
+            const creativeWorks = await this.masterService.searchMovies({
+                offers: { availableFrom: moment(scheduleDate).toDate() }
+            });
+            const screeningEventSeries = (this.environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries')
+                ? await this.masterService.searchScreeningEventSeries({
+                    location: {
+                        branchCode: { $eq: theater.branchCode }
+                    },
+                    workPerformed: { identifiers: creativeWorks.map(c => c.identifier) }
+                })
+                : [];
+            const screeningRooms = (this.environment.PURCHASE_SCHEDULE_SORT === 'screen')
+                ? await this.masterService.searchScreeningRooms({
+                    branchCode: { $eq: theater.branchCode }
+                })
+                : [];
+            const screeningEvents = await this.masterService.searchScreeningEvent({
                 superEvent: {
                     ids: (external.superEventId === undefined) ? [] : [external.superEventId],
                     locationBranchCodes: [theater.branchCode],
@@ -192,7 +208,10 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                         ? [] : [external.workPerformedId],
                 },
                 startFrom: moment(scheduleDate).toDate(),
-                startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate()
+                startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate(),
+                creativeWorks,
+                screeningEventSeries,
+                screeningRooms
             });
             this.screeningEventsGroup = Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
             this.update();
@@ -279,7 +298,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 throw new Error('theater === undefined || this.scheduleDates.length === 0');
             }
             const today = moment(moment().format('YYYYMMDD'), 'YYYYMMDD').toDate();
-            const screeningEvents = await this.masterService.getSchedule({
+            const screeningEvents = await this.masterService.searchScreeningEvent({
                 superEvent: {
                     locationBranchCodes: [theater.branchCode],
                 },

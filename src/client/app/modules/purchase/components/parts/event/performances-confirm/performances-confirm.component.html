@@ -1,26 +1,27 @@
 <div>
     <div *ngIf="environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries'" class="bg-gray p-3">
         <div class="mb-2">
-            <p class="font-weight-bold text-large">{{ screeningEventsGroup.info.name | changeLanguage }}</p>
+            <p class="font-weight-bold text-large">{{ screeningEventsGroup.screeningEvent.name | changeLanguage }}</p>
             <p class="text-small"
-                *ngIf="screeningEventsGroup.info.superEvent.headline && (screeningEventsGroup.info.superEvent.headline | changeLanguage)">
-                {{ screeningEventsGroup.info.superEvent.headline | changeLanguage }}</p>
+                *ngIf="screeningEventsGroup.screeningEvent.superEvent.headline && (screeningEventsGroup.screeningEvent.superEvent.headline | changeLanguage)">
+                {{ screeningEventsGroup.screeningEvent.superEvent.headline | changeLanguage }}</p>
             <p class="text-small"
-                *ngIf="screeningEventsGroup.info.superEvent.description && (screeningEventsGroup.info.superEvent.description | changeLanguage)">
+                *ngIf="screeningEventsGroup.screeningEvent.superEvent.description && (screeningEventsGroup.screeningEvent.superEvent.description | changeLanguage)">
                 {{
-                screeningEventsGroup.info.superEvent.description | changeLanguage }}</p>
+                screeningEventsGroup.screeningEvent.superEvent.description | changeLanguage }}</p>
         </div>
         <div class="d-flex align-items-center">
-            <div *ngIf="screeningEventsGroup.info.workPerformed?.duration && moment.duration(screeningEventsGroup.info.workPerformed?.duration).asMinutes() > 0"
+            <div *ngIf="screeningEventsGroup.screeningEvent.workPerformed?.duration && moment.duration(screeningEventsGroup.screeningEvent.workPerformed?.duration).asMinutes() > 0"
                 class="text-small ml-auto">
                 <span class="mr-1">{{ 'common.duration' | translate }}</span>{{
-                moment.duration(screeningEventsGroup.info.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute'
+                moment.duration(screeningEventsGroup.screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute'
                 | translate }}
             </div>
         </div>
     </div>
     <div *ngIf="environment.PURCHASE_SCHEDULE_SORT === 'screen'" class="bg-gray p-3">
-        <p class="font-weight-bold text-large">{{ screeningEventsGroup.info.location.name | changeLanguage }}</p>
+        <p class="font-weight-bold text-large">{{ screeningEventsGroup.screeningEvent.location.name | changeLanguage }}
+        </p>
     </div>
     <div class="p-3 bg-white d-flex flex-wrap" [class.not-event]="readonly">
         <div *ngFor="let performance of screeningEventsGroup.data" class="performance my-2" [ngClass]="{ 
