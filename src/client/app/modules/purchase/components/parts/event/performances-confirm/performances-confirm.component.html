@@ -6,19 +6,22 @@
                 *ngIf="screeningEventsGroup.screeningEvent.superEvent.headline && (screeningEventsGroup.screeningEvent.superEvent.headline | changeLanguage)">
                 {{ screeningEventsGroup.screeningEvent.superEvent.headline | changeLanguage }}</p>
             <p class="text-small"
-                *ngIf="screeningEventsGroup.screeningEvent.superEvent.description && (screeningEventsGroup.screeningEvent.superEvent.description | changeLanguage)">{{
+                *ngIf="screeningEventsGroup.screeningEvent.superEvent.description && (screeningEventsGroup.screeningEvent.superEvent.description | changeLanguage)">
+                {{
                 screeningEventsGroup.screeningEvent.superEvent.description | changeLanguage }}</p>
         </div>
         <div class="d-flex align-items-center">
             <div *ngIf="screeningEventsGroup.screeningEvent.workPerformed?.duration && moment.duration(screeningEventsGroup.screeningEvent.workPerformed?.duration).asMinutes() > 0"
                 class="text-small ml-auto">
-                <span
-                    class="mr-1">{{ 'common.duration' | translate }}</span>{{ moment.duration(screeningEventsGroup.screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute' | translate }}
+                <span class="mr-1">{{ 'common.duration' | translate }}</span>{{
+                moment.duration(screeningEventsGroup.screeningEvent.workPerformed?.duration).asMinutes() }}{{ 'common.date.minute'
+                | translate }}
             </div>
         </div>
     </div>
     <div *ngIf="environment.PURCHASE_SCHEDULE_SORT === 'screen'" class="bg-gray p-3">
-        <p class="font-weight-bold text-large">{{ screeningEventsGroup.screeningEvent.location.name | changeLanguage }}</p>
+        <p class="font-weight-bold text-large">{{ screeningEventsGroup.screeningEvent.location.name | changeLanguage }}
+        </p>
     </div>
     <div class="p-3 bg-white d-flex flex-wrap" [class.not-event]="readonly">
         <div *ngFor="let performance of screeningEventsGroup.data" class="performance my-2" [ngClass]="{ 
@@ -31,7 +34,8 @@
             </div>
             <div class="d-flex align-items-center">
                 <div class="mr-2 font-weight-bold">
-                    {{ moment(performance.screeningEvent.startDate).format('HH:mm') }}-{{ moment(performance.screeningEvent.endDate).format('HH:mm') }}
+                    {{ moment(performance.screeningEvent.startDate).format('HH:mm') }}-{{
+                    moment(performance.screeningEvent.endDate).format('HH:mm') }}
                 </div>
                 <div class="status" *ngIf="performance.isSales() && !performance.isInfinitetock()">
                     <div *ngIf="performance.isSeatStatus('success')">
@@ -56,9 +60,9 @@
                 </div>
 
 
-                <div class="status text-x-small" *ngIf="performance.isSales('end')">
+                <div class="status text-x-small" *ngIf="performance.isSales({ status: 'end' })">
                     {{ 'purchase.event.schedule.status.endSale' | translate }}</div>
-                <div class="status text-x-small" *ngIf="performance.isSales('start')">
+                <div class="status text-x-small" *ngIf="performance.isSales({ status: 'start' })">
                     {{ 'purchase.event.schedule.status.outsideSalesPeriod' | translate }}</div>
             </div>
         </div>
