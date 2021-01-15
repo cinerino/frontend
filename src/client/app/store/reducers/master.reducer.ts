@@ -30,7 +30,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(masterAction.getProjectsFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
     )(initialState, action);
 }

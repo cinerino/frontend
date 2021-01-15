@@ -114,11 +114,11 @@ export class SettingComponent implements OnInit {
             const posId = this.baseForm.controls.posId.value;
             const theater = this.theaters.find(t => (t.branchCode === theaterBranchCode));
             if (theater === undefined || theater.hasPOS === undefined) {
-                throw new Error('theater not found').message;
+                throw new Error('theater not found');
             }
             const pos = theater.hasPOS.find(p => p.id === posId);
             if (pos === undefined) {
-                throw new Error('pos not found').message;
+                throw new Error('pos not found');
             }
             this.actionService.user.updateBaseSetting({
                 pos,

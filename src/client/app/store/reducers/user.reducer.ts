@@ -95,7 +95,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(userAction.getProfileFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
         on(userAction.getAccount, (state) => {
             return { ...state, loading: true, process: 'userAction.GetAccount' };
@@ -106,7 +106,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(userAction.getAccountFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
         on(userAction.openAccount, (state) => {
             return { ...state, loading: true, process: 'userAction.OpenAccount' };
@@ -116,7 +116,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(userAction.openAccountFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
         on(userAction.closeAccount, (state) => {
             return { ...state, loading: true, process: 'userAction.CloseAccount' };
@@ -126,7 +126,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(userAction.closeAccountFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
         on(userAction.updateProfile, (state) => {
             return { ...state, loading: true, process: 'userAction.UpdateProfile' };
@@ -137,7 +137,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(userAction.updateProfileFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
         on(userAction.getCreditCards, (state) => {
             return { ...state, loading: true, process: 'userAction.GetCreditCards' };
@@ -148,7 +148,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(userAction.getCreditCardsFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
         on(userAction.addCreditCard, (state) => {
             return { ...state, loading: true, process: 'userAction.AddCreditCard' };
@@ -158,7 +158,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(userAction.addCreditCardFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
         on(userAction.removeCreditCard, (state) => {
             return { ...state, loading: true, process: 'userAction.RemoveCreditCard' };
@@ -168,7 +168,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(userAction.removeCreditCardFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
         on(userAction.chargeAccount, (state) => {
             return { ...state, loading: true, process: 'userAction.ChargeAccount' };
@@ -178,7 +178,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(userAction.chargeAccountFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
         on(userAction.transferAccount, (state) => {
             return { ...state, loading: true, process: 'userAction.TransferAccount' };
@@ -188,7 +188,7 @@ export function reducer(initialState: IState, action: Action) {
         }),
         on(userAction.transferAccountFail, (state, payload) => {
             const error = payload.error;
-            return { ...state, loading: false, process: '', error: (error.message) ? error.message :  JSON.stringify(error) };
+            return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
         on(userAction.updateBaseSetting, (state, payload) => {
             return {
