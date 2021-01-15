@@ -97,7 +97,23 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             || transaction === undefined) {
             throw new Error('theater or scheduleDate or transaction undefined');
         }
-        const screeningEvents = await this.masterService.getSchedule({
+        const creativeWorks = await this.masterService.searchMovies({
+            offers: { availableFrom: moment(scheduleDate).toDate() }
+        });
+        const screeningEventSeries = (this.environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries')
+            ? await this.masterService.searchScreeningEventSeries({
+                location: {
+                    branchCode: { $eq: theater.branchCode }
+                },
+                workPerformed: { identifiers: creativeWorks.map(c => c.identifier) }
+            })
+            : [];
+        const screeningRooms = (this.environment.PURCHASE_SCHEDULE_SORT === 'screen')
+            ? await this.masterService.searchScreeningRooms({
+                branchCode: { $eq: theater.branchCode }
+            })
+            : [];
+        const screeningEvents = await this.masterService.searchScreeningEvent({
             superEvent: {
                 ids: (external.superEventId === undefined) ? [] : [external.superEventId],
                 locationBranchCodes: [theater.branchCode],
@@ -105,7 +121,10 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                     ? [] : [external.workPerformedId],
             },
             startFrom: moment(scheduleDate).toDate(),
-            startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate()
+            startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate(),
+            creativeWorks,
+            screeningEventSeries,
+            screeningRooms
         });
         this.screeningEventsGroup = Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
         this.update();

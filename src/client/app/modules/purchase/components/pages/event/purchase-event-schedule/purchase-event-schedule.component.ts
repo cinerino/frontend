@@ -73,7 +73,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                     this.scheduleDate = moment(external.scheduleDate).toDate();
                 }
             }
-            this.theaters = await this.masterService.getTheaters();
+            this.theaters = await this.masterService.searchMovieTheaters();
             if (this.theaters.length === 0) {
                 throw new Error('theater notfound');
             }
@@ -167,7 +167,23 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
             this.actionService.purchase.selectScheduleDate(scheduleDate);
             const external = Functions.Util.getExternalData();
-            this.screeningEvents = await this.masterService.getSchedule({
+            const creativeWorks = await this.masterService.searchMovies({
+                offers: { availableFrom: moment(scheduleDate).toDate() }
+            });
+            const screeningEventSeries = (this.environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries')
+                ? await this.masterService.searchScreeningEventSeries({
+                    location: {
+                        branchCode: { $eq: theater.branchCode }
+                    },
+                    workPerformed: { identifiers: creativeWorks.map(c => c.identifier) }
+                })
+                : [];
+            const screeningRooms = (this.environment.PURCHASE_SCHEDULE_SORT === 'screen')
+                ? await this.masterService.searchScreeningRooms({
+                    branchCode: { $eq: theater.branchCode }
+                })
+                : [];
+            this.screeningEvents = await this.masterService.searchScreeningEvent({
                 superEvent: {
                     ids: (external.superEventId === undefined)
                         ? [] : [external.superEventId],
@@ -176,7 +192,10 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                         ? [] : [external.workPerformedId],
                 },
                 startFrom: moment(scheduleDate).toDate(),
-                startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate()
+                startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate(),
+                creativeWorks,
+                screeningEventSeries,
+                screeningRooms
             });
             this.screeningEventsGroup =
                 Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents: this.screeningEvents });

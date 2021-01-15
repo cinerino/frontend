@@ -38,7 +38,7 @@ export class MypageAccountComponent implements OnInit {
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.sellers = [];
         try {
-            this.sellers = await this.masterService.getSellers();
+            this.sellers = await this.masterService.searchSellers();
             await this.actionService.user.getAccount();
         } catch (error) {
             console.error(error);
