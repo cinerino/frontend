@@ -24,7 +24,7 @@ export class PurchaseTransactionGuardService implements CanActivate {
         try {
             const transaction = (await this.actionService.purchase.getData()).transaction;
             if (transaction === undefined) {
-                throw new Error('transaction not found').message;
+                throw new Error('transaction not found');
             }
 
             return true;

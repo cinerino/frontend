@@ -15,24 +15,29 @@ export class Performance {
     /**
      * 販売判定
      */
-    public isSales(status?: 'start' | 'end') {
+    public isSales(params?: {
+        status?: 'start' | 'end';
+        criteria?: Date;
+    }) {
         const screeningEvent = this.screeningEvent;
         const offers = screeningEvent.offers;
         if (offers === undefined) {
             return false;
         }
         let result = false;
-        const now = moment().unix();
+        const status = params?.status;
+        const criteria = (params === undefined || params.criteria === undefined)
+            ? moment().unix() : moment(params.criteria).unix();
         switch (status) {
             case 'start':
-                result = !(moment(offers.validFrom).unix() < now);
+                result = !(moment(offers.validFrom).unix() < criteria);
                 break;
             case 'end':
-                result = !(moment(offers.validThrough).unix() > now);
+                result = !(moment(offers.validThrough).unix() > criteria);
                 break;
             default:
-                result = (moment(offers.validFrom).unix() < now
-                    && moment(offers.validThrough).unix() > now);
+                result = (moment(offers.validFrom).unix() < criteria
+                    && moment(offers.validThrough).unix() > criteria);
                 break;
         }
         return result;
