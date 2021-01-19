@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.8 - 2020-01-18
+### Fixed
+ - ウェイターエラーハンドリング修正
+
 ## 3.5.7 - 2020-01-15
 ### Added
  - パフォーマンス指定での購入に販売可能チェック追加
