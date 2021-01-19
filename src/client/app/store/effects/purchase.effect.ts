@@ -167,7 +167,7 @@ export class PurchaseEffects {
                 const availableSeats = Functions.Purchase.selectAvailableSeat({ reservations, screeningEventSeats });
                 if (new Models.Purchase.Performance(screeningEvent).isTicketedSeat()
                     && availableSeats.length !== reservations.length) {
-                    throw new Error('Out of stock').message;
+                    throw new Error('Out of stock');
                 }
                 const authorizeSeatReservation =
                     <factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>>
@@ -176,7 +176,7 @@ export class PurchaseEffects {
                             event: { id: screeningEvent.id },
                             acceptedOffer: reservations.map((r, index) => {
                                 if (r.ticket === undefined || r.ticket.ticketOffer.id === undefined) {
-                                    throw new Error('ticket or ticket.ticketOffer.id is undefined').message;
+                                    throw new Error('ticket or ticket.ticketOffer.id is undefined');
                                 }
                                 return {
                                     id: r.ticket.ticketOffer.id,
