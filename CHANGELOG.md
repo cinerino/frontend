@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.9 - 2020-01-22
+### Changed
+ - フッターリンクを配列対応
+
 ## 3.5.8 - 2020-01-18
 ### Fixed
  - ウェイターエラーハンドリング修正
