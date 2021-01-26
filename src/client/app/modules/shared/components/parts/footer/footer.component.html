@@ -3,6 +3,7 @@
         <a *ngIf="environment.FOOTER_COMPANY_URL" class="mx-1" [href]="environment.FOOTER_COMPANY_URL" target="_blank" rel="noopener">{{ 'footer.company' | translate }}</a>
         <a *ngIf="environment.FOOTER_LAW_URL" class="mx-1" [href]="environment.FOOTER_LAW_URL" target="_blank" rel="noopener">{{ 'footer.law' | translate }}</a>
         <a *ngIf="environment.FOOTER_PRIVACY_POLICY_URL" class="mx-1" [href]="environment.FOOTER_PRIVACY_POLICY_URL" target="_blank" rel="noopener">{{ 'footer.privacyPolicy' | translate }}</a>
+        <a *ngFor="let footerLink of environment.FOOTER_LINK" class="mx-1" [href]="footerLink.url" target="_blank" rel="noopener">{{ footerLink.name | changeLanguage }}</a>
     </p>
     <p [innerHTML]="'footer.copyright' | translate"></p>
 </div>
