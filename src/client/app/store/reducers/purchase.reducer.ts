@@ -133,7 +133,7 @@ export function reducer(initialState: IState, action: Action) {
             };
         }),
         on(purchaseAction.getSeller, (state) => {
-            return { ...state, loading: false, process: 'purchaseAction.GetSeller' };
+            return { ...state, loading: true, process: 'purchaseAction.GetSeller' };
         }),
         on(purchaseAction.getSellerSuccess, (state, payload) => {
             const seller = payload.seller;
