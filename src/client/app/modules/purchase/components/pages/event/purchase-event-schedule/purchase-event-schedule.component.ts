@@ -62,12 +62,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 const defaultDate = moment(moment().format('YYYYMMDD'))
                     .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
                     .toDate();
-                const openDate = moment(this.environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
                 this.scheduleDate = defaultDate;
-                const nowDate = moment().toDate();
-                if (openDate > nowDate) {
-                    this.scheduleDate = openDate;
-                }
                 const external = Functions.Util.getExternalData();
                 if (external.scheduleDate !== undefined) {
                     this.scheduleDate = moment(external.scheduleDate).toDate();
@@ -138,20 +133,17 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      * 日付選択
      */
     public async selectDate(date?: Date | null) {
-        if (await this.getLoading()) {
+        if (date === undefined || date === null) {
             return;
         }
-        if (date !== undefined && date !== null) {
-            this.scheduleDate = date;
-        }
+        this.scheduleDate = date;
         const now = (await this.utilService.getServerTime()).date;
         const selectDate = moment(moment(this.scheduleDate).format('YYYYMMDD')).toDate();
         const salesStopDate = moment(moment().format('YYYYMMDD'))
             .add(this.environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE,
                 this.environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT)
             .toDate();
-        const openDate = moment(this.environment.PURCHASE_SCHEDULE_OPEN_DATE).toDate();
-        this.isSales = (selectDate >= openDate && selectDate >= salesStopDate);
+        this.isSales = (selectDate >= salesStopDate);
         if (this.isSales
             && this.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME !== ''
             && moment(salesStopDate).unix() === moment(selectDate).unix()) {
@@ -274,14 +266,6 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     public onShowPicker(container: BsDatepickerContainerComponent) {
         Functions.Util.iOSDatepickerTapBugFix(container, [this.datepicker]);
-    }
-
-    public async getLoading() {
-        return new Promise<boolean>((resolve) => {
-            this.isLoading.subscribe((loading) => {
-                resolve(loading);
-            }).unsubscribe();
-        });
     }
 
 }
