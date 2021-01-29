@@ -12,11 +12,11 @@ import { ActionService, MasterService, UtilService } from '../../../../../../ser
 import * as reducers from '../../../../../../store/reducers';
 
 @Component({
-    selector: 'app-purchase-event-schedule',
-    templateUrl: './purchase-event-schedule.component.html',
-    styleUrls: ['./purchase-event-schedule.component.scss']
+    selector: 'app-purchase-event-date',
+    templateUrl: './purchase-event-date.component.html',
+    styleUrls: ['./purchase-event-date.component.scss']
 })
-export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
+export class PurchaseEventDateComponent implements OnInit, OnDestroy {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public error: Observable<string | null>;
@@ -126,7 +126,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
      */
     public async selectTheater(theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom) {
         this.actionService.purchase.selectTheater(theater);
-        await this.selectDate();
+        await this.selectDate(moment(moment().format('YYYYMMDD'), 'YYYYMMDD').toDate());
     }
 
     /**
