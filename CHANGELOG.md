@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.10 - 2020-02-01
+### Changed
+ - 座席表文字サイズ変更
+
 ## 3.5.9 - 2020-01-22
 ### Changed
  - フッターリンクを配列対応
