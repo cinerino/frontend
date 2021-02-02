@@ -58,15 +58,12 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
             if (transaction !== undefined) {
                 await this.actionService.purchase.cancelTransaction();
             }
-            if (this.scheduleDate === undefined) {
-                const defaultDate = moment(moment().format('YYYYMMDD'))
-                    .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
-                    .toDate();
-                this.scheduleDate = defaultDate;
-                const external = Functions.Util.getExternalData();
-                if (external.scheduleDate !== undefined) {
-                    this.scheduleDate = moment(external.scheduleDate).toDate();
-                }
+            this.scheduleDate = moment(moment().format('YYYYMMDD'))
+                .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                .toDate();
+            const external = Functions.Util.getExternalData();
+            if (external.scheduleDate !== undefined) {
+                this.scheduleDate = moment(external.scheduleDate).toDate();
             }
             this.theaters = await this.masterService.searchMovieTheaters();
             if (this.theaters.length === 0) {
@@ -126,7 +123,7 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
      */
     public async selectTheater(theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom) {
         this.actionService.purchase.selectTheater(theater);
-        await this.selectDate(moment(moment().format('YYYYMMDD'), 'YYYYMMDD').toDate());
+        await this.selectDate(this.scheduleDate);
     }
 
     /**
