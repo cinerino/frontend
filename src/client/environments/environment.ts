@@ -117,10 +117,6 @@ interface IEnvironment {
      */
     PURCHASE_SCHEDULE_DISPLAY_LENGTH: string;
     /**
-     * スケジュール公開日
-     */
-    PURCHASE_SCHEDULE_OPEN_DATE: string;
-    /**
      * スケジュール売止相対指定値
      * 当日24：00から相対的に指定
      */
@@ -271,7 +267,6 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_TRANSACTION_TIME_DISPLAY: true,
     PURCHASE_TRANSACTION_IDENTIFIER: [],
     PURCHASE_SCHEDULE_DISPLAY_LENGTH: '10',
-    PURCHASE_SCHEDULE_OPEN_DATE: '2019-05-01',
     PURCHASE_SCHEDULE_SALES_DATE_VALUE: '0',
     PURCHASE_SCHEDULE_SALES_DATE_UNIT: 'hour',
     PURCHASE_SCHEDULE_SALES_STOP_TIME: '',
