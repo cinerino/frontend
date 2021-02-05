@@ -47,3 +47,4 @@ Thumbs.db
 public/projects
 dist/client/**/stats.json
 dist/client/**/stats-es2015.json
+/ssl

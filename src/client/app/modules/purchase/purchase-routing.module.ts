@@ -6,7 +6,7 @@ import { PurchaseCinemaOverlapComponent } from './components/pages/cinema/purcha
 import { PurchaseCinemaScheduleComponent } from './components/pages/cinema/purchase-cinema-schedule/purchase-cinema-schedule.component';
 import { PurchaseCinemaSeatComponent } from './components/pages/cinema/purchase-cinema-seat/purchase-cinema-seat.component';
 import { PurchaseCinemaTicketComponent } from './components/pages/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component';
-import { PurchaseEventScheduleComponent } from './components/pages/event/purchase-event-schedule/purchase-event-schedule.component';
+import { PurchaseEventDateComponent } from './components/pages/event/purchase-event-date/purchase-event-date.component';
 import { PurchaseEventSeatTicketComponent } from './components/pages/event/purchase-event-seat-ticket/purchase-event-seat-ticket.component';
 import { PurchaseEventSeatComponent } from './components/pages/event/purchase-event-seat/purchase-event-seat.component';
 import { PurchaseEventTicketComponent } from './components/pages/event/purchase-event-ticket/purchase-event-ticket.component';
@@ -69,7 +69,7 @@ const routes: Routes = [
         path: 'event',
         canActivate: [ViewTypeGuardService],
         children: [
-          { path: 'schedule', component: PurchaseEventScheduleComponent }
+          { path: 'date', component: PurchaseEventDateComponent }
         ]
       }
     ]
