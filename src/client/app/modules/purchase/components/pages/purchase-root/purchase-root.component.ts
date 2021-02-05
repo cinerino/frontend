@@ -34,7 +34,7 @@ export class PurchaseRootComponent implements OnInit {
             this.router.navigate(['/purchase/cinema/schedule']);
             return;
         }
-        this.router.navigate(['/purchase/event/schedule']);
+        this.router.navigate(['/purchase/event/date']);
     }
 
 }

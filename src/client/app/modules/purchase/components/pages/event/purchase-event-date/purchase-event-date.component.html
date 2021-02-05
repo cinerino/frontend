@@ -12,8 +12,8 @@
 </ul>
 
 <div class="contents-width mx-auto px-3 pt-5">
-    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.schedule.title' | translate }}</h2>
-    <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.schedule.read' | translate"></p>
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.date.title' | translate }}</h2>
+    <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.date.read' | translate"></p>
 </div>
 <div class="contents-width mx-auto p-3">
     <p class="text-primary mb-3 font-weight-bold" *ngIf="(purchase | async)?.theater">{{ (purchase | async)?.theater.name | changeLanguage }}</p>
@@ -31,17 +31,17 @@
     </div>
     <div class="mb-4">
         <p *ngIf="(purchase | async)?.scheduleDate" class="text-primary mb-3 font-weight-bold">
-            {{ 'purchase.event.schedule.selectedDate' | translate: {value: (purchase | async)?.scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}
+            {{ 'purchase.event.date.selectedDate' | translate: {value: (purchase | async)?.scheduleDate | formatDate: 'YYYY/MM/DD (ddd)'} }}
         </p>
         <p *ngIf="screeningEventsGroup.length === 0" class="mb-3"
-            [innerHTML]="'purchase.event.schedule.notfound' | translate"></p>
+            [innerHTML]="'purchase.event.date.notfound' | translate"></p>
         <app-purchase-event-performances-confirm *ngFor="let group of screeningEventsGroup"
             [screeningEventsGroup]="group" [readonly]="true" class="mb-3">
         </app-purchase-event-performances-confirm>
     </div>
 
     <div *ngIf="environment.PURCHASE_TERMS">
-        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.schedule.terms' | translate }}</h2>
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.date.terms' | translate }}</h2>
         <div class="mb-4">
             <app-purchase-terms [language]="(user | async)?.language"
                 [screeningEvent]="(purchase | async)?.screeningEvent">
@@ -52,13 +52,13 @@
     <div class="buttons mx-auto text-center">
         <button *ngIf="isSales && !environment.PURCHASE_TERMS" type="submit" class="btn btn-primary btn-block py-3 mb-3"
             [disabled]="screeningEventsGroup.length === 0 || (isLoading | async)"
-            (click)="onSubmit()">{{ 'purchase.event.schedule.next' | translate }}</button>
+            (click)="onSubmit()">{{ 'purchase.event.date.next' | translate }}</button>
         <button *ngIf="isSales && environment.PURCHASE_TERMS" type="submit" class="btn btn-primary btn-block py-3 mb-3"
             [disabled]="screeningEventsGroup.length === 0 || (isLoading | async)"
-            (click)="onSubmit()">{{ 'purchase.event.schedule.consent' | translate }}</button>
+            (click)="onSubmit()">{{ 'purchase.event.date.consent' | translate }}</button>
         <button *ngIf="!isSales" type="button" class="btn btn-primary btn-block py-3 mb-3" disabled
-            (click)="onSubmit()">{{ 'purchase.event.schedule.disabled' | translate }}</button>
+            (click)="onSubmit()">{{ 'purchase.event.date.disabled' | translate }}</button>
         <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-outline-primary btn-block py-3 portal-link"
-            [href]="environment.PORTAL_SITE_URL">{{ 'purchase.event.schedule.prev' | translate }}</a>
+            [href]="environment.PORTAL_SITE_URL">{{ 'purchase.event.date.prev' | translate }}</a>
     </div>
 </div>

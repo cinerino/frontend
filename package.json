@@ -1,6 +1,6 @@
 {
   "name": "smart-theater-transaction",
-  "version": "3.5.11",
+  "version": "3.5.12",
   "license": "MIT",
   "author": {
     "name": "Motionpicture co.,ltd."
@@ -22,12 +22,10 @@
     "ssl": "node dist/server/ssl",
     "build-server": "tsc --project src/server --outDir dist/server --locale ja-jp",
     "lint-server": "tslint --config tslint.json src/server/**/**.ts --exclude **/**.spec.ts --project src/server/tsconfig.json",
-    "check": "npm run lint",
     "lint": "npm run lint-client && npm run lint-server",
-    "test": "npm run check",
+    "test": "npm run lint",
     "preversion": "npm run build2",
     "version": "git add -A",
-    "postversion": "git push origin --tags",
     "clean": "rimraf src/**/*.spec.ts",
     "analyze": "webpack-bundle-analyzer dist/client/stats.json",
     "build2": "npm run build-server && npm run build-client"
