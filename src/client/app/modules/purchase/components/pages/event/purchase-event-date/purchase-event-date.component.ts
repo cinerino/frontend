@@ -220,7 +220,7 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
                 await this.actionService.purchase.cancelTransaction();
             }
             await this.actionService.purchase.startTransaction();
-            this.router.navigate(['/purchase/event/ticket']);
+            this.router.navigate(['/purchase/event/schedule']);
         } catch (error) {
             console.error(error);
             try {

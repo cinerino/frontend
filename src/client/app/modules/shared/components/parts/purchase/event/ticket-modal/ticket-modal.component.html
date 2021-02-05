@@ -27,7 +27,7 @@
             </span>
         </p>
         <p *ngIf="performance.isTicketedSeat()" class="font-weight-bold"><span
-                class="mr-1">{{ 'purchase.event.ticket.remainingSeat' | translate }}</span>{{ getRemainingSeatLength({
+                class="mr-1">{{ 'purchase.event.schedule.remainingSeat' | translate }}</span>{{ getRemainingSeatLength({
                     screeningEventSeats: screeningEventSeats, 
                     screeningEvent: screeningEvent
                 }) }}
@@ -83,7 +83,7 @@
     <div class="buttons mx-auto text-center text-center">
         <button [disabled]="selectedTickets && createReservations().length === 0" type="button"
             class="btn btn-primary btn-block py-3 mb-3"
-            (click)="close()">{{ 'purchase.event.ticket.next' | translate }}</button>
+            (click)="close()">{{ 'purchase.event.schedule.next' | translate }}</button>
         <button type="button" class="btn btn-outline-primary btn-block py-3 btn-sm"
             (click)="modal.hide()">{{ 'common.close' | translate }}</button>
     </div>

@@ -27,7 +27,7 @@
                 "disabled": "販売期間外です",
                 "prev": "戻る"
             },
-            "ticket": {
+            "schedule": {
                 "title": "チケット選択",
                 "read": "チケットを選択してください。",
                 "next": "決定",
