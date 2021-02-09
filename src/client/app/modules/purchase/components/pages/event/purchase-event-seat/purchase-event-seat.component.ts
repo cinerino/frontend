@@ -14,7 +14,7 @@ export class PurchaseEventSeatComponent extends PurchaseSeatComponent {
             if (authorizeSeatReservation !== undefined) {
                 await this.actionService.purchase.cancelTemporaryReservations([authorizeSeatReservation]);
             }
-            this.router.navigate(['/purchase/event/ticket']);
+            this.router.navigate(['/purchase/event/schedule']);
         } catch (error) {
             console.error(error);
         }
