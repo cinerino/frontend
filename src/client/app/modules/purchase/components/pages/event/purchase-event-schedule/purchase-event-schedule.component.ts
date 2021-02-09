@@ -15,11 +15,11 @@ import {
 } from '../../../../../shared/components/parts/purchase/event/ticket-modal/ticket-modal.component';
 
 @Component({
-    selector: 'app-purchase-event-ticket',
-    templateUrl: './purchase-event-ticket.component.html',
-    styleUrls: ['./purchase-event-ticket.component.scss']
+    selector: 'app-purchase-event-schedule',
+    templateUrl: './purchase-event-schedule.component.html',
+    styleUrls: ['./purchase-event-schedule.component.scss']
 })
-export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
+export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public error: Observable<string | null>;
@@ -140,7 +140,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             && Number(this.environment.PURCHASE_ITEM_MAX_LENGTH) === 1) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('purchase.event.ticket.alert.cart')
+                body: this.translate.instant('purchase.event.schedule.alert.cart')
             });
             return;
         }
@@ -220,7 +220,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant(
-                        'purchase.event.ticket.alert.limit',
+                        'purchase.event.schedule.alert.limit',
                         { value: limit }
                     )
                 });
@@ -236,7 +236,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
                 if (remainingSeatLength < reservations.length) {
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
-                        body: this.translate.instant('purchase.event.ticket.alert.getScreeningEventSeats')
+                        body: this.translate.instant('purchase.event.schedule.alert.getScreeningEventSeats')
                     });
                     return;
                 }
@@ -256,14 +256,14 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             });
             this.utilService.openAlert({
                 title: this.translate.instant('common.complete'),
-                body: this.translate.instant('purchase.event.ticket.success.temporaryReservation')
+                body: this.translate.instant('purchase.event.schedule.success.temporaryReservation')
             });
             this.actionService.purchase.unsettledDelete();
         } catch (error) {
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('purchase.event.ticket.alert.temporaryReservation')
+                body: this.translate.instant('purchase.event.schedule.alert.temporaryReservation')
             });
         }
     }
@@ -277,14 +277,14 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
         if (this.isSinglePurchase({ name: 'alert', authorizeSeatReservations })) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('purchase.event.ticket.alert.single')
+                body: this.translate.instant('purchase.event.schedule.alert.single')
             });
             return;
         }
         if (this.isSinglePurchase({ name: 'confirm', authorizeSeatReservations })) {
             this.utilService.openConfirm({
                 title: this.translate.instant('common.confirm'),
-                body: this.translate.instant('purchase.event.ticket.confirm.single'),
+                body: this.translate.instant('purchase.event.schedule.confirm.single'),
                 cb: () => { this.router.navigate(['/purchase/input']); }
             });
             return;
@@ -296,7 +296,7 @@ export class PurchaseEventTicketComponent implements OnInit, OnDestroy {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
                 body: this.translate.instant(
-                    'purchase.event.ticket.alert.limit',
+                    'purchase.event.schedule.alert.limit',
                     { value: Number(this.environment.PURCHASE_ITEM_MAX_LENGTH) }
                 )
             });

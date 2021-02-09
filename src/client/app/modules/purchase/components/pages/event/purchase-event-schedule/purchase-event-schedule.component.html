@@ -1,6 +1,6 @@
 <div class="contents-width mx-auto px-3 py-5">
-    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.ticket.title' | translate }}</h2>
-    <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.ticket.read' | translate"></p>
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.schedule.title' | translate }}</h2>
+    <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.schedule.read' | translate"></p>
 
     <div *ngIf="(purchase | async)?.scheduleDate" class="d-flex align-items-center bg-white py-2 px-3 mb-3">
         <div>{{ (purchase | async)?.scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}</div>
@@ -10,7 +10,7 @@
 
     <div class="mb-4">
         <p *ngIf="screeningEventsGroup.length === 0" class="mb-3">
-            {{ 'purchase.event.ticket.notfound' | translate }}
+            {{ 'purchase.event.schedule.notfound' | translate }}
         </p>
         <app-purchase-performances *ngFor="let group of screeningEventsGroup"
             [screeningEventsGroup]="group" (select)="selectSchedule($event)" class="mb-3">
@@ -38,6 +38,6 @@
         <button type="submit" [disabled]="(isLoading | async) || (purchase | async)?.authorizeSeatReservations.length === 0" class="btn btn-primary btn-block py-3 mb-3"
             (click)="onSubmit()">{{ 'purchase.event.cart.next' | translate }}</button>
         <button type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/purchase/event/date">{{ 'purchase.event.ticket.prev' | translate }}</button>
+            routerLink="/purchase/event/date">{{ 'purchase.event.schedule.prev' | translate }}</button>
     </div>
 </div>
