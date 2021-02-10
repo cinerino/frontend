@@ -123,7 +123,7 @@ export class PurchaseSeatComponent implements OnInit {
             });
             const navigate = (this.environment.VIEW_TYPE === 'cinema')
                 ? '/purchase/cinema/ticket'
-                : '/purchase/event/seat/ticket';
+                : '/purchase/event/ticket';
             this.router.navigate([navigate]);
         } catch (error) {
             if (screen !== undefined && screen.openSeatingAllowed) {

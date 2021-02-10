@@ -1,7 +1,7 @@
 <div class="contents-width mx-auto px-3 py-5">
 
-    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.seatTicket.title' | translate }}</h2>
-    <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.seatTicket.read' | translate"></p>
+    <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.ticket.title' | translate }}</h2>
+    <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.ticket.read' | translate"></p>
 
     <div class="container px-0">
         <div class="row">
@@ -23,7 +23,7 @@
                                     <div class="col-md-9 col-12">
                                         <button *ngIf="reservation.ticket === undefined" type="button"
                                             (click)="openTicketList(reservation)"
-                                            class="btn btn-primary btn-block py-3">{{ 'purchase.event.seatTicket.unselected' | translate }}</button>
+                                            class="btn btn-primary btn-block py-3">{{ 'purchase.event.ticket.unselected' | translate }}</button>
                                         <button *ngIf="reservation.ticket !== undefined" type="button"
                                             (click)="openTicketList(reservation)"
                                             class="btn btn-block border border-primary text-primary bg-white py-3">
@@ -76,9 +76,9 @@
 
     <div class="buttons mx-auto text-center">
         <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="(isLoading | async) || !isSelectedTicket"
-            (click)="onSubmit()">{{ 'purchase.event.seatTicket.next' | translate }}</button>
+            (click)="onSubmit()">{{ 'purchase.event.ticket.next' | translate }}</button>
         <button type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/purchase/event/seat">{{ 'purchase.event.seatTicket.prev' | translate }}</button>
+            routerLink="/purchase/event/seat">{{ 'purchase.event.ticket.prev' | translate }}</button>
     </div>
 
 

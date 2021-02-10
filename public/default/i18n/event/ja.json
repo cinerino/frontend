@@ -63,7 +63,7 @@
                     "ticketNotfound": "販売可能券種がありません。"
                 }
             },
-            "seatTicket": {
+            "ticket": {
                 "title": "チケット選択",
                 "read": "チケットを選択してください。",
                 "unselected": "チケットを選択してください",
