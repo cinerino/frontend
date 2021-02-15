@@ -1,6 +1,6 @@
 {
   "name": "smart-theater-transaction",
-  "version": "3.5.13",
+  "version": "3.5.14",
   "license": "MIT",
   "author": {
     "name": "Motionpicture co.,ltd."
@@ -28,7 +28,10 @@
     "version": "git add -A",
     "clean": "rimraf src/**/*.spec.ts",
     "analyze": "webpack-bundle-analyzer dist/client/stats.json",
-    "build2": "npm run build-server && npm run build-client"
+    "build2": "npm run build-server && npm run build-client",
+    "deploy-development": "gcloud app deploy ./app.development.gcp.yaml --project smart-theater-development-txn",
+    "deploy-test": "gcloud app deploy ./app.test.gcp.yaml --project smart-theater-test-txn",
+    "deploy-production": "gcloud app deploy ./app.production.gcp.yaml --project smart-theater-production-txn --no-promote --version staging"
   },
   "private": true,
   "dependencies": {

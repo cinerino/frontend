@@ -148,7 +148,7 @@ export default (app: express.Application) => {
             }
             req.session.external = req.query;
         }
-        res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`));
+        res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`), { lastModified: false, etag: false });
     });
 
     app.all('*', (req, res, _next) => {

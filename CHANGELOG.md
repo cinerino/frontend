@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.14 - 2020-02-15
+### Changed
+ - PurchaseEventSeatTicketComponentをPurchaseEventTicketComponentへ変更
+
 ## 3.5.13 - 2020-02-09
 ### Changed
  - PurchaseEventTicketComponentをPurchaseEventScheduleComponentへ変更

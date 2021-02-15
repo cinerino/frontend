@@ -42,7 +42,7 @@ export class PurchaseTicketComponent implements OnInit {
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.translateName = (this.environment.VIEW_TYPE === 'cinema')
-            ? 'purchase.cinema.ticket' : 'purchase.event.seatTicket';
+            ? 'purchase.cinema.ticket' : 'purchase.event.ticket';
         this.additionalTicketText = '';
         this.isSelectedTicket = (await this.getUnselectedTicketReservations()).length === 0;
     }

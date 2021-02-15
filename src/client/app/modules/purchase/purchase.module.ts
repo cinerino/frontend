@@ -7,8 +7,8 @@ import { PurchaseCinemaSeatComponent } from './components/pages/cinema/purchase-
 import { PurchaseCinemaTicketComponent } from './components/pages/cinema/purchase-cinema-ticket/purchase-cinema-ticket.component';
 import { PurchaseEventDateComponent } from './components/pages/event/purchase-event-date/purchase-event-date.component';
 import { PurchaseEventScheduleComponent } from './components/pages/event/purchase-event-schedule/purchase-event-schedule.component';
-import { PurchaseEventSeatTicketComponent } from './components/pages/event/purchase-event-seat-ticket/purchase-event-seat-ticket.component';
 import { PurchaseEventSeatComponent } from './components/pages/event/purchase-event-seat/purchase-event-seat.component';
+import { PurchaseEventTicketComponent } from './components/pages/event/purchase-event-ticket/purchase-event-ticket.component';
 import { PurchaseBaseComponent } from './components/pages/purchase-base/purchase-base.component';
 import { PurchaseCompleteComponent } from './components/pages/purchase-complete/purchase-complete.component';
 import { PurchaseConfirmComponent } from './components/pages/purchase-confirm/purchase-confirm.component';
@@ -54,7 +54,7 @@ import { PurchaseRoutingModule } from './purchase-routing.module';
     ScreenComponent,
     TransactionRemainingTimeComponent,
     PurchaseEventSeatComponent,
-    PurchaseEventSeatTicketComponent,
+    PurchaseEventTicketComponent,
     PurchaseTicketComponent,
     PurchaseSeatComponent,
     SeatInfoComponent,
