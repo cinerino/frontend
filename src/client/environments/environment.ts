@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 import { getProject } from '../app/functions/util.function';
 
-interface IProfile {
+export interface IProfile {
     key: string;
     value: string;
     required?: boolean;
@@ -15,7 +15,7 @@ interface IProfile {
 /**
  * 環境変数
  */
-interface IEnvironment {
+export interface IEnvironment {
     /**
      * 本番判定
      */
