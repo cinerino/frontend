@@ -43,7 +43,8 @@ exports.default = (app) => {
                 throw new Error('session is undefined');
             }
             const authModel = new auth2_model_1.Auth2Model(req.session.auth);
-            if (req.query.state !== authModel.state) {
+            if (req.query.state !== undefined
+                && req.query.state !== authModel.state) {
                 throw (new Error(`state not matched ${req.query.state} !== ${authModel.state}`));
             }
             const auth = authModel.create(req);
