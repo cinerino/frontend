@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.16 - 2020-02-22
+### Fixed
+ - Continue with Google不具合修正
+
 ## 3.5.15 - 2020-02-16
 ### Added
  - 環境変数へGTM_ID、ANALYTICS_IDを追加
