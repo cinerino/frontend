@@ -333,8 +333,8 @@ export const endTransactionFail = createAction(
     props<{ error: Error }>()
 );
 
-export const createGmoTokenObject = createAction(
-    `${LABEL} createGmoTokenObject`,
+export const createCreditCardToken = createAction(
+    `${LABEL} createCreditCardToken`,
     props<{
         creditCard: {
             cardno: string;
@@ -346,13 +346,13 @@ export const createGmoTokenObject = createAction(
     }>()
 );
 
-export const createGmoTokenObjectSuccess = createAction(
-    `${LABEL} createGmoTokenObjectSuccess`,
-    props<{ gmoTokenObject: Functions.Purchase.IGmoTokenObject; }>()
+export const createCreditCardTokenSuccess = createAction(
+    `${LABEL} createCreditCardTokenSuccess`,
+    props<{ creditCardToken: Functions.Purchase.IGmoTokenObject | Functions.Purchase.ISonyTokenObject; }>()
 );
 
-export const createGmoTokenObjectFail = createAction(
-    `${LABEL} createGmoTokenObjectFail`,
+export const createCreditCardTokenFail = createAction(
+    `${LABEL} createCreditCardTokenFail`,
     props<{ error: Error }>()
 );
 

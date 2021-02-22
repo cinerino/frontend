@@ -174,7 +174,16 @@ export function getParameter(): {
 /**
  * プロジェクト情報取得
  */
-export function getProject() {
+export function getProject(): {
+    projectId: string;
+    projectName: string;
+    storageUrl: string;
+    env?: string;
+    gtmId?: string;
+    analyticsId?: string;
+    gmoTokenUrl?: string;
+    sonyTokenUrl?: string;
+} {
     const project = sessionStorage.getItem('PROJECT');
     const defaultProject = { projectId: '', projectName: '', storageUrl: '' };
     if (project === null || project === '') {
@@ -182,11 +191,7 @@ export function getProject() {
     }
     return {
         ...defaultProject,
-        ...<{
-            projectId: string;
-            projectName: string;
-            storageUrl: string;
-        }>JSON.parse(project)
+        ...JSON.parse(project)
     };
 }
 
