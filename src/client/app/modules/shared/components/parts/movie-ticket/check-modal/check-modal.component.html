@@ -33,18 +33,10 @@
                 <div class="form-group">
                     <label class="mb-2" for="">{{ 'modal.movieTicket.check.password' | translate }}</label>
                     <input type="password" class="form-control" formControlName="password" id="password"
-                        autocomplete="off" placeholder="0123">
+                        autocomplete="new-password" placeholder="0123">
                     <div *ngIf="inputForm.controls.password.invalid && inputForm.controls.password.touched" class="mt-2">
                         <p *ngIf="inputForm.controls.password.errors?.required" class="text-danger">
                             {{ 'form.validation.required' | translate }}</p>
-                        <!-- <p *ngIf="inputForm.controls.password.errors?.maxlength" class="text-danger">
-                            {{ 'form.validation.maxlength' | translate:{ value: inputForm.controls.password.errors?.maxlength.requiredLength } }}
-                        </p>
-                        <p *ngIf="inputForm.controls.password.errors?.minlength" class="text-danger">
-                            {{ 'form.validation.minlength' | translate:{ value: customerContactForm.controls.givenName.errors?.maxlength.requiredLength } }}
-                        </p>
-                        <p *ngIf="inputForm.controls.password.errors?.pattern" class="text-danger">
-                            {{ 'form.validation.number' | translate }}</p> -->
                     </div>
                 </div>
             </div>
