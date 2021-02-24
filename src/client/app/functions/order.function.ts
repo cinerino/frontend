@@ -123,12 +123,6 @@ export function createQRCode(params: {
     } else if (environment.PRINT_QRCODE_TYPE === Order.Print.PrintQrcodeType.Token) {
         // トークン
         result = `${itemOffered.id}@${code}`;
-    } else if (environment.PRINT_QRCODE_TYPE === Order.Print.PrintQrcodeType.Admission) {
-        // 入場
-        result = JSON.stringify({
-            orderNumber: order.orderNumber,
-            id: itemOffered.id
-        });
     } else if (environment.PRINT_QRCODE_TYPE === Order.Print.PrintQrcodeType.Custom) {
         // カスタム文字列
         result = createCustomQRCode({
