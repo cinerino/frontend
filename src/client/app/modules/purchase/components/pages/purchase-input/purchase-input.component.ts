@@ -239,11 +239,11 @@ export class PurchaseInputComponent implements OnInit {
                     holderName: this.creditCardForm.controls.holderName.value,
                     securityCode: this.creditCardForm.controls.securityCode.value
                 };
-                await this.actionService.purchase.createGmoTokenObject(creditCard);
+                await this.actionService.purchase.createCreditCardToken(creditCard);
             } catch (error) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.input.alert.gmoToken')
+                    body: this.translate.instant('purchase.input.alert.createCreditCardToken')
                 });
                 return;
             }

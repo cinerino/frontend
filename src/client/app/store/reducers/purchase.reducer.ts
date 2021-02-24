@@ -485,22 +485,20 @@ export function reducer(initialState: IState, action: Action) {
                 }, loading: false, process: '', error: JSON.stringify(error)
             };
         }),
-        on(purchaseAction.createGmoTokenObject, (state) => {
-            return { ...state, loading: true, process: 'purchaseAction.CreateGmoTokenObject' };
+        on(purchaseAction.createCreditCardToken, (state) => {
+            return { ...state, loading: true, process: 'purchaseAction.createCreditCardToken' };
         }),
-        on(purchaseAction.createGmoTokenObjectSuccess, (state, payload) => {
-            const gmoTokenObject = payload.gmoTokenObject;
-            const creditCard = payload.gmoTokenObject;
+        on(purchaseAction.createCreditCardTokenSuccess, (state, payload) => {
+            const creditCard = payload.creditCardToken;
             return {
                 ...state,
                 purchaseData: {
                     ...state.purchaseData,
-                    gmoTokenObject,
                     creditCard
                 }, loading: false, process: '', error: null
             };
         }),
-        on(purchaseAction.createGmoTokenObjectFail, (state, payload) => {
+        on(purchaseAction.createCreditCardTokenFail, (state, payload) => {
             const error = payload.error;
             return { ...state, loading: false, process: '', error: JSON.stringify(error) };
         }),
