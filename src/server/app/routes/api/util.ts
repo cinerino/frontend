@@ -16,6 +16,7 @@ router.post('/project', async (req, res) => {
     log('project', req.body);
     const response = {
         gmoTokenUrl: process.env.GMO_TOKEN_URL,
+        sonyTokenUrl: process.env.SONY_TOKEN_URL,
         env: process.env.APP_ENV,
         gtmId: process.env.GTM_ID,
         analyticsId: process.env.ANALYTICS_ID

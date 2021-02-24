@@ -65,6 +65,7 @@ async function setProject(params: { projectId?: string; projectName?: string; })
         projectName?: string;
         storageUrl: string;
         gmoTokenUrl: string;
+        sonyTokenUrl: string;
         env: string;
         gtmId?: string;
         analyticsId?: string;
@@ -83,7 +84,12 @@ async function setProject(params: { projectId?: string; projectName?: string; })
     sessionStorage.setItem('PROJECT', JSON.stringify({
         projectId,
         projectName,
-        storageUrl
+        storageUrl,
+        env: result.env,
+        gtmId: result.gtmId,
+        analyticsId: result.analyticsId,
+        gmoTokenUrl: result.gmoTokenUrl,
+        sonyTokenUrl: result.sonyTokenUrl,
     }));
     const script = document.createElement('script');
     script.src = result.gmoTokenUrl;
