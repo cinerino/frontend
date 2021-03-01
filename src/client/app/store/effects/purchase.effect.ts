@@ -338,21 +338,24 @@ export class PurchaseEffects {
     );
 
     /**
-     * createGmoTokenObject
+     * createCreditCardToken
      */
     @Effect()
-    public createGmoTokenObject = this.actions.pipe(
-        ofType(purchaseAction.createGmoTokenObject),
+    public createCreditCardToken = this.actions.pipe(
+        ofType(purchaseAction.createCreditCardToken),
         map(action => action),
         mergeMap(async (payload) => {
             const creditCard = payload.creditCard;
             const seller = payload.seller;
             try {
-                const gmoTokenObject = await Functions.Purchase.createGmoTokenObject({ creditCard, seller, });
+                const { SETTLEMENT_AGENCY } = getEnvironment();
+                const creditCardToken = (SETTLEMENT_AGENCY === 'GMO')
+                    ? await Functions.Purchase.createGmoTokenObject({ creditCard, seller, })
+                    : await Functions.Purchase.createSonyTokenObject({ creditCard, seller, });
 
-                return purchaseAction.createGmoTokenObjectSuccess({ gmoTokenObject });
+                return purchaseAction.createCreditCardTokenSuccess({ creditCardToken });
             } catch (error) {
-                return purchaseAction.createGmoTokenObjectFail({ error: error });
+                return purchaseAction.createCreditCardTokenFail({ error: error });
             }
         })
     );

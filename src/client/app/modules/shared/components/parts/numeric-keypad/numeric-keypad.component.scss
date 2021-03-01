@@ -21,6 +21,7 @@
     position: fixed;
     width: 300px;
     z-index: 1051;
+    touch-action: manipulation;
     @include media-breakpoint-down(sm) {
         width: 200px;
     }
@@ -36,9 +37,9 @@
     grid-gap: 0.5rem;
 }
 
-.d-grid > div {
+.d-grid > button {
     &:active {
         background-color: skyblue !important;
-        color: #fff;
+        color: #fff !important;
     }
 }

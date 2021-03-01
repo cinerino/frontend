@@ -628,9 +628,9 @@ export class ActionPurchaseService {
     }
 
     /**
-     * GMOトークン作成
+     * クレジットカードトークン作成
      */
-    public async createGmoTokenObject(creditCard: {
+    public async createCreditCardToken(creditCard: {
         cardno: string;
         expire: string;
         holderName: string;
@@ -643,14 +643,14 @@ export class ActionPurchaseService {
                     reject();
                     return;
                 }
-                this.store.dispatch(purchaseAction.createGmoTokenObject({ seller, creditCard }));
+                this.store.dispatch(purchaseAction.createCreditCardToken({ seller, creditCard }));
             }).unsubscribe();
             const success = this.actions.pipe(
-                ofType(purchaseAction.createGmoTokenObjectSuccess.type),
+                ofType(purchaseAction.createCreditCardTokenSuccess.type),
                 tap(() => { resolve(); })
             );
             const fail = this.actions.pipe(
-                ofType(purchaseAction.createGmoTokenObjectFail.type),
+                ofType(purchaseAction.createCreditCardTokenFail.type),
                 tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
             );
             race(success, fail).pipe(take(1)).subscribe();
