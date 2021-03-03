@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.19 - 2020-03-03
+### Changed
+ - 暫定対応での入場廃止
+
 ## 3.5.18 - 2020-03-01
 ### Fixed
  - iOSダブルタップ拡大修正
