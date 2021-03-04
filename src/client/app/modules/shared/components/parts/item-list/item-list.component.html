@@ -1,14 +1,15 @@
 <div class="mb-2" *ngIf="environment.DISPLAY_TICKETED_SEAT">
     <div *ngFor="let reservation of reservations">
-        <p class="font-weight-bold">{{ reservation.seat.seatNumber }}</p>
+        <p *ngIf="reservation.seat !== undefined" class="font-weight-bold">{{ reservation.seat.seatNumber }}</p>
         <p *ngFor="let priceComponent of getReservationPriceComponents(reservation)">
             <span>{{ priceComponent.name | changeLanguage }}</span>
             <!--
-            --><span
-                *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span>
+            --><span *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency :
+                priceComponent.priceCurrency }}</span>
             <!--
-            --><span
-                *ngIf="priceComponent?.referenceQuantity?.value && priceComponent.price > 0">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+            --><span *ngIf="priceComponent?.referenceQuantity?.value && priceComponent.price > 0">{{
+                'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value }
+                }}</span>
         </p>
     </div>
 
@@ -18,11 +19,12 @@
         <p *ngFor="let priceComponent of reservation.price.priceComponent">
             <span>{{ priceComponent.name | changeLanguage }}</span>
             <!--
-            --><span
-                *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span>
+            --><span *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency :
+                priceComponent.priceCurrency }}</span>
             <!--
-            --><span
-                *ngIf="priceComponent?.referenceQuantity?.value && priceComponent.price > 0">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+            --><span *ngIf="priceComponent?.referenceQuantity?.value && priceComponent.price > 0">{{
+                'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value }
+                }}</span>
         </p>
     </div>
 
@@ -37,11 +39,12 @@
                         <!--
                         --><span *ngIf="!priceComponent.name">{{ acceptedOffer.name | changeLanguage }}</span>
                         <!--
-                        --><span
-                            *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span>
+                        --><span *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency :
+                            priceComponent.priceCurrency }}</span>
                         <!--
-                        --><span
-                            *ngIf="priceComponent?.referenceQuantity?.value && priceComponent.price > 0">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+                        --><span *ngIf="priceComponent?.referenceQuantity?.value && priceComponent.price > 0">{{
+                            'common.referenceQuantityValue' | translate: { value:
+                            priceComponent?.referenceQuantity?.value } }}</span>
                     </p>
                     <div *ngIf="code && isShowQRCode(acceptedOffer.itemOffered.reservationFor) 
                     && order 
@@ -75,11 +78,12 @@
         <p *ngFor="let priceComponent of ticket.priceComponents">
             <span>{{ priceComponent.name | changeLanguage }}</span>
             <!--
-            --><span
-                *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span>
+            --><span *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency :
+                priceComponent.priceCurrency }}</span>
             <!--
-            --><span
-                *ngIf="priceComponent?.referenceQuantity?.value && priceComponent.price > 0">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+            --><span *ngIf="priceComponent?.referenceQuantity?.value && priceComponent.price > 0">{{
+                'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value }
+                }}</span>
             <!--
             --><span>&nbsp;×&nbsp;{{ ticket.count }}</span>
         </p>
