@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.5.20 - 2020-03-05
+### Fixed
+ - 座席指定無し不具合修正
+
 ## 3.5.19 - 2020-03-03
 ### Changed
  - 暫定対応での入場廃止
