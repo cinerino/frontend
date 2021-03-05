@@ -299,9 +299,10 @@ export class ActionPurchaseService {
             const limit = 100;
             let page = 1;
             let roop = true;
-            let screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[] = [];
+            let result: factory.chevre.place.seat.IPlaceWithOffer[] = [];
             if (!new Models.Purchase.Performance(screeningEvent).isTicketedSeat()) {
-                return screeningEventSeats;
+                this.utilService.loadEnd();
+                return result;
             }
             await this.cinerinoService.getServices();
             while (roop) {
@@ -310,7 +311,7 @@ export class ActionPurchaseService {
                     page,
                     limit
                 });
-                screeningEventSeats = screeningEventSeats.concat(searchResult.data);
+                result = [...result, ...searchResult.data];
                 page++;
                 roop = searchResult.data.length === limit;
                 if (roop) {
@@ -318,7 +319,7 @@ export class ActionPurchaseService {
                 }
             }
             this.utilService.loadEnd();
-            return screeningEventSeats;
+            return result;
         } catch (error) {
             this.utilService.setError(error);
             this.utilService.loadEnd();
