@@ -165,7 +165,7 @@ export class PurchaseEffects {
                     throw new Error('Outside sales period');
                 }
                 const availableSeats = Functions.Purchase.selectAvailableSeat({ reservations, screeningEventSeats });
-                if (new Models.Purchase.Performance(screeningEvent).isTicketedSeat()
+                if (new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat()
                     && availableSeats.length !== reservations.length) {
                     throw new Error('Out of stock');
                 }
@@ -193,10 +193,10 @@ export class PurchaseEffects {
                                             additionalTicketText: additionalTicketText,
                                             reservedTicket: {
                                                 typeOf: 'Ticket',
-                                                ticketedSeat: (new Models.Purchase.Performance(screeningEvent).isTicketedSeat())
+                                                ticketedSeat: (new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat())
                                                     ? availableSeats[index] : undefined,
                                             },
-                                            subReservation: (new Models.Purchase.Performance(screeningEvent).isTicketedSeat())
+                                            subReservation: (new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat())
                                                 ? availableSeats[index].subReservations.map(s => {
                                                     return {
                                                         reservedTicket: { typeOf: 'Ticket', ticketedSeat: s }
@@ -348,7 +348,7 @@ export class PurchaseEffects {
             const creditCard = payload.creditCard;
             const seller = payload.seller;
             try {
-                const creditCardToken = await Functions.Creditcard.createCreditCardTokenObject({ creditCard, seller});
+                const creditCardToken = await Functions.Creditcard.createCreditCardTokenObject({ creditCard, seller });
 
                 return purchaseAction.createCreditCardTokenSuccess({ creditCardToken });
             } catch (error) {
