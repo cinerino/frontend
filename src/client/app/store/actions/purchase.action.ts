@@ -348,7 +348,7 @@ export const createCreditCardToken = createAction(
 
 export const createCreditCardTokenSuccess = createAction(
     `${LABEL} createCreditCardTokenSuccess`,
-    props<{ creditCardToken: Functions.Purchase.IGmoTokenObject | Functions.Purchase.ISonyTokenObject; }>()
+    props<{ creditCardToken: Functions.Creditcard.IGmoTokenObject | Functions.Creditcard.ISonyTokenObject; }>()
 );
 
 export const createCreditCardTokenFail = createAction(
