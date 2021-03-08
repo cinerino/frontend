@@ -4,7 +4,6 @@ import { getEnvironment } from '../../environments/environment';
 import { Reservation } from '../models/purchase';
 import { IMovieTicket } from './../models/purchase/movieTicket';
 import { Performance } from './../models/purchase/performance';
-import { getProject } from './util.function';
 
 /**
  * イベントグループ
@@ -43,119 +42,6 @@ export function screeningEvents2ScreeningEventSeries(params: {
     });
 
     return result;
-}
-
-/**
- * GMOトークンオブジェクト
- */
-export interface IGmoTokenObject {
-    token: string;
-    toBeExpiredAt: string;
-    maskedCardNo: string;
-    isSecurityCodeSet: boolean;
-}
-
-/**
- * GMOトークンオブジェクト生成
- */
-export function createGmoTokenObject(params: {
-    creditCard: {
-        cardno: string;
-        expire: string;
-        holderName: string;
-        securityCode: string;
-    },
-    seller: factory.chevre.seller.ISeller;
-}) {
-    return new Promise<IGmoTokenObject>((resolve, reject) => {
-        if (params.seller.paymentAccepted === undefined) {
-            throw new Error('seller.paymentAccepted is undefined');
-        }
-        const findPaymentAcceptedResult = params.seller.paymentAccepted.find((paymentAccepted) => {
-            return (paymentAccepted.paymentMethodType === factory.paymentMethodType.CreditCard);
-        });
-        if (findPaymentAcceptedResult === undefined
-            || findPaymentAcceptedResult.paymentMethodType !== factory.paymentMethodType.CreditCard
-            || (<any>findPaymentAcceptedResult).gmoInfo === undefined) {
-            throw new Error('paymentMethodType CreditCard or gmoInfo undefined');
-        }
-        (<any>window).someCallbackFunction = function someCallbackFunction(response: {
-            resultCode: string;
-            tokenObject: IGmoTokenObject
-        }) {
-            if (response.resultCode === '000') {
-                resolve(response.tokenObject);
-            } else {
-                reject(new Error(response.resultCode));
-            }
-        };
-        const Multipayment = (<any>window).Multipayment;
-        Multipayment.init((<any>findPaymentAcceptedResult).gmoInfo?.shopId);
-        Multipayment.getToken(params.creditCard, (<any>window).someCallbackFunction);
-    });
-}
-
-/**
- * Sonyトークンオブジェクト
- */
-export interface ISonyTokenObject {
-    token: string;
-    maskedCardNo: string;
-}
-
-/**
- * Sonyトークンオブジェクト生成
- */
-export function createSonyTokenObject(params: {
-    creditCard: {
-        cardno: string;
-        expire: string;
-        holderName: string;
-        securityCode: string;
-    },
-    seller: factory.chevre.seller.ISeller;
-}) {
-    return new Promise<ISonyTokenObject>((resolve, reject) => {
-        const { creditCard } = params;
-        const tokenUrl = getProject().sonyTokenUrl;
-        if (tokenUrl === undefined) {
-            reject(new Error('sonyTokenUrl undefined'));
-        }
-        const script = document.createElement('script');
-        script.id = 'sonypayment';
-        const k_TokenNinsyoCode = 'cccccccccccccccccccccccccccccccc';
-        script.src = `${tokenUrl}?k_TokenNinsyoCode=${k_TokenNinsyoCode}`;
-        script.classList.add('spsvToken');
-        script.setAttribute('callBackFunc', 'setToken');
-        script.onload = () => {
-            if ((<any>window).SpsvApi === undefined) {
-                reject(new Error('SpsvApi undefined'));
-                return;
-            }
-            (<any>window).SpsvApi.spsvCreateToken(
-                creditCard.cardno,
-                creditCard.expire.slice(2, 4),
-                creditCard.expire.slice(4, 6),
-                creditCard.securityCode,
-                '', '', '', '', ''
-            );
-            (<any>window).setToken = function setToken(token: string, card: string) {
-                script.remove();
-                (<any>window).SpsvApi = undefined;
-                resolve({
-                    token,
-                    maskedCardNo: card
-                });
-            };
-        };
-        script.onerror = (event) => {
-            script.remove();
-            (<any>window).SpsvApi = undefined;
-            const message = (typeof event === 'string') ? event : JSON.stringify(event);
-            reject(new Error(message));
-        };
-        document.head.appendChild(script);
-    });
 }
 
 /**
