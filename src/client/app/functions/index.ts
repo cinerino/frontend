@@ -1,3 +1,4 @@
+import * as Creditcard from './creditcard.function';
 import * as Order from './order.function';
 import * as Purchase from './purchase.function';
 import * as Translate from './translate.function';
@@ -7,5 +8,6 @@ export {
     Purchase,
     Util,
     Order,
-    Translate
+    Translate,
+    Creditcard,
 };

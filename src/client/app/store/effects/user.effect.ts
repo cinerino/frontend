@@ -149,7 +149,7 @@ export class UserEffects {
         mergeMap(async (payload) => {
             try {
                 await this.cinerino.getServices();
-                const creditCardToken = await Functions.Purchase.createGmoTokenObject({
+                const creditCardToken = await Functions.Creditcard.createCreditCardTokenObject({
                     creditCard: payload.creditCard,
                     seller: payload.seller
                 });
