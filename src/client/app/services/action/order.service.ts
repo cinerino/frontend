@@ -296,7 +296,11 @@ export class ActionOrderService {
                 recipient,
                 seller: { id: seller.id },
                 object: {
-                    ...{ passport },
+                    passport : {
+                        issuer: '',
+                        token: passport.token,
+                        secret: ''
+                    },
                     amount,
                     fromLocation,
                     toLocation,

@@ -115,7 +115,7 @@ async function setProjectConfig(params: {
         headers: { 'Content-Type': 'application/json; charset=utf-8' }
     });
     if (fetchResult.ok) {
-        (<any>window).eval(await fetchResult.text());
+        window.eval(await fetchResult.text());
     } else {
         (<any>window).environment = {};
     }

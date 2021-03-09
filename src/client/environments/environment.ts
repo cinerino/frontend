@@ -232,10 +232,6 @@ export interface IEnvironment {
      * 印刷時ローディング
      */
     PRINT_LOADING: boolean;
-    /**
-     * 決済代行
-     */
-    SETTLEMENT_AGENCY: 'GMO' | 'SONY';
 }
 
 const defaultEnvironment: IEnvironment = {
@@ -299,7 +295,6 @@ const defaultEnvironment: IEnvironment = {
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: 'token',
     PRINT_LOADING: true,
-    SETTLEMENT_AGENCY: 'GMO',
 };
 
 export function getEnvironment(): IEnvironment {

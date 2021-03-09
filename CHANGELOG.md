@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.0 - 2020-03-09
+### Changed
+ - トークン認証コードを動的へ変更
+
 ## 3.5.20 - 2020-03-05
 ### Fixed
  - 座席指定無し不具合修正

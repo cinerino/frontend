@@ -348,10 +348,7 @@ export class PurchaseEffects {
             const creditCard = payload.creditCard;
             const seller = payload.seller;
             try {
-                const { SETTLEMENT_AGENCY } = getEnvironment();
-                const creditCardToken = (SETTLEMENT_AGENCY === 'GMO')
-                    ? await Functions.Purchase.createGmoTokenObject({ creditCard, seller, })
-                    : await Functions.Purchase.createSonyTokenObject({ creditCard, seller, });
+                const creditCardToken = await Functions.Creditcard.createCreditCardTokenObject({ creditCard, seller});
 
                 return purchaseAction.createCreditCardTokenSuccess({ creditCardToken });
             } catch (error) {

@@ -1,6 +1,6 @@
 {
   "name": "smart-theater-transaction",
-  "version": "3.5.20",
+  "version": "3.6.0",
   "license": "MIT",
   "author": {
     "name": "Motionpicture co.,ltd."
@@ -43,7 +43,7 @@
     "@angular/platform-browser": "^10.0.7",
     "@angular/platform-browser-dynamic": "^10.0.7",
     "@angular/router": "^10.0.7",
-    "@cinerino/sdk": "^1.19.0",
+    "@cinerino/sdk": "^1.20.5",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@ngrx/effects": "^9.2.0",
     "@ngrx/store": "^9.2.0",
