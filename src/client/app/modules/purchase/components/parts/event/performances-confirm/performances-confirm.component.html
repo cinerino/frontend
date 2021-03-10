@@ -60,9 +60,9 @@
                 </div>
 
 
-                <div class="status text-x-small" *ngIf="performance.isSales({ status: 'end' })">
+                <div class="status text-x-small" *ngIf="performance.isSales('end')">
                     {{ 'purchase.event.date.status.endSale' | translate }}</div>
-                <div class="status text-x-small" *ngIf="performance.isSales({ status: 'start' })">
+                <div class="status text-x-small" *ngIf="performance.isSales('start')">
                     {{ 'purchase.event.date.status.outsideSalesPeriod' | translate }}</div>
             </div>
         </div>

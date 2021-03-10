@@ -170,7 +170,7 @@ export class PurchaseSeatComponent implements OnInit {
             && limit > screeningEvent.offers.eligibleQuantity.maxValue) {
             limit = screeningEvent.offers.eligibleQuantity.maxValue;
         }
-        if (new Models.Purchase.Performance(screeningEvent).isTicketedSeat()) {
+        if (new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat()) {
             // イベント全体の残席数計算
             const screeningEventLimit = Functions.Purchase.getRemainingSeatLength({
                 screeningEventSeats, screeningEvent

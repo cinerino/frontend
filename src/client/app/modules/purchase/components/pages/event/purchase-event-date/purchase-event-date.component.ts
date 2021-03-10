@@ -134,7 +134,7 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
             return;
         }
         this.scheduleDate = date;
-        const now = (await this.utilService.getServerTime()).date;
+        const now = moment((await this.utilService.getServerTime()).date).toDate();
         const selectDate = moment(moment(this.scheduleDate).format('YYYYMMDD')).toDate();
         const salesStopDate = moment(moment().format('YYYYMMDD'))
             .add(this.environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE,
@@ -187,7 +187,7 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
                 screeningRooms
             });
             this.screeningEventsGroup =
-                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents: this.screeningEvents });
+                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents: this.screeningEvents, now });
             this.update();
         } catch (error) {
             console.error(error);

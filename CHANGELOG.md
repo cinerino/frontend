@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.1 - 2020-03-10
+### Changed
+ - スケジュールの時間比較をサーバータイムに変更
+
 ## 3.6.0 - 2020-03-09
 ### Changed
  - トークン認証コードを動的へ変更
