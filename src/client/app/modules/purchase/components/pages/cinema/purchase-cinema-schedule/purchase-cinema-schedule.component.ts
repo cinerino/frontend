@@ -213,9 +213,11 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 screeningEventSeries,
                 screeningRooms
             });
-            this.screeningEventsGroup = Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
+            const now = moment((await this.utilService.getServerTime()).date).toDate();
+            this.screeningEventsGroup = Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents, now });
             this.update();
             if (first) {
+                // 最初のパフォーマンスのある日付に移動
                 const activeIndex = this.scheduleDates.findIndex(s => s === this.firstScheduleDate);
                 this.swiperInstance.update();
                 this.swiperInstance.slideTo(activeIndex);

@@ -126,7 +126,8 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             screeningEventSeries,
             screeningRooms
         });
-        this.screeningEventsGroup = Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents });
+        const now = moment((await this.utilService.getServerTime()).date).toDate();
+        this.screeningEventsGroup = Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents, now });
         this.update();
     }
 
@@ -175,7 +176,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         if (screeningEvent === undefined || screen === undefined) {
             return;
         }
-        const performance = new Models.Purchase.Performance(screeningEvent);
+        const performance = new Models.Purchase.Performance({ screeningEvent });
         if (!performance.isInfinitetock()
             && !screen.openSeatingAllowed
             && performance.isTicketedSeat()) {
@@ -210,12 +211,12 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         const reservations = params.reservations;
         const additionalTicketText = params.additionalTicketText;
         try {
-            const purchase = await this.actionService.purchase.getData();
-            const limit = (purchase.screeningEvent === undefined
-                || purchase.screeningEvent.offers === undefined
-                || purchase.screeningEvent.offers.eligibleQuantity.maxValue === undefined)
+            const { screeningEvent } = await this.actionService.purchase.getData();
+            const limit = (screeningEvent === undefined
+                || screeningEvent.offers === undefined
+                || screeningEvent.offers.eligibleQuantity.maxValue === undefined)
                 ? Number(this.environment.PURCHASE_ITEM_MAX_LENGTH)
-                : purchase.screeningEvent.offers.eligibleQuantity.maxValue;
+                : screeningEvent.offers.eligibleQuantity.maxValue;
             if (reservations.length > limit) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
@@ -227,11 +228,11 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 return;
             }
             this.screeningEventSeats = await this.actionService.purchase.getScreeningEventSeats();
-            if (purchase.screeningEvent !== undefined
-                && new Models.Purchase.Performance(purchase.screeningEvent).isTicketedSeat()) {
+            if (screeningEvent !== undefined
+                && new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat()) {
                 const remainingSeatLength = Functions.Purchase.getRemainingSeatLength({
                     screeningEventSeats: this.screeningEventSeats,
-                    screeningEvent: purchase.screeningEvent
+                    screeningEvent
                 });
                 if (remainingSeatLength < reservations.length) {
                     this.utilService.openAlert({

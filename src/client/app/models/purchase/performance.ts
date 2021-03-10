@@ -7,37 +7,39 @@ import { getEnvironment } from '../../../environments/environment';
  */
 export class Performance {
     public screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+    public now: Date;
 
-    constructor(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
-        this.screeningEvent = screeningEvent;
+    constructor(params: {
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
+        now?: Date;
+    }) {
+        this.screeningEvent = params.screeningEvent;
+        this.now = (params.now === undefined) ? moment().toDate() : params.now;
     }
 
     /**
      * 販売判定
      */
-    public isSales(params?: {
-        status?: 'start' | 'end';
-        criteria?: Date;
-    }) {
+    public isSales(status?: 'start' | 'end') {
         const screeningEvent = this.screeningEvent;
         const offers = screeningEvent.offers;
         if (offers === undefined) {
             return false;
         }
         let result = false;
-        const status = params?.status;
-        const criteria = (params === undefined || params.criteria === undefined)
-            ? moment().unix() : moment(params.criteria).unix();
+        const criteria = moment(this.now).unix();
+        const validFrom = moment(offers.validFrom).unix();
+        const validThrough = moment(offers.validThrough).unix();
         switch (status) {
             case 'start':
-                result = !(moment(offers.validFrom).unix() < criteria);
+                result = !(validFrom < criteria);
                 break;
             case 'end':
-                result = !(moment(offers.validThrough).unix() > criteria);
+                result = !(validThrough > criteria);
                 break;
             default:
-                result = (moment(offers.validFrom).unix() < criteria
-                    && moment(offers.validThrough).unix() > criteria);
+                result = (validFrom < criteria
+                    && validThrough > criteria);
                 break;
         }
         return result;

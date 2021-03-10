@@ -49,9 +49,9 @@
         </div>
 
 
-        <div class="status" *ngIf="performance.isSales({ status: 'end' })">
+        <div class="status" *ngIf="performance.isSales('end')">
             {{ 'common.performance.status.endSale' | translate }}</div>
-        <div class="status" *ngIf="performance.isSales({ status: 'start' })">
+        <div class="status" *ngIf="performance.isSales('start')">
             {{ 'common.performance.status.outsideSalesPeriod' | translate }}</div>
         <div *ngIf="performance.isSales() && performance.isInfinitetock()" class="status">
             <div class="d-flex justify-content-center align-items-center">
