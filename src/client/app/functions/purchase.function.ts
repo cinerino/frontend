@@ -17,11 +17,12 @@ export interface IScreeningEventsGroup {
  * 施設コンテンツごとのグループへ変換
  */
 export function screeningEvents2ScreeningEventSeries(params: {
-    screeningEvents: factory.chevre.event.screeningEvent.IEvent[]
+    screeningEvents: factory.chevre.event.screeningEvent.IEvent[];
+    now: Date
 }) {
     const environment = getEnvironment();
     const result: IScreeningEventsGroup[] = [];
-    const screeningEvents = params.screeningEvents;
+    const { screeningEvents, now } = params;
     screeningEvents.forEach((screeningEvent) => {
         const registered = result.find((data) => {
             if (environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries') {
@@ -30,7 +31,7 @@ export function screeningEvents2ScreeningEventSeries(params: {
                 return (data.screeningEvent.location.branchCode === screeningEvent.location.branchCode);
             }
         });
-        const performance = new Performance(screeningEvent);
+        const performance = new Performance({ screeningEvent, now });
         if (registered === undefined) {
             result.push({
                 screeningEvent,

@@ -42,7 +42,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
      * 初期化
      */
     public ngOnInit() {
-        this.performance = new Models.Purchase.Performance(this.screeningEvent);
+        this.performance = new Models.Purchase.Performance({ screeningEvent: this.screeningEvent });
         this.tickets = [];
         this.tickets = this.screeningEventTicketOffers.filter((ticketOffer) => {
             const movieTicketTypeChargeSpecification =
@@ -83,7 +83,7 @@ export class PurchaseEventTicketModalComponent implements OnInit {
             && limit > screeningEvent.remainingAttendeeCapacity) {
             limit = screeningEvent.remainingAttendeeCapacity;
         }
-        if (new Models.Purchase.Performance(screeningEvent).isTicketedSeat()) {
+        if (new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat()) {
             // イベント全体の残席数計算
             const screeningEventLimit = Functions.Purchase.getRemainingSeatLength({
                 screeningEvent,

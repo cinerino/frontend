@@ -50,13 +50,16 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
             return;
         }
         try {
-            const criteria = moment((await this.utilService.getServerTime()).date).toDate();
+            const serverTime = moment((await this.utilService.getServerTime()).date).toDate();
             await this.actionService.purchase.convertExternalToPurchase(external.eventId);
             const { screeningEvent } = await this.actionService.purchase.getData();
-            if (screeningEvent === undefined
-                || !new Models.Purchase.Performance(screeningEvent).isSales({ criteria })
-                || new Models.Purchase.Performance(screeningEvent).isSeatStatus('danger')) {
-                    throw new Error('Not for sale');
+            if (screeningEvent === undefined) {
+                throw new Error('screeningEvent undefined');
+            }
+            const performance = new Models.Purchase.Performance({ screeningEvent, now: serverTime });
+            if (!performance.isSales()
+                || performance.isSeatStatus('danger')) {
+                throw new Error('Not for sale');
             }
             await this.actionService.purchase.startTransaction();
             this.router.navigate(['/purchase/cinema/seat']);
