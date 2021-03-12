@@ -74,7 +74,7 @@ export async function retry<T>(args: {
  * ミリ秒待つ
  * デフォルト値500ms
  */
-export async function sleep(time: number = 500) {
+export async function sleep(time: number = 100) {
     return new Promise<void>((resolve) => {
         setTimeout(() => {
             resolve();
