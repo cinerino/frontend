@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.2 - 2020-03-12
+### Changed
+ - APIページング待ち時間変更 (500ms => 100ms)
+
 ## 3.6.1 - 2020-03-10
 ### Changed
  - スケジュールの時間比較をサーバータイムに変更
