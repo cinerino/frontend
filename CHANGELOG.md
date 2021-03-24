@@ -12,6 +12,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.3 - 2020-03-24
+### Changed
+ - セッションの期間を環境変数で管理
+
+## 3.6.2 - 2020-03-12
+### Changed
+ - APIページング待ち時間変更 (500ms => 100ms)
+
 ## 3.6.2 - 2020-03-12
 ### Changed
  - APIページング待ち時間変更 (500ms => 100ms)
