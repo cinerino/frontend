@@ -25,10 +25,13 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
     public error: Observable<string | null>;
     public isLoading: Observable<boolean>;
     public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
+    public creativeWorks: factory.chevre.creativeWork.movie.ICreativeWork[];
+    public contentRatingTypes: factory.chevre.categoryCode.ICategoryCode[];
     public moment: typeof moment = moment;
     public environment = getEnvironment();
     private updateTimer: any;
     public screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
+
 
     constructor(
         private store: Store<reducers.IState>,
@@ -49,8 +52,13 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
         this.error = this.store.pipe(select(reducers.getError));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.screeningEventsGroup = [];
+        this.creativeWorks = [];
+        this.contentRatingTypes = [];
         this.actionService.purchase.unsettledDelete();
         try {
+            this.contentRatingTypes = await this.masterService.searchCategoryCode({
+                categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.ContentRatingType
+            });
             await this.getSchedule();
         } catch (error) {
             console.error(error);
@@ -97,7 +105,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             || transaction === undefined) {
             throw new Error('theater or scheduleDate or transaction undefined');
         }
-        const creativeWorks = await this.masterService.searchMovies({
+        this.creativeWorks = await this.masterService.searchMovies({
             offers: { availableFrom: moment(scheduleDate).toDate() }
         });
         const screeningEventSeries = (this.environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries')
@@ -105,7 +113,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 location: {
                     branchCode: { $eq: theater.branchCode }
                 },
-                workPerformed: { identifiers: creativeWorks.map(c => c.identifier) }
+                workPerformed: { identifiers: this.creativeWorks.map(c => c.identifier) }
             })
             : [];
         const screeningRooms = (this.environment.PURCHASE_SCHEDULE_SORT === 'screen')
@@ -122,7 +130,7 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             },
             startFrom: moment(scheduleDate).toDate(),
             startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate(),
-            creativeWorks,
+            creativeWorks: this.creativeWorks,
             screeningEventSeries,
             screeningRooms
         });
@@ -349,6 +357,13 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 await this.actionService.purchase.cancelTemporaryReservations(authorizeSeatReservations);
             }
         });
+    }
+
+    /**
+     * コンテンツ取得
+     */
+     public getCreativeWorks(identifier: string) {
+        return this.creativeWorks.find(c => c.identifier === identifier);
     }
 
 }

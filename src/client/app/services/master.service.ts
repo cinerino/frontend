@@ -102,7 +102,7 @@ export class MasterService {
                 startThrough,
                 screeningEventSeries,
                 screeningRooms,
-                creativeWorks
+                // creativeWorks
             } = params;
             const pageing = (params.pageing === undefined) ? true : params.pageing;
             this.utilService.loadStart({ process: 'masterAction.SearchScreeningEvent' });
@@ -165,16 +165,16 @@ export class MasterService {
                     return 0;
                 });
             }
-            if (creativeWorks !== undefined) {
-                result.forEach(r => {
-                    const findResult = creativeWorks.find(c => c.identifier === r.workPerformed?.identifier);
-                    if (r.workPerformed === undefined
-                        || findResult === undefined) {
-                        return;
-                    }
-                    r.workPerformed.contentRating = findResult.contentRating;
-                });
-            }
+            // if (creativeWorks !== undefined) {
+            //     result.forEach(r => {
+            //         const findResult = creativeWorks.find(c => c.identifier === r.workPerformed?.identifier);
+            //         if (r.workPerformed === undefined
+            //             || findResult === undefined) {
+            //             return;
+            //         }
+            //         r.workPerformed.contentRating = findResult.contentRating;
+            //     });
+            // }
             this.utilService.loadEnd();
             return result;
         } catch (error) {
