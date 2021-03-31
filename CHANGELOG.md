@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.4 - 2020-03-31
+### Changed
+ - レイティング区分検索適用
+
 ## 3.6.3 - 2020-03-24
 ### Changed
  - セッションの期間を環境変数で管理

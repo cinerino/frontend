@@ -26,6 +26,8 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
     public preScheduleDates: string[];
     public isPreSchedule: boolean;
     public screeningEventsGroup: Functions.Purchase.IScreeningEventsGroup[];
+    public creativeWorks: factory.chevre.creativeWork.movie.ICreativeWork[];
+    public contentRatingTypes: factory.chevre.categoryCode.ICategoryCode[];
     public moment: typeof moment = moment;
     public environment = getEnvironment();
     public external = Functions.Util.getExternalData();
@@ -69,8 +71,13 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         this.scheduleDates = [];
         this.preScheduleDates = [];
         this.screeningEventsGroup = [];
+        this.creativeWorks = [];
+        this.contentRatingTypes = [];
         this.theaters = [];
         try {
+            this.contentRatingTypes = await this.masterService.searchCategoryCode({
+                categorySetIdentifier: factory.chevre.categoryCode.CategorySetIdentifier.ContentRatingType
+            });
             this.theaters = await this.masterService.searchMovieTheaters();
             if (this.theaters.length === 0) {
                 throw new Error('theater notfound');
@@ -184,7 +191,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         }
         this.actionService.purchase.selectScheduleDate(scheduleDate);
         try {
-            const creativeWorks = await this.masterService.searchMovies({
+            this.creativeWorks = await this.masterService.searchMovies({
                 offers: { availableFrom: moment(scheduleDate).toDate() }
             });
             const screeningEventSeries = (this.environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries')
@@ -192,7 +199,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                     location: {
                         branchCode: { $eq: theater.branchCode }
                     },
-                    workPerformed: { identifiers: creativeWorks.map(c => c.identifier) }
+                    workPerformed: { identifiers: this.creativeWorks.map(c => c.identifier) }
                 })
                 : [];
             const screeningRooms = (this.environment.PURCHASE_SCHEDULE_SORT === 'screen')
@@ -209,7 +216,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                 },
                 startFrom: moment(scheduleDate).toDate(),
                 startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate(),
-                creativeWorks,
+                creativeWorks: this.creativeWorks,
                 screeningEventSeries,
                 screeningRooms
             });
@@ -317,6 +324,13 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         } catch (error) {
             throw error;
         }
+    }
+
+    /**
+     * コンテンツ取得
+     */
+     public getCreativeWorks(identifier: string) {
+        return this.creativeWorks.find(c => c.identifier === identifier);
     }
 
 }
