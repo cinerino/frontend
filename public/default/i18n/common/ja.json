@@ -286,7 +286,8 @@
             "number": "数字で入力してください",
             "halfSizeAlphanumeric": "半角英数字で入力してください",
             "email": "形式が正しくありません",
-            "telephone": "形式が正しくありません"
+            "telephone": "形式が正しくありません",
+            "pattern": "形式が正しくありません"
         },
         "placeholder": {
             "familyName": "ヤマダ",
