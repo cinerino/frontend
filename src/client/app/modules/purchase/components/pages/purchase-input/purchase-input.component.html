@@ -48,6 +48,9 @@
                             <p *ngIf="profileForm.controls[key].errors?.maxlength" class="text-danger">
                                 {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls[key].errors?.maxlength.requiredLength } }}
                             </p>
+                            <p *ngIf="profileForm.controls[key].errors?.minlength" class="text-danger">
+                                {{ 'form.validation.minlength' | translate:{ value: profileForm.controls[key].errors?.minlength.requiredLength } }}
+                            </p>
                             <p *ngIf="profileForm.controls[key].errors?.email" class="text-danger">
                                 {{ 'form.validation.email' | translate }}
                             </p>
@@ -62,6 +65,9 @@
                                     class="text-danger">
                                     {{ 'form.validation.lowercaseLetters' | translate }}</p>
                             </div>
+                            <p *ngIf="profileForm.controls[key].errors?.pattern" class="text-danger">
+                                {{ 'form.validation.pattern' | translate }}
+                            </p>
                         </div>
                         <div *ngIf="key === 'email'">
                             <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.email' | translate"></p>

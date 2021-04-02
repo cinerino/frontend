@@ -22,7 +22,7 @@
                         {{ profile.value }}
                     </p>
                     <p *ngIf="profile.key === 'telephone'" class="col-md-8">{{ profile.value | libphonenumberFormat }}</p>
-                    <p *ngIf="profile.key === 'gender'" class="col-md-8">{{ 'form.select.option.' + profile.value | translate }}</p>
+                    <p *ngIf="profile.key === 'gender'" class="col-md-8">{{ 'form.option.' + profile.value | translate }}</p>
                 </div>
             </div>
             <div class="py-3 border-bottom border-gray" *ngIf="amount > 0">
