@@ -12,6 +12,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.6 - 2020-04-05
+### Changed
+ - redisClient生成変更
+
+## 3.6.5 - 2020-04-02
+### Fixed
+ - プロフィールカスタム項目修正
+
 ## 3.6.4 - 2020-03-31
 ### Changed
  - レイティング区分検索適用
@@ -19,10 +27,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ## 3.6.3 - 2020-03-24
 ### Changed
  - セッションの期間を環境変数で管理
-
-## 3.6.2 - 2020-03-12
-### Changed
- - APIページング待ち時間変更 (500ms => 100ms)
 
 ## 3.6.2 - 2020-03-12
 ### Changed

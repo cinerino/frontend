@@ -3,20 +3,26 @@
  */
 
 import * as connectRedis from 'connect-redis';
+import * as createDebug from 'debug';
 import * as session from 'express-session';
 import * as redis from 'redis';
 
-const redisClient = redis.createClient(
-    Number(process.env.REDIS_PORT),
-    process.env.REDIS_HOST,
-    {
-        password: process.env.REDIS_KEY,
-        tls: {
-            servername: process.env.REDIS_HOST
+const debug = createDebug('application:session');
+
+const redisClient = redis.createClient({
+    port: Number(process.env.REDIS_PORT),
+    host: process.env.REDIS_HOST,
+    password: process.env.REDIS_KEY,
+    tls: (process.env.REDIS_TLS_SERVERNAME === undefined
+        || process.env.REDIS_TLS_SERVERNAME === '')
+        ? undefined
+        : {
+            servername: process.env.REDIS_TLS_SERVERNAME
         },
-        return_buffers: true
-    }
-);
+    return_buffers: true
+});
+
+debug('redis host...', process.env.REDIS_HOST);
 
 const sessionStore = new (connectRedis(session))({ client: redisClient });
 
