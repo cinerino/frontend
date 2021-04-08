@@ -59,67 +59,83 @@ export class ItemListComponent implements OnInit {
      * 券種情報を枚数別へ変換
      */
     public changeTicketCount() {
-        const priceComponentsList:
-            factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType>[][] = [];
+        const priceComponents: {
+            name: { ja?: string; en?: string; };
+            price: number;
+            priceCurrency: factory.chevre.priceCurrency;
+            referenceQuantity: factory.chevre.quantitativeValue.IQuantitativeValue<factory.chevre.unitCode>
+        }[] = [];
         if (this.reservations !== undefined) {
-            this.reservations.forEach(r => priceComponentsList.push(this.getReservationPriceComponents(r)));
+            this.reservations.forEach(r => {
+                this.getReservationPriceComponents(r).forEach((p) => {
+                    if (p.name === undefined
+                        || typeof p.name === 'string'
+                        || p.price === undefined) {
+                        return;
+                    }
+                    priceComponents.push({
+                        name: p.name,
+                        price: p.price,
+                        priceCurrency: p.priceCurrency,
+                        referenceQuantity: (<any>p).referenceQuantity
+                    });
+                });
+            });
         } else if (this.authorizeSeatReservations !== undefined) {
             this.authorizeSeatReservations.forEach(r => {
                 if (r.price === undefined || typeof (r.price) === 'number') {
                     return;
                 }
-                priceComponentsList.push(r.price.priceComponent);
+                r.price.priceComponent.forEach(p => {
+                    if (p.name === undefined
+                        || typeof p.name === 'string'
+                        || p.price === undefined) {
+                        return;
+                    }
+                    priceComponents.push({
+                        name: p.name,
+                        price: p.price,
+                        priceCurrency: p.priceCurrency,
+                        referenceQuantity: (<any>p).referenceQuantity
+                    });
+                });
             });
         } else if (this.acceptedOffers !== undefined) {
             this.acceptedOffers.forEach(o => {
                 if (o.priceSpecification === undefined) {
                     return;
                 }
-                const priceComponents:
-                    factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType>[] = [];
-                (<any>o.priceSpecification).priceComponent
-                    .forEach((p: factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType>) => {
-                        if (p.name === undefined) {
-                            p.name = o.name;
-                        }
-                        if (o.itemOffered.typeOf !== factory.chevre.reservationType.EventReservation) {
-                            return;
-                        }
-                        const itemOffered = <factory.chevre.reservation.IReservation<
-                            factory.chevre.reservationType.EventReservation
-                        >>o.itemOffered;
-                        if (p.name === undefined
-                            && itemOffered.typeOf === factory.chevre.reservationType.EventReservation) {
-                            p.name = itemOffered.reservedTicket.ticketType.name;
-                        }
-                        priceComponents.push(p);
+                (<any>o.priceSpecification).priceComponent.forEach((p: any) => {
+                    if (p.name === undefined
+                        || typeof p.name === 'string'
+                        || p.price === undefined) {
+                        return;
+                    }
+                    priceComponents.push({
+                        name: p.name,
+                        price: p.price,
+                        priceCurrency: p.priceCurrency,
+                        referenceQuantity: (<any>p).referenceQuantity
                     });
-                priceComponentsList.push(priceComponents);
+                });
             });
         }
         const result: {
-            priceComponents: factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType>[];
+            priceComponent: {
+                name: { ja?: string; en?: string; };
+                price: number;
+                priceCurrency: factory.chevre.priceCurrency;
+                referenceQuantity: factory.chevre.quantitativeValue.IQuantitativeValue<factory.chevre.unitCode>
+            };
             count: number;
         }[] = [];
-        const sortPriceComponent = (p: factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType>[]) => {
-            return p.sort((a, b) => {
-                const priceA = (a.price === undefined) ? 0 : a.price;
-                const priceB = (b.price === undefined) ? 0 : b.price;
-                if (priceA < priceB) { return -1; }
-                if (priceA > priceB) { return 1; }
-                return 0;
-            });
-        };
-        priceComponentsList.forEach((p: factory.chevre.priceSpecification.IPriceSpecification<factory.chevre.priceSpecificationType>[]) => {
-            const findResult = result.find(r => {
-                return (r.priceComponents.length === p.length
-                    && JSON.stringify(sortPriceComponent(r.priceComponents)) === JSON.stringify(sortPriceComponent(p)));
-            });
+        priceComponents.forEach(p => {
+            const findResult = result.find(r => JSON.stringify(r.priceComponent) === JSON.stringify(p));
             if (findResult === undefined) {
-                result.push({ priceComponents: p, count: 1 });
-            } else {
-                findResult.count += 1;
+                result.push({ priceComponent: p, count: 1 });
+                return;
             }
+            findResult.count++;
         });
         return result;
     }

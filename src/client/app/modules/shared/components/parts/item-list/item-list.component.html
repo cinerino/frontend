@@ -75,17 +75,18 @@
 
 <div class="mb-2" *ngIf="!environment.DISPLAY_TICKETED_SEAT">
     <div *ngFor="let ticket of changeTicketCount()">
-        <p *ngFor="let priceComponent of ticket.priceComponents">
-            <span>{{ priceComponent.name | changeLanguage }}</span>
+        <p>
+            <span>{{ ticket.priceComponent.name | changeLanguage }}</span>
             <!--
-            --><span *ngIf="priceComponent.price > 0">&nbsp;/&nbsp;{{ priceComponent.price | currency :
-                priceComponent.priceCurrency }}</span>
+            --><span *ngIf="ticket.priceComponent.price > 0">&nbsp;/&nbsp;{{ ticket.priceComponent.price | currency :
+                ticket.priceComponent.priceCurrency }}</span>
             <!--
-            --><span *ngIf="priceComponent?.referenceQuantity?.value && priceComponent.price > 0">{{
-                'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value }
+            --><span *ngIf="ticket.priceComponent?.referenceQuantity?.value && ticket.priceComponent.price > 0">{{
+                'common.referenceQuantityValue' | translate: { value: ticket.priceComponent?.referenceQuantity?.value }
                 }}</span>
             <!--
-            --><span>&nbsp;×&nbsp;{{ ticket.count }}</span>
+            -->
+            <span>&nbsp;×&nbsp;{{ ticket.count }}</span>
         </p>
     </div>
 </div>
