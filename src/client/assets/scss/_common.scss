@@ -20,6 +20,8 @@
 
 html, body {
     height: 100%;
+    font-size: $body-font-size;
+    font-family: $font-family;
 }
 body {
     text-size-adjust: 100%;
@@ -27,8 +29,6 @@ body {
     user-select: none;
     background-attachment: fixed;
     background-color: $body-bg;
-    font-family: $font-family;
-    font-size: $body-font-size;
 }
 
 ::placeholder {
