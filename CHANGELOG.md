@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.7 - 2020-04-12
+### Changed
+ - 施設テンプレートでアドオンの個数選択可能に変更
+
 ## 3.6.6 - 2020-04-05
 ### Changed
  - redisClient生成変更
