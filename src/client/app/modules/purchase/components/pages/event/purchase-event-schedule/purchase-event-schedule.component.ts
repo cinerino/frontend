@@ -185,28 +185,31 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             return;
         }
         const performance = new Models.Purchase.Performance({ screeningEvent });
-        if (!performance.isInfinitetock()
-            && !screen.openSeatingAllowed
-            && performance.isTicketedSeat()) {
-            // 座席選択あり
-            this.router.navigate(['/purchase/event/seat']);
+        const movieTicketTypeOffers = Functions.Purchase.getMovieTicketTypeOffers({ screeningEventTicketOffers });
+
+        if (performance.isInfinitetock()
+            || !performance.isTicketedSeat()
+            || (screen.openSeatingAllowed && movieTicketTypeOffers.length === 0)) {
+            // 座席選択なし
+            this.modal.show(PurchaseEventTicketModalComponent, {
+                class: 'modal-dialog-centered modal-lg',
+                backdrop: 'static',
+                initialState: {
+                    screeningEventTicketOffers,
+                    screeningEventSeats,
+                    screeningEvent,
+                    cb: (params: {
+                        reservations: Models.Purchase.Reservation.IReservation[];
+                        additionalTicketText?: string;
+                    }) => {
+                        this.selectTicket(params);
+                    }
+                }
+            });
             return;
         }
-        this.modal.show(PurchaseEventTicketModalComponent, {
-            class: 'modal-dialog-centered modal-lg',
-            backdrop: 'static',
-            initialState: {
-                screeningEventTicketOffers,
-                screeningEventSeats,
-                screeningEvent,
-                cb: (params: {
-                    reservations: Models.Purchase.Reservation.IReservation[];
-                    additionalTicketText?: string;
-                }) => {
-                    this.selectTicket(params);
-                }
-            }
-        });
+        // 座席選択あり
+        this.router.navigate(['/purchase/event/seat']);
     }
 
     /**
