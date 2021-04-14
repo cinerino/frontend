@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.8 - 2020-04-14
+### Changed
+ - 施設テンプレートでムビチケを利用可能へ変更
+
 ## 3.6.7 - 2020-04-12
 ### Changed
  - 施設テンプレートでアドオンの個数選択可能に変更
