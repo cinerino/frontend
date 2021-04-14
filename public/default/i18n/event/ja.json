@@ -52,15 +52,20 @@
             },
             "seat": {
                 "title": "座席選択",
-                "read": "座席を選択してください。",
+                "read": "ご購入される座席を選択してください。",
                 "next": "次へ",
+                "consent": "利用規約に同意して次へ",
                 "terms": "利用規約",
                 "prev": "戻る",
-                "openSeating": "座席数", 
                 "alert": {
                     "limit": "同時購入可能数は{{value}}件までです。",
                     "temporaryReservation": "仮予約に失敗しました。<br>※すでに他のお客様が同じ座席を選択した場合もこのエラーが表示されます。",
                     "ticketNotfound": "販売可能券種がありません。"
+                },
+                "openSeating": {
+                    "title": "枚数選択",
+                    "read": "枚数を選択してください。",
+                    "seat": "枚数"
                 }
             },
             "ticket": {
