@@ -23,6 +23,7 @@ export class OrderMoneyTransferInputComponent implements OnInit {
     public SearchCountryField = SearchCountryField;
     public TooltipLabel = TooltipLabel;
     public CountryISO = CountryISO;
+    public isPasswordMask: boolean;
     @ViewChild('intlTelInput') private intlTelInput: NgxIntlTelInputComponent;
 
     constructor(
@@ -146,6 +147,19 @@ export class OrderMoneyTransferInputComponent implements OnInit {
      */
     public changeTelephone(value: string) {
         this.inputForm.controls.telephone.setValue(value);
+    }
+
+    /**
+     * パスワードマスク変更
+     */
+     public changePassWordMask() {
+        this.isPasswordMask = !this.isPasswordMask;
+        if (this.intlTelInput === undefined) {
+            return;
+        }
+        this.intlTelInput.cssClass = this.isPasswordMask
+            ? 'form-control'
+            : 'form-control text-security-disc';
     }
 
 }
