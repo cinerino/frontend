@@ -28,28 +28,40 @@
                 </div>
                 <div class="form-group mb-0">
                     <label class="mb-2" for="">{{ 'form.label.telephone' | translate }}</label>
-                    <app-numeric-keypad *ngIf="environment.INQUIRY_INPUT_KEYPAD" inputType="telephone"
-                        [inputValue]="inputForm.controls.telephone.value" (change)="changeTelephone($event)">
-                        <input type="password" class="form-control" formControlName="telephone" id="telephone"
-                            [placeholder]="'form.placeholder.telephone' | translate" readonly>
-                    </app-numeric-keypad>
-                    <ngx-intl-tel-input *ngIf="!environment.INQUIRY_INPUT_KEYPAD"
-                        #intlTelInput
-                        [cssClass]="'form-control text-security-disc'"
-                        [preferredCountries]="[CountryISO.Japan]"
-                        [enableAutoCountrySelect]="false"
-                        [enablePlaceholder]="true"
-                        [searchCountryFlag]="true"
-                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                        [selectFirstCountry]="false"
-                        [selectedCountryISO]="CountryISO.Japan"
-                        [maxLength]="15"
-                        [tooltipField]="TooltipLabel.Name"
-                        [phoneValidation]="true"
-                        [separateDialCode]="false"
-                        name="telephone"
-                        formControlName="telephone"
-                        type="password"></ngx-intl-tel-input>
+                    <div class="position-relative" *ngIf="environment.INQUIRY_INPUT_KEYPAD">
+                        <app-numeric-keypad inputType="telephone"
+                            [inputValue]="inputForm.controls.telephone.value" (change)="changeTelephone($event)">
+                            <input [type]="(isPasswordMask) ? 'password' : 'text'" class="form-control" formControlName="telephone" id="telephone"
+                                [placeholder]="'form.placeholder.telephone' | translate" readonly>
+                        </app-numeric-keypad>
+                        <button type="button" class="btn position-absolute" style="top: 0; right: 0;" (click)="changePassWordMask()">
+                            <i *ngIf="isPasswordMask" class="fas fa-eye"></i>
+                            <i *ngIf="!isPasswordMask" class="fas fa-eye-slash"></i>
+                        </button>
+                    </div>
+                    <div class="position-relative" *ngIf="!environment.INQUIRY_INPUT_KEYPAD">
+                        <ngx-intl-tel-input
+                            #intlTelInput
+                            [cssClass]="'form-control text-security-disc'"
+                            [preferredCountries]="[CountryISO.Japan]"
+                            [enableAutoCountrySelect]="false"
+                            [enablePlaceholder]="true"
+                            [searchCountryFlag]="true"
+                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                            [selectFirstCountry]="false"
+                            [selectedCountryISO]="CountryISO.Japan"
+                            [maxLength]="15"
+                            [tooltipField]="TooltipLabel.Name"
+                            [phoneValidation]="true"
+                            [separateDialCode]="false"
+                            name="telephone"
+                            formControlName="telephone"
+                            type="password"></ngx-intl-tel-input>
+                            <button type="button" class="btn position-absolute" style="top: 0; right: 0;" (click)="changePassWordMask()">
+                                <i *ngIf="isPasswordMask" class="fas fa-eye"></i>
+                                <i *ngIf="!isPasswordMask" class="fas fa-eye-slash"></i>
+                            </button>
+                    </div>
                     <!-- <input *ngIf="!environment.INQUIRY_INPUT_KEYPAD" type="password" class="form-control"
                         formControlName="telephone" id="telephone"
                         [placeholder]="'form.placeholder.telephone' | translate"> -->
