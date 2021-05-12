@@ -190,7 +190,7 @@ export class InquiryInputComponent implements OnInit {
             return;
         }
         this.intlTelInput.cssClass = this.isPasswordMask
-            ? 'form-control'
-            : 'form-control text-security-disc';
+            ? 'form-control text-security-disc'
+            : 'form-control';
     }
 }
