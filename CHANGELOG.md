@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.6.9 - 2020-05-12
+### Added
+ - パスワード入力欄にマスクONOFF機能追加
+
 ## 3.6.8 - 2020-04-14
 ### Changed
  - 施設テンプレートでムビチケを利用可能へ変更
