@@ -7,11 +7,12 @@
                 <p *ngIf="priceComponent.price > 0" class="w-50 text-right">
                     <span>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</span>
                     <!--
-                    --><span class="text-small"
-                        *ngIf="priceComponent?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value } }}</span>
+                    --><span class="text-small" *ngIf="priceComponent?.referenceQuantity?.value">{{
+                        'common.referenceQuantityValue' | translate: { value: priceComponent?.referenceQuantity?.value }
+                        }}</span>
                 </p>
             </div>
-            <p *ngIf="ticket.ticketOffer.description" class="text-small text-left">
+            <p *ngIf="ticket.ticketOffer.description" class="text-small text-left mt-1">
                 {{ ticket.ticketOffer.description | changeLanguage }}
             </p>
             <p *ngIf="ticket.movieTicket" class="text-small text-left">
@@ -31,16 +32,21 @@
                     <div class="w-50">{{ addOn.priceSpecification?.name | changeLanguage }}</div>
                     <div *ngIf="addOn.priceSpecification?.price > 0" class="w-50 text-right">
                         {{ addOn.priceSpecification?.price | currency : addOn.priceSpecification?.priceCurrency }}<span
-                            *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{ 'common.referenceQuantityValue' | translate: { value: addOn.priceSpecification?.referenceQuantity?.value } }}</span>
+                            *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{
+                            'common.referenceQuantityValue' | translate: { value:
+                            addOn.priceSpecification?.referenceQuantity?.value } }}</span>
                     </div>
                 </div>
             </app-checkbox>
+            <p *ngIf="addOn.description" class="text-small text-left mt-1">
+                {{ addOn.description | changeLanguage }}
+            </p>
         </li>
     </ul>
     <div class="buttons mx-auto text-center">
-        <button type="button" class="btn btn-primary btn-block py-3 mb-3"
-            (click)="selsctOption()">{{ 'common.done' | translate }}</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-3 btn-sm"
-            (click)="modal.hide()">{{ 'common.close' | translate }}</button>
+        <button type="button" class="btn btn-primary btn-block py-3 mb-3" (click)="selsctOption()">{{ 'common.done' |
+            translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3 btn-sm" (click)="modal.hide()">{{
+            'common.close' | translate }}</button>
     </div>
 </div>

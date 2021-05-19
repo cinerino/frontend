@@ -54,7 +54,7 @@
                                 'common.referenceQuantityValue' | translate: { value:
                                 priceComponent?.referenceQuantity?.value } }}</span>
                         </p>
-                        <p *ngIf="ticket.description" class="text-x-small text-left">
+                        <p *ngIf="ticket.description" class="text-x-small text-left mt-1">
                             {{ ticket.description | changeLanguage }}</p>
                     </div>
                     <div class="col-4">
@@ -72,15 +72,19 @@
                     <div class="container px-0">
                         <div class="row justify-content-between align-items-center">
                             <div class="col-8">
-                                {{ addOn.priceSpecification?.name | changeLanguage }}
-                                <!--
+                                <p>
+                                    {{ addOn.priceSpecification?.name | changeLanguage }}
+                                    <!--
                                 -->&nbsp;/&nbsp;
-                                <!--
+                                    <!--
                                 -->{{ addOn.priceSpecification?.price | currency :
-                                addOn.priceSpecification?.priceCurrency
-                                }}<span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{
-                                    'common.referenceQuantityValue' | translate: { value:
-                                    addOn.priceSpecification?.referenceQuantity?.value } }}</span>
+                                    addOn.priceSpecification?.priceCurrency
+                                    }}<span *ngIf="addOn.priceSpecification?.referenceQuantity?.value">{{
+                                        'common.referenceQuantityValue' | translate: { value:
+                                        addOn.priceSpecification?.referenceQuantity?.value } }}</span>
+                                </p>
+                                <p *ngIf="addOn.description" class="text-x-small text-left mt-1">
+                                    {{ addOn.description | changeLanguage }}</p>
                             </div>
                             <div class="col-4">
                                 <select class="form-control" (change)="changeAddOn(ticket.id, addOn.id, $event)">
