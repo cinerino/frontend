@@ -1,4 +1,4 @@
-<div *ngIf="isMovieTicket || isMovieTicket" class="mb-4 container bg-white">
+<div *ngIf="isMovieTicket || isMGTicket" class="mb-4 container bg-white">
     <div *ngIf="isMovieTicket" class="py-3 row align-items-center movieticket">
         <p class="col-12 col-md-6 mb-2 mb-md-0">{{ 'common.paymentMethodTypes.movieTicket.use' | translate }}</p>
         <div class="col-12 col-md-6">
@@ -13,7 +13,8 @@
         <div class="col-12 col-md-6">
             <button type="button" (click)="select.emit(paymentMethodType.MGTicket)"
                 class="btn btn-block bg-white border border-gray py-3 mg-ticket">
-                <div class="font-weight-bold text-large bg-image">{{ 'common.paymentMethodTypes.mgTicket.label' | translate }}</div>
+                <div class="font-weight-bold text-large bg-image">{{ 'common.paymentMethodTypes.mgTicket.label' |
+                    translate }}</div>
                 <!-- <img src="/assets/images/mvtk.svg" height="24" alt=""> -->
             </button>
         </div>
