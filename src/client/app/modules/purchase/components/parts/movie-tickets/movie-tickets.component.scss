@@ -1,0 +1,11 @@
+.bg-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.movie-ticket {
+    .bg-image {
+        background-image: url(/assets/images/mvtk.svg);
+    }
+}
