@@ -34,22 +34,29 @@
                             <option value="man">{{ 'form.option.man' | translate }}</option>
                             <option value="woman">{{ 'form.option.woman' | translate }}</option>
                         </select>
-                        <input
-                            *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType !== 'textarea'"
+                        <input *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType === 'input'"
                             type="text" class="form-control" [formControlName]="key" [id]="key" placeholder="">
                         <textarea
                             *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType === 'textarea'"
                             class="form-control" [formControlName]="key" [id]="key" placeholder=""></textarea>
+                        <select *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType === 'select'"
+                            class="form-control" [formControlName]="key" [id]="key" placeholder="">
+                            <option *ngFor="let option of getAdditionalProperty(key)?.option" [value]="option.value">
+                                {{ option.label | changeLanguage }}
+                            </option>
+                        </select>
                         <div *ngIf="profileForm.controls[key].invalid && profileForm.controls[key].touched"
                             class="mt-2">
                             <p *ngIf="profileForm.controls[key].errors?.required" class="text-danger">
                                 {{ 'form.validation.required' | translate }}
                             </p>
                             <p *ngIf="profileForm.controls[key].errors?.maxlength" class="text-danger">
-                                {{ 'form.validation.maxlength' | translate:{ value: profileForm.controls[key].errors?.maxlength.requiredLength } }}
+                                {{ 'form.validation.maxlength' | translate:{ value:
+                                profileForm.controls[key].errors?.maxlength.requiredLength } }}
                             </p>
                             <p *ngIf="profileForm.controls[key].errors?.minlength" class="text-danger">
-                                {{ 'form.validation.minlength' | translate:{ value: profileForm.controls[key].errors?.minlength.requiredLength } }}
+                                {{ 'form.validation.minlength' | translate:{ value:
+                                profileForm.controls[key].errors?.minlength.requiredLength } }}
                             </p>
                             <p *ngIf="profileForm.controls[key].errors?.email" class="text-danger">
                                 {{ 'form.validation.email' | translate }}
@@ -71,8 +78,8 @@
                         </div>
                         <div *ngIf="key === 'email'">
                             <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.email' | translate"></p>
-                            <button type="button" class="btn btn-primary btn-sm"
-                                (click)="copyDomain()">{{ 'purchase.input.copyDomain' | translate }}</button>
+                            <button type="button" class="btn btn-primary btn-sm" (click)="copyDomain()">{{
+                                'purchase.input.copyDomain' | translate }}</button>
                         </div>
                         <div *ngIf="key === 'telephone'">
                             <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.telephone' | translate"></p>
@@ -182,7 +189,8 @@
             </div>
             <div *ngIf="(user | async)?.creditCards.length > 0 && !usedCreditCard" class="buttons mx-auto">
                 <button type="button" class="btn btn-outline-primary btn-block py-3" [disabled]="isLoading | async"
-                    (click)="openRegisteredCreditCard()">{{ 'purchase.input.registeredCreditCard' | translate }}</button>
+                    (click)="openRegisteredCreditCard()">{{ 'purchase.input.registeredCreditCard' | translate
+                    }}</button>
             </div>
             <div *ngIf="usedCreditCard" class="buttons mx-auto">
                 <button type="button" class="btn btn-outline-primary btn-block py-3"
@@ -202,8 +210,8 @@
             (click)="onSubmit()">{{ 'purchase.input.next' | translate }}</button>
 
         <div *ngIf="environment.VIEW_TYPE === viewType.Cinema">
-            <button type="button" class="btn btn-outline-primary btn-block py-3"
-                routerLink="/purchase/cinema/ticket">{{ 'purchase.input.prev' | translate }}</button>
+            <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/purchase/cinema/ticket">{{
+                'purchase.input.prev' | translate }}</button>
         </div>
         <div *ngIf="environment.VIEW_TYPE === viewType.Event">
             <button type="button" class="btn btn-outline-primary btn-block py-3"

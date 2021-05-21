@@ -8,8 +8,12 @@ export interface IProfile {
     pattern?: RegExp;
     maxLength?: number;
     minLength?: number;
-    label?: { ja: string; en: string; };
-    inputType?: 'input' | 'textarea';
+    label?: { ja: string; en: string };
+    inputType?: 'input' | 'textarea' | 'select';
+    option?: {
+        label: { ja: string; en: string };
+        value: string;
+    }[];
 }
 
 /**
@@ -95,7 +99,7 @@ export interface IEnvironment {
     /**
      * フッターリンク
      */
-    FOOTER_LINK: { url: string; name: { ja: string; en: string; } }[];
+    FOOTER_LINK: { url: string; name: { ja: string; en: string } }[];
     /**
      * 購入アイテム上限数
      */
@@ -111,7 +115,7 @@ export interface IEnvironment {
     /**
      * 取引追加特性
      */
-    PURCHASE_TRANSACTION_IDENTIFIER: { name: string, value: string }[];
+    PURCHASE_TRANSACTION_IDENTIFIER: { name: string; value: string }[];
     /**
      * スケジュール表示期間
      */
@@ -242,17 +246,36 @@ const defaultEnvironment: IEnvironment = {
     VIEW_TYPE: 'event',
     GTM_ID: '',
     ANALYTICS_ID: '',
-    STORAGE_NAME: (getProject().projectId === '')
-        ? 'FRONTEND-STATE'
-        : `${getProject().projectId.toUpperCase()}-FRONTEND-STATE`,
+    STORAGE_NAME:
+        getProject().projectId === ''
+            ? 'FRONTEND-STATE'
+            : `${getProject().projectId.toUpperCase()}-FRONTEND-STATE`,
     STORAGE_TYPE: 'sessionStorage',
     BASE_URL: '/purchase/root',
     LANGUAGE: ['ja'],
     PROFILE: [
-        { key: 'familyName', value: '', required: true, pattern: /^[ァ-ヶー]+$/, maxLength: 12 },
-        { key: 'givenName', value: '', required: true, pattern: /^[ァ-ヶー]+$/, maxLength: 12 },
+        {
+            key: 'familyName',
+            value: '',
+            required: true,
+            pattern: /^[ァ-ヶー]+$/,
+            maxLength: 12,
+        },
+        {
+            key: 'givenName',
+            value: '',
+            required: true,
+            pattern: /^[ァ-ヶー]+$/,
+            maxLength: 12,
+        },
         { key: 'email', value: '', required: true, maxLength: 50 },
-        { key: 'telephone', value: '', required: true, maxLength: 15, minLength: 9 }
+        {
+            key: 'telephone',
+            value: '',
+            required: true,
+            maxLength: 15,
+            minLength: 9,
+        },
     ],
     PORTAL_SITE_URL: '',
     DISPLAY_TICKETED_SEAT: true,
@@ -300,11 +323,12 @@ const defaultEnvironment: IEnvironment = {
 export function getEnvironment(): IEnvironment {
     const environment = {
         ...defaultEnvironment,
-        STORAGE_NAME: (getProject().projectId === '')
-            ? 'FRONTEND-STATE'
-            : `${getProject().projectId.toUpperCase()}-FRONTEND-STATE`,
+        STORAGE_NAME:
+            getProject().projectId === ''
+                ? 'FRONTEND-STATE'
+                : `${getProject().projectId.toUpperCase()}-FRONTEND-STATE`,
         ...(<any>window).environment,
-        production: (document.querySelector('body.production') !== null)
+        production: document.querySelector('body.production') !== null,
     };
     return environment;
 }
