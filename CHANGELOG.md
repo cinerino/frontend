@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.8.0 - 2021-05-25
+
+### Changed
+
+-   購入者情報のカスタムフィールドに select、textarea 対応
+
 ## 3.7.0 - 2021-05-20
 
 ### Changed
