@@ -4,17 +4,25 @@ import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { BAD_REQUEST, TOO_MANY_REQUESTS } from 'http-status';
 import * as moment from 'moment';
-import { BsDatepickerContainerComponent, BsDatepickerDirective, BsLocaleService } from 'ngx-bootstrap/datepicker';
+import {
+    BsDatepickerContainerComponent,
+    BsDatepickerDirective,
+    BsLocaleService,
+} from 'ngx-bootstrap/datepicker';
 import { Observable } from 'rxjs';
 import { Functions } from '../../../../../..';
 import { getEnvironment } from '../../../../../../../environments/environment';
-import { ActionService, MasterService, UtilService } from '../../../../../../services';
+import {
+    ActionService,
+    MasterService,
+    UtilService,
+} from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
 @Component({
     selector: 'app-purchase-event-date',
     templateUrl: './purchase-event-date.component.html',
-    styleUrls: ['./purchase-event-date.component.scss']
+    styleUrls: ['./purchase-event-date.component.scss'],
 })
 export class PurchaseEventDateComponent implements OnInit, OnDestroy {
     public purchase: Observable<reducers.IPurchaseState>;
@@ -31,7 +39,8 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
     public external = Functions.Util.getExternalData();
     private updateTimer: any;
     public theaters: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom[];
-    @ViewChild('datepicker', { static: true }) private datepicker: BsDatepickerDirective;
+    @ViewChild('datepicker', { static: true })
+    private datepicker: BsDatepickerDirective;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -39,8 +48,8 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
         private actionService: ActionService,
         private masterService: MasterService,
         private localeService: BsLocaleService,
-        private utilService: UtilService,
-    ) { }
+        private utilService: UtilService
+    ) {}
 
     /**
      * 初期化
@@ -59,7 +68,10 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
                 await this.actionService.purchase.cancelTransaction();
             }
             this.scheduleDate = moment(moment().format('YYYYMMDD'))
-                .add(this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE, 'day')
+                .add(
+                    this.environment.PURCHASE_SCHEDULE_DEFAULT_SELECTED_DATE,
+                    'day'
+                )
                 .toDate();
             const external = Functions.Util.getExternalData();
             if (external.scheduleDate !== undefined) {
@@ -70,7 +82,7 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
                 throw new Error('theater notfound');
             }
             const theater = await this.getDefaultTheater();
-            this.selectTheater(theater);
+            await this.selectTheater(theater);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -98,7 +110,7 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
                 this.router.navigate(['/error']);
                 return;
             }
-            this.selectTheater(purchase.theater);
+            await this.getSchedule();
         }, time);
     }
 
@@ -107,10 +119,16 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
      */
     private async getDefaultTheater() {
         const purchase = await this.actionService.purchase.getData();
-        let theater = (purchase.theater === undefined) ? this.theaters[0] : purchase.theater;
+        let theater =
+            purchase.theater === undefined
+                ? this.theaters[0]
+                : purchase.theater;
         const findResult = this.theaters.find((t) => {
             const external = Functions.Util.getExternalData();
-            return (external.theaterBranchCode !== undefined && t.branchCode === external.theaterBranchCode);
+            return (
+                external.theaterBranchCode !== undefined &&
+                t.branchCode === external.theaterBranchCode
+            );
         });
         if (findResult !== undefined) {
             theater = findResult;
@@ -121,7 +139,9 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
     /**
      * 劇場選択
      */
-    public async selectTheater(theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom) {
+    public async selectTheater(
+        theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom
+    ) {
         this.actionService.purchase.selectTheater(theater);
         await this.selectDate(this.scheduleDate);
     }
@@ -134,61 +154,32 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
             return;
         }
         this.scheduleDate = date;
-        const now = moment((await this.utilService.getServerTime()).date).toDate();
-        const selectDate = moment(moment(this.scheduleDate).format('YYYYMMDD')).toDate();
+        const now = moment(
+            (await this.utilService.getServerTime()).date
+        ).toDate();
+        const selectDate = moment(
+            moment(this.scheduleDate).format('YYYYMMDD')
+        ).toDate();
         const salesStopDate = moment(moment().format('YYYYMMDD'))
-            .add(this.environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE,
-                this.environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT)
+            .add(
+                this.environment.PURCHASE_SCHEDULE_SALES_DATE_VALUE,
+                this.environment.PURCHASE_SCHEDULE_SALES_DATE_UNIT
+            )
             .toDate();
-        this.isSales = (selectDate >= salesStopDate);
-        if (this.isSales
-            && this.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME !== ''
-            && moment(salesStopDate).unix() === moment(selectDate).unix()) {
-            const salesStopTime = moment(this.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME, 'HHmmss').format('HHmmss');
-            this.isSales = (moment(now).format('HHmmss') < salesStopTime);
+        this.isSales = selectDate >= salesStopDate;
+        if (
+            this.isSales &&
+            this.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME !== '' &&
+            moment(salesStopDate).unix() === moment(selectDate).unix()
+        ) {
+            const salesStopTime = moment(
+                this.environment.PURCHASE_SCHEDULE_SALES_STOP_TIME,
+                'HHmmss'
+            ).format('HHmmss');
+            this.isSales = moment(now).format('HHmmss') < salesStopTime;
         }
         try {
-            const purchase = await this.actionService.purchase.getData();
-            const theater = purchase.theater;
-            if (theater === undefined) {
-                return;
-            }
-            const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
-            this.actionService.purchase.selectScheduleDate(scheduleDate);
-            const external = Functions.Util.getExternalData();
-            const creativeWorks = await this.masterService.searchMovies({
-                offers: { availableFrom: moment(scheduleDate).toDate() }
-            });
-            const screeningEventSeries = (this.environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries')
-                ? await this.masterService.searchScreeningEventSeries({
-                    location: {
-                        branchCode: { $eq: theater.branchCode }
-                    },
-                    workPerformed: { identifiers: creativeWorks.map(c => c.identifier) }
-                })
-                : [];
-            const screeningRooms = (this.environment.PURCHASE_SCHEDULE_SORT === 'screen')
-                ? await this.masterService.searchScreeningRooms({
-                    branchCode: { $eq: theater.branchCode }
-                })
-                : [];
-            this.screeningEvents = await this.masterService.searchScreeningEvent({
-                superEvent: {
-                    ids: (external.superEventId === undefined)
-                        ? [] : [external.superEventId],
-                    locationBranchCodes: [theater.branchCode],
-                    workPerformedIdentifiers: (external.workPerformedId === undefined)
-                        ? [] : [external.workPerformedId],
-                },
-                startFrom: moment(scheduleDate).toDate(),
-                startThrough: moment(scheduleDate).add(1, 'day').add(-1, 'millisecond').toDate(),
-                creativeWorks,
-                screeningEventSeries,
-                screeningRooms
-            });
-            this.screeningEventsGroup =
-                Functions.Purchase.screeningEvents2ScreeningEventSeries({ screeningEvents: this.screeningEvents, now });
-            this.update();
+            await this.getSchedule();
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -196,19 +187,90 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * スケジュール取得
+     */
+    public async getSchedule() {
+        const now = moment(
+            (await this.utilService.getServerTime()).date
+        ).toDate();
+        const { theater } = await this.actionService.purchase.getData();
+        if (theater === undefined) {
+            return;
+        }
+        const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
+        this.actionService.purchase.selectScheduleDate(scheduleDate);
+        const external = Functions.Util.getExternalData();
+        const creativeWorks = await this.masterService.searchMovies({
+            offers: { availableFrom: moment(scheduleDate).toDate() },
+        });
+        const screeningEventSeries =
+            this.environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries'
+                ? await this.masterService.searchScreeningEventSeries({
+                      location: {
+                          branchCode: { $eq: theater.branchCode },
+                      },
+                      workPerformed: {
+                          identifiers: creativeWorks.map((c) => c.identifier),
+                      },
+                  })
+                : [];
+        const screeningRooms =
+            this.environment.PURCHASE_SCHEDULE_SORT === 'screen'
+                ? await this.masterService.searchScreeningRooms({
+                      branchCode: { $eq: theater.branchCode },
+                  })
+                : [];
+        this.screeningEvents = await this.masterService.searchScreeningEvent({
+            superEvent: {
+                ids:
+                    external.superEventId === undefined
+                        ? []
+                        : [external.superEventId],
+                locationBranchCodes: [theater.branchCode],
+                workPerformedIdentifiers:
+                    external.workPerformedId === undefined
+                        ? []
+                        : [external.workPerformedId],
+            },
+            startFrom: moment(scheduleDate).toDate(),
+            startThrough: moment(scheduleDate)
+                .add(1, 'day')
+                .add(-1, 'millisecond')
+                .toDate(),
+            creativeWorks,
+            screeningEventSeries,
+            screeningRooms,
+        });
+        this.screeningEventsGroup =
+            Functions.Purchase.screeningEvents2ScreeningEventSeries({
+                screeningEvents: this.screeningEvents,
+                now,
+            });
+        this.update();
+    }
+
+    /**
      * 次へ
      */
     public async onSubmit() {
         try {
-            const screeningEvent = this.screeningEvents
-                .find(s => s.offers !== undefined && s.offers.seller !== undefined && s.offers.seller.id !== undefined);
-            if (screeningEvent === undefined
-                || screeningEvent.offers === undefined
-                || screeningEvent.offers.seller === undefined
-                || screeningEvent.offers.seller.id === undefined) {
+            const screeningEvent = this.screeningEvents.find(
+                (s) =>
+                    s.offers !== undefined &&
+                    s.offers.seller !== undefined &&
+                    s.offers.seller.id !== undefined
+            );
+            if (
+                screeningEvent === undefined ||
+                screeningEvent.offers === undefined ||
+                screeningEvent.offers.seller === undefined ||
+                screeningEvent.offers.seller.id === undefined
+            ) {
                 throw new Error('screeningEvent.offers.seller === undefined');
             }
-            await this.actionService.purchase.getSeller(screeningEvent.offers.seller.id);
+            await this.actionService.purchase.getSeller(
+                screeningEvent.offers.seller.id
+            );
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -245,9 +307,11 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
      * Datepicker言語設定
      */
     public setDatePicker() {
-        this.user.subscribe((user) => {
-            this.localeService.use(user.language);
-        }).unsubscribe();
+        this.user
+            .subscribe((user) => {
+                this.localeService.use(user.language);
+            })
+            .unsubscribe();
     }
 
     /**
@@ -264,5 +328,4 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
     public onShowPicker(container: BsDatepickerContainerComponent) {
         Functions.Util.iOSDatepickerTapBugFix(container, [this.datepicker]);
     }
-
 }
