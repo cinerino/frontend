@@ -178,6 +178,8 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
             ).format('HHmmss');
             this.isSales = moment(now).format('HHmmss') < salesStopTime;
         }
+        const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
+        this.actionService.purchase.selectScheduleDate(scheduleDate);
         try {
             await this.getSchedule();
         } catch (error) {
@@ -198,7 +200,6 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
             return;
         }
         const scheduleDate = moment(this.scheduleDate).format('YYYY-MM-DD');
-        this.actionService.purchase.selectScheduleDate(scheduleDate);
         const external = Functions.Util.getExternalData();
         const creativeWorks = await this.masterService.searchMovies({
             offers: { availableFrom: moment(scheduleDate).toDate() },
