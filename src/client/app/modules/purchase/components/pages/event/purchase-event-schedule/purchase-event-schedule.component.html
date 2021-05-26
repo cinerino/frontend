@@ -2,8 +2,22 @@
     <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.schedule.title' | translate }}</h2>
     <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.schedule.read' | translate"></p>
 
-    <div *ngIf="(purchase | async)?.scheduleDate" class="d-flex align-items-center bg-white py-2 px-3 mb-3">
-        <div>{{ (purchase | async)?.scheduleDate | formatDate: 'YYYY/MM/DD (ddd)' }}</div>
+    <div *ngIf="scheduleDate && environment.PURCHASE_DATE_CHANGE" class="mb-3 position-relative">
+        <div class="input-group">
+            <input type="text" placeholder="Datepicker" class="form-control" #datepicker="bsDatepicker" bsDatepicker
+                [bsValue]="scheduleDate"
+                [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD', adaptivePosition: true, showWeekNumbers: false, minDate: moment().toDate() }"
+                (bsValueChange)="selectDate($event)" readonly (click)="setDatePicker()"
+                (onShown)="onShowPicker($event)">
+            <div class="input-group-append pointer" (click)="toggleDatepicker()">
+                <span class="input-group-text"><i class="fas fa-caret-down"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="scheduleDate && !environment.PURCHASE_DATE_CHANGE"
+        class="d-flex align-items-center bg-white py-2 px-3 mb-3">
+        <div>{{ moment(scheduleDate).format('YYYY/MM/DD (ddd)') }}</div>
         <button type="button" class="btn btn-link btn-sm ml-auto" routerLink="/purchase/event/date">{{ 'common.change' |
             translate }}</button>
     </div>

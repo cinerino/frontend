@@ -172,6 +172,10 @@ export interface IEnvironment {
      */
     PURCHASE_WARNING: boolean;
     /**
+     * 購入日変更
+     */
+    PURCHASE_DATE_CHANGE: boolean;
+    /**
      * 注文キャンセルメールカスタム
      */
     ORDER_CANCEL_MAIL_CUSTOM: boolean;
@@ -302,6 +306,7 @@ const defaultEnvironment: IEnvironment = {
     PURCHASE_COMPLETE_MAIL_CUSTOM: true,
     PURCHASE_TERMS: false,
     PURCHASE_WARNING: false,
+    PURCHASE_DATE_CHANGE: false,
     ORDER_CANCEL_MAIL_CUSTOM: true,
     ORDER_AUTHORIZE_CODE_EXPIRES: '1814400',
     ORDER_MONEY_TRANSFER_DESCRIPTION: '受け取り',
