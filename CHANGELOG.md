@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.9.0 - 2021-05-26
+
+### Changed
+
+-   カート機能で日付変更可能に変更
+
 ## 3.8.0 - 2021-05-25
 
 ### Changed
