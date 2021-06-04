@@ -167,7 +167,6 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
                 .add(1, 'day')
                 .add(-1, 'millisecond')
                 .toDate(),
-            creativeWorks: this.creativeWorks,
             screeningEventSeries,
             screeningRooms,
         });
