@@ -4,7 +4,12 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { ActionService, MasterService, QRCodeService, UtilService } from '../../../../../services';
+import {
+    ActionService,
+    MasterService,
+    QRCodeService,
+    UtilService,
+} from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { AccountChargeModalComponent } from '../../../../shared/components/parts/account/charge-modal/charge-modal.component';
 import { AccountOpenModalComponent } from '../../../../shared/components/parts/account/open-modal/open-modal.component';
@@ -13,7 +18,7 @@ import { AccountTransferModalComponent } from '../../../../shared/components/par
 @Component({
     selector: 'app-mypage-account',
     templateUrl: './mypage-account.component.html',
-    styleUrls: ['./mypage-account.component.scss']
+    styleUrls: ['./mypage-account.component.scss'],
 })
 export class MypageAccountComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
@@ -28,7 +33,7 @@ export class MypageAccountComponent implements OnInit {
         private actionService: ActionService,
         private masterService: MasterService,
         private qrcodeService: QRCodeService
-    ) { }
+    ) {}
 
     /**
      * 初期化
@@ -48,7 +53,9 @@ export class MypageAccountComponent implements OnInit {
     /**
      * 入金モーダル
      */
-    public async openChageAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>) {
+    public async openChageAccountModal(
+        account: factory.ownershipInfo.IOwnershipInfo<factory.chevre.ownershipInfo.IAccount>
+    ) {
         const userData = await this.actionService.user.getData();
         const creditCards = userData.creditCards;
         this.modal.show(AccountChargeModalComponent, {
@@ -63,35 +70,46 @@ export class MypageAccountComponent implements OnInit {
                     try {
                         const creditCard = {
                             memberId: 'me',
-                            cardSeq: Number(params.creditCard.cardSeq)
+                            cardSeq: Number(params.creditCard.cardSeq),
                         };
                         const profile = userData.profile;
                         if (profile === undefined) {
                             throw new Error('profile undefined');
                         }
-                        await this.actionService.user.chargeAccount({ ...params, account, profile, creditCard });
+                        await this.actionService.user.chargeAccount({
+                            ...params,
+                            account,
+                            profile,
+                            creditCard,
+                        });
                         await this.actionService.user.getAccount();
                         this.utilService.openAlert({
                             title: this.translate.instant('common.complete'),
-                            body: this.translate.instant('mypage.account.alert.chargeSuccess')
+                            body: this.translate.instant(
+                                'mypage.account.alert.chargeSuccess'
+                            ),
                         });
                     } catch (error) {
                         console.error(error);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
-                            body: this.translate.instant('mypage.account.alert.chargeFail')
+                            body: this.translate.instant(
+                                'mypage.account.alert.chargeFail'
+                            ),
                         });
                     }
-                }
+                },
             },
-            class: 'modal-dialog-centered'
+            class: 'modal-dialog-centered',
         });
     }
 
     /**
      * 転送モーダル
      */
-    public async openTransferAccountModal(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>) {
+    public async openTransferAccountModal(
+        account: factory.ownershipInfo.IOwnershipInfo<factory.chevre.ownershipInfo.IAccount>
+    ) {
         const userData = await this.actionService.user.getData();
         this.modal.show(AccountTransferModalComponent, {
             initialState: {
@@ -100,29 +118,37 @@ export class MypageAccountComponent implements OnInit {
                     seller: factory.chevre.seller.ISeller;
                     amount: number;
                     description: string;
-                    accountNumber: string
+                    accountNumber: string;
                 }) => {
                     try {
                         const profile = userData.profile;
                         if (profile === undefined) {
                             throw new Error('profile undefined');
                         }
-                        await this.actionService.user.transferAccount({ ...params, account, profile });
+                        await this.actionService.user.transferAccount({
+                            ...params,
+                            account,
+                            profile,
+                        });
                         await this.actionService.user.getAccount();
                         this.utilService.openAlert({
                             title: this.translate.instant('common.complete'),
-                            body: this.translate.instant('mypage.account.alert.transferSuccess')
+                            body: this.translate.instant(
+                                'mypage.account.alert.transferSuccess'
+                            ),
                         });
                     } catch (error) {
                         console.error(error);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
-                            body: this.translate.instant('mypage.account.alert.transferFail')
+                            body: this.translate.instant(
+                                'mypage.account.alert.transferFail'
+                            ),
                         });
                     }
-                }
+                },
             },
-            class: 'modal-dialog-centered'
+            class: 'modal-dialog-centered',
         });
     }
 
@@ -134,31 +160,37 @@ export class MypageAccountComponent implements OnInit {
             initialState: {
                 cb: async (params: {
                     name: string;
-                    accountType: factory.accountType
+                    accountType: factory.accountType;
                 }) => {
                     try {
                         await this.actionService.user.openAccount(params);
                         await this.actionService.user.getAccount();
                         this.utilService.openAlert({
                             title: this.translate.instant('common.complete'),
-                            body: this.translate.instant('mypage.account.alert.openAccountSuccess')
+                            body: this.translate.instant(
+                                'mypage.account.alert.openAccountSuccess'
+                            ),
                         });
                     } catch (error) {
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
-                            body: this.translate.instant('mypage.account.alert.openAccountFail')
+                            body: this.translate.instant(
+                                'mypage.account.alert.openAccountFail'
+                            ),
                         });
                     }
-                }
+                },
             },
-            class: 'modal-dialog-centered'
+            class: 'modal-dialog-centered',
         });
     }
 
     /**
      * 口座閉鎖確認
      */
-    public confirmCloseAccount(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>) {
+    public confirmCloseAccount(
+        account: factory.ownershipInfo.IOwnershipInfo<factory.chevre.ownershipInfo.IAccount>
+    ) {
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('mypage.account.confirm.closeAccount'),
@@ -168,27 +200,32 @@ export class MypageAccountComponent implements OnInit {
                     await this.actionService.user.getAccount();
                     this.utilService.openAlert({
                         title: this.translate.instant('common.complete'),
-                        body: this.translate.instant('mypage.account.alert.closeAccountSuccess')
+                        body: this.translate.instant(
+                            'mypage.account.alert.closeAccountSuccess'
+                        ),
                     });
                 } catch (error) {
                     console.error(error);
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
-                        body: this.translate.instant('mypage.account.alert.closeAccountFail')
+                        body: this.translate.instant(
+                            'mypage.account.alert.closeAccountFail'
+                        ),
                     });
                 }
-            }
+            },
         });
     }
 
-    public openQRCodeViewer(event: Event, account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>) {
+    public openQRCodeViewer(
+        event: Event,
+        account: factory.ownershipInfo.IOwnershipInfo<factory.chevre.ownershipInfo.IAccount>
+    ) {
         event.preventDefault();
         this.qrcodeService.openQRCodeViewer({
             title: this.translate.instant('mypage.account.accountNumber'),
             body: account.typeOfGood.accountNumber,
-            code: account.typeOfGood.accountNumber
+            code: account.typeOfGood.accountNumber,
         });
     }
-
 }
-
