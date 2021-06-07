@@ -15,9 +15,7 @@ import { AlertModalComponent } from './components/parts/alert-modal/alert-modal.
 import { ConfirmModalComponent } from './components/parts/confirm-modal/confirm-modal.component';
 import { ContentsComponent } from './components/parts/contents/contents.component';
 import { CreditcardRegisterModalComponent } from './components/parts/creditcard/register-modal/register-modal.component';
-import {
-  CreditcardSecurityCodeModalComponent
- } from './components/parts/creditcard/security-code-modal/security-code-modal.component';
+import { CreditcardSecurityCodeModalComponent } from './components/parts/creditcard/security-code-modal/security-code-modal.component';
 import { CreditCardSelectModalComponent } from './components/parts/creditcard/select-modal/select-modal.component';
 import { FooterComponent } from './components/parts/footer/footer.component';
 import { CheckboxComponent } from './components/parts/form/checkbox/checkbox.component';
@@ -25,6 +23,8 @@ import { HeaderMenuComponent } from './components/parts/header-menu/header-menu.
 import { HeaderComponent } from './components/parts/header/header.component';
 import { ItemEventComponent } from './components/parts/item-event/item-event.component';
 import { ItemListComponent } from './components/parts/item-list/item-list.component';
+import { ItemPaymentMethodComponent } from './components/parts/item-payment-method/item-payment-method.component';
+import { ItemProfileComponent } from './components/parts/item-profile/item-profile.component';
 import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MovieTicketCheckModalComponent } from './components/parts/movie-ticket/check-modal/check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
@@ -39,70 +39,72 @@ import { FormatDatePipe } from './pipes/format-date.pipe';
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
 
 const components = [
-  LoadingComponent,
-  FooterComponent,
-  HeaderComponent,
-  HeaderMenuComponent,
-  ContentsComponent,
-  BaseComponent,
-  ItemListComponent,
-  CheckboxComponent,
-  QRCodeImageComponent,
-  OrderDetailComponent,
-  ItemEventComponent,
+    LoadingComponent,
+    FooterComponent,
+    HeaderComponent,
+    HeaderMenuComponent,
+    ContentsComponent,
+    BaseComponent,
+    CheckboxComponent,
+    QRCodeImageComponent,
+    OrderDetailComponent,
+    ItemEventComponent,
+    ItemListComponent,
+    ItemPaymentMethodComponent,
+    ItemProfileComponent,
 ];
 
 const entryComponents = [
-  AlertModalComponent,
-  ConfirmModalComponent,
-  QRCodeReaderModalComponent,
-  QRCodeViewerModalComponent,
-  CreditcardRegisterModalComponent,
-  CreditCardSelectModalComponent,
-  CreditcardSecurityCodeModalComponent,
-  AccountChargeModalComponent,
-  AccountTransferModalComponent,
-  AccountOpenModalComponent,
-  PurchaseSeatTicketModalComponent,
-  PurchaseEventTicketModalComponent,
-  MovieTicketCheckModalComponent,
-  NumericKeypadComponent,
+    AlertModalComponent,
+    ConfirmModalComponent,
+    QRCodeReaderModalComponent,
+    QRCodeViewerModalComponent,
+    CreditcardRegisterModalComponent,
+    CreditCardSelectModalComponent,
+    CreditcardSecurityCodeModalComponent,
+    AccountChargeModalComponent,
+    AccountTransferModalComponent,
+    AccountOpenModalComponent,
+    PurchaseSeatTicketModalComponent,
+    PurchaseEventTicketModalComponent,
+    MovieTicketCheckModalComponent,
+    NumericKeypadComponent,
 ];
 
 @NgModule({
-  declarations: [
-    ...components,
-    ...entryComponents,
-    LibphonenumberFormatPipe,
-    ChangeLanguagePipe,
-    FormatDatePipe,
-  ],
-  entryComponents,
-  imports: [
-    CommonModule,
-    RouterModule,
-    ReactiveFormsModule,
-    FormsModule,
-    TranslateModule,
-    ModalModule,
-    BsDatepickerModule,
-    PaginationModule,
-    NgxIntlTelInputModule
-  ],
-  exports: [
-    ...components,
-    ...entryComponents,
-    LibphonenumberFormatPipe,
-    ChangeLanguagePipe,
-    FormatDatePipe,
-    ReactiveFormsModule,
-    FormsModule,
-    TranslateModule,
-    ModalModule,
-    BsDatepickerModule,
-    PaginationModule,
-    NgxIntlTelInputModule
-  ],
-  providers: []
+    declarations: [
+        ...components,
+        ...entryComponents,
+        LibphonenumberFormatPipe,
+        ChangeLanguagePipe,
+        FormatDatePipe,
+    ],
+    entryComponents,
+    imports: [
+        CommonModule,
+        RouterModule,
+        ReactiveFormsModule,
+        FormsModule,
+        TranslateModule,
+        ModalModule,
+        BsDatepickerModule,
+        PaginationModule,
+        NgxIntlTelInputModule,
+    ],
+    exports: [
+        ...components,
+        ...entryComponents,
+        LibphonenumberFormatPipe,
+        ChangeLanguagePipe,
+        FormatDatePipe,
+        ReactiveFormsModule,
+        FormsModule,
+        TranslateModule,
+        ModalModule,
+        BsDatepickerModule,
+        PaginationModule,
+        NgxIntlTelInputModule,
+    ],
+    providers: [],
 })
-export class SharedModule { }
+export class SharedModule {}
