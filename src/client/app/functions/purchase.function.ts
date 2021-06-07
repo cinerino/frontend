@@ -54,12 +54,11 @@ export function screeningEvents2ScreeningEventSeries(params: {
 /**
  * ムビチケ検索
  */
-export function sameMovieTicketFilter(args: {
+export function sameMovieTicketFilter(params: {
     checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
     checkMovieTicketAction: factory.action.check.paymentMethod.movieTicket.IAction;
 }) {
-    const checkMovieTicketAction = args.checkMovieTicketAction;
-    const checkMovieTicketActions = args.checkMovieTicketActions;
+    const { checkMovieTicketAction, checkMovieTicketActions } = params;
     if (
         checkMovieTicketAction.result === undefined ||
         checkMovieTicketAction.result.purchaseNumberAuthResult
@@ -79,17 +78,10 @@ export function sameMovieTicketFilter(args: {
         ) {
             return;
         }
-        const actionObject = action.object.find(
-            (o) => o.movieTickets !== undefined
-        );
-        const checkActionObject = checkMovieTicketAction.object.find(
-            (o) => o.movieTickets !== undefined
-        );
         if (
-            actionObject?.movieTickets === undefined ||
-            checkActionObject?.movieTickets === undefined ||
-            actionObject.movieTickets[0].identifier !==
-                checkActionObject.movieTickets[0].identifier
+            checkMovieTicketAction.result === undefined ||
+            action.result.movieTickets[0].identifier !==
+                checkMovieTicketAction.result.movieTickets[0].identifier
         ) {
             return;
         }
