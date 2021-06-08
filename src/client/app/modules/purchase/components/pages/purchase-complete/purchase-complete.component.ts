@@ -4,7 +4,7 @@ import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { Functions } from '../../../../..';
+import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -12,7 +12,7 @@ import * as reducers from '../../../../../store/reducers';
 @Component({
     selector: 'app-purchase-complete',
     templateUrl: './purchase-complete.component.html',
-    styleUrls: ['./purchase-complete.component.scss']
+    styleUrls: ['./purchase-complete.component.scss'],
 })
 export class PurchaseCompleteComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
@@ -20,12 +20,13 @@ export class PurchaseCompleteComponent implements OnInit {
     public eventOrders: Functions.Purchase.IEventOrder[];
     public environment = getEnvironment();
     public paymentMethodType = factory.paymentMethodType;
+    public customPaymentMethodType = Models.Purchase.Payment.PaymentMethodType;
 
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
-        private actionService: ActionService,
-    ) { }
+        private actionService: ActionService
+    ) {}
 
     /**
      * 初期化
@@ -41,5 +42,4 @@ export class PurchaseCompleteComponent implements OnInit {
         const order = purchase.order;
         this.eventOrders = Functions.Purchase.order2EventOrders({ order });
     }
-
 }

@@ -1,5 +1,4 @@
 "use strict";
-const bodyParser = require("body-parser");
 const compression = require("compression");
 const cookieParser = require("cookie-parser");
 const express = require("express");
@@ -21,8 +20,8 @@ app.use(helmet()); // セキュリティー対策
 app.set('trust proxy', 1);
 app.use(session_middleware_1.default); // セッション
 app.use(benchmarks_middleware_1.default); // ベンチマーク的な
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.set('views', `${__dirname}/../../../views`); // view設定
 app.set('view engine', 'ejs');

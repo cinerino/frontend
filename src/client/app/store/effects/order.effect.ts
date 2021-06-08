@@ -13,14 +13,13 @@ import { orderAction } from '../actions';
  */
 @Injectable()
 export class OrderEffects {
-
     constructor(
         private actions: Actions,
         private cinerino: CinerinoService,
         private utilService: UtilService,
         private starPrint: StarPrintService,
         private translate: TranslateService
-    ) { }
+    ) {}
 
     /**
      * Cancel
@@ -28,7 +27,7 @@ export class OrderEffects {
     @Effect()
     public cancel = this.actions.pipe(
         ofType(orderAction.cancel),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
             const environment = getEnvironment();
             const orders = payload.orders;
@@ -36,77 +35,156 @@ export class OrderEffects {
             try {
                 await this.cinerino.getServices();
                 for (const order of orders) {
-                    const startResult = await this.cinerino.transaction.returnOrder.start({
-                        expires: moment().add(1, 'day').toDate(),
-                        object: {
-                            order: {
-                                orderNumber: order.orderNumber,
-                                customer: { telephone: order.customer.telephone, }
-                            }
-                        },
-                        agent
+                    const startResult =
+                        await this.cinerino.transaction.returnOrder.start({
+                            expires: moment().add(1, 'day').toDate(),
+                            object: {
+                                order: {
+                                    orderNumber: order.orderNumber,
+                                    customer: {
+                                        telephone: order.customer.telephone,
+                                    },
+                                },
+                            },
+                            agent,
+                        });
+                    const eventOrders = Functions.Purchase.order2EventOrders({
+                        order,
                     });
-                    const eventOrders = Functions.Purchase.order2EventOrders({ order });
-                    const creditCards = order.paymentMethods.filter(p => p.typeOf === factory.paymentMethodType.CreditCard);
-                    const email: factory.creativeWork.message.email.ICustomization = {
-                        sender: {
-                            name: (this.translate.instant('email.order.return.sender.name') === '')
-                                ? eventOrders[0].event.superEvent.location.name?.ja
-                                : this.translate.instant('email.order.return.sender.name'),
-                            email: (this.translate.instant('email.order.return.sender.email') === '')
-                                ? undefined : this.translate.instant('email.order.return.sender.email')
-                        },
-                        toRecipient: {
-                            name: (this.translate.instant('email.order.return.toRecipient.name') === '')
-                                ? undefined : this.translate.instant('email.order.return.toRecipient.name'),
-                            email: (this.translate.instant('email.order.return.toRecipient.email') === '')
-                                ? undefined : this.translate.instant('email.order.return.toRecipient.email')
-                        },
-                        about: (this.translate.instant('email.order.return.about') === '')
-                            ? undefined : this.translate.instant('email.order.return.about'),
-                        template: undefined
-                    };
+                    const creditCards = order.paymentMethods.filter(
+                        (p) => p.typeOf === factory.paymentMethodType.CreditCard
+                    );
+                    const email: factory.creativeWork.message.email.ICustomization =
+                        {
+                            sender: {
+                                name:
+                                    this.translate.instant(
+                                        'email.order.return.sender.name'
+                                    ) === ''
+                                        ? eventOrders[0].event.superEvent
+                                              .location.name?.ja
+                                        : this.translate.instant(
+                                              'email.order.return.sender.name'
+                                          ),
+                                email:
+                                    this.translate.instant(
+                                        'email.order.return.sender.email'
+                                    ) === ''
+                                        ? undefined
+                                        : this.translate.instant(
+                                              'email.order.return.sender.email'
+                                          ),
+                            },
+                            toRecipient: {
+                                name:
+                                    this.translate.instant(
+                                        'email.order.return.toRecipient.name'
+                                    ) === ''
+                                        ? undefined
+                                        : this.translate.instant(
+                                              'email.order.return.toRecipient.name'
+                                          ),
+                                email:
+                                    this.translate.instant(
+                                        'email.order.return.toRecipient.email'
+                                    ) === ''
+                                        ? undefined
+                                        : this.translate.instant(
+                                              'email.order.return.toRecipient.email'
+                                          ),
+                            },
+                            about:
+                                this.translate.instant(
+                                    'email.order.return.about'
+                                ) === ''
+                                    ? undefined
+                                    : this.translate.instant(
+                                          'email.order.return.about'
+                                      ),
+                            template: undefined,
+                        };
                     if (environment.ORDER_CANCEL_MAIL_CUSTOM) {
                         // 返品メールをカスタマイズ
-                        const view = await this.utilService.getText(`${Functions.Util.getProject().storageUrl}/ejs/mail/return/${payload.language}.ejs`);
+                        const view = await this.utilService.getText(
+                            `${
+                                Functions.Util.getProject().storageUrl
+                            }/ejs/mail/return/${payload.language}.ejs`
+                        );
                         const template = (<any>window).ejs.render(view, {
                             moment,
                             formatTelephone: Functions.Util.formatTelephone,
-                            getItemPrice: Functions.Purchase.getItemPrice
+                            getItemPrice: Functions.Purchase.getItemPrice,
                         });
                         email.template = template;
                     }
-                    const refundCreditCardEmail: factory.creativeWork.message.email.ICustomization = {
-                        sender: {
-                            name: (this.translate.instant('email.order.refundCreditCard.sender.name') === '')
-                                ? eventOrders[0].event.superEvent.location.name?.ja
-                                : this.translate.instant('email.order.refundCreditCard.sender.name'),
-                            email: (this.translate.instant('email.order.refundCreditCard.sender.email') === '')
-                                ? undefined : this.translate.instant('email.order.refundCreditCard.sender.email')
-                        },
-                        toRecipient: {
-                            name: (this.translate.instant('email.order.refundCreditCard.toRecipient.name') === '')
-                                ? undefined : this.translate.instant('email.order.refundCreditCard.toRecipient.name'),
-                            email: (this.translate.instant('email.order.refundCreditCard.toRecipient.email') === '')
-                                ? undefined : this.translate.instant('email.order.refundCreditCard.toRecipient.email')
-                        },
-                        about: (this.translate.instant('email.order.refundCreditCard.about') === '')
-                            ? undefined : this.translate.instant('email.order.refundCreditCard.about'),
-                        template: undefined
-                    };
+                    const refundCreditCardEmail: factory.creativeWork.message.email.ICustomization =
+                        {
+                            sender: {
+                                name:
+                                    this.translate.instant(
+                                        'email.order.refundCreditCard.sender.name'
+                                    ) === ''
+                                        ? eventOrders[0].event.superEvent
+                                              .location.name?.ja
+                                        : this.translate.instant(
+                                              'email.order.refundCreditCard.sender.name'
+                                          ),
+                                email:
+                                    this.translate.instant(
+                                        'email.order.refundCreditCard.sender.email'
+                                    ) === ''
+                                        ? undefined
+                                        : this.translate.instant(
+                                              'email.order.refundCreditCard.sender.email'
+                                          ),
+                            },
+                            toRecipient: {
+                                name:
+                                    this.translate.instant(
+                                        'email.order.refundCreditCard.toRecipient.name'
+                                    ) === ''
+                                        ? undefined
+                                        : this.translate.instant(
+                                              'email.order.refundCreditCard.toRecipient.name'
+                                          ),
+                                email:
+                                    this.translate.instant(
+                                        'email.order.refundCreditCard.toRecipient.email'
+                                    ) === ''
+                                        ? undefined
+                                        : this.translate.instant(
+                                              'email.order.refundCreditCard.toRecipient.email'
+                                          ),
+                            },
+                            about:
+                                this.translate.instant(
+                                    'email.order.refundCreditCard.about'
+                                ) === ''
+                                    ? undefined
+                                    : this.translate.instant(
+                                          'email.order.refundCreditCard.about'
+                                      ),
+                            template: undefined,
+                        };
                     if (environment.ORDER_CANCEL_MAIL_CUSTOM) {
                         // 返金メールをカスタマイズ
                         const path = `/ejs/mail/refundCreditCard/${payload.language}.ejs`;
-                        const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+                        const url = (await Functions.Util.isFile(
+                            `${Functions.Util.getProject().storageUrl}${path}`
+                        ))
                             ? `${Functions.Util.getProject().storageUrl}${path}`
                             : `/default${path}`;
                         const view = await this.utilService.getText(url);
-                        const template = await (<any>window).ejs.render(view, {
-                            moment,
-                            formatTelephone: Functions.Util.formatTelephone,
-                            getItemPrice: Functions.Purchase.getItemPrice,
-                            eventOrders
-                        }, { async: true });
+                        const template = await (<any>window).ejs.render(
+                            view,
+                            {
+                                moment,
+                                formatTelephone: Functions.Util.formatTelephone,
+                                getItemPrice: Functions.Purchase.getItemPrice,
+                                eventOrders,
+                            },
+                            { async: true }
+                        );
                         refundCreditCardEmail.template = template;
                     }
                     await this.cinerino.transaction.returnOrder.confirm({
@@ -116,14 +194,27 @@ export class OrderEffects {
                                 potentialActions: {
                                     refundCreditCard: creditCards.map((c) => {
                                         return {
-                                            object: { object: [{ paymentMethod: { paymentMethodId: c.paymentMethodId } }] },
-                                            potentialActions: { sendEmailMessage: { object: refundCreditCardEmail } }
+                                            object: {
+                                                object: [
+                                                    {
+                                                        paymentMethod: {
+                                                            paymentMethodId:
+                                                                c.paymentMethodId,
+                                                        },
+                                                    },
+                                                ],
+                                            },
+                                            potentialActions: {
+                                                sendEmailMessage: {
+                                                    object: refundCreditCardEmail,
+                                                },
+                                            },
                                         };
                                     }),
-                                    sendEmailMessage: [{ object: email }]
-                                }
-                            }
-                        }
+                                    sendEmailMessage: [{ object: email }],
+                                },
+                            },
+                        },
                     });
                 }
 
@@ -133,11 +224,18 @@ export class OrderEffects {
                         for (let i = 0; i < limit; i++) {
                             try {
                                 let searchResultData;
-                                const searchResult = await this.cinerino.order.search({
-                                    orderNumbers: orders.map(o => o.orderNumber)
-                                });
+                                const searchResult =
+                                    await this.cinerino.order.search({
+                                        orderNumbers: orders.map(
+                                            (o) => o.orderNumber
+                                        ),
+                                    });
                                 searchResultData = searchResult.data;
-                                const filterResult = searchResultData.filter(o => o.orderStatus !== factory.orderStatus.OrderReturned);
+                                const filterResult = searchResultData.filter(
+                                    (o) =>
+                                        o.orderStatus !==
+                                        factory.orderStatus.OrderReturned
+                                );
                                 if (filterResult.length === 0) {
                                     return resolve();
                                 }
@@ -166,42 +264,63 @@ export class OrderEffects {
     @Effect()
     public load = this.actions.pipe(
         ofType(orderAction.inquiry),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
             try {
                 const environment = getEnvironment();
                 await this.cinerino.getServices();
-                if (payload.customer.telephone !== undefined
-                    && payload.theaterCode !== undefined) {
+                if (
+                    payload.customer.telephone !== undefined &&
+                    payload.theaterCode !== undefined
+                ) {
                     // SSKTS
                     const params = {
                         theaterCode: payload.theaterCode,
                         confirmationNumber: payload.confirmationNumber,
                         telephone: payload.customer.telephone,
                     };
-                    const findResult = await this.cinerino.order.findByOrderInquiryKey4sskts(params);
-                    const order = (Array.isArray(findResult)) ? findResult[0] : findResult;
+                    const findResult =
+                        await this.cinerino.order.findByOrderInquiryKey4sskts(
+                            params
+                        );
+                    const order = Array.isArray(findResult)
+                        ? findResult[0]
+                        : findResult;
                     return orderAction.inquirySuccess({ order });
                 } else {
                     const now = (await this.utilService.getServerTime()).date;
-                    const today = moment(moment(now).format('YYYYMMDD'), 'YYYYMMDD').toISOString();
+                    const today = moment(
+                        moment(now).format('YYYYMMDD'),
+                        'YYYYMMDD'
+                    ).toISOString();
                     const confirmationNumber = payload.confirmationNumber;
                     const customer = {
-                        telephone: (payload.customer.telephone === undefined)
-                            ? '' : Functions.Util.formatTelephone(payload.customer.telephone)
+                        telephone:
+                            payload.customer.telephone === undefined
+                                ? ''
+                                : Functions.Util.formatTelephone(
+                                      payload.customer.telephone
+                                  ),
                     };
                     const orderDateFrom = {
                         value: environment.INQUIRY_ORDER_DATE_FROM_VALUE,
-                        unit: environment.INQUIRY_ORDER_DATE_FROM_UNIT
+                        unit: environment.INQUIRY_ORDER_DATE_FROM_UNIT,
                     };
                     const params = {
                         confirmationNumber,
                         customer,
-                        orderDateFrom: moment(today).add(orderDateFrom.value, orderDateFrom.unit).toDate(),
-                        orderDateThrough: moment(now).toDate()
+                        orderDateFrom: moment(today)
+                            .add(orderDateFrom.value, orderDateFrom.unit)
+                            .toDate(),
+                        orderDateThrough: moment(now).toDate(),
                     };
-                    const findResult = await this.cinerino.order.findByConfirmationNumber(params);
-                    const order = (Array.isArray(findResult)) ? findResult[0] : findResult;
+                    const findResult =
+                        await this.cinerino.order.findByConfirmationNumber(
+                            params
+                        );
+                    const order = Array.isArray(findResult)
+                        ? findResult[0]
+                        : findResult;
                     return orderAction.inquirySuccess({ order });
                 }
             } catch (error) {
@@ -216,7 +335,7 @@ export class OrderEffects {
     @Effect()
     public print = this.actions.pipe(
         ofType(orderAction.print),
-        map(action => action),
+        map((action) => action),
         mergeMap(async (payload) => {
             try {
                 const environment = getEnvironment();
@@ -224,58 +343,72 @@ export class OrderEffects {
                 const printer = payload.printer;
                 const pos = payload.pos;
                 await this.cinerino.getServices();
-                const authorizeOrders: { order: factory.order.IOrder, code: string; }[] = [];
+                const authorizeOrders: {
+                    order: factory.order.IOrder;
+                    code: string;
+                }[] = [];
                 for (const order of orders) {
                     const result = await Functions.Util.retry<string>({
-                        process: (async () => {
+                        process: async () => {
                             const orderNumber = order.orderNumber;
                             const customer = {
                                 // email: args.order.customer.email,
-                                telephone: order.customer.telephone
+                                telephone: order.customer.telephone,
                             };
-                            const { code } = await this.cinerino.order.authorize({
-                                object: { orderNumber, customer },
-                                result: {
-                                    expiresInSeconds: Number(environment.ORDER_AUTHORIZE_CODE_EXPIRES)
-                                }
-                            });
+                            const { code } =
+                                await this.cinerino.order.authorize({
+                                    object: { orderNumber, customer },
+                                    result: {
+                                        expiresInSeconds: Number(
+                                            environment.ORDER_AUTHORIZE_CODE_EXPIRES
+                                        ),
+                                    },
+                                });
 
                             return code;
-                        }),
+                        },
                         interval: 5000,
-                        limit: 5
+                        limit: 5,
                     });
 
                     authorizeOrders.push({ order, code: result });
                 }
                 const testFlg = orders.length === 0;
                 const path = `/ejs/print/ticket.ejs`;
-                const url = (testFlg) ? '/default//ejs/print/test.ejs'
-                    : (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
-                        ? `${Functions.Util.getProject().storageUrl}${path}`
-                        : `/default${path}`;
+                const url = testFlg
+                    ? '/default//ejs/print/test.ejs'
+                    : (await Functions.Util.isFile(
+                          `${Functions.Util.getProject().storageUrl}${path}`
+                      ))
+                    ? `${Functions.Util.getProject().storageUrl}${path}`
+                    : `/default${path}`;
                 const printData = await this.utilService.getText(url);
                 const canvasList: HTMLCanvasElement[] = [];
                 if (testFlg) {
-                    const canvas = await Functions.Order.createTestPrintCanvas4Html({ view: <string>printData });
+                    const canvas =
+                        await Functions.Order.createTestPrintCanvas4Html({
+                            view: <string>printData,
+                        });
                     canvasList.push(canvas);
                 } else {
                     for (const authorizeOrder of authorizeOrders) {
                         let index = 0;
-                        for (const acceptedOffer of authorizeOrder.order.acceptedOffers) {
+                        for (const acceptedOffer of authorizeOrder.order
+                            .acceptedOffers) {
                             const qrcode = Functions.Order.createQRCode({
                                 acceptedOffer,
                                 order: authorizeOrder.order,
                                 index,
-                                code: authorizeOrder.code
+                                code: authorizeOrder.code,
                             });
-                            const canvas = await Functions.Order.createPrintCanvas4Html({
-                                view: <string>printData,
-                                order: authorizeOrder.order,
-                                pos,
-                                qrcode,
-                                index
-                            });
+                            const canvas =
+                                await Functions.Order.createPrintCanvas4Html({
+                                    view: <string>printData,
+                                    order: authorizeOrder.order,
+                                    pos,
+                                    qrcode,
+                                    index,
+                                });
                             canvasList.push(canvas);
                             index++;
                         }
@@ -291,12 +424,18 @@ export class OrderEffects {
                         await this.starPrint.printProcess({ canvasList });
                         break;
                     case Models.Common.Printer.ConnectionType.Image:
-                        const domList = canvasList.map(canvas => `<div class="mb-3 p-4 border border-light-gray ">
+                        const domList = canvasList.map(
+                            (
+                                canvas
+                            ) => `<div class="mb-3 p-4 border border-light-gray ">
                         <img class="w-100" src="${canvas.toDataURL()}" alt="">
-                        </div>`);
+                        </div>`
+                        );
                         this.utilService.openAlert({
                             title: '',
-                            body: `<div class="px-5">${domList.join('\n')}</div>`
+                            body: `<div class="px-5">${domList.join(
+                                '\n'
+                            )}</div>`,
                         });
                         break;
                     default:
@@ -309,6 +448,4 @@ export class OrderEffects {
             }
         })
     );
-
-
 }

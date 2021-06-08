@@ -12,7 +12,7 @@ import * as reducers from '../../store/reducers';
 import { UtilService } from '../util.service';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class ActionUserService {
     public user: Observable<reducers.IUserState>;
@@ -32,9 +32,11 @@ export class ActionUserService {
      */
     public async getData() {
         return new Promise<reducers.IUserState>((resolve) => {
-            this.user.subscribe((user) => {
-                resolve(user);
-            }).unsubscribe();
+            this.user
+                .subscribe((user) => {
+                    resolve(user);
+                })
+                .unsubscribe();
         });
     }
 
@@ -48,9 +50,7 @@ export class ActionUserService {
     /**
      * 初期化
      */
-    public initialize(params: {
-        login: boolean;
-    }) {
+    public initialize(params: { login: boolean }) {
         this.store.dispatch(userAction.initialize(params));
     }
 
@@ -101,12 +101,20 @@ export class ActionUserService {
             this.store.dispatch(userAction.openAccount(params));
             const success = this.actions.pipe(
                 ofType(userAction.openAccountSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
 
             const fail = this.actions.pipe(
                 ofType(userAction.openAccountFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -115,16 +123,26 @@ export class ActionUserService {
     /**
      * 口座閉鎖
      */
-    public async cloaseAccount(account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>) {
+    public async cloaseAccount(
+        account: factory.ownershipInfo.IOwnershipInfo<factory.chevre.ownershipInfo.IAccount>
+    ) {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(userAction.closeAccount({ account }));
             const success = this.actions.pipe(
                 ofType(userAction.closeAccountSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(userAction.closeAccountFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -153,12 +171,20 @@ export class ActionUserService {
 
             const success = this.actions.pipe(
                 ofType(userAction.updateProfileSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
 
             const fail = this.actions.pipe(
                 ofType(userAction.updateProfileFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -172,11 +198,19 @@ export class ActionUserService {
             this.store.dispatch(userAction.getCreditCards());
             const success = this.actions.pipe(
                 ofType(userAction.getCreditCardsSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(userAction.getCreditCardsFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -198,12 +232,20 @@ export class ActionUserService {
             this.store.dispatch(userAction.addCreditCard(params));
             const success = this.actions.pipe(
                 ofType(userAction.addCreditCardSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
 
             const fail = this.actions.pipe(
                 ofType(userAction.addCreditCardFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -212,16 +254,26 @@ export class ActionUserService {
     /**
      * クレジットカード削除
      */
-    public async removeCreditCard(creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard) {
+    public async removeCreditCard(
+        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
+    ) {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(userAction.removeCreditCard({ creditCard }));
             const success = this.actions.pipe(
                 ofType(userAction.removeCreditCardSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(userAction.removeCreditCardFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -235,11 +287,13 @@ export class ActionUserService {
         theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
         printer?: Models.Common.Printer.IPrinter;
     }) {
-        this.store.dispatch(userAction.updateBaseSetting({
-            pos: params.pos,
-            theater: params.theater,
-            printer: params.printer
-        }));
+        this.store.dispatch(
+            userAction.updateBaseSetting({
+                pos: params.pos,
+                theater: params.theater,
+                printer: params.printer,
+            })
+        );
     }
 
     /**
@@ -249,18 +303,26 @@ export class ActionUserService {
         seller: factory.chevre.seller.ISeller;
         profile: factory.person.IProfile;
         amount: number;
-        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>;
+        account: factory.ownershipInfo.IOwnershipInfo<factory.chevre.ownershipInfo.IAccount>;
         creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember;
     }) {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(userAction.chargeAccount(params));
             const success = this.actions.pipe(
                 ofType(userAction.chargeAccountSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(userAction.chargeAccountFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -272,20 +334,28 @@ export class ActionUserService {
     public async transferAccount(params: {
         seller: factory.chevre.seller.ISeller;
         profile: factory.person.IProfile;
-        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>;
+        account: factory.ownershipInfo.IOwnershipInfo<factory.chevre.ownershipInfo.IAccount>;
         amount: number;
         description: string;
-        accountNumber: string
+        accountNumber: string;
     }) {
         return new Promise<void>((resolve, reject) => {
             this.store.dispatch(userAction.transferAccount(params));
             const success = this.actions.pipe(
                 ofType(userAction.transferAccountSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(userAction.transferAccountFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -296,16 +366,16 @@ export class ActionUserService {
      */
     public async checkVersion() {
         const query = `?date=${moment().toISOString()}`;
-        const { version } = await this.utilService.getJson<{ version: string }>(`/api/version${query}`);
+        const { version } = await this.utilService.getJson<{ version: string }>(
+            `/api/version${query}`
+        );
         const data = await this.getData();
         if (data.version === undefined) {
             this.store.dispatch(userAction.setVersion({ version }));
         }
-        if (data.version !== undefined
-            && data.version !== version) {
+        if (data.version !== undefined && data.version !== version) {
             this.store.dispatch(userAction.setVersion({ version }));
             location.reload();
         }
     }
-
 }

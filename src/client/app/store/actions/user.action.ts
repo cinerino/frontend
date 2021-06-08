@@ -4,9 +4,7 @@ import { Models } from '../..';
 
 const LABEL = '[User]';
 
-export const remove = createAction(
-    `${LABEL} remove`,
-);
+export const remove = createAction(`${LABEL} remove`);
 
 export const initialize = createAction(
     `${LABEL} initialize`,
@@ -18,13 +16,11 @@ export const updateLanguage = createAction(
     props<{ language: string }>()
 );
 
-export const getProfile = createAction(
-    `${LABEL} getProfile`,
-);
+export const getProfile = createAction(`${LABEL} getProfile`);
 
 export const getProfileSuccess = createAction(
     `${LABEL} getProfileSuccess`,
-    props<{ profile: factory.person.IProfile; }>()
+    props<{ profile: factory.person.IProfile }>()
 );
 
 export const getProfileFail = createAction(
@@ -32,9 +28,7 @@ export const getProfileFail = createAction(
     props<{ error: Error }>()
 );
 
-export const getAccount = createAction(
-    `${LABEL} getAccount`,
-);
+export const getAccount = createAction(`${LABEL} getAccount`);
 
 export const getAccountSuccess = createAction(
     `${LABEL} getAccountSuccess`,
@@ -57,7 +51,7 @@ export const openAccount = createAction(
 );
 
 export const openAccountSuccess = createAction(
-    `${LABEL} openAccountSuccess`,
+    `${LABEL} openAccountSuccess`
     // props<{}>()
 );
 
@@ -69,13 +63,11 @@ export const openAccountFail = createAction(
 export const closeAccount = createAction(
     `${LABEL} closeAccount`,
     props<{
-        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>;
+        account: factory.ownershipInfo.IOwnershipInfo<factory.chevre.ownershipInfo.IAccount>;
     }>()
 );
 
-export const closeAccountSuccess = createAction(
-    `${LABEL} closeAccountSuccess`,
-);
+export const closeAccountSuccess = createAction(`${LABEL} closeAccountSuccess`);
 
 export const closeAccountFail = createAction(
     `${LABEL} closeAccountFail`,
@@ -85,14 +77,14 @@ export const closeAccountFail = createAction(
 export const updateProfile = createAction(
     `${LABEL} updateProfile`,
     props<{
-        profile: factory.person.IProfile
+        profile: factory.person.IProfile;
     }>()
 );
 
 export const updateProfileSuccess = createAction(
     `${LABEL} updateProfileSuccess`,
     props<{
-        profile: factory.person.IProfile
+        profile: factory.person.IProfile;
     }>()
 );
 
@@ -110,13 +102,13 @@ export const updateBaseSetting = createAction(
     }>()
 );
 
-export const getCreditCards = createAction(
-    `${LABEL} getCreditCards`,
-);
+export const getCreditCards = createAction(`${LABEL} getCreditCards`);
 
 export const getCreditCardsSuccess = createAction(
     `${LABEL} getCreditCardsSuccess`,
-    props<{ creditCards: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard[] }>()
+    props<{
+        creditCards: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard[];
+    }>()
 );
 
 export const getCreditCardsFail = createAction(
@@ -132,14 +124,16 @@ export const addCreditCard = createAction(
             expire: string;
             holderName: string;
             securityCode: string;
-        },
+        };
         seller: factory.chevre.seller.ISeller;
     }>()
 );
 
 export const addCreditCardSuccess = createAction(
     `${LABEL} addCreditCardSuccess`,
-    props<{ creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard }>()
+    props<{
+        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard;
+    }>()
 );
 
 export const addCreditCardFail = createAction(
@@ -150,14 +144,14 @@ export const addCreditCardFail = createAction(
 export const removeCreditCard = createAction(
     `${LABEL} removeCreditCard`,
     props<{
-        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
+        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard;
     }>()
 );
 
 export const removeCreditCardSuccess = createAction(
     `${LABEL} removeCreditCardSuccess`,
     props<{
-        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
+        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard;
     }>()
 );
 
@@ -172,13 +166,13 @@ export const chargeAccount = createAction(
         seller: factory.chevre.seller.ISeller;
         profile: factory.person.IProfile;
         amount: number;
-        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>;
+        account: factory.ownershipInfo.IOwnershipInfo<factory.chevre.ownershipInfo.IAccount>;
         creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember;
     }>()
 );
 
 export const chargeAccountSuccess = createAction(
-    `${LABEL} chargeAccountSuccess`,
+    `${LABEL} chargeAccountSuccess`
 );
 
 export const chargeAccountFail = createAction(
@@ -191,7 +185,7 @@ export const transferAccount = createAction(
     props<{
         seller: factory.chevre.seller.ISeller;
         profile: factory.person.IProfile;
-        account: factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>;
+        account: factory.ownershipInfo.IOwnershipInfo<factory.chevre.ownershipInfo.IAccount>;
         amount: number;
         description: string;
         accountNumber: string;
@@ -199,7 +193,7 @@ export const transferAccount = createAction(
 );
 
 export const transferAccountSuccess = createAction(
-    `${LABEL} transferAccountSuccess`,
+    `${LABEL} transferAccountSuccess`
 );
 
 export const transferAccountFail = createAction(
