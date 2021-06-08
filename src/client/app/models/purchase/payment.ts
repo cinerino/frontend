@@ -13,5 +13,5 @@ export enum PaymentMethodType {
     /**
      * コード決済
      */
-    Code = 'RegiGrow',
+    Code = 'Code',
 }
