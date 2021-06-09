@@ -7,7 +7,7 @@ import { getEnvironment } from '../../environments/environment';
 import { UtilService } from './util.service';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class CinerinoService {
     public auth: cinerino.auth.ClientCredentials | cinerino.auth.OAuth2;
@@ -23,22 +23,18 @@ export class CinerinoService {
     public place: cinerino.service.Place;
     public ownershipInfo: cinerino.service.person.OwnershipInfo;
     public reservation: cinerino.service.Reservation;
-    public task: cinerino.service.Task;
     public payment: cinerino.service.Payment;
     public transaction: {
-        placeOrder: cinerino.service.transaction.PlaceOrder,
-        returnOrder: cinerino.service.transaction.ReturnOrder,
-        moneyTransfer: cinerino.service.transaction.MoneyTransfer,
+        placeOrder: cinerino.service.transaction.PlaceOrder;
+        returnOrder: cinerino.service.transaction.ReturnOrder;
+        moneyTransfer: cinerino.service.transaction.MoneyTransfer;
     };
     public userName: string;
     public environment = getEnvironment();
     private endpoint: string;
     private waiterServerUrl: string;
 
-    constructor(
-        private http: HttpClient,
-        private utilservice: UtilService
-    ) { }
+    constructor(private http: HttpClient, private utilservice: UtilService) {}
 
     /**
      * getServices
@@ -55,15 +51,23 @@ export class CinerinoService {
             this.seller = new cinerino.service.Seller(option);
             this.place = new cinerino.service.Place(option);
             this.person = new cinerino.service.Person(option);
-            this.project = new cinerino.service.Project({ ...option, project: undefined });
-            this.ownershipInfo = new cinerino.service.person.OwnershipInfo(option);
+            this.project = new cinerino.service.Project({
+                ...option,
+                project: undefined,
+            });
+            this.ownershipInfo = new cinerino.service.person.OwnershipInfo(
+                option
+            );
             this.reservation = new cinerino.service.Reservation(option);
-            this.task = new cinerino.service.Task(option);
             this.payment = new cinerino.service.Payment(option);
             this.transaction = {
                 placeOrder: new cinerino.service.transaction.PlaceOrder(option),
-                returnOrder: new cinerino.service.transaction.ReturnOrder(option),
-                moneyTransfer: new cinerino.service.transaction.MoneyTransfer(option)
+                returnOrder: new cinerino.service.transaction.ReturnOrder(
+                    option
+                ),
+                moneyTransfer: new cinerino.service.transaction.MoneyTransfer(
+                    option
+                ),
             };
         } catch (err) {
             console.error(err);
@@ -79,7 +83,7 @@ export class CinerinoService {
         return {
             endpoint: this.endpoint,
             auth: this.auth,
-            project: { id: Functions.Util.getProject().projectId }
+            project: { id: Functions.Util.getProject().projectId },
         };
     }
 
@@ -87,7 +91,9 @@ export class CinerinoService {
      * @method authorize
      */
     public async authorize() {
-        const data = (<Storage>(<any>window)[this.environment.STORAGE_TYPE]).getItem(this.environment.STORAGE_NAME);
+        const data = (<Storage>(
+            (<any>window)[this.environment.STORAGE_TYPE]
+        )).getItem(this.environment.STORAGE_NAME);
         if (data === null) {
             throw new Error('state is null');
         }
@@ -97,27 +103,34 @@ export class CinerinoService {
         if (state.App && state.App.userData.login) {
             body.member = '1';
         }
-        if (this.auth !== undefined
-            && this.auth.credentials.expiryDate !== undefined
-            && body.member !== '1') {
+        if (
+            this.auth !== undefined &&
+            this.auth.credentials.expiryDate !== undefined &&
+            body.member !== '1'
+        ) {
             const now = (await this.utilservice.getServerTime()).date;
             const expiryDate = this.auth.credentials.expiryDate;
-            const isTokenExpired = (expiryDate !== undefined)
-                ? (moment(expiryDate).add(-5, 'minutes').unix() <= moment(now).unix()) : false;
+            const isTokenExpired =
+                expiryDate !== undefined
+                    ? moment(expiryDate).add(-5, 'minutes').unix() <=
+                      moment(now).unix()
+                    : false;
             if (!isTokenExpired) {
                 // アクセストークン取得・更新しない
                 return;
             }
         }
         // アクセストークン取得・更新
-        const result = await this.http.post<{
-            accessToken: string;
-            expiryDate?: number;
-            userName: string;
-            clientId: string;
-            endpoint: string;
-            waiterServerUrl: string;
-        }>(url, body).toPromise();
+        const result = await this.http
+            .post<{
+                accessToken: string;
+                expiryDate?: number;
+                userName: string;
+                clientId: string;
+                endpoint: string;
+                waiterServerUrl: string;
+            }>(url, body)
+            .toPromise();
         const option = {
             domain: '',
             clientId: result.clientId,
@@ -127,10 +140,13 @@ export class CinerinoService {
             scope: '',
             state: '',
             nonce: null,
-            tokenIssuer: ''
+            tokenIssuer: '',
         };
         this.auth = cinerino.createAuthInstance(option);
-        this.auth.setCredentials({ accessToken: result.accessToken, expiryDate: result.expiryDate });
+        this.auth.setCredentials({
+            accessToken: result.accessToken,
+            expiryDate: result.expiryDate,
+        });
         this.userName = result.userName;
         this.endpoint = result.endpoint;
         this.waiterServerUrl = result.waiterServerUrl;
@@ -139,9 +155,7 @@ export class CinerinoService {
     /**
      * サインイン
      */
-    public async signIn(params?: {
-        redirectUrl?: string;
-    }) {
+    public async signIn(params?: { redirectUrl?: string }) {
         if (params?.redirectUrl !== undefined) {
             sessionStorage.setItem('REDIRECT_URL', params.redirectUrl);
         }
@@ -153,9 +167,7 @@ export class CinerinoService {
     /**
      * サインアウト
      */
-    public async signOut(params?: {
-        logoutUrl?: string;
-    }) {
+    public async signOut(params?: { logoutUrl?: string }) {
         if (params?.logoutUrl !== undefined) {
             sessionStorage.setItem('LOGOUT_URL', params.logoutUrl);
         }
@@ -167,28 +179,31 @@ export class CinerinoService {
     /**
      * パスポート取得
      */
-    public async getPassport(params: {
-        scope: string;
-    }) {
-        if (this.waiterServerUrl === undefined
-            || this.waiterServerUrl === '') {
+    public async getPassport(params: { scope: string }) {
+        if (this.waiterServerUrl === undefined || this.waiterServerUrl === '') {
             return { token: '' };
         }
-        const url = `${this.waiterServerUrl}/projects/${Functions.Util.getProject().projectId}/passports`;
+        const url = `${this.waiterServerUrl}/projects/${
+            Functions.Util.getProject().projectId
+        }/passports`;
         const body = { scope: params.scope };
-        const result = await this.http.post<{ token: string; }>(url, body).toPromise();
+        const result = await this.http
+            .post<{ token: string }>(url, body)
+            .toPromise();
 
         return result;
     }
 
     public async signIn2implicit() {
         const url = '/api/authorize/implicit';
-        const result = await this.http.post<{
-            clientId: string;
-            domain: string;
-            endpoint: string;
-            waiterServerUrl: string;
-        }>(url, {}).toPromise();
+        const result = await this.http
+            .post<{
+                clientId: string;
+                domain: string;
+                endpoint: string;
+                waiterServerUrl: string;
+            }>(url, {})
+            .toPromise();
         const scopes: string[] = [];
         const options = {
             domain: result.domain,
@@ -199,7 +214,7 @@ export class CinerinoService {
             scope: scopes.join(' '),
             state: '',
             nonce: '',
-            tokenIssuer: ''
+            tokenIssuer: '',
         };
         const auth = cinerino.createAuthInstance(options);
         let credentials = await auth.isSignedIn();
