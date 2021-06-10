@@ -21,48 +21,26 @@
             </div>
         </div>
 
+        <div *ngIf="(purchase | async)?.order.customer" class="mb-4 p-3 bg-white">
+            <app-item-profile [profile]="(purchase | async)?.order.customer"></app-item-profile>
+        </div>
 
-        <div class="mb-4 px-3 bg-white">
+
+        <div *ngIf="(purchase | async)?.order.price > 0" class="mb-4 px-3 bg-white">
             <div class="py-3 border-bottom border-gray">
-                <div class="row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'common.customerName' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async)?.order.customer.familyName }} {{ (purchase |
-                        async)?.order.customer.givenName }}</p>
-                </div>
-            </div>
-            <div class="py-3 border-bottom border-gray">
-                <div class="row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'form.label.email' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async)?.order.customer.email }}</p>
-                </div>
-            </div>
-            <div class="py-3 border-bottom border-gray" [class.border-0]="(purchase | async)?.order.price === 0">
-                <div class="row align-items-center">
-                    <p class="mb-2 mb-md-0 col-md-4">{{ 'form.label.telephone' | translate }}</p>
-                    <p class="col-md-8">{{ (purchase | async)?.order.customer.telephone | libphonenumberFormat }}</p>
-                </div>
-            </div>
-            <div class="py-3 border-bottom border-gray" *ngIf="(purchase | async)?.order.price > 0">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.amount' | translate }}</p>
                     <p class="col-md-8 font-weight-bold text-large text-info">{{ (purchase | async)?.order.price |
                         currency : 'JPY' }}</p>
                 </div>
             </div>
-            <div class="py-3" *ngIf="(purchase | async)?.order.price > 0">
+            <div class="py-3" *ngIf="(purchase | async)?.order.paymentMethods.length > 0 && paymentTypes.length > 0">
                 <div class="row align-items-center">
                     <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
                     <div class="col-md-8">
-                        <p *ngFor="let paymentMethod of (purchase | async)?.order.paymentMethods">
-                            <span *ngIf="paymentMethod.typeOf === customPaymentMethodType.Cash">{{
-                                'common.paymentMethodTypes.cash.label' | translate }}</span>
-                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.CreditCard">{{
-                                'common.paymentMethodTypes.creditCard.label' | translate }}</span>
-                            <span *ngIf="paymentMethod.typeOf === customPaymentMethodType.EMoney">{{
-                                'common.paymentMethodTypes.eMoney.label' | translate }}</span>
-                            <span *ngIf="paymentMethod.typeOf === paymentMethodType.MovieTicket">{{
-                                'common.paymentMethodTypes.movieTicket.label' | translate }}</span>
-                        </p>
+                        <app-item-payment-method [paymentMethods]="(purchase | async)?.order.paymentMethods"
+                            [paymentTypes]="paymentTypes">
+                        </app-item-payment-method>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,13 @@
+<div *ngFor="let profile of profileList" class="py-3 border-bottom border-gray">
+    <div class="row align-items-center">
+        <p *ngIf="!profile.label" class="mb-2 mb-md-0 col-md-4">{{ profile.name | translate }}</p>
+        <p *ngIf="profile.label" class="mb-2 mb-md-0 col-md-4">{{ profile.label | changeLanguage }}</p>
+        <p *ngIf="profile.key !== 'telephone' && profile.key !== 'gender'" class="col-md-8 white-space-pre-wrap">
+            {{ profile.value }}
+        </p>
+        <p *ngIf="profile.key === 'telephone'" class="col-md-8">{{ profile.value | libphonenumberFormat }}</p>
+        <p *ngIf="profile.key === 'gender'" class="col-md-8">
+            <ng-container *ngIf="profile.value !== ''">{{ 'form.option.' + profile.value | translate }}</ng-container>
+        </p>
+    </div>
+</div>
