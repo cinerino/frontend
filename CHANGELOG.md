@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.12.0 - 2021-06-10
+
+### Changed
+
+-   購入者情報、決済方法 Component を pos と統一
+
 ## 3.11.0 - 2021-06-08
 
 ### Changed
