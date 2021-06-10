@@ -4,9 +4,9 @@ import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { Functions, Models } from '../../../../..';
+import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
-import { ActionService } from '../../../../../services';
+import { ActionService, MasterService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
@@ -19,27 +19,36 @@ export class PurchaseCompleteComponent implements OnInit {
     public moment: typeof moment = moment;
     public eventOrders: Functions.Purchase.IEventOrder[];
     public environment = getEnvironment();
-    public paymentMethodType = factory.paymentMethodType;
-    public customPaymentMethodType = Models.Purchase.Payment.PaymentMethodType;
+    public paymentTypes: factory.chevre.categoryCode.ICategoryCode[];
 
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
-        private actionService: ActionService
+        private actionService: ActionService,
+        private masterService: MasterService
     ) {}
 
     /**
      * 初期化
      */
     public async ngOnInit() {
-        this.eventOrders = [];
-        this.purchase = this.store.pipe(select(reducers.getPurchase));
-        const purchase = await this.actionService.purchase.getData();
-        if (purchase.order === undefined) {
+        try {
+            this.eventOrders = [];
+            this.paymentTypes = [];
+            this.purchase = this.store.pipe(select(reducers.getPurchase));
+            const { order } = await this.actionService.purchase.getData();
+            if (order === undefined) {
+                throw new Error('order undefined');
+            }
+            this.eventOrders = Functions.Purchase.order2EventOrders({ order });
+            this.paymentTypes = await this.masterService.searchCategoryCode({
+                categorySetIdentifier:
+                    factory.chevre.categoryCode.CategorySetIdentifier
+                        .PaymentMethodType,
+            });
+        } catch (error) {
+            console.error(error);
             this.router.navigate(['/error']);
-            return;
         }
-        const order = purchase.order;
-        this.eventOrders = Functions.Purchase.order2EventOrders({ order });
     }
 }

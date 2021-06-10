@@ -1,0 +1,31 @@
+<table class="table table-striped table-bordered mb-0">
+    <tbody>
+        <tr *ngFor="let payment of payments">
+            <td scope="row">
+                <p>{{ payment.categoryCode.name | changeLanguage }}</p>
+                <p *ngIf="payment.paymentMethod.accountId">({{ payment.paymentMethod.accountId }})</p>
+            </td>
+            <td class="text-right">
+                <p *ngIf="payment.paymentMethod.totalPaymentDue.currency === 'JPY'">
+                    {{ payment.paymentMethod.totalPaymentDue.value | currency : 'JPY' }}
+                </p>
+                <p *ngIf="payment.paymentMethod.totalPaymentDue.currency !== 'JPY'">
+                    {{ payment.paymentMethod.totalPaymentDue.value }}
+                </p>
+                <div *ngFor="let additionalProperty of payment.paymentMethod.additionalProperty"
+                    class="d-flex justify-content-end">
+                    <ng-container
+                        *ngIf="additionalProperty.name === 'depositAmount' || additionalProperty.name === 'change'">
+                        <p class="mr-2">{{ 'purchase.complete.' + additionalProperty.name | translate }}</p>
+                        <p>{{ additionalProperty.value | currency : 'JPY' }}</p>
+                    </ng-container>
+                    <ng-container
+                        *ngIf="!(additionalProperty.name === 'depositAmount' || additionalProperty.name === 'change')">
+                        <p class="mr-2">[{{ additionalProperty.name }}]</p>
+                        <p>{{ additionalProperty.value }}</p>
+                    </ng-container>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
