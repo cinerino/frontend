@@ -33,11 +33,11 @@
                 <p class="col-md-4 py-2 text-md-right">{{ 'modal.account.transfer.accountNumber' | translate }}</p>
                 <div class="col-md-8">
                     <div class="input-group">
-                    <input type="text" class="form-control" id="accountNumber" formControlName="accountNumber"
-                        placeholder="">
+                        <input type="text" class="form-control" id="accountNumber" formControlName="accountNumber"
+                            placeholder="">
                         <div class="input-group-append" (click)="openQRReader()">
-                            <span class="input-group-text"><i class="fas fa-qrcode"></i></span>
-                          </div>
+                            <span class="input-group-text"><i class="bi bi-camera-fill"></i></span>
+                        </div>
                     </div>
                     <div *ngIf="TransferAccountForm.controls.accountNumber.invalid && TransferAccountForm.controls.accountNumber.touched"
                         class="mt-2">
@@ -63,7 +63,7 @@
     <div class="buttons mx-auto text-center">
         <button type="button" class="btn btn-primary btn-block py-3 mb-3" (click)="close()"
             [disabled]="TransferAccountForm.invalid">{{ 'modal.account.transfer.next' | translate }}</button>
-        <button type="button" class="btn btn-outline-primary btn-block py-3 btn-sm"
-            (click)="modal.hide()">{{ 'common.close' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3 btn-sm" (click)="modal.hide()">{{
+            'common.close' | translate }}</button>
     </div>
 </div>
