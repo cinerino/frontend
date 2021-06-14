@@ -22,7 +22,7 @@
               "src/client/favicon.ico"
             ],
             "styles": [
-              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "node_modules/swiper/css/swiper.css",
               "node_modules/intl-tel-input/build/css/intlTelInput.css",
               "src/client/styles.scss"
