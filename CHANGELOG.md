@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.14.0 - 2021-06-16
+
+-   cinerino/sdk>=3.2.0 で再実装
+
 ## 3.13.0 - 2021-06-14
 
 ### Changed
