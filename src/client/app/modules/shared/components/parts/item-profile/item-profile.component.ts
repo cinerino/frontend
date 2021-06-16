@@ -17,6 +17,7 @@ export class ItemProfileComponent implements OnInit {
         name: string;
         value?: string;
         label?: { ja: string; en: string };
+        valueLabel?: { ja: string; en: string };
     }[];
 
     constructor() {}
@@ -35,6 +36,7 @@ export class ItemProfileComponent implements OnInit {
             name: string;
             value?: string;
             label?: { ja: string; en: string };
+            valueLabel?: { ja: string; en: string };
         }[] = [];
         if (profile === undefined) {
             return result;
@@ -55,16 +57,27 @@ export class ItemProfileComponent implements OnInit {
                     name: `form.label.${key}`,
                     value: profile[key],
                     label: p.label,
+                    valueLabel:
+                        p.option === undefined
+                            ? undefined
+                            : p.option.find((o) => o.value === profile[key])
+                                  ?.label,
                 });
                 return;
             }
+            const value = profile.additionalProperty?.find(
+                (a) => a.name === key.replace('additionalProperty.', '')
+            )?.value;
+
             result.push({
                 key,
                 name: key,
-                value: profile.additionalProperty?.find(
-                    (a) => a.name === key.replace('additionalProperty.', '')
-                )?.value,
+                value,
                 label: p.label,
+                valueLabel:
+                    p.option === undefined
+                        ? undefined
+                        : p.option.find((o) => o.value === value)?.label,
             });
         });
         if (profile.additionalProperty !== undefined) {

@@ -271,11 +271,6 @@
             "address": "住所",
             "gender": "性別"
         },
-        "option": {
-            "man": "男",
-            "woman": "女",
-            "unselected": "未選択"
-        },
         "unselected": "選択してください",
         "validation": {
             "required": "未入力です",

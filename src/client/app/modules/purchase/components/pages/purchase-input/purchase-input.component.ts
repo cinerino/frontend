@@ -1,27 +1,37 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    ValidatorFn,
+    Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { CountryISO, NgxIntlTelInputComponent, SearchCountryField, TooltipLabel, } from 'ngx-intl-tel-input';
+import {
+    CountryISO,
+    NgxIntlTelInputComponent,
+    SearchCountryField,
+    TooltipLabel,
+} from 'ngx-intl-tel-input';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import {
-    CreditcardSecurityCodeModalComponent
-} from '../../../../shared/components/parts/creditcard/security-code-modal/security-code-modal.component';
+import { CreditcardSecurityCodeModalComponent } from '../../../../shared/components/parts/creditcard/security-code-modal/security-code-modal.component';
 import { CreditCardSelectModalComponent } from '../../../../shared/components/parts/creditcard/select-modal/select-modal.component';
 import { LibphonenumberFormatPipe } from '../../../../shared/pipes/libphonenumber-format.pipe';
 
 @Component({
     selector: 'app-purchase-input',
     templateUrl: './purchase-input.component.html',
-    styleUrls: ['./purchase-input.component.scss']
+    styleUrls: ['./purchase-input.component.scss'],
 })
 export class PurchaseInputComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
@@ -50,7 +60,7 @@ export class PurchaseInputComponent implements OnInit {
         private utilService: UtilService,
         private actionService: ActionService,
         private translate: TranslateService
-    ) { }
+    ) {}
 
     /**
      * 初期化
@@ -73,7 +83,9 @@ export class PurchaseInputComponent implements OnInit {
                 this.router.navigate(['/error']);
                 return;
             }
-            this.amount = Functions.Purchase.getAmount(purchase.authorizeSeatReservations);
+            this.amount = Functions.Purchase.getAmount(
+                purchase.authorizeSeatReservations
+            );
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -82,11 +94,15 @@ export class PurchaseInputComponent implements OnInit {
             if (this.intlTelInput === undefined) {
                 return;
             }
-            const findResult = this.intlTelInput.allCountries.find(c => c.iso2 === CountryISO.Japan);
+            const findResult = this.intlTelInput.allCountries.find(
+                (c) => c.iso2 === CountryISO.Japan
+            );
             if (findResult === undefined) {
                 return;
             }
-            findResult.placeHolder = this.translate.instant('form.placeholder.telephone');
+            findResult.placeHolder = this.translate.instant(
+                'form.placeholder.telephone'
+            );
         }, 0);
     }
 
@@ -96,7 +112,7 @@ export class PurchaseInputComponent implements OnInit {
     private async createProfileForm() {
         const profile = this.environment.PROFILE;
         this.profileForm = this.formBuilder.group({});
-        profile.forEach(p => {
+        profile.forEach((p) => {
             const validators: ValidatorFn[] = [];
             if (p.required !== undefined && p.required) {
                 validators.push(Validators.required);
@@ -118,10 +134,16 @@ export class PurchaseInputComponent implements OnInit {
                         if (field.value === '') {
                             return null;
                         }
-                        if (language === 'ja' && !new RegExp(/^[ァ-ヶー]+$/).test(field.value)) {
+                        if (
+                            language === 'ja' &&
+                            !new RegExp(/^[ァ-ヶー]+$/).test(field.value)
+                        ) {
                             return { customPattern: true };
                         }
-                        if (language !== 'ja' && !new RegExp(/^[a-z]+$/).test(field.value)) {
+                        if (
+                            language !== 'ja' &&
+                            !new RegExp(/^[a-z]+$/).test(field.value)
+                        ) {
                             return { customPattern: true };
                         }
                     }
@@ -132,23 +154,32 @@ export class PurchaseInputComponent implements OnInit {
             if (p.key === 'email') {
                 validators.push(Validators.email);
             }
-            this.profileForm.addControl(p.key, new FormControl(p.value, validators));
+            this.profileForm.addControl(
+                p.key,
+                new FormControl(p.value, validators)
+            );
         });
         const purchase = await this.actionService.purchase.getData();
         const user = await this.actionService.user.getData();
-        const profileData = (user.login && purchase.profile === undefined)
-            ? user.profile : purchase.profile;
+        const profileData =
+            user.login && purchase.profile === undefined
+                ? user.profile
+                : purchase.profile;
         if (profileData === undefined) {
             return;
         }
-        Object.keys(profileData).forEach(key => {
+        Object.keys(profileData).forEach((key) => {
             const value = (<any>profileData)[key];
-            if (value === undefined || this.profileForm.controls[key] === undefined) {
+            if (
+                value === undefined ||
+                this.profileForm.controls[key] === undefined
+            ) {
                 return;
             }
             if (key === 'telephone') {
-                this.profileForm.controls.telephone
-                    .setValue(new LibphonenumberFormatPipe().transform(value));
+                this.profileForm.controls.telephone.setValue(
+                    new LibphonenumberFormatPipe().transform(value)
+                );
                 return;
             }
             this.profileForm.controls[key].setValue(value);
@@ -157,10 +188,13 @@ export class PurchaseInputComponent implements OnInit {
         if (additionalProperty === undefined) {
             return;
         }
-        additionalProperty.forEach(a => {
+        additionalProperty.forEach((a) => {
             const key = `additionalProperty.${a.name}`;
             const value = a.value;
-            if (value === undefined || this.profileForm.controls[key] === undefined) {
+            if (
+                value === undefined ||
+                this.profileForm.controls[key] === undefined
+            ) {
                 return;
             }
             this.profileForm.controls[key].setValue(value);
@@ -173,20 +207,31 @@ export class PurchaseInputComponent implements OnInit {
     private createCreditCardForm() {
         this.cardExpiration = {
             year: [],
-            month: []
+            month: [],
         };
         for (let i = 0; i < 12; i++) {
             this.cardExpiration.month.push(`0${String(i + 1)}`.slice(-2));
         }
         for (let i = 0; i < 10; i++) {
-            this.cardExpiration.year.push(moment().add(i, 'year').format('YYYY'));
+            this.cardExpiration.year.push(
+                moment().add(i, 'year').format('YYYY')
+            );
         }
         this.creditCardForm = this.formBuilder.group({
-            cardNumber: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
-            cardExpirationMonth: [this.cardExpiration.month[0], [Validators.required]],
-            cardExpirationYear: [this.cardExpiration.year[0], [Validators.required]],
+            cardNumber: [
+                '',
+                [Validators.required, Validators.pattern(/^[0-9]+$/)],
+            ],
+            cardExpirationMonth: [
+                this.cardExpiration.month[0],
+                [Validators.required],
+            ],
+            cardExpirationYear: [
+                this.cardExpiration.year[0],
+                [Validators.required],
+            ],
             securityCode: ['', [Validators.required]],
-            holderName: ['', [Validators.required]]
+            holderName: ['', [Validators.required]],
         });
     }
 
@@ -200,12 +245,14 @@ export class PurchaseInputComponent implements OnInit {
             if (key === 'telephone') {
                 return;
             }
-            this.profileForm.controls[key].setValue((<HTMLInputElement>document.getElementById(key)).value);
+            this.profileForm.controls[key].setValue(
+                (<HTMLInputElement>document.getElementById(key)).value
+            );
         });
         if (this.profileForm.invalid) {
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant('purchase.input.alert.customer')
+                body: this.translate.instant('purchase.input.alert.customer'),
             });
             return;
         }
@@ -214,13 +261,22 @@ export class PurchaseInputComponent implements OnInit {
             Object.keys(this.creditCardForm.controls).forEach((key) => {
                 this.creditCardForm.controls[key].markAsTouched();
             });
-            this.creditCardForm.controls.cardNumber.setValue((<HTMLInputElement>document.getElementById('cardNumber')).value);
-            this.creditCardForm.controls.securityCode.setValue((<HTMLInputElement>document.getElementById('securityCode')).value);
-            this.creditCardForm.controls.holderName.setValue((<HTMLInputElement>document.getElementById('holderName')).value);
+            this.creditCardForm.controls.cardNumber.setValue(
+                (<HTMLInputElement>document.getElementById('cardNumber')).value
+            );
+            this.creditCardForm.controls.securityCode.setValue(
+                (<HTMLInputElement>document.getElementById('securityCode'))
+                    .value
+            );
+            this.creditCardForm.controls.holderName.setValue(
+                (<HTMLInputElement>document.getElementById('holderName')).value
+            );
             if (this.creditCardForm.invalid) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.input.alert.payment')
+                    body: this.translate.instant(
+                        'purchase.input.alert.payment'
+                    ),
                 });
                 return;
             }
@@ -231,19 +287,25 @@ export class PurchaseInputComponent implements OnInit {
             try {
                 const cardExpiration = {
                     year: this.creditCardForm.controls.cardExpirationYear.value,
-                    month: this.creditCardForm.controls.cardExpirationMonth.value
+                    month: this.creditCardForm.controls.cardExpirationMonth
+                        .value,
                 };
                 const creditCard = {
                     cardno: this.creditCardForm.controls.cardNumber.value,
                     expire: `${cardExpiration.year}${cardExpiration.month}`,
                     holderName: this.creditCardForm.controls.holderName.value,
-                    securityCode: this.creditCardForm.controls.securityCode.value
+                    securityCode:
+                        this.creditCardForm.controls.securityCode.value,
                 };
-                await this.actionService.purchase.createCreditCardToken(creditCard);
+                await this.actionService.purchase.createCreditCardToken(
+                    creditCard
+                );
             } catch (error) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('purchase.input.alert.createCreditCardToken')
+                    body: this.translate.instant(
+                        'purchase.input.alert.createCreditCardToken'
+                    ),
                 });
                 return;
             }
@@ -252,35 +314,55 @@ export class PurchaseInputComponent implements OnInit {
             // 登録済みクレジットカード
             const creditCard = {
                 memberId: 'me',
-                cardSeq: Number(this.usedCreditCard.cardSeq)
+                cardSeq: Number(this.usedCreditCard.cardSeq),
             };
             this.actionService.purchase.registerCreditCard(creditCard);
         }
         try {
-            const additionalProperty: { name: string; value: string; }[] = [];
-            Object.keys(this.profileForm.controls).forEach(key => {
+            const additionalProperty: { name: string; value: string }[] = [];
+            Object.keys(this.profileForm.controls).forEach((key) => {
                 if (!/additionalProperty/.test(key)) {
                     return;
                 }
-                additionalProperty.push({ name: key.replace('additionalProperty.', ''), value: this.profileForm.controls[key].value });
+                additionalProperty.push({
+                    name: key.replace('additionalProperty.', ''),
+                    value: this.profileForm.controls[key].value,
+                });
             });
 
             const contact = {
-                givenName: (this.profileForm.controls.givenName === undefined)
-                    ? undefined : this.profileForm.controls.givenName.value,
-                familyName: (this.profileForm.controls.familyName === undefined)
-                    ? undefined : this.profileForm.controls.familyName.value,
-                telephone: (this.profileForm.controls.telephone === undefined)
-                    ? undefined : this.profileForm.controls.telephone.value.e164Number,
-                email: (this.profileForm.controls.email === undefined)
-                    ? undefined : this.profileForm.controls.email.value,
-                address: (this.profileForm.controls.address === undefined)
-                    ? undefined : this.profileForm.controls.address.value,
-                age: (this.profileForm.controls.age === undefined)
-                    ? undefined : this.profileForm.controls.age.value,
-                gender: (this.profileForm.controls.gender === undefined)
-                    ? undefined : this.profileForm.controls.gender.value,
-                additionalProperty: (additionalProperty.length === 0) ? undefined : additionalProperty,
+                givenName:
+                    this.profileForm.controls.givenName === undefined
+                        ? undefined
+                        : this.profileForm.controls.givenName.value,
+                familyName:
+                    this.profileForm.controls.familyName === undefined
+                        ? undefined
+                        : this.profileForm.controls.familyName.value,
+                telephone:
+                    this.profileForm.controls.telephone === undefined
+                        ? undefined
+                        : this.profileForm.controls.telephone.value.e164Number,
+                email:
+                    this.profileForm.controls.email === undefined
+                        ? undefined
+                        : this.profileForm.controls.email.value,
+                address:
+                    this.profileForm.controls.address === undefined
+                        ? undefined
+                        : this.profileForm.controls.address.value,
+                age:
+                    this.profileForm.controls.age === undefined
+                        ? undefined
+                        : this.profileForm.controls.age.value,
+                gender:
+                    this.profileForm.controls.gender === undefined
+                        ? undefined
+                        : this.profileForm.controls.gender.value,
+                additionalProperty:
+                    additionalProperty.length === 0
+                        ? undefined
+                        : additionalProperty,
             };
             await this.actionService.purchase.registerContact(contact);
             this.router.navigate(['/purchase/confirm']);
@@ -294,7 +376,7 @@ export class PurchaseInputComponent implements OnInit {
      */
     public openSecurityCode() {
         this.modal.show(CreditcardSecurityCodeModalComponent, {
-            class: 'modal-dialog-centered'
+            class: 'modal-dialog-centered',
         });
     }
 
@@ -302,18 +384,21 @@ export class PurchaseInputComponent implements OnInit {
      * 登録済みクレジットカード表示
      */
     public openRegisteredCreditCard() {
-
-        this.user.subscribe((user) => {
-            this.modal.show(CreditCardSelectModalComponent, {
-                initialState: {
-                    creditCards: user.creditCards,
-                    cb: (creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard) => {
-                        this.usedCreditCard = creditCard;
-                    }
-                },
-                class: 'modal-dialog-centered'
-            });
-        }).unsubscribe();
+        this.user
+            .subscribe((user) => {
+                this.modal.show(CreditCardSelectModalComponent, {
+                    initialState: {
+                        creditCards: user.creditCards,
+                        cb: (
+                            creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
+                        ) => {
+                            this.usedCreditCard = creditCard;
+                        },
+                    },
+                    class: 'modal-dialog-centered',
+                });
+            })
+            .unsubscribe();
     }
 
     /**
@@ -344,7 +429,11 @@ export class PurchaseInputComponent implements OnInit {
      * 必須判定
      */
     public isRequired(key: String) {
-        return this.environment.PROFILE.find(p => p.key === key && p.required) !== undefined;
+        return (
+            this.environment.PROFILE.find(
+                (p) => p.key === key && p.required
+            ) !== undefined
+        );
     }
 
     /**
@@ -355,10 +444,18 @@ export class PurchaseInputComponent implements OnInit {
     }
 
     /**
+     * プロフィール項目取得
+     */
+    public getProfileProperty(key: string) {
+        return this.environment.PROFILE.find((p) => p.key === key);
+    }
+
+    /**
      * 追加特性項目取得
      */
     public getAdditionalProperty(key: string) {
-        return this.environment.PROFILE.find(p => /additionalProperty/.test(p.key) && p.key === key);
+        return this.environment.PROFILE.find(
+            (p) => /additionalProperty/.test(p.key) && p.key === key
+        );
     }
-
 }
