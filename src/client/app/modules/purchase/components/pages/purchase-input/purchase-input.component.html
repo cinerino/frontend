@@ -30,9 +30,9 @@
                             [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [separateDialCode]="false"
                             inputId="telephone" name="telephone" formControlName="telephone"></ngx-intl-tel-input>
                         <select *ngIf="key === 'gender'" class="form-control" [formControlName]="key" [id]="key">
-                            <option value="">{{ 'form.option.unselected' | translate }}</option>
-                            <option value="man">{{ 'form.option.man' | translate }}</option>
-                            <option value="woman">{{ 'form.option.woman' | translate }}</option>
+                            <option *ngFor="let option of getProfileProperty(key)?.option" [value]="option.value">
+                                {{ option.label | changeLanguage }}
+                            </option>
                         </select>
                         <input *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType === 'input'"
                             type="text" class="form-control" [formControlName]="key" [id]="key" placeholder="">

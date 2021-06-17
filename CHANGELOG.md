@@ -14,6 +14,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.15.0 - 2021-06-17
+
+### Changed
+
+-   性別の value、label を設定可能に変更
+-   年齢のバリデーションを設定可能に変更
+-   追加特性を購入確認、購入完了画面でラベル表示に変更
+
 ## 3.14.0 - 2021-06-16
 
 -   cinerino/sdk>=3.2.0 で再実装
