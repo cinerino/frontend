@@ -13,7 +13,7 @@ import { CinerinoService } from '../cinerino.service';
 import { UtilService } from '../util.service';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class ActionPurchaseService {
     public purchase: Observable<reducers.IPurchaseState>;
@@ -35,9 +35,11 @@ export class ActionPurchaseService {
      */
     public async getData() {
         return new Promise<reducers.IPurchaseState>((resolve) => {
-            this.purchase.subscribe((purchase) => {
-                resolve(purchase);
-            }).unsubscribe();
+            this.purchase
+                .subscribe((purchase) => {
+                    resolve(purchase);
+                })
+                .unsubscribe();
         });
     }
 
@@ -59,7 +61,9 @@ export class ActionPurchaseService {
      * スケジュール日選択
      */
     public selectScheduleDate(scheduleDate: string) {
-        this.store.dispatch(purchaseAction.selectScheduleDate({ scheduleDate }));
+        this.store.dispatch(
+            purchaseAction.selectScheduleDate({ scheduleDate })
+        );
     }
 
     /**
@@ -70,11 +74,19 @@ export class ActionPurchaseService {
             this.store.dispatch(purchaseAction.getSeller({ id }));
             const success = this.actions.pipe(
                 ofType(purchaseAction.getSellerSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.getSellerFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -94,58 +106,86 @@ export class ActionPurchaseService {
      */
     public async getPreScheduleDates() {
         try {
-            this.utilService.loadStart({ process: 'purchaseAction.GetPreScheduleDates' });
+            this.utilService.loadStart({
+                process: 'purchaseAction.GetPreScheduleDates',
+            });
             const external = Functions.Util.getExternalData();
             const { theater } = await this.getData();
-            if (theater === undefined
-                || theater.offers === undefined
-                || theater.offers.availabilityStartsGraceTime === undefined
-                || theater.offers.availabilityStartsGraceTime.value === undefined
-                || theater.offers.availabilityStartsGraceTime.unitCode === undefined
-                || theater.offers.availabilityStartsGraceTime.unitCode === undefined) {
+            if (
+                theater === undefined ||
+                theater.offers === undefined ||
+                theater.offers.availabilityStartsGraceTime === undefined ||
+                theater.offers.availabilityStartsGraceTime.value ===
+                    undefined ||
+                theater.offers.availabilityStartsGraceTime.unitCode ===
+                    undefined ||
+                theater.offers.availabilityStartsGraceTime.unitCode ===
+                    undefined
+            ) {
                 this.utilService.loadEnd();
                 return [];
             }
-            const { value, unitCode } = theater.offers.availabilityStartsGraceTime;
+            const { value, unitCode } =
+                theater.offers.availabilityStartsGraceTime;
             const availabilityStartsGraceTime: {
                 value: number;
-                unit: 'day' | 'year' | 'second'
+                unit: 'day' | 'year' | 'second';
             } = {
                 value: value * -1 + 1,
-                unit: (unitCode === factory.chevre.unitCode.Day) ? 'day'
-                    : (unitCode === factory.chevre.unitCode.Ann) ? 'year'
-                        : (unitCode === factory.chevre.unitCode.Sec) ? 'second'
-                            : 'second'
+                unit:
+                    unitCode === factory.chevre.unitCode.Day
+                        ? 'day'
+                        : unitCode === factory.chevre.unitCode.Ann
+                        ? 'year'
+                        : unitCode === factory.chevre.unitCode.Sec
+                        ? 'second'
+                        : 'second',
             };
             const superEvent = {
-                ids: (external.superEventId === undefined) ? [] : [external.superEventId],
-                locationBranchCodes: (theater.branchCode === undefined) ? [] : [theater.branchCode],
-                workPerformedIdentifiers: (external.workPerformedId === undefined)
-                    ? [] : [external.workPerformedId]
+                ids:
+                    external.superEventId === undefined
+                        ? []
+                        : [external.superEventId],
+                locationBranchCodes:
+                    theater.branchCode === undefined
+                        ? []
+                        : [theater.branchCode],
+                workPerformedIdentifiers:
+                    external.workPerformedId === undefined
+                        ? []
+                        : [external.workPerformedId],
             };
             await this.cinerinoService.getServices();
-            const now = moment((await this.utilService.getServerTime()).date).toDate();
+            const now = moment(
+                (await this.utilService.getServerTime()).date
+            ).toDate();
             const today = moment(moment().format('YYYYMMDD')).toDate();
             const limit = 100;
             let page = 1;
             let roop = true;
-            let screeningEvents: factory.chevre.event.screeningEvent.IEvent[] = [];
+            let screeningEvents: factory.chevre.event.screeningEvent.IEvent[] =
+                [];
             while (roop) {
                 const searchResult = await this.cinerinoService.event.search({
                     page,
                     limit,
                     typeOf: factory.chevre.eventType.ScreeningEvent,
-                    eventStatuses: [factory.chevre.eventStatusType.EventScheduled],
+                    eventStatuses: [
+                        factory.chevre.eventStatusType.EventScheduled,
+                    ],
                     superEvent: superEvent,
                     startFrom: moment(today, 'YYYYMMDD')
-                        .add(availabilityStartsGraceTime.value, availabilityStartsGraceTime.unit)
+                        .add(
+                            availabilityStartsGraceTime.value,
+                            availabilityStartsGraceTime.unit
+                        )
                         .toDate(),
                     offers: {
                         validFrom: now,
                         validThrough: now,
                         availableFrom: now,
-                        availableThrough: now
-                    }
+                        availableThrough: now,
+                    },
                 });
                 screeningEvents = screeningEvents.concat(searchResult.data);
                 page++;
@@ -156,8 +196,10 @@ export class ActionPurchaseService {
             }
             const sheduleDates: string[] = [];
             screeningEvents.forEach((screeningEvent) => {
-                const date = moment(screeningEvent.startDate).format('YYYYMMDD');
-                const findResult = sheduleDates.find(s => s === date);
+                const date = moment(screeningEvent.startDate).format(
+                    'YYYYMMDD'
+                );
+                const findResult = sheduleDates.find((s) => s === date);
                 if (findResult === undefined) {
                     sheduleDates.push(date);
                 }
@@ -174,16 +216,28 @@ export class ActionPurchaseService {
     /**
      * イベント取得
      */
-    public async getScreeningEvent(screeningEvent: factory.chevre.event.screeningEvent.IEvent) {
+    public async getScreeningEvent(
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent
+    ) {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(purchaseAction.getScreeningEvent({ screeningEvent }));
+            this.store.dispatch(
+                purchaseAction.getScreeningEvent({ screeningEvent })
+            );
             const success = this.actions.pipe(
                 ofType(purchaseAction.getScreeningEventSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.getScreeningEventFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -199,34 +253,67 @@ export class ActionPurchaseService {
         const agent = {
             identifier: [
                 ...environment.PURCHASE_TRANSACTION_IDENTIFIER,
-                { name: 'userAgent', value: (navigator && navigator.userAgent !== undefined) ? navigator.userAgent : '' },
-                { name: 'appVersion', value: (navigator && navigator.appVersion !== undefined) ? navigator.appVersion : '' }
-            ]
+                {
+                    name: 'userAgent',
+                    value:
+                        navigator && navigator.userAgent !== undefined
+                            ? navigator.userAgent
+                            : '',
+                },
+                {
+                    name: 'appVersion',
+                    value:
+                        navigator && navigator.appVersion !== undefined
+                            ? navigator.appVersion
+                            : '',
+                },
+            ],
         };
         return new Promise<void>((resolve, reject) => {
-            if (purchase.seller === undefined
-                || purchase.seller.id === undefined) {
+            if (
+                purchase.seller === undefined ||
+                purchase.seller.id === undefined
+            ) {
                 reject();
                 return;
             }
             const external = Functions.Util.getExternalData();
-            const linyId = (external.linyId === undefined) ? undefined : external.linyId;
+            const linyId =
+                external.linyId === undefined ? undefined : external.linyId;
             if (linyId !== undefined) {
                 agent.identifier.push({ name: 'linyId', value: linyId });
             }
-            this.store.dispatch(purchaseAction.startTransaction({
-                expires: moment(now).add(this.environment.PURCHASE_TRANSACTION_TIME, 'minutes').toDate(),
-                seller: { typeOf: purchase.seller.typeOf, id: purchase.seller.id },
-                object: {},
-                agent
-            }));
+            this.store.dispatch(
+                purchaseAction.startTransaction({
+                    expires: moment(now)
+                        .add(
+                            this.environment.PURCHASE_TRANSACTION_TIME,
+                            'minutes'
+                        )
+                        .toDate(),
+                    seller: {
+                        typeOf: purchase.seller.typeOf,
+                        id: purchase.seller.id,
+                    },
+                    object: {},
+                    agent,
+                })
+            );
             const success = this.actions.pipe(
                 ofType(purchaseAction.startTransactionSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.startTransactionFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -243,14 +330,20 @@ export class ActionPurchaseService {
                 resolve();
                 return;
             }
-            this.store.dispatch(purchaseAction.cancelTransaction({ transaction }));
+            this.store.dispatch(
+                purchaseAction.cancelTransaction({ transaction })
+            );
             const success = this.actions.pipe(
                 ofType(purchaseAction.cancelTransactionSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.cancelTransactionFail.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -275,11 +368,19 @@ export class ActionPurchaseService {
             this.store.dispatch(purchaseAction.getScreen(params));
             const success = this.actions.pipe(
                 ofType(purchaseAction.getScreenSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.getScreenFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -290,7 +391,9 @@ export class ActionPurchaseService {
      */
     public async getScreeningEventSeats() {
         try {
-            this.utilService.loadStart({ process: 'purchaseAction.GetScreeningEventSeats' });
+            this.utilService.loadStart({
+                process: 'purchaseAction.GetScreeningEventSeats',
+            });
             const purchase = await this.getData();
             if (purchase.screeningEvent === undefined) {
                 throw new Error('purchase.screeningEvent === undefined');
@@ -300,17 +403,22 @@ export class ActionPurchaseService {
             let page = 1;
             let roop = true;
             let result: factory.chevre.place.seat.IPlaceWithOffer[] = [];
-            if (!new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat()) {
+            if (
+                !new Models.Purchase.Performance({
+                    screeningEvent,
+                }).isTicketedSeat()
+            ) {
                 this.utilService.loadEnd();
                 return result;
             }
             await this.cinerinoService.getServices();
             while (roop) {
-                const searchResult = await this.cinerinoService.event.searchSeats({
-                    event: { id: screeningEvent.id },
-                    page,
-                    limit
-                });
+                const searchResult =
+                    await this.cinerinoService.event.searchSeats({
+                        event: { id: screeningEvent.id },
+                        page,
+                        limit,
+                    });
                 result = [...result, ...searchResult.data];
                 page++;
                 roop = searchResult.data.length === limit;
@@ -353,14 +461,24 @@ export class ActionPurchaseService {
                 reject();
                 return;
             }
-            this.store.dispatch(purchaseAction.getTicketList({ screeningEvent, seller }));
+            this.store.dispatch(
+                purchaseAction.getTicketList({ screeningEvent, seller })
+            );
             const success = this.actions.pipe(
                 ofType(purchaseAction.getTicketListSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.getTicketListFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -369,7 +487,9 @@ export class ActionPurchaseService {
     /**
      * 券種選択
      */
-    public selectTickets(reservations: Models.Purchase.Reservation.IReservation[]) {
+    public selectTickets(
+        reservations: Models.Purchase.Reservation.IReservation[]
+    ) {
         this.store.dispatch(purchaseAction.selectTickets({ reservations }));
     }
 
@@ -393,29 +513,44 @@ export class ActionPurchaseService {
                 return;
             }
             const authorizeSeatReservation = purchase.authorizeSeatReservation;
-            this.store.dispatch(purchaseAction.temporaryReservation({
-                reservations: reservations.map((reservation) => {
-                    return {
-                        seat: reservation.seat,
-                        ticket: (reservation.ticket === undefined)
-                            ? { ticketOffer: purchase.screeningEventTicketOffers[0] }
-                            : reservation.ticket
-                    };
-                }),
-                transaction,
-                screeningEvent,
-                authorizeSeatReservation,
-                screeningEventSeats,
-                additionalTicketText
-            }));
+            this.store.dispatch(
+                purchaseAction.temporaryReservation({
+                    reservations: reservations.map((reservation) => {
+                        return {
+                            seat: reservation.seat,
+                            ticket:
+                                reservation.ticket === undefined
+                                    ? {
+                                          ticketOffer:
+                                              purchase
+                                                  .screeningEventTicketOffers[0],
+                                      }
+                                    : reservation.ticket,
+                        };
+                    }),
+                    transaction,
+                    screeningEvent,
+                    authorizeSeatReservation,
+                    screeningEventSeats,
+                    additionalTicketText,
+                })
+            );
             const success = this.actions.pipe(
                 ofType(purchaseAction.temporaryReservationSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
 
             const fail = this.actions.pipe(
                 ofType(purchaseAction.temporaryReservationFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -428,16 +563,28 @@ export class ActionPurchaseService {
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]
     ) {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(purchaseAction.cancelTemporaryReservations({ authorizeSeatReservations }));
+            this.store.dispatch(
+                purchaseAction.cancelTemporaryReservations({
+                    authorizeSeatReservations,
+                })
+            );
 
             const success = this.actions.pipe(
                 ofType(purchaseAction.cancelTemporaryReservationsSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
 
             const fail = this.actions.pipe(
                 ofType(purchaseAction.cancelTemporaryReservationsFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -447,7 +594,8 @@ export class ActionPurchaseService {
      * クレジットカード登録
      */
     public registerCreditCard(
-        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
+        creditCard:
+            | factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
             | factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
             | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
             | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized
@@ -463,9 +611,9 @@ export class ActionPurchaseService {
     }
 
     /**
-     * 連絡先登録
+     * プロフィール登録
      */
-    public async registerContact(profile: factory.person.IProfile) {
+    public async setProfile(profile: factory.person.IProfile) {
         const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
             const transaction = purchase.transaction;
@@ -473,14 +621,24 @@ export class ActionPurchaseService {
                 reject();
                 return;
             }
-            this.store.dispatch(purchaseAction.registerContact({ transaction, profile }));
+            this.store.dispatch(
+                purchaseAction.setProfile({ transaction, profile })
+            );
             const success = this.actions.pipe(
-                ofType(purchaseAction.registerContactSuccess.type),
-                tap(() => { resolve(); })
+                ofType(purchaseAction.setProfileSuccess.type),
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
-                ofType(purchaseAction.registerContactFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                ofType(purchaseAction.setProfileFail.type),
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -492,25 +650,39 @@ export class ActionPurchaseService {
     public async authorizeCreditCard(amount: number) {
         const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
-            if (purchase.transaction === undefined || purchase.creditCard === undefined) {
+            if (
+                purchase.transaction === undefined ||
+                purchase.creditCard === undefined
+            ) {
                 reject();
                 return;
             }
-            this.store.dispatch(purchaseAction.authorizeCreditCard({
-                transaction: purchase.transaction,
-                authorizeCreditCardPayment: purchase.authorizeCreditCardPayments[0],
-                orderCount: purchase.orderCount,
-                amount,
-                method: '1',
-                creditCard: purchase.creditCard
-            }));
+            this.store.dispatch(
+                purchaseAction.authorizeCreditCard({
+                    transaction: purchase.transaction,
+                    authorizeCreditCardPayment:
+                        purchase.authorizeCreditCardPayments[0],
+                    orderCount: purchase.orderCount,
+                    amount,
+                    method: '1',
+                    creditCard: purchase.creditCard,
+                })
+            );
             const success = this.actions.pipe(
                 ofType(purchaseAction.authorizeCreditCardSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.authorizeCreditCardFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -522,25 +694,39 @@ export class ActionPurchaseService {
     public async authorizeMovieTicket() {
         const purchase = await this.getData();
         return new Promise<void>((resolve, reject) => {
-            if (purchase.transaction === undefined
-                || purchase.seller === undefined) {
+            if (
+                purchase.transaction === undefined ||
+                purchase.seller === undefined
+            ) {
                 reject();
                 return;
             }
-            this.store.dispatch(purchaseAction.authorizeMovieTicket({
-                transaction: purchase.transaction,
-                authorizeMovieTicketPayments: purchase.authorizeMovieTicketPayments,
-                authorizeSeatReservations: purchase.authorizeSeatReservations,
-                pendingMovieTickets: purchase.pendingMovieTickets,
-                seller: purchase.seller
-            }));
+            this.store.dispatch(
+                purchaseAction.authorizeMovieTicket({
+                    transaction: purchase.transaction,
+                    authorizeMovieTicketPayments:
+                        purchase.authorizeMovieTicketPayments,
+                    authorizeSeatReservations:
+                        purchase.authorizeSeatReservations,
+                    pendingMovieTickets: purchase.pendingMovieTickets,
+                    seller: purchase.seller,
+                })
+            );
             const success = this.actions.pipe(
                 ofType(purchaseAction.authorizeMovieTicketSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.authorizeMovieTicketFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -553,34 +739,45 @@ export class ActionPurchaseService {
         movieTicket: {
             code: string;
             password: string;
-        },
-        paymentMethodType: factory.paymentMethodType
+        };
+        paymentMethodType: factory.paymentMethodType;
     }) {
         const movieTicket = params.movieTicket;
         const paymentMethodType = params.paymentMethodType;
         const { transaction, screeningEvent } = await this.getData();
         return new Promise<void>((resolve, reject) => {
-            if (transaction === undefined
-                || screeningEvent === undefined) {
+            if (transaction === undefined || screeningEvent === undefined) {
                 reject();
                 return;
             }
-            this.store.dispatch(purchaseAction.checkMovieTicket({
-                transaction,
-                screeningEvent,
-                movieTickets: [{
-                    typeOf: paymentMethodType,
-                    identifier: movieTicket.code, // 購入管理番号
-                    accessCode: movieTicket.password // PINコード
-                }]
-            }));
+            this.store.dispatch(
+                purchaseAction.checkMovieTicket({
+                    transaction,
+                    screeningEvent,
+                    movieTickets: [
+                        {
+                            typeOf: paymentMethodType,
+                            identifier: movieTicket.code, // 購入管理番号
+                            accessCode: movieTicket.password, // PINコード
+                        },
+                    ],
+                })
+            );
             const success = this.actions.pipe(
                 ofType(purchaseAction.checkMovieTicketSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.checkMovieTicketFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -589,40 +786,51 @@ export class ActionPurchaseService {
     /**
      * 取引確定
      */
-    public async endTransaction(params: {
-        language: string;
-    }) {
+    public async endTransaction(params: { language: string }) {
         const purchase = await this.getData();
         const language = params.language;
         return new Promise<void>((resolve, reject) => {
-            if (purchase.transaction === undefined
-                || purchase.seller === undefined
-                || purchase.theater === undefined) {
+            if (
+                purchase.transaction === undefined ||
+                purchase.seller === undefined ||
+                purchase.theater === undefined
+            ) {
                 reject();
                 return;
             }
             const transaction = purchase.transaction;
-            const authorizeSeatReservations = purchase.authorizeSeatReservations;
+            const authorizeSeatReservations =
+                purchase.authorizeSeatReservations;
             const seller = purchase.seller;
             const theater = purchase.theater;
             const external = Functions.Util.getExternalData();
-            const linyId = (external.linyId === undefined)
-                ? undefined : external.linyId;
-            this.store.dispatch(purchaseAction.endTransaction({
-                transaction,
-                authorizeSeatReservations,
-                seller,
-                theater,
-                language,
-                linyId
-            }));
+            const linyId =
+                external.linyId === undefined ? undefined : external.linyId;
+            this.store.dispatch(
+                purchaseAction.endTransaction({
+                    transaction,
+                    authorizeSeatReservations,
+                    seller,
+                    theater,
+                    language,
+                    linyId,
+                })
+            );
             const success = this.actions.pipe(
                 ofType(purchaseAction.endTransactionSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.endTransactionFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -638,21 +846,36 @@ export class ActionPurchaseService {
         securityCode: string;
     }) {
         return new Promise<void>((resolve, reject) => {
-            this.purchase.subscribe((purchase) => {
-                const seller = purchase.seller;
-                if (seller === undefined) {
-                    reject();
-                    return;
-                }
-                this.store.dispatch(purchaseAction.createCreditCardToken({ seller, creditCard }));
-            }).unsubscribe();
+            this.purchase
+                .subscribe((purchase) => {
+                    const seller = purchase.seller;
+                    if (seller === undefined) {
+                        reject();
+                        return;
+                    }
+                    this.store.dispatch(
+                        purchaseAction.createCreditCardToken({
+                            seller,
+                            creditCard,
+                        })
+                    );
+                })
+                .unsubscribe();
             const success = this.actions.pipe(
                 ofType(purchaseAction.createCreditCardTokenSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.createCreditCardTokenFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
@@ -663,18 +886,26 @@ export class ActionPurchaseService {
      */
     public async convertExternalToPurchase(eventId: string) {
         return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(purchaseAction.convertExternalToPurchase({ eventId }));
+            this.store.dispatch(
+                purchaseAction.convertExternalToPurchase({ eventId })
+            );
             const success = this.actions.pipe(
                 ofType(purchaseAction.convertExternalToPurchaseSuccess.type),
-                tap(() => { resolve(); })
+                tap(() => {
+                    resolve();
+                })
             );
             const fail = this.actions.pipe(
                 ofType(purchaseAction.convertExternalToPurchaseFail.type),
-                tap(() => { this.error.subscribe((error) => { reject(error); }).unsubscribe(); })
+                tap(() => {
+                    this.error
+                        .subscribe((error) => {
+                            reject(error);
+                        })
+                        .unsubscribe();
+                })
             );
             race(success, fail).pipe(take(1)).subscribe();
         });
     }
-
-
 }

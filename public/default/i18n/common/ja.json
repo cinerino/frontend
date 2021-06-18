@@ -438,7 +438,7 @@
             "TemporaryReservationFreeSeat": "仮予約しています",
             "CancelTemporaryReservations": "仮予約をキャンセルしています",
             "RegisterCreditCard": "クレジットカード情報を登録しています",
-            "RegisterContact": "購入者情報を登録しています",
+            "SetProfile": "購入者情報を登録しています",
             "AuthorizeCreditCard": "クレジットカード情報を承認しています",
             "createCreditCardToken": "クレジットカードトークンを作成しています",
             "AuthorizeMovieTicket": "ムビチケ情報を承認しています",

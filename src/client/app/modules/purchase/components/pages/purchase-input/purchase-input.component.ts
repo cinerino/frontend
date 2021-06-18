@@ -1,32 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-    AbstractControl,
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    ValidatorFn,
-    Validators,
-} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import * as moment from 'moment';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import {
-    CountryISO,
-    NgxIntlTelInputComponent,
-    SearchCountryField,
-    TooltipLabel,
-} from 'ngx-intl-tel-input';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import { CreditcardSecurityCodeModalComponent } from '../../../../shared/components/parts/creditcard/security-code-modal/security-code-modal.component';
 import { CreditCardSelectModalComponent } from '../../../../shared/components/parts/creditcard/select-modal/select-modal.component';
-import { LibphonenumberFormatPipe } from '../../../../shared/pipes/libphonenumber-format.pipe';
 
 @Component({
     selector: 'app-purchase-input',
@@ -37,26 +21,17 @@ export class PurchaseInputComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public user: Observable<reducers.IUserState>;
     public isLoading: Observable<boolean>;
-    public profileForm: FormGroup;
-    public creditCardForm: FormGroup;
-    public cardExpiration: {
-        year: string[];
-        month: string[];
-    };
+    public profileForm?: FormGroup;
+    public creditCardForm?: FormGroup;
     public amount: number;
     public environment = getEnvironment();
     public viewType = Models.Common.ViewType;
     public usedCreditCard?: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard;
-    public SearchCountryField = SearchCountryField;
-    public TooltipLabel = TooltipLabel;
-    public CountryISO = CountryISO;
-    @ViewChild('intlTelInput') private intlTelInput: NgxIntlTelInputComponent;
 
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
         private modal: BsModalService,
-        private formBuilder: FormBuilder,
         private utilService: UtilService,
         private actionService: ActionService,
         private translate: TranslateService
@@ -76,176 +51,35 @@ export class PurchaseInputComponent implements OnInit {
                 await this.actionService.user.getProfile();
                 // await this.actionService.user.getCreditCards();
             }
-            await this.createProfileForm();
-            this.createCreditCardForm();
-            const purchase = await this.actionService.purchase.getData();
-            if (purchase.transaction === undefined) {
+            const { transaction, authorizeSeatReservations } =
+                await this.actionService.purchase.getData();
+            if (transaction === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
             this.amount = Functions.Purchase.getAmount(
-                purchase.authorizeSeatReservations
+                authorizeSeatReservations
             );
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
         }
-        setTimeout(() => {
-            if (this.intlTelInput === undefined) {
-                return;
-            }
-            const findResult = this.intlTelInput.allCountries.find(
-                (c) => c.iso2 === CountryISO.Japan
-            );
-            if (findResult === undefined) {
-                return;
-            }
-            findResult.placeHolder = this.translate.instant(
-                'form.placeholder.telephone'
-            );
-        }, 0);
-    }
-
-    /**
-     * 購入情報フォーム作成
-     */
-    private async createProfileForm() {
-        const profile = this.environment.PROFILE;
-        this.profileForm = this.formBuilder.group({});
-        profile.forEach((p) => {
-            const validators: ValidatorFn[] = [];
-            if (p.required !== undefined && p.required) {
-                validators.push(Validators.required);
-            }
-            if (p.maxLength !== undefined) {
-                validators.push(Validators.maxLength(p.maxLength));
-            }
-            if (p.minLength !== undefined) {
-                validators.push(Validators.minLength(p.minLength));
-            }
-            if (p.pattern !== undefined) {
-                validators.push(Validators.pattern(p.pattern));
-            }
-            if (p.key === 'familyName' || p.key === 'givenName') {
-                validators.push((control: AbstractControl) => {
-                    const field = control.root.get(p.key);
-                    const language = document.documentElement.lang;
-                    if (field !== null) {
-                        if (field.value === '') {
-                            return null;
-                        }
-                        if (
-                            language === 'ja' &&
-                            !new RegExp(/^[ァ-ヶー]+$/).test(field.value)
-                        ) {
-                            return { customPattern: true };
-                        }
-                        if (
-                            language !== 'ja' &&
-                            !new RegExp(/^[a-z]+$/).test(field.value)
-                        ) {
-                            return { customPattern: true };
-                        }
-                    }
-
-                    return null;
-                });
-            }
-            if (p.key === 'email') {
-                validators.push(Validators.email);
-            }
-            this.profileForm.addControl(
-                p.key,
-                new FormControl(p.value, validators)
-            );
-        });
-        const purchase = await this.actionService.purchase.getData();
-        const user = await this.actionService.user.getData();
-        const profileData =
-            user.login && purchase.profile === undefined
-                ? user.profile
-                : purchase.profile;
-        if (profileData === undefined) {
-            return;
-        }
-        Object.keys(profileData).forEach((key) => {
-            const value = (<any>profileData)[key];
-            if (
-                value === undefined ||
-                this.profileForm.controls[key] === undefined
-            ) {
-                return;
-            }
-            if (key === 'telephone') {
-                this.profileForm.controls.telephone.setValue(
-                    new LibphonenumberFormatPipe().transform(value)
-                );
-                return;
-            }
-            this.profileForm.controls[key].setValue(value);
-        });
-        const additionalProperty = profileData.additionalProperty;
-        if (additionalProperty === undefined) {
-            return;
-        }
-        additionalProperty.forEach((a) => {
-            const key = `additionalProperty.${a.name}`;
-            const value = a.value;
-            if (
-                value === undefined ||
-                this.profileForm.controls[key] === undefined
-            ) {
-                return;
-            }
-            this.profileForm.controls[key].setValue(value);
-        });
-    }
-
-    /**
-     * クレジットカード情報フォーム作成
-     */
-    private createCreditCardForm() {
-        this.cardExpiration = {
-            year: [],
-            month: [],
-        };
-        for (let i = 0; i < 12; i++) {
-            this.cardExpiration.month.push(`0${String(i + 1)}`.slice(-2));
-        }
-        for (let i = 0; i < 10; i++) {
-            this.cardExpiration.year.push(
-                moment().add(i, 'year').format('YYYY')
-            );
-        }
-        this.creditCardForm = this.formBuilder.group({
-            cardNumber: [
-                '',
-                [Validators.required, Validators.pattern(/^[0-9]+$/)],
-            ],
-            cardExpirationMonth: [
-                this.cardExpiration.month[0],
-                [Validators.required],
-            ],
-            cardExpirationYear: [
-                this.cardExpiration.year[0],
-                [Validators.required],
-            ],
-            securityCode: ['', [Validators.required]],
-            holderName: ['', [Validators.required]],
-        });
     }
 
     /**
      * 入力確定
      */
     public async onSubmit() {
+        if (this.profileForm === undefined) {
+            return;
+        }
         // 購入者情報Form
         Object.keys(this.profileForm.controls).forEach((key) => {
-            this.profileForm.controls[key].markAsTouched();
+            this.profileForm?.controls[key].markAsTouched();
             if (key === 'telephone') {
                 return;
             }
-            this.profileForm.controls[key].setValue(
+            this.profileForm?.controls[key].setValue(
                 (<HTMLInputElement>document.getElementById(key)).value
             );
         });
@@ -257,9 +91,13 @@ export class PurchaseInputComponent implements OnInit {
             return;
         }
         // クレジットカード情報フォーム
-        if (this.usedCreditCard === undefined && this.amount > 0) {
+        if (
+            this.amount > 0 &&
+            this.usedCreditCard === undefined &&
+            this.creditCardForm !== undefined
+        ) {
             Object.keys(this.creditCardForm.controls).forEach((key) => {
-                this.creditCardForm.controls[key].markAsTouched();
+                this.creditCardForm?.controls[key].markAsTouched();
             });
             this.creditCardForm.controls.cardNumber.setValue(
                 (<HTMLInputElement>document.getElementById('cardNumber')).value
@@ -282,7 +120,11 @@ export class PurchaseInputComponent implements OnInit {
             }
         }
         this.actionService.purchase.removeCreditCard();
-        if (this.amount > 0 && this.usedCreditCard === undefined) {
+        if (
+            this.amount > 0 &&
+            this.usedCreditCard === undefined &&
+            this.creditCardForm !== undefined
+        ) {
             // クレジットカード入力
             try {
                 const cardExpiration = {
@@ -326,7 +168,7 @@ export class PurchaseInputComponent implements OnInit {
                 }
                 additionalProperty.push({
                     name: key.replace('additionalProperty.', ''),
-                    value: this.profileForm.controls[key].value,
+                    value: this.profileForm?.controls[key].value,
                 });
             });
 
@@ -364,20 +206,11 @@ export class PurchaseInputComponent implements OnInit {
                         ? undefined
                         : additionalProperty,
             };
-            await this.actionService.purchase.registerContact(contact);
+            await this.actionService.purchase.setProfile(contact);
             this.router.navigate(['/purchase/confirm']);
         } catch (error) {
             this.router.navigate(['/error']);
         }
-    }
-
-    /**
-     * セキュリティコード詳細表示
-     */
-    public openSecurityCode() {
-        this.modal.show(CreditcardSecurityCodeModalComponent, {
-            class: 'modal-dialog-centered',
-        });
     }
 
     /**
@@ -406,56 +239,5 @@ export class PurchaseInputComponent implements OnInit {
      */
     public changeInputCreditCard() {
         this.usedCreditCard = undefined;
-        this.createCreditCardForm();
-    }
-
-    /**
-     * クリップボードへコピー
-     */
-    public copyDomain() {
-        const str = this.translate.instant('email.domain');
-        const element = document.createElement('textarea');
-        element.value = str;
-        element.selectionStart = 0;
-        element.selectionEnd = element.value.length;
-        document.body.appendChild(element);
-        element.focus();
-        document.execCommand('copy');
-        element.blur();
-        document.body.removeChild(element);
-    }
-
-    /**
-     * 必須判定
-     */
-    public isRequired(key: String) {
-        return (
-            this.environment.PROFILE.find(
-                (p) => p.key === key && p.required
-            ) !== undefined
-        );
-    }
-
-    /**
-     * 購入者情報フォームのコントロールkeyを配列で返却
-     */
-    public getProfileFormKeys() {
-        return Object.keys(this.profileForm.controls);
-    }
-
-    /**
-     * プロフィール項目取得
-     */
-    public getProfileProperty(key: string) {
-        return this.environment.PROFILE.find((p) => p.key === key);
-    }
-
-    /**
-     * 追加特性項目取得
-     */
-    public getAdditionalProperty(key: string) {
-        return this.environment.PROFILE.find(
-            (p) => /additionalProperty/.test(p.key) && p.key === key
-        );
     }
 }
