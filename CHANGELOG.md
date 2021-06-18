@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.16.0 - 2021-06-18
+
+### Fixed
+
+-   自由席の場合座席説明が出ないよう修正
+
 ## 3.15.0 - 2021-06-17
 
 ### Changed
