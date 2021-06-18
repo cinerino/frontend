@@ -1,13 +1,12 @@
 <div class="contents-width mx-auto px-3 py-5">
-    <div *ngIf="!((purchase | async)?.screen?.openSeatingAllowed)">
+    <div *ngIf="(purchase | async)?.screen && !((purchase | async)?.screen?.openSeatingAllowed)">
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.cinema.seat.title' | translate }}</h2>
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.seat.read' | translate"></p>
         <div class="container px-0">
             <div class="row">
                 <div class="col-lg-8">
-                    <app-screen *ngIf="(purchase | async)?.theater 
-                && screeningEventSeats.length > 0 
-                && (purchase | async)?.screen" class="mb-3" [theaterCode]="(purchase | async)?.theater.branchCode"
+                    <app-screen *ngIf="(purchase | async)?.theater && screeningEventSeats.length > 0" class="mb-3"
+                        [theaterCode]="(purchase | async)?.theater.branchCode"
                         [screenCode]="(purchase | async)?.screen.branchCode" [screeningEventSeats]="screeningEventSeats"
                         [openSeatingAllowed]="(purchase | async)?.screen?.openSeatingAllowed"
                         [reservations]="(purchase | async)?.reservations"
@@ -23,7 +22,7 @@
         </div>
     </div>
 
-    <div *ngIf="(purchase | async)?.screen?.openSeatingAllowed">
+    <div *ngIf="(purchase | async)?.screen && (purchase | async)?.screen?.openSeatingAllowed">
         <h2 class="text-large mb-4 text-center font-weight-bold">
             {{ 'purchase.cinema.seat.openSeating.title' | translate }}</h2>
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.cinema.seat.openSeating.read' | translate"></p>
@@ -45,10 +44,10 @@
                                             <select class="form-control" [(ngModel)]="reservationCount">
                                                 <option [value]="0">0</option>
                                                 <option *ngFor="let value of remainingAttendeeCapacityValue({
-                            screeningEventSeats: screeningEventSeats,
-                            screeningEvent: (purchase | async)?.screeningEvent,
-                            authorizeSeatReservations: (purchase | async)?.authorizeSeatReservations
-                        })" [value]="value">{{ value }}</option>
+                                                    screeningEventSeats: screeningEventSeats,
+                                                    screeningEvent: (purchase | async)?.screeningEvent,
+                                                    authorizeSeatReservations: (purchase | async)?.authorizeSeatReservations
+                                                })" [value]="value">{{ value }}</option>
                                             </select>
                                         </div>
                                     </div>

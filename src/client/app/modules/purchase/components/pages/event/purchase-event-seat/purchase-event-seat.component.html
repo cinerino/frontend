@@ -1,13 +1,12 @@
 <div class="contents-width mx-auto px-3 py-5">
-    <div *ngIf="!((purchase | async)?.screen?.openSeatingAllowed)">
+    <div *ngIf="(purchase | async)?.screen && !((purchase | async)?.screen?.openSeatingAllowed)">
         <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.event.seat.title' | translate }}</h2>
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.seat.read' | translate"></p>
         <div class="container px-0">
             <div class="row">
                 <div class="col-lg-8">
-                    <app-screen *ngIf="(purchase | async)?.theater 
-                && screeningEventSeats.length > 0 
-                && (purchase | async)?.screen" class="mb-3" [theaterCode]="(purchase | async)?.theater.branchCode"
+                    <app-screen *ngIf="(purchase | async)?.theater && screeningEventSeats.length > 0" class="mb-3"
+                        [theaterCode]="(purchase | async)?.theater.branchCode"
                         [screenCode]="(purchase | async)?.screen.branchCode" [screeningEventSeats]="screeningEventSeats"
                         [openSeatingAllowed]="(purchase | async)?.screen?.openSeatingAllowed"
                         [reservations]="(purchase | async)?.reservations"
@@ -23,7 +22,7 @@
         </div>
     </div>
 
-    <div *ngIf="(purchase | async)?.screen?.openSeatingAllowed">
+    <div *ngIf="(purchase | async)?.screen && (purchase | async)?.screen?.openSeatingAllowed">
         <h2 class="text-large mb-4 text-center font-weight-bold">
             {{ 'purchase.event.seat.openSeating.title' | translate }}</h2>
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.event.seat.openSeating.read' | translate"></p>
@@ -45,10 +44,10 @@
                                             <select class="form-control" [(ngModel)]="reservationCount">
                                                 <option [value]="0">0</option>
                                                 <option *ngFor="let value of remainingAttendeeCapacityValue({
-                            screeningEventSeats: screeningEventSeats,
-                            screeningEvent: (purchase | async)?.screeningEvent,
-                            authorizeSeatReservations: (purchase | async)?.authorizeSeatReservations
-                        })" [value]="value">{{ value }}</option>
+                                                    screeningEventSeats: screeningEventSeats,
+                                                    screeningEvent: (purchase | async)?.screeningEvent,
+                                                    authorizeSeatReservations: (purchase | async)?.authorizeSeatReservations
+                                                })" [value]="value">{{ value }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -74,12 +73,14 @@
         </div>
     </div>
     <div class="buttons mx-auto text-center">
-        <button *ngIf="!((purchase | async)?.screen?.openSeatingAllowed)" type="submit" class="btn btn-primary btn-block py-3 mb-3"
-            [disabled]="(isLoading | async) || (purchase | async)?.reservations.length === 0"
-            (click)="onSubmit()">{{ 'purchase.event.seat.next' | translate }}</button>
-        <button *ngIf="(purchase | async)?.screen?.openSeatingAllowed" type="submit" class="btn btn-primary btn-block py-3 mb-3"
-            [disabled]="(isLoading | async) || Number(reservationCount) === 0"
-            (click)="onSubmit()">{{ 'purchase.event.seat.next' | translate }}</button>
+        <button *ngIf="!((purchase | async)?.screen?.openSeatingAllowed)" type="submit"
+            class="btn btn-primary btn-block py-3 mb-3"
+            [disabled]="(isLoading | async) || (purchase | async)?.reservations.length === 0" (click)="onSubmit()">{{
+            'purchase.event.seat.next' | translate }}</button>
+        <button *ngIf="(purchase | async)?.screen?.openSeatingAllowed" type="submit"
+            class="btn btn-primary btn-block py-3 mb-3"
+            [disabled]="(isLoading | async) || Number(reservationCount) === 0" (click)="onSubmit()">{{
+            'purchase.event.seat.next' | translate }}</button>
         <button type="button" class="btn btn-outline-primary btn-block py-3" (click)="prev()">{{
             'purchase.event.seat.prev' | translate }}</button>
     </div>
