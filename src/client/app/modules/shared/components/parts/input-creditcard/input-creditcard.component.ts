@@ -34,6 +34,7 @@ export class InputCreditcardComponent implements OnInit, OnDestroy {
 
     public ngOnInit() {
         this.formGroup = this.createForm();
+        this.valueChanges.emit(this.formGroup);
         this.subscription = this.formGroup.valueChanges.subscribe(() => {
             this.valueChanges.emit(this.formGroup);
         });
