@@ -1,0 +1,77 @@
+<form [formGroup]="formGroup">
+    <div *ngFor="let key of getProfileFormKeys()" class="form-group row">
+        <div class="col-md-4 py-2 text-md-right ">
+            <div class="d-inline-flex align-items-center">
+                <p *ngIf="!getAdditionalProperty(key)">{{ 'form.label.' + key | translate }}</p>
+                <p *ngIf="getAdditionalProperty(key)">
+                    {{ getAdditionalProperty(key)?.label | changeLanguage }}</p>
+                <p *ngIf="isRequired(key)" class="badge badge-danger ml-2">{{ 'form.required' | translate }}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <input *ngIf="key !== 'email' && key !== 'telephone' && key !== 'gender' && !getAdditionalProperty(key)"
+                type="text" class="form-control" [formControlName]="key" [id]="key"
+                [placeholder]="'form.placeholder.' + key | translate">
+            <input *ngIf="key === 'email'" type="email" class="form-control" [formControlName]="key" [id]="key"
+                [placeholder]="'form.placeholder.' + key | translate">
+            <ngx-intl-tel-input *ngIf="key === 'telephone'" #intlTelInput [preferredCountries]="[CountryISO.Japan]"
+                [enableAutoCountrySelect]="false" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+                [selectedCountryISO]="CountryISO.Japan" [maxLength]="15" [tooltipField]="TooltipLabel.Name"
+                [phoneValidation]="true" [separateDialCode]="false" inputId="telephone" name="telephone"
+                formControlName="telephone"></ngx-intl-tel-input>
+            <select *ngIf="key === 'gender'" class="form-control" [formControlName]="key" [id]="key">
+                <option *ngFor="let option of getProfileProperty(key)?.option" [value]="option.value">
+                    {{ option.label | changeLanguage }}
+                </option>
+            </select>
+            <input *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType === 'input'" type="text"
+                class="form-control" [formControlName]="key" [id]="key" placeholder="">
+            <textarea *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType === 'textarea'"
+                class="form-control" [formControlName]="key" [id]="key" placeholder=""></textarea>
+            <select *ngIf="getAdditionalProperty(key) && getAdditionalProperty(key)?.inputType === 'select'"
+                class="form-control" [formControlName]="key" [id]="key" placeholder="">
+                <option *ngFor="let option of getAdditionalProperty(key)?.option" [value]="option.value">
+                    {{ option.label | changeLanguage }}
+                </option>
+            </select>
+            <div *ngIf="formGroup.controls[key].invalid && formGroup.controls[key].touched" class="mt-2">
+                <p *ngIf="formGroup.controls[key].errors?.required" class="text-danger">
+                    {{ 'form.validation.required' | translate }}
+                </p>
+                <p *ngIf="formGroup.controls[key].errors?.maxlength" class="text-danger">
+                    {{ 'form.validation.maxlength' | translate:{ value:
+                    formGroup.controls[key].errors?.maxlength.requiredLength } }}
+                </p>
+                <p *ngIf="formGroup.controls[key].errors?.minlength" class="text-danger">
+                    {{ 'form.validation.minlength' | translate:{ value:
+                    formGroup.controls[key].errors?.minlength.requiredLength } }}
+                </p>
+                <p *ngIf="formGroup.controls[key].errors?.email" class="text-danger">
+                    {{ 'form.validation.email' | translate }}
+                </p>
+                <p *ngIf="formGroup.controls[key].errors?.validatePhoneNumber" class="text-danger">
+                    {{ 'form.validation.telephone' | translate }}
+                </p>
+                <div *ngIf="key === 'familyName' || key === 'givenName'">
+                    <p *ngIf="language === 'ja' && formGroup.controls[key].errors?.customPattern" class="text-danger">
+                        {{ 'form.validation.fullKana' | translate }}</p>
+                    <p *ngIf="language !== 'ja' && formGroup.controls[key].errors?.customPattern" class="text-danger">
+                        {{ 'form.validation.lowercaseLetters' | translate }}</p>
+                </div>
+                <p *ngIf="formGroup.controls[key].errors?.pattern" class="text-danger">
+                    {{ 'form.validation.pattern' | translate }}
+                </p>
+            </div>
+            <div *ngIf="key === 'email'">
+                <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.email' | translate"></p>
+                <button type="button" class="btn btn-primary btn-sm" (click)="copyDomain()">{{
+                    'purchase.input.copyDomain' | translate }}</button>
+            </div>
+            <div *ngIf="key === 'telephone'">
+                <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.telephone' | translate"></p>
+            </div>
+        </div>
+    </div>
+</form>

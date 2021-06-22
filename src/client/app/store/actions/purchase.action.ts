@@ -4,13 +4,9 @@ import { Functions, Models } from '../..';
 
 const LABEL = '[Purchase]';
 
-export const remove = createAction(
-    `${LABEL} Remove`,
-);
+export const remove = createAction(`${LABEL} Remove`);
 
-export const unsettledDelete = createAction(
-    `${LABEL} unsettledDelete`,
-);
+export const unsettledDelete = createAction(`${LABEL} unsettledDelete`);
 
 export const selectScheduleDate = createAction(
     `${LABEL} selectScheduleDate`,
@@ -19,13 +15,13 @@ export const selectScheduleDate = createAction(
 
 export const getSeller = createAction(
     `${LABEL} getSeller`,
-    props<{ id: string; }>()
+    props<{ id: string }>()
 );
 
 export const getSellerSuccess = createAction(
     `${LABEL} getSellerSuccess`,
     props<{
-        seller: factory.chevre.seller.ISeller
+        seller: factory.chevre.seller.ISeller;
     }>()
 );
 
@@ -36,20 +32,22 @@ export const getSellerFail = createAction(
 
 export const selectTheater = createAction(
     `${LABEL} selectTheater`,
-    props<{ theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom }>()
+    props<{
+        theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
+    }>()
 );
 
 export const getScreeningEvent = createAction(
     `${LABEL} getScreeningEvent`,
     props<{
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     }>()
 );
 
 export const getScreeningEventSuccess = createAction(
     `${LABEL} getScreeningEventSuccess`,
     props<{
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent
+        screeningEvent: factory.chevre.event.screeningEvent.IEvent;
     }>()
 );
 
@@ -62,10 +60,10 @@ export const startTransaction = createAction(
     `${LABEL} startTransaction`,
     props<{
         expires: Date;
-        agent?: { identifier?: factory.person.IIdentifier; };
-        seller: { typeOf: factory.chevre.organizationType; id: string; };
+        agent?: { identifier?: factory.person.IIdentifier };
+        seller: { typeOf: factory.chevre.organizationType; id: string };
         object: {
-            passport?: { token: factory.waiter.passport.IEncodedPassport; };
+            passport?: { token: factory.waiter.passport.IEncodedPassport };
         };
     }>()
 );
@@ -73,7 +71,7 @@ export const startTransaction = createAction(
 export const startTransactionSuccess = createAction(
     `${LABEL} startTransactionSuccess`,
     props<{
-        transaction: factory.transaction.placeOrder.ITransaction
+        transaction: factory.transaction.placeOrder.ITransaction;
     }>()
 );
 
@@ -85,12 +83,12 @@ export const startTransactionFail = createAction(
 export const cancelTransaction = createAction(
     `${LABEL} cancelTransaction`,
     props<{
-        transaction: factory.transaction.placeOrder.ITransaction
+        transaction: factory.transaction.placeOrder.ITransaction;
     }>()
 );
 
 export const cancelTransactionSuccess = createAction(
-    `${LABEL} cancelTransactionSuccess`,
+    `${LABEL} cancelTransactionSuccess`
 );
 
 export const cancelTransactionFail = createAction(
@@ -116,7 +114,7 @@ export const getScreen = createAction(
 
 export const getScreenSuccess = createAction(
     `${LABEL} getScreenSuccess`,
-    props<{ screen: factory.chevre.place.screeningRoom.IPlace; }>()
+    props<{ screen: factory.chevre.place.screeningRoom.IPlace }>()
 );
 
 export const getScreenFail = createAction(
@@ -145,9 +143,8 @@ export const getTicketList = createAction(
 export const getTicketListSuccess = createAction(
     `${LABEL} getTicketListSuccess`,
     props<{
-        screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[]
-    }
-    >()
+        screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
+    }>()
 );
 
 export const getTicketListFail = createAction(
@@ -207,32 +204,31 @@ export const cancelTemporaryReservationsFail = createAction(
 export const registerCreditCard = createAction(
     `${LABEL} registerCreditCard`,
     props<{
-        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
-        | factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
-        | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
-        | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
+        creditCard:
+            | factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
+            | factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
+            | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
+            | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
     }>()
 );
 
-export const removeCreditCard = createAction(
-    `${LABEL} removeCreditCard`,
-);
+export const removeCreditCard = createAction(`${LABEL} removeCreditCard`);
 
-export const registerContact = createAction(
-    `${LABEL} registerContact`,
+export const setProfile = createAction(
+    `${LABEL} setProfile`,
     props<{
         transaction: factory.transaction.placeOrder.ITransaction;
         profile: factory.person.IProfile;
     }>()
 );
 
-export const registerContactSuccess = createAction(
-    `${LABEL} registerContactSuccess`,
+export const setProfileSuccess = createAction(
+    `${LABEL} setProfileSuccess`,
     props<{ profile: factory.person.IProfile }>()
 );
 
-export const registerContactFail = createAction(
-    `${LABEL} registerContactFail`,
+export const setProfileFail = createAction(
+    `${LABEL} setProfileFail`,
     props<{ error: Error }>()
 );
 
@@ -244,17 +240,18 @@ export const authorizeCreditCard = createAction(
         orderCount: number;
         amount: number;
         method: string;
-        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
-        | factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
-        | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
-        | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
+        creditCard:
+            | factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
+            | factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
+            | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
+            | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
     }>()
 );
 
 export const authorizeCreditCardSuccess = createAction(
     `${LABEL} authorizeCreditCardSuccess`,
     props<{
-        authorizeCreditCardPayment: factory.action.authorize.paymentMethod.any.IAction
+        authorizeCreditCardPayment: factory.action.authorize.paymentMethod.any.IAction;
     }>()
 );
 
@@ -270,14 +267,14 @@ export const authorizeMovieTicket = createAction(
         authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[];
         authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
         pendingMovieTickets: Models.Purchase.MovieTicket.IMovieTicket[];
-        seller: factory.chevre.seller.ISeller
+        seller: factory.chevre.seller.ISeller;
     }>()
 );
 
 export const authorizeMovieTicketSuccess = createAction(
     `${LABEL} authorizeMovieTicketSuccess`,
     props<{
-        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[]
+        authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[];
     }>()
 );
 
@@ -302,7 +299,7 @@ export const checkMovieTicket = createAction(
 export const checkMovieTicketSuccess = createAction(
     `${LABEL} checkMovieTicketSuccess`,
     props<{
-        checkMovieTicketAction: factory.action.check.paymentMethod.movieTicket.IAction
+        checkMovieTicketAction: factory.action.check.paymentMethod.movieTicket.IAction;
     }>()
 );
 
@@ -341,14 +338,18 @@ export const createCreditCardToken = createAction(
             expire: string;
             holderName: string;
             securityCode: string;
-        },
+        };
         seller: factory.chevre.seller.ISeller;
     }>()
 );
 
 export const createCreditCardTokenSuccess = createAction(
     `${LABEL} createCreditCardTokenSuccess`,
-    props<{ creditCardToken: Functions.Creditcard.IGmoTokenObject | Functions.Creditcard.ISonyTokenObject; }>()
+    props<{
+        creditCardToken:
+            | Functions.Creditcard.IGmoTokenObject
+            | Functions.Creditcard.ISonyTokenObject;
+    }>()
 );
 
 export const createCreditCardTokenFail = createAction(
@@ -358,7 +359,7 @@ export const createCreditCardTokenFail = createAction(
 
 export const convertExternalToPurchase = createAction(
     `${LABEL} convertExternalToPurchase`,
-    props<{ eventId: string; }>()
+    props<{ eventId: string }>()
 );
 
 export const convertExternalToPurchaseSuccess = createAction(

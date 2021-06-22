@@ -367,11 +367,11 @@ export class PurchaseEffects {
     );
 
     /**
-     * registerContact
+     * setProfile
      */
     @Effect()
-    public registerContact = this.actions.pipe(
-        ofType(purchaseAction.registerContact),
+    public setProfile = this.actions.pipe(
+        ofType(purchaseAction.setProfile),
         map((action) => action),
         mergeMap(async (payload) => {
             try {
@@ -391,9 +391,9 @@ export class PurchaseEffects {
                     },
                 });
 
-                return purchaseAction.registerContactSuccess({ profile });
+                return purchaseAction.setProfileSuccess({ profile });
             } catch (error) {
-                return purchaseAction.registerContactFail({ error: error });
+                return purchaseAction.setProfileFail({ error: error });
             }
         })
     );
