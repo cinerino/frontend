@@ -1,0 +1,66 @@
+<form [formGroup]="formGroup">
+    <div class="form-group row">
+        <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardNumber' | translate }}<span
+                class="badge badge-danger ml-2">{{ 'form.required' | translate }}</span></p>
+        <div class="col-md-8">
+            <input type="text" class="form-control" id="cardNumber" formControlName="cardNumber"
+                [placeholder]="'form.placeholder.cardNumber' | translate" maxlength="16">
+            <div *ngIf="formGroup.controls.cardNumber.invalid && formGroup.controls.cardNumber.touched" class="mt-2">
+                <p *ngIf="formGroup.controls.cardNumber.errors?.required" class="text-danger">
+                    {{ 'form.validation.required' | translate }}</p>
+                <p *ngIf="formGroup.controls.cardNumber.errors?.pattern" class="text-danger">
+                    {{ 'form.validation.number' | translate }}
+                </p>
+            </div>
+            <p class="mt-2 mb-1 text-small" [innerHTML]="'form.description.cardNumber' | translate"></p>
+            <div class="credit-image"><img class="w-100" src="/assets/images/credit_card.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardExpiration' | translate }}<span
+                class="badge badge-danger ml-2">{{ 'form.required' | translate }}</span></p>
+        <div class="col-md-8">
+            <div class="form-inline">
+                <select class="form-control d-inline-block w-auto" id="cardExpirationMonth"
+                    formControlName="cardExpirationMonth">
+                    <option *ngFor="let month of cardExpiration.month" [value]="month">{{ month }}
+                    </option>
+                </select>
+                <span class="mx-2">{{ 'common.date.month' | translate }}</span>
+                <select class="form-control d-inline-block w-auto" id="cardExpirationYear"
+                    formControlName="cardExpirationYear">
+                    <option *ngFor="let year of cardExpiration.year" [value]="year">{{ year }}</option>
+                </select>
+                <span class="mx-2">{{ 'common.date.year' | translate }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.securityCode' | translate }}<span
+                class="badge badge-danger ml-2">{{ 'form.required' | translate }}</span></p>
+        <div class="col-md-8">
+            <input type="text" class="form-control" id="securityCode" maxlength="4"
+                [placeholder]="'form.placeholder.securityCode' | translate" formControlName="securityCode">
+            <div *ngIf="formGroup.controls.securityCode.invalid && formGroup.controls.securityCode.touched"
+                class="mt-2">
+                <p *ngIf="formGroup.controls.securityCode.errors?.required" class="text-danger">
+                    {{ 'form.validation.required' | translate }}</p>
+            </div>
+            <div class="btn btn-link btn-sm" (click)="openSecurityCode()">
+                {{ 'purchase.input.securityCode' | translate }}</div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.holderName' | translate }}<span
+                class="badge badge-danger ml-2">{{ 'form.required' | translate }}</span></p>
+        <div class="col-md-8">
+            <input type="text" class="form-control" id="holderName"
+                [placeholder]="'form.placeholder.holderName' | translate" formControlName="holderName">
+            <div *ngIf="formGroup.controls.holderName.invalid && formGroup.controls.holderName.touched" class="mt-2">
+                <p *ngIf="formGroup.controls.holderName.errors?.required" class="text-danger">
+                    {{ 'form.validation.required' | translate }}</p>
+            </div>
+        </div>
+    </div>
+</form>
