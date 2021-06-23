@@ -36,6 +36,7 @@ import { PurchaseSeatTicketModalComponent } from './components/parts/purchase/se
 import { QRCodeImageComponent } from './components/parts/qrcode/image/image.component';
 import { QRCodeReaderModalComponent } from './components/parts/qrcode/reader-modal/reader-modal.component';
 import { QRCodeViewerModalComponent } from './components/parts/qrcode/viewer-modal/viewer-modal.component';
+import { TransactionRemainingTimeComponent } from './components/parts/transaction-remaining-time/transaction-remaining-time.component';
 import { ChangeLanguagePipe } from './pipes/change-language.pipe';
 import { FormatDatePipe } from './pipes/format-date.pipe';
 import { LibphonenumberFormatPipe } from './pipes/libphonenumber-format.pipe';
@@ -56,6 +57,7 @@ const components = [
     ItemProfileComponent,
     InputCreditcardComponent,
     InputCustomerComponent,
+    TransactionRemainingTimeComponent,
 ];
 
 const entryComponents = [

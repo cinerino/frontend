@@ -11,7 +11,7 @@ import * as reducers from '../../../../../store/reducers';
 @Component({
     selector: 'app-purchase-transaction',
     templateUrl: './purchase-transaction.component.html',
-    styleUrls: ['./purchase-transaction.component.scss']
+    styleUrls: ['./purchase-transaction.component.scss'],
 })
 export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
     public purchase: Observable<reducers.IPurchaseState>;
@@ -24,8 +24,8 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private actionService: ActionService,
-        private utilService: UtilService,
-    ) { }
+        private utilService: UtilService
+    ) {}
 
     /**
      * 初期化
@@ -36,29 +36,40 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
         this.error = this.store.pipe(select(reducers.getError));
         const tmpPurchase = await this.actionService.purchase.getData();
         const external = Functions.Util.getExternalData();
-        if (this.environment.VIEW_TYPE === Models.Common.ViewType.Cinema
-            && external !== undefined
-            && external.eventId !== undefined
-            && tmpPurchase.authorizeSeatReservation !== undefined) {
+        if (
+            this.environment.VIEW_TYPE === Models.Common.ViewType.Cinema &&
+            external !== undefined &&
+            external.eventId !== undefined &&
+            tmpPurchase.authorizeSeatReservation !== undefined
+        ) {
             this.router.navigate(['/purchase/cinema/overlap']);
             return;
         }
         this.actionService.purchase.delete();
-        if (this.environment.VIEW_TYPE !== Models.Common.ViewType.Cinema
-            || external.eventId === undefined) {
+        if (
+            this.environment.VIEW_TYPE !== Models.Common.ViewType.Cinema ||
+            external.eventId === undefined
+        ) {
             this.router.navigate(['/error']);
             return;
         }
         try {
-            const serverTime = moment((await this.utilService.getServerTime()).date).toDate();
-            await this.actionService.purchase.convertExternalToPurchase(external.eventId);
-            const { screeningEvent } = await this.actionService.purchase.getData();
+            const serverTime = moment(
+                (await this.utilService.getServerTime()).date
+            ).toDate();
+            await this.actionService.purchase.externalData2PurchaseData({
+                event: { id: external.eventId },
+            });
+            const { screeningEvent } =
+                await this.actionService.purchase.getData();
             if (screeningEvent === undefined) {
                 throw new Error('screeningEvent undefined');
             }
-            const performance = new Models.Purchase.Performance({ screeningEvent, now: serverTime });
-            if (!performance.isSales()
-                || performance.isSeatStatus('danger')) {
+            const performance = new Models.Purchase.Performance({
+                screeningEvent,
+                now: serverTime,
+            });
+            if (!performance.isSales() || performance.isSeatStatus('danger')) {
                 throw new Error('Not for sale');
             }
             await this.actionService.purchase.startTransaction();
@@ -76,5 +87,4 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
             this.actionService.user.updateLanguage(language);
         }
     }
-
 }

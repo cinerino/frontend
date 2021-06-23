@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/sdk';
-import { Actions, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
-import { Observable, race } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Functions, Models } from '../..';
 import { getEnvironment } from '../../../environments/environment';
 import { purchaseAction } from '../../store/actions';
 import * as reducers from '../../store/reducers';
 import { CinerinoService } from '../cinerino.service';
+import { LinyService } from '../liny.service';
 import { UtilService } from '../util.service';
+import { ActionPaymentService } from './payment.service';
 
 @Injectable({
     providedIn: 'root',
@@ -22,9 +23,11 @@ export class ActionPurchaseService {
 
     constructor(
         private store: Store<reducers.IState>,
-        private actions: Actions,
         private utilService: UtilService,
-        private cinerinoService: CinerinoService
+        private cinerinoService: CinerinoService,
+        public payment: ActionPaymentService,
+        private translate: TranslateService,
+        private linyService: LinyService
     ) {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.error = this.store.pipe(select(reducers.getError));
@@ -69,27 +72,21 @@ export class ActionPurchaseService {
     /**
      * 販売者取得
      */
-    public getSeller(id: string) {
-        return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(purchaseAction.getSeller({ id }));
-            const success = this.actions.pipe(
-                ofType(purchaseAction.getSellerSuccess.type),
-                tap(() => {
-                    resolve();
-                })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.getSellerFail.type),
-                tap(() => {
-                    this.error
-                        .subscribe((error) => {
-                            reject(error);
-                        })
-                        .unsubscribe();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
+    public async getSeller(params: { id: string }) {
+        try {
+            this.utilService.loadStart({
+                process: 'purchaseAction.GetSeller',
+            });
+            await this.cinerinoService.getServices();
+            const { id } = params;
+            const seller = await this.cinerinoService.seller.findById({ id });
+            this.store.dispatch(purchaseAction.setSeller({ seller }));
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
     }
 
     /**
@@ -216,75 +213,88 @@ export class ActionPurchaseService {
     /**
      * イベント取得
      */
-    public async getScreeningEvent(
-        screeningEvent: factory.chevre.event.screeningEvent.IEvent
-    ) {
-        return new Promise<void>((resolve, reject) => {
+    public async getScreeningEvent(params: { id: string }) {
+        try {
+            this.utilService.loadStart({
+                process: 'purchaseAction.GetScreeningEvent',
+            });
+            const { id } = params;
+            await this.cinerinoService.getServices();
+            const screeningEvent =
+                await this.cinerinoService.event.findById<factory.chevre.eventType.ScreeningEvent>(
+                    { id }
+                );
+            const workPerformed = (
+                await this.cinerinoService.creativeWork.searchMovies({
+                    identifier:
+                        screeningEvent.workPerformed === undefined
+                            ? undefined
+                            : screeningEvent.workPerformed.identifier,
+                })
+            ).data[0];
+            if (
+                workPerformed !== undefined &&
+                screeningEvent.workPerformed !== undefined
+            ) {
+                screeningEvent.workPerformed.additionalProperty =
+                    workPerformed.additionalProperty;
+            }
             this.store.dispatch(
-                purchaseAction.getScreeningEvent({ screeningEvent })
+                purchaseAction.setScreeningEvent({ screeningEvent })
             );
-            const success = this.actions.pipe(
-                ofType(purchaseAction.getScreeningEventSuccess.type),
-                tap(() => {
-                    resolve();
-                })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.getScreeningEventFail.type),
-                tap(() => {
-                    this.error
-                        .subscribe((error) => {
-                            reject(error);
-                        })
-                        .unsubscribe();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
     }
 
     /**
      * 取引開始
      */
     public async startTransaction() {
-        const environment = getEnvironment();
-        const purchase = await this.getData();
-        const now = (await this.utilService.getServerTime()).date;
-        const agent = {
-            identifier: [
-                ...environment.PURCHASE_TRANSACTION_IDENTIFIER,
-                {
-                    name: 'userAgent',
-                    value:
-                        navigator && navigator.userAgent !== undefined
-                            ? navigator.userAgent
-                            : '',
-                },
-                {
-                    name: 'appVersion',
-                    value:
-                        navigator && navigator.appVersion !== undefined
-                            ? navigator.appVersion
-                            : '',
-                },
-            ],
-        };
-        return new Promise<void>((resolve, reject) => {
-            if (
-                purchase.seller === undefined ||
-                purchase.seller.id === undefined
-            ) {
-                reject();
-                return;
+        try {
+            this.utilService.loadStart({
+                process: 'purchaseAction.StartTransaction',
+            });
+            const environment = getEnvironment();
+            const { seller } = await this.getData();
+            if (seller === undefined || seller.id === undefined) {
+                throw new Error('seller or seller.id undefined');
             }
+            const now = (await this.utilService.getServerTime()).date;
+            const agent = {
+                identifier: [
+                    ...environment.PURCHASE_TRANSACTION_IDENTIFIER,
+                    {
+                        name: 'userAgent',
+                        value:
+                            navigator && navigator.userAgent !== undefined
+                                ? navigator.userAgent
+                                : '',
+                    },
+                    {
+                        name: 'appVersion',
+                        value:
+                            navigator && navigator.appVersion !== undefined
+                                ? navigator.appVersion
+                                : '',
+                    },
+                ],
+            };
             const external = Functions.Util.getExternalData();
             const linyId =
                 external.linyId === undefined ? undefined : external.linyId;
             if (linyId !== undefined) {
                 agent.identifier.push({ name: 'linyId', value: linyId });
             }
-            this.store.dispatch(
-                purchaseAction.startTransaction({
+            await this.cinerinoService.getServices();
+            const passport = await this.cinerinoService.getPassport({
+                scope: `Transaction:PlaceOrder:${seller.id}`,
+            });
+            const transaction =
+                await this.cinerinoService.transaction.placeOrder.start({
                     expires: moment(now)
                         .add(
                             this.environment.PURCHASE_TRANSACTION_TIME,
@@ -292,67 +302,227 @@ export class ActionPurchaseService {
                         )
                         .toDate(),
                     seller: {
-                        typeOf: purchase.seller.typeOf,
-                        id: purchase.seller.id,
+                        typeOf: seller.typeOf,
+                        id: seller.id,
                     },
-                    object: {},
+                    object: { passport },
                     agent,
-                })
-            );
-            const success = this.actions.pipe(
-                ofType(purchaseAction.startTransactionSuccess.type),
-                tap(() => {
-                    resolve();
-                })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.startTransactionFail.type),
-                tap(() => {
-                    this.error
-                        .subscribe((error) => {
-                            reject(error);
-                        })
-                        .unsubscribe();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
+                });
+            this.store.dispatch(purchaseAction.setTransaction({ transaction }));
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
     }
 
     /**
      * 取引中止
      */
     public async cancelTransaction() {
-        return new Promise<void>(async (resolve) => {
-            const purchase = await this.getData();
-            const transaction = purchase.transaction;
+        try {
+            this.utilService.loadStart({
+                process: 'purchaseAction.CancelTransaction',
+            });
+            const { transaction } = await this.getData();
             if (transaction === undefined) {
-                resolve();
                 return;
             }
-            this.store.dispatch(
-                purchaseAction.cancelTransaction({ transaction })
-            );
-            const success = this.actions.pipe(
-                ofType(purchaseAction.cancelTransactionSuccess.type),
-                tap(() => {
-                    resolve();
-                })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.cancelTransactionFail.type),
-                tap(() => {
-                    resolve();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
+            await this.cinerinoService.transaction.placeOrder.cancel({
+                id: transaction.id,
+            });
+            this.store.dispatch(purchaseAction.cancelTransaction());
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
+    }
+
+    /**
+     * 取引確定
+     */
+    public async confirmTransaction(params: { language: string }) {
+        try {
+            this.utilService.loadStart({
+                process: 'purchaseAction.SetProfile',
+            });
+            const environment = getEnvironment();
+            const { language } = params;
+            const { transaction, authorizeSeatReservations, seller, theater } =
+                await this.getData();
+            if (
+                transaction === undefined ||
+                seller === undefined ||
+                theater === undefined
+            ) {
+                throw new Error('transaction or seller or theater undefined');
+            }
+            const external = Functions.Util.getExternalData();
+            const linyId =
+                external.linyId === undefined ? undefined : external.linyId;
+            const authorizeEventSeatReservations =
+                Functions.Purchase.authorizeSeatReservation2Event({
+                    authorizeSeatReservations,
+                });
+            await this.cinerinoService.getServices();
+
+            const email = {
+                ...this.createCompleteMailHeader({ theater, language }),
+                template: undefined,
+            };
+            if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
+                // 完了メールをカスタマイズ
+                const path = `/ejs/mail/complete/${language}.ejs`;
+                const url = (await Functions.Util.isFile(
+                    `${Functions.Util.getProject().storageUrl}${path}`
+                ))
+                    ? `${Functions.Util.getProject().storageUrl}${path}`
+                    : `/default${path}`;
+                const view = await this.utilService.getText(url);
+                email.template = (<any>window).ejs.render(view, {
+                    authorizeSeatReservations: authorizeEventSeatReservations,
+                    seller,
+                    theater,
+                    moment,
+                    formatTelephone: Functions.Util.formatTelephone,
+                    getItemPrice: Functions.Purchase.getItemPrice,
+                    getTicketPrice: Functions.Purchase.getTicketPrice,
+                    projectId: Functions.Util.getProject().projectId,
+                });
+            }
+            const result =
+                await this.cinerinoService.transaction.placeOrder.confirm({
+                    id: transaction.id,
+                    sendEmailMessage: true,
+                    email,
+                });
+            const order = result.order;
+
+            if (linyId !== undefined) {
+                // liny連携
+                try {
+                    const view = await this.utilService.getText(
+                        `${
+                            Functions.Util.getProject().storageUrl
+                        }/ejs/liny/complete/${language}.ejs`
+                    );
+                    const template = (<any>window).ejs.render(view, {
+                        authorizeSeatReservations:
+                            authorizeEventSeatReservations,
+                        seller,
+                        order,
+                        moment,
+                        formatTelephone: Functions.Util.formatTelephone,
+                        getItemPrice: Functions.Purchase.getItemPrice,
+                    });
+                    await this.linyService.sendMessage({
+                        uid: linyId,
+                        message: template,
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+
+            this.store.dispatch(purchaseAction.setOrder({ order }));
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
+    }
+
+    /**
+     * 完了メールヘッダー生成
+     */
+    private createCompleteMailHeader(params: {
+        theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
+        language: string;
+    }) {
+        return {
+            sender: {
+                name:
+                    this.translate.instant(
+                        'email.purchase.complete.sender.name'
+                    ) === ''
+                        ? params.theater.name.ja
+                        : this.translate.instant(
+                              'email.purchase.complete.sender.name'
+                          ),
+                email:
+                    this.translate.instant(
+                        'email.purchase.complete.sender.email'
+                    ) === ''
+                        ? undefined
+                        : this.translate.instant(
+                              'email.purchase.complete.sender.email'
+                          ),
+            },
+            toRecipient: {
+                name:
+                    this.translate.instant(
+                        'email.purchase.complete.toRecipient.name'
+                    ) === ''
+                        ? undefined
+                        : this.translate.instant(
+                              'email.purchase.complete.toRecipient.name'
+                          ),
+                email:
+                    this.translate.instant(
+                        'email.purchase.complete.toRecipient.email'
+                    ) === ''
+                        ? undefined
+                        : this.translate.instant(
+                              'email.purchase.complete.toRecipient.email'
+                          ),
+            },
+            about:
+                this.translate.instant('email.purchase.complete.about') === ''
+                    ? undefined
+                    : this.translate.instant('email.purchase.complete.about'),
+        };
+    }
+
+    /**
+     * プロフィール登録
+     */
+    public async setProfile(profile: factory.person.IProfile) {
+        try {
+            this.utilService.loadStart({
+                process: 'purchaseAction.SetProfile',
+            });
+            const { transaction } = await this.getData();
+            if (transaction === undefined) {
+                throw new Error('transaction undefined');
+            }
+            await this.cinerinoService.getServices();
+            await this.cinerinoService.transaction.placeOrder.setProfile({
+                id: transaction.id,
+                agent: {
+                    ...profile,
+                    telephone:
+                        profile.telephone === undefined
+                            ? undefined
+                            : Functions.Util.formatTelephone(profile.telephone),
+                },
+            });
+            this.store.dispatch(purchaseAction.setProfile({ profile }));
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
     }
 
     /**
      * スクリーン取得
      */
-    public getScreen(params: {
+    public async getScreeningRoom(params: {
         limit?: number;
         page?: number;
         branchCode?: {
@@ -364,26 +534,25 @@ export class ActionPurchaseService {
             };
         };
     }) {
-        return new Promise<void>((resolve, reject) => {
-            this.store.dispatch(purchaseAction.getScreen(params));
-            const success = this.actions.pipe(
-                ofType(purchaseAction.getScreenSuccess.type),
-                tap(() => {
-                    resolve();
+        try {
+            this.utilService.loadStart({
+                process: 'purchaseAction.GetScreeningRoom',
+            });
+            await this.cinerinoService.getServices();
+            const searchResult = (
+                await this.cinerinoService.place.searchScreeningRooms(params)
+            ).data;
+            this.store.dispatch(
+                purchaseAction.setScreeningRoom({
+                    screeningRoom: searchResult[0],
                 })
             );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.getScreenFail.type),
-                tap(() => {
-                    this.error
-                        .subscribe((error) => {
-                            reject(error);
-                        })
-                        .unsubscribe();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
     }
 
     /**
@@ -394,11 +563,10 @@ export class ActionPurchaseService {
             this.utilService.loadStart({
                 process: 'purchaseAction.GetScreeningEventSeats',
             });
-            const purchase = await this.getData();
-            if (purchase.screeningEvent === undefined) {
+            const { screeningEvent } = await this.getData();
+            if (screeningEvent === undefined) {
                 throw new Error('purchase.screeningEvent === undefined');
             }
-            const screeningEvent = purchase.screeningEvent;
             const limit = 100;
             let page = 1;
             let roop = true;
@@ -450,38 +618,48 @@ export class ActionPurchaseService {
     }
 
     /**
-     * 券種一覧取得
+     * チケットオファー検索
      */
-    public async getTicketList() {
-        const purchase = await this.getData();
-        return new Promise<void>((resolve, reject) => {
-            const screeningEvent = purchase.screeningEvent;
-            const seller = purchase.seller;
-            if (screeningEvent === undefined || seller === undefined) {
-                reject();
-                return;
+    public async searchTicketOffers() {
+        try {
+            this.utilService.loadStart({
+                process: 'purchaseAction.SearchTicketOffers',
+            });
+            const { screeningEvent, seller } = await this.getData();
+            const clientId = this.cinerinoService.auth.options.clientId;
+            if (
+                screeningEvent === undefined ||
+                seller === undefined ||
+                seller.id === undefined ||
+                clientId === undefined
+            ) {
+                throw new Error(
+                    'screeningEvent or seller or clientId undefined'
+                );
             }
+            await this.cinerinoService.getServices();
+            const ticketOffers =
+                await this.cinerinoService.event.searchTicketOffers({
+                    event: { id: screeningEvent.id },
+                    seller: {
+                        typeOf: seller.typeOf,
+                        id: seller.id,
+                    },
+                    store: {
+                        id: clientId,
+                    },
+                });
             this.store.dispatch(
-                purchaseAction.getTicketList({ screeningEvent, seller })
-            );
-            const success = this.actions.pipe(
-                ofType(purchaseAction.getTicketListSuccess.type),
-                tap(() => {
-                    resolve();
+                purchaseAction.setTicketOffers({
+                    ticketOffers,
                 })
             );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.getTicketListFail.type),
-                tap(() => {
-                    this.error
-                        .subscribe((error) => {
-                            reject(error);
-                        })
-                        .unsubscribe();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
     }
 
     /**
@@ -496,98 +674,180 @@ export class ActionPurchaseService {
     /**
      * 座席仮予約
      */
-    public async temporaryReservation(params: {
+    public async authorizeSeatReservation(params: {
         reservations: Models.Purchase.Reservation.IReservation[];
         additionalTicketText?: string;
         screeningEventSeats: factory.chevre.place.seat.IPlaceWithOffer[];
     }) {
-        const additionalTicketText = params.additionalTicketText;
-        const reservations = params.reservations;
-        const purchase = await this.getData();
-        return new Promise<void>((resolve, reject) => {
-            const transaction = purchase.transaction;
-            const screeningEvent = purchase.screeningEvent;
-            const screeningEventSeats = params.screeningEventSeats;
+        try {
+            this.utilService.loadStart({
+                process: 'purchaseAction.AuthorizeSeatReservation',
+            });
+            const { additionalTicketText, screeningEventSeats } = params;
+            const {
+                transaction,
+                authorizeSeatReservation,
+                screeningEvent,
+                screeningEventTicketOffers,
+            } = await this.getData();
+            const reservations = params.reservations.map((r) => {
+                return {
+                    seat: r.seat,
+                    ticket:
+                        r.ticket === undefined
+                            ? {
+                                  ticketOffer: screeningEventTicketOffers[0],
+                              }
+                            : r.ticket,
+                };
+            });
             if (transaction === undefined || screeningEvent === undefined) {
-                reject();
-                return;
+                throw new Error('transaction or screeningEvent undefined');
             }
-            const authorizeSeatReservation = purchase.authorizeSeatReservation;
-            this.store.dispatch(
-                purchaseAction.temporaryReservation({
-                    reservations: reservations.map((reservation) => {
-                        return {
-                            seat: reservation.seat,
-                            ticket:
-                                reservation.ticket === undefined
-                                    ? {
-                                          ticketOffer:
-                                              purchase
-                                                  .screeningEventTicketOffers[0],
-                                      }
-                                    : reservation.ticket,
-                        };
-                    }),
-                    transaction,
-                    screeningEvent,
-                    authorizeSeatReservation,
-                    screeningEventSeats,
-                    additionalTicketText,
-                })
-            );
-            const success = this.actions.pipe(
-                ofType(purchaseAction.temporaryReservationSuccess.type),
-                tap(() => {
-                    resolve();
-                })
-            );
+            await this.cinerinoService.getServices();
+            if (authorizeSeatReservation !== undefined) {
+                await this.cinerinoService.transaction.placeOrder.voidSeatReservation(
+                    authorizeSeatReservation
+                );
+            }
+            // サーバータイムを使用して販売期間判定
+            const serverTime = await this.utilService.getServerTime();
+            const nowDate = moment(serverTime.date).toDate();
+            if (screeningEvent.offers === undefined) {
+                throw new Error('screeningEvent.offers undefined');
+            }
+            if (
+                screeningEvent.offers.validFrom > nowDate ||
+                screeningEvent.offers.validThrough < nowDate
+            ) {
+                throw new Error('Outside sales period');
+            }
+            const availableSeats = Functions.Purchase.selectAvailableSeat({
+                reservations,
+                screeningEventSeats,
+            });
+            const isTicketedSeat = new Models.Purchase.Performance({
+                screeningEvent,
+            }).isTicketedSeat();
+            if (
+                isTicketedSeat &&
+                availableSeats.length !== reservations.length
+            ) {
+                throw new Error('Out of stock');
+            }
+            const authorizeResult =
+                await this.cinerinoService.transaction.placeOrder.authorizeSeatReservation(
+                    {
+                        object: {
+                            reservationFor: { id: screeningEvent.id },
+                            acceptedOffer: reservations.map((r, index) => {
+                                if (
+                                    r.ticket === undefined ||
+                                    r.ticket.ticketOffer.id === undefined
+                                ) {
+                                    throw new Error(
+                                        'ticket or ticket.ticketOffer.id is undefined'
+                                    );
+                                }
 
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.temporaryReservationFail.type),
-                tap(() => {
-                    this.error
-                        .subscribe((error) => {
-                            reject(error);
-                        })
-                        .unsubscribe();
+                                return {
+                                    id: r.ticket.ticketOffer.id,
+                                    addOn:
+                                        r.ticket.addOn === undefined
+                                            ? undefined
+                                            : r.ticket.addOn.map((a) => ({
+                                                  id: a.id,
+                                              })),
+                                    additionalProperty: [],
+                                    itemOffered: {
+                                        serviceOutput: {
+                                            typeOf: factory.chevre
+                                                .reservationType
+                                                .EventReservation,
+                                            additionalProperty:
+                                                screeningEvent.workPerformed ===
+                                                    undefined ||
+                                                screeningEvent.workPerformed
+                                                    .additionalProperty ===
+                                                    undefined
+                                                    ? []
+                                                    : [
+                                                          ...screeningEvent.workPerformed.additionalProperty.filter(
+                                                              (a) =>
+                                                                  a.value !== ''
+                                                          ),
+                                                      ],
+                                            additionalTicketText:
+                                                additionalTicketText,
+                                            reservedTicket: {
+                                                typeOf: 'Ticket',
+                                                ticketedSeat: isTicketedSeat
+                                                    ? availableSeats[index]
+                                                    : undefined,
+                                            },
+                                            subReservation: isTicketedSeat
+                                                ? availableSeats[
+                                                      index
+                                                  ].subReservations.map(
+                                                      (ticketedSeat) => ({
+                                                          reservedTicket: {
+                                                              typeOf: 'Ticket',
+                                                              ticketedSeat,
+                                                          },
+                                                      })
+                                                  )
+                                                : undefined,
+                                        },
+                                    },
+                                };
+                            }),
+                        },
+                        purpose: transaction,
+                    }
+                );
+            this.store.dispatch(
+                purchaseAction.setAuthorizeSeatReservation({
+                    addAuthorizeSeatReservation: authorizeResult,
+                    removeAuthorizeSeatReservation: authorizeSeatReservation,
                 })
             );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
     }
 
     /**
      * 座席仮予約解除
      */
-    public async cancelTemporaryReservations(
-        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]
-    ) {
-        return new Promise<void>((resolve, reject) => {
+    public async voidSeatReservation(params: {
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
+    }) {
+        try {
+            this.utilService.loadStart({
+                process: 'purchaseAction.VoidSeatReservation',
+            });
+            const { authorizeSeatReservations } = params;
+            await this.cinerinoService.getServices();
+            for (const authorizeSeatReservation of authorizeSeatReservations) {
+                await this.cinerinoService.transaction.placeOrder.voidSeatReservation(
+                    authorizeSeatReservation
+                );
+            }
+
             this.store.dispatch(
-                purchaseAction.cancelTemporaryReservations({
+                purchaseAction.voidSeatReservation({
                     authorizeSeatReservations,
                 })
             );
-
-            const success = this.actions.pipe(
-                ofType(purchaseAction.cancelTemporaryReservationsSuccess.type),
-                tap(() => {
-                    resolve();
-                })
-            );
-
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.cancelTemporaryReservationsFail.type),
-                tap(() => {
-                    this.error
-                        .subscribe((error) => {
-                            reject(error);
-                        })
-                        .unsubscribe();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
     }
 
     /**
@@ -611,301 +871,50 @@ export class ActionPurchaseService {
     }
 
     /**
-     * プロフィール登録
-     */
-    public async setProfile(profile: factory.person.IProfile) {
-        const purchase = await this.getData();
-        return new Promise<void>((resolve, reject) => {
-            const transaction = purchase.transaction;
-            if (transaction === undefined) {
-                reject();
-                return;
-            }
-            this.store.dispatch(
-                purchaseAction.setProfile({ transaction, profile })
-            );
-            const success = this.actions.pipe(
-                ofType(purchaseAction.setProfileSuccess.type),
-                tap(() => {
-                    resolve();
-                })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.setProfileFail.type),
-                tap(() => {
-                    this.error
-                        .subscribe((error) => {
-                            reject(error);
-                        })
-                        .unsubscribe();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * クレジットカード承認
-     */
-    public async authorizeCreditCard(amount: number) {
-        const purchase = await this.getData();
-        return new Promise<void>((resolve, reject) => {
-            if (
-                purchase.transaction === undefined ||
-                purchase.creditCard === undefined
-            ) {
-                reject();
-                return;
-            }
-            this.store.dispatch(
-                purchaseAction.authorizeCreditCard({
-                    transaction: purchase.transaction,
-                    authorizeCreditCardPayment:
-                        purchase.authorizeCreditCardPayments[0],
-                    orderCount: purchase.orderCount,
-                    amount,
-                    method: '1',
-                    creditCard: purchase.creditCard,
-                })
-            );
-            const success = this.actions.pipe(
-                ofType(purchaseAction.authorizeCreditCardSuccess.type),
-                tap(() => {
-                    resolve();
-                })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.authorizeCreditCardFail.type),
-                tap(() => {
-                    this.error
-                        .subscribe((error) => {
-                            reject(error);
-                        })
-                        .unsubscribe();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * ムビチケ承認
-     */
-    public async authorizeMovieTicket() {
-        const purchase = await this.getData();
-        return new Promise<void>((resolve, reject) => {
-            if (
-                purchase.transaction === undefined ||
-                purchase.seller === undefined
-            ) {
-                reject();
-                return;
-            }
-            this.store.dispatch(
-                purchaseAction.authorizeMovieTicket({
-                    transaction: purchase.transaction,
-                    authorizeMovieTicketPayments:
-                        purchase.authorizeMovieTicketPayments,
-                    authorizeSeatReservations:
-                        purchase.authorizeSeatReservations,
-                    pendingMovieTickets: purchase.pendingMovieTickets,
-                    seller: purchase.seller,
-                })
-            );
-            const success = this.actions.pipe(
-                ofType(purchaseAction.authorizeMovieTicketSuccess.type),
-                tap(() => {
-                    resolve();
-                })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.authorizeMovieTicketFail.type),
-                tap(() => {
-                    this.error
-                        .subscribe((error) => {
-                            reject(error);
-                        })
-                        .unsubscribe();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * ムビチケ認証
-     */
-    public async checkMovieTicket(params: {
-        movieTicket: {
-            code: string;
-            password: string;
-        };
-        paymentMethodType: factory.paymentMethodType;
-    }) {
-        const movieTicket = params.movieTicket;
-        const paymentMethodType = params.paymentMethodType;
-        const { transaction, screeningEvent } = await this.getData();
-        return new Promise<void>((resolve, reject) => {
-            if (transaction === undefined || screeningEvent === undefined) {
-                reject();
-                return;
-            }
-            this.store.dispatch(
-                purchaseAction.checkMovieTicket({
-                    transaction,
-                    screeningEvent,
-                    movieTickets: [
-                        {
-                            typeOf: paymentMethodType,
-                            identifier: movieTicket.code, // 購入管理番号
-                            accessCode: movieTicket.password, // PINコード
-                        },
-                    ],
-                })
-            );
-            const success = this.actions.pipe(
-                ofType(purchaseAction.checkMovieTicketSuccess.type),
-                tap(() => {
-                    resolve();
-                })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.checkMovieTicketFail.type),
-                tap(() => {
-                    this.error
-                        .subscribe((error) => {
-                            reject(error);
-                        })
-                        .unsubscribe();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * 取引確定
-     */
-    public async endTransaction(params: { language: string }) {
-        const purchase = await this.getData();
-        const language = params.language;
-        return new Promise<void>((resolve, reject) => {
-            if (
-                purchase.transaction === undefined ||
-                purchase.seller === undefined ||
-                purchase.theater === undefined
-            ) {
-                reject();
-                return;
-            }
-            const transaction = purchase.transaction;
-            const authorizeSeatReservations =
-                purchase.authorizeSeatReservations;
-            const seller = purchase.seller;
-            const theater = purchase.theater;
-            const external = Functions.Util.getExternalData();
-            const linyId =
-                external.linyId === undefined ? undefined : external.linyId;
-            this.store.dispatch(
-                purchaseAction.endTransaction({
-                    transaction,
-                    authorizeSeatReservations,
-                    seller,
-                    theater,
-                    language,
-                    linyId,
-                })
-            );
-            const success = this.actions.pipe(
-                ofType(purchaseAction.endTransactionSuccess.type),
-                tap(() => {
-                    resolve();
-                })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.endTransactionFail.type),
-                tap(() => {
-                    this.error
-                        .subscribe((error) => {
-                            reject(error);
-                        })
-                        .unsubscribe();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
-     * クレジットカードトークン作成
-     */
-    public async createCreditCardToken(creditCard: {
-        cardno: string;
-        expire: string;
-        holderName: string;
-        securityCode: string;
-    }) {
-        return new Promise<void>((resolve, reject) => {
-            this.purchase
-                .subscribe((purchase) => {
-                    const seller = purchase.seller;
-                    if (seller === undefined) {
-                        reject();
-                        return;
-                    }
-                    this.store.dispatch(
-                        purchaseAction.createCreditCardToken({
-                            seller,
-                            creditCard,
-                        })
-                    );
-                })
-                .unsubscribe();
-            const success = this.actions.pipe(
-                ofType(purchaseAction.createCreditCardTokenSuccess.type),
-                tap(() => {
-                    resolve();
-                })
-            );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.createCreditCardTokenFail.type),
-                tap(() => {
-                    this.error
-                        .subscribe((error) => {
-                            reject(error);
-                        })
-                        .unsubscribe();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
-    }
-
-    /**
      * 外部連携情報を購入情報へ変換
      */
-    public async convertExternalToPurchase(eventId: string) {
-        return new Promise<void>((resolve, reject) => {
+    public async externalData2PurchaseData(params: { event: { id: string } }) {
+        try {
+            this.utilService.loadStart({
+                process: 'purchaseAction.ExternalData2PurchaseData',
+            });
+            const { event } = params;
+            await this.cinerinoService.getServices();
+            const screeningEvent =
+                await this.cinerinoService.event.findById<factory.chevre.eventType.ScreeningEvent>(
+                    { id: event.id }
+                );
+            if (
+                screeningEvent.offers === undefined ||
+                screeningEvent.offers.seller === undefined ||
+                screeningEvent.offers.seller.id === undefined
+            ) {
+                throw new Error('screeningEvent.offers.seller.id undefined');
+            }
+            const searchResult =
+                await this.cinerinoService.place.searchMovieTheaters({
+                    id: { $eq: screeningEvent.superEvent.location.id },
+                });
+            if (searchResult.data.length === 0) {
+                throw new Error('searchMovieTheaters notfound');
+            }
+            const theater = searchResult.data[0];
+            const seller = await this.cinerinoService.seller.findById({
+                id: screeningEvent.offers.seller.id,
+            });
+
             this.store.dispatch(
-                purchaseAction.convertExternalToPurchase({ eventId })
-            );
-            const success = this.actions.pipe(
-                ofType(purchaseAction.convertExternalToPurchaseSuccess.type),
-                tap(() => {
-                    resolve();
+                purchaseAction.setExternalPurchaseData({
+                    screeningEvent,
+                    seller,
+                    theater,
                 })
             );
-            const fail = this.actions.pipe(
-                ofType(purchaseAction.convertExternalToPurchaseFail.type),
-                tap(() => {
-                    this.error
-                        .subscribe((error) => {
-                            reject(error);
-                        })
-                        .unsubscribe();
-                })
-            );
-            race(success, fail).pipe(take(1)).subscribe();
-        });
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
     }
 }

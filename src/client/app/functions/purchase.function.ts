@@ -110,7 +110,7 @@ export function isAvailabilityMovieTicket(
  *  予約情報からムビチケ情報作成
  */
 export function createMovieTicketsFromAuthorizeSeatReservation(args: {
-    authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>;
+    authorizeSeatReservation: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>;
     pendingMovieTickets: IMovieTicket[];
     seller: factory.chevre.seller.ISeller;
 }) {
@@ -334,7 +334,7 @@ export function movieTicketAuthErroCodeToMessage(code?: string): {
  * 予約金額取得
  */
 export function getAmount(
-    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[]
+    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[]
 ) {
     const amounts = authorizeSeatReservations.map((reservations) =>
         reservations.result === undefined ? 0 : reservations.result.price
@@ -415,7 +415,7 @@ export function order2EventOrders(params: { order: factory.order.IOrder }) {
  * 座席予約をイベントごとに変換
  */
 export function authorizeSeatReservation2Event(params: {
-    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>[];
+    authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
 }) {
     const results: {
         event: factory.chevre.event.screeningEvent.IEvent;

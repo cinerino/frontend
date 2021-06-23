@@ -139,7 +139,7 @@ export class PurchaseInputComponent implements OnInit {
                     securityCode:
                         this.creditCardForm.controls.securityCode.value,
                 };
-                await this.actionService.purchase.createCreditCardToken(
+                await this.actionService.purchase.payment.createCreditCardToken(
                     creditCard
                 );
             } catch (error) {

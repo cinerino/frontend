@@ -268,9 +268,9 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
             ) {
                 throw new Error('screeningEvent.offers.seller === undefined');
             }
-            await this.actionService.purchase.getSeller(
-                screeningEvent.offers.seller.id
-            );
+            await this.actionService.purchase.getSeller({
+                id: screeningEvent.offers.seller.id,
+            });
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
