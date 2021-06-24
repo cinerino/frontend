@@ -4,13 +4,13 @@ import { factory } from '@cinerino/sdk/lib/abstract';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../../..';
-import { ActionService, CinerinoService, } from '../../../../../../services';
+import { ActionService, CinerinoService } from '../../../../../../services';
 import * as reducers from '../../../../../../store/reducers';
 
 @Component({
     selector: 'app-purchase-cinema-overlap',
     templateUrl: './purchase-cinema-overlap.component.html',
-    styleUrls: ['./purchase-cinema-overlap.component.scss']
+    styleUrls: ['./purchase-cinema-overlap.component.scss'],
 })
 export class PurchaseCinemaOverlapComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
@@ -25,7 +25,7 @@ export class PurchaseCinemaOverlapComponent implements OnInit {
         private router: Router,
         private actionService: ActionService,
         private cinerino: CinerinoService
-    ) { }
+    ) {}
 
     /**
      * 初期化
@@ -41,10 +41,12 @@ export class PurchaseCinemaOverlapComponent implements OnInit {
             }
             await this.cinerino.getServices();
             const screeningEvent =
-                await this.cinerino.event.findById<factory.chevre.eventType.ScreeningEvent>({ id: external.eventId });
+                await this.cinerino.event.findById<factory.chevre.eventType.ScreeningEvent>(
+                    { id: external.eventId }
+                );
             this.tmpPurchaseData = {
                 screeningEvent: screeningEvent,
-                reservations: []
+                reservations: [],
             };
         } catch (error) {
             this.router.navigate(['/error']);
@@ -53,12 +55,11 @@ export class PurchaseCinemaOverlapComponent implements OnInit {
 
     public async onSubmit() {
         this.actionService.purchase.delete();
-        await this.actionService.purchase.cancelTransaction();
+        await this.actionService.purchase.transaction.cancel();
         const external = Functions.Util.getExternalData();
         if (external.eventId !== undefined) {
             this.router.navigate([`/purchase/transaction`]);
             return;
         }
     }
-
 }

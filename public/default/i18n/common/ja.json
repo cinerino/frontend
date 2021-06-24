@@ -442,8 +442,7 @@
             "CreateCreditCardToken": "クレジットカードトークンを作成しています",
             "AuthorizeMovieTicket": "ムビチケ情報を承認しています",
             "CheckMovieTicket": "ムビチケ情報を確認しています",
-            "Reserve": "取引を確定しています",
-            "EndTransaction": "取引を確定しています",
+            "ConfirmTransaction": "取引を確定しています",
             "ExternalData2PurchaseData": "外部データから情報を変換しています"
         },
         "userAction": {

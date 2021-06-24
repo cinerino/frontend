@@ -72,7 +72,7 @@ export class PurchaseTransactionComponent implements OnInit, AfterViewInit {
             if (!performance.isSales() || performance.isSeatStatus('danger')) {
                 throw new Error('Not for sale');
             }
-            await this.actionService.purchase.startTransaction();
+            await this.actionService.purchase.transaction.start();
             this.router.navigate(['/purchase/cinema/seat']);
         } catch (error) {
             console.error(error);

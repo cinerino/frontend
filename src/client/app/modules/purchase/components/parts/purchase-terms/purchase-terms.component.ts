@@ -7,7 +7,7 @@ import { UtilService } from '../../../../../services';
 @Component({
     selector: 'app-purchase-terms',
     templateUrl: './purchase-terms.component.html',
-    styleUrls: ['./purchase-terms.component.scss']
+    styleUrls: ['./purchase-terms.component.scss'],
 })
 export class PurchaseTermsComponent implements OnInit, OnChanges {
     @Input() public language: string;
@@ -15,26 +15,28 @@ export class PurchaseTermsComponent implements OnInit, OnChanges {
     public environment = getEnvironment();
     public terms: string;
 
-    constructor(
-    private utilService: UtilService
-    ) { }
+    constructor(private utilService: UtilService) {}
 
-    public ngOnInit() {
-    }
+    public ngOnInit() {}
 
     public async ngOnChanges() {
         try {
             const path = `/ejs/purchase/terms/${this.language}.ejs`;
-            const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+            const url = (await Functions.Util.isFile(
+                `${Functions.Util.getProject().storageUrl}${path}`
+            ))
                 ? `${Functions.Util.getProject().storageUrl}${path}`
                 : `/default${path}`;
             const view = await this.utilService.getText(url);
-            this.terms = (<any>window).ejs.render(view, {
-                screeningEvent: this.screeningEvent
-            });
+            this.terms = await (<any>window).ejs.render(
+                view,
+                {
+                    screeningEvent: this.screeningEvent,
+                },
+                { async: true }
+            );
         } catch (error) {
             console.error(error);
         }
     }
-
 }

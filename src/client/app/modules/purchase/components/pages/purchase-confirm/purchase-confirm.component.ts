@@ -88,7 +88,9 @@ export class PurchaseConfirmComponent implements OnInit {
             return;
         }
         try {
-            await this.actionService.purchase.confirmTransaction({ language });
+            await this.actionService.purchase.transaction.confirm({
+                language,
+            });
             this.router.navigate(['/purchase/complete']);
         } catch (error) {
             console.error(error);

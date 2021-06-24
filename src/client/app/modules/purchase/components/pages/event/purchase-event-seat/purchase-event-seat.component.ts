@@ -13,9 +13,11 @@ export class PurchaseEventSeatComponent extends PurchaseSeatComponent {
                 await this.actionService.purchase.getData();
             if (authorizeSeatReservation !== undefined) {
                 const authorizeSeatReservations = [authorizeSeatReservation];
-                await this.actionService.purchase.voidSeatReservation({
-                    authorizeSeatReservations,
-                });
+                await this.actionService.purchase.transaction.voidSeatReservation(
+                    {
+                        authorizeSeatReservations,
+                    }
+                );
             }
             this.router.navigate(['/purchase/event/schedule']);
         } catch (error) {

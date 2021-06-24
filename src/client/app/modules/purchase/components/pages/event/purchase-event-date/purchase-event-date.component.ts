@@ -65,7 +65,7 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
         try {
             const { transaction } = await this.actionService.purchase.getData();
             if (transaction !== undefined) {
-                await this.actionService.purchase.cancelTransaction();
+                await this.actionService.purchase.transaction.cancel();
             }
             this.scheduleDate = moment(moment().format('YYYYMMDD'))
                 .add(
@@ -279,9 +279,9 @@ export class PurchaseEventDateComponent implements OnInit, OnDestroy {
             const purchase = await this.actionService.purchase.getData();
             const transaction = purchase.transaction;
             if (transaction !== undefined) {
-                await this.actionService.purchase.cancelTransaction();
+                await this.actionService.purchase.transaction.cancel();
             }
-            await this.actionService.purchase.startTransaction();
+            await this.actionService.purchase.transaction.start();
             this.router.navigate(['/purchase/event/schedule']);
         } catch (error) {
             console.error(error);

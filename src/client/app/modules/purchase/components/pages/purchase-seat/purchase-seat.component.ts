@@ -72,8 +72,8 @@ export class PurchaseSeatComponent implements OnInit {
                 },
             });
             this.screeningEventSeats =
-                await this.actionService.purchase.getScreeningEventSeats();
-            await this.actionService.purchase.searchTicketOffers();
+                await this.actionService.purchase.event.getScreeningEventSeats();
+            await this.actionService.purchase.event.searchTicketOffers();
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -137,10 +137,12 @@ export class PurchaseSeatComponent implements OnInit {
             }
             const { reservations } =
                 await this.actionService.purchase.getData();
-            await this.actionService.purchase.authorizeSeatReservation({
-                reservations,
-                screeningEventSeats: this.screeningEventSeats,
-            });
+            await this.actionService.purchase.transaction.authorizeSeatReservation(
+                {
+                    reservations,
+                    screeningEventSeats: this.screeningEventSeats,
+                }
+            );
             const navigate =
                 this.environment.VIEW_TYPE === 'cinema'
                     ? '/purchase/cinema/ticket'
@@ -220,7 +222,7 @@ export class PurchaseSeatComponent implements OnInit {
     public async selectOpenSeating() {
         const { reservations } = await this.actionService.purchase.getData();
         this.screeningEventSeats =
-            await this.actionService.purchase.getScreeningEventSeats();
+            await this.actionService.purchase.event.getScreeningEventSeats();
         const screeningEventSeats = this.screeningEventSeats;
         const seats = Functions.Purchase.getEmptySeat({
             reservations,

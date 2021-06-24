@@ -206,7 +206,7 @@ export class PurchaseInputComponent implements OnInit {
                         ? undefined
                         : additionalProperty,
             };
-            await this.actionService.purchase.setProfile(contact);
+            await this.actionService.purchase.transaction.setProfile(contact);
             this.router.navigate(['/purchase/confirm']);
         } catch (error) {
             this.router.navigate(['/error']);
