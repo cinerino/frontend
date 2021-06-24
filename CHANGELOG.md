@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 3.18.0 - 2021-06-24
+
+### Added
+
+-   チケットへ枚数表記追加
+
 ## 3.17.0 - 2021-06-22
 
 ### Changed
