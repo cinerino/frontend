@@ -103,6 +103,7 @@ export class ActionTransactionService {
             });
             const { transaction } = await this.storeService.getPurchaseData();
             if (transaction === undefined) {
+                this.utilService.loadEnd();
                 return;
             }
             await this.cinerinoService.transaction.placeOrder.cancel({
