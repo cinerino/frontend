@@ -65,9 +65,9 @@ export class PurchaseConfirmComponent implements OnInit {
         const { language } = await this.actionService.user.getData();
         try {
             if (this.amount > 0) {
-                await this.actionService.purchase.authorizeCreditCard(
-                    this.amount
-                );
+                await this.actionService.purchase.payment.authorizeCreditCard({
+                    amount: this.amount,
+                });
             }
         } catch (error) {
             this.utilService.openAlert({
@@ -81,14 +81,16 @@ export class PurchaseConfirmComponent implements OnInit {
         }
         try {
             if (pendingMovieTickets.length > 0) {
-                await this.actionService.purchase.authorizeMovieTicket();
+                await this.actionService.purchase.payment.authorizeMovieTicket();
             }
         } catch (error) {
             this.router.navigate(['/error']);
             return;
         }
         try {
-            await this.actionService.purchase.endTransaction({ language });
+            await this.actionService.purchase.transaction.confirm({
+                language,
+            });
             this.router.navigate(['/purchase/complete']);
         } catch (error) {
             console.error(error);

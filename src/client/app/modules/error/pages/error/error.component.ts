@@ -8,7 +8,7 @@ import * as reducers from '../../../../store/reducers';
 @Component({
     selector: 'app-error',
     templateUrl: './error.component.html',
-    styleUrls: ['./error.component.scss']
+    styleUrls: ['./error.component.scss'],
 })
 export class ErrorComponent implements OnInit {
     public error: Observable<string | null>;
@@ -16,7 +16,7 @@ export class ErrorComponent implements OnInit {
     constructor(
         private actionService: ActionService,
         private store: Store<reducers.IState>
-    ) { }
+    ) {}
 
     /**
      * 初期化
@@ -24,12 +24,11 @@ export class ErrorComponent implements OnInit {
     public async ngOnInit() {
         this.error = this.store.pipe(select(reducers.getError));
         try {
-            await this.actionService.purchase.cancelTransaction();
+            await this.actionService.purchase.transaction.cancel();
         } catch (error) {
             console.error(error);
         }
         this.actionService.purchase.delete();
         this.actionService.user.delete();
     }
-
 }

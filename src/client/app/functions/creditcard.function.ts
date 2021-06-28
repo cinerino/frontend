@@ -10,33 +10,51 @@ export async function createCreditCardTokenObject(params: {
         expire: string;
         holderName: string;
         securityCode: string;
-    },
+    };
     seller: factory.chevre.seller.ISeller;
-}) {
+}): Promise<ISonyTokenObject | IGmoTokenObject> {
     const { seller, creditCard } = params;
     if (seller.paymentAccepted === undefined) {
         throw new Error('seller.paymentAccepted is undefined');
     }
-    const findPaymentAcceptedResult = seller.paymentAccepted.find((paymentAccepted) => {
-        return (paymentAccepted.paymentMethodType === factory.paymentMethodType.CreditCard);
-    });
-    if (findPaymentAcceptedResult === undefined
-        || findPaymentAcceptedResult.paymentMethodType !== factory.paymentMethodType.CreditCard) {
+    const findPaymentAcceptedResult = seller.paymentAccepted.find(
+        (paymentAccepted) => {
+            return (
+                paymentAccepted.paymentMethodType ===
+                factory.paymentMethodType.CreditCard
+            );
+        }
+    );
+    if (
+        findPaymentAcceptedResult === undefined ||
+        findPaymentAcceptedResult.paymentMethodType !==
+            factory.paymentMethodType.CreditCard
+    ) {
         throw new Error('paymentMethodType CreditCard not found');
     }
-    const gmoInfo: {
-        shopId?: string;
-        tokenizationCode?: string;
-    } | undefined = (<any>findPaymentAcceptedResult).gmoInfo;
+    const gmoInfo:
+        | {
+              shopId?: string;
+              tokenizationCode?: string;
+          }
+        | undefined = (<any>findPaymentAcceptedResult).gmoInfo;
     if (gmoInfo === undefined) {
         throw new Error('gmoInfo undefined');
-    } else if (gmoInfo.tokenizationCode !== undefined) {
-        return await createSonyTokenObject({ creditCard, tokenizationCode: gmoInfo.tokenizationCode });
-    } else if (gmoInfo.shopId !== undefined) {
-        return await createGmoTokenObject({ creditCard, shopId: gmoInfo.shopId });
-    } else {
-        throw new Error('gmoInfo.shopId or gmoInfo.tokenizationCode undefined');
     }
+    if (gmoInfo.tokenizationCode !== undefined) {
+        return await createSonyTokenObject({
+            creditCard,
+            tokenizationCode: gmoInfo.tokenizationCode,
+        });
+    }
+    if (gmoInfo.shopId !== undefined) {
+        return await createGmoTokenObject({
+            creditCard,
+            shopId: gmoInfo.shopId,
+        });
+    }
+
+    throw new Error('gmoInfo.shopId or gmoInfo.tokenizationCode undefined');
 }
 
 /**
@@ -58,21 +76,22 @@ function createGmoTokenObject(params: {
         expire: string;
         holderName: string;
         securityCode: string;
-    },
+    };
     shopId: string;
 }) {
     const { creditCard, shopId } = params;
     return new Promise<IGmoTokenObject>((resolve, reject) => {
-        (<any>window).someCallbackFunction = function someCallbackFunction(response: {
-            resultCode: string;
-            tokenObject: IGmoTokenObject
-        }) {
-            if (response.resultCode === '000') {
-                resolve(response.tokenObject);
-            } else {
-                reject(new Error(response.resultCode));
-            }
-        };
+        (<any>window).someCallbackFunction =
+            function someCallbackFunction(response: {
+                resultCode: string;
+                tokenObject: IGmoTokenObject;
+            }) {
+                if (response.resultCode === '000') {
+                    resolve(response.tokenObject);
+                } else {
+                    reject(new Error(response.resultCode));
+                }
+            };
         const Multipayment = (<any>window).Multipayment;
         Multipayment.init(shopId);
         Multipayment.getToken(creditCard, (<any>window).someCallbackFunction);
@@ -96,7 +115,7 @@ function createSonyTokenObject(params: {
         expire: string;
         holderName: string;
         securityCode: string;
-    },
+    };
     tokenizationCode: string;
 }) {
     return new Promise<ISonyTokenObject>((resolve, reject) => {
@@ -120,21 +139,29 @@ function createSonyTokenObject(params: {
                 creditCard.expire.slice(2, 4),
                 creditCard.expire.slice(4, 6),
                 creditCard.securityCode,
-                '', '', '', '', ''
+                '',
+                '',
+                '',
+                '',
+                ''
             );
-            (<any>window).setToken = function setToken(token: string, card: string) {
+            (<any>window).setToken = function setToken(
+                token: string,
+                card: string
+            ) {
                 script.remove();
                 (<any>window).SpsvApi = undefined;
                 resolve({
                     token,
-                    maskedCardNo: card
+                    maskedCardNo: card,
                 });
             };
         };
         script.onerror = (event) => {
             script.remove();
             (<any>window).SpsvApi = undefined;
-            const message = (typeof event === 'string') ? event : JSON.stringify(event);
+            const message =
+                typeof event === 'string' ? event : JSON.stringify(event);
             reject(new Error(message));
         };
         document.head.appendChild(script);

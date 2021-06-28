@@ -14,7 +14,7 @@ import { PurchaseSeatTicketModalComponent } from '../../../../shared/components/
 
 @Component({
     selector: 'app-purchase-ticket',
-    template: ''
+    template: '',
 })
 export class PurchaseTicketComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
@@ -32,7 +32,7 @@ export class PurchaseTicketComponent implements OnInit {
         private utilService: UtilService,
         private actionService: ActionService,
         private translate: TranslateService
-    ) { }
+    ) {}
 
     /**
      * 初期化
@@ -41,10 +41,13 @@ export class PurchaseTicketComponent implements OnInit {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
-        this.translateName = (this.environment.VIEW_TYPE === 'cinema')
-            ? 'purchase.cinema.ticket' : 'purchase.event.ticket';
+        this.translateName =
+            this.environment.VIEW_TYPE === 'cinema'
+                ? 'purchase.cinema.ticket'
+                : 'purchase.event.ticket';
         this.additionalTicketText = '';
-        this.isSelectedTicket = (await this.getUnselectedTicketReservations()).length === 0;
+        this.isSelectedTicket =
+            (await this.getUnselectedTicketReservations()).length === 0;
     }
 
     /**
@@ -53,7 +56,7 @@ export class PurchaseTicketComponent implements OnInit {
     public async getUnselectedTicketReservations() {
         const { reservations } = await this.actionService.purchase.getData();
         return reservations.filter((reservation) => {
-            return (reservation.ticket === undefined);
+            return reservation.ticket === undefined;
         });
     }
 
@@ -62,46 +65,70 @@ export class PurchaseTicketComponent implements OnInit {
      */
     public async onSubmit() {
         try {
-            const { reservations } = await this.actionService.purchase.getData();
+            const { reservations } =
+                await this.actionService.purchase.getData();
             const validResult = reservations.filter((reservation) => {
                 if (reservation.ticket === undefined) {
                     return false;
                 }
-                const priceComponent = reservation.ticket.ticketOffer.priceSpecification.priceComponent;
-                const UnitPriceSpecification = factory.chevre.priceSpecificationType.UnitPriceSpecification;
-                const unitPriceSpecifications = priceComponent.filter(p => p.typeOf === UnitPriceSpecification);
-                const filterResult = reservations.filter((targetReservation) => {
-                    return (reservation.ticket !== undefined
-                        && targetReservation.ticket !== undefined
-                        && reservation.ticket.ticketOffer.id === targetReservation.ticket.ticketOffer.id);
-                });
-                const findResult = unitPriceSpecifications.find((unitPriceSpecification) => {
-                    const value = (unitPriceSpecification.typeOf === UnitPriceSpecification
-                        && unitPriceSpecification.referenceQuantity.value !== undefined)
-                        ? unitPriceSpecification.referenceQuantity.value : 1;
+                const priceComponent =
+                    reservation.ticket.ticketOffer.priceSpecification
+                        .priceComponent;
+                const UnitPriceSpecification =
+                    factory.chevre.priceSpecificationType
+                        .UnitPriceSpecification;
+                const unitPriceSpecifications = priceComponent.filter(
+                    (p) => p.typeOf === UnitPriceSpecification
+                );
+                const filterResult = reservations.filter(
+                    (targetReservation) => {
+                        return (
+                            reservation.ticket !== undefined &&
+                            targetReservation.ticket !== undefined &&
+                            reservation.ticket.ticketOffer.id ===
+                                targetReservation.ticket.ticketOffer.id
+                        );
+                    }
+                );
+                const findResult = unitPriceSpecifications.find(
+                    (unitPriceSpecification) => {
+                        const value =
+                            unitPriceSpecification.typeOf ===
+                                UnitPriceSpecification &&
+                            unitPriceSpecification.referenceQuantity.value !==
+                                undefined
+                                ? unitPriceSpecification.referenceQuantity.value
+                                : 1;
 
-                    return (filterResult.length % value !== 0);
-                });
+                        return filterResult.length % value !== 0;
+                    }
+                );
 
-                return (findResult !== undefined);
+                return findResult !== undefined;
             });
             if (validResult.length > 0) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant(`${this.translateName}.alert.ticketCondition`)
+                    body: this.translate.instant(
+                        `${this.translateName}.alert.ticketCondition`
+                    ),
                 });
                 return;
             }
             const additionalTicketText = this.additionalTicketText;
-            const screeningEventSeats = await this.actionService.purchase.getScreeningEventSeats();
-            await this.actionService.purchase.temporaryReservation({
-                reservations,
-                additionalTicketText,
-                screeningEventSeats
-            });
-            const navigate = (this.environment.VIEW_TYPE === 'cinema')
-                ? '/purchase/input'
-                : '/purchase/event/schedule';
+            const screeningEventSeats =
+                await this.actionService.purchase.event.getScreeningEventSeats();
+            await this.actionService.purchase.transaction.authorizeSeatReservation(
+                {
+                    reservations,
+                    additionalTicketText,
+                    screeningEventSeats,
+                }
+            );
+            const navigate =
+                this.environment.VIEW_TYPE === 'cinema'
+                    ? '/purchase/input'
+                    : '/purchase/event/schedule';
             this.router.navigate([navigate]);
         } catch (error) {
             console.error(error);
@@ -113,7 +140,9 @@ export class PurchaseTicketComponent implements OnInit {
      * 券種一覧表示
      * @param reservation
      */
-    public async openTicketList(reservation: Models.Purchase.Reservation.IReservation) {
+    public async openTicketList(
+        reservation: Models.Purchase.Reservation.IReservation
+    ) {
         const purchase = await this.actionService.purchase.getData();
         this.modal.show(PurchaseSeatTicketModalComponent, {
             initialState: {
@@ -123,22 +152,29 @@ export class PurchaseTicketComponent implements OnInit {
                 reservations: purchase.reservations,
                 reservation: reservation,
                 pendingMovieTickets: purchase.pendingMovieTickets,
-                cb: async (ticket: Models.Purchase.Reservation.IReservationTicket) => {
-                    this.actionService.purchase.selectTickets([{ ...reservation, ticket }]);
-                    this.isSelectedTicket = (await this.getUnselectedTicketReservations()).length === 0;
-                }
+                cb: async (
+                    ticket: Models.Purchase.Reservation.IReservationTicket
+                ) => {
+                    this.actionService.purchase.selectTickets([
+                        { ...reservation, ticket },
+                    ]);
+                    this.isSelectedTicket =
+                        (await this.getUnselectedTicketReservations())
+                            .length === 0;
+                },
             },
-            class: 'modal-dialog-centered'
+            class: 'modal-dialog-centered',
         });
     }
 
-    public openMovieTicket(paymentMethodType: factory.chevre.paymentMethodType) {
+    public openMovieTicket(
+        paymentMethodType: factory.chevre.paymentMethodType
+    ) {
         this.modal.show(MovieTicketCheckModalComponent, {
             initialState: {
-                paymentMethodType
+                paymentMethodType,
             },
-            class: 'modal-dialog-centered'
+            class: 'modal-dialog-centered',
         });
     }
-
 }

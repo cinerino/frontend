@@ -191,7 +191,7 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
             this.isPreSchedule = false;
             this.firstScheduleDate = await this.getFirstScheduleDate();
             this.preScheduleDates =
-                await this.actionService.purchase.getPreScheduleDates();
+                await this.actionService.purchase.event.getPreScheduleDates();
             this.selectDate();
         } catch (error) {
             console.error(error);
@@ -318,7 +318,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         }
         this.actionService.purchase.unsettledDelete();
         try {
-            await this.actionService.purchase.getScreeningEvent(screeningEvent);
+            await this.actionService.purchase.event.getScreeningEvent(
+                screeningEvent
+            );
             if (
                 screeningEvent.offers.seller === undefined ||
                 screeningEvent.offers.seller.id === undefined
@@ -327,9 +329,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
                     'screeningEvent.offers.seller or screeningEvent.offers.seller.id undefined'
                 );
             }
-            await this.actionService.purchase.getSeller(
-                screeningEvent.offers.seller.id
-            );
+            await this.actionService.purchase.getSeller({
+                id: screeningEvent.offers.seller.id,
+            });
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -342,9 +344,9 @@ export class PurchaseCinemaScheduleComponent implements OnInit, OnDestroy {
         }
         try {
             if (purchase.transaction !== undefined) {
-                await this.actionService.purchase.cancelTransaction();
+                await this.actionService.purchase.transaction.cancel();
             }
-            await this.actionService.purchase.startTransaction();
+            await this.actionService.purchase.transaction.start();
             this.router.navigate(['/purchase/cinema/seat']);
         } catch (error) {
             console.error(error);
