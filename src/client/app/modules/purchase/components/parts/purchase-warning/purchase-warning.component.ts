@@ -7,7 +7,7 @@ import { UtilService } from '../../../../../services';
 @Component({
     selector: 'app-purchase-warning',
     templateUrl: './purchase-warning.component.html',
-    styleUrls: ['./purchase-warning.component.scss']
+    styleUrls: ['./purchase-warning.component.scss'],
 })
 export class PurchaseWarningComponent implements OnInit, OnChanges {
     @Input() public language: string;
@@ -15,26 +15,28 @@ export class PurchaseWarningComponent implements OnInit, OnChanges {
     public environment = getEnvironment();
     public warning: string;
 
-    constructor(
-    private utilService: UtilService
-    ) { }
+    constructor(private utilService: UtilService) {}
 
-    public ngOnInit() {
-    }
+    public ngOnInit() {}
 
     public async ngOnChanges() {
         try {
             const path = `/ejs/purchase/warning/${this.language}.ejs`;
-            const url = (await Functions.Util.isFile(`${Functions.Util.getProject().storageUrl}${path}`))
+            const url = (await Functions.Util.isFile(
+                `${Functions.Util.getProject().storageUrl}${path}`
+            ))
                 ? `${Functions.Util.getProject().storageUrl}${path}`
                 : `/default${path}`;
             const view = await this.utilService.getText(url);
-            this.warning = (<any>window).ejs.render(view, {
-                screeningEvent: this.screeningEvent
-            });
+            this.warning = await (<any>window).ejs.render(
+                view,
+                {
+                    screeningEvent: this.screeningEvent,
+                },
+                { async: true }
+            );
         } catch (error) {
             console.error(error);
         }
     }
-
 }

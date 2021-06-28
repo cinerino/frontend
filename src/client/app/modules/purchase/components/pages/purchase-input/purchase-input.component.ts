@@ -139,7 +139,7 @@ export class PurchaseInputComponent implements OnInit {
                     securityCode:
                         this.creditCardForm.controls.securityCode.value,
                 };
-                await this.actionService.purchase.createCreditCardToken(
+                await this.actionService.purchase.payment.createCreditCardToken(
                     creditCard
                 );
             } catch (error) {
@@ -206,7 +206,7 @@ export class PurchaseInputComponent implements OnInit {
                         ? undefined
                         : additionalProperty,
             };
-            await this.actionService.purchase.setProfile(contact);
+            await this.actionService.purchase.transaction.setProfile(contact);
             this.router.navigate(['/purchase/confirm']);
         } catch (error) {
             this.router.navigate(['/error']);

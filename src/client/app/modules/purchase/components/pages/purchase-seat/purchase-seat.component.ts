@@ -11,7 +11,7 @@ import * as reducers from '../../../../../store/reducers';
 
 @Component({
     selector: 'app-purchase-seat',
-    template: ''
+    template: '',
 })
 export class PurchaseSeatComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
@@ -30,7 +30,7 @@ export class PurchaseSeatComponent implements OnInit {
         private translate: TranslateService,
         protected router: Router,
         protected actionService: ActionService
-    ) { }
+    ) {}
 
     /**
      * 初期化
@@ -39,32 +39,41 @@ export class PurchaseSeatComponent implements OnInit {
         this.purchase = this.store.pipe(select(reducers.getPurchase));
         this.user = this.store.pipe(select(reducers.getUser));
         this.isLoading = this.store.pipe(select(reducers.getLoading));
-        this.translateName = (this.environment.VIEW_TYPE === 'cinema')
-            ? 'purchase.cinema.seat' : 'purchase.event.seat';
+        this.translateName =
+            this.environment.VIEW_TYPE === 'cinema'
+                ? 'purchase.cinema.seat'
+                : 'purchase.event.seat';
         this.screeningEventSeats = [];
         this.reservationCount = 0;
         try {
-            const { screeningEvent, reservations } = await this.actionService.purchase.getData();
+            const { screeningEvent, reservations } =
+                await this.actionService.purchase.getData();
             if (screeningEvent === undefined) {
                 this.router.navigate(['/error']);
                 return;
             }
             this.reservationCount = reservations.length;
             await this.resetSeats();
-            reservations.forEach(r => {
+            reservations.forEach((r) => {
                 if (r.seat === undefined) {
                     return;
                 }
-                this.selectSeat({ seat: r.seat, status: Models.Purchase.Screen.SeatStatus.Default });
+                this.selectSeat({
+                    seat: r.seat,
+                    status: Models.Purchase.Screen.SeatStatus.Default,
+                });
             });
-            await this.actionService.purchase.getScreen({
+            await this.actionService.purchase.getScreeningRoom({
                 branchCode: { $eq: screeningEvent.location.branchCode },
                 containedInPlace: {
-                    branchCode: { $eq: screeningEvent.superEvent.location.branchCode }
-                }
+                    branchCode: {
+                        $eq: screeningEvent.superEvent.location.branchCode,
+                    },
+                },
             });
-            this.screeningEventSeats = await this.actionService.purchase.getScreeningEventSeats();
-            await this.actionService.purchase.getTicketList();
+            this.screeningEventSeats =
+                await this.actionService.purchase.event.getScreeningEventSeats();
+            await this.actionService.purchase.event.searchTicketOffers();
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -75,21 +84,28 @@ export class PurchaseSeatComponent implements OnInit {
      * 座席選択
      */
     public async selectSeat(data: {
-        seat: Models.Purchase.Reservation.IReservationSeat,
-        status: Models.Purchase.Screen.SeatStatus
+        seat: Models.Purchase.Reservation.IReservationSeat;
+        status: Models.Purchase.Screen.SeatStatus;
     }) {
         const purchase = await this.actionService.purchase.getData();
         if (data.status === Models.Purchase.Screen.SeatStatus.Default) {
-            if (purchase.screeningEvent !== undefined
-                && purchase.screeningEvent.offers !== undefined
-                && purchase.screeningEvent.offers.eligibleQuantity.maxValue !== undefined
-                && purchase.reservations.length >= purchase.screeningEvent.offers.eligibleQuantity.maxValue) {
+            if (
+                purchase.screeningEvent !== undefined &&
+                purchase.screeningEvent.offers !== undefined &&
+                purchase.screeningEvent.offers.eligibleQuantity.maxValue !==
+                    undefined &&
+                purchase.reservations.length >=
+                    purchase.screeningEvent.offers.eligibleQuantity.maxValue
+            ) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant(
                         `${this.translateName}.alert.limit`,
-                        { value: purchase.screeningEvent.offers.eligibleQuantity.maxValue }
-                    )
+                        {
+                            value: purchase.screeningEvent.offers
+                                .eligibleQuantity.maxValue,
+                        }
+                    ),
                 });
                 return;
             }
@@ -103,12 +119,15 @@ export class PurchaseSeatComponent implements OnInit {
      * 座席決定
      */
     public async onSubmit() {
-        const { screeningEventTicketOffers, screen } = await this.actionService.purchase.getData();
+        const { screeningEventTicketOffers, screen } =
+            await this.actionService.purchase.getData();
         try {
             if (screeningEventTicketOffers.length === 0) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant(`${this.translateName}.alert.ticketNotfound`)
+                    body: this.translate.instant(
+                        `${this.translateName}.alert.ticketNotfound`
+                    ),
                 });
                 return;
             }
@@ -116,14 +135,18 @@ export class PurchaseSeatComponent implements OnInit {
                 // 自由席
                 await this.selectOpenSeating();
             }
-            const { reservations } = await this.actionService.purchase.getData();
-            await this.actionService.purchase.temporaryReservation({
-                reservations,
-                screeningEventSeats: this.screeningEventSeats
-            });
-            const navigate = (this.environment.VIEW_TYPE === 'cinema')
-                ? '/purchase/cinema/ticket'
-                : '/purchase/event/ticket';
+            const { reservations } =
+                await this.actionService.purchase.getData();
+            await this.actionService.purchase.transaction.authorizeSeatReservation(
+                {
+                    reservations,
+                    screeningEventSeats: this.screeningEventSeats,
+                }
+            );
+            const navigate =
+                this.environment.VIEW_TYPE === 'cinema'
+                    ? '/purchase/cinema/ticket'
+                    : '/purchase/event/ticket';
             this.router.navigate([navigate]);
         } catch (error) {
             if (screen !== undefined && screen.openSeatingAllowed) {
@@ -133,7 +156,9 @@ export class PurchaseSeatComponent implements OnInit {
             console.error(error);
             this.utilService.openAlert({
                 title: this.translate.instant('common.error'),
-                body: this.translate.instant(`${this.translateName}.alert.temporaryReservation`)
+                body: this.translate.instant(
+                    `${this.translateName}.alert.temporaryReservation`
+                ),
             });
         }
     }
@@ -165,16 +190,22 @@ export class PurchaseSeatComponent implements OnInit {
         const screeningEvent = params.screeningEvent;
         const values = [];
         let limit = Number(this.environment.PURCHASE_ITEM_MAX_LENGTH);
-        if (screeningEvent.offers !== undefined
-            && screeningEvent.offers.eligibleQuantity.maxValue !== undefined
-            && limit > screeningEvent.offers.eligibleQuantity.maxValue) {
+        if (
+            screeningEvent.offers !== undefined &&
+            screeningEvent.offers.eligibleQuantity.maxValue !== undefined &&
+            limit > screeningEvent.offers.eligibleQuantity.maxValue
+        ) {
             limit = screeningEvent.offers.eligibleQuantity.maxValue;
         }
-        if (new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat()) {
+        if (
+            new Models.Purchase.Performance({ screeningEvent }).isTicketedSeat()
+        ) {
             // イベント全体の残席数計算
-            const screeningEventLimit = Functions.Purchase.getRemainingSeatLength({
-                screeningEventSeats, screeningEvent
-            });
+            const screeningEventLimit =
+                Functions.Purchase.getRemainingSeatLength({
+                    screeningEventSeats,
+                    screeningEvent,
+                });
             if (limit > screeningEventLimit) {
                 limit = screeningEventLimit;
             }
@@ -190,9 +221,13 @@ export class PurchaseSeatComponent implements OnInit {
      */
     public async selectOpenSeating() {
         const { reservations } = await this.actionService.purchase.getData();
-        this.screeningEventSeats = await this.actionService.purchase.getScreeningEventSeats();
+        this.screeningEventSeats =
+            await this.actionService.purchase.event.getScreeningEventSeats();
         const screeningEventSeats = this.screeningEventSeats;
-        const seats = Functions.Purchase.getEmptySeat({ reservations, screeningEventSeats });
+        const seats = Functions.Purchase.getEmptySeat({
+            reservations,
+            screeningEventSeats,
+        });
         await this.resetSeats();
         const selectSeats: Models.Purchase.Reservation.IReservationSeat[] = [];
         for (let i = 0; i < Number(this.reservationCount); i++) {

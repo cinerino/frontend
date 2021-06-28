@@ -26,46 +26,38 @@ import { PurchaseTermsComponent } from './components/parts/purchase-terms/purcha
 import { PurchaseWarningComponent } from './components/parts/purchase-warning/purchase-warning.component';
 import { ScreenComponent } from './components/parts/screen/screen.component';
 import { SeatInfoComponent } from './components/parts/seat-info/seat-info.component';
-import { TransactionRemainingTimeComponent } from './components/parts/transaction-remaining-time/transaction-remaining-time.component';
 import { PurchaseRoutingModule } from './purchase-routing.module';
 
-
-
 @NgModule({
-  declarations: [
-    PurchaseBaseComponent,
-    PurchaseInputComponent,
-    PurchaseConfirmComponent,
-    PurchaseCompleteComponent,
-    PurchaseInfoComponent,
-    PurchaseCinemaScheduleComponent,
-    PurchaseCinemaSeatComponent,
-    PurchaseCinemaTicketComponent,
-    PurchaseCinemaOverlapComponent,
-    PurchaseEventScheduleComponent,
-    PurchaseEventPerformancesConfirmComponent,
-    PurchaseRootComponent,
-    PurchasePerformanceComponent,
-    PurchasePerformancesComponent,
-    PurchaseEventDateComponent,
-    PurchaseTransactionComponent,
-    PurchaseTermsComponent,
-    PurchaseWarningComponent,
-    ScreenComponent,
-    TransactionRemainingTimeComponent,
-    PurchaseEventSeatComponent,
-    PurchaseEventTicketComponent,
-    PurchaseTicketComponent,
-    PurchaseSeatComponent,
-    SeatInfoComponent,
-    MovieTicketsComponent,
-  ],
-  entryComponents: [],
-  imports: [
-    CommonModule,
-    PurchaseRoutingModule,
-    SharedModule,
-  ],
-  exports: []
+    declarations: [
+        PurchaseBaseComponent,
+        PurchaseInputComponent,
+        PurchaseConfirmComponent,
+        PurchaseCompleteComponent,
+        PurchaseInfoComponent,
+        PurchaseCinemaScheduleComponent,
+        PurchaseCinemaSeatComponent,
+        PurchaseCinemaTicketComponent,
+        PurchaseCinemaOverlapComponent,
+        PurchaseEventScheduleComponent,
+        PurchaseEventPerformancesConfirmComponent,
+        PurchaseRootComponent,
+        PurchasePerformanceComponent,
+        PurchasePerformancesComponent,
+        PurchaseEventDateComponent,
+        PurchaseTransactionComponent,
+        PurchaseTermsComponent,
+        PurchaseWarningComponent,
+        ScreenComponent,
+        PurchaseEventSeatComponent,
+        PurchaseEventTicketComponent,
+        PurchaseTicketComponent,
+        PurchaseSeatComponent,
+        SeatInfoComponent,
+        MovieTicketsComponent,
+    ],
+    entryComponents: [],
+    imports: [CommonModule, PurchaseRoutingModule, SharedModule],
+    exports: [],
 })
-export class PurchaseModule { }
+export class PurchaseModule {}
