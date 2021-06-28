@@ -1,0 +1,25 @@
+<div class="contents-width mx-auto px-3 py-5">
+    <div class="mb-4">
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.confirm.title' | translate }}</h2>
+        <p class="mb-4 text-md-center" [innerHTML]="'purchase.confirm.read' | translate"></p>
+    </div>
+
+    <div class="p-3 bg-white mb-4">
+        <ng-container *ngFor="let action of (purchase | async)?.authorizeProductActions">
+            <app-item-product [authorizeProductAction]="action"></app-item-product>
+        </ng-container>
+    </div>
+
+    <div class="mb-4 p-3 bg-white">
+        <app-item-profile [profile]="(purchase | async)?.profile"></app-item-profile>
+    </div>
+
+
+    <div class="buttons mx-auto text-center">
+        <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+            (click)="onSubmit()">{{ 'purchase.confirm.next' | translate }}</button>
+
+        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/product/membership/input">{{
+            'purchase.confirm.prev' | translate }}</button>
+    </div>
+</div>

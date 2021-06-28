@@ -1,0 +1,67 @@
+<div *ngFor="let acceptedOffer of authorizeProductAction?.result?.acceptedOffers" class="py-3 border-bottom">
+    <div class="row justify-content-between align-items-center"
+        *ngFor="let priceComponent of acceptedOffer.priceSpecification.priceComponent">
+        <p class="col-12 col-md-6 text-left">{{ priceComponent.name | changeLanguage }}</p>
+        <div *ngIf="priceComponent.price > 0" class="col-12 col-md-6 d-flex justify-content-end">
+            <p>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</p>
+            <ng-container *ngIf="priceComponent?.referenceQuantity?.value">
+                <p *ngIf="priceComponent?.referenceQuantity?.unitCode === unitCode.C62">
+                    {{ 'common.referenceQuantityValue' | translate: { value:
+                    priceComponent?.referenceQuantity?.value } }}
+                </p>
+                <p *ngIf="priceComponent?.referenceQuantity?.unitCode === unitCode.Ann">
+                    {{ 'common.referenceQuantityValueAnn' | translate: { value:
+                    priceComponent?.referenceQuantity?.value } }}
+                </p>
+                <p *ngIf="priceComponent?.referenceQuantity?.unitCode === unitCode.Day">
+                    {{ 'common.referenceQuantityValueDay' | translate: { value:
+                    priceComponent?.referenceQuantity?.value } }}
+                </p>
+                <p *ngIf="priceComponent?.referenceQuantity?.unitCode === unitCode.Sec">
+                    {{ 'common.referenceQuantityValueSec' | translate: { value:
+                    priceComponent?.referenceQuantity?.value } }}
+                </p>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<div *ngFor="let acceptedOffer of order?.acceptedOffers" class="py-3 border-bottom">
+    <div class="row justify-content-between align-items-center mb-3"
+        *ngFor="let priceComponent of acceptedOffer.priceSpecification.priceComponent">
+        <p class="col-12 col-md-6 text-left">{{ priceComponent.name | changeLanguage }}</p>
+        <div *ngIf="priceComponent.price > 0" class="col-12 col-md-6 d-flex justify-content-end">
+            <p>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</p>
+            <ng-container *ngIf="priceComponent?.referenceQuantity?.value">
+                <p *ngIf="priceComponent?.referenceQuantity?.unitCode === unitCode.C62">
+                    {{ 'common.referenceQuantityValue' | translate: { value:
+                    priceComponent?.referenceQuantity?.value } }}
+                </p>
+                <p *ngIf="priceComponent?.referenceQuantity?.unitCode === unitCode.Ann">
+                    {{ 'common.referenceQuantityValueAnn' | translate: { value:
+                    priceComponent?.referenceQuantity?.value } }}
+                </p>
+                <p *ngIf="priceComponent?.referenceQuantity?.unitCode === unitCode.Day">
+                    {{ 'common.referenceQuantityValueDay' | translate: { value:
+                    priceComponent?.referenceQuantity?.value } }}
+                </p>
+                <p *ngIf="priceComponent?.referenceQuantity?.unitCode === unitCode.Sec">
+                    {{ 'common.referenceQuantityValueSec' | translate: { value:
+                    priceComponent?.referenceQuantity?.value } }}
+                </p>
+            </ng-container>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered mb-0">
+        <tbody>
+            <tr>
+                <td scope="row">ID</td>
+                <td class="text-right">{{ acceptedOffer.itemOffered.identifier }}</td>
+            </tr>
+            <tr>
+                <td scope="row">PASS</td>
+                <td class="text-right">{{ 'product.membership.complete.accessCode' | translate }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

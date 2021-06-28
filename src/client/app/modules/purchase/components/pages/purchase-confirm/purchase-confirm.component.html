@@ -12,8 +12,8 @@
             </div>
         </div>
 
-        <div *ngIf="profile" class="mb-4 p-3 bg-white">
-            <app-item-profile [profile]="profile"></app-item-profile>
+        <div class="mb-4 p-3 bg-white">
+            <app-item-profile [profile]="(purchase | async)?.profile"></app-item-profile>
         </div>
 
         <div class="mb-4 px-3 bg-white">
