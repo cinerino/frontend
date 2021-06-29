@@ -8,7 +8,7 @@
         <div class="p-3 bg-white mb-4">
             <div *ngFor="let product of products" class="py-3 border-bottom">
                 <label class="d-flex align-items-center w-100 pointer">
-                    <input type="radio" class="d-none" (change)="changeProduct(product.data)">
+                    <input type="radio" class="d-none" name="product" (change)="changeProduct(product.data)">
                     <div class="text-primary">
                         <i class="bi bi-circle unchecked"></i>
                         <i class="bi bi-record-circle checked"></i>
@@ -21,7 +21,7 @@
         <div *ngIf="ticketOffers.length > 0" class="p-3 bg-white">
             <div *ngFor="let ticketOffer of ticketOffers" class="py-3 border-bottom">
                 <label class="d-flex align-items-center w-100 pointer">
-                    <input type="radio" class="d-none" (change)="changeTicketOffer(ticketOffer)">
+                    <input type="radio" class="d-none" name="ticketOffer" (change)="changeTicketOffer(ticketOffer)">
                     <div class="text-primary">
                         <i class="bi bi-circle unchecked"></i>
                         <i class="bi bi-record-circle checked"></i>
