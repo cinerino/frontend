@@ -1,0 +1,18 @@
+input[type='radio'] {
+    + div {
+        .checked {
+            display: none;
+        }
+        .unchecked {
+            display: block;
+        }
+    }
+    &:checked + div {
+        .checked {
+            display: block;
+        }
+        .unchecked {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,75 @@
+<div class="contents-width mx-auto px-3 py-5">
+    <div class="mb-4">
+        <h2 class="text-large mb-4 text-center font-weight-bold">
+            {{ 'product.membership.index.title' | translate }}
+        </h2>
+        <p class="mb-4 text-md-center" [innerHTML]="'product.membership.index.read' | translate"></p>
+
+        <div class="p-3 bg-white mb-4">
+            <div *ngFor="let product of products" class="py-3 border-bottom">
+                <label class="d-flex align-items-center w-100 pointer">
+                    <input type="radio" class="d-none" name="product" (change)="changeProduct(product.data)">
+                    <div class="text-primary">
+                        <i class="bi bi-circle unchecked"></i>
+                        <i class="bi bi-record-circle checked"></i>
+                    </div>
+                    <p class="ml-3">{{ product.data.name | changeLanguage }}</p>
+                </label>
+            </div>
+        </div>
+
+        <div *ngIf="ticketOffers.length > 0" class="p-3 bg-white">
+            <div *ngFor="let ticketOffer of ticketOffers" class="py-3 border-bottom">
+                <label class="d-flex align-items-center w-100 pointer">
+                    <input type="radio" class="d-none" name="ticketOffer" (change)="changeTicketOffer(ticketOffer)">
+                    <div class="text-primary">
+                        <i class="bi bi-circle unchecked"></i>
+                        <i class="bi bi-record-circle checked"></i>
+                    </div>
+                    <div class="ml-3 w-100">
+                        <div class="d-flex justify-content-between align-items-center"
+                            *ngFor="let priceComponent of ticketOffer.priceSpecification.priceComponent">
+                            <p class="w-50 text-left">{{ priceComponent.name | changeLanguage }}</p>
+                            <div *ngIf="priceComponent.price > 0" class="w-50 d-flex justify-content-end">
+                                <p>{{ priceComponent.price | currency : priceComponent.priceCurrency }}</p>
+                                <ng-container *ngIf="priceComponent?.referenceQuantity?.value">
+                                    <p *ngIf="priceComponent?.referenceQuantity?.unitCode === unitCode.C62">
+                                        {{ 'common.referenceQuantityValue' | translate: { value:
+                                        priceComponent?.referenceQuantity?.value } }}
+                                    </p>
+                                    <p *ngIf="priceComponent?.referenceQuantity?.unitCode === unitCode.Ann">
+                                        {{ 'common.referenceQuantityValueAnn' | translate: { value:
+                                        priceComponent?.referenceQuantity?.value } }}
+                                    </p>
+                                    <p *ngIf="priceComponent?.referenceQuantity?.unitCode === unitCode.Day">
+                                        {{ 'common.referenceQuantityValueDay' | translate: { value:
+                                        priceComponent?.referenceQuantity?.value } }}
+                                    </p>
+                                    <p *ngIf="priceComponent?.referenceQuantity?.unitCode === unitCode.Sec">
+                                        {{ 'common.referenceQuantityValueSec' | translate: { value:
+                                        priceComponent?.referenceQuantity?.value } }}
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <p>{{ ticketOffer.description | changeLanguage }}</p>
+                    </div>
+
+                </label>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="buttons mx-auto text-center">
+        <button type="submit" class="btn btn-primary btn-block py-3 mb-3"
+            [disabled]="(isLoading | async) || !selectProduct || !selectTicketOffer" (click)="onSubmit()">{{
+            'product.membership.index.next'
+            | translate }}</button>
+        <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-outline-primary btn-block py-3 portal-link"
+            [href]="environment.PORTAL_SITE_URL">{{ 'product.membership.index.prev' | translate }}</a>
+    </div>
+
+</div>

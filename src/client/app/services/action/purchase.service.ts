@@ -223,4 +223,115 @@ export class ActionPurchaseService {
             throw error;
         }
     }
+
+    /**
+     * プロタクト保存
+     */
+    public setProduct(params: { product: factory.product.IProduct }) {
+        this.store.dispatch(purchaseAction.setProduct(params));
+    }
+
+    /**
+     * オファー保存
+     */
+    public setTicketOffer(params: {
+        ticketOffer: factory.event.screeningEvent.ITicketOffer;
+    }) {
+        this.store.dispatch(purchaseAction.setTicketOffer(params));
+    }
+
+    /**
+     * プロダクト承認
+     */
+    public async authorizeProduct() {
+        try {
+            this.utilService.loadStart({
+                process: 'purchaseAction.AuthorizeProduct',
+            });
+            const {
+                transaction,
+                product,
+                profile,
+                ticketOffer,
+                seller,
+                authorizeProductActions,
+            } = await this.getData();
+            if (
+                transaction === undefined ||
+                product === undefined ||
+                product.serviceOutput === undefined ||
+                profile === undefined ||
+                profile.telephone === undefined ||
+                ticketOffer === undefined ||
+                seller === undefined
+            ) {
+                throw new Error(
+                    'transaction or product or profile or profile.telephone or ticketOffer undefined'
+                );
+            }
+            await this.cinerinoService.getServices();
+            if (authorizeProductActions.length > 0) {
+                for (const action of authorizeProductActions) {
+                    if (action.result?.acceptedOffers[0].typeOf === undefined) {
+                        continue;
+                    }
+                    await this.cinerinoService.offer.voidAuthorization({
+                        id: action.id,
+                        object: {
+                            itemOffered: {
+                                typeOf: action.result?.acceptedOffers[0].typeOf,
+                            },
+                        },
+                        purpose: {
+                            typeOf: transaction.typeOf,
+                            id: transaction.id,
+                        },
+                    });
+                }
+            }
+            const accessCode = profile.telephone.slice(-4);
+            const authorizeResult =
+                await this.cinerinoService.offer.authorizeProduct({
+                    object: [
+                        {
+                            project: product.project,
+                            typeOf: ticketOffer.typeOf,
+                            id: ticketOffer.id,
+                            itemOffered: {
+                                project: product.project,
+                                typeOf: product.typeOf,
+                                id: product.id,
+                                serviceOutput: {
+                                    project: product.project,
+                                    typeOf: String(
+                                        product.serviceOutput.typeOf
+                                    ),
+                                    accessCode: accessCode,
+                                    name:
+                                        typeof product.name === 'string'
+                                            ? product.name
+                                            : product.name?.ja,
+                                },
+                            },
+                            priceCurrency: factory.priceCurrency.JPY,
+                            seller: {
+                                project: seller.project,
+                                typeOf: seller.typeOf,
+                                id: seller.id,
+                            },
+                        },
+                    ],
+                    purpose: { typeOf: transaction.typeOf, id: transaction.id },
+                });
+
+            this.store.dispatch(
+                purchaseAction.setAuthorizeProduct({ authorizeResult })
+            );
+            this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
+    }
 }

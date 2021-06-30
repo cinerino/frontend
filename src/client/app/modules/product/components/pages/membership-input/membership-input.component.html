@@ -1,0 +1,46 @@
+<div class="contents-width mx-auto px-3 py-5">
+    <div class="mb-4">
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.input.title' | translate }}</h2>
+        <p class="mb-4 text-md-center" [innerHTML]="'purchase.input.read' | translate"></p>
+
+        <div class="p-3 bg-white">
+            <app-input-customer [profile]="(purchase | async)?.profile" [language]="(user | async)?.language"
+                (valueChanges)="profileForm = $event">
+            </app-input-customer>
+        </div>
+    </div>
+
+    <div class="mb-4" *ngIf="amount > 0">
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'purchase.input.payment.title' | translate }}</h2>
+        <p class="mb-4 text-md-center" [innerHTML]="'purchase.input.payment.read' | translate"></p>
+
+        <div class="p-3 bg-white">
+            <div class="form-group row">
+                <p class="col-md-4 py-2 py-md-3 text-md-right">{{ 'common.amount' | translate }}</p>
+                <div class="col-md-8">
+                    <p class="text-x-large text-info">{{ amount | currency : 'JPY'}}</p>
+                </div>
+            </div>
+            <div class="mb-3">
+                <app-input-creditcard [amount]="amount" (valueChanges)="creditCardForm = $event">
+                </app-input-creditcard>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-4 p-3 bg-white">
+        <h3 class="mb-2 font-weight-bold">{{ 'purchase.input.payment.note.label' | translate }}</h3>
+        <p class="text-small" [innerHTML]="'purchase.input.payment.note.read' | translate"></p>
+    </div>
+
+
+    <div class="buttons mx-auto text-center">
+        <button type="submit" class="btn btn-primary btn-block py-3 mb-3" [disabled]="isLoading | async"
+            (click)="onSubmit()">{{ 'purchase.input.next' | translate }}</button>
+
+        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/product/membership">{{
+            'purchase.input.prev' | translate }}</button>
+
+    </div>
+
+</div>
