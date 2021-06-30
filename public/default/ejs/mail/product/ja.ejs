@@ -7,8 +7,8 @@
 | <%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %>
 | 
 | [予約]
-<% for (let i = 0; i < authorizeProductActions.length; i++) { %>
-<% const action = authorizeProductActions[i]; %>
+<% for (let i = 0; i < authorizeProducts.length; i++) { %>
+<% const action = authorizeProducts[i]; %>
 <% if (authorizeSeatReservations.length > 1) { %>| [<%= (i + 1) %>件目]<% } %>
 | 
 <% const acceptedOffers = action.result ? action.result.acceptedOffers : []; %>

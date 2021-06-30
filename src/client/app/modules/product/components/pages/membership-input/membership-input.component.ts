@@ -46,7 +46,6 @@ export class MembershipInputComponent implements OnInit {
             ticketOffer.priceSpecification.priceComponent.forEach((p) => {
                 this.amount += p.price;
             });
-            console.log('this.amount', this.amount);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);

@@ -57,7 +57,6 @@ export class MembershipConfirmComponent implements OnInit {
      */
     public async onSubmit() {
         const { language } = await this.actionService.user.getData();
-        console.log('this.amount', this.amount);
         try {
             if (this.amount > 0) {
                 await this.actionService.purchase.payment.authorizeCreditCard({
