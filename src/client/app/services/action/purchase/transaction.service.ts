@@ -121,21 +121,25 @@ export class ActionTransactionService {
     /**
      * 取引確定
      */
-    public async confirm(params: { language: string }) {
+    public async confirm(params: {
+        mailType: 'seatReservation' | 'product';
+        language: string;
+    }) {
         try {
             this.utilService.loadStart({
                 process: 'purchaseAction.ConfirmTransaction',
             });
             const environment = getEnvironment();
-            const { language } = params;
-            const { transaction, authorizeSeatReservations, seller, theater } =
-                await this.storeService.getPurchaseData();
-            if (
-                transaction === undefined ||
-                seller === undefined ||
-                theater === undefined
-            ) {
-                throw new Error('transaction or seller or theater undefined');
+            const { language, mailType } = params;
+            const {
+                transaction,
+                authorizeSeatReservations,
+                authorizeProductActions,
+                seller,
+                theater,
+            } = await this.storeService.getPurchaseData();
+            if (transaction === undefined || seller === undefined) {
+                throw new Error('transaction or seller undefined');
             }
             const external = Functions.Util.getExternalData();
             const linyId =
@@ -147,12 +151,15 @@ export class ActionTransactionService {
             await this.cinerinoService.getServices();
 
             const email = {
-                ...this.createCompleteMailHeader({ theater, language }),
+                ...this.createCompleteMailHeader({ theater, language, seller }),
                 template: undefined,
             };
             if (environment.PURCHASE_COMPLETE_MAIL_CUSTOM) {
                 // 完了メールをカスタマイズ
-                const path = `/ejs/mail/complete/${language}.ejs`;
+                const path =
+                    mailType === 'seatReservation'
+                        ? `/ejs/mail/complete/${language}.ejs`
+                        : `/ejs/mail/product/${language}.ejs`;
                 const url = (await Functions.Util.isFile(
                     `${Functions.Util.getProject().storageUrl}${path}`
                 ))
@@ -164,6 +171,7 @@ export class ActionTransactionService {
                     {
                         authorizeSeatReservations:
                             authorizeEventSeatReservations,
+                        authorizeProductActions,
                         seller,
                         theater,
                         moment,
@@ -184,33 +192,13 @@ export class ActionTransactionService {
             const order = result.order;
 
             if (linyId !== undefined) {
-                // liny連携
-                try {
-                    const view = await this.utilService.getText(
-                        `${
-                            Functions.Util.getProject().storageUrl
-                        }/ejs/liny/complete/${language}.ejs`
-                    );
-                    const template = await (<any>window).ejs.render(
-                        view,
-                        {
-                            authorizeSeatReservations:
-                                authorizeEventSeatReservations,
-                            seller,
-                            order,
-                            moment,
-                            formatTelephone: Functions.Util.formatTelephone,
-                            getItemPrice: Functions.Purchase.getItemPrice,
-                        },
-                        { async: true }
-                    );
-                    await this.linyService.sendMessage({
-                        uid: linyId,
-                        message: template,
-                    });
-                } catch (error) {
-                    console.error(error);
-                }
+                await this.sendMessageLiny({
+                    language,
+                    seller,
+                    authorizeSeatReservations,
+                    order,
+                    linyId,
+                });
             }
 
             this.store.dispatch(purchaseAction.setOrder({ order }));
@@ -223,19 +211,74 @@ export class ActionTransactionService {
     }
 
     /**
+     * Liny連携
+     */
+    private async sendMessageLiny(params: {
+        language: string;
+        authorizeSeatReservations: factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier.Chevre>[];
+        seller: factory.seller.ISeller;
+        order: factory.order.IOrder;
+        linyId: string;
+    }) {
+        // liny連携
+        try {
+            const {
+                language,
+                authorizeSeatReservations,
+                seller,
+                order,
+                linyId,
+            } = params;
+            const authorizeEventSeatReservations =
+                Functions.Purchase.authorizeSeatReservation2Event({
+                    authorizeSeatReservations,
+                });
+            const view = await this.utilService.getText(
+                `${
+                    Functions.Util.getProject().storageUrl
+                }/ejs/liny/complete/${language}.ejs`
+            );
+            const template = await (<any>window).ejs.render(
+                view,
+                {
+                    authorizeSeatReservations: authorizeEventSeatReservations,
+                    seller,
+                    order,
+                    moment,
+                    formatTelephone: Functions.Util.formatTelephone,
+                    getItemPrice: Functions.Purchase.getItemPrice,
+                },
+                { async: true }
+            );
+            await this.linyService.sendMessage({
+                uid: linyId,
+                message: template,
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    /**
      * 完了メールヘッダー生成
      */
     private createCompleteMailHeader(params: {
-        theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
-        language: string;
+        seller: factory.chevre.seller.ISeller;
+        theater?: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
+        language?: string;
     }) {
+        const { theater, seller } = params;
         return {
             sender: {
                 name:
                     this.translateService.instant(
                         'email.purchase.complete.sender.name'
                     ) === ''
-                        ? params.theater.name.ja
+                        ? theater === undefined
+                            ? typeof seller.name === 'string'
+                                ? seller.name
+                                : seller.name?.ja
+                            : theater.name.ja
                         : this.translateService.instant(
                               'email.purchase.complete.sender.name'
                           ),

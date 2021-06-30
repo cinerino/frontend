@@ -148,3 +148,24 @@ export const setExternalPurchaseData = createAction(
         theater: factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom;
     }>()
 );
+
+export const setProduct = createAction(
+    `${LABEL} setProduct`,
+    props<{
+        product: factory.product.IProduct;
+    }>()
+);
+
+export const setTicketOffer = createAction(
+    `${LABEL} setTicketOffer`,
+    props<{
+        ticketOffer: factory.event.screeningEvent.ITicketOffer;
+    }>()
+);
+
+export const setAuthorizeProduct = createAction(
+    `${LABEL} setAuthorizeProduct`,
+    props<{
+        authorizeResult: factory.action.authorize.offer.product.IAction;
+    }>()
+);

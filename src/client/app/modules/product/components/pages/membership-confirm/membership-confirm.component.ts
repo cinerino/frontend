@@ -4,17 +4,16 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 
 @Component({
-    selector: 'app-purchase-confirm',
-    templateUrl: './purchase-confirm.component.html',
-    styleUrls: ['./purchase-confirm.component.scss'],
+    selector: 'app-membership-confirm',
+    templateUrl: './membership-confirm.component.html',
+    styleUrls: ['./membership-confirm.component.scss'],
 })
-export class PurchaseConfirmComponent implements OnInit {
+export class MembershipConfirmComponent implements OnInit {
     public purchase: Observable<reducers.IPurchaseState>;
     public isLoading: Observable<boolean>;
     public moment = moment;
@@ -38,15 +37,15 @@ export class PurchaseConfirmComponent implements OnInit {
             this.purchase = this.store.pipe(select(reducers.getPurchase));
             this.isLoading = this.store.pipe(select(reducers.getLoading));
             this.user = this.store.pipe(select(reducers.getUser));
-            this.amount = 0;
-            const { transaction, profile, authorizeSeatReservations } =
+            const { authorizeProductActions } =
                 await this.actionService.purchase.getData();
-            if (transaction === undefined || profile === undefined) {
-                throw new Error('transaction or profile undefined');
-            }
-            this.amount = Functions.Purchase.getAmount(
-                authorizeSeatReservations
-            );
+            this.amount = 0;
+            authorizeProductActions.forEach((a) => {
+                if (a.result?.price === undefined) {
+                    return;
+                }
+                this.amount += a.result?.price;
+            });
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -57,9 +56,8 @@ export class PurchaseConfirmComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
-        const { pendingMovieTickets } =
-            await this.actionService.purchase.getData();
         const { language } = await this.actionService.user.getData();
+        console.log('this.amount', this.amount);
         try {
             if (this.amount > 0) {
                 await this.actionService.purchase.payment.authorizeCreditCard({
@@ -74,23 +72,14 @@ export class PurchaseConfirmComponent implements OnInit {
                 ),
             });
             this.router.navigate(['/product/membership/input']);
-            this.router.navigate(['/purchase/input']);
-            return;
-        }
-        try {
-            if (pendingMovieTickets.length > 0) {
-                await this.actionService.purchase.payment.authorizeMovieTicket();
-            }
-        } catch (error) {
-            this.router.navigate(['/error']);
             return;
         }
         try {
             await this.actionService.purchase.transaction.confirm({
-                mailType: 'seatReservation',
+                mailType: 'product',
                 language,
             });
-            this.router.navigate(['/purchase/complete']);
+            this.router.navigate(['/product/membership/complete']);
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);

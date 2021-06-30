@@ -22,7 +22,7 @@ const util_1 = require("./api/util");
 const log = debug('application: router');
 exports.default = (app) => {
     app.use((req, res, next) => {
-        if ((/\.(css|js|svg|jpg|png|gif|ico|json|html|txt)/).test(req.path)) {
+        if (/\.(css|js|svg|jpg|png|gif|ico|json|html|txt)/.test(req.path)) {
             res.status(404);
             res.end();
             return;
@@ -32,6 +32,14 @@ exports.default = (app) => {
     app.use('/api/authorize', authorize_1.authorizeRouter);
     app.use('/api/liny', liny_1.linyRouter);
     app.use('/api', util_1.utilRouter);
+    app.use((req, res, next) => {
+        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
+            res.status(http_status_1.NOT_FOUND);
+            res.send('NOT FOUND');
+            return;
+        }
+        next();
+    });
     app.get('/signIn', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         log('signInRedirect', req.query);
         if (req.query.code === undefined) {
@@ -43,9 +51,9 @@ exports.default = (app) => {
                 throw new Error('session is undefined');
             }
             const authModel = new auth2_model_1.Auth2Model(req.session.auth);
-            if (req.query.state !== undefined
-                && req.query.state !== authModel.state) {
-                throw (new Error(`state not matched ${req.query.state} !== ${authModel.state}`));
+            if (req.query.state !== undefined &&
+                req.query.state !== authModel.state) {
+                throw new Error(`state not matched ${req.query.state} !== ${authModel.state}`);
             }
             const auth = authModel.create(req);
             const credentials = yield auth.getToken(req.query.code, authModel.codeVerifier);
@@ -64,30 +72,23 @@ exports.default = (app) => {
         delete req.session.auth;
         res.redirect('/#/auth/signout');
     });
-    app.get([
-        '/projects/:projectId',
-        '/projects/:projectId/*'
-    ], (req, res, next) => {
-        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
-            next();
-            return;
-        }
-        if (req.query.login === 'true'
-            && req.query.redirectUrl === undefined) {
+    app.get(['/projects/:projectId', '/projects/:projectId/*'], (req, res, next) => {
+        if (req.query.login === 'true' &&
+            req.query.redirectUrl === undefined) {
             const redirectUrl = Buffer.from(req.url.replace('login=', 'login2=')).toString('base64');
             res.redirect(`${req.url}&redirectUrl=${redirectUrl}`);
             return;
         }
         next();
     });
+    app.get(['/projects/:projectId/product/:productType'], (req, res) => {
+        const productType = req.params.productType;
+        res.redirect(`/?${getQueryParameter(req)}#/product/${productType}`);
+    });
     app.get([
         '/projects/:projectId/:projectName/inquiry',
-        '/projects/:projectId/inquiry'
-    ], (req, res, next) => {
-        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
-            next();
-            return;
-        }
+        '/projects/:projectId/inquiry',
+    ], (req, res) => {
         if (req.query.confirmationNumber === undefined) {
             res.redirect(`/?${getQueryParameter(req)}#/inquiry/input`);
             return;
@@ -97,11 +98,7 @@ exports.default = (app) => {
     app.get([
         '/projects/:projectId/order/money/transfer',
         '/projects/:projectId/order/money/:theaterCode/transfer',
-    ], (req, res, next) => {
-        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
-            next();
-            return;
-        }
+    ], (req, res) => {
         const theaterCode = req.params.theaterCode;
         if (theaterCode) {
             res.redirect(`/?${getQueryParameter(req)}#/order/money/transfer/${theaterCode}/input`);
@@ -111,12 +108,8 @@ exports.default = (app) => {
     });
     app.get([
         '/projects/:projectId/purchase/transaction/:eventId/:passportToken',
-        '/projects/:projectId/purchase/transaction/:eventId'
-    ], (req, res, next) => {
-        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
-            next();
-            return;
-        }
+        '/projects/:projectId/purchase/transaction/:eventId',
+    ], (req, res) => {
         const eventId = req.params.eventId;
         const passportToken = req.params.passportToken;
         if (passportToken === undefined) {
@@ -125,35 +118,21 @@ exports.default = (app) => {
         }
         res.redirect(`/?${getQueryParameter(req)}&eventId=${eventId}&passportToken=${passportToken}#/purchase/transaction`);
     });
-    app.get([
-        '/projects/:projectId/:projectName',
-        '/projects/:projectId'
-    ], (req, res, next) => {
-        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
-            next();
-            return;
-        }
+    app.get(['/projects/:projectId/:projectName', '/projects/:projectId'], (req, res) => {
         res.redirect(`/?${getQueryParameter(req)}`);
     });
-    app.get('*', (req, res, next) => {
-        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
-            next();
-            return;
-        }
+    app.get('*', (req, res) => {
         if (req.session !== undefined) {
-            if (req.query.performanceId !== undefined && req.query.eventId === undefined) {
+            if (req.query.performanceId !== undefined &&
+                req.query.eventId === undefined) {
                 req.query.eventId = req.query.performanceId;
             }
             req.session.external = req.query;
         }
-        res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`), { lastModified: false, etag: false });
-    });
-    app.all('*', (req, res, _next) => {
-        res.status(http_status_1.NOT_FOUND);
-        if (req.xhr || req.header('Sec-Fetch-Mode') === 'cors') {
-            res.json('NOT FOUND');
-            return;
-        }
+        res.sendFile(path.resolve(`${__dirname}/../../../client/index.html`), {
+            lastModified: false,
+            etag: false,
+        });
     });
 };
 /**
@@ -161,8 +140,8 @@ exports.default = (app) => {
  */
 function getQueryParameter(req) {
     let result = `projectId=${req.params.projectId}`;
-    if (req.params.projectName !== undefined
-        && req.params.projectName === 'print') {
+    if (req.params.projectName !== undefined &&
+        req.params.projectName === 'print') {
         result += `&projectName=${req.params.projectName}`;
     }
     const query = req.url.split('?')[1];

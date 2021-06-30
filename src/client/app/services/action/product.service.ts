@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import * as reducers from '../../store/reducers';
 import { CinerinoService } from '../cinerino.service';
@@ -35,8 +36,20 @@ export class ActionProductService {
             const searchResult = await this.cinerinoService.product.search(
                 params === undefined ? {} : params
             );
+            const now = moment(
+                (await this.utilService.getServerTime()).date
+            ).toDate();
+            const filterResult = searchResult.data.filter((d) => {
+                return (
+                    d.offers !== undefined &&
+                    d.offers[0].availabilityStarts !== undefined &&
+                    d.offers[0].availabilityEnds !== undefined &&
+                    moment(d.offers[0].availabilityStarts).toDate() < now &&
+                    moment(d.offers[0].availabilityEnds).toDate() > now
+                );
+            });
             this.utilService.loadEnd();
-            return searchResult.data;
+            return filterResult;
         } catch (error) {
             this.utilService.setError(error);
             this.utilService.loadEnd();

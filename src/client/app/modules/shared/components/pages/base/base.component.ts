@@ -1,4 +1,10 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+    AfterViewChecked,
+    ChangeDetectorRef,
+    Component,
+    OnDestroy,
+    OnInit,
+} from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as reducers from '../../../../../store/reducers';
@@ -6,7 +12,7 @@ import * as reducers from '../../../../../store/reducers';
 @Component({
     selector: 'app-base',
     templateUrl: './base.component.html',
-    styleUrls: ['./base.component.scss']
+    styleUrls: ['./base.component.scss'],
 })
 export class BaseComponent implements OnInit, AfterViewChecked, OnDestroy {
     public isLoading: Observable<boolean>;
@@ -14,7 +20,7 @@ export class BaseComponent implements OnInit, AfterViewChecked, OnDestroy {
     constructor(
         private store: Store<reducers.IState>,
         private changeDetectorRef: ChangeDetectorRef
-    ) { }
+    ) {}
 
     /**
      * 初期化
@@ -38,5 +44,4 @@ export class BaseComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.isLoading.subscribe().unsubscribe();
         this.process.subscribe().unsubscribe();
     }
-
 }

@@ -118,6 +118,23 @@
             }
         }
     },
+    "product": {
+        "membership": {
+            "index": {
+                "title": "メンバーシップ選択",
+                "read": "メンバーシップを選択してください",
+                "next": "次へ",
+                "prev": "戻る"
+            },
+            "complete": {
+                "title": "購入完了",
+                "read": "ご購入いただきありがとうございます。",
+                "next": "",
+                "prev": "戻る",
+                "accessCode": "電話番号下4桁"
+            }
+        }
+    },
     "error": {
         "title": "エラー",
         "read": "エラーが発生しました。",
@@ -219,7 +236,7 @@
             "read": "注文履歴の確認ができます。",
             "next": "詳細",
             "prev": "戻る",
-            "notfound":"注文履歴がありません。"
+            "notfound": "注文履歴がありません。"
         },
         "orderDetail": {
             "title": "注文履歴詳細",
@@ -232,7 +249,7 @@
             "read": "予約履歴の確認ができます。",
             "next": "",
             "prev": "戻る",
-            "notfound":"予約履歴がありません。"
+            "notfound": "予約履歴がありません。"
         },
         "account": {
             "title": "口座情報",
@@ -303,7 +320,7 @@
             "telephone": "※チケット発券の際に必要になります。",
             "cardNumber": "VISA、Master、JCB、AMEX、DINERS をご利用いただけます。"
         },
-        "required":"必須"
+        "required": "必須"
     },
     "menu": {
         "purchase": "購入",
@@ -442,6 +459,7 @@
             "CreateCreditCardToken": "クレジットカードトークンを作成しています",
             "AuthorizeMovieTicket": "ムビチケ情報を承認しています",
             "CheckMovieTicket": "ムビチケ情報を確認しています",
+            "AuthorizeProduct": "プロダクト情報を承認しています",
             "ConfirmTransaction": "取引を確定しています",
             "ExternalData2PurchaseData": "外部データから情報を変換しています"
         },
@@ -459,6 +477,10 @@
             "TransferAccount": "口座から転送しています",
             "GetReservations": "予約情報を取得しています",
             "GetOrders": "注文情報を取得しています"
+        },
+        "productAction": {
+            "SearchOffers": "オファーを検索しています",
+            "Search": "プロダクトを検索しています"
         }
     },
     "footer": {
@@ -547,6 +569,9 @@
         "seat": "座席",
         "ticket": "券種",
         "referenceQuantityValue": "[{{value}}枚]",
+        "referenceQuantityValueAnn": "[{{value}}年]",
+        "referenceQuantityValueDay": "[{{value}}日]",
+        "referenceQuantityValueSec": "[{{value}}秒]",
         "customer": "購入者",
         "customerName": "お名前",
         "paymentMethod": "決済方法",

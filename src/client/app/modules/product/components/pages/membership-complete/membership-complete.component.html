@@ -1,0 +1,45 @@
+<div class="contents-width mx-auto px-3 py-5">
+    <div class="mb-4">
+        <h2 class="text-large mb-4 text-center font-weight-bold">{{ 'product.membership.complete.title' | translate }}
+        </h2>
+        <p class="mb-4 text-md-center" [innerHTML]="'product.membership.complete.read' | translate"></p>
+    </div>
+
+
+    <div class="p-3 bg-white mb-4">
+        <app-item-product [order]="(purchase | async)?.order"></app-item-product>
+    </div>
+
+    <div *ngIf="(purchase | async)?.order.customer" class="mb-4 p-3 bg-white">
+        <app-item-profile [profile]="(purchase | async)?.order.customer"></app-item-profile>
+    </div>
+
+
+    <div *ngIf="(purchase | async)?.order.price > 0" class="mb-4 px-3 bg-white">
+        <div class="py-3 border-bottom border-gray">
+            <div class="row align-items-center">
+                <p class="mb-2 mb-md-0 col-md-4">{{ 'common.amount' | translate }}</p>
+                <p class="col-md-8 font-weight-bold text-large text-info">{{ (purchase | async)?.order.price |
+                    currency : 'JPY' }}</p>
+            </div>
+        </div>
+        <div class="py-3" *ngIf="(purchase | async)?.order.paymentMethods.length > 0 && paymentTypes.length > 0">
+            <div class="row align-items-center">
+                <p class="mb-2 mb-md-0 col-md-4">{{ 'common.paymentMethod' | translate }}</p>
+                <div class="col-md-8">
+                    <app-item-payment-method [paymentMethods]="(purchase | async)?.order.paymentMethods"
+                        [paymentTypes]="paymentTypes">
+                    </app-item-payment-method>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="buttons mx-auto text-center">
+        <a *ngIf="environment.PORTAL_SITE_URL" class="btn btn-outline-primary btn-block py-3 portal-link"
+            [href]="environment.PORTAL_SITE_URL">{{ 'purchase.confirm.prev' | translate }}</a>
+        <button *ngIf="!environment.PORTAL_SITE_URL" type="button" class="btn btn-outline-primary btn-block py-3"
+            routerLink="/">{{ 'purchase.confirm.prev' | translate }}</button>
+    </div>
+
+</div>

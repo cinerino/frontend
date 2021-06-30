@@ -34,7 +34,7 @@ export interface IPurchaseState {
      */
     reservations: Models.Purchase.Reservation.IReservation[];
     /**
-     * 券種
+     * オファーリスト
      */
     screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     /**
@@ -85,6 +85,18 @@ export interface IPurchaseState {
      * 使用中ムビチケ
      */
     pendingMovieTickets: Models.Purchase.MovieTicket.IMovieTicket[];
+    /**
+     * プロダクト
+     */
+    product?: factory.product.IProduct;
+    /**
+     * オファー（プロダクト購入時のみセット）
+     */
+    ticketOffer?: factory.event.screeningEvent.ITicketOffer;
+    /**
+     * プロダクト承認
+     */
+    authorizeProductActions: factory.action.authorize.offer.product.IAction[];
 }
 
 export const purchaseInitialState: IPurchaseState = {
@@ -96,6 +108,7 @@ export const purchaseInitialState: IPurchaseState = {
     authorizeCreditCardPayments: [],
     authorizeMovieTicketPayments: [],
     pendingMovieTickets: [],
+    authorizeProductActions: [],
 };
 
 export function reducer(initialState: IState, action: Action) {
@@ -116,6 +129,7 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeMovieTicketPayments: [],
                     checkMovieTicketActions: [],
                     authorizeSeatReservations: [],
+                    authorizeProductActions: [],
                 },
             };
         }),
@@ -177,6 +191,7 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeSeatReservations: [],
                     authorizeCreditCardPayments: [],
                     authorizeMovieTicketPayments: [],
+                    authorizeProductActions: [],
                     checkMovieTicketActions: [],
                     pendingMovieTickets: [],
                     profile: undefined,
@@ -194,6 +209,7 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeSeatReservations: [],
                     authorizeCreditCardPayments: [],
                     authorizeMovieTicketPayments: [],
+                    authorizeProductActions: [],
                     checkMovieTicketActions: [],
                     pendingMovieTickets: [],
                     profile: undefined,
@@ -543,6 +559,7 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeCreditCardPayments: [],
                     authorizeMovieTicketPayments: [],
                     pendingMovieTickets: [],
+                    authorizeProductActions: [],
                     order,
                 },
                 process: '',
@@ -560,6 +577,42 @@ export function reducer(initialState: IState, action: Action) {
                     screeningEvent,
                     seller,
                     theater,
+                },
+                process: '',
+                error: null,
+            };
+        }),
+        on(purchaseAction.setProduct, (state, payload) => {
+            const product = payload.product;
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    product,
+                },
+                process: '',
+                error: null,
+            };
+        }),
+        on(purchaseAction.setTicketOffer, (state, payload) => {
+            const ticketOffer = payload.ticketOffer;
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    ticketOffer,
+                },
+                process: '',
+                error: null,
+            };
+        }),
+        on(purchaseAction.setAuthorizeProduct, (state, payload) => {
+            const authorizeProductActions = [payload.authorizeResult];
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    authorizeProductActions,
                 },
                 process: '',
                 error: null,
