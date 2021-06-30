@@ -5,7 +5,7 @@
     </div>
 
     <div class="p-3 bg-white mb-4">
-        <ng-container *ngFor="let action of (purchase | async)?.authorizeProductActions">
+        <ng-container *ngFor="let action of (purchase | async)?.authorizeProducts">
             <app-item-product [authorizeProductAction]="action"></app-item-product>
         </ng-container>
     </div>

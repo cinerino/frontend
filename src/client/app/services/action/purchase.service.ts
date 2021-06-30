@@ -254,7 +254,7 @@ export class ActionPurchaseService {
                 profile,
                 ticketOffer,
                 seller,
-                authorizeProductActions,
+                authorizeProducts,
             } = await this.getData();
             if (
                 transaction === undefined ||
@@ -270,8 +270,8 @@ export class ActionPurchaseService {
                 );
             }
             await this.cinerinoService.getServices();
-            if (authorizeProductActions.length > 0) {
-                for (const action of authorizeProductActions) {
+            if (authorizeProducts.length > 0) {
+                for (const action of authorizeProducts) {
                     if (action.result?.acceptedOffers[0].typeOf === undefined) {
                         continue;
                     }

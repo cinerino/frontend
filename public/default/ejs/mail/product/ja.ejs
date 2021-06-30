@@ -17,6 +17,7 @@
 <% const unitCode = priceComponent.referenceQuantity.unitCode %>
 <% const unitCodeLabel = unitCode === 'ANN' ? '年' :unitCode === 'DAY' ? '日' :unitCode === 'SEC' ? '秒' : '枚' %>
 | <%= priceComponent.name.ja %><% if (priceComponent.price > 0) { %> / ￥<%= priceComponent.price %> <% if (priceComponent.referenceQuantity && priceComponent.referenceQuantity.value) { %>[<%= priceComponent.referenceQuantity.value %><%= unitCodeLabel %>] <% } %><% } %>
+| ID: <%= acceptedOffer.itemOffered.identifier %>
 <% } %>
 <% } %>
 | 

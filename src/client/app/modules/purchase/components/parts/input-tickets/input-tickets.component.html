@@ -1,0 +1,33 @@
+<div *ngIf="isMovieTicket || isMGTicket || isMembership" class="mb-4 container bg-white">
+    <div *ngIf="isMovieTicket" class="py-3 row align-items-center movieticket">
+        <p class="col-12 col-md-6 mb-2 mb-md-0">{{ 'common.paymentMethodTypes.movieTicket.use' | translate }}</p>
+        <div class="col-12 col-md-6">
+            <button type="button" (click)="openMovieTicket(paymentMethodType.MovieTicket)"
+                class="btn btn-block bg-white border border-gray py-3 movie-ticket">
+                <div class="font-weight-bold text-large bg-image">&nbsp;</div>
+            </button>
+        </div>
+    </div>
+    <div *ngIf="isMGTicket" class="py-3 row align-items-center mgticket">
+        <p class="col-12 col-md-6 mb-2 mb-md-0">{{ 'common.paymentMethodTypes.mgTicket.use' | translate }}</p>
+        <div class="col-12 col-md-6">
+            <button type="button" (click)="openMovieTicket(paymentMethodType.MGTicket)"
+                class="btn btn-block bg-white border border-gray py-3 mg-ticket">
+                <div class="font-weight-bold text-large bg-image">
+                    {{ 'common.paymentMethodTypes.mgTicket.label' | translate }}
+                </div>
+            </button>
+        </div>
+    </div>
+    <div *ngIf="isMembership" class="py-3 row align-items-center mgticket">
+        <p class="col-12 col-md-6 mb-2 mb-md-0">{{ 'common.membership.use' | translate }}</p>
+        <div class="col-12 col-md-6">
+            <button type="button" (click)="openMembership()"
+                class="btn btn-block bg-white border border-gray py-3 membership-ticket">
+                <div class="font-weight-bold text-large bg-image">
+                    {{ 'common.membership.label' | translate }}
+                </div>
+            </button>
+        </div>
+    </div>
+</div>

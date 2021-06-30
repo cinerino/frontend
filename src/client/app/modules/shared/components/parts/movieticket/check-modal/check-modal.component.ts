@@ -27,10 +27,6 @@ export class MovieTicketCheckModalComponent implements OnInit {
     public isSuccess: boolean;
     public successMessage: string;
 
-    public stream: MediaStream | null;
-    public isShowVideo: boolean;
-    public video: HTMLVideoElement;
-    public scanLoop: any;
     constructor(
         public modal: BsModalRef,
         private store: Store<reducers.IState>,
@@ -45,10 +41,10 @@ export class MovieTicketCheckModalComponent implements OnInit {
         this.successMessage = '';
         this.isLoading = this.store.pipe(select(reducers.getLoading));
         this.purchase = this.store.pipe(select(reducers.getPurchase));
-        this.createMvtkForm();
+        this.createForm();
     }
 
-    public createMvtkForm() {
+    public createForm() {
         const CODE_LENGTH = 10;
         // const PASSWORD_LENGTH = 4;
         const codeValidators =
@@ -67,9 +63,9 @@ export class MovieTicketCheckModalComponent implements OnInit {
     }
 
     /**
-     * checkMovieTicket
+     * onSubmit
      */
-    public async checkMovieTicket() {
+    public async onSubmit() {
         Object.keys(this.inputForm.controls).forEach((key) => {
             this.inputForm.controls[key].markAsTouched();
         });
@@ -86,19 +82,20 @@ export class MovieTicketCheckModalComponent implements OnInit {
         this.errorMessage = '';
         this.successMessage = '';
         try {
-            await this.actionService.purchase.payment.checkMovieTicket({
-                movieTicket: {
-                    code: this.inputForm.controls.code.value,
-                    password: this.inputForm.controls.password.value,
-                },
-                paymentMethodType: this.paymentMethodType,
-            });
-            const purchase = await this.actionService.purchase.getData();
-            const checkMovieTicketAction = purchase.checkMovieTicketAction;
+            const checkMovieTicket =
+                await this.actionService.purchase.payment.checkMovieTicket({
+                    movieTicket: {
+                        code: this.inputForm.controls.code.value,
+                        password: this.inputForm.controls.password.value,
+                    },
+                    paymentMethodType: this.paymentMethodType,
+                });
+            const { screeningEventTicketOffers } =
+                await this.actionService.purchase.getData();
             if (
-                checkMovieTicketAction === undefined ||
-                checkMovieTicketAction.result === undefined ||
-                checkMovieTicketAction.result.purchaseNumberAuthResult
+                checkMovieTicket === undefined ||
+                checkMovieTicket.result === undefined ||
+                checkMovieTicket.result.purchaseNumberAuthResult
                     .knyknrNoInfoOut === null
             ) {
                 this.isSuccess = false;
@@ -109,7 +106,7 @@ export class MovieTicketCheckModalComponent implements OnInit {
                 return;
             }
             const knyknrNoInfoOut =
-                checkMovieTicketAction.result.purchaseNumberAuthResult
+                checkMovieTicket.result.purchaseNumberAuthResult
                     .knyknrNoInfoOut;
 
             if (knyknrNoInfoOut[0].ykknmiNum === '0') {
@@ -139,10 +136,8 @@ export class MovieTicketCheckModalComponent implements OnInit {
                 return;
             }
 
-            this.createMvtkForm();
-            const user = await this.actionService.user.getData();
-            const screeningEventTicketOffers =
-                purchase.screeningEventTicketOffers;
+            this.createForm();
+            const { language } = await this.actionService.user.getData();
             const movieTicketTypeOffers =
                 Functions.Purchase.getMovieTicketTypeOffers({
                     screeningEventTicketOffers,
@@ -179,13 +174,12 @@ export class MovieTicketCheckModalComponent implements OnInit {
                                 : typeof movieTicketPriceComponent.name ===
                                   'string'
                                 ? typeof movieTicketPriceComponent.name
-                                : (user.language === 'ja' ||
-                                      user.language === 'en' ||
-                                      user.language === 'kr') &&
-                                  movieTicketPriceComponent.name[
-                                      user.language
-                                  ] !== undefined
-                                ? movieTicketPriceComponent.name[user.language]
+                                : (language === 'ja' ||
+                                      language === 'en' ||
+                                      language === 'kr') &&
+                                  movieTicketPriceComponent.name[language] !==
+                                      undefined
+                                ? movieTicketPriceComponent.name[language]
                                 : '';
                         const value = this.translate.instant(
                             'modal.movieTicket.check.value',
