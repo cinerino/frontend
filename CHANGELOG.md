@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 4.1.0 - 2021-06-30
+
+### Added
+
+-   メンバーシップ注文追加
+
 ## 4.0.0 - 2021-06-24
 
 ### Changed
