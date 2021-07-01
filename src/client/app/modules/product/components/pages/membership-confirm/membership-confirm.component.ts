@@ -37,10 +37,10 @@ export class MembershipConfirmComponent implements OnInit {
             this.purchase = this.store.pipe(select(reducers.getPurchase));
             this.isLoading = this.store.pipe(select(reducers.getLoading));
             this.user = this.store.pipe(select(reducers.getUser));
-            const { authorizeProductActions } =
+            const { authorizeProducts } =
                 await this.actionService.purchase.getData();
             this.amount = 0;
-            authorizeProductActions.forEach((a) => {
+            authorizeProducts.forEach((a) => {
                 if (a.result?.price === undefined) {
                     return;
                 }
@@ -57,7 +57,6 @@ export class MembershipConfirmComponent implements OnInit {
      */
     public async onSubmit() {
         const { language } = await this.actionService.user.getData();
-        console.log('this.amount', this.amount);
         try {
             if (this.amount > 0) {
                 await this.actionService.purchase.payment.authorizeCreditCard({

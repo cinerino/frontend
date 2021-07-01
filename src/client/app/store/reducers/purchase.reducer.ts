@@ -76,11 +76,7 @@ export interface IPurchaseState {
     /**
      * ムビチケ認証情報リスト
      */
-    checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
-    /**
-     * ムビチケ認証情報
-     */
-    checkMovieTicketAction?: factory.action.check.paymentMethod.movieTicket.IAction;
+    checkMovieTickets: factory.action.check.paymentMethod.movieTicket.IAction[];
     /**
      * 使用中ムビチケ
      */
@@ -96,7 +92,11 @@ export interface IPurchaseState {
     /**
      * プロダクト承認
      */
-    authorizeProductActions: factory.action.authorize.offer.product.IAction[];
+    authorizeProducts: factory.action.authorize.offer.product.IAction[];
+    /**
+     * メンバーシップ認証情報リスト
+     */
+    checkMemberships: { identifier: string; accessCode: string }[];
 }
 
 export const purchaseInitialState: IPurchaseState = {
@@ -104,11 +104,12 @@ export const purchaseInitialState: IPurchaseState = {
     screeningEventTicketOffers: [],
     orderCount: 0,
     authorizeSeatReservations: [],
-    checkMovieTicketActions: [],
+    checkMovieTickets: [],
     authorizeCreditCardPayments: [],
     authorizeMovieTicketPayments: [],
     pendingMovieTickets: [],
-    authorizeProductActions: [],
+    authorizeProducts: [],
+    checkMemberships: [],
 };
 
 export function reducer(initialState: IState, action: Action) {
@@ -122,14 +123,14 @@ export function reducer(initialState: IState, action: Action) {
                     screeningEvent: undefined,
                     screeningEventTicketOffers: [],
                     authorizeSeatReservation: undefined,
-                    checkMovieTicketAction: undefined,
                     pendingMovieTickets: [],
                     orderCount: 0,
                     authorizeCreditCardPayments: [],
                     authorizeMovieTicketPayments: [],
-                    checkMovieTicketActions: [],
+                    checkMovieTickets: [],
                     authorizeSeatReservations: [],
-                    authorizeProductActions: [],
+                    authorizeProducts: [],
+                    checkMemberships: [],
                 },
             };
         }),
@@ -142,7 +143,6 @@ export function reducer(initialState: IState, action: Action) {
                     screeningEvent: undefined,
                     screeningEventTicketOffers: [],
                     authorizeSeatReservation: undefined,
-                    checkMovieTicketAction: undefined,
                 },
             };
         }),
@@ -191,8 +191,8 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeSeatReservations: [],
                     authorizeCreditCardPayments: [],
                     authorizeMovieTicketPayments: [],
-                    authorizeProductActions: [],
-                    checkMovieTicketActions: [],
+                    authorizeProducts: [],
+                    checkMovieTickets: [],
                     pendingMovieTickets: [],
                     profile: undefined,
                 },
@@ -209,8 +209,8 @@ export function reducer(initialState: IState, action: Action) {
                     authorizeSeatReservations: [],
                     authorizeCreditCardPayments: [],
                     authorizeMovieTicketPayments: [],
-                    authorizeProductActions: [],
-                    checkMovieTicketActions: [],
+                    authorizeProducts: [],
+                    checkMovieTickets: [],
                     pendingMovieTickets: [],
                     profile: undefined,
                 },
@@ -517,30 +517,27 @@ export function reducer(initialState: IState, action: Action) {
             };
         }),
         on(purchaseAction.setCheckMovieTicket, (state, payload) => {
-            const checkMovieTicketAction = payload.checkMovieTicketAction;
-            const checkMovieTicketActions = Functions.Util.deepCopy<
+            const checkMovieTicket = payload.checkMovieTicket;
+            const checkMovieTickets = Functions.Util.deepCopy<
                 factory.action.check.paymentMethod.movieTicket.IAction[]
-            >(state.purchaseData.checkMovieTicketActions);
+            >(state.purchaseData.checkMovieTickets);
             const sameMovieTicketFilterResults =
                 Functions.Purchase.sameMovieTicketFilter({
-                    checkMovieTicketAction,
-                    checkMovieTicketActions,
+                    checkMovieTicket,
+                    checkMovieTickets,
                 });
             if (
                 sameMovieTicketFilterResults.length === 0 &&
-                Functions.Purchase.isAvailabilityMovieTicket(
-                    checkMovieTicketAction
-                )
+                Functions.Purchase.isAvailabilityMovieTicket(checkMovieTicket)
             ) {
-                checkMovieTicketActions.push(checkMovieTicketAction);
+                checkMovieTickets.push(checkMovieTicket);
             }
 
             return {
                 ...state,
                 purchaseData: {
                     ...state.purchaseData,
-                    checkMovieTicketAction,
-                    checkMovieTicketActions,
+                    checkMovieTickets,
                 },
                 process: '',
                 error: null,
@@ -555,11 +552,12 @@ export function reducer(initialState: IState, action: Action) {
                     screeningEventTicketOffers: [],
                     orderCount: 0,
                     authorizeSeatReservations: [],
-                    checkMovieTicketActions: [],
+                    checkMovieTickets: [],
                     authorizeCreditCardPayments: [],
                     authorizeMovieTicketPayments: [],
                     pendingMovieTickets: [],
-                    authorizeProductActions: [],
+                    authorizeProducts: [],
+                    checkMemberships: [],
                     order,
                 },
                 process: '',
@@ -607,12 +605,24 @@ export function reducer(initialState: IState, action: Action) {
             };
         }),
         on(purchaseAction.setAuthorizeProduct, (state, payload) => {
-            const authorizeProductActions = [payload.authorizeResult];
+            const authorizeProducts = [payload.authorizeResult];
             return {
                 ...state,
                 purchaseData: {
                     ...state.purchaseData,
-                    authorizeProductActions,
+                    authorizeProducts,
+                },
+                process: '',
+                error: null,
+            };
+        }),
+        on(purchaseAction.setCheckMembership, (state, payload) => {
+            const checkMemberships = [payload.checkMembership];
+            return {
+                ...state,
+                purchaseData: {
+                    ...state.purchaseData,
+                    checkMemberships,
                 },
                 process: '',
                 error: null,

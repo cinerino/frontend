@@ -120,9 +120,9 @@ export const setAuthorizeMovieTicket = createAction(
 );
 
 export const setCheckMovieTicket = createAction(
-    `${LABEL} checkMovieTicketSuccess`,
+    `${LABEL} setCheckMovieTicket`,
     props<{
-        checkMovieTicketAction: factory.action.check.paymentMethod.movieTicket.IAction;
+        checkMovieTicket: factory.action.check.paymentMethod.movieTicket.IAction;
     }>()
 );
 
@@ -167,5 +167,12 @@ export const setAuthorizeProduct = createAction(
     `${LABEL} setAuthorizeProduct`,
     props<{
         authorizeResult: factory.action.authorize.offer.product.IAction;
+    }>()
+);
+
+export const setCheckMembership = createAction(
+    `${LABEL} setCheckMembership`,
+    props<{
+        checkMembership: { identifier: string; accessCode: string };
     }>()
 );

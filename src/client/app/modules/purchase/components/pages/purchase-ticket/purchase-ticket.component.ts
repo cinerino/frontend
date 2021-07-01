@@ -9,7 +9,6 @@ import { Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import { MovieTicketCheckModalComponent } from '../../../../shared/components/parts/movie-ticket/check-modal/check-modal.component';
 import { PurchaseSeatTicketModalComponent } from '../../../../shared/components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
 
 @Component({
@@ -143,15 +142,23 @@ export class PurchaseTicketComponent implements OnInit {
     public async openTicketList(
         reservation: Models.Purchase.Reservation.IReservation
     ) {
-        const purchase = await this.actionService.purchase.getData();
+        const {
+            authorizeSeatReservation,
+            screeningEventTicketOffers,
+            checkMovieTickets,
+            checkMemberships,
+            reservations,
+            pendingMovieTickets,
+        } = await this.actionService.purchase.getData();
         this.modal.show(PurchaseSeatTicketModalComponent, {
             initialState: {
-                authorizeSeatReservation: purchase.authorizeSeatReservation,
-                screeningEventTicketOffers: purchase.screeningEventTicketOffers,
-                checkMovieTicketActions: purchase.checkMovieTicketActions,
-                reservations: purchase.reservations,
-                reservation: reservation,
-                pendingMovieTickets: purchase.pendingMovieTickets,
+                authorizeSeatReservation,
+                screeningEventTicketOffers,
+                checkMovieTickets,
+                checkMemberships,
+                reservations,
+                reservation,
+                pendingMovieTickets,
                 cb: async (
                     ticket: Models.Purchase.Reservation.IReservationTicket
                 ) => {
@@ -162,17 +169,6 @@ export class PurchaseTicketComponent implements OnInit {
                         (await this.getUnselectedTicketReservations())
                             .length === 0;
                 },
-            },
-            class: 'modal-dialog-centered',
-        });
-    }
-
-    public openMovieTicket(
-        paymentMethodType: factory.chevre.paymentMethodType
-    ) {
-        this.modal.show(MovieTicketCheckModalComponent, {
-            initialState: {
-                paymentMethodType,
             },
             class: 'modal-dialog-centered',
         });

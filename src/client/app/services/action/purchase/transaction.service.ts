@@ -134,7 +134,7 @@ export class ActionTransactionService {
             const {
                 transaction,
                 authorizeSeatReservations,
-                authorizeProductActions,
+                authorizeProducts,
                 seller,
                 theater,
             } = await this.storeService.getPurchaseData();
@@ -171,7 +171,7 @@ export class ActionTransactionService {
                     {
                         authorizeSeatReservations:
                             authorizeEventSeatReservations,
-                        authorizeProductActions,
+                        authorizeProducts,
                         seller,
                         theater,
                         moment,
@@ -370,6 +370,7 @@ export class ActionTransactionService {
                 authorizeSeatReservation,
                 screeningEvent,
                 screeningEventTicketOffers,
+                checkMemberships,
             } = await this.storeService.getPurchaseData();
             const reservations = params.reservations.map((r) => {
                 return {
@@ -478,6 +479,20 @@ export class ActionTransactionService {
                                                       })
                                                   )
                                                 : undefined,
+                                            programMembershipUsed:
+                                                Array.isArray(
+                                                    r.ticket.ticketOffer
+                                                        .eligibleMembershipType
+                                                )
+                                                    ? {
+                                                          identifier:
+                                                              checkMemberships[0]
+                                                                  .identifier,
+                                                          accessCode:
+                                                              checkMemberships[0]
+                                                                  .accessCode,
+                                                      }
+                                                    : undefined,
                                         },
                                     },
                                 };

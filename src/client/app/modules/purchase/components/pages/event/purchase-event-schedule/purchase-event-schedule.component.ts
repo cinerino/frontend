@@ -242,11 +242,16 @@ export class PurchaseEventScheduleComponent implements OnInit, OnDestroy {
             Functions.Purchase.getMovieTicketTypeOffers({
                 screeningEventTicketOffers,
             });
+        const membershipTypeOffers = Functions.Purchase.getMembershipTypeOffers(
+            { screeningEventTicketOffers }
+        );
 
         if (
             performance.isInfinitetock() ||
             !performance.isTicketedSeat() ||
-            (screen.openSeatingAllowed && movieTicketTypeOffers.length === 0)
+            (screen.openSeatingAllowed &&
+                movieTicketTypeOffers.length === 0 &&
+                membershipTypeOffers.length === 0)
         ) {
             // 座席選択なし
             this.modal.show(PurchaseEventTicketModalComponent, {

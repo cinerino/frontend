@@ -7,8 +7,8 @@
 | <%= moment().tz('Asia/Tokyo').locale('ja').format('YYYY/MM/DD (ddd) HH:mm') %>
 | 
 | [予約]
-<% for (let i = 0; i < authorizeProductActions.length; i++) { %>
-<% const action = authorizeProductActions[i]; %>
+<% for (let i = 0; i < authorizeProducts.length; i++) { %>
+<% const action = authorizeProducts[i]; %>
 <% if (authorizeSeatReservations.length > 1) { %>| [<%= (i + 1) %>件目]<% } %>
 | 
 <% const acceptedOffers = action.result ? action.result.acceptedOffers : []; %>
@@ -17,6 +17,7 @@
 <% const unitCode = priceComponent.referenceQuantity.unitCode %>
 <% const unitCodeLabel = unitCode === 'ANN' ? '年' :unitCode === 'DAY' ? '日' :unitCode === 'SEC' ? '秒' : '枚' %>
 | <%= priceComponent.name.ja %><% if (priceComponent.price > 0) { %> / ￥<%= priceComponent.price %> <% if (priceComponent.referenceQuantity && priceComponent.referenceQuantity.value) { %>[<%= priceComponent.referenceQuantity.value %><%= unitCodeLabel %>] <% } %><% } %>
+| ID: <%= acceptedOffer.itemOffered.identifier %>
 <% } %>
 <% } %>
 | 
