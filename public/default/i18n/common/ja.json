@@ -355,6 +355,25 @@
                 }
             }
         },
+        "membership": {
+            "check": {
+                "success": "チケットを追加しました。",
+                "code": "ID",
+                "password": "PASS",
+                "camera": {
+                    "start": "カメラで読み取り",
+                    "stop": "カメラを停止"
+                },
+                "next": "認証",
+                "prev": "",
+                "value": "[{{value}}枚]",
+                "alert": {
+                    "validation": "入力情報をご確認ください。",
+                    "used": "すでに使用済みです。",
+                    "error": "エラーが発生しました"
+                }
+            }
+        },
         "purchase": {
             "transaction": {
                 "title": "確認",
@@ -626,6 +645,10 @@
                 "label": "RegiGrow",
                 "use": ""
             }
+        },
+        "membership": {
+            "label": "メンバーシップ",
+            "use": "メンバーシップをお持ちの方"
         },
         "timeLimit": "取引期限",
         "all": "すべて",

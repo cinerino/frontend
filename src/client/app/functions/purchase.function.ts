@@ -55,37 +55,37 @@ export function screeningEvents2ScreeningEventSeries(params: {
  * ムビチケ検索
  */
 export function sameMovieTicketFilter(params: {
-    checkMovieTicketActions: factory.action.check.paymentMethod.movieTicket.IAction[];
-    checkMovieTicketAction: factory.action.check.paymentMethod.movieTicket.IAction;
+    checkMovieTickets: factory.action.check.paymentMethod.movieTicket.IAction[];
+    checkMovieTicket: factory.action.check.paymentMethod.movieTicket.IAction;
 }) {
-    const { checkMovieTicketAction, checkMovieTicketActions } = params;
+    const { checkMovieTicket, checkMovieTickets } = params;
     if (
-        checkMovieTicketAction.result === undefined ||
-        checkMovieTicketAction.result.purchaseNumberAuthResult
-            .knyknrNoInfoOut === null ||
-        checkMovieTicketAction.result.purchaseNumberAuthResult
-            .knyknrNoInfoOut[0].ykknInfo === null
+        checkMovieTicket.result === undefined ||
+        checkMovieTicket.result.purchaseNumberAuthResult.knyknrNoInfoOut ===
+            null ||
+        checkMovieTicket.result.purchaseNumberAuthResult.knyknrNoInfoOut[0]
+            .ykknInfo === null
     ) {
         return [];
     }
     const result: factory.action.check.paymentMethod.movieTicket.IAction[] = [];
-    checkMovieTicketActions.forEach((action) => {
+    checkMovieTickets.forEach((c) => {
         if (
-            action.result === undefined ||
-            action.result.purchaseNumberAuthResult.knyknrNoInfoOut === null ||
-            action.result.purchaseNumberAuthResult.knyknrNoInfoOut[0]
-                .ykknInfo === null
+            c.result === undefined ||
+            c.result.purchaseNumberAuthResult.knyknrNoInfoOut === null ||
+            c.result.purchaseNumberAuthResult.knyknrNoInfoOut[0].ykknInfo ===
+                null
         ) {
             return;
         }
         if (
-            checkMovieTicketAction.result === undefined ||
-            action.result.movieTickets[0].identifier !==
-                checkMovieTicketAction.result.movieTickets[0].identifier
+            checkMovieTicket.result === undefined ||
+            c.result.movieTickets[0].identifier !==
+                checkMovieTicket.result.movieTickets[0].identifier
         ) {
             return;
         }
-        result.push(action);
+        result.push(c);
     });
 
     return result;
@@ -733,6 +733,19 @@ export function getMovieTicketTypeOffers(params: {
                 );
             });
         return movieTicketTypeChargeSpecifications.length > 0;
+    });
+    return result;
+}
+
+/**
+ * メンバーシップオファー取得
+ */
+export function getMembershipTypeOffers(params: {
+    screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
+}) {
+    const screeningEventTicketOffers = params.screeningEventTicketOffers;
+    const result = screeningEventTicketOffers.filter((o) => {
+        return o.eligibleMembershipType !== undefined;
     });
     return result;
 }
