@@ -5,8 +5,30 @@
     </div>
     <div *ngIf="(order | async)?.order.orderStatus !== orderStatus.OrderReturned">
         <p class="mb-4 text-md-center" [innerHTML]="'inquiry.confirm.read' | translate"></p>
-        <app-order-detail *ngIf="environment.INQUIRY_QRCODE && code" [order]="(order | async)?.order" [code]="code"></app-order-detail>
-        <app-order-detail *ngIf="!environment.INQUIRY_QRCODE" [order]="(order | async)?.order"></app-order-detail>
+
+        <div *ngIf="(order | async)?.order.confirmationNumber" class="mb-4 px-3 py-2 bg-white">
+            <div class="row align-items-center">
+                <p class="col-4">
+                    {{ 'common.confirmationNumber' | translate }}
+                </p>
+                <p class="col-8 text-large text-info font-weight-bold">
+                    {{ (order | async)?.order.confirmationNumber }}
+                </p>
+            </div>
+        </div>
+
+        <div *ngFor="let eventOrder of eventOrders" class="mb-4">
+            <app-item-event [screeningEvent]="eventOrder.event"></app-item-event>
+            <div class="bg-white p-3">
+                <app-item-list [acceptedOffers]="eventOrder.data" [order]="(order | async)?.order" [code]="code">
+                </app-item-list>
+            </div>
+        </div>
+
+
+        <div class="mb-4 p-3 bg-white">
+            <app-item-profile [profile]="(order | async)?.order.customer"></app-item-profile>
+        </div>
     </div>
 
 
@@ -14,14 +36,14 @@
         <div *ngIf="(order | async)?.order.orderStatus !== orderStatus.OrderReturned">
             <button *ngIf="environment.INQUIRY_PRINT"
                 [disabled]="(order | async)?.order.orderStatus !== orderStatus.OrderDelivered" type="button"
-                class="btn btn-primary btn-block py-3 mb-3" (click)="print()"
-                [disabled]="isLoading | async">{{ 'inquiry.confirm.print' | translate }}</button>
+                class="btn btn-primary btn-block py-3 mb-3" (click)="print()" [disabled]="isLoading | async">{{
+                'inquiry.confirm.print' | translate }}</button>
             <button *ngIf="environment.INQUIRY_CANCEL"
                 [disabled]="(order | async)?.order.orderStatus !== orderStatus.OrderDelivered" type="button"
-                class="btn btn-danger btn-block py-3 mb-3"
-                (click)="cancelConfirm()">{{ 'inquiry.confirm.cancel' | translate }}</button>
+                class="btn btn-danger btn-block py-3 mb-3" (click)="cancelConfirm()">{{ 'inquiry.confirm.cancel' |
+                translate }}</button>
         </div>
-        <button type="button" class="btn btn-outline-primary btn-block py-3"
-            routerLink="/inquiry/input">{{ 'inquiry.confirm.prev' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary btn-block py-3" routerLink="/inquiry/input">{{
+            'inquiry.confirm.prev' | translate }}</button>
     </div>
 </div>
