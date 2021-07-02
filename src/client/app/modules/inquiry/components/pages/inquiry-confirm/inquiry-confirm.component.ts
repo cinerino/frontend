@@ -13,7 +13,7 @@ import * as reducers from '../../../../../store/reducers';
 @Component({
     selector: 'app-inquiry-confirm',
     templateUrl: './inquiry-confirm.component.html',
-    styleUrls: ['./inquiry-confirm.component.scss']
+    styleUrls: ['./inquiry-confirm.component.scss'],
 })
 export class InquiryConfirmComponent implements OnInit, OnDestroy {
     public isLoading: Observable<boolean>;
@@ -25,14 +25,15 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
     public environment = getEnvironment();
     public code: string;
     private timer: any;
+    public eventOrders: Functions.Purchase.IEventOrder[];
 
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
         private utilService: UtilService,
         private actionService: ActionService,
-        private translate: TranslateService,
-    ) { }
+        private translate: TranslateService
+    ) {}
 
     /**
      * 初期化
@@ -42,24 +43,29 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
         this.error = this.store.pipe(select(reducers.getError));
         this.order = this.store.pipe(select(reducers.getOrder));
         this.user = this.store.pipe(select(reducers.getUser));
+        this.eventOrders = [];
         try {
-            const order = (await this.actionService.order.getData()).order;
+            const { order } = await this.actionService.order.getData();
             if (order === undefined) {
                 throw new Error('order undefined');
             }
-            if (this.environment.INQUIRY_QRCODE) {
+            const isShowQRCode = await this.isShowQRCode({ order });
+            if (isShowQRCode) {
                 // 照会ページへQRコード表示ならコード発行
-                this.code = await this.actionService.order.authorizeOrder({ order });
+                this.code = await this.actionService.order.authorizeOrder({
+                    order,
+                });
             }
-            if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
-                const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
-                this.timer = setTimeout(() => {
-                    this.router.navigate(['/inquiry/input']);
-                }, time);
-            }
+            this.eventOrders = Functions.Purchase.order2EventOrders({ order });
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
+        }
+        if (this.environment.INQUIRY_PRINT_WAIT_TIME !== '') {
+            const time = Number(this.environment.INQUIRY_PRINT_WAIT_TIME);
+            this.timer = setTimeout(() => {
+                this.router.navigate(['/inquiry/input']);
+            }, time);
         }
     }
 
@@ -96,19 +102,23 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
                     }
                     await this.actionService.order.inquiry({
                         confirmationNumber: orderData.order.confirmationNumber,
-                        customer: { telephone: orderData.order.customer.telephone }
+                        customer: {
+                            telephone: orderData.order.customer.telephone,
+                        },
                     });
                 } catch (error) {
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
                         body: `
-                        <p class="mb-4">${this.translate.instant('inquiry.confirm.alert.cancel')}</p>
+                        <p class="mb-4">${this.translate.instant(
+                            'inquiry.confirm.alert.cancel'
+                        )}</p>
                         <div class="p-3 bg-light-gray select-text error">
                             <code>${error}</code>
-                        </div>`
+                        </div>`,
                     });
                 }
-            }
+            },
         });
     }
 
@@ -119,21 +129,30 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
         try {
             const { order } = await this.actionService.order.getData();
             const { pos, printer } = await this.actionService.user.getData();
-            if (order === undefined
-                || pos === undefined
-                || printer === undefined) {
+            if (
+                order === undefined ||
+                pos === undefined ||
+                printer === undefined
+            ) {
                 throw new Error('order or pos or printer undefined');
             }
             const today = moment().format('YYYYMMDD');
             const limit = moment(today)
-                .add(this.environment.INQUIRY_PRINT_EXPIRED_VALUE, this.environment.INQUIRY_PRINT_EXPIRED_UNIT)
+                .add(
+                    this.environment.INQUIRY_PRINT_EXPIRED_VALUE,
+                    this.environment.INQUIRY_PRINT_EXPIRED_UNIT
+                )
                 .format('YYYYMMDD');
             const eventOrders = Functions.Purchase.order2EventOrders({ order });
-            const findResult = eventOrders.find(o => moment(o.event.startDate).format('YYYYMMDD') < limit);
+            const findResult = eventOrders.find(
+                (o) => moment(o.event.startDate).format('YYYYMMDD') < limit
+            );
             if (findResult !== undefined) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
-                    body: this.translate.instant('inquiry.confirm.alert.printExpired')
+                    body: this.translate.instant(
+                        'inquiry.confirm.alert.printExpired'
+                    ),
                 });
                 return;
             }
@@ -147,5 +166,29 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
             console.error(error);
             this.router.navigate(['/error']);
         }
+    }
+
+    /**
+     * QRコード表示判定
+     */
+    public async isShowQRCode(params: { order: factory.order.IOrder }) {
+        const { order } = params;
+        const filterResult = order.acceptedOffers.filter((o) => {
+            const itemOffered = <
+                factory.reservation.IReservation<factory.reservationType.EventReservation>
+            >o.itemOffered;
+            const amount = Number(
+                this.environment.INQUIRY_SHOW_QRCODE_FROM_VALUE
+            );
+            const unit = this.environment.INQUIRY_SHOW_QRCODE_FROM_UNIT;
+            return (
+                itemOffered.typeOf ===
+                    factory.reservationType.EventReservation &&
+                moment(itemOffered.reservationFor.startDate)
+                    .add(amount, unit)
+                    .toDate() < moment().toDate()
+            );
+        });
+        return filterResult.length > 0 && this.environment.INQUIRY_QRCODE;
     }
 }

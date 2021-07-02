@@ -46,8 +46,7 @@
                             'common.referenceQuantityValue' | translate: { value:
                             priceComponent?.referenceQuantity?.value } }}</span>
                     </p>
-                    <div *ngIf="code && isShowQRCode(acceptedOffer.itemOffered.reservationFor) 
-                    && order 
+                    <div *ngIf="code && order && environment.INQUIRY_QRCODE 
                     && createQRCode({
                         acceptedOffer: acceptedOffer, 
                         order: order, 
@@ -65,7 +64,7 @@
                             </app-qrcode-image>
                         </div>
                     </div>
-                    <p *ngIf="code && !isShowQRCode(acceptedOffer.itemOffered.reservationFor)"
+                    <p *ngIf="!code && order && environment.INQUIRY_QRCODE"
                         class="d-inline-block text-danger font-weight-bold">
                         {{ 'common.qrcodeDescription' | translate }}
                     </p>
