@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 4.3.0 - 2021-07-02
+
+### Fixed
+
+-   QR 非表示でも発券される不具合修正
+
 ## 4.2.0 - 2021-07-01
 
 ### Added
