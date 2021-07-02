@@ -46,7 +46,7 @@
                             'common.referenceQuantityValue' | translate: { value:
                             priceComponent?.referenceQuantity?.value } }}</span>
                     </p>
-                    <div *ngIf="code && order 
+                    <div *ngIf="code && order && environment.INQUIRY_QRCODE 
                     && createQRCode({
                         acceptedOffer: acceptedOffer, 
                         order: order, 
@@ -64,7 +64,8 @@
                             </app-qrcode-image>
                         </div>
                     </div>
-                    <p *ngIf="!code && order" class="d-inline-block text-danger font-weight-bold">
+                    <p *ngIf="!code && order && environment.INQUIRY_QRCODE"
+                        class="d-inline-block text-danger font-weight-bold">
                         {{ 'common.qrcodeDescription' | translate }}
                     </p>
                     <!-- <button *ngIf="qrcode" class="btn btn-primary mt-2 mb-3" (click)="openQrcode.emit({id: acceptedOffer.itemOffered.id})">{{ 'common.qrcode' | translate }}</button> -->
