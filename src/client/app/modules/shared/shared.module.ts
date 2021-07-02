@@ -32,7 +32,6 @@ import { LoadingComponent } from './components/parts/loading/loading.component';
 import { MembershipCheckModalComponent } from './components/parts/membership/check-modal/check-modal.component';
 import { MovieTicketCheckModalComponent } from './components/parts/movieticket/check-modal/check-modal.component';
 import { NumericKeypadComponent } from './components/parts/numeric-keypad/numeric-keypad.component';
-import { OrderDetailComponent } from './components/parts/order/detail/detail.component';
 import { PurchaseEventTicketModalComponent } from './components/parts/purchase/event/ticket-modal/ticket-modal.component';
 import { PurchaseSeatTicketModalComponent } from './components/parts/purchase/seat-ticket-modal/seat-ticket-modal.component';
 import { QRCodeImageComponent } from './components/parts/qrcode/image/image.component';
@@ -52,7 +51,6 @@ const components = [
     BaseComponent,
     CheckboxComponent,
     QRCodeImageComponent,
-    OrderDetailComponent,
     ItemEventComponent,
     ItemListComponent,
     ItemPaymentMethodComponent,

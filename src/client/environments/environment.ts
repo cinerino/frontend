@@ -229,6 +229,14 @@ export interface IEnvironment {
      */
     INQUIRY_ORDER_DATE_FROM_UNIT: moment.DurationInputArg2;
     /**
+     * 照会QR表示開始値（注文日）
+     */
+    INQUIRY_SHOW_QRCODE_FROM_VALUE: string;
+    /**
+     * 照会QR表示開始単位（注文日）
+     */
+    INQUIRY_SHOW_QRCODE_FROM_UNIT: moment.DurationInputArg2;
+    /**
      * 印刷QRコードタイプ
      */
     PRINT_QRCODE_TYPE: string;
@@ -320,6 +328,8 @@ const defaultEnvironment: IEnvironment = {
     INQUIRY_INPUT_KEYPAD: false,
     INQUIRY_ORDER_DATE_FROM_VALUE: '-3',
     INQUIRY_ORDER_DATE_FROM_UNIT: 'month',
+    INQUIRY_SHOW_QRCODE_FROM_VALUE: '-24',
+    INQUIRY_SHOW_QRCODE_FROM_UNIT: 'hours',
     PRINT_QRCODE_TYPE: 'token',
     PRINT_QRCODE_CUSTOM: 'token',
     PRINT_LOADING: true,
