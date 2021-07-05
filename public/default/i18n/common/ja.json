@@ -73,11 +73,11 @@
                 "cancel": "キャンセルに失敗しました。",
                 "authorize": "QRコード表示を表示できません。",
                 "print": "印刷に失敗しました",
-                "printSuccess": "印刷完了",
-                "printExpired": "印刷期限を超えています"
+                "printSuccess": "印刷完了"
             },
             "confirm": {
-                "cancel": "キャンセルしてよろしいですか。"
+                "cancel": "キャンセルしてよろしいですか。",
+                "printExpired": "当日以外の予約が含まれていますがよろしいですか。"
             }
         },
         "print": {

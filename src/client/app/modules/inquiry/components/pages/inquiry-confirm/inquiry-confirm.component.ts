@@ -43,7 +43,6 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
         this.error = this.store.pipe(select(reducers.getError));
         this.order = this.store.pipe(select(reducers.getOrder));
         this.user = this.store.pipe(select(reducers.getUser));
-        this.eventOrders = [];
         try {
             const { order } = await this.actionService.order.getData();
             if (order === undefined) {
@@ -136,32 +135,42 @@ export class InquiryConfirmComponent implements OnInit, OnDestroy {
             ) {
                 throw new Error('order or pos or printer undefined');
             }
-            const today = moment().format('YYYYMMDD');
-            const limit = moment(today)
-                .add(
-                    this.environment.INQUIRY_PRINT_EXPIRED_VALUE,
-                    this.environment.INQUIRY_PRINT_EXPIRED_UNIT
-                )
-                .format('YYYYMMDD');
+            const now = (await this.utilService.getServerTime()).date;
+            const today = moment(now).format('YYYYMMDD');
             const eventOrders = Functions.Purchase.order2EventOrders({ order });
-            const findResult = eventOrders.find(
-                (o) => moment(o.event.startDate).format('YYYYMMDD') < limit
-            );
+            const findResult = eventOrders.find((o) => {
+                const startDate = moment(o.event.startDate).format('YYYYMMDD');
+                return startDate !== today;
+            });
+
+            const process = async () => {
+                // 処理
+                if (this.timer !== undefined) {
+                    clearTimeout(this.timer);
+                }
+                const orders = [order];
+                await this.actionService.order.print({ orders, pos, printer });
+                this.router.navigate(['/inquiry/print']);
+            };
+
             if (findResult !== undefined) {
-                this.utilService.openAlert({
-                    title: this.translate.instant('common.error'),
+                this.utilService.openConfirm({
+                    title: this.translate.instant('common.confirm'),
                     body: this.translate.instant(
-                        'inquiry.confirm.alert.printExpired'
+                        'inquiry.confirm.confirm.printExpired'
                     ),
+                    cb: async () => {
+                        try {
+                        } catch (error2) {
+                            console.error(error2);
+                            this.router.navigate(['/error']);
+                        }
+                        await process();
+                    },
                 });
                 return;
             }
-            if (this.timer !== undefined) {
-                clearTimeout(this.timer);
-            }
-            const orders = [order];
-            await this.actionService.order.print({ orders, pos, printer });
-            this.router.navigate(['/inquiry/print']);
+            await process();
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
