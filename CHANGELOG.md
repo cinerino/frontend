@@ -14,6 +14,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 4.4.0 - 2021-07-05
+
+### Added
+
+-   上映日当日以外での印刷時に警告表示
+
+### Changed
+
+-   iOS で QR コードをダウンロード可能に変更
+
 ## 4.3.0 - 2021-07-02
 
 ### Fixed
