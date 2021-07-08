@@ -54,6 +54,12 @@ export class MembershipComponent implements OnInit {
                 (await this.utilService.getServerTime()).date
             ).toDate();
             searchResult.forEach((product) => {
+                if (
+                    product.typeOf !==
+                    factory.product.ProductType.MembershipService
+                ) {
+                    return;
+                }
                 this.products.push(
                     new Models.Purchase.Product({ product, now: serverTime })
                 );

@@ -23,7 +23,11 @@ export class PurchaseSeatTicketModalComponent implements OnInit {
     @Input()
     public pendingMovieTickets: Models.Purchase.MovieTicket.IMovieTicket[];
     @Input()
-    public checkMemberships: { identifier: string; accessCode: string }[];
+    public checkProducts: {
+        code: string;
+        token: string;
+        typeOfGood: factory.product.IProduct;
+    }[];
     @Input() public cb: (
         ticket: Models.Purchase.Reservation.IReservationTicket
     ) => void;
@@ -52,7 +56,8 @@ export class PurchaseSeatTicketModalComponent implements OnInit {
 
             if (ticketOffer.eligibleMembershipType !== undefined) {
                 // メンバーシップオファー
-                if (this.checkMemberships.length > 0) {
+                const isMembership = this.checkProducts.length > 0;
+                if (isMembership) {
                     this.tickets.push({ ticketOffer });
                 }
                 return;

@@ -25,6 +25,8 @@ export class CinerinoService {
     public ownershipInfo: cinerino.service.person.OwnershipInfo;
     public reservation: cinerino.service.Reservation;
     public payment: cinerino.service.Payment;
+    public serviceOutput: cinerino.service.ServiceOutput;
+    public token: cinerino.service.Token;
     public transaction: {
         placeOrder: cinerino.service.transaction.PlaceOrder;
         returnOrder: cinerino.service.transaction.ReturnOrder;
@@ -62,6 +64,8 @@ export class CinerinoService {
             );
             this.reservation = new cinerino.service.Reservation(option);
             this.payment = new cinerino.service.Payment(option);
+            this.serviceOutput = new cinerino.service.ServiceOutput(option);
+            this.token = new cinerino.service.Token(option);
             this.transaction = {
                 placeOrder: new cinerino.service.transaction.PlaceOrder(option),
                 returnOrder: new cinerino.service.transaction.ReturnOrder(

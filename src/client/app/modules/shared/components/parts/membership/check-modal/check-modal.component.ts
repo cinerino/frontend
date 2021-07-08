@@ -80,10 +80,10 @@ export class MembershipCheckModalComponent implements OnInit {
         this.errorMessage = '';
         this.successMessage = '';
         try {
-            this.actionService.purchase.payment.checkMembership({
-                membership: {
-                    code: this.inputForm.controls.code.value,
-                    password: this.inputForm.controls.password.value,
+            await this.actionService.purchase.payment.checkProduct({
+                input: {
+                    identifier: this.inputForm.controls.code.value,
+                    accessCode: this.inputForm.controls.password.value,
                 },
             });
             this.createForm();
