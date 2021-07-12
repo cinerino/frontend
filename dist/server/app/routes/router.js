@@ -72,28 +72,28 @@ exports.default = (app) => {
         delete req.session.auth;
         res.redirect('/#/auth/signout');
     });
-    app.get(['/projects/:projectId', '/projects/:projectId/*'], (req, res, next) => {
-        if (req.query.login === 'true' &&
-            req.query.redirectUrl === undefined) {
-            const redirectUrl = Buffer.from(req.url.replace('login=', 'login2=')).toString('base64');
-            res.redirect(`${req.url}&redirectUrl=${redirectUrl}`);
+    app.use((req, res, next) => {
+        if (req.query.login === 'true') {
+            const url = req.url.replace('login=true', '');
+            const redirectUrl = encodeURIComponent(url);
+            res.redirect(`${url}&redirectUrl=${redirectUrl}`);
             return;
         }
         next();
     });
     app.get(['/projects/:projectId/product/:productType'], (req, res) => {
         const productType = req.params.productType;
-        res.redirect(`/?${getQueryParameter(req)}#/product/${productType}`);
+        res.redirect(`/?${path2Query(req)}#/product/${productType}`);
     });
     app.get([
         '/projects/:projectId/:projectName/inquiry',
         '/projects/:projectId/inquiry',
     ], (req, res) => {
         if (req.query.confirmationNumber === undefined) {
-            res.redirect(`/?${getQueryParameter(req)}#/inquiry/input`);
+            res.redirect(`/?${path2Query(req)}#/inquiry/input`);
             return;
         }
-        res.redirect(`/?${getQueryParameter(req)}#/inquiry/input/${req.query.confirmationNumber}`);
+        res.redirect(`/?${path2Query(req)}#/inquiry/input/${req.query.confirmationNumber}`);
     });
     app.get([
         '/projects/:projectId/order/money/transfer',
@@ -101,10 +101,10 @@ exports.default = (app) => {
     ], (req, res) => {
         const theaterCode = req.params.theaterCode;
         if (theaterCode) {
-            res.redirect(`/?${getQueryParameter(req)}#/order/money/transfer/${theaterCode}/input`);
+            res.redirect(`/?${path2Query(req)}#/order/money/transfer/${theaterCode}/input`);
             return;
         }
-        res.redirect(`/?${getQueryParameter(req)}#/order/money/transfer/input`);
+        res.redirect(`/?${path2Query(req)}#/order/money/transfer/input`);
     });
     app.get([
         '/projects/:projectId/purchase/transaction/:eventId/:passportToken',
@@ -113,13 +113,13 @@ exports.default = (app) => {
         const eventId = req.params.eventId;
         const passportToken = req.params.passportToken;
         if (passportToken === undefined) {
-            res.redirect(`/?${getQueryParameter(req)}&eventId=${eventId}#/purchase/transaction`);
+            res.redirect(`/?${path2Query(req)}&eventId=${eventId}#/purchase/transaction`);
             return;
         }
-        res.redirect(`/?${getQueryParameter(req)}&eventId=${eventId}&passportToken=${passportToken}#/purchase/transaction`);
+        res.redirect(`/?${path2Query(req)}&eventId=${eventId}&passportToken=${passportToken}#/purchase/transaction`);
     });
     app.get(['/projects/:projectId/:projectName', '/projects/:projectId'], (req, res) => {
-        res.redirect(`/?${getQueryParameter(req)}`);
+        res.redirect(`/?${path2Query(req)}`);
     });
     app.get('*', (req, res) => {
         if (req.session !== undefined) {
@@ -136,9 +136,9 @@ exports.default = (app) => {
     });
 };
 /**
- * クエリ取得
+ * パスパラメータをクエリへ変換
  */
-function getQueryParameter(req) {
+function path2Query(req) {
     let result = `projectId=${req.params.projectId}`;
     if (req.params.projectName !== undefined &&
         req.params.projectName === 'print') {

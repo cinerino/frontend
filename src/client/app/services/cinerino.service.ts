@@ -161,10 +161,7 @@ export class CinerinoService {
     /**
      * サインイン
      */
-    public async signIn(params?: { redirectUrl?: string }) {
-        if (params?.redirectUrl !== undefined) {
-            sessionStorage.setItem('REDIRECT_URL', params.redirectUrl);
-        }
+    public async signIn() {
         const url = '/api/authorize/signIn';
         const result = await this.http.get<any>(url, {}).toPromise();
         location.href = result.url;
