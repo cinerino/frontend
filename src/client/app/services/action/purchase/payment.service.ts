@@ -272,21 +272,36 @@ export class ActionPaymentService {
      * プロダクト認証
      */
     public async checkProduct(params: {
-        input: {
+        input?: {
             identifier: string;
             accessCode: string;
         };
+        ownershipInfoId?: string;
     }) {
         try {
             this.utilService.loadStart({
                 process: 'purchaseAction.CheckProduct',
             });
             await this.cinerinoService.getServices();
-            const { code } = await this.cinerinoService.serviceOutput.authorize(
-                {
-                    object: params.input,
-                }
-            );
+            const { input, ownershipInfoId } = params;
+            let code;
+            if (input !== undefined) {
+                code = (
+                    await this.cinerinoService.serviceOutput.authorize({
+                        object: input,
+                    })
+                ).code;
+            }
+            if (ownershipInfoId !== undefined) {
+                code = (
+                    await this.cinerinoService.ownershipInfo.authorize({
+                        ownershipInfoId,
+                    })
+                ).code;
+            }
+            if (code === undefined) {
+                throw new Error('code undefined');
+            }
             const { token } = await this.cinerinoService.token.getToken({
                 code,
             });

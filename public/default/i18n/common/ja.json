@@ -501,6 +501,9 @@
         "productAction": {
             "SearchOffers": "オファーを検索しています",
             "Search": "プロダクトを検索しています"
+        },
+        "ownershipInfoAction": {
+            "SearchMyMemberships": "メンバーシップ情報を検索しています"
         }
     },
     "footer": {

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActionOrderService } from './action/order.service';
+import { ActionOwnershipInfoService } from './action/ownershipInfo.service';
 import { ActionProductService } from './action/product.service';
 import { ActionPurchaseService } from './action/purchase.service';
 import { ActionStoreService } from './action/store.service';
@@ -14,6 +15,7 @@ export class ActionService {
         public purchase: ActionPurchaseService,
         public user: ActionUserService,
         public product: ActionProductService,
+        public ownershipInfo: ActionOwnershipInfoService,
         public store: ActionStoreService
     ) {}
 }
