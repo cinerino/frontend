@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 4.5.0 - 2021-07-13
+
+### Changed
+
+-   メンバーシップを使用しての注文をトークン利用へ変更
+
 ## 4.4.0 - 2021-07-05
 
 ### Added

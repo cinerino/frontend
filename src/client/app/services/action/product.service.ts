@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
@@ -41,6 +42,8 @@ export class ActionProductService {
             ).toDate();
             const filterResult = searchResult.data.filter((d) => {
                 return (
+                    d.typeOf ===
+                        factory.product.ProductType.MembershipService &&
                     d.offers !== undefined &&
                     d.offers[0].availabilityStarts !== undefined &&
                     d.offers[0].availabilityEnds !== undefined &&

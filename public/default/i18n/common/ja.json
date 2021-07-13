@@ -478,6 +478,7 @@
             "CreateCreditCardToken": "クレジットカードトークンを作成しています",
             "AuthorizeMovieTicket": "ムビチケ情報を承認しています",
             "CheckMovieTicket": "ムビチケ情報を確認しています",
+            "CheckProduct": "プロダクト情報を確認しています",
             "AuthorizeProduct": "プロダクト情報を承認しています",
             "ConfirmTransaction": "取引を確定しています",
             "ExternalData2PurchaseData": "外部データから情報を変換しています"
@@ -636,6 +637,10 @@
             "mgTicket": {
                 "label": "MGチケット",
                 "use": "MGチケットをお持ちの方"
+            },
+            "surfRock": {
+                "label": "SurfRock",
+                "use": "SurfRockをお持ちの方"
             },
             "others": {
                 "label": "その他",

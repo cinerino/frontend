@@ -80,8 +80,10 @@ export function sameMovieTicketFilter(params: {
         }
         if (
             checkMovieTicket.result === undefined ||
-            c.result.movieTickets[0].identifier !==
-                checkMovieTicket.result.movieTickets[0].identifier
+            (c.result.movieTickets[0].identifier !==
+                checkMovieTicket.result.movieTickets[0].identifier &&
+                c.result.movieTickets[0].typeOf ===
+                    checkMovieTicket.result.movieTickets[0].typeOf)
         ) {
             return;
         }

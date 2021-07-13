@@ -1,5 +1,5 @@
-<div *ngIf="isMovieTicket || isMGTicket || isMembership" class="mb-4 container bg-white">
-    <div *ngIf="isMovieTicket" class="py-3 row align-items-center movieticket">
+<div *ngIf="isMovieTicket || isMGTicket || isSurfRock || isMembership" class="mb-4 container bg-white">
+    <div *ngIf="isMovieTicket" class="py-3 row align-items-center">
         <p class="col-12 col-md-6 mb-2 mb-md-0">{{ 'common.paymentMethodTypes.movieTicket.use' | translate }}</p>
         <div class="col-12 col-md-6">
             <button type="button" (click)="openMovieTicket(paymentMethodType.MovieTicket)"
@@ -8,7 +8,7 @@
             </button>
         </div>
     </div>
-    <div *ngIf="isMGTicket" class="py-3 row align-items-center mgticket">
+    <div *ngIf="isMGTicket" class="py-3 row align-items-center">
         <p class="col-12 col-md-6 mb-2 mb-md-0">{{ 'common.paymentMethodTypes.mgTicket.use' | translate }}</p>
         <div class="col-12 col-md-6">
             <button type="button" (click)="openMovieTicket(paymentMethodType.MGTicket)"
@@ -19,11 +19,22 @@
             </button>
         </div>
     </div>
-    <div *ngIf="isMembership" class="py-3 row align-items-center mgticket">
+    <div *ngIf="isSurfRock" class="py-3 row align-items-center">
+        <p class="col-12 col-md-6 mb-2 mb-md-0">{{ 'common.paymentMethodTypes.surfRock.use' | translate }}</p>
+        <div class="col-12 col-md-6">
+            <button type="button" (click)="openMovieTicket('SurfRock')"
+                class="btn btn-block bg-white border border-gray py-3 surfrock">
+                <div class="font-weight-bold text-large bg-image">
+                    {{ 'common.paymentMethodTypes.surfRock.label' | translate }}
+                </div>
+            </button>
+        </div>
+    </div>
+    <div *ngIf="isMembership" class="py-3 row align-items-center">
         <p class="col-12 col-md-6 mb-2 mb-md-0">{{ 'common.membership.use' | translate }}</p>
         <div class="col-12 col-md-6">
             <button type="button" (click)="openMembership()"
-                class="btn btn-block bg-white border border-gray py-3 membership-ticket">
+                class="btn btn-block bg-white border border-gray py-3 membership">
                 <div class="font-weight-bold text-large bg-image">
                     {{ 'common.membership.label' | translate }}
                 </div>
