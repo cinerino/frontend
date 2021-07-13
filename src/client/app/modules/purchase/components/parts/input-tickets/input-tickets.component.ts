@@ -18,6 +18,7 @@ export class InputTicketsComponent implements OnInit {
     public screeningEventTicketOffers: factory.chevre.event.screeningEvent.ITicketOffer[];
     public isMovieTicket: boolean;
     public isMGTicket: boolean;
+    public isSurfRock: boolean;
     public isMembership: boolean;
     public paymentMethodType = factory.paymentMethodType;
     public moment = moment;
@@ -56,6 +57,18 @@ export class InputTicketsComponent implements OnInit {
                 );
                 return findResult !== undefined;
             }) !== undefined;
+        this.isSurfRock =
+            movieTicketTypeOffers.find((m) => {
+                const findResult = m.priceSpecification.priceComponent.find(
+                    (p) =>
+                        p.typeOf ===
+                            factory.chevre.priceSpecificationType
+                                .UnitPriceSpecification &&
+                        p.appliesToMovieTicket?.serviceOutput?.typeOf ===
+                            'SurfRock'
+                );
+                return findResult !== undefined;
+            }) !== undefined;
         this.isMembership =
             Functions.Purchase.getMembershipTypeOffers({
                 screeningEventTicketOffers,
@@ -63,7 +76,7 @@ export class InputTicketsComponent implements OnInit {
     }
 
     public openMovieTicket(
-        paymentMethodType: factory.chevre.paymentMethodType
+        paymentMethodType: factory.chevre.paymentMethodType | 'SurfRock'
     ) {
         this.modal.show(MovieTicketCheckModalComponent, {
             initialState: {

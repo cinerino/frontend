@@ -370,7 +370,7 @@ export class ActionTransactionService {
                 authorizeSeatReservation,
                 screeningEvent,
                 screeningEventTicketOffers,
-                checkMemberships,
+                checkProducts,
             } = await this.storeService.getPurchaseData();
             const reservations = params.reservations.map((r) => {
                 return {
@@ -432,6 +432,30 @@ export class ActionTransactionService {
                                     );
                                 }
 
+                                const reservedTicket = {
+                                    typeOf: <any>'Ticket',
+                                    ticketedSeat: isTicketedSeat
+                                        ? availableSeats[index]
+                                        : undefined,
+                                };
+
+                                const subReservation = isTicketedSeat
+                                    ? availableSeats[index].subReservations.map(
+                                          (ticketedSeat) => ({
+                                              reservedTicket: {
+                                                  typeOf: <any>'Ticket',
+                                                  ticketedSeat,
+                                              },
+                                          })
+                                      )
+                                    : undefined;
+
+                                const programMembershipUsed = Array.isArray(
+                                    r.ticket.ticketOffer.eligibleMembershipType
+                                )
+                                    ? checkProducts[0].token
+                                    : undefined;
+
                                 return {
                                     id: r.ticket.ticketOffer.id,
                                     addOn:
@@ -443,8 +467,7 @@ export class ActionTransactionService {
                                     additionalProperty: [],
                                     itemOffered: {
                                         serviceOutput: {
-                                            typeOf: factory.chevre
-                                                .reservationType
+                                            typeOf: factory.reservationType
                                                 .EventReservation,
                                             additionalProperty:
                                                 screeningEvent.workPerformed ===
@@ -461,38 +484,9 @@ export class ActionTransactionService {
                                                       ],
                                             additionalTicketText:
                                                 additionalTicketText,
-                                            reservedTicket: {
-                                                typeOf: 'Ticket',
-                                                ticketedSeat: isTicketedSeat
-                                                    ? availableSeats[index]
-                                                    : undefined,
-                                            },
-                                            subReservation: isTicketedSeat
-                                                ? availableSeats[
-                                                      index
-                                                  ].subReservations.map(
-                                                      (ticketedSeat) => ({
-                                                          reservedTicket: {
-                                                              typeOf: 'Ticket',
-                                                              ticketedSeat,
-                                                          },
-                                                      })
-                                                  )
-                                                : undefined,
-                                            programMembershipUsed:
-                                                Array.isArray(
-                                                    r.ticket.ticketOffer
-                                                        .eligibleMembershipType
-                                                )
-                                                    ? {
-                                                          identifier:
-                                                              checkMemberships[0]
-                                                                  .identifier,
-                                                          accessCode:
-                                                              checkMemberships[0]
-                                                                  .accessCode,
-                                                      }
-                                                    : undefined,
+                                            reservedTicket,
+                                            subReservation,
+                                            programMembershipUsed,
                                         },
                                     },
                                 };

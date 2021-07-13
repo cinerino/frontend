@@ -170,9 +170,13 @@ export const setAuthorizeProduct = createAction(
     }>()
 );
 
-export const setCheckMembership = createAction(
-    `${LABEL} setCheckMembership`,
+export const setCheckProduct = createAction(
+    `${LABEL} setCheckProduct`,
     props<{
-        checkMembership: { identifier: string; accessCode: string };
+        checkProduct: {
+            code: string;
+            token: string;
+            typeOfGood: factory.product.IProduct;
+        };
     }>()
 );

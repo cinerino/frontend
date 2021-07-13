@@ -146,7 +146,7 @@ export class PurchaseTicketComponent implements OnInit {
             authorizeSeatReservation,
             screeningEventTicketOffers,
             checkMovieTickets,
-            checkMemberships,
+            checkProducts,
             reservations,
             pendingMovieTickets,
         } = await this.actionService.purchase.getData();
@@ -155,7 +155,7 @@ export class PurchaseTicketComponent implements OnInit {
                 authorizeSeatReservation,
                 screeningEventTicketOffers,
                 checkMovieTickets,
-                checkMemberships,
+                checkProducts,
                 reservations,
                 reservation,
                 pendingMovieTickets,

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
+import jwtDecode from 'jwt-decode';
 import { Observable } from 'rxjs';
 import { Functions } from '../../..';
 import { purchaseAction } from '../../../store/actions';
@@ -119,6 +120,7 @@ export class ActionPaymentService {
             if (transaction === undefined || seller === undefined) {
                 throw new Error('transaction or seller undefined');
             }
+            await this.cinerinoService.getServices();
             if (authorizeMovieTicketPayments.length > 0) {
                 for (const authorizeMovieTicketPayment of authorizeMovieTicketPayments) {
                     await this.cinerinoService.payment.voidTransaction(
@@ -198,7 +200,7 @@ export class ActionPaymentService {
             code: string;
             password: string;
         };
-        paymentMethodType: factory.paymentMethodType;
+        paymentMethodType: factory.paymentMethodType | 'SurfRock';
     }) {
         try {
             this.utilService.loadStart({
@@ -222,6 +224,7 @@ export class ActionPaymentService {
                     'transaction or transaction.seller.id or screeningEvent undefined'
                 );
             }
+            await this.cinerinoService.getServices();
             const checkMovieTicket =
                 await this.cinerinoService.payment.checkMovieTicket({
                     typeOf: movieTickets[0].typeOf,
@@ -266,44 +269,39 @@ export class ActionPaymentService {
     }
 
     /**
-     * メンバーシップ認証
+     * プロダクト認証
      */
-    public async checkMembership(params: {
-        membership: {
-            code: string;
-            password: string;
+    public async checkProduct(params: {
+        input: {
+            identifier: string;
+            accessCode: string;
         };
     }) {
         try {
             this.utilService.loadStart({
-                process: 'purchaseAction.CheckMembership',
+                process: 'purchaseAction.CheckProduct',
             });
-            const memberships = [
+            await this.cinerinoService.getServices();
+            const { code } = await this.cinerinoService.serviceOutput.authorize(
                 {
-                    identifier: params.membership.code,
-                    accessCode: params.membership.password,
-                },
-            ];
-            const { transaction, screeningEvent } =
-                await this.storeService.getPurchaseData();
-            if (
-                transaction === undefined ||
-                transaction.seller.id === undefined ||
-                screeningEvent === undefined
-            ) {
-                throw new Error(
-                    'transaction or transaction.seller.id or screeningEvent undefined'
-                );
-            }
-            const checkMembership = {
-                identifier: memberships[0].identifier,
-                accessCode: memberships[0].accessCode,
+                    object: params.input,
+                }
+            );
+            const { token } = await this.cinerinoService.token.getToken({
+                code,
+            });
+            const { typeOfGood } =
+                jwtDecode<{ typeOfGood: factory.product.IProduct }>(token);
+            const checkProduct = {
+                code,
+                token,
+                typeOfGood,
             };
             this.store.dispatch(
-                purchaseAction.setCheckMembership({ checkMembership })
+                purchaseAction.setCheckProduct({ checkProduct })
             );
             this.utilService.loadEnd();
-            return checkMembership;
+            return checkProduct;
         } catch (error) {
             this.utilService.setError(error);
             this.utilService.loadEnd();
