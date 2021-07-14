@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 4.6.0 - 2021-07-14
+
+### Added
+
+-   ログインでメンバーシップを使用した予約を実装
+
 ## 4.5.0 - 2021-07-13
 
 ### Changed
