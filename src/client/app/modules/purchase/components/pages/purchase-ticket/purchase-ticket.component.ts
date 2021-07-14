@@ -37,16 +37,41 @@ export class PurchaseTicketComponent implements OnInit {
      * 初期化
      */
     public async ngOnInit() {
-        this.purchase = this.store.pipe(select(reducers.getPurchase));
-        this.user = this.store.pipe(select(reducers.getUser));
-        this.isLoading = this.store.pipe(select(reducers.getLoading));
-        this.translateName =
-            this.environment.VIEW_TYPE === 'cinema'
-                ? 'purchase.cinema.ticket'
-                : 'purchase.event.ticket';
-        this.additionalTicketText = '';
-        this.isSelectedTicket =
-            (await this.getUnselectedTicketReservations()).length === 0;
+        try {
+            this.purchase = this.store.pipe(select(reducers.getPurchase));
+            this.user = this.store.pipe(select(reducers.getUser));
+            this.isLoading = this.store.pipe(select(reducers.getLoading));
+            this.translateName =
+                this.environment.VIEW_TYPE === 'cinema'
+                    ? 'purchase.cinema.ticket'
+                    : 'purchase.event.ticket';
+            this.additionalTicketText = '';
+            this.isSelectedTicket =
+                (await this.getUnselectedTicketReservations()).length === 0;
+            await this.checkMyMembershipProduct();
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
+    }
+
+    /**
+     * マイメンバーシップ認証
+     */
+    public async checkMyMembershipProduct() {
+        const { checkProducts } = await this.actionService.purchase.getData();
+        const { login } = await this.actionService.user.getData();
+        if (!login || checkProducts.length > 0) {
+            return;
+        }
+        const membershipOwnershipInfos =
+            await this.actionService.ownershipInfo.searchMyMemberships();
+        if (membershipOwnershipInfos.length === 0) {
+            return;
+        }
+        await this.actionService.purchase.payment.checkProduct({
+            ownershipInfoId: membershipOwnershipInfos[0].id,
+        });
     }
 
     /**

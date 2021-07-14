@@ -34,73 +34,59 @@ export default (app: express.Application) => {
         next();
     });
 
-    app.get(
-        '/signIn',
-        async (
-            req: express.Request,
-            res: express.Response,
-            next: express.NextFunction
-        ) => {
-            log('signInRedirect', req.query);
-            if (req.query.code === undefined) {
-                res.redirect('/default/html/signIn.html');
-                return;
-            }
-            try {
-                if (req.session === undefined) {
-                    throw new Error('session is undefined');
-                }
-                const authModel = new Auth2Model(req.session.auth);
-                if (
-                    req.query.state !== undefined &&
-                    req.query.state !== authModel.state
-                ) {
-                    throw new Error(
-                        `state not matched ${req.query.state} !== ${authModel.state}`
-                    );
-                }
-                const auth = authModel.create(req);
-                const credentials = await auth.getToken(
-                    req.query.code,
-                    <string>authModel.codeVerifier
-                );
-                // log('credentials published', credentials);
-                authModel.credentials = credentials;
-                authModel.save(req.session);
-                auth.setCredentials(credentials);
-                res.redirect('/#/auth/signin');
-            } catch (error) {
-                next(error);
-            }
+    app.get('/signIn', async (req, res, next) => {
+        log('signInRedirect', req.query);
+        if (req.query.code === undefined) {
+            res.redirect('/default/html/signIn.html');
+            return;
         }
-    );
+        try {
+            if (req.session === undefined) {
+                throw new Error('session is undefined');
+            }
+            const authModel = new Auth2Model(req.session.auth);
+            if (
+                req.query.state !== undefined &&
+                req.query.state !== authModel.state
+            ) {
+                throw new Error(
+                    `state not matched ${req.query.state} !== ${authModel.state}`
+                );
+            }
+            const auth = authModel.create(req);
+            const credentials = await auth.getToken(
+                req.query.code,
+                <string>authModel.codeVerifier
+            );
+            // log('credentials published', credentials);
+            authModel.credentials = credentials;
+            authModel.save(req.session);
+            auth.setCredentials(credentials);
+            res.redirect('/#/auth/signin');
+        } catch (error) {
+            next(error);
+        }
+    });
 
-    app.get('/signOut', (req: express.Request, res: express.Response) => {
+    app.get('/signOut', (req, res) => {
         log('signOutRedirect');
         delete (<Express.Session>req.session).auth;
         res.redirect('/#/auth/signout');
     });
 
-    app.get(
-        ['/projects/:projectId', '/projects/:projectId/*'],
-        (req, res, next) => {
-            if (
-                req.query.login === 'true' &&
-                req.query.redirectUrl === undefined
-            ) {
-                const redirectUrl = Buffer.from(
-                    req.url.replace('login=', 'login2=')
-                ).toString('base64');
-                res.redirect(`${req.url}&redirectUrl=${redirectUrl}`);
-                return;
-            }
-            next();
+    app.use((req, res, next) => {
+        if (req.query.login === 'true') {
+            const url = req.url.replace('login=true', '');
+            const redirectUrl = encodeURIComponent(url);
+            res.redirect(`${url}&redirectUrl=${redirectUrl}`);
+            return;
         }
-    );
+        next();
+    });
 
     app.get(['/projects/:projectId/product/:productType'], (req, res) => {
         const productType = req.params.productType;
-        res.redirect(`/?${getQueryParameter(req)}#/product/${productType}`);
+        res.redirect(`/?${path2Query(req)}#/product/${productType}`);
     });
 
     app.get(
@@ -110,11 +96,11 @@ export default (app: express.Application) => {
         ],
         (req, res) => {
             if (req.query.confirmationNumber === undefined) {
-                res.redirect(`/?${getQueryParameter(req)}#/inquiry/input`);
+                res.redirect(`/?${path2Query(req)}#/inquiry/input`);
                 return;
             }
             res.redirect(
-                `/?${getQueryParameter(req)}#/inquiry/input/${
+                `/?${path2Query(req)}#/inquiry/input/${
                     req.query.confirmationNumber
                 }`
             );
@@ -130,15 +116,13 @@ export default (app: express.Application) => {
             const theaterCode = req.params.theaterCode;
             if (theaterCode) {
                 res.redirect(
-                    `/?${getQueryParameter(
+                    `/?${path2Query(
                         req
                     )}#/order/money/transfer/${theaterCode}/input`
                 );
                 return;
             }
-            res.redirect(
-                `/?${getQueryParameter(req)}#/order/money/transfer/input`
-            );
+            res.redirect(`/?${path2Query(req)}#/order/money/transfer/input`);
         }
     );
 
@@ -152,14 +136,14 @@ export default (app: express.Application) => {
             const passportToken = req.params.passportToken;
             if (passportToken === undefined) {
                 res.redirect(
-                    `/?${getQueryParameter(
+                    `/?${path2Query(
                         req
                     )}&eventId=${eventId}#/purchase/transaction`
                 );
                 return;
             }
             res.redirect(
-                `/?${getQueryParameter(
+                `/?${path2Query(
                     req
                 )}&eventId=${eventId}&passportToken=${passportToken}#/purchase/transaction`
             );
@@ -169,7 +153,7 @@ export default (app: express.Application) => {
     app.get(
         ['/projects/:projectId/:projectName', '/projects/:projectId'],
         (req, res) => {
-            res.redirect(`/?${getQueryParameter(req)}`);
+            res.redirect(`/?${path2Query(req)}`);
         }
     );
 
@@ -191,9 +175,9 @@ export default (app: express.Application) => {
 };
 
 /**
- * クエリ取得
+ * パスパラメータをクエリへ変換
  */
-function getQueryParameter(req: express.Request) {
+function path2Query(req: express.Request) {
     let result = `projectId=${req.params.projectId}`;
     if (
         req.params.projectName !== undefined &&
