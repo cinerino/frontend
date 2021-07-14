@@ -96,6 +96,25 @@ button {
     white-space: normal !important;
 }
 
+input[type='radio'].radio {
+    + div {
+        .checked {
+            display: none;
+        }
+        .unchecked {
+            display: block;
+        }
+    }
+    &:checked + div {
+        .checked {
+            display: block;
+        }
+        .unchecked {
+            display: none;
+        }
+    }
+}
+
 .form-control {
     height: 2.4rem;
 }

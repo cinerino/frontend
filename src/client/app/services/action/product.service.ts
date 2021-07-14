@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
-import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import { Functions } from '../..';
 import * as reducers from '../../store/reducers';
 import { CinerinoService } from '../cinerino.service';
 import { UtilService } from '../util.service';
@@ -23,36 +23,34 @@ export class ActionProductService {
     /**
      * 検索
      */
-    public async search(params?: {
-        project?: {
-            id?: { $eq?: string };
-        };
-        typeOf?: { $eq?: string };
-    }) {
+    public async search(params: factory.product.ISearchConditions) {
         try {
             this.utilService.loadStart({
                 process: 'productAction.Search',
             });
+            const limit = 100;
+            let page = 1;
+            let roop = true;
+            let result: (
+                | factory.product.IProduct
+                | factory.service.paymentService.IService
+            )[] = [];
             await this.cinerinoService.getServices();
-            const searchResult = await this.cinerinoService.product.search(
-                params === undefined ? {} : params
-            );
-            const now = moment(
-                (await this.utilService.getServerTime()).date
-            ).toDate();
-            const filterResult = searchResult.data.filter((d) => {
-                return (
-                    d.typeOf ===
-                        factory.product.ProductType.MembershipService &&
-                    d.offers !== undefined &&
-                    d.offers[0].availabilityStarts !== undefined &&
-                    d.offers[0].availabilityEnds !== undefined &&
-                    moment(d.offers[0].availabilityStarts).toDate() < now &&
-                    moment(d.offers[0].availabilityEnds).toDate() > now
-                );
-            });
+            while (roop) {
+                const searchResult = await this.cinerinoService.product.search({
+                    page,
+                    limit,
+                    ...params,
+                });
+                result = [...result, ...searchResult.data];
+                page++;
+                roop = searchResult.data.length === limit;
+                if (roop) {
+                    await Functions.Util.sleep();
+                }
+            }
             this.utilService.loadEnd();
-            return filterResult;
+            return result;
         } catch (error) {
             this.utilService.setError(error);
             this.utilService.loadEnd();

@@ -47,12 +47,24 @@ export class MembershipComponent implements OnInit {
             if (transaction !== undefined) {
                 await this.actionService.purchase.transaction.cancel();
             }
-            const searchResult = await this.actionService.product.search({
-                typeOf: { $eq: factory.product.ProductType.MembershipService },
-            });
-            const serverTime = moment(
+            const now = moment(
                 (await this.utilService.getServerTime()).date
             ).toDate();
+            const searchResult = await this.actionService.product.search({
+                typeOf: { $eq: factory.product.ProductType.MembershipService },
+                offers: {
+                    $elemMatch: {
+                        availabilityStarts: {
+                            $lte: now,
+                            // $gte: now,
+                        },
+                        availabilityEnds: {
+                            // $lte: now,
+                            $gte: now,
+                        },
+                    },
+                },
+            });
             searchResult.forEach((product) => {
                 if (
                     product.typeOf !==
@@ -61,7 +73,7 @@ export class MembershipComponent implements OnInit {
                     return;
                 }
                 this.products.push(
-                    new Models.Purchase.Product({ product, now: serverTime })
+                    new Models.Purchase.Product({ product, now })
                 );
             });
         } catch (error) {

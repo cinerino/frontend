@@ -145,14 +145,18 @@ export class UserEffects {
     public addCreditCard = this.actions.pipe(
         ofType(userAction.addCreditCard),
         map((action) => action),
-        mergeMap(async (payload) => {
+        mergeMap(async () => {
             try {
                 await this.cinerino.getServices();
                 const creditCardToken =
-                    await Functions.Creditcard.createCreditCardTokenObject({
-                        creditCard: payload.creditCard,
-                        seller: payload.seller,
-                    });
+                    // await Functions.Creditcard.createCreditCardTokenObject({
+                    //     creditCard: payload.creditCard,
+                    //     providerCredentials: payload.providerCredentials,
+                    // });
+                    {
+                        token: 'XXX',
+                        maskedCardNo: 'XXX',
+                    };
                 const creditCard =
                     await this.cinerino.ownershipInfo.addCreditCard({
                         creditCard: creditCardToken,

@@ -27,13 +27,17 @@ export class ActionPaymentService {
     /**
      * クレジットカードトークン作成
      */
-    public async createCreditCardToken(creditCard: {
-        cardno: string;
-        expire: string;
-        holderName: string;
-        securityCode: string;
+    public async createCreditCardToken(params: {
+        creditCard: {
+            cardno: string;
+            expire: string;
+            holderName: string;
+            securityCode: string;
+        };
+        providerCredentials: factory.service.paymentService.IProviderCredentials;
     }) {
         try {
+            const { creditCard, providerCredentials } = params;
             this.utilService.loadStart({
                 process: 'purchaseAction.CreateCreditCardToken',
             });
@@ -44,7 +48,7 @@ export class ActionPaymentService {
             const creditCardToken =
                 await Functions.Creditcard.createCreditCardTokenObject({
                     creditCard,
-                    seller,
+                    providerCredentials,
                 });
             this.store.dispatch(
                 purchaseAction.setCreditCardTokenObject({ creditCardToken })
