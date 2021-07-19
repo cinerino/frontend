@@ -11,50 +11,24 @@ export async function createCreditCardTokenObject(params: {
         holderName: string;
         securityCode: string;
     };
-    seller: factory.chevre.seller.ISeller;
+    providerCredentials: factory.service.paymentService.IProviderCredentials;
 }): Promise<ISonyTokenObject | IGmoTokenObject> {
-    const { seller, creditCard } = params;
-    if (seller.paymentAccepted === undefined) {
-        throw new Error('seller.paymentAccepted is undefined');
-    }
-    const findPaymentAcceptedResult = seller.paymentAccepted.find(
-        (paymentAccepted) => {
-            return (
-                paymentAccepted.paymentMethodType ===
-                factory.paymentMethodType.CreditCard
-            );
-        }
-    );
-    if (
-        findPaymentAcceptedResult === undefined ||
-        findPaymentAcceptedResult.paymentMethodType !==
-            factory.paymentMethodType.CreditCard
-    ) {
-        throw new Error('paymentMethodType CreditCard not found');
-    }
-    const gmoInfo:
-        | {
-              shopId?: string;
-              tokenizationCode?: string;
-          }
-        | undefined = (<any>findPaymentAcceptedResult).gmoInfo;
-    if (gmoInfo === undefined) {
-        throw new Error('gmoInfo undefined');
-    }
-    if (gmoInfo.tokenizationCode !== undefined) {
+    const { providerCredentials, creditCard } = params;
+    const { tokenizationCode, shopId } = providerCredentials;
+    if (tokenizationCode !== undefined) {
         return await createSonyTokenObject({
             creditCard,
-            tokenizationCode: gmoInfo.tokenizationCode,
+            tokenizationCode,
         });
     }
-    if (gmoInfo.shopId !== undefined) {
+    if (shopId !== undefined) {
         return await createGmoTokenObject({
             creditCard,
-            shopId: gmoInfo.shopId,
+            shopId,
         });
     }
 
-    throw new Error('gmoInfo.shopId or gmoInfo.tokenizationCode undefined');
+    throw new Error('shopId or tokenizationCode undefined');
 }
 
 /**

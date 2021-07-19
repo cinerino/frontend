@@ -15,40 +15,31 @@
         <p class="mb-4 text-md-center" [innerHTML]="'purchase.input.payment.read' | translate"></p>
 
         <div class="p-3 bg-white">
-            <div class="form-group row">
+            <div class="form-group row align-items-center">
                 <p class="col-md-4 py-2 py-md-3 text-md-right">{{ 'common.amount' | translate }}</p>
                 <div class="col-md-8">
                     <p class="text-x-large text-info">{{ amount | currency : 'JPY'}}</p>
                 </div>
             </div>
-            <div class="mb-3">
-                <app-input-creditcard *ngIf="!usedCreditCard" [amount]="amount"
-                    (valueChanges)="creditCardForm = $event">
+            <div class="form-group row">
+                <p class="col-md-4 py-2 py-md-3 text-md-right">{{ 'common.paymentMethod' | translate }}</p>
+                <div class="col-md-8">
+                    <div *ngFor="let service of paymentServices" class="py-3">
+                        <label class="d-inline-flex align-items-center pointer">
+                            <input type="radio" class="d-none radio" name="paymentService"
+                                (change)="changePaymentService(service)" [checked]="service.id === paymentService.id">
+                            <div class="text-primary">
+                                <i class="bi bi-circle unchecked"></i>
+                                <i class="bi bi-record-circle checked"></i>
+                            </div>
+                            <p class="ml-3">{{ service.name | changeLanguage }}</p>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!providerCredentials?.paymentUrl" class="mb-3">
+                <app-input-creditcard [amount]="amount" (valueChanges)="creditCardForm = $event">
                 </app-input-creditcard>
-            </div>
-            <div *ngIf="usedCreditCard" class="mb-3">
-                <div class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardNumber' | translate }}</p>
-                    <p class="col-md-8 py-2">{{ usedCreditCard.cardNo }}</p>
-                </div>
-                <div class="form-group row">
-                    <p class="col-md-4 py-2 text-md-right">{{ 'common.credit.cardExpiration' | translate }}</p>
-                    <p class="col-md-8 py-2">
-                        {{ usedCreditCard.expire | slice:2:4 }}
-                        <span class="mx-2">{{ 'common.date.month' | translate }}</span>
-                        {{ usedCreditCard.expire | slice:0:2 }}
-                        <span class="mx-2">{{ 'common.date.year' | translate }}</span>
-                    </p>
-                </div>
-            </div>
-            <div *ngIf="(user | async)?.creditCards.length > 0 && !usedCreditCard" class="buttons mx-auto">
-                <button type="button" class="btn btn-outline-primary btn-block py-3" [disabled]="isLoading | async"
-                    (click)="openRegisteredCreditCard()">{{ 'purchase.input.registeredCreditCard' | translate
-                    }}</button>
-            </div>
-            <div *ngIf="usedCreditCard" class="buttons mx-auto">
-                <button type="button" class="btn btn-outline-primary btn-block py-3"
-                    (click)="changeInputCreditCard()">{{ 'purchase.input.inputCreditCard' | translate }}</button>
             </div>
         </div>
     </div>

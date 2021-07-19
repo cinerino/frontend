@@ -751,3 +751,40 @@ export function getMembershipTypeOffers(params: {
     });
     return result;
 }
+
+/**
+ * プロバイダーの資格情報取得
+ */
+export async function getProviderCredentials(params: {
+    paymentService: factory.service.paymentService.IService;
+    seller: factory.chevre.seller.ISeller;
+}) {
+    const { paymentService, seller } = params;
+    if (paymentService.provider === undefined) {
+        throw new Error('paymentService.provider undefined');
+    }
+    const findResult = paymentService.provider.find(
+        (provider) => provider.id === seller.id
+    );
+    if (findResult === undefined) {
+        throw new Error('findResult undefined');
+    }
+    const credentials = findResult.credentials;
+    let tokenizationCode;
+    let paymentUrl;
+    if (credentials !== undefined) {
+        tokenizationCode = credentials.tokenizationCode;
+        paymentUrl = credentials.paymentUrl;
+    }
+    return {
+        ...credentials,
+        paymentUrl:
+            typeof paymentUrl === 'string' && paymentUrl.length > 0
+                ? paymentUrl
+                : undefined,
+        tokenizationCode:
+            typeof tokenizationCode === 'string' && tokenizationCode.length > 0
+                ? tokenizationCode
+                : undefined,
+    };
+}

@@ -39,11 +39,8 @@ export class PurchaseConfirmComponent implements OnInit {
             this.isLoading = this.store.pipe(select(reducers.getLoading));
             this.user = this.store.pipe(select(reducers.getUser));
             this.amount = 0;
-            const { transaction, profile, authorizeSeatReservations } =
+            const { authorizeSeatReservations } =
                 await this.actionService.purchase.getData();
-            if (transaction === undefined || profile === undefined) {
-                throw new Error('transaction or profile undefined');
-            }
             this.amount = Functions.Purchase.getAmount(
                 authorizeSeatReservations
             );
