@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { Functions } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
@@ -21,6 +23,9 @@ export class MembershipInputComponent implements OnInit {
     public creditCardForm?: FormGroup;
     public amount: number;
     public environment = getEnvironment();
+    public paymentServices: factory.service.paymentService.IService[];
+    public paymentService: factory.service.paymentService.IService;
+    public providerCredentials?: factory.service.paymentService.IProviderCredentials;
 
     constructor(
         private store: Store<reducers.IState>,
@@ -38,14 +43,68 @@ export class MembershipInputComponent implements OnInit {
             this.purchase = this.store.pipe(select(reducers.getPurchase));
             this.user = this.store.pipe(select(reducers.getUser));
             this.isLoading = this.store.pipe(select(reducers.getLoading));
-            const { ticketOffer } = await this.actionService.purchase.getData();
-            if (ticketOffer === undefined) {
-                throw new Error('ticketOffer undefined');
+            const { ticketOffer, seller } =
+                await this.actionService.purchase.getData();
+            if (ticketOffer === undefined || seller === undefined) {
+                throw new Error('ticketOffer or seller undefined');
             }
+            this.paymentServices = [];
             this.amount = 0;
             ticketOffer.priceSpecification.priceComponent.forEach((p) => {
                 this.amount += p.price;
             });
+            const products = await this.actionService.product.search({
+                typeOf: {
+                    $eq: factory.service.paymentService.PaymentServiceType
+                        .CreditCard,
+                },
+            });
+            products.forEach((p) => {
+                if (
+                    p.typeOf !==
+                        factory.service.paymentService.PaymentServiceType
+                            .CreditCard ||
+                    p.provider === undefined
+                ) {
+                    return;
+                }
+                const findResult = p.provider.find(
+                    (provider) => provider.id === seller.id
+                );
+                if (findResult === undefined) {
+                    return;
+                }
+                this.paymentServices.push(p);
+            });
+            this.paymentService = this.paymentServices[0];
+            this.providerCredentials =
+                await Functions.Purchase.getProviderCredentials({
+                    paymentService: this.paymentService,
+                    seller,
+                });
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
+    }
+
+    /**
+     * 決済方法変更
+     */
+    public async changePaymentService(
+        paymentService: factory.service.paymentService.IService
+    ) {
+        try {
+            this.paymentService = paymentService;
+            const { seller } = await this.actionService.purchase.getData();
+            if (seller === undefined) {
+                throw new Error('seller undefined');
+            }
+            this.providerCredentials =
+                await Functions.Purchase.getProviderCredentials({
+                    paymentService,
+                    seller,
+                });
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -76,8 +135,13 @@ export class MembershipInputComponent implements OnInit {
             });
             return;
         }
-        // クレジットカード情報フォーム
-        if (this.amount > 0 && this.creditCardForm !== undefined) {
+
+        if (
+            this.providerCredentials?.paymentUrl === undefined &&
+            this.amount > 0 &&
+            this.creditCardForm !== undefined
+        ) {
+            // クレジットカード情報フォーム
             Object.keys(this.creditCardForm.controls).forEach((key) => {
                 this.creditCardForm?.controls[key].markAsTouched();
             });
@@ -91,7 +155,10 @@ export class MembershipInputComponent implements OnInit {
             this.creditCardForm.controls.holderName.setValue(
                 (<HTMLInputElement>document.getElementById('holderName')).value
             );
-            if (this.creditCardForm.invalid) {
+            if (
+                this.creditCardForm.invalid ||
+                this.providerCredentials === undefined
+            ) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant(
@@ -100,9 +167,6 @@ export class MembershipInputComponent implements OnInit {
                 });
                 return;
             }
-        }
-        this.actionService.purchase.removeCreditCard();
-        if (this.amount > 0 && this.creditCardForm !== undefined) {
             // クレジットカード入力
             try {
                 const cardExpiration = {
@@ -118,7 +182,10 @@ export class MembershipInputComponent implements OnInit {
                         this.creditCardForm.controls.securityCode.value,
                 };
                 await this.actionService.purchase.payment.createCreditCardToken(
-                    creditCard
+                    {
+                        creditCard,
+                        providerCredentials: this.providerCredentials,
+                    }
                 );
             } catch (error) {
                 this.utilService.openAlert({

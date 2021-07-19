@@ -5,14 +5,18 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { ActionService, MasterService, UtilService } from '../../../../../services';
+import {
+    ActionService,
+    MasterService,
+    UtilService,
+} from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
 import { CreditcardRegisterModalComponent } from '../../../../shared/components/parts/creditcard/register-modal/register-modal.component';
 
 @Component({
     selector: 'app-mypage-credit',
     templateUrl: './mypage-credit.component.html',
-    styleUrls: ['./mypage-credit.component.scss']
+    styleUrls: ['./mypage-credit.component.scss'],
 })
 export class MypageCreditComponent implements OnInit {
     public user: Observable<reducers.IUserState>;
@@ -27,8 +31,8 @@ export class MypageCreditComponent implements OnInit {
         private actionService: ActionService,
         private translate: TranslateService,
         private router: Router,
-        private modal: BsModalService,
-    ) { }
+        private modal: BsModalService
+    ) {}
 
     /**
      * 初期化
@@ -50,7 +54,9 @@ export class MypageCreditComponent implements OnInit {
      * クレジットカード情報削除確認
      * @param creditCard
      */
-    public confirmRemoveCreditCard(creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard) {
+    public confirmRemoveCreditCard(
+        creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
+    ) {
         this.utilService.openConfirm({
             title: this.translate.instant('common.confirm'),
             body: this.translate.instant('mypage.credit.confirm.remove'),
@@ -62,10 +68,12 @@ export class MypageCreditComponent implements OnInit {
                     console.error(error);
                     this.utilService.openAlert({
                         title: this.translate.instant('common.error'),
-                        body: this.translate.instant('mypage.credit.alert.removeFail')
+                        body: this.translate.instant(
+                            'mypage.credit.alert.removeFail'
+                        ),
                     });
                 }
-            }
+            },
         });
     }
 
@@ -82,8 +90,8 @@ export class MypageCreditComponent implements OnInit {
                         expire: string;
                         holderName: string;
                         securityCode: string;
-                    },
-                    seller?: factory.chevre.seller.ISeller
+                    };
+                    seller?: factory.chevre.seller.ISeller;
                 }) => {
                     try {
                         const creditCard = params.creditCard;
@@ -91,20 +99,23 @@ export class MypageCreditComponent implements OnInit {
                         if (seller === undefined) {
                             throw new Error('seller undefined');
                         }
-                        await this.actionService.user.addCreditCard({ creditCard, seller });
+                        await this.actionService.user.addCreditCard({
+                            creditCard,
+                            seller,
+                        });
                         await this.actionService.user.getCreditCards();
                     } catch (error) {
                         console.error(error);
                         this.utilService.openAlert({
                             title: this.translate.instant('common.error'),
-                            body: this.translate.instant('mypage.account.alert.registerFail')
+                            body: this.translate.instant(
+                                'mypage.account.alert.registerFail'
+                            ),
                         });
                     }
-                }
+                },
             },
-            class: 'modal-dialog-centered modal-lg'
+            class: 'modal-dialog-centered modal-lg',
         });
     }
-
 }
-

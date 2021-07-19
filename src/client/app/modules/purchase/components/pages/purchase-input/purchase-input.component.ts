@@ -4,13 +4,11 @@ import { Router } from '@angular/router';
 import { factory } from '@cinerino/sdk';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { Functions, Models } from '../../../../..';
 import { getEnvironment } from '../../../../../../environments/environment';
 import { ActionService, UtilService } from '../../../../../services';
 import * as reducers from '../../../../../store/reducers';
-import { CreditCardSelectModalComponent } from '../../../../shared/components/parts/creditcard/select-modal/select-modal.component';
 
 @Component({
     selector: 'app-purchase-input',
@@ -26,12 +24,13 @@ export class PurchaseInputComponent implements OnInit {
     public amount: number;
     public environment = getEnvironment();
     public viewType = Models.Common.ViewType;
-    public usedCreditCard?: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard;
+    public paymentServices: factory.service.paymentService.IService[];
+    public paymentService: factory.service.paymentService.IService;
+    public providerCredentials?: factory.service.paymentService.IProviderCredentials;
 
     constructor(
         private store: Store<reducers.IState>,
         private router: Router,
-        private modal: BsModalService,
         private utilService: UtilService,
         private actionService: ActionService,
         private translate: TranslateService
@@ -45,21 +44,68 @@ export class PurchaseInputComponent implements OnInit {
             this.purchase = this.store.pipe(select(reducers.getPurchase));
             this.user = this.store.pipe(select(reducers.getUser));
             this.isLoading = this.store.pipe(select(reducers.getLoading));
-            const user = await this.actionService.user.getData();
-            if (user.login) {
-                // ログイン
-                await this.actionService.user.getProfile();
-                // await this.actionService.user.getCreditCards();
-            }
-            const { transaction, authorizeSeatReservations } =
+            this.amount = 0;
+            this.paymentServices = [];
+            const { authorizeSeatReservations, seller } =
                 await this.actionService.purchase.getData();
-            if (transaction === undefined) {
-                this.router.navigate(['/error']);
-                return;
+            if (seller === undefined) {
+                throw new Error('seller undefined');
             }
             this.amount = Functions.Purchase.getAmount(
                 authorizeSeatReservations
             );
+            const products = await this.actionService.product.search({
+                typeOf: {
+                    $eq: factory.service.paymentService.PaymentServiceType
+                        .CreditCard,
+                },
+            });
+            products.forEach((p) => {
+                if (
+                    p.typeOf !==
+                        factory.service.paymentService.PaymentServiceType
+                            .CreditCard ||
+                    p.provider === undefined
+                ) {
+                    return;
+                }
+                const findResult = p.provider.find(
+                    (provider) => provider.id === seller.id
+                );
+                if (findResult === undefined) {
+                    return;
+                }
+                this.paymentServices.push(p);
+            });
+            this.paymentService = this.paymentServices[0];
+            this.providerCredentials =
+                await Functions.Purchase.getProviderCredentials({
+                    paymentService: this.paymentService,
+                    seller,
+                });
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+        }
+    }
+
+    /**
+     * 決済方法変更
+     */
+    public async changePaymentService(
+        paymentService: factory.service.paymentService.IService
+    ) {
+        try {
+            this.paymentService = paymentService;
+            const { seller } = await this.actionService.purchase.getData();
+            if (seller === undefined) {
+                throw new Error('seller undefined');
+            }
+            this.providerCredentials =
+                await Functions.Purchase.getProviderCredentials({
+                    paymentService,
+                    seller,
+                });
         } catch (error) {
             console.error(error);
             this.router.navigate(['/error']);
@@ -90,12 +136,13 @@ export class PurchaseInputComponent implements OnInit {
             });
             return;
         }
-        // クレジットカード情報フォーム
+
         if (
+            this.providerCredentials?.paymentUrl === undefined &&
             this.amount > 0 &&
-            this.usedCreditCard === undefined &&
             this.creditCardForm !== undefined
         ) {
+            // クレジットカード情報フォーム
             Object.keys(this.creditCardForm.controls).forEach((key) => {
                 this.creditCardForm?.controls[key].markAsTouched();
             });
@@ -109,7 +156,10 @@ export class PurchaseInputComponent implements OnInit {
             this.creditCardForm.controls.holderName.setValue(
                 (<HTMLInputElement>document.getElementById('holderName')).value
             );
-            if (this.creditCardForm.invalid) {
+            if (
+                this.creditCardForm.invalid ||
+                this.providerCredentials === undefined
+            ) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
                     body: this.translate.instant(
@@ -118,13 +168,6 @@ export class PurchaseInputComponent implements OnInit {
                 });
                 return;
             }
-        }
-        this.actionService.purchase.removeCreditCard();
-        if (
-            this.amount > 0 &&
-            this.usedCreditCard === undefined &&
-            this.creditCardForm !== undefined
-        ) {
             // クレジットカード入力
             try {
                 const cardExpiration = {
@@ -140,7 +183,10 @@ export class PurchaseInputComponent implements OnInit {
                         this.creditCardForm.controls.securityCode.value,
                 };
                 await this.actionService.purchase.payment.createCreditCardToken(
-                    creditCard
+                    {
+                        creditCard,
+                        providerCredentials: this.providerCredentials,
+                    }
                 );
             } catch (error) {
                 this.utilService.openAlert({
@@ -152,14 +198,21 @@ export class PurchaseInputComponent implements OnInit {
                 return;
             }
         }
-        if (this.amount > 0 && this.usedCreditCard !== undefined) {
-            // 登録済みクレジットカード
-            const creditCard = {
-                memberId: 'me',
-                cardSeq: Number(this.usedCreditCard.cardSeq),
-            };
-            this.actionService.purchase.registerCreditCard(creditCard);
+
+        if (
+            this.providerCredentials?.paymentUrl !== undefined &&
+            this.amount > 0
+        ) {
+            // 外部決済URLを発行する必要があります(トークンでの決済承認は不可)
+            this.utilService.openAlert({
+                title: this.translate.instant('common.error'),
+                body: this.translate.instant(
+                    'purchase.input.alert.createCreditCardToken'
+                ),
+            });
+            return;
         }
+
         try {
             const additionalProperty: { name: string; value: string }[] = [];
             Object.keys(this.profileForm.controls).forEach((key) => {
@@ -211,33 +264,5 @@ export class PurchaseInputComponent implements OnInit {
         } catch (error) {
             this.router.navigate(['/error']);
         }
-    }
-
-    /**
-     * 登録済みクレジットカード表示
-     */
-    public openRegisteredCreditCard() {
-        this.user
-            .subscribe((user) => {
-                this.modal.show(CreditCardSelectModalComponent, {
-                    initialState: {
-                        creditCards: user.creditCards,
-                        cb: (
-                            creditCard: factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
-                        ) => {
-                            this.usedCreditCard = creditCard;
-                        },
-                    },
-                    class: 'modal-dialog-centered',
-                });
-            })
-            .unsubscribe();
-    }
-
-    /**
-     * クレジットカード情報入力へ変更
-     */
-    public changeInputCreditCard() {
-        this.usedCreditCard = undefined;
     }
 }

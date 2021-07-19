@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## 4.7.0 - 2021-07-19
+
+### Added
+
+-   複数のクレジットカード IF 決済に対して動的に実装する
+
 ## 4.6.0 - 2021-07-14
 
 ### Added
