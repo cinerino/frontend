@@ -1,6 +1,6 @@
 import { factory } from '@cinerino/sdk';
 import { createAction, props } from '@ngrx/store';
-import { Functions, Models } from '../..';
+import { Models } from '../..';
 
 const LABEL = '[Purchase]';
 
@@ -85,14 +85,19 @@ export const voidSeatReservation = createAction(
     }>()
 );
 
-export const registerCreditCard = createAction(
-    `${LABEL} registerCreditCard`,
+export const setPayment = createAction(
+    `${LABEL} setPayment`,
     props<{
-        creditCard:
-            | factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
-            | factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
-            | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
-            | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
+        payment: {
+            paymentMethod: string;
+            paymentMethodId?: string;
+            providerCredentials: factory.service.paymentService.IProviderCredentials;
+            creditCard?:
+                | factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
+                | factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
+                | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
+                | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
+        };
     }>()
 );
 
@@ -129,15 +134,6 @@ export const setCheckMovieTicket = createAction(
 export const setOrder = createAction(
     `${LABEL} setOrder`,
     props<{ order: factory.order.IOrder }>()
-);
-
-export const setCreditCardTokenObject = createAction(
-    `${LABEL} setCreditCardTokenObject`,
-    props<{
-        creditCardToken:
-            | Functions.Creditcard.IGmoTokenObject
-            | Functions.Creditcard.ISonyTokenObject;
-    }>()
 );
 
 export const setExternalPurchaseData = createAction(

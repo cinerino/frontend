@@ -158,6 +158,7 @@ export class PurchaseInputComponent implements OnInit {
             );
             if (
                 this.creditCardForm.invalid ||
+                this.paymentService.serviceType?.codeValue === undefined ||
                 this.providerCredentials === undefined
             ) {
                 this.utilService.openAlert({
@@ -182,12 +183,11 @@ export class PurchaseInputComponent implements OnInit {
                     securityCode:
                         this.creditCardForm.controls.securityCode.value,
                 };
-                await this.actionService.purchase.payment.createCreditCardToken(
-                    {
-                        creditCard,
-                        providerCredentials: this.providerCredentials,
-                    }
-                );
+                await this.actionService.purchase.payment.setPayment({
+                    creditCard,
+                    paymentMethod: this.paymentService.serviceType.codeValue,
+                    providerCredentials: this.providerCredentials,
+                });
             } catch (error) {
                 this.utilService.openAlert({
                     title: this.translate.instant('common.error'),
@@ -201,16 +201,14 @@ export class PurchaseInputComponent implements OnInit {
 
         if (
             this.providerCredentials?.paymentUrl !== undefined &&
+            this.paymentService.serviceType?.codeValue !== undefined &&
             this.amount > 0
         ) {
             // 外部決済URLを発行する必要があります(トークンでの決済承認は不可)
-            this.utilService.openAlert({
-                title: this.translate.instant('common.error'),
-                body: this.translate.instant(
-                    'purchase.input.alert.createCreditCardToken'
-                ),
+            await this.actionService.purchase.payment.setPayment({
+                paymentMethod: this.paymentService.serviceType.codeValue,
+                providerCredentials: this.providerCredentials,
             });
-            return;
         }
 
         try {

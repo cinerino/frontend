@@ -157,26 +157,6 @@ export class ActionPurchaseService {
     }
 
     /**
-     * クレジットカード登録
-     */
-    public registerCreditCard(
-        creditCard:
-            | factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
-            | factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
-            | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
-            | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized
-    ) {
-        this.store.dispatch(purchaseAction.registerCreditCard({ creditCard }));
-    }
-
-    /**
-     * クレジットカード登録削除
-     */
-    public removeCreditCard() {
-        this.store.dispatch(purchaseAction.removeCreditCard());
-    }
-
-    /**
      * 外部連携情報を購入情報へ変換
      */
     public async externalData2PurchaseData(params: { event: { id: string } }) {

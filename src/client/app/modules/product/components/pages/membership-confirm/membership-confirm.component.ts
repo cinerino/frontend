@@ -56,7 +56,29 @@ export class MembershipConfirmComponent implements OnInit {
      * 確定
      */
     public async onSubmit() {
+        const { payment } = await this.actionService.purchase.getData();
         const { language } = await this.actionService.user.getData();
+        try {
+            if (
+                this.amount > 0 &&
+                payment !== undefined &&
+                payment.providerCredentials.paymentUrl !== undefined
+            ) {
+                const publishResult =
+                    await this.actionService.purchase.payment.publishCreditCardPaymentUrl(
+                        {
+                            amount: this.amount,
+                        }
+                    );
+                location.href = publishResult.paymentUrl;
+                // location.href = '/default/html/payment.html';
+                return;
+            }
+        } catch (error) {
+            console.error(error);
+            this.router.navigate(['/error']);
+            return;
+        }
         try {
             if (this.amount > 0) {
                 await this.actionService.purchase.payment.authorizeCreditCard({

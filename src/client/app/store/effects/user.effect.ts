@@ -254,8 +254,7 @@ export class UserEffects {
                         amount: payload.amount,
                         method: '1',
                         creditCard: payload.creditCard,
-                        paymentMethod:
-                            factory.chevre.paymentMethodType.CreditCard,
+                        paymentMethod: 'CreditCard',
                     },
                     purpose: { typeOf: transaction.typeOf, id: transaction.id },
                 });

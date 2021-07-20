@@ -25,19 +25,20 @@ export class ActionPaymentService {
     }
 
     /**
-     * クレジットカードトークン作成
+     * 決済情報登録
      */
-    public async createCreditCardToken(params: {
-        creditCard: {
+    public async setPayment(params: {
+        creditCard?: {
             cardno: string;
             expire: string;
             holderName: string;
             securityCode: string;
         };
+        paymentMethod: string;
         providerCredentials: factory.service.paymentService.IProviderCredentials;
     }) {
         try {
-            const { creditCard, providerCredentials } = params;
+            const { creditCard, paymentMethod, providerCredentials } = params;
             this.utilService.loadStart({
                 process: 'purchaseAction.CreateCreditCardToken',
             });
@@ -46,14 +47,63 @@ export class ActionPaymentService {
                 throw new Error('seller undefined');
             }
             const creditCardToken =
-                await Functions.Creditcard.createCreditCardTokenObject({
-                    creditCard,
-                    providerCredentials,
-                });
+                creditCard === undefined
+                    ? { token: 'xxx' }
+                    : await Functions.Creditcard.createCreditCardTokenObject({
+                          creditCard,
+                          providerCredentials,
+                      });
             this.store.dispatch(
-                purchaseAction.setCreditCardTokenObject({ creditCardToken })
+                purchaseAction.setPayment({
+                    payment: {
+                        paymentMethod,
+                        providerCredentials,
+                        creditCard: creditCardToken,
+                    },
+                })
             );
             this.utilService.loadEnd();
+        } catch (error) {
+            this.utilService.setError(error);
+            this.utilService.loadEnd();
+            throw error;
+        }
+    }
+
+    /**
+     * 決済ロケーション発行
+     */
+    public async publishCreditCardPaymentUrl(params: { amount: number }) {
+        try {
+            this.utilService.loadStart({
+                process: 'purchaseAction.PublishCreditCardPaymentUrl',
+            });
+            const { payment, transaction } =
+                await this.storeService.getPurchaseData();
+            if (transaction === undefined || payment === undefined) {
+                throw new Error('transaction or payment undefined');
+            }
+            const amount = params.amount;
+            await this.cinerinoService.getServices();
+            const publishResult =
+                await this.cinerinoService.payment.publishCreditCardPaymentUrl({
+                    object: {
+                        typeOf: factory.action.authorize.paymentMethod.any
+                            .ResultType.Payment,
+                        amount,
+                        method: '1',
+                        creditCard: payment.creditCard,
+                        paymentMethod: payment.paymentMethod,
+                    },
+                    purpose: transaction,
+                });
+            this.store.dispatch(
+                purchaseAction.setPayment({
+                    payment: { ...payment, ...publishResult },
+                })
+            );
+            this.utilService.loadEnd();
+            return publishResult;
         } catch (error) {
             this.utilService.setError(error);
             this.utilService.loadEnd();
@@ -69,12 +119,12 @@ export class ActionPaymentService {
             this.utilService.loadStart({
                 process: 'purchaseAction.AuthorizeCreditCard',
             });
-            const { creditCard, authorizeCreditCardPayments, transaction } =
+            const { payment, authorizeCreditCardPayments, transaction } =
                 await this.storeService.getPurchaseData();
             const amount = params.amount;
             const authorizeCreditCardPayment = authorizeCreditCardPayments[0];
-            if (transaction === undefined) {
-                throw new Error('transaction undefined');
+            if (transaction === undefined || payment === undefined) {
+                throw new Error('transaction or payment undefined');
             }
             await this.cinerinoService.getServices();
             if (authorizeCreditCardPayment !== undefined) {
@@ -89,9 +139,8 @@ export class ActionPaymentService {
                             .ResultType.Payment,
                         amount,
                         method: '1',
-                        creditCard,
-                        paymentMethod:
-                            factory.chevre.paymentMethodType.CreditCard,
+                        creditCard: payment.creditCard,
+                        paymentMethod: payment.paymentMethod,
                     },
                     purpose: transaction,
                 });

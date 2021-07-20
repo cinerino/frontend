@@ -58,13 +58,18 @@ export interface IPurchaseState {
      */
     authorizeMovieTicketPayments: factory.action.authorize.paymentMethod.any.IAction[];
     /**
-     * クレジットカード
+     * 決済
      */
-    creditCard?:
-        | factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
-        | factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
-        | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
-        | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
+    payment?: {
+        paymentMethod: string;
+        paymentMethodId?: string;
+        providerCredentials: factory.service.paymentService.IProviderCredentials;
+        creditCard?:
+            | factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard
+            | factory.chevre.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember
+            | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
+            | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
+    };
     /**
      * オーダーカウント
      */
@@ -456,13 +461,13 @@ export function reducer(initialState: IState, action: Action) {
                 error: null,
             };
         }),
-        on(purchaseAction.registerCreditCard, (state, payload) => {
-            const creditCard = payload.creditCard;
+        on(purchaseAction.setPayment, (state, payload) => {
+            const payment = payload.payment;
             return {
                 ...state,
                 purchaseData: {
                     ...state.purchaseData,
-                    creditCard,
+                    payment,
                 },
                 process: '',
                 error: null,
@@ -493,18 +498,6 @@ export function reducer(initialState: IState, action: Action) {
                     ...state.purchaseData,
                     authorizeCreditCardPayments,
                     orderCount,
-                },
-                process: '',
-                error: null,
-            };
-        }),
-        on(purchaseAction.setCreditCardTokenObject, (state, payload) => {
-            const creditCard = payload.creditCardToken;
-            return {
-                ...state,
-                purchaseData: {
-                    ...state.purchaseData,
-                    creditCard,
                 },
                 process: '',
                 error: null,

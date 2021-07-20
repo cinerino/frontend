@@ -13,6 +13,7 @@ import { PurchaseBaseComponent } from './components/pages/purchase-base/purchase
 import { PurchaseCompleteComponent } from './components/pages/purchase-complete/purchase-complete.component';
 import { PurchaseConfirmComponent } from './components/pages/purchase-confirm/purchase-confirm.component';
 import { PurchaseInputComponent } from './components/pages/purchase-input/purchase-input.component';
+import { PurchasePaymentComponent } from './components/pages/purchase-payment/purchase-payment.component';
 import { PurchaseRootComponent } from './components/pages/purchase-root/purchase-root.component';
 import { PurchaseSeatComponent } from './components/pages/purchase-seat/purchase-seat.component';
 import { PurchaseTicketComponent } from './components/pages/purchase-ticket/purchase-ticket.component';
@@ -33,6 +34,7 @@ import { PurchaseRoutingModule } from './purchase-routing.module';
         PurchaseBaseComponent,
         PurchaseInputComponent,
         PurchaseConfirmComponent,
+        PurchasePaymentComponent,
         PurchaseCompleteComponent,
         PurchaseInfoComponent,
         PurchaseCinemaScheduleComponent,

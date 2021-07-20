@@ -475,6 +475,7 @@
             "RegisterCreditCard": "クレジットカード情報を登録しています",
             "SetProfile": "購入者情報を登録しています",
             "AuthorizeCreditCard": "クレジットカード情報を承認しています",
+            "PublishCreditCardPaymentUrl": "決済先URLを発行しています",
             "CreateCreditCardToken": "クレジットカードトークンを作成しています",
             "AuthorizeMovieTicket": "ムビチケ情報を承認しています",
             "CheckMovieTicket": "ムビチケ情報を確認しています",
