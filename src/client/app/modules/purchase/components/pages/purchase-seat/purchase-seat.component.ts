@@ -231,7 +231,16 @@ export class PurchaseSeatComponent implements OnInit {
         await this.resetSeats();
         const selectSeats: Models.Purchase.Reservation.IReservationSeat[] = [];
         for (let i = 0; i < Number(this.reservationCount); i++) {
-            selectSeats.push(seats[i]);
+            const seat =
+                seats[i] === undefined
+                    ? {
+                          seatNumber: String(i + 1),
+                          seatRow: '',
+                          seatSection: '',
+                          typeOf: <any>factory.placeType.Seat,
+                      }
+                    : seats[i];
+            selectSeats.push(seat);
         }
         this.actionService.purchase.selectSeats(selectSeats);
     }

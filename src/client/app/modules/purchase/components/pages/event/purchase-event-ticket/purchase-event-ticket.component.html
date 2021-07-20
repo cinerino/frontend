@@ -15,8 +15,9 @@
                             <div class="container p-3">
                                 <div class="row align-items-center">
                                     <div class="col-md-3 col-12">
-                                        <p class="mb-2 mb-md-0 font-weight-bold text-large">
-                                            {{ reservation.seat.seatNumber }}
+                                        <p *ngIf="reservation.seat?.seatNumber"
+                                            class="mb-2 mb-md-0 font-weight-bold text-large">
+                                            {{ reservation.seat?.seatNumber }}
                                         </p>
                                     </div>
                                     <div class="col-md-9 col-12">

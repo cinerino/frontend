@@ -2,8 +2,7 @@
     [ngClass]="{ 
                 'bg-white': performance.isSales() && !performance.isSeatStatus('danger'), 
                 'bg-dark-gray text-light-gray not-event': !performance.isSales() 
-                || performance.isSeatStatus('danger') 
-                || (performance.isInfinitetock() && environment.VIEW_TYPE === viewType.Cinema)
+                || performance.isSeatStatus('danger')
                 }" (click)="select.emit(performance.screeningEvent)">
     <div class="col-md-12 col-8 px-0">
         <div *ngIf="environment.PURCHASE_SCHEDULE_SORT === 'screeningEventSeries'" class="mb-1 text-small screen-name">
