@@ -76,7 +76,7 @@
     "ngx-bootstrap": "^6.2.0",
     "ngx-intl-tel-input": "^3.0.5",
     "qrcode": "^1.4.4",
-    "redis": "^3.0.2",
+    "redis": "^3.1.1",
     "request": "^2.88.0",
     "rxjs": "^6.5.4",
     "swiper": "^5.4.5",
